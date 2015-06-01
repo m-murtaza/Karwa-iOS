@@ -1,0 +1,32 @@
+//
+//  Kuber-Prefix.pch
+//  Kuber
+//
+//  Created by Asif Kamboh on 5/17/15.
+//  Copyright (c) 2015 Karwa Solutions. All rights reserved.
+//
+
+#ifndef KUBER_KUBER_PREFIX_PCH
+#define KUBER_KUBER_PREFIX_PCH
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//#define __KS_DISABLE_VALIDATIONS
+
+#import "UIStoryBoard+KSStoryBoard.h"
+
+#import "NSString+KSExtended.h"
+#import "NSString+NSData+MD5.h"
+#import "NSManagedObject+KSExtended.h"
+#import "CLPlacemark+KSExtended.h"
+
+#import "KSConstants.h"
+#import "KSAppStrings.h"
+
+#import "KSAlert.h"
+
+#import "UINavigationController+KSExtended.h"
+#import "UIViewController+KSExtended.h"
+
+#endif
