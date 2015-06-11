@@ -150,7 +150,7 @@ NSString * const KSSpecificRegionName = @"Qatar";
     NSLog(@"%s", __func__);
     KSAddressPickerController *me = self;
     if (searchBar.text.length > 2) {
-        [[KSLocationManager instance] nearestPlacemarksCountry:KSSpecificRegionName searchQuery:searchBar.text completion:^(NSArray *placemarks) {
+        [[KSLocationManager instance] nearestPlacemarksInCountry:KSSpecificRegionName searchQuery:searchBar.text completion:^(NSArray *placemarks) {
             if (!placemarks.count) {
                 placemarks = [NSArray arrayWithObject: searchBar.text];
             }

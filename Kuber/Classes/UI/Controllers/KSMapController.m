@@ -14,18 +14,26 @@
 #import "KSReadOnlyTextField.h"
 
 #import "KSAddressPickerController.h"
+#import "KSBookingConfirmationController.h"
 
+#import "KSAddress.h"
+
+#import <objc/objc.h>
+#import <objc/runtime.h>
 
 #define METERS_PER_MILE 1609.344
 
 NSString * const KSPickupAnnotationTitle = @"Pickup Address";
 NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
+NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)";
 
 @implementation KSPointAnnotation
 
 @end
 
 @interface KSMapController ()<UITextFieldDelegate, MKMapViewDelegate, KSAddressPickerDelegate>
+
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (nonatomic, strong) KSPointAnnotation *pickupPoint;
 @property (nonatomic, strong) KSPointAnnotation *dropoffPoint;
@@ -36,12 +44,10 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 
 @property (weak, nonatomic) IBOutlet KSReadOnlyTextField *txtDropoffAddress;
 
+
 - (IBAction)onClickDropoffAddress:(id)sender;
 
 - (IBAction)onClickPickupAddress:(id)sender;
-
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
-- (IBAction)onToggleBookingOption:(id)sender;
 
 @end
 
@@ -57,9 +63,13 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
     self.navigationItem.rightBarButtonItem = button;
     
     self.mapView.delegate = self;
-    
+
     [self.txtPickupAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
     [self.txtDropoffAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
+    [self.mapView addGestureRecognizer:gestureRecognizer];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,13 +94,13 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 - (KSPointAnnotation *)annotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title offset:(CGFloat)offset {
     
     KSPointAnnotation *annotation = [[KSPointAnnotation alloc] init];
-    
+
     annotation.title = title;
     
     CLLocationCoordinate2D latLng = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
     latLng.latitude +=  offset;
     latLng.longitude += offset;
-    
+
     annotation.coordinate = latLng;
     
     [self.mapView addAnnotation:annotation];
@@ -108,6 +118,17 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 
 - (void)onAddressChange:(UITextField *)textfield {
     NSLog(@"%s: %@", __func__, textfield.text);
+    if (!textfield.text.length) {
+        KSPointAnnotation *annotation;
+        if (textfield == self.txtPickupAddress) {
+            annotation = self.pickupPoint;
+            self.pickupPoint = nil;
+        } else {
+            annotation = self.dropoffPoint;
+            self.dropoffPoint = nil;
+        }
+        [self.mapView removeAnnotation:annotation];
+    }
 }
 
 #pragma mark -
@@ -118,7 +139,7 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
     UITextField *addressField = nil;
     KSPointAnnotation *annotation = nil;
 
-    [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
+//    [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
 
     if ([picker.pickerId isEqualToString:KSPickerIdForDropoffAddress]) {
         addressField = self.txtDropoffAddress;
@@ -126,6 +147,7 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
             self.dropoffPoint = [self annotationWithCoordinate:location.coordinate title:KSDropoffAnnotationTitle];
         }
         annotation = self.dropoffPoint;
+        self.txtDropoffAddress.placeholder = KSDropoffTextPlaceholder;
     }
     else {
         addressField = self.txtPickupAddress;
@@ -139,7 +161,7 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
         annotation.subtitle = address;
         annotation.coordinate = location.coordinate;
         annotation.isInvalid = NO;
-
+        [self.mapView selectAnnotation:annotation animated:YES];
         [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
     }
     else {
@@ -160,15 +182,37 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
         controller.pickerId = segue.identifier;
         controller.delegate = self;
         CLLocationCoordinate2D coordinate = self.pickupPoint.coordinate;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-        [[KSLocationManager instance] placemarkForLocation:location completion:^(CLPlacemark *placemark) {
+        [KSLocationManager placemarkForCoordinate:coordinate completion:^(CLPlacemark *placemark) {
             controller.placemark = placemark;
         }];
     }
+    else if ([segue.destinationViewController isKindOfClass:[KSBookingConfirmationController class]]) {
+        KSBookingConfirmationController *controller = (KSBookingConfirmationController *)segue.destinationViewController;
+        controller.pickupAddress = [KSAddress addressWithLandmark:self.txtPickupAddress.text coordinate:self.pickupPoint.coordinate];
+        if (self.dropoffPoint) {
+            controller.dropoffAddress = [KSAddress addressWithLandmark:self.txtDropoffAddress.text coordinate:self.dropoffPoint.coordinate];
+        }
+        else {
+            controller.dropoffAddress = [KSAddress addressWithLandmark:self.txtDropoffAddress.text];
+        }
+
+        UISegmentedControl *control = (UISegmentedControl *)sender;
+        controller.showsDatePicker = (control.selectedSegmentIndex > 0);
+    }
+}
+
+- (void)updateAddressField:(UITextField *)addressField annotation:(MKPointAnnotation *)annotation {
+
+    [KSLocationManager placemarkForCoordinate:annotation.coordinate completion:^(CLPlacemark *placemark) {
+        NSString *address = placemark ? placemark.address : KSStringFromCoordinate(annotation.coordinate);
+        addressField.text = address;
+        annotation.subtitle = address;
+        NSLog(@"%@", address);
+    }];
 }
 
 - (void)updatePlacemarkForAnnotation:(MKPointAnnotation *)annotation {
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude];
+
     __block UITextField *addressField = nil;
     if (annotation == self.pickupPoint) {
         addressField = self.txtPickupAddress;
@@ -179,15 +223,7 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
     else {
         return;
     }
-    [[KSLocationManager instance] placemarkForLocation:location completion:^(CLPlacemark *placemark) {
-        NSString *address = @"Unknown";
-        if (placemark) {
-            address = placemark.address;
-        }
-        addressField.text = address;
-        annotation.subtitle = address;
-        NSLog(@"%@", address);
-    }];
+    [self updateAddressField:addressField annotation:annotation];
 }
 
 #pragma mark -
@@ -196,11 +232,8 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
 
     mapView.showsUserLocation = NO;
-    mapView.userTrackingMode = MKUserTrackingModeNone;
+//    mapView.userTrackingMode = MKUserTrackingModeNone;
 
-    if (!self.dropoffPoint) {
-        self.dropoffPoint = [self annotationWithCoordinate:userLocation.location.coordinate title:KSDropoffAnnotationTitle offset:0.0002];
-    }
     if (!self.pickupPoint) {
         self.pickupPoint = [self annotationWithCoordinate:userLocation.location.coordinate title:KSPickupAnnotationTitle];
         [self updatePlacemarkForAnnotation:self.pickupPoint];
@@ -245,20 +278,49 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 #pragma mark -
 #pragma mark - Event handlers
 
+- (void)onLongPressMapView:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
+        return;
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D touchMapCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+
+    __block KSPointAnnotation *annotation;
+    __block UITextField *addressField;
+    __block MKMapView *mapView = self.mapView;
+
+    if (!self.pickupPoint) {
+        annotation = self.pickupPoint = [self annotationWithCoordinate:touchMapCoordinate title:KSPickupAnnotationTitle];
+        addressField = self.txtPickupAddress;
+        self.txtDropoffAddress.placeholder = KSDropoffTextPlaceholder;
+    }
+    else {
+        if (!self.dropoffPoint) {
+            self.dropoffPoint = [self annotationWithCoordinate:touchMapCoordinate title:KSDropoffAnnotationTitle];
+        }
+        else {
+            [self.dropoffPoint setCoordinate:touchMapCoordinate];
+        }
+        annotation = self.dropoffPoint;
+        addressField = self.txtDropoffAddress;
+    }
+
+    annotation.isInvalid = NO;
+
+    [self updateAddressField:addressField annotation:annotation];
+
+    [mapView selectAnnotation:annotation animated:YES];
+}
+
 - (IBAction)onClickPickupAddress:(id)sender {
-    if (!self.pickupPoint.isInvalid) {
+    if (self.pickupPoint && !self.pickupPoint.isInvalid) {
         [self.mapView setCenterCoordinate:self.pickupPoint.coordinate animated:YES];
     }
 }
 
 - (IBAction)onClickDropoffAddress:(id)sender {
-    if (!self.dropoffPoint.isInvalid) {
+    if (self.pickupPoint && !self.dropoffPoint.isInvalid) {
         [self.mapView setCenterCoordinate:self.dropoffPoint.coordinate animated:YES];
     }
 }
-
-- (IBAction)onToggleBookingOption:(id)sender {
-}
-
 
 @end

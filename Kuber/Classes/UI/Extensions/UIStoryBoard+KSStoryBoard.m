@@ -31,4 +31,8 @@
     return [self viewControllerWithIdentifier:@"KSMenuController"];
 }
 
++ (id)bookingDetailsController {
+    return [self viewControllerWithIdentifier:@"KSBookingDetailsController"];
+}
+
 @end

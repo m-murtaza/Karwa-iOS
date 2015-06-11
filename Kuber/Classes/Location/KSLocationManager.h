@@ -30,6 +30,12 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
 
 + (void)placemarkWithBlock:(KSPlacemarkCompletionBlock)completion;
 
++ (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion;
+
++ (void)placemarkForCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completion;
+
++ (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
+
 - (CLLocation *)stop;
 
 - (CLLocation *)start;
@@ -42,6 +48,6 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
 
 - (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion;
 
-- (void)nearestPlacemarksCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
+- (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
 
 @end

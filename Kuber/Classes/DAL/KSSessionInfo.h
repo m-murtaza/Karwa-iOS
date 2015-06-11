@@ -12,10 +12,13 @@
 
 @property (nonatomic, readonly) NSString *sessionId;
 @property (nonatomic, readonly) NSString *phone;
+@property (nonatomic, readonly) NSString *pushToken;
 
 + (instancetype)currentSession;
 
 + (void)updateSession:(NSString *)sessionId phone:(NSString *)phone;
+
++ (void)updateToken:(NSString *)token;
 
 + (void)removeSession;
 

@@ -11,6 +11,8 @@
 extern NSString * const kKSViewWillAppearNotification;
 extern NSString * const kKSViewWillDisappearNotification;
 
+extern NSString * const kKSCountryForLocationSearch;
+
 /*
  11	Taxi found/allocated
  12	Already has a pending job

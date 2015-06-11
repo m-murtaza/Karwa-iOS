@@ -11,4 +11,4 @@
 NSString * const kKSViewWillAppearNotification = @"KSViewWillAppearNotification";
 NSString * const kKSViewWillDisappearNotification = @"KSViewWillDisappearNotification";
 
-
+NSString * const kKSCountryForLocationSearch = @"Qatar";

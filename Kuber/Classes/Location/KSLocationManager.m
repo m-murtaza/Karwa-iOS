@@ -10,6 +10,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+#import "KSWebClient.h"
+#import "KSDAL.h"
+
 @interface KSLocationManager ()<CLLocationManagerDelegate>
 {
     CLLocationManager *_locationManager;
@@ -74,6 +77,18 @@
     [[self instance] placemarkWithBlock:completion];
 }
 
++ (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion {
+    [[self instance] placemarkForLocation:location completion:completion];
+}
+
++ (void)placemarkForCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completion {
+    return [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completion];
+}
+
++ (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion {
+    [[self instance] nearestPlacemarksInCountry:country searchQuery:address completion:completion];
+}
+
 - (CLLocation *)start {
     [_locationManager startUpdatingLocation];
     return _locationManager.location;
@@ -107,8 +122,16 @@
 }
 
 - (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion {
+    KSLocationManager *locationManager = self;
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        completion([placemarks firstObject]);
+        if (placemarks.count) {
+            completion([placemarks firstObject]);
+        }
+        else {
+            [locationManager reverseGeocodeLocation:location completion:^(NSArray *placemarks) {
+                completion([placemarks firstObject]);
+            }];
+        }
     }];
 }
 
@@ -122,7 +145,7 @@
     return addressTokens;
 }
 
-- (void)nearestPlacemarksCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion {
+- (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion {
     if (!country) {
         country = _lastPlacemark.country;
     }
@@ -153,7 +176,12 @@
             }
         }
         _localSearchManager = nil;
-        completion(placemarks);
+        if (placemarks.count) {
+            completion(placemarks);
+        }
+        else {
+            [[KSLocationManager instance] placemarksMatchingQuery:address country:country completion:completion];
+        }
     }];
 }
 
@@ -266,6 +294,37 @@
     [self placemarkForLocation:_lastLocation completion:placemarkCallback];
 
     [_completionBlocks removeAllObjects];
+}
+
+#pragma mark -
+#pragma mark - Geocoding from Web client
+
+- (void)geocodeWithParams:(NSDictionary *)params completion:(KSPlacemarkListCompletionBlock)completionBlock {
+    [KSDAL geocodeWithParams:params completion:^(KSAPIStatus status, NSDictionary *response) {
+        NSArray *responseData = response[@"data"];
+#warning TODO: ADD Code for making KSPlacemarks from server data
+        completionBlock([NSArray array]);
+    }];
+}
+
+- (void)reverseGeocodeCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkListCompletionBlock)completionBlock {
+
+    NSDictionary *params = @{@"latitude": [NSNumber numberWithDouble:coordinate.latitude],
+                             @"longitude": [NSNumber numberWithDouble:coordinate.longitude]};
+    [self geocodeWithParams:params completion:completionBlock];
+}
+
+- (void)reverseGeocodeLocation:(CLLocation *)location completion:(KSPlacemarkListCompletionBlock)completionBlock {
+    
+    [self reverseGeocodeCoordinate:location.coordinate completion:completionBlock];
+}
+
+- (void)placemarksMatchingQuery:(NSString *)query country:(NSString *)country completion:(KSPlacemarkListCompletionBlock)completionBlock {
+    if (!country) {
+        country = @"";
+    }
+    NSDictionary *params = @{@"query": query, @"country": country};
+    [self geocodeWithParams:params completion:completionBlock];
 }
 
 @end

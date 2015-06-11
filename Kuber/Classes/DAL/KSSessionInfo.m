@@ -28,6 +28,10 @@
     [[self instance] updateSession:sessionId phone:phone];
 }
 
++ (void)updateToken:(NSString *)token {
+    [[self instance] updateToken:token];
+}
+
 + (void)removeSession {
     [[self instance] removeSession];
 }
@@ -40,9 +44,24 @@
         if (sessionInfo) {
             _phone = [sessionInfo objectForKey:@"phone"];
             _sessionId = [sessionInfo objectForKey:@"sid"];
+            _pushToken = [sessionInfo objectForKey:@"token"];
+        }
+        if (!_pushToken) {
+            _pushToken = @"";
         }
     }
     return self;
+}
+
+- (NSDictionary *)dictionary {
+    if (_sessionId && _phone) {
+        return @{
+                 @"sid": _sessionId,
+                 @"phone": _phone,
+                 @"token": _pushToken
+                 };
+    }
+    return @{};
 }
 
 - (void)saveSessionInfo:(NSDictionary *)sessionInfo {
@@ -58,20 +77,27 @@
     _sessionId = sessionId;
     _phone = phone;
     
-    [self saveSessionInfo:@{ @"sid": sessionId, @"phone": phone }];
+    [self saveSessionInfo: self.dictionary];
+}
+
+- (void)updateToken:(NSString *)token {
+
+    _pushToken = token;
+    [self saveSessionInfo: self.dictionary];
 }
 
 - (void)removeSession {
     
     _sessionId = nil;
     _phone = nil;
-    
+    _pushToken = @"";
+
     [self saveSessionInfo:@{}];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@: %lx; sid: %@; phone: %@>",
-            NSStringFromClass([self class]), (unsigned long)self, _sessionId, _phone];
+    return [NSString stringWithFormat:@"<%@: %lx; sid: %@; phone: %@; token: %@>",
+            NSStringFromClass([self class]), (unsigned long)self, _sessionId, _phone, _pushToken];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class KSUser;
+@class KSTrip;
 
 @interface KSDBManager : NSObject
 
@@ -16,6 +17,7 @@
 
 + (void)saveContext;
 
++ (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon;
 
 @end
 

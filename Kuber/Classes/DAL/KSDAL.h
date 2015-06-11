@@ -13,6 +13,7 @@
 typedef void(^KSDALCompletionBlock)(KSAPIStatus, NSDictionary *);
 
 @class KSUser;
+@class KSTrip;
 
 @interface KSDAL : NSObject
 
@@ -35,5 +36,11 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, NSDictionary *);
 + (void)updateUserInfoWithEmail:(NSString *)email withName:(NSString *)userName completion:(KSDALCompletionBlock)completionBlock;
 
 + (void)updateUserPassword:(NSString *)oldPassword withPassword:(NSString *)newPassword completion:(KSDALCompletionBlock)completionBlock;
+
++ (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon;
+
++ (void)bookTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
+
++ (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock;
 
 @end

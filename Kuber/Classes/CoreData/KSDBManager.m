@@ -11,7 +11,10 @@
 #import "KSDBManager.h"
 
 #import "KSUser.h"
+#import "KSTrip.h"
+
 #import "CoreData+MagicalRecord.h"
+
 
 @implementation KSDBManager
 
@@ -44,5 +47,13 @@
     }];
 }
 
++ (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon {
+    KSTrip *trip = [KSTrip MR_createEntity];
+    trip.pickupLandmark = landmark;
+    trip.pickupLat = [NSNumber numberWithDouble:lat];
+    trip.pickupLon = [NSNumber numberWithDouble:lon];
+
+    return trip;
+}
 
 @end

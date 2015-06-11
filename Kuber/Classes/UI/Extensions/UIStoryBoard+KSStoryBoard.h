@@ -20,4 +20,6 @@
 
 + (id)verifyController;
 
++ (id)bookingDetailsController;
+
 @end

@@ -1,5 +1,5 @@
 //
-//  MD5.h
+//  NSString+MD5.h
 //  Kuber
 //
 //  Created by Asif Kamboh on 5/17/15.

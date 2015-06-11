@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="KSBookmark" representedClassName="KSBookmark" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -20,10 +20,12 @@
         <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="taxi" inverseEntity="KSTrip" syncable="YES"/>
     </entity>
     <entity name="KSTrip" representedClassName="KSTrip" syncable="YES">
+        <attribute name="dropoffLandmark" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dropOffLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="dropOffLon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="dropOffTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="jobId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupLandmark" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pickupLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="pickupLon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="pickupTime" optional="YES" attributeType="Date" syncable="YES"/>
@@ -50,11 +52,11 @@
         <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="passenger" inverseEntity="KSTrip" syncable="YES"/>
     </entity>
     <elements>
-        <element name="KSUser" positionX="-144" positionY="278" width="128" height="163"/>
         <element name="KSBookmark" positionX="36" positionY="248" width="128" height="103"/>
-        <element name="KSTaxi" positionX="-371" positionY="158" width="128" height="118"/>
         <element name="KSDriver" positionX="-306" positionY="9" width="128" height="103"/>
-        <element name="KSTrip" positionX="-126" positionY="-7" width="128" height="223"/>
+        <element name="KSTaxi" positionX="-371" positionY="158" width="128" height="118"/>
+        <element name="KSTrip" positionX="-126" positionY="-7" width="128" height="255"/>
         <element name="KSTripRating" positionX="61" positionY="9" width="128" height="103"/>
+        <element name="KSUser" positionX="-144" positionY="278" width="128" height="163"/>
     </elements>
 </model>
