@@ -13,9 +13,11 @@
 
 #import "KSUser.h"
 #import "KSTrip.h"
+#import "KSBookmark.h"
 
 #import "KSSessionInfo.h"
 #import "CoreData+MagicalRecord.h"
+
 
 @implementation KSDAL
 
@@ -42,9 +44,15 @@
 }
 
 + (KSAPIStatus)statusFromResponse:(NSDictionary *)response success:(BOOL)success {
+
     KSAPIStatus status = KSAPIStatusUnknownError;
     if (success) {
-        status = [response[@"status"] unsignedIntegerValue];
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            status = [response[@"status"] unsignedIntegerValue];
+        }
+        else if ([response isKindOfClass:[NSArray class]]) {
+            status = KSAPIStatusSuccess;
+        }
     }
     return status;
 }
@@ -214,6 +222,9 @@
             tripInfo.pickupLat = [NSNumber numberWithInteger:[response[@"lat"] integerValue]];
             tripInfo.pickupLon = [NSNumber numberWithInteger:[response[@"lon"] integerValue]];
 
+            // Two way relationship
+            [tripInfo.passenger addTripsObject:tripInfo];
+    
             [KSDBManager saveContext];
         } else {
             [tripInfo MR_deleteEntity];
@@ -234,6 +245,35 @@
         else {
             completionBlock(status, nil);
         }
+    }];
+}
+
++ (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock {
+    KSWebClient *webClient = [KSWebClient instance];
+    NSDictionary *requestData = [self authenticateRequestData:@{}];
+    [webClient GET:@"/favorites" params:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        KSUser *user = [KSDAL loggedInUser];
+        if (KSAPIStatusSuccess == status) {
+
+            for (KSBookmark *bookmark in user.fovourites.allObjects) {
+                bookmark.user = nil;
+            }
+            [user removeFovourites:user.fovourites];
+
+            NSArray *favorites = response[@"data"];
+
+            for (NSDictionary *favorite in favorites) {
+                KSBookmark *bookmark = [KSBookmark objWithValue:favorite[@"name"] forAttrib:@"name"];
+                bookmark.latitude = [NSNumber numberWithDouble:[favorite[@"lat"] doubleValue]];
+                bookmark.longitude = [NSNumber numberWithDouble:[favorite[@"lon"] doubleValue]];
+
+                bookmark.user = user;
+                [user addFovouritesObject:bookmark];
+            }
+            [KSDBManager saveContext];
+        }
+        completionBlock(status, [user.fovourites allObjects]);
     }];
 }
 

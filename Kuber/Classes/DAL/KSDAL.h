@@ -10,7 +10,7 @@
 
 #import "KSWebClient.h"
 
-typedef void(^KSDALCompletionBlock)(KSAPIStatus, NSDictionary *);
+typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
 
 @class KSUser;
 @class KSTrip;
@@ -42,5 +42,7 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, NSDictionary *);
 + (void)bookTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
 
 + (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock;
+
++ (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock;
 
 @end

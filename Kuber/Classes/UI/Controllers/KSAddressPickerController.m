@@ -31,6 +31,8 @@ NSString * const KSSpecificRegionName = @"Qatar";
 
 @property (nonatomic, strong) NSArray *bookmarks;
 
+@property (nonatomic, strong) NSArray *placemarks;
+
 @end
 
 @implementation KSAddressPickerController
@@ -39,13 +41,18 @@ NSString * const KSSpecificRegionName = @"Qatar";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    KSBookmark *bookmark = [KSBookmark MR_createEntity];
-    bookmark.name = @"Airport";
-    self.bookmarks = [NSArray arrayWithObjects: @"Carrefour, Villagio", bookmark, nil];
+    self.bookmarks = [[[KSDAL loggedInUser] fovourites] allObjects];
+    self.placemarks = [NSArray array];
+    self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
 
-//    self.bookmarks = [[[KSDAL loggedInUser] fovourites] allObjects];
-    self.places = self.bookmarks;
-
+    __block KSAddressPickerController *me = self;
+    // Sync bookmarks
+    [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
+        if (KSAPIStatusSuccess == status) {
+            me.bookmarks = bookmarks;
+            [me reloadPlaces];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,12 +60,18 @@ NSString * const KSSpecificRegionName = @"Qatar";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)reloadPlaces {
+
+    self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
+    [self.tableView reloadData];
+}
+
 - (void)updatePlaces:(NSArray *)placemarks {
     if (!placemarks) {
         placemarks = [NSArray array];
     }
-    self.places = [placemarks arrayByAddingObjectsFromArray:self.bookmarks];
-    [self.tableView reloadData];
+    self.placemarks = placemarks;
+    [self reloadPlaces];
     // Select first row;
 //    NSIndexPath *firstRow = [NSIndexPath indexPathForItem:0 inSection:0];
 //    [self.tableView selectRowAtIndexPath:firstRow animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -84,7 +97,7 @@ NSString * const KSSpecificRegionName = @"Qatar";
     static NSString * const placemarkCellReuseId = @"KSAddressPickerPlacemarkCell";
     static NSString * const bookmarkCellReuseId = @"KSAddressPickerBookmarkCell";
     static NSString * const textCellReuseId = @"KSAddressPickerTextCell";
-    
+
     UITableViewCell *cell = nil;
 
     id placeItem = [self.places objectAtIndex:indexPath.row];

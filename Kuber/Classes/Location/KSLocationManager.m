@@ -301,7 +301,6 @@
 
 - (void)geocodeWithParams:(NSDictionary *)params completion:(KSPlacemarkListCompletionBlock)completionBlock {
     [KSDAL geocodeWithParams:params completion:^(KSAPIStatus status, NSDictionary *response) {
-        NSArray *responseData = response[@"data"];
 #warning TODO: ADD Code for making KSPlacemarks from server data
         completionBlock([NSArray array]);
     }];
