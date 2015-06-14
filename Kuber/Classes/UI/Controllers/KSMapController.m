@@ -12,6 +12,7 @@
 #import "KSMapController.h"
 #import "KSLocationManager.h"
 #import "KSReadOnlyTextField.h"
+#import "KSPointAnnotation.h"
 
 #import "KSAddressPickerController.h"
 #import "KSBookingConfirmationController.h"
@@ -26,10 +27,6 @@
 NSString * const KSPickupAnnotationTitle = @"Pickup Address";
 NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)";
-
-@implementation KSPointAnnotation
-
-@end
 
 @interface KSMapController ()<UITextFieldDelegate, MKMapViewDelegate, KSAddressPickerDelegate>
 
@@ -266,6 +263,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+    NSLog(@"%s", __func__);
     if (newState == MKAnnotationViewDragStateEnding) {
         if ([view.annotation isKindOfClass:[KSPointAnnotation class]]) {
             KSPointAnnotation *annotation =  (KSPointAnnotation *)view.annotation;

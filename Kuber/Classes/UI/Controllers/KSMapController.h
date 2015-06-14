@@ -13,9 +13,3 @@
 
 @end
 
-
-@interface KSPointAnnotation : MKPointAnnotation
-
-@property (nonatomic) BOOL isInvalid;
-
-@end

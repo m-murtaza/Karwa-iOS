@@ -277,4 +277,39 @@
     }];
 }
 
++ (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock {
+    KSWebClient *webClient = [KSWebClient instance];
+    NSDictionary *requestData = [self authenticateRequestData:@{}];
+    [webClient GET:@"/bookings" params:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        KSUser *user = [KSDAL loggedInUser];
+        if (KSAPIStatusSuccess == status) {
+            
+            for (KSTrip *trip in user.trips.allObjects) {
+                trip.passenger = nil;
+            }
+            [user removeTrips:user.trips];
+            
+            NSArray *trips = response[@"data"];
+            for (NSDictionary *tripData in trips) {
+                KSTrip *trip = [KSTrip objWithValue:tripData[@"job_id"] forAttrib:@"jobId"];
+                trip.pickupLandmark = tripData[@"landmark"];
+                trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"lat"] doubleValue]];
+                trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"lon"] doubleValue]];
+                trip.pickupTime = [NSDate dateWithTimeIntervalSince1970:[tripData[@"pick_time"] doubleValue]];
+                trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"drop_lat"] doubleValue]];
+                trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"drop_lon"] doubleValue]];
+                trip.dropOffTime = [NSDate dateWithTimeIntervalSince1970:[tripData[@"drop_time"] doubleValue]];
+                trip.dropoffLandmark = tripData[@"drop_landmark"];
+                trip.status = [NSNumber numberWithInteger:[tripData[@"status"] integerValue]];
+#warning TODO: Add remaining data in trip
+                trip.passenger = user;
+                [user addTripsObject:trip];
+            }
+            [KSDBManager saveContext];
+        }
+        completionBlock(status, [user.fovourites allObjects]);
+    }];
+}
+
 @end
