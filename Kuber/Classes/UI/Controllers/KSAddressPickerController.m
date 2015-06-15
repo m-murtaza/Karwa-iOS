@@ -41,7 +41,7 @@ NSString * const KSSpecificRegionName = @"Qatar";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.bookmarks = [[[KSDAL loggedInUser] fovourites] allObjects];
+    self.bookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
     self.placemarks = [NSArray array];
     self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
 

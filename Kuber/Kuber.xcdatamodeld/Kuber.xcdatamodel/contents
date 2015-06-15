@@ -4,7 +4,7 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSUser" inverseName="fovourites" inverseEntity="KSUser" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSUser" inverseName="bookmarks" inverseEntity="KSUser" syncable="YES"/>
     </entity>
     <entity name="KSDriver" representedClassName="KSDriver" syncable="YES">
         <attribute name="driverId" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,7 +48,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="secondaryPhone" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="fovourites" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSBookmark" inverseName="user" inverseEntity="KSBookmark" syncable="YES"/>
+        <relationship name="bookmarks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSBookmark" inverseName="user" inverseEntity="KSBookmark" syncable="YES"/>
         <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="passenger" inverseEntity="KSTrip" syncable="YES"/>
     </entity>
     <elements>
@@ -57,6 +57,6 @@
         <element name="KSTaxi" positionX="-371" positionY="158" width="128" height="118"/>
         <element name="KSTrip" positionX="-126" positionY="-7" width="128" height="255"/>
         <element name="KSTripRating" positionX="61" positionY="9" width="128" height="103"/>
-        <element name="KSUser" positionX="-144" positionY="278" width="128" height="163"/>
+        <element name="KSUser" positionX="-144" positionY="278" width="128" height="165"/>
     </elements>
 </model>

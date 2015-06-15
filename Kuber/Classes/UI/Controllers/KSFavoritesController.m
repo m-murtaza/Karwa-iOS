@@ -14,6 +14,7 @@
 #import "KSLocationManager.h"
 
 #import "KSFavoriteDetailsController.h"
+#import "MBProgressHUD.h"
 
 
 @interface KSFavoritesController ()
@@ -37,13 +38,17 @@
     self.addOnlyBarButtonItems = @[btnAddPlace];
     self.addDeleteBarButtonItems = @[btnAddPlace, btnDeletePlace];
 
-    [self buildBookmarks];
-
     __block KSFavoritesController *me = self;
     [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
         [me buildBookmarks];
     }];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self buildBookmarks];
 }
 
 - (void)updateActionButtons {
@@ -56,8 +61,13 @@
 
     KSUser *user = [KSDAL loggedInUser];
     
+    NSArray *sortedBookmarks = [user.bookmarks.allObjects sortedArrayUsingComparator:^NSComparisonResult(KSBookmark *obj1, KSBookmark *obj2) {
+        return [obj1.name compare:obj2.name options:NSCaseInsensitiveSearch];
+    }];
+
     self.bookmarks = [NSMutableArray array];
-    for (KSBookmark *bookmark in user.fovourites.allObjects) {
+
+    for (KSBookmark *bookmark in sortedBookmarks) {
         NSMutableDictionary *placeData = [NSMutableDictionary dictionary];
         placeData[@"bookmark"] = bookmark;
         [self.bookmarks addObject:placeData];
@@ -162,9 +172,25 @@
 #pragma mark - Event handlers
 
 - (void)onClickDeletePlaces:(id)sender {
-    NSLog(@"%s", __func__);
-    
-#warning TODO: Add code for deleting a bookmark
+
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    if (!indexPath) {
+        return;
+    }
+    NSDictionary *placeData = self.bookmarks[indexPath.row];
+    KSBookmark *bookmark = placeData[@"bookmark"];
+
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    __block KSFavoritesController *me = self;
+    [KSDAL deleteBookmark:bookmark completion:^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        if (KSAPIStatusSuccess == status) {
+            [me buildBookmarks];
+        }
+        else {
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+    }];
 }
 
 

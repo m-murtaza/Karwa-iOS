@@ -59,10 +59,11 @@
     }
 #endif
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    __block UINavigationController *navController = self.navigationController;
     [KSDAL updateUserInfoWithEmail:self.txtEmail.text withName:self.txtName.text completion:^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (status == KSAPIStatusSuccess) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [navController popViewControllerAnimated:YES];
         }
         else {
             [KSAlert show:KSStringFromAPIStatus(status)];

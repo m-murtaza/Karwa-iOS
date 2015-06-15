@@ -2,7 +2,7 @@
 //  KSUser.m
 //  Kuber
 //
-//  Created by Asif Kamboh on 5/13/15.
+//  Created by Asif Kamboh on 6/15/15.
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
@@ -13,13 +13,13 @@
 
 @implementation KSUser
 
-@dynamic phone;
-@dynamic name;
-@dynamic gender;
 @dynamic email;
+@dynamic gender;
 @dynamic language;
+@dynamic name;
+@dynamic phone;
 @dynamic secondaryPhone;
-@dynamic fovourites;
+@dynamic bookmarks;
 @dynamic trips;
 
 @end

@@ -141,6 +141,7 @@
 }
 
 + (void)updateUserInfoWithData:(NSDictionary *)requestData completion:(KSDALCompletionBlock)completionBlock {
+
     KSWebClient *webClient = [KSWebClient instance];
     [webClient POST:@"/edituser" data:requestData completion:^(BOOL success, NSDictionary *response) {
         if (completionBlock) {
@@ -209,12 +210,12 @@
     [requestData setObjectOrNothing:trip.dropOffLat forKey:@"drop_lat"];
     [requestData setObjectOrNothing:trip.dropOffLon forKey:@"drop_lon"];
     [requestData setObjectOrNothing:trip.dropoffLandmark forKey:@"drop_landmark"];
-    
+
     NSDictionary *authenticatedRequestData = [self authenticateRequestData:requestData];
 
     KSWebClient *webClient = [KSWebClient instance];
     __block KSTrip *tripInfo = trip;
-    [webClient POST:@"/booking" data:authenticatedRequestData completion:^(BOOL success, NSDictionary *response) {
+    [webClient POST:@"/bookings/add" data:authenticatedRequestData completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
             tripInfo.jobId = response[@"job_id"];
@@ -234,62 +235,20 @@
 
 }
 
-+ (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock {
-    KSWebClient *webClient = [KSWebClient instance];
-    NSDictionary *requestData = [self authenticateRequestData:params];
-    [webClient GET:@"/geocode" params:requestData completion:^(BOOL success, NSDictionary *response) {
-        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
-        if (KSAPIStatusSuccess == status) {
-            completionBlock(status, response);
-        }
-        else {
-            completionBlock(status, nil);
-        }
-    }];
-}
-
-+ (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock {
-    KSWebClient *webClient = [KSWebClient instance];
-    NSDictionary *requestData = [self authenticateRequestData:@{}];
-    [webClient GET:@"/favorites" params:requestData completion:^(BOOL success, NSDictionary *response) {
-        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
-        KSUser *user = [KSDAL loggedInUser];
-        if (KSAPIStatusSuccess == status) {
-
-            for (KSBookmark *bookmark in user.fovourites.allObjects) {
-                bookmark.user = nil;
-            }
-            [user removeFovourites:user.fovourites];
-
-            NSArray *favorites = response[@"data"];
-
-            for (NSDictionary *favorite in favorites) {
-                KSBookmark *bookmark = [KSBookmark objWithValue:favorite[@"name"] forAttrib:@"name"];
-                bookmark.latitude = [NSNumber numberWithDouble:[favorite[@"lat"] doubleValue]];
-                bookmark.longitude = [NSNumber numberWithDouble:[favorite[@"lon"] doubleValue]];
-
-                bookmark.user = user;
-                [user addFovouritesObject:bookmark];
-            }
-            [KSDBManager saveContext];
-        }
-        completionBlock(status, [user.fovourites allObjects]);
-    }];
-}
-
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock {
-    KSWebClient *webClient = [KSWebClient instance];
+
     NSDictionary *requestData = [self authenticateRequestData:@{}];
-    [webClient GET:@"/bookings" params:requestData completion:^(BOOL success, NSDictionary *response) {
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient GET:@"/bookings/list" params:requestData completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         KSUser *user = [KSDAL loggedInUser];
         if (KSAPIStatusSuccess == status) {
-            
+
             for (KSTrip *trip in user.trips.allObjects) {
                 trip.passenger = nil;
             }
             [user removeTrips:user.trips];
-            
+
             NSArray *trips = response[@"data"];
             for (NSDictionary *tripData in trips) {
                 KSTrip *trip = [KSTrip objWithValue:tripData[@"job_id"] forAttrib:@"jobId"];
@@ -308,7 +267,118 @@
             }
             [KSDBManager saveContext];
         }
-        completionBlock(status, [user.fovourites allObjects]);
+        completionBlock(status, [user.bookmarks allObjects]);
+    }];
+}
+
++ (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock {
+
+    NSDictionary *requestData = [self authenticateRequestData:@{}];
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient GET:@"/bookmarks/list" params:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        KSUser *user = [KSDAL loggedInUser];
+        if (KSAPIStatusSuccess == status) {
+
+            for (KSBookmark *bookmark in user.bookmarks.allObjects) {
+                bookmark.user = nil;
+            }
+            [user removeBookmarks:user.bookmarks];
+
+            NSArray *favorites = response[@"data"];
+
+            for (NSDictionary *favorite in favorites) {
+                KSBookmark *bookmark = [KSBookmark objWithValue:favorite[@"name"] forAttrib:@"name"];
+                bookmark.latitude = [NSNumber numberWithDouble:[favorite[@"lat"] doubleValue]];
+                bookmark.longitude = [NSNumber numberWithDouble:[favorite[@"lon"] doubleValue]];
+
+                bookmark.user = user;
+                [user addBookmarksObject:bookmark];
+            }
+            [KSDBManager saveContext];
+        }
+        completionBlock(status, [user.bookmarks allObjects]);
+    }];
+}
+
++ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock {
+
+    NSDictionary *bookmarkData = @{
+        @"name": name,
+        @"lat": @(coordinate.latitude),
+        @"lon": @(coordinate.longitude)
+    };
+    NSDictionary *requestData = [self authenticateRequestData:bookmarkData];
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient POST:@"/bookmarks/add" data:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            KSUser *user = [KSDAL loggedInUser];
+            KSBookmark *bookmark = [KSBookmark objWithValue:name forAttrib:@"name"];
+            bookmark.latitude = @(coordinate.latitude);
+            bookmark.longitude = @(coordinate.longitude);
+
+            bookmark.user = user;
+            [user addBookmarksObject:bookmark];
+            
+            [KSDBManager saveContext];
+        }
+        completionBlock(status, nil);
+    }];
+}
+
++ (void)updateBookmark:(KSBookmark *)aBookmark withName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock {
+
+    NSDictionary *bookmarkData = @{
+                                   @"old_name": aBookmark.name,
+                                   @"name": name,
+                                   @"lat": @(coordinate.latitude),
+                                   @"lon": @(coordinate.longitude)
+                                   };
+    __block KSBookmark *bookmark = aBookmark;
+    NSDictionary *requestData = [self authenticateRequestData:bookmarkData];
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient POST:@"/bookmarks/update" data:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            bookmark.name = name;
+            bookmark.latitude = @(coordinate.latitude);
+            bookmark.longitude = @(coordinate.longitude);
+            [KSDBManager saveContext];
+        }
+        completionBlock(status, nil);
+    }];
+}
+
++ (void)deleteBookmark:(KSBookmark *)aBookmark completion:(KSDALCompletionBlock)completionBlock {
+
+    __block KSBookmark *bookmark = aBookmark;
+    NSDictionary *requestData = [self authenticateRequestData:@{@"name": bookmark.name}];
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient POST:@"bookmarks/delete" data:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            KSUser *user = [KSDAL loggedInUser];
+            [user removeBookmarksObject:bookmark];
+            [bookmark MR_deleteEntity];
+            [KSDBManager saveContext];
+        }
+        completionBlock(status, nil);
+    }];
+}
+
++ (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock {
+
+    NSDictionary *requestData = [self authenticateRequestData:params];
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient GET:@"/geocode" params:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            completionBlock(status, response);
+        }
+        else {
+            completionBlock(status, nil);
+        }
     }];
 }
 

@@ -55,7 +55,6 @@
 		1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043641B2554D900AECDE9 /* KSDriver.m */; };
 		1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043661B2554D900AECDE9 /* KSTaxi.m */; };
 		185043711B2554D900AECDE9 /* KSTripRating.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850436A1B2554D900AECDE9 /* KSTripRating.m */; };
-		185043721B2554D900AECDE9 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850436C1B2554D900AECDE9 /* KSUser.m */; };
 		185043751B2554F900AECDE9 /* KSTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043741B2554F900AECDE9 /* KSTrip.m */; };
 		185043781B26BCD900AECDE9 /* KSAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043771B26BCD900AECDE9 /* KSAddress.m */; };
 		1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850437A1B26C51600AECDE9 /* CLLocation+KSExtended.m */; };
@@ -64,6 +63,7 @@
 		185043811B26D58800AECDE9 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1850437E1B26D58800AECDE9 /* search@3x.png */; };
 		185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */; };
 		1850438A1B29792200AECDE9 /* KSPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043891B29792200AECDE9 /* KSPlacemark.m */; };
+		18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18692ECC1B2EA55F006FC825 /* KSUser.m */; };
 		187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FAF401B1D7AB3007FCB72 /* KSBookingDetailsController.m */; };
 		187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FAF431B1EB6BA007FCB72 /* KSBookingConfirmationController.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
@@ -184,8 +184,6 @@
 		185043661B2554D900AECDE9 /* KSTaxi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTaxi.m; sourceTree = "<group>"; };
 		185043691B2554D900AECDE9 /* KSTripRating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTripRating.h; sourceTree = "<group>"; };
 		1850436A1B2554D900AECDE9 /* KSTripRating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTripRating.m; sourceTree = "<group>"; };
-		1850436B1B2554D900AECDE9 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
-		1850436C1B2554D900AECDE9 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
 		185043731B2554F900AECDE9 /* KSTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTrip.h; sourceTree = "<group>"; };
 		185043741B2554F900AECDE9 /* KSTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrip.m; sourceTree = "<group>"; };
 		185043761B26BCD900AECDE9 /* KSAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAddress.h; sourceTree = "<group>"; };
@@ -199,6 +197,8 @@
 		185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+KSExtended.m"; sourceTree = "<group>"; };
 		185043881B29792200AECDE9 /* KSPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPlacemark.h; sourceTree = "<group>"; };
 		185043891B29792200AECDE9 /* KSPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPlacemark.m; sourceTree = "<group>"; };
+		18692ECB1B2EA55F006FC825 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
+		18692ECC1B2EA55F006FC825 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
 		187FAF3F1B1D7AB3007FCB72 /* KSBookingDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingDetailsController.h; sourceTree = "<group>"; };
 		187FAF401B1D7AB3007FCB72 /* KSBookingDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingDetailsController.m; sourceTree = "<group>"; };
 		187FAF421B1EB6BA007FCB72 /* KSBookingConfirmationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingConfirmationController.h; sourceTree = "<group>"; };
@@ -423,10 +423,10 @@
 				185043661B2554D900AECDE9 /* KSTaxi.m */,
 				185043691B2554D900AECDE9 /* KSTripRating.h */,
 				1850436A1B2554D900AECDE9 /* KSTripRating.m */,
-				1850436B1B2554D900AECDE9 /* KSUser.h */,
-				1850436C1B2554D900AECDE9 /* KSUser.m */,
 				185043731B2554F900AECDE9 /* KSTrip.h */,
 				185043741B2554F900AECDE9 /* KSTrip.m */,
+				18692ECB1B2EA55F006FC825 /* KSUser.h */,
+				18692ECC1B2EA55F006FC825 /* KSUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -806,9 +806,9 @@
 				18A762C11B006D8E00B9ED32 /* KSViewController.m in Sources */,
 				18481B4F1B091EFA00855F54 /* MBProgressHUD.m in Sources */,
 				18481B711B09CC2500855F54 /* KSMenuController.m in Sources */,
+				18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */,
 				18A762BA1B006A7400B9ED32 /* KSUserManagement.m in Sources */,
 				185043751B2554F900AECDE9 /* KSTrip.m in Sources */,
-				185043721B2554D900AECDE9 /* KSUser.m in Sources */,
 				1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */,
 				18481B5E1B09C41800855F54 /* KSAlert.m in Sources */,
 				1801E3071B11ADE300A8983E /* KSFavoritesController.m in Sources */,

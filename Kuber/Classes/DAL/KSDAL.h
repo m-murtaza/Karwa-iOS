@@ -14,6 +14,7 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
 
 @class KSUser;
 @class KSTrip;
+@class KSBookmark;
 
 @interface KSDAL : NSObject
 
@@ -44,5 +45,11 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
 + (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock;
 
 + (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock;
+
++ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock;
+
++ (void)updateBookmark:(KSBookmark *)aBookmark withName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock;
+
++ (void)deleteBookmark:(KSBookmark *)aBookmark completion:(KSDALCompletionBlock)completionBlock;
 
 @end

@@ -13,6 +13,9 @@
 #import "KSBookmark.h"
 #import "KSLocationManager.h"
 #import "KSPointAnnotation.h"
+#import "KSAlert.h"
+#import "KSDAL.h"
+#import "MBProgressHUD.h"
 
 
 @interface KSFavoriteDetailsController ()<MKMapViewDelegate, UITextFieldDelegate>
@@ -78,6 +81,10 @@
         if (placemark) {
             NSString *address = placemark.address;
             me.lblAddress.text = address;
+            if (!me.txtName.text.length) {
+                me.txtName.text = placemark.name;
+                me.annotation.title = placemark.name;
+            }
             if (me.txtName.text.length) {
                 me.annotation.subtitle = address;
             } else {
@@ -165,8 +172,33 @@
 #pragma mark - Event handlers
 
 - (IBAction)onClickSave:(id)sender {
-#warning TODO: Add code validating the bookmark
-#warning TODO: Add code for saving a bookmark
+    if (!self.txtName.text.length || !self.annotation) {
+        [KSAlert show:@"Please add place name and select a location from map"];
+        return;
+    }
+    if (self.txtName.text == self.bookmark.name &&
+        self.bookmark.latitude.doubleValue == self.annotation.coordinate.latitude &&
+        self.bookmark.longitude.doubleValue == self.annotation.coordinate.longitude) {
+        [KSAlert show:@"No changes to save"];
+        return;
+    }
+
+    __block UINavigationController *navController = self.navigationController;
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        if (KSAPIStatusSuccess == status) {
+            [navController popViewControllerAnimated:YES];
+        }
+        else {
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+    };
+    if (self.bookmark) {
+        [KSDAL updateBookmark:self.bookmark withName:self.txtName.text coordinate:self.annotation.coordinate completion:completionHandler];
+    } else {
+        [KSDAL addBookmarkWithName:self.txtName.text coordinate:self.annotation.coordinate completion:completionHandler];
+    }
 }
 
 - (void)onLongPressMapView:(UIGestureRecognizer *)gestureRecognizer {
