@@ -14,6 +14,7 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
 
 @class KSUser;
 @class KSTrip;
+@class KSTripRating;
 @class KSBookmark;
 
 @interface KSDAL : NSObject
@@ -42,7 +43,11 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
 
 + (void)bookTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
 
-+ (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock;
++ (KSTripRating *)tripRatingForTrip:(KSTrip *)trip;
+
++ (void)rateTrip:(KSTrip *)aTrip withRating:(KSTripRating *)aRating completion:(KSDALCompletionBlock)completionBlock;
+
++ (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock;
 
 + (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock;
 
@@ -51,5 +56,7 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
 + (void)updateBookmark:(KSBookmark *)aBookmark withName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock;
 
 + (void)deleteBookmark:(KSBookmark *)aBookmark completion:(KSDALCompletionBlock)completionBlock;
+
++ (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock;
 
 @end

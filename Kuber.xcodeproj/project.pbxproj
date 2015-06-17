@@ -64,6 +64,20 @@
 		185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */; };
 		1850438A1B29792200AECDE9 /* KSPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043891B29792200AECDE9 /* KSPlacemark.m */; };
 		18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18692ECC1B2EA55F006FC825 /* KSUser.m */; };
+		187318101B2EBD610003DC5C /* taxi.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873180D1B2EBD610003DC5C /* taxi.png */; };
+		187318111B2EBD610003DC5C /* taxi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873180E1B2EBD610003DC5C /* taxi@2x.png */; };
+		187318121B2EBD610003DC5C /* taxi@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873180F1B2EBD610003DC5C /* taxi@3x.png */; };
+		187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */; };
+		187318181B2EF62C0003DC5C /* KSTripRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318171B2EF62C0003DC5C /* KSTripRatingController.m */; };
+		1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873181B1B2EF8D60003DC5C /* DYRateView.m */; };
+		187318261B2EF8E10003DC5C /* StarEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873181E1B2EF8E10003DC5C /* StarEmpty.png */; };
+		187318271B2EF8E10003DC5C /* StarEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1873181F1B2EF8E10003DC5C /* StarEmpty@2x.png */; };
+		187318281B2EF8E10003DC5C /* StarEmptyLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = 187318201B2EF8E10003DC5C /* StarEmptyLarge.png */; };
+		187318291B2EF8E10003DC5C /* StarEmptyLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187318211B2EF8E10003DC5C /* StarEmptyLarge@2x.png */; };
+		1873182A1B2EF8E10003DC5C /* StarFull.png in Resources */ = {isa = PBXBuildFile; fileRef = 187318221B2EF8E10003DC5C /* StarFull.png */; };
+		1873182B1B2EF8E10003DC5C /* StarFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187318231B2EF8E10003DC5C /* StarFull@2x.png */; };
+		1873182C1B2EF8E10003DC5C /* StarFullLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = 187318241B2EF8E10003DC5C /* StarFullLarge.png */; };
+		1873182D1B2EF8E10003DC5C /* StarFullLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 187318251B2EF8E10003DC5C /* StarFullLarge@2x.png */; };
 		187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FAF401B1D7AB3007FCB72 /* KSBookingDetailsController.m */; };
 		187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FAF431B1EB6BA007FCB72 /* KSBookingConfirmationController.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
@@ -199,6 +213,23 @@
 		185043891B29792200AECDE9 /* KSPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPlacemark.m; sourceTree = "<group>"; };
 		18692ECB1B2EA55F006FC825 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
 		18692ECC1B2EA55F006FC825 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
+		1873180D1B2EBD610003DC5C /* taxi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taxi.png; sourceTree = "<group>"; };
+		1873180E1B2EBD610003DC5C /* taxi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "taxi@2x.png"; sourceTree = "<group>"; };
+		1873180F1B2EBD610003DC5C /* taxi@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "taxi@3x.png"; sourceTree = "<group>"; };
+		187318131B2EC1290003DC5C /* KSBookingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingHistoryCell.h; sourceTree = "<group>"; };
+		187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingHistoryCell.m; sourceTree = "<group>"; };
+		187318161B2EF62C0003DC5C /* KSTripRatingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTripRatingController.h; sourceTree = "<group>"; };
+		187318171B2EF62C0003DC5C /* KSTripRatingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTripRatingController.m; sourceTree = "<group>"; };
+		1873181A1B2EF8D60003DC5C /* DYRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRateView.h; sourceTree = "<group>"; };
+		1873181B1B2EF8D60003DC5C /* DYRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRateView.m; sourceTree = "<group>"; };
+		1873181E1B2EF8E10003DC5C /* StarEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarEmpty.png; sourceTree = "<group>"; };
+		1873181F1B2EF8E10003DC5C /* StarEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarEmpty@2x.png"; sourceTree = "<group>"; };
+		187318201B2EF8E10003DC5C /* StarEmptyLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarEmptyLarge.png; sourceTree = "<group>"; };
+		187318211B2EF8E10003DC5C /* StarEmptyLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarEmptyLarge@2x.png"; sourceTree = "<group>"; };
+		187318221B2EF8E10003DC5C /* StarFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarFull.png; sourceTree = "<group>"; };
+		187318231B2EF8E10003DC5C /* StarFull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarFull@2x.png"; sourceTree = "<group>"; };
+		187318241B2EF8E10003DC5C /* StarFullLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarFullLarge.png; sourceTree = "<group>"; };
+		187318251B2EF8E10003DC5C /* StarFullLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarFullLarge@2x.png"; sourceTree = "<group>"; };
 		187FAF3F1B1D7AB3007FCB72 /* KSBookingDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingDetailsController.h; sourceTree = "<group>"; };
 		187FAF401B1D7AB3007FCB72 /* KSBookingDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingDetailsController.m; sourceTree = "<group>"; };
 		187FAF421B1EB6BA007FCB72 /* KSBookingConfirmationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingConfirmationController.h; sourceTree = "<group>"; };
@@ -343,6 +374,10 @@
 		18481B511B092B4400855F54 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1873181D1B2EF8E10003DC5C /* DYRateView */,
+				1873180D1B2EBD610003DC5C /* taxi.png */,
+				1873180E1B2EBD610003DC5C /* taxi@2x.png */,
+				1873180F1B2EBD610003DC5C /* taxi@3x.png */,
 				1850437C1B26D58800AECDE9 /* search.png */,
 				1850437D1B26D58800AECDE9 /* search@2x.png */,
 				1850437E1B26D58800AECDE9 /* search@3x.png */,
@@ -405,6 +440,7 @@
 		184C78C61B0076CF0012D4BE /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				187318191B2EF8D60003DC5C /* DYRateView */,
 				1801E3541B15B1CC00A8983E /* MLPAutoCompleteTextField */,
 				18481B491B091EFA00855F54 /* MBProgressHUD */,
 				18481B4C1B091EFA00855F54 /* SWRevealViewController */,
@@ -429,6 +465,30 @@
 				18692ECC1B2EA55F006FC825 /* KSUser.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		187318191B2EF8D60003DC5C /* DYRateView */ = {
+			isa = PBXGroup;
+			children = (
+				1873181A1B2EF8D60003DC5C /* DYRateView.h */,
+				1873181B1B2EF8D60003DC5C /* DYRateView.m */,
+			);
+			path = DYRateView;
+			sourceTree = "<group>";
+		};
+		1873181D1B2EF8E10003DC5C /* DYRateView */ = {
+			isa = PBXGroup;
+			children = (
+				1873181E1B2EF8E10003DC5C /* StarEmpty.png */,
+				1873181F1B2EF8E10003DC5C /* StarEmpty@2x.png */,
+				187318201B2EF8E10003DC5C /* StarEmptyLarge.png */,
+				187318211B2EF8E10003DC5C /* StarEmptyLarge@2x.png */,
+				187318221B2EF8E10003DC5C /* StarFull.png */,
+				187318231B2EF8E10003DC5C /* StarFull@2x.png */,
+				187318241B2EF8E10003DC5C /* StarFullLarge.png */,
+				187318251B2EF8E10003DC5C /* StarFullLarge@2x.png */,
+			);
+			path = DYRateView;
 			sourceTree = "<group>";
 		};
 		189F5D8E1B0853CA00EAF9B2 /* Extensions */ = {
@@ -586,6 +646,10 @@
 				189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */,
 				1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */,
 				1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */,
+				187318131B2EC1290003DC5C /* KSBookingHistoryCell.h */,
+				187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */,
+				187318161B2EF62C0003DC5C /* KSTripRatingController.h */,
+				187318171B2EF62C0003DC5C /* KSTripRatingController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -719,18 +783,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */,
+				187318281B2EF8E10003DC5C /* StarEmptyLarge.png in Resources */,
+				1873182D1B2EF8E10003DC5C /* StarFullLarge@2x.png in Resources */,
 				1801E3731B17333A00A8983E /* s_place_pin.png in Resources */,
+				187318271B2EF8E10003DC5C /* StarEmpty@2x.png in Resources */,
 				18481B611B09C89700855F54 /* Localizable.strings in Resources */,
+				187318121B2EBD610003DC5C /* taxi@3x.png in Resources */,
 				185043801B26D58800AECDE9 /* search@2x.png in Resources */,
 				1801E34F1B15892E00A8983E /* favorites@2x.png in Resources */,
+				187318101B2EBD610003DC5C /* taxi.png in Resources */,
 				1801E36B1B162E4900A8983E /* edit@2x.png in Resources */,
 				1801E3621B15B3FE00A8983E /* close@2x.png in Resources */,
 				18481B551B092B4400855F54 /* reveal-icon@2x.png in Resources */,
 				1801E34E1B15892E00A8983E /* favorites.png in Resources */,
 				185043811B26D58800AECDE9 /* search@3x.png in Resources */,
+				1873182A1B2EF8E10003DC5C /* StarFull.png in Resources */,
 				1801E3631B15B3FE00A8983E /* close@3x.png in Resources */,
 				1801E36A1B162E4900A8983E /* edit.png in Resources */,
 				1801E3611B15B3FE00A8983E /* close.png in Resources */,
+				187318111B2EBD610003DC5C /* taxi@2x.png in Resources */,
 				1801E3501B15892E00A8983E /* favorites@3x.png in Resources */,
 				1801E3711B17333A00A8983E /* place_pin.png in Resources */,
 				18A762921AFF785B00B9ED32 /* LaunchScreen.xib in Resources */,
@@ -738,8 +809,12 @@
 				1850437F1B26D58800AECDE9 /* search.png in Resources */,
 				1801E3721B17333A00A8983E /* place_pin@2x.png in Resources */,
 				18481B541B092B4400855F54 /* reveal-icon.png in Resources */,
+				187318291B2EF8E10003DC5C /* StarEmptyLarge@2x.png in Resources */,
+				187318261B2EF8E10003DC5C /* StarEmpty.png in Resources */,
+				1873182C1B2EF8E10003DC5C /* StarFullLarge.png in Resources */,
 				1801E3741B17333A00A8983E /* s_place_pin@2x.png in Resources */,
 				18481B6E1B09CAB900855F54 /* Info.plist in Resources */,
+				1873182B1B2EF8E10003DC5C /* StarFull@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,6 +866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18481B871B0B929F00855F54 /* KSDAL.m in Sources */,
+				187318181B2EF62C0003DC5C /* KSTripRatingController.m in Sources */,
 				1801E3531B159C0D00A8983E /* KSAddressPickerController.m in Sources */,
 				1801E2FB1B0E027200A8983E /* UIViewController+KSExtended.m in Sources */,
 				189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */,
@@ -813,6 +889,7 @@
 				18481B5E1B09C41800855F54 /* KSAlert.m in Sources */,
 				1801E3071B11ADE300A8983E /* KSFavoritesController.m in Sources */,
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
+				1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */,
 				18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */,
 				1801E2F51B0DD13C00A8983E /* UINavigationController+KSExtended.m in Sources */,
 				18B0D0251B031C93002645AD /* KSDBManager.m in Sources */,
@@ -838,6 +915,7 @@
 				18481B7E1B0B5F7D00855F54 /* KSSessionInfo.m in Sources */,
 				18A762811AFF785B00B9ED32 /* main.m in Sources */,
 				187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */,
+				187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */,
 				1801E34A1B1498AA00A8983E /* CLPlacemark+KSExtended.m in Sources */,
 				18481AFD1B086EBB00855F54 /* KSConstants.m in Sources */,
 				189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */,

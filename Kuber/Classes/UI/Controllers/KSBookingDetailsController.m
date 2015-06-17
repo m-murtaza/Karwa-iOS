@@ -63,9 +63,10 @@
     }
 
     if (trip.pickupTime) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        NSString *date = [formatter stringFromDate:trip.pickupTime];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+        NSString *date = [dateFormatter stringFromDate:trip.pickupTime];
         item = [KSBookingItem itemWithTitle:@"Booking Date" details: date];
     }
 

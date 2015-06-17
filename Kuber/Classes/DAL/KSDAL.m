@@ -13,6 +13,7 @@
 
 #import "KSUser.h"
 #import "KSTrip.h"
+#import "KSTripRating.h"
 #import "KSBookmark.h"
 
 #import "KSSessionInfo.h"
@@ -20,6 +21,26 @@
 
 
 @implementation KSDAL
+
+#pragma mark -
+#pragma mark - Helpers
+
++ (KSAPIStatus)statusFromResponse:(NSDictionary *)response success:(BOOL)success {
+
+    KSAPIStatus status = KSAPIStatusUnknownError;
+    if (success) {
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            status = [response[@"status"] unsignedIntegerValue];
+        }
+        else if ([response isKindOfClass:[NSArray class]]) {
+            status = KSAPIStatusSuccess;
+        }
+    }
+    return status;
+}
+
+#pragma mark -
+#pragma mark - User management
 
 + (void)saveLoggedInUserSession:(NSString *)sessionId phone:(NSString *)phone {
     [KSSessionInfo updateSession:sessionId phone:phone];
@@ -41,20 +62,6 @@
 
 + (KSUser *)userWithPhone:(NSString *)phone {
     return [KSUser objWithValue:phone forAttrib:@"phone"];
-}
-
-+ (KSAPIStatus)statusFromResponse:(NSDictionary *)response success:(BOOL)success {
-
-    KSAPIStatus status = KSAPIStatusUnknownError;
-    if (success) {
-        if ([response isKindOfClass:[NSDictionary class]]) {
-            status = [response[@"status"] unsignedIntegerValue];
-        }
-        else if ([response isKindOfClass:[NSArray class]]) {
-            status = KSAPIStatusSuccess;
-        }
-    }
-    return status;
 }
 
 + (void)registerUser:(KSUser *)user password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock {
@@ -188,6 +195,9 @@
     [self updateUserInfoWithData:requestData completion:completionBlock];
 }
 
+#pragma mark -
+#pragma mark - Trip management
+
 + (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon {
 
     KSTrip *trip = [KSDBManager tripWithLandmark:landmark lat:lat lon:lon];
@@ -270,6 +280,58 @@
         completionBlock(status, [user.bookmarks allObjects]);
     }];
 }
+
+#pragma mark -
+#pragma mark - Trip rating
+
++ (KSTripRating *)tripRatingForTrip:(KSTrip *)trip {
+
+    KSTripRating *tripRating = trip.rating;
+    if (!tripRating) {
+        tripRating = [KSTripRating MR_createEntity];
+        tripRating.trip = trip;
+    }
+    return tripRating;
+}
+
++ (void)rateTrip:(KSTrip *)aTrip withRating:(KSTripRating *)aRating completion:(KSDALCompletionBlock)completionBlock {
+
+    __block KSTrip *trip = aTrip;
+    __block KSTripRating *rating = aRating;
+
+    if (!rating.comments) {
+        rating.comments = @"";
+    }
+    if (!rating.driverRating) {
+        rating.driverRating = @0;
+    }
+    if (!rating.serviceRating) {
+        rating.serviceRating = @0;
+    }
+    NSDictionary *ratingData = @{
+                                 @"job_id": trip.jobId,
+                                 @"service": rating.serviceRating,
+                                 @"driver": rating.driverRating,
+                                 @"comment": rating.comments
+                                 };
+    NSDictionary *requestData = [self authenticateRequestData:ratingData];
+    KSWebClient *webClient = [KSWebClient instance];
+
+    [webClient POST:@"/bookings/rating" data:requestData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            trip.rating = rating;
+            [KSDBManager saveContext];
+        }
+        else {
+            rating.trip = nil;
+        }
+        completionBlock(status, nil);
+    }];
+}
+
+#pragma mark -
+#pragma mark - Favorites
 
 + (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock {
 
@@ -366,6 +428,9 @@
         completionBlock(status, nil);
     }];
 }
+
+#pragma mark -
+#pragma mark - Geocoding
 
 + (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock {
 
