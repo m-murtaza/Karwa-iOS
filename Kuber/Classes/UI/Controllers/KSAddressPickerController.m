@@ -88,7 +88,7 @@ NSString * const KSSpecificRegionName = @"Qatar";
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfRowsInSection:(NSInteger)section {
 
     return self.places.count;
 }

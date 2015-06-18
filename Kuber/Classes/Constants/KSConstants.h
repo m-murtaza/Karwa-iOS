@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const kKSViewWillAppearNotification;
-extern NSString * const kKSViewWillDisappearNotification;
+//extern NSString * const kKSViewWillAppearNotification;
+//extern NSString * const kKSViewWillDisappearNotification;
 
-extern NSString * const kKSCountryForLocationSearch;
+extern NSString * const KSNotificationForNewBookmark;
+
+extern NSString * const KSCountryNameForLocationSearch;
 
 /*
  11	Taxi found/allocated

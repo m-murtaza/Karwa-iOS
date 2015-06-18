@@ -10,6 +10,10 @@
 
 @interface UIViewController (KSExtended)
 
+- (void)showLoadingView;
+
+- (void)hideLoadingView;
+
 - (void)setupRevealViewController;
 
 @end

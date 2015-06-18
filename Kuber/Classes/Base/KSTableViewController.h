@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KSTableViewController : UITableViewController
+@protocol KSTableViewDataSource <UITableViewDataSource>
+
+@required
+
+- (NSInteger)numberOfRowsInSection:(NSInteger)section;
 
 @end
+
+@interface KSTableViewController : UITableViewController<KSTableViewDataSource>
+
+- (void)reloadTableViewData;
+- (void)setNoDataMessage:(NSString *)message;
+
+@end
+

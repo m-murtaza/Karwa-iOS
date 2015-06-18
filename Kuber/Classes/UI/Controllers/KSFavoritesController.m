@@ -32,6 +32,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    self.bookmarks = [NSMutableArray array];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFavoriteChangeNotification:) name:KSNotificationForNewBookmark object:nil];
+
     UIBarButtonItem *btnAddPlace = self.navigationItem.rightBarButtonItem;
     UIBarButtonItem *btnDeletePlace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(onClickDeletePlaces:)];
 
@@ -39,16 +43,14 @@
     self.addDeleteBarButtonItems = @[btnAddPlace, btnDeletePlace];
 
     __block KSFavoritesController *me = self;
+    [me showLoadingView];
     [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
         [me buildBookmarks];
+        [me hideLoadingView];
     }];
 
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
     [self buildBookmarks];
+
 }
 
 - (void)updateActionButtons {
@@ -65,13 +67,15 @@
         return [obj1.name compare:obj2.name options:NSCaseInsensitiveSearch];
     }];
 
-    self.bookmarks = [NSMutableArray array];
+    [self.bookmarks removeAllObjects];
 
     for (KSBookmark *bookmark in sortedBookmarks) {
         NSMutableDictionary *placeData = [NSMutableDictionary dictionary];
         placeData[@"bookmark"] = bookmark;
         [self.bookmarks addObject:placeData];
     }
+
+    [self updateActionButtons];
     [self fetchLandmarks];
 }
 
@@ -101,12 +105,14 @@
             targetPlaceData[@"landmark"] = address;
             
             // Repeat until all bookmarks got addresses
-            [me fetchLandmarks];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [me fetchLandmarks];
+            });
         }];
     }
     else {
         // Finished loading all landmarks
-        [self.tableView reloadData];
+        [self reloadTableViewData];
     }
 }
 
@@ -136,7 +142,7 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfRowsInSection:(NSInteger)section {
     return self.bookmarks.count;
 }
 
@@ -180,12 +186,14 @@
     NSDictionary *placeData = self.bookmarks[indexPath.row];
     KSBookmark *bookmark = placeData[@"bookmark"];
 
-    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [self showLoadingView];
     __block KSFavoritesController *me = self;
     [KSDAL deleteBookmark:bookmark completion:^(KSAPIStatus status, NSDictionary *data) {
-        [hud hide:YES];
+        [me hideLoadingView];
         if (KSAPIStatusSuccess == status) {
-            [me buildBookmarks];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [me buildBookmarks];
+            });
         }
         else {
             [KSAlert show:KSStringFromAPIStatus(status)];
@@ -193,5 +201,10 @@
     }];
 }
 
+- (void)onFavoriteChangeNotification:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self buildBookmarks];
+    });
+}
 
 @end

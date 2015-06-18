@@ -33,6 +33,7 @@
             [me buildTripsHistory];
         }
     }];
+
 }
 
 - (void)buildTripsHistory {
@@ -88,8 +89,7 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+- (NSInteger)numberOfRowsInSection:(NSInteger)section {
     return self.trips.count;
 }
 

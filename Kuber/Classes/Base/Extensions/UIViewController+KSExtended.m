@@ -8,15 +8,34 @@
 
 #import "UIViewController+KSExtended.h"
 #import "SWRevealViewController.h"
+#import "MBProgressHUD.h"
+
+const NSInteger KSViewControllerTagForLoadingView = 1000000001;
 
 @implementation UIViewController (KSExtended)
 
-- (UIBarButtonItem *)revealButtonItem {
-    return nil;
+- (void)showLoadingView {
+
+    UIView *parentView = self.navigationController ? self.navigationController.view : self.view;
+    MBProgressHUD *hud = (MBProgressHUD *)[parentView viewWithTag:KSViewControllerTagForLoadingView];
+    if (!hud) {
+        hud = [MBProgressHUD showHUDAddedTo:parentView animated:YES];
+        hud.tag = KSViewControllerTagForLoadingView;
+    }
+}
+
+- (void)hideLoadingView {
+    UIView *parentView = self.navigationController ? self.navigationController.view : self.view;
+    MBProgressHUD *hud = (MBProgressHUD *)[parentView viewWithTag:KSViewControllerTagForLoadingView];
+    [hud hide:YES];
 }
 
 #pragma mark -
 #pragma mark - RevealViewController setup
+
+- (UIBarButtonItem *)revealButtonItem {
+    return nil;
+}
 
 - (void)setupRevealViewController {
 

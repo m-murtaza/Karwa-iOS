@@ -188,6 +188,8 @@
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
+//            KSNotificationForNewBookmark
+            [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationForNewBookmark object:nil];
             [navController popViewControllerAnimated:YES];
         }
         else {

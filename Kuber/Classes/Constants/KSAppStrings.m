@@ -22,6 +22,7 @@ NSString * const KSAlertTitleMultipleErrors = @"Multiple Errors";
 NSString * const KSErrorNoNewPassword = @"New password is mandatory";
 NSString * const KSErrorPasswordsMatch = @"Current and new passwords are same";
 
+NSString * const KSTableViewDefaultErrorMessage = @"No Data Available";
 
 NSString *KSStringFromAPIStatus(KSAPIStatus status) {
     NSDictionary *stringsForAPIStatus =

@@ -8,7 +8,9 @@
 
 #import "KSConstants.h"
 
-NSString * const kKSViewWillAppearNotification = @"KSViewWillAppearNotification";
-NSString * const kKSViewWillDisappearNotification = @"KSViewWillDisappearNotification";
+//NSString * const kKSViewWillAppearNotification = @"KSViewWillAppearNotification";
+//NSString * const kKSViewWillDisappearNotification = @"KSViewWillDisappearNotification";
 
-NSString * const kKSCountryForLocationSearch = @"Qatar";
+NSString * const KSNotificationForNewBookmark = @"KSNotificationForNewBookmark";
+
+NSString * const KSCountryNameForLocationSearch = @"Qatar";

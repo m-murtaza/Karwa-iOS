@@ -61,7 +61,7 @@
         _landmark = landmark;
         // A search query text should be good enough to identify itself
         if (_landmark.length > 2) {
-            [KSLocationManager nearestPlacemarksInCountry:kKSCountryForLocationSearch searchQuery:_landmark completion:^(NSArray *placemarks) {
+            [KSLocationManager nearestPlacemarksInCountry:KSCountryNameForLocationSearch searchQuery:_landmark completion:^(NSArray *placemarks) {
                 if (placemarks.count) {
                     CLPlacemark *placemark = [placemarks firstObject];
                     _location = placemark.location;

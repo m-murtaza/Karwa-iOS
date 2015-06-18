@@ -21,4 +21,6 @@ extern NSString * const KSErrorPasswordsMatch;
 extern NSString * const KSAlertTitleError;
 extern NSString * const KSAlertTitleMultipleErrors;
 
+extern NSString * const KSTableViewDefaultErrorMessage;
+
 NSString *KSStringFromAPIStatus(KSAPIStatus status);
