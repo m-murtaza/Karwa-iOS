@@ -57,6 +57,12 @@
 }
 
 + (void)logoutUser {
+
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient GET:@"/user/logout" params:nil completion:^(BOOL success, NSDictionary *response) {
+        // Do nothing
+    }];
+    // Remove session info from client, any how
     [KSSessionInfo removeSession];
 }
 
@@ -67,15 +73,15 @@
 + (void)registerUser:(KSUser *)user password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock {
 
     NSDictionary *requestData = @{
-        @"phone": user.phone,
-        @"name": user.name,
-        @"email": user.email,
-        @"password": [password MD5]
+        @"Phone": user.phone,
+        @"Name": user.name,
+        @"Email": user.email,
+        @"Password": [password MD5]
     };
 
     KSWebClient *webClient = [KSWebClient instance];
 
-    [webClient POST:@"/register" data:requestData completion:^(BOOL success, NSDictionary *response) {
+    [webClient POST:@"/user" data:requestData completion:^(BOOL success, NSDictionary *response) {
         if (completionBlock) {
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
             if (KSAPIStatusSuccess == status) {
@@ -90,7 +96,12 @@
 /*
     This method is used for login and OTP verification requests
  */
-+ (void)sendLoginRequesViaUri:(NSString *)uri data:(NSDictionary *)requestData completion:(KSDALCompletionBlock)completionBlock {
++ (void)sendLoginRequesViaUri:(NSString *)uri withPhone:(NSString *)phone data:(NSDictionary *)requestData completion:(KSDALCompletionBlock)completionBlock {
+
+    NSMutableDictionary *postData = [NSMutableDictionary dictionaryWithDictionary:requestData];
+    postData[@"Phone"] = phone;
+    postData[@"DeviceType"] = @1;
+    postData[@"DeviceToken"] = [[KSSessionInfo currentSession] pushToken];
 
     KSWebClient *webClient = [KSWebClient instance];
 
@@ -100,12 +111,12 @@
             if (KSAPIStatusSuccess == status) {
                 NSDictionary *userInfo = response[@"data"];
                 // Create new user in local DB
-                KSUser *user = [KSDAL userWithPhone:userInfo[@"phone"]];
-                user.email = userInfo[@"email"];
-                user.name = userInfo[@"name"];
+                KSUser *user = [KSDAL userWithPhone:userInfo[@"Phone"]];
+                user.email = userInfo[@"Email"];
+                user.name = userInfo[@"Name"];
                 [KSDBManager saveContext];
                 
-                [KSSessionInfo updateSession:userInfo[@"sid"] phone:userInfo[@"phone"]];
+                [KSSessionInfo updateSession:userInfo[@"SessionID"] phone:userInfo[@"Phone"]];
             }
             completionBlock(status, nil);
         }
@@ -114,32 +125,24 @@
 }
 
 + (void)loginUserWithPhone:(NSString *)phone password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock {
-    NSDictionary *requestData = @{
-      @"phone": phone,
-      @"token": [[KSSessionInfo currentSession] pushToken],
-      @"password": [password MD5]
-    };
-    [self sendLoginRequesViaUri:@"/login" data:requestData completion:completionBlock];
+
+    [self sendLoginRequesViaUri:@"/user/login" withPhone:phone data:@{@"Password": password.MD5} completion:completionBlock];
 }
 
 + (void)verifyUserWithPhone:(NSString *)phone code:(NSString *)accessCode completion:(KSDALCompletionBlock)completionBlock {
-    NSDictionary *requestData =
-  @{
-      @"phone": phone,
-      @"token": [[KSSessionInfo currentSession] pushToken],
-      @"otp": accessCode
-    };
-    [self sendLoginRequesViaUri:@"/verify" data:requestData completion:completionBlock];
+
+    [self sendLoginRequesViaUri:@"/user/otp" withPhone:phone data:@{@"Otp": accessCode} completion:completionBlock];
 }
 
 + (void)resetPasswordForUserWithPhone:(NSString *)phone password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock {
+
     NSDictionary *requestData = @{
-          @"phone": phone,
-          @"password": [password MD5]
+          @"Phone": phone,
+          @"Password": [password MD5]
     };
 
     KSWebClient *webClient = [KSWebClient instance];
-    [webClient POST:@"/resetpwd" data:requestData completion:^(BOOL success, NSDictionary *response) {
+    [webClient POST:@"/user/pwd" data:requestData completion:^(BOOL success, NSDictionary *response) {
         if (completionBlock) {
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
             completionBlock(status, nil);
@@ -150,23 +153,19 @@
 + (void)updateUserInfoWithData:(NSDictionary *)requestData completion:(KSDALCompletionBlock)completionBlock {
 
     KSWebClient *webClient = [KSWebClient instance];
-    [webClient POST:@"/edituser" data:requestData completion:^(BOOL success, NSDictionary *response) {
+    [webClient POST:@"/user/update" data:requestData completion:^(BOOL success, NSDictionary *response) {
         if (completionBlock) {
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
             if (KSAPIStatusSuccess == status) {
                 NSDictionary *userInfo = response[@"data"];
-                KSUser *user = [self userWithPhone:requestData[@"phone"]];
-                if (requestData[@"email"]) {
-                    user.email = requestData[@"email"];
+                KSUser *user = [self userWithPhone:requestData[@"Phone"]];
+                if (requestData[@"Email"]) {
+                    user.email = requestData[@"Email"];
                 }
-                if (requestData[@"name"]) {
-                    user.name = requestData[@"name"];
+                if (requestData[@"Name"]) {
+                    user.name = requestData[@"Name"];
                 }
                 [KSDBManager saveContext];
-                // Update session ID
-                if (requestData[@"new_password"] && ![requestData[@"sid"] isEqualToString:userInfo[@"sid"]]) {
-                    [KSSessionInfo updateSession:userInfo[@"sid"] phone:requestData[@"phone"]];
-                }
             }
             completionBlock(status, nil);
         }
@@ -177,21 +176,20 @@
 
     NSMutableDictionary *resultData = [NSMutableDictionary dictionaryWithDictionary:requestData];
     KSSessionInfo *sessionInfo = [KSSessionInfo currentSession];
-    resultData[@"phone"] = sessionInfo.phone;
-    resultData[@"sid"] = sessionInfo.sessionId;
+    resultData[@"Phone"] = sessionInfo.phone;
     return [NSDictionary dictionaryWithDictionary:resultData];
 }
 
 + (void)updateUserInfoWithEmail:(NSString *)email withName:(NSString *)userName completion:(KSDALCompletionBlock)completionBlock {
 
-    NSDictionary *requestData = [self authenticateRequestData:@{@"name": userName, @"email": email}];
+    NSDictionary *requestData = [self authenticateRequestData:@{@"Name": userName, @"Email": email}];
     [self updateUserInfoWithData:requestData completion:completionBlock];
 }
 
 + (void)updateUserPassword:(NSString *)oldPassword withPassword:(NSString *)newPassword completion:(KSDALCompletionBlock)completionBlock {
 
-    NSDictionary *requestData = [self authenticateRequestData:@{@"password": [oldPassword MD5],
-                                                               @"new_password": [newPassword MD5]}];
+    NSDictionary *requestData = [self authenticateRequestData:@{@"Password": [oldPassword MD5],
+                                                               @"NewPassword": [newPassword MD5]}];
     [self updateUserInfoWithData:requestData completion:completionBlock];
 }
 

@@ -9,6 +9,8 @@
 #import "KSWebClient.h"
 #import "AFNetworking.h"
 
+#import "KSSessionInfo.h"
+
 @implementation KSWebClientConfig
 
 + (instancetype)config {
@@ -100,6 +102,13 @@
 
     uri = [self completeURI:uri];
 
+    // Authentication header
+    KSSessionInfo *session = [KSSessionInfo currentSession];
+    if (session.sessionId.length) {
+        AFHTTPRequestSerializer *serializer = _sessionManager.requestSerializer;
+        [serializer setValue:session.sessionId forHTTPHeaderField:@"Session-ID"];
+    }
+    
     if ([method isEqualToString:@"POST"]) {
         [_sessionManager POST:uri parameters:params success:successBlock failure:failBlock];
     }

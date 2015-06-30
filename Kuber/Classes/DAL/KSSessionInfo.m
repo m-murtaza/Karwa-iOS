@@ -47,7 +47,7 @@
             _pushToken = [sessionInfo objectForKey:@"token"];
         }
         if (!_pushToken) {
-            _pushToken = @"";
+            _pushToken = @"DummyToken";
         }
     }
     return self;
