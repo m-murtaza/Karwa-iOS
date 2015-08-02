@@ -75,13 +75,26 @@
 
 - (NSString *)completeURI:(NSString *)uri {
     BOOL startsWithSlash = ([uri rangeOfString:@"/"].location == 0);
+    NSUInteger lastIndex = uri.length - 1;
+    BOOL endsWithSlash = [uri rangeOfString:@"/" options:NSBackwardsSearch].location == lastIndex;
+    NSString *formatString;
     if (startsWithSlash) {
-        return [NSString stringWithFormat:@"%@%@", _webClientConfig.serviceUri, uri];
+        formatString = @"%@%@";
     }
-    return [NSString stringWithFormat:@"%@/%@", _webClientConfig.serviceUri, uri];
+    else {
+        formatString = @"%@/%@";
+    }
+    // The API doesn't work without trailing slash
+    if (!endsWithSlash) {
+        formatString = [formatString stringByAppendingString:@"/"];
+    }
+
+    return [NSString stringWithFormat:formatString, _webClientConfig.serviceUri, uri];
 }
 
 - (void)sendRequestWithMethod:(NSString *)method uri:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock {
+
+    uri = [self completeURI:uri];
 
     void (^successBlock)(NSURLSessionDataTask *, id) = ^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@ %@ %@", method, uri, responseObject);
@@ -99,8 +112,6 @@
         NSLog(@"%@ %@ %@", method, uri, error);
         completionBlock(NO, nil);
     };
-
-    uri = [self completeURI:uri];
 
     // Authentication header
     KSSessionInfo *session = [KSSessionInfo currentSession];

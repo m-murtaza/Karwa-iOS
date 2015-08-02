@@ -105,7 +105,7 @@
 
     KSWebClient *webClient = [KSWebClient instance];
 
-    [webClient POST:uri data:requestData completion:^(BOOL success, NSDictionary *response) {
+    [webClient POST:uri data:postData completion:^(BOOL success, NSDictionary *response) {
         if (completionBlock) {
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
             if (KSAPIStatusSuccess == status) {

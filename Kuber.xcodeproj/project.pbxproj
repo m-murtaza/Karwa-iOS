@@ -43,7 +43,6 @@
 		18481B581B09B64E00855F54 /* NSString+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B571B09B64E00855F54 /* NSString+KSExtended.m */; };
 		18481B5E1B09C41800855F54 /* KSAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B5D1B09C41800855F54 /* KSAlert.m */; };
 		18481B611B09C89700855F54 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18481B631B09C89700855F54 /* Localizable.strings */; };
-		18481B6E1B09CAB900855F54 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18481B6D1B09CAB900855F54 /* Info.plist */; };
 		18481B711B09CC2500855F54 /* KSMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B701B09CC2500855F54 /* KSMenuController.m */; };
 		18481B741B09DFD000855F54 /* KSResetPasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B731B09DFD000855F54 /* KSResetPasswordController.m */; };
 		18481B771B0B1B4000855F54 /* KSConfirmationAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B761B0B1B4000855F54 /* KSConfirmationAlert.m */; };
@@ -246,7 +245,7 @@
 		189F5D991B085DA900EAF9B2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		189F5D9C1B08600000EAF9B2 /* KSLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocationManager.h; sourceTree = "<group>"; };
 		189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLocationManager.m; sourceTree = "<group>"; };
-		18A7627B1AFF785B00B9ED32 /* Kuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Karwa Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A762801AFF785B00B9ED32 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18A762821AFF785B00B9ED32 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18A762831AFF785B00B9ED32 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -525,7 +524,7 @@
 		18A7627C1AFF785B00B9ED32 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				18A7627B1AFF785B00B9ED32 /* Kuber.app */,
+				18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */,
 				18A762971AFF785B00B9ED32 /* KuberTests.xctest */,
 			);
 			name = Products;
@@ -713,7 +712,7 @@
 			);
 			name = Kuber;
 			productName = Kuber;
-			productReference = 18A7627B1AFF785B00B9ED32 /* Kuber.app */;
+			productReference = 18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */;
 			productType = "com.apple.product-type.application";
 		};
 		18A762961AFF785B00B9ED32 /* KuberTests */ = {
@@ -740,11 +739,12 @@
 		18A762731AFF785B00B9ED32 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Karwa Solutions";
 				TargetAttributes = {
 					18A7627A1AFF785B00B9ED32 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 2U24J4Z466;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -813,7 +813,6 @@
 				187318261B2EF8E10003DC5C /* StarEmpty.png in Resources */,
 				1873182C1B2EF8E10003DC5C /* StarFullLarge.png in Resources */,
 				1801E3741B17333A00A8983E /* s_place_pin@2x.png in Resources */,
-				18481B6E1B09CAB900855F54 /* Info.plist in Resources */,
 				1873182B1B2EF8E10003DC5C /* StarFull@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1015,6 +1014,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1054,6 +1054,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1065,11 +1066,15 @@
 			baseConfigurationReference = D713B6CDA9189D253F4EE8EE /* Pods-Kuber.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Karwa Taxi";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1079,11 +1084,15 @@
 			baseConfigurationReference = D470927F06592D06A19BCD41 /* Pods-Kuber.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Karwa Taxi";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1103,7 +1112,7 @@
 				INFOPLIST_FILE = KuberTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kuber.app/Kuber";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Karwa Taxi.app/Karwa Taxi";
 			};
 			name = Debug;
 		};
@@ -1118,7 +1127,7 @@
 				INFOPLIST_FILE = KuberTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kuber.app/Kuber";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Karwa Taxi.app/Karwa Taxi";
 			};
 			name = Release;
 		};

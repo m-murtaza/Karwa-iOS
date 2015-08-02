@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self performSelector:@selector(testRequest) withObject:nil afterDelay:1.];
+//    [self performSelector:@selector(testRequest) withObject:nil afterDelay:1.];
 }
 
 - (void)testRequest {
