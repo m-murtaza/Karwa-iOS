@@ -17,6 +17,9 @@
 #import "KSAddressPickerController.h"
 #import "KSBookingConfirmationController.h"
 
+#import "KSGeoLocation.h"
+#import "KSDAL.h"
+
 #import "KSAddress.h"
 
 #import <objc/objc.h>
@@ -29,6 +32,9 @@ NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
 NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)";
 
 @interface KSMapController ()<UITextFieldDelegate, MKMapViewDelegate, KSAddressPickerDelegate>
+{
+    BOOL _isLocationsSyncComplete;
+}
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
@@ -66,7 +72,17 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
     [self.mapView addGestureRecognizer:gestureRecognizer];
+
+    __block KSMapController *me = self;
     
+    [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
+
+        _isLocationsSyncComplete = YES;
+        if (me.pickupPoint) {
+            [me updateAddressField:me.txtPickupAddress annotation:me.pickupPoint];
+        }
+
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -172,18 +188,17 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.destinationViewController isKindOfClass:[KSAddressPickerController class]]) {
+
         __block KSAddressPickerController *controller = (KSAddressPickerController *)segue.destinationViewController;
         controller.pickerId = segue.identifier;
         controller.delegate = self;
-        CLLocationCoordinate2D coordinate = self.pickupPoint.coordinate;
-        [KSLocationManager placemarkForCoordinate:coordinate completion:^(CLPlacemark *placemark) {
-            controller.placemark = placemark;
-        }];
     }
     else if ([segue.destinationViewController isKindOfClass:[KSBookingConfirmationController class]]) {
+
         KSBookingConfirmationController *controller = (KSBookingConfirmationController *)segue.destinationViewController;
         controller.pickupAddress = [KSAddress addressWithLandmark:self.txtPickupAddress.text coordinate:self.pickupPoint.coordinate];
         if (self.dropoffPoint) {
@@ -200,12 +215,11 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 - (void)updateAddressField:(UITextField *)addressField annotation:(MKPointAnnotation *)annotation {
 
-    [KSLocationManager placemarkForCoordinate:annotation.coordinate completion:^(CLPlacemark *placemark) {
-        NSString *address = placemark ? placemark.address : KSStringFromCoordinate(annotation.coordinate);
-        addressField.text = address;
-        annotation.subtitle = address;
-        NSLog(@"%@", address);
-    }];
+    KSGeoLocation *location = [[KSLocationManager instance] locationWithCoordinate:annotation.coordinate];
+    NSString *address = location ? location.address : KSStringFromCoordinate(annotation.coordinate);
+    addressField.text = address;
+    annotation.subtitle = address;
+    NSLog(@"%@", address);
 }
 
 - (void)updatePlacemarkForAnnotation:(MKPointAnnotation *)annotation {
@@ -234,6 +248,11 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     if (!self.pickupPoint) {
         self.pickupPoint = [self annotationWithCoordinate:userLocation.location.coordinate title:KSPickupAnnotationTitle];
         [self updatePlacemarkForAnnotation:self.pickupPoint];
+        
+        CLLocation *location = userLocation.location;
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 4.0 * METERS_PER_MILE, 4.0 * METERS_PER_MILE);
+        [_mapView setRegion:viewRegion animated:YES];
+        
     }
 }
 

@@ -15,21 +15,7 @@ extern NSString * const KSNotificationForNewBookmark;
 
 extern NSString * const KSCountryNameForLocationSearch;
 
-/*
- 11	Taxi found/allocated
- 12	Already has a pending job
- 13	Passenger is in Taxi
- 14	Searching Taxi
- 15	Booking Cancelled
- 16	Taxi not available
- 21	Favorite already exists
- 22	Limit reached
- 23	The specified favorite doesn’t exist
- 31	Already rated the job
- 32	Invalid Driver ID
- 33	Invalid Taxi ID
- 
- */
+
 typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusUnknownError             = 0,    // Generic Error
     KSAPIStatusSuccess                  = 1,    // Success Case
@@ -38,6 +24,9 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusWrongAccessCode          = 4,    // Access code sent via SMS doesn't match
     KSAPIStatusInvalidPassword          = 5,    // Passowrd invalid
     KSAPIStatusInvalidSession           = 6,    // Session deleted from server, or request doesn't have sid
+    KSAPIStatusUserNotVerified          = 7,
+    KSAPIStatusPasswordMatch            = 8,
+    KSAPIStatusTooManyResetCalls        = 9,
     
     KSAPIStatusTaxiAllocated            = 11,   // Taxi found/allocated
     KSAPIStatusJobAlreadyPending        = 12,   // Already has a pending job
@@ -45,6 +34,7 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusSearchingTaxi            = 14,   // Job is in dispatch queue
     KSAPIStatusBookingCancelled         = 15,   // Job cancelled by user or dispatcher
     KSAPIStatusTaxiNotAvailable         = 16,   // No taxi available sent by dispatcher
+    KSAPIStatusInvalidJob               = 17,
     
     KSAPIStatusFavoriteAlreadyExists    = 21,   // Favorite with given name already exists
     KSAPIStatusFavoritesLimitReached    = 22,   // Max limit is 20 for adding bookmarks/favorites
@@ -54,5 +44,11 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     
     KSAPIStatusInvalidDirver            = 32,   // Driver ID is not is DB
     KSAPIStatusInvalidTaxi              = 33    // Taxi number is not in DB
+};
+
+typedef NS_OPTIONS(NSUInteger, KSBookingOption) {
+    KSBookingOptionInsideCity = 0,
+    KSBookingOptionAirport = 1,
+    KSBookingOptionOutsideCity = 2
 };
 

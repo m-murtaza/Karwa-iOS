@@ -31,12 +31,16 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusSuccess]:                  @"Request completed successfully",
       
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotRegistered]:        @"Mobile number is not registered",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotRegistered]:        @"Phone number is not registered",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusUserAlreadyRegistered]:    @"User with given number is already registered",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusWrongAccessCode]:          @"Please enter a valid access code",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidPassword]:          @"Invalid Mobile number OR password",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidPassword]:          @"Invalid phone number OR password",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidSession]:           @"You session is expired, please login again",
-
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotVerified]:          @"Please verify your phone number",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusPasswordMatch]:            @"New and old passwords are same",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusTooManyResetCalls]:        @"We have received too many password reset calls",
+      
+      
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiAllocated]:            @"Taxi allocated for you",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You already have a current booking",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusPassengerInTaxi]:          @"Aren't you in Taxi?",
@@ -53,5 +57,12 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidTaxi]:              @"This taxi is not in our database",
     };
-    return [stringsForAPIStatus objectForKey:[NSNumber numberWithUnsignedInteger: status]];
+
+    NSString *string =  [stringsForAPIStatus objectForKey:[NSNumber numberWithUnsignedInteger: status]];
+
+    if (!string) {
+        string = [stringsForAPIStatus objectForKey:[NSNumber numberWithUnsignedInteger: KSAPIStatusUnknownError]];
+    }
+
+    return string;
 }

@@ -11,5 +11,7 @@
 
 @interface KSMapController : KSViewController
 
+@property (nonatomic) KSBookingOption bookingOption;
+
 @end
 

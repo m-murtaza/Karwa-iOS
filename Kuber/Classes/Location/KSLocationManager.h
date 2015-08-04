@@ -12,6 +12,8 @@
 @class CLLocationManager;
 @class CLPlacemark;
 
+@class KSGeoLocation;
+
 typedef CLPlacemark KSPlacemark;
 typedef void (^KSPlacemarkCompletionBlock)(KSPlacemark *);
 typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
@@ -49,5 +51,7 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
 - (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion;
 
 - (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
+
+- (KSGeoLocation *)locationWithCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end

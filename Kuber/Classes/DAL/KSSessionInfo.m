@@ -11,6 +11,7 @@
 @implementation KSSessionInfo
 
 + (instancetype)instance {
+
     static KSSessionInfo *_instance;
     static dispatch_once_t dispatchQueueToken;
     
@@ -21,22 +22,38 @@
 }
 
 + (instancetype)currentSession {
+
     return [self instance];
 }
 
 + (void)updateSession:(NSString *)sessionId phone:(NSString *)phone {
+
     [[self instance] updateSession:sessionId phone:phone];
 }
 
 + (void)updateToken:(NSString *)token {
+
     [[self instance] updateToken:token];
 }
 
 + (void)removeSession {
+
     [[self instance] removeSession];
 }
 
++ (void)updateLocationsSyncTime {
+
+    [[self instance] updateLocationsSyncTime];
+}
+
++ (NSTimeInterval)locationsSyncTime {
+    
+    return [[self instance] locationsSyncTime];
+}
+
+
 - (instancetype)init {
+
     self = [super init];
     if (self) {
         NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
@@ -54,6 +71,7 @@
 }
 
 - (NSDictionary *)dictionary {
+
     if (_sessionId && _phone) {
         return @{
                  @"sid": _sessionId,
@@ -90,14 +108,29 @@
     
     _sessionId = nil;
     _phone = nil;
-    _pushToken = @"";
 
     [self saveSessionInfo:@{}];
 }
 
 - (NSString *)description {
+
     return [NSString stringWithFormat:@"<%@: %lx; sid: %@; phone: %@; token: %@>",
             NSStringFromClass([self class]), (unsigned long)self, _sessionId, _phone, _pushToken];
+}
+
+- (void)updateLocationsSyncTime {
+    
+    NSNumber *timeObj = [NSNumber numberWithDouble:[[[NSDate alloc] init] timeIntervalSince1970]];
+    NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
+    [defaultStore setObject:timeObj forKey:@"KSLocationsSyncTime"];
+    [defaultStore synchronize];
+}
+
+- (NSTimeInterval)locationsSyncTime {
+    
+    NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
+    NSNumber *timeObj = [defaultStore objectForKey:@"KSLocationsSyncTime"];
+    return [timeObj doubleValue];
 }
 
 @end

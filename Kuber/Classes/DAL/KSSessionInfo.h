@@ -13,6 +13,7 @@
 @property (nonatomic, readonly) NSString *sessionId;
 @property (nonatomic, readonly) NSString *phone;
 @property (nonatomic, readonly) NSString *pushToken;
+@property (nonatomic, readonly) NSTimeInterval locationsSyncTime;
 
 + (instancetype)currentSession;
 
@@ -21,5 +22,11 @@
 + (void)updateToken:(NSString *)token;
 
 + (void)removeSession;
+
++ (NSTimeInterval)locationsSyncTime;
+
++ (void)updateLocationsSyncTime;
+
+- (void)updateLocationsSyncTime;
 
 @end

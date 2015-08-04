@@ -13,6 +13,8 @@
 #import "KSWebClient.h"
 #import "KSDAL.h"
 
+#import "KSGeoLocation.h"
+
 @interface KSLocationManager ()<CLLocationManagerDelegate>
 {
     CLLocationManager *_locationManager;
@@ -121,15 +123,17 @@
     }
 }
 
-- (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion {
-    KSLocationManager *locationManager = self;
+- (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completionBlock {
+
+    __block KSLocationManager *locationManager = self;
+
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (placemarks.count) {
-            completion([placemarks firstObject]);
+            completionBlock([placemarks firstObject]);
         }
         else {
             [locationManager reverseGeocodeLocation:location completion:^(NSArray *placemarks) {
-                completion([placemarks firstObject]);
+                completionBlock([placemarks firstObject]);
             }];
         }
     }];
@@ -325,5 +329,14 @@
     NSDictionary *params = @{@"query": query, @"country": country};
     [self geocodeWithParams:params completion:completionBlock];
 }
+
+#pragma mark -
+#pragma mark - Geocoding using locations data
+
+- (KSGeoLocation *)locationWithCoordinate:(CLLocationCoordinate2D)coordinate {
+    
+    return [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
+}
+
 
 @end

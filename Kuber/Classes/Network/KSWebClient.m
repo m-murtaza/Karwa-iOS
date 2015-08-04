@@ -120,7 +120,10 @@
         [serializer setValue:session.sessionId forHTTPHeaderField:@"Session-ID"];
     }
     
-    if ([method isEqualToString:@"POST"]) {
+    if ([method isEqualToString:@"DELETE"]) {
+        [_sessionManager DELETE:uri parameters:params success:successBlock failure:failBlock];
+    }
+    else if ([method isEqualToString:@"POST"]) {
         [_sessionManager POST:uri parameters:params success:successBlock failure:failBlock];
     }
     else {
@@ -129,11 +132,18 @@
 }
 
 - (void)GET:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock {
+
     [self sendRequestWithMethod:@"GET" uri:uri params:params completion:completionBlock];
 }
 
 - (void)POST:(NSString *)uri data:(NSDictionary *)data completion:(KSWebClientCompletionBlock)completionBlock {
+
     [self sendRequestWithMethod:@"POST" uri:uri params:data completion:completionBlock];
+}
+
+- (void)DELETE:(NSString *)uri completion:(KSWebClientCompletionBlock)completionBlock {
+
+    [self sendRequestWithMethod:@"DELETE" uri:uri params:nil completion:completionBlock];
 }
 
 @end

@@ -18,6 +18,8 @@
 
 - (IBAction)onClickVerify:(id)sender;
 
+- (IBAction)onClickSendOtp:(id)sender;
+
 @end
 
 @implementation KSVerifyController
@@ -60,6 +62,18 @@
             }
         }];
     }
+}
+
+- (IBAction)onClickSendOtp:(id)sender {
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [KSDAL sendOtpOnPhone:self.phone completion:^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        if (KSAPIStatusSuccess != status) {
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+    }];
+
 }
 
 @end

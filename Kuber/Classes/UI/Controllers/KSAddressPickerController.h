@@ -16,11 +16,9 @@ extern NSString * const KSPickerIdForDropoffAddress;
 
 @protocol KSAddressPickerDelegate;
 
-@interface KSAddressPickerController : KSTableViewController
+@interface KSAddressPickerController : UITableViewController
 
 @property (nonatomic, copy) NSString *pickerId;
-
-@property (nonatomic, strong) CLPlacemark *placemark;
 
 @property (nonatomic, assign) id<KSAddressPickerDelegate> delegate;
 

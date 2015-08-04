@@ -12,6 +12,7 @@
 
 #import "KSUser.h"
 #import "KSTrip.h"
+#import "KSGeoLocation.h"
 
 #import "CoreData+MagicalRecord.h"
 
@@ -38,13 +39,7 @@
 
 + (void)saveContext {
 
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        if (success) {
-            NSLog(@"You successfully saved your context.");
-        } else if (error) {
-            NSLog(@"Error saving context: %@", error.description);
-        }
-    }];
+    [[self instance] saveContext];
 }
 
 + (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon {
@@ -54,6 +49,37 @@
     trip.pickupLon = [NSNumber numberWithDouble:lon];
 
     return trip;
+}
+
++ (void)saveLocationsData:(NSArray *)locations
+{
+    [[self instance] performSelectorInBackground:@selector(saveLocationsData:) withObject:locations];
+}
+
+- (void)saveLocationsData:(NSArray *)locations {
+
+    for (NSDictionary *loc in locations) {
+        NSNumber *locationId = loc[@"id"];
+        KSGeoLocation *geolocation = [KSGeoLocation objWithValue:locationId forAttrib:@"locationId"];
+        geolocation.latitude = loc[@"lat"];
+        geolocation.longitude = loc[@"lon"];
+        geolocation.area = loc[@"area"];
+        geolocation.address = loc[@"address"];
+    }
+
+    [self saveContext];
+    
+}
+
+- (void)saveContext {
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            NSLog(@"You successfully saved your context.");
+        } else if (error) {
+            NSLog(@"Error saving context: %@", error.description);
+        }
+    }];
 }
 
 @end

@@ -8,55 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "KSWebClient.h"
-
-typedef void(^KSDALCompletionBlock)(KSAPIStatus, id);
+#import "KSConstants.h"
 
 @class KSUser;
-@class KSTrip;
-@class KSTripRating;
-@class KSBookmark;
+
+typedef void(^KSDALCompletionBlock)(KSAPIStatus status, id response);
 
 @interface KSDAL : NSObject
 
-+ (KSUser *)userWithPhone:(NSString *)phone;
++ (KSAPIStatus)statusFromResponse:(NSDictionary *)response success:(BOOL)success;
 
 + (KSUser *)loggedInUser;
-
-+ (void)logoutUser;
-
-+ (void)saveLoggedInUserSession:(NSString *)sessionId phone:(NSString *)phone;
-
-+ (void)registerUser:(KSUser *)user password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)loginUserWithPhone:(NSString *)phone password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)verifyUserWithPhone:(NSString *)phone code:(NSString *)accessCode completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)resetPasswordForUserWithPhone:(NSString *)phone password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)updateUserInfoWithEmail:(NSString *)email withName:(NSString *)userName completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)updateUserPassword:(NSString *)oldPassword withPassword:(NSString *)newPassword completion:(KSDALCompletionBlock)completionBlock;
-
-+ (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon;
-
-+ (void)bookTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
-
-+ (KSTripRating *)tripRatingForTrip:(KSTrip *)trip;
-
-+ (void)rateTrip:(KSTrip *)aTrip withRating:(KSTripRating *)aRating completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)updateBookmark:(KSBookmark *)aBookmark withName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)deleteBookmark:(KSBookmark *)aBookmark completion:(KSDALCompletionBlock)completionBlock;
-
-+ (void)geocodeWithParams:(NSDictionary *)params completion:(KSDALCompletionBlock)completionBlock;
 
 @end

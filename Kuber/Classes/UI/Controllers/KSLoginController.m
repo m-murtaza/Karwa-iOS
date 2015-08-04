@@ -7,9 +7,11 @@
 //
 
 #import "KSLoginController.h"
-#import "KSResetPasswordController.h"
 
 #import "SWRevealViewController.h"
+
+#import "KSResetPasswordController.h"
+#import "KSVerifyController.h"
 
 #import "KSDAL.h"
 #import "MBProgressHUD.h"
@@ -66,12 +68,15 @@
 }
 
 - (IBAction)onClickLogin:(id)sender {
+
+    NSString *phone = self.txtMobile.text;
+    NSString *password = self.txtPassword.text;
 #ifndef __KS_DISABLE_VALIDATIONS
     NSString *error = nil;
-    if (![self.txtMobile.text isPhoneNumber]) {
+    if (![phone isPhoneNumber]) {
         error = KSErrorPhoneValidation;
     }
-    else if (!self.txtPassword.text.length) {
+    else if (!password.length) {
         error = KSErrorNoPassword;
     }
     if (error) {
@@ -83,7 +88,7 @@
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
 
     UIViewController *me = self;
-    [KSDAL loginUserWithPhone:self.txtMobile.text password:self.txtPassword.text completion:^(KSAPIStatus status, NSDictionary *data) {
+    [KSDAL loginUserWithPhone:phone password:password completion:^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
             UIViewController *controller = [UIStoryboard mainRootController];
@@ -91,6 +96,16 @@
             [me.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
         } else {
             [KSAlert show:KSStringFromAPIStatus(status)];
+            // Go to verify screen, if user is registered but not verified
+            if (KSAPIStatusUserNotVerified == status) {
+                KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
+                controller.phone = phone;
+                
+                self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+                
+                [self.navigationController pushViewController:controller animated:YES];
+                
+            }
         }
     }];
 }

@@ -2,7 +2,7 @@
 //  KSTripRating.h
 //  Kuber
 //
-//  Created by Asif Kamboh on 5/13/15.
+//  Created by Asif Kamboh on 8/4/15.
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @interface KSTripRating : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * serviceRating;
-@property (nonatomic, retain) NSNumber * driverRating;
 @property (nonatomic, retain) NSString * comments;
+@property (nonatomic, retain) NSNumber * serviceRating;
+@property (nonatomic, retain) NSString * issue;
 @property (nonatomic, retain) KSTrip *trip;
 
 @end

@@ -8,10 +8,12 @@
 
 #import "KSMainController.h"
 #import "KSWebClient.h"
+#import "KSDAL.h"
+
 
 @interface KSMainController ()
 {
-    KSWebClientXMLResponseParser *_xmlParser;
+
 }
 
 @end
@@ -19,28 +21,27 @@
 @implementation KSMainController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-//    [self performSelector:@selector(testRequest) withObject:nil afterDelay:1.];
-}
 
-- (void)testRequest {
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    // mobileno=0556470689&lat=25.345678&lon=54.23456
-    params[@"phone"] = @"0556470689";
-    params[@"lat"] = [NSNumber numberWithDouble:25.345678];
-    params[@"lon"] = [NSNumber numberWithDouble:54.23456];
-
-    [[KSWebClient instance] POST:@"/register" data:params completion:^(BOOL success, id response) {
-        NSLog(@"Request %@", success ? @"PASSED" : @"FAILED");
-        NSLog(@"%@", response);
+    // Sync locations
+    [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
+        // TODO: Nothing
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([sender isKindOfClass:[UIButton class]]) {
+
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+
+    }
 }
 
 @end

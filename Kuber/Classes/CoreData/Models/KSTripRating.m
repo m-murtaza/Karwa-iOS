@@ -2,7 +2,7 @@
 //  KSTripRating.m
 //  Kuber
 //
-//  Created by Asif Kamboh on 5/13/15.
+//  Created by Asif Kamboh on 8/4/15.
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
@@ -12,9 +12,9 @@
 
 @implementation KSTripRating
 
-@dynamic serviceRating;
-@dynamic driverRating;
 @dynamic comments;
+@dynamic serviceRating;
+@dynamic issue;
 @dynamic trip;
 
 @end

@@ -17,6 +17,8 @@
 #import "KSBookmark.h"
 #import "CoreData+MagicalRecord.h"
 
+#import "KSGeoLocation.h"
+
 
 NSString * const KSPickerIdForPickupAddress = @"KSPickerIdForPickupAddress";
 NSString * const KSPickerIdForDropoffAddress = @"KSPickerIdForDropoffAddress";
@@ -106,11 +108,11 @@ NSString * const KSSpecificRegionName = @"Qatar";
         cell = [tableView dequeueReusableCellWithIdentifier:textCellReuseId forIndexPath:indexPath];
         cell.textLabel.text = placeItem;
     }
-    else if ([placeItem isKindOfClass:[CLPlacemark class]]) {
+    else if ([placeItem isKindOfClass:[KSGeoLocation class]]) {
         cell = [tableView dequeueReusableCellWithIdentifier:placemarkCellReuseId forIndexPath:indexPath];
-        CLPlacemark *placemark = (CLPlacemark *)placeItem;
-        cell.textLabel.text = placemark.name;
-        cell.detailTextLabel.text = placemark.addressWithoutName;
+        KSGeoLocation *placemark = (KSGeoLocation *)placeItem;
+        cell.textLabel.text = placemark.address;
+        cell.detailTextLabel.text = placemark.area;
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:bookmarkCellReuseId forIndexPath:indexPath];
@@ -124,6 +126,7 @@ NSString * const KSSpecificRegionName = @"Qatar";
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     NSLog(@"%s", __func__);
 
     id placeItem = [self.places objectAtIndex:indexPath.row];
@@ -133,10 +136,10 @@ NSString * const KSSpecificRegionName = @"Qatar";
     if ([placeItem isKindOfClass:[NSString class]]) {
         placeName = placeItem;
     }
-    else if ([placeItem isKindOfClass:[CLPlacemark class]]) {
-        CLPlacemark *placemark = (CLPlacemark *)placeItem;
+    else if ([placeItem isKindOfClass:[KSGeoLocation class]]) {
+        KSGeoLocation *placemark = (KSGeoLocation *)placeItem;
         placeName = placemark.address;
-        location = placemark.location;
+        location = [[CLLocation alloc] initWithLatitude:placemark.latitude.doubleValue longitude:placemark.longitude.doubleValue];
     }
     else {
         KSBookmark *bookmark = (KSBookmark *)placeItem;
@@ -160,15 +163,22 @@ NSString * const KSSpecificRegionName = @"Qatar";
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+
     NSLog(@"%s", __func__);
-    KSAddressPickerController *me = self;
+//    KSAddressPickerController *me = self;
     if (searchBar.text.length > 2) {
-        [[KSLocationManager instance] nearestPlacemarksInCountry:KSSpecificRegionName searchQuery:searchBar.text completion:^(NSArray *placemarks) {
-            if (!placemarks.count) {
-                placemarks = [NSArray arrayWithObject: searchBar.text];
-            }
-            [me updatePlaces:placemarks];
-        }];
+
+        NSArray *placemarks = [KSDAL locationsMatchingText:searchBar.text];
+        if (!placemarks.count) {
+            placemarks = [NSArray arrayWithObject: searchBar.text];
+        }
+        [self updatePlaces:placemarks];
+//        [[KSLocationManager instance] nearestPlacemarksInCountry:KSSpecificRegionName searchQuery:searchBar.text completion:^(NSArray *placemarks) {
+//            if (!placemarks.count) {
+//                placemarks = [NSArray arrayWithObject: searchBar.text];
+//            }
+//            [me updatePlaces:placemarks];
+//        }];
     }
 }
 

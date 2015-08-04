@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^KSWebClientCompletionBlock)(BOOL, id);
+typedef void(^KSWebClientCompletionBlock)(BOOL success, id response);
 
 @interface KSWebClient : NSObject
 
@@ -17,6 +17,8 @@ typedef void(^KSWebClientCompletionBlock)(BOOL, id);
 - (void)GET:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock;
 
 - (void)POST:(NSString *)uri data:(NSDictionary *)data completion:(KSWebClientCompletionBlock)completionBlock;
+
+- (void)DELETE:(NSString *)uri completion:(KSWebClientCompletionBlock)completionBlock;
 
 @end
 
