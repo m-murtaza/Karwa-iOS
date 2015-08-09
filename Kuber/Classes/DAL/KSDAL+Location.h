@@ -24,4 +24,6 @@
 
 + (KSGeoLocation *)nearestLocationMatchingLatitude:(double)lat longitude:(double)lon;
 
++ (KSGeoLocation *)addGeolocationWithCoordinate:(CLLocationCoordinate2D)coordinate area:(NSString *)area address:(NSString *)address;
+
 @end

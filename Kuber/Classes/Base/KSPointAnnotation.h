@@ -12,4 +12,6 @@
 
 @property (nonatomic) BOOL isInvalid;
 
+- (BOOL)isValid;
+
 @end

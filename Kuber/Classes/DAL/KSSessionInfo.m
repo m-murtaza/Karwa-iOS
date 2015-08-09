@@ -8,6 +8,18 @@
 
 #import "KSSessionInfo.h"
 
+@interface KSSessionInfo ()
+{
+    
+}
+
+@end
+
+NSString * const KSPhoneKey = @"KSSessionPhone";
+NSString * const KSDeviceTokenKey = @"KSDeviceToken";
+NSString * const KSSessionIdKey = @"KSSessionID";
+NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
+
 @implementation KSSessionInfo
 
 + (instancetype)instance {
@@ -56,81 +68,77 @@
 
     self = [super init];
     if (self) {
-        NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
-        NSDictionary *sessionInfo = [defaultStore objectForKey:@"KSLoggedInUserInfo"];
-        if (sessionInfo) {
-            _phone = [sessionInfo objectForKey:@"phone"];
-            _sessionId = [sessionInfo objectForKey:@"sid"];
-            _pushToken = [sessionInfo objectForKey:@"token"];
-        }
-        if (!_pushToken) {
-            _pushToken = @"DummyToken";
-        }
+
     }
     return self;
 }
 
-- (NSDictionary *)dictionary {
-
-    if (_sessionId && _phone) {
-        return @{
-                 @"sid": _sessionId,
-                 @"phone": _phone,
-                 @"token": _pushToken
-                 };
-    }
-    return @{};
-}
-
-- (void)saveSessionInfo:(NSDictionary *)sessionInfo {
+- (void)saveValue:(id)value forKey:(NSString *)key {
     
     NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
-    [defaultStore setObject:sessionInfo forKey:@"KSLoggedInUserInfo"];
-    
-    [defaultStore synchronize];
+    if (value) {
+        [defaultStore setObject:value forKey:key];
+    }
+    else {
+        [defaultStore removeObjectForKey:key];
+    }
 }
 
 - (void)updateSession:(NSString *)sessionId phone:(NSString *)phone {
     
-    _sessionId = sessionId;
-    _phone = phone;
-    
-    [self saveSessionInfo: self.dictionary];
+    [self saveValue:phone forKey:KSPhoneKey];
+    [self saveValue:sessionId forKey:KSSessionIdKey];
 }
 
 - (void)updateToken:(NSString *)token {
 
-    _pushToken = token;
-    [self saveSessionInfo: self.dictionary];
+    [self saveValue:token forKey:KSDeviceTokenKey];
 }
 
 - (void)removeSession {
     
-    _sessionId = nil;
-    _phone = nil;
-
-    [self saveSessionInfo:@{}];
+    [self saveValue:nil forKey:KSPhoneKey];
+    [self saveValue:nil forKey:KSSessionIdKey];
 }
 
 - (NSString *)description {
 
     return [NSString stringWithFormat:@"<%@: %lx; sid: %@; phone: %@; token: %@>",
-            NSStringFromClass([self class]), (unsigned long)self, _sessionId, _phone, _pushToken];
+            NSStringFromClass([self class]), (unsigned long)self, self.sessionId, self.phone, self.pushToken];
 }
 
 - (void)updateLocationsSyncTime {
-    
+
     NSNumber *timeObj = [NSNumber numberWithDouble:[[[NSDate alloc] init] timeIntervalSince1970]];
-    NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
-    [defaultStore setObject:timeObj forKey:@"KSLocationsSyncTime"];
-    [defaultStore synchronize];
+    [self saveValue:timeObj forKey:KSLocationsSyncTimeKey];
 }
 
 - (NSTimeInterval)locationsSyncTime {
     
-    NSUserDefaults *defaultStore = [NSUserDefaults standardUserDefaults];
-    NSNumber *timeObj = [defaultStore objectForKey:@"KSLocationsSyncTime"];
-    return [timeObj doubleValue];
+    return [[NSUserDefaults standardUserDefaults] doubleForKey:KSLocationsSyncTimeKey];
+}
+
+- (NSString *)sessionId {
+
+    return [[NSUserDefaults standardUserDefaults] stringForKey:KSSessionIdKey];
+}
+
+- (NSString *)phone {
+    
+    return [[NSUserDefaults standardUserDefaults] stringForKey:KSPhoneKey];
+}
+
+- (NSString *)pushToken {
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] stringForKey:KSDeviceTokenKey];
+
+#if (TARGET_IPHONE_SIMULATOR)
+    if (!token.length) {
+        token = @"TARGET_IPHONE_SIMULATOR";
+    }
+#endif
+
+    return token;
 }
 
 @end

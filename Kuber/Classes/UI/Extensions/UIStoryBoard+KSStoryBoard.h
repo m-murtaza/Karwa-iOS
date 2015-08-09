@@ -22,4 +22,6 @@
 
 + (id)bookingDetailsController;
 
++ (id)addressPickerController;
+
 @end

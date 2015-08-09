@@ -10,9 +10,6 @@
 
 @interface KSSessionInfo : NSObject
 
-@property (nonatomic, readonly) NSString *sessionId;
-@property (nonatomic, readonly) NSString *phone;
-@property (nonatomic, readonly) NSString *pushToken;
 @property (nonatomic, readonly) NSTimeInterval locationsSyncTime;
 
 + (instancetype)currentSession;
@@ -28,5 +25,11 @@
 + (void)updateLocationsSyncTime;
 
 - (void)updateLocationsSyncTime;
+
+- (NSString *)sessionId;
+
+- (NSString *)phone;
+
+- (NSString *)pushToken;
 
 @end

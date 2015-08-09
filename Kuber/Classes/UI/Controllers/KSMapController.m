@@ -61,7 +61,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     // Do any additional setup after loading the view.
     _mapView.userTrackingMode = MKUserTrackingModeFollow;
 //    _mapView.showsUserLocation = NO;
-    
+
     MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:_mapView];
     self.navigationItem.rightBarButtonItem = button;
     
@@ -69,12 +69,14 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
     [self.txtPickupAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
     [self.txtDropoffAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
-    
+
+    self.txtPickupAddress.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
+
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
     [self.mapView addGestureRecognizer:gestureRecognizer];
 
     __block KSMapController *me = self;
-    
+
     [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
 
         _isLocationsSyncComplete = YES;
@@ -93,11 +95,11 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (void)viewWillAppear:(BOOL)animated {
     [KSLocationManager start];
 
-    [KSLocationManager placemarkWithBlock:^(CLPlacemark *placemark) {
+//    [KSLocationManager placemarkWithBlock:^(KSGeoLocation *placemark) {
 //        CLLocation *location = placemark.location;
 //        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 4.0 * METERS_PER_MILE, 4.0 * METERS_PER_MILE);
 //        [_mapView setRegion:viewRegion animated:YES];
-    }];
+//    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -122,6 +124,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 }
 
 - (KSPointAnnotation *)annotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title {
+
     return [self annotationWithCoordinate:coordinate title:title offset:0.];
 }
 
@@ -130,6 +133,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 #pragma mark - Text field events
 
 - (void)onAddressChange:(UITextField *)textfield {
+
     NSLog(@"%s: %@", __func__, textfield.text);
     if (!textfield.text.length) {
         KSPointAnnotation *annotation;
@@ -153,6 +157,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     KSPointAnnotation *annotation = nil;
 
 //    [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
+    _mapView.userTrackingMode = MKUserTrackingModeNone;
+    _mapView.showsUserLocation = NO;
 
     if ([picker.pickerId isEqualToString:KSPickerIdForDropoffAddress]) {
         addressField = self.txtDropoffAddress;
@@ -171,7 +177,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     }
     if (location) {
         addressField.text = address;
-        annotation.subtitle = address;
+        annotation.title = address;
+//        annotation.subtitle = address;
         annotation.coordinate = location.coordinate;
         annotation.isInvalid = NO;
         [self.mapView selectAnnotation:annotation animated:YES];
@@ -208,18 +215,25 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
             controller.dropoffAddress = [KSAddress addressWithLandmark:self.txtDropoffAddress.text];
         }
 
-        UISegmentedControl *control = (UISegmentedControl *)sender;
-        controller.showsDatePicker = (control.selectedSegmentIndex > 0);
+        UIButton *btn = (UIButton *)sender;
+        controller.showsDatePicker = (btn.tag > 0);
     }
 }
 
 - (void)updateAddressField:(UITextField *)addressField annotation:(MKPointAnnotation *)annotation {
 
-    KSGeoLocation *location = [[KSLocationManager instance] locationWithCoordinate:annotation.coordinate];
-    NSString *address = location ? location.address : KSStringFromCoordinate(annotation.coordinate);
+    NSString *address = KSStringFromCoordinate(annotation.coordinate);
     addressField.text = address;
-    annotation.subtitle = address;
-    NSLog(@"%@", address);
+    annotation.title = address;
+//    annotation.subtitle = address;
+    
+    [[KSLocationManager instance] locationWithCoordinate:annotation.coordinate completion:^(KSGeoLocation *geolocation) {
+        NSString *address = geolocation ? geolocation.address : KSStringFromCoordinate(annotation.coordinate);
+        addressField.text = address;
+        annotation.title = address;
+//        annotation.subtitle = address;
+        NSLog(@"%@", address);
+    }];
 }
 
 - (void)updatePlacemarkForAnnotation:(MKPointAnnotation *)annotation {
@@ -264,15 +278,35 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
 
-    NSString *pinViewReuseIdentifier = (annotation == self.pickupPoint) ? pickupPinViewId : dropOffPinViewId;
-    MKPinAnnotationColor pinColor = (annotation == self.pickupPoint) ? MKPinAnnotationColorGreen : MKPinAnnotationColorRed;
     MKPinAnnotationView *pin;
+    UIImage *leftCalloutIcon;
+    NSString *pinViewReuseIdentifier;
+    MKPinAnnotationColor pinColor;
+
+    if (annotation == self.pickupPoint) {
+
+        pinViewReuseIdentifier = pickupPinViewId;
+        pinColor = MKPinAnnotationColorGreen;
+        leftCalloutIcon = [UIImage imageNamed:@"startingpoint.png"];
+    }
+    else {
+
+        pinViewReuseIdentifier = dropOffPinViewId;
+        pinColor = MKPinAnnotationColorRed;
+        leftCalloutIcon = [UIImage imageNamed:@"destinationpoint.png"];
+    }
+
     pin = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:pinViewReuseIdentifier];
     if (!pin) {
         pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier: pinViewReuseIdentifier];
         pin.canShowCallout = YES;
         pin.animatesDrop = YES;
         pin.draggable = YES;
+        
+        UIImageView *leftIcon = [[UIImageView alloc] initWithImage:leftCalloutIcon];
+        leftIcon.frame = CGRectMake(0, 0, leftCalloutIcon.size.width, leftCalloutIcon.size.height);
+
+        pin.leftCalloutAccessoryView = leftIcon;
     }
 
     pin.annotation = annotation;
@@ -296,14 +330,15 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 #pragma mark - Event handlers
 
 - (void)onLongPressMapView:(UIGestureRecognizer *)gestureRecognizer {
+
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D touchMapCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
 
-    __block KSPointAnnotation *annotation;
-    __block UITextField *addressField;
-    __block MKMapView *mapView = self.mapView;
+    KSPointAnnotation *annotation = nil;
+    UITextField *addressField;
+    MKMapView *mapView = self.mapView;
 
     if (!self.pickupPoint) {
         annotation = self.pickupPoint = [self annotationWithCoordinate:touchMapCoordinate title:KSPickupAnnotationTitle];
@@ -313,31 +348,45 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     else {
         if (!self.dropoffPoint) {
             self.dropoffPoint = [self annotationWithCoordinate:touchMapCoordinate title:KSDropoffAnnotationTitle];
+            annotation = self.dropoffPoint;
+            addressField = self.txtDropoffAddress;
         }
-        else {
-            [self.dropoffPoint setCoordinate:touchMapCoordinate];
-        }
-        annotation = self.dropoffPoint;
-        addressField = self.txtDropoffAddress;
+//        else {
+//            [self.dropoffPoint setCoordinate:touchMapCoordinate];
+//        }
     }
 
     annotation.isInvalid = NO;
 
-    [self updateAddressField:addressField annotation:annotation];
+    if (annotation) {
 
-    [mapView selectAnnotation:annotation animated:YES];
+        [self updateAddressField:addressField annotation:annotation];
+        [mapView selectAnnotation:annotation animated:YES];
+    }
+}
+
+- (void)handleAddressClick:(KSPointAnnotation *)annotation pointId:(NSString *)pointId {
+    
+    if (annotation && annotation.isValid) {
+
+        [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
+    }
+    else {
+        KSAddressPickerController *addressPicker = [UIStoryboard addressPickerController];
+        addressPicker.pickerId = pointId;
+        addressPicker.delegate = self;
+        [self.navigationController pushViewController:addressPicker animated:YES];
+    }
 }
 
 - (IBAction)onClickPickupAddress:(id)sender {
-    if (self.pickupPoint && !self.pickupPoint.isInvalid) {
-        [self.mapView setCenterCoordinate:self.pickupPoint.coordinate animated:YES];
-    }
+
+    [self handleAddressClick:self.pickupPoint pointId:KSPickerIdForPickupAddress];
 }
 
 - (IBAction)onClickDropoffAddress:(id)sender {
-    if (self.pickupPoint && !self.dropoffPoint.isInvalid) {
-        [self.mapView setCenterCoordinate:self.dropoffPoint.coordinate animated:YES];
-    }
+
+    [self handleAddressClick:self.dropoffPoint pointId:KSPickerIdForDropoffAddress];
 }
 
 @end

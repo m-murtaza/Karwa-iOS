@@ -46,7 +46,7 @@ NSString * const KSSpecificRegionName = @"Qatar";
     self.bookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
     self.placemarks = [NSArray array];
     self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
-
+//    self.places = [NSArray arrayWithObject:@"No place"];
     __block KSAddressPickerController *me = self;
     // Sync bookmarks
     [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
@@ -64,8 +64,12 @@ NSString * const KSSpecificRegionName = @"Qatar";
 
 - (void)reloadPlaces {
 
+    UITableView *tableView = self.tableView;
+
     self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
-    [self.tableView reloadData];
+
+    [tableView reloadData];
+
 }
 
 - (void)updatePlaces:(NSArray *)placemarks {
@@ -88,6 +92,11 @@ NSString * const KSSpecificRegionName = @"Qatar";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return self.places.count;
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section {

@@ -8,6 +8,7 @@
 
 #import "KSAddress.h"
 #import "KSLocationManager.h"
+#import "KSGeoLocation.h"
 
 @interface KSAddress ()
 {
@@ -61,12 +62,15 @@
         _landmark = landmark;
         // A search query text should be good enough to identify itself
         if (_landmark.length > 2) {
-            [KSLocationManager nearestPlacemarksInCountry:KSCountryNameForLocationSearch searchQuery:_landmark completion:^(NSArray *placemarks) {
+            
+            [[KSLocationManager instance] placemarksMatchingQuery:_landmark country:KSCountryNameForLocationSearch completion:^(NSArray *placemarks) {
                 if (placemarks.count) {
-                    CLPlacemark *placemark = [placemarks firstObject];
-                    _location = placemark.location;
+                    KSGeoLocation *placemark = [placemarks firstObject];
+                    _location = [[CLLocation alloc] initWithLatitude:placemark.latitude.doubleValue longitude:placemark.longitude.doubleValue];
                 }
+                
             }];
+
         }
     }
     return self;
@@ -77,7 +81,7 @@
     if (self) {
         _location = location;
         if (_location) {
-            [KSLocationManager placemarkForLocation:location completion:^(CLPlacemark *placemark) {
+            [KSLocationManager placemarkForLocation:location completion:^(KSGeoLocation *placemark) {
                 _landmark = placemark.address;
             }];
         }

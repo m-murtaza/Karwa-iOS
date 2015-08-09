@@ -73,28 +73,27 @@
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat longitude:(double)lon {
 
     // Threshold radius
-    const double radius = 250.; // 250m radius
+    const double latThreshold = 250.0;
+    // Search radius is bigger due to high error in longitudes
+    const double searchRadius = 250.0; // 1350m radius
     // Square of threshold radius, for comparing with square distance
-    const double radiusSquare = radius * radius;
-    const double metersPerDegreeLat = 111500.;
+    const double radiusSquare = searchRadius * searchRadius;
+    // Approximate
+    const double metersPerDegreeLat = 111000.0;
 
-    double (^toRadians)(double) = ^(double degrees) {
-
-        return degrees * M_PI / 180.;
-    };
-
-    double metersPerDegreeLon = metersPerDegreeLat * cos(toRadians(lat));
+    double metersPerDegreeLon = metersPerDegreeLat * cos(lat * M_PI / 180.0);
     // To avoid sqrt function call, we keep the square distance
     double (^distanceSquare)(KSGeoLocation *) = ^(KSGeoLocation *location) {
-        double metersPerDegreeLon2 = metersPerDegreeLat * cos(toRadians(location.latitude.doubleValue));
-        double deltaLon = fabs(metersPerDegreeLon * lon - metersPerDegreeLon2 * location.longitude.doubleValue);
-        double deltaLat = fabs(metersPerDegreeLat * (lat - location.latitude.doubleValue));
+        double metersPerDegreeLon2 = metersPerDegreeLat * cos(location.latitude.doubleValue * M_PI / 180.0);
+        double deltaLon = (metersPerDegreeLon * lon - metersPerDegreeLon2 * location.longitude.doubleValue);
+        double deltaLat = metersPerDegreeLat * (lat - location.latitude.doubleValue);
         return (deltaLat * deltaLat + deltaLon * deltaLon);
     };
 
     NSPredicate *latPredicate = [NSPredicate predicateWithBlock:^BOOL(KSGeoLocation *location, NSDictionary *bindings) {
-        double deltaLat = fabs(metersPerDegreeLat * (lat - location.latitude.doubleValue));
-        return deltaLat <= radius;
+        double deltaLat = (metersPerDegreeLat * (lat - location.latitude.doubleValue));
+        deltaLat = deltaLat < 0.0 ? -deltaLat : deltaLat;
+        return deltaLat <= latThreshold;
     }];
 
     NSPredicate *lonPredicate = [NSPredicate predicateWithBlock:^BOOL(KSGeoLocation *location, NSDictionary *bindings) {
@@ -117,6 +116,20 @@
 + (KSGeoLocation *)nearestLocationMatchingLatitude:(double)lat longitude:(double)lon {
     
     return [[self nearestLocationsMatchingLatitude:lat longitude:lon] firstObject];
+}
+
++ (KSGeoLocation *)addGeolocationWithCoordinate:(CLLocationCoordinate2D)coordinate area:(NSString *)area address:(NSString *)address {
+    
+    KSGeoLocation *location = [KSGeoLocation MR_createEntity];
+    location.latitude = @(coordinate.latitude);
+    location.longitude = @(coordinate.longitude);
+    location.address = address;
+    location.area = area;
+    location.locationId = @(INT_MAX);
+    
+    [KSDBManager saveContext];
+
+    return location;
 }
 
 @end

@@ -10,13 +10,13 @@
 
 @class CLLocation;
 @class CLLocationManager;
-@class CLPlacemark;
+//@class CLPlacemark;
 
 @class KSGeoLocation;
 
-typedef CLPlacemark KSPlacemark;
-typedef void (^KSPlacemarkCompletionBlock)(KSPlacemark *);
-typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
+//typedef CLPlacemark KSPlacemark;
+typedef void (^KSPlacemarkCompletionBlock)(KSGeoLocation *geolocation);
+typedef void (^KSPlacemarkListCompletionBlock)(NSArray *placemarks);
 
 @interface KSLocationManager : NSObject
 
@@ -28,7 +28,7 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
 
 + (CLLocation *)location;
 
-+ (CLPlacemark *)placemark;
+//+ (CLPlacemark *)placemark;
 
 + (void)placemarkWithBlock:(KSPlacemarkCompletionBlock)completion;
 
@@ -36,7 +36,7 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
 
 + (void)placemarkForCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completion;
 
-+ (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
+//+ (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
 
 - (CLLocation *)stop;
 
@@ -44,14 +44,15 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *);
 
 - (CLLocation *)location;
 
-- (CLPlacemark *)placemark;
+//- (CLPlacemark *)placemark;
 
 - (void)placemarkWithBlock:(KSPlacemarkCompletionBlock)completion;
 
 - (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completion;
 
-- (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
+//- (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
+- (void)placemarksMatchingQuery:(NSString *)query country:(NSString *)country completion:(KSPlacemarkListCompletionBlock)completionBlock;
 
-- (KSGeoLocation *)locationWithCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)locationWithCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completionBlock;
 
 @end

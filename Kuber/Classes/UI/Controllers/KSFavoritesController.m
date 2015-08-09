@@ -13,6 +13,8 @@
 #import "KSUser.h"
 #import "KSLocationManager.h"
 
+#import "KSGeoLocation.h"
+
 #import "KSFavoriteDetailsController.h"
 #import "MBProgressHUD.h"
 
@@ -97,13 +99,12 @@
         KSBookmark *bookmark = targetPlaceData[@"bookmark"];
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(bookmark.latitude.doubleValue, bookmark.longitude.doubleValue);
         __block KSFavoritesController *me = self;
-        [KSLocationManager placemarkForCoordinate:coordinate completion:^(CLPlacemark *placemark) {
+        [KSLocationManager placemarkForCoordinate:coordinate completion:^(KSGeoLocation *geolocation) {
             NSString *address = @"";
-            if (placemark) {
-                address = placemark.address;
+            if (geolocation) {
+                address = geolocation.address;
             }
             targetPlaceData[@"landmark"] = address;
-            
             // Repeat until all bookmarks got addresses
             dispatch_async(dispatch_get_main_queue(), ^{
                 [me fetchLandmarks];

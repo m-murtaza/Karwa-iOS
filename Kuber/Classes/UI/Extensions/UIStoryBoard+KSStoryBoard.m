@@ -35,4 +35,9 @@
     return [self viewControllerWithIdentifier:@"KSBookingDetailsController"];
 }
 
++ (id)addressPickerController {
+    
+    return [self viewControllerWithIdentifier:@"KSAddressPickerController"];
+}
+
 @end

@@ -73,13 +73,18 @@
 
 - (void)saveContext {
     
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        if (success) {
-            NSLog(@"You successfully saved your context.");
-        } else if (error) {
-            NSLog(@"Error saving context: %@", error.description);
-        }
-    }];
+    NSManagedObjectContext *currentCtx = [NSManagedObjectContext MR_contextForCurrentThread];
+    NSManagedObjectContext *defaultCtx = [NSManagedObjectContext MR_defaultContext];
+    if (currentCtx != defaultCtx) {
+        [currentCtx MR_saveToPersistentStoreAndWait];
+    }
+    else {
+        [defaultCtx MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                NSLog(@"Error saving context: %@", error.description);
+            }
+        }];
+    }
 }
 
 @end

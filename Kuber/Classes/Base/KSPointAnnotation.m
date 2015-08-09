@@ -10,4 +10,9 @@
 
 @implementation KSPointAnnotation
 
+- (BOOL)isValid {
+
+    return !self.isInvalid;
+}
+
 @end

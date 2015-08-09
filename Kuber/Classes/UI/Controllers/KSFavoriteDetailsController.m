@@ -16,7 +16,7 @@
 #import "KSAlert.h"
 #import "KSDAL.h"
 #import "MBProgressHUD.h"
-
+#import "KSGeoLocation.h"
 
 @interface KSFavoriteDetailsController ()<MKMapViewDelegate, UITextFieldDelegate>
 
@@ -77,18 +77,18 @@
 
     [self addAnnotationWithCoordinate:coordinate];
 
-    [KSLocationManager placemarkForCoordinate:coordinate completion:^(CLPlacemark *placemark) {
+    [KSLocationManager placemarkForCoordinate:coordinate completion:^(KSGeoLocation *placemark) {
         if (placemark) {
             NSString *address = placemark.address;
             me.lblAddress.text = address;
             if (!me.txtName.text.length) {
-                me.txtName.text = placemark.name;
-                me.annotation.title = placemark.name;
+                me.txtName.text = placemark.address;
+                me.annotation.title = placemark.address;
             }
             if (me.txtName.text.length) {
-                me.annotation.subtitle = address;
+                me.annotation.subtitle = placemark.area;
             } else {
-                me.annotation.title = address;
+                me.annotation.title = placemark.area;
             }
             [me.mapView selectAnnotation:me.annotation animated:YES];
         }

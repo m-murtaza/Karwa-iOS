@@ -21,7 +21,7 @@
     CLLocation *_lastLocation;
     NSMutableArray *_completionBlocks;
     CLGeocoder *_geocoder;
-    CLPlacemark *_lastPlacemark;
+//    KSGeoLocation *_lastPlacemark;
     MKLocalSearch *_localSearchManager;
 }
 
@@ -109,9 +109,9 @@
     return _locationManager.location;
 }
 
-- (CLPlacemark *)placemark {
-    return _lastPlacemark;
-}
+//- (CLPlacemark *)placemark {
+//    return _lastPlacemark;
+//}
 
 - (void)placemarkWithBlock:(KSPlacemarkCompletionBlock)completion {
     [self start];
@@ -129,7 +129,11 @@
 
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (placemarks.count) {
-            completionBlock([placemarks firstObject]);
+            CLPlacemark *placemark = [placemarks firstObject];
+
+            KSGeoLocation *geolocation = [KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address];
+
+            completionBlock(geolocation);
         }
         else {
             [locationManager reverseGeocodeLocation:location completion:^(NSArray *placemarks) {
@@ -139,56 +143,15 @@
     }];
 }
 
+/*
 - (NSArray *)addressTokens:(NSString *)address {
-//    NSError *error;
-//    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"[,:;\\s]" options:NSRegularExpressionCaseInsensitive error:&error];
-//
-//    NSArray *matches = [regex matchesInString:address options:0 range:NSMakeRange(0, address.length)];
+
     NSArray *addressTokens = [address componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@",:; \t"]];
     NSLog(@"Address Tokens: %@", addressTokens);
     return addressTokens;
-}
+}*/
 
-- (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion {
-    if (!country) {
-        country = _lastPlacemark.country;
-    }
-    country = [country lowercaseString];
-
-    const CGFloat regionRadius = 100000.;
-    CLLocation *location = _lastLocation;
-    MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
-    MKCoordinateRegion searchRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius);
-    request.region = searchRegion;
-    request.naturalLanguageQuery = address;
-    if (_localSearchManager.isSearching) {
-        [_localSearchManager cancel];
-    }
-
-    _localSearchManager = [[MKLocalSearch alloc] initWithRequest:request];
-    [_localSearchManager startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
-        NSLog(@"%@", response.mapItems);
-        NSMutableArray *placemarks = [NSMutableArray array];
-        CLCircularRegion *circularRegion = [[CLCircularRegion alloc] initWithCenter:location.coordinate radius:regionRadius identifier:@"KSTempRegionId"];
-
-        for (MKMapItem *mapItem in response.mapItems) {
-            if ([circularRegion containsCoordinate:mapItem.placemark.coordinate]) {
-                [placemarks addObject:mapItem.placemark];
-            }
-            else if ([mapItem.placemark.country.lowercaseString isEqualToString:country]) {
-                [placemarks addObject:mapItem.placemark];
-            }
-        }
-        _localSearchManager = nil;
-        if (placemarks.count) {
-            completion(placemarks);
-        }
-        else {
-            [[KSLocationManager instance] placemarksMatchingQuery:address country:country completion:completion];
-        }
-    }];
-}
-
+/*
 - (void)nearestPlacemarksForPlace:(CLPlacemark *)placemark toAddress:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion {
     // Format address string based on given string
     NSString *addressString = nil;
@@ -266,13 +229,7 @@
             NSLog(@"%@", error);
         }
     }];
-//    [_geocoder geocodeAddressString:addressString completionHandler:^(NSArray *placemarks, NSError *error) {
-//        completion(placemarks);
-//        if (error) {
-//            NSLog(@"%@", error);
-//        }
-//    }];
-}
+}*/
 
 #pragma mark -
 #pragma mark - CLLocationManagerDelegate
@@ -286,16 +243,16 @@
 
     NSArray *completionBlocks = [NSArray arrayWithArray:_completionBlocks];
 
-    void(^placemarkCallback)(CLPlacemark *) = ^(CLPlacemark *placemark) {
-        if (placemark) {
-            _lastPlacemark = placemark;
-        }
+    void(^placemarkCallback)(KSGeoLocation *) = ^(KSGeoLocation *placemark) {
+//        if (placemark) {
+//            _lastPlacemark = placemark;
+//        }
         for (KSPlacemarkCompletionBlock completionBlock in completionBlocks) {
             completionBlock(placemark);
         }
     };
 
-    [self placemarkForLocation:_lastLocation completion:placemarkCallback];
+    [self locationWithCoordinate:_lastLocation.coordinate completion:placemarkCallback];
 
     [_completionBlocks removeAllObjects];
 }
@@ -326,6 +283,30 @@
     if (!country) {
         country = @"";
     }
+    NSArray *placemarks = [KSDAL locationsMatchingText:query];
+    if (placemarks.count) {
+        
+        [self performSelector:@selector(invokeBlock:) withObject:^() {
+
+            completionBlock(placemarks);
+
+        } afterDelay:0.1];
+    }
+    else {
+
+        CLRegion *region = [[CLCircularRegion alloc] initWithCenter:_lastLocation.coordinate radius:100000.0 identifier:@"user_location"];
+        [_geocoder geocodeAddressString:query inRegion:region completionHandler:^(NSArray *placemarks, NSError *error) {
+            NSMutableArray *locations = [NSMutableArray array];
+            for (CLPlacemark *placemark in placemarks) {
+                [locations addObject:[KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address]];
+            }
+            completionBlock(locations);
+            if (error) {
+                NSLog(@"%@", error);
+            }
+        }];
+        
+    }
     NSDictionary *params = @{@"query": query, @"country": country};
     [self geocodeWithParams:params completion:completionBlock];
 }
@@ -333,9 +314,23 @@
 #pragma mark -
 #pragma mark - Geocoding using locations data
 
-- (KSGeoLocation *)locationWithCoordinate:(CLLocationCoordinate2D)coordinate {
+- (void)invokeBlock:(void(^)())blockFn {
     
-    return [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
+    blockFn();
+}
+
+- (void)locationWithCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completionBlock {
+
+    KSGeoLocation *location =  [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
+    if (location) {
+        [self performSelector:@selector(invokeBlock:) withObject:^() {
+            completionBlock(location);
+        } afterDelay:0.01];
+    }
+    else {
+        [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
+    }
+
 }
 
 
