@@ -42,9 +42,24 @@
 
 + (void)syncLocationsWithCompletion:(KSDALCompletionBlock)completionBlock {
     
+    static BOOL isRunning = NO;
+    static NSMutableArray *blocks = nil;
+
+    if (!blocks) {
+        blocks = [NSMutableArray array];
+    }
+
+    if (isRunning) {
+        [blocks addObject:completionBlock];
+        return;
+    }
+    // Add to existing blocks
+    [blocks addObject:completionBlock];
+    
     NSTimeInterval syncTimeInterval = [KSSessionInfo locationsSyncTime];
     NSString *uri = [NSString stringWithFormat:@"/geocodes/%ld", (long)(syncTimeInterval * 1000)];
     KSWebClient *webClient = [KSWebClient instance];
+    isRunning = YES;
     [webClient GET:uri params:nil completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
@@ -53,10 +68,16 @@
             // Update locations database
             NSArray *locations = response[@"data"];
             [KSDBManager saveLocationsData:locations];
-
         }
-        completionBlock(status, nil);
-        
+
+        isRunning = NO;
+
+        for (KSDALCompletionBlock block in blocks) {
+            block(status, nil);
+        }
+
+        [blocks removeAllObjects];
+
     }];
 
 }

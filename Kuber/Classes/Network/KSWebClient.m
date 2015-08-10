@@ -11,6 +11,8 @@
 
 #import "KSSessionInfo.h"
 
+#import "NSObject+KSNullRemoval.h"
+
 @implementation KSWebClientConfig
 
 + (instancetype)config {
@@ -101,11 +103,11 @@
         if ([_webClientConfig.format isEqualToString:@"xml"]) {
             KSWebClientXMLResponseParser *parser = [KSWebClientXMLResponseParser new];
             [parser parseResponse:(NSXMLParser *)responseObject completion:^(id responseData) {
-                completionBlock(YES, responseData);
+                completionBlock(YES, [responseData objectIfNotNSNull]);
             }];
         }
         else {
-            completionBlock(YES, responseObject);
+            completionBlock(YES, [responseObject objectIfNotNSNull]);
         }
     };
     void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {

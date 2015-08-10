@@ -17,13 +17,21 @@
     if (!appendCountryName) {
         [addressLines removeLastObject];
     }
-    BOOL hasNameLine = [addressLines.firstObject isEqualToString:self.addressDictionary[@"Name"]];
+    
+    NSString *placeName = self.addressDictionary[@"Name"];
+    BOOL hasNameLine = [addressLines.firstObject isEqualToString:placeName];
     if (useName && !hasNameLine) {
-        [addressLines insertObject:self.addressDictionary[@"Name"] atIndex:0];
+
+        if (placeName.length) {
+            
+            [addressLines insertObject:placeName atIndex:0];
+        }
     }
     else if (!useName && hasNameLine) {
+
         [addressLines removeObjectAtIndex:0];
     }
+
     return [addressLines componentsJoinedByString:@", "];
 }
 

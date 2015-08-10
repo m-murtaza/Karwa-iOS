@@ -72,6 +72,9 @@
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock {
 
     KSWebClient *webClient = [KSWebClient instance];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+
     [webClient GET:@"/booking" params:@{} completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         KSUser *user = [KSDAL loggedInUser];
@@ -88,10 +91,10 @@
                 trip.pickupLandmark = tripData[@"PickLocation"];
                 trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
                 trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
-                trip.pickupTime = tripData[@"PickTime"];
+                trip.pickupTime = [dateFormatter dateFromString:tripData[@"PickTime"]];
                 trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
                 trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
-                trip.dropOffTime = [NSDate dateWithTimeIntervalSince1970:[tripData[@"DropTime"] doubleValue]];
+                trip.dropOffTime = [dateFormatter dateFromString:tripData[@"DropTime"]];
                 trip.dropoffLandmark = tripData[@"DropLocation"];
                 trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
 #warning TODO: Add remaining data in trip
