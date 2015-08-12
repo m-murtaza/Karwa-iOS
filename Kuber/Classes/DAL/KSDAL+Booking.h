@@ -25,5 +25,6 @@
 
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock;
 
++ (NSArray *)recentBookingsWithAddress;
 
 @end

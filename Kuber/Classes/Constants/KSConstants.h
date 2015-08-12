@@ -15,6 +15,9 @@ extern NSString * const KSNotificationForNewBookmark;
 
 extern NSString * const KSCountryNameForLocationSearch;
 
+extern NSString * const KSPickerIdForPickupAddress;
+extern NSString * const KSPickerIdForDropoffAddress;
+
 
 typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusUnknownError             = 0,    // Generic Error

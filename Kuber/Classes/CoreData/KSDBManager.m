@@ -37,9 +37,9 @@
     return self;
 }
 
-+ (void)saveContext {
++ (void)saveContext:(void(^)())completionBlock {
 
-    [[self instance] saveContext];
+    [[self instance] saveContext: completionBlock];
 }
 
 + (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon {
@@ -67,11 +67,10 @@
         geolocation.address = loc[@"address"];
     }
 
-    [self saveContext];
-    
+    [self saveContext:NULL];
 }
 
-- (void)saveContext {
+- (void)saveContext:(void(^)())completionBlock {
     
     NSManagedObjectContext *currentCtx = [NSManagedObjectContext MR_contextForCurrentThread];
     NSManagedObjectContext *defaultCtx = [NSManagedObjectContext MR_defaultContext];
@@ -82,6 +81,9 @@
         [defaultCtx MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
             if (error) {
                 NSLog(@"Error saving context: %@", error.description);
+            }
+            if (completionBlock) {
+                completionBlock();
             }
         }];
     }

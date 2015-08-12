@@ -58,6 +58,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChangeName:) name:UITextFieldTextDidChangeNotification object:self.txtName];
 
+    self.txtName.delegate = self;
+
 }
 
 - (void)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate {
@@ -118,8 +120,12 @@
     mapView.showsUserLocation = NO;
     mapView.userTrackingMode = MKUserTrackingModeNone;
 
+    CLLocation *location = userLocation.location;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 4.0 * 1609.344, 4.0 * 1609.344);
+    [_mapView setRegion:viewRegion animated:YES];
+    
     if (!self.annotation) {
-        [self updateAnnotationWithCoordinate:userLocation.location.coordinate];
+        [self updateAnnotationWithCoordinate:location.coordinate];
     }
 }
 
@@ -166,6 +172,15 @@
         self.annotation.title = self.txtName.text;
         self.annotation.subtitle = self.lblAddress.text;
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (self.txtName == textField) {
+
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 #pragma mark -

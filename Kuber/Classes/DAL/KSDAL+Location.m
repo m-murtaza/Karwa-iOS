@@ -55,11 +55,12 @@
     }
     // Add to existing blocks
     [blocks addObject:completionBlock];
+
+    isRunning = YES;
     
     NSTimeInterval syncTimeInterval = [KSSessionInfo locationsSyncTime];
     NSString *uri = [NSString stringWithFormat:@"/geocodes/%ld", (long)(syncTimeInterval * 1000)];
     KSWebClient *webClient = [KSWebClient instance];
-    isRunning = YES;
     [webClient GET:uri params:nil completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
@@ -93,10 +94,19 @@
 
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat longitude:(double)lon {
 
-    // Threshold radius
-    const double latThreshold = 250.0;
-    // Search radius is bigger due to high error in longitudes
     const double searchRadius = 250.0; // 1350m radius
+    return [self nearestLocationsMatchingLatitude:lat longitude:lon radius:searchRadius];
+}
+
++ (NSArray *)nearestLocationsMatchingLatitude:(double)lat
+                                    longitude:(double)lon
+                                       radius:(double)searchRadius {
+
+    const int resultsLimit = 50;
+
+    // Threshold radius
+    double latThreshold = searchRadius;
+
     // Square of threshold radius, for comparing with square distance
     const double radiusSquare = searchRadius * searchRadius;
     // Approximate
@@ -124,8 +134,9 @@
     NSArray *locations = [KSGeoLocation MR_findAll];
     locations = [locations filteredArrayUsingPredicate:latPredicate];
     locations = [locations filteredArrayUsingPredicate:lonPredicate];
-    if (locations.count > 10) {
-        locations = [locations subarrayWithRange:NSMakeRange(0, 10)];
+
+    if (locations.count > resultsLimit) {
+        locations = [locations subarrayWithRange:NSMakeRange(0, resultsLimit)];
     }
     locations = [locations sortedArrayUsingComparator:^NSComparisonResult(KSGeoLocation *loc1, KSGeoLocation *loc2) {
         return distanceSquare(loc2) - distanceSquare(loc1);
@@ -148,7 +159,7 @@
     location.area = area;
     location.locationId = @(INT_MAX);
     
-    [KSDBManager saveContext];
+    [KSDBManager saveContext:NULL];
 
     return location;
 }

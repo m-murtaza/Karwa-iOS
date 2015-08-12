@@ -19,21 +19,41 @@
 
 #import "KSGeoLocation.h"
 
+#import "KSAddressPickerDelegate.h"
+#import "UISegmentedControl+KSExtended.h"
+#import "KSTrip.h"
+#import "KSButtonCell.h"
 
-NSString * const KSPickerIdForPickupAddress = @"KSPickerIdForPickupAddress";
-NSString * const KSPickerIdForDropoffAddress = @"KSPickerIdForDropoffAddress";
-NSString * const KSSpecificRegionName = @"Qatar";
 
-@interface KSAddressPickerController ()<UISearchBarDelegate>
-{
+typedef enum {
     
+    KSTableViewTypeFavorites = 0,
+    KSTableViewTypeNearby = 1,
+    KSTableViewTypeRecent = 2
+}
+KSTableViewType;
+
+
+@interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+{
+    NSArray *_recentBookings;
+    
+    NSArray *_savedBookmarks;
+    
+    NSArray *_nearestLocations;
+    
+    NSArray *_searchLocations;
 }
 
-@property (nonatomic, strong) NSArray *places;
+@property (weak, nonatomic) IBOutlet UITextField *searchField;
 
-@property (nonatomic, strong) NSArray *bookmarks;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
-@property (nonatomic, strong) NSArray *placemarks;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic) KSTableViewType tableViewType;
+
+- (IBAction)onSegmentChange:(id)sender;
 
 @end
 
@@ -42,45 +62,75 @@ NSString * const KSSpecificRegionName = @"Qatar";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    UIImage *searchIcon = [UIImage imageNamed:@"search-icon.png"];
+    UIImageView *searchIconView = [[UIImageView alloc] initWithImage:searchIcon];
+    searchIconView.frame = CGRectMake(0, 0, searchIcon.size.width, searchIcon.size.height);
+    self.searchField.leftView = searchIconView;
+    self.searchField.leftViewMode = UITextFieldViewModeAlways;
+
+    [self.searchField addTarget:self action:@selector(onSearchTextChange:) forControlEvents:UIControlEventEditingChanged];
     
-    self.bookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
-    self.placemarks = [NSArray array];
-    self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
-//    self.places = [NSArray arrayWithObject:@"No place"];
-    __block KSAddressPickerController *me = self;
-    // Sync bookmarks
-    [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
-        if (KSAPIStatusSuccess == status) {
-            me.bookmarks = bookmarks;
-            [me reloadPlaces];
+    // Customize segment control
+    UIImage *segmentImg = [UIImage imageNamed:@"segment_unselected.png"];
+    UIImage *highlightedSegmentImg = [UIImage imageNamed:@"segment_selected.png"];
+    UIImage *segmentDividerImg = [UIImage imageNamed:@"segment_splitter.png"];
+    
+    [self.segmentControl setBackgroudImage:segmentImg
+                          highlightedImage:highlightedSegmentImg
+                              dividerImage:segmentDividerImg];
+
+    UIColor *segmentHighlightColor = [UIColor colorWithRed:90.0 / 255.0
+                                                     green:250.0 / 255.0
+                                                      blue:250.0 / 255.0
+                                                     alpha:1.];
+    [self.segmentControl setTitleColor:segmentHighlightColor
+                       forControlState:UIControlStateHighlighted];
+    [self.segmentControl setTitleColor:segmentHighlightColor
+                       forControlState:UIControlStateSelected];
+
+    
+    _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+    _recentBookings = [KSDAL recentBookingsWithAddress];
+    _nearestLocations = [NSArray array];
+    _searchLocations = [NSArray array];
+    
+    CLLocation *currentLocation = [KSLocationManager location];
+
+    self.tableViewType = KSTableViewTypeFavorites;
+    
+
+    if (currentLocation) {
+        
+        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
+        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:10000.];
+
+        NSMutableArray *tempLocations = [NSMutableArray array];
+        for (KSGeoLocation *location in _nearestLocations) {
+            BOOL isUnique = YES;
+            for (KSGeoLocation *location2 in tempLocations) {
+                if ([location2.address isEqual:location.address]) {
+                    isUnique = NO;
+                    break;
+                }
+            }
+            if (isUnique) {
+                [tempLocations addObject:location];
+            }
         }
-    }];
+        _nearestLocations = [NSArray arrayWithArray:tempLocations];
+
+        if (_nearestLocations.count) {
+            self.tableViewType = KSTableViewTypeNearby;
+        }
+    }
+
+    self.segmentControl.selectedSegmentIndex = self.tableViewType;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)reloadPlaces {
-
-    UITableView *tableView = self.tableView;
-
-    self.places = [self.placemarks arrayByAddingObjectsFromArray:self.bookmarks];
-
-    [tableView reloadData];
-
-}
-
-- (void)updatePlaces:(NSArray *)placemarks {
-    if (!placemarks) {
-        placemarks = [NSArray array];
-    }
-    self.placemarks = placemarks;
-    [self reloadPlaces];
-    // Select first row;
-//    NSIndexPath *firstRow = [NSIndexPath indexPathForItem:0 inSection:0];
-//    [self.tableView selectRowAtIndexPath:firstRow animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
 
 #pragma mark -
@@ -96,38 +146,55 @@ NSString * const KSSpecificRegionName = @"Qatar";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.places.count;
-}
-
-- (NSInteger)numberOfRowsInSection:(NSInteger)section {
-
-    return self.places.count;
+    switch (self.tableViewType) {
+        case KSTableViewTypeFavorites:
+            return _savedBookmarks.count;
+        case KSTableViewTypeRecent:
+            return _recentBookings.count;
+        default:
+            if (self.searchField.text.length) {
+                return _searchLocations.count;
+            }
+            return _nearestLocations.count;
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString * const placemarkCellReuseId = @"KSAddressPickerPlacemarkCell";
-    static NSString * const bookmarkCellReuseId = @"KSAddressPickerBookmarkCell";
-    static NSString * const textCellReuseId = @"KSAddressPickerTextCell";
 
-    UITableViewCell *cell = nil;
+    static NSString * const nearbyCellReuseId = @"KSGeoLocationCellId";
+    static NSString * const bookmarkCellReuseId = @"KSBoomarkCellId";
+    static NSString * const recentCellReuseId = @"KSGeoLocationCellId";
 
-    id placeItem = [self.places objectAtIndex:indexPath.row];
+    NSString *cellReuseId;
+    KSButtonCell *cell = nil;
+    id cellData;
+    switch (self.tableViewType) {
+        case KSTableViewTypeFavorites:
+            cellReuseId = bookmarkCellReuseId;
+            cellData = [_savedBookmarks objectAtIndex:indexPath.row];
+            break;
+
+        case KSTableViewTypeRecent:
+            cellReuseId = recentCellReuseId;
+            cellData = [_recentBookings objectAtIndex:indexPath.row];
+            break;
+
+        default:
+            if (self.searchField.text.length) {
+                cellData = [_searchLocations objectAtIndex:indexPath.row];
+            }
+            else {
+                cellData = [_nearestLocations objectAtIndex:indexPath.row];
+            }
+            cellReuseId = nearbyCellReuseId;
+            break;
+    }
     
-    if ([placeItem isKindOfClass:[NSString class]]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:textCellReuseId forIndexPath:indexPath];
-        cell.textLabel.text = placeItem;
-    }
-    else if ([placeItem isKindOfClass:[KSGeoLocation class]]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:placemarkCellReuseId forIndexPath:indexPath];
-        KSGeoLocation *placemark = (KSGeoLocation *)placeItem;
-        cell.textLabel.text = placemark.address;
-        cell.detailTextLabel.text = placemark.area;
-    }
-    else {
-        cell = [tableView dequeueReusableCellWithIdentifier:bookmarkCellReuseId forIndexPath:indexPath];
-        cell.textLabel.text = [(KSBookmark *)placeItem name];
-    }
-
+    cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
+    
+    cell.cellData = cellData;
+    
     return cell;
 }
 
@@ -138,61 +205,92 @@ NSString * const KSSpecificRegionName = @"Qatar";
 
     NSLog(@"%s", __func__);
 
-    id placeItem = [self.places objectAtIndex:indexPath.row];
-
     NSString *placeName = nil;
     CLLocation *location = nil;
-    if ([placeItem isKindOfClass:[NSString class]]) {
-        placeName = placeItem;
+    KSBookmark *bookmark;
+    KSGeoLocation *geolocation;
+    KSTrip *trip;
+    switch (self.tableViewType) {
+        case KSTableViewTypeFavorites:
+            bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+            placeName = bookmark.address.length ? bookmark.address : bookmark.name;
+            location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
+            break;
+
+        case KSTableViewTypeRecent:
+            trip = [_recentBookings objectAtIndex:indexPath.row];
+            placeName = trip.dropoffLandmark;
+            if (trip.pickupLandmark.length) {
+                placeName = trip.pickupLandmark;
+                location = [[CLLocation alloc] initWithLatitude:trip.pickupLat.doubleValue longitude:trip.pickupLon.doubleValue];
+            }
+            else {
+                location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
+            }
+            break;
+
+        default:
+            if (self.searchField.text.length) {
+                geolocation = [_searchLocations objectAtIndex:indexPath.row];
+            }
+            else {
+                geolocation = [_nearestLocations objectAtIndex:indexPath.row];
+            }
+            placeName = geolocation.address;
+            location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
+            break;
     }
-    else if ([placeItem isKindOfClass:[KSGeoLocation class]]) {
-        KSGeoLocation *placemark = (KSGeoLocation *)placeItem;
-        placeName = placemark.address;
-        location = [[CLLocation alloc] initWithLatitude:placemark.latitude.doubleValue longitude:placemark.longitude.doubleValue];
-    }
-    else {
-        KSBookmark *bookmark = (KSBookmark *)placeItem;
-        placeName = bookmark.name;
-        location = [[CLLocation alloc] initWithLatitude:[bookmark.latitude doubleValue] longitude:[bookmark.longitude doubleValue]];
-    }
+
     [self.delegate addressPicker:self didDismissWithAddress:placeName location:location];
+
     // Dismiss on selection
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
-#pragma mark - Search bar delegate
+#pragma mark - UITextField delegate
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"%s", __func__);
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
+    if (textField == self.searchField) {
+
+        [textField resignFirstResponder];
+
+        if (textField.text.length > 2) {
+            
+            _searchLocations = [KSDAL locationsMatchingText:textField.text];
+            if (self.segmentControl.selectedSegmentIndex != KSTableViewTypeNearby) {
+                self.segmentControl.selectedSegmentIndex = KSTableViewTypeNearby;
+            }
+            [self.tableView reloadData];
+        }
+        return NO;
+    }
+    return YES;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)onSearchTextChange:(UITextField *)textField {
+    
+    if (textField == self.searchField) {
 
-    NSLog(@"%s", __func__);
-//    KSAddressPickerController *me = self;
-    if (searchBar.text.length > 2) {
-
-        NSArray *placemarks = [KSDAL locationsMatchingText:searchBar.text];
-        if (!placemarks.count) {
-            placemarks = [NSArray arrayWithObject: searchBar.text];
+        if (!textField.text.length) {
+            if (KSTableViewTypeNearby == self.segmentControl.selectedSegmentIndex) {
+                
+                [self.tableView reloadData];
+            }
         }
-        [self updatePlaces:placemarks];
-//        [[KSLocationManager instance] nearestPlacemarksInCountry:KSSpecificRegionName searchQuery:searchBar.text completion:^(NSArray *placemarks) {
-//            if (!placemarks.count) {
-//                placemarks = [NSArray arrayWithObject: searchBar.text];
-//            }
-//            [me updatePlaces:placemarks];
-//        }];
     }
 }
 
 #pragma mark -
 #pragma mark - Event handlers
+
+- (IBAction)onSegmentChange:(id)sender {
+    
+    self.tableViewType =  (KSTableViewType)self.segmentControl.selectedSegmentIndex;
+
+    [self.tableView reloadData];
+}
 
 
 @end

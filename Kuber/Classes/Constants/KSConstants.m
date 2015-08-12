@@ -14,3 +14,6 @@
 NSString * const KSNotificationForNewBookmark = @"KSNotificationForNewBookmark";
 
 NSString * const KSCountryNameForLocationSearch = @"Qatar";
+
+NSString * const KSPickerIdForPickupAddress = @"KSPickerIdForPickupAddress";
+NSString * const KSPickerIdForDropoffAddress = @"KSPickerIdForDropoffAddress";

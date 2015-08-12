@@ -60,11 +60,15 @@
             // Two way relationship
             [tripInfo.passenger addTripsObject:tripInfo];
     
-            [KSDBManager saveContext];
-        } else {
-            [tripInfo MR_deleteEntity];
+            [KSDBManager saveContext:^{
+                completionBlock(status, nil);
+            }];
         }
-        completionBlock(status, nil);
+        else {
+            
+            [tripInfo MR_deleteEntity];
+            completionBlock(status, nil);
+        }
     }];
 
 }
@@ -101,9 +105,13 @@
                 trip.passenger = user;
                 [user addTripsObject:trip];
             }
-            [KSDBManager saveContext];
+            [KSDBManager saveContext:^{
+                completionBlock(status, [user.trips allObjects]);
+            }];
         }
-        completionBlock(status, [user.bookmarks allObjects]);
+        else {
+            completionBlock(status, [user.trips allObjects]);
+        }
     }];
 }
 
@@ -149,14 +157,28 @@
         if (KSAPIStatusSuccess == status) {
 
             trip.rating = rating;
-            [KSDBManager saveContext];
+            [KSDBManager saveContext:^{
+                completionBlock(status, nil);
+            }];
         }
         else {
             rating.trip = nil;
+            completionBlock(status, nil);
         }
-        completionBlock(status, nil);
     }];
 }
 
++ (NSArray *)recentBookingsWithAddress {
+    
+    NSMutableArray *recentBookings = [NSMutableArray array];
+    for (KSTrip *trip in [[[self loggedInUser] trips] allObjects]) {
+        
+        if (trip.pickupLandmark.length || trip.dropoffLandmark.length) {
+            
+            [recentBookings addObject:trip];
+        }
+    }
+    return [NSArray arrayWithArray:recentBookings];
+}
 
 @end

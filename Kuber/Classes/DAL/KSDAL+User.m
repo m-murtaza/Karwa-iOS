@@ -59,9 +59,13 @@
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
             if (KSAPIStatusSuccess == status) {
                 // Save user
-                [KSDBManager saveContext];
+                [KSDBManager saveContext:^{
+                    completionBlock(status, nil);
+                }];
             }
-            completionBlock(status, nil);
+            else {
+                completionBlock(status, nil);
+            }
         }
     }];
 }
@@ -87,11 +91,15 @@
                 KSUser *user = [KSDAL userWithPhone:userInfo[@"Phone"]];
                 user.email = userInfo[@"Email"];
                 user.name = userInfo[@"Name"];
-                [KSDBManager saveContext];
+                [KSDBManager saveContext:^{
+                    completionBlock(status, nil);
+                }];
                 
                 [KSSessionInfo updateSession:userInfo[@"SessionID"] phone:userInfo[@"Phone"]];
             }
-            completionBlock(status, nil);
+            else {
+                completionBlock(status, nil);
+            }
         }
     }];
 
@@ -149,9 +157,13 @@
                 if (requestData[@"Name"]) {
                     user.name = requestData[@"Name"];
                 }
-                [KSDBManager saveContext];
+                [KSDBManager saveContext:^{
+                    completionBlock(status, nil);
+                }];
             }
-            completionBlock(status, nil);
+            else {
+                completionBlock(status, nil);
+            }
         }
     }];
 }

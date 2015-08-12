@@ -1,21 +1,19 @@
 //
-//  KSAddressPickerController.h
+//  KSAddressPickerController_Old.h
 //  Kuber
 //
-//  Created by Asif Kamboh on 5/27/15.
+//  Created by Asif Kamboh on 8/11/15.
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSViewController.h"
-
+#import "KSTableViewController.h"
 #import "KSAddressPickerDelegate.h"
 
 
-@interface KSAddressPickerController : KSViewController
+@interface KSAddressPickerController_Old : KSTableViewController
 
 @property (nonatomic, copy) NSString *pickerId;
 
 @property (nonatomic, assign) id<KSAddressPickerDelegate> delegate;
 
 @end
-

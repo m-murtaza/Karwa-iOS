@@ -15,11 +15,13 @@
 
 + (instancetype)instance;
 
-+ (void)saveContext;
++ (void)saveContext:(void(^)())completionBlock;
 
 + (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon;
 
 + (void)saveLocationsData:(NSArray *)locations;
+
+- (void)saveContext:(void(^)())completionBlock;
 
 @end
 

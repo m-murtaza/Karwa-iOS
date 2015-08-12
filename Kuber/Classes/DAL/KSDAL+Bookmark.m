@@ -27,6 +27,22 @@
 
 + (void)syncBookmarksWithCompletion:(KSDALCompletionBlock)completionBlock {
 
+    static BOOL isRunning = NO;
+    static NSMutableArray *blocks = nil;
+    
+    if (!blocks) {
+        blocks = [NSMutableArray array];
+    }
+    
+    if (isRunning) {
+        [blocks addObject:completionBlock];
+        return;
+    }
+    // Add to existing blocks
+    [blocks addObject:completionBlock];
+
+    isRunning = YES;
+
     KSWebClient *webClient = [KSWebClient instance];
 
     [webClient GET:@"/bookmarks" params:@{} completion:^(BOOL success, NSDictionary *response) {
@@ -47,7 +63,6 @@
 
                 KSBookmark *bookmark = [KSBookmark objWithValue:favorite[@"Id"] forAttrib:@"bookmarkId"];
                 bookmark.name = favorite[@"Name"];
-#warning TODO: Verify if the JSON data is Double
                 bookmark.latitude = [NSNumber numberWithDouble:[favorite[@"Lat"] doubleValue]];
                 bookmark.longitude = [NSNumber numberWithDouble:[favorite[@"Lon"] doubleValue]];
                 bookmark.address = favorite[@"Address"];
@@ -55,9 +70,28 @@
                 bookmark.user = user;
                 [user addBookmarksObject:bookmark];
             }
-            [KSDBManager saveContext];
+            [KSDBManager saveContext:^{
+            
+                isRunning = NO;
+                
+                for (KSDALCompletionBlock block in blocks) {
+                    block(status, [user.bookmarks allObjects]);
+                }
+                
+                [blocks removeAllObjects];
+
+            
+            }];
         }
-        completionBlock(status, [user.bookmarks allObjects]);
+        else {
+            isRunning = NO;
+            
+            for (KSDALCompletionBlock block in blocks) {
+                block(status, [user.bookmarks allObjects]);
+            }
+            
+            [blocks removeAllObjects];
+        }
     }];
 }
 
@@ -78,9 +112,8 @@
             
             KSBookmark *bookmark = [KSBookmark objWithValue:responseData[@"Id"] forAttrib:@"bookmarkId"];
             bookmark.name = responseData[@"Name"];
-#warning TODO: Verify if the JSON data is Double
-            bookmark.latitude = responseData[@"Lat"];
-            bookmark.longitude = responseData[@"Lon"];
+            bookmark.latitude = [NSNumber numberWithDouble:[responseData[@"Lat"] doubleValue]];
+            bookmark.longitude = [NSNumber numberWithDouble:[responseData[@"Lon"] doubleValue]];
             bookmark.address = responseData[@"Address"];
 
             KSUser *user = [KSDAL loggedInUser];
@@ -88,9 +121,13 @@
 
             [user addBookmarksObject:bookmark];
             
-            [KSDBManager saveContext];
+            [KSDBManager saveContext:^{
+                completionBlock(status, bookmark);
+            }];
         }
-        completionBlock(status, nil);
+        else {
+            completionBlock(status, nil);
+        }
     }];
 }
 
@@ -117,9 +154,13 @@
             bookmark.longitude = @(coordinate.longitude);
             bookmark.address = response[@"data"][@"Address"];
 
-            [KSDBManager saveContext];
+            [KSDBManager saveContext:^{
+                completionBlock(status, bookmark);
+            }];
         }
-        completionBlock(status, nil);
+        else {
+            completionBlock(status, nil);
+        }
     }];
 }
 
@@ -140,9 +181,13 @@
             KSUser *user = [KSDAL loggedInUser];
             [user removeBookmarksObject:bookmark];
             [bookmark MR_deleteEntity];
-            [KSDBManager saveContext];
+            [KSDBManager saveContext:^{
+                completionBlock(status, nil);
+            }];
         }
-        completionBlock(status, nil);
+        else {
+            completionBlock(status, nil);
+        }
     }];
 }
 
