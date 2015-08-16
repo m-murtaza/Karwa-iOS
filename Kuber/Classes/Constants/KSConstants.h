@@ -18,6 +18,7 @@ extern NSString * const KSCountryNameForLocationSearch;
 extern NSString * const KSPickerIdForPickupAddress;
 extern NSString * const KSPickerIdForDropoffAddress;
 
+extern NSString * const KSBookingTypeCurrent;
 
 typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusUnknownError             = 0,    // Generic Error
@@ -53,5 +54,12 @@ typedef NS_OPTIONS(NSUInteger, KSBookingOption) {
     KSBookingOptionInsideCity = 0,
     KSBookingOptionAirport = 1,
     KSBookingOptionOutsideCity = 2
+};
+
+typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
+    KSTripStatusOpen = 0,
+    KSTripStatusInProcess = 1,
+    KSTripStatusCancelled = 7,
+    KSTripStatusComplete = 12
 };
 

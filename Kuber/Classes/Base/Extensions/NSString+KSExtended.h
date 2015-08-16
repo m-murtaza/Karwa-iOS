@@ -24,5 +24,7 @@ NSString *KSLocalize(NSString *key);
 
 - (BOOL)startsWithCaseInsensitive:(NSString *)str;
 
+- (NSDate *)dateValue;
+
 @end
 

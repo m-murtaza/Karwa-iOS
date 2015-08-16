@@ -13,5 +13,6 @@
 @interface KSBookingDetailsController : KSViewController
 
 @property (nonatomic, strong) KSTrip *tripInfo;
+@property (nonatomic) BOOL showsAcknowledgement;
 
 @end

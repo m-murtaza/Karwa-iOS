@@ -37,9 +37,22 @@
     [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
     NSString *date = [dateFormatter stringFromDate:trip.pickupTime];
 
-    self.lblPickupFrom.text = [NSString stringWithFormat:@"From %@", trip.pickupLandmark];
-    self.lblDropoffTo.text = [NSString stringWithFormat:@"to %@", trip.dropoffLandmark];
-    self.lblDate.text = [NSString stringWithFormat:@"on %@", date];
+    if (trip.pickupLandmark.length) {
+        self.lblPickupFrom.text = [NSString stringWithFormat:@"From %@", trip.pickupLandmark];
+    }
+    else {
+        NSString *loc = KSStringFromLatLng(trip.pickupLat.doubleValue, trip.pickupLon.doubleValue);
+        self.lblPickupFrom.text = [NSString stringWithFormat:@"From %@", loc];
+    }
+
+    self.lblDropoffTo.text = @"";
+    if (trip.dropoffLandmark.length) {
+        self.lblDropoffTo.text = [NSString stringWithFormat:@"to %@", trip.dropoffLandmark];
+    }
+    self.lblDate.text = @"";
+    if (date) {
+        self.lblDate.text = [NSString stringWithFormat:@"on %@", date];
+    }
 }
 
 @end

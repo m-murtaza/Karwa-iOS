@@ -19,12 +19,14 @@
 
 + (void)bookTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
 
++ (void)cancelTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
+
 + (KSTripRating *)tripRatingForTrip:(KSTrip *)trip;
 
 + (void)rateTrip:(KSTrip *)aTrip withRating:(KSTripRating *)aRating completion:(KSDALCompletionBlock)completionBlock;
 
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock;
 
-+ (NSArray *)recentBookingsWithAddress;
++ (NSArray *)recentTripsWithLandmarkText;
 
 @end

@@ -65,7 +65,9 @@
                 bookmark.name = favorite[@"Name"];
                 bookmark.latitude = [NSNumber numberWithDouble:[favorite[@"Lat"] doubleValue]];
                 bookmark.longitude = [NSNumber numberWithDouble:[favorite[@"Lon"] doubleValue]];
-                bookmark.address = favorite[@"Address"];
+                if ([favorite[@"Address"] length]) {
+                    bookmark.address = favorite[@"Address"];
+                }
 
                 bookmark.user = user;
                 [user addBookmarksObject:bookmark];
@@ -95,7 +97,7 @@
     }];
 }
 
-+ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock {
++ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate address:(NSString *)address completion:(KSDALCompletionBlock)completionBlock {
 
     NSDictionary *bookmarkData = @{
         @"Name": name,
@@ -114,7 +116,10 @@
             bookmark.name = responseData[@"Name"];
             bookmark.latitude = [NSNumber numberWithDouble:[responseData[@"Lat"] doubleValue]];
             bookmark.longitude = [NSNumber numberWithDouble:[responseData[@"Lon"] doubleValue]];
-            bookmark.address = responseData[@"Address"];
+            bookmark.address = address;
+            if ([responseData[@"Address"] length]) {
+                bookmark.address = responseData[@"Address"];
+            }
 
             KSUser *user = [KSDAL loggedInUser];
             bookmark.user = user;
@@ -152,7 +157,10 @@
             bookmark.name = name;
             bookmark.latitude = @(coordinate.latitude);
             bookmark.longitude = @(coordinate.longitude);
-            bookmark.address = response[@"data"][@"Address"];
+            bookmark.address = @"";
+            if (response[@"data"][@"Address"]) {
+                bookmark.address = response[@"data"][@"Address"];
+            }
 
             [KSDBManager saveContext:^{
                 completionBlock(status, bookmark);

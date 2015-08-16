@@ -17,3 +17,5 @@ NSString * const KSCountryNameForLocationSearch = @"Qatar";
 
 NSString * const KSPickerIdForPickupAddress = @"KSPickerIdForPickupAddress";
 NSString * const KSPickerIdForDropoffAddress = @"KSPickerIdForDropoffAddress";
+
+NSString * const KSBookingTypeCurrent = @"current";

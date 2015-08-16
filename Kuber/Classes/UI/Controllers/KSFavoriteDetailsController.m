@@ -214,7 +214,8 @@
     if (self.bookmark) {
         [KSDAL updateBookmark:self.bookmark withName:self.txtName.text coordinate:self.annotation.coordinate completion:completionHandler];
     } else {
-        [KSDAL addBookmarkWithName:self.txtName.text coordinate:self.annotation.coordinate completion:completionHandler];
+        NSString *address = self.lblAddress.text.length ? self.lblAddress.text : @"";
+        [KSDAL addBookmarkWithName:self.txtName.text coordinate:self.annotation.coordinate address:address completion:completionHandler];
     }
 }
 

@@ -14,6 +14,7 @@
 
 #import "KSBookingHistoryCell.h"
 #import "KSTripRatingController.h"
+#import "KSBookingDetailsController.h"
 
 @interface KSBookingHistoryController ()
 
@@ -29,9 +30,7 @@
     __block KSBookingHistoryController *me = self;
 
     [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-        if (KSAPIStatusSuccess == status) {
-            [me buildTripsHistory];
-        }
+        [me buildTripsHistory];
     }];
 
 }
@@ -58,31 +57,7 @@
 
 
 #pragma mark -
-#pragma mark - Navigation
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if (![sender isKindOfClass:UITableViewCell.class]) {
-        return NO;
-    }
-    UITableViewCell *cell = (UITableViewCell *)sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    KSTrip *trip = self.trips[indexPath.row];
-    // Should go to rating view only if the trip is not rated yet
-    return !trip.rating;
-}
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([sender isKindOfClass:UITableViewCell.class] && [segue.destinationViewController isKindOfClass:[KSTripRatingController class]]) {
-        KSTripRatingController *controller = (KSTripRatingController *)segue.destinationViewController;
-        UITableViewCell *cell = (UITableViewCell *)sender;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        controller.trip = self.trips[indexPath.row];
-
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-    }
-}
+#pragma mark - Table View Datasource and Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
@@ -98,13 +73,34 @@
     KSBookingHistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"KSBookingHistoryCell" forIndexPath:indexPath];
 
     KSTrip *trip = self.trips[indexPath.row];
-    if (trip.rating) {
+    if (trip.rating || trip.status.unsignedIntegerValue != KSTripStatusComplete) {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
     [cell updateCellData:trip];
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    KSTrip *trip = self.trips[indexPath.row];
+
+    if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
+        KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
+        ratingController.trip = trip;
+        [self.navigationController pushViewController:ratingController animated:YES];
+    }
+    else {
+        KSBookingDetailsController *detailsController = [UIStoryboard bookingDetailsController];
+        detailsController.tripInfo = trip;
+        detailsController.showsAcknowledgement = NO;
+        detailsController.navigationItem.leftBarButtonItem = nil;
+        [self.navigationController pushViewController:detailsController animated:YES];
+    }
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
 }
 
 @end

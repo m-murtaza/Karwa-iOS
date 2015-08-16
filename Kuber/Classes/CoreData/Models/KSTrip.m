@@ -2,7 +2,7 @@
 //  KSTrip.m
 //  Kuber
 //
-//  Created by Asif Kamboh on 6/8/15.
+//  Created by Asif Kamboh on 8/16/15.
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
@@ -15,16 +15,17 @@
 
 @implementation KSTrip
 
+@dynamic dropoffLandmark;
 @dynamic dropOffLat;
 @dynamic dropOffLon;
 @dynamic dropOffTime;
 @dynamic jobId;
+@dynamic pickupLandmark;
 @dynamic pickupLat;
 @dynamic pickupLon;
 @dynamic pickupTime;
 @dynamic status;
-@dynamic pickupLandmark;
-@dynamic dropoffLandmark;
+@dynamic bookingType;
 @dynamic driver;
 @dynamic passenger;
 @dynamic rating;

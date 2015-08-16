@@ -91,7 +91,7 @@ KSTableViewType;
 
     
     _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
-    _recentBookings = [KSDAL recentBookingsWithAddress];
+    _recentBookings = [KSDAL recentTripsWithLandmarkText];
     _nearestLocations = [NSArray array];
     _searchLocations = [NSArray array];
     
@@ -261,6 +261,7 @@ KSTableViewType;
             _searchLocations = [KSDAL locationsMatchingText:textField.text];
             if (self.segmentControl.selectedSegmentIndex != KSTableViewTypeNearby) {
                 self.segmentControl.selectedSegmentIndex = KSTableViewTypeNearby;
+                _tableViewType = KSTableViewTypeNearby;
             }
             [self.tableView reloadData];
         }

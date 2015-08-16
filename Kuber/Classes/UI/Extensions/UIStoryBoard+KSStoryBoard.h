@@ -24,4 +24,6 @@
 
 + (id)addressPickerController;
 
++ (id)tripRatingController;
+
 @end

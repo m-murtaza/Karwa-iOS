@@ -18,6 +18,15 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupTime;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblAcknowlegement;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnCancelBooking;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblDropoffTime;
+
+@property (weak, nonatomic) IBOutlet UIView *dropoffContainer;
+
+
 @end
 
 @implementation KSBookingDetailsController
@@ -47,22 +56,55 @@
         self.lblDropoffAddress.text = trip.dropoffLandmark;
     }
 
-    if (trip.pickupTime ) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"YYYY-MM-dd"];
-        NSDate *minDate = [dateFormatter dateFromString:@"2010-01-01"];
-
-        if ([minDate compare:trip.pickupTime] == NSOrderedAscending) {
-            
-            [dateFormatter setDateFormat:@"MMM dd, yy, HH:mm"];
-
-            self.lblPickupTime.text = [dateFormatter stringFromDate:trip.pickupTime];
-        }
+    if ([trip.pickupTime isValidDate]) {
+        self.lblPickupTime.text = [trip.pickupTime dateTimeString];
     }
     else {
         self.lblPickupTime.text = @"...";
     }
-    
+
+    if ([trip.dropOffTime isValidDate]) {
+        
+        self.lblDropoffTime.text = [trip.dropOffTime dateTimeString];
+    }
+    else {
+        self.lblDropoffTime.text = @"...";
+    }
+
+    switch (trip.status.integerValue) {
+        case KSTripStatusOpen:
+        case KSTripStatusInProcess:
+            if (self.showsAcknowledgement) {
+                [self.btnCancelBooking removeFromSuperview];
+                [self.btnCancelBooking setHidden:YES];
+            }
+            else {
+                [self.lblAcknowlegement removeFromSuperview];
+                [self.lblAcknowlegement setHidden:YES];
+                NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
+                NSTimeInterval CANCEL_TIMEOUT = 300.0;
+                if ([trip.bookingType isEqualToString:KSBookingTypeCurrent]) {
+                    CANCEL_TIMEOUT = -25.0 * 60.0;
+                }
+                if (pickupTimePast > CANCEL_TIMEOUT) {
+                    [self.btnCancelBooking removeFromSuperview];
+                    [self.btnCancelBooking setHidden:YES];
+                }
+                else {
+                    [self.btnCancelBooking performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
+                }
+            }
+            break;
+
+        default:
+            [self.lblAcknowlegement removeFromSuperview];
+            [self.lblAcknowlegement setHidden:YES];
+            [self.btnCancelBooking removeFromSuperview];
+            [self.btnCancelBooking setHidden:YES];
+
+            break;
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

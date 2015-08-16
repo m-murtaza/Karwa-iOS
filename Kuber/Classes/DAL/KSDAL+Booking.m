@@ -56,7 +56,7 @@
             tripInfo.status = [NSNumber numberWithInteger:[bookingData[@"Status"] integerValue]];
             tripInfo.pickupLat = [NSNumber numberWithInteger:[bookingData[@"PickLat"] integerValue]];
             tripInfo.pickupLon = [NSNumber numberWithInteger:[bookingData[@"PickLon"] integerValue]];
-
+            tripInfo.bookingType = [bookingData[@"BookingType"] lowercaseString];
             // Two way relationship
             [tripInfo.passenger addTripsObject:tripInfo];
     
@@ -73,36 +73,55 @@
 
 }
 
++ (void)cancelTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock {
+    
+    KSWebClient *webClient = [KSWebClient instance];
+    NSString *uri = [NSString stringWithFormat:@"/booking/%@", trip.jobId];
+    [webClient DELETE:uri completion:^(BOOL success, id response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            [trip MR_deleteEntity];
+        }
+        completionBlock(status, nil);
+    }];
+}
+
+
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock {
 
     KSWebClient *webClient = [KSWebClient instance];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
 
     [webClient GET:@"/booking" params:@{} completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         KSUser *user = [KSDAL loggedInUser];
         if (KSAPIStatusSuccess == status) {
 
-            for (KSTrip *trip in user.trips.allObjects) {
-                trip.passenger = nil;
-            }
-            [user removeTrips:user.trips];
+//            for (KSTrip *trip in user.trips.allObjects) {
+//                trip.passenger = nil;
+//            }
+//            [user removeTrips:user.trips];
 
             NSArray *trips = response[@"data"];
             for (NSDictionary *tripData in trips) {
                 KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
-                trip.pickupLandmark = tripData[@"PickLocation"];
                 trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
                 trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
-                trip.pickupTime = [dateFormatter dateFromString:tripData[@"PickTime"]];
-                trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
-                trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
-                trip.dropOffTime = [dateFormatter dateFromString:tripData[@"DropTime"]];
-                trip.dropoffLandmark = tripData[@"DropLocation"];
+                trip.pickupTime = [tripData[@"PickTime"] dateValue];
+                trip.dropOffTime = [tripData[@"DropTime"] dateValue];
+                if (tripData[@"PickLocation"])
+                    trip.pickupLandmark = tripData[@"PickLocation"];
+                if (tripData[@"DropLat"])
+                     trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
+                if (tripData[@"DropLon"])
+                    trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
+                if (tripData[@"DropLocation"])
+                    trip.dropoffLandmark = tripData[@"DropLocation"];
+
                 trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
-#warning TODO: Add remaining data in trip
+                trip.bookingType = [tripData[@"BookingType"] lowercaseString];
+
                 trip.passenger = user;
+
                 [user addTripsObject:trip];
             }
             [KSDBManager saveContext:^{
@@ -113,6 +132,19 @@
             completionBlock(status, [user.trips allObjects]);
         }
     }];
+}
+
++ (NSArray *)recentTripsWithLandmarkText {
+    
+    NSMutableArray *recentBookings = [NSMutableArray array];
+    for (KSTrip *trip in [[[self loggedInUser] trips] allObjects]) {
+        
+        if (trip.pickupLandmark.length || trip.dropoffLandmark.length) {
+            
+            [recentBookings addObject:trip];
+        }
+    }
+    return [NSArray arrayWithArray:recentBookings];
 }
 
 #pragma mark -
@@ -166,19 +198,6 @@
             completionBlock(status, nil);
         }
     }];
-}
-
-+ (NSArray *)recentBookingsWithAddress {
-    
-    NSMutableArray *recentBookings = [NSMutableArray array];
-    for (KSTrip *trip in [[[self loggedInUser] trips] allObjects]) {
-        
-        if (trip.pickupLandmark.length || trip.dropoffLandmark.length) {
-            
-            [recentBookings addObject:trip];
-        }
-    }
-    return [NSArray arrayWithArray:recentBookings];
 }
 
 @end

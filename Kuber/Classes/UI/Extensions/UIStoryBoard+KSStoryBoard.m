@@ -40,4 +40,9 @@
     return [self viewControllerWithIdentifier:@"KSAddressPickerController"];
 }
 
++ (id)tripRatingController {
+    
+    return [self viewControllerWithIdentifier:@"KSTripRatingController"];
+}
+
 @end

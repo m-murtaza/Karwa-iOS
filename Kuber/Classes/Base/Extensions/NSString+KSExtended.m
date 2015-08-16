@@ -50,5 +50,29 @@ NSString *KSLocalize(NSString *key) {
     return ![self rangeOfString:str options:NSCaseInsensitiveSearch].location;
 }
 
+- (NSDate *)dateValue {
+
+    NSDate *date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+    
+    date = [dateFormatter dateFromString:self];
+    if (!date) {
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        date = [dateFormatter dateFromString:self];
+    }
+
+    if (!date) {
+        [dateFormatter setDateFormat:@"MMM dd, yyyy, HH:mm"];
+        date = [dateFormatter dateFromString:self];
+    }
+
+    if (!date) {
+        [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+        date = [dateFormatter dateFromString:self];
+    }
+    return date;
+}
+
 @end
 

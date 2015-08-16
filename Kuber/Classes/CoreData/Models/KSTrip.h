@@ -2,7 +2,7 @@
 //  KSTrip.h
 //  Kuber
 //
-//  Created by Asif Kamboh on 6/8/15.
+//  Created by Asif Kamboh on 8/16/15.
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
@@ -13,16 +13,17 @@
 
 @interface KSTrip : NSManagedObject
 
+@property (nonatomic, retain) NSString * dropoffLandmark;
 @property (nonatomic, retain) NSNumber * dropOffLat;
 @property (nonatomic, retain) NSNumber * dropOffLon;
 @property (nonatomic, retain) NSDate * dropOffTime;
 @property (nonatomic, retain) NSString * jobId;
+@property (nonatomic, retain) NSString * pickupLandmark;
 @property (nonatomic, retain) NSNumber * pickupLat;
 @property (nonatomic, retain) NSNumber * pickupLon;
 @property (nonatomic, retain) NSDate * pickupTime;
 @property (nonatomic, retain) NSNumber * status;
-@property (nonatomic, retain) NSString * pickupLandmark;
-@property (nonatomic, retain) NSString * dropoffLandmark;
+@property (nonatomic, retain) NSString * bookingType;
 @property (nonatomic, retain) KSDriver *driver;
 @property (nonatomic, retain) KSUser *passenger;
 @property (nonatomic, retain) KSTripRating *rating;

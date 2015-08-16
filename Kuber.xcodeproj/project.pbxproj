@@ -38,7 +38,6 @@
 		184C78C31B0073680012D4BE /* KSSignupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184C78C21B0073680012D4BE /* KSSignupController.m */; };
 		1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043641B2554D900AECDE9 /* KSDriver.m */; };
 		1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043661B2554D900AECDE9 /* KSTaxi.m */; };
-		185043751B2554F900AECDE9 /* KSTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043741B2554F900AECDE9 /* KSTrip.m */; };
 		185043781B26BCD900AECDE9 /* KSAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043771B26BCD900AECDE9 /* KSAddress.m */; };
 		1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850437A1B26C51600AECDE9 /* CLLocation+KSExtended.m */; };
 		185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */; };
@@ -127,6 +126,8 @@
 		1880C5681B79D989004F0188 /* KSGeoLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5671B79D989004F0188 /* KSGeoLocationCell.m */; };
 		1880C56B1B79E141004F0188 /* KSBookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C56A1B79E141004F0188 /* KSBookmarkCell.m */; };
 		1880C56E1B79E1B8004F0188 /* KSButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C56D1B79E1B8004F0188 /* KSButtonCell.m */; };
+		1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5731B80942A004F0188 /* NSDate+KSExtended.m */; };
+		1880C5771B809DD4004F0188 /* KSTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5761B809DD4004F0188 /* KSTrip.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -228,8 +229,6 @@
 		185043641B2554D900AECDE9 /* KSDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDriver.m; sourceTree = "<group>"; };
 		185043651B2554D900AECDE9 /* KSTaxi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTaxi.h; sourceTree = "<group>"; };
 		185043661B2554D900AECDE9 /* KSTaxi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTaxi.m; sourceTree = "<group>"; };
-		185043731B2554F900AECDE9 /* KSTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTrip.h; sourceTree = "<group>"; };
-		185043741B2554F900AECDE9 /* KSTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrip.m; sourceTree = "<group>"; };
 		185043761B26BCD900AECDE9 /* KSAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAddress.h; sourceTree = "<group>"; };
 		185043771B26BCD900AECDE9 /* KSAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAddress.m; sourceTree = "<group>"; };
 		185043791B26C51600AECDE9 /* CLLocation+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+KSExtended.h"; sourceTree = "<group>"; };
@@ -344,6 +343,10 @@
 		1880C56A1B79E141004F0188 /* KSBookmarkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookmarkCell.m; sourceTree = "<group>"; };
 		1880C56C1B79E1B8004F0188 /* KSButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSButtonCell.h; sourceTree = "<group>"; };
 		1880C56D1B79E1B8004F0188 /* KSButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSButtonCell.m; sourceTree = "<group>"; };
+		1880C5721B80942A004F0188 /* NSDate+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSExtended.h"; sourceTree = "<group>"; };
+		1880C5731B80942A004F0188 /* NSDate+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSExtended.m"; sourceTree = "<group>"; };
+		1880C5751B809DD4004F0188 /* KSTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTrip.h; sourceTree = "<group>"; };
+		1880C5761B809DD4004F0188 /* KSTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrip.m; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -456,6 +459,8 @@
 				1880C5511B78B411004F0188 /* NSObject+KSNullRemoval.m */,
 				1880C5531B795176004F0188 /* UISegmentedControl+KSExtended.h */,
 				1880C5541B795176004F0188 /* UISegmentedControl+KSExtended.m */,
+				1880C5721B80942A004F0188 /* NSDate+KSExtended.h */,
+				1880C5731B80942A004F0188 /* NSDate+KSExtended.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,8 +556,6 @@
 				185043641B2554D900AECDE9 /* KSDriver.m */,
 				185043651B2554D900AECDE9 /* KSTaxi.h */,
 				185043661B2554D900AECDE9 /* KSTaxi.m */,
-				185043731B2554F900AECDE9 /* KSTrip.h */,
-				185043741B2554F900AECDE9 /* KSTrip.m */,
 				18692ECB1B2EA55F006FC825 /* KSUser.h */,
 				18692ECC1B2EA55F006FC825 /* KSUser.m */,
 				187D1D9B1B6F2CB700D8E850 /* KSGeoLocation.h */,
@@ -563,6 +566,8 @@
 				185E3C0A1B7087EF00909B20 /* KSTripIssue.m */,
 				185E3C061B7087EF00909B20 /* KSTripRating.h */,
 				185E3C071B7087EF00909B20 /* KSTripRating.m */,
+				1880C5751B809DD4004F0188 /* KSTrip.h */,
+				1880C5761B809DD4004F0188 /* KSTrip.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1131,6 +1136,8 @@
 				1801E3041B0E954200A8983E /* KSChangePasswordController.m in Sources */,
 				185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */,
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
+				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
+				1880C5771B809DD4004F0188 /* KSTrip.m in Sources */,
 				189F5D981B085A6C00EAF9B2 /* KSMapController.m in Sources */,
 				1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */,
 				18A762C11B006D8E00B9ED32 /* KSViewController.m in Sources */,
@@ -1140,7 +1147,6 @@
 				18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */,
 				185E3BFF1B70779700909B20 /* KSDAL+User.m in Sources */,
 				18A762BA1B006A7400B9ED32 /* KSUserManagement.m in Sources */,
-				185043751B2554F900AECDE9 /* KSTrip.m in Sources */,
 				1880C56B1B79E141004F0188 /* KSBookmarkCell.m in Sources */,
 				1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */,
 				18481B5E1B09C41800855F54 /* KSAlert.m in Sources */,

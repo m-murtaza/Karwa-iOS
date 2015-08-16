@@ -14,8 +14,9 @@
 #import "KSAlert.h"
 
 #import "KSAddress.h"
-
+#import "KSBookmark.h"
 #import "KSDatePicker.h"
+#import "KSUser.h"
 
 #import "KSBookingDetailsController.h"
 #import "KSAddressPickerController.h"
@@ -23,7 +24,7 @@
 
 @interface KSBookingConfirmationController ()<UITableViewDelegate, UITableViewDataSource, KSDatePickerDelegate, KSAddressPickerDelegate>
 {
-    NSArray *_recentLocations;
+    NSArray *_savedBookmarks;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgPickupTimeArrow;
@@ -90,6 +91,7 @@ NSString * const KSDefaultPickupText = @"You location";
 
     [self updatePickupTime:date];
     
+    _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,25 +144,40 @@ NSString * const KSDefaultPickupText = @"You location";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _recentLocations.count;
+    return _savedBookmarks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     UITableViewCell *cell;
-    cell = [tableView dequeueReusableCellWithIdentifier:@"KSRecentLocationCell" forIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"KSBookmarkCellId" forIndexPath:indexPath];
 
+    KSBookmark *bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+    cell.textLabel.text = bookmark.name;
+    if (bookmark.address.length) {
+        cell.detailTextLabel.text = bookmark.address;
+    }
+    else {
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(bookmark.latitude.doubleValue, bookmark.longitude.doubleValue);
+        cell.detailTextLabel.text = KSStringFromCoordinate(coordinate);
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    KSAddress *address = [_recentLocations objectAtIndex:indexPath.row];
-    if (address.landmark.length) {
-        
-        self.dropoffAddress = address;
-        [self updateDropoffLandmark];
+    KSBookmark *bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+
+    NSString *landmark = bookmark.name;
+    if (bookmark.address.length) {
+        landmark = bookmark.address;
     }
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(bookmark.latitude.doubleValue, bookmark.longitude.doubleValue);
+    KSAddress *address = [KSAddress addressWithLandmark:landmark coordinate:coordinate];
+
+    self.dropoffAddress = address;
+    [self updateDropoffLandmark];
+
 }
 
 #pragma mark -
@@ -213,12 +230,10 @@ NSString * const KSDefaultPickupText = @"You location";
     KSTrip *tripInfo = [KSDAL tripWithLandmark:self.pickupLandmark lat:self.pickupLat lon:self.pickupLon];
     tripInfo.dropoffLandmark = self.dropoffLandmark;
 
-    NSDate *pickupTime = [NSDate date];
     if (self.showsDatePicker) {
         UIDatePicker *datePicker = (UIDatePicker *)self.txtPickupTime.inputView;
-        pickupTime = datePicker.date;
+        tripInfo.pickupTime = datePicker.date;
     }
-    tripInfo.pickupTime = pickupTime;
 
     if (self.dropoffAddress.location) {
         CLLocationCoordinate2D coordinate = self.dropoffAddress.location.coordinate;
@@ -233,6 +248,10 @@ NSString * const KSDefaultPickupText = @"You location";
         if (status == KSAPIStatusSuccess) {
             KSBookingDetailsController *controller = (KSBookingDetailsController *)[UIStoryboard bookingDetailsController];
             controller.tripInfo = tripInfo;
+            controller.showsAcknowledgement = YES;
+            if (!tripInfo.pickupTime) {
+                tripInfo.pickupTime = [NSDate date];
+            }
             [self.navigationController pushViewController:controller animated:YES];
         }
         else {
