@@ -118,7 +118,6 @@
 		1880C54F1B789D4E004F0188 /* KSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C54E1B789D4E004F0188 /* KSDatePicker.m */; };
 		1880C5521B78B411004F0188 /* NSObject+KSNullRemoval.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5511B78B411004F0188 /* NSObject+KSNullRemoval.m */; };
 		1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5541B795176004F0188 /* UISegmentedControl+KSExtended.m */; };
-		1880C5581B795775004F0188 /* KSAddressPickerController_Old.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5571B795775004F0188 /* KSAddressPickerController_Old.m */; };
 		1880C55D1B79B47B004F0188 /* segment_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C55A1B79B47B004F0188 /* segment_selected@2x.png */; };
 		1880C55E1B79B47B004F0188 /* segment_splitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C55B1B79B47B004F0188 /* segment_splitter@2x.png */; };
 		1880C55F1B79B47B004F0188 /* segment_unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C55C1B79B47B004F0188 /* segment_unselected@2x.png */; };
@@ -148,6 +147,10 @@
 		18A7DFDE1B2DA95200687600 /* KSPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7DFDD1B2DA95200687600 /* KSPointAnnotation.m */; };
 		18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0CFF91B01ECD3002645AD /* KSWebClient.m */; };
 		18B0D0251B031C93002645AD /* KSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0D0241B031C93002645AD /* KSDBManager.m */; };
+		18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F721B81C7C000D2D27F /* KSVehicleTrackingInfo.m */; };
+		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
+		18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */; };
+		18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -330,8 +333,6 @@
 		1880C5511B78B411004F0188 /* NSObject+KSNullRemoval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KSNullRemoval.m"; sourceTree = "<group>"; };
 		1880C5531B795176004F0188 /* UISegmentedControl+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISegmentedControl+KSExtended.h"; sourceTree = "<group>"; };
 		1880C5541B795176004F0188 /* UISegmentedControl+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISegmentedControl+KSExtended.m"; sourceTree = "<group>"; };
-		1880C5561B795775004F0188 /* KSAddressPickerController_Old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAddressPickerController_Old.h; sourceTree = "<group>"; };
-		1880C5571B795775004F0188 /* KSAddressPickerController_Old.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAddressPickerController_Old.m; sourceTree = "<group>"; };
 		1880C5591B7957CB004F0188 /* KSAddressPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSAddressPickerDelegate.h; sourceTree = "<group>"; };
 		1880C55A1B79B47B004F0188 /* segment_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment_selected@2x.png"; sourceTree = "<group>"; };
 		1880C55B1B79B47B004F0188 /* segment_splitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment_splitter@2x.png"; sourceTree = "<group>"; };
@@ -387,6 +388,14 @@
 		18B0D0201B030942002645AD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18B0D0231B031C93002645AD /* KSDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDBManager.h; sourceTree = "<group>"; };
 		18B0D0241B031C93002645AD /* KSDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDBManager.m; sourceTree = "<group>"; };
+		18C44F711B81C7C000D2D27F /* KSVehicleTrackingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVehicleTrackingInfo.h; sourceTree = "<group>"; };
+		18C44F721B81C7C000D2D27F /* KSVehicleTrackingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleTrackingInfo.m; sourceTree = "<group>"; };
+		18C44F741B81D17400D2D27F /* KSVehicleTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVehicleTrackingAnnotation.h; sourceTree = "<group>"; };
+		18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleTrackingAnnotation.m; sourceTree = "<group>"; };
+		18C44F771B81E47100D2D27F /* KSVehicleAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVehicleAnnotationView.h; sourceTree = "<group>"; };
+		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleAnnotationView.m; sourceTree = "<group>"; };
+		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
+		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
 		49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D470927F06592D06A19BCD41 /* Pods-Kuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.release.xcconfig"; sourceTree = "<group>"; };
 		D713B6CDA9189D253F4EE8EE /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
@@ -568,6 +577,8 @@
 				185E3C071B7087EF00909B20 /* KSTripRating.m */,
 				1880C5751B809DD4004F0188 /* KSTrip.h */,
 				1880C5761B809DD4004F0188 /* KSTrip.m */,
+				18C44F711B81C7C000D2D27F /* KSVehicleTrackingInfo.h */,
+				18C44F721B81C7C000D2D27F /* KSVehicleTrackingInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -860,8 +871,6 @@
 				187318171B2EF62C0003DC5C /* KSTripRatingController.m */,
 				18A19DA71B6E43CD0057EED9 /* KSSplashController.h */,
 				18A19DA81B6E43CD0057EED9 /* KSSplashController.m */,
-				1880C5561B795775004F0188 /* KSAddressPickerController_Old.h */,
-				1880C5571B795775004F0188 /* KSAddressPickerController_Old.m */,
 				1880C5591B7957CB004F0188 /* KSAddressPickerDelegate.h */,
 			);
 			path = Controllers;
@@ -891,6 +900,12 @@
 				1880C56A1B79E141004F0188 /* KSBookmarkCell.m */,
 				1880C56C1B79E1B8004F0188 /* KSButtonCell.h */,
 				1880C56D1B79E1B8004F0188 /* KSButtonCell.m */,
+				18C44F741B81D17400D2D27F /* KSVehicleTrackingAnnotation.h */,
+				18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */,
+				18C44F771B81E47100D2D27F /* KSVehicleAnnotationView.h */,
+				18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */,
+				18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */,
+				18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1132,9 +1147,11 @@
 				18481B0A1B08C6CD00855F54 /* NSString+NSData+MD5.m in Sources */,
 				1880C5521B78B411004F0188 /* NSObject+KSNullRemoval.m in Sources */,
 				1801E3011B0E952C00A8983E /* KSAccountEditController.m in Sources */,
+				18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */,
 				1801E3661B16293900A8983E /* KSReadOnlyTextField.m in Sources */,
 				1801E3041B0E954200A8983E /* KSChangePasswordController.m in Sources */,
 				185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */,
+				18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */,
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
 				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
 				1880C5771B809DD4004F0188 /* KSTrip.m in Sources */,
@@ -1163,8 +1180,10 @@
 				18481B501B091EFA00855F54 /* SWRevealViewController.m in Sources */,
 				18481B771B0B1B4000855F54 /* KSConfirmationAlert.m in Sources */,
 				185043781B26BCD900AECDE9 /* KSAddress.m in Sources */,
+				18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */,
 				18481B741B09DFD000855F54 /* KSResetPasswordController.m in Sources */,
 				1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */,
+				18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */,
 				1801E2FE1B0E041500A8983E /* KSTableViewController.m in Sources */,
 				18A762BB1B006A7400B9ED32 /* KSLoginController.m in Sources */,
 				18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */,
@@ -1182,7 +1201,6 @@
 				1880C5681B79D989004F0188 /* KSGeoLocationCell.m in Sources */,
 				18A762811AFF785B00B9ED32 /* main.m in Sources */,
 				187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */,
-				1880C5581B795775004F0188 /* KSAddressPickerController_Old.m in Sources */,
 				187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */,
 				1801E34A1B1498AA00A8983E /* CLPlacemark+KSExtended.m in Sources */,
 				18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */,

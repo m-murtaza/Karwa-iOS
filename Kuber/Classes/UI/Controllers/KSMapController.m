@@ -13,19 +13,27 @@
 #import "KSLocationManager.h"
 #import "KSReadOnlyTextField.h"
 #import "KSPointAnnotation.h"
+#import "KSPinAnnotationView.h"
 
 #import "KSAddressPickerController.h"
 #import "KSBookingConfirmationController.h"
 
 #import "KSGeoLocation.h"
-#import "KSDAL.h"
+
+#import "KSDAL+Location.h"
+
+#import "KSVehicleTrackingInfo.h"
+#import "KSVehicleTrackingAnnotation.h"
+#import "KSVehicleAnnotationView.h"
 
 #import "KSAddress.h"
 
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
-#define METERS_PER_MILE 1609.344
+#define METERS_PER_MILE         (1609.344)
+#define MAP_REGION_VERTEX       (1.5 * METERS_PER_MILE)
+#define MAX_TAXI_ANNOTATIONS    (10)
 
 NSString * const KSPickupAnnotationTitle = @"Pickup Address";
 NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
@@ -34,6 +42,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 @interface KSMapController ()<UITextFieldDelegate, MKMapViewDelegate, KSAddressPickerDelegate>
 {
     BOOL _isLocationsSyncComplete;
+    BOOL _isRegionDefined;
 }
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -183,6 +192,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
         annotation.isInvalid = NO;
         [self.mapView selectAnnotation:annotation animated:YES];
         [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
+        [self defineMapRegionWithCenter:annotation.coordinate];
+
     }
     else {
         addressField.text = [NSString stringWithFormat:@"\u26A0 %@", address];
@@ -251,6 +262,43 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     [self updateAddressField:addressField annotation:annotation];
 }
 
+- (void)updateTaxisInCurrentRegion {
+    
+    if (!_isRegionDefined) {
+        return;
+    }
+    CLLocationCoordinate2D center = _mapView.centerCoordinate;
+    CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height / 2.0) toCoordinateFromView:_mapView];
+    CLLocationDistance radius = [[CLLocation locationWithCoordinate:center] distanceFromLocation:[CLLocation locationWithCoordinate:left]];
+    
+    [KSDAL taxisNearCoordinate:center radius:radius completion:^(KSAPIStatus status, NSArray * vehicles) {
+        
+        NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
+        for (int counter = 0; counter < vehicles.count && counter < MAX_TAXI_ANNOTATIONS; counter++) {
+
+            [vehiclesAnnotations addObject:[KSVehicleTrackingAnnotation annotationWithTrackingInfo:[vehicles objectAtIndex:counter]]];
+        }
+        NSArray *previusAnnotations = self.mapView.annotations;
+        for (id annotation in previusAnnotations) {
+            if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+                [self.mapView removeAnnotation:annotation];
+            }
+        }
+        [self.mapView addAnnotations:vehiclesAnnotations];
+        
+    }];
+}
+
+- (void)defineMapRegionWithCenter:(CLLocationCoordinate2D)center {
+
+    if (!_isRegionDefined) {
+        _isRegionDefined = YES;
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(center, MAP_REGION_VERTEX, MAP_REGION_VERTEX);
+        
+        [_mapView setRegion:viewRegion animated:YES];
+    }
+}
+
 #pragma mark -
 #pragma mark - Map view delegate
 
@@ -262,57 +310,45 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     if (!self.pickupPoint) {
         self.pickupPoint = [self annotationWithCoordinate:userLocation.location.coordinate title:KSPickupAnnotationTitle];
         [self updatePlacemarkForAnnotation:self.pickupPoint];
-        
-        CLLocation *location = userLocation.location;
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 4.0 * METERS_PER_MILE, 4.0 * METERS_PER_MILE);
-        [_mapView setRegion:viewRegion animated:YES];
-        
+        [self defineMapRegionWithCenter:userLocation.location.coordinate];
     }
 }
 
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+
+    [self updateTaxisInCurrentRegion];
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    static NSString * const pickupPinViewId = @"KSPickupPinView";
-    static NSString * const dropOffPinViewId = @"KSDropoffPinView";
-    
     // If the annotation is the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil;
-
-    MKPinAnnotationView *pin;
-    UIImage *leftCalloutIcon;
-    NSString *pinViewReuseIdentifier;
-    MKPinAnnotationColor pinColor;
-
-    if (annotation == self.pickupPoint) {
-
-        pinViewReuseIdentifier = pickupPinViewId;
-        pinColor = MKPinAnnotationColorGreen;
-        leftCalloutIcon = [UIImage imageNamed:@"startingpoint.png"];
-    }
-    else {
-
-        pinViewReuseIdentifier = dropOffPinViewId;
-        pinColor = MKPinAnnotationColorRed;
-        leftCalloutIcon = [UIImage imageNamed:@"destinationpoint.png"];
-    }
-
-    pin = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:pinViewReuseIdentifier];
-    if (!pin) {
-        pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier: pinViewReuseIdentifier];
-        pin.canShowCallout = YES;
-        pin.animatesDrop = YES;
-        pin.draggable = YES;
+//    if ([annotation isKindOfClass:[MKUserLocation class]])
+//        return nil;
+    MKAnnotationView *annotationView = nil;
+    if ([annotation isKindOfClass:[KSPointAnnotation class]]) {
+        MKAnnotationView *pin = nil;
+        KSAnnotationType annotationType = (annotation == self.pickupPoint) ? KSAnnotationTypePickup : KSAnnotationTypeDropoff;
+        NSString *pinReuseIdentifier = [KSPinAnnotationView identifierForType:annotationType];
         
-        UIImageView *leftIcon = [[UIImageView alloc] initWithImage:leftCalloutIcon];
-        leftIcon.frame = CGRectMake(0, 0, leftCalloutIcon.size.width, leftCalloutIcon.size.height);
-
-        pin.leftCalloutAccessoryView = leftIcon;
+        pin = [self.mapView dequeueReusableAnnotationViewWithIdentifier:pinReuseIdentifier];
+        
+        if (!pin) {
+            pin = [[KSPinAnnotationView alloc] initWithAnnotation:annotation type:annotationType];
+        }
+        else {
+            pin.annotation = annotation;
+        }
+        annotationView = pin;
     }
-
-    pin.annotation = annotation;
-    pin.pinColor = pinColor;
-
-    return pin;
+    else if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+        annotationView = (KSVehicleAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:[KSVehicleAnnotationView reuseIdentifier]];
+        if (!annotationView) {
+            annotationView = [[KSVehicleAnnotationView alloc] initWithAnnotation:annotation];
+        }
+        else {
+            annotationView.annotation = annotation;
+        }
+    }
+    return annotationView;
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
@@ -362,6 +398,9 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
         [self updateAddressField:addressField annotation:annotation];
         [mapView selectAnnotation:annotation animated:YES];
+
+        [self defineMapRegionWithCenter:annotation.coordinate];
+
     }
 }
 
