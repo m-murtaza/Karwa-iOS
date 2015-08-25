@@ -112,5 +112,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(IBAction)btnCancelTapped:(id)sender{
+    
+    [self cancelBooking];
+}
 
+
+
+#pragma mark - Private Functions 
+
+
+-(void) cancelBooking
+{
+    
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [KSDAL cancelTrip:self.tripInfo completion:^(KSAPIStatus status, id response) {
+       
+        [hud hide:YES];
+        if (KSAPIStatusSuccess == status) {
+        
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else{
+            NSLog(@"%s,cancel booking unSuccess \n Response is %@",__func__,response);
+            KSStringFromAPIStatus(status);
+            
+            [KSAlert show:KSStringFromAPIStatus(status)
+                    title:@"Error"
+                 btnTitle:@"OK"];
+            
+        }
+        
+    }];
+}
 @end

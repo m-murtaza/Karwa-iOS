@@ -76,13 +76,21 @@
 + (void)cancelTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock {
     
     KSWebClient *webClient = [KSWebClient instance];
+    
     NSString *uri = [NSString stringWithFormat:@"/booking/%@", trip.jobId];
+    
     [webClient DELETE:uri completion:^(BOOL success, id response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
             [trip MR_deleteEntity];
         }
+        
         completionBlock(status, nil);
+        
+        
+        //Usman: Temp Fix
+        /*[trip MR_deleteEntity];
+        completionBlock(1,nil);*/
     }];
 }
 

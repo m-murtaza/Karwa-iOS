@@ -15,4 +15,7 @@
 @property (nonatomic, strong) KSTrip *tripInfo;
 @property (nonatomic) BOOL showsAcknowledgement;
 
+
+-(IBAction)btnCancelTapped:(id)sender;
+
 @end
