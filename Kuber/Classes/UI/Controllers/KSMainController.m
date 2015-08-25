@@ -28,6 +28,7 @@
     [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
         // TODO: Nothing
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

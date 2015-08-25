@@ -20,6 +20,7 @@
 + (KSTrip *)tripWithLandmark:(NSString *)landmark lat:(CGFloat)lat lon:(CGFloat)lon;
 
 + (void)saveLocationsData:(NSArray *)locations;
++ (void) saveIssuesData:(NSArray*) issues;
 
 - (void)saveContext:(void(^)())completionBlock;
 

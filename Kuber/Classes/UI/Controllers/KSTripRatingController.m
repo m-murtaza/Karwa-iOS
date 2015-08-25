@@ -45,7 +45,14 @@
 
 - (IBAction)onClickDone:(id)sender {
 
-    if (!self.serviceRatingView.rate || !self.driverRatingView.rate) {
+    if (self.serviceRating.rate <= 3.0) {
+        //If service rating is less then 3. Then show users a popup with options.
+        NSLog(@"Rating is less then 3");
+        self.serviceIssueView.hidden = false;
+    }
+    
+    //Old Working code
+    /*if (!self.serviceRatingView.rate || !self.driverRatingView.rate) {
         return;
     }
 
@@ -62,7 +69,7 @@
     };
 
     KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
-    [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
+    [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];*/
 
 }
 

@@ -15,6 +15,7 @@
 #import "KSGeoLocation.h"
 
 #import "CoreData+MagicalRecord.h"
+#import "KSTripIssue.h"
 
 
 @implementation KSDBManager
@@ -67,6 +68,21 @@
         geolocation.address = loc[@"address"];
     }
 
+    [self saveContext:NULL];
+}
+
++ (void) saveIssuesData:(NSArray*) issues
+{
+    
+    for (NSDictionary *issue in issues) {
+        
+        NSString *issueKey = issue[@"IssueKey"];
+        KSTripIssue *tripIssue = [KSTripIssue objWithValue:issueKey forAttrib:@"issueKey"];
+        tripIssue.issueKey = issue[@"IssueKey"];
+        tripIssue.valueEN = issue[@"IssueEN"];
+        tripIssue.valueAR = issue[@"IssueAR"];
+    }
+    
     [self saveContext:NULL];
 }
 

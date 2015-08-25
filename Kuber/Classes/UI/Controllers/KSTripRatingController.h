@@ -6,12 +6,18 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSTableViewController.h"
+#import "KSViewController.h"
+
+#import "DYRateView.h"
 
 @class KSTrip;
 
-@interface KSTripRatingController : KSTableViewController
+@interface KSTripRatingController : KSViewController
 
 @property (nonatomic, strong) KSTrip *trip;
+
+@property (weak, nonatomic) IBOutlet DYRateView *serviceRating;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *serviceIssueView;
 
 @end
