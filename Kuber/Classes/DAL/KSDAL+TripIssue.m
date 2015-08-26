@@ -16,7 +16,7 @@
 
 +(NSArray*) allIssueList
 {
-    NSArray *issues = [KSTripIssue MR_findAll];
+    NSArray *issues = [KSTripIssue MR_findAllSortedBy:@"issueId" ascending:YES];
     return issues;
 }
 

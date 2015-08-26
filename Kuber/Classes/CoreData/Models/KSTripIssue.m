@@ -11,6 +11,7 @@
 
 @implementation KSTripIssue
 
+@dynamic issueId;
 @dynamic issueKey;
 @dynamic valueEN;
 @dynamic valueAR;

@@ -12,6 +12,7 @@
 
 @interface KSTripIssue : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * issueId;
 @property (nonatomic, retain) NSString * issueKey;
 @property (nonatomic, retain) NSString * valueEN;
 @property (nonatomic, retain) NSString * valueAR;

@@ -11,6 +11,7 @@
 @interface KSServiceIssueIdentifierViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *issueList;
+    NSMutableArray *selectedIndexs;
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;

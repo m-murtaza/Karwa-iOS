@@ -46,6 +46,7 @@
         <relationship name="taxi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSTaxi" inverseName="trips" inverseEntity="KSTaxi" syncable="YES"/>
     </entity>
     <entity name="KSTripIssue" representedClassName="KSTripIssue" syncable="YES">
+        <attribute name="issueId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="issueKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueAR" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="valueEN" optional="YES" attributeType="String" syncable="YES"/>
@@ -72,7 +73,7 @@
         <element name="KSGeoLocation" positionX="-162" positionY="144" width="128" height="120"/>
         <element name="KSTaxi" positionX="-371" positionY="158" width="128" height="118"/>
         <element name="KSTrip" positionX="-126" positionY="-7" width="128" height="270"/>
-        <element name="KSTripIssue" positionX="-162" positionY="144" width="128" height="90"/>
+        <element name="KSTripIssue" positionX="-162" positionY="144" width="128" height="105"/>
         <element name="KSTripRating" positionX="61" positionY="9" width="128" height="105"/>
         <element name="KSUser" positionX="-144" positionY="278" width="128" height="165"/>
     </elements>

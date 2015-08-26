@@ -20,6 +20,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    selectedIndexs = [[NSMutableArray alloc] init];
+    
     [KSDAL syncIssueListWithCompletion:^(KSAPIStatus status, id response) {
         //TODO: Noting
         NSLog(@"%@",response);
@@ -65,7 +67,34 @@
     
     KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
     cell.textLabel.text = issue.valueEN;
+    if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
+        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     
     return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger idx = [self idxPathInSelectedList:indexPath];
+    if (NSNotFound == idx) {
+        [selectedIndexs addObject:indexPath];
+    }
+    else {
+        [selectedIndexs removeObjectAtIndex:idx];
+    }
+    [tableView reloadData];
+}
+
+-(NSInteger) idxPathInSelectedList:(NSIndexPath*)indexPath
+{
+ 
+    //NSNumber *num=[NSNumber numberWithInteger:indexPath.row];
+    NSInteger anIndex=[selectedIndexs indexOfObject:indexPath];
+    return anIndex;
 }
 @end

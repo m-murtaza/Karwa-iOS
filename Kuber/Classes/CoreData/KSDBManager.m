@@ -76,8 +76,9 @@
     
     for (NSDictionary *issue in issues) {
         
-        NSString *issueKey = issue[@"IssueKey"];
-        KSTripIssue *tripIssue = [KSTripIssue objWithValue:issueKey forAttrib:@"issueKey"];
+        NSString *issueId = issue[@"Id"];
+        KSTripIssue *tripIssue = [KSTripIssue objWithValue:issueId forAttrib:@"issueId"];
+        tripIssue.issueId = issue[@"Id"];
         tripIssue.issueKey = issue[@"IssueKey"];
         tripIssue.valueEN = issue[@"IssueEN"];
         tripIssue.valueAR = issue[@"IssueAR"];
