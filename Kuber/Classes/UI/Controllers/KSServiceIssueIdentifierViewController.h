@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KSServiceIssueIdentifierViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface KSServiceIssueIdentifierViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     NSArray *issueList;
     NSMutableArray *selectedIndexs;

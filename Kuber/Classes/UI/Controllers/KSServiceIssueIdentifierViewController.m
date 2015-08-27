@@ -51,28 +51,35 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [issueList count];
+    return [issueList count]+1;
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     UITableViewCell *cell;
-    cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceIssueCellIdentifier"];
-    
-    if(!cell) {
-    
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
-    }
-    
-    KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
-    cell.textLabel.text = issue.valueEN;
-    if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
+    if (indexPath.row < [issueList count]) {
         
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceIssueCellIdentifier"];
+        
+        if(!cell) {
+        
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
+        }
+        
+        KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
+        cell.textLabel.text = issue.valueEN;
+        if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        else{
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
     else{
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"issueOtherCellIdentifier"];
     }
     
     return cell;
@@ -96,5 +103,42 @@
     //NSNumber *num=[NSNumber numberWithInteger:indexPath.row];
     NSInteger anIndex=[selectedIndexs indexOfObject:indexPath];
     return anIndex;
+}
+
+#pragma mark - UItextField delegate 
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    NSLog(@"I am UItextField delegate");
+}
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    return YES;
+}
+
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self.view endEditing:YES];
+    return YES;
+}
+
+
+#pragma mark - View Adjectment 
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    // Assign new frame to your view
+    [UIView animateWithDuration:0.38 animations:^{
+    [self.view setFrame:CGRectMake(0,-180,320,460)];
+    }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.38 animations:^{
+        [self.view setFrame:CGRectMake(0,0,320,460)];
+    }];
+    
 }
 @end
