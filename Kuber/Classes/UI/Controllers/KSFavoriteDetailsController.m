@@ -18,6 +18,9 @@
 #import "MBProgressHUD.h"
 #import "KSGeoLocation.h"
 
+#define LATITUDE_DELTA          0.112872
+#define LONGITUDE_DELTA         0.109863
+
 @interface KSFavoriteDetailsController ()<MKMapViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) KSPointAnnotation *annotation;
@@ -61,6 +64,34 @@
     self.txtName.delegate = self;
 
 }
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    if (self.bookmark) {
+        //For Edit case
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.bookmark.latitude.doubleValue, self.bookmark.longitude.doubleValue);
+        
+        MKCoordinateRegion region = [self createRegionForLocation:coordinate];
+        [self.mapView setRegion:region animated:YES];
+        
+    }
+}
+
+#pragma mark - Private Method
+
+-(MKCoordinateRegion) createRegionForLocation:(CLLocationCoordinate2D) coordinate
+{
+    
+    MKCoordinateRegion region;
+    region.center.latitude = coordinate.latitude;
+    region.center.longitude = coordinate.longitude;
+    region.span.latitudeDelta = LATITUDE_DELTA;
+    region.span.longitudeDelta = LONGITUDE_DELTA;
+    
+    return region;
+}
+
+#pragma mark -
 
 - (void)addAnnotationWithCoordinate:(CLLocationCoordinate2D)coordinate {
     if (!self.annotation) {
