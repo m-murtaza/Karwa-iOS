@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KSTripRatingController.h"
 
 @interface KSServiceIssueIdentifierViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
@@ -15,6 +16,8 @@
 }
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) KSTripRatingController *tripRatingView;
 
+-(NSArray*) selectedIssues;
 
 @end

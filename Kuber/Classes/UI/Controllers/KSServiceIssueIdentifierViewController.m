@@ -105,6 +105,17 @@
     return anIndex;
 }
 
+#pragma mark - private methods
+-(NSArray*) selectedIssues
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSIndexPath *idx in selectedIndexs) {
+        
+        [arr addObject:[[issueList objectAtIndex:idx.row] valueEN]];
+    }
+    return [NSArray arrayWithArray:arr];
+}
+
 #pragma mark - UItextField delegate 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField

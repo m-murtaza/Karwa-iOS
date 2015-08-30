@@ -10,7 +10,9 @@
 
 #import "DYRateView.h"
 
+
 @class KSTrip;
+@class KSServiceIssueIdentifierViewController;
 
 @interface KSTripRatingController : KSViewController
 
@@ -19,5 +21,8 @@
 @property (weak, nonatomic) IBOutlet DYRateView *serviceRating;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *serviceIssueView;
+@property (weak, nonatomic) KSServiceIssueIdentifierViewController *issueIdentifierViewController;
+
+
 
 @end
