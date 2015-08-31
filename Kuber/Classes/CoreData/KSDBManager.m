@@ -66,6 +66,8 @@
         geolocation.longitude = loc[@"lon"];
         geolocation.area = loc[@"area"];
         geolocation.address = loc[@"address"];
+        
+        
     }
 
     [self saveContext:NULL];

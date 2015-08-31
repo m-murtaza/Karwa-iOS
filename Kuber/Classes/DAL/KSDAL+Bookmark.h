@@ -22,4 +22,7 @@
 
 + (void)deleteBookmark:(KSBookmark *)aBookmark completion:(KSDALCompletionBlock)completionBlock;
 
+
++(void) addBookMarkForGeoLocation:(KSGeoLocation*)gLoc;
++(void) removeBookMarkForGeoLocation:(KSGeoLocation*)gLoc;
 @end

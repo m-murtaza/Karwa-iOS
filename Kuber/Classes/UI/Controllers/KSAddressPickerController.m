@@ -23,7 +23,8 @@
 #import "UISegmentedControl+KSExtended.h"
 #import "KSTrip.h"
 #import "KSButtonCell.h"
-
+#import "KSDAL.h"
+#import "KSDAL+Bookmark.h"
 
 typedef enum {
     
@@ -126,11 +127,37 @@ KSTableViewType;
     }
 
     self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(favButtonTapped:)
+                                                 name:KSNotificationButtonFavCellAction
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(unfavButtonTapped:)
+                                                 name:KSNotificationButtonUnFavCellAction
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark - Table view datasource
+-(void) favButtonTapped:(NSNotification*)data
+{
+    NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
+    [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"]];
+    
+}
+
+-(void) unfavButtonTapped:(NSNotification*)data
+{
+    NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
+    [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"]];
 }
 
 #pragma mark -
@@ -192,6 +219,8 @@ KSTableViewType;
     }
     
     cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
+    
+    
     
     cell.cellData = cellData;
     

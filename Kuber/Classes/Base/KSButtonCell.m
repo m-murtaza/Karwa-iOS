@@ -9,6 +9,8 @@
 #import "KSButtonCell.h"
 
 NSString * const KSNotificationButtonCellAction = @"KSNotificationButtonCellAction";
+NSString * const KSNotificationButtonFavCellAction = @"KSNotificationButtonFavCellAction";
+NSString * const KSNotificationButtonUnFavCellAction = @"KSNotificationButtonUnFavCellAction";
 
 @implementation KSButtonCell
 
@@ -68,11 +70,21 @@ NSString * const KSNotificationButtonCellAction = @"KSNotificationButtonCellActi
 
 - (void)onClickButton:(id)sender {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonCellAction object:self];
+    
+    /*if(1){
+        
+        [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+    }
+    else{
+        
+        [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+    }*/
+    [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonCellAction
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObject:_cellData forKey:@"cellData"]];
 }
 
 - (void)setCellData:(id)cellData {
-
     _cellData = cellData;
 }
 

@@ -71,6 +71,17 @@
 
                 bookmark.user = user;
                 [user addBookmarksObject:bookmark];
+                
+                //Goe location
+                if ([favorite[@"LocationID"] integerValue] != 0) {
+                    
+                    KSGeoLocation *gLoc = [KSDAL locationsWithLocationID:favorite[@"LocationID"]];
+                    if(gLoc) {
+                        
+                        gLoc.geoLocationToBookmark = bookmark;
+                        bookmark.bookmarkToGeoLocation =  gLoc;
+                    }
+                }
             }
             [KSDBManager saveContext:^{
             
@@ -97,9 +108,74 @@
     }];
 }
 
-+ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate address:(NSString *)address completion:(KSDALCompletionBlock)completionBlock {
++ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate address:(NSString *)address LocationID:(NSNumber*)locId Preference:(NSNumber*)preference completion:(KSDALCompletionBlock)completionBlock {
 
     NSDictionary *bookmarkData = @{
+                                   @"Name"      : name,
+                                   @"Lat"       : @(coordinate.latitude),
+                                   @"Lon"       : @(coordinate.longitude),
+                                   @"LocationID": @(locId ? [locId integerValue] : 0),
+                                   @"Preference": @(preference ? [preference integerValue] : 0)
+                                   };
+    
+    KSWebClient *webClient = [KSWebClient instance];
+    
+    [webClient POST:@"/bookmark" data:bookmarkData completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if (KSAPIStatusSuccess == status) {
+            NSDictionary *responseData = response[@"data"];
+            
+            KSBookmark *bookmark = [KSBookmark objWithValue:responseData[@"Id"] forAttrib:@"bookmarkId"];
+            bookmark.name = responseData[@"Name"];
+            bookmark.latitude = [NSNumber numberWithDouble:[responseData[@"Lat"] doubleValue]];
+            bookmark.longitude = [NSNumber numberWithDouble:[responseData[@"Lon"] doubleValue]];
+            
+            bookmark.address = address;
+            if ([responseData[@"Address"] length]) {
+                bookmark.address = responseData[@"Address"];
+            }
+            
+            //add User
+            KSUser *user = [KSDAL loggedInUser];
+            bookmark.user = user;
+            
+            [user addBookmarksObject:bookmark];
+            
+            //Goe location
+            if ([responseData[@"LocationID"] integerValue] != 0) {
+                
+                KSGeoLocation *gLoc = [KSDAL locationsWithLocationID:responseData[@"LocationID"]];
+                if(gLoc) {
+                    
+                    gLoc.geoLocationToBookmark = bookmark;
+                    bookmark.bookmarkToGeoLocation =  gLoc;
+                }
+            }
+            
+            [KSDBManager saveContext:^{
+                completionBlock(status, bookmark);
+            }];
+        }
+        else {
+            completionBlock(status, nil);
+        }
+    }];
+}
+
++ (void)addBookmarkWithName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate address:(NSString *)address completion:(KSDALCompletionBlock)completionBlock {
+
+    
+    [KSDAL addBookmarkWithName:name
+                    coordinate:coordinate
+                       address:address
+                    LocationID:[NSNumber numberWithInt:0]
+                    Preference:[NSNumber numberWithInt:0]
+                    completion:^(KSAPIStatus status, id response) {
+                        
+                        completionBlock(status, response);
+                    }];
+    
+    /*NSDictionary *bookmarkData = @{
         @"Name": name,
         @"Lat": @(coordinate.latitude),
         @"Lon": @(coordinate.longitude)
@@ -133,7 +209,7 @@
         else {
             completionBlock(status, nil);
         }
-    }];
+    }];*/
 }
 
 + (void)updateBookmark:(KSBookmark *)aBookmark withName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock {
@@ -160,6 +236,17 @@
             bookmark.address = @"";
             if (response[@"data"][@"Address"]) {
                 bookmark.address = response[@"data"][@"Address"];
+            }
+            
+            //Goe location
+            if ([response[@"data"][@"LocationID"] integerValue] != 0) {
+                
+                KSGeoLocation *gLoc = [KSDAL locationsWithLocationID:response[@"data"][@"LocationID"]];
+                if(gLoc) {
+                    
+                    gLoc.geoLocationToBookmark = bookmark;
+                    bookmark.bookmarkToGeoLocation =  gLoc;
+                }
             }
 
             [KSDBManager saveContext:^{
@@ -199,4 +286,97 @@
     }];
 }
 
++(void) addBookMarkForGeoLocation:(KSGeoLocation*)gLoc
+{
+    
+    CLLocationCoordinate2D coordinate;
+    coordinate.longitude = [gLoc.longitude doubleValue];
+    coordinate.latitude = [gLoc.latitude doubleValue];
+   
+    [KSDAL addBookmarkWithName:gLoc.area
+                    coordinate:coordinate
+                       address:gLoc.address
+                    LocationID:gLoc.locationId
+                    Preference:[NSNumber numberWithInt:0]
+                    completion:^(KSAPIStatus status, id response) {
+                        NSLog(@"%@",response);
+                    }];
+    
+    
+    
+//    CLLocationCoordinate2D coordinate;
+//    coordinate.longitude = [gLoc.longitude doubleValue];
+//    coordinate.latitude = [gLoc.latitude doubleValue];
+//    NSUInteger Id = [gLoc.gLocId integerValue];
+//    
+//    NSDictionary *bookmarkData = @{
+//                                   @"Name": gLoc.area,
+//                                   @"Lat": @(coordinate.latitude),
+//                                   @"Lon": @(coordinate.longitude)
+//                                   /*@"LocationID": @(Id),
+//                                   @"Preference":@(0)*/
+//                                   };
+//    
+//    KSWebClient *webClient = [KSWebClient instance];
+//    
+//    [webClient POST:@"/bookmark" data:bookmarkData completion:^(BOOL success, NSDictionary *response) {
+//        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+//        NSLog(@"%@",response);
+//        if (KSAPIStatusSuccess == status) {
+//            NSDictionary *responseData = response[@"data"];
+//            
+//            /*KSBookmark *bookmark = [KSBookmark objWithValue:responseData[@"Id"] forAttrib:@"bookmarkId"];
+//            bookmark.name = responseData[@"Name"];
+//            bookmark.latitude = [NSNumber numberWithDouble:[responseData[@"Lat"] doubleValue]];
+//            bookmark.longitude = [NSNumber numberWithDouble:[responseData[@"Lon"] doubleValue]];
+//            bookmark.address = address;
+//            if ([responseData[@"Address"] length]) {
+//                bookmark.address = responseData[@"Address"];
+//            }
+//            
+//            KSUser *user = [KSDAL loggedInUser];
+//            bookmark.user = user;
+//            
+//            [user addBookmarksObject:bookmark];
+//            
+//            [KSDBManager saveContext:^{
+//                completionBlock(status, bookmark);
+//            }];*/
+//        }
+//        //else {
+//            //completionBlock(status, nil);
+//        //}
+//    }];
+//    
+    
+    
+    /*CLLocationCoordinate2D coordinate;
+    coordinate.longitude = [gLoc.longitude doubleValue];
+    coordinate.latitude = [gLoc.latitude doubleValue];
+    
+    __block KSGeoLocation *loc = gLoc;
+    
+    [KSDAL addBookmarkWithName:gLoc.area
+                   coordinate:coordinate
+                      address:gLoc.address
+                   completion:^(KSAPIStatus status, id response) {
+                      
+                       KSBookmark *bookmark = (KSBookmark*)response;
+                       loc.goeLocationToBookmark = bookmark;
+                       [KSDBManager saveContext:^{
+                          NSLog(@"Bookmark Saved");
+                       }];
+                   }];*/
+}
+
++(void) removeBookMarkForGeoLocation:(KSGeoLocation*)gLoc
+{
+    KSBookmark * bookmark = gLoc.geoLocationToBookmark;
+    __block KSGeoLocation *loc = gLoc;
+    
+    [KSDAL deleteBookmark:bookmark completion:^(KSAPIStatus status, id response) {
+    
+        gLoc.geoLocationToBookmark = nil;
+    } ];
+}
 @end

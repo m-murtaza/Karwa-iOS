@@ -11,7 +11,6 @@
 #import "KSGeoLocation.h"
 #import "KSTrip.h"
 
-
 @implementation KSGeoLocationCell
 
 - (void)postInitialize {
@@ -29,6 +28,15 @@
         KSGeoLocation *location = (KSGeoLocation *)cellData;
         self.textLabel.text = location.address;
         self.detailTextLabel.text = location.area;
+        
+        if (location.geoLocationToBookmark) {
+        
+            [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+        }
+        else{
+        
+            [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+        }
     }
     else if ([cellData isKindOfClass:[KSTrip class]]) {
         
@@ -55,4 +63,25 @@
     }
 }
 
+
+- (void)onClickButton:(id)sender {
+
+    KSGeoLocation *location = (KSGeoLocation *)self.cellData;
+    
+    //These check are inverse as we need to un fav is cell is already fav
+    if (location.geoLocationToBookmark) {
+        
+        [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+    }
+    else{
+        
+        [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavCellAction
+                                                            object:nil
+                                                          userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        
+    }
+    [super onClickButton:sender];
+    
+}
 @end

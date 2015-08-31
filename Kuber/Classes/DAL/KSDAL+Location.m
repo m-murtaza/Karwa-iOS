@@ -95,6 +95,21 @@
     return locations;
 }
 
+
++ (KSGeoLocation *)locationsWithLocationID:(NSNumber *)locId
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"locationId == %@", locId];
+
+    NSArray *locations = [KSGeoLocation MR_findAllWithPredicate:predicate];
+    KSGeoLocation *loc;
+    
+    if ([locations count] > 0 ) {
+        
+         loc = (KSGeoLocation*)[locations objectAtIndex:0];
+    }
+    
+    return loc;
+}
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat longitude:(double)lon {
 
     const double searchRadius = 250.0; // 1350m radius

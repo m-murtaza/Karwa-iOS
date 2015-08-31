@@ -27,6 +27,7 @@
         KSBookmark *bookmark = (KSBookmark *)cellData;
         self.textLabel.text = bookmark.name;
         self.detailTextLabel.text = bookmark.address;
+        [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
     }
 }
 

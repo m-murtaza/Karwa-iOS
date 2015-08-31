@@ -32,4 +32,5 @@
 
 + (void)taxisNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius completion:(KSDALCompletionBlock)completionBlock;
 
++ (KSGeoLocation *)locationsWithLocationID:(NSNumber *)locId;
 @end

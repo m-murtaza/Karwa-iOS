@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const KSNotificationButtonCellAction;
+extern NSString * const KSNotificationButtonFavCellAction;
+extern NSString * const KSNotificationButtonUnFavCellAction;
 
 @interface KSButtonCell : UITableViewCell
 
@@ -18,4 +20,5 @@ extern NSString * const KSNotificationButtonCellAction;
 
 - (void)postInitialize;
 
+- (void)onClickButton:(id)sender;
 @end
