@@ -138,6 +138,14 @@ KSTableViewType;
                                              selector:@selector(unfavButtonTapped:)
                                                  name:KSNotificationButtonUnFavCellAction
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(unfavBookmarkButtonTapped:)
+                                                 name:KSNotificationButtonUnFavBookmarkCellAction
+                                               object:nil];
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -157,7 +165,16 @@ KSTableViewType;
 -(void) unfavButtonTapped:(NSNotification*)data
 {
     NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
-    [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"]];
+    [KSDAL removeBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"]];
+    [self.tableView reloadData];
+}
+
+-(void) unfavBookmarkButtonTapped:(NSNotification*)data
+{
+    [KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+        _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark -

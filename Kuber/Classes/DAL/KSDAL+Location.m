@@ -71,6 +71,7 @@
 
             // Update locations database
             NSArray *locations = response[@"data"];
+            NSLog(@"---Sync locations \n %@",locations);
             [KSDBManager saveLocationsData:locations];
         }
 

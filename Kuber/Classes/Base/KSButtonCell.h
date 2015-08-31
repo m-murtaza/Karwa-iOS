@@ -11,6 +11,7 @@
 extern NSString * const KSNotificationButtonCellAction;
 extern NSString * const KSNotificationButtonFavCellAction;
 extern NSString * const KSNotificationButtonUnFavCellAction;
+extern NSString * const KSNotificationButtonUnFavBookmarkCellAction;
 
 @interface KSButtonCell : UITableViewCell
 

@@ -9,6 +9,7 @@
 #import "KSBookmarkCell.h"
 
 #import "KSBookmark.h"
+//#import "KSGeoLocation.h"
 
 @implementation KSBookmarkCell
 
@@ -30,6 +31,34 @@
         [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
     }
 }
-
+- (void)onClickButton:(id)sender {
+    
+    /*KSGeoLocation *location = (KSGeoLocation *)((KSBookmark*)self.cellData).bookmarkToGeoLocation;
+    
+    //These check are inverse as we need to un fav is cell is already fav
+    if (location.geoLocationToBookmark) {
+        
+        [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavCellAction
+                                                            object:nil
+                                                          userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+    }
+    else{
+        
+        [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavCellAction
+                                                            object:nil
+                                                          userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+    }*/
+    
+    //KSBookmark *bookmark = (KSBookmark*)self.cellData;
+    [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavBookmarkCellAction
+                                                        object:nil
+                                                      userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+    
+    //TODO catch this notification on table view
+    [super onClickButton:sender];
+    
+}
 
 @end

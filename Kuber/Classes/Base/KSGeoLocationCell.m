@@ -72,6 +72,9 @@
     if (location.geoLocationToBookmark) {
         
         [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavCellAction
+                                                            object:nil
+                                                          userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
     }
     else{
         
@@ -79,7 +82,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavCellAction
                                                             object:nil
                                                           userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
-        
     }
     [super onClickButton:sender];
     

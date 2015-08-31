@@ -11,6 +11,8 @@
 NSString * const KSNotificationButtonCellAction = @"KSNotificationButtonCellAction";
 NSString * const KSNotificationButtonFavCellAction = @"KSNotificationButtonFavCellAction";
 NSString * const KSNotificationButtonUnFavCellAction = @"KSNotificationButtonUnFavCellAction";
+NSString * const KSNotificationButtonUnFavBookmarkCellAction = @"KSNotificationButtonUnFavBookmarkCellAction";
+
 
 @implementation KSButtonCell
 

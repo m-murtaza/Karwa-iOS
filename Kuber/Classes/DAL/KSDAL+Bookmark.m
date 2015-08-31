@@ -72,6 +72,9 @@
                 bookmark.user = user;
                 [user addBookmarksObject:bookmark];
                 
+                if ([favorite[@"LocationID"] integerValue] == 474) {
+                    NSLog(@"------This is the line you are searching for. -------");
+                }
                 //Goe location
                 if ([favorite[@"LocationID"] integerValue] != 0) {
                     
@@ -293,7 +296,7 @@
     coordinate.longitude = [gLoc.longitude doubleValue];
     coordinate.latitude = [gLoc.latitude doubleValue];
    
-    [KSDAL addBookmarkWithName:gLoc.area
+    [KSDAL addBookmarkWithName:KSStringFromCoordinate(coordinate)
                     coordinate:coordinate
                        address:gLoc.address
                     LocationID:gLoc.locationId
