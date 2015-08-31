@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIButton+KSButton.h"
 
 extern NSString * const KSNotificationButtonCellAction;
 extern NSString * const KSNotificationButtonFavCellAction;

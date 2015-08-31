@@ -56,6 +56,7 @@
 		185E3C3A1B772DA100909B20 /* MuseoForDell-500.otf in Resources */ = {isa = PBXBuildFile; fileRef = 185E3C391B772DA100909B20 /* MuseoForDell-500.otf */; };
 		185FEC731B9424BD00268296 /* KSBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC721B9424BD00268296 /* KSBookmark.m */; };
 		185FEC761B9424BD00268296 /* KSGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC751B9424BD00268296 /* KSGeoLocation.m */; };
+		185FEC791B94612600268296 /* UIButton+KSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC781B94612600268296 /* UIButton+KSButton.m */; };
 		18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18692ECC1B2EA55F006FC825 /* KSUser.m */; };
 		187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */; };
 		187318181B2EF62C0003DC5C /* KSTripRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318171B2EF62C0003DC5C /* KSTripRatingController.m */; };
@@ -266,6 +267,8 @@
 		185FEC721B9424BD00268296 /* KSBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookmark.m; sourceTree = "<group>"; };
 		185FEC741B9424BD00268296 /* KSGeoLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSGeoLocation.h; sourceTree = "<group>"; };
 		185FEC751B9424BD00268296 /* KSGeoLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSGeoLocation.m; sourceTree = "<group>"; };
+		185FEC771B94612600268296 /* UIButton+KSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+KSButton.h"; sourceTree = "<group>"; };
+		185FEC781B94612600268296 /* UIButton+KSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+KSButton.m"; sourceTree = "<group>"; };
 		18692ECB1B2EA55F006FC825 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
 		18692ECC1B2EA55F006FC825 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
 		187318131B2EC1290003DC5C /* KSBookingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingHistoryCell.h; sourceTree = "<group>"; };
@@ -476,6 +479,8 @@
 				1880C5541B795176004F0188 /* UISegmentedControl+KSExtended.m */,
 				1880C5721B80942A004F0188 /* NSDate+KSExtended.h */,
 				1880C5731B80942A004F0188 /* NSDate+KSExtended.m */,
+				185FEC771B94612600268296 /* UIButton+KSButton.h */,
+				185FEC781B94612600268296 /* UIButton+KSButton.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1227,6 +1232,7 @@
 				1880C5681B79D989004F0188 /* KSGeoLocationCell.m in Sources */,
 				18A762811AFF785B00B9ED32 /* main.m in Sources */,
 				187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */,
+				185FEC791B94612600268296 /* UIButton+KSButton.m in Sources */,
 				187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */,
 				1801E34A1B1498AA00A8983E /* CLPlacemark+KSExtended.m in Sources */,
 				18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */,

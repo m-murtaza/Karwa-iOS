@@ -154,25 +154,78 @@ KSTableViewType;
 }
 
 #pragma mark -
+#pragma mark - Private Methods
+-(void) loadAllData
+{
+    _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+    _recentBookings = [KSDAL recentTripsWithLandmarkText];
+    _nearestLocations = [NSArray array];
+    
+    if(self.searchField.text != nil && ![self.searchField.text isEqualToString:@""])
+    {
+        _searchLocations = [KSDAL locationsMatchingText:self.searchField.text];
+    }
+    
+    
+    CLLocation *currentLocation = [KSLocationManager location];
+    
+    self.tableViewType = KSTableViewTypeFavorites;
+    
+    
+    if (currentLocation) {
+        
+        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
+        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:10000.];
+        
+        NSMutableArray *tempLocations = [NSMutableArray array];
+        for (KSGeoLocation *location in _nearestLocations) {
+            BOOL isUnique = YES;
+            for (KSGeoLocation *location2 in tempLocations) {
+                if ([location2.address isEqual:location.address]) {
+                    isUnique = NO;
+                    break;
+                }
+            }
+            if (isUnique) {
+                [tempLocations addObject:location];
+            }
+        }
+        _nearestLocations = [NSArray arrayWithArray:tempLocations];
+        
+        if (_nearestLocations.count) {
+            self.tableViewType = KSTableViewTypeNearby;
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark - Table view datasource
 -(void) favButtonTapped:(NSNotification*)data
 {
     NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
-    [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"]];
+    [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+        
+        [self loadAllData];
+        [self.tableView reloadData];
+    }];
     
 }
 
 -(void) unfavButtonTapped:(NSNotification*)data
 {
     NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
-    [KSDAL removeBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"]];
-    [self.tableView reloadData];
+    [KSDAL removeBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+        
+        [self loadAllData];
+         [self.tableView reloadData];
+    }];
+   
 }
 
 -(void) unfavBookmarkButtonTapped:(NSNotification*)data
 {
     [KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
-        _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+        [self loadAllData];
         [self.tableView reloadData];
     }];
 }

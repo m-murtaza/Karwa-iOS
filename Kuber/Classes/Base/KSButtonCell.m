@@ -65,6 +65,9 @@ NSString * const KSNotificationButtonUnFavBookmarkCellAction = @"KSNotificationB
     [button setImage:image forState:UIControlStateNormal];
     button.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
+    //Usman: Find this function in extension to increase tap area.
+    [button setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
+    
     [button addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
     
     self.accessoryView = button;
