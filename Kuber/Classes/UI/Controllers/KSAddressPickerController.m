@@ -25,6 +25,7 @@
 #import "KSButtonCell.h"
 #import "KSDAL.h"
 #import "KSDAL+Bookmark.h"
+#import "KSFavoriteDetailsController.h"
 
 typedef enum {
     
@@ -44,6 +45,8 @@ KSTableViewType;
     NSArray *_nearestLocations;
     
     NSArray *_searchLocations;
+    
+    KSGeoLocation *selectedGeoLocation;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -63,6 +66,7 @@ KSTableViewType;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    selectedGeoLocation = nil;
 
     UIImage *searchIcon = [UIImage imageNamed:@"search-icon.png"];
     UIImageView *searchIconView = [[UIImageView alloc] initWithImage:searchIcon];
@@ -91,7 +95,7 @@ KSTableViewType;
                        forControlState:UIControlStateSelected];
 
     
-    _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+    /*_savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
     _recentBookings = [KSDAL recentTripsWithLandmarkText];
     _nearestLocations = [NSArray array];
     _searchLocations = [NSArray array];
@@ -124,11 +128,40 @@ KSTableViewType;
         if (_nearestLocations.count) {
             self.tableViewType = KSTableViewTypeNearby;
         }
-    }
+    }*/
 
-    self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
     
     
+    
+
+    
+    
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self addCellButtonObserver];
+    [self loadAllData];
+}
+
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark - Private Methods
+-(void) addCellButtonObserver
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(favButtonTapped:)
                                                  name:KSNotificationButtonFavCellAction
@@ -143,18 +176,8 @@ KSTableViewType;
                                              selector:@selector(unfavBookmarkButtonTapped:)
                                                  name:KSNotificationButtonUnFavBookmarkCellAction
                                                object:nil];
-
-    
-    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark -
-#pragma mark - Private Methods
 -(void) loadAllData
 {
     _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
@@ -164,6 +187,9 @@ KSTableViewType;
     if(self.searchField.text != nil && ![self.searchField.text isEqualToString:@""])
     {
         _searchLocations = [KSDAL locationsMatchingText:self.searchField.text];
+    }
+    else{
+      _searchLocations = [NSArray array];
     }
     
     
@@ -196,18 +222,39 @@ KSTableViewType;
             self.tableViewType = KSTableViewTypeNearby;
         }
     }
+    self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    [self.tableView reloadData];
 }
 
 #pragma mark -
-#pragma mark - Table view datasource
+#pragma mark - Segue
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SegueAddPickerToBookmark"]) {
+        KSFavoriteDetailsController * favController = (KSFavoriteDetailsController*)segue.destinationViewController;
+        favController.gLocation = selectedGeoLocation;
+    }
+    
+    
+    
+    
+}
+
+#pragma mark -
+#pragma mark - Notifications
 -(void) favButtonTapped:(NSNotification*)data
 {
-    NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
+    selectedGeoLocation = (KSGeoLocation*) [[data userInfo] valueForKey:@"cellData"];
+    [self performSegueWithIdentifier:@"SegueAddPickerToBookmark" sender:self];
+    
+    NSLog(@"%@",selectedGeoLocation);
+    
+    /*NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
     [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
         
         [self loadAllData];
         [self.tableView reloadData];
-    }];
+    }];*/
     
 }
 
@@ -215,9 +262,15 @@ KSTableViewType;
 {
     NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
     [KSDAL removeBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+        if (KSAPIStatusSuccess == status) {
+         
+            [self loadAllData];
+            [self.tableView reloadData];
+        }
+        else{
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
         
-        [self loadAllData];
-         [self.tableView reloadData];
     }];
    
 }
@@ -225,8 +278,14 @@ KSTableViewType;
 -(void) unfavBookmarkButtonTapped:(NSNotification*)data
 {
     [KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
-        [self loadAllData];
-        [self.tableView reloadData];
+        if (KSAPIStatusSuccess == status) {
+            
+            [self loadAllData];
+            [self.tableView reloadData];
+        }
+        else{
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
     }];
 }
 

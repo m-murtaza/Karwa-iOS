@@ -9,10 +9,12 @@
 #import "KSViewController.h"
 
 @class KSBookmark;
+@class KSGeoLocation;
 
 @interface KSFavoriteDetailsController : KSViewController
 
 @property (nonatomic, copy) NSString *landmark;
 @property (nonatomic, strong) KSBookmark *bookmark;
+@property (nonatomic, strong) KSGeoLocation *gLocation;
 
 @end

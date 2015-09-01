@@ -71,14 +71,14 @@
     //These check are inverse as we need to un fav is cell is already fav
     if (location.geoLocationToBookmark) {
         
-        [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+        //[self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavCellAction
                                                             object:nil
                                                           userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
     }
     else{
         
-        [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+        //[self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
         [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavCellAction
                                                             object:nil
                                                           userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];

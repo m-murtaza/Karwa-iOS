@@ -1938,7 +1938,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qrg-sm-fW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="694.5" y="-2647.5"/>
+            <point key="canvasLocation" x="783" y="-2652"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xfQ-ge-Gll">
@@ -2575,11 +2575,12 @@
                         <outlet property="searchField" destination="yXA-BK-yeW" id="OI8-KU-7kT"/>
                         <outlet property="segmentControl" destination="dIR-Te-S2u" id="c9n-e6-b1t"/>
                         <outlet property="tableView" destination="nHw-kP-qS7" id="KgD-X7-PHa"/>
+                        <segue destination="jpA-Ag-F5d" kind="showDetail" identifier="SegueAddPickerToBookmark" id="snM-TD-RWk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfB-WR-egp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1489.5" y="-546"/>
+            <point key="canvasLocation" x="1591.5" y="-1044"/>
         </scene>
         <!--Booking Confirmation-->
         <scene sceneID="Hg9-Dc-3B8">
@@ -3896,7 +3897,7 @@
         <image name="verdots.png" width="44" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zRd-7U-Rqs"/>
         <segue reference="Vhm-8q-RQC"/>
+        <segue reference="snM-TD-RWk"/>
     </inferredMetricsTieBreakers>
 </document>

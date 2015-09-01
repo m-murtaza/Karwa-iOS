@@ -289,14 +289,14 @@
     }];
 }
 
-+(void) addBookMarkForGeoLocation:(KSGeoLocation*)gLoc  completion:(KSDALCompletionBlock)completionBlock
++(void) addBookMarkForGeoLocation:(KSGeoLocation*)gLoc  withName:(NSString *)name  completion:(KSDALCompletionBlock)completionBlock
 {
     
     CLLocationCoordinate2D coordinate;
     coordinate.longitude = [gLoc.longitude doubleValue];
     coordinate.latitude = [gLoc.latitude doubleValue];
    
-    [KSDAL addBookmarkWithName:KSStringFromCoordinate(coordinate)
+    [KSDAL addBookmarkWithName:name
                     coordinate:coordinate
                        address:gLoc.address
                     LocationID:gLoc.locationId

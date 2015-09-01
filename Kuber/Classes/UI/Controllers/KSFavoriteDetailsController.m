@@ -50,6 +50,12 @@
             [self updateAnnotationWithCoordinate:coordinate];
         }
     }
+    else if (self.gLocation){
+        
+       CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.gLocation.latitude.doubleValue, self.gLocation.longitude.doubleValue);
+        [self updateAnnotationWithCoordinate:coordinate];
+        self.title = @"New Place";
+    }
     else {
         self.title = @"New Place";
     }
@@ -67,14 +73,17 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
+    CLLocationCoordinate2D coordinate;
     if (self.bookmark) {
         //For Edit case
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.bookmark.latitude.doubleValue, self.bookmark.longitude.doubleValue);
-        
-        MKCoordinateRegion region = [self createRegionForLocation:coordinate];
-        [self.mapView setRegion:region animated:YES];
-        
+        coordinate = CLLocationCoordinate2DMake(self.bookmark.latitude.doubleValue, self.bookmark.longitude.doubleValue);
     }
+    else if(self.gLocation){
+    
+        coordinate = CLLocationCoordinate2DMake(self.gLocation.latitude.doubleValue, self.gLocation.longitude.doubleValue);
+    }
+    MKCoordinateRegion region = [self createRegionForLocation:coordinate];
+    [self.mapView setRegion:region animated:YES];
 }
 
 #pragma mark - Private Method
@@ -222,13 +231,13 @@
         [KSAlert show:@"Please add place name and select a location from map"];
         return;
     }
-    if (self.txtName.text == self.bookmark.name &&
+    if (self.bookmark != nil && self.txtName.text == self.bookmark.name &&
         self.bookmark.latitude.doubleValue == self.annotation.coordinate.latitude &&
         self.bookmark.longitude.doubleValue == self.annotation.coordinate.longitude) {
         [KSAlert show:@"No changes to save"];
         return;
     }
-
+    
     __block UINavigationController *navController = self.navigationController;
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
@@ -244,7 +253,14 @@
     };
     if (self.bookmark) {
         [KSDAL updateBookmark:self.bookmark withName:self.txtName.text coordinate:self.annotation.coordinate completion:completionHandler];
-    } else {
+    }
+    else if (self.gLocation)
+    {
+        [KSDAL addBookMarkForGeoLocation:self.gLocation
+                                withName:self.txtName.text
+                              completion:completionHandler];
+    }
+    else {
         NSString *address = self.lblAddress.text.length ? self.lblAddress.text : @"";
         [KSDAL addBookmarkWithName:self.txtName.text coordinate:self.annotation.coordinate address:address completion:completionHandler];
     }
