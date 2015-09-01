@@ -20,4 +20,6 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus status, id response);
 
 + (KSUser *)loggedInUser;
 
++(NSArray*) allUser;
+
 @end

@@ -154,7 +154,7 @@
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
             if (KSAPIStatusSuccess == status) {
 
-                KSUser *user = [self userWithPhone:requestData[@"Phone"]];
+                KSUser *user = [KSDAL loggedInUser];//[self userWithPhone:requestData[@"Phone"]];
                 if (requestData[@"Email"]) {
                     user.email = requestData[@"Email"];
                 }
@@ -162,7 +162,13 @@
                     user.name = requestData[@"Name"];
                 }
                 [KSDBManager saveContext:^{
+                    NSArray *a = [KSDAL allUser];
+                    for (KSUser *u in a) {
+                        NSLog(@"%@",u);
+                    }
                     completionBlock(status, nil);
+                    
+                    
                 }];
             }
             else {

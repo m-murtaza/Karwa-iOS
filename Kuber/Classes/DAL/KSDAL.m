@@ -52,4 +52,8 @@
     return user;
 }
 
++(NSArray*) allUser
+{
+    return [KSUser MR_findAll];
+}
 @end
