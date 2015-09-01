@@ -15,7 +15,7 @@
 #import "KSDAL.h"
 #import "KSUser.h"
 #import "KSBookmark.h"
-#import "CoreData+MagicalRecord.h"
+#import "MagicalRecord.h"
 
 #import "KSGeoLocation.h"
 

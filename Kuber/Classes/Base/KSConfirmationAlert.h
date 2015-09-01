@@ -28,5 +28,6 @@ typedef void (^KSConfirmationActionHandler)(KSConfirmationAlertAction *action);
 @interface KSConfirmationAlert : UIAlertView
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction cancelAction:(KSConfirmationAlertAction *)cancelAction;
++ (void)showWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction;
 
 @end

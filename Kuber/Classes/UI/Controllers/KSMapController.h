@@ -8,8 +8,10 @@
 
 #import "KSViewController.h"
 
+#import "KSDatePicker.h"
 
-@interface KSMapController : KSViewController
+
+@interface KSMapController : KSViewController<UITextFieldDelegate,KSDatePickerDelegate>
 
 @property (nonatomic) KSBookingOption bookingOption;
 

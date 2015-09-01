@@ -8,7 +8,7 @@
 
 #import "KSDAL+TripIssue.h"
 
-#import "CoreData+MagicalRecord.h"
+#import "MagicalRecord.h"
 #import "KSTripIssue.h"
 #import "KSDBManager.h"
 

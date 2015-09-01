@@ -18,7 +18,7 @@
 #import "KSGeoLocation.h"
 
 #import "KSSessionInfo.h"
-#import "CoreData+MagicalRecord.h"
+#import "MagicalRecord.h"
 
 @implementation KSDAL (KSBookmark)
 

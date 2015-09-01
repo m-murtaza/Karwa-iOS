@@ -14,7 +14,7 @@
 #import "KSTrip.h"
 #import "KSGeoLocation.h"
 
-#import "CoreData+MagicalRecord.h"
+#import "MagicalRecord.h"
 #import "KSTripIssue.h"
 
 

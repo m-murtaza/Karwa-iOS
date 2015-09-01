@@ -17,6 +17,7 @@
 
 #import "KSAddressPickerController.h"
 #import "KSBookingConfirmationController.h"
+#import "KSBookingDetailsController.h"
 
 #import "KSGeoLocation.h"
 
@@ -27,6 +28,8 @@
 #import "KSVehicleAnnotationView.h"
 
 #import "KSAddress.h"
+#import "KSTrip.h"
+#import "KSConfirmationAlert.h"
 
 #import <objc/objc.h>
 #import <objc/runtime.h>
@@ -43,6 +46,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 {
     BOOL _isLocationsSyncComplete;
     BOOL _isRegionDefined;
+    KSTrip *tripInfo;
 }
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -55,6 +59,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 @property (weak, nonatomic) IBOutlet KSReadOnlyTextField *txtPickupAddress;
 
 @property (weak, nonatomic) IBOutlet KSReadOnlyTextField *txtDropoffAddress;
+@property (weak, nonatomic) IBOutlet UITextField *txtPickupTime;
+
 
 
 - (IBAction)onClickDropoffAddress:(id)sender;
@@ -71,8 +77,10 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     _mapView.userTrackingMode = MKUserTrackingModeFollow;
 //    _mapView.showsUserLocation = NO;
 
-    MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:_mapView];
-    self.navigationItem.rightBarButtonItem = button;
+   /* MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:_mapView];
+    self.navigationItem.rightBarButtonItem = button;*/
+    
+    [self addDoneButton];
     
     self.mapView.delegate = self;
 
@@ -94,6 +102,27 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
         }
 
     }];
+    
+    [self addDataPickerToTxtPickupTime];
+}
+
+-(void) addDataPickerToTxtPickupTime
+{
+    NSDate *minDate = [NSDate dateWithTimeIntervalSinceNow:30 * 60];
+    // Max date should be 15 day ahead only
+    NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:30 * 24 * 60 * 60];
+    
+    //NSDate *date = minDate;
+    
+    KSDatePicker *picker = [[KSDatePicker alloc] init];
+    picker.datePickerMode = UIDatePickerModeDateAndTime;
+    picker.minimumDate = minDate;
+    picker.maximumDate = maxDate;
+    
+    picker.delegate = self;
+    
+    self.txtPickupTime.inputView = picker;
+    [self updatePickupTime:[NSDate date]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +143,82 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (void)viewWillDisappear:(BOOL)animated {
     [KSLocationManager stop];
 }
+
+#pragma mark -
+#pragma mark - Private methods.
+
+-(void) addDoneButton
+{
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTapped)];
+    self.navigationItem.rightBarButtonItem = btn;
+}
+-(void) bookTaxi
+{
+    if (nil == self.txtPickupAddress || [self.txtPickupAddress.text isEqualToString:@""]) {
+        [KSAlert show:@"Pickup Address can't be empty" title:@"Error"];
+        return;
+    }
+    tripInfo = [KSDAL tripWithLandmark:self.txtPickupAddress.text
+                                           lat:self.pickupPoint.coordinate.latitude
+                                           lon:self.pickupPoint.coordinate.longitude];
+    if(nil != self.txtDropoffAddress && ![self.txtDropoffAddress.text isEqualToString:@""])
+    {
+        tripInfo.dropoffLandmark = self.txtPickupAddress.text;
+        
+        tripInfo.dropOffLat = [NSNumber numberWithDouble:self.dropoffPoint.coordinate.latitude];
+        
+        tripInfo.dropOffLon = [NSNumber numberWithDouble:self.dropoffPoint.coordinate.longitude];
+    }
+    
+    UIDatePicker *datePicker = (UIDatePicker *)self.txtPickupTime.inputView;
+    
+    tripInfo.pickupTime = datePicker.date;
+    
+    
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        if (status == KSAPIStatusSuccess) {
+            NSLog(@"%@",data);
+            KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+                NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
+                [self performSegueWithIdentifier:@"segueBookingToBookingDetail" sender:self];
+                
+            }];
+            
+            [KSConfirmationAlert showWithTitle:@"Thank you"
+                                       message:@"You Booking is complete, soon you will recieve a message"
+                                      okAction:okAction];
+        }
+        else {
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+        
+    }];
+    
+}
+
+#pragma mark -
+#pragma mark - Date picker delegate
+
+- (void)updatePickupTime:(NSDate *)date {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM dd, yy, HH:mm"];
+    
+    self.txtPickupTime.text = [formatter stringFromDate:date];
+}
+
+- (void)datePicker:(KSDatePicker *)picker didPickDate:(NSDate *)date {
+    
+    [self.txtPickupTime resignFirstResponder];
+    
+    [self updatePickupTime:date];
+}
+
+#pragma mark - 
+#pragma mark - Map
 
 - (KSPointAnnotation *)annotationWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title offset:(CGFloat)offset {
     
@@ -228,6 +333,11 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
         UIButton *btn = (UIButton *)sender;
         controller.showsDatePicker = (btn.tag > 0);
+    }
+    else if ([segue.destinationViewController isKindOfClass:[KSBookingDetailsController class]])
+    {
+        KSBookingDetailsController *detailControler = segue.destinationViewController;
+        detailControler.tripInfo = tripInfo;
     }
 }
 
@@ -365,6 +475,27 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 #pragma mark -
 #pragma mark - Event handlers
 
+-(void) btnDoneTapped
+{
+
+    [self.txtPickupTime resignFirstResponder];
+    
+    KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+        NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
+        [self bookTaxi];
+    }];
+    KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
+        NSLog(@"%s Cancel Handler", __PRETTY_FUNCTION__);
+    }];
+
+    
+   [KSConfirmationAlert showWithTitle:@"Alert"
+                              message:@"Are you sure you want to book a taxi"
+                             okAction:okAction
+                         cancelAction:cancelAction];
+    
+}
+
 - (void)onLongPressMapView:(UIGestureRecognizer *)gestureRecognizer {
 
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
@@ -427,5 +558,46 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
     [self handleAddressClick:self.dropoffPoint pointId:KSPickerIdForDropoffAddress];
 }
+
+
+#pragma mark - 
+#pragma mark UITextField 
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    /*[UIView animateWithDuration:0.38 animations:^{
+        [self.view setFrame:CGRectMake(0,-150,320,460)];
+    }];*/
+    return YES;
+}
+
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+//    
+//    [self.view endEditing:YES];
+    /*[UIView animateWithDuration:0.38 animations:^{
+        [self.view setFrame:CGRectMake(0,0,320,460)];
+    }];*/
+
+    return YES;
+}
+//
+//
+//#pragma mark - View Adjectment
+//- (void)keyboardWillShow:(NSNotification *)notification
+//{
+//    // Assign new frame to your view
+//    [UIView animateWithDuration:0.38 animations:^{
+//        [self.view setFrame:CGRectMake(0,-108,320,460)];
+//    }];
+//}
+//
+//-(void)keyboardWillHide:(NSNotification *)notification
+//{
+//    [UIView animateWithDuration:0.38 animations:^{
+//        [self.view setFrame:CGRectMake(0,0,320,460)];
+//    }];
+//    
+//}
 
 @end

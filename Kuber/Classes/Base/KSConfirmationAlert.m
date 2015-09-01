@@ -54,6 +54,22 @@
     [alertView show];
 }
 
++ (void)showWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction {
+    
+    if (!okAction || !okAction.title.length) {
+        [[NSException exceptionWithName:NSInvalidArgumentException
+                                 reason:@"You MUST provide okAction with title"
+                               userInfo:@{}] raise];
+        return;
+    }
+    
+    KSConfirmationAlert *alertView = [[KSConfirmationAlert alloc] initWithTitle:title
+                                                                        message:message
+                                                                       okAction:okAction
+                                                                   cancelAction:nil];
+    [alertView show];
+}
+
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction cancelAction:(KSConfirmationAlertAction *)cancelAction {
 
     self = [super initWithTitle:title message:message delegate:nil cancelButtonTitle:okAction.title.localizedValue otherButtonTitles:cancelAction.title.localizedValue, nil];
