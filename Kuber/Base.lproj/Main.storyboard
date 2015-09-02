@@ -904,11 +904,11 @@
                                             <exclude reference="iEb-nH-SMQ"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="9jm-xq-ySv"/>
-                                            <exclude reference="GgY-Tj-TI8"/>
                                             <exclude reference="1gi-Bk-sv7"/>
                                             <exclude reference="2wf-AS-YTG"/>
                                             <exclude reference="r2z-Yi-1pj"/>
+                                            <exclude reference="9jm-xq-ySv"/>
+                                            <exclude reference="GgY-Tj-TI8"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -917,11 +917,11 @@
                                             <include reference="iEb-nH-SMQ"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <include reference="9jm-xq-ySv"/>
-                                            <include reference="GgY-Tj-TI8"/>
                                             <include reference="1gi-Bk-sv7"/>
                                             <include reference="2wf-AS-YTG"/>
                                             <include reference="r2z-Yi-1pj"/>
+                                            <include reference="9jm-xq-ySv"/>
+                                            <include reference="GgY-Tj-TI8"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -967,6 +967,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="JYb-TD-GGn" kind="show" id="aUH-i9-Kz1"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -1602,25 +1605,16 @@
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="12" y="100" width="368" height="30"/>
-                                </variation>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBT-e2-yhk">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="12" y="160" width="368" height="30"/>
-                                </variation>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-cM-HXN">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="12" y="222" width="368" height="30"/>
-                                </variation>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
