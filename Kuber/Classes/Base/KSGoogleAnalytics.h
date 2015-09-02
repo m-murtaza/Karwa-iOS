@@ -10,4 +10,6 @@
 
 @interface KSGoogleAnalytics : NSObject
 
++(void) trackPage:(NSString*)name;
+
 @end

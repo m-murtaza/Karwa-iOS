@@ -10,4 +10,10 @@
 
 @implementation KSGoogleAnalytics
 
++(void) trackPage:(NSString*)name
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:name];
+    [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
+}
 @end
