@@ -58,6 +58,8 @@
 		185FEC761B9424BD00268296 /* KSGeoLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC751B9424BD00268296 /* KSGeoLocation.m */; };
 		185FEC791B94612600268296 /* UIButton+KSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC781B94612600268296 /* UIButton+KSButton.m */; };
 		185FEC7F1B96C75000268296 /* KSUITextFieldInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC7E1B96C75000268296 /* KSUITextFieldInCell.m */; };
+		185FEC811B96DB0E00268296 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 185FEC801B96DB0E00268296 /* GoogleService-Info.plist */; };
+		185FEC851B96E6EB00268296 /* KSGoogleAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */; };
 		18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18692ECC1B2EA55F006FC825 /* KSUser.m */; };
 		187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */; };
 		187318181B2EF62C0003DC5C /* KSTripRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318171B2EF62C0003DC5C /* KSTripRatingController.m */; };
@@ -272,6 +274,9 @@
 		185FEC781B94612600268296 /* UIButton+KSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+KSButton.m"; sourceTree = "<group>"; };
 		185FEC7D1B96C75000268296 /* KSUITextFieldInCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUITextFieldInCell.h; sourceTree = "<group>"; };
 		185FEC7E1B96C75000268296 /* KSUITextFieldInCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUITextFieldInCell.m; sourceTree = "<group>"; };
+		185FEC801B96DB0E00268296 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		185FEC831B96E6EB00268296 /* KSGoogleAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSGoogleAnalytics.h; sourceTree = "<group>"; };
+		185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSGoogleAnalytics.m; sourceTree = "<group>"; };
 		18692ECB1B2EA55F006FC825 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
 		18692ECC1B2EA55F006FC825 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
 		187318131B2EC1290003DC5C /* KSBookingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingHistoryCell.h; sourceTree = "<group>"; };
@@ -786,6 +791,7 @@
 		18A7627E1AFF785B00B9ED32 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				185FEC801B96DB0E00268296 /* GoogleService-Info.plist */,
 				18481B6D1B09CAB900855F54 /* Info.plist */,
 				18A762801AFF785B00B9ED32 /* main.m */,
 				189F5D951B08565000EAF9B2 /* Kuber-Prefix.pch */,
@@ -897,6 +903,8 @@
 		18A762BE1B006D6400B9ED32 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				185FEC831B96E6EB00268296 /* KSGoogleAnalytics.h */,
+				185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */,
 				18A7DFDC1B2DA95200687600 /* KSPointAnnotation.h */,
 				18A7DFDD1B2DA95200687600 /* KSPointAnnotation.m */,
 				18481AFF1B08C4F400855F54 /* Extensions */,
@@ -1069,6 +1077,7 @@
 				1880C5321B7877ED004F0188 /* setpickuplocation@2x.png in Resources */,
 				1880C5331B7877ED004F0188 /* splitter_gray@2x.png in Resources */,
 				1880C5381B7877ED004F0188 /* verdots.png in Resources */,
+				185FEC811B96DB0E00268296 /* GoogleService-Info.plist in Resources */,
 				1880C53D1B7877ED004F0188 /* StarFull.png in Resources */,
 				1880C54A1B7877ED004F0188 /* taxi-568h@2x.png in Resources */,
 				1880C5391B7877ED004F0188 /* StarEmpty.png in Resources */,
@@ -1219,6 +1228,7 @@
 				18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */,
 				18481B741B09DFD000855F54 /* KSResetPasswordController.m in Sources */,
 				1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */,
+				185FEC851B96E6EB00268296 /* KSGoogleAnalytics.m in Sources */,
 				18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */,
 				1801E2FE1B0E041500A8983E /* KSTableViewController.m in Sources */,
 				18A762BB1B006A7400B9ED32 /* KSLoginController.m in Sources */,
@@ -1441,6 +1451,11 @@
 				);
 				INFOPLIST_FILE = KuberTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Karwa Taxi.app/Karwa Taxi";
 			};
@@ -1456,6 +1471,11 @@
 				);
 				INFOPLIST_FILE = KuberTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Karwa Taxi.app/Karwa Taxi";
 			};

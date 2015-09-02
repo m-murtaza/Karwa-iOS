@@ -28,8 +28,11 @@
 
     [Fabric with:@[[Crashlytics class]]];
 
+    [self setupGoogleAnalytics];
     
     [self applyUICustomizations];
+    
+    
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
@@ -139,6 +142,18 @@
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 
+}
+
+-(void) setupGoogleAnalytics
+{
+    NSError *configureError;
+    [[GGLContext sharedInstance] configureWithError:&configureError];
+    NSAssert(!configureError, @"Error configuring Google services: %@", configureError);
+    
+    // Optional: configure GAI options.
+    GAI *gai = [GAI sharedInstance];
+    //gai.trackUncaughtExceptions = YES;  // report uncaught exceptions
+    gai.logger.logLevel = kGAILogLevelVerbose;  // remove before app release
 }
 
 @end

@@ -42,10 +42,7 @@
     [super viewWillAppear:animated];
     user = [KSDAL loggedInUser];
 
-    /*self.lblEmail.text = user.email;
-    self.lblName.text = user.name;
-    self.lblPhone.text = user.phone;*/
-
+    [KSGoogleAnalytics trackPage:@"Edit Profile"];
 }
 
 #pragma mark -

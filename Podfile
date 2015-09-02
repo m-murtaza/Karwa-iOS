@@ -7,6 +7,7 @@ target 'Kuber' do
 	pod "MagicalRecord"
     pod "Fabric"
     pod "Crashlytics"
+    pod "Google/Analytics", "~> 1.0.0"
 end
 
 target 'KuberTests' do

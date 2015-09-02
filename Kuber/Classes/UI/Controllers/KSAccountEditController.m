@@ -27,6 +27,12 @@
     // Do any additional setup after loading the view.
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [KSGoogleAnalytics trackPage:@"AccountEdit"];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

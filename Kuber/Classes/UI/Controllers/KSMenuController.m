@@ -34,6 +34,7 @@
 {
     KSUser *user = [KSDAL loggedInUser];
     self.lblDisplayName.text = [user name];
+    [KSGoogleAnalytics trackPage:@"Menu"];
 }
 
 - (void)didReceiveMemoryWarning {

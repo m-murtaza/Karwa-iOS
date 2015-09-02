@@ -70,6 +70,11 @@
     self.txtName.delegate = self;
 
 }
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [KSGoogleAnalytics trackPage:@"Favorite Details"];
+}
 
 -(void) viewDidAppear:(BOOL)animated
 {

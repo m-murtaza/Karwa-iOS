@@ -133,15 +133,13 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (void)viewWillAppear:(BOOL)animated {
     [KSLocationManager start];
 
-//    [KSLocationManager placemarkWithBlock:^(KSGeoLocation *placemark) {
-//        CLLocation *location = placemark.location;
-//        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 4.0 * METERS_PER_MILE, 4.0 * METERS_PER_MILE);
-//        [_mapView setRegion:viewRegion animated:YES];
-//    }];
+    [KSGoogleAnalytics trackPage:@"BookingScreen"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [KSLocationManager stop];
+    
+    
 }
 
 #pragma mark -

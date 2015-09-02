@@ -93,50 +93,12 @@ KSTableViewType;
                        forControlState:UIControlStateHighlighted];
     [self.segmentControl setTitleColor:segmentHighlightColor
                        forControlState:UIControlStateSelected];
+}
 
-    
-    /*_savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
-    _recentBookings = [KSDAL recentTripsWithLandmarkText];
-    _nearestLocations = [NSArray array];
-    _searchLocations = [NSArray array];
-    
-    CLLocation *currentLocation = [KSLocationManager location];
-
-    self.tableViewType = KSTableViewTypeFavorites;
-    
-
-    if (currentLocation) {
-        
-        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
-        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:10000.];
-
-        NSMutableArray *tempLocations = [NSMutableArray array];
-        for (KSGeoLocation *location in _nearestLocations) {
-            BOOL isUnique = YES;
-            for (KSGeoLocation *location2 in tempLocations) {
-                if ([location2.address isEqual:location.address]) {
-                    isUnique = NO;
-                    break;
-                }
-            }
-            if (isUnique) {
-                [tempLocations addObject:location];
-            }
-        }
-        _nearestLocations = [NSArray arrayWithArray:tempLocations];
-
-        if (_nearestLocations.count) {
-            self.tableViewType = KSTableViewTypeNearby;
-        }
-    }*/
-
-    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
-    
-    
-    
-
-    
-    
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [KSGoogleAnalytics trackPage:@"AddressPicker"];
 }
 
 -(void) viewDidAppear:(BOOL)animated

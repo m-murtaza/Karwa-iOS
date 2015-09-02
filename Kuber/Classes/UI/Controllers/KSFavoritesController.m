@@ -55,6 +55,12 @@
 
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [KSGoogleAnalytics trackPage:@"Change Password"];
+}
+
 - (void)updateActionButtons {
     
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];

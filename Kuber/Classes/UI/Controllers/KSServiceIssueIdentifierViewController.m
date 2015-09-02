@@ -28,9 +28,12 @@
         issueList = [NSArray arrayWithArray:[KSDAL allIssueList]];
         [self.tableView reloadData];
     }];
+}
 
-    
-    
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [KSGoogleAnalytics trackPage:@"Service Issues"];
 }
 
 - (void)didReceiveMemoryWarning {

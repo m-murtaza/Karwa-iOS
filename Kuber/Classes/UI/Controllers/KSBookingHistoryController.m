@@ -47,6 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [KSGoogleAnalytics trackPage:@"Booking History"];
     [self buildTripsHistory];
 }
 
