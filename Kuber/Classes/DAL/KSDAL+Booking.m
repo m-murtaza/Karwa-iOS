@@ -45,6 +45,7 @@
     [requestData setObjectOrNothing:trip.dropOffLat forKey:@"DropLat"];
     [requestData setObjectOrNothing:trip.dropOffLon forKey:@"DropLon"];
     [requestData setObjectOrNothing:trip.dropoffLandmark forKey:@"DropLocation"];
+    [requestData setObjectOrNothing:[NSDate date] forKey:@"CreationTime"];
 
     KSWebClient *webClient = [KSWebClient instance];
     __block KSTrip *tripInfo = trip;
