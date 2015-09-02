@@ -7,7 +7,14 @@
 //
 
 #import "KSTableViewController.h"
+#import "KSUITextFieldInCell.h"
 
-@interface KSUserAccountController : KSTableViewController
+@interface KSUserAccountController : KSTableViewController <UITableViewDelegate,UITableViewDelegate,UITextFieldDelegate>
+{
+    KSUser *user;
+    KSUITextFieldInCell *txtName;
+    KSUITextFieldInCell *txtEmail;
+    
+}
 
 @end
