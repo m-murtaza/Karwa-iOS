@@ -29,4 +29,6 @@
 
 + (NSArray *)recentTripsWithLandmarkText;
 
++(void) bookingWithBookingId:(NSString*)bookingId completion:(KSDALCompletionBlock)completionBlock;
+
 @end

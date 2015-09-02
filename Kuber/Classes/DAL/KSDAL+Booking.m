@@ -156,6 +156,49 @@
     return [NSArray arrayWithArray:recentBookings];
 }
 
++(void) bookingWithBookingId:(NSString*)bookingId completion:(KSDALCompletionBlock)completionBlock
+{
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient GET:[NSString stringWithFormat:@"/booking/%@",bookingId]
+            params:nil
+        completion:^(BOOL success, id response) {
+            KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+            if(KSAPIStatusSuccess == status){
+                
+                NSDictionary * tripData = response[@"data"];
+                KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
+                trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
+                trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
+                trip.pickupTime = [tripData[@"PickTime"] dateValue];
+                trip.dropOffTime = [tripData[@"DropTime"] dateValue];
+                if (tripData[@"PickLocation"])
+                    trip.pickupLandmark = tripData[@"PickLocation"];
+                if (tripData[@"DropLat"])
+                    trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
+                if (tripData[@"DropLon"])
+                    trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
+                if (tripData[@"DropLocation"])
+                    trip.dropoffLandmark = tripData[@"DropLocation"];
+                
+                trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
+                trip.bookingType = [tripData[@"BookingType"] lowercaseString];
+                
+                KSUser *user = [KSDAL loggedInUser];
+                trip.passenger = user;
+                
+                [user addTripsObject:trip];
+            
+                [KSDBManager saveContext:^{
+                    completionBlock(status, trip);
+                }];
+            }
+            else{
+                NSLog(@"Failed booking Detail");
+            }
+        }];
+}
+
+
 #pragma mark -
 #pragma mark - Trip rating
 

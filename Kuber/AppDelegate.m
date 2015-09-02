@@ -11,9 +11,13 @@
 #import "SWRevealViewController.h"
 #import "MagicalRecord+Setup.h"
 #import "KSDAL.h"
+#import "KSTrip.h"
 #import "KSSessionInfo.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "KSBookingDetailsController.h"
+#import "KSTripRatingController.h"
+
 
 
 @interface AppDelegate ()
@@ -32,11 +36,9 @@
     
     [self applyUICustomizations];
     
-    
-    
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    
 
     UIViewController *menuController = [UIStoryboard menuController];
     UIViewController *frontController;
@@ -56,6 +58,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = rootController;
     [self.window makeKeyAndVisible];
+    
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 
     return YES;
 }
@@ -90,12 +95,28 @@
     [KSDBManager saveContext: NULL];
 }
 
+#pragma mark - APNS function
+
+-(void) getAPNSToken
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"APNS_Token"]) {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    }
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     NSCharacterSet *extraChars = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
     NSString *token = [deviceToken.description stringByTrimmingCharactersInSet:extraChars];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
 
+    NSLog(@"Device Token %@",token);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:token forKey:@"APNS_Token"];
+    [defaults synchronize];
+    
     [KSSessionInfo updateToken:token];
 }
 
@@ -107,6 +128,30 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
     NSLog(@"%s: %@", __func__, userInfo);
+    
+    [KSDAL bookingWithBookingId:@"C500B7"
+                     completion:^(KSAPIStatus status, id response) {
+                         NSLog(@"%@",response);
+                         KSTrip *trip = (KSTrip*)response;
+                         if([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil)
+                         {
+                             KSTripRatingController *ratingViewController = [UIStoryboard tripRatingController];
+                             ratingViewController.trip = trip;
+                             SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+                             
+                             UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+                             [navController pushViewController:ratingViewController animated:NO];
+                         }
+                         else{
+                             KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
+                             detailController.tripInfo = trip;
+                             
+                             SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+                             
+                             UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+                             [navController pushViewController:detailController animated:NO];
+                         }
+                     }];
 }
 
 
