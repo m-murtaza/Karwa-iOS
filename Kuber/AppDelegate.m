@@ -38,7 +38,7 @@
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
 
-    
+    [self getAPNSToken];
 
     UIViewController *menuController = [UIStoryboard menuController];
     UIViewController *frontController;

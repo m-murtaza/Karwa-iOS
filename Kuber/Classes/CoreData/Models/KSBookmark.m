@@ -15,6 +15,7 @@
 
 @dynamic address;
 @dynamic bookmarkId;
+@dynamic sortOrder;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic name;

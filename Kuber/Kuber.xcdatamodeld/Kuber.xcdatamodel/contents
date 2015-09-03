@@ -6,6 +6,7 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSGeoLocation" inverseName="geoLocationToBookmark" inverseEntity="KSGeoLocation" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSUser" inverseName="bookmarks" inverseEntity="KSUser" syncable="YES"/>
     </entity>
@@ -70,13 +71,13 @@
         <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="passenger" inverseEntity="KSTrip" syncable="YES"/>
     </entity>
     <elements>
-        <element name="KSBookmark" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSDriver" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSGeoLocation" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSTaxi" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSTrip" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSTripIssue" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSTripRating" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="KSUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="KSBookmark" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="KSDriver" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="KSGeoLocation" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="KSTaxi" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="KSTrip" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="KSTripIssue" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="KSTripRating" positionX="0" positionY="0" width="128" height="105"/>
+        <element name="KSUser" positionX="0" positionY="0" width="128" height="165"/>
     </elements>
 </model>

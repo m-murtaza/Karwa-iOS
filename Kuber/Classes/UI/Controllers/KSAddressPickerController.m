@@ -140,9 +140,21 @@ KSTableViewType;
                                                object:nil];
 }
 
+-(void) loadAllBookmarkData
+{
+    //_savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+    NSArray *arr = [[[KSDAL loggedInUser] bookmarks] allObjects];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:YES];
+    _savedBookmarks = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+    
+}
 -(void) loadAllData
 {
-    _savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
+    [self loadAllBookmarkData];
+    
+    
+    
+    
     _recentBookings = [KSDAL recentTripsWithLandmarkText];
     _nearestLocations = [NSArray array];
     

@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSNumber * bookmarkId;
+@property (nonatomic, retain) NSNumber * sortOrder;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSString * name;

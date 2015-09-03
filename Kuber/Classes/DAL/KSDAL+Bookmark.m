@@ -62,6 +62,7 @@
             for (NSDictionary *favorite in favorites) {
 
                 KSBookmark *bookmark = [KSBookmark objWithValue:favorite[@"Id"] forAttrib:@"bookmarkId"];
+                bookmark.sortOrder = favorite[@"Preference"];
                 bookmark.name = favorite[@"Name"];
                 bookmark.latitude = [NSNumber numberWithDouble:[favorite[@"Lat"] doubleValue]];
                 bookmark.longitude = [NSNumber numberWithDouble:[favorite[@"Lon"] doubleValue]];
@@ -130,6 +131,7 @@
             
             KSBookmark *bookmark = [KSBookmark objWithValue:responseData[@"Id"] forAttrib:@"bookmarkId"];
             bookmark.name = responseData[@"Name"];
+            bookmark.sortOrder = responseData[@"Preference"];
             bookmark.latitude = [NSNumber numberWithDouble:[responseData[@"Lat"] doubleValue]];
             bookmark.longitude = [NSNumber numberWithDouble:[responseData[@"Lon"] doubleValue]];
             
@@ -177,48 +179,15 @@
                         
                         completionBlock(status, response);
                     }];
-    
-    /*NSDictionary *bookmarkData = @{
-        @"Name": name,
-        @"Lat": @(coordinate.latitude),
-        @"Lon": @(coordinate.longitude)
-    };
-
-    KSWebClient *webClient = [KSWebClient instance];
-
-    [webClient POST:@"/bookmark" data:bookmarkData completion:^(BOOL success, NSDictionary *response) {
-        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
-        if (KSAPIStatusSuccess == status) {
-            NSDictionary *responseData = response[@"data"];
-            
-            KSBookmark *bookmark = [KSBookmark objWithValue:responseData[@"Id"] forAttrib:@"bookmarkId"];
-            bookmark.name = responseData[@"Name"];
-            bookmark.latitude = [NSNumber numberWithDouble:[responseData[@"Lat"] doubleValue]];
-            bookmark.longitude = [NSNumber numberWithDouble:[responseData[@"Lon"] doubleValue]];
-            bookmark.address = address;
-            if ([responseData[@"Address"] length]) {
-                bookmark.address = responseData[@"Address"];
-            }
-
-            KSUser *user = [KSDAL loggedInUser];
-            bookmark.user = user;
-
-            [user addBookmarksObject:bookmark];
-            
-            [KSDBManager saveContext:^{
-                completionBlock(status, bookmark);
-            }];
-        }
-        else {
-            completionBlock(status, nil);
-        }
-    }];*/
 }
 
+
+//TODO Add Prefrence
 + (void)updateBookmark:(KSBookmark *)aBookmark withName:(NSString *)name coordinate:(CLLocationCoordinate2D)coordinate completion:(KSDALCompletionBlock)completionBlock {
 
     NSDictionary *bookmarkData = @{
                                    @"Name": name,
+                                   
                                    @"Lat": @(coordinate.latitude),
                                    @"Lon": @(coordinate.longitude)
                                    };
@@ -289,6 +258,8 @@
     }];
 }
 
+
+//TODO Update preference code
 +(void) addBookMarkForGeoLocation:(KSGeoLocation*)gLoc  withName:(NSString *)name  completion:(KSDALCompletionBlock)completionBlock
 {
     
