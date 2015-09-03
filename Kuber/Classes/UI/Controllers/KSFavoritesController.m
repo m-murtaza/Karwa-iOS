@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self.tableView setEditing:TRUE];
 
     self.bookmarks = [NSMutableArray array];
 
@@ -71,10 +73,13 @@
 
     KSUser *user = [KSDAL loggedInUser];
     
-    NSArray *sortedBookmarks = [user.bookmarks.allObjects sortedArrayUsingComparator:^NSComparisonResult(KSBookmark *obj1, KSBookmark *obj2) {
+   /* NSArray *sortedBookmarks = [user.bookmarks.allObjects sortedArrayUsingComparator:^NSComparisonResult(KSBookmark *obj1, KSBookmark *obj2) {
         return [obj1.name compare:obj2.name options:NSCaseInsensitiveSearch];
-    }];
+    }];*/
 
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:NO];
+    NSArray *sortedBookmarks = [user.bookmarks.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+    
     [self.bookmarks removeAllObjects];
 
     for (KSBookmark *bookmark in sortedBookmarks) {
@@ -144,6 +149,54 @@
 
 #pragma mark -
 #pragma mark - UITableView datasource
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    
+    NSLog(@"%@",self.bookmarks);
+    
+    id bmark = [self.bookmarks objectAtIndex:sourceIndexPath.row];
+    [self.bookmarks removeObjectAtIndex:sourceIndexPath.row];
+    [self.bookmarks insertObject:bmark atIndex:destinationIndexPath.row];
+    
+    NSUInteger destination = destinationIndexPath.row;
+    NSUInteger source = sourceIndexPath.row;
+    
+    if(destination < source){
+        //Moving upward
+        for (NSUInteger i = destination; i <= source; i++) {
+            //run a loop from destination to source
+            NSDictionary *placeData = self.bookmarks[i];
+            KSBookmark *bookmark = placeData[@"bookmark"];
+            bookmark.sortOrder = [NSNumber numberWithInteger:i+1];
+        }
+    }
+    else{
+        //Moving a cell down
+        for (NSUInteger i = destination; i <= source; i--) {
+            //run a loop from destination to source backward
+            NSDictionary *placeData = self.bookmarks[i];
+            KSBookmark *bookmark = placeData[@"bookmark"];
+            bookmark.sortOrder = [NSNumber numberWithInteger:i+1];
+        }
+    }
+    
+    [KSDAL updateBookmarksFromTripdata:self.bookmarks];
+}
+
+
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
