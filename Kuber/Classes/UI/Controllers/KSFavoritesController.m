@@ -26,6 +26,8 @@
 @property (nonatomic, strong) NSArray *addDeleteBarButtonItems;
 @property (nonatomic, strong) NSArray *addOnlyBarButtonItems;
 
+-(IBAction)editTableBtnTapped:(id)sender;
+
 @end
 
 @implementation KSFavoritesController
@@ -33,8 +35,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    tblIsEditing = FALSE;
     
-    [self.tableView setEditing:TRUE];
+    
+    //self.tableView.allowsMultipleSelectionDuringEditing = YES;
 
     self.bookmarks = [NSMutableArray array];
 
@@ -154,11 +158,19 @@
     return YES;
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleNone;
+    
+    
+    return UITableViewCellEditingStyleDelete;
 }
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+
+/*- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+    }
+}*/
+/*- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
-}
+}*/
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -227,15 +239,30 @@
 #pragma mark - UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self updateActionButtons];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self performSegueWithIdentifier:@"segueFavToFavDetail" sender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self updateActionButtons];
-}
+/*- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //[self updateActionButtons];
+}*/
 
 #pragma mark -
 #pragma mark - Event handlers
+
+-(IBAction)editTableBtnTapped:(id)sender
+{
+    tblIsEditing = !tblIsEditing;
+    [self.tableView setEditing:tblIsEditing animated:YES];
+    [self.tableView reloadData];
+    if (tblIsEditing) {
+    
+        [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
+    }
+    else{
+        [self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
+    }
+}
 
 - (void)onClickDeletePlaces:(id)sender {
 

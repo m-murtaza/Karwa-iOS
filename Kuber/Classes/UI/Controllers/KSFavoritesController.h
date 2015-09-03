@@ -9,5 +9,7 @@
 #import "KSTableViewController.h"
 
 @interface KSFavoritesController : KSTableViewController
-
+{
+    BOOL tblIsEditing;
+}
 @end
