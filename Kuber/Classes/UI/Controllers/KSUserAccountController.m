@@ -21,7 +21,7 @@
 //@property (weak, nonatomic) IBOutlet UILabel *lblName;
 
 
-@property (weak, nonatomic) IBOutlet UITableView *tblView;
+//@property (weak, nonatomic) IBOutlet UITableView *tblView;
 -(IBAction)btnSaveTapped:(id)sender;
 @end
 
