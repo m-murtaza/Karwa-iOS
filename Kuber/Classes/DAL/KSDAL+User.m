@@ -82,7 +82,10 @@
 #else
     postData[@"DeviceType"] = @1;
 #endif
-    postData[@"DeviceToken"] = [[KSSessionInfo currentSession] pushToken];
+    if([[KSSessionInfo currentSession] pushToken]){
+     
+        postData[@"DeviceToken"] = [[KSSessionInfo currentSession] pushToken];
+    }
 
     KSWebClient *webClient = [KSWebClient instance];
 
