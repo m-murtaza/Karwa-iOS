@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "KSDAL.h"
-
 @class KSGeoLocation;
 
 @interface KSDAL (KSLocation)

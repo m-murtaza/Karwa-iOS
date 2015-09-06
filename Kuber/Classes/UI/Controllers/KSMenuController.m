@@ -11,8 +11,6 @@
 #import "SWRevealViewController.h"
 #import "KSConfirmationAlert.h"
 
-#import "KSUser.h"
-
 @interface KSMenuController ()
 
 @property (nonatomic) IBOutlet UILabel *lblDisplayName;

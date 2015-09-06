@@ -7,17 +7,11 @@
 //
 
 #import "KSFavoritesController.h"
-
-#import "KSDAL.h"
-#import "KSBookmark.h"
-#import "KSUser.h"
 #import "KSLocationManager.h"
 
 #import "KSGeoLocation.h"
 
 #import "KSFavoriteDetailsController.h"
-#import "MBProgressHUD.h"
-
 
 @interface KSFavoritesController ()
 

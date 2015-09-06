@@ -11,8 +11,6 @@
 #import <MapKit/MapKit.h>
 
 #import "KSWebClient.h"
-#import "KSDAL.h"
-
 #import "KSGeoLocation.h"
 
 @interface KSLocationManager ()<CLLocationManagerDelegate>

@@ -9,9 +9,6 @@
 #import "KSVerifyController.h"
 #import "SWRevealViewController.h"
 
-#import "KSDAL.h"
-#import "MBProgressHUD.h"
-
 @interface KSVerifyController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *txtAccessCode;

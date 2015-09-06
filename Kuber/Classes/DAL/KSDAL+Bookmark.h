@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "KSDAL.h"
-
 @class KSBookmark;
 
 @interface KSDAL (KSBookmark)

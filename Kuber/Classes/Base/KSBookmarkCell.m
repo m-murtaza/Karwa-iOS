@@ -9,7 +9,6 @@
 #import "KSBookmarkCell.h"
 
 #import "KSBookmark.h"
-//#import "KSGeoLocation.h"
 
 @implementation KSBookmarkCell
 

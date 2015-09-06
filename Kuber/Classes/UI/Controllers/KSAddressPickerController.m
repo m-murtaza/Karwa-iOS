@@ -12,19 +12,9 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "KSLocationManager.h"
-#import "KSDAL.h"
-#import "KSUser.h"
-#import "KSBookmark.h"
-#import "MagicalRecord.h"
-
-#import "KSGeoLocation.h"
-
 #import "KSAddressPickerDelegate.h"
 #import "UISegmentedControl+KSExtended.h"
-#import "KSTrip.h"
 #import "KSButtonCell.h"
-#import "KSDAL.h"
-#import "KSDAL+Bookmark.h"
 #import "KSFavoriteDetailsController.h"
 
 typedef enum {

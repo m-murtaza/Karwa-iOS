@@ -7,10 +7,6 @@
 //
 
 #import "KSSignupController.h"
-
-#import "KSDAL.h"
-#import "KSUser.h"
-#import "MBProgressHUD.h"
 #import "KSVerifyController.h"
 
 @interface KSSignupController ()

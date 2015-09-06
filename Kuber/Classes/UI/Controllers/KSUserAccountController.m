@@ -7,21 +7,10 @@
 //
 
 #import "KSUserAccountController.h"
-#import "KSDAL.h"
-#import "KSUser.h"
-
-
 
 @interface KSUserAccountController ()
 
-//@property (weak, nonatomic) IBOutlet UILabel *lblEmail;
-//
-//@property (weak, nonatomic) IBOutlet UILabel *lblPhone;
-//
-//@property (weak, nonatomic) IBOutlet UILabel *lblName;
 
-
-//@property (weak, nonatomic) IBOutlet UITableView *tblView;
 -(IBAction)btnSaveTapped:(id)sender;
 @end
 

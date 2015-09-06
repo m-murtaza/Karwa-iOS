@@ -7,16 +7,8 @@
 //
 
 #import "KSBookingConfirmationController.h"
-
-#import "KSDAL.h"
-#import "KSTrip.h"
-#import "MBProgressHUD.h"
-#import "KSAlert.h"
-
 #import "KSAddress.h"
-#import "KSBookmark.h"
 #import "KSDatePicker.h"
-#import "KSUser.h"
 
 #import "KSBookingDetailsController.h"
 #import "KSAddressPickerController.h"

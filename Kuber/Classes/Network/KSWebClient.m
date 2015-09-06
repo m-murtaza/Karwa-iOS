@@ -9,8 +9,6 @@
 #import "KSWebClient.h"
 #import "AFNetworking.h"
 
-#import "KSSessionInfo.h"
-
 #import "NSObject+KSNullRemoval.h"
 
 @implementation KSWebClientConfig

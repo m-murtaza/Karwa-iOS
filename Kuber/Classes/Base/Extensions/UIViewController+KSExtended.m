@@ -8,7 +8,7 @@
 
 #import "UIViewController+KSExtended.h"
 #import "SWRevealViewController.h"
-#import "MBProgressHUD.h"
+
 
 const NSInteger KSViewControllerTagForLoadingView = 1000000001;
 

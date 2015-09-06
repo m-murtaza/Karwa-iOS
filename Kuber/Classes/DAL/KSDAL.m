@@ -6,18 +6,9 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSDAL.h"
 
 #import "KSDBManager.h"
 #import "KSWebClient.h"
-
-#import "KSUser.h"
-#import "KSTrip.h"
-#import "KSTripRating.h"
-#import "KSBookmark.h"
-#import "KSGeoLocation.h"
-
-#import "KSSessionInfo.h"
 #import "MagicalRecord.h"
 
 @implementation KSDAL

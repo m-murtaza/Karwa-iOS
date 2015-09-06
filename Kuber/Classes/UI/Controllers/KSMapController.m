@@ -19,16 +19,10 @@
 #import "KSBookingConfirmationController.h"
 #import "KSBookingDetailsController.h"
 
-#import "KSGeoLocation.h"
-
-#import "KSDAL+Location.h"
-
-#import "KSVehicleTrackingInfo.h"
 #import "KSVehicleTrackingAnnotation.h"
 #import "KSVehicleAnnotationView.h"
 
 #import "KSAddress.h"
-#import "KSTrip.h"
 #import "KSConfirmationAlert.h"
 
 #import <objc/objc.h>

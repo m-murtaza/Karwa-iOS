@@ -13,10 +13,6 @@
 #import "KSResetPasswordController.h"
 #import "KSVerifyController.h"
 
-#import "KSDAL.h"
-#import "MBProgressHUD.h"
-
-
 @interface KSLoginController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *txtMobile;

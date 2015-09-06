@@ -14,8 +14,6 @@
 #import "KSLocationManager.h"
 #import "KSPointAnnotation.h"
 #import "KSAlert.h"
-#import "KSDAL.h"
-#import "MBProgressHUD.h"
 #import "KSGeoLocation.h"
 
 #define LATITUDE_DELTA          0.112872

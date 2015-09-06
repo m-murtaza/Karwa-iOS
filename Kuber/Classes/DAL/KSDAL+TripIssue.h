@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSDAL.h"
 
 @interface KSDAL (TripIssue)
 

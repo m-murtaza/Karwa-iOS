@@ -8,8 +8,6 @@
 
 #import "KSMainController.h"
 #import "KSWebClient.h"
-#import "KSDAL.h"
-
 
 @interface KSMainController ()
 {

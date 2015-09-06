@@ -10,9 +10,6 @@
 #import "KSDBManager.h"
 #import "SWRevealViewController.h"
 #import "MagicalRecord+Setup.h"
-#import "KSDAL.h"
-#import "KSTrip.h"
-#import "KSSessionInfo.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "KSBookingDetailsController.h"

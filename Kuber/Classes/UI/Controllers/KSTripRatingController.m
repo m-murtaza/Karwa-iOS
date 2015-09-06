@@ -11,13 +11,6 @@
 
 #import "DYRateView.h"
 
-#import "KSTrip.h"
-#import "KSTripRating.h"
-
-#import "KSDAL.h"
-
-#import "MBProgressHUD.h"
-
 @interface KSTripRatingController ()
 
 @property (nonatomic, weak) IBOutlet DYRateView *serviceRatingView;

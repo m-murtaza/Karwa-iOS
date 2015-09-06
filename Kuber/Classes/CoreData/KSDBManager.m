@@ -9,11 +9,6 @@
 //
 
 #import "KSDBManager.h"
-
-#import "KSUser.h"
-#import "KSTrip.h"
-#import "KSGeoLocation.h"
-
 #import "MagicalRecord.h"
 #import "KSTripIssue.h"
 

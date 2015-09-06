@@ -8,10 +8,6 @@
 
 #import "KSBookingHistoryController.h"
 
-#import "KSTrip.h"
-#import "KSUser.h"
-#import "KSDAL.h"
-
 #import "KSBookingHistoryCell.h"
 #import "KSTripRatingController.h"
 #import "KSBookingDetailsController.h"

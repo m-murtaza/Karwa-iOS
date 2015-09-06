@@ -8,9 +8,6 @@
 
 #import "KSChangePasswordController.h"
 
-#import "KSDAL.h"
-#import "MBProgressHUD.h"
-
 @interface KSChangePasswordController ()
 @property (weak, nonatomic) IBOutlet UITextField *txtCurrentPassword;
 @property (weak, nonatomic) IBOutlet UITextField *txtNewPassword;
