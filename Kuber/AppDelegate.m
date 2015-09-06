@@ -216,6 +216,10 @@
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    
+    
+    //for Customise font
+    //[[UILabel appearance] setFont:[UIFont fontWithName:@"YourFontName" size:17.0]];
 
 }
 
