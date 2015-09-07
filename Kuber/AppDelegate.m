@@ -198,8 +198,11 @@
 - (void)applyUICustomizations {
     
     UINavigationBar *appearance = [UINavigationBar appearance];
-    UIColor *navBarColor = [self colorWithRed:24 green:122 blue:137];
+    UIColor *navBarColor = [self colorWithRed:24.0 green:122.0 blue:137.0];
     [appearance setBarTintColor:navBarColor];
+    #ifdef __IPHONE_8_0
+    [appearance setTranslucent:FALSE];
+    #endif
 
     NSShadow *shadow = [[NSShadow alloc] init];
 
@@ -221,7 +224,7 @@
     
     
     //for Customise font
-    //[[UILabel appearance] setFont:[UIFont fontWithName:@"YourFontName" size:17.0]];
+    //[[UILabel appearance] setFont:[UIFont fontWithName:@"MuseoForDell-300" size:18.0]];
 
 }
 

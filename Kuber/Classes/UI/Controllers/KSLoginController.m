@@ -29,6 +29,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    
+    UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
+    self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtMobile.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
+    
+    self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtPassword.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
+    
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -37,12 +51,85 @@
     [KSGoogleAnalytics trackPage:@"Login"];
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.txtMobile becomeFirstResponder];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)navTest:(id)sender {
+#pragma mark - Gesture
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark - UITextField delegate 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    NSString *imgName;
+    
+    if ([textField isEqual:self.txtMobile]) {
+        
+        imgName = @"phone-box-focused.png";
+    }
+    else if([textField isEqual:self.txtPassword]){
+        imgName = @"password-box-focused.png";
+    }
+
+    [textField setBackground:[UIImage imageNamed:imgName]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    NSString *imgName;
+    if ([textField.text isEqualToString:@""] || nil == textField.text) {
+        if ([textField isEqual:self.txtMobile]) {
+            
+            imgName = @"phone-box-idle.png";
+        }
+        else if([textField isEqual:self.txtPassword]){
+            imgName = @"password-box-idle.png";
+        }
+    }
+    else {
+        if ([textField isEqual:self.txtMobile]) {
+            
+            imgName = @"phone-box-focused.png";
+        }
+        else if([textField isEqual:self.txtPassword]){
+            imgName = @"password-box-focused.png";
+        }
+    }
+    
+    [textField setBackground:[UIImage imageNamed:imgName]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    return YES;
+}
+
+
+#pragma mark - View Adjectment
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    // Assign new frame to your view
+    [UIView animateWithDuration:0.38 animations:^{
+        [self.view setFrame:CGRectMake(0,-5,self.view.frame.size.width,self.view.frame.size.height)];
+    }];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.38 animations:^{
+        [self.view setFrame:CGRectMake(0,63,self.view.frame.size.width,self.view.frame.size.height)];
+    }];
+    
+}
+/*- (void)navTest:(id)sender {
     [self.navigationController popToNthController:2 animated:YES];
 }
 
@@ -68,7 +155,7 @@
     
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTestViewController)];
     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(navTest:)];
-}
+}*/
 
 - (IBAction)onClickLogin:(id)sender {
 

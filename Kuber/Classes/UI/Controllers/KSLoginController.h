@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "KSViewController.h"
 
-@interface KSLoginController : KSViewController
+@interface KSLoginController : KSViewController<UITextFieldDelegate>
 
 
 @end

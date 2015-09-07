@@ -51,69 +51,156 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="50569963" borderStyle="roundedRect" placeholder="Phone Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="phone-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="click123" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kw0-P8-XLf">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="236" id="BgW-4Z-Fg1"/>
+                                    <constraint firstAttribute="height" constant="40" id="ouB-Ot-GjU"/>
                                 </constraints>
-                                <state key="normal" title="Forgot Password?">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="BgW-4Z-Fg1"/>
+                                        <exclude reference="ouB-Ot-GjU"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="BgW-4Z-Fg1"/>
+                                        <include reference="ouB-Ot-GjU"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Cp2-LC-edT"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="password-box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="O2r-aq-CjF"/>
+                                </constraints>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="O2r-aq-CjF"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="O2r-aq-CjF"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="HEA-G1-UQP"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kw0-P8-XLf">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="16M-tj-SWx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Forgot Password?">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="16M-tj-SWx"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="16M-tj-SWx"/>
                                     </mask>
                                 </variation>
                                 <connections>
                                     <segue destination="0KK-Hh-jHP" kind="show" id="CmN-Wh-BpD"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KS_login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7X7-vk-3AU">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Wma-uO-on8"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Wma-uO-on8"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Wma-uO-on8"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUr-GH-tKZ">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="JyT-Dp-eCF"/>
+                                </constraints>
+                                <state key="normal" image="login-button-idle.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="login-button-pressed.png"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="JyT-Dp-eCF"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="JyT-Dp-eCF"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="onClickLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hlv-CE-swk"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="6EB-EJ-iQY" firstAttribute="trailing" secondItem="BHD-xA-yLE" secondAttribute="trailing" id="4pQ-jl-Fkf"/>
-                            <constraint firstItem="BHD-xA-yLE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="7vg-M8-3sF"/>
-                            <constraint firstAttribute="centerX" secondItem="BHD-xA-yLE" secondAttribute="centerX" id="QqK-F4-gKg"/>
-                            <constraint firstItem="6EB-EJ-iQY" firstAttribute="leading" secondItem="BHD-xA-yLE" secondAttribute="leading" id="SuG-EO-A5g"/>
-                            <constraint firstItem="BHD-xA-yLE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="49" id="edl-qb-IvG"/>
-                            <constraint firstItem="6EB-EJ-iQY" firstAttribute="top" secondItem="BHD-xA-yLE" secondAttribute="bottom" constant="20" id="fCB-7h-CWf">
-                                <variation key="heightClass=regular-widthClass=compact" constant="30"/>
-                            </constraint>
-                            <constraint firstItem="Kw0-P8-XLf" firstAttribute="trailing" secondItem="6EB-EJ-iQY" secondAttribute="trailing" id="n48-hE-MBm"/>
-                            <constraint firstItem="BHD-xA-yLE" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="rLw-0n-xDh"/>
-                            <constraint firstItem="Kw0-P8-XLf" firstAttribute="top" secondItem="6EB-EJ-iQY" secondAttribute="bottom" constant="6" id="zpm-r8-kNG"/>
+                            <constraint firstItem="BHD-xA-yLE" firstAttribute="trailing" secondItem="6EB-EJ-iQY" secondAttribute="trailing" id="6fU-3w-rCu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Kw0-P8-XLf" secondAttribute="bottom" constant="169" id="6fe-ju-cUx"/>
+                            <constraint firstItem="6EB-EJ-iQY" firstAttribute="leading" secondItem="RUr-GH-tKZ" secondAttribute="leading" id="7dz-Dx-cOU"/>
+                            <constraint firstItem="7X7-vk-3AU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="97" id="BTB-ur-FFv"/>
+                            <constraint firstItem="RUr-GH-tKZ" firstAttribute="top" secondItem="6EB-EJ-iQY" secondAttribute="bottom" constant="54" id="ESC-K5-sxJ"/>
+                            <constraint firstItem="Kw0-P8-XLf" firstAttribute="top" secondItem="RUr-GH-tKZ" secondAttribute="bottom" constant="28" id="EmT-bf-SA5"/>
+                            <constraint firstItem="BHD-xA-yLE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="GsJ-Ib-PQQ"/>
+                            <constraint firstItem="Kw0-P8-XLf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ILT-ss-7YC"/>
+                            <constraint firstItem="RUr-GH-tKZ" firstAttribute="centerX" secondItem="Kw0-P8-XLf" secondAttribute="centerX" id="IQo-QJ-ul1"/>
+                            <constraint firstItem="6EB-EJ-iQY" firstAttribute="top" secondItem="BHD-xA-yLE" secondAttribute="bottom" constant="40" id="Nlx-4k-raj"/>
+                            <constraint firstItem="6EB-EJ-iQY" firstAttribute="leading" secondItem="BHD-xA-yLE" secondAttribute="leading" id="bZL-xV-arD"/>
+                            <constraint firstItem="RUr-GH-tKZ" firstAttribute="trailing" secondItem="6EB-EJ-iQY" secondAttribute="trailing" id="dPu-UY-8We"/>
+                            <constraint firstItem="7X7-vk-3AU" firstAttribute="centerX" secondItem="BHD-xA-yLE" secondAttribute="centerX" id="gTS-FM-VBE"/>
+                            <constraint firstItem="Kw0-P8-XLf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="110" id="wko-0E-CRM"/>
+                            <constraint firstItem="7X7-vk-3AU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="65" id="z8j-Q0-RSk"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="BHD-xA-yLE"/>
                                 <exclude reference="6EB-EJ-iQY"/>
                                 <exclude reference="Kw0-P8-XLf"/>
+                                <exclude reference="7X7-vk-3AU"/>
+                                <exclude reference="RUr-GH-tKZ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="4pQ-jl-Fkf"/>
-                                <exclude reference="SuG-EO-A5g"/>
-                                <exclude reference="fCB-7h-CWf"/>
-                                <exclude reference="7vg-M8-3sF"/>
-                                <exclude reference="QqK-F4-gKg"/>
-                                <exclude reference="edl-qb-IvG"/>
-                                <exclude reference="rLw-0n-xDh"/>
-                                <exclude reference="n48-hE-MBm"/>
-                                <exclude reference="zpm-r8-kNG"/>
+                                <exclude reference="BTB-ur-FFv"/>
+                                <exclude reference="gTS-FM-VBE"/>
+                                <exclude reference="z8j-Q0-RSk"/>
+                                <exclude reference="6fU-3w-rCu"/>
+                                <exclude reference="GsJ-Ib-PQQ"/>
+                                <exclude reference="7dz-Dx-cOU"/>
+                                <exclude reference="Nlx-4k-raj"/>
+                                <exclude reference="bZL-xV-arD"/>
+                                <exclude reference="ESC-K5-sxJ"/>
+                                <exclude reference="IQo-QJ-ul1"/>
+                                <exclude reference="dPu-UY-8We"/>
+                                <exclude reference="EmT-bf-SA5"/>
+                                <exclude reference="ILT-ss-7YC"/>
+                                <exclude reference="wko-0E-CRM"/>
+                                <exclude reference="6fe-ju-cUx"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -121,27 +208,29 @@
                                 <include reference="BHD-xA-yLE"/>
                                 <include reference="6EB-EJ-iQY"/>
                                 <include reference="Kw0-P8-XLf"/>
+                                <include reference="7X7-vk-3AU"/>
+                                <include reference="RUr-GH-tKZ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="4pQ-jl-Fkf"/>
-                                <include reference="SuG-EO-A5g"/>
-                                <include reference="fCB-7h-CWf"/>
-                                <include reference="7vg-M8-3sF"/>
-                                <include reference="QqK-F4-gKg"/>
-                                <include reference="edl-qb-IvG"/>
-                                <include reference="rLw-0n-xDh"/>
-                                <include reference="n48-hE-MBm"/>
-                                <include reference="zpm-r8-kNG"/>
+                                <include reference="BTB-ur-FFv"/>
+                                <include reference="gTS-FM-VBE"/>
+                                <include reference="z8j-Q0-RSk"/>
+                                <include reference="6fU-3w-rCu"/>
+                                <include reference="GsJ-Ib-PQQ"/>
+                                <include reference="7dz-Dx-cOU"/>
+                                <include reference="Nlx-4k-raj"/>
+                                <include reference="bZL-xV-arD"/>
+                                <include reference="ESC-K5-sxJ"/>
+                                <include reference="IQo-QJ-ul1"/>
+                                <include reference="dPu-UY-8We"/>
+                                <include reference="EmT-bf-SA5"/>
+                                <include reference="ILT-ss-7YC"/>
+                                <include reference="wko-0E-CRM"/>
+                                <include reference="6fe-ju-cUx"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="VmC-k8-3Jj">
-                        <barButtonItem key="rightBarButtonItem" title="Go" id="ZV3-kP-ylC">
-                            <connections>
-                                <action selector="onClickLogin:" destination="BYZ-38-t0r" id="FFR-51-5BN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Login" id="VmC-k8-3Jj"/>
                     <connections>
                         <outlet property="txtMobile" destination="BHD-xA-yLE" id="Cty-Kd-94c"/>
                         <outlet property="txtPassword" destination="6EB-EJ-iQY" id="0oD-6S-jrV"/>
@@ -1555,25 +1644,16 @@
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="12" y="100" width="368" height="30"/>
-                                </variation>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBT-e2-yhk">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="12" y="160" width="368" height="30"/>
-                                </variation>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-cM-HXN">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="12" y="222" width="368" height="30"/>
-                                </variation>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1739,7 +1819,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Pgf-VQ-Lfn">
-                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                            <rect key="frame" x="0.0" y="161" width="600" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Add new bookmark location">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3870,6 +3950,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="KS_login_logo.png" width="370" height="110"/>
         <image name="blue_button.png" width="350" height="49"/>
         <image name="destinationpoint.png" width="22" height="22"/>
         <image name="details_bg_top.png" width="375" height="179"/>
@@ -3878,6 +3959,8 @@
         <image name="favorite.png" width="30" height="30"/>
         <image name="favorites.png" width="24" height="24"/>
         <image name="karwa-tech-logo.png" width="291" height="101"/>
+        <image name="login-button-idle.png" width="658" height="99"/>
+        <image name="login-button-pressed.png" width="658" height="99"/>
         <image name="menu_book.png" width="32" height="32"/>
         <image name="menu_book_selected.png" width="32" height="32"/>
         <image name="menu_favorites.png" width="32" height="32"/>
@@ -3889,6 +3972,8 @@
         <image name="menu_logout_selected.png" width="32" height="32"/>
         <image name="menu_profile.png" width="32" height="32"/>
         <image name="menu_profile_selected.png" width="32" height="32"/>
+        <image name="password-box-idle.png" width="658" height="79"/>
+        <image name="phone-box-focused.png" width="658" height="79"/>
         <image name="reveal-icon.png" width="30" height="30"/>
         <image name="search-icon.png" width="22" height="22"/>
         <image name="searchbox.png" width="357" height="53"/>
