@@ -157,6 +157,7 @@
 		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
 		18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */; };
 		18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */; };
+		18D65D9B1B9D556100D6C1BD /* NSDate+KSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -415,6 +416,8 @@
 		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleAnnotationView.m; sourceTree = "<group>"; };
 		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
 		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
+		18D65D991B9D556100D6C1BD /* NSDate+KSDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSDate.h"; sourceTree = "<group>"; };
+		18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSDate.m"; sourceTree = "<group>"; };
 		49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D470927F06592D06A19BCD41 /* Pods-Kuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.release.xcconfig"; sourceTree = "<group>"; };
 		D713B6CDA9189D253F4EE8EE /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
@@ -491,6 +494,8 @@
 				1880C5731B80942A004F0188 /* NSDate+KSExtended.m */,
 				185FEC771B94612600268296 /* UIButton+KSButton.h */,
 				185FEC781B94612600268296 /* UIButton+KSButton.m */,
+				18D65D991B9D556100D6C1BD /* NSDate+KSDate.h */,
+				18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1252,6 +1257,7 @@
 				18A762811AFF785B00B9ED32 /* main.m in Sources */,
 				187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */,
 				185FEC791B94612600268296 /* UIButton+KSButton.m in Sources */,
+				18D65D9B1B9D556100D6C1BD /* NSDate+KSDate.m in Sources */,
 				187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */,
 				185FEC7F1B96C75000268296 /* KSUITextFieldInCell.m in Sources */,
 				1801E34A1B1498AA00A8983E /* CLPlacemark+KSExtended.m in Sources */,
