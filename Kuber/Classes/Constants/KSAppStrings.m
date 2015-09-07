@@ -56,6 +56,7 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidDirver]:            @"This driver is no more with us",
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidTaxi]:              @"This taxi is not in our database",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusNoInternet]:               @"Internet not available",
     };
 
     NSString *string =  [stringsForAPIStatus objectForKey:[NSNumber numberWithUnsignedInteger: status]];

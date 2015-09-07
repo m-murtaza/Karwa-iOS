@@ -70,15 +70,17 @@
     NSMutableDictionary *postData = [NSMutableDictionary dictionaryWithDictionary:requestData];
     postData[@"Phone"] = phone;
 #if (TARGET_IPHONE_SIMULATOR)
-    postData[@"DeviceType"] = @0;
+    postData[@"DeviceType"] = @1;
+    postData[@"DeviceToken"] = @"1234567891234567891234567891234567891234";
 #else
     postData[@"DeviceType"] = @1;
-#endif
     if([[KSSessionInfo currentSession] pushToken]){
-     
+        
         postData[@"DeviceToken"] = [[KSSessionInfo currentSession] pushToken];
     }
 
+#endif
+    
     KSWebClient *webClient = [KSWebClient instance];
 
     [webClient POST:uri data:postData completion:^(BOOL success, NSDictionary *response) {

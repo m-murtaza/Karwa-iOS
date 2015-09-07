@@ -47,7 +47,8 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusJobAlreadyRated          = 31,   // Customer has already rated the job
     
     KSAPIStatusInvalidDirver            = 32,   // Driver ID is not is DB
-    KSAPIStatusInvalidTaxi              = 33    // Taxi number is not in DB
+    KSAPIStatusInvalidTaxi              = 33,    // Taxi number is not in DB
+    KSAPIStatusNoInternet               = 34,   //No internet available on deviec 
 };
 
 typedef NS_OPTIONS(NSUInteger, KSBookingOption) {

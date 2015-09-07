@@ -45,8 +45,7 @@ const NSInteger KSViewControllerTagForLoadingView = 1000000001;
             [self.revealButtonItem setTarget: revealViewController];
             [self.revealButtonItem setAction: @selector(revealToggle:)];
             [self.navigationController.navigationBar addGestureRecognizer: revealViewController.panGestureRecognizer];
-        }
-        
+        }        
     }
 }
 

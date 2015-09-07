@@ -94,40 +94,54 @@
 
 - (void)sendRequestWithMethod:(NSString *)method uri:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock {
 
-    uri = [self completeURI:uri];
+    AFNetworkReachabilityManager * reachability = [AFNetworkReachabilityManager sharedManager];
+    
+    if (!reachability.isReachable) {
+        //if not internet
+       /* NSError *error = [NSError errorWithDomain:@"KSNetwork"
+                                             code:KSAPIStatusNoInternet
+                                         userInfo:nil];*/
+        
+        NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:KSAPIStatusNoInternet],@"status", nil];
+        completionBlock(YES,response);
+    }
+    else{
+        
+        uri = [self completeURI:uri];
 
-    void (^successBlock)(NSURLSessionDataTask *, id) = ^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@ %@ %@", method, uri, responseObject);
-        if ([_webClientConfig.format isEqualToString:@"xml"]) {
-            KSWebClientXMLResponseParser *parser = [KSWebClientXMLResponseParser new];
-            [parser parseResponse:(NSXMLParser *)responseObject completion:^(id responseData) {
-                completionBlock(YES, [responseData objectIfNotNSNull]);
-            }];
+        void (^successBlock)(NSURLSessionDataTask *, id) = ^(NSURLSessionDataTask *task, id responseObject) {
+            NSLog(@"%@ %@ %@", method, uri, responseObject);
+            if ([_webClientConfig.format isEqualToString:@"xml"]) {
+                KSWebClientXMLResponseParser *parser = [KSWebClientXMLResponseParser new];
+                [parser parseResponse:(NSXMLParser *)responseObject completion:^(id responseData) {
+                    completionBlock(YES, [responseData objectIfNotNSNull]);
+                }];
+            }
+            else {
+                completionBlock(YES, [responseObject objectIfNotNSNull]);
+            }
+        };
+        void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"%@ %@ %@", method, uri, error);
+            completionBlock(NO, nil);
+        };
+
+        // Authentication header
+        KSSessionInfo *session = [KSSessionInfo currentSession];
+        if (session.sessionId.length) {
+            AFHTTPRequestSerializer *serializer = _sessionManager.requestSerializer;
+            [serializer setValue:session.sessionId forHTTPHeaderField:@"Session-ID"];
+        }
+        
+        if ([method isEqualToString:@"DELETE"]) {
+            [_sessionManager DELETE:uri parameters:params success:successBlock failure:failBlock];
+        }
+        else if ([method isEqualToString:@"POST"]) {
+            [_sessionManager POST:uri parameters:params success:successBlock failure:failBlock];
         }
         else {
-            completionBlock(YES, [responseObject objectIfNotNSNull]);
+            [_sessionManager GET:uri parameters:params success:successBlock failure:failBlock];
         }
-    };
-    void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@ %@ %@", method, uri, error);
-        completionBlock(NO, nil);
-    };
-
-    // Authentication header
-    KSSessionInfo *session = [KSSessionInfo currentSession];
-    if (session.sessionId.length) {
-        AFHTTPRequestSerializer *serializer = _sessionManager.requestSerializer;
-        [serializer setValue:session.sessionId forHTTPHeaderField:@"Session-ID"];
-    }
-    
-    if ([method isEqualToString:@"DELETE"]) {
-        [_sessionManager DELETE:uri parameters:params success:successBlock failure:failBlock];
-    }
-    else if ([method isEqualToString:@"POST"]) {
-        [_sessionManager POST:uri parameters:params success:successBlock failure:failBlock];
-    }
-    else {
-        [_sessionManager GET:uri parameters:params success:successBlock failure:failBlock];
     }
 }
 
