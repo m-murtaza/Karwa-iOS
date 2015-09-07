@@ -53,6 +53,7 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="phone-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="ouB-Ot-GjU"/>
                                 </constraints>
@@ -75,6 +76,7 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="password-box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="O2r-aq-CjF"/>
                                 </constraints>
@@ -122,15 +124,18 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KS_login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7X7-vk-3AU">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="175" id="VQT-wn-ihj"/>
                                     <constraint firstAttribute="height" constant="55" id="Wma-uO-on8"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="VQT-wn-ihj"/>
                                         <exclude reference="Wma-uO-on8"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
+                                        <include reference="VQT-wn-ihj"/>
                                         <include reference="Wma-uO-on8"/>
                                     </mask>
                                 </variation>
@@ -164,7 +169,6 @@
                             <constraint firstItem="BHD-xA-yLE" firstAttribute="trailing" secondItem="6EB-EJ-iQY" secondAttribute="trailing" id="6fU-3w-rCu"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Kw0-P8-XLf" secondAttribute="bottom" constant="169" id="6fe-ju-cUx"/>
                             <constraint firstItem="6EB-EJ-iQY" firstAttribute="leading" secondItem="RUr-GH-tKZ" secondAttribute="leading" id="7dz-Dx-cOU"/>
-                            <constraint firstItem="7X7-vk-3AU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="97" id="BTB-ur-FFv"/>
                             <constraint firstItem="RUr-GH-tKZ" firstAttribute="top" secondItem="6EB-EJ-iQY" secondAttribute="bottom" constant="54" id="ESC-K5-sxJ"/>
                             <constraint firstItem="Kw0-P8-XLf" firstAttribute="top" secondItem="RUr-GH-tKZ" secondAttribute="bottom" constant="28" id="EmT-bf-SA5"/>
                             <constraint firstItem="BHD-xA-yLE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="GsJ-Ib-PQQ"/>
@@ -186,7 +190,6 @@
                                 <exclude reference="RUr-GH-tKZ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="BTB-ur-FFv"/>
                                 <exclude reference="gTS-FM-VBE"/>
                                 <exclude reference="z8j-Q0-RSk"/>
                                 <exclude reference="6fU-3w-rCu"/>
@@ -212,7 +215,6 @@
                                 <include reference="RUr-GH-tKZ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="BTB-ur-FFv"/>
                                 <include reference="gTS-FM-VBE"/>
                                 <include reference="z8j-Q0-RSk"/>
                                 <include reference="6fU-3w-rCu"/>

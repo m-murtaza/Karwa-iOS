@@ -35,9 +35,10 @@
     UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
     self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
     self.txtMobile.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
-    
+    self.txtMobile.tintColor = [UIColor whiteColor];
     self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
     self.txtPassword.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
+    self.txtPassword.tintColor = [UIColor whiteColor];
     
     UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
               initWithTarget:self action:@selector(handleSingleTap:)];

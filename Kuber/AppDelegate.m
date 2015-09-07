@@ -197,11 +197,13 @@
 
 - (void)applyUICustomizations {
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     UINavigationBar *appearance = [UINavigationBar appearance];
     UIColor *navBarColor = [self colorWithRed:24.0 green:122.0 blue:137.0];
     [appearance setBarTintColor:navBarColor];
     #ifdef __IPHONE_8_0
-    [appearance setTranslucent:FALSE];
+    //[appearance setTranslucent:FALSE];
     #endif
 
     NSShadow *shadow = [[NSShadow alloc] init];
