@@ -103,7 +103,7 @@
     self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
     
     
-    self.txtConfirmPassword.transformVal = -120;
+    self.txtConfirmPassword.transformVal = -180;
     self.txtConfirmPassword.focusedImg = @"password-box-focused-s.png";
     self.txtConfirmPassword.idleImg = @"password-box-idle-s.png";
     self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
