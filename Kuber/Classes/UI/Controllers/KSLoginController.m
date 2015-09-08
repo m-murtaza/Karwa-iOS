@@ -20,6 +20,9 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *forgotPassBottomConstraint;
+
 - (IBAction)onClickLogin:(id)sender;
 
 @end
@@ -29,7 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    if (IS_IPHONE_5) {
+        self.logTopConstraint.constant = 30;
+        self.forgotPassBottomConstraint.constant = 100;
+    }
     
     
     UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
@@ -118,16 +124,35 @@
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     // Assign new frame to your view
-    [UIView animateWithDuration:0.38 animations:^{
+    /*[UIView animateWithDuration:0.38 animations:^{
         [self.view setFrame:CGRectMake(0,-5,self.view.frame.size.width,self.view.frame.size.height)];
-    }];
+    }];*/
+    
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -100)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
 }
 
 -(void)keyboardWillHide:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.38 animations:^{
+    /*[UIView animateWithDuration:0.38 animations:^{
         [self.view setFrame:CGRectMake(0,63,self.view.frame.size.width,self.view.frame.size.height)];
-    }];
+    }];*/
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, 0)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
     
 }
 /*- (void)navTest:(id)sender {

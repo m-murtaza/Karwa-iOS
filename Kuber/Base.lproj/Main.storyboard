@@ -101,6 +101,7 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="16M-tj-SWx"/>
+                                    <constraint firstAttribute="width" constant="148" id="IJB-mp-Cme"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Forgot Password?">
@@ -110,11 +111,13 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="16M-tj-SWx"/>
+                                        <exclude reference="IJB-mp-Cme"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="16M-tj-SWx"/>
+                                        <include reference="IJB-mp-Cme"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -190,20 +193,20 @@
                                 <exclude reference="RUr-GH-tKZ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="gTS-FM-VBE"/>
-                                <exclude reference="z8j-Q0-RSk"/>
-                                <exclude reference="6fU-3w-rCu"/>
-                                <exclude reference="GsJ-Ib-PQQ"/>
                                 <exclude reference="7dz-Dx-cOU"/>
                                 <exclude reference="Nlx-4k-raj"/>
                                 <exclude reference="bZL-xV-arD"/>
-                                <exclude reference="ESC-K5-sxJ"/>
-                                <exclude reference="IQo-QJ-ul1"/>
-                                <exclude reference="dPu-UY-8We"/>
+                                <exclude reference="6fU-3w-rCu"/>
+                                <exclude reference="GsJ-Ib-PQQ"/>
+                                <exclude reference="6fe-ju-cUx"/>
                                 <exclude reference="EmT-bf-SA5"/>
                                 <exclude reference="ILT-ss-7YC"/>
                                 <exclude reference="wko-0E-CRM"/>
-                                <exclude reference="6fe-ju-cUx"/>
+                                <exclude reference="ESC-K5-sxJ"/>
+                                <exclude reference="IQo-QJ-ul1"/>
+                                <exclude reference="dPu-UY-8We"/>
+                                <exclude reference="gTS-FM-VBE"/>
+                                <exclude reference="z8j-Q0-RSk"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -215,25 +218,27 @@
                                 <include reference="RUr-GH-tKZ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="gTS-FM-VBE"/>
-                                <include reference="z8j-Q0-RSk"/>
-                                <include reference="6fU-3w-rCu"/>
-                                <include reference="GsJ-Ib-PQQ"/>
                                 <include reference="7dz-Dx-cOU"/>
                                 <include reference="Nlx-4k-raj"/>
                                 <include reference="bZL-xV-arD"/>
+                                <include reference="6fU-3w-rCu"/>
+                                <include reference="GsJ-Ib-PQQ"/>
+                                <include reference="6fe-ju-cUx"/>
+                                <include reference="EmT-bf-SA5"/>
+                                <include reference="ILT-ss-7YC"/>
+                                <exclude reference="wko-0E-CRM"/>
                                 <include reference="ESC-K5-sxJ"/>
                                 <include reference="IQo-QJ-ul1"/>
                                 <include reference="dPu-UY-8We"/>
-                                <include reference="EmT-bf-SA5"/>
-                                <include reference="ILT-ss-7YC"/>
-                                <include reference="wko-0E-CRM"/>
-                                <include reference="6fe-ju-cUx"/>
+                                <include reference="gTS-FM-VBE"/>
+                                <include reference="z8j-Q0-RSk"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="VmC-k8-3Jj"/>
                     <connections>
+                        <outlet property="forgotPassBottomConstraint" destination="6fe-ju-cUx" id="L2X-2N-YXd"/>
+                        <outlet property="logTopConstraint" destination="z8j-Q0-RSk" id="6GK-Mi-Z6p"/>
                         <outlet property="txtMobile" destination="BHD-xA-yLE" id="Cty-Kd-94c"/>
                         <outlet property="txtPassword" destination="6EB-EJ-iQY" id="0oD-6S-jrV"/>
                     </connections>
