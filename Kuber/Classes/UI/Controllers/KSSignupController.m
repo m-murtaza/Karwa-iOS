@@ -11,13 +11,13 @@
 
 @interface KSSignupController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *txtEmail;
-@property (weak, nonatomic) IBOutlet UITextField *txtName;
+@property (weak, nonatomic) IBOutlet KSTextField *txtEmail;
+@property (weak, nonatomic) IBOutlet KSTextField *txtName;
 
-@property (weak, nonatomic) IBOutlet UITextField *txtMobile;
+@property (weak, nonatomic) IBOutlet KSTextField *txtMobile;
 
-@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
-@property (weak, nonatomic) IBOutlet UITextField *txtConfirmPassword;
+@property (weak, nonatomic) IBOutlet KSTextField *txtPassword;
+@property (weak, nonatomic) IBOutlet KSTextField *txtConfirmPassword;
 
 
 - (IBAction)onClickSignup:(id)sender;
@@ -29,12 +29,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setTransformValueForTextFields];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
+    [self addTapGesture];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Signup View Controller"];
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.txtName becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,6 +63,51 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(void) addTapGesture
+{
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
+}
+
+#pragma mark - Gesture
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
+
+-(void) setTransformValueForTextFields
+{
+    UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
+    
+    self.txtName.transformVal = 0;
+    self.txtName.focusedImg = @"fullname-box-focused.png";
+    self.txtName.idleImg = @"fullname-box-idle.png";
+    self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Full Name" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    self.txtEmail.transformVal = 0;
+    self.txtEmail.focusedImg = @"email-box-focused.png";
+    self.txtEmail.idleImg = @"email-box-idle.png";
+    self.txtEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    self.txtMobile.transformVal = -50;
+    self.txtMobile.focusedImg = @"phone-box-focused-s.png";
+    self.txtMobile.idleImg = @"phone-box-idle-s.png";
+    self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    
+    self.txtPassword.transformVal = -100;
+    self.txtPassword.focusedImg = @"password-box-focused-s.png";
+    self.txtPassword.idleImg = @"password-box-idle-s.png";
+    self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    
+    self.txtConfirmPassword.transformVal = -120;
+    self.txtConfirmPassword.focusedImg = @"password-box-focused-s.png";
+    self.txtConfirmPassword.idleImg = @"password-box-idle-s.png";
+    self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
+}
 
 - (IBAction)onClickSignup:(id)sender {
     //Temp Work to show varification screen
@@ -109,4 +166,50 @@
     }];
 }
 
+
+#pragma mark - UITextField delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    KSTextField *txtField = (KSTextField*) textField;
+    [txtField setBackground:[UIImage imageNamed:txtField.focusedImg]];
+    
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, txtField.transformVal)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         //tran = val;
+                     }
+     ];
+
+    return TRUE;
+}
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    KSTextField *txtField = (KSTextField*) textField;
+    if ([txtField.text isEqualToString:@""] || nil == textField.text) {
+        
+        [txtField setBackground:[UIImage imageNamed:txtField.idleImg]];
+    }
+    else{
+        
+        [txtField setBackground:[UIImage imageNamed:txtField.focusedImg]];
+    }
+    return TRUE;
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, 0)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+    
+}
 @end
