@@ -53,6 +53,16 @@
 */
 
 - (IBAction)onClickSignup:(id)sender {
+    //Temp Work to show varification screen
+    KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    return;
+    
+    
+    
 #ifndef __KS_DISABLE_VALIDATIONS
     NSMutableArray *errors = [NSMutableArray arrayWithCapacity:6];
     if (!self.txtName.text.length) {

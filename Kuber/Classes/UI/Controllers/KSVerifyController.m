@@ -8,6 +8,7 @@
 
 #import "KSVerifyController.h"
 #import "SWRevealViewController.h"
+#define __KS_DISABLE_VALIDATIONS 1
 
 @interface KSVerifyController ()
 
@@ -27,6 +28,8 @@
 #ifndef __KS_DISABLE_VALIDATIONS
     NSAssert(self.phone.length, @"No phone number found");
 #endif
+    
+    [self addTapGesture];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -35,6 +38,11 @@
     [KSGoogleAnalytics trackPage:@"Verify View Controller"];
 }
 
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.txtAccessCode becomeFirstResponder];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -50,6 +58,22 @@
 }
 */
 
+#pragma mark - private functions
+-(void) addTapGesture
+{
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
+}
+
+#pragma mark - Gesture
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark - Event handler
 - (IBAction)onClickVerify:(id)sender {
     if (self.txtAccessCode.text.length) {
         __block UIViewController *me = self;
