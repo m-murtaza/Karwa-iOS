@@ -13,6 +13,8 @@
 @interface KSVerifyController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *txtAccessCode;
+@property (weak, nonatomic) IBOutlet UIButton *btnVarify;
+@property (weak, nonatomic) IBOutlet UIButton *btnResend;
 
 - (IBAction)onClickVerify:(id)sender;
 
@@ -30,6 +32,7 @@
 #endif
     
     [self addTapGesture];
+    [self adjustUI];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -59,6 +62,16 @@
 */
 
 #pragma mark - private functions
+-(void) adjustUI
+{
+    UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
+    self.txtAccessCode.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtAccessCode.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
+    self.txtAccessCode.tintColor = [UIColor whiteColor];
+    
+    //self.btnVarify.titleLabel.font = [];
+}
+
 -(void) addTapGesture
 {
     UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]

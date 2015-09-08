@@ -170,6 +170,11 @@
 		18D65DCC1B9D82B600D6C1BD /* password-box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC61B9D82B600D6C1BD /* password-box-idle@2x.png */; };
 		18D65DCD1B9D82B600D6C1BD /* phone-box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC71B9D82B600D6C1BD /* phone-box-focused@2x.png */; };
 		18D65DCF1B9D901700D6C1BD /* phone-box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DCE1B9D901700D6C1BD /* phone-box-idle@2x.png */; };
+		18D65DD41B9EC13000D6C1BD /* blue-button-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DD11B9EC13000D6C1BD /* blue-button-idle@2x.png */; };
+		18D65DD51B9EC13000D6C1BD /* blue-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DD21B9EC13000D6C1BD /* blue-button-pressed@2x.png */; };
+		18D65DD61B9EC13000D6C1BD /* VerifyCode-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */; };
+		18D65DD91B9EC39100D6C1BD /* KSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65DD81B9EC39100D6C1BD /* KSLabel.m */; };
+		18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65DDB1B9EC6B700D6C1BD /* KSButton.m */; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -442,6 +447,13 @@
 		18D65DC61B9D82B600D6C1BD /* password-box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-idle@2x.png"; path = "LoginView/password-box-idle@2x.png"; sourceTree = "<group>"; };
 		18D65DC71B9D82B600D6C1BD /* phone-box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-focused@2x.png"; path = "LoginView/phone-box-focused@2x.png"; sourceTree = "<group>"; };
 		18D65DCE1B9D901700D6C1BD /* phone-box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-idle@2x.png"; path = "LoginView/phone-box-idle@2x.png"; sourceTree = "<group>"; };
+		18D65DD11B9EC13000D6C1BD /* blue-button-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue-button-idle@2x.png"; path = "Varify/blue-button-idle@2x.png"; sourceTree = "<group>"; };
+		18D65DD21B9EC13000D6C1BD /* blue-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue-button-pressed@2x.png"; path = "Varify/blue-button-pressed@2x.png"; sourceTree = "<group>"; };
+		18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "VerifyCode-box@2x.png"; path = "Varify/VerifyCode-box@2x.png"; sourceTree = "<group>"; };
+		18D65DD71B9EC39100D6C1BD /* KSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLabel.h; sourceTree = "<group>"; };
+		18D65DD81B9EC39100D6C1BD /* KSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLabel.m; sourceTree = "<group>"; };
+		18D65DDA1B9EC6B700D6C1BD /* KSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSButton.h; sourceTree = "<group>"; };
+		18D65DDB1B9EC6B700D6C1BD /* KSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSButton.m; sourceTree = "<group>"; };
 		49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D470927F06592D06A19BCD41 /* Pods-Kuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.release.xcconfig"; sourceTree = "<group>"; };
 		D713B6CDA9189D253F4EE8EE /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
@@ -668,6 +680,7 @@
 		1880C4D61B7877ED004F0188 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18D65DD01B9EC0FE00D6C1BD /* Varify */,
 				18D65D9C1B9D800C00D6C1BD /* LoginView */,
 				1880C4D81B7877ED004F0188 /* draft */,
 				1880C4FF1B7877ED004F0188 /* DYRateView */,
@@ -968,6 +981,10 @@
 				18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */,
 				185FEC7D1B96C75000268296 /* KSUITextFieldInCell.h */,
 				185FEC7E1B96C75000268296 /* KSUITextFieldInCell.m */,
+				18D65DD71B9EC39100D6C1BD /* KSLabel.h */,
+				18D65DD81B9EC39100D6C1BD /* KSLabel.m */,
+				18D65DDA1B9EC6B700D6C1BD /* KSButton.h */,
+				18D65DDB1B9EC6B700D6C1BD /* KSButton.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -989,6 +1006,16 @@
 				18D65DA21B9D802200D6C1BD /* phone-box-focused.png */,
 			);
 			name = LoginView;
+			sourceTree = "<group>";
+		};
+		18D65DD01B9EC0FE00D6C1BD /* Varify */ = {
+			isa = PBXGroup;
+			children = (
+				18D65DD11B9EC13000D6C1BD /* blue-button-idle@2x.png */,
+				18D65DD21B9EC13000D6C1BD /* blue-button-pressed@2x.png */,
+				18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */,
+			);
+			name = Varify;
 			sourceTree = "<group>";
 		};
 		B6AB35F206D1F36D83C4554C /* Pods */ = {
@@ -1140,15 +1167,18 @@
 				1880C5391B7877ED004F0188 /* StarEmpty.png in Resources */,
 				1880C54C1B7877ED004F0188 /* taxi@2x.png in Resources */,
 				18D65DC91B9D82B600D6C1BD /* login-button-idle@2x.png in Resources */,
+				18D65DD61B9EC13000D6C1BD /* VerifyCode-box@2x.png in Resources */,
 				1880C5451B7877ED004F0188 /* favorites@2x.png in Resources */,
 				1880C5231B7877ED004F0188 /* menu_book_selected@2x.png in Resources */,
 				1880C5411B7877ED004F0188 /* edit.png in Resources */,
 				1880C5281B7877ED004F0188 /* menu_item_selected@2x.png in Resources */,
 				1880C5271B7877ED004F0188 /* menu_history_selected@2x.png in Resources */,
 				1880C5351B7877ED004F0188 /* textfield_bg@2x.png in Resources */,
+				18D65DD41B9EC13000D6C1BD /* blue-button-idle@2x.png in Resources */,
 				1880C51E1B7877ED004F0188 /* details_box@2x.png in Resources */,
 				1880C5471B7877ED004F0188 /* place_pin@2x.png in Resources */,
 				1880C53E1B7877ED004F0188 /* StarFull@2x.png in Resources */,
+				18D65DD51B9EC13000D6C1BD /* blue-button-pressed@2x.png in Resources */,
 				1880C5361B7877ED004F0188 /* topbar@2x.png in Resources */,
 				185E3C361B772B3500909B20 /* MuseoForDell-100.otf in Resources */,
 				1880C5431B7877ED004F0188 /* favorites-568h@2x.png in Resources */,
@@ -1284,6 +1314,7 @@
 				1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */,
 				18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */,
 				1801E2F51B0DD13C00A8983E /* UINavigationController+KSExtended.m in Sources */,
+				18D65DD91B9EC39100D6C1BD /* KSLabel.m in Sources */,
 				18B0D0251B031C93002645AD /* KSDBManager.m in Sources */,
 				1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */,
 				1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */,
@@ -1303,6 +1334,7 @@
 				185E3BFE1B70779700909B20 /* KSDAL+Location.m in Sources */,
 				187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */,
 				1801E30A1B11ADFF00A8983E /* KSBookingHistoryController.m in Sources */,
+				18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */,
 				185E3C0B1B7087EF00909B20 /* KSTripIssue.m in Sources */,
 				1801E2F21B0D9F4900A8983E /* KSAppStrings.m in Sources */,
 				18481B581B09B64E00855F54 /* NSString+KSExtended.m in Sources */,
