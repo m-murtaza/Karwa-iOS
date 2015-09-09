@@ -24,7 +24,7 @@
 
         self.canShowCallout = YES;
         self.draggable = NO;
-        self.image = [UIImage imageNamed:@"taxi.png"];
+        self.image = [UIImage imageNamed:@"taxi-icon.png"];
     }
     return self;
 }

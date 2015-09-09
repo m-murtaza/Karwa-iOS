@@ -60,6 +60,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (IBAction)onClickDropoffAddress:(id)sender;
 
 - (IBAction)onClickPickupAddress:(id)sender;
+- (IBAction)btnDoneTapped:(id)sender;
 
 @end
 
@@ -74,14 +75,20 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
    /* MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:_mapView];
     self.navigationItem.rightBarButtonItem = button;*/
     
-    [self addDoneButton];
+    //[self addDoneButton];
     
     self.mapView.delegate = self;
 
     [self.txtPickupAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
-    [self.txtDropoffAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
-
+    UIColor *color = [UIColor colorWithRed:119.0/256.0 green:119.0/256.0 blue:119.0/256.0 alpha:1.0];
+    self.txtPickupAddress.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Choose Pickup location..." attributes:@{NSForegroundColorAttributeName: color}];
     self.txtPickupAddress.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
+    
+    
+    [self.txtDropoffAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
+    self.txtDropoffAddress.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Choose destination..." attributes:@{NSForegroundColorAttributeName: color}];
+    
+    self.txtPickupTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Pick up time" attributes:@{NSForegroundColorAttributeName: color}];
 
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
     [self.mapView addGestureRecognizer:gestureRecognizer];
@@ -467,7 +474,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 #pragma mark -
 #pragma mark - Event handlers
 
--(void) btnDoneTapped
+-(void) btnDoneTapped:(id)sender
 {
 
     [self.txtPickupTime resignFirstResponder];
