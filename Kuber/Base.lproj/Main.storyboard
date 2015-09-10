@@ -2137,7 +2137,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="x0A-Ng-yHd" firstAttribute="leading" secondItem="XLd-Xd-wvw" secondAttribute="trailing" constant="8" id="3sk-An-ciN"/>
-                                        <constraint firstItem="0Cb-1n-NHz" firstAttribute="top" secondItem="hkH-tH-tLo" secondAttribute="top" constant="-1" id="5wp-rH-ZSl"/>
+                                        <constraint firstItem="0Cb-1n-NHz" firstAttribute="top" secondItem="hkH-tH-tLo" secondAttribute="top" constant="-5" id="5wp-rH-ZSl"/>
                                         <constraint firstItem="1d3-b6-LvO" firstAttribute="leading" secondItem="XLd-Xd-wvw" secondAttribute="trailing" constant="8" id="85D-24-8oP"/>
                                         <constraint firstItem="qog-51-b3d" firstAttribute="leading" secondItem="XLd-Xd-wvw" secondAttribute="trailing" constant="8" id="A7f-zX-dy5"/>
                                         <constraint firstItem="hkH-tH-tLo" firstAttribute="trailing" secondItem="YXi-HA-M4d" secondAttribute="trailingMargin" id="Dww-H9-cUW"/>
@@ -2214,6 +2214,12 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lblDate" destination="x0A-Ng-yHd" id="cwG-0s-3bg"/>
+                                    <outlet property="lblDropoffTo" destination="hB4-xe-iTa" id="8Ys-j3-YnR"/>
+                                    <outlet property="lblPickupFrom" destination="qog-51-b3d" id="Ce9-cx-VfG"/>
+                                    <outlet property="lblTime" destination="0Cb-1n-NHz" id="5iz-ET-o7D"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -2321,6 +2327,9 @@
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="80" width="368" height="30"/>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="jpA-Ag-F5d" id="hnV-pH-pG7"/>
                                 </connections>
@@ -2338,7 +2347,8 @@
                                         <exclude reference="91N-ZF-RZM"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="118" width="368" height="21"/>
                                     <mask key="constraints">
                                         <include reference="91N-ZF-RZM"/>
                                     </mask>
@@ -2346,6 +2356,9 @@
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDW-k9-Xom">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="147" width="400" height="653"/>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="jpA-Ag-F5d" id="MrB-L4-Vd5"/>
                                 </connections>
@@ -4606,6 +4619,6 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zRd-7U-Rqs"/>
+        <segue reference="snM-TD-RWk"/>
     </inferredMetricsTieBreakers>
 </document>
