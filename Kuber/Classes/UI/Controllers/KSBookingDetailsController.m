@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupTime;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblPickupDate;
+
 @property (weak, nonatomic) IBOutlet UILabel *lblAcknowlegement;
 
 @property (weak, nonatomic) IBOutlet UIButton *btnCancelBooking;
@@ -25,6 +27,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblDropoffTime;
 
 @property (weak, nonatomic) IBOutlet UIView *dropoffContainer;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblTitleTaxiInfo;
+
+@property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
 
 
 @end
@@ -40,37 +46,77 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    KSTrip *trip = self.tripInfo;
+    
 
+    
+    [self loadViewData];
+
+
+    
+
+    
+
+    
+
+}
+
+
+-(void) loadViewData
+{
+    KSTrip *trip = self.tripInfo;
+    
+    //Set Pickup Address
     if (trip.pickupLandmark.length) {
         
         self.lblPickupAddress.text = trip.pickupLandmark;
     }
     else  if ([self isValidLat:trip.pickupLat lon:trip.pickupLon]){
-
+        
         self.lblPickupAddress.text = KSStringFromCoordinate(CLLocationCoordinate2DMake(trip.pickupLat.doubleValue, trip.pickupLon.doubleValue));
     }
-
+    
+    //Set Drop Off Address
     if (trip.dropoffLandmark.length) {
         
         self.lblDropoffAddress.text = trip.dropoffLandmark;
     }
-
+    
+    //Set Top Pick Up date
     if ([trip.pickupTime isValidDate]) {
-        self.lblPickupTime.text = [trip.pickupTime dateTimeString];
+        self.lblPickupDate.text = [self getFormattedTitleDate:trip.pickupTime];
+    }
+    else {
+        self.lblPickupDate.text = @"...";
+    }
+    
+    //Set Pick Up Time
+    if ([trip.pickupTime isValidDate]) {
+        self.lblPickupTime.text = [self getTimeStringFromDate:trip.pickupTime];
     }
     else {
         self.lblPickupTime.text = @"...";
     }
-
+    
+    //Set Drop Off Up Time
     if ([trip.dropOffTime isValidDate]) {
         
-        self.lblDropoffTime.text = [trip.dropOffTime dateTimeString];
+        self.lblDropoffTime.text = [self getTimeStringFromDate:trip.dropOffTime];
     }
     else {
         self.lblDropoffTime.text = @"...";
     }
+    
+    /*if (trip.taxi == nil) {
+        [self.lblTitleTaxiInfo setHidden:TRUE];
+        [self.viewTaxiInfo setHidden:TRUE];
+    }*/
+    
+    //[self setStatusForTrip:trip];
+    
+}
 
+-(void) setStatusForTrip:(KSTrip*)trip
+{
     switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
@@ -95,18 +141,16 @@
                 }
             }
             break;
-
+            
         default:
             [self.lblAcknowlegement removeFromSuperview];
             [self.lblAcknowlegement setHidden:YES];
             [self.btnCancelBooking removeFromSuperview];
             [self.btnCancelBooking setHidden:YES];
-
+            
             break;
     }
-
 }
-
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -126,7 +170,23 @@
 
 
 #pragma mark - Private Functions 
+-(NSString*) getFormattedTitleDate:(NSDate*)date
+{
+    NSDateFormatter *formator = [[NSDateFormatter alloc] init];
+    [formator setDateFormat:@"EEE d MMM"];
+    NSString *str = [formator stringFromDate:date];
+    return [str uppercaseString];
+}
 
+-(NSString*) getTimeStringFromDate:(NSDate*) date
+{
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
+    timeFormatter.dateFormat = @"HH:mm";
+    
+    
+    NSString *dateString = [timeFormatter stringFromDate: date];
+    return dateString;
+}
 
 -(void) cancelBooking
 {
