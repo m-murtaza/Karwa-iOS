@@ -176,6 +176,12 @@
 		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
 		18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */; };
 		18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */; };
+		18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */; };
+		18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A51BA18949009B5D70 /* list-icons.png */; };
+		18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A61BA18949009B5D70 /* list-sep.png */; };
+		18CFC4AD1BA18949009B5D70 /* section-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A71BA18949009B5D70 /* section-bar.png */; };
+		18CFC4AE1BA18949009B5D70 /* time-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A81BA18949009B5D70 /* time-icon.png */; };
+		18CFC4AF1BA18949009B5D70 /* to.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A91BA18949009B5D70 /* to.png */; };
 		18D65D9B1B9D556100D6C1BD /* NSDate+KSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */; };
 		18D65DA41B9D802200D6C1BD /* login-button-idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65D9E1B9D802200D6C1BD /* login-button-idle.png */; };
 		18D65DA51B9D802200D6C1BD /* login-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65D9F1B9D802200D6C1BD /* login-button-pressed.png */; };
@@ -481,6 +487,12 @@
 		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleAnnotationView.m; sourceTree = "<group>"; };
 		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
 		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
+		18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "booking-history-forward-arrow.png"; path = "BookingHistory/booking-history-forward-arrow.png"; sourceTree = "<group>"; };
+		18CFC4A51BA18949009B5D70 /* list-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list-icons.png"; path = "BookingHistory/list-icons.png"; sourceTree = "<group>"; };
+		18CFC4A61BA18949009B5D70 /* list-sep.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list-sep.png"; path = "BookingHistory/list-sep.png"; sourceTree = "<group>"; };
+		18CFC4A71BA18949009B5D70 /* section-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "section-bar.png"; path = "BookingHistory/section-bar.png"; sourceTree = "<group>"; };
+		18CFC4A81BA18949009B5D70 /* time-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "time-icon.png"; path = "BookingHistory/time-icon.png"; sourceTree = "<group>"; };
+		18CFC4A91BA18949009B5D70 /* to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = to.png; path = BookingHistory/to.png; sourceTree = "<group>"; };
 		18D65D991B9D556100D6C1BD /* NSDate+KSDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSDate.h"; sourceTree = "<group>"; };
 		18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSDate.m"; sourceTree = "<group>"; };
 		18D65D9E1B9D802200D6C1BD /* login-button-idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-idle.png"; path = "LoginView/login-button-idle.png"; sourceTree = "<group>"; };
@@ -772,6 +784,7 @@
 		1880C4D61B7877ED004F0188 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18CFC4A31BA1892D009B5D70 /* BookingHistory */,
 				184CF91D1BA03F0E0025B883 /* BookingDetails */,
 				18713B3E1BA0054C00244E1F /* Booking */,
 				18D65DDD1B9ED10400D6C1BD /* Signup */,
@@ -1086,6 +1099,19 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		18CFC4A31BA1892D009B5D70 /* BookingHistory */ = {
+			isa = PBXGroup;
+			children = (
+				18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */,
+				18CFC4A51BA18949009B5D70 /* list-icons.png */,
+				18CFC4A61BA18949009B5D70 /* list-sep.png */,
+				18CFC4A71BA18949009B5D70 /* section-bar.png */,
+				18CFC4A81BA18949009B5D70 /* time-icon.png */,
+				18CFC4A91BA18949009B5D70 /* to.png */,
+			);
+			name = BookingHistory;
+			sourceTree = "<group>";
+		};
 		18D65D9C1B9D800C00D6C1BD /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1242,6 +1268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1880C55F1B79B47B004F0188 /* segment_unselected@2x.png in Resources */,
+				18CFC4AE1BA18949009B5D70 /* time-icon.png in Resources */,
 				1880C51A1B7877ED004F0188 /* bottom-bar@2x.png in Resources */,
 				1880C52A1B7877ED004F0188 /* menu_logout_selected@2x.png in Resources */,
 				18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */,
@@ -1279,6 +1306,8 @@
 				184CF91A1BA02A080025B883 /* taxi-icon@2x.png in Resources */,
 				18D65DFC1B9ED25800D6C1BD /* fullname-box-focused@2x.png in Resources */,
 				1880C5651B79B786004F0188 /* search-icon@2x.png in Resources */,
+				18CFC4AF1BA18949009B5D70 /* to.png in Resources */,
+				18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */,
 				1880C5181B7877ED004F0188 /* booklater-button@2x.png in Resources */,
 				18D65DA61B9D802200D6C1BD /* password-box-focused.png in Resources */,
 				1880C53A1B7877ED004F0188 /* StarEmpty@2x.png in Resources */,
@@ -1286,6 +1315,7 @@
 				1880C5321B7877ED004F0188 /* setpickuplocation@2x.png in Resources */,
 				184CF9191BA02A080025B883 /* pickup-pointer@2x.png in Resources */,
 				18D65DFF1B9ED25800D6C1BD /* password-box-idle-s@2x.png in Resources */,
+				18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */,
 				184CF9131BA02A080025B883 /* forward-arrow@2x.png in Resources */,
 				18D65DF91B9ED25800D6C1BD /* back-arrow@2x.png in Resources */,
 				1880C5331B7877ED004F0188 /* splitter_gray@2x.png in Resources */,
@@ -1293,6 +1323,7 @@
 				185FEC811B96DB0E00268296 /* GoogleService-Info.plist in Resources */,
 				1880C53D1B7877ED004F0188 /* StarFull.png in Resources */,
 				1880C54A1B7877ED004F0188 /* taxi-568h@2x.png in Resources */,
+				18CFC4AD1BA18949009B5D70 /* section-bar.png in Resources */,
 				1880C5391B7877ED004F0188 /* StarEmpty.png in Resources */,
 				1880C54C1B7877ED004F0188 /* taxi@2x.png in Resources */,
 				184CF91B1BA02A080025B883 /* vertical-dots@2x.png in Resources */,
@@ -1323,6 +1354,7 @@
 				18D65DA81B9D802200D6C1BD /* phone-box-focused.png in Resources */,
 				1880C52B1B7877ED004F0188 /* menu_profile@2x.png in Resources */,
 				18D65DCD1B9D82B600D6C1BD /* phone-box-focused@2x.png in Resources */,
+				18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */,
 				18A762921AFF785B00B9ED32 /* LaunchScreen.xib in Resources */,
 				184CF9151BA02A080025B883 /* location@2x.png in Resources */,
 				1880C52D1B7877ED004F0188 /* pointericon.png in Resources */,
