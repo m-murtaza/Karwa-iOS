@@ -13,22 +13,19 @@
 @interface KSBookingDetailsController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupAddress;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblDropoffAddress;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupTime;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupDate;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblAcknowlegement;
-
 @property (weak, nonatomic) IBOutlet UIButton *btnCancelBooking;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblDropoffTime;
-
 @property (weak, nonatomic) IBOutlet UIView *dropoffContainer;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblTitleTaxiInfo;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblDriverName;
+@property (weak, nonatomic) IBOutlet UILabel *lblDriverNumber;
+@property (weak, nonatomic) IBOutlet UILabel *lblETA;
+@property (weak, nonatomic) IBOutlet UILabel *lblTaxiNumber;
 
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
 
@@ -46,18 +43,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    
-
-    
     [self loadViewData];
-
-
-    
-
-    
-
-    
-
 }
 
 
@@ -111,9 +97,35 @@
         [self.viewTaxiInfo setHidden:TRUE];
     }*/
     
-    //[self setStatusForTrip:trip];
+    [self setStatusForTrip:trip];
+    
+    [self setTaxiInfo:trip];
     
 }
+
+-(void) hideTaxiInfo:(KSTrip*)trip
+{
+    [self.lblTitleTaxiInfo setHidden:TRUE];
+    [self.viewTaxiInfo setHidden:TRUE];
+}
+
+-(void) setTaxiInfo:(KSTrip*)trip
+{
+    if (trip.taxi == nil) {
+        
+        [self hideTaxiInfo:trip];
+    }
+    else {
+        KSDriver *driver = trip.driver;
+        self.lblDriverName.text = driver.name;
+        self.lblDriverNumber.text = driver.phone ;
+
+        KSTaxi *taxi = trip.taxi;
+        self.lblTaxiNumber.text = taxi.number;
+        
+    }
+}
+
 
 -(void) setStatusForTrip:(KSTrip*)trip
 {
@@ -121,11 +133,11 @@
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
             if (self.showsAcknowledgement) {
-                [self.btnCancelBooking removeFromSuperview];
+                //[self.btnCancelBooking removeFromSuperview];
                 [self.btnCancelBooking setHidden:YES];
             }
             else {
-                [self.lblAcknowlegement removeFromSuperview];
+                //[self.lblAcknowlegement removeFromSuperview];
                 [self.lblAcknowlegement setHidden:YES];
                 NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
                 NSTimeInterval CANCEL_TIMEOUT = 300.0;
