@@ -26,6 +26,7 @@
 @dynamic pickupTime;
 @dynamic status;
 @dynamic bookingType;
+@dynamic estimatedTimeOfArival;
 @dynamic driver;
 @dynamic passenger;
 @dynamic rating;

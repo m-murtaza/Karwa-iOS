@@ -37,6 +37,7 @@
         <attribute name="dropOffLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="dropOffLon" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="dropOffTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="estimatedTimeOfArival" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="jobId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pickupLandmark" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pickupLat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -75,7 +76,7 @@
         <element name="KSDriver" positionX="0" positionY="0" width="128" height="105"/>
         <element name="KSGeoLocation" positionX="0" positionY="0" width="128" height="135"/>
         <element name="KSTaxi" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="KSTrip" positionX="0" positionY="0" width="128" height="270"/>
+        <element name="KSTrip" positionX="0" positionY="0" width="128" height="285"/>
         <element name="KSTripIssue" positionX="0" positionY="0" width="128" height="105"/>
         <element name="KSTripRating" positionX="0" positionY="0" width="128" height="105"/>
         <element name="KSUser" positionX="0" positionY="0" width="128" height="165"/>

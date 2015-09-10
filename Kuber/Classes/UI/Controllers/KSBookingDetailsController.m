@@ -121,7 +121,13 @@
         self.lblDriverNumber.text = driver.phone ;
 
         KSTaxi *taxi = trip.taxi;
-        self.lblTaxiNumber.text = taxi.number;
+        self.lblTaxiNumber.text = [NSString stringWithFormat:@"Taxi: %@",taxi.number]; 
+        
+        if (trip.estimatedTimeOfArival != nil) {
+            
+            NSString *eta = [NSString stringWithFormat:@"%@ Mins",trip.estimatedTimeOfArival];
+            self.lblETA.text = eta;
+        }
         
     }
 }
