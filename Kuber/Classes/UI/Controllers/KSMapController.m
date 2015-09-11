@@ -562,21 +562,13 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 #pragma mark - 
 #pragma mark UITextField 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    /*[UIView animateWithDuration:0.38 animations:^{
-        [self.view setFrame:CGRectMake(0,-150,320,460)];
-    }];*/
+
     return YES;
 }
 
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-//    
-//    [self.view endEditing:YES];
-    /*[UIView animateWithDuration:0.38 animations:^{
-        [self.view setFrame:CGRectMake(0,0,320,460)];
-    }];*/
+
 
     return YES;
 }

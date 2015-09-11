@@ -13,7 +13,8 @@
 
 @interface KSMenuController ()
 
-@property (nonatomic) IBOutlet UILabel *lblDisplayName;
+@property (nonatomic,weak ) IBOutlet UILabel *lblDisplayName;
+@property (nonatomic, weak) IBOutlet UILabel *lblPhone;
 
 - (IBAction)onClickLogout:(id)sender;
 
@@ -25,6 +26,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    KSSessionInfo *userSession = [KSSessionInfo currentSession];
+    
+    KSUser *user = [KSDAL userWithPhone:userSession.phone];
+    self.lblDisplayName.text = user.name;
+    self.lblPhone.text = user.phone;
 }
 
 

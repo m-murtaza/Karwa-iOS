@@ -66,6 +66,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChangeName:) name:UITextFieldTextDidChangeNotification object:self.txtName];
 
     self.txtName.delegate = self;
+    self.txtName.rightViewMode = UITextFieldViewModeAlways;
+    
+    
+    UIColor *color = [UIColor colorWithRed:119.0/256.0 green:119.0/256.0 blue:119.0/256.0 alpha:1.0];
+    self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Choose Favorite location..." attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
+    
 
 }
 -(void) viewWillAppear:(BOOL)animated
@@ -208,6 +215,19 @@
 #pragma mark -
 #pragma mark - UITextFieldDelegate
 
+#pragma mark - Delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    return YES;
+}
+
 
 - (void)onChangeName:(NSNotification *)notification {
 
@@ -225,6 +245,37 @@
     }
     return YES;
 }
+
+
+#pragma mark - Notification
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -200)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, 0)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+    
+}
+
 
 #pragma mark -
 #pragma mark - Event handlers

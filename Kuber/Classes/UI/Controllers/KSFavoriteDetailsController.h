@@ -11,7 +11,7 @@
 @class KSBookmark;
 @class KSGeoLocation;
 
-@interface KSFavoriteDetailsController : KSViewController
+@interface KSFavoriteDetailsController : KSViewController <UITextFieldDelegate>
 
 @property (nonatomic, copy) NSString *landmark;
 @property (nonatomic, strong) KSBookmark *bookmark;

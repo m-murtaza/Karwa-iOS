@@ -975,22 +975,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WELCOME" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYf-5l-6wE">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <color key="textColor" red="0.15686274509803921" green="0.67843137254901964" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="29" y="28" width="342" height="66"/>
-                                </variation>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2Y-Q5-Sgh">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="BOOK A TAXI" image="menu_book.png">
-                                    <color key="titleColor" red="0.058823529411764705" green="0.38403950190273478" blue="0.42794772719943119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_book_selected.png" backgroundImage="menu_item_selected.png">
@@ -1000,7 +991,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="95" width="322" height="64"/>
+                                    <rect key="frame" x="0.0" y="95" width="403" height="64"/>
                                 </variation>
                                 <connections>
                                     <segue destination="YOd-38-N3f" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="zmw-EW-5wX"/>
@@ -1008,9 +999,9 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fR-4r-BHK">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.058823529411764705" green="0.39087543940273478" blue="0.4469392979231151" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="69" y="156" width="172" height="2"/>
+                                    <rect key="frame" x="69" y="158" width="315" height="1"/>
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAV-a3-XQs">
@@ -1019,7 +1010,7 @@
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="RECENT TRIPS" image="menu_history.png">
-                                    <color key="titleColor" red="0.058823529409999999" green="0.38403950190000002" blue="0.42794772720000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_history_selected.png" backgroundImage="menu_item_selected.png">
@@ -1037,9 +1028,9 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zYW-s7-qv6">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.39087543940000002" blue="0.44693929789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="69" y="220" width="172" height="2"/>
+                                    <rect key="frame" x="69" y="217" width="315" height="1"/>
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gka-w5-CX6">
@@ -1048,7 +1039,7 @@
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="FAVORITES" image="menu_favorites.png">
-                                    <color key="titleColor" red="0.058823529409999999" green="0.38403950190000002" blue="0.42794772720000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_favorites_selected.png" backgroundImage="menu_item_selected.png">
@@ -1066,9 +1057,9 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qt3-BL-Dkz">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.39087543940000002" blue="0.44693929789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="69" y="282" width="172" height="2"/>
+                                    <rect key="frame" x="69" y="282" width="315" height="1"/>
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8W-s5-ohG">
@@ -1077,7 +1068,7 @@
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="PROFILE" image="menu_profile.png">
-                                    <color key="titleColor" red="0.058823529409999999" green="0.38403950190000002" blue="0.42794772720000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_profile_selected.png" backgroundImage="menu_item_selected.png">
@@ -1095,9 +1086,9 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gag-EM-Ddh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.39087543940000002" blue="0.44693929789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="69" y="348" width="172" height="2"/>
+                                    <rect key="frame" x="69" y="348" width="315" height="1"/>
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4i-Dc-LE0">
@@ -1106,7 +1097,7 @@
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="LOGOUT" image="menu_logout.png">
-                                    <color key="titleColor" red="0.058823529409999999" green="0.38403950190000002" blue="0.42794772720000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_logout_selected.png" backgroundImage="menu_item_selected.png">
@@ -1116,24 +1107,40 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="350" width="322" height="64"/>
+                                    <rect key="frame" x="0.0" y="716" width="322" height="64"/>
                                 </variation>
                                 <connections>
                                     <action selector="onClickLogout:" destination="UbX-wO-GOm" eventType="touchUpInside" id="2B3-dy-xWg"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8f6-dj-sQS">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.39087543940000002" blue="0.44693929789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEW-Na-nlO">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="69" y="414" width="172" height="2"/>
+                                    <rect key="frame" x="69" y="35" width="283" height="21"/>
                                 </variation>
-                            </view>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7O-90-CFq" customClass="KSLabel">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="69" y="64" width="283" height="21"/>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar.png" translatesAutoresizingMaskIntoConstraints="NO" id="09p-Zi-qyd">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="42" width="36" height="36"/>
+                                </variation>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.10980392156862745" green="0.10980392156862745" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="OYf-5l-6wE"/>
                                 <exclude reference="S2Y-Q5-Sgh"/>
                                 <exclude reference="2fR-4r-BHK"/>
                                 <exclude reference="wAV-a3-XQs"/>
@@ -1143,12 +1150,13 @@
                                 <exclude reference="Q8W-s5-ohG"/>
                                 <exclude reference="gag-EM-Ddh"/>
                                 <exclude reference="u4i-Dc-LE0"/>
-                                <exclude reference="8f6-dj-sQS"/>
+                                <exclude reference="yEW-Na-nlO"/>
+                                <exclude reference="x7O-90-CFq"/>
+                                <exclude reference="09p-Zi-qyd"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="OYf-5l-6wE"/>
                                 <include reference="S2Y-Q5-Sgh"/>
                                 <include reference="2fR-4r-BHK"/>
                                 <include reference="wAV-a3-XQs"/>
@@ -1158,12 +1166,15 @@
                                 <include reference="Q8W-s5-ohG"/>
                                 <include reference="gag-EM-Ddh"/>
                                 <include reference="u4i-Dc-LE0"/>
-                                <include reference="8f6-dj-sQS"/>
+                                <include reference="yEW-Na-nlO"/>
+                                <include reference="x7O-90-CFq"/>
+                                <include reference="09p-Zi-qyd"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="lblDisplayName" destination="OYf-5l-6wE" id="b1V-Z7-TXr"/>
+                        <outlet property="lblDisplayName" destination="yEW-Na-nlO" id="jrK-Ld-2SH"/>
+                        <outlet property="lblPhone" destination="x7O-90-CFq" id="vP9-Yh-ojW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gga-ku-4dd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2320,110 +2331,188 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Place name e.g. Airport" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rm6-cl-XsW">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="36" width="368" height="30"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="delegate" destination="jpA-Ag-F5d" id="hnV-pH-pG7"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8a-bW-dMB">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="91N-ZF-RZM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="91N-ZF-RZM"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="74" width="368" height="21"/>
-                                    <mask key="constraints">
-                                        <include reference="91N-ZF-RZM"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDW-k9-Xom">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="103" width="400" height="697"/>
-                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="jpA-Ag-F5d" id="MrB-L4-Vd5"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nqe-eY-QPd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white-background.png" translatesAutoresizingMaskIntoConstraints="NO" id="gH0-JO-zBs">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73X-qt-x8r" customClass="KSButton">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <state key="normal" title="Save" backgroundImage="blue-button-idle.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="blue-button-pressed.png"/>
+                                        <connections>
+                                            <action selector="onClickSave:" destination="jpA-Ag-F5d" eventType="touchUpInside" id="aHb-vT-uyl"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BookMark Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pkr-Lm-249" customClass="KSTextField">
+                                        <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="jpA-Ag-F5d" id="baL-0f-snv"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-sep-line-09.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dgs-1S-9m9">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UA3-Xw-E1T" customClass="KSLabel">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.16078431372549018" green="0.19607843137254902" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="73X-qt-x8r" secondAttribute="trailing" constant="8" id="3d3-Li-dce"/>
+                                    <constraint firstItem="gH0-JO-zBs" firstAttribute="top" secondItem="Nqe-eY-QPd" secondAttribute="top" id="3wY-dS-vqe">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="-8"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="195" id="3wf-fs-TIf"/>
+                                    <constraint firstItem="Dgs-1S-9m9" firstAttribute="top" secondItem="UA3-Xw-E1T" secondAttribute="bottom" constant="19" id="AVY-g1-bXK"/>
+                                    <constraint firstItem="UA3-Xw-E1T" firstAttribute="top" secondItem="Nqe-eY-QPd" secondAttribute="top" constant="21" id="AjJ-4n-CoR"/>
+                                    <constraint firstItem="73X-qt-x8r" firstAttribute="top" secondItem="Pkr-Lm-249" secondAttribute="bottom" constant="21" id="DcH-bE-hux"/>
+                                    <constraint firstAttribute="trailing" secondItem="UA3-Xw-E1T" secondAttribute="trailing" constant="8" id="EFK-pP-qHd"/>
+                                    <constraint firstItem="UA3-Xw-E1T" firstAttribute="leading" secondItem="Nqe-eY-QPd" secondAttribute="leading" constant="8" id="Gxc-cJ-g9F"/>
+                                    <constraint firstItem="Dgs-1S-9m9" firstAttribute="top" secondItem="UA3-Xw-E1T" secondAttribute="bottom" constant="19" id="OQ7-Hd-UE6"/>
+                                    <constraint firstAttribute="trailing" secondItem="gH0-JO-zBs" secondAttribute="trailing" id="R60-4i-1Yq"/>
+                                    <constraint firstItem="73X-qt-x8r" firstAttribute="top" secondItem="Pkr-Lm-249" secondAttribute="bottom" constant="21" id="Wgp-1m-o14"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pkr-Lm-249" secondAttribute="trailing" constant="8" id="cXC-Es-UXu"/>
+                                    <constraint firstItem="Dgs-1S-9m9" firstAttribute="leading" secondItem="Nqe-eY-QPd" secondAttribute="leading" constant="8" id="czG-xR-DxK"/>
+                                    <constraint firstItem="gH0-JO-zBs" firstAttribute="leading" secondItem="Nqe-eY-QPd" secondAttribute="leading" id="j4q-RE-Pa1"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dgs-1S-9m9" secondAttribute="trailing" constant="8" id="laG-XZ-UwJ"/>
+                                    <constraint firstItem="Pkr-Lm-249" firstAttribute="top" secondItem="Dgs-1S-9m9" secondAttribute="bottom" constant="22" id="nxL-XS-e0f"/>
+                                    <constraint firstAttribute="bottom" secondItem="73X-qt-x8r" secondAttribute="bottom" constant="5" id="raT-MX-4eT"/>
+                                    <constraint firstItem="73X-qt-x8r" firstAttribute="leading" secondItem="Nqe-eY-QPd" secondAttribute="leading" constant="8" id="t9F-n5-z9w"/>
+                                    <constraint firstItem="Pkr-Lm-249" firstAttribute="leading" secondItem="Nqe-eY-QPd" secondAttribute="leading" constant="8" id="tn3-H8-KWv"/>
+                                    <constraint firstAttribute="bottom" secondItem="gH0-JO-zBs" secondAttribute="bottom" id="wTF-a3-HKS"/>
+                                    <constraint firstItem="Pkr-Lm-249" firstAttribute="top" secondItem="Dgs-1S-9m9" secondAttribute="bottom" constant="22" id="zZK-bc-gwA"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="gH0-JO-zBs"/>
+                                        <exclude reference="73X-qt-x8r"/>
+                                        <exclude reference="Pkr-Lm-249"/>
+                                        <exclude reference="Dgs-1S-9m9"/>
+                                        <exclude reference="UA3-Xw-E1T"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="3wf-fs-TIf"/>
+                                        <exclude reference="3wY-dS-vqe"/>
+                                        <exclude reference="R60-4i-1Yq"/>
+                                        <exclude reference="j4q-RE-Pa1"/>
+                                        <exclude reference="wTF-a3-HKS"/>
+                                        <exclude reference="AjJ-4n-CoR"/>
+                                        <exclude reference="EFK-pP-qHd"/>
+                                        <exclude reference="Gxc-cJ-g9F"/>
+                                        <exclude reference="AVY-g1-bXK"/>
+                                        <exclude reference="OQ7-Hd-UE6"/>
+                                        <exclude reference="czG-xR-DxK"/>
+                                        <exclude reference="laG-XZ-UwJ"/>
+                                        <exclude reference="cXC-Es-UXu"/>
+                                        <exclude reference="nxL-XS-e0f"/>
+                                        <exclude reference="tn3-H8-KWv"/>
+                                        <exclude reference="zZK-bc-gwA"/>
+                                        <exclude reference="3d3-Li-dce"/>
+                                        <exclude reference="DcH-bE-hux"/>
+                                        <exclude reference="Wgp-1m-o14"/>
+                                        <exclude reference="raT-MX-4eT"/>
+                                        <exclude reference="t9F-n5-z9w"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="gH0-JO-zBs"/>
+                                        <include reference="73X-qt-x8r"/>
+                                        <include reference="Pkr-Lm-249"/>
+                                        <include reference="Dgs-1S-9m9"/>
+                                        <include reference="UA3-Xw-E1T"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="3wf-fs-TIf"/>
+                                        <include reference="3wY-dS-vqe"/>
+                                        <include reference="R60-4i-1Yq"/>
+                                        <include reference="j4q-RE-Pa1"/>
+                                        <include reference="wTF-a3-HKS"/>
+                                        <include reference="AjJ-4n-CoR"/>
+                                        <include reference="EFK-pP-qHd"/>
+                                        <include reference="Gxc-cJ-g9F"/>
+                                        <include reference="AVY-g1-bXK"/>
+                                        <include reference="OQ7-Hd-UE6"/>
+                                        <include reference="czG-xR-DxK"/>
+                                        <include reference="laG-XZ-UwJ"/>
+                                        <include reference="cXC-Es-UXu"/>
+                                        <include reference="nxL-XS-e0f"/>
+                                        <include reference="tn3-H8-KWv"/>
+                                        <include reference="zZK-bc-gwA"/>
+                                        <include reference="3d3-Li-dce"/>
+                                        <include reference="DcH-bE-hux"/>
+                                        <include reference="Wgp-1m-o14"/>
+                                        <include reference="raT-MX-4eT"/>
+                                        <include reference="t9F-n5-z9w"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="h8a-bW-dMB" firstAttribute="leading" secondItem="rm6-cl-XsW" secondAttribute="leading" id="DOp-Vz-OWu"/>
-                            <constraint firstItem="h8a-bW-dMB" firstAttribute="centerX" secondItem="CDW-k9-Xom" secondAttribute="centerX" id="IgE-um-KTC"/>
-                            <constraint firstItem="CDW-k9-Xom" firstAttribute="bottom" secondItem="h5r-p1-D1o" secondAttribute="top" id="O5c-Ou-Tw8"/>
-                            <constraint firstItem="h8a-bW-dMB" firstAttribute="leading" secondItem="nSS-gt-6Qd" secondAttribute="leadingMargin" id="OcR-9B-tcU"/>
-                            <constraint firstAttribute="trailing" secondItem="CDW-k9-Xom" secondAttribute="trailing" id="bhZ-bx-coE"/>
-                            <constraint firstItem="rm6-cl-XsW" firstAttribute="top" secondItem="phL-1k-mZc" secondAttribute="bottom" constant="16" id="d3C-n3-mjR"/>
-                            <constraint firstItem="h8a-bW-dMB" firstAttribute="trailing" secondItem="rm6-cl-XsW" secondAttribute="trailing" id="efz-J6-nRT"/>
-                            <constraint firstItem="CDW-k9-Xom" firstAttribute="leading" secondItem="nSS-gt-6Qd" secondAttribute="leading" id="jJN-K6-UyP"/>
-                            <constraint firstItem="CDW-k9-Xom" firstAttribute="top" secondItem="h8a-bW-dMB" secondAttribute="bottom" constant="8" symbolic="YES" id="xJF-Lh-bi0"/>
-                            <constraint firstItem="h8a-bW-dMB" firstAttribute="top" secondItem="rm6-cl-XsW" secondAttribute="bottom" constant="8" symbolic="YES" id="xjB-Fv-OPe"/>
+                            <constraint firstItem="Nqe-eY-QPd" firstAttribute="top" secondItem="CDW-k9-Xom" secondAttribute="bottom" id="2yk-BE-tqs"/>
+                            <constraint firstItem="Nqe-eY-QPd" firstAttribute="leading" secondItem="nSS-gt-6Qd" secondAttribute="leadingMargin" constant="-16" id="8QH-qj-IGQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CDW-k9-Xom" secondAttribute="trailing" constant="-16" id="GHb-Gb-5My"/>
+                            <constraint firstItem="CDW-k9-Xom" firstAttribute="leading" secondItem="nSS-gt-6Qd" secondAttribute="leadingMargin" constant="-16" id="M0K-Az-Dug"/>
+                            <constraint firstItem="h5r-p1-D1o" firstAttribute="top" secondItem="Nqe-eY-QPd" secondAttribute="bottom" id="YxC-MT-0zY"/>
+                            <constraint firstItem="Nqe-eY-QPd" firstAttribute="top" secondItem="CDW-k9-Xom" secondAttribute="bottom" constant="8" id="nIF-Re-nb3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Nqe-eY-QPd" secondAttribute="trailing" constant="-16" id="tvw-sc-aTT"/>
+                            <constraint firstItem="CDW-k9-Xom" firstAttribute="top" secondItem="phL-1k-mZc" secondAttribute="bottom" id="ylR-Xh-ycf"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="rm6-cl-XsW"/>
-                                <exclude reference="h8a-bW-dMB"/>
                                 <exclude reference="CDW-k9-Xom"/>
+                                <exclude reference="Nqe-eY-QPd"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="DOp-Vz-OWu"/>
-                                <exclude reference="IgE-um-KTC"/>
-                                <exclude reference="OcR-9B-tcU"/>
-                                <exclude reference="efz-J6-nRT"/>
-                                <exclude reference="xjB-Fv-OPe"/>
-                                <exclude reference="d3C-n3-mjR"/>
-                                <exclude reference="O5c-Ou-Tw8"/>
-                                <exclude reference="bhZ-bx-coE"/>
-                                <exclude reference="jJN-K6-UyP"/>
-                                <exclude reference="xJF-Lh-bi0"/>
+                                <exclude reference="GHb-Gb-5My"/>
+                                <exclude reference="M0K-Az-Dug"/>
+                                <exclude reference="ylR-Xh-ycf"/>
+                                <exclude reference="2yk-BE-tqs"/>
+                                <exclude reference="8QH-qj-IGQ"/>
+                                <exclude reference="nIF-Re-nb3"/>
+                                <exclude reference="tvw-sc-aTT"/>
+                                <exclude reference="YxC-MT-0zY"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="rm6-cl-XsW"/>
-                                <include reference="h8a-bW-dMB"/>
                                 <include reference="CDW-k9-Xom"/>
+                                <include reference="Nqe-eY-QPd"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="DOp-Vz-OWu"/>
-                                <include reference="IgE-um-KTC"/>
-                                <include reference="OcR-9B-tcU"/>
-                                <include reference="efz-J6-nRT"/>
-                                <include reference="xjB-Fv-OPe"/>
-                                <include reference="d3C-n3-mjR"/>
-                                <include reference="O5c-Ou-Tw8"/>
-                                <include reference="bhZ-bx-coE"/>
-                                <include reference="jJN-K6-UyP"/>
-                                <include reference="xJF-Lh-bi0"/>
+                                <include reference="GHb-Gb-5My"/>
+                                <include reference="M0K-Az-Dug"/>
+                                <include reference="ylR-Xh-ycf"/>
+                                <include reference="2yk-BE-tqs"/>
+                                <include reference="8QH-qj-IGQ"/>
+                                <exclude reference="nIF-Re-nb3"/>
+                                <include reference="tvw-sc-aTT"/>
+                                <include reference="YxC-MT-0zY"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Edit Place" id="nPk-hi-Udj">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rao-wG-14c">
-                            <connections>
-                                <action selector="onClickSave:" destination="jpA-Ag-F5d" id="rgg-lz-tKu"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Edit Place" id="nPk-hi-Udj"/>
                     <connections>
-                        <outlet property="lblAddress" destination="h8a-bW-dMB" id="D89-Mc-g1W"/>
+                        <outlet property="lblAddress" destination="UA3-Xw-E1T" id="duZ-9O-d4A"/>
                         <outlet property="mapView" destination="CDW-k9-Xom" id="2z5-Sf-Pvr"/>
-                        <outlet property="txtName" destination="rm6-cl-XsW" id="GTG-Mw-zgM"/>
+                        <outlet property="txtName" destination="Pkr-Lm-249" id="4hW-TM-Gdk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qrg-sm-fW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4565,6 +4654,7 @@
         <image name="Booking-details_07.png" width="360" height="110"/>
         <image name="KS_login_logo.png" width="185" height="55"/>
         <image name="VerifyCode-box.png" width="335" height="40"/>
+        <image name="avatar.png" width="72" height="72"/>
         <image name="blue-button-idle.png" width="329" height="50"/>
         <image name="blue-button-pressed.png" width="329" height="50"/>
         <image name="blue_button.png" width="350" height="49"/>
