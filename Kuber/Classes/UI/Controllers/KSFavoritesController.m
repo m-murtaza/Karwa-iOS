@@ -12,6 +12,7 @@
 #import "KSGeoLocation.h"
 
 #import "KSFavoriteDetailsController.h"
+#import "KSButtonCell.h"
 
 @interface KSFavoritesController ()
 
@@ -44,14 +45,21 @@
     self.addOnlyBarButtonItems = @[btnAddPlace];
     self.addDeleteBarButtonItems = @[btnAddPlace, btnDeletePlace];
 
-    __block KSFavoritesController *me = self;
-    [me showLoadingView];
-    [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
-        [me buildBookmarks];
-        [me hideLoadingView];
-    }];
-
-    [self buildBookmarks];
+//    __block KSFavoritesController *me = self;
+//    [me showLoadingView];
+//    [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
+//        [me buildBookmarks];
+//        [me hideLoadingView];
+//    }];
+//
+//    [self buildBookmarks];
+    
+    [self loadAllData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(unfavBookmarkButtonTapped:)
+                                                 name:KSNotificationButtonUnFavBookmarkCellAction
+                                               object:nil];
 
 }
 
@@ -213,18 +221,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString * const placemarkCellReuseId = @"KSFavoritesCell";
+    static NSString * const placemarkCellReuseId = @"KSBoomarkCellId";
     
     NSDictionary *placeData = self.bookmarks[indexPath.row];
     KSBookmark *bookmark = placeData[@"bookmark"];
-    NSString *landmark = placeData[@"landmark"];
+    //NSString *landmark = placeData[@"landmark"];
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:placemarkCellReuseId forIndexPath:indexPath];
+    KSButtonCell *cell = (KSButtonCell*)[tableView dequeueReusableCellWithIdentifier:placemarkCellReuseId forIndexPath:indexPath];
 
-    cell.textLabel.text = bookmark.name;
+    /*cell.textLabel.text = bookmark.name;
     if (landmark.length) {
         cell.detailTextLabel.text = landmark;
-    }
+    }*/
+    cell.cellData = bookmark;
 
     return cell;
 }
@@ -240,6 +249,37 @@
 /*- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     //[self updateActionButtons];
 }*/
+
+#pragma mark - Notifications 
+
+-(void) unfavBookmarkButtonTapped:(NSNotification*)data
+{
+    [KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+        if (KSAPIStatusSuccess == status) {
+            
+            [self loadAllData];
+            [self.tableView reloadData];
+        }
+        else{
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+    }];
+
+}
+
+#pragma mark - Private Method 
+-(void) loadAllData {
+
+    __block KSFavoritesController *me = self;
+    [me showLoadingView];
+    [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
+        [me buildBookmarks];
+        [me hideLoadingView];
+    }];
+    
+    [self buildBookmarks];
+}
+
 
 #pragma mark -
 #pragma mark - Event handlers
