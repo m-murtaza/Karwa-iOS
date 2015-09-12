@@ -120,7 +120,8 @@
     UITableViewCell *cell;
     if (indexPath.section == 0) {
         
-        cell = [tableView dequeueReusableCellWithIdentifier:@"infoCellIdentifier"];
+        cell = [self.tableView dequeueReusableCellWithIdentifier:@"infoCellIdentifier"];
+        //[cell.contentView setBackgroundColor:[UIColor greenColor]];
         UILabel *lbl = (UILabel*) [cell.contentView viewWithTag:2001];
         KSUITextFieldInCell *txt = (KSUITextFieldInCell*) [cell.contentView viewWithTag:2002];
         txt.section = indexPath.section;

@@ -1320,33 +1320,64 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9d-ME-68R">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="yAv-Yh-q3W"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="yAv-Yh-q3W"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <rect key="frame" x="8" y="11" width="100" height="21"/>
+                                                <mask key="constraints">
+                                                    <include reference="yAv-Yh-q3W"/>
+                                                </mask>
                                             </variation>
                                         </label>
                                         <textField opaque="NO" clipsSubviews="YES" tag="2002" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z56-eJ-5Kq" customClass="KSUITextFieldInCell">
                                             <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
-                                            <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                 <rect key="frame" x="116" y="7" width="276" height="30"/>
                                             </variation>
                                         </textField>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="c9d-ME-68R" firstAttribute="centerY" secondItem="eoq-IL-G9q" secondAttribute="centerY" id="Kcb-pU-gQd"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="z56-eJ-5Kq" secondAttribute="trailing" constant="-7" id="Qvw-CQ-ypg"/>
+                                        <constraint firstItem="c9d-ME-68R" firstAttribute="leading" secondItem="eoq-IL-G9q" secondAttribute="leadingMargin" constant="-7" id="UYx-h9-IN6"/>
+                                        <constraint firstItem="z56-eJ-5Kq" firstAttribute="leading" secondItem="c9d-ME-68R" secondAttribute="trailing" constant="8" symbolic="YES" id="eyE-0d-Ac0"/>
+                                        <constraint firstItem="c9d-ME-68R" firstAttribute="top" secondItem="eoq-IL-G9q" secondAttribute="topMargin" constant="3" id="i7F-xy-gI4"/>
+                                        <constraint firstItem="z56-eJ-5Kq" firstAttribute="top" secondItem="eoq-IL-G9q" secondAttribute="topMargin" constant="-1" id="ps3-6K-lhI"/>
+                                    </constraints>
                                     <variation key="default">
-                                        <mask key="subviews">
-                                            <exclude reference="c9d-ME-68R"/>
-                                            <exclude reference="z56-eJ-5Kq"/>
+                                        <mask key="constraints">
+                                            <exclude reference="Kcb-pU-gQd"/>
+                                            <exclude reference="UYx-h9-IN6"/>
+                                            <exclude reference="i7F-xy-gI4"/>
+                                            <exclude reference="Qvw-CQ-ypg"/>
+                                            <exclude reference="eyE-0d-Ac0"/>
+                                            <exclude reference="ps3-6K-lhI"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
                                         <mask key="subviews">
                                             <include reference="c9d-ME-68R"/>
                                             <include reference="z56-eJ-5Kq"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="Kcb-pU-gQd"/>
+                                            <include reference="UYx-h9-IN6"/>
+                                            <include reference="i7F-xy-gI4"/>
+                                            <include reference="Qvw-CQ-ypg"/>
+                                            <include reference="eyE-0d-Ac0"/>
+                                            <include reference="ps3-6K-lhI"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
