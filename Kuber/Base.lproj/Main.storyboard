@@ -2618,6 +2618,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDW-k9-Xom">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="64" width="400" height="541"/>
+                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="jpA-Ag-F5d" id="MrB-L4-Vd5"/>
                                 </connections>
@@ -3335,9 +3338,11 @@
                                 <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="yXA-BK-yeW" secondAttribute="trailing" constant="8" id="4TP-HE-A7y"/>
-                                    <constraint firstItem="yXA-BK-yeW" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="top" constant="74" id="Hdo-ne-6In"/>
+                                    <constraint firstItem="yXA-BK-yeW" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="top" constant="20" id="Hdo-ne-6In"/>
                                     <constraint firstItem="yXA-BK-yeW" firstAttribute="leading" secondItem="n6z-0Q-nZc" secondAttribute="leading" constant="8" id="MRt-fH-x0t"/>
-                                    <constraint firstAttribute="height" constant="165" id="QwE-jX-Mvf"/>
+                                    <constraint firstAttribute="height" constant="165" id="QwE-jX-Mvf">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="122"/>
+                                    </constraint>
                                     <constraint firstItem="dIR-Te-S2u" firstAttribute="leading" secondItem="n6z-0Q-nZc" secondAttribute="leading" constant="8" id="Xf7-0q-D9V"/>
                                     <constraint firstItem="dIR-Te-S2u" firstAttribute="top" secondItem="yXA-BK-yeW" secondAttribute="bottom" constant="14" id="ojm-4X-wWN"/>
                                     <constraint firstAttribute="trailing" secondItem="dIR-Te-S2u" secondAttribute="trailing" constant="8" id="xxF-U3-llm"/>
@@ -3439,7 +3444,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aJE-As-JYh" firstAttribute="top" secondItem="nHw-kP-qS7" secondAttribute="bottom" id="2Sh-oz-gwN"/>
-                            <constraint firstItem="nHw-kP-qS7" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="bottom" constant="1" id="TRT-7a-mL6"/>
+                            <constraint firstItem="nHw-kP-qS7" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="bottom" constant="1" id="TRT-7a-mL6">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="n6z-0Q-nZc" secondAttribute="trailing" constant="-16" id="Zrf-e1-a7y"/>
                             <constraint firstItem="n6z-0Q-nZc" firstAttribute="leading" secondItem="FEV-M7-DeT" secondAttribute="leadingMargin" constant="-16" id="eyZ-GZ-VcC"/>
                             <constraint firstItem="nHw-kP-qS7" firstAttribute="leading" secondItem="FEV-M7-DeT" secondAttribute="leadingMargin" constant="-16" id="hrp-lp-sej"/>
@@ -3482,7 +3489,7 @@
                         <outlet property="searchField" destination="yXA-BK-yeW" id="OI8-KU-7kT"/>
                         <outlet property="segmentControl" destination="dIR-Te-S2u" id="c9n-e6-b1t"/>
                         <outlet property="tableView" destination="nHw-kP-qS7" id="KgD-X7-PHa"/>
-                        <segue destination="jpA-Ag-F5d" kind="showDetail" identifier="SegueAddPickerToBookmark" id="snM-TD-RWk"/>
+                        <segue destination="jpA-Ag-F5d" kind="show" identifier="SegueAddPickerToBookmark" id="snM-TD-RWk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfB-WR-egp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4997,6 +5004,6 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zRd-7U-Rqs"/>
+        <segue reference="snM-TD-RWk"/>
     </inferredMetricsTieBreakers>
 </document>
