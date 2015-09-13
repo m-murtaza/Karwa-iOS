@@ -57,6 +57,7 @@
 		184CF9291BA03F1D0025B883 /* ver-sep@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184CF9231BA03F1D0025B883 /* ver-sep@2x.png */; };
 		184CF92C1BA056DC0025B883 /* green-button-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184CF92A1BA056DC0025B883 /* green-button-idle@2x.png */; };
 		184CF92D1BA056DC0025B883 /* green-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184CF92B1BA056DC0025B883 /* green-button-pressed@2x.png */; };
+		184D22391BA54E7A007CB740 /* main-screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 184D22381BA54E7A007CB740 /* main-screen.png */; };
 		1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043641B2554D900AECDE9 /* KSDriver.m */; };
 		1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043661B2554D900AECDE9 /* KSTaxi.m */; };
 		185043781B26BCD900AECDE9 /* KSAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043771B26BCD900AECDE9 /* KSAddress.m */; };
@@ -326,6 +327,7 @@
 		184CF9231BA03F1D0025B883 /* ver-sep@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ver-sep@2x.png"; path = "BookingDetails/ver-sep@2x.png"; sourceTree = "<group>"; };
 		184CF92A1BA056DC0025B883 /* green-button-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "green-button-idle@2x.png"; path = "BookingDetails/green-button-idle@2x.png"; sourceTree = "<group>"; };
 		184CF92B1BA056DC0025B883 /* green-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "green-button-pressed@2x.png"; path = "BookingDetails/green-button-pressed@2x.png"; sourceTree = "<group>"; };
+		184D22381BA54E7A007CB740 /* main-screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "main-screen.png"; path = "MainMenu/main-screen.png"; sourceTree = "<group>"; };
 		185043631B2554D900AECDE9 /* KSDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDriver.h; sourceTree = "<group>"; };
 		185043641B2554D900AECDE9 /* KSDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDriver.m; sourceTree = "<group>"; };
 		185043651B2554D900AECDE9 /* KSTaxi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTaxi.h; sourceTree = "<group>"; };
@@ -741,6 +743,14 @@
 			name = BookingDetails;
 			sourceTree = "<group>";
 		};
+		184D22371BA54E5F007CB740 /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				184D22381BA54E7A007CB740 /* main-screen.png */,
+			);
+			name = MainMenu;
+			sourceTree = "<group>";
+		};
 		185043601B2554D900AECDE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,6 +849,7 @@
 		1880C4D61B7877ED004F0188 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				184D22371BA54E5F007CB740 /* MainMenu */,
 				1852D09E1BA31022007E9D06 /* Menu */,
 				18CFC4A31BA1892D009B5D70 /* BookingHistory */,
 				184CF91D1BA03F0E0025B883 /* BookingDetails */,
@@ -1425,6 +1436,7 @@
 				18D65DA81B9D802200D6C1BD /* phone-box-focused.png in Resources */,
 				1880C52B1B7877ED004F0188 /* menu_profile@2x.png in Resources */,
 				18D65DCD1B9D82B600D6C1BD /* phone-box-focused@2x.png in Resources */,
+				184D22391BA54E7A007CB740 /* main-screen.png in Resources */,
 				18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */,
 				18A762921AFF785B00B9ED32 /* LaunchScreen.xib in Resources */,
 				1852D0B71BA31035007E9D06 /* logout-ico-idle.png in Resources */,

@@ -13,6 +13,7 @@
 {
 
 }
+@property (weak, nonatomic) IBOutlet UIButton *btnSignIn;
 
 @end
 
@@ -22,6 +23,8 @@
 
     [super viewDidLoad];
 
+    [self.btnSignIn.titleLabel setFont:[UIFont fontWithName:@"MuseoForDell-500" size:15.0]];
+    
     // Sync locations
     [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
         // TODO: Nothing
@@ -32,7 +35,15 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
     [KSGoogleAnalytics trackPage:@"Main View Controller"];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)didReceiveMemoryWarning {
