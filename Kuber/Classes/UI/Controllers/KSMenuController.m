@@ -15,6 +15,7 @@
 
 @property (nonatomic,weak ) IBOutlet UILabel *lblDisplayName;
 @property (nonatomic, weak) IBOutlet UILabel *lblPhone;
+@property (nonatomic, weak) IBOutlet UIButton *btn;
 
 - (IBAction)onClickLogout:(id)sender;
 
@@ -31,6 +32,7 @@
     KSUser *user = [KSDAL userWithPhone:userSession.phone];
     self.lblDisplayName.text = user.name;
     self.lblPhone.text = user.phone;
+    
 }
 
 

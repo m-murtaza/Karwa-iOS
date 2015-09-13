@@ -861,8 +861,7 @@
                                         <exclude reference="rxR-4Z-szg"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="64" width="368" height="214"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="0SY-iC-bd6"/>
                                         <include reference="86b-9x-5oL"/>
@@ -1019,7 +1018,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2Y-Q5-Sgh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S2Y-Q5-Sgh" customClass="KSMenuButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="nOe-Za-6G6"/>
@@ -1027,14 +1026,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="BOOK A TAXI" image="menu_book.png">
+                                <state key="normal" title="BOOK A TAXI" backgroundImage="bookataxi-idle.png">
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_book_selected.png" backgroundImage="menu_item_selected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="menu_book_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="highlighted" backgroundImage="bookataxi-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1051,7 +1050,7 @@
                                     <segue destination="YOd-38-N3f" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="zmw-EW-5wX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAV-a3-XQs">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAV-a3-XQs" customClass="KSMenuButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="rFl-0s-n1q"/>
@@ -1059,14 +1058,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="RECENT TRIPS" image="menu_history.png">
+                                <state key="normal" title="BOOKINGS" backgroundImage="bookings-idle.png">
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_history_selected.png" backgroundImage="menu_item_selected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="menu_history_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="highlighted" backgroundImage="bookings-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1083,7 +1082,7 @@
                                     <segue destination="4pK-1t-Gvn" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="4ME-c1-1PJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gka-w5-CX6">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gka-w5-CX6" customClass="KSMenuButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="5pG-gd-R6q"/>
@@ -1091,14 +1090,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="FAVORITES" image="menu_favorites.png">
+                                <state key="normal" title="FAVORITES" backgroundImage="favorites-idle.png">
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_favorites_selected.png" backgroundImage="menu_item_selected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="menu_favorites_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="highlighted" backgroundImage="favorites-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1115,7 +1114,36 @@
                                     <segue destination="M6q-v2-FeV" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="5Cz-m7-T6x"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8W-s5-ohG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJQ-I3-meY" customClass="KSMenuButton">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="74H-eu-BcD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="RATE YOUR TRIP" backgroundImage="Rateyourtrips-idle.png">
+                                    <color key="titleColor" red="0.1058823529" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="menu_favorites_selected.png" backgroundImage="menu_item_selected.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="Rateyourtrips-active.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="74H-eu-BcD"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="74H-eu-BcD"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8W-s5-ohG" customClass="KSMenuButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="KVC-U7-wHG"/>
@@ -1123,14 +1151,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="PROFILE" image="menu_profile.png">
+                                <state key="normal" title="PROFILE" backgroundImage="settings-idle.png">
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_profile_selected.png" backgroundImage="menu_item_selected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="menu_profile_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="highlighted" backgroundImage="settings-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1147,7 +1175,7 @@
                                     <segue destination="3Te-L5-Re1" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="vrX-XD-3ZT"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4i-Dc-LE0">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4i-Dc-LE0" customClass="KSMenuButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="w0Q-1T-XRN"/>
@@ -1155,14 +1183,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="LOGOUT" image="menu_logout.png">
+                                <state key="normal" title="LOGOUT" backgroundImage="logout-idle.png">
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="selected" image="menu_logout_selected.png" backgroundImage="menu_item_selected.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted" image="menu_logout_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="highlighted" backgroundImage="logout-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -1242,12 +1270,22 @@
                             <constraint firstItem="x7O-90-CFq" firstAttribute="leading" secondItem="yEW-Na-nlO" secondAttribute="leading" id="Ahb-4V-P8q"/>
                             <constraint firstItem="Gka-w5-CX6" firstAttribute="leading" secondItem="wAV-a3-XQs" secondAttribute="leading" id="K7c-OY-67F"/>
                             <constraint firstItem="x7O-90-CFq" firstAttribute="bottom" secondItem="09p-Zi-qyd" secondAttribute="bottom" id="Kww-8p-gXd"/>
-                            <constraint firstItem="u4i-Dc-LE0" firstAttribute="trailing" secondItem="Q8W-s5-ohG" secondAttribute="trailing" id="LTW-kB-TSB"/>
+                            <constraint firstItem="u4i-Dc-LE0" firstAttribute="trailing" secondItem="Q8W-s5-ohG" secondAttribute="trailing" id="LTW-kB-TSB">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-78"/>
+                            </constraint>
+                            <constraint firstItem="Gka-w5-CX6" firstAttribute="top" secondItem="gJQ-I3-meY" secondAttribute="bottom" constant="8" symbolic="YES" id="NAh-ex-Pfi">
+                                <variation key="heightClass=regular-widthClass=compact" constant="9"/>
+                            </constraint>
                             <constraint firstItem="09p-Zi-qyd" firstAttribute="top" secondItem="3h6-u8-mKs" secondAttribute="bottom" constant="22" id="O4Y-Ur-Y06"/>
                             <constraint firstItem="u4i-Dc-LE0" firstAttribute="leading" secondItem="2z3-9O-keT" secondAttribute="leading" id="Ot5-LN-rHs"/>
+                            <constraint firstItem="gJQ-I3-meY" firstAttribute="leading" secondItem="wAV-a3-XQs" secondAttribute="leading" id="Sd7-Rn-8tR"/>
                             <constraint firstItem="09p-Zi-qyd" firstAttribute="leading" secondItem="2z3-9O-keT" secondAttribute="leadingMargin" id="Srx-Ef-iik"/>
-                            <constraint firstItem="Q8W-s5-ohG" firstAttribute="top" secondItem="Gka-w5-CX6" secondAttribute="bottom" id="TAh-Rj-XJx"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="S2Y-Q5-Sgh" secondAttribute="trailing" constant="62" id="Wlt-z2-x81"/>
+                            <constraint firstItem="Q8W-s5-ohG" firstAttribute="top" secondItem="Gka-w5-CX6" secondAttribute="bottom" id="TAh-Rj-XJx">
+                                <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="S2Y-Q5-Sgh" secondAttribute="trailing" constant="62" id="Wlt-z2-x81">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
+                            </constraint>
                             <constraint firstItem="S2Y-Q5-Sgh" firstAttribute="top" secondItem="09p-Zi-qyd" secondAttribute="bottom" constant="17" id="YvN-fX-jgP"/>
                             <constraint firstItem="wAV-a3-XQs" firstAttribute="top" secondItem="S2Y-Q5-Sgh" secondAttribute="bottom" constant="2" id="ZED-le-bKU"/>
                             <constraint firstItem="S2Y-Q5-Sgh" firstAttribute="trailing" secondItem="wAV-a3-XQs" secondAttribute="trailing" id="ZNi-ye-H7b"/>
@@ -1256,8 +1294,11 @@
                             <constraint firstItem="S2Y-Q5-Sgh" firstAttribute="leading" secondItem="wAV-a3-XQs" secondAttribute="leading" id="dhc-AM-ziY"/>
                             <constraint firstItem="x7O-90-CFq" firstAttribute="top" secondItem="yEW-Na-nlO" secondAttribute="bottom" constant="2" id="eCy-62-Kdy"/>
                             <constraint firstItem="yEW-Na-nlO" firstAttribute="leading" secondItem="09p-Zi-qyd" secondAttribute="trailing" constant="17" id="ecc-zZ-33Z"/>
+                            <constraint firstItem="gJQ-I3-meY" firstAttribute="trailing" secondItem="wAV-a3-XQs" secondAttribute="trailing" id="jSj-Pj-TB4"/>
                             <constraint firstItem="Gka-w5-CX6" firstAttribute="trailing" secondItem="Q8W-s5-ohG" secondAttribute="trailing" id="p88-SV-82z"/>
-                            <constraint firstItem="Gka-w5-CX6" firstAttribute="top" secondItem="wAV-a3-XQs" secondAttribute="bottom" constant="1" id="sTy-iW-yS9"/>
+                            <constraint firstItem="Gka-w5-CX6" firstAttribute="top" secondItem="wAV-a3-XQs" secondAttribute="bottom" constant="1" id="sTy-iW-yS9">
+                                <variation key="heightClass=regular-widthClass=compact" constant="81"/>
+                            </constraint>
                             <constraint firstItem="wAV-a3-XQs" firstAttribute="trailing" secondItem="Gka-w5-CX6" secondAttribute="trailing" id="w0N-t8-a0b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yEW-Na-nlO" secondAttribute="trailing" constant="32" id="xgT-JJ-ibF"/>
                         </constraints>
@@ -1266,6 +1307,7 @@
                                 <exclude reference="S2Y-Q5-Sgh"/>
                                 <exclude reference="wAV-a3-XQs"/>
                                 <exclude reference="Gka-w5-CX6"/>
+                                <exclude reference="gJQ-I3-meY"/>
                                 <exclude reference="Q8W-s5-ohG"/>
                                 <exclude reference="u4i-Dc-LE0"/>
                                 <exclude reference="yEW-Na-nlO"/>
@@ -1273,30 +1315,33 @@
                                 <exclude reference="09p-Zi-qyd"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="9Sh-fs-PAZ"/>
+                                <exclude reference="O4Y-Ur-Y06"/>
+                                <exclude reference="Srx-Ef-iik"/>
+                                <exclude reference="ecc-zZ-33Z"/>
+                                <exclude reference="xgT-JJ-ibF"/>
                                 <exclude reference="1Xh-zc-L4L"/>
                                 <exclude reference="Ahb-4V-P8q"/>
                                 <exclude reference="Kww-8p-gXd"/>
                                 <exclude reference="eCy-62-Kdy"/>
-                                <exclude reference="ecc-zZ-33Z"/>
-                                <exclude reference="xgT-JJ-ibF"/>
-                                <exclude reference="5Mn-sR-D4w"/>
-                                <exclude reference="K7c-OY-67F"/>
-                                <exclude reference="p88-SV-82z"/>
-                                <exclude reference="sTy-iW-yS9"/>
-                                <exclude reference="TAh-Rj-XJx"/>
                                 <exclude reference="Wlt-z2-x81"/>
                                 <exclude reference="YvN-fX-jgP"/>
                                 <exclude reference="ZNi-ye-H7b"/>
                                 <exclude reference="dhc-AM-ziY"/>
+                                <exclude reference="ZED-le-bKU"/>
+                                <exclude reference="w0N-t8-a0b"/>
+                                <exclude reference="Sd7-Rn-8tR"/>
+                                <exclude reference="jSj-Pj-TB4"/>
+                                <exclude reference="5Mn-sR-D4w"/>
+                                <exclude reference="K7c-OY-67F"/>
+                                <exclude reference="NAh-ex-Pfi"/>
+                                <exclude reference="p88-SV-82z"/>
+                                <exclude reference="sTy-iW-yS9"/>
+                                <exclude reference="TAh-Rj-XJx"/>
                                 <exclude reference="LTW-kB-TSB"/>
                                 <exclude reference="Ot5-LN-rHs"/>
                                 <exclude reference="Zxm-jo-ui5"/>
                                 <exclude reference="d9Z-cs-22q"/>
-                                <exclude reference="ZED-le-bKU"/>
-                                <exclude reference="w0N-t8-a0b"/>
-                                <exclude reference="9Sh-fs-PAZ"/>
-                                <exclude reference="O4Y-Ur-Y06"/>
-                                <exclude reference="Srx-Ef-iik"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1304,6 +1349,7 @@
                                 <include reference="S2Y-Q5-Sgh"/>
                                 <include reference="wAV-a3-XQs"/>
                                 <include reference="Gka-w5-CX6"/>
+                                <include reference="gJQ-I3-meY"/>
                                 <include reference="Q8W-s5-ohG"/>
                                 <include reference="u4i-Dc-LE0"/>
                                 <include reference="yEW-Na-nlO"/>
@@ -1311,34 +1357,38 @@
                                 <include reference="09p-Zi-qyd"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="9Sh-fs-PAZ"/>
+                                <include reference="O4Y-Ur-Y06"/>
+                                <include reference="Srx-Ef-iik"/>
+                                <include reference="ecc-zZ-33Z"/>
+                                <include reference="xgT-JJ-ibF"/>
                                 <include reference="1Xh-zc-L4L"/>
                                 <include reference="Ahb-4V-P8q"/>
                                 <include reference="Kww-8p-gXd"/>
                                 <include reference="eCy-62-Kdy"/>
-                                <include reference="ecc-zZ-33Z"/>
-                                <include reference="xgT-JJ-ibF"/>
-                                <include reference="5Mn-sR-D4w"/>
-                                <include reference="K7c-OY-67F"/>
-                                <include reference="p88-SV-82z"/>
-                                <include reference="sTy-iW-yS9"/>
-                                <include reference="TAh-Rj-XJx"/>
                                 <include reference="Wlt-z2-x81"/>
                                 <include reference="YvN-fX-jgP"/>
                                 <include reference="ZNi-ye-H7b"/>
                                 <include reference="dhc-AM-ziY"/>
+                                <include reference="ZED-le-bKU"/>
+                                <include reference="w0N-t8-a0b"/>
+                                <include reference="Sd7-Rn-8tR"/>
+                                <include reference="jSj-Pj-TB4"/>
+                                <include reference="5Mn-sR-D4w"/>
+                                <include reference="K7c-OY-67F"/>
+                                <include reference="NAh-ex-Pfi"/>
+                                <include reference="p88-SV-82z"/>
+                                <include reference="sTy-iW-yS9"/>
+                                <include reference="TAh-Rj-XJx"/>
                                 <include reference="LTW-kB-TSB"/>
                                 <include reference="Ot5-LN-rHs"/>
                                 <include reference="Zxm-jo-ui5"/>
                                 <include reference="d9Z-cs-22q"/>
-                                <include reference="ZED-le-bKU"/>
-                                <include reference="w0N-t8-a0b"/>
-                                <include reference="9Sh-fs-PAZ"/>
-                                <include reference="O4Y-Ur-Y06"/>
-                                <include reference="Srx-Ef-iik"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="btn" destination="S2Y-Q5-Sgh" id="apI-Wf-Fyd"/>
                         <outlet property="lblDisplayName" destination="yEW-Na-nlO" id="jrK-Ld-2SH"/>
                         <outlet property="lblPhone" destination="x7O-90-CFq" id="vP9-Yh-ojW"/>
                     </connections>
@@ -1375,9 +1425,8 @@
                                                     <exclude reference="yAv-Yh-q3W"/>
                                                 </mask>
                                             </variation>
-                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <variation key="heightClass=regular-widthClass=compact">
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <rect key="frame" x="8" y="11" width="100" height="21"/>
                                                 <mask key="constraints">
                                                     <include reference="yAv-Yh-q3W"/>
                                                 </mask>
@@ -1387,9 +1436,6 @@
                                             <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
-                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="116" y="7" width="276" height="30"/>
-                                            </variation>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -4850,12 +4896,18 @@
         <image name="Booking-details_07-03.png" width="360" height="143"/>
         <image name="Booking-details_07.png" width="360" height="110"/>
         <image name="KS_login_logo.png" width="185" height="55"/>
+        <image name="Rateyourtrips-active.png" width="320" height="72"/>
+        <image name="Rateyourtrips-idle.png" width="320" height="72"/>
         <image name="VerifyCode-box.png" width="335" height="40"/>
-        <image name="avatar.png" width="72" height="72"/>
+        <image name="avatar.png" width="36" height="36"/>
         <image name="blue-button-idle.png" width="329" height="50"/>
         <image name="blue-button-pressed.png" width="329" height="50"/>
         <image name="blue_button.png" width="350" height="49"/>
+        <image name="bookataxi-active.png" width="320" height="72"/>
+        <image name="bookataxi-idle.png" width="320" height="72"/>
         <image name="booking-history-forward-arrow.png" width="26" height="24"/>
+        <image name="bookings-active.png" width="320" height="72"/>
+        <image name="bookings-idle.png" width="320" height="72"/>
         <image name="callicon.png" width="43" height="43"/>
         <image name="destination.png" width="16" height="18"/>
         <image name="destinationpoint.png" width="22" height="22"/>
@@ -4865,6 +4917,8 @@
         <image name="driver-icon.png" width="28" height="28"/>
         <image name="email-box-idle.png" width="329" height="35"/>
         <image name="favorite.png" width="30" height="30"/>
+        <image name="favorites-active.png" width="320" height="72"/>
+        <image name="favorites-idle.png" width="320" height="72"/>
         <image name="forward-arrow.png" width="13" height="11"/>
         <image name="fullname-box-focused.png" width="329" height="35"/>
         <image name="green-button-idle.png" width="349" height="50"/>
@@ -4873,19 +4927,16 @@
         <image name="location.png" width="16" height="16"/>
         <image name="login-button-idle.png" width="658" height="99"/>
         <image name="login-button-pressed.png" width="658" height="99"/>
-        <image name="main-screen.png" width="762" height="1342"/>
+        <image name="logout-active.png" width="320" height="72"/>
+        <image name="logout-idle.png" width="320" height="72"/>
+        <image name="main-screen.png" width="381" height="671"/>
         <image name="map-sep-line-09.png" width="1" height="1"/>
         <image name="map-sep-line.png" width="1" height="1"/>
-        <image name="menu_book.png" width="32" height="32"/>
         <image name="menu_book_selected.png" width="32" height="32"/>
-        <image name="menu_favorites.png" width="32" height="32"/>
         <image name="menu_favorites_selected.png" width="32" height="32"/>
-        <image name="menu_history.png" width="32" height="32"/>
         <image name="menu_history_selected.png" width="32" height="32"/>
         <image name="menu_item_selected.png" width="236" height="72"/>
-        <image name="menu_logout.png" width="32" height="32"/>
         <image name="menu_logout_selected.png" width="32" height="32"/>
-        <image name="menu_profile.png" width="32" height="32"/>
         <image name="menu_profile_selected.png" width="32" height="32"/>
         <image name="password-box-idle-s.png" width="329" height="35"/>
         <image name="password-box-idle.png" width="658" height="79"/>
@@ -4893,6 +4944,8 @@
         <image name="phone-box-idle-s.png" width="329" height="35"/>
         <image name="reveal-icon.png" width="30" height="30"/>
         <image name="searchbox.png" width="357" height="53"/>
+        <image name="settings-active.png" width="320" height="72"/>
+        <image name="settings-idle.png" width="320" height="72"/>
         <image name="startingpoint.png" width="22" height="22"/>
         <image name="time-icon.png" width="20" height="20"/>
         <image name="to.png" width="36" height="28"/>

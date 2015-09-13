@@ -165,7 +165,7 @@ KSTableViewType;
     if (currentLocation) {
         
         CLLocationCoordinate2D coordinate = currentLocation.coordinate;
-        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:120.0];
+        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
         
         NSMutableArray *tempLocations = [NSMutableArray array];
         for (KSGeoLocation *location in _nearestLocations) {

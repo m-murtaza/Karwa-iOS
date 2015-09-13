@@ -103,7 +103,7 @@
 }
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat longitude:(double)lon {
 
-    const double searchRadius = 250.0; // 1350m radius
+    const double searchRadius = 75.0; // 1350m radius
     return [self nearestLocationsMatchingLatitude:lat longitude:lon radius:searchRadius];
 }
 
