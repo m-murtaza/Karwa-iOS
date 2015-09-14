@@ -13,10 +13,14 @@
 #import "KSPlaceHolderTextView.h"
 
 @interface KSTripRatingController ()
+{
+    NSUInteger _rating;
+    KSPlaceHolderTextView * _txtCommentView;
+}
 
-@property (nonatomic, weak) IBOutlet DYRateView *serviceRatingView;
-@property (nonatomic, weak) IBOutlet DYRateView *driverRatingView;
-@property (nonatomic, weak) IBOutlet UITextView *txtComments;
+//@property (nonatomic, weak) IBOutlet DYRateView *serviceRatingView;
+//@property (nonatomic, weak) IBOutlet DYRateView *driverRatingView;
+//@property (nonatomic, weak) IBOutlet UITextView *txtComments;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lblDropoffAddress;
@@ -38,6 +42,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.rightBarButtonItem = nil;
+    _rating = 0;
+    
+    self.serviceRating.delegate = self;
     [self addTableViewheader];
     [self setupView];
     [self addGesture];
@@ -68,6 +76,10 @@
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
     
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 1.0)];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footerView;
+    
 }
 
 -(void) addGesture
@@ -87,6 +99,13 @@
     self.lblPickUpText.font = [UIFont fontWithName:@"MuseoForDell-300" size:11];
     self.lblDropoffAddress.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
     self.lblPickupAddress.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
+    
+    
+    self.lblPickupDate.text = [self getFormattedTitleDate:self.trip.pickupTime];
+    self.lblPickupTime.text = [self getTimeStringFromDate:self.trip.pickupTime];
+    self.lblDropoffTime.text = [self getTimeStringFromDate:self.trip.dropOffTime];
+    self.lblPickupAddress.text = self.trip.pickupLandmark ? self.trip.pickupLandmark : [NSString stringWithFormat:@"%@N , %@E",self.trip.pickupLat,self.trip.pickupLon];
+    self.lblDropoffAddress.text = self.trip.dropoffLandmark;
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
@@ -111,7 +130,7 @@
 
 - (IBAction)onClickDone:(id)sender {
 
-    if (self.serviceIssueView.hidden == TRUE) {
+    /*if (self.serviceIssueView.hidden == TRUE) {
         if (self.serviceRating.rate <= 3.0) {
             //If service rating is less then 3. Then show users a popup with options.
             NSLog(@"Rating is less then 3");
@@ -146,19 +165,75 @@
         tripRating.issue = issues;
         
         [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
+    }*/
+    
+    __block UINavigationController *navController = self.navigationController;
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        if (KSAPIStatusSuccess == status) {
+            [navController popViewControllerAnimated:YES];
+        }
+        else {
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+    };
+    
+    NSString *issues;
+    if (self.serviceRating.rate <= 3) {
+        
+        issues = [self issueList];
     }
+    else {
+        issues = _txtCommentView.text;
+    }
+    NSLog(@"issues = %@",issues);
+    
+    
+    KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
+    tripRating.issue = issues;
+    
+    [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
+    
 }
 
 #pragma mark - Private Functions
+
+-(NSString*) getFormattedTitleDate:(NSDate*)date
+{
+    NSDateFormatter *formator = [[NSDateFormatter alloc] init];
+    [formator setDateFormat:@"EEE d MMM"];
+    NSString *str = [formator stringFromDate:date];
+    return [str uppercaseString];
+}
+
+-(NSString*) getTimeStringFromDate:(NSDate*) date
+{
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
+    timeFormatter.dateFormat = @"HH:mm";
+    
+    
+    NSString *dateString = [timeFormatter stringFromDate: date];
+    return dateString;
+}
+
+
 -(NSString*) issueList
 {
-    NSArray *issues = [self.issueIdentifierViewController selectedIssues];
+    NSArray *issues = [self selectedIssues];
     
     NSMutableString *strIssues = [NSMutableString stringWithString:@""];
     for(NSString *str in issues){
 
         [strIssues appendString:[NSString stringWithFormat:@"%@,",str]];
     }
+    
+    //Adding Comments
+    if (_txtCommentView != nil && ![_txtCommentView.text isEqualToString:@""]) {
+    
+        [strIssues appendString:[NSString stringWithFormat:@"%@,",_txtCommentView.text]];
+    }
+    
     return (NSString*)[strIssues substringToIndex:[strIssues length]-1];
     
 }
@@ -183,13 +258,18 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return [issueList count]+1;
+    if(self.serviceRating.rate <= 3){
+        return [issueList count]+1;
+    }
+    else {
+        return 1;
+    }
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     CGFloat height;
-    if(indexPath.row < [issueList count]){
+    if(self.serviceRating.rate <= 3 && indexPath.row < [issueList count]){
         
         height = 40;
     }
@@ -207,35 +287,37 @@
 {
     
     UITableViewCell *cell;
-    if (indexPath.row < [issueList count]) {
-        
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceIssueCellIdentifier"];
-        
-        if(!cell) {
+    //if(self.serviceRating.rate <= 3){
+        if (self.serviceRating.rate <= 3 && indexPath.row < [issueList count]) {
             
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
-        }
-        
-        KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
-        cell.textLabel.text = issue.valueEN;
-        cell.textLabel.font = [UIFont fontWithName:@"MuseoForDell-300" size:15];
-        cell.textLabel.textColor = [UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
-        
-        if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceIssueCellIdentifier"];
             
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            if(!cell) {
+                
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
+            }
+            
+            KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
+            cell.textLabel.text = issue.valueEN;
+            cell.textLabel.font = [UIFont fontWithName:@"MuseoForDell-300" size:15];
+            cell.textLabel.textColor = [UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
+            
+            if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
+                
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            else{
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
         }
         else{
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            cell = [tableView dequeueReusableCellWithIdentifier:@"issueOtherCellIdentifier"];
+            _txtCommentView = (KSPlaceHolderTextView*)[cell viewWithTag:3001];
+            _txtCommentView.placeholder = @"Comments..";
+            _txtCommentView.placeholderColor = [UIColor colorFromHexString:@"#b5b5b5"];
+            _txtCommentView.delegate = self;
         }
-    }
-    else{
-        cell = [tableView dequeueReusableCellWithIdentifier:@"issueOtherCellIdentifier"];
-        KSPlaceHolderTextView *txtView = (KSPlaceHolderTextView*)[cell viewWithTag:3001];
-        txtView.placeholder = @"Comments..";
-        txtView.placeholderColor = [UIColor colorFromHexString:@"#b5b5b5"];
-        txtView.delegate = self;
-    }
+   // }
     
     return cell;
 }
@@ -273,6 +355,22 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
+}
+
+#pragma mark - Rating View Delegate
+- (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate
+{
+    if (_rating <= 3 && [rate integerValue] > 3) {
+        
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else if(_rating > 3 && [rate integerValue] <= 3){
+        
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        
+    }
+    _rating = [rate integerValue];
+    
 }
 
 #pragma mark - Notification

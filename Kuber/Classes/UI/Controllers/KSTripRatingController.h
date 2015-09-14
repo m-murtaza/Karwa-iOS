@@ -14,7 +14,7 @@
 @class KSTrip;
 @class KSServiceIssueIdentifierViewController;
 
-@interface KSTripRatingController : KSViewController <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+@interface KSTripRatingController : KSViewController <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,DYRateViewDelegate>
 {
     NSArray *issueList;
     NSMutableArray *selectedIndexs;
