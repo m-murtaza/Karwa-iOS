@@ -1868,6 +1868,61 @@
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="lbg-N9-zqg"/>
                                 </constraints>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="eF1-Vm-NEq">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REASON BEHIND THIS RATING?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjI-L3-O02" customClass="KSLabel">
+                                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="yMA-n5-Whu"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.52156862745098043" green="0.52156862745098043" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="yMA-n5-Whu"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="8" y="11" width="352" height="21"/>
+                                                <mask key="constraints">
+                                                    <include reference="yMA-n5-Whu"/>
+                                                </mask>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="zjI-L3-O02" secondAttribute="trailing" constant="8" id="KaL-uH-x03"/>
+                                        <constraint firstAttribute="bottom" secondItem="zjI-L3-O02" secondAttribute="bottom" constant="12" id="XgD-fb-dzS"/>
+                                        <constraint firstItem="zjI-L3-O02" firstAttribute="leading" secondItem="eF1-Vm-NEq" secondAttribute="leading" constant="16" id="ZQV-EV-Utv"/>
+                                        <constraint firstItem="zjI-L3-O02" firstAttribute="top" secondItem="eF1-Vm-NEq" secondAttribute="top" constant="11" id="jQl-CF-0ZC"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="zjI-L3-O02"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <exclude reference="KaL-uH-x03"/>
+                                            <exclude reference="XgD-fb-dzS"/>
+                                            <exclude reference="ZQV-EV-Utv"/>
+                                            <exclude reference="jQl-CF-0ZC"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="zjI-L3-O02"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="KaL-uH-x03"/>
+                                            <include reference="XgD-fb-dzS"/>
+                                            <include reference="ZQV-EV-Utv"/>
+                                            <include reference="jQl-CF-0ZC"/>
+                                        </mask>
+                                    </variation>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="issueOtherCellIdentifier" rowHeight="117" id="Rf7-hI-Ezh">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

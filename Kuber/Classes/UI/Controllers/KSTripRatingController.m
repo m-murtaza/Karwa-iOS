@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [self addTableViewheader];
     [self setupView];
     [self addGesture];
 
@@ -53,6 +53,21 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) addTableViewheader
+{
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 50.0)];
+    headerView.backgroundColor = [UIColor clearColor];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 5.0,self.tableView.frame.size.width-40 , 40)];
+    labelView.text = @"REASON BEHIND THIS RATING?";
+    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.textColor = [UIColor colorFromHexString:@"#858585"];
+    [headerView addSubview:labelView];
+    self.tableView.tableHeaderView = headerView;
+    
 }
 
 -(void) addGesture
@@ -157,6 +172,12 @@
 }
 
 #pragma mark - UItableview
+/*-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    //self.tableView.tableHeaderView = self.tableView.tableHeaderView;
+    return 40;
+}*/
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     

@@ -48,7 +48,7 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     
     KSAPIStatusInvalidDirver            = 32,   // Driver ID is not is DB
     KSAPIStatusInvalidTaxi              = 33,    // Taxi number is not in DB
-    KSAPIStatusNoInternet               = 34,   //No internet available on deviec 
+    KSAPIStatusNoInternet               = 501,   //No internet available on deviec
 };
 
 typedef NS_OPTIONS(NSUInteger, KSBookingOption) {
