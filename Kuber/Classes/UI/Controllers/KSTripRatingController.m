@@ -59,11 +59,11 @@
 {
     self.tableView.backgroundColor = [UIColor clearColor];
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 50.0)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 35.0)];
     headerView.backgroundColor = [UIColor clearColor];
-    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 5.0,self.tableView.frame.size.width-40 , 40)];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 2.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"REASON BEHIND THIS RATING?";
-    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:12];
     labelView.textColor = [UIColor colorFromHexString:@"#858585"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
@@ -85,6 +85,8 @@
     
     self.lblDropoffText.font = [UIFont fontWithName:@"MuseoForDell-300" size:11];
     self.lblPickUpText.font = [UIFont fontWithName:@"MuseoForDell-300" size:11];
+    self.lblDropoffAddress.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
+    self.lblPickupAddress.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
