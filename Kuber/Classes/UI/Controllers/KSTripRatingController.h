@@ -14,7 +14,11 @@
 @class KSTrip;
 @class KSServiceIssueIdentifierViewController;
 
-@interface KSTripRatingController : KSViewController
+@interface KSTripRatingController : KSViewController <UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>
+{
+    NSArray *issueList;
+    NSMutableArray *selectedIndexs;
+}
 
 @property (nonatomic, strong) KSTrip *trip;
 

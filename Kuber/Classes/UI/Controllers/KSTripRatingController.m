@@ -10,12 +10,24 @@
 #import "KSServiceIssueIdentifierViewController.h"
 
 #import "DYRateView.h"
+#import "KSPlaceHolderTextView.h"
 
 @interface KSTripRatingController ()
 
 @property (nonatomic, weak) IBOutlet DYRateView *serviceRatingView;
 @property (nonatomic, weak) IBOutlet DYRateView *driverRatingView;
 @property (nonatomic, weak) IBOutlet UITextView *txtComments;
+
+@property (weak, nonatomic) IBOutlet UILabel *lblPickupAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lblDropoffAddress;
+@property (weak, nonatomic) IBOutlet UILabel *lblPickupTime;
+@property (weak, nonatomic) IBOutlet UILabel *lblPickupDate;
+@property (weak, nonatomic) IBOutlet UILabel *lblDropoffTime;
+@property (weak, nonatomic) IBOutlet UILabel *lblDropoffText;
+@property (weak, nonatomic) IBOutlet UILabel *lblPickUpText;
+
+
+//@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)onClickDone:(id)sender;
 
@@ -26,6 +38,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setupView];
+    [self addGesture];
 
 }
 
@@ -38,6 +53,32 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) addGesture
+{
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
+
+}
+
+-(void) setupView
+{
+    self.serviceRating.padding = 20;
+    
+    self.lblDropoffText.font = [UIFont fontWithName:@"MuseoForDell-300" size:11];
+    self.lblPickUpText.font = [UIFont fontWithName:@"MuseoForDell-300" size:11];
+    
+    selectedIndexs = [[NSMutableArray alloc] init];
+    
+    [KSDAL syncIssueListWithCompletion:^(KSAPIStatus status, id response) {
+        //TODO: Noting
+        NSLog(@"%@",response);
+        issueList = [NSArray arrayWithArray:[KSDAL allIssueList]];
+        [self.tableView reloadData];
+    }];
 }
 #pragma mark - Segue 
 
@@ -103,6 +144,147 @@
     }
     return (NSString*)[strIssues substringToIndex:[strIssues length]-1];
     
+}
+
+-(NSArray*) selectedIssues
+{
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    for (NSIndexPath *idx in selectedIndexs) {
+        
+        [arr addObject:[[issueList objectAtIndex:idx.row] valueEN]];
+    }
+    return [NSArray arrayWithArray:arr];
+}
+
+#pragma mark - UItableview
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return [issueList count]+1;
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    CGFloat height;
+    if(indexPath.row < [issueList count]){
+        
+        height = 40;
+    }
+    else{
+
+        height = 120;
+    }
+    
+    return height;
+    
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UITableViewCell *cell;
+    if (indexPath.row < [issueList count]) {
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ServiceIssueCellIdentifier"];
+        
+        if(!cell) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
+        }
+        
+        KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
+        cell.textLabel.text = issue.valueEN;
+        cell.textLabel.font = [UIFont fontWithName:@"MuseoForDell-300" size:15];
+        cell.textLabel.textColor = [UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
+        
+        if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
+            
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        else{
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+    }
+    else{
+        cell = [tableView dequeueReusableCellWithIdentifier:@"issueOtherCellIdentifier"];
+        KSPlaceHolderTextView *txtView = (KSPlaceHolderTextView*)[cell viewWithTag:3001];
+        txtView.placeholder = @"Comments..";
+        txtView.placeholderColor = [UIColor colorFromHexString:@"#b5b5b5"];
+        txtView.delegate = self;
+    }
+    
+    return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger idx = [self idxPathInSelectedList:indexPath];
+    if (NSNotFound == idx) {
+        [selectedIndexs addObject:indexPath];
+    }
+    else {
+        [selectedIndexs removeObjectAtIndex:idx];
+    }
+    [tableView reloadData];
+}
+
+-(NSInteger) idxPathInSelectedList:(NSIndexPath*)indexPath
+{
+    
+    //NSNumber *num=[NSNumber numberWithInteger:indexPath.row];
+    NSInteger anIndex=[selectedIndexs indexOfObject:indexPath];
+    return anIndex;
+}
+
+
+#pragma mark - UITextView Delegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    return YES;
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextField *)textField
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    return YES;
+}
+
+#pragma mark - Notification
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -200)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, 0)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+    
+}
+
+#pragma mark - Gesture
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
 }
 
 @end

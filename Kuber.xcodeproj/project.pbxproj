@@ -94,6 +94,8 @@
 		184D22921BA58BED007CB740 /* star-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184D228B1BA58BED007CB740 /* star-empty@2x.png */; };
 		184D22931BA58BED007CB740 /* star-filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184D228C1BA58BED007CB740 /* star-filled@2x.png */; };
 		184D22941BA58BED007CB740 /* topback-ratings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184D228D1BA58BED007CB740 /* topback-ratings@2x.png */; };
+		184D22971BA5ADF6007CB740 /* KSPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 184D22961BA5ADF6007CB740 /* KSPlaceHolderTextView.m */; };
+		184D229A1BA68584007CB740 /* UIColor+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 184D22991BA68584007CB740 /* UIColor+KSExtended.m */; };
 		1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043641B2554D900AECDE9 /* KSDriver.m */; };
 		1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043661B2554D900AECDE9 /* KSTaxi.m */; };
 		185043781B26BCD900AECDE9 /* KSAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043771B26BCD900AECDE9 /* KSAddress.m */; };
@@ -385,6 +387,10 @@
 		184D228B1BA58BED007CB740 /* star-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-empty@2x.png"; path = "RatingView/star-empty@2x.png"; sourceTree = "<group>"; };
 		184D228C1BA58BED007CB740 /* star-filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star-filled@2x.png"; path = "RatingView/star-filled@2x.png"; sourceTree = "<group>"; };
 		184D228D1BA58BED007CB740 /* topback-ratings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "topback-ratings@2x.png"; path = "RatingView/topback-ratings@2x.png"; sourceTree = "<group>"; };
+		184D22951BA5ADF6007CB740 /* KSPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPlaceHolderTextView.h; sourceTree = "<group>"; };
+		184D22961BA5ADF6007CB740 /* KSPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPlaceHolderTextView.m; sourceTree = "<group>"; };
+		184D22981BA68584007CB740 /* UIColor+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KSExtended.h"; sourceTree = "<group>"; };
+		184D22991BA68584007CB740 /* UIColor+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KSExtended.m"; sourceTree = "<group>"; };
 		185043631B2554D900AECDE9 /* KSDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDriver.h; sourceTree = "<group>"; };
 		185043641B2554D900AECDE9 /* KSDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDriver.m; sourceTree = "<group>"; };
 		185043651B2554D900AECDE9 /* KSTaxi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTaxi.h; sourceTree = "<group>"; };
@@ -680,6 +686,8 @@
 				18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */,
 				184D22741BA56400007CB740 /* KSMenuButton.h */,
 				184D22751BA56400007CB740 /* KSMenuButton.m */,
+				184D22981BA68584007CB740 /* UIColor+KSExtended.h */,
+				184D22991BA68584007CB740 /* UIColor+KSExtended.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1232,6 +1240,8 @@
 				18D65DDB1B9EC6B700D6C1BD /* KSButton.m */,
 				18D65E021B9EE56300D6C1BD /* KSTextField.h */,
 				18D65E031B9EE56300D6C1BD /* KSTextField.m */,
+				184D22951BA5ADF6007CB740 /* KSPlaceHolderTextView.h */,
+				184D22961BA5ADF6007CB740 /* KSPlaceHolderTextView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1621,6 +1631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18481B871B0B929F00855F54 /* KSDAL.m in Sources */,
+				184D229A1BA68584007CB740 /* UIColor+KSExtended.m in Sources */,
 				187318181B2EF62C0003DC5C /* KSTripRatingController.m in Sources */,
 				1801E3531B159C0D00A8983E /* KSAddressPickerController.m in Sources */,
 				1801E2FB1B0E027200A8983E /* UIViewController+KSExtended.m in Sources */,
@@ -1679,6 +1690,7 @@
 				18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */,
 				18481B841B0B6AFF00855F54 /* NSManagedObject+KSExtended.m in Sources */,
 				185E3BFE1B70779700909B20 /* KSDAL+Location.m in Sources */,
+				184D22971BA5ADF6007CB740 /* KSPlaceHolderTextView.m in Sources */,
 				187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */,
 				1801E30A1B11ADFF00A8983E /* KSBookingHistoryController.m in Sources */,
 				18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */,
