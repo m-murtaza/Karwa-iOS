@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSTableViewController.h"
+#import "KSViewController.h"
 #import "KSUITextFieldInCell.h"
 
-@interface KSUserAccountController : KSTableViewController <UITableViewDelegate,UITableViewDelegate,UITextFieldDelegate>
+@interface KSUserAccountController : KSViewController  <UITableViewDelegate,UITableViewDelegate,UITextFieldDelegate>
 {
     KSUser *user;
-    KSUITextFieldInCell *txtName;
-    KSUITextFieldInCell *txtEmail;
+    //KSUITextFieldInCell *txtName;
+    //KSUITextFieldInCell *txtEmail;
     
 }
 

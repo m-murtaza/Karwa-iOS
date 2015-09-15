@@ -11,8 +11,11 @@
 
 @interface KSUserAccountController ()
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet KSLabel *lblName;
+@property (nonatomic, weak) IBOutlet KSLabel *lblEmail;
+@property (nonatomic, weak) IBOutlet KSLabel *lblPhone;
 
--(IBAction)btnSaveTapped:(id)sender;
 @end
 
 @implementation KSUserAccountController
@@ -20,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self addHeadAndFooterToTableView];
 
 }
 
@@ -31,66 +35,45 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     user = [KSDAL loggedInUser];
+    [self loadViewData];
 
     [KSGoogleAnalytics trackPage:@"Edit Profile"];
 }
 
 #pragma mark -
-#pragma mark - UIEvents
-
--(IBAction)btnSaveTapped:(id)sender{
-    
-    
-    [self saveUserProfile];
-
-}
-
-#pragma mark -
 #pragma mark - Private Methods
 
--(void) saveUserProfile
+-(void) loadViewData
 {
-
-    NSString *updatedName = txtName ? txtName.text : @"";
-    NSString *updatedEmail = txtEmail ? txtEmail.text: @"";
-    
-#ifndef __KS_DISABLE_VALIDATIONS
-    NSMutableArray *errors = [NSMutableArray arrayWithCapacity:6];
-    if (!updatedName.length) {
-        [errors addObject:KSErrorNoUserName.localizedValue];
-    }
-    if (![updatedEmail isEmailAddress]) {
-        [errors addObject:KSErrorEmailValidation.localizedValue];
-    }
-    if (errors.count) {
-        NSString *title = errors.count > 1 ? KSAlertTitleMultipleErrors : KSAlertTitleError;
-        NSString *errorMessage = [errors componentsJoinedByString:@"\r\n"];
-        [KSAlert show:errorMessage title:title];
-        return;
-    }
-#endif
-    
-    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    __block UINavigationController *navController = self.navigationController;
-    [KSDAL updateUserInfoWithEmail:updatedEmail
-                          withName:updatedName
-                        completion:^(KSAPIStatus status, NSDictionary *data) {
-        [hud hide:YES];
-        if (status == KSAPIStatusSuccess) {
-            [navController popViewControllerAnimated:YES];
-        }
-        else {
-            [KSAlert show:KSStringFromAPIStatus(status)];
-        }
-    }];
+    self.lblName.text = user.name;
+    self.lblName.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
+    self.lblEmail.text = user.email;
+    self.lblPhone.text = user.phone;
 }
+
+-(void) addHeadAndFooterToTableView
+{
+    //self.tableView.allowsSelection = NO;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 1.0)];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footerView;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 45.0)];
+    headerView.backgroundColor = [UIColor clearColor];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0,self.tableView.frame.size.width-10 , 30)];
+    labelView.text = @"ACCOUNT INFO";
+    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.textColor = [UIColor colorFromHexString:@"#187a89"];
+    [headerView addSubview:labelView];
+    self.tableView.tableHeaderView = headerView;
+}
+
 #pragma mark -
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
-    /*self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:nil action:nil];*/
     
     if ([segue.identifier isEqualToString:@"segueSettingsToEditUserInfo"]) {
         
@@ -101,84 +84,44 @@
 
 }
 
-#pragma mark - Table view Datasource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
-
--(NSInteger) numberOfRowsInSection:(NSInteger)section
-{
-    NSInteger numRows;
-    switch (section) {
-        case 0:
-            numRows = 3;
-            break;
-        case 1:
-            numRows = 1;
-            break;
-        default:
-            break;
-    }
-    return numRows;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell;
-    if (indexPath.section == 0) {
-        
-        cell = [self.tableView dequeueReusableCellWithIdentifier:@"infoCellIdentifier"];
-        //[cell.contentView setBackgroundColor:[UIColor greenColor]];
-        UILabel *lbl = (UILabel*) [cell.contentView viewWithTag:2001];
-        KSUITextFieldInCell *txt = (KSUITextFieldInCell*) [cell.contentView viewWithTag:2002];
-        txt.section = indexPath.section;
-        txt.row = indexPath.row;
-        txt.delegate = self;
-
-        switch (indexPath.row) {
-            case 0:
-                [lbl setText:@"Full Name"];
-                txt.text = user.name;
-                break;
-            case 1:
-                [lbl setText:@"Email"];
-                txt.text = user.email;
-                break;
-            case 2:
-                [lbl setText:@"Mobile Number"];
-                txt.text = user.phone;
-                [txt setUserInteractionEnabled:FALSE];
-                break;
-            default:
-                break;
-        }
-        
-    }
-    else{
-    
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ChangePassCellIdentifier"];
-    }
-    return cell;
-}
-
 #pragma mark - UITableViewDelegate
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:FALSE];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.row == 1){
+        
+        [self performSegueWithIdentifier:@"segueSettingsToChangePassword" sender:self];
+    }
 }
 
-#pragma mark - UITextFieldDelegate
--(void) textFieldDidBeginEditing:(UITextField *)textField
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    KSUITextFieldInCell *txt = (KSUITextFieldInCell*) textField;
-    if (txt.row == 0) {
-       
-        txtName = txt;
+    return 2;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingActionCellIndentifier"];
+    UIImageView *imgView = (UIImageView*) [cell viewWithTag:5001];
+    KSLabel *lbl = (KSLabel*) [cell viewWithTag:5002];
+    [lbl setFont:[UIFont fontWithName:@"MuseoForDell-500" size:15]];
+    [lbl setTextColor:[UIColor colorFromHexString:@"#1e1e1e"]];
+    
+    if(indexPath.row == 0)
+    {
+        [imgView setImage:[UIImage imageNamed:@"partners.png"]];
+        [lbl setText:@"Partners"];
     }
     else{
-        txtEmail = txt;
+        
+        [imgView setImage:[UIImage imageNamed:@"password.png"]];
+        [lbl setText:@"Change Password"];
     }
+    
+    return cell;
+    
+    
 }
+
 @end
