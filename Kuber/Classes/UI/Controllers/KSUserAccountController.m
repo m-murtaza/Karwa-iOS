@@ -7,6 +7,7 @@
 //
 
 #import "KSUserAccountController.h"
+#import "KSAccountEditController.h"
 
 @interface KSUserAccountController ()
 
@@ -87,11 +88,18 @@
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//
-//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:nil action:nil];
-//
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    /*self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:nil action:nil];*/
+    
+    if ([segue.identifier isEqualToString:@"segueSettingsToEditUserInfo"]) {
+        
+        KSAccountEditController *editController = (KSAccountEditController*)[segue destinationViewController];
+        
+        editController.user = user;
+    }
+
+}
 
 #pragma mark - Table view Datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

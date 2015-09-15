@@ -8,6 +8,8 @@
 
 #import "KSViewController.h"
 
-@interface KSAccountEditController : KSViewController
+@interface KSAccountEditController : KSViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) KSUser *user;
 
 @end

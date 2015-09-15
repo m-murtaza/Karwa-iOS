@@ -13,6 +13,10 @@
 @interface KSAccountEditController ()
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
 @property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+@property (weak, nonatomic) IBOutlet KSTextField *txtMobile;
+
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)onClickSave:(id)sender;
 
@@ -23,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self addHeadAndFooterToTableView];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -46,6 +51,26 @@
 }
 */
 
+#pragma mark - Private Functions
+-(void) addHeadAndFooterToTableView
+{
+    self.tableView.allowsSelection = NO;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 1.0)];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footerView;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 45.0)];
+    headerView.backgroundColor = [UIColor clearColor];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0,self.tableView.frame.size.width-10 , 30)];
+    labelView.text = @"ACCOUNT INFO";
+    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.textColor = [UIColor colorFromHexString:@"#187a89"];
+    [headerView addSubview:labelView];
+    self.tableView.tableHeaderView = headerView;
+}
+
+#pragma mark - Events
 - (IBAction)onClickSave:(id)sender {
 #ifndef __KS_DISABLE_VALIDATIONS
     NSMutableArray *errors = [NSMutableArray arrayWithCapacity:6];
@@ -74,5 +99,60 @@
         }
     }];
 }
+
+#pragma mark - UITableViewDelegate
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70.0;
+}
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+-(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"inputCellIdentifier"];
+    UIColor *color = [UIColor colorFromHexString:@"#999999"];
+    
+    if (indexPath.row == 0) {
+        
+        self.txtMobile = (KSTextField*)[cell viewWithTag:4001];
+        self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Mobile number" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtMobile.text = self.user.phone;
+        [self.txtMobile setEnabled:FALSE];
+        self.txtMobile.tintColor = [UIColor blackColor];
+        UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
+        [imgView setImage:[UIImage imageNamed:@"phonenumber.png"]];
+    }
+    else if(indexPath.row == 1){
+        
+        self.txtName = (KSTextField*)[cell viewWithTag:4001];
+        self.txtName.text = self.user.name;
+        self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Display Name" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtName.tintColor = [UIColor blackColor];
+        UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
+        [imgView setImage:[UIImage imageNamed:@"fullname.png"]];
+        
+    }
+    else if (indexPath.row == 2){
+        
+        self.txtEmail = (KSTextField*)[cell viewWithTag:4001];
+        self.txtEmail.text = self.user.email;
+        //self.txtEmail.placeholder = @"Email Address";
+        self.txtEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email Address" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtEmail.tintColor = [UIColor blackColor];
+        UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
+        [imgView setImage:[UIImage imageNamed:@"email.png"]];
+    }
+    
+    return cell;
+}
+
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 
 @end

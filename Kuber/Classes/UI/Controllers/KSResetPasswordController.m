@@ -30,19 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //self.txtMobile.text = self.mobileNumber;
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 1.0)];
-    footerView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableFooterView = footerView;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 35.0)];
-    headerView.backgroundColor = [UIColor clearColor];
-    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(15.0, 2.0,self.tableView.frame.size.width-10 , 30)];
-    labelView.text = @"ACCOUNT INFO";
-    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:12];
-    labelView.textColor = [UIColor colorFromHexString:@"#858585"];
-    [headerView addSubview:labelView];
-    self.tableView.tableHeaderView = headerView;
+    [self addHeadAndFooterToTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,6 +55,27 @@
 }
 */
 
+
+#pragma mark - Private Functions
+-(void) addHeadAndFooterToTableView
+{
+    self.tableView.allowsSelection = NO;
+    
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 1.0)];
+    footerView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = footerView;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 45.0)];
+    headerView.backgroundColor = [UIColor clearColor];
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0,self.tableView.frame.size.width-10 , 30)];
+    labelView.text = @"PASSWORD";
+    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.textColor = [UIColor colorFromHexString:@"#187a89"];
+    [headerView addSubview:labelView];
+    self.tableView.tableHeaderView = headerView;
+}
+
+#pragma mark - Events
 - (IBAction)onClickResetPassword:(id)sender {
 #ifndef __KS_DISABLE_VALIDATIONS
     NSString *error = nil;
@@ -106,6 +116,11 @@
     [self.navigationController popToNthController:2 animated:YES];
 }
 #pragma mark - UITableViewDelegate
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70.0;
+}
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 3;
@@ -113,31 +128,33 @@
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"inputCellIdentifier"];
+    UIColor *color = [UIColor colorFromHexString:@"#999999"];
+    
     if (indexPath.row == 0) {
         
         self.txtMobile = (KSTextField*)[cell viewWithTag:4001];
-        self.txtMobile.placeholder = @"Mobile number";
+        self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Mobile Number" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtMobile.text = self.mobileNumber;
         self.txtMobile.tintColor = [UIColor blackColor];
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
-        [imgView setImage:[UIImage imageNamed:@"option-check.png"]];
+        [imgView setImage:[UIImage imageNamed:@"phonenumber.png"]];
     }
     else if(indexPath.row == 1){
         
         self.txtPassword = (KSTextField*)[cell viewWithTag:4001];
-        self.txtPassword.placeholder = @"Password";
+        self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtPassword.tintColor = [UIColor blackColor];
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
-        [imgView setImage:[UIImage imageNamed:@"option-check.png"]];
+        [imgView setImage:[UIImage imageNamed:@"password.png"]];
     
     }
     else if (indexPath.row == 2){
         
         self.txtConfirmPassword = (KSTextField*)[cell viewWithTag:4001];
-        self.txtConfirmPassword.placeholder = @"Confirm Password";
+        self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtConfirmPassword.tintColor = [UIColor blackColor];
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
-        [imgView setImage:[UIImage imageNamed:@"option-check.png"]];
+        [imgView setImage:[UIImage imageNamed:@"password.png"]];
     }
     
     return cell;

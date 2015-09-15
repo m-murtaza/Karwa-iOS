@@ -23,6 +23,10 @@
 		1801E3661B16293900A8983E /* KSReadOnlyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E3651B16293900A8983E /* KSReadOnlyTextField.m */; };
 		180B77611B8C387D0008930F /* KSServiceIssueIdentifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77601B8C387D0008930F /* KSServiceIssueIdentifierViewController.m */; };
 		180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */; };
+		1822C4051BA7FC320087ACE3 /* email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4011BA7FC320087ACE3 /* email@2x.png */; };
+		1822C4061BA7FC320087ACE3 /* fullname@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4021BA7FC320087ACE3 /* fullname@2x.png */; };
+		1822C4071BA7FC320087ACE3 /* password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4031BA7FC320087ACE3 /* password@2x.png */; };
+		1822C4081BA7FC320087ACE3 /* phonenumber@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4041BA7FC320087ACE3 /* phonenumber@2x.png */; };
 		18481AFD1B086EBB00855F54 /* KSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481AFC1B086EBB00855F54 /* KSConstants.m */; };
 		18481AFE1B08812300855F54 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189F5D991B085DA900EAF9B2 /* MapKit.framework */; };
 		18481B0A1B08C6CD00855F54 /* NSString+NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B091B08C6CD00855F54 /* NSString+NSData+MD5.m */; };
@@ -299,6 +303,10 @@
 		180B77601B8C387D0008930F /* KSServiceIssueIdentifierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSServiceIssueIdentifierViewController.m; sourceTree = "<group>"; };
 		180B77621B8C5FDF0008930F /* KSDAL+TripIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+TripIssue.h"; sourceTree = "<group>"; };
 		180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+TripIssue.m"; sourceTree = "<group>"; };
+		1822C4011BA7FC320087ACE3 /* email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email@2x.png"; path = "Settings/email@2x.png"; sourceTree = "<group>"; };
+		1822C4021BA7FC320087ACE3 /* fullname@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullname@2x.png"; path = "Settings/fullname@2x.png"; sourceTree = "<group>"; };
+		1822C4031BA7FC320087ACE3 /* password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password@2x.png"; path = "Settings/password@2x.png"; sourceTree = "<group>"; };
+		1822C4041BA7FC320087ACE3 /* phonenumber@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phonenumber@2x.png"; path = "Settings/phonenumber@2x.png"; sourceTree = "<group>"; };
 		18481AFB1B086EBB00855F54 /* KSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSConstants.h; sourceTree = "<group>"; };
 		18481AFC1B086EBB00855F54 /* KSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSConstants.m; sourceTree = "<group>"; };
 		18481B081B08C6CD00855F54 /* NSString+NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSData+MD5.h"; sourceTree = "<group>"; };
@@ -645,6 +653,17 @@
 			path = MLPAutoCompleteTextField;
 			sourceTree = "<group>";
 		};
+		1822C3F81BA7F6CC0087ACE3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1822C4011BA7FC320087ACE3 /* email@2x.png */,
+				1822C4021BA7FC320087ACE3 /* fullname@2x.png */,
+				1822C4031BA7FC320087ACE3 /* password@2x.png */,
+				1822C4041BA7FC320087ACE3 /* phonenumber@2x.png */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		18481AFA1B086E9A00855F54 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -926,6 +945,7 @@
 		1880C4D61B7877ED004F0188 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1822C3F81BA7F6CC0087ACE3 /* Settings */,
 				184D22771BA58BBD007CB740 /* RatingView */,
 				184D22371BA54E5F007CB740 /* MainMenu */,
 				1852D09E1BA31022007E9D06 /* Menu */,
@@ -1441,6 +1461,7 @@
 				184CF9281BA03F1D0025B883 /* driver-icon@2x.png in Resources */,
 				1880C53C1B7877ED004F0188 /* StarEmptyLarge@2x.png in Resources */,
 				184D22711BA55E64007CB740 /* settings-ico-active@2x.png in Resources */,
+				1822C4071BA7FC320087ACE3 /* password@2x.png in Resources */,
 				184D226A1BA55E64007CB740 /* menu-background@2x.png in Resources */,
 				184D22921BA58BED007CB740 /* star-empty@2x.png in Resources */,
 				184D226E1BA55E64007CB740 /* Rateyourtrips-active@2x.png in Resources */,
@@ -1501,6 +1522,7 @@
 				1880C5411B7877ED004F0188 /* edit.png in Resources */,
 				184D226C1BA55E64007CB740 /* rate-ico-active@2x.png in Resources */,
 				1880C5281B7877ED004F0188 /* menu_item_selected@2x.png in Resources */,
+				1822C4061BA7FC320087ACE3 /* fullname@2x.png in Resources */,
 				184D22621BA55E64007CB740 /* favorite-ico-idle@2x.png in Resources */,
 				1880C5271B7877ED004F0188 /* menu_history_selected@2x.png in Resources */,
 				1880C5351B7877ED004F0188 /* textfield_bg@2x.png in Resources */,
@@ -1527,6 +1549,7 @@
 				1880C52B1B7877ED004F0188 /* menu_profile@2x.png in Resources */,
 				18D65DCD1B9D82B600D6C1BD /* phone-box-focused@2x.png in Resources */,
 				18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */,
+				1822C4051BA7FC320087ACE3 /* email@2x.png in Resources */,
 				18A762921AFF785B00B9ED32 /* LaunchScreen.xib in Resources */,
 				184D22681BA55E64007CB740 /* logout-idle@2x.png in Resources */,
 				184CF9151BA02A080025B883 /* location@2x.png in Resources */,
@@ -1545,6 +1568,7 @@
 				1880C5151B7877ED004F0188 /* activetabbar@2x.png in Resources */,
 				18D65DCF1B9D901700D6C1BD /* phone-box-idle@2x.png in Resources */,
 				1880C5421B7877ED004F0188 /* edit@2x.png in Resources */,
+				1822C4081BA7FC320087ACE3 /* phonenumber@2x.png in Resources */,
 				18D65E011B9ED25800D6C1BD /* phone-box-idle-s@2x.png in Resources */,
 				18D65DCC1B9D82B600D6C1BD /* password-box-idle@2x.png in Resources */,
 				1880C5491B7877ED004F0188 /* s_place_pin@2x.png in Resources */,

@@ -8,6 +8,6 @@
 
 #import "KSViewController.h"
 
-@interface KSChangePasswordController : KSViewController
+@interface KSChangePasswordController : KSViewController<UITableViewDataSource, UITableViewDelegate>
 
 @end
