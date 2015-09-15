@@ -45,10 +45,14 @@
 
 -(void) loadViewData
 {
-    self.lblName.text = user.name;
+    self.lblName.text = [user.name uppercaseString];
     self.lblName.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
+    
     self.lblEmail.text = user.email;
+    self.lblEmail.font = [UIFont fontWithName:@"MuseoForDell-300" size:12];
+    
     self.lblPhone.text = user.phone;
+    self.lblPhone.font = [UIFont fontWithName:@"MuseoForDell-300" size:12];
 }
 
 -(void) addHeadAndFooterToTableView
@@ -81,7 +85,6 @@
         
         editController.user = user;
     }
-
 }
 
 #pragma mark - UITableViewDelegate
@@ -93,6 +96,11 @@
         
         [self performSegueWithIdentifier:@"segueSettingsToChangePassword" sender:self];
     }
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

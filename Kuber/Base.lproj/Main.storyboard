@@ -2704,8 +2704,7 @@
                                                 <exclude reference="Pm8-mh-BE0"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="7" y="147" width="384" height="21"/>
+                                        <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <include reference="K5s-cT-ZRG"/>
                                                 <include reference="Pm8-mh-BE0"/>
@@ -2766,15 +2765,23 @@
                                     <constraint firstItem="HcP-Zg-2dL" firstAttribute="top" secondItem="Hqm-yJ-rEh" secondAttribute="bottom" constant="8" id="5wm-z6-LQe"/>
                                     <constraint firstItem="Hqm-yJ-rEh" firstAttribute="top" secondItem="IF1-Lb-8qi" secondAttribute="top" constant="24" id="74h-sz-q7r"/>
                                     <constraint firstItem="A4G-Cr-lQX" firstAttribute="top" secondItem="HcP-Zg-2dL" secondAttribute="bottom" constant="8" id="EgS-wN-4UN"/>
-                                    <constraint firstItem="ZTz-ju-vAR" firstAttribute="top" secondItem="A4G-Cr-lQX" secondAttribute="bottom" constant="8" id="OB2-mS-smQ"/>
+                                    <constraint firstItem="ZTz-ju-vAR" firstAttribute="top" secondItem="A4G-Cr-lQX" secondAttribute="bottom" id="OB2-mS-smQ">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                    </constraint>
                                     <constraint firstAttribute="centerX" secondItem="1XG-Js-Kvl" secondAttribute="centerX" id="TFJ-B8-yTH"/>
                                     <constraint firstAttribute="centerX" secondItem="Hqm-yJ-rEh" secondAttribute="centerX" id="Zyt-jO-i3E"/>
                                     <constraint firstAttribute="centerX" secondItem="A4G-Cr-lQX" secondAttribute="centerX" id="cQR-vb-333"/>
-                                    <constraint firstItem="1XG-Js-Kvl" firstAttribute="top" secondItem="ZTz-ju-vAR" secondAttribute="bottom" constant="8" id="dwB-X5-2zQ"/>
+                                    <constraint firstItem="1XG-Js-Kvl" firstAttribute="top" secondItem="ZTz-ju-vAR" secondAttribute="bottom" constant="8" id="dwB-X5-2zQ">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="33"/>
+                                    </constraint>
                                     <constraint firstAttribute="centerX" secondItem="HcP-Zg-2dL" secondAttribute="centerX" id="fms-Ai-bQF"/>
-                                    <constraint firstItem="1XG-Js-Kvl" firstAttribute="top" secondItem="ZTz-ju-vAR" secondAttribute="bottom" constant="8" id="gfx-iI-UFj"/>
+                                    <constraint firstItem="1XG-Js-Kvl" firstAttribute="top" secondItem="ZTz-ju-vAR" secondAttribute="bottom" constant="8" id="gfx-iI-UFj">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="33"/>
+                                    </constraint>
                                     <constraint firstItem="HcP-Zg-2dL" firstAttribute="top" secondItem="Hqm-yJ-rEh" secondAttribute="bottom" constant="8" id="os8-NS-Lwk"/>
-                                    <constraint firstItem="A4G-Cr-lQX" firstAttribute="top" secondItem="HcP-Zg-2dL" secondAttribute="bottom" constant="8" id="r2g-SV-SJr"/>
+                                    <constraint firstItem="A4G-Cr-lQX" firstAttribute="top" secondItem="HcP-Zg-2dL" secondAttribute="bottom" id="r2g-SV-SJr">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
+                                    </constraint>
                                     <constraint firstItem="ZTz-ju-vAR" firstAttribute="top" secondItem="A4G-Cr-lQX" secondAttribute="bottom" constant="8" id="sLQ-3g-Zfd"/>
                                     <constraint firstAttribute="centerX" secondItem="ZTz-ju-vAR" secondAttribute="centerX" id="z2o-W3-fKB"/>
                                 </constraints>
@@ -2814,14 +2821,14 @@
                                     <mask key="constraints">
                                         <include reference="5wm-z6-LQe"/>
                                         <include reference="fms-Ai-bQF"/>
-                                        <include reference="os8-NS-Lwk"/>
-                                        <include reference="EgS-wN-4UN"/>
+                                        <exclude reference="os8-NS-Lwk"/>
+                                        <exclude reference="EgS-wN-4UN"/>
                                         <include reference="cQR-vb-333"/>
                                         <include reference="r2g-SV-SJr"/>
                                         <include reference="74h-sz-q7r"/>
                                         <include reference="Zyt-jO-i3E"/>
                                         <include reference="OB2-mS-smQ"/>
-                                        <include reference="sLQ-3g-Zfd"/>
+                                        <exclude reference="sLQ-3g-Zfd"/>
                                         <include reference="z2o-W3-fKB"/>
                                         <include reference="TFJ-B8-yTH"/>
                                         <include reference="dwB-X5-2zQ"/>
@@ -2951,10 +2958,14 @@
                             <constraint firstAttribute="trailingMargin" secondItem="IF1-Lb-8qi" secondAttribute="trailing" constant="-16" id="AXN-J1-E4Z"/>
                             <constraint firstItem="IF1-Lb-8qi" firstAttribute="top" secondItem="Ieg-GB-Iiy" secondAttribute="bottom" id="CMn-K3-C5J"/>
                             <constraint firstItem="Nut-cz-FI1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ieg-GB-Iiy" secondAttribute="bottom" constant="200" id="MMQ-7J-65z"/>
-                            <constraint firstItem="Nut-cz-FI1" firstAttribute="top" secondItem="IF1-Lb-8qi" secondAttribute="bottom" constant="8" id="TrV-fH-zfp"/>
+                            <constraint firstItem="Nut-cz-FI1" firstAttribute="top" secondItem="IF1-Lb-8qi" secondAttribute="bottom" constant="8" id="TrV-fH-zfp">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-14"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="Nut-cz-FI1" secondAttribute="trailing" constant="-16" id="UR2-Y1-WcC"/>
                             <constraint firstItem="Nut-cz-FI1" firstAttribute="top" secondItem="IF1-Lb-8qi" secondAttribute="bottom" constant="8" id="e3h-5p-X1i"/>
-                            <constraint firstItem="9IU-zn-8T8" firstAttribute="top" secondItem="Nut-cz-FI1" secondAttribute="bottom" constant="83" id="lAQ-Ud-3Vg"/>
+                            <constraint firstItem="9IU-zn-8T8" firstAttribute="top" secondItem="Nut-cz-FI1" secondAttribute="bottom" constant="83" id="lAQ-Ud-3Vg">
+                                <variation key="heightClass=regular-widthClass=compact" constant="105"/>
+                            </constraint>
                             <constraint firstItem="Nut-cz-FI1" firstAttribute="leading" secondItem="fyi-Lq-vP5" secondAttribute="leadingMargin" constant="-16" id="oXX-db-wc8"/>
                         </constraints>
                         <variation key="default">
@@ -5135,7 +5146,7 @@
                                                         </mask>
                                                     </variation>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" tag="4002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zU2-lx-qXq">
+                                                <imageView userInteractionEnabled="NO" tag="4002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="partners.png" translatesAutoresizingMaskIntoConstraints="NO" id="zU2-lx-qXq">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="29" id="gDE-TJ-abe"/>
@@ -5287,7 +5298,7 @@
                                                         </mask>
                                                     </variation>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" tag="4002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksQ-rt-ecw">
+                                                <imageView userInteractionEnabled="NO" tag="4002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="password.png" translatesAutoresizingMaskIntoConstraints="NO" id="ksQ-rt-ecw">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="29" id="fEQ-B3-dRo"/>
@@ -5447,6 +5458,7 @@
         <image name="partners.png" width="25" height="25"/>
         <image name="password-box-idle-s.png" width="329" height="35"/>
         <image name="password-box-idle.png" width="658" height="79"/>
+        <image name="password.png" width="51" height="51"/>
         <image name="phone-box-focused.png" width="658" height="79"/>
         <image name="phone-box-idle-s.png" width="329" height="35"/>
         <image name="rating-info-box.png" width="356" height="155"/>
