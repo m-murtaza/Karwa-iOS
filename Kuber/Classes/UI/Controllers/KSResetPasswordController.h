@@ -8,7 +8,7 @@
 
 #import "KSViewController.h"
 
-@interface KSResetPasswordController : KSViewController
+@interface KSResetPasswordController : KSViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NSString *mobileNumber;
 
