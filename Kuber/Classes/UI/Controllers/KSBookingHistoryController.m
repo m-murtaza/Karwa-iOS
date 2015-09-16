@@ -147,7 +147,7 @@
     
     //Usman Temp Work add 1
     
-    if (1 || trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
+    if (0 && trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
         KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
         ratingController.trip = trip;
         [self.navigationController pushViewController:ratingController animated:YES];

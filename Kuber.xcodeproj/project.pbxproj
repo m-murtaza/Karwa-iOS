@@ -212,7 +212,6 @@
 		18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18A762851AFF785B00B9ED32 /* Kuber.xcdatamodeld */; };
 		18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A7628B1AFF785B00B9ED32 /* Main.storyboard */; };
 		18A7628F1AFF785B00B9ED32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A7628E1AFF785B00B9ED32 /* Images.xcassets */; };
-		18A762921AFF785B00B9ED32 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A762901AFF785B00B9ED32 /* LaunchScreen.xib */; };
 		18A7629E1AFF785B00B9ED32 /* KuberTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7629D1AFF785B00B9ED32 /* KuberTests.m */; };
 		18A762BA1B006A7400B9ED32 /* KSUserManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762B21B006A7400B9ED32 /* KSUserManagement.m */; };
 		18A762BB1B006A7400B9ED32 /* KSLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762B61B006A7400B9ED32 /* KSLoginController.m */; };
@@ -330,10 +329,8 @@
 		18481B571B09B64E00855F54 /* NSString+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KSExtended.m"; sourceTree = "<group>"; };
 		18481B5C1B09C41800855F54 /* KSAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAlert.h; sourceTree = "<group>"; };
 		18481B5D1B09C41800855F54 /* KSAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAlert.m; sourceTree = "<group>"; };
-		18481B601B09C77100855F54 /* ar-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-001"; path = "ar-001.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		18481B621B09C89700855F54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		18481B641B09C89A00855F54 /* ar-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ar-001"; path = "ar-001.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		18481B6A1B09CA9100855F54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		18481B6D1B09CAB900855F54 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18481B6F1B09CC2500855F54 /* KSMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMenuController.h; sourceTree = "<group>"; };
 		18481B701B09CC2500855F54 /* KSMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMenuController.m; sourceTree = "<group>"; };
@@ -557,7 +554,6 @@
 		18A762861AFF785B00B9ED32 /* Kuber.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kuber.xcdatamodel; sourceTree = "<group>"; };
 		18A7628C1AFF785B00B9ED32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18A7628E1AFF785B00B9ED32 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		18A762911AFF785B00B9ED32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		18A762971AFF785B00B9ED32 /* KuberTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KuberTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A7629C1AFF785B00B9ED32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A7629D1AFF785B00B9ED32 /* KuberTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KuberTests.m; sourceTree = "<group>"; };
@@ -1125,7 +1121,6 @@
 				18A762831AFF785B00B9ED32 /* AppDelegate.m */,
 				18A7628B1AFF785B00B9ED32 /* Main.storyboard */,
 				18A7628E1AFF785B00B9ED32 /* Images.xcassets */,
-				18A762901AFF785B00B9ED32 /* LaunchScreen.xib */,
 				18A762851AFF785B00B9ED32 /* Kuber.xcdatamodeld */,
 				18A7627E1AFF785B00B9ED32 /* Supporting Files */,
 			);
@@ -1575,7 +1570,6 @@
 				1822C4221BA821A20087ACE3 /* avatar@2x.png in Resources */,
 				18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */,
 				1822C4051BA7FC320087ACE3 /* email@2x.png in Resources */,
-				18A762921AFF785B00B9ED32 /* LaunchScreen.xib in Resources */,
 				184D22681BA55E64007CB740 /* logout-idle@2x.png in Resources */,
 				184CF9151BA02A080025B883 /* location@2x.png in Resources */,
 				1880C52D1B7877ED004F0188 /* pointericon.png in Resources */,
@@ -1804,16 +1798,6 @@
 				18A7628C1AFF785B00B9ED32 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		18A762901AFF785B00B9ED32 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18A762911AFF785B00B9ED32 /* Base */,
-				18481B601B09C77100855F54 /* ar-001 */,
-				18481B6A1B09CA9100855F54 /* en */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

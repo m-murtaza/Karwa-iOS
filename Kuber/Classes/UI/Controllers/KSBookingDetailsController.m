@@ -8,6 +8,8 @@
 
 #import "KSBookingDetailsController.h"
 #import "KSTrip.h"
+#import "NSString+KSExtended.h"
+
 
 
 @interface KSBookingDetailsController ()
@@ -20,14 +22,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnCancelBooking;
 @property (weak, nonatomic) IBOutlet UILabel *lblDropoffTime;
 @property (weak, nonatomic) IBOutlet UIView *dropoffContainer;
-@property (weak, nonatomic) IBOutlet UILabel *lblTitleTaxiInfo;
+@property (weak, nonatomic) IBOutlet KSLabel *lblTitleTaxiInfo;
 
 @property (weak, nonatomic) IBOutlet UILabel *lblDriverName;
-@property (weak, nonatomic) IBOutlet UILabel *lblDriverNumber;
+@property (weak, nonatomic) IBOutlet KSLabel *lblDriverNumber;
 @property (weak, nonatomic) IBOutlet UILabel *lblETA;
-@property (weak, nonatomic) IBOutlet UILabel *lblTaxiNumber;
+@property (weak, nonatomic) IBOutlet KSLabel *lblTaxiNumber;
 
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
+
+-(IBAction)btnCallDriveTapped:(id)sender;
 
 
 @end
@@ -45,6 +49,10 @@
 
     [self.lblPickupAddress setFontSize:13];
     [self.lblDropoffAddress setFontSize:13];
+    [self.lblTitleTaxiInfo setFontSize:12];
+    [self.lblTaxiNumber setFontSize:12];
+    [self.lblDriverNumber setFontSize:12];
+    
     [self loadViewData];
 }
 
@@ -181,6 +189,38 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+#pragma mark - Event handler 
+
+
+-(IBAction)btnCallDriveTapped:(id)sender
+{
+    if (self.tripInfo.driver.phone != nil || ![self.tripInfo.driver.phone isEqualToString:@""]) {
+        
+        
+        if ([self.tripInfo.driver.phone isPhoneNumber]) {
+            
+            NSString *phoneNumber = [@"tel://" stringByAppendingString:self.tripInfo.driver.phone];
+            NSURL *phone = [NSURL URLWithString:phoneNumber];
+            UIApplication *app = [UIApplication sharedApplication];
+            if ([app canOpenURL:phone]) {
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+            }
+            else{
+                
+                [KSAlert show:@"Your phone does not support calling" title:@"Error"];
+            }
+        }
+        else {
+        
+            [KSAlert show:@"Invalid phone number" title:@"Error"];
+        }
+        
+    }
 }
 
 -(IBAction)btnCancelTapped:(id)sender{
