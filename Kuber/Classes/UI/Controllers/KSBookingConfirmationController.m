@@ -188,6 +188,7 @@ NSString * const KSDefaultPickupText = @"You location";
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM dd, yy, HH:mm"];
+    //[formatter setDateFormat:@"dd - MMMM yyyy, HH:mm a"];
 
     self.txtPickupTime.text = [formatter stringFromDate:date];
 }

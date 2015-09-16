@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtMobile;
 
 @property (weak, nonatomic) IBOutlet UITextField *txtPassword;
+@property (nonatomic, weak) IBOutlet UIButton *btnForgotPassword;
 
 - (IBAction)onClickLogin:(id)sender;
 
@@ -42,6 +43,8 @@
               initWithTarget:self action:@selector(handleSingleTap:)];
     tapper.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapper];
+    
+    self.btnForgotPassword.titleLabel.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
 }
 
 -(void) viewWillAppear:(BOOL)animated

@@ -12,10 +12,10 @@
 
 @interface KSBookingHistoryCell ()
 
-@property (nonatomic, strong) IBOutlet UILabel *lblPickupFrom;
-@property (nonatomic, strong) IBOutlet UILabel *lblDropoffTo;
-@property (nonatomic, strong) IBOutlet UILabel *lblDate;
-@property (nonatomic, strong) IBOutlet UILabel *lblTime;
+@property (nonatomic, strong) IBOutlet KSLabel *lblPickupFrom;
+@property (nonatomic, strong) IBOutlet KSLabel *lblDropoffTo;
+@property (nonatomic, strong) IBOutlet KSLabel *lblDate;
+@property (nonatomic, strong) IBOutlet KSLabel *lblTime;
 
 
 @end
@@ -25,6 +25,9 @@
 - (void)awakeFromNib {
     // Initialization code
     self.lblPickupFrom.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
+    [self.lblDropoffTo setFontSize:13];
+    [self.lblTime setFontSize:12];
+    [self.lblDate setFontSize:12];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -34,12 +37,8 @@
 }
 
 - (void)updateCellData:(KSTrip *)trip {
-
-    /*NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-    NSString *date = [dateFormatter stringFromDate:trip.pickupTime];
-     */
+    
+    
     if (trip.pickupLandmark.length) {
         self.lblPickupFrom.text = [NSString stringWithFormat:@"From %@", trip.pickupLandmark];
     }

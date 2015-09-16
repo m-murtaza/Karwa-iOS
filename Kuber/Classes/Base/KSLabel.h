@@ -10,4 +10,6 @@
 
 @interface KSLabel : UILabel
 
+-(void) setFontSize:(NSInteger)size;
+
 @end

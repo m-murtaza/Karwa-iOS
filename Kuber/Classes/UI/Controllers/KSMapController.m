@@ -204,7 +204,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (void)updatePickupTime:(NSDate *)date {
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MMM dd, yy, HH:mm"];
+    //[formatter setDateFormat:@"MMM dd, yy, HH:mm"];
+    [formatter setDateFormat:@"dd - MMMM yyyy, HH:mm a"];
     
     self.txtPickupTime.text = [formatter stringFromDate:date];
 }

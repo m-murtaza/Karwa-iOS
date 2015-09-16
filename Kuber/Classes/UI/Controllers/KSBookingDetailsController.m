@@ -12,8 +12,8 @@
 
 @interface KSBookingDetailsController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *lblPickupAddress;
-@property (weak, nonatomic) IBOutlet UILabel *lblDropoffAddress;
+@property (weak, nonatomic) IBOutlet KSLabel *lblPickupAddress;
+@property (weak, nonatomic) IBOutlet KSLabel *lblDropoffAddress;
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupTime;
 @property (weak, nonatomic) IBOutlet UILabel *lblPickupDate;
 @property (weak, nonatomic) IBOutlet UILabel *lblAcknowlegement;
@@ -43,6 +43,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    [self.lblPickupAddress setFontSize:13];
+    [self.lblDropoffAddress setFontSize:13];
     [self loadViewData];
 }
 

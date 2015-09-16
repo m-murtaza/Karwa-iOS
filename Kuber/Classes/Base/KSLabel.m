@@ -18,4 +18,9 @@
     return self;
 }
 
+-(void) setFontSize:(NSInteger)size
+{
+    self.font = [UIFont fontWithName:@"MuseoForDell-300" size:size];
+}
+
 @end
