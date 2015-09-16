@@ -65,10 +65,11 @@
 -(void) adjustUI
 {
     UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
-    self.txtAccessCode.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtAccessCode.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter verification code here" attributes:@{NSForegroundColorAttributeName: color}];
     self.txtAccessCode.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
     self.txtAccessCode.tintColor = [UIColor whiteColor];
     
+    self.btnResend.titleLabel.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
     //self.btnVarify.titleLabel.font = [];
 }
 
