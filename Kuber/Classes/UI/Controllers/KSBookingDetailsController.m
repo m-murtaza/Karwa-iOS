@@ -118,6 +118,7 @@
         [self hideTaxiInfo:trip];
     }
     else {
+        [self.lblTitleTaxiInfo setHidden:FALSE];
         KSDriver *driver = trip.driver;
         self.lblDriverName.text = driver.name;
         self.lblDriverNumber.text = driver.phone ;

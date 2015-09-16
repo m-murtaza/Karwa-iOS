@@ -428,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDT-hG-n5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="508.5" y="111.75"/>
+            <point key="canvasLocation" x="469.5" y="239.25"/>
         </scene>
         <!--Karwa Taxi-->
         <scene sceneID="wdf-SK-OK9">
@@ -3073,11 +3073,12 @@
                         <outlet property="revealButtonItem" destination="Vpr-lT-LXS" id="JBi-m0-MeU"/>
                         <outlet property="tableView" destination="Nut-cz-FI1" id="wQT-tP-wHx"/>
                         <segue destination="M4l-cN-ZIN" kind="show" identifier="segueSettingsToChangePassword" id="a9h-lX-6Uy"/>
+                        <segue destination="ow2-zJ-LzZ" kind="show" identifier="segueSettingsToPartners" id="bEC-gw-mHK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nri-fI-oUL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-172.5" y="-1307.25"/>
+            <point key="canvasLocation" x="-184.5" y="-1235.25"/>
         </scene>
         <!--Booking-->
         <scene sceneID="ygT-hO-iq7">
@@ -4283,6 +4284,56 @@
             </objects>
             <point key="canvasLocation" x="2271" y="-546"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="mbc-bi-ev5">
+            <objects>
+                <viewController id="ow2-zJ-LzZ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Mb-L6-JBY"/>
+                        <viewControllerLayoutGuide type="bottom" id="b4J-xD-T8U"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4h8-dF-EQ7">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="partners_list.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ega-zE-BAB">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ega-zE-BAB" secondAttribute="trailing" constant="-16" id="XhH-wE-4lc"/>
+                            <constraint firstItem="b4J-xD-T8U" firstAttribute="top" secondItem="Ega-zE-BAB" secondAttribute="bottom" id="fmH-hm-cVs"/>
+                            <constraint firstItem="Ega-zE-BAB" firstAttribute="top" secondItem="4h8-dF-EQ7" secondAttribute="topMargin" id="rS7-F8-7Ck"/>
+                            <constraint firstItem="Ega-zE-BAB" firstAttribute="leading" secondItem="4h8-dF-EQ7" secondAttribute="leadingMargin" constant="-16" id="vdg-hr-VCs"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Ega-zE-BAB"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="XhH-wE-4lc"/>
+                                <exclude reference="rS7-F8-7Ck"/>
+                                <exclude reference="vdg-hr-VCs"/>
+                                <exclude reference="fmH-hm-cVs"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Ega-zE-BAB"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="XhH-wE-4lc"/>
+                                <include reference="rS7-F8-7Ck"/>
+                                <include reference="vdg-hr-VCs"/>
+                                <include reference="fmH-hm-cVs"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Miv-Ts-3rF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="744" y="-387"/>
+        </scene>
         <!--Booking Details-->
         <scene sceneID="zpc-FD-cqT">
             <objects>
@@ -4996,7 +5047,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGm-1Y-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1368" y="-280.5"/>
+            <point key="canvasLocation" x="1632" y="-289.5"/>
         </scene>
         <!--Edit User Info-->
         <scene sceneID="ktq-t0-ONJ">
@@ -5351,6 +5402,7 @@
         <image name="menu_logout_selected.png" width="32" height="32"/>
         <image name="menu_profile_selected.png" width="32" height="32"/>
         <image name="partners.png" width="25" height="25"/>
+        <image name="partners_list.png" width="375" height="602"/>
         <image name="password-box-idle-s.png" width="329" height="35"/>
         <image name="password-box-idle.png" width="658" height="79"/>
         <image name="password.png" width="51" height="51"/>

@@ -96,6 +96,9 @@
         
         [self performSegueWithIdentifier:@"segueSettingsToChangePassword" sender:self];
     }
+    else {
+        [self performSegueWithIdentifier:@"segueSettingsToPartners" sender:self];
+    }
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

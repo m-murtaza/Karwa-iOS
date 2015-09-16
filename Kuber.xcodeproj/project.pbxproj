@@ -33,6 +33,7 @@
 		1822C4281BA821A20087ACE3 /* password.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4201BA821A20087ACE3 /* password.png */; };
 		1822C42A1BA836430087ACE3 /* edit-info-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4291BA836430087ACE3 /* edit-info-button-pressed@2x.png */; };
 		1822C42C1BA929C40087ACE3 /* backarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C42B1BA929C40087ACE3 /* backarrow@2x.png */; };
+		1822C4311BA968810087ACE3 /* partners_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4301BA968810087ACE3 /* partners_list@2x.png */; };
 		18481AFD1B086EBB00855F54 /* KSConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481AFC1B086EBB00855F54 /* KSConstants.m */; };
 		18481AFE1B08812300855F54 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189F5D991B085DA900EAF9B2 /* MapKit.framework */; };
 		18481B0A1B08C6CD00855F54 /* NSString+NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B091B08C6CD00855F54 /* NSString+NSData+MD5.m */; };
@@ -316,6 +317,7 @@
 		1822C4201BA821A20087ACE3 /* password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = password.png; path = Settings/password.png; sourceTree = "<group>"; };
 		1822C4291BA836430087ACE3 /* edit-info-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "edit-info-button-pressed@2x.png"; path = "Settings/edit-info-button-pressed@2x.png"; sourceTree = "<group>"; };
 		1822C42B1BA929C40087ACE3 /* backarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "backarrow@2x.png"; path = "Signup/backarrow@2x.png"; sourceTree = "<group>"; };
+		1822C4301BA968810087ACE3 /* partners_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "partners_list@2x.png"; path = "Partners/partners_list@2x.png"; sourceTree = "<group>"; };
 		18481AFB1B086EBB00855F54 /* KSConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSConstants.h; sourceTree = "<group>"; };
 		18481AFC1B086EBB00855F54 /* KSConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSConstants.m; sourceTree = "<group>"; };
 		18481B081B08C6CD00855F54 /* NSString+NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSData+MD5.h"; sourceTree = "<group>"; };
@@ -677,6 +679,14 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		1822C42D1BA9673C0087ACE3 /* Partners */ = {
+			isa = PBXGroup;
+			children = (
+				1822C4301BA968810087ACE3 /* partners_list@2x.png */,
+			);
+			name = Partners;
+			sourceTree = "<group>";
+		};
 		18481AFA1B086E9A00855F54 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -958,6 +968,7 @@
 		1880C4D61B7877ED004F0188 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1822C42D1BA9673C0087ACE3 /* Partners */,
 				1822C42B1BA929C40087ACE3 /* backarrow@2x.png */,
 				1822C3F81BA7F6CC0087ACE3 /* Settings */,
 				184D22771BA58BBD007CB740 /* RatingView */,
@@ -1460,6 +1471,7 @@
 				1880C52C1B7877ED004F0188 /* menu_profile_selected@2x.png in Resources */,
 				1880C55D1B79B47B004F0188 /* segment_selected@2x.png in Resources */,
 				184D225A1BA55E64007CB740 /* bookataxi-ico-active@2x.png in Resources */,
+				1822C4311BA968810087ACE3 /* partners_list@2x.png in Resources */,
 				184D22601BA55E64007CB740 /* bookings-idle@2x.png in Resources */,
 				184D226D1BA55E64007CB740 /* rate-ico-idle@2x.png in Resources */,
 				185E3C381B772B3500909B20 /* MuseoForDell-700.otf in Resources */,

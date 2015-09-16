@@ -96,12 +96,7 @@
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         KSUser *user = [KSDAL loggedInUser];
         if (KSAPIStatusSuccess == status) {
-
-//            for (KSTrip *trip in user.trips.allObjects) {
-//                trip.passenger = nil;
-//            }
-//            [user removeTrips:user.trips];
-
+            
             NSArray *trips = response[@"data"];
             for (NSDictionary *tripData in trips) {
                 KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
@@ -120,6 +115,31 @@
 
                 trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
                 trip.bookingType = [tripData[@"BookingType"] lowercaseString];
+                
+                if (tripData[@"ETA"] && [tripData[@"ETA"] integerValue] > 0) {
+                    
+                    trip.estimatedTimeOfArival = tripData[@"ETA"];
+                }
+                
+                //Driver Information
+                if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
+                    
+                    KSDriver *driver = [KSDriver objWithValue:[tripData[@"DriverID"] stringValue] forAttrib:@"driverId"];
+                    driver.driverId = [tripData[@"DriverID"] stringValue];
+                    driver.name = tripData[@"DriverName"];
+                    driver.phone = tripData[@"DriverPhone"];
+                    [driver addTripsObject:trip];
+                    trip.driver = driver;
+                }
+                
+                //Taxi info
+                if (tripData[@"TaxiNo"]) {
+                    
+                    KSTaxi *taxi = [KSTaxi objWithValue:tripData[@"TaxiNo"] forAttrib:@"number"];
+                    taxi.number = tripData[@"TaxiNo"];
+                    [taxi addTripsObject:trip];
+                    trip.taxi = taxi;
+                }
 
                 trip.passenger = user;
 
@@ -172,8 +192,34 @@
                 if (tripData[@"DropLocation"])
                     trip.dropoffLandmark = tripData[@"DropLocation"];
                 
+                if (tripData[@"ETA"] && [tripData[@"ETA"] integerValue] > 0) {
+
+                    trip.estimatedTimeOfArival = tripData[@"ETA"];
+                }
+                
+                
                 trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
                 trip.bookingType = [tripData[@"BookingType"] lowercaseString];
+                
+                //Driver Information
+                if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
+                    
+                    KSDriver *driver = [KSDriver objWithValue:tripData[@"DriverID"] forAttrib:@"driveId"];
+                    driver.driverId = tripData[@"DriverID"];
+                    driver.name = tripData[@"DriverName"];
+                    driver.phone = tripData[@"DriverPhone"];
+                    [driver addTripsObject:trip];
+                    trip.driver = driver;
+                }
+                
+                //Taxi info
+                if (tripData[@"TaxiNo"]) {
+                    
+                    KSTaxi *taxi = [KSTaxi objWithValue:tripData[@"TaxiNo"] forAttrib:@"number"];
+                    taxi.number = tripData[@"TaxiNo"];
+                    [taxi addTripsObject:trip];
+                    trip.taxi = taxi;
+                }
                 
                 KSUser *user = [KSDAL loggedInUser];
                 trip.passenger = user;
