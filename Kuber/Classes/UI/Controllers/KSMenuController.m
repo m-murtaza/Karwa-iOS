@@ -10,6 +10,7 @@
 
 #import "SWRevealViewController.h"
 #import "KSConfirmationAlert.h"
+#import "KSBookingHistoryController.h"
 
 @interface KSMenuController ()
 
@@ -56,6 +57,20 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    
+    
+    if ([segue.identifier isEqualToString:@"segueMenuToPendingBookings"]) {
+        UINavigationController *navController = (UINavigationController*)[segue destinationViewController];
+        KSBookingHistoryController * pendingBookings = [navController.viewControllers firstObject];
+        pendingBookings.tripStatus = KSTripStatusPending;
+        
+    }
+    else if([segue.identifier isEqualToString:@"segueMenuToRateTrips"]){
+        UINavigationController *navController = (UINavigationController*)[segue destinationViewController];
+        KSBookingHistoryController * pendingBookings = [navController.viewControllers firstObject];
+        pendingBookings.tripStatus = KSTripStatusCompletedNotRated;
+    }
 
 }
 

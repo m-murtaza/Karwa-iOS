@@ -25,6 +25,10 @@
 
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock;
 
++ (void) syncPendingBookingsWithCompletion:(KSDALCompletionBlock)completionBlock;
++ (void) syncUnRatedBookingsWithCompletion:(KSDALCompletionBlock)completionBlock;
+
+
 + (NSArray *)recentTripsWithLandmarkText;
 
 +(void) bookingWithBookingId:(NSString*)bookingId completion:(KSDALCompletionBlock)completionBlock;

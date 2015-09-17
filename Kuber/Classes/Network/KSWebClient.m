@@ -74,6 +74,7 @@
 }
 
 - (NSString *)completeURI:(NSString *)uri {
+    
     BOOL startsWithSlash = ([uri rangeOfString:@"/"].location == 0);
     NSUInteger lastIndex = uri.length - 1;
     BOOL endsWithSlash = [uri rangeOfString:@"/" options:NSBackwardsSearch].location == lastIndex;
@@ -108,6 +109,7 @@
     else{
         
         uri = [self completeURI:uri];
+        //uri = [self completeURI:@"abcdefgh"];
 
         void (^successBlock)(NSURLSessionDataTask *, id) = ^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"%@ %@ %@", method, uri, responseObject);
@@ -121,9 +123,23 @@
                 completionBlock(YES, [responseObject objectIfNotNSNull]);
             }
         };
+        
+        
         void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"%@ %@ %@", method, uri, error);
-            completionBlock(NO, nil);
+            
+            long errorCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+            NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLong:errorCode],@"status", nil];
+            
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"HTTP Errors"     // Event category (required)
+                                                                  action:@"Server Call"  // Event action (required)
+                                                                   label:[NSString stringWithFormat:@"Error Code: %ld",errorCode]         // Event label
+                                                                   value:[NSNumber numberWithLong:errorCode]] build]];    // Event value
+            
+            completionBlock(YES,response);
         };
 
         // Authentication header

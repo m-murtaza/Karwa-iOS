@@ -88,6 +88,51 @@
 }
 
 
+//TODO: Need to optimize repitative code.
++ (void) syncUnRatedBookingsWithCompletion:(KSDALCompletionBlock)completionBlock
+{
+    KSWebClient *webClient = [KSWebClient instance];
+    
+    [webClient GET:@"/booking" params:@{@"type":@"unrated"} completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if(KSAPIStatusSuccess == status){
+            
+            NSArray *trips = response[@"data"];
+            NSArray *ksTrips = [KSDAL addTrips:trips];
+            [KSDBManager saveContext:^{
+                
+                completionBlock(status, ksTrips);
+            }];
+        }
+        else{
+            
+            completionBlock(status, nil);
+        }
+    }];
+}
+
++ (void) syncPendingBookingsWithCompletion:(KSDALCompletionBlock)completionBlock;
+{
+    KSWebClient *webClient = [KSWebClient instance];
+    
+    [webClient GET:@"/booking" params:@{@"type":@"pending"} completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if(KSAPIStatusSuccess == status){
+            
+            NSArray *trips = response[@"data"];
+            NSArray *ksTrips = [KSDAL addTrips:trips];
+            [KSDBManager saveContext:^{
+    
+                completionBlock(status, ksTrips);
+            }];
+        }
+        else{
+        
+           completionBlock(status, nil);
+        }
+    }];
+}
+
 + (void)syncBookingHistoryWithCompletion:(KSDALCompletionBlock)completionBlock {
 
     KSWebClient *webClient = [KSWebClient instance];
@@ -288,6 +333,68 @@
             completionBlock(status, nil);
         }
     }];
+}
+
+#pragma mark - Private functions
+
++(NSArray*) addTrips:(NSArray*) trips
+{
+    NSMutableArray *tripsArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *tripData in trips) {
+         [tripsArray addObject:[KSDAL addTrip:tripData]];
+    }
+    return [NSArray arrayWithArray:tripsArray];
+}
+
++(KSTrip*) addTrip:(NSDictionary*) tripData
+{
+    KSUser *user = [KSDAL loggedInUser];
+    KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
+    trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
+    trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
+    trip.pickupTime = [tripData[@"PickTime"] dateValue];
+    trip.dropOffTime = [tripData[@"DropTime"] dateValue];
+    if (tripData[@"PickLocation"])
+        trip.pickupLandmark = tripData[@"PickLocation"];
+    if (tripData[@"DropLat"])
+        trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
+    if (tripData[@"DropLon"])
+        trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
+    if (tripData[@"DropLocation"])
+        trip.dropoffLandmark = tripData[@"DropLocation"];
+    
+    trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
+    trip.bookingType = [tripData[@"BookingType"] lowercaseString];
+    
+    if (tripData[@"ETA"] && [tripData[@"ETA"] integerValue] > 0) {
+        
+        trip.estimatedTimeOfArival = tripData[@"ETA"];
+    }
+    
+    //Driver Information
+    if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
+        
+        KSDriver *driver = [KSDriver objWithValue:[tripData[@"DriverID"] stringValue] forAttrib:@"driverId"];
+        driver.driverId = [tripData[@"DriverID"] stringValue];
+        driver.name = tripData[@"DriverName"];
+        driver.phone = tripData[@"DriverPhone"];
+        [driver addTripsObject:trip];
+        trip.driver = driver;
+    }
+    
+    //Taxi info
+    if (tripData[@"TaxiNo"]) {
+        
+        KSTaxi *taxi = [KSTaxi objWithValue:tripData[@"TaxiNo"] forAttrib:@"number"];
+        taxi.number = tripData[@"TaxiNo"];
+        [taxi addTripsObject:trip];
+        trip.taxi = taxi;
+    }
+    
+    trip.passenger = user;
+    
+    [user addTripsObject:trip];
+    return trip;
 }
 
 @end

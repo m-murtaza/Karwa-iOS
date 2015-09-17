@@ -1148,7 +1148,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="4pK-1t-Gvn" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="4ME-c1-1PJ"/>
+                                    <segue destination="4pK-1t-Gvn" kind="custom" identifier="segueMenuToPendingBookings" customClass="SWRevealViewControllerSeguePushController" id="4ME-c1-1PJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gka-w5-CX6" customClass="KSMenuButton">
@@ -1211,6 +1211,9 @@
                                         <include reference="74H-eu-BcD"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <segue destination="4pK-1t-Gvn" kind="custom" identifier="segueMenuToRateTrips" customClass="SWRevealViewControllerSeguePushController" id="hXH-pr-aUV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8W-s5-ohG" customClass="KSMenuButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -2676,7 +2679,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V3P-M4-KdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1125" y="-1943.25"/>
+            <point key="canvasLocation" x="-1315.5" y="-929.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Pf-Ka-d7U">
@@ -5408,6 +5411,7 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="hXH-pr-aUV"/>
         <segue reference="zRd-7U-Rqs"/>
     </inferredMetricsTieBreakers>
 </document>

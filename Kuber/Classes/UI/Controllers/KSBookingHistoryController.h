@@ -10,4 +10,6 @@
 
 @interface KSBookingHistoryController : KSTableViewController
 
+
+@property (nonatomic) NSUInteger tripStatus;
 @end

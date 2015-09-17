@@ -26,33 +26,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     __block KSBookingHistoryController *me = self;
-
-    [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-        [me buildTripsHistory];
-    }];
-
+    
+    if (_tripStatus == KSTripStatusPending) {
+        self.navigationItem.title = @"Pending Bookings";
+        [KSDAL syncPendingBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+            [me buildTripsHistory:trips];
+        }];
+    }
+    else if(_tripStatus == KSTripStatusCompletedNotRated){
+        self.navigationItem.title = @"Rate your Trips";
+        [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+            [me buildTripsHistory:trips];
+        }];
+    }
+    
 }
 
-- (void)buildTripsHistory {
-
-    KSUser *user = [KSDAL loggedInUser];
-    /*self.trips = [user.trips.allObjects sortedArrayUsingComparator:^NSComparisonResult(KSTrip * obj1, KSTrip *obj2) {
-        return [obj2.pickupTime compare:obj1.pickupTime];
-    }];*/
-    
-    //pickupTime
+- (void)buildTripsHistory:(NSArray*)data {
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
-    self.trips = [user.trips.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+    self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
     NSLog(@"%@",self.trips);
-    
-    [self createSectionHeader];
-    [self createSectionData];
-    
-    DLog(@"Section Header \n %@",self.datesHeader);
-    DLog(@"SectionData \n %@",self.tripsData);
-    
     [self.tableView reloadData];
 }
 
@@ -60,7 +55,9 @@
     [super viewWillAppear:animated];
 
     [KSGoogleAnalytics trackPage:@"Booking History"];
-    [self buildTripsHistory];
+    
+    //Fetch trips from DB
+    //[self buildTripsHistory:self.trips];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -147,7 +144,7 @@
     
     //Usman Temp Work add 1
     
-    if (0 && trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
+    if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
         KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
         ratingController.trip = trip;
         [self.navigationController pushViewController:ratingController animated:YES];

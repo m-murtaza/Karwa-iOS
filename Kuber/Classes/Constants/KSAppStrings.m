@@ -57,7 +57,23 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidTaxi]:              @"This taxi is not in our database--",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusNoInternet]:               @"Internet not available please check your internet settings",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusBadRequest]:               @"We are experiencing technical difficulties please stand by",
+      
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusSessionExpired]:           @"Session Expired, Please login again to enjoy Karwa",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusNotFound]:                 @"We are experiencing technical difficulties please stand by",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusServerCrash]:              @"We are experiencing technical difficulties due to maintenance please stand by",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusNotImplemented]:           @"We are experiencing technical difficulties please stand by",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusServiceUnavailable]:       @"We are experiencing technical difficulties please stand by",
+      
     };
+    
+    /*KSAPIStatusNoInternet               = 499,   //No internet available on deviec
+     KSAPIStatusBadRequest               = 400,  //Bad Request
+     KSAPIStatusSessionExpired           = 401,  //Session Expired
+     KSAPIStatusNotFound                 = 404,  //Not found
+     KSAPIStatusServerCrash              = 500,  //Server Crash
+     KSAPIStatusNotImplemented           = 501,  //Service not implemented
+     KSAPIStatusServiceUnavailable       = 503   //Request type not supported i.e. GET, POST*/
 
     NSString *string =  [stringsForAPIStatus objectForKey:[NSNumber numberWithUnsignedInteger: status]];
 

@@ -48,7 +48,16 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     
     KSAPIStatusInvalidDirver            = 32,   // Driver ID is not is DB
     KSAPIStatusInvalidTaxi              = 33,    // Taxi number is not in DB
-    KSAPIStatusNoInternet               = 501,   //No internet available on deviec
+    KSAPIStatusNoInternet               = 499,   //No internet available on deviec
+    KSAPIStatusBadRequest               = 400,  //Bad Request
+    KSAPIStatusSessionExpired           = 401,  //Session Expired
+    KSAPIStatusNotFound                 = 404,  //Not found
+    KSAPIStatusServerCrash              = 500,  //Server Crash
+    KSAPIStatusNotImplemented           = 501,  //Service not implemented
+    KSAPIStatusServiceUnavailable       = 503   //Request type not supported i.e. GET, POST
+    
+    
+    
 };
 
 typedef NS_OPTIONS(NSUInteger, KSBookingOption) {
@@ -61,6 +70,8 @@ typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
     KSTripStatusOpen = 0,
     KSTripStatusInProcess = 1,
     KSTripStatusCancelled = 7,
-    KSTripStatusComplete = 12
+    KSTripStatusComplete = 6,
+    KSTripStatusPending = 98,
+    KSTripStatusCompletedNotRated = 99
 };
 
