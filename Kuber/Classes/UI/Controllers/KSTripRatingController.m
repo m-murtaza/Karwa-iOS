@@ -148,6 +148,11 @@
 
 - (IBAction)onClickDone:(id)sender {
 
+    if (self.serviceRating.rate == 0 ) {
+        [KSAlert show:@"Please select your rating first" title:@"Error"];
+    }
+    
+    
     __block UINavigationController *navController = self.navigationController;
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
@@ -159,7 +164,7 @@
             [KSAlert show:KSStringFromAPIStatus(status)];
         }
     };
-    
+
     NSString *issues;
     if (self.serviceRating.rate <= 3) {
         
