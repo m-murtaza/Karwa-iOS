@@ -1099,7 +1099,7 @@
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="menu_book_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="selected" backgroundImage="bookataxi-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="bookataxi-active.png">
@@ -1131,7 +1131,7 @@
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="menu_history_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="selected" backgroundImage="bookings-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="bookings-active.png">
@@ -1163,7 +1163,7 @@
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="menu_favorites_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="selected" backgroundImage="favorites-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="favorites-active.png">
@@ -1195,7 +1195,7 @@
                                     <color key="titleColor" red="0.1058823529" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="menu_favorites_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="selected" backgroundImage="Rateyourtrips-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="Rateyourtrips-active.png">
@@ -1227,7 +1227,7 @@
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="menu_profile_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="selected" backgroundImage="settings-active.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="settings-active.png">
@@ -1259,7 +1259,7 @@
                                     <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="selected" image="menu_logout_selected.png" backgroundImage="menu_item_selected.png">
+                                <state key="selected" backgroundImage="logout-idle.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="logout-active.png">
@@ -1502,7 +1502,11 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="btn" destination="S2Y-Q5-Sgh" id="apI-Wf-Fyd"/>
+                        <outlet property="btnBookATaxi" destination="S2Y-Q5-Sgh" id="mVL-tG-dNO"/>
+                        <outlet property="btnBookings" destination="wAV-a3-XQs" id="vNN-Xw-0UX"/>
+                        <outlet property="btnFavorits" destination="Gka-w5-CX6" id="ZsG-1B-iCx"/>
+                        <outlet property="btnRate" destination="gJQ-I3-meY" id="mnL-vv-Llg"/>
+                        <outlet property="btnSettings" destination="Q8W-s5-ohG" id="TP3-TM-X68"/>
                         <outlet property="lblDisplayName" destination="yEW-Na-nlO" id="jrK-Ld-2SH"/>
                         <outlet property="lblPhone" destination="x7O-90-CFq" id="vP9-Yh-ojW"/>
                     </connections>
@@ -2827,24 +2831,24 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="6DL-yA-xGu"/>
+                                        <exclude reference="0d6-py-pye"/>
+                                        <exclude reference="12x-82-LNP"/>
+                                        <exclude reference="Hhv-UW-uSG"/>
                                         <exclude reference="67X-xL-lvE"/>
                                         <exclude reference="6Er-NF-h3j"/>
                                         <exclude reference="KLl-yF-5TN"/>
                                         <exclude reference="hHa-ob-JoN"/>
                                         <exclude reference="vOC-gs-AGq"/>
-                                        <exclude reference="0d6-py-pye"/>
-                                        <exclude reference="12x-82-LNP"/>
-                                        <exclude reference="Hhv-UW-uSG"/>
                                         <exclude reference="8yk-PS-CAx"/>
                                         <exclude reference="9S2-Ll-EMv"/>
                                         <exclude reference="BcQ-ek-gDp"/>
                                         <exclude reference="LB4-Qn-dNd"/>
                                         <exclude reference="WyI-yg-Pnv"/>
-                                        <exclude reference="QsB-HQ-zby"/>
-                                        <exclude reference="o5N-5z-7pL"/>
                                         <exclude reference="cb4-qh-IzY"/>
                                         <exclude reference="ilU-5z-7JG"/>
                                         <exclude reference="x6A-8N-C1G"/>
+                                        <exclude reference="QsB-HQ-zby"/>
+                                        <exclude reference="o5N-5z-7pL"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -2857,24 +2861,24 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="6DL-yA-xGu"/>
+                                        <include reference="0d6-py-pye"/>
+                                        <include reference="12x-82-LNP"/>
+                                        <include reference="Hhv-UW-uSG"/>
                                         <include reference="67X-xL-lvE"/>
                                         <include reference="6Er-NF-h3j"/>
                                         <include reference="KLl-yF-5TN"/>
                                         <include reference="hHa-ob-JoN"/>
                                         <include reference="vOC-gs-AGq"/>
-                                        <include reference="0d6-py-pye"/>
-                                        <include reference="12x-82-LNP"/>
-                                        <include reference="Hhv-UW-uSG"/>
                                         <include reference="8yk-PS-CAx"/>
                                         <include reference="9S2-Ll-EMv"/>
                                         <include reference="BcQ-ek-gDp"/>
                                         <include reference="LB4-Qn-dNd"/>
                                         <include reference="WyI-yg-Pnv"/>
-                                        <include reference="QsB-HQ-zby"/>
-                                        <include reference="o5N-5z-7pL"/>
                                         <include reference="cb4-qh-IzY"/>
                                         <include reference="ilU-5z-7JG"/>
                                         <include reference="x6A-8N-C1G"/>
+                                        <include reference="QsB-HQ-zby"/>
+                                        <include reference="o5N-5z-7pL"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -2986,8 +2990,7 @@
                                                 <exclude reference="IVW-NF-WFN"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="0.0" width="400" height="180"/>
+                                        <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <include reference="IVW-NF-WFN"/>
                                             </mask>
@@ -3045,6 +3048,7 @@
                                 <exclude reference="cMW-Lq-5ZR"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="u69-sv-c5B"/>
                                 <exclude reference="8Jz-wo-U2o"/>
                                 <exclude reference="A2w-bu-23s"/>
                                 <exclude reference="ElW-sR-eGw"/>
@@ -3054,7 +3058,6 @@
                                 <exclude reference="Up1-E7-MiQ"/>
                                 <exclude reference="lb1-Cl-Vpg"/>
                                 <exclude reference="vDr-kk-70n"/>
-                                <exclude reference="u69-sv-c5B"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -3063,6 +3066,7 @@
                                 <include reference="cMW-Lq-5ZR"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="u69-sv-c5B"/>
                                 <include reference="8Jz-wo-U2o"/>
                                 <include reference="A2w-bu-23s"/>
                                 <include reference="ElW-sR-eGw"/>
@@ -3072,7 +3076,6 @@
                                 <include reference="Up1-E7-MiQ"/>
                                 <include reference="lb1-Cl-Vpg"/>
                                 <include reference="vDr-kk-70n"/>
-                                <include reference="u69-sv-c5B"/>
                             </mask>
                         </variation>
                     </view>
@@ -5395,12 +5398,6 @@
         <image name="main-screen.png" width="375" height="667"/>
         <image name="map-sep-line-09.png" width="1" height="1"/>
         <image name="map-sep-line.png" width="1" height="1"/>
-        <image name="menu_book_selected.png" width="32" height="32"/>
-        <image name="menu_favorites_selected.png" width="32" height="32"/>
-        <image name="menu_history_selected.png" width="32" height="32"/>
-        <image name="menu_item_selected.png" width="236" height="72"/>
-        <image name="menu_logout_selected.png" width="32" height="32"/>
-        <image name="menu_profile_selected.png" width="32" height="32"/>
         <image name="partners.png" width="25" height="25"/>
         <image name="partners_list.png" width="375" height="602"/>
         <image name="password-box-idle-s.png" width="329" height="35"/>

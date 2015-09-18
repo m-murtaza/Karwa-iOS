@@ -11,12 +11,20 @@
 #import "SWRevealViewController.h"
 #import "KSConfirmationAlert.h"
 #import "KSBookingHistoryController.h"
+#import "KSMenuButton.h"
 
 @interface KSMenuController ()
 
 @property (nonatomic,weak ) IBOutlet UILabel *lblDisplayName;
 @property (nonatomic, weak) IBOutlet UILabel *lblPhone;
-@property (nonatomic, weak) IBOutlet UIButton *btn;
+@property (nonatomic, weak) NSArray *btnArray;
+
+@property (nonatomic, weak) IBOutlet KSMenuButton *btnBookATaxi;
+@property (nonatomic, weak) IBOutlet KSMenuButton *btnBookings;
+@property (nonatomic, weak) IBOutlet KSMenuButton *btnRate;
+@property (nonatomic, weak) IBOutlet KSMenuButton *btnFavorits;
+@property (nonatomic, weak) IBOutlet KSMenuButton *btnSettings;
+
 
 - (IBAction)onClickLogout:(id)sender;
 
@@ -34,6 +42,7 @@
     self.lblDisplayName.text = user.name;
     self.lblPhone.text = user.phone;
     
+    _btnArray = [NSArray arrayWithObjects:self.btnBookATaxi,self.btnBookings,self.btnRate,self.btnFavorits,self.btnSettings, nil];
 }
 
 
@@ -50,6 +59,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) setButtonState:(KSMenuButton*)sender
+{
+    NSArray *arr = sender.superview.subviews;
+    for (id btn in arr) {
+        if ([btn isKindOfClass:[UIButton class]]) {
+         
+            [btn setSelected:FALSE];
+        }
+    }
+    [sender setSelected:TRUE];
+}
+
 #pragma mark -
 #pragma mark - Storyboard events
 
@@ -58,7 +79,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    
+    [self setButtonState:sender];
     
     if ([segue.identifier isEqualToString:@"segueMenuToPendingBookings"]) {
         UINavigationController *navController = (UINavigationController*)[segue destinationViewController];
@@ -78,6 +99,8 @@
 #pragma mark - Event handlers
 
 - (void)onClickLogout:(id)sender {
+    
+    [self setButtonState:sender];
     
     KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
         NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
