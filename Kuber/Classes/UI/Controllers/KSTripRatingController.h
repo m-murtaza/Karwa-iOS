@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *serviceIssueView;
 @property (weak, nonatomic) KSServiceIssueIdentifierViewController *issueIdentifierViewController;
 
+@property (nonatomic) BOOL isOpenedFromPushNotification;
 
 
 @end

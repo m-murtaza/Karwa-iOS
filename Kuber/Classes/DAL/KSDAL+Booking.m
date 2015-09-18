@@ -249,7 +249,7 @@
                 //Driver Information
                 if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
                     
-                    KSDriver *driver = [KSDriver objWithValue:tripData[@"DriverID"] forAttrib:@"driveId"];
+                    KSDriver *driver = [KSDriver objWithValue:tripData[@"DriverID"] forAttrib:@"driverId"];
                     driver.driverId = tripData[@"DriverID"];
                     driver.name = tripData[@"DriverName"];
                     driver.phone = tripData[@"DriverPhone"];

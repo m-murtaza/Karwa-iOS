@@ -51,6 +51,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZG-6z-zuk">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KS_login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7X7-vk-3AU">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="7X7-vk-3AU" secondAttribute="centerY" id="Jfe-QI-QGc">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="20"/>
+                                    </constraint>
+                                    <constraint firstItem="7X7-vk-3AU" firstAttribute="leading" secondItem="sZG-6z-zuk" secondAttribute="leading" constant="92" id="fpe-Nh-umj"/>
+                                    <constraint firstAttribute="trailing" secondItem="7X7-vk-3AU" secondAttribute="trailing" constant="91" id="l2I-WI-cb7"/>
+                                    <constraint firstAttribute="centerY" secondItem="7X7-vk-3AU" secondAttribute="centerY" id="nBT-4A-glD">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="20"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="7X7-vk-3AU"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="Jfe-QI-QGc"/>
+                                        <exclude reference="fpe-Nh-umj"/>
+                                        <exclude reference="l2I-WI-cb7"/>
+                                        <exclude reference="nBT-4A-glD"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="7X7-vk-3AU"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="Jfe-QI-QGc"/>
+                                        <include reference="fpe-Nh-umj"/>
+                                        <include reference="l2I-WI-cb7"/>
+                                        <include reference="nBT-4A-glD"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="phone-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,47 +185,6 @@
                                     <action selector="onClickLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hlv-CE-swk"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZG-6z-zuk">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KS_login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7X7-vk-3AU">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="7X7-vk-3AU" secondAttribute="centerY" id="Jfe-QI-QGc">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                                    </constraint>
-                                    <constraint firstItem="7X7-vk-3AU" firstAttribute="leading" secondItem="sZG-6z-zuk" secondAttribute="leading" constant="92" id="fpe-Nh-umj"/>
-                                    <constraint firstAttribute="trailing" secondItem="7X7-vk-3AU" secondAttribute="trailing" constant="91" id="l2I-WI-cb7"/>
-                                    <constraint firstAttribute="centerY" secondItem="7X7-vk-3AU" secondAttribute="centerY" id="nBT-4A-glD">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                                    </constraint>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="7X7-vk-3AU"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <exclude reference="Jfe-QI-QGc"/>
-                                        <exclude reference="fpe-Nh-umj"/>
-                                        <exclude reference="l2I-WI-cb7"/>
-                                        <exclude reference="nBT-4A-glD"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="7X7-vk-3AU"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <include reference="Jfe-QI-QGc"/>
-                                        <include reference="fpe-Nh-umj"/>
-                                        <include reference="l2I-WI-cb7"/>
-                                        <include reference="nBT-4A-glD"/>
-                                    </mask>
-                                </variation>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -217,11 +217,11 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="sZG-6z-zuk"/>
                                 <exclude reference="BHD-xA-yLE"/>
                                 <exclude reference="6EB-EJ-iQY"/>
                                 <exclude reference="Kw0-P8-XLf"/>
                                 <exclude reference="RUr-GH-tKZ"/>
-                                <exclude reference="sZG-6z-zuk"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="0wt-vP-R0B"/>
@@ -244,11 +244,11 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
+                                <include reference="sZG-6z-zuk"/>
                                 <include reference="BHD-xA-yLE"/>
                                 <include reference="6EB-EJ-iQY"/>
                                 <include reference="Kw0-P8-XLf"/>
                                 <include reference="RUr-GH-tKZ"/>
-                                <include reference="sZG-6z-zuk"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="0wt-vP-R0B"/>
@@ -2086,7 +2086,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSf-YJ-4o6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2050.5" y="-1932"/>
+            <point key="canvasLocation" x="2368.5" y="-1300.5"/>
         </scene>
         <!--Booking History-->
         <scene sceneID="FzB-q5-8gA">
@@ -2483,7 +2483,7 @@
                                             <action selector="onClickSave:" destination="jpA-Ag-F5d" eventType="touchUpInside" id="aHb-vT-uyl"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BookMark Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pkr-Lm-249" customClass="KSTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BookMark Name" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Pkr-Lm-249" customClass="KSTextField">
                                         <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2679,7 +2679,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V3P-M4-KdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1315.5" y="-929.25"/>
+            <point key="canvasLocation" x="-1081.5" y="-1922.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Pf-Ka-d7U">
@@ -4335,7 +4335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Miv-Ts-3rF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744" y="-387"/>
+            <point key="canvasLocation" x="852" y="-400.5"/>
         </scene>
         <!--Booking Details-->
         <scene sceneID="zpc-FD-cqT">
@@ -5031,11 +5031,12 @@
                         <outlet property="lblTitleTaxiInfo" destination="Sn6-es-YOx" id="5Ap-bn-JMN"/>
                         <outlet property="revealButtonItem" destination="Zoi-3x-Zo4" id="2mH-qS-fC8"/>
                         <outlet property="viewTaxiInfo" destination="yHl-xf-otu" id="nO2-pa-Ctp"/>
+                        <segue destination="OFs-9T-1p0" kind="show" identifier="segueBookingDetailsToRate" id="nbB-dK-Gpq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGm-1Y-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1632" y="-289.5"/>
+            <point key="canvasLocation" x="1626" y="-300"/>
         </scene>
         <!--Edit User Info-->
         <scene sceneID="ktq-t0-ONJ">
@@ -5380,7 +5381,7 @@
         <image name="login-button-pressed.png" width="658" height="99"/>
         <image name="logout-active.png" width="320" height="72"/>
         <image name="logout-idle.png" width="320" height="72"/>
-        <image name="main-screen.png" width="381" height="671"/>
+        <image name="main-screen.png" width="375" height="667"/>
         <image name="map-sep-line-09.png" width="1" height="1"/>
         <image name="map-sep-line.png" width="1" height="1"/>
         <image name="menu_book_selected.png" width="32" height="32"/>
@@ -5412,6 +5413,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hXH-pr-aUV"/>
+        <segue reference="nbB-dK-Gpq"/>
         <segue reference="zRd-7U-Rqs"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -35,7 +35,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     
-    [self addTapGesture];
+    //[self addTapGesture];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -70,6 +70,16 @@
                                       initWithTarget:self action:@selector(handleSingleTap:)];
     tapper.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapper];
+}
+
+#pragma mark - Private Function 
+-(void) resignAllResponder
+{
+    [self.txtEmail resignFirstResponder];
+    [self.txtName resignFirstResponder];
+    [self.txtMobile resignFirstResponder];
+    [self.txtPassword resignFirstResponder];
+    [self.txtConfirmPassword resignFirstResponder];
 }
 
 #pragma mark - Gesture
@@ -111,6 +121,7 @@
 }
 
 - (IBAction)onClickSignup:(id)sender {
+    [self resignAllResponder];
     //Temp Work to show varification screen
     /*KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
     

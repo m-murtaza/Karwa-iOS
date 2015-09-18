@@ -39,11 +39,11 @@
     self.txtPassword.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
     self.txtPassword.tintColor = [UIColor whiteColor];
     
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
+    /*UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]
               initWithTarget:self action:@selector(handleSingleTap:)];
     tapper.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapper];
-    
+    */
     self.btnForgotPassword.titleLabel.font = [UIFont fontWithName:@"MuseoForDell-300" size:13];
 }
 
@@ -64,9 +64,18 @@
 }
 
 #pragma mark - Gesture
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch * touch = [touches anyObject];
+    if(touch.phase == UITouchPhaseBegan) {
+        [self.txtMobile resignFirstResponder];
+        [self.txtPassword resignFirstResponder];
+    }
+}
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender
 {
-    [self.view endEditing:YES];
+    //[self.view endEditing:YES];
+    [self.txtMobile resignFirstResponder];
+    [self.txtPassword resignFirstResponder];
 }
 
 #pragma mark - UITextField delegate 
@@ -144,6 +153,9 @@
 }
 
 - (IBAction)onClickLogin:(id)sender {
+    
+    [self.txtMobile resignFirstResponder];
+    [self.txtPassword resignFirstResponder];
 
     NSString *phone = self.txtMobile.text;
     NSString *password = self.txtPassword.text;

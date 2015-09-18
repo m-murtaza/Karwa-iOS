@@ -30,10 +30,17 @@
     if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Pending Bookings";
         [KSDAL syncPendingBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-            [me buildTripsHistory:trips];
+            if (KSAPIStatusSuccess == status) {
+                [me buildTripsHistory:trips];
+            }
+            else{
+                
+            }
+            
         }];
     }
     else if(_tripStatus == KSTripStatusCompletedNotRated){
+        
         self.navigationItem.title = @"Rate your Trips";
         [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
             [me buildTripsHistory:trips];
@@ -140,10 +147,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     KSTrip *trip = self.trips[indexPath.row];
-
-    
-    //Usman Temp Work add 1
-    
     if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
         KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
         ratingController.trip = trip;

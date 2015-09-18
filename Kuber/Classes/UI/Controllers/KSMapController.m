@@ -148,7 +148,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 -(void) addDoneButton
 {
-    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTapped)];
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTapped:)];
     self.navigationItem.rightBarButtonItem = btn;
 }
 -(void) bookTaxi

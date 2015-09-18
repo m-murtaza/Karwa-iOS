@@ -95,19 +95,19 @@
 
 - (void)sendRequestWithMethod:(NSString *)method uri:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock {
 
-    AFNetworkReachabilityManager * reachability = [AFNetworkReachabilityManager sharedManager];
+  //  AFNetworkReachabilityManager * reachability = [AFNetworkReachabilityManager sharedManager];
     
-    if (!reachability.isReachable) {
-        //if not internet
-       /* NSError *error = [NSError errorWithDomain:@"KSNetwork"
-                                             code:KSAPIStatusNoInternet
-                                         userInfo:nil];*/
-        
-        NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:KSAPIStatusNoInternet],@"status", nil];
-        completionBlock(YES,response);
-    }
-    else{
-        
+//    if (!reachability.isReachable) {
+//        //if not internet
+//       /* NSError *error = [NSError errorWithDomain:@"KSNetwork"
+//                                             code:KSAPIStatusNoInternet
+//                                         userInfo:nil];*/
+//        
+//        NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:KSAPIStatusNoInternet],@"status", nil];
+//        completionBlock(YES,response);
+//    }
+//    else{
+    
         uri = [self completeURI:uri];
         //uri = [self completeURI:@"abcdefgh"];
 
@@ -127,19 +127,25 @@
         
         void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"%@ %@ %@", method, uri, error);
+            if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1009) {
+                NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:KSAPIStatusNoInternet],@"status", nil];
+                completionBlock(YES,response);
+            }
+            else
+            {
+                long errorCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
+                NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLong:errorCode],@"status", nil];
+                
+                
+                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                
+                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"HTTP Errors"     // Event category (required)
+                                                                      action:@"Server Call"  // Event action (required)
+                                                                       label:[NSString stringWithFormat:@"Error Code: %ld",errorCode]         // Event label
+                                                                       value:[NSNumber numberWithLong:errorCode]] build]];    // Event value
             
-            long errorCode = [[[error userInfo] objectForKey:AFNetworkingOperationFailingURLResponseErrorKey] statusCode];
-            NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLong:errorCode],@"status", nil];
-            
-            
-            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-            
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"HTTP Errors"     // Event category (required)
-                                                                  action:@"Server Call"  // Event action (required)
-                                                                   label:[NSString stringWithFormat:@"Error Code: %ld",errorCode]         // Event label
-                                                                   value:[NSNumber numberWithLong:errorCode]] build]];    // Event value
-            
-            completionBlock(YES,response);
+                completionBlock(YES,response);
+            }
         };
 
         // Authentication header
@@ -158,7 +164,7 @@
         else {
             [_sessionManager GET:uri parameters:params success:successBlock failure:failBlock];
         }
-    }
+    //}
 }
 
 - (void)GET:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock {

@@ -9,6 +9,7 @@
 #import "KSBookingDetailsController.h"
 #import "KSTrip.h"
 #import "NSString+KSExtended.h"
+#import "KSTripRatingController.h"
 
 
 
@@ -54,6 +55,26 @@
     [self.lblDriverNumber setFontSize:12];
     
     [self loadViewData];
+    if (self.isOpenedFromPushNotification ) {
+        
+        UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+        self.revealButtonItem = barButton;
+        [barButton setImage:[UIImage imageNamed:@"reveal-icon.png"]];
+        self.navigationItem.leftBarButtonItem = barButton;
+        [self setupRevealViewController];
+        
+        if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
+            [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
+        }
+        else if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+            
+            [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
+            /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
+            ratingController.trip = self.tripInfo;
+            [self.navigationController pushViewController:ratingController animated:NO];*/
+        
+        }
+    }
 }
 
 
@@ -66,15 +87,21 @@
         
         self.lblPickupAddress.text = trip.pickupLandmark;
     }
-    else  if ([self isValidLat:trip.pickupLat lon:trip.pickupLon]){
+    else if ([self isValidLat:trip.pickupLat lon:trip.pickupLon]){
         
         self.lblPickupAddress.text = KSStringFromCoordinate(CLLocationCoordinate2DMake(trip.pickupLat.doubleValue, trip.pickupLon.doubleValue));
+    }
+    else {
+        self.lblPickupAddress.text = @"";
     }
     
     //Set Drop Off Address
     if (trip.dropoffLandmark.length) {
         
         self.lblDropoffAddress.text = trip.dropoffLandmark;
+    }
+    else {
+        self.lblDropoffAddress.text = @"";
     }
     
     //Set Top Pick Up date
@@ -191,9 +218,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Segue
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"segueBookingDetailsToRate"]){
+        KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
+        ratingController.trip = self.tripInfo;
+    }
+}
 
-
-#pragma mark - Event handler 
+#pragma mark - Event handler
 
 
 -(IBAction)btnCallDriveTapped:(id)sender

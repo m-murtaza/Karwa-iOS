@@ -38,13 +38,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.lblAddress.text = self.landmark;
+    self.lblAddress.text = self.landmark? self.landmark:@"Current Locaiton";
     if (self.bookmark) {
         self.txtName.text = self.bookmark.name;
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.bookmark.latitude.doubleValue, self.bookmark.longitude.doubleValue);
+        
         if (self.landmark.length) {
+            
             [self addAnnotationWithCoordinate:coordinate];
-        } else {
+        }
+        else {
+         
             [self updateAnnotationWithCoordinate:coordinate];
         }
     }
@@ -56,6 +60,7 @@
     }
     else {
         self.title = @"New Place";
+        [KSLocationManager start];
     }
 
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
@@ -70,8 +75,9 @@
     
     
     UIColor *color = [UIColor colorWithRed:119.0/256.0 green:119.0/256.0 blue:119.0/256.0 alpha:1.0];
-    self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Choose Favorite location..." attributes:@{NSForegroundColorAttributeName: color}];
-    self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
+    self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter place Name" attributes:@{NSForegroundColorAttributeName: color}];
+    [self.txtName setTintColor:[UIColor blackColor]];
+    //self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
     
 
 }
@@ -91,6 +97,19 @@
     else if(self.gLocation){
     
         coordinate = CLLocationCoordinate2DMake(self.gLocation.latitude.doubleValue, self.gLocation.longitude.doubleValue);
+    }
+    else{
+        __block KSFavoriteDetailsController *me = self;
+        CLLocation *location = [KSLocationManager location];
+        coordinate = location.coordinate;
+        [KSLocationManager stop];
+        
+        [KSLocationManager placemarkForCoordinate:coordinate completion:^(KSGeoLocation *placemark) {
+            if (placemark) {
+                NSString *address = placemark.address;
+                me.lblAddress.text = address;
+            }
+        }];
     }
     MKCoordinateRegion region = [self createRegionForLocation:coordinate];
     [self.mapView setRegion:region animated:YES];

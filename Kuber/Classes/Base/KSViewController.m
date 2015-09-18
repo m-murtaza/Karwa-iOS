@@ -12,7 +12,7 @@
 
 @interface KSViewController ()
 
-@property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
+
 
 @end
 

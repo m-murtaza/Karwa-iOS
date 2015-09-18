@@ -161,27 +161,36 @@
 
     NSLog(@"%s: %@", __func__, userInfo);
     
-    [KSDAL bookingWithBookingId:@"C500B7"
+    NSString *bookingId = [userInfo objectForKey:@"BookingID"];
+    if (!bookingId || [bookingId isEqualToString:@""]) {
+        return;
+    }
+    
+    [KSDAL bookingWithBookingId:bookingId
                      completion:^(KSAPIStatus status, id response) {
                          NSLog(@"%@",response);
-                         KSTrip *trip = (KSTrip*)response;
-                         if([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil)
-                         {
-                             KSTripRatingController *ratingViewController = [UIStoryboard tripRatingController];
-                             ratingViewController.trip = trip;
-                             SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
-                             
-                             UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
-                             [navController pushViewController:ratingViewController animated:NO];
-                         }
-                         else{
-                             KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
-                             detailController.tripInfo = trip;
-                             
-                             SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
-                             
-                             UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
-                             [navController pushViewController:detailController animated:NO];
+                         if (KSAPIStatusSuccess == status) {
+                             KSTrip *trip = (KSTrip*)response;
+                             /*if([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil)
+                             {
+                                 KSTripRatingController *ratingViewController = [UIStoryboard tripRatingController];
+                                 ratingViewController.trip = trip;
+                                 ratingViewController.isOpenedFromPushNotification = TRUE;
+                                 SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+                                 
+                                 UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+                                 [navController pushViewController:ratingViewController animated:NO];
+                             }
+                             else{*/
+                                 KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
+                                 detailController.tripInfo = trip;
+                                 detailController.isOpenedFromPushNotification = TRUE;
+                                 
+                                 SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+                                 
+                                 UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+                                 [navController pushViewController:detailController animated:NO];
+                             //}
                          }
                      }];
 }

@@ -10,4 +10,5 @@
 
 @interface KSViewController : UIViewController
 
+@property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
 @end
