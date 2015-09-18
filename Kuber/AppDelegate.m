@@ -15,6 +15,7 @@
 #import "KSBookingDetailsController.h"
 #import "KSTripRatingController.h"
 #import "AFNetworking.h"
+#import "KSConfirmationAlert.h"
 
 
 
@@ -166,31 +167,56 @@
         return;
     }
     
+    
+    if ( application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground  )
+    {
+        [self handleNotificaiton:bookingId];
+    }
+    else
+    {
+        KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+           [self handleNotificaiton:bookingId];
+        }];
+        KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel"
+        handler:^(KSConfirmationAlertAction *action) {
+            
+                                                   }];
+        
+        
+        NSString *message = nil;
+        NSDictionary *alert = [userInfo objectForKey:@"aps"];
+        if (alert) {
+            message = [alert objectForKey:@"alert"];
+        }
+        if (message) {
+        
+            [KSConfirmationAlert showWithTitle:@"Notification"
+                                       message:message
+                                      okAction:okAction
+                                  cancelAction:cancelAction];
+        }
+    }
+    
+    
+}
+
+-(void) handleNotificaiton:(NSString*) bookingId
+{
     [KSDAL bookingWithBookingId:bookingId
                      completion:^(KSAPIStatus status, id response) {
                          NSLog(@"%@",response);
                          if (KSAPIStatusSuccess == status) {
                              KSTrip *trip = (KSTrip*)response;
-                             /*if([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil)
-                             {
-                                 KSTripRatingController *ratingViewController = [UIStoryboard tripRatingController];
-                                 ratingViewController.trip = trip;
-                                 ratingViewController.isOpenedFromPushNotification = TRUE;
-                                 SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
-                                 
-                                 UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
-                                 [navController pushViewController:ratingViewController animated:NO];
-                             }
-                             else{*/
-                                 KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
-                                 detailController.tripInfo = trip;
-                                 detailController.isOpenedFromPushNotification = TRUE;
-                                 
-                                 SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
-                                 
-                                 UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
-                                 [navController pushViewController:detailController animated:NO];
-                             //}
+                             
+                             KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
+                             detailController.tripInfo = trip;
+                             detailController.isOpenedFromPushNotification = TRUE;
+                             
+                             SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+                             
+                             UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+                             [navController pushViewController:detailController animated:NO];
+                             
                          }
                      }];
 }
