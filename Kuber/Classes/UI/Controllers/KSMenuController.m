@@ -20,10 +20,6 @@
 @property (nonatomic, weak) NSArray *btnArray;
 
 @property (nonatomic, weak) IBOutlet KSMenuButton *btnBookATaxi;
-@property (nonatomic, weak) IBOutlet KSMenuButton *btnBookings;
-@property (nonatomic, weak) IBOutlet KSMenuButton *btnRate;
-@property (nonatomic, weak) IBOutlet KSMenuButton *btnFavorits;
-@property (nonatomic, weak) IBOutlet KSMenuButton *btnSettings;
 
 
 - (IBAction)onClickLogout:(id)sender;
@@ -42,12 +38,28 @@
     self.lblDisplayName.text = user.name;
     self.lblPhone.text = user.phone;
     
-    _btnArray = [NSArray arrayWithObjects:self.btnBookATaxi,self.btnBookings,self.btnRate,self.btnFavorits,self.btnSettings, nil];
+    
 }
 
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    NSArray *arr = self.view.subviews;
+    BOOL notSeleted = TRUE;
+    
+    for (id btn in arr) {
+        if ([btn isKindOfClass:[UIButton class]] ) {
+            KSMenuButton *b = (KSMenuButton*)btn;
+            if (b.state == UIControlStateSelected) {
+                notSeleted = false;
+                break;
+            }
+        }
+    }
+    if (notSeleted) {
+        [self.btnBookATaxi setSelected:TRUE];
+    }
+    
     KSUser *user = [KSDAL loggedInUser];
     self.lblDisplayName.text = [user name];
     [KSGoogleAnalytics trackPage:@"Menu"];
@@ -100,10 +112,13 @@
 
 - (void)onClickLogout:(id)sender {
     
-    [self setButtonState:sender];
+    
     
     KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
         NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
+        [self setButtonState:sender];
+        KSMenuButton *btn = (KSMenuButton*)sender;
+        [btn setSelected:FALSE];
         [self logoutThisUser];
     }];
     KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
@@ -114,6 +129,8 @@
                                message:@"Cofirm Logout?"
                               okAction:okAction
                           cancelAction:cancelAction];
+    
+    
 }
 
 #pragma mark -
@@ -122,10 +139,10 @@
 - (void)logoutThisUser {
 
     [KSDAL logoutUser];
-    
     UIViewController *controller = [UIStoryboard loginRootController];
     [self.revealViewController setFrontViewController:controller animated:YES];
     [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
+    
 }
 
 @end
