@@ -113,6 +113,11 @@
         if (KSAPIStatusSuccess != status) {
             [KSAlert show:KSStringFromAPIStatus(status)];
         }
+        else {
+            
+            [KSAlert show:KSStringFromAPIStatus(status)];
+            }
+        
     }];
 
 }

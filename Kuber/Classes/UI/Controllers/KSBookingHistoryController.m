@@ -27,6 +27,8 @@
     // Do any additional setup after loading the view.
     __block KSBookingHistoryController *me = self;
     
+    
+    //Todo Need to remove repitative code
     if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Pending Bookings";
         [KSDAL syncPendingBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
@@ -35,6 +37,7 @@
             }
             else{
                 
+                [KSAlert show:KSStringFromAPIStatus(status)];
             }
             
         }];
@@ -43,7 +46,13 @@
         
         self.navigationItem.title = @"Rate your Trips";
         [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-            [me buildTripsHistory:trips];
+            if (KSAPIStatusSuccess == status) {
+                [me buildTripsHistory:trips];
+            }
+            else{
+                
+                [KSAlert show:KSStringFromAPIStatus(status)];
+            }
         }];
     }
     

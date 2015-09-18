@@ -122,8 +122,16 @@
     [KSDAL syncIssueListWithCompletion:^(KSAPIStatus status, id response) {
         //TODO: Noting
         NSLog(@"%@",response);
-        issueList = [NSArray arrayWithArray:[KSDAL allIssueList]];
-        [self.tableView reloadData];
+        if (status == KSAPIStatusSuccess) {
+            issueList = [NSArray arrayWithArray:[KSDAL allIssueList]];
+            [self.tableView reloadData];
+        }
+        else {
+            
+            [KSAlert show:KSStringFromAPIStatus(status)];
+            
+        }
+        
     }];
 }
 #pragma mark - Segue 

@@ -276,8 +276,14 @@
     __block KSFavoritesController *me = self;
     [me showLoadingView];
     [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
-        [me buildBookmarks];
         [me hideLoadingView];
+        if (status == KSAPIStatusSuccess) {
+            [me buildBookmarks];
+            
+        }
+        else{
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
     }];
     
     [self buildBookmarks];
