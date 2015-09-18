@@ -307,6 +307,9 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // clipping your front view to this controller bounds.
 @property (nonatomic) BOOL extendsPointInsideHit;
 
+// Overlay view for handling tap events on front view controller
+@property (strong, nonatomic) UIView *frontOverlayView;
+
 /* The class properly handles all the relevant calls to appearance methods on the contained controllers.
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */
 

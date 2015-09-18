@@ -837,12 +837,40 @@ const int FrontViewPositionNone = 0xff;
     [self _dispatchTransitionOperation:SWRevealControllerOperationReplaceRightController withViewController:rightViewController animated:animated];
 }
 
+- (void)onClickOverlayArea:(id)sender
+{
+    [self revealToggleAnimated:YES];
+}
 
 - (void)revealToggleAnimated:(BOOL)animated
 {
     FrontViewPosition toggledFrontViewPosition = FrontViewPositionLeft;
     if (_frontViewPosition <= FrontViewPositionLeft)
+    {
         toggledFrontViewPosition = FrontViewPositionRight;
+
+        //Add overlay if requested
+        if (!_frontOverlayView) {
+            CGFloat navBarY = [[UIScreen mainScreen] applicationFrame].origin.y;
+            CGFloat navBarHeight = 44 + navBarY;
+            CGRect overlayframe = self.frontViewController.view.frame;
+            overlayframe.origin.y = navBarHeight;
+            overlayframe.size.height -= navBarHeight;
+            self.frontOverlayView = [[UIView alloc] initWithFrame:overlayframe];
+            _frontOverlayView.backgroundColor = [UIColor blackColor];
+            _frontOverlayView.alpha = 0.5;
+            UIButton * overlayButton = [[UIButton alloc] initWithFrame:_frontOverlayView.bounds];
+            [overlayButton addTarget:self action:@selector(onClickOverlayArea:) forControlEvents:UIControlEventTouchUpInside];
+            [_frontOverlayView addSubview:overlayButton];
+        }
+        [self.frontViewController.view addSubview:_frontOverlayView];
+    }
+    else
+    {
+        if ([[_frontViewController.view subviews] containsObject:_frontOverlayView]) {
+            [_frontOverlayView removeFromSuperview];
+        }
+    }
     
     [self setFrontViewPosition:toggledFrontViewPosition animated:animated];
 }
