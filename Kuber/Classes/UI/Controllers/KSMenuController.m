@@ -44,7 +44,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    NSArray *arr = self.view.subviews;
+    NSArray *arr = self.btnBookATaxi.superview.subviews;
     BOOL notSeleted = TRUE;
     
     for (id btn in arr) {
@@ -112,8 +112,6 @@
 
 - (void)onClickLogout:(id)sender {
     
-    
-    
     KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
         NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
         [self setButtonState:sender];
@@ -123,7 +121,8 @@
     }];
     KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
         NSLog(@"%s Cancel Handler", __PRETTY_FUNCTION__);
-        [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
+        [self.revealViewController revealToggleAnimated:YES];
+//        [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
     }];
     [KSConfirmationAlert showWithTitle:nil
                                message:@"Cofirm Logout?"
