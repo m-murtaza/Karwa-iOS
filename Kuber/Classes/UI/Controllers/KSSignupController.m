@@ -83,6 +83,11 @@
 }
 
 #pragma mark - Gesture
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self resignAllResponder];
+}
+
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender
 {
     [self.view endEditing:YES];

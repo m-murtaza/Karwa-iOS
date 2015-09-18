@@ -48,7 +48,7 @@
     self.serviceRating.delegate = self;
     [self addTableViewheader];
     [self setupView];
-    [self addGesture];
+    //[self addGesture];
 
 }
 
@@ -80,6 +80,16 @@
     footerView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = footerView;
     
+}
+
+-(void) resignAllResponder
+{
+    [self.view endEditing:YES];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self resignAllResponder];
 }
 
 -(void) addGesture
@@ -130,43 +140,6 @@
 
 - (IBAction)onClickDone:(id)sender {
 
-    /*if (self.serviceIssueView.hidden == TRUE) {
-        if (self.serviceRating.rate <= 3.0) {
-            //If service rating is less then 3. Then show users a popup with options.
-            NSLog(@"Rating is less then 3");
-            self.serviceIssueView.hidden = false;
-            self.issueIdentifierViewController.tripRatingView = self;
-        }
-    }
-    
-    else{
-        
-        if (!self.serviceRating.rate) {
-            return;
-        }
-        
-        __block UINavigationController *navController = self.navigationController;
-        __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
-            [hud hide:YES];
-            if (KSAPIStatusSuccess == status) {
-                [navController popViewControllerAnimated:YES];
-            }
-            else {
-                [KSAlert show:KSStringFromAPIStatus(status)];
-            }
-        };
-        
-        NSString *issues = [self issueList];
-        NSLog(@"issues = %@",issues);
-        
-        
-        KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
-        tripRating.issue = issues;
-        
-        [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
-    }*/
-    
     __block UINavigationController *navController = self.navigationController;
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
@@ -234,7 +207,11 @@
         [strIssues appendString:[NSString stringWithFormat:@"%@,",_txtCommentView.text]];
     }
     
-    return (NSString*)[strIssues substringToIndex:[strIssues length]-1];
+    if (strIssues.length) {
+        return (NSString*)[strIssues substringToIndex:[strIssues length]-1];
+    }
+    return @"";
+    
     
 }
 
