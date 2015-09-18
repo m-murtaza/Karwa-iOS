@@ -42,4 +42,22 @@
     return [dateFormatter stringFromDate:self];
 }
 
+
+-(NSString*) getFormattedTitleDate
+{
+    NSDateFormatter *formator = [[NSDateFormatter alloc] init];
+    [formator setDateFormat:@"EEE d MMM"];
+    NSString *str = [formator stringFromDate:self];
+    return [str uppercaseString];
+}
+
+-(NSString*) getTimeStringFromDate
+{
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
+    timeFormatter.dateFormat = @"HH:mm";
+    
+    
+    NSString *dateString = [timeFormatter stringFromDate:self];
+    return dateString;
+}
 @end

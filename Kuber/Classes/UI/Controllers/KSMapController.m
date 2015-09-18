@@ -185,9 +185,11 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
                 [self performSegueWithIdentifier:@"segueBookingToBookingDetail" sender:self];
                 
             }];
+            NSString *str = [NSString stringWithFormat:@"Your Booking request is recieved for %@ at %@, we will find a taxi for you prior to pickup time",[tripInfo.pickupTime getFormattedTitleDate],[tripInfo.pickupTime getTimeStringFromDate]];
+            
             
             [KSConfirmationAlert showWithTitle:@"Thank you"
-                                       message:@"You Booking is complete, soon you will recieve a message"
+                                       message:str
                                       okAction:okAction];
         }
         else {
@@ -489,8 +491,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     }];
 
     
-   [KSConfirmationAlert showWithTitle:@"Alert"
-                              message:@"Are you sure you want to book a taxi"
+   [KSConfirmationAlert showWithTitle:nil
+                              message:@"Please confirm booking request"
                              okAction:okAction
                          cancelAction:cancelAction];
     

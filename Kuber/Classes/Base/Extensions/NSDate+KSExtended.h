@@ -18,4 +18,8 @@
 
 - (NSString *)jsonDateString;
 
+- (NSString*) getFormattedTitleDate;
+
+- (NSString*) getTimeStringFromDate;
+
 @end

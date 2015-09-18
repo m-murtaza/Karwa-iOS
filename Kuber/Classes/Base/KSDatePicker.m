@@ -20,8 +20,10 @@
     const CGFloat pickerHeight = 216;
     const CGFloat toolbarHeight = 44.0;
     
-    CGRect frame = CGRectMake(0, 0, 320, pickerHeight + toolbarHeight);
+    CGRect frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, pickerHeight + toolbarHeight);
 
+    
+    
     self = [self initWithFrame:frame];
 
     if (self) {

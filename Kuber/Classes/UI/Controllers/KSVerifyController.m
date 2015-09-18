@@ -31,7 +31,7 @@
     NSAssert(self.phone.length, @"No phone number found");
 #endif
     
-    [self addTapGesture];
+    //[self addTapGesture];
     [self adjustUI];
 }
 
@@ -62,6 +62,13 @@
 */
 
 #pragma mark - private functions
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch * touch = [touches anyObject];
+    if(touch.phase == UITouchPhaseBegan) {
+        [self.txtAccessCode resignFirstResponder];
+    }
+}
+
 -(void) adjustUI
 {
     UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
@@ -103,6 +110,10 @@
             }
         }];
     }
+    else{
+        
+        [KSAlert show:@"Please enter varification code" title:@"Error"];
+    }
 }
 
 - (IBAction)onClickSendOtp:(id)sender {
@@ -115,7 +126,7 @@
         }
         else {
             
-            [KSAlert show:KSStringFromAPIStatus(status)];
+                [KSAlert show:KSStringFromAPIStatus(status)];
             }
         
     }];

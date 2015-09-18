@@ -241,7 +241,7 @@ KSTableViewType;
 
 -(void) unfavBookmarkButtonTapped:(NSNotification*)data
 {
-    [KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+    /*[KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
         if (KSAPIStatusSuccess == status) {
             
             [self loadAllData];
@@ -250,7 +250,7 @@ KSTableViewType;
         else{
             [KSAlert show:KSStringFromAPIStatus(status)];
         }
-    }];
+    }];*/
 }
 
 #pragma mark -
