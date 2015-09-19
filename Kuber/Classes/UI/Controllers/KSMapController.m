@@ -34,13 +34,15 @@
 
 NSString * const KSPickupAnnotationTitle = @"Pickup Address";
 NSString * const KSDropoffAnnotationTitle = @"Dropoff Address";
-NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)";
+NSString * const KSDropoffTextPlaceholder = @"Destination hint";
 
 @interface KSMapController ()<UITextFieldDelegate, MKMapViewDelegate, KSAddressPickerDelegate>
 {
     BOOL _isLocationsSyncComplete;
     BOOL _isRegionDefined;
     KSTrip *tripInfo;
+    NSString *pickupAnnotationTxt;
+    NSString *dropOffAnnotationTxt;
 }
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -50,9 +52,9 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 @property (nonatomic, strong) NSArray *places;
 
-@property (weak, nonatomic) IBOutlet KSReadOnlyTextField *txtPickupAddress;
+@property (weak, nonatomic) IBOutlet UITextField *txtPickupAddress;
 
-@property (weak, nonatomic) IBOutlet KSReadOnlyTextField *txtDropoffAddress;
+@property (weak, nonatomic) IBOutlet UITextField *txtDropoffAddress;
 @property (weak, nonatomic) IBOutlet UITextField *txtPickupTime;
 
 
@@ -80,14 +82,15 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     
     self.mapView.delegate = self;
 
-    [self.txtPickupAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
+    //[self.txtPickupAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
     UIColor *color = [UIColor colorWithRed:119.0/256.0 green:119.0/256.0 blue:119.0/256.0 alpha:1.0];
-    self.txtPickupAddress.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Choose Pickup location..." attributes:@{NSForegroundColorAttributeName: color}];
-    self.txtPickupAddress.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
+    self.txtPickupAddress.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Pickup location hint (i.e. Citycenter gate-1)" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    //self.txtPickupAddress.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
     
     
     [self.txtDropoffAddress addTarget:self action:@selector(onAddressChange:) forControlEvents:UIControlEventEditingChanged];
-    self.txtDropoffAddress.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Choose destination..." attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtDropoffAddress.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Destination hint" attributes:@{NSForegroundColorAttributeName: color}];
     
     self.txtPickupTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Pick up time" attributes:@{NSForegroundColorAttributeName: color}];
 
@@ -96,18 +99,21 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
     [self.mapView addGestureRecognizer:gestureRecognizer];
 
-    __block KSMapController *me = self;
+    //__block KSMapController *me = self;
 
     [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
 
         _isLocationsSyncComplete = YES;
-        if (me.pickupPoint) {
+        /*if (me.pickupPoint) {
             [me updateAddressField:me.txtPickupAddress annotation:me.pickupPoint];
-        }
+        }*/
 
     }];
     
     [self addDataPickerToTxtPickupTime];
+    
+    pickupAnnotationTxt = @"";
+    dropOffAnnotationTxt = @"";
 }
 
 -(void) addDataPickerToTxtPickupTime
@@ -146,6 +152,14 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     
 }
 
+-(void) viewDidDisappear:(BOOL)animated{
+
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+}
 #pragma mark -
 #pragma mark - Private methods.
 
@@ -160,12 +174,16 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
         [KSAlert show:@"Pickup Address can't be empty" title:@"Error"];
         return;
     }
-    tripInfo = [KSDAL tripWithLandmark:self.txtPickupAddress.text
+    NSString * pickup = [NSString stringWithFormat:@"%@ , %@",self.txtPickupAddress.text,pickupAnnotationTxt];
+    
+    tripInfo = [KSDAL tripWithLandmark:pickup
                                            lat:self.pickupPoint.coordinate.latitude
                                            lon:self.pickupPoint.coordinate.longitude];
     if(nil != self.txtDropoffAddress && ![self.txtDropoffAddress.text isEqualToString:@""])
     {
-        tripInfo.dropoffLandmark = self.txtDropoffAddress.text;
+        NSString *dropOff = [NSString stringWithFormat:@"%@ , %@",self.txtDropoffAddress.text,dropOffAnnotationTxt];
+        
+        tripInfo.dropoffLandmark = dropOff;
         
         tripInfo.dropOffLat = [NSNumber numberWithDouble:self.dropoffPoint.coordinate.latitude];
         
@@ -255,15 +273,15 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
     NSLog(@"%s: %@", __func__, textfield.text);
     if (!textfield.text.length) {
-        KSPointAnnotation *annotation;
-        if (textfield == self.txtPickupAddress) {
-            annotation = self.pickupPoint;
-            self.pickupPoint = nil;
-        } else {
-            annotation = self.dropoffPoint;
-            self.dropoffPoint = nil;
-        }
-        [self.mapView removeAnnotation:annotation];
+//        KSPointAnnotation *annotation;
+//        if (textfield == self.txtPickupAddress) {
+//            annotation = self.pickupPoint;
+//            self.pickupPoint = nil;
+//        } else {
+//            annotation = self.dropoffPoint;
+//            self.dropoffPoint = nil;
+//        }
+//        [self.mapView removeAnnotation:annotation];
     }
 }
 
@@ -281,6 +299,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
     if ([picker.pickerId isEqualToString:KSPickerIdForDropoffAddress]) {
         addressField = self.txtDropoffAddress;
+        dropOffAnnotationTxt = address;
         if (!self.dropoffPoint) {
             self.dropoffPoint = [self annotationWithCoordinate:location.coordinate title:KSDropoffAnnotationTitle];
         }
@@ -289,13 +308,14 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     }
     else {
         addressField = self.txtPickupAddress;
+        pickupAnnotationTxt = address;
         if (!self.pickupPoint) {
             self.pickupPoint = [self annotationWithCoordinate:location.coordinate title:KSPickupAnnotationTitle];
         }
         annotation = self.pickupPoint;
     }
     if (location) {
-        addressField.text = address;
+        //addressField.text = address;
         annotation.title = address;
 //        annotation.subtitle = address;
         annotation.coordinate = location.coordinate;
@@ -306,7 +326,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
     }
     else {
-        addressField.text = [NSString stringWithFormat:@"\u26A0 %@", address];
+        //addressField.text = [NSString stringWithFormat:@"\u26A0 %@", address];
         annotation.isInvalid = YES;
     }
 }
@@ -349,14 +369,28 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (void)updateAddressField:(UITextField *)addressField annotation:(MKPointAnnotation *)annotation {
 
     NSString *address = KSStringFromCoordinate(annotation.coordinate);
-    addressField.text = address;
+//    addressField.text = address;
     annotation.title = address;
 //    annotation.subtitle = address;
     
+    
+    if ([addressField isEqual:self.txtPickupAddress]) {
+        pickupAnnotationTxt = address;
+    }
+    else {
+        dropOffAnnotationTxt = address;
+    }
+    
     [[KSLocationManager instance] locationWithCoordinate:annotation.coordinate completion:^(KSGeoLocation *geolocation) {
         NSString *address = geolocation ? geolocation.address : KSStringFromCoordinate(annotation.coordinate);
-        addressField.text = address;
+  //      addressField.text = address;
         annotation.title = address;
+        if ([addressField isEqual:self.txtPickupAddress]) {
+            pickupAnnotationTxt = address;
+        }
+        else {
+            dropOffAnnotationTxt = address;
+        }
 //        annotation.subtitle = address;
         NSLog(@"%@", address);
     }];
@@ -569,7 +603,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 - (void)handleAddressClick:(KSPointAnnotation *)annotation pointId:(NSString *)pointId {
     
-    if (annotation && annotation.isValid) {
+    /*if (annotation && annotation.isValid) {
 
         [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
     }
@@ -578,7 +612,12 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
         addressPicker.pickerId = pointId;
         addressPicker.delegate = self;
         [self.navigationController pushViewController:addressPicker animated:YES];
-    }
+    }*/
+    
+    KSAddressPickerController *addressPicker = [UIStoryboard addressPickerController];
+    addressPicker.pickerId = pointId;
+    addressPicker.delegate = self;
+    [self.navigationController pushViewController:addressPicker animated:YES];
 }
 
 - (IBAction)onClickPickupAddress:(id)sender {
@@ -596,6 +635,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 #pragma mark UITextField 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     return YES;
 }
 
@@ -603,25 +643,49 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
 
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
 }
-//
-//
-//#pragma mark - View Adjectment
-//- (void)keyboardWillShow:(NSNotification *)notification
-//{
-//    // Assign new frame to your view
-//    [UIView animateWithDuration:0.38 animations:^{
-//        [self.view setFrame:CGRectMake(0,-108,320,460)];
-//    }];
-//}
-//
-//-(void)keyboardWillHide:(NSNotification *)notification
-//{
-//    [UIView animateWithDuration:0.38 animations:^{
-//        [self.view setFrame:CGRectMake(0,0,320,460)];
-//    }];
-//    
-//}
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    
+    if ([textField isEqual:self.txtPickupAddress]) {
+        
+        [self.txtDropoffAddress becomeFirstResponder];
+    }
+    else {
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+#pragma mark - View Adjectment
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -100)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+}
+
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, 0)];
+                         
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+    
+}
+
 
 @end

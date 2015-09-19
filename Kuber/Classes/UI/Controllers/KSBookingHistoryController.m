@@ -32,7 +32,7 @@
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     if (_tripStatus == KSTripStatusPending) {
-        self.navigationItem.title = @"Pending Bookings";
+        self.navigationItem.title = @"Bookings";
         [KSDAL syncPendingBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
