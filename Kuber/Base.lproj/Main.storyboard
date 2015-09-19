@@ -3688,6 +3688,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Booking" id="eCM-4z-UBL">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="ckO-GG-GpO"/>
+                        <barButtonItem key="rightBarButtonItem" image="location.png" id="sBX-fX-62H">
+                            <connections>
+                                <action selector="showCurrentLocationTapped:" destination="B0a-dS-2Ou" id="AOI-OV-Dna"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="bhG-iZ-MSz" id="cyI-1o-v4U"/>

@@ -250,7 +250,7 @@
                 if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
                     
                     KSDriver *driver = [KSDriver objWithValue:tripData[@"DriverID"] forAttrib:@"driverId"];
-                    driver.driverId = tripData[@"DriverID"];
+                    driver.driverId = [tripData[@"DriverID"] stringValue];
                     driver.name = tripData[@"DriverName"];
                     driver.phone = tripData[@"DriverPhone"];
                     [driver addTripsObject:trip];

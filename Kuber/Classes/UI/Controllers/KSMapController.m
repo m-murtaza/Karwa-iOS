@@ -61,6 +61,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 - (IBAction)onClickPickupAddress:(id)sender;
 - (IBAction)btnDoneTapped:(id)sender;
+- (IBAction)showCurrentLocationTapped:(id)sender;
 
 @end
 
@@ -70,7 +71,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _mapView.userTrackingMode = MKUserTrackingModeFollow;
-//    _mapView.showsUserLocation = NO;
+    // _mapView.showsUserLocation = YES;
 
    /* MKUserTrackingBarButtonItem *button = [[MKUserTrackingBarButtonItem alloc] initWithMapView:_mapView];
     self.navigationItem.rightBarButtonItem = button;*/
@@ -164,7 +165,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
                                            lon:self.pickupPoint.coordinate.longitude];
     if(nil != self.txtDropoffAddress && ![self.txtDropoffAddress.text isEqualToString:@""])
     {
-        tripInfo.dropoffLandmark = self.txtPickupAddress.text;
+        tripInfo.dropoffLandmark = self.txtDropoffAddress.text;
         
         tripInfo.dropOffLat = [NSNumber numberWithDouble:self.dropoffPoint.coordinate.latitude];
         
@@ -276,7 +277,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 //    [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
     _mapView.userTrackingMode = MKUserTrackingModeNone;
-    _mapView.showsUserLocation = NO;
+    _mapView.showsUserLocation = YES;
 
     if ([picker.pickerId isEqualToString:KSPickerIdForDropoffAddress]) {
         addressField = self.txtDropoffAddress;
@@ -478,6 +479,28 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 #pragma mark -
 #pragma mark - Event handlers
+
+- (IBAction)showCurrentLocationTapped:(id)sender
+{
+    NSInteger locationStatus = [CLLocationManager authorizationStatus];
+    
+    if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied){
+    
+        KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+        
+        [KSConfirmationAlert showWithTitle:@"Location Service Disabled"
+                                   message:@"To re-enable, please go to Settings and turn on Location Service for this app."
+                                  okAction:okAction];
+    }
+    else
+    {
+        self.mapView.showsUserLocation = YES;
+        [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
+    }
+}
 
 -(void) btnDoneTapped:(id)sender
 {
