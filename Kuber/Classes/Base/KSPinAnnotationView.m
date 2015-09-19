@@ -34,11 +34,11 @@
         MKPinAnnotationColor pinColor;
         if (KSAnnotationTypePickup == annotationType) {
             pinColor = MKPinAnnotationColorGreen;
-            leftCalloutIcon = [UIImage imageNamed:@"startingpoint.png"];
+            leftCalloutIcon = [UIImage imageNamed:@"location.png"];
         }
         else {
             pinColor = MKPinAnnotationColorRed;
-            leftCalloutIcon = [UIImage imageNamed:@"destinationpoint.png"];
+            leftCalloutIcon = [UIImage imageNamed:@"destination.png"];
         }
 
         self.canShowCallout = YES;

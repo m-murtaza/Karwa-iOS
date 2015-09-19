@@ -95,22 +95,7 @@
 
 - (void)sendRequestWithMethod:(NSString *)method uri:(NSString *)uri params:(NSDictionary *)params completion:(KSWebClientCompletionBlock)completionBlock {
 
-  //  AFNetworkReachabilityManager * reachability = [AFNetworkReachabilityManager sharedManager];
-    
-//    if (!reachability.isReachable) {
-//        //if not internet
-//       /* NSError *error = [NSError errorWithDomain:@"KSNetwork"
-//                                             code:KSAPIStatusNoInternet
-//                                         userInfo:nil];*/
-//        
-//        NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:KSAPIStatusNoInternet],@"status", nil];
-//        completionBlock(YES,response);
-//    }
-//    else{
-    
         uri = [self completeURI:uri];
-        //uri = [self completeURI:@"abcdefgh"];
-
         void (^successBlock)(NSURLSessionDataTask *, id) = ^(NSURLSessionDataTask *task, id responseObject) {
             NSLog(@"%@ %@ %@", method, uri, responseObject);
             if ([_webClientConfig.format isEqualToString:@"xml"]) {
@@ -123,8 +108,7 @@
                 completionBlock(YES, [responseObject objectIfNotNSNull]);
             }
         };
-        
-        
+    
         void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {
             NSLog(@"%@ %@ %@", method, uri, error);
             if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1009) {
@@ -153,8 +137,10 @@
         if (session.sessionId.length) {
             AFHTTPRequestSerializer *serializer = _sessionManager.requestSerializer;
             [serializer setValue:session.sessionId forHTTPHeaderField:@"Session-ID"];
+            serializer.timeoutInterval = 20;
         }
-        
+    
+    
         if ([method isEqualToString:@"DELETE"]) {
             [_sessionManager DELETE:uri parameters:params success:successBlock failure:failBlock];
         }

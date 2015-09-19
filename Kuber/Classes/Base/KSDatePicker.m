@@ -47,6 +47,11 @@
                                              blue:179.0 / 255.0
                                             alpha:1.0];
         
+        [btnDone setTitleTextAttributes:@{
+                                             NSFontAttributeName: [UIFont fontWithName:@"MuseoForDell-300" size:20.0]
+                                             
+                                             } forState:UIControlStateNormal];
+        
         UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:NULL];
 
         toolbar.items = [NSArray arrayWithObjects:flexSpace, btnDone, nil];

@@ -482,6 +482,11 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 -(void) btnDoneTapped:(id)sender
 {
 
+    if (self.txtPickupAddress.text == nil || [self.txtPickupAddress.text isEqualToString:@""]) {
+        [KSAlert show:@"Please choose a pickup address" title:@"Error"];
+        return;
+    }
+    
     [self.txtPickupTime resignFirstResponder];
     
     KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {

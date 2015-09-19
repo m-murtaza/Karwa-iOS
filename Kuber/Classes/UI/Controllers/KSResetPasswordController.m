@@ -77,6 +77,10 @@
 
 #pragma mark - Events
 - (IBAction)onClickResetPassword:(id)sender {
+//    [self.view endEditing:TRUE];
+//    [self.navigationController popToNthController:2 animated:YES];
+//    return;
+    
 #ifndef __KS_DISABLE_VALIDATIONS
     NSString *error = nil;
     if (![self.txtMobile.text isPhoneNumber]) {
@@ -169,5 +173,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
+
 
 @end
