@@ -42,6 +42,13 @@
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Signup View Controller"];
+    
+    /*[self.txtEmail setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
+    [self.txtName setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
+    [self.txtMobile setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
+    [self.txtPassword setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
+    [self.txtConfirmPassword setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];*/
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated

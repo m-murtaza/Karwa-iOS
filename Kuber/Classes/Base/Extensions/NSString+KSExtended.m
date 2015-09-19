@@ -34,7 +34,7 @@ NSString *KSLocalize(NSString *key) {
 }
 
 - (BOOL)isPhoneNumber {
-    NSString *regExPattern = @"^[\\+\\d](?:[0-9]●?){4,14}[0-9]$";
+    NSString *regExPattern = @"^[\\+\\d](?:[0-9]●?){6,14}[0-9]$";
     return [self isValidForPattern:regExPattern];
 }
 

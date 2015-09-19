@@ -206,6 +206,7 @@
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
 		189F5D981B085A6C00EAF9B2 /* KSMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D971B085A6C00EAF9B2 /* KSMapController.m */; };
 		189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */; };
+		18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */; };
 		18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A19DA81B6E43CD0057EED9 /* KSSplashController.m */; };
 		18A762811AFF785B00B9ED32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762801AFF785B00B9ED32 /* main.m */; };
 		18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762831AFF785B00B9ED32 /* AppDelegate.m */; };
@@ -545,6 +546,8 @@
 		189F5D991B085DA900EAF9B2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		189F5D9C1B08600000EAF9B2 /* KSLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocationManager.h; sourceTree = "<group>"; };
 		189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLocationManager.m; sourceTree = "<group>"; };
+		18A05E721BAD71F7004DA12A /* UITextField+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+KSExtended.h"; sourceTree = "<group>"; };
+		18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+KSExtended.m"; sourceTree = "<group>"; };
 		18A19DA71B6E43CD0057EED9 /* KSSplashController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSplashController.h; sourceTree = "<group>"; };
 		18A19DA81B6E43CD0057EED9 /* KSSplashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSplashController.m; sourceTree = "<group>"; };
 		18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Karwa Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -726,6 +729,8 @@
 				184D22751BA56400007CB740 /* KSMenuButton.m */,
 				184D22981BA68584007CB740 /* UIColor+KSExtended.h */,
 				184D22991BA68584007CB740 /* UIColor+KSExtended.m */,
+				18A05E721BAD71F7004DA12A /* UITextField+KSExtended.h */,
+				18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1719,6 +1724,7 @@
 				18D65DD91B9EC39100D6C1BD /* KSLabel.m in Sources */,
 				18B0D0251B031C93002645AD /* KSDBManager.m in Sources */,
 				1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */,
+				18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */,
 				1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */,
 				18481B501B091EFA00855F54 /* SWRevealViewController.m in Sources */,
 				18481B771B0B1B4000855F54 /* KSConfirmationAlert.m in Sources */,

@@ -123,6 +123,7 @@
         self.txtCurrentPassword = (KSTextField*)[cell viewWithTag:4001];
         self.txtCurrentPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Current Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtCurrentPassword.tintColor = [UIColor blackColor];
+        self.txtCurrentPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"password.png"]];
     }
@@ -131,6 +132,7 @@
         self.txtNewPassword = (KSTextField*)[cell viewWithTag:4001];
         self.txtNewPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"New Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtNewPassword.tintColor = [UIColor blackColor];
+        self.txtNewPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"password.png"]];
         
@@ -140,6 +142,7 @@
         self.txtConfirmPassword = (KSTextField*)[cell viewWithTag:4001];
         self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtConfirmPassword.tintColor = [UIColor blackColor];
+        self.txtConfirmPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"password.png"]];
     }

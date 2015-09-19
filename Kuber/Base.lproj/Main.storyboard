@@ -92,7 +92,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="phone-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="phone-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -115,7 +115,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Cp2-LC-edT"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="password-box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="password-box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -415,7 +415,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Reset Password" id="ls5-8S-L5P">
+                    <navigationItem key="navigationItem" title="Forgot Password" id="ls5-8S-L5P">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Kdb-mM-AtX">
                             <connections>
                                 <action selector="onClickResetPassword:" destination="0KK-Hh-jHP" id="PCc-b2-zFL"/>
@@ -428,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDT-hG-n5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="469.5" y="239.25"/>
+            <point key="canvasLocation" x="388.5" y="120.75"/>
         </scene>
         <!--Karwa Taxi-->
         <scene sceneID="wdf-SK-OK9">

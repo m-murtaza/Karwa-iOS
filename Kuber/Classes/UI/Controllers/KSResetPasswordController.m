@@ -68,7 +68,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.frame.size.width, 45.0)];
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0,self.tableView.frame.size.width-10 , 30)];
-    labelView.text = @"PASSWORD";
+    labelView.text = @"RESET PASSWORD";
     labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
     labelView.textColor = [UIColor colorFromHexString:@"#187a89"];
     [headerView addSubview:labelView];
@@ -136,6 +136,7 @@
         self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Mobile Number" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtMobile.text = self.mobileNumber;
         self.txtMobile.tintColor = [UIColor blackColor];
+        self.txtMobile.keyboardType = UIKeyboardTypePhonePad;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"phonenumber.png"]];
     }
@@ -144,8 +145,10 @@
         self.txtPassword = (KSTextField*)[cell viewWithTag:4001];
         self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtPassword.tintColor = [UIColor blackColor];
+        self.txtPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"password.png"]];
+        
     
     }
     else if (indexPath.row == 2){
@@ -153,6 +156,7 @@
         self.txtConfirmPassword = (KSTextField*)[cell viewWithTag:4001];
         self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtConfirmPassword.tintColor = [UIColor blackColor];
+        self.txtConfirmPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"password.png"]];
     }

@@ -90,6 +90,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     
     self.txtPickupTime.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Pick up time" attributes:@{NSForegroundColorAttributeName: color}];
 
+    self.txtPickupTime.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
+    
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
     [self.mapView addGestureRecognizer:gestureRecognizer];
 

@@ -17,6 +17,7 @@
         //self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: color}];
         self.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
         self.tintColor = [UIColor whiteColor];
+        [self setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
         
     }
     return self;

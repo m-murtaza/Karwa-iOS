@@ -16,9 +16,9 @@
 
 @interface KSLoginController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *txtMobile;
+@property (weak, nonatomic) IBOutlet KSTextField *txtMobile;
 
-@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
+@property (weak, nonatomic) IBOutlet KSTextField *txtPassword;
 @property (nonatomic, weak) IBOutlet UIButton *btnForgotPassword;
 
 - (IBAction)onClickLogin:(id)sender;
