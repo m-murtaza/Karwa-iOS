@@ -40,16 +40,16 @@
     
     
     if (trip.pickupLandmark.length) {
-        self.lblPickupFrom.text = [NSString stringWithFormat:@"From %@", trip.pickupLandmark];
+        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@", trip.pickupLandmark];
     }
     else {
         NSString *loc = KSStringFromLatLng(trip.pickupLat.doubleValue, trip.pickupLon.doubleValue);
-        self.lblPickupFrom.text = [NSString stringWithFormat:@"From %@", loc];
+        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@", loc];
     }
 
     self.lblDropoffTo.text = @"";
     if (trip.dropoffLandmark.length) {
-        self.lblDropoffTo.text = [NSString stringWithFormat:@"to %@", trip.dropoffLandmark];
+        self.lblDropoffTo.text = [NSString stringWithFormat:@"%@", trip.dropoffLandmark];
     }
     self.lblDate.text = @"";
     NSString *date = [self formatedDate:trip.pickupTime];

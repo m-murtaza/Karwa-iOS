@@ -35,7 +35,8 @@
     KSSessionInfo *userSession = [KSSessionInfo currentSession];
     
     KSUser *user = [KSDAL userWithPhone:userSession.phone];
-    self.lblDisplayName.text = user.name;
+    self.lblDisplayName.text = [user.name uppercaseString];
+    self.lblDisplayName.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
     self.lblPhone.text = user.phone;
     
     
@@ -61,7 +62,7 @@
     }
     
     KSUser *user = [KSDAL loggedInUser];
-    self.lblDisplayName.text = [user name];
+    self.lblDisplayName.text = [[user name] uppercaseString];
     [KSGoogleAnalytics trackPage:@"Menu"];
 }
 
