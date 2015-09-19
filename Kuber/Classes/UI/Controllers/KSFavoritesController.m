@@ -83,7 +83,7 @@
         return [obj1.name compare:obj2.name options:NSCaseInsensitiveSearch];
     }];*/
 
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:NO];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:YES];
     NSArray *sortedBookmarks = [user.bookmarks.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
     [self.bookmarks removeAllObjects];
@@ -184,12 +184,12 @@
     [self.bookmarks removeObjectAtIndex:sourceIndexPath.row];
     [self.bookmarks insertObject:bmark atIndex:destinationIndexPath.row];
     
-    NSUInteger destination = destinationIndexPath.row;
-    NSUInteger source = sourceIndexPath.row;
+    NSInteger destination = destinationIndexPath.row;
+    NSInteger source = sourceIndexPath.row;
     
     if(destination < source){
         //Moving upward
-        for (NSUInteger i = destination; i <= source; i++) {
+        for (NSInteger i = destination; i <= source; i++) {
             //run a loop from destination to source
             NSDictionary *placeData = self.bookmarks[i];
             KSBookmark *bookmark = placeData[@"bookmark"];
@@ -198,7 +198,7 @@
     }
     else{
         //Moving a cell down
-        for (NSUInteger i = destination; i <= source; i--) {
+        for (NSInteger i = destination; i >= source; i--) {
             //run a loop from destination to source backward
             NSDictionary *placeData = self.bookmarks[i];
             KSBookmark *bookmark = placeData[@"bookmark"];

@@ -150,6 +150,7 @@
 
     if (self.serviceRating.rate == 0 ) {
         [KSAlert show:@"Please select your rating first" title:@"Error"];
+        return;
     }
     
     
