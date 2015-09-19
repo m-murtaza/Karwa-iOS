@@ -111,7 +111,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
 
 -(void) addDataPickerToTxtPickupTime
 {
-    NSDate *minDate = [NSDate dateWithTimeIntervalSinceNow:30 * 60];
+    NSDate *minDate = [NSDate dateWithTimeIntervalSinceNow:0];
     // Max date should be 15 day ahead only
     NSDate *maxDate = [NSDate dateWithTimeIntervalSinceNow:30 * 24 * 60 * 60];
     
@@ -171,8 +171,8 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
         tripInfo.dropOffLon = [NSNumber numberWithDouble:self.dropoffPoint.coordinate.longitude];
     }
     
-    UIDatePicker *datePicker = (UIDatePicker *)self.txtPickupTime.inputView;
-    
+    KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
+
     tripInfo.pickupTime = datePicker.date;
     
     
@@ -209,7 +209,7 @@ NSString * const KSDropoffTextPlaceholder = @"Tap for a second on map (Optional)
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //[formatter setDateFormat:@"MMM dd, yy, HH:mm"];
-    [formatter setDateFormat:@"dd - MMMM yyyy, HH:mm a"];
+    [formatter setDateFormat:@"dd - MMMM yyyy, hh:mm a"];
     
     self.txtPickupTime.text = [formatter stringFromDate:date];
 }
