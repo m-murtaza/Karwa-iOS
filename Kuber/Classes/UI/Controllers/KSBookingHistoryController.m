@@ -29,10 +29,14 @@
     
     
     //Todo Need to remove repitative code
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
     if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Pending Bookings";
         [KSDAL syncPendingBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+            [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
+                
                 [me buildTripsHistory:trips];
             }
             else{
@@ -46,6 +50,7 @@
         
         self.navigationItem.title = @"Rate your Trips";
         [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+            [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
                 [me buildTripsHistory:trips];
             }

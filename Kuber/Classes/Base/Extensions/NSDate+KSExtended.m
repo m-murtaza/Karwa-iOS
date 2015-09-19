@@ -54,7 +54,7 @@
 -(NSString*) getTimeStringFromDate
 {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
-    timeFormatter.dateFormat = @"HH:mm";
+    timeFormatter.dateFormat = @"hh:mm a";
     
     
     NSString *dateString = [timeFormatter stringFromDate:self];

@@ -197,7 +197,7 @@
 -(NSString*) getTimeStringFromDate:(NSDate*) date
 {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
-    timeFormatter.dateFormat = @"HH:mm";
+    timeFormatter.dateFormat = @"hh:mm a";
     
     
     NSString *dateString = [timeFormatter stringFromDate: date];
@@ -233,8 +233,10 @@
 {
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     for (NSIndexPath *idx in selectedIndexs) {
-        
-        [arr addObject:[[issueList objectAtIndex:idx.row] valueEN]];
+        if(idx.row < issueList.count)
+        {
+            [arr addObject:[[issueList objectAtIndex:idx.row] valueEN]];
+        }
     }
     return [NSArray arrayWithArray:arr];
 }

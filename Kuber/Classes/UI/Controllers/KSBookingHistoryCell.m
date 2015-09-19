@@ -82,7 +82,7 @@
     NSString *fTime;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm"];
+    [formatter setDateFormat:@"hh:mm a"];
     fTime = [formatter stringFromDate:date];
     
     return fTime;
