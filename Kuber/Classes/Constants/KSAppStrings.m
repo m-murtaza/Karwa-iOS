@@ -61,7 +61,7 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       
       [NSNumber numberWithUnsignedInteger:KSAPIStatusSessionExpired]:           @"Session Expired, Please login again to enjoy Karwa",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusNotFound]:                 @"We are experiencing technical difficulties please stand by",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusServerCrash]:              @"We are experiencing technical difficulties due to maintenance please stand by",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusServerCrash]:              @"We are experiencing technical difficulties please stand by",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusNotImplemented]:           @"We are experiencing technical difficulties please stand by",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusServiceUnavailable]:       @"We are experiencing technical difficulties please stand by",
       

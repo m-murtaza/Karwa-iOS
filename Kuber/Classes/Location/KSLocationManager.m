@@ -282,31 +282,56 @@
         country = @"";
     }
     NSArray *placemarks = [KSDAL locationsMatchingText:query];
-    if (placemarks.count) {
-        
-        [self performSelector:@selector(invokeBlock:) withObject:^() {
+    NSMutableArray *locations = [NSMutableArray arrayWithArray:placemarks];
+    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:_lastLocation.coordinate radius:30000.0 identifier:@"user_location"];
 
-            completionBlock(placemarks);
-
-        } afterDelay:0.1];
+    NSDictionary *addressDictionary = @{
+        @"Country": @"Qatar",
+        @"Name": query,
+        @"Street": query
+    };
+    if (![query.lowercaseString containsString:@"qatar"]) {
+        query = [query stringByAppendingString:@", Qatar"];
     }
-    else {
-
-        CLRegion *region = [[CLCircularRegion alloc] initWithCenter:_lastLocation.coordinate radius:100000.0 identifier:@"user_location"];
-        [_geocoder geocodeAddressString:query inRegion:region completionHandler:^(NSArray *placemarks, NSError *error) {
-            NSMutableArray *locations = [NSMutableArray array];
+    [_geocoder geocodeAddressString:query completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error) {
             for (CLPlacemark *placemark in placemarks) {
-                [locations addObject:[KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address]];
+                if ([region containsCoordinate:placemark.location.coordinate]) {
+                    [locations addObject:[KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address]];
+                }
             }
-            completionBlock(locations);
-            if (error) {
-                NSLog(@"%@", error);
-            }
-        }];
-        
-    }
-    NSDictionary *params = @{@"query": query, @"country": country};
-    [self geocodeWithParams:params completion:completionBlock];
+        }
+        else {
+            NSLog(@"%@", error);
+        }
+        completionBlock(locations);
+    }];
+    
+//    if (placemarks.count) {
+//
+//        [self performSelector:@selector(invokeBlock:) withObject:^() {
+//
+//            completionBlock(placemarks);
+//
+//        } afterDelay:0.1];
+//    }
+//    else {
+//
+//        CLRegion *region = [[CLCircularRegion alloc] initWithCenter:_lastLocation.coordinate radius:100000.0 identifier:@"user_location"];
+//        [_geocoder geocodeAddressString:query inRegion:region completionHandler:^(NSArray *placemarks, NSError *error) {
+//            NSMutableArray *locations = [NSMutableArray array];
+//            for (CLPlacemark *placemark in placemarks) {
+//                [locations addObject:[KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address]];
+//            }
+//            completionBlock(locations);
+//            if (error) {
+//                NSLog(@"%@", error);
+//            }
+//        }];
+//    
+//    }
+//    NSDictionary *params = @{@"query": query, @"country": country};
+//    [self geocodeWithParams:params completion:completionBlock];
 }
 
 #pragma mark -

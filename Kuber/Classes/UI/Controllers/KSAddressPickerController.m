@@ -385,12 +385,19 @@ KSTableViewType;
 
         if (textField.text.length > 2) {
             
-            _searchLocations = [KSDAL locationsMatchingText:textField.text];
+            KSAddressPickerController *me = self;
+//            _searchLocations = [KSDAL locationsMatchingText:textField.text];
             if (self.segmentControl.selectedSegmentIndex != KSTableViewTypeNearby) {
                 self.segmentControl.selectedSegmentIndex = KSTableViewTypeNearby;
                 _tableViewType = KSTableViewTypeNearby;
             }
-            [self.tableView reloadData];
+            [self showLoadingView];
+            [[KSLocationManager instance] placemarksMatchingQuery:textField.text country:@"" completion:^(NSArray *placemarks) {
+                [self hideLoadingView];
+                _searchLocations = placemarks;
+                [me.tableView reloadData];
+            }];
+//            [self.tableView reloadData];
         }
         return NO;
     }

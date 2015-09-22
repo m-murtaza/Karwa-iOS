@@ -61,7 +61,7 @@
 
             // Update locations database
             NSArray *locations = response[@"data"];
-            NSLog(@"---Sync locations \n %@",locations);
+            //NSLog(@"---Sync locations \n %@",locations);
             [KSDBManager saveLocationsData:locations];
         }
 
@@ -103,7 +103,7 @@
 }
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat longitude:(double)lon {
 
-    const double searchRadius = 75.0; // 1350m radius
+    const double searchRadius = 20.0; // 1350m radius
     return [self nearestLocationsMatchingLatitude:lat longitude:lon radius:searchRadius];
 }
 

@@ -3295,7 +3295,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pickup location hint (i.e. Citycenter gate-1)" adjustsFontSizeToFit="NO" minimumFontSize="14" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="at1-pG-QIr">
                                         <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
                                         <connections>
                                             <outlet property="delegate" destination="B0a-dS-2Ou" id="fvV-Vq-qTa"/>
                                         </connections>
@@ -3309,7 +3309,7 @@
                                         </constraints>
                                         <color key="textColor" red="0.16078431372549018" green="0.19607843137254902" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="ojF-EQ-Mre"/>
@@ -3442,8 +3442,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iy4-OY-Lup">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="IOK-I6-HVM"/>
-                                            <constraint firstAttribute="width" constant="16" id="lf4-uW-L5Z"/>
+                                            <constraint firstAttribute="height" constant="24" id="IOK-I6-HVM"/>
+                                            <constraint firstAttribute="width" constant="24" id="lf4-uW-L5Z"/>
                                         </constraints>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3467,8 +3467,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLh-2O-xAc">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="GsN-vR-xxQ"/>
-                                            <constraint firstAttribute="height" constant="16" id="XjS-gS-rni"/>
+                                            <constraint firstAttribute="width" constant="24" id="GsN-vR-xxQ"/>
+                                            <constraint firstAttribute="height" constant="24" id="XjS-gS-rni"/>
                                         </constraints>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -3754,7 +3754,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Booking" id="eCM-4z-UBL">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="ckO-GG-GpO"/>
-                        <barButtonItem key="rightBarButtonItem" image="location.png" id="sBX-fX-62H"/>
+                        <barButtonItem key="rightBarButtonItem" image="location.png" id="sBX-fX-62H">
+                            <connections>
+                                <action selector="showCurrentLocationTapped:" destination="B0a-dS-2Ou" id="Vst-ka-1wP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="bhG-iZ-MSz" id="cyI-1o-v4U"/>

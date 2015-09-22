@@ -97,7 +97,7 @@
 
         uri = [self completeURI:uri];
         void (^successBlock)(NSURLSessionDataTask *, id) = ^(NSURLSessionDataTask *task, id responseObject) {
-            NSLog(@"%@ %@ %@", method, uri, responseObject);
+            //NSLog(@"%@ %@ %@", method, uri, responseObject);
             if ([_webClientConfig.format isEqualToString:@"xml"]) {
                 KSWebClientXMLResponseParser *parser = [KSWebClientXMLResponseParser new];
                 [parser parseResponse:(NSXMLParser *)responseObject completion:^(id responseData) {

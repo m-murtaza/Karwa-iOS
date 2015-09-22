@@ -75,8 +75,17 @@
         
         }
     }
+    
+    [self setNavigationTitle];
 }
 
+
+- (void) setNavigationTitle
+{
+    if (self.tripInfo.jobId.length) {
+        self.navigationItem.title = [NSString stringWithFormat:@"Order No. %@", self.tripInfo.jobId];
+    }
+}
 
 -(void) loadViewData
 {
@@ -176,26 +185,42 @@
     switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
-            if (self.showsAcknowledgement) {
-                //[self.btnCancelBooking removeFromSuperview];
+        case KSTripStatusPending:
+        case 12:
+        case 4:
+            [self.lblAcknowlegement setHidden:YES];
+            NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
+            NSTimeInterval CANCEL_TIMEOUT = 300.0;
+            if (![trip.bookingType isEqualToString:KSBookingTypeCurrent]) {
+                CANCEL_TIMEOUT = -25.0 * 60.0;
+            }
+            if (pickupTimePast > CANCEL_TIMEOUT) {
+                [self.btnCancelBooking removeFromSuperview];
                 [self.btnCancelBooking setHidden:YES];
             }
             else {
-                //[self.lblAcknowlegement removeFromSuperview];
-                [self.lblAcknowlegement setHidden:YES];
-                NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
-                NSTimeInterval CANCEL_TIMEOUT = 300.0;
-                if ([trip.bookingType isEqualToString:KSBookingTypeCurrent]) {
-                    CANCEL_TIMEOUT = -25.0 * 60.0;
-                }
-                if (pickupTimePast > CANCEL_TIMEOUT) {
-                    [self.btnCancelBooking removeFromSuperview];
-                    [self.btnCancelBooking setHidden:YES];
-                }
-                else {
-                    [self.btnCancelBooking performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
-                }
+                [self.btnCancelBooking performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
             }
+//            if (self.showsAcknowledgement) {
+//                //[self.btnCancelBooking removeFromSuperview];
+//                [self.btnCancelBooking setHidden:YES];
+//            }
+//            else {
+//                //[self.lblAcknowlegement removeFromSuperview];
+//                [self.lblAcknowlegement setHidden:YES];
+//                NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
+//                NSTimeInterval CANCEL_TIMEOUT = 300.0;
+//                if ([trip.bookingType isEqualToString:KSBookingTypeCurrent]) {
+//                    CANCEL_TIMEOUT = -25.0 * 60.0;
+//                }
+//                if (pickupTimePast > CANCEL_TIMEOUT) {
+//                    [self.btnCancelBooking removeFromSuperview];
+//                    [self.btnCancelBooking setHidden:YES];
+//                }
+//                else {
+//                    [self.btnCancelBooking performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
+//                }
+//            }
             break;
             
         default:
@@ -276,7 +301,7 @@
 -(NSString*) getTimeStringFromDate:(NSDate*) date
 {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
-    timeFormatter.dateFormat = @"hh:mm a";
+    timeFormatter.dateFormat = @"HH:mm";
     
     
     NSString *dateString = [timeFormatter stringFromDate: date];

@@ -167,10 +167,9 @@
                 }
                 
                 //Driver Information
-                if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
+                if ([tripData[@"DriverID"] integerValue] > 0){
                     
                     KSDriver *driver = [KSDriver objWithValue:[tripData[@"DriverID"] stringValue] forAttrib:@"driverId"];
-                    driver.driverId = [tripData[@"DriverID"] stringValue];
                     driver.name = tripData[@"DriverName"];
                     driver.phone = tripData[@"DriverPhone"];
                     [driver addTripsObject:trip];
@@ -247,10 +246,11 @@
                 trip.bookingType = [tripData[@"BookingType"] lowercaseString];
                 
                 //Driver Information
-                if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
+                if ([tripData[@"DriverID"] integerValue] > 0) {
                     
-                    KSDriver *driver = [KSDriver objWithValue:tripData[@"DriverID"] forAttrib:@"driverId"];
-                    driver.driverId = [tripData[@"DriverID"] stringValue];
+                    NSString *driverId = [tripData[@"DriverID"] stringValue];
+                    KSDriver *driver = [KSDriver objWithValue:driverId forAttrib:@"driverId"];
+//                    driver.driverId = [tripData[@"DriverID"] stringValue];
                     driver.name = tripData[@"DriverName"];
                     driver.phone = tripData[@"DriverPhone"];
                     [driver addTripsObject:trip];
@@ -372,10 +372,9 @@
     }
     
     //Driver Information
-    if(tripData[@"DriverID"]  && [tripData[@"DriverID"] integerValue] > 0){
+    if ([tripData[@"DriverID"] integerValue] > 0){
         
         KSDriver *driver = [KSDriver objWithValue:[tripData[@"DriverID"] stringValue] forAttrib:@"driverId"];
-        driver.driverId = [tripData[@"DriverID"] stringValue];
         driver.name = tripData[@"DriverName"];
         driver.phone = tripData[@"DriverPhone"];
         [driver addTripsObject:trip];
