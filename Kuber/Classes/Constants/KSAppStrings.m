@@ -31,39 +31,39 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusSuccess]:                  @"Request completed successfully",
       
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotRegistered]:        @"Phone number is not registered with Karwa",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserAlreadyRegistered]:    @"This phone number is already registered with Karwa",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusWrongAccessCode]:          @"Please enter a valid access code",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotRegistered]:        @"Phone number is not registered.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserAlreadyRegistered]:    @"This phone number is already registered.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusWrongAccessCode]:          @"Please enter a valid verification code",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidPassword]:          @"Invalid phone number or password",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidSession]:           @"Your session is expired, please login again",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotVerified]:          @"Unverified phone number, please enter verification code",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusPasswordMatch]:            @"Current and new passwords can not be same",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusTooManyResetCalls]:        @"Please contact our customer service to reset your password",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidSession]:           @"Your session has expired. Please login again.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotVerified]:          @"Phone number is not verified. Please verify phone number using verification code.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusPasswordMatch]:            @"New password is same old password.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusTooManyResetCalls]:        @"You have exceed maximum number of reset requests. Please send an email to ualeem@karwasolutions.com to reset your password",
       
       
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiAllocated]:            @"Taxi allocated for you --",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You already have pending bookings for same time period",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You have another booking in process. Please select a different booking time.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusPassengerInTaxi]:          @"Aren't you in Taxi? --",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusBookingCancelled]:         @"You have cancelled the booking --",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiNotAvailable]:         @"Dear Customer, we are fully booked, Please try different pick up time",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiNotAvailable]:         @"We are unable to book a taxi for the given time. Please try again for a different time.",
 
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoriteAlreadyExists]:    @"A favorite with the given name already exists, please select different name",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoritesLimitReached]:    @"To add new favorite, please remove some favorite places",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoriteDoesNotExist]:     @"You have deleted this place as favorite",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoriteAlreadyExists]:    @"Favorite name already exists, please try a different name",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoritesLimitReached]:    @"You have reach maximum number of favorites.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoriteDoesNotExist]:     @"Favorite has already removed from your account.",
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyRated]:          @"You have already rated this trip",
       
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidDirver]:            @"This driver is no more with us--",
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidTaxi]:              @"This taxi is not in our database--",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusNoInternet]:               @"Internet not available please check your internet settings",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusBadRequest]:               @"We are experiencing technical difficulties please stand by",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusNoInternet]:               @"Unable to access interet. Please check network settings",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusBadRequest]:               @"Oops…. Something went wrong. Please try again later",
       
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusSessionExpired]:           @"Session Expired, Please login again to enjoy Karwa",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusNotFound]:                 @"We are experiencing technical difficulties please stand by",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusServerCrash]:              @"We are experiencing technical difficulties please stand by",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusNotImplemented]:           @"We are experiencing technical difficulties please stand by",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusServiceUnavailable]:       @"We are experiencing technical difficulties please stand by",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusSessionExpired]:           @"Your session has expired, Please login again.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusNotFound]:                 @"Oops…. Something went wrong. Please try again later",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusServerCrash]:              @"Oops…. Something went wrong. Please try again later",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusNotImplemented]:           @"Oops…. Something went wrong. Please try again later",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusServiceUnavailable]:       @"Oops…. Something went wrong. Please try again later",
       
     };
     

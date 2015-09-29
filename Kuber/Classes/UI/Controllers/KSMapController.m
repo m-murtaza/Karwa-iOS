@@ -549,8 +549,8 @@ NSString * const KSDropoffTextPlaceholder = @"Destination address hint";
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         }];
         
-        [KSConfirmationAlert showWithTitle:@"Location Service Disabled"
-                                   message:@"To re-enable, please go to Settings and turn on Location Service for this app."
+        [KSConfirmationAlert showWithTitle:nil
+                                   message:@"Location Services Disabled. Please enable location services."
                                   okAction:okAction];
     }
     else
@@ -564,7 +564,7 @@ NSString * const KSDropoffTextPlaceholder = @"Destination address hint";
 {
 
     if (!self.pickupPoint) {
-        [KSAlert show:@"Please choose a pickup location on map" title:@"Error"];
+        [KSAlert show:@"Please select a pickup location" title:@"Unknown pickup location"];
         return;
     }
 

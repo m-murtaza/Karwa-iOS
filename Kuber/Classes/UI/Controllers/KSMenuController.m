@@ -113,7 +113,7 @@
 
 - (void)onClickLogout:(id)sender {
     
-    KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+    /*KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
         NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
         [self setButtonState:sender];
         KSMenuButton *btn = (KSMenuButton*)sender;
@@ -129,7 +129,12 @@
                                message:@"Cofirm Logout?"
                               okAction:okAction
                           cancelAction:cancelAction];
+    */
     
+    [self setButtonState:sender];
+    KSMenuButton *btn = (KSMenuButton*)sender;
+    [btn setSelected:FALSE];
+    [self logoutThisUser];
     
 }
 
