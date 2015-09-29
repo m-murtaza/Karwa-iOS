@@ -225,6 +225,7 @@
 		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
 		18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */; };
 		18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */; };
+		18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */; };
 		18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */; };
 		18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A51BA18949009B5D70 /* list-icons.png */; };
 		18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A61BA18949009B5D70 /* list-sep.png */; };
@@ -585,6 +586,8 @@
 		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleAnnotationView.m; sourceTree = "<group>"; };
 		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
 		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
+		18C7A3CA1BB142F100E579A2 /* KSBookingMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingMapController.h; sourceTree = "<group>"; };
+		18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingMapController.m; sourceTree = "<group>"; };
 		18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "booking-history-forward-arrow.png"; path = "BookingHistory/booking-history-forward-arrow.png"; sourceTree = "<group>"; };
 		18CFC4A51BA18949009B5D70 /* list-icons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list-icons.png"; path = "BookingHistory/list-icons.png"; sourceTree = "<group>"; };
 		18CFC4A61BA18949009B5D70 /* list-sep.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "list-sep.png"; path = "BookingHistory/list-sep.png"; sourceTree = "<group>"; };
@@ -1238,6 +1241,8 @@
 				18A19DA71B6E43CD0057EED9 /* KSSplashController.h */,
 				18A19DA81B6E43CD0057EED9 /* KSSplashController.m */,
 				1880C5591B7957CB004F0188 /* KSAddressPickerDelegate.h */,
+				18C7A3CA1BB142F100E579A2 /* KSBookingMapController.h */,
+				18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1764,6 +1769,7 @@
 				185E3C081B7087EF00909B20 /* KSTripRating.m in Sources */,
 				189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */,
 				1880C56E1B79E1B8004F0188 /* KSButtonCell.m in Sources */,
+				18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */,
 				1801E35C1B15B1CC00A8983E /* MLPAutoCompleteTextField.m in Sources */,
 				189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */,
 				184C78C31B0073680012D4BE /* KSSignupController.m in Sources */,
