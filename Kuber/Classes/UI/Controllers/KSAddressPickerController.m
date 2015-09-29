@@ -256,9 +256,39 @@ KSTableViewType;
 #pragma mark -
 #pragma mark - Table view datasource
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    return @"Favorites";
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if(!self.searchField.text.length)
+    {
+        return 64.0;
+    }
+    return UITableViewAutomaticDimension;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (self.searchField.text.length) {
+        return @"";
+    }
+    else{
+        NSString *sectionName;
+        switch (section)
+        {
+            case 0:
+                sectionName = @"Favorites";
+                break;
+            case 1:
+                sectionName = @"Nearby";
+                break;
+                // ...
+            default:
+                sectionName = @"Recent";
+                break;
+        }
+        return sectionName;
+    }
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -266,12 +296,16 @@ KSTableViewType;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    if (self.searchField.text.length) {
+        return 1;
+    }
+    
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    switch (self.tableViewType) {
+    /*switch (self.tableViewType) {
         case KSTableViewTypeFavorites:
             return _savedBookmarks.count;
         case KSTableViewTypeRecent:
@@ -282,6 +316,22 @@ KSTableViewType;
             }
             return _nearestLocations.count;
             break;
+    }*/
+    if (self.searchField.text.length) {
+        return _searchLocations.count;
+    }
+    else{
+        switch (section) {
+            case 0:
+                return _savedBookmarks.count;
+                break;
+            case 1:
+                return _nearestLocations.count;
+                break;
+            default:
+                return _recentBookings.count;
+                break;
+        }
     }
 }
 
@@ -294,26 +344,30 @@ KSTableViewType;
     NSString *cellReuseId;
     KSButtonCell *cell = nil;
     id cellData;
-    switch (self.tableViewType) {
-        case KSTableViewTypeFavorites:
-            cellReuseId = bookmarkCellReuseId;
-            cellData = [_savedBookmarks objectAtIndex:indexPath.row];
-            break;
+    
+    if (self.searchField.text.length) {
+        cellData = [_searchLocations objectAtIndex:indexPath.row];
+        cellReuseId = nearbyCellReuseId;
+    }
+    else{
 
-        case KSTableViewTypeRecent:
-            cellReuseId = recentCellReuseId;
-            cellData = [_recentBookings objectAtIndex:indexPath.row];
-            break;
+        switch (indexPath.section) {
+            case 0:
+                cellReuseId = bookmarkCellReuseId;
+                cellData = [_savedBookmarks objectAtIndex:indexPath.row];
+                break;
 
-        default:
-            if (self.searchField.text.length) {
-                cellData = [_searchLocations objectAtIndex:indexPath.row];
-            }
-            else {
+            case 1:
                 cellData = [_nearestLocations objectAtIndex:indexPath.row];
-            }
-            cellReuseId = nearbyCellReuseId;
-            break;
+                cellReuseId = nearbyCellReuseId;
+                break;
+
+            default:
+                cellReuseId = recentCellReuseId;
+                cellData = [_recentBookings objectAtIndex:indexPath.row];
+                break;
+                
+        }
     }
     
     cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
