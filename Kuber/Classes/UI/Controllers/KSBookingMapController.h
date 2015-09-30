@@ -10,6 +10,6 @@
 #import <MapKit/MapKit.h>
 
 
-@interface KSBookingMapController : UIViewController <MKMapViewDelegate>
+@interface KSBookingMapController : UIViewController <MKMapViewDelegate, UITableViewDataSource,UITableViewDelegate>
 
 @end
