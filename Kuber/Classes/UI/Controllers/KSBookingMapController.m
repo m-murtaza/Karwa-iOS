@@ -50,6 +50,7 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
 
+@property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
@@ -94,8 +95,6 @@
     float userLocationLat = [[NSString stringWithFormat:@"%.4f", self.mapView.userLocation.location.coordinate.latitude] floatValue];
     float userLocationLon = [[NSString stringWithFormat:@"%.4f", self.mapView.userLocation.location.coordinate.longitude] floatValue];
     
-    
-    
     if (mapCenterLat == userLocationLat && mapCenterLon == userLocationLon) {
         
         [self.btnCurrentLocaiton setSelected:TRUE];
@@ -103,7 +102,19 @@
     else{
         [self.btnCurrentLocaiton setSelected:FALSE];
     }
-        
+}
+
+-(void) setAddressTextStatus
+{
+    if (dropoffVisible) {
+        [self.lblPickupLocaitonTitle setTextColor:[UIColor colorFromHexString:@"#cee7fb"]];
+        [self.lblPickupLocaiton setTextColor:[UIColor colorFromHexString:@"#dddddd"]];
+    }
+    else{
+        [self.lblPickupLocaitonTitle setTextColor:[UIColor colorFromHexString:@"#25aaf1"]];
+        [self.lblPickupLocaiton setTextColor:[UIColor colorFromHexString:@"#000000"]];
+    }
+    
 }
 
 -(void) setDestinationRevealBtnState{
@@ -370,14 +381,12 @@
     if(indexPath.row == idxPickupLocation){
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingCellIdentifier"];
-        UILabel *lblTitle = (UILabel*) [cell viewWithTag:6001];
-        [lblTitle setText:TXT_TITLE_PICKUP_ADDRESS];
-        //[lblTitle setFont:[UIFont fontWithName:@"MuseoSans_500.otf" size:13.0]];
+        self.lblPickupLocaitonTitle = (UILabel*) [cell viewWithTag:6001];
+        [self.lblPickupLocaitonTitle setText:TXT_TITLE_PICKUP_ADDRESS];
+       
         if (!self.lblPickupLocaiton) {
             self.lblPickupLocaiton = (UILabel*) [cell viewWithTag:6002];
-            //[self.lblPickupLocaiton setFont:[UIFont fontWithName:@"MuseoSans_700.otf" size:16.0]];
         }
-        
     }
     else if(indexPath.row == idxDropOffLocation){
         
@@ -520,6 +529,7 @@
     
     [self UpdateMapForDropOff:dropoffVisible];
     [self setDestinationRevealBtnState];
+    [self setAddressTextStatus];
 }
 
 - (IBAction)showCurrentLocationTapped:(id)sender
