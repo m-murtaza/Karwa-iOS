@@ -47,9 +47,13 @@
 @property (nonatomic, weak) IBOutlet UILabel *lblLocationLandMark;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tblViewHeight;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
+@property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
+
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
+@property (nonatomic, strong) UIButton *btnDestinationReveal;
 
 //Top Right navigation item
 - (IBAction)showCurrentLocationTapped:(id)sender;
@@ -76,15 +80,46 @@
     self.mapView.zoomEnabled = YES;
     
     [self addTableViewHeader];
+    [self.btnCurrentLocaiton setSelected:TRUE];
     
 }
 
 #pragma mark - Private Function
 
+-(void) setCurrentLocaitonBtnState
+{
+    float mapCenterLat = [[NSString stringWithFormat:@"%.4f", self.mapView.centerCoordinate.latitude] floatValue];
+    float mapCenterLon = [[NSString stringWithFormat:@"%.4f", self.mapView.centerCoordinate.longitude] floatValue];
+
+    float userLocationLat = [[NSString stringWithFormat:@"%.4f", self.mapView.userLocation.location.coordinate.latitude] floatValue];
+    float userLocationLon = [[NSString stringWithFormat:@"%.4f", self.mapView.userLocation.location.coordinate.longitude] floatValue];
+    
+    
+    
+    if (mapCenterLat == userLocationLat && mapCenterLon == userLocationLon) {
+        
+        [self.btnCurrentLocaiton setSelected:TRUE];
+    }
+    else{
+        [self.btnCurrentLocaiton setSelected:FALSE];
+    }
+        
+}
+
+-(void) setDestinationRevealBtnState{
+    if (dropoffVisible) {
+        [self.btnDestinationReveal setImage:[UIImage imageNamed:@"downarrow-idle.png"] forState:UIControlStateNormal];
+        [self.btnDestinationReveal setImage:[UIImage imageNamed:@"downarrow-pressed.png"] forState:UIControlStateHighlighted];
+    }
+    else {
+        [self.btnDestinationReveal setImage:[UIImage imageNamed:@"uparrow-idle.png"] forState:UIControlStateNormal];
+        [self.btnDestinationReveal setImage:[UIImage imageNamed:@"uparrow-pressed.png"] forState:UIControlStateHighlighted];
+    }
+}
 
 -(void) addTableViewHeader
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 4.0)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 2.0)];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:headerView.frame];
     [imageView setImage:[UIImage imageNamed:@"bottombx-topbar.png"]];
     [headerView addSubview:imageView];
@@ -295,6 +330,7 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
 
+    [self setCurrentLocaitonBtnState];
     [self setPickupLocationLblText];
 }
 
@@ -369,6 +405,8 @@
     else if(indexPath.row == idxBtnCell){
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
+        self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
+        
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -451,13 +489,16 @@
         [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
         
         [self.tableView layoutIfNeeded];
+        [self.btnCurrentLocaiton setHidden:FALSE];
         self.tblViewHeight.constant -= 94;
+        self.bottomMapToTopTblView.constant +=94;
         [UIView animateWithDuration:0.5 animations:^{
             [self.tableView layoutIfNeeded];
+            
             [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
         }];
-
+        
     }
     else {
         
@@ -467,18 +508,18 @@
         [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
         
         [self.tableView layoutIfNeeded];
+        [self.btnCurrentLocaiton setHidden:TRUE];
         self.tblViewHeight.constant += 94;
+        self.bottomMapToTopTblView.constant -=94;
         [UIView animateWithDuration:1.0 animations:^{
             [self.tableView layoutIfNeeded];
             [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
         }];
-        
-        
-        
     }
     
     [self UpdateMapForDropOff:dropoffVisible];
+    [self setDestinationRevealBtnState];
 }
 
 - (IBAction)showCurrentLocationTapped:(id)sender

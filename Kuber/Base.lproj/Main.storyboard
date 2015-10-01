@@ -5490,7 +5490,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KbG-oA-TKr" id="xGh-3V-Ye9">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ar-fP-NnQ">
+                                                <button opaque="NO" tag="6005" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ar-fP-NnQ">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="49" id="48a-K6-cqK"/>
@@ -5551,7 +5551,6 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
-                                                    <exclude reference="8ar-fP-NnQ"/>
                                                     <exclude reference="pSp-91-qiu"/>
                                                 </mask>
                                                 <mask key="constraints">
@@ -5660,6 +5659,32 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-2d-nwe">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="43" id="B5P-qI-VIO"/>
+                                    <constraint firstAttribute="height" constant="43" id="lfv-Oz-ecH"/>
+                                </constraints>
+                                <state key="normal" image="location-idle.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="location-active.png"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="B5P-qI-VIO"/>
+                                        <exclude reference="lfv-Oz-ecH"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="B5P-qI-VIO"/>
+                                        <include reference="lfv-Oz-ecH"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="showCurrentLocationTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="eTa-lE-kCu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -5674,9 +5699,11 @@
                             <constraint firstItem="nmQ-Pv-Wui" firstAttribute="top" secondItem="v2G-VZ-GPY" secondAttribute="bottom" id="H3U-Ed-1jD"/>
                             <constraint firstItem="ctt-mr-gwD" firstAttribute="leading" secondItem="9Dm-ut-lOb" secondAttribute="leadingMargin" constant="-16" id="Hmc-RB-Ucb"/>
                             <constraint firstItem="v2G-VZ-GPY" firstAttribute="leading" secondItem="9Dm-ut-lOb" secondAttribute="leadingMargin" constant="-16" id="KyG-ZT-AzX"/>
-                            <constraint firstItem="v2G-VZ-GPY" firstAttribute="top" secondItem="ctt-mr-gwD" secondAttribute="bottom" constant="-94" id="Ndb-L8-8SI"/>
+                            <constraint firstItem="v2G-VZ-GPY" firstAttribute="top" secondItem="ctt-mr-gwD" secondAttribute="bottom" id="Ndb-L8-8SI"/>
                             <constraint firstItem="ctt-mr-gwD" firstAttribute="top" secondItem="mba-ik-13G" secondAttribute="bottom" id="R2g-fJ-ts5"/>
+                            <constraint firstItem="v2G-VZ-GPY" firstAttribute="top" secondItem="mDq-2d-nwe" secondAttribute="bottom" constant="8" id="oeQ-y0-xfc"/>
                             <constraint firstAttribute="centerX" secondItem="Le5-Mc-eHN" secondAttribute="centerX" id="tZL-CI-8Yk"/>
+                            <constraint firstItem="mDq-2d-nwe" firstAttribute="trailing" secondItem="9Dm-ut-lOb" secondAttribute="trailingMargin" id="u83-S9-0hU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ctt-mr-gwD" secondAttribute="trailing" constant="-16" id="wp6-pP-xzY"/>
                         </constraints>
                         <variation key="default">
@@ -5684,6 +5711,7 @@
                                 <exclude reference="ctt-mr-gwD"/>
                                 <exclude reference="v2G-VZ-GPY"/>
                                 <exclude reference="Le5-Mc-eHN"/>
+                                <exclude reference="mDq-2d-nwe"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Hmc-RB-Ucb"/>
@@ -5695,6 +5723,8 @@
                                 <exclude reference="25r-xc-e9V"/>
                                 <exclude reference="KyG-ZT-AzX"/>
                                 <exclude reference="Ndb-L8-8SI"/>
+                                <exclude reference="oeQ-y0-xfc"/>
+                                <exclude reference="u83-S9-0hU"/>
                                 <exclude reference="Flv-P9-Qol"/>
                                 <exclude reference="H3U-Ed-1jD"/>
                             </mask>
@@ -5704,6 +5734,7 @@
                                 <include reference="ctt-mr-gwD"/>
                                 <include reference="v2G-VZ-GPY"/>
                                 <include reference="Le5-Mc-eHN"/>
+                                <include reference="mDq-2d-nwe"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Hmc-RB-Ucb"/>
@@ -5715,6 +5746,8 @@
                                 <include reference="25r-xc-e9V"/>
                                 <include reference="KyG-ZT-AzX"/>
                                 <include reference="Ndb-L8-8SI"/>
+                                <include reference="oeQ-y0-xfc"/>
+                                <include reference="u83-S9-0hU"/>
                                 <exclude reference="Flv-P9-Qol"/>
                                 <include reference="H3U-Ed-1jD"/>
                             </mask>
@@ -5722,13 +5755,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Pickup Location" id="TL6-cX-Xhc">
                         <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="NMC-DT-hZ4"/>
-                        <barButtonItem key="rightBarButtonItem" image="location.png" id="tkx-3n-Kh7">
-                            <connections>
-                                <action selector="showCurrentLocationTapped:" destination="R2Z-NB-JBO" id="jkA-C6-gWC"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomMapToTopTblView" destination="Ndb-L8-8SI" id="eUF-I9-QLa"/>
+                        <outlet property="btnCurrentLocaiton" destination="mDq-2d-nwe" id="ueg-HQ-dTa"/>
                         <outlet property="lblLocationLandMark" destination="B6c-Mb-Q7D" id="Kap-57-eeM"/>
                         <outlet property="mapView" destination="ctt-mr-gwD" id="2oe-PM-a4X"/>
                         <outlet property="revealButtonItem" destination="NMC-DT-hZ4" id="dEG-9r-pPx"/>
@@ -6081,6 +6111,8 @@
         <image name="green-button-idle.png" width="349" height="50"/>
         <image name="green-button-pressed.png" width="349" height="50"/>
         <image name="list-icons.png" width="44" height="154"/>
+        <image name="location-active.png" width="43" height="43"/>
+        <image name="location-idle.png" width="43" height="43"/>
         <image name="location.png" width="16" height="16"/>
         <image name="login-button-idle.png" width="658" height="99"/>
         <image name="login-button-pressed.png" width="658" height="99"/>
