@@ -75,10 +75,22 @@
     self.mapView.scrollEnabled = YES;
     self.mapView.zoomEnabled = YES;
     
+    [self addTableViewHeader];
     
 }
 
 #pragma mark - Private Function
+
+
+-(void) addTableViewHeader
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, 4.0)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:headerView.frame];
+    [imageView setImage:[UIImage imageNamed:@"bottombx-topbar.png"]];
+    [headerView addSubview:imageView];
+    
+    self.tableView.tableHeaderView = headerView;
+}
 
 
 -(void) bookTaxi
