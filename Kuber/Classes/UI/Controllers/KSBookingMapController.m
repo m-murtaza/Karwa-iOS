@@ -17,6 +17,15 @@
 #import "KSBookingDetailsController.h"
 #import "KSDatePicker.h"
 
+
+#define ADDRESS_CELL_HEIGHT         86.0
+#define TIME_CELL_HEIGHT            66.0
+#define BTN_CELL_HEIGHT             77
+
+#define TXT_TITLE_PICKUP_ADDRESS    @"PICKUP ADDRESS"
+#define TXT_TITLE_DROPOFF_ADDRESS   @"DROPOFF ADDRESS"
+#define TXT_TITLE_PICKUP_TIME       @"PICKUP TIME"
+
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate>
 {
   
@@ -247,6 +256,7 @@
 
             
             [self.lblPickupLocaiton setText:geolocation.address];
+            //[self.lblPickupLocaiton setText:@"Mowasalt Apartments Al Sadd, Al Saffa Polyclinic, Doha"];
         }
         else {
         
@@ -276,6 +286,26 @@
 }
 
 #pragma mark - UITableView Datasouce
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 0.0;
+    
+    switch (indexPath.row) {
+        case 0:
+            height = ADDRESS_CELL_HEIGHT;
+            break;
+        case 1:
+            height = dropoffVisible ? ADDRESS_CELL_HEIGHT : TIME_CELL_HEIGHT;
+            break;
+        case 2:
+            height = dropoffVisible ? TIME_CELL_HEIGHT : BTN_CELL_HEIGHT;
+        default:
+            height= BTN_CELL_HEIGHT;
+            break;
+    }
+    return height;
+}
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (dropoffVisible) {
@@ -292,9 +322,11 @@
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingCellIdentifier"];
         UILabel *lblTitle = (UILabel*) [cell viewWithTag:6001];
-        [lblTitle setText:@"Pickup Location"];
+        [lblTitle setText:TXT_TITLE_PICKUP_ADDRESS];
+        //[lblTitle setFont:[UIFont fontWithName:@"MuseoSans_500.otf" size:13.0]];
         if (!self.lblPickupLocaiton) {
             self.lblPickupLocaiton = (UILabel*) [cell viewWithTag:6002];
+            //[self.lblPickupLocaiton setFont:[UIFont fontWithName:@"MuseoSans_700.otf" size:16.0]];
         }
         
     }
@@ -302,7 +334,7 @@
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingCellIdentifier"];
         UILabel *lblTitle = (UILabel*) [cell viewWithTag:6001];
-        [lblTitle setText:@"Dropoff Location"];
+        [lblTitle setText:TXT_TITLE_DROPOFF_ADDRESS];
         if (!self.lblDropoffLocaiton) {
             self.lblDropoffLocaiton = (UILabel*) [cell viewWithTag:6002];
         }
@@ -312,7 +344,7 @@
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"pickupTimeCellIdentifier"];
         UILabel *lblTitle = (UILabel*) [cell viewWithTag:6003];
-        [lblTitle setText:@"Pickup Time"];
+        [lblTitle setText:TXT_TITLE_PICKUP_TIME];
         if (!self.txtPickupTime.text.length) {
             
             self.txtPickupTime = (UITextField*) [cell viewWithTag:6004];

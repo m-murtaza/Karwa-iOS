@@ -251,7 +251,7 @@
                                                            navTitleColor, NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"MuseoForDell-500" size:21.0], NSFontAttributeName, nil]];
     
-    [appearance setTintColor:navTitleColor];
+    [appearance setTintColor:[UIColor blackColor]];
 
     [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];
