@@ -172,7 +172,7 @@
                 [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
                 
             }];
-            NSString *str = [NSString stringWithFormat:@"We have received your booking request for %@ at %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime getFormattedTitleDate],[tripInfo.pickupTime getTimeStringFromDate]];
+            NSString *str = [NSString stringWithFormat:@"We have received your booking request for %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime getFormattedTitleDate]];
             
             
             [KSConfirmationAlert showWithTitle:nil

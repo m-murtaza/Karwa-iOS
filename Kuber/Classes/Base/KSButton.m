@@ -14,7 +14,7 @@
     self = [super initWithCoder:coder];
     if (self) {
         
-        [[self titleLabel] setFont:[UIFont fontWithName:@"MuseoForDell-500" size:15]];
+        [[self titleLabel] setFont:[UIFont fontWithName:KSMuseoSans500 size:15]];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }

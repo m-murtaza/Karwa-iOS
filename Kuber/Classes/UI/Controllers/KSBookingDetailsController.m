@@ -48,11 +48,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self.lblPickupAddress setFontSize:13];
-    [self.lblDropoffAddress setFontSize:13];
-    [self.lblTitleTaxiInfo setFontSize:12];
-    [self.lblTaxiNumber setFontSize:12];
-    [self.lblDriverNumber setFontSize:12];
+//    [self.lblPickupAddress setFontSize:13];
+//    [self.lblDropoffAddress setFontSize:13];
+//    [self.lblTitleTaxiInfo setFontSize:12];
+//    [self.lblTaxiNumber setFontSize:12];
+//    [self.lblDriverNumber setFontSize:12];
     
     [self loadViewData];
     if (self.isOpenedFromPushNotification ) {

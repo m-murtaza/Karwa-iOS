@@ -13,14 +13,14 @@
 - (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        self.font = [UIFont fontWithName:@"MuseoForDell-300" size:15];
+        self.font = [UIFont fontWithName:KSMuseoSans300 size:15];
     }
     return self;
 }
 
 -(void) setFontSize:(NSInteger)size
 {
-    self.font = [UIFont fontWithName:@"MuseoForDell-300" size:size];
+    self.font = [UIFont fontWithName:KSMuseoSans300 size:size];
 }
 
 @end

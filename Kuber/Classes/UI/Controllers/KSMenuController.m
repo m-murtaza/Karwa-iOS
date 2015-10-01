@@ -36,7 +36,7 @@
     
     KSUser *user = [KSDAL userWithPhone:userSession.phone];
     self.lblDisplayName.text = [user.name uppercaseString];
-    self.lblDisplayName.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
+    self.lblDisplayName.font = [UIFont fontWithName:KSMuseoSans500 size:17];
     self.lblPhone.text = user.phone;
     
     

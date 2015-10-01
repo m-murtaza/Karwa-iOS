@@ -46,13 +46,13 @@
 -(void) loadViewData
 {
     self.lblName.text = [user.name uppercaseString];
-    self.lblName.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
+    self.lblName.font = [UIFont fontWithName:KSMuseoSans500 size:17];
     
     self.lblEmail.text = user.email;
-    self.lblEmail.font = [UIFont fontWithName:@"MuseoForDell-300" size:12];
+    self.lblEmail.font = [UIFont fontWithName:KSMuseoSans300 size:12];
     
     self.lblPhone.text = user.phone;
-    self.lblPhone.font = [UIFont fontWithName:@"MuseoForDell-300" size:12];
+    self.lblPhone.font = [UIFont fontWithName:KSMuseoSans300 size:12];
 }
 
 -(void) addHeadAndFooterToTableView
@@ -67,7 +67,7 @@
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"ACCOUNT INFO";
-    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.font = [UIFont fontWithName:KSMuseoSans300 size:14];
     labelView.textColor = [UIColor colorFromHexString:@"#187a89"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
@@ -116,7 +116,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingActionCellIndentifier"];
     UIImageView *imgView = (UIImageView*) [cell viewWithTag:5001];
     KSLabel *lbl = (KSLabel*) [cell viewWithTag:5002];
-    [lbl setFont:[UIFont fontWithName:@"MuseoForDell-500" size:15]];
+    [lbl setFont:[UIFont fontWithName:KSMuseoSans500 size:15]];
     [lbl setTextColor:[UIColor colorFromHexString:@"#1e1e1e"]];
     
     if(indexPath.row == 0)
