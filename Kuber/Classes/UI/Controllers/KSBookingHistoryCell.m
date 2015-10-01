@@ -22,13 +22,13 @@
 
 @implementation KSBookingHistoryCell
 
-- (void)awakeFromNib {
+/*- (void)awakeFromNib {
     // Initialization code
-    self.lblPickupFrom.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
-    [self.lblDropoffTo setFontSize:13];
-    [self.lblTime setFontSize:12];
-    [self.lblDate setFontSize:12];
-}
+    //self.lblPickupFrom.font = [UIFont fontWithName:@"MuseoForDell-500" size:17];
+    //[self.lblDropoffTo setFontSize:13];
+    //[self.lblTime setFontSize:12];
+    //[self.lblDate setFontSize:12];
+}*/
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

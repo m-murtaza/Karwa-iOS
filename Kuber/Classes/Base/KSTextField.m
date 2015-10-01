@@ -15,7 +15,7 @@
     if (self) {
         //UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
         //self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"" attributes:@{NSForegroundColorAttributeName: color}];
-        self.font = [UIFont fontWithName:@"MuseoForDell-300" size:15.0];
+        self.font = [UIFont fontWithName:KSMuseoSans300 size:15.0];
         self.tintColor = [UIColor whiteColor];
         [self setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -10)];
         
