@@ -60,4 +60,16 @@
     NSString *dateString = [timeFormatter stringFromDate:self];
     return dateString;
 }
+
+- (NSString*) formatedDateForBooking
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"EE d MMM, hh:mm a"];
+    
+    //Optionally for time zone conversions
+    //[formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    NSString *stringFromDate = [formatter stringFromDate:self];
+    return stringFromDate;
+}
 @end

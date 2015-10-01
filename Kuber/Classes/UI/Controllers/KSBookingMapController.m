@@ -275,11 +275,9 @@
 
 - (void)updatePickupTime:(NSDate *)date {
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //[formatter setDateFormat:@"MMM dd, yy, HH:mm"];
-    [formatter setDateFormat:@"dd - MMMM yyyy, hh:mm a"];
     
-    self.txtPickupTime.text = [formatter stringFromDate:date];
+    
+    self.txtPickupTime.text = [date formatedDateForBooking];
 }
 
 -(void) setMapRegionToUserCurrentLocation

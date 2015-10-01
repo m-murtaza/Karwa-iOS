@@ -22,4 +22,5 @@
 
 - (NSString*) getTimeStringFromDate;
 
+- (NSString*) formatedDateForBooking;
 @end
