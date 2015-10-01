@@ -259,7 +259,7 @@
 
     //Firstly only show the lat long
     [self.lblPickupLocaiton setText:[NSString stringWithFormat:@"%f - %f",self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude]];
-    
+    self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
     //Then reverse geocode the lat long
     [[KSLocationManager instance] locationWithCoordinate:self.mapView.centerCoordinate completion:^(KSGeoLocation *geolocation) {
         
@@ -268,6 +268,7 @@
 
             
             [self.lblPickupLocaiton setText:geolocation.address];
+            self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
             //[self.lblPickupLocaiton setText:@"Mowasalt Apartments Al Sadd, Al Saffa Polyclinic, Doha"];
         }
         else {
@@ -420,6 +421,7 @@
     if(picker.pickerId == KSPickerIdForPickupAddress){
         
         [self.lblPickupLocaiton setText:address];
+        self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
         if (location) {
             
             [self.mapView setCenterCoordinate:location.coordinate animated:YES];
