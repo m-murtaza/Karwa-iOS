@@ -33,12 +33,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="B0a-dS-2Ou" kind="relationship" relationship="rootViewController" id="FRG-j2-lNN"/>
+                        <segue destination="R2Z-NB-JBO" kind="relationship" relationship="rootViewController" id="yqw-R3-lfa"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6h-Vm-r1p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1125" y="-536.25"/>
+            <point key="canvasLocation" x="-1221" y="90.75"/>
         </scene>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
@@ -280,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-295.5" y="111.75"/>
+            <point key="canvasLocation" x="-277.5" y="1044.75"/>
         </scene>
         <!--Reset Password-->
         <scene sceneID="q6c-X6-Muh">
@@ -429,7 +429,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mDT-hG-n5g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="388.5" y="120.75"/>
+            <point key="canvasLocation" x="577.5" y="1479.75"/>
         </scene>
         <!--Karwa Taxi-->
         <scene sceneID="wdf-SK-OK9">
@@ -570,7 +570,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu2-Sv-jI5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1155" y="442.5"/>
+            <point key="canvasLocation" x="-1221" y="1015.5"/>
         </scene>
         <!--Signup-->
         <scene sceneID="oXs-qD-XKA">
@@ -857,7 +857,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXm-9G-O6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-295.5" y="807"/>
+            <point key="canvasLocation" x="-277.5" y="1797"/>
         </scene>
         <!--Verify-->
         <scene sceneID="ydr-vo-BB4">
@@ -1074,7 +1074,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hW-ke-Ipw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="508.5" y="807"/>
+            <point key="canvasLocation" x="652.5" y="2175"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="b6k-jk-nrf">
@@ -2224,7 +2224,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSf-YJ-4o6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2368.5" y="-1300.5"/>
+            <point key="canvasLocation" x="1768.5" y="-1855.5"/>
         </scene>
         <!--Booking History-->
         <scene sceneID="FzB-q5-8gA">
@@ -2595,9 +2595,6 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDW-k9-Xom">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="400" height="585"/>
-                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="jpA-Ag-F5d" id="MrB-L4-Vd5"/>
                                 </connections>
@@ -3761,7 +3758,6 @@
                         <barButtonItem key="rightBarButtonItem" image="location.png" id="sBX-fX-62H">
                             <connections>
                                 <action selector="showCurrentLocationTapped:" destination="B0a-dS-2Ou" id="Vst-ka-1wP"/>
-                                <segue destination="R2Z-NB-JBO" kind="show" id="dDr-Mb-MMI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -3771,12 +3767,11 @@
                         <outlet property="txtDropoffAddress" destination="1wZ-uL-Hhg" id="97Q-Jf-Ggi"/>
                         <outlet property="txtPickupAddress" destination="at1-pG-QIr" id="CeM-Y7-qHf"/>
                         <outlet property="txtPickupTime" destination="hg1-B6-3jc" id="ZLr-gz-ySx"/>
-                        <segue destination="BJO-Sg-uAr" kind="show" identifier="segueBookingToBookingDetail" id="mgV-Ng-nSO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ri8-OY-WCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-166.5" y="-536.25"/>
+            <point key="canvasLocation" x="1579.5" y="1353.75"/>
         </scene>
         <!--Address-->
         <scene sceneID="xPt-PM-Vuc">
@@ -3793,7 +3788,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6z-0Q-nZc">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search a place or pick from list" minimumFontSize="17" background="searchbox.png" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="yXA-BK-yeW">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search a place or pick from list" minimumFontSize="17" background="searchbox.png" translatesAutoresizingMaskIntoConstraints="NO" id="yXA-BK-yeW">
                                         <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="gIw-Q0-4uk"/>
@@ -3815,18 +3810,6 @@
                                             <outlet property="delegate" destination="GGw-zE-o73" id="PK7-EM-S1g"/>
                                         </connections>
                                     </textField>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dIR-Te-S2u">
-                                        <rect key="frame" x="-61" y="-14" width="123" height="29"/>
-                                        <segments>
-                                            <segment title="Favorites"/>
-                                            <segment title="Nearby"/>
-                                            <segment title="Recent"/>
-                                        </segments>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="onSegmentChange:" destination="GGw-zE-o73" eventType="valueChanged" id="bQM-mm-vL4"/>
-                                        </connections>
-                                    </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -3836,38 +3819,27 @@
                                     <constraint firstAttribute="height" constant="165" id="QwE-jX-Mvf">
                                         <variation key="heightClass=regular-widthClass=compact" constant="122"/>
                                     </constraint>
-                                    <constraint firstItem="dIR-Te-S2u" firstAttribute="leading" secondItem="n6z-0Q-nZc" secondAttribute="leading" constant="8" id="Xf7-0q-D9V"/>
-                                    <constraint firstItem="dIR-Te-S2u" firstAttribute="top" secondItem="yXA-BK-yeW" secondAttribute="bottom" constant="14" id="ojm-4X-wWN"/>
-                                    <constraint firstAttribute="trailing" secondItem="dIR-Te-S2u" secondAttribute="trailing" constant="8" id="xxF-U3-llm"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="yXA-BK-yeW"/>
-                                        <exclude reference="dIR-Te-S2u"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="QwE-jX-Mvf"/>
                                         <exclude reference="4TP-HE-A7y"/>
                                         <exclude reference="Hdo-ne-6In"/>
                                         <exclude reference="MRt-fH-x0t"/>
-                                        <exclude reference="Xf7-0q-D9V"/>
-                                        <exclude reference="ojm-4X-wWN"/>
-                                        <exclude reference="xxF-U3-llm"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="yXA-BK-yeW"/>
-                                        <include reference="dIR-Te-S2u"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="QwE-jX-Mvf"/>
                                         <include reference="4TP-HE-A7y"/>
                                         <include reference="Hdo-ne-6In"/>
                                         <include reference="MRt-fH-x0t"/>
-                                        <include reference="Xf7-0q-D9V"/>
-                                        <include reference="ojm-4X-wWN"/>
-                                        <include reference="xxF-U3-llm"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -3938,7 +3910,7 @@
                         <constraints>
                             <constraint firstItem="aJE-As-JYh" firstAttribute="top" secondItem="nHw-kP-qS7" secondAttribute="bottom" id="2Sh-oz-gwN"/>
                             <constraint firstItem="nHw-kP-qS7" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="bottom" constant="1" id="TRT-7a-mL6">
-                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="-58"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="n6z-0Q-nZc" secondAttribute="trailing" constant="-16" id="Zrf-e1-a7y"/>
                             <constraint firstItem="n6z-0Q-nZc" firstAttribute="leading" secondItem="FEV-M7-DeT" secondAttribute="leadingMargin" constant="-16" id="eyZ-GZ-VcC"/>
@@ -3980,14 +3952,13 @@
                     <navigationItem key="navigationItem" title="Address" id="y1G-Db-zUZ"/>
                     <connections>
                         <outlet property="searchField" destination="yXA-BK-yeW" id="OI8-KU-7kT"/>
-                        <outlet property="segmentControl" destination="dIR-Te-S2u" id="c9n-e6-b1t"/>
                         <outlet property="tableView" destination="nHw-kP-qS7" id="KgD-X7-PHa"/>
                         <segue destination="jpA-Ag-F5d" kind="show" identifier="SegueAddPickerToBookmark" id="snM-TD-RWk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfB-WR-egp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3301.5" y="90.75"/>
+            <point key="canvasLocation" x="1267.5" y="264.75"/>
         </scene>
         <!--Booking Confirmation-->
         <scene sceneID="Hg9-Dc-3B8">
@@ -4596,7 +4567,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Miv-Ts-3rF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="852" y="-400.5"/>
+            <point key="canvasLocation" x="-66" y="-546"/>
         </scene>
         <!--Booking Details-->
         <scene sceneID="zpc-FD-cqT">
@@ -5297,7 +5268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGm-1Y-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2379" y="291"/>
+            <point key="canvasLocation" x="591" y="792"/>
         </scene>
         <!--Bookings-->
         <scene sceneID="sVF-Et-lLR">
@@ -5313,9 +5284,6 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctt-mr-gwD">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="64" width="400" height="464"/>
-                                </variation>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="v2G-VZ-GPY">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -5330,7 +5298,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tal-ce-yuC" id="FRM-My-ftz">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="6001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9V-3J-rHT">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="6001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Pickup Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9V-3J-rHT">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -5339,7 +5307,7 @@
                                                         <rect key="frame" x="8" y="8" width="384" height="14"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="6002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgY-Th-eVm">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="6002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgY-Th-eVm">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -5392,7 +5360,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j5k-dv-C5T" id="iFr-hp-pRd">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="6003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pickup Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egH-2G-aen">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="6003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Pickup Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egH-2G-aen">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -5401,7 +5369,7 @@
                                                         <rect key="frame" x="8" y="8" width="384" height="14"/>
                                                     </variation>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="6004" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pickup Time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRg-sU-ydQ">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="6004" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pickup Time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRg-sU-ydQ">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -5493,13 +5461,13 @@
                                                     <exclude reference="8ar-fP-NnQ"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="MHg-46-MKS"/>
-                                                    <exclude reference="uBq-Kv-9JF"/>
-                                                    <exclude reference="zxq-8x-5uT"/>
                                                     <exclude reference="DQu-wM-9Mh"/>
                                                     <exclude reference="SLl-6j-Ko6"/>
                                                     <exclude reference="fWC-ud-0FI"/>
                                                     <exclude reference="llx-IF-ei5"/>
+                                                    <exclude reference="MHg-46-MKS"/>
+                                                    <exclude reference="uBq-Kv-9JF"/>
+                                                    <exclude reference="zxq-8x-5uT"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -5508,13 +5476,13 @@
                                                     <include reference="8ar-fP-NnQ"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="MHg-46-MKS"/>
-                                                    <include reference="uBq-Kv-9JF"/>
-                                                    <include reference="zxq-8x-5uT"/>
                                                     <include reference="DQu-wM-9Mh"/>
                                                     <include reference="SLl-6j-Ko6"/>
                                                     <include reference="fWC-ud-0FI"/>
                                                     <include reference="llx-IF-ei5"/>
+                                                    <include reference="MHg-46-MKS"/>
+                                                    <include reference="uBq-Kv-9JF"/>
+                                                    <include reference="zxq-8x-5uT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -5652,6 +5620,8 @@
                                 <exclude reference="Gp4-oS-KDd"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Flv-P9-Qol"/>
+                                <exclude reference="H3U-Ed-1jD"/>
                                 <exclude reference="Hmc-RB-Ucb"/>
                                 <exclude reference="R2g-fJ-ts5"/>
                                 <exclude reference="wp6-pP-xzY"/>
@@ -5663,8 +5633,6 @@
                                 <exclude reference="25r-xc-e9V"/>
                                 <exclude reference="KyG-ZT-AzX"/>
                                 <exclude reference="Ndb-L8-8SI"/>
-                                <exclude reference="Flv-P9-Qol"/>
-                                <exclude reference="H3U-Ed-1jD"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -5674,6 +5642,8 @@
                                 <include reference="Gp4-oS-KDd"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Flv-P9-Qol"/>
+                                <include reference="H3U-Ed-1jD"/>
                                 <include reference="Hmc-RB-Ucb"/>
                                 <include reference="R2g-fJ-ts5"/>
                                 <include reference="wp6-pP-xzY"/>
@@ -5685,12 +5655,11 @@
                                 <include reference="25r-xc-e9V"/>
                                 <include reference="KyG-ZT-AzX"/>
                                 <include reference="Ndb-L8-8SI"/>
-                                <exclude reference="Flv-P9-Qol"/>
-                                <include reference="H3U-Ed-1jD"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Pickup Location" id="TL6-cX-Xhc">
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="NMC-DT-hZ4"/>
                         <barButtonItem key="rightBarButtonItem" image="location.png" id="tkx-3n-Kh7">
                             <connections>
                                 <action selector="showCurrentLocationTapped:" destination="R2Z-NB-JBO" id="jkA-C6-gWC"/>
@@ -5699,6 +5668,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="ctt-mr-gwD" id="2oe-PM-a4X"/>
+                        <outlet property="revealButtonItem" destination="NMC-DT-hZ4" id="dEG-9r-pPx"/>
                         <outlet property="tableView" destination="v2G-VZ-GPY" id="qNK-6R-d1S"/>
                         <outlet property="tblViewHeight" destination="ats-hk-m4T" id="pGA-AX-96k"/>
                         <segue destination="GGw-zE-o73" kind="show" identifier="segueBookingToAddressPicker" id="A3E-FM-97q"/>
@@ -5707,7 +5677,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5U-vt-uPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531.5" y="417.75"/>
+            <point key="canvasLocation" x="-322.5" y="129.75"/>
         </scene>
         <!--Edit User Info-->
         <scene sceneID="ktq-t0-ONJ">
@@ -6011,23 +5981,6 @@
             </objects>
             <point key="canvasLocation" x="751.5" y="-1068.75"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ma3-6h-VdC">
-            <objects>
-                <viewController id="ilz-w8-0KD" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oRC-gC-3DO"/>
-                        <viewControllerLayoutGuide type="bottom" id="C1o-NF-zg9"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Bcj-a2-aqG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XBM-LC-ReV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="Booking-details-top-view.png" width="375" height="173"/>
@@ -6098,8 +6051,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hXH-pr-aUV"/>
-        <segue reference="Li1-w2-bB0"/>
+        <segue reference="yeV-6V-ZSt"/>
         <segue reference="snM-TD-RWk"/>
-        <segue reference="nbB-dK-Gpq"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "KSViewController.h"
 
 
-@interface KSBookingMapController : UIViewController <MKMapViewDelegate, UITableViewDataSource,UITableViewDelegate>
+@interface KSBookingMapController : KSViewController <MKMapViewDelegate, UITableViewDataSource,UITableViewDelegate>
 
 @end

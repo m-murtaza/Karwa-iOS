@@ -143,11 +143,17 @@
                                        [self bookTaxi];
                                    }
                                }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                               
+                                                           }];
     [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
      {
          txtField.placeholder = @"Please provide some hint";
      }];
     [alt addAction:okAction];
+    [alt addAction:cancelAction];
     [self presentViewController:alt animated:YES completion:nil];
 }
 
@@ -400,7 +406,7 @@
         
         [self.tableView layoutIfNeeded];
         self.tblViewHeight.constant -= 94;
-        [UIView animateWithDuration:1.0 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             [self.tableView layoutIfNeeded];
             [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];

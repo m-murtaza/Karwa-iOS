@@ -25,6 +25,8 @@ typedef enum {
 }
 KSTableViewType;
 
+#define NO_SECTION_INDEX -1
+#define LOADING_CELL_IDX 3
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -35,19 +37,26 @@ KSTableViewType;
     NSArray *_nearestLocations;
     
     NSArray *_searchLocations;
+    NSArray *_searchSavedBookmarks;
+    NSArray *_searchRecentBookings;
+    
+    NSInteger idxNearSection;
+    NSInteger idxFavSection;
+    NSInteger idxRecentSection;
+    BOOL showAllNearBy;
     
     KSGeoLocation *selectedGeoLocation;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+//@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic) KSTableViewType tableViewType;
 
-- (IBAction)onSegmentChange:(id)sender;
+//- (IBAction)onSegmentChange:(id)sender;
 
 @end
 
@@ -57,32 +66,26 @@ KSTableViewType;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     selectedGeoLocation = nil;
+    showAllNearBy = NO;
 
     UIImage *searchIcon = [UIImage imageNamed:@"search-icon.png"];
     UIImageView *searchIconView = [[UIImageView alloc] initWithImage:searchIcon];
     searchIconView.frame = CGRectMake(0, 0, searchIcon.size.width, searchIcon.size.height);
     self.searchField.leftView = searchIconView;
     self.searchField.leftViewMode = UITextFieldViewModeAlways;
-
-    [self.searchField addTarget:self action:@selector(onSearchTextChange:) forControlEvents:UIControlEventEditingChanged];
     
-    // Customize segment control
-    UIImage *segmentImg = [UIImage imageNamed:@"segment_unselected.png"];
-    UIImage *highlightedSegmentImg = [UIImage imageNamed:@"segment_selected.png"];
-    UIImage *segmentDividerImg = [UIImage imageNamed:@"segment_splitter.png"];
     
-    [self.segmentControl setBackgroudImage:segmentImg
-                          highlightedImage:highlightedSegmentImg
-                              dividerImage:segmentDividerImg];
-
-    UIColor *segmentHighlightColor = [UIColor colorWithRed:90.0 / 255.0
-                                                     green:250.0 / 255.0
-                                                      blue:250.0 / 255.0
-                                                     alpha:1.];
-    [self.segmentControl setTitleColor:segmentHighlightColor
-                       forControlState:UIControlStateHighlighted];
-    [self.segmentControl setTitleColor:segmentHighlightColor
-                       forControlState:UIControlStateSelected];
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton setImage:[UIImage imageNamed:@"close.png"]
+                 forState:UIControlStateNormal];
+    [closeButton setImage:[UIImage imageNamed:@"close.png"]
+                 forState:UIControlStateHighlighted];
+    [closeButton addTarget:self
+                    action:@selector(closeSearch:)
+          forControlEvents:UIControlEventTouchUpInside];
+    closeButton.frame = CGRectMake(0, 0, searchIcon.size.width, searchIcon.size.height);
+    self.searchField.rightView = closeButton;
+    self.searchField.rightViewMode = UITextFieldViewModeWhileEditing;
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -112,6 +115,131 @@ KSTableViewType;
 
 #pragma mark -
 #pragma mark - Private Methods
+
+- (void) filterFavLocationFortext:(NSString*)searchText
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@",searchText];
+    _searchSavedBookmarks = [_savedBookmarks filteredArrayUsingPredicate:predicate];
+}
+
+- (void) filterRecentLocationsForText: (NSString*) searchText
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pickupLandmark CONTAINS[c] %@",searchText];
+    _searchRecentBookings = [_recentBookings filteredArrayUsingPredicate:predicate];
+}
+- (NSInteger) numberOfRowWhenSearchingForSection:(NSInteger)section
+{
+    NSInteger numRow = 0;
+    if (section == idxNearSection) {
+        if (showAllNearBy) {
+            numRow = _searchLocations.count;
+        }
+        else{
+            if (_searchLocations.count > LOADING_CELL_IDX) {
+                numRow = LOADING_CELL_IDX + 1;
+            }
+            else{
+                numRow = _searchLocations.count;
+            }
+                
+        }
+        
+    }
+    else if(section == idxFavSection){
+        numRow = _searchSavedBookmarks.count;
+    }
+    else if(section == idxRecentSection){
+        numRow = _searchRecentBookings.count;
+    }
+        
+    return numRow;
+}
+
+-(NSInteger) numberOfRowWhenNotSearchingForSection:(NSInteger)section
+{
+    NSInteger numRow = 0;
+    if (section == idxNearSection) {
+        if (showAllNearBy) {
+            numRow = _nearestLocations.count;
+        }
+        else{
+            if (_nearestLocations.count > LOADING_CELL_IDX) {
+                numRow = LOADING_CELL_IDX + 1;
+            }
+            else {
+                numRow = _nearestLocations.count;
+            }
+            
+        }
+        
+    }
+    else if(section == idxFavSection){
+        numRow = _savedBookmarks.count;
+    }
+    else if(section == idxRecentSection){
+        numRow = _recentBookings.count;
+    }
+    
+    return numRow;
+}
+
+-(NSInteger) numberOfSectionsWhenSearching
+{
+    NSInteger sectionCount = 0;
+    
+    idxNearSection = NO_SECTION_INDEX;
+    idxFavSection = NO_SECTION_INDEX;
+    idxRecentSection = NO_SECTION_INDEX;
+    
+    if (_searchLocations.count > 0) {
+        idxNearSection = 0;
+        sectionCount ++;
+    }
+    if (_searchSavedBookmarks.count > 0) {
+        
+        idxFavSection = idxNearSection + 1;
+        sectionCount++;
+    }
+    if (_searchRecentBookings.count > 0) {
+        
+        idxRecentSection = idxNearSection + idxFavSection + 2;
+        if (idxRecentSection > 2) {
+            idxRecentSection = 2;
+        }
+        sectionCount++;
+    }
+    return sectionCount;
+}
+
+-(NSUInteger) numberOfSerctionsWhenNotSearching
+{
+    NSInteger sectionCount = 0;
+    
+    idxNearSection = NO_SECTION_INDEX;
+    idxFavSection = NO_SECTION_INDEX;
+    idxRecentSection = NO_SECTION_INDEX;
+    
+    if (_nearestLocations.count > 0) {
+        idxNearSection = 0;
+        sectionCount++;
+    }
+    if (_savedBookmarks.count > 0) {
+        
+        idxFavSection = idxNearSection + 1;
+        sectionCount++;
+    }
+    if(_recentBookings.count > 0){
+        idxRecentSection = idxNearSection + idxFavSection + 2;
+        if (idxRecentSection > 2) {
+            idxRecentSection = 2;
+        }
+        sectionCount++;
+    }
+    
+    return sectionCount;
+}
+
+
 -(void) addCellButtonObserver
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -186,7 +314,16 @@ KSTableViewType;
             self.tableViewType = KSTableViewTypeNearby;
         }
     }
-    self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    [self.tableView reloadData];
+}
+
+#pragma mark - Event handlers 
+
+-(void) closeSearch:(id)sender
+{
+    [self.searchField resignFirstResponder];
+    [self.searchField setText:@""];
     [self.tableView reloadData];
 }
 
@@ -258,35 +395,50 @@ KSTableViewType;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if(!self.searchField.text.length)
-    {
+   // if(!self.searchField.text.length)
+    //{
         return 64.0;
-    }
-    return UITableViewAutomaticDimension;
+    //}
+    //return UITableViewAutomaticDimension;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (self.searchField.text.length) {
-        return @"";
+
+    NSString *sectionName = @"";
+    
+    if (section == idxNearSection) {
+        sectionName = @"Nearby";
+    }
+    else if(section == idxFavSection){
+        sectionName = @"Favorites";
     }
     else{
-        NSString *sectionName;
-        switch (section)
-        {
-            case 0:
-                sectionName = @"Favorites";
-                break;
-            case 1:
-                sectionName = @"Nearby";
-                break;
-                // ...
-            default:
-                sectionName = @"Recent";
-                break;
-        }
-        return sectionName;
+    
+        sectionName = @"Recent";
     }
+    return sectionName;
+    
+    ////    if (self.searchField.text.length) {
+////        return @"";
+////    }
+////    else{
+//        NSString *sectionName;
+//        switch (section)
+//        {
+//            case 0:
+//                sectionName = @"Nearby";
+//                break;
+//            case 1:
+//                sectionName = @"Favorites";
+//                break;
+//                // ...
+//            default:
+//                sectionName = @"Recent";
+//                break;
+//        }
+//        return sectionName;
+////    }
     
 }
 
@@ -296,43 +448,19 @@ KSTableViewType;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
     if (self.searchField.text.length) {
-        return 1;
+        return [self numberOfSectionsWhenSearching];
     }
-    
-    return 3;
+    return [self numberOfSerctionsWhenNotSearching];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    /*switch (self.tableViewType) {
-        case KSTableViewTypeFavorites:
-            return _savedBookmarks.count;
-        case KSTableViewTypeRecent:
-            return _recentBookings.count;
-        default:
-            if (self.searchField.text.length) {
-                return _searchLocations.count;
-            }
-            return _nearestLocations.count;
-            break;
-    }*/
     if (self.searchField.text.length) {
-        return _searchLocations.count;
+        return [self numberOfRowWhenSearchingForSection:section];
     }
-    else{
-        switch (section) {
-            case 0:
-                return _savedBookmarks.count;
-                break;
-            case 1:
-                return _nearestLocations.count;
-                break;
-            default:
-                return _recentBookings.count;
-                break;
-        }
-    }
+    return [self numberOfRowWhenNotSearchingForSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -345,7 +473,47 @@ KSTableViewType;
     KSButtonCell *cell = nil;
     id cellData;
     
-    if (self.searchField.text.length) {
+    BOOL isSearching = self.searchField.text.length;
+    
+    if (indexPath.section == idxNearSection) {
+        cellReuseId = nearbyCellReuseId;
+        if (!showAllNearBy && indexPath.row == LOADING_CELL_IDX) {
+            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LoadMoreCellIdentifier"];
+            loadMoreCell.textLabel.text = @"Load more data...";
+            return loadMoreCell;
+        }
+        
+        if (isSearching) {
+            
+            cellData = [_searchLocations objectAtIndex:indexPath.row];
+        }
+        else {
+            
+            cellData = [_nearestLocations objectAtIndex:indexPath.row];
+        }
+    }
+    else if(indexPath.section == idxFavSection){
+        cellReuseId = bookmarkCellReuseId;
+        if (isSearching) {
+            cellData = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+        }
+        else {
+            cellData = [_savedBookmarks objectAtIndex:indexPath.row];
+        }
+    }
+    else {
+        cellReuseId = recentCellReuseId;
+        if (isSearching) {
+            cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
+        }
+        else {
+            cellData = [_recentBookings objectAtIndex:indexPath.row];
+        }
+    }
+    
+    
+    
+    /*if (self.searchField.text.length) {
         cellData = [_searchLocations objectAtIndex:indexPath.row];
         cellReuseId = nearbyCellReuseId;
     }
@@ -353,13 +521,14 @@ KSTableViewType;
 
         switch (indexPath.section) {
             case 0:
-                cellReuseId = bookmarkCellReuseId;
-                cellData = [_savedBookmarks objectAtIndex:indexPath.row];
+                
+                cellData = [_nearestLocations objectAtIndex:indexPath.row];
+                cellReuseId = nearbyCellReuseId;
                 break;
 
             case 1:
-                cellData = [_nearestLocations objectAtIndex:indexPath.row];
-                cellReuseId = nearbyCellReuseId;
+                cellReuseId = bookmarkCellReuseId;
+                cellData = [_savedBookmarks objectAtIndex:indexPath.row];
                 break;
 
             default:
@@ -368,7 +537,7 @@ KSTableViewType;
                 break;
                 
         }
-    }
+    }*/
     
     cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
     
@@ -385,7 +554,18 @@ KSTableViewType;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     NSLog(@"%s", __func__);
-
+    if (indexPath.section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX) {
+        showAllNearBy = TRUE;
+        [UIView transitionWithView:tableView
+                          duration:0.5f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^(void) {
+                            [tableView reloadData];
+                        } completion:NULL];
+        return;
+    }
+    
+    
     NSString *placeName = nil;
     CLLocation *location = nil;
     KSBookmark *bookmark;
@@ -440,46 +620,52 @@ KSTableViewType;
         if (textField.text.length > 2) {
             
             KSAddressPickerController *me = self;
-//            _searchLocations = [KSDAL locationsMatchingText:textField.text];
-            if (self.segmentControl.selectedSegmentIndex != KSTableViewTypeNearby) {
-                self.segmentControl.selectedSegmentIndex = KSTableViewTypeNearby;
-                _tableViewType = KSTableViewTypeNearby;
-            }
             [self showLoadingView];
             [[KSLocationManager instance] placemarksMatchingQuery:textField.text country:@"" completion:^(NSArray *placemarks) {
                 [self hideLoadingView];
                 _searchLocations = placemarks;
+                
+                [self filterFavLocationFortext:textField.text];
+                [self filterRecentLocationsForText:textField.text];
                 [me.tableView reloadData];
             }];
-//            [self.tableView reloadData];
         }
         return NO;
     }
     return YES;
 }
 
-- (void)onSearchTextChange:(UITextField *)textField {
-    
-    if (textField == self.searchField) {
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    //textField.text = @"";
 
-        if (!textField.text.length) {
-            if (KSTableViewTypeNearby == self.segmentControl.selectedSegmentIndex) {
-                
-                [self.tableView reloadData];
-            }
-        }
-    }
+    [textField resignFirstResponder];
+        //[self.tableView reloadData];
+    return YES;
 }
 
-#pragma mark -
-#pragma mark - Event handlers
+//- (void)onSearchTextChange:(UITextField *)textField {
+//    
+//    if (textField == self.searchField) {
+//
+//        if (!textField.text.length) {
+//            if (KSTableViewTypeNearby == self.segmentControl.selectedSegmentIndex) {
+//                
+//                [self.tableView reloadData];
+//            }
+//        }
+//    }
+//}
 
-- (IBAction)onSegmentChange:(id)sender {
-    
-    self.tableViewType =  (KSTableViewType)self.segmentControl.selectedSegmentIndex;
-
-    [self.tableView reloadData];
-}
+//#pragma mark -
+//#pragma mark - Event handlers
+//
+//- (IBAction)onSegmentChange:(id)sender {
+//    
+//    self.tableViewType =  (KSTableViewType)self.segmentControl.selectedSegmentIndex;
+//
+//    [self.tableView reloadData];
+//}
 
 
 @end
