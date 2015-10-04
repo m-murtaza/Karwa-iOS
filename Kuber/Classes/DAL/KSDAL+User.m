@@ -191,4 +191,10 @@
     [self updateUserInfoWithData:requestData completion:completionBlock];
 }
 
++(void)updateUserWithPushToken:(NSString*)pushToken completion:(KSDALCompletionBlock)completionBlock{
+   NSDictionary *requestData = @{@"DeviceToken": pushToken};
+    
+    [self updateUserInfoWithData:requestData completion:completionBlock];
+}
+
 @end

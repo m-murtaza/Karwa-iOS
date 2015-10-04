@@ -34,4 +34,6 @@
 
 + (void)updateUserPassword:(NSString *)oldPassword withPassword:(NSString *)newPassword completion:(KSDALCompletionBlock)completionBlock;
 
++(void)updateUserWithPushToken:(NSString*)pushToken completion:(KSDALCompletionBlock)completionBlock;
+
 @end

@@ -107,17 +107,21 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
     }*/
     
-    UIApplication *application = [UIApplication sharedApplication];
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-#ifdef __IPHONE_8_0
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert
-                                                                                             | UIUserNotificationTypeBadge
-                                                                                             | UIUserNotificationTypeSound) categories:nil];
-        [application registerUserNotificationSettings:settings];
-#endif
-    } else {
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        [application registerForRemoteNotificationTypes:myTypes];
+    
+    if (![[KSSessionInfo currentSession] pushToken]) {
+        
+        UIApplication *application = [UIApplication sharedApplication];
+        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+    #ifdef __IPHONE_8_0
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert
+                                                                                                 | UIUserNotificationTypeBadge
+                                                                                                 | UIUserNotificationTypeSound) categories:nil];
+            [application registerUserNotificationSettings:settings];
+    #endif
+        } else {
+            UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+            [application registerForRemoteNotificationTypes:myTypes];
+        }
     }
 }
 
@@ -134,6 +138,20 @@
     [defaults synchronize];*/
     
     [KSSessionInfo updateToken:token];
+    
+    if ([[KSSessionInfo currentSession] sessionId]) {
+        [KSDAL updateUserWithPushToken:token completion:^(KSAPIStatus status, id response) {
+            
+            if (status == KSAPIStatusSuccess) {
+                
+                NSLog(@"Push Token updated successfully");
+            }
+            else{
+                
+                NSLog(@"Push token not updated");
+            }
+        }];
+    }
 }
 
 #ifdef __IPHONE_8_0
@@ -251,7 +269,7 @@
                                                            navTitleColor, NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"MuseoForDell-500" size:21.0], NSFontAttributeName, nil]];
     
-    [appearance setTintColor:[UIColor blackColor]];
+    [appearance setTintColor:[UIColor colorFromHexString:@"#21d7d7"]];
 
     [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];

@@ -28,6 +28,8 @@ KSTableViewType;
 #define NO_SECTION_INDEX        -1
 #define LOADING_CELL_IDX        3
 #define LOAD_MORE_TEXT          @"Load more data...";
+#define TABLEVIEW_HEADER_HEIGHT 30.0
+#define PLACE_HOLDER_TEXT       @"Search a place from list..."
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -71,24 +73,9 @@ KSTableViewType;
     selectedGeoLocation = nil;
     showAllNearBy = NO;
 
-    UIImage *searchIcon = [UIImage imageNamed:@"search-icon.png"];
-    UIImageView *searchIconView = [[UIImageView alloc] initWithImage:searchIcon];
-    searchIconView.frame = CGRectMake(0, 0, searchIcon.size.width, searchIcon.size.height);
-    self.searchField.leftView = searchIconView;
-    self.searchField.leftViewMode = UITextFieldViewModeAlways;
+    [self SetSearchFieldUI];
     
-    
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton setImage:[UIImage imageNamed:@"close.png"]
-                 forState:UIControlStateNormal];
-    [closeButton setImage:[UIImage imageNamed:@"close.png"]
-                 forState:UIControlStateHighlighted];
-    [closeButton addTarget:self
-                    action:@selector(closeSearch:)
-          forControlEvents:UIControlEventTouchUpInside];
-    closeButton.frame = CGRectMake(0, 0, searchIcon.size.width, searchIcon.size.height);
-    self.searchField.rightView = closeButton;
-    self.searchField.rightViewMode = UITextFieldViewModeWhileEditing;
+   
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -118,6 +105,50 @@ KSTableViewType;
 
 #pragma mark -
 #pragma mark - Private Methods
+
+-(void) SetSearchFieldUI
+{
+    UIImage *searchIcon = [UIImage imageNamed:@"search-ico.png"];
+    UIImageView *searchIconView = [[UIImageView alloc] initWithImage:searchIcon];
+    searchIconView.frame = CGRectMake(20, 0, searchIcon.size.width, searchIcon.size.height);
+    self.searchField.leftView = searchIconView;
+    self.searchField.leftViewMode = UITextFieldViewModeAlways;
+    
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton setImage:[UIImage imageNamed:@"close.png"]
+                 forState:UIControlStateNormal];
+    [closeButton setImage:[UIImage imageNamed:@"close.png"]
+                 forState:UIControlStateHighlighted];
+    [closeButton addTarget:self
+                    action:@selector(closeSearch:)
+          forControlEvents:UIControlEventTouchUpInside];
+    closeButton.frame = CGRectMake(0, 0, searchIcon.size.width, searchIcon.size.height);
+    self.searchField.rightView = closeButton;
+    self.searchField.rightViewMode = UITextFieldViewModeWhileEditing;
+    
+    
+    UIColor *color = [UIColor colorFromHexString:@"#777777"];
+    self.searchField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:PLACE_HOLDER_TEXT attributes:@{NSForegroundColorAttributeName: color}];
+    self.searchField.font = [UIFont fontWithName:KSMuseoSans500 size:15];
+    self.searchField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+}
+
+-(NSString*) sectionTitleForSection:(NSInteger)section
+{
+    NSString *sectionTitle = @"";
+    
+    if (section == idxNearSection) {
+        sectionTitle = @"Nearby";
+    }
+    else if(section == idxFavSection){
+        sectionTitle = @"Favorites";
+    }
+    else{
+        
+        sectionTitle = @"Recent";
+    }
+    return sectionTitle;
+}
 
 - (void) filterFavLocationFortext:(NSString*)searchText
 {
@@ -396,14 +427,11 @@ KSTableViewType;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-   // if(!self.searchField.text.length)
-    //{
-        return 64.0;
-    //}
-    //return UITableViewAutomaticDimension;
+
+    return TABLEVIEW_HEADER_HEIGHT;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+/*- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 
     NSString *sectionName = @"";
@@ -442,7 +470,24 @@ KSTableViewType;
 ////    }
     
 }
+*/
 
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, TABLEVIEW_HEADER_HEIGHT)] ;
+   
+    [headerView setBackgroundColor:[UIColor colorFromHexString:@"#e5edf4"]];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 0.0, tableView.bounds.size.width-20, TABLEVIEW_HEADER_HEIGHT)];
+    title.text = [self sectionTitleForSection:section];
+    [title setTextColor:[UIColor colorFromHexString:@"#187a89"]];
+    [title setFont:[UIFont fontWithName:KSMuseoSans500 size:14.0]];
+
+    [headerView addSubview:title];
+    return headerView;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 64.0;

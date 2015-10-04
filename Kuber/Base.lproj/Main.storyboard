@@ -3838,7 +3838,7 @@
             </objects>
             <point key="canvasLocation" x="1579.5" y="1353.75"/>
         </scene>
-        <!--Address-->
+        <!--Pick Your Address-->
         <scene sceneID="xPt-PM-Vuc">
             <objects>
                 <viewController storyboardIdentifier="KSAddressPickerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GGw-zE-o73" customClass="KSAddressPickerController" sceneMemberID="viewController">
@@ -3850,64 +3850,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6z-0Q-nZc">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search a place or pick from list" minimumFontSize="17" background="searchbox.png" translatesAutoresizingMaskIntoConstraints="NO" id="yXA-BK-yeW">
-                                        <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="gIw-Q0-4uk"/>
-                                        </constraints>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="gIw-Q0-4uk"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="gIw-Q0-4uk"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <outlet property="delegate" destination="GGw-zE-o73" id="PK7-EM-S1g"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="yXA-BK-yeW" secondAttribute="trailing" constant="8" id="4TP-HE-A7y"/>
-                                    <constraint firstItem="yXA-BK-yeW" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="top" constant="20" id="Hdo-ne-6In"/>
-                                    <constraint firstItem="yXA-BK-yeW" firstAttribute="leading" secondItem="n6z-0Q-nZc" secondAttribute="leading" constant="8" id="MRt-fH-x0t"/>
-                                    <constraint firstAttribute="height" constant="165" id="QwE-jX-Mvf">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="122"/>
-                                    </constraint>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="yXA-BK-yeW"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <exclude reference="QwE-jX-Mvf"/>
-                                        <exclude reference="4TP-HE-A7y"/>
-                                        <exclude reference="Hdo-ne-6In"/>
-                                        <exclude reference="MRt-fH-x0t"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="yXA-BK-yeW"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <include reference="QwE-jX-Mvf"/>
-                                        <include reference="4TP-HE-A7y"/>
-                                        <include reference="Hdo-ne-6In"/>
-                                        <include reference="MRt-fH-x0t"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nHw-kP-qS7">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3970,12 +3912,70 @@
                                     <outlet property="delegate" destination="GGw-zE-o73" id="guR-Em-Zub"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6z-0Q-nZc">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search a place or pick from list" minimumFontSize="17" background="searchbox.png" translatesAutoresizingMaskIntoConstraints="NO" id="yXA-BK-yeW" customClass="KSSearchTextField">
+                                        <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="gIw-Q0-4uk"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="gIw-Q0-4uk"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="gIw-Q0-4uk"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="delegate" destination="GGw-zE-o73" id="PK7-EM-S1g"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="yXA-BK-yeW" secondAttribute="trailing" constant="8" id="4TP-HE-A7y"/>
+                                    <constraint firstItem="yXA-BK-yeW" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="top" constant="20" id="Hdo-ne-6In"/>
+                                    <constraint firstItem="yXA-BK-yeW" firstAttribute="leading" secondItem="n6z-0Q-nZc" secondAttribute="leading" constant="8" id="MRt-fH-x0t"/>
+                                    <constraint firstAttribute="height" constant="165" id="QwE-jX-Mvf">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="80"/>
+                                    </constraint>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="yXA-BK-yeW"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="QwE-jX-Mvf"/>
+                                        <exclude reference="4TP-HE-A7y"/>
+                                        <exclude reference="Hdo-ne-6In"/>
+                                        <exclude reference="MRt-fH-x0t"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="yXA-BK-yeW"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="QwE-jX-Mvf"/>
+                                        <include reference="4TP-HE-A7y"/>
+                                        <include reference="Hdo-ne-6In"/>
+                                        <include reference="MRt-fH-x0t"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aJE-As-JYh" firstAttribute="top" secondItem="nHw-kP-qS7" secondAttribute="bottom" id="2Sh-oz-gwN"/>
                             <constraint firstItem="nHw-kP-qS7" firstAttribute="top" secondItem="n6z-0Q-nZc" secondAttribute="bottom" constant="1" id="TRT-7a-mL6">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-58"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="n6z-0Q-nZc" secondAttribute="trailing" constant="-16" id="Zrf-e1-a7y"/>
                             <constraint firstItem="n6z-0Q-nZc" firstAttribute="leading" secondItem="FEV-M7-DeT" secondAttribute="leadingMargin" constant="-16" id="eyZ-GZ-VcC"/>
@@ -3985,8 +3985,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="n6z-0Q-nZc"/>
                                 <exclude reference="nHw-kP-qS7"/>
+                                <exclude reference="n6z-0Q-nZc"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="2Sh-oz-gwN"/>
@@ -4000,8 +4000,8 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="n6z-0Q-nZc"/>
                                 <include reference="nHw-kP-qS7"/>
+                                <include reference="n6z-0Q-nZc"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="2Sh-oz-gwN"/>
@@ -4014,7 +4014,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Address" id="y1G-Db-zUZ"/>
+                    <navigationItem key="navigationItem" title="Pick Your Address" id="y1G-Db-zUZ"/>
                     <connections>
                         <outlet property="searchField" destination="yXA-BK-yeW" id="OI8-KU-7kT"/>
                         <outlet property="tableView" destination="nHw-kP-qS7" id="KgD-X7-PHa"/>
@@ -6244,7 +6244,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hXH-pr-aUV"/>
-        <segue reference="zRd-7U-Rqs"/>
+        <segue reference="snM-TD-RWk"/>
         <segue reference="nbB-dK-Gpq"/>
     </inferredMetricsTieBreakers>
 </document>
