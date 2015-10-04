@@ -5013,7 +5013,7 @@
                                         <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="50" y="105" width="150" height="18"/>
+                                            <rect key="frame" x="50" y="104" width="150" height="18"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taxi: 8843" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-SO-Pn6">
@@ -5597,7 +5597,8 @@
                                                             <exclude reference="jX5-Md-bxU"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="260" y="8" width="52" height="49"/>
                                                         <mask key="constraints">
                                                             <include reference="48a-K6-cqK"/>
                                                             <include reference="jX5-Md-bxU"/>
@@ -5615,6 +5616,9 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="highlighted" title="REQUEST BOOKING" backgroundImage="blue-button-down.png"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="8" width="231" height="49"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="btnBookingRequestTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="3nt-Sa-uVy"/>
                                                     </connections>

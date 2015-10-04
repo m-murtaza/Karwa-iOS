@@ -25,8 +25,9 @@ typedef enum {
 }
 KSTableViewType;
 
-#define NO_SECTION_INDEX -1
-#define LOADING_CELL_IDX 3
+#define NO_SECTION_INDEX        -1
+#define LOADING_CELL_IDX        3
+#define LOAD_MORE_TEXT          @"Load more data...";
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
@@ -44,6 +45,8 @@ KSTableViewType;
     NSInteger idxFavSection;
     NSInteger idxRecentSection;
     BOOL showAllNearBy;
+    BOOL showAllFav;
+    BOOL showAllRecent;
     
     KSGeoLocation *selectedGeoLocation;
 }
@@ -159,25 +162,23 @@ KSTableViewType;
 {
     NSInteger numRow = 0;
     if (section == idxNearSection) {
-        if (showAllNearBy) {
+        if (showAllNearBy || _nearestLocations.count <= LOADING_CELL_IDX)
             numRow = _nearestLocations.count;
-        }
-        else{
-            if (_nearestLocations.count > LOADING_CELL_IDX) {
-                numRow = LOADING_CELL_IDX + 1;
-            }
-            else {
-                numRow = _nearestLocations.count;
-            }
-            
-        }
-        
+        else
+            numRow = LOADING_CELL_IDX + 1;
     }
     else if(section == idxFavSection){
-        numRow = _savedBookmarks.count;
+        if (showAllFav || _savedBookmarks.count <= LOADING_CELL_IDX)
+            numRow = _savedBookmarks.count;
+        else
+            numRow = LOADING_CELL_IDX + 1;
     }
+    
     else if(section == idxRecentSection){
-        numRow = _recentBookings.count;
+        if (showAllRecent || _recentBookings.count <= LOADING_CELL_IDX)
+            numRow = _recentBookings.count;
+        else
+            numRow = LOADING_CELL_IDX + 1;
     }
     
     return numRow;
@@ -468,6 +469,7 @@ KSTableViewType;
     static NSString * const nearbyCellReuseId = @"KSGeoLocationCellId";
     static NSString * const bookmarkCellReuseId = @"KSBoomarkCellId";
     static NSString * const recentCellReuseId = @"KSGeoLocationCellId";
+    static NSString * const loadMoreCellReuseId = @"LoadMoreCellIdentifier";
 
     NSString *cellReuseId;
     KSButtonCell *cell = nil;
@@ -478,8 +480,8 @@ KSTableViewType;
     if (indexPath.section == idxNearSection) {
         cellReuseId = nearbyCellReuseId;
         if (!showAllNearBy && indexPath.row == LOADING_CELL_IDX) {
-            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LoadMoreCellIdentifier"];
-            loadMoreCell.textLabel.text = @"Load more data...";
+            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellReuseId];
+            loadMoreCell.textLabel.text = LOAD_MORE_TEXT;
             return loadMoreCell;
         }
         
@@ -494,6 +496,13 @@ KSTableViewType;
     }
     else if(indexPath.section == idxFavSection){
         cellReuseId = bookmarkCellReuseId;
+        if (!showAllFav && indexPath.row == LOADING_CELL_IDX) {
+            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellReuseId];
+            loadMoreCell.textLabel.text = LOAD_MORE_TEXT;
+            return loadMoreCell;
+        }
+        
+        
         if (isSearching) {
             cellData = [_searchSavedBookmarks objectAtIndex:indexPath.row];
         }
@@ -503,6 +512,12 @@ KSTableViewType;
     }
     else {
         cellReuseId = recentCellReuseId;
+        
+        if (!showAllRecent && indexPath.row == LOADING_CELL_IDX) {
+            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellReuseId];
+            loadMoreCell.textLabel.text = LOAD_MORE_TEXT;
+            return loadMoreCell;
+        }
         if (isSearching) {
             cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
         }
@@ -510,35 +525,7 @@ KSTableViewType;
             cellData = [_recentBookings objectAtIndex:indexPath.row];
         }
     }
-    
-    
-    
-    /*if (self.searchField.text.length) {
-        cellData = [_searchLocations objectAtIndex:indexPath.row];
-        cellReuseId = nearbyCellReuseId;
-    }
-    else{
 
-        switch (indexPath.section) {
-            case 0:
-                
-                cellData = [_nearestLocations objectAtIndex:indexPath.row];
-                cellReuseId = nearbyCellReuseId;
-                break;
-
-            case 1:
-                cellReuseId = bookmarkCellReuseId;
-                cellData = [_savedBookmarks objectAtIndex:indexPath.row];
-                break;
-
-            default:
-                cellReuseId = recentCellReuseId;
-                cellData = [_recentBookings objectAtIndex:indexPath.row];
-                break;
-                
-        }
-    }*/
-    
     cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
     
     
@@ -564,7 +551,30 @@ KSTableViewType;
                         } completion:NULL];
         return;
     }
+    else if (indexPath.section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX){
     
+        showAllFav = TRUE;
+        [UIView transitionWithView:tableView
+                          duration:0.5f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^(void) {
+                            [tableView reloadData];
+                        } completion:NULL];
+        return;
+
+    }
+    else if (indexPath.section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX){
+        
+        showAllRecent = TRUE;
+        [UIView transitionWithView:tableView
+                          duration:0.5f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^(void) {
+                            [tableView reloadData];
+                        } completion:NULL];
+        return;
+        
+    }
     
     NSString *placeName = nil;
     CLLocation *location = nil;
