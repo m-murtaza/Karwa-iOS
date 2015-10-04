@@ -26,9 +26,11 @@ typedef enum {
 KSTableViewType;
 
 #define NO_SECTION_INDEX        -1
-#define LOADING_CELL_IDX        3
+#define LOADING_CELL_IDX        2
 #define LOAD_MORE_TEXT          @"Load more data...";
-#define TABLEVIEW_HEADER_HEIGHT 30.0
+#define LOAD_MORE_CELL_HEIGHT   25.0
+#define TABLEVIEW_HEADER_HEIGHT 32.0
+#define TABLEVIEW_CELL_HEIGHT   70.0
 #define PLACE_HOLDER_TEXT       @"Search a place from list..."
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
@@ -73,8 +75,13 @@ KSTableViewType;
     selectedGeoLocation = nil;
     showAllNearBy = NO;
 
-    [self SetSearchFieldUI];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = TABLEVIEW_CELL_HEIGHT;
     
+    [self SetSearchFieldUI];
+    //self.navigationItem.hidesBackButton = YES;
+
+    //self.navigationItem.titleView.center = self.navigationController.navigationBar.center;
    
 }
 
@@ -89,6 +96,7 @@ KSTableViewType;
     [super viewDidAppear:animated];
     [self addCellButtonObserver];
     [self loadAllData];
+    [self.tableView reloadData];
 }
 
 -(void) viewDidDisappear:(BOOL)animated
@@ -165,25 +173,23 @@ KSTableViewType;
 {
     NSInteger numRow = 0;
     if (section == idxNearSection) {
-        if (showAllNearBy) {
+        if (showAllNearBy || _searchLocations.count <= LOADING_CELL_IDX)
             numRow = _searchLocations.count;
-        }
-        else{
-            if (_searchLocations.count > LOADING_CELL_IDX) {
-                numRow = LOADING_CELL_IDX + 1;
-            }
-            else{
-                numRow = _searchLocations.count;
-            }
-                
-        }
-        
+            
+        else
+            numRow = LOADING_CELL_IDX + 1;
     }
     else if(section == idxFavSection){
-        numRow = _searchSavedBookmarks.count;
+        if (showAllFav || _searchSavedBookmarks.count <= LOADING_CELL_IDX)
+            numRow = _searchSavedBookmarks.count;
+        else
+            numRow = LOADING_CELL_IDX + 1;
     }
     else if(section == idxRecentSection){
-        numRow = _searchRecentBookings.count;
+        if (showAllRecent || _searchRecentBookings.count <= LOADING_CELL_IDX)
+            numRow = _searchRecentBookings.count;
+        else
+            numRow = LOADING_CELL_IDX + 1;
     }
         
     return numRow;
@@ -301,10 +307,7 @@ KSTableViewType;
 -(void) loadAllData
 {
     [self loadAllBookmarkData];
-    
-    
-    
-    
+ 
     _recentBookings = [KSDAL recentTripsWithLandmarkText];
     _nearestLocations = [NSArray array];
     
@@ -347,6 +350,14 @@ KSTableViewType;
         }
     }
     //self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    [self.tableView reloadData];
+    
+    //Ultimate Jugar (patch)
+    [self performSelector:@selector(loadTbl) withObject:nil afterDelay:0.01];
+    
+}
+-(void)loadTbl
+{
     [self.tableView reloadData];
 }
 
@@ -488,10 +499,26 @@ KSTableViewType;
     [headerView addSubview:title];
     return headerView;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+/*- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64.0;
-}
+    NSInteger section = indexPath.section;
+    CGFloat cellHeight = TABLEVIEW_CELL_HEIGHT;
+    
+    DLog(@"row = %ld, section = %ld",(long)indexPath.row,(long)indexPath.section);
+    
+    if (section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX)
+        cellHeight = LOAD_MORE_CELL_HEIGHT;
+    else if(section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX)
+        cellHeight = LOAD_MORE_CELL_HEIGHT;
+    else if(section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX)
+        cellHeight = LOAD_MORE_CELL_HEIGHT;
+
+    if (cellHeight == LOAD_MORE_CELL_HEIGHT) {
+        return cellHeight;
+    }
+    return UITableViewAutomaticDimension;
+    //return cellHeight;
+}*/
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
@@ -510,10 +537,10 @@ KSTableViewType;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+ 
     static NSString * const nearbyCellReuseId = @"KSGeoLocationCellId";
     static NSString * const bookmarkCellReuseId = @"KSBoomarkCellId";
-    static NSString * const recentCellReuseId = @"KSGeoLocationCellId";
+    static NSString * const recentCellReuseId = @"KSRecentCellId";
     static NSString * const loadMoreCellReuseId = @"LoadMoreCellIdentifier";
 
     NSString *cellReuseId;
@@ -525,8 +552,8 @@ KSTableViewType;
     if (indexPath.section == idxNearSection) {
         cellReuseId = nearbyCellReuseId;
         if (!showAllNearBy && indexPath.row == LOADING_CELL_IDX) {
-            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellReuseId];
-            loadMoreCell.textLabel.text = LOAD_MORE_TEXT;
+
+             UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
             return loadMoreCell;
         }
         
@@ -542,12 +569,10 @@ KSTableViewType;
     else if(indexPath.section == idxFavSection){
         cellReuseId = bookmarkCellReuseId;
         if (!showAllFav && indexPath.row == LOADING_CELL_IDX) {
-            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellReuseId];
-            loadMoreCell.textLabel.text = LOAD_MORE_TEXT;
+            
+            UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
             return loadMoreCell;
         }
-        
-        
         if (isSearching) {
             cellData = [_searchSavedBookmarks objectAtIndex:indexPath.row];
         }
@@ -556,30 +581,44 @@ KSTableViewType;
         }
     }
     else {
-        cellReuseId = recentCellReuseId;
         
+        cellReuseId = recentCellReuseId;
         if (!showAllRecent && indexPath.row == LOADING_CELL_IDX) {
-            UITableViewCell *loadMoreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadMoreCellReuseId];
-            loadMoreCell.textLabel.text = LOAD_MORE_TEXT;
+            
+            UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
             return loadMoreCell;
         }
+        
         if (isSearching) {
+            
             cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
         }
         else {
+            
             cellData = [_recentBookings objectAtIndex:indexPath.row];
         }
     }
 
     cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
     
-    
-    
     cell.cellData = cellData;
     
     return cell;
 }
 
+
+-(void)reloadCell:(UITableViewCell*)cell
+{
+UILabel *lbl = (UILabel*) [cell viewWithTag:120];
+    
+    [lbl sizeToFit];
+    //[lbl layoutIfNeeded];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    //
+    //        [loadMoreCell setNeedsUpdateConstraints];
+    //        [loadMoreCell updateConstraintsIfNeeded];
+}
 #pragma mark -
 #pragma mark - Table view delegate
 

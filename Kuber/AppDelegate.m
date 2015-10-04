@@ -253,6 +253,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     UINavigationBar *appearance = [UINavigationBar appearance];
+    
     UIColor *navBarColor = [self colorWithRed:24.0 green:122.0 blue:137.0];
     [appearance setBarTintColor:navBarColor];
     if(IS_IOS8)
@@ -264,6 +265,8 @@
     shadow.shadowColor = [UIColor colorWithRed:1 green:0.0 blue:0.0 alpha:0.8];
     shadow.shadowOffset = CGSizeMake(0, 1);
     */
+    
+    
     UIColor *navTitleColor = [self colorWithRed:245 green:245 blue:245];
     [appearance setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            navTitleColor, NSForegroundColorAttributeName,
@@ -271,8 +274,9 @@
     
     [appearance setTintColor:[UIColor colorFromHexString:@"#21d7d7"]];
 
-    [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
+   [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];
+    
     
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     

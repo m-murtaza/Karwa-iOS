@@ -11,12 +11,23 @@
 #import "KSGeoLocation.h"
 #import "KSTrip.h"
 
+@interface KSGeoLocationCell()
+
+@property (nonatomic, retain) UILabel *txtLabel;
+@property (nonatomic, retain) UILabel *detailTxtLabel;
+@end
+
 @implementation KSGeoLocationCell
 
 - (void)postInitialize {
 
     UIImage *image = [UIImage imageNamed:@"favorite.png"];
     [self setButtonImage:image];
+    
+    self.txtLabel = (UILabel*)[self viewWithTag:7001];
+    [self.txtLabel sizeToFit];
+    self.detailTxtLabel = (UILabel*)[self viewWithTag:7002];
+    [self.detailTxtLabel sizeToFit];
 }
 
 - (void)setCellData:(id)cellData {
@@ -26,8 +37,8 @@
     if ([cellData isKindOfClass:[KSGeoLocation class]]) {
         
         KSGeoLocation *location = (KSGeoLocation *)cellData;
-        self.textLabel.text = location.address;
-        self.detailTextLabel.text = location.area;
+        self.txtLabel.text = location.address;
+        self.detailTxtLabel.text = location.area;
         
         if (location.geoLocationToBookmark) {
         
@@ -58,8 +69,8 @@
                 subtitle = [temp substringWithRange:NSMakeRange(0, wordbreak)];
             }
         }
-        self.textLabel.text = address;
-        self.detailTextLabel.text = subtitle;
+        self.txtLabel.text = address;
+        self.detailTxtLabel.text = subtitle;
     }
 }
 

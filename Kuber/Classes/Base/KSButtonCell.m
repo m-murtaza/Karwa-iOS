@@ -75,15 +75,6 @@ NSString * const KSNotificationButtonUnFavBookmarkCellAction = @"KSNotificationB
 
 - (void)onClickButton:(id)sender {
     
-    
-    /*if(1){
-        
-        [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
-    }
-    else{
-        
-        [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
-    }*/
     [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonCellAction
                                                         object:nil
                                                       userInfo:[NSDictionary dictionaryWithObject:_cellData forKey:@"cellData"]];
