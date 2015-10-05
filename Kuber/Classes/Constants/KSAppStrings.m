@@ -48,7 +48,7 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiAllocated]:            @"Taxi allocated for you --",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You have another booking in process. Please select a different booking time.",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusPassengerInTaxi]:          @"Aren't you in Taxi? --",
+      [NSNumber numberWithUnsignedInteger:KSAPIInvalidPickupLocation]:          @"Given loaction is out of range.",  //need to change
       [NSNumber numberWithUnsignedInteger:KSAPIStatusBookingCancelled]:         @"You have cancelled the booking --",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiNotAvailable]:         @"We are unable to book a taxi for the given time. Please try again for a different time.",
 

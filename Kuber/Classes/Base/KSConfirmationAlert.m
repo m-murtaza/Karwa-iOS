@@ -7,6 +7,7 @@
 //
 
 #import "KSConfirmationAlert.h"
+#import "AppDelegate.h"
 
 @implementation KSConfirmationAlertAction
 
@@ -34,7 +35,7 @@
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction cancelAction:(KSConfirmationAlertAction *)cancelAction {
 
-    if (!okAction || !okAction.title.length) {
+    /*if (!okAction || !okAction.title.length) {
         [[NSException exceptionWithName:NSInvalidArgumentException
                                 reason:@"You MUST provide okAction with title"
                               userInfo:@{}] raise];
@@ -51,12 +52,43 @@
                                                                             message:message
                                                                            okAction:okAction
                                                                        cancelAction:cancelAction];
-    [alertView show];
+    [alertView show];*/
+    
+    
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if (!okAction || !okAction.title.length) {
+        [[NSException exceptionWithName:NSInvalidArgumentException
+                                 reason:@"You MUST provide okAction with title"
+                               userInfo:@{}] raise];
+        return;
+    }
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:title
+                                                                 message:message
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* altOKAction = [UIAlertAction actionWithTitle:okAction.title
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              okAction.handler(okAction);
+                                                          }];
+    [alt addAction:altOKAction];
+    
+    
+    if (cancelAction && cancelAction.title) {
+        UIAlertAction *altCancelAction = [UIAlertAction actionWithTitle:cancelAction.title
+                                                                  style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                                      cancelAction.handler(cancelAction);
+                                                                  }];
+        [alt addAction:altCancelAction];
+    }
+    [appDelegate.window.rootViewController presentViewController:alt animated:YES completion:nil];
+    
 }
 
 + (void)showWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction {
     
-    if (!okAction || !okAction.title.length) {
+    /*if (!okAction || !okAction.title.length) {
         [[NSException exceptionWithName:NSInvalidArgumentException
                                  reason:@"You MUST provide okAction with title"
                                userInfo:@{}] raise];
@@ -67,10 +99,18 @@
                                                                         message:message
                                                                        okAction:okAction
                                                                    cancelAction:nil];
-    [alertView show];
+    [alertView show];*/
+    
+    [KSConfirmationAlert showWithTitle:title
+                               message:message
+                              okAction:okAction
+                          cancelAction:nil];
+    
+    
+    
 }
 
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction cancelAction:(KSConfirmationAlertAction *)cancelAction {
+/*- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message okAction:(KSConfirmationAlertAction *)okAction cancelAction:(KSConfirmationAlertAction *)cancelAction {
 
     self = [super initWithTitle:title message:message delegate:nil cancelButtonTitle:okAction.title.localizedValue otherButtonTitles:cancelAction.title.localizedValue, nil];
     if (self) {
@@ -79,12 +119,13 @@
         self.delegate = self;
     }
     return self;
-}
+    
+}*/
 
 #pragma mark -
 #pragma mark - Alert view delegate
 
-- (void)alertView:(KSConfirmationAlert *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+/*- (void)alertView:(KSConfirmationAlert *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
 
     if (buttonIndex == 0) {
         if (alertView.okAction.handler) {
@@ -101,6 +142,6 @@
 
 - (void)alertViewCancel:(KSConfirmationAlert *)alertView {
     alertView.delegate = nil;
-}
+}*/
 
 @end

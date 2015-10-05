@@ -7,18 +7,32 @@
 //
 
 #import "KSAlert.h"
+#import "AppDelegate.h"
 
 @implementation KSAlert
 
 + (void)show:(NSString *)message title:(NSString *)title btnTitle:(NSString *)btnTitle {
-    btnTitle = btnTitle.length ? btnTitle : @"OK";
+    /*btnTitle = btnTitle.length ? btnTitle : @"OK";
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title.localizedValue
                                                         message:message.localizedValue
                                                        delegate:nil
                                               cancelButtonTitle:btnTitle.localizedValue
                                               otherButtonTitles:nil];
-    [alertView show];
+    [alertView show];*/
     
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    
+    btnTitle = btnTitle.length ? btnTitle : @"OK";
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:title.localizedValue
+                                                                   message:message.localizedValue
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:btnTitle style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    
+    [alert addAction:defaultAction];
+    [appDelegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
 + (void)show:(NSString *)message title:(NSString *)title {
