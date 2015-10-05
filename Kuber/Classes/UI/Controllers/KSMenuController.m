@@ -84,6 +84,12 @@
     [sender setSelected:TRUE];
 }
 
+-(void) enableIntraction
+{
+    self.view.userInteractionEnabled = TRUE;
+}
+
+
 #pragma mark -
 #pragma mark - Storyboard events
 
@@ -92,6 +98,11 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
+    //Patch: Did not allow to multiple tap on single button to load a view multiple times. 
+    self.view.userInteractionEnabled = FALSE;
+    [self performSelector:@selector(enableIntraction)
+               withObject:nil
+               afterDelay:0.5];
     [self setButtonState:sender];
     
     if ([segue.identifier isEqualToString:@"segueMenuToPendingBookings"]) {

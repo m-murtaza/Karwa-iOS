@@ -113,6 +113,13 @@ KSTableViewType;
 
 #pragma mark -
 #pragma mark - Private Methods
+-(void)reloadTableData
+{
+    [self.tableView reloadData];
+    
+    //Ultimate Jugar (patch)
+    [self performSelector:@selector(loadTbl) withObject:nil afterDelay:0.01];
+}
 
 -(void) SetSearchFieldUI
 {
@@ -308,7 +315,8 @@ KSTableViewType;
 {
     [self loadAllBookmarkData];
  
-    _recentBookings = [KSDAL recentTripsWithLandmarkText];
+    _recentBookings = [KSDAL recentTripsWithLandmark:10];
+    //_recentBookings = [KSDAL recentTripsWithLandmarkText];
     _nearestLocations = [NSArray array];
     
     if(self.searchField.text != nil && ![self.searchField.text isEqualToString:@""])
@@ -631,7 +639,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                           duration:0.5f
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^(void) {
-                            [tableView reloadData];
+                            [self reloadTableData];
                         } completion:NULL];
         return;
     }
@@ -642,7 +650,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                           duration:0.5f
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^(void) {
-                            [tableView reloadData];
+                            [self reloadTableData];
                         } completion:NULL];
         return;
 
@@ -654,7 +662,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                           duration:0.5f
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^(void) {
-                            [tableView reloadData];
+                            [self reloadTableData];
                         } completion:NULL];
         return;
         

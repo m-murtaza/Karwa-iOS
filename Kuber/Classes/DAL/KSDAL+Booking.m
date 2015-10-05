@@ -199,6 +199,39 @@
     }];
 }
 
++ (NSArray *)recentTripsWithLandmark:(NSInteger)numRecord
+{
+    NSMutableArray *recentBookings = [NSMutableArray array];
+    NSArray * arr = [[[self loggedInUser] trips] allObjects];
+    NSSortDescriptor *sdesc = [[NSSortDescriptor alloc] initWithKey:@"pickupTime" ascending:NO];
+    
+    NSArray *sortedArry = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObject:sdesc]];
+    
+    int i = 0;
+    
+    
+    for (KSTrip *trip in sortedArry) {
+    
+        if (trip.pickupLandmark.length || trip.dropoffLandmark.length) {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pickupLandmark = %@",trip.pickupLandmark];
+            
+            NSArray *tempArray = [recentBookings filteredArrayUsingPredicate:predicate];
+            if (tempArray == nil || tempArray.count == 0) {
+                [recentBookings addObject:trip];
+                i++;
+                if (i >= numRecord) {
+                    break;
+                }
+            }
+            
+            
+        }
+        
+    }
+    return [NSArray arrayWithArray:recentBookings];
+}
+
 + (NSArray *)recentTripsWithLandmarkText {
     
     NSMutableArray *recentBookings = [NSMutableArray array];
