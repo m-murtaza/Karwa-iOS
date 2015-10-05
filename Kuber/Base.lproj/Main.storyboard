@@ -27,6 +27,8 @@
             <string>MuseoSans-300</string>
             <string>MuseoSans-300</string>
             <string>MuseoSans-300</string>
+            <string>MuseoSans-300</string>
+            <string>MuseoSans-300</string>
         </mutableArray>
         <mutableArray key="MuseoSans_500.otf">
             <string>MuseoSans-500</string>
@@ -44,6 +46,8 @@
             <string>MuseoSans-500</string>
         </mutableArray>
         <mutableArray key="MuseoSans_700.otf">
+            <string>MuseoSans-700</string>
+            <string>MuseoSans-700</string>
             <string>MuseoSans-700</string>
             <string>MuseoSans-700</string>
             <string>MuseoSans-700</string>
@@ -3923,7 +3927,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nearby-pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="hP9-tz-ddt">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="7001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iU3-rV-fSm">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iU3-rV-fSm">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3932,7 +3936,7 @@
                                                         <rect key="frame" x="37" y="18" width="286" height="13"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="7002" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a87-7Z-DYf">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7002" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a87-7Z-DYf">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
@@ -3967,16 +3971,16 @@
                                                     <exclude reference="hP9-tz-ddt"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="8wB-iR-J7N"/>
-                                                    <exclude reference="L0C-UH-zsw"/>
-                                                    <exclude reference="RYB-oj-RTb"/>
-                                                    <exclude reference="gLB-AS-17M"/>
-                                                    <exclude reference="iPJ-2C-tCb"/>
                                                     <exclude reference="18N-lv-NSt"/>
                                                     <exclude reference="BbN-7w-QLr"/>
                                                     <exclude reference="V08-Wi-Tfg"/>
                                                     <exclude reference="aRu-RG-cGh"/>
                                                     <exclude reference="rvz-fu-aoB"/>
+                                                    <exclude reference="8wB-iR-J7N"/>
+                                                    <exclude reference="L0C-UH-zsw"/>
+                                                    <exclude reference="RYB-oj-RTb"/>
+                                                    <exclude reference="gLB-AS-17M"/>
+                                                    <exclude reference="iPJ-2C-tCb"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -3986,16 +3990,16 @@
                                                     <include reference="a87-7Z-DYf"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="8wB-iR-J7N"/>
-                                                    <include reference="L0C-UH-zsw"/>
-                                                    <include reference="RYB-oj-RTb"/>
-                                                    <include reference="gLB-AS-17M"/>
-                                                    <include reference="iPJ-2C-tCb"/>
                                                     <include reference="18N-lv-NSt"/>
                                                     <include reference="BbN-7w-QLr"/>
                                                     <include reference="V08-Wi-Tfg"/>
                                                     <exclude reference="aRu-RG-cGh"/>
                                                     <include reference="rvz-fu-aoB"/>
+                                                    <include reference="8wB-iR-J7N"/>
+                                                    <include reference="L0C-UH-zsw"/>
+                                                    <include reference="RYB-oj-RTb"/>
+                                                    <include reference="gLB-AS-17M"/>
+                                                    <include reference="iPJ-2C-tCb"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4005,10 +4009,10 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bB0-gY-Fow" id="nfo-Na-52S">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="7003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nearby-pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="TxG-FV-egv">
+                                                <imageView userInteractionEnabled="NO" tag="7003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="nearby-pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="TxG-FV-egv">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="7001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgn-dl-oAI">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgn-dl-oAI">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4017,7 +4021,7 @@
                                                         <rect key="frame" x="37" y="8" width="286" height="20"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="7002" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anV-Pz-Tao">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7002" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anV-Pz-Tao">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -4049,16 +4053,16 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="3dm-1L-MPs"/>
-                                                    <exclude reference="BzI-0u-esv"/>
-                                                    <exclude reference="Mbe-3F-23e"/>
-                                                    <exclude reference="eLm-Na-aQE"/>
-                                                    <exclude reference="qol-uN-rCv"/>
                                                     <exclude reference="CeH-9E-QCF"/>
                                                     <exclude reference="TcB-Ks-Mkp"/>
                                                     <exclude reference="jiJ-7u-qcr"/>
                                                     <exclude reference="mR5-Cd-OMZ"/>
                                                     <exclude reference="tqm-Xg-A1O"/>
+                                                    <exclude reference="3dm-1L-MPs"/>
+                                                    <exclude reference="BzI-0u-esv"/>
+                                                    <exclude reference="Mbe-3F-23e"/>
+                                                    <exclude reference="eLm-Na-aQE"/>
+                                                    <exclude reference="qol-uN-rCv"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -4068,16 +4072,16 @@
                                                     <include reference="anV-Pz-Tao"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="3dm-1L-MPs"/>
-                                                    <include reference="BzI-0u-esv"/>
-                                                    <include reference="Mbe-3F-23e"/>
-                                                    <include reference="eLm-Na-aQE"/>
-                                                    <include reference="qol-uN-rCv"/>
                                                     <include reference="CeH-9E-QCF"/>
                                                     <include reference="TcB-Ks-Mkp"/>
                                                     <include reference="jiJ-7u-qcr"/>
                                                     <exclude reference="mR5-Cd-OMZ"/>
                                                     <include reference="tqm-Xg-A1O"/>
+                                                    <include reference="3dm-1L-MPs"/>
+                                                    <include reference="BzI-0u-esv"/>
+                                                    <include reference="Mbe-3F-23e"/>
+                                                    <include reference="eLm-Na-aQE"/>
+                                                    <include reference="qol-uN-rCv"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4087,13 +4091,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NGJ-id-By1" id="hnB-wv-fap">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="7003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recent.png" translatesAutoresizingMaskIntoConstraints="NO" id="VJk-Dw-SdO">
+                                                <imageView userInteractionEnabled="NO" tag="7003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="recent.png" translatesAutoresizingMaskIntoConstraints="NO" id="VJk-Dw-SdO">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                         <rect key="frame" x="11" y="8" width="18" height="18"/>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="7001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bT4-y9-y9Y">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bT4-y9-y9Y">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4102,7 +4106,7 @@
                                                         <rect key="frame" x="37" y="8" width="286" height="20"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="7002" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34o-hE-riC">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="7002" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34o-hE-riC">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -4134,16 +4138,16 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="8Gb-rN-EQq"/>
-                                                    <exclude reference="8Qi-w3-dPJ"/>
-                                                    <exclude reference="Vvk-kZ-d6k"/>
-                                                    <exclude reference="fRS-Tb-2KY"/>
-                                                    <exclude reference="hDf-4e-h1q"/>
                                                     <exclude reference="UsO-4g-I2y"/>
                                                     <exclude reference="WER-7i-Grn"/>
                                                     <exclude reference="jBo-4m-tdq"/>
                                                     <exclude reference="naT-9e-ifX"/>
                                                     <exclude reference="zHS-tW-yMW"/>
+                                                    <exclude reference="8Gb-rN-EQq"/>
+                                                    <exclude reference="8Qi-w3-dPJ"/>
+                                                    <exclude reference="Vvk-kZ-d6k"/>
+                                                    <exclude reference="fRS-Tb-2KY"/>
+                                                    <exclude reference="hDf-4e-h1q"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -4153,16 +4157,16 @@
                                                     <include reference="34o-hE-riC"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="8Gb-rN-EQq"/>
-                                                    <include reference="8Qi-w3-dPJ"/>
-                                                    <include reference="Vvk-kZ-d6k"/>
-                                                    <include reference="fRS-Tb-2KY"/>
-                                                    <include reference="hDf-4e-h1q"/>
                                                     <include reference="UsO-4g-I2y"/>
                                                     <exclude reference="WER-7i-Grn"/>
                                                     <include reference="jBo-4m-tdq"/>
                                                     <include reference="naT-9e-ifX"/>
                                                     <include reference="zHS-tW-yMW"/>
+                                                    <include reference="8Gb-rN-EQq"/>
+                                                    <include reference="8Qi-w3-dPJ"/>
+                                                    <include reference="Vvk-kZ-d6k"/>
+                                                    <include reference="fRS-Tb-2KY"/>
+                                                    <include reference="hDf-4e-h1q"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -4173,11 +4177,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pnj-K5-7XR" id="3zH-BY-3BI">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="120" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Load More..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9n-Db-JfH">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="120" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" text="Load More..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9n-Db-JfH">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
                                                     <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="18" y="11" width="284" height="21"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>

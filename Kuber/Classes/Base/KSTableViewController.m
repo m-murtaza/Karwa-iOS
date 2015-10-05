@@ -62,6 +62,14 @@ const NSInteger KSTableViewOverlayTagForNoDataLabel = 10;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupRevealViewController];
+    
+    //set Back button title
+    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
+                                initWithTitle:@""
+                                style:UIBarButtonItemStyleBordered
+                                target:self
+                                action:nil];
+    [self.navigationItem setBackBarButtonItem: btnBack];
 }
 
 - (void)didReceiveMemoryWarning {

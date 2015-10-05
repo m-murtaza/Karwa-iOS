@@ -283,6 +283,7 @@
     
     //for Customise font
     //[[UILabel appearance] setFont:[UIFont fontWithName:@"MuseoForDell-300" size:18.0]];
+     
 
 }
 
