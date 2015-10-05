@@ -4916,33 +4916,24 @@
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="50" y="31" width="41" height="21"/>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="283" y="31" width="55" height="21"/>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="205" y="31" width="63" height="21"/>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-9s-cNj">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="53" id="wIu-uI-rbR">
-                                                <variation key="heightClass=regular-widthClass=compact" constant="62"/>
+                                                <variation key="heightClass=regular-widthClass=compact" constant="68"/>
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
@@ -4953,17 +4944,33 @@
                                                 <exclude reference="wIu-uI-rbR"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="91" y="28" width="70" height="28"/>
+                                        <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <include reference="wIu-uI-rbR"/>
                                             </mask>
                                         </variation>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Sadd Plaza Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-Mp-O9Z">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
+                                        <color key="textColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Jummaiz Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAf-1B-LTS">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
+                                        <color key="textColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="248" image="forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-o4-WAw">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-ku-jao">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="42" id="15B-dd-ISn"/>
+                                            <constraint firstAttribute="width" constant="42" id="15B-dd-ISn">
+                                                <variation key="heightClass=regular-widthClass=compact" constant="30"/>
+                                            </constraint>
                                             <constraint firstAttribute="height" constant="21" id="viG-ba-sbu"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
@@ -4982,30 +4989,6 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Sadd Plaza Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-Mp-O9Z">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
-                                        <color key="textColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="64" width="140" height="50"/>
-                                        </variation>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Jummaiz Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAf-1B-LTS">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
-                                        <color key="textColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="232" y="64" width="140" height="50"/>
-                                        </variation>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="248" image="forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-o4-WAw">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="177" y="83" width="26" height="11"/>
-                                        </variation>
-                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -5018,16 +5001,24 @@
                                     <constraint firstAttribute="trailing" secondItem="g2h-2f-gbZ" secondAttribute="trailing" id="4UT-tL-GHZ"/>
                                     <constraint firstItem="QNU-9s-cNj" firstAttribute="leading" secondItem="i0a-6w-9oq" secondAttribute="trailing" constant="8" id="72r-lY-6N9"/>
                                     <constraint firstItem="TAf-1B-LTS" firstAttribute="top" secondItem="fym-at-Xrl" secondAttribute="bottom" constant="12" id="7Tk-SN-rKC"/>
-                                    <constraint firstItem="9hA-ku-jao" firstAttribute="top" secondItem="p14-Lt-iJP" secondAttribute="top" constant="31" id="7n7-FM-Jnd"/>
-                                    <constraint firstItem="6K5-o4-WAw" firstAttribute="top" secondItem="9hA-ku-jao" secondAttribute="bottom" constant="31" id="A5T-Yz-6sw"/>
+                                    <constraint firstItem="9hA-ku-jao" firstAttribute="top" secondItem="p14-Lt-iJP" secondAttribute="top" constant="31" id="7n7-FM-Jnd">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="34"/>
+                                    </constraint>
+                                    <constraint firstItem="6K5-o4-WAw" firstAttribute="top" secondItem="9hA-ku-jao" secondAttribute="bottom" constant="31" id="A5T-Yz-6sw">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="28"/>
+                                    </constraint>
                                     <constraint firstItem="9hA-ku-jao" firstAttribute="leading" secondItem="QNU-9s-cNj" secondAttribute="trailing" constant="17" id="AG1-mc-usn"/>
                                     <constraint firstItem="fym-at-Xrl" firstAttribute="leading" secondItem="9hA-ku-jao" secondAttribute="trailing" constant="8" id="BAa-M0-UEe"/>
                                     <constraint firstItem="i0a-6w-9oq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="p14-Lt-iJP" secondAttribute="leading" constant="20" id="CRf-hO-gt5"/>
                                     <constraint firstItem="fym-at-Xrl" firstAttribute="top" secondItem="p14-Lt-iJP" secondAttribute="top" constant="31" id="Fnc-ak-RVt"/>
                                     <constraint firstItem="Kzx-Mp-O9Z" firstAttribute="leading" secondItem="p14-Lt-iJP" secondAttribute="leading" constant="8" id="Ggw-59-H11"/>
-                                    <constraint firstItem="fym-at-Xrl" firstAttribute="leading" secondItem="9hA-ku-jao" secondAttribute="trailing" constant="8" id="JQN-9b-6eM"/>
+                                    <constraint firstItem="fym-at-Xrl" firstAttribute="leading" secondItem="9hA-ku-jao" secondAttribute="trailing" constant="8" id="JQN-9b-6eM">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="14"/>
+                                    </constraint>
                                     <constraint firstItem="g2h-2f-gbZ" firstAttribute="leading" secondItem="p14-Lt-iJP" secondAttribute="leading" id="NAD-Mf-01z"/>
-                                    <constraint firstItem="9hA-ku-jao" firstAttribute="bottom" secondItem="fym-at-Xrl" secondAttribute="bottom" id="Qbu-5Q-wTN"/>
+                                    <constraint firstItem="9hA-ku-jao" firstAttribute="bottom" secondItem="fym-at-Xrl" secondAttribute="bottom" id="Qbu-5Q-wTN">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="3"/>
+                                    </constraint>
                                     <constraint firstItem="WDm-GA-9Cp" firstAttribute="top" secondItem="p14-Lt-iJP" secondAttribute="top" constant="31" id="S5M-b3-vgQ"/>
                                     <constraint firstAttribute="bottom" secondItem="Kzx-Mp-O9Z" secondAttribute="bottom" constant="8" id="W9a-jp-dDc"/>
                                     <constraint firstItem="fym-at-Xrl" firstAttribute="leading" secondItem="9hA-ku-jao" secondAttribute="trailing" constant="8" id="WBi-Wo-bxX"/>
@@ -5043,10 +5034,14 @@
                                     <constraint firstItem="TAf-1B-LTS" firstAttribute="leading" secondItem="6K5-o4-WAw" secondAttribute="trailing" constant="29" id="mLq-ON-p9l"/>
                                     <constraint firstAttribute="bottom" secondItem="TAf-1B-LTS" secondAttribute="bottom" constant="8" id="n1o-Za-sKf"/>
                                     <constraint firstItem="WDm-GA-9Cp" firstAttribute="leading" secondItem="fym-at-Xrl" secondAttribute="trailing" constant="15" id="oGl-AN-VZl"/>
-                                    <constraint firstItem="6K5-o4-WAw" firstAttribute="top" secondItem="9hA-ku-jao" secondAttribute="bottom" constant="31" id="p0d-UT-c7Z"/>
+                                    <constraint firstItem="6K5-o4-WAw" firstAttribute="top" secondItem="9hA-ku-jao" secondAttribute="bottom" constant="31" id="p0d-UT-c7Z">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="28"/>
+                                    </constraint>
                                     <constraint firstItem="QNU-9s-cNj" firstAttribute="leading" secondItem="i0a-6w-9oq" secondAttribute="trailing" constant="8" id="pd5-9o-CFN"/>
                                     <constraint firstItem="QNU-9s-cNj" firstAttribute="top" secondItem="p14-Lt-iJP" secondAttribute="top" constant="28" id="pwS-AO-SP4"/>
-                                    <constraint firstItem="9hA-ku-jao" firstAttribute="bottom" secondItem="i0a-6w-9oq" secondAttribute="bottom" id="tEc-5a-Gju"/>
+                                    <constraint firstItem="9hA-ku-jao" firstAttribute="bottom" secondItem="i0a-6w-9oq" secondAttribute="bottom" id="tEc-5a-Gju">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="3"/>
+                                    </constraint>
                                     <constraint firstItem="6K5-o4-WAw" firstAttribute="leading" secondItem="Kzx-Mp-O9Z" secondAttribute="trailing" constant="29" id="u4K-5X-pBB"/>
                                     <constraint firstAttribute="trailing" secondItem="TAf-1B-LTS" secondAttribute="trailing" constant="8" id="wkS-f5-Gmo"/>
                                     <constraint firstItem="g2h-2f-gbZ" firstAttribute="top" secondItem="p14-Lt-iJP" secondAttribute="top" id="xPo-Im-Vvd"/>
@@ -5065,10 +5060,10 @@
                                         <exclude reference="WDm-GA-9Cp"/>
                                         <exclude reference="fym-at-Xrl"/>
                                         <exclude reference="QNU-9s-cNj"/>
-                                        <exclude reference="9hA-ku-jao"/>
                                         <exclude reference="Kzx-Mp-O9Z"/>
                                         <exclude reference="TAf-1B-LTS"/>
                                         <exclude reference="6K5-o4-WAw"/>
+                                        <exclude reference="9hA-ku-jao"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="XbL-73-R0M"/>
@@ -5126,10 +5121,10 @@
                                         <include reference="WDm-GA-9Cp"/>
                                         <include reference="fym-at-Xrl"/>
                                         <include reference="QNU-9s-cNj"/>
-                                        <include reference="9hA-ku-jao"/>
                                         <include reference="Kzx-Mp-O9Z"/>
                                         <include reference="TAf-1B-LTS"/>
                                         <include reference="6K5-o4-WAw"/>
+                                        <include reference="9hA-ku-jao"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="XbL-73-R0M"/>
@@ -5186,9 +5181,6 @@
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="17"/>
                                 <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="160" y="210" width="81" height="20"/>
-                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAXI INFORMATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-es-YOx">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -5242,18 +5234,12 @@
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                         <color key="textColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="50" y="19" width="96" height="18"/>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="+974 333 1129" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-8Q-6ZJ">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
                                         <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="50" y="45" width="81" height="14"/>
-                                        </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-lv-lWC">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -5269,9 +5255,6 @@
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                         <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="50" y="104" width="150" height="18"/>
-                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taxi: 8843" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-SO-Pn6">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -5286,8 +5269,7 @@
                                                 <exclude reference="55X-HO-Ns9"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="300" y="106" width="55" height="14"/>
+                                        <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <include reference="55X-HO-Ns9"/>
                                             </mask>
