@@ -25,8 +25,11 @@
 + (void)deleteBookmark:(KSBookmark *)aBookmark completion:(KSDALCompletionBlock)completionBlock;
 
 
++(void) addBookMarkForTripData:(KSTrip*)trip  withName:(NSString *)name  completion:(KSDALCompletionBlock)completionBlock;
 +(void) addBookMarkForGeoLocation:(KSGeoLocation*)gLoc withName:(NSString *)name completion:(KSDALCompletionBlock)completionBlock;
 +(void) removeBookMarkForGeoLocation:(KSGeoLocation*)gLoc  completion:(KSDALCompletionBlock)completionBlock;
+
++(void) removeBookMarkForTrip:(KSTrip*)trip  completion:(KSDALCompletionBlock)completionBlock;
 
 +(NSNumber*) nextSortOrder;
 @end

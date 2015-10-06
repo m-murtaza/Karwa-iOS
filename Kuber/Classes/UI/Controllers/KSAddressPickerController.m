@@ -53,6 +53,7 @@ KSTableViewType;
     BOOL showAllRecent;
     
     KSGeoLocation *selectedGeoLocation;
+    KSTrip *selectedTrip;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -73,6 +74,7 @@ KSTableViewType;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     selectedGeoLocation = nil;
+    selectedTrip = nil;
     showAllNearBy = NO;
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -287,6 +289,7 @@ KSTableViewType;
 
 -(void) addCellButtonObserver
 {
+    //For Geolocations
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(favButtonTapped:)
                                                  name:KSNotificationButtonFavCellAction
@@ -296,10 +299,20 @@ KSTableViewType;
                                              selector:@selector(unfavButtonTapped:)
                                                  name:KSNotificationButtonUnFavCellAction
                                                object:nil];
-    
+    //For Bookmark / Favorites
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(unfavBookmarkButtonTapped:)
                                                  name:KSNotificationButtonUnFavBookmarkCellAction
+                                               object:nil];
+    
+    //For Recent Trip
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(unfavRecentkButtonTapped:)
+                                                 name:KSNotificationButtonUnFavRecentCellAction
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(favRecentButtonTapped:)
+                                                 name:KSNotificationButtonFavRecentCellAction
                                                object:nil];
 }
 
@@ -382,11 +395,16 @@ KSTableViewType;
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"SegueAddPickerToBookmark"]) {
+    if ([segue.identifier isEqualToString:@"SegueAddPickerToBookmarkForGeoLocation"]) {
+        
         KSFavoriteDetailsController * favController = (KSFavoriteDetailsController*)segue.destinationViewController;
         favController.gLocation = selectedGeoLocation;
     }
-    
+    else if([segue.identifier isEqualToString:@"SegueAddPickerToBookmarkForTrip"]){
+        
+        KSFavoriteDetailsController * favController = (KSFavoriteDetailsController*)segue.destinationViewController;
+        favController.trip = selectedTrip;
+    }
     
     
     
@@ -397,7 +415,7 @@ KSTableViewType;
 -(void) favButtonTapped:(NSNotification*)data
 {
     selectedGeoLocation = (KSGeoLocation*) [[data userInfo] valueForKey:@"cellData"];
-    [self performSegueWithIdentifier:@"SegueAddPickerToBookmark" sender:self];
+    [self performSegueWithIdentifier:@"SegueAddPickerToBookmarkForGeoLocation" sender:self];
     
     NSLog(@"%@",selectedGeoLocation);
     
@@ -427,6 +445,42 @@ KSTableViewType;
    
 }
 
+
+//For Recent Trip
+-(void) favRecentButtonTapped:(NSNotification*)data
+{
+    selectedTrip = (KSTrip*) [[data userInfo] valueForKey:@"cellData"];
+    [self performSegueWithIdentifier:@"SegueAddPickerToBookmarkForTrip" sender:self];
+    
+    NSLog(@"%@",selectedTrip);
+    
+    /*NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
+     [KSDAL addBookMarkForGeoLocation:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {
+     
+     [self loadAllData];
+     [self.tableView reloadData];
+     }];*/
+    
+}
+
+-(void) unfavRecentkButtonTapped:(NSNotification*)data
+{
+    NSLog(@"data %@",[[data userInfo] valueForKey:@"cellData"]);
+    [KSDAL removeBookMarkForTrip:[[data userInfo] valueForKey:@"cellData"]
+                      completion:^(KSAPIStatus status, id response) {
+        if (KSAPIStatusSuccess == status) {
+            
+            [self loadAllData];
+            [self.tableView reloadData];
+        }
+        else{
+            [KSAlert show:KSStringFromAPIStatus(status)];
+        }
+        
+    }];
+}
+
+//Rof Bookmark
 -(void) unfavBookmarkButtonTapped:(NSNotification*)data
 {
     /*[KSDAL deleteBookmark:[[data userInfo] valueForKey:@"cellData"] completion:^(KSAPIStatus status, id response) {

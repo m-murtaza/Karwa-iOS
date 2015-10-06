@@ -58,6 +58,20 @@
         [self updateAnnotationWithCoordinate:coordinate];
         self.title = @"New Place";
     }
+    else if (self.trip){
+        CLLocationCoordinate2D coordinate;
+        if (!self.trip.pickupLandmark && self.trip.dropoffLandmark) {
+            coordinate = CLLocationCoordinate2DMake(self.trip.dropOffLat.doubleValue, self.trip.dropOffLon.doubleValue);
+        }
+        else{
+            coordinate = CLLocationCoordinate2DMake(self.trip.pickupLat.doubleValue, self.trip.pickupLon.doubleValue);
+            
+        }
+        [self updateAnnotationWithCoordinate:coordinate];
+        self.title = @"New Place";
+        
+    }
+    
     else {
         self.title = @"New Place";
         [KSLocationManager start];
@@ -332,6 +346,11 @@
         [KSDAL addBookMarkForGeoLocation:self.gLocation
                                 withName:self.txtName.text
                               completion:completionHandler];
+    }
+    else if (self.trip){
+        [KSDAL addBookMarkForTripData:self.trip
+                             withName:self.txtName.text
+                           completion:completionHandler];
     }
     else {
         NSString *address = self.lblAddress.text.length ? self.lblAddress.text : @"";

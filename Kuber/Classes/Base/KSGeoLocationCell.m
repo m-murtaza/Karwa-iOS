@@ -53,6 +53,15 @@
         
         KSTrip *trip = (KSTrip *)cellData;
         
+        if (trip.tripToBookmark) {
+            
+            [self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+        }
+        else{
+            
+            [self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+        }
+        
         NSString *address = trip.dropoffLandmark;
         if (trip.pickupLandmark.length) {
             
@@ -77,22 +86,39 @@
 
 - (void)onClickButton:(id)sender {
 
-    KSGeoLocation *location = (KSGeoLocation *)self.cellData;
-    
-    //These check are inverse as we need to un fav is cell is already fav
-    if (location.geoLocationToBookmark) {
+    if ([self.cellData isKindOfClass:[KSGeoLocation class]]) {
+        KSGeoLocation *location = (KSGeoLocation *)self.cellData;
         
-        //[self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavCellAction
-                                                            object:nil
-                                                          userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        //These check are inverse as we need to un fav is cell is already fav
+        if (location.geoLocationToBookmark) {
+            
+            //[self setButtonImage:[UIImage imageNamed:@"unfavorite.png"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavCellAction
+                                                                object:nil
+                                                              userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        }
+        else{
+            
+            //[self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavCellAction
+                                                                object:nil
+                                                              userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        }
     }
-    else{
+    else if ([self.cellData isKindOfClass:[KSTrip class]]) {
         
-        //[self setButtonImage:[UIImage imageNamed:@"favorite.png"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavCellAction
-                                                            object:nil
-                                                          userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        KSTrip *trip = (KSTrip*) self.cellData;
+        if (trip.tripToBookmark) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavRecentCellAction
+                                                                object:nil
+                                                              userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        }
+        else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonFavRecentCellAction
+                                                                object:nil
+                                                              userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
+        }
+    
     }
     [super onClickButton:sender];
     

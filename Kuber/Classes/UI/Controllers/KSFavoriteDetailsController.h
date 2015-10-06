@@ -16,5 +16,6 @@
 @property (nonatomic, copy) NSString *landmark;
 @property (nonatomic, strong) KSBookmark *bookmark;
 @property (nonatomic, strong) KSGeoLocation *gLocation;
+@property (nonatomic, strong) KSTrip *trip;
 
 @end

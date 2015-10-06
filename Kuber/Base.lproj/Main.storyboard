@@ -2853,7 +2853,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qrg-sm-fW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="783" y="-2652"/>
+            <point key="canvasLocation" x="1689" y="6"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xfQ-ge-Gll">
@@ -4276,7 +4276,8 @@
                     <connections>
                         <outlet property="searchField" destination="yXA-BK-yeW" id="OI8-KU-7kT"/>
                         <outlet property="tableView" destination="nHw-kP-qS7" id="KgD-X7-PHa"/>
-                        <segue destination="jpA-Ag-F5d" kind="show" identifier="SegueAddPickerToBookmark" id="snM-TD-RWk"/>
+                        <segue destination="jpA-Ag-F5d" kind="show" identifier="SegueAddPickerToBookmarkForGeoLocation" id="snM-TD-RWk"/>
+                        <segue destination="jpA-Ag-F5d" kind="show" identifier="SegueAddPickerToBookmarkForTrip" id="l1Z-UY-714"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfB-WR-egp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6487,7 +6488,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hXH-pr-aUV"/>
-        <segue reference="zRd-7U-Rqs"/>
         <segue reference="nbB-dK-Gpq"/>
+        <segue reference="l1Z-UY-714"/>
     </inferredMetricsTieBreakers>
 </document>
