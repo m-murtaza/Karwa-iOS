@@ -192,35 +192,20 @@
             NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
             NSTimeInterval CANCEL_TIMEOUT = 300.0;
             if (![trip.bookingType isEqualToString:KSBookingTypeCurrent]) {
-                CANCEL_TIMEOUT = -25.0 * 60.0;
+                CANCEL_TIMEOUT = -20.0 * 60.0;
+                [self.lblAcknowlegement setHidden:FALSE];
+                [self.lblAcknowlegement setText:@"This is text for Advance booking button disable"];
             }
             if (pickupTimePast > CANCEL_TIMEOUT) {
-                [self.btnCancelBooking removeFromSuperview];
-                [self.btnCancelBooking setHidden:YES];
+                [self.btnCancelBooking setEnabled:FALSE];
+                [self.lblAcknowlegement setHidden:FALSE];
+                [self.lblAcknowlegement setText:@"This is text for Current booking button disable"];
+
             }
             else {
-                [self.btnCancelBooking performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
+                [self performSelector:@selector(disableCancelButton) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
             }
-//            if (self.showsAcknowledgement) {
-//                //[self.btnCancelBooking removeFromSuperview];
-//                [self.btnCancelBooking setHidden:YES];
-//            }
-//            else {
-//                //[self.lblAcknowlegement removeFromSuperview];
-//                [self.lblAcknowlegement setHidden:YES];
-//                NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
-//                NSTimeInterval CANCEL_TIMEOUT = 300.0;
-//                if ([trip.bookingType isEqualToString:KSBookingTypeCurrent]) {
-//                    CANCEL_TIMEOUT = -25.0 * 60.0;
-//                }
-//                if (pickupTimePast > CANCEL_TIMEOUT) {
-//                    [self.btnCancelBooking removeFromSuperview];
-//                    [self.btnCancelBooking setHidden:YES];
-//                }
-//                else {
-//                    [self.btnCancelBooking performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:CANCEL_TIMEOUT - pickupTimePast];
-//                }
-//            }
+
             break;
             
         default:
@@ -290,6 +275,11 @@
 
 
 #pragma mark - Private Functions 
+-(void) disableCancelButton
+{
+    [self.btnCancelBooking setEnabled:FALSE];
+}
+
 -(NSString*) getFormattedTitleDate:(NSDate*)date
 {
     NSDateFormatter *formator = [[NSDateFormatter alloc] init];

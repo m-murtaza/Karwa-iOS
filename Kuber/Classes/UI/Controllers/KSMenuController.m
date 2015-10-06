@@ -147,6 +147,16 @@
     [btn setSelected:FALSE];
     [self logoutThisUser];
     
+    NSArray *arr = self.btnBookATaxi.superview.subviews;
+
+    
+    for (id btn in arr) {
+        if ([btn isKindOfClass:[UIButton class]] ) {
+            KSMenuButton *b = (KSMenuButton*)btn;
+            [b setSelected:FALSE];
+        }
+    }
+    
 }
 
 #pragma mark -

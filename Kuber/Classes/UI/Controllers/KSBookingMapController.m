@@ -84,6 +84,10 @@
     [self.btnCurrentLocaiton setSelected:TRUE];
     
 }
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self checkLocationAvaliblityAndShowAlert];
+}
 
 #pragma mark - Private Function
 
@@ -325,6 +329,25 @@
     
 }
 
+-(BOOL) checkLocationAvaliblityAndShowAlert
+{
+    BOOL locationAvailable = TRUE;
+    NSInteger locationStatus = [CLLocationManager authorizationStatus];
+    
+    if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied){
+        locationAvailable = FALSE;
+        KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+        
+        [KSConfirmationAlert showWithTitle:nil
+                                   message:@"Location Services Disabled. Please enable location services."
+                                  okAction:okAction];
+    }
+    return locationAvailable;
+}
+
 #pragma mark - MapViewDelegate
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation     *)userLocation
@@ -532,24 +555,12 @@
 
 - (IBAction)showCurrentLocationTapped:(id)sender
 {
-    NSInteger locationStatus = [CLLocationManager authorizationStatus];
-    
-    if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied){
-        
-        KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-        }];
-        
-        [KSConfirmationAlert showWithTitle:nil
-                                   message:@"Location Services Disabled. Please enable location services."
-                                  okAction:okAction];
-    }
-    else
-    {
+    if ([self checkLocationAvaliblityAndShowAlert]) {
+
         self.mapView.showsUserLocation = YES;
         [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
     }
+    
 }
 
 - (IBAction) btnBookingRequestTapped:(id)sender

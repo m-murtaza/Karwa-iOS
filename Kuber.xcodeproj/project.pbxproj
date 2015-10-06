@@ -24,6 +24,7 @@
 		180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */; };
 		1819A4C21BC394A500D7AB88 /* KSTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C11BC394A500D7AB88 /* KSTrip.m */; };
 		1819A4C51BC394A600D7AB88 /* KSBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C41BC394A600D7AB88 /* KSBookmark.m */; };
+		1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C71BC3DCB600D7AB88 /* NSDate+Utilities.m */; };
 		1822C4051BA7FC320087ACE3 /* email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4011BA7FC320087ACE3 /* email@2x.png */; };
 		1822C4061BA7FC320087ACE3 /* fullname@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4021BA7FC320087ACE3 /* fullname@2x.png */; };
 		1822C4071BA7FC320087ACE3 /* password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4031BA7FC320087ACE3 /* password@2x.png */; };
@@ -338,6 +339,8 @@
 		1819A4C11BC394A500D7AB88 /* KSTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrip.m; sourceTree = "<group>"; };
 		1819A4C31BC394A600D7AB88 /* KSBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookmark.h; sourceTree = "<group>"; };
 		1819A4C41BC394A600D7AB88 /* KSBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookmark.m; sourceTree = "<group>"; };
+		1819A4C61BC3DCB600D7AB88 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Utilities.h"; path = "Kuber/Classes/Base/NSDate+Utilities.h"; sourceTree = SOURCE_ROOT; };
+		1819A4C71BC3DCB600D7AB88 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Utilities.m"; path = "Kuber/Classes/Base/NSDate+Utilities.m"; sourceTree = SOURCE_ROOT; };
 		1822C4011BA7FC320087ACE3 /* email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email@2x.png"; path = "Settings/email@2x.png"; sourceTree = "<group>"; };
 		1822C4021BA7FC320087ACE3 /* fullname@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullname@2x.png"; path = "Settings/fullname@2x.png"; sourceTree = "<group>"; };
 		1822C4031BA7FC320087ACE3 /* password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password@2x.png"; path = "Settings/password@2x.png"; sourceTree = "<group>"; };
@@ -775,6 +778,8 @@
 		18481AFF1B08C4F400855F54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1819A4C61BC3DCB600D7AB88 /* NSDate+Utilities.h */,
+				1819A4C71BC3DCB600D7AB88 /* NSDate+Utilities.m */,
 				185043821B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.h */,
 				185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */,
 				185043791B26C51600AECDE9 /* CLLocation+KSExtended.h */,
@@ -1859,6 +1864,7 @@
 				1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */,
 				18481B501B091EFA00855F54 /* SWRevealViewController.m in Sources */,
 				18481B771B0B1B4000855F54 /* KSConfirmationAlert.m in Sources */,
+				1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */,
 				185043781B26BCD900AECDE9 /* KSAddress.m in Sources */,
 				18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */,
 				18481B741B09DFD000855F54 /* KSResetPasswordController.m in Sources */,
