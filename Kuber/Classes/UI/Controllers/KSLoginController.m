@@ -189,7 +189,12 @@
             UIViewController *controller = [UIStoryboard mainRootController];
             [me.revealViewController setFrontViewController:controller animated:YES];
             [me.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
-        } else {
+        }
+        else if (KSAPIStatusInvalidPassword == status){
+            
+            [KSAlert show:@"Invalid phone number or password"];
+        }
+        else {
             [KSAlert show:KSStringFromAPIStatus(status)];
             // Go to verify screen, if user is registered but not verified
             if (KSAPIStatusUserNotVerified == status) {

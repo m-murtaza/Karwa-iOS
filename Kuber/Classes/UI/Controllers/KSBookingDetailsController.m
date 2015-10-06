@@ -168,7 +168,7 @@
         self.lblDriverNumber.text = driver.phone ;
 
         KSTaxi *taxi = trip.taxi;
-        self.lblTaxiNumber.text = [NSString stringWithFormat:@"Taxi: %@",taxi.number]; 
+        self.lblTaxiNumber.text = [NSString stringWithFormat:@"Taxi #: %@",taxi.number]; 
         
         if (trip.estimatedTimeOfArival != nil) {
             

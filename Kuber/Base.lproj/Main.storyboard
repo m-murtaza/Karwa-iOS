@@ -640,7 +640,7 @@
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="mMk-fL-dfT"/>
@@ -684,7 +684,7 @@
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="Hhb-cG-sPt"/>
@@ -706,7 +706,7 @@
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="j2U-Zs-FAg"/>
@@ -728,7 +728,7 @@
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="CPX-J6-pXC"/>
@@ -2378,7 +2378,9 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Sadd, Al Nasar, Doha Qatar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qog-51-b3d">
                                             <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="14" id="OOI-Of-1N1"/>
+                                                <constraint firstAttribute="height" constant="14" id="OOI-Of-1N1">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="18"/>
+                                                </constraint>
                                                 <constraint firstAttribute="width" constant="285" id="QCx-F3-SdQ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
@@ -2493,7 +2495,7 @@
                                         <constraint firstItem="XLd-Xd-wvw" firstAttribute="top" secondItem="x0A-Ng-yHd" secondAttribute="top" id="dd3-37-4ni"/>
                                         <constraint firstItem="XLd-Xd-wvw" firstAttribute="leading" secondItem="YXi-HA-M4d" secondAttribute="leadingMargin" id="hP0-ds-Zk2"/>
                                         <constraint firstItem="qog-51-b3d" firstAttribute="centerY" secondItem="XLd-Xd-wvw" secondAttribute="centerY" constant="-5.5" id="lys-6E-hJL">
-                                            <variation key="heightClass=regular-widthClass=compact" constant="2.5"/>
+                                            <variation key="heightClass=regular-widthClass=compact" constant="0.5"/>
                                         </constraint>
                                         <constraint firstItem="hB4-xe-iTa" firstAttribute="leading" secondItem="1d3-b6-LvO" secondAttribute="trailing" constant="12" id="ofl-a8-uVH"/>
                                     </constraints>
@@ -2607,7 +2609,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9iw-M1-jKs" id="j6m-x6-Kk5">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yyJ-zk-fXg">
+                                        <label opaque="NO" multipleTouchEnabled="YES" tag="7001" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yyJ-zk-fXg">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2616,7 +2618,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Qo-3D-P6B">
+                                        <label opaque="NO" multipleTouchEnabled="YES" tag="7002" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Qo-3D-P6B">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.15686274509803921" green="0.67843137254901964" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
@@ -6485,7 +6487,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="hXH-pr-aUV"/>
-        <segue reference="snM-TD-RWk"/>
+        <segue reference="zRd-7U-Rqs"/>
         <segue reference="nbB-dK-Gpq"/>
     </inferredMetricsTieBreakers>
 </document>

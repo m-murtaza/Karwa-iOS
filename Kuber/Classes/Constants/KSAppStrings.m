@@ -39,7 +39,7 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotRegistered]:        @"Phone number is not registered.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusUserAlreadyRegistered]:    @"This phone number is already registered.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusWrongAccessCode]:          @"Please enter a valid verification code",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidPassword]:          @"Invalid phone number or password",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidPassword]:          @"Current password is invalid.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidSession]:           @"Your session has expired. Please login again.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotVerified]:          @"Phone number is not verified. Please verify phone number using verification code.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusPasswordMatch]:            @"New password is same old password.",

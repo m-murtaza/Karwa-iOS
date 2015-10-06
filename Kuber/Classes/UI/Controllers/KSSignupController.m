@@ -133,7 +133,9 @@
 }
 
 - (IBAction)onClickSignup:(id)sender {
-    [self resignAllResponder];
+    
+    [self signUp];
+    //[self resignAllResponder];
     //Temp Work to show varification screen
     /*KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
     
@@ -142,7 +144,7 @@
     [self.navigationController pushViewController:controller animated:YES];
     return;
     */
-    
+  /*
 #ifndef __KS_DISABLE_VALIDATIONS
     NSMutableArray *errors = [NSMutableArray arrayWithCapacity:6];
     if (!self.txtName.text.length) {
@@ -186,11 +188,77 @@
         else {
             [KSAlert show:KSStringFromAPIStatus(statusCode)];
         }
+    }];*/
+}
+
+-(void) signUp
+{
+    [self resignAllResponder];
+#ifndef __KS_DISABLE_VALIDATIONS
+    NSMutableArray *errors = [NSMutableArray arrayWithCapacity:6];
+    if (!self.txtName.text.length) {
+        [errors addObject:KSErrorNoUserName.localizedValue];
+    }
+    if (![self.txtMobile.text isPhoneNumber]) {
+        [errors addObject:KSErrorPhoneValidation.localizedValue];
+    }
+    if (![self.txtEmail.text isEmailAddress]) {
+        [errors addObject:KSErrorEmailValidation.localizedValue];
+    }
+    if (!self.txtPassword.text.length) {
+        [errors addObject:KSErrorNoPassword.localizedValue];
+    }
+    else if (![self.txtPassword.text isEqualToString:self.txtConfirmPassword.text]) {
+        [errors addObject:KSErrorPasswordsMismatch.localizedValue];
+    }
+    if (errors.count) {
+        NSString *title = errors.count > 1 ? KSAlertTitleMultipleErrors : KSAlertTitleError;
+        NSString *errorMessage = [errors componentsJoinedByString:@"\r\n"];
+        [KSAlert show:errorMessage title:title];
+        return;
+    }
+#endif
+    KSUser *user = [KSDAL userWithPhone:self.txtMobile.text];
+    user.name = self.txtName.text;
+    user.email = self.txtEmail.text;
+    
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [KSDAL registerUser:user password:self.txtPassword.text completion:^(KSAPIStatus statusCode, NSDictionary *data) {
+        [hud hide:YES];
+        if (statusCode == KSAPIStatusSuccess) {
+            KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
+            controller.phone = user.phone;
+            
+            self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+        else {
+            [KSAlert show:KSStringFromAPIStatus(statusCode)];
+        }
     }];
 }
 
-
 #pragma mark - UITextField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField isEqual:self.txtName]) {
+        [self.txtEmail becomeFirstResponder];
+    }
+    else if([textField isEqual:self.txtEmail]){
+        [self.txtMobile becomeFirstResponder];
+    }
+    else if([textField isEqual:self.txtPassword]){
+        [self.txtConfirmPassword becomeFirstResponder];
+    }
+    else if([textField isEqual:self.txtConfirmPassword]){
+        [self signUp];
+    }
+    
+    //[textField resignFirstResponder];
+    return NO;
+}
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     KSTextField *txtField = (KSTextField*) textField;
