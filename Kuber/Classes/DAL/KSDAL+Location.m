@@ -110,6 +110,39 @@
     return [self nearestLocationsMatchingLatitude:lat longitude:lon radius:searchRadius];
 }
 
++ (void)nearestLocationsFromServerMatchingLatitude:(double)lat
+                                         longitude:(double)lon
+                                            radius:(double)searchRadius
+                                        completion:(KSDALCompletionBlock)completionBlock
+{
+    NSDictionary *params = @{@"lat": [NSNumber numberWithDouble:lat],
+                             @"lon": [NSNumber numberWithDouble:lon]};
+    [KSDAL geocodeWithParams:params completion:^(KSAPIStatus status, NSDictionary *response) {
+        
+        if (KSAPIStatusSuccess ==status) {
+            
+           NSArray *responseData = response[@"data"];
+            for (NSDictionary *data in responseData) {
+                KSGeoLocation *location = [KSGeoLocation objWithValue:data[@"id"] forAttrib:@"locationId"];
+                location.latitude = data[@"lat"];
+                location.longitude = data[@"lon"];
+                location.address = data[@"address"];
+                location.area = data[@"area"];
+            }
+            [KSDBManager saveContext:NULL];
+            
+            completionBlock(status, nil);
+        }
+        else{
+            
+            completionBlock(status,nil);
+        }
+        
+    }];
+    
+    
+}
+
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat
                                     longitude:(double)lon
                                        radius:(double)searchRadius {

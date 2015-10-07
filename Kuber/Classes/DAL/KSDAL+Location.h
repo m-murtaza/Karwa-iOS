@@ -26,6 +26,11 @@
                                     longitude:(double)lon
                                        radius:(double)searchRadius;
 
++ (void)nearestLocationsFromServerMatchingLatitude:(double)lat
+                                         longitude:(double)lon
+                                            radius:(double)searchRadius
+                                        completion:(KSDALCompletionBlock)completionBlock;
+
 + (KSGeoLocation *)addGeolocationWithCoordinate:(CLLocationCoordinate2D)coordinate area:(NSString *)area address:(NSString *)address;
 + (KSGeoLocation *)addGeolocationWithCoordinate:(CLLocationCoordinate2D)coordinate area:(NSString *)area address:(NSString *)address Id:(NSNumber*)locationId;
 

@@ -341,11 +341,55 @@ KSTableViewType;
     }
     
     
+    //--CLLocation *currentLocation = [KSLocationManager location];
+    
+    //self.tableViewType = KSTableViewTypeFavorites;
+    
+    [self loadAllNearByFromLocalDB];
+//--
+//    if (currentLocation) {
+//        
+//        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
+//        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
+//        
+//        NSMutableArray *tempLocations = [NSMutableArray array];
+//        for (KSGeoLocation *location in _nearestLocations) {
+//            BOOL isUnique = YES;
+//            for (KSGeoLocation *location2 in tempLocations) {
+//                if ([location2.address isEqual:location.address]) {
+//                    isUnique = NO;
+//                    break;
+//                }
+//            }
+//            if (isUnique) {
+//                [tempLocations addObject:location];
+//            }
+//        }
+//        _nearestLocations = [NSArray arrayWithArray:tempLocations];
+//        
+//        if (_nearestLocations.count) {
+//            self.tableViewType = KSTableViewTypeNearby;
+//        }
+//    }
+    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
+    [self.tableView reloadData];
+    
+    //Ultimate Jugar (patch)
+    [self performSelector:@selector(loadTbl) withObject:nil afterDelay:0.01];
+    
+    //Background server call for nearby locations.
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        //Background Thread
+        [self fetchNearByFromServer];
+        
+        //dispatch_async(dispatch_get_main_queue(), ^(void){
+            //Run UI Updates
+        //});
+    });
+}
+-(void) loadAllNearByFromLocalDB
+{
     CLLocation *currentLocation = [KSLocationManager location];
-    
-    self.tableViewType = KSTableViewTypeFavorites;
-    
-    
     if (currentLocation) {
         
         CLLocationCoordinate2D coordinate = currentLocation.coordinate;
@@ -370,13 +414,25 @@ KSTableViewType;
             self.tableViewType = KSTableViewTypeNearby;
         }
     }
-    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
-    [self.tableView reloadData];
-    
-    //Ultimate Jugar (patch)
-    [self performSelector:@selector(loadTbl) withObject:nil afterDelay:0.01];
-    
 }
+
+
+-(void) fetchNearByFromServer
+{
+    CLLocation *currentLocation = [KSLocationManager location];
+    [KSDAL nearestLocationsFromServerMatchingLatitude:currentLocation.coordinate.latitude
+                                            longitude:currentLocation.coordinate.longitude
+                                               radius:80.0 completion:^(KSAPIStatus status, id response) {
+                                                   if (status == KSAPIStatusSuccess) {
+                                                       dispatch_async(dispatch_get_main_queue(), ^(void){
+                                                           NSLog(@"Reloading ===-");
+                                                           [self loadAllNearByFromLocalDB];
+                                                           [self reloadTableData];
+                                                           });
+                                                   }
+                                               }];
+}
+
 -(void)loadTbl
 {
     [self.tableView reloadData];
