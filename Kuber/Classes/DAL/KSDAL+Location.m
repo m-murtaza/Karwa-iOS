@@ -162,6 +162,21 @@
     return [[self nearestLocationsMatchingLatitude:lat longitude:lon] firstObject];
 }
 
++ (KSGeoLocation *)addGeolocationWithCoordinate:(CLLocationCoordinate2D)coordinate area:(NSString *)area address:(NSString *)address Id:(NSNumber*)locationId{
+    
+    KSGeoLocation *location = [KSGeoLocation objWithValue:locationId forAttrib:@"locationId"];
+    location.latitude = @(coordinate.latitude);
+    location.longitude = @(coordinate.longitude);
+    location.address = address;
+    location.area = area;
+    location.locationId = locationId;
+    
+    [KSDBManager saveContext:NULL];
+    
+    return location;
+}
+
+
 + (KSGeoLocation *)addGeolocationWithCoordinate:(CLLocationCoordinate2D)coordinate area:(NSString *)area address:(NSString *)address {
     
     KSGeoLocation *location = [KSGeoLocation MR_createEntity];

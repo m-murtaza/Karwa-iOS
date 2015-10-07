@@ -130,7 +130,8 @@
             KSGeoLocation *geolocation = [KSDAL addGeolocationWithCoordinate:location.coordinate
                                                                         area:
                                           [revGoecodeData valueForKey:@"area"]
-                                                                     address:[revGoecodeData valueForKey:@"address"]];
+                                                                     address:[revGoecodeData valueForKey:@"address"]
+                                                                          Id:[revGoecodeData valueForKey:@"id"]];
         
             completionBlock(geolocation);
         }
@@ -380,9 +381,9 @@
 
 - (void)locationWithCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completionBlock {
 
-    [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
+    //[self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
     
-    /*--KSGeoLocation *location =  [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
+    KSGeoLocation *location =  [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
     if (location) {
         [self performSelector:@selector(invokeBlock:) withObject:^() {
             completionBlock(location);
@@ -390,7 +391,7 @@
     }
     else {
         [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
-    }*/
+    }
 
 }
 
