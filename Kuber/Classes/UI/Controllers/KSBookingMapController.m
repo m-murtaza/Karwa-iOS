@@ -364,6 +364,7 @@
     mapView.showsUserLocation = NO;
     if (mapLoadForFirstTime) {
         mapLoadForFirstTime = FALSE;
+        
         [self setMapRegionToUserCurrentLocation];
     }
 }
@@ -371,7 +372,15 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
 
+    //NSLog(@"------+----------");
+    [self performSelector:@selector(reversGeoCodeMapLocation) withObject:nil afterDelay:0.1];
+    
     [self setCurrentLocaitonBtnState];
+    
+}
+
+-(void) reversGeoCodeMapLocation
+{
     [self setPickupLocationLblText];
 }
 
