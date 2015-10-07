@@ -53,6 +53,8 @@ typedef void (^KSPlacemarkListCompletionBlock)(NSArray *placemarks);
 //- (void)nearestPlacemarksInCountry:(NSString *)country searchQuery:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion;
 - (void)placemarksMatchingQuery:(NSString *)query country:(NSString *)country completion:(KSPlacemarkListCompletionBlock)completionBlock;
 
+
+
 - (void)locationWithCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completionBlock;
 
 @end

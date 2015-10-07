@@ -41,6 +41,7 @@
     NSString *hintTxt;
     KSTrip *tripInfo;
     CLLocationCoordinate2D dropoffPoint;
+    BOOL isMaploaded;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -70,6 +71,7 @@
     
     [super viewDidLoad];
     
+    isMaploaded = FALSE;
     dropoffVisible = FALSE;
     [self setIndexForCell:dropoffVisible];
 
@@ -309,6 +311,9 @@
     
     [_mapView setRegion:region animated:TRUE];
     [_mapView regionThatFits:region];
+    
+   [self performSelector:@selector(reversGeoCodeMapLocation)
+              withObject:nil afterDelay:1.5];
 }
 
 -(void) setPickupLocationLblText
@@ -372,16 +377,23 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
 
-    //NSLog(@"------+----------");
-    [self performSelector:@selector(reversGeoCodeMapLocation) withObject:nil afterDelay:0.1];
     
-    [self setCurrentLocaitonBtnState];
+    //[self performSelector:@selector(reversGeoCodeMapLocation) withObject:nil afterDelay:0.1];
+    if (isMaploaded) {
+        NSLog(@"------+----------");
+        [self setPickupLocationLblText];
+        [self setCurrentLocaitonBtnState];
+    }
+    
     
 }
 
 -(void) reversGeoCodeMapLocation
 {
+     NSLog(@"+++++-+++++++");
+    
     [self setPickupLocationLblText];
+    isMaploaded = TRUE;
 }
 
 #pragma mark - UITableView Datasouce

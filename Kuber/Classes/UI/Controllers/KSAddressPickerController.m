@@ -820,8 +820,51 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - 
+
+-(void) searchForQuery:(NSString*)searchString
+{
+    KSAddressPickerController *me = self;
+    //[self showLoadingView];
+    [[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
+        //[self hideLoadingView];
+        _searchLocations = placemarks;
+        
+        [self filterFavLocationFortext:searchString];
+        [self filterRecentLocationsForText:searchString];
+        [me.tableView reloadData];
+    }];
+}
+
 #pragma mark -
 #pragma mark - UITextField delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+
+    NSString *searchString = [NSString stringWithFormat:@"%@%@",textField.text,string];
+    
+    if (textField == self.searchField) {
+        
+        //[textField resignFirstResponder];
+        
+        if (textField.text.length > 2) {
+            [self searchForQuery:searchString];
+            /*KSAddressPickerController *me = self;
+            //[self showLoadingView];
+            [[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
+                //[self hideLoadingView];
+                _searchLocations = placemarks;
+                
+                [self filterFavLocationFortext:searchString];
+                [self filterRecentLocationsForText:searchString];
+                [me.tableView reloadData];
+            }];*/
+        }
+        return YES;
+    }
+    return YES;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
@@ -831,16 +874,28 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
 
         if (textField.text.length > 2) {
             
-            KSAddressPickerController *me = self;
+            //KSAddressPickerController *me = self;
             [self showLoadingView];
-            [[KSLocationManager instance] placemarksMatchingQuery:textField.text country:@"" completion:^(NSArray *placemarks) {
+            [KSDAL  searchServerwithQuery:textField.text
+                               completion:^(KSAPIStatus status, id response) {
+                                   [self hideLoadingView];
+                                   if (KSAPIStatusSuccess == status) {
+                                        [self searchForQuery:textField.text];
+                                   }
+                                   else{
+                                       [KSAlert show:KSStringFromAPIStatus(status)];
+                                   }
+                                   
+                               }];
+             
+            /*[[KSLocationManager instance] placemarksMatchingQuery:textField.text country:@"" completion:^(NSArray *placemarks) {
                 [self hideLoadingView];
                 _searchLocations = placemarks;
                 
                 [self filterFavLocationFortext:textField.text];
                 [self filterRecentLocationsForText:textField.text];
                 [me.tableView reloadData];
-            }];
+            }];*/
         }
         return NO;
     }

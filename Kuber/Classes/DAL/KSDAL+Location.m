@@ -85,7 +85,10 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address contains[c] %@", text];
 #warning TODO: Test this method
     NSArray *locations = [KSGeoLocation MR_findAllWithPredicate:predicate];
+    //NSString *str = [NSString stringWithFormat:@""];
 
+    //predicate = [NSPredicate predicateWithFormat:@"address matches '.*\b%@.*'", text];
+    //locations = [locations filteredArrayUsingPredicate:predicate];
     return locations;
 }
 
@@ -122,14 +125,9 @@
         if (KSAPIStatusSuccess ==status) {
             
            NSArray *responseData = response[@"data"];
-            for (NSDictionary *data in responseData) {
-                KSGeoLocation *location = [KSGeoLocation objWithValue:data[@"id"] forAttrib:@"locationId"];
-                location.latitude = data[@"lat"];
-                location.longitude = data[@"lon"];
-                location.address = data[@"address"];
-                location.area = data[@"area"];
-            }
-            [KSDBManager saveContext:NULL];
+            [KSDAL saveGeolocations:responseData];
+            
+            
             
             completionBlock(status, nil);
         }
@@ -141,6 +139,27 @@
     }];
     
     
+}
+
++(NSArray*) saveGeolocations:(NSArray*)responseData
+{
+    NSMutableArray* geoLocations = [NSMutableArray array];
+    for (NSDictionary *data in responseData) {
+        [geoLocations addObject:[KSDAL saveGeolocation:data]];
+    }
+    [KSDBManager saveContext:NULL];
+    return geoLocations;
+         
+}
++(KSGeoLocation*) saveGeolocation: (NSDictionary*)geoLocation
+{
+    KSGeoLocation *location = [KSGeoLocation objWithValue:geoLocation[@"id"] forAttrib:@"locationId"];
+    location.latitude = geoLocation[@"lat"];
+    location.longitude = geoLocation[@"lon"];
+    location.address = geoLocation[@"address"];
+    location.area = geoLocation[@"area"];
+    
+    return location;
 }
 
 + (NSArray *)nearestLocationsMatchingLatitude:(double)lat
@@ -261,6 +280,29 @@
         }
         [callbacks removeAllObjects];
     }];
+}
+
+
++(void) searchServerwithQuery:(NSString*)query completion:(KSDALCompletionBlock)completionBlock
+{
+    if (!query) {
+        completionBlock(KSAPIStatusUnknownError,nil);
+    }
+    [[KSWebClient instance] GET:[NSString stringWithFormat:@"/geocode/%@",query]
+                         params:nil
+                     completion:^(BOOL success, id response) {
+                         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+                         if (KSAPIStatusSuccess == status) {
+                             NSArray* geoLocations = [KSDAL saveGeolocations:response[@"data"]];
+                             //completionBlock(status, response[@"data"]);
+                             completionBlock(status,geoLocations);
+                         }
+                         else{
+                             completionBlock(status,nil);
+                         }
+
+                         
+                     }];
 }
 
 @end

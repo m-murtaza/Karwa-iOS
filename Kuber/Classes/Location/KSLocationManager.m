@@ -314,35 +314,40 @@
     [self reverseGeocodeCoordinate:location.coordinate completion:completionBlock];
 }
 
+
+
+
+
 - (void)placemarksMatchingQuery:(NSString *)query country:(NSString *)country completion:(KSPlacemarkListCompletionBlock)completionBlock {
     if (!country) {
         country = @"";
     }
     NSArray *placemarks = [KSDAL locationsMatchingText:query];
     NSMutableArray *locations = [NSMutableArray arrayWithArray:placemarks];
-    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:_lastLocation.coordinate radius:30000.0 identifier:@"user_location"];
-
-    NSDictionary *addressDictionary = @{
-        @"Country": @"Qatar",
-        @"Name": query,
-        @"Street": query
-    };
-    if (![query.lowercaseString containsString:@"qatar"]) {
-        query = [query stringByAppendingString:@", Qatar"];
-    }
-    [_geocoder geocodeAddressString:query completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!error) {
-            for (CLPlacemark *placemark in placemarks) {
-                if ([region containsCoordinate:placemark.location.coordinate]) {
-                    [locations addObject:[KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address]];
-                }
-            }
-        }
-        else {
-            NSLog(@"%@", error);
-        }
-        completionBlock(locations);
-    }];
+    completionBlock(locations);
+//    CLCircularRegion *region = [[CLCircularRegion alloc] initWithCenter:_lastLocation.coordinate radius:30000.0 identifier:@"user_location"];
+//
+//    NSDictionary *addressDictionary = @{
+//        @"Country": @"Qatar",
+//        @"Name": query,
+//        @"Street": query
+//    };
+//    if (![query.lowercaseString containsString:@"qatar"]) {
+//        query = [query stringByAppendingString:@", Qatar"];
+//    }
+//    [_geocoder geocodeAddressString:query completionHandler:^(NSArray *placemarks, NSError *error) {
+//        if (!error) {
+//            for (CLPlacemark *placemark in placemarks) {
+//                if ([region containsCoordinate:placemark.location.coordinate]) {
+//                    [locations addObject:[KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address]];
+//                }
+//            }
+//        }
+//        else {
+//            NSLog(@"%@", error);
+//        }
+//        completionBlock(locations);
+//    }];
     
 //    if (placemarks.count) {
 //
