@@ -176,7 +176,16 @@
                 [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
                 
             }];
-            NSString *str = [NSString stringWithFormat:@"We have received your booking request for %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime getFormattedTitleDate]];
+            
+            NSString *str;
+            if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
+                
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime getFormattedTitleDate]];
+            }
+            else{
+                
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for chosing Karwa.",[tripInfo.pickupTime getFormattedTitleDate]];
+            }
             
             
             [KSConfirmationAlert showWithTitle:nil

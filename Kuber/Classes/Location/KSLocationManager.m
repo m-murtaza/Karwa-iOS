@@ -123,7 +123,33 @@
 
 - (void)placemarkForLocation:(CLLocation *)location completion:(KSPlacemarkCompletionBlock)completionBlock {
 
-    __block KSLocationManager *locationManager = self;
+    KSLocationManager *locationManager = self;
+    [locationManager reverseGeocodeLocation:location completion:^(NSArray *placemarks) {
+        if (placemarks && placemarks.count > 0) {
+            NSDictionary *revGoecodeData = [placemarks firstObject];
+            KSGeoLocation *geolocation = [KSDAL addGeolocationWithCoordinate:location.coordinate
+                                                                        area:
+                                          [revGoecodeData valueForKey:@"area"]
+                                                                     address:[revGoecodeData valueForKey:@"address"]];
+        
+            completionBlock(geolocation);
+        }
+        else{
+            [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                if (placemarks.count) {
+                    CLPlacemark *placemark = [placemarks firstObject];
+                    
+                    KSGeoLocation *geolocation = [KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address];
+                    
+                    completionBlock(geolocation);
+                }
+                else
+                    completionBlock(nil);
+            }];
+        }
+    }];
+    
+    /*__block KSLocationManager *locationManager = self;
 
     [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (placemarks.count) {
@@ -138,7 +164,7 @@
                 completionBlock([placemarks firstObject]);
             }];
         }
-    }];
+    }];*/
 }
 
 /*
@@ -260,15 +286,25 @@
 
 - (void)geocodeWithParams:(NSDictionary *)params completion:(KSPlacemarkListCompletionBlock)completionBlock {
     [KSDAL geocodeWithParams:params completion:^(KSAPIStatus status, NSDictionary *response) {
-#warning TODO: ADD Code for making KSPlacemarks from server data
-        completionBlock([NSArray array]);
+
+        if (KSAPIStatusSuccess ==status) {
+        
+            completionBlock(response[@"data"]);
+        }
+        else{
+        
+            completionBlock(nil);
+        }
+        
     }];
 }
 
 - (void)reverseGeocodeCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkListCompletionBlock)completionBlock {
 
-    NSDictionary *params = @{@"latitude": [NSNumber numberWithDouble:coordinate.latitude],
-                             @"longitude": [NSNumber numberWithDouble:coordinate.longitude]};
+    /*NSDictionary *params = @{@"latitude": [NSNumber numberWithDouble:coordinate.latitude],
+                             @"longitude": [NSNumber numberWithDouble:coordinate.longitude]};*/
+    NSDictionary *params = @{@"lat": [NSNumber numberWithDouble:coordinate.latitude],
+                             @"lon": [NSNumber numberWithDouble:coordinate.longitude]};
     [self geocodeWithParams:params completion:completionBlock];
 }
 
@@ -344,7 +380,9 @@
 
 - (void)locationWithCoordinate:(CLLocationCoordinate2D)coordinate completion:(KSPlacemarkCompletionBlock)completionBlock {
 
-    KSGeoLocation *location =  [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
+    [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
+    
+    /*--KSGeoLocation *location =  [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
     if (location) {
         [self performSelector:@selector(invokeBlock:) withObject:^() {
             completionBlock(location);
@@ -352,7 +390,7 @@
     }
     else {
         [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
-    }
+    }*/
 
 }
 

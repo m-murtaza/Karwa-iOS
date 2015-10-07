@@ -22,10 +22,13 @@
 
     KSWebClient *webClient = [KSWebClient instance];
 
-    [webClient GET:@"/geocode" params:@{} completion:^(BOOL success, NSDictionary *response) {
+    
+    [webClient GET:@"/geocode"
+            params:params ? params : @{}
+        completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
-            completionBlock(status, response);
+            completionBlock(status, response );
         }
         else {
             completionBlock(status, nil);

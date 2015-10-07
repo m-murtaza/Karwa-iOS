@@ -132,9 +132,9 @@ KSTableViewType;
     self.searchField.leftViewMode = UITextFieldViewModeAlways;
     
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton setImage:[UIImage imageNamed:@"close.png"]
+    [closeButton setImage:[UIImage imageNamed:@"cancel.png"]
                  forState:UIControlStateNormal];
-    [closeButton setImage:[UIImage imageNamed:@"close.png"]
+    [closeButton setImage:[UIImage imageNamed:@"cancel.png"]
                  forState:UIControlStateHighlighted];
     [closeButton addTarget:self
                     action:@selector(closeSearch:)
