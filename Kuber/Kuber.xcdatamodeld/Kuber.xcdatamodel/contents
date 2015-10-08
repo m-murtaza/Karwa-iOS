@@ -17,6 +17,11 @@
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="driver" inverseEntity="KSTrip" syncable="YES"/>
     </entity>
+    <entity name="KSFranchise" representedClassName="KSFranchise" syncable="YES">
+        <attribute name="franchiseId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="logoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="KSGeoLocation" representedClassName="KSGeoLocation" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="area" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,5 +87,6 @@
         <element name="KSTripIssue" positionX="268" positionY="-9" width="128" height="105"/>
         <element name="KSTripRating" positionX="232" positionY="102" width="128" height="105"/>
         <element name="KSUser" positionX="54" positionY="-207" width="128" height="165"/>
+        <element name="KSFranchise" positionX="-117" positionY="-63" width="128" height="90"/>
     </elements>
 </model>

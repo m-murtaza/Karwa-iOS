@@ -29,6 +29,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    //[self testFunc];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 
     [Fabric with:@[[Crashlytics class]]];
@@ -65,6 +67,19 @@
 
     return YES;
 }
+
+
+/*-(void) testFunc
+{
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\bWWWWW.*" options:0 error:NULL];
+    NSString *str = @"stackoverflow.html";
+    str = @"abcd";
+    NSTextCheckingResult *match = [regex firstMatchInString:str options:0 range:NSMakeRange(0, [str length])];
+    // [match rangeAtIndex:1] gives the range of the group in parentheses
+    // [str substringWithRange:[match rangeAtIndex:1]] gives the first captured group in this example
+    
+    NSLog(@"%@",[str substringWithRange:[match rangeAtIndex:1]]);
+}*/
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

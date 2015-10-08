@@ -291,7 +291,7 @@
 -(NSString*) getTimeStringFromDate:(NSDate*) date
 {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc]init];
-    timeFormatter.dateFormat = @"HH:mm";
+    timeFormatter.dateFormat = @"H:mm";
     
     
     NSString *dateString = [timeFormatter stringFromDate: date];

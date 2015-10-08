@@ -144,6 +144,9 @@
 		1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850437A1B26C51600AECDE9 /* CLLocation+KSExtended.m */; };
 		185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */; };
 		1850438A1B29792200AECDE9 /* KSPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 185043891B29792200AECDE9 /* KSPlacemark.m */; };
+		1859E8FD1BC631D400354B84 /* KSFranchise.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8FC1BC631D400354B84 /* KSFranchise.m */; };
+		1859E9001BC6326F00354B84 /* KSDAL+Franchise.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */; };
+		1859E9031BC635A400354B84 /* KSFranchises.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E9021BC635A400354B84 /* KSFranchises.m */; };
 		185E3BFC1B70779700909B20 /* KSDAL+Booking.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E3BF51B70779700909B20 /* KSDAL+Booking.m */; };
 		185E3BFD1B70779700909B20 /* KSDAL+Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E3BF71B70779700909B20 /* KSDAL+Bookmark.m */; };
 		185E3BFE1B70779700909B20 /* KSDAL+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E3BF91B70779700909B20 /* KSDAL+Location.m */; };
@@ -485,6 +488,12 @@
 		185043831B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+KSExtended.m"; sourceTree = "<group>"; };
 		185043881B29792200AECDE9 /* KSPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPlacemark.h; sourceTree = "<group>"; };
 		185043891B29792200AECDE9 /* KSPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPlacemark.m; sourceTree = "<group>"; };
+		1859E8FB1BC631D400354B84 /* KSFranchise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFranchise.h; sourceTree = "<group>"; };
+		1859E8FC1BC631D400354B84 /* KSFranchise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFranchise.m; sourceTree = "<group>"; };
+		1859E8FE1BC6326F00354B84 /* KSDAL+Franchise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Franchise.h"; sourceTree = "<group>"; };
+		1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+Franchise.m"; sourceTree = "<group>"; };
+		1859E9011BC635A400354B84 /* KSFranchises.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFranchises.h; sourceTree = "<group>"; };
+		1859E9021BC635A400354B84 /* KSFranchises.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFranchises.m; sourceTree = "<group>"; };
 		185E3BF41B70779700909B20 /* KSDAL+Booking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Booking.h"; sourceTree = "<group>"; };
 		185E3BF51B70779700909B20 /* KSDAL+Booking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+Booking.m"; sourceTree = "<group>"; };
 		185E3BF61B70779700909B20 /* KSDAL+Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Bookmark.h"; sourceTree = "<group>"; };
@@ -870,6 +879,8 @@
 				180B77621B8C5FDF0008930F /* KSDAL+TripIssue.h */,
 				180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */,
 				18BB7EBB1B9C299200F75BC9 /* KSAllDAL.h */,
+				1859E8FE1BC6326F00354B84 /* KSDAL+Franchise.h */,
+				1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */,
 			);
 			path = DAL;
 			sourceTree = "<group>";
@@ -978,6 +989,8 @@
 				1819A4C41BC394A600D7AB88 /* KSBookmark.m */,
 				1819A4C01BC394A500D7AB88 /* KSTrip.h */,
 				1819A4C11BC394A500D7AB88 /* KSTrip.m */,
+				1859E8FB1BC631D400354B84 /* KSFranchise.h */,
+				1859E8FC1BC631D400354B84 /* KSFranchise.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1348,6 +1361,8 @@
 				1880C5591B7957CB004F0188 /* KSAddressPickerDelegate.h */,
 				18C7A3CA1BB142F100E579A2 /* KSBookingMapController.h */,
 				18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */,
+				1859E9011BC635A400354B84 /* KSFranchises.h */,
+				1859E9021BC635A400354B84 /* KSFranchises.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1855,11 +1870,13 @@
 				1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */,
 				18481B5E1B09C41800855F54 /* KSAlert.m in Sources */,
 				1801E3071B11ADE300A8983E /* KSFavoritesController.m in Sources */,
+				1859E9031BC635A400354B84 /* KSFranchises.m in Sources */,
 				185E3BFD1B70779700909B20 /* KSDAL+Bookmark.m in Sources */,
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
 				1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */,
 				1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */,
 				18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */,
+				1859E8FD1BC631D400354B84 /* KSFranchise.m in Sources */,
 				1801E2F51B0DD13C00A8983E /* UINavigationController+KSExtended.m in Sources */,
 				18D65DD91B9EC39100D6C1BD /* KSLabel.m in Sources */,
 				18B0D0251B031C93002645AD /* KSDBManager.m in Sources */,
@@ -1867,6 +1884,7 @@
 				18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */,
 				1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */,
 				18481B501B091EFA00855F54 /* SWRevealViewController.m in Sources */,
+				1859E9001BC6326F00354B84 /* KSDAL+Franchise.m in Sources */,
 				18481B771B0B1B4000855F54 /* KSConfirmationAlert.m in Sources */,
 				1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */,
 				185043781B26BCD900AECDE9 /* KSAddress.m in Sources */,

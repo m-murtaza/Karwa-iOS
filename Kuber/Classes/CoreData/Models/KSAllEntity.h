@@ -18,5 +18,6 @@
 #import "KSVehicleTrackingInfo.h"
 #import "KSGeoLocation.h"
 #import "KSBookmark.h"
+#import "KSFranchise.h"
 
 #endif

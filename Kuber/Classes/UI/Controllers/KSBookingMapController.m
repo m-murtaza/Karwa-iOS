@@ -182,11 +182,11 @@
             NSString *str;
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime getFormattedTitleDate]];
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
             }
             else{
                 
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for chosing Karwa.",[tripInfo.pickupTime getFormattedTitleDate]];
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for chosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
             }
             
             
