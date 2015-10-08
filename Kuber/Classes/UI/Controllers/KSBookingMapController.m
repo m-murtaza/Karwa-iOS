@@ -205,7 +205,7 @@
 
 -(void) showAlertWithHint
 {
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide some hint"
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Pickup location hint"
                                                                  message:nil
                                                           preferredStyle:UIAlertControllerStyleAlert];
     
@@ -232,7 +232,7 @@
                                                            }];
     [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
      {
-         txtField.placeholder = @"Please provide some hint";
+         txtField.placeholder = @"Please help us in locate you better";
      }];
     [alt addAction:okAction];
     [alt addAction:cancelAction];

@@ -7,27 +7,55 @@
 //
 
 #import "KSFranchises.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface KSFranchise ()
+@interface KSFranchises () <UITableViewDataSource,UITableViewDelegate>
 {
-    //NSArray *franchiseList;
+    NSArray *franchisesList;
 }
-
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @end
 @implementation KSFranchises
 -(void) viewDidLoad{
     
     [super viewDidLoad];
-    /*[KSDAL syncFranchiseWithCompletion:^(KSAPIStatus status, id response) {
+    franchisesList = [NSArray array];
+    [self showLoadingView];
+    [KSDAL syncFranchiseWithCompletion:^(KSAPIStatus status, id response) {
         if (status == KSAPIStatusSuccess) {
             
-            NSLog(@"%@",response);
+            franchisesList = [KSDAL allFranchises];
+            [self.tableView reloadData];
+            [self hideLoadingView];
         }
         else{
-            NSLog(@"%lu",(unsigned long)status);
+            [KSAlert show:KSStringFromAPIStatus(status)];
         }
-    }];*/
+    }];
     
     
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return franchisesList.count;
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 125.0;
+}
+-(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"franchiseCellIdentifier"];
+    
+    KSFranchise * franchise = [franchisesList objectAtIndex:indexPath.row];
+    
+    UIImageView *imgView = (UIImageView*) [cell viewWithTag:1050];
+    
+    [imgView setImageWithURL:[NSURL URLWithString:franchise.logoUrl]];
+    
+    return cell;
 }
 @end

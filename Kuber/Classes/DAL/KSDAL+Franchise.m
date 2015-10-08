@@ -8,6 +8,7 @@
 
 #import "KSDAL+Franchise.h"
 #import "KSDBManager.h"
+#import "MagicalRecord.h"
 
 @implementation KSDAL (Franchise)
 
@@ -54,4 +55,9 @@
     return franchise;
 }
 
++(NSArray*) allFranchises
+{
+    NSArray *all = [KSFranchise MR_findAll];
+    return all;
+}
 @end

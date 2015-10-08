@@ -11,5 +11,6 @@
 @interface KSDAL (Franchise)
 
 + (void)syncFranchiseWithCompletion:(KSDALCompletionBlock)completionBlock;
++(NSArray*) allFranchises;
 
 @end

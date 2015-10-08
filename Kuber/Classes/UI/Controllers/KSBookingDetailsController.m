@@ -54,6 +54,8 @@
 //    [self.lblTaxiNumber setFontSize:12];
 //    [self.lblDriverNumber setFontSize:12];
     
+    [self.lblAcknowlegement setHidden:TRUE];
+    
     [self loadViewData];
     if (self.isOpenedFromPushNotification ) {
         
@@ -143,6 +145,8 @@
         [self.viewTaxiInfo setHidden:TRUE];
     }*/
     
+    [self.lblAcknowlegement setHidden:TRUE];
+    [self.btnCancelBooking setHidden:TRUE];
     [self setStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
@@ -188,6 +192,15 @@
         case KSTripStatusPending:
         case 12:
         case 4:
+            [self.btnCancelBooking setHidden:FALSE];
+    }
+    
+    /*switch (trip.status.integerValue) {
+        case KSTripStatusOpen:
+        case KSTripStatusInProcess:
+        case KSTripStatusPending:
+        case 12:
+        case 4:
             [self.lblAcknowlegement setHidden:YES];
             NSTimeInterval pickupTimePast = -[trip.pickupTime timeIntervalSinceNow];
             NSTimeInterval CANCEL_TIMEOUT = 300.0;
@@ -215,7 +228,7 @@
             [self.btnCancelBooking setHidden:YES];
             
             break;
-    }
+    }*/
 }
 -(void) viewWillAppear:(BOOL)animated
 {

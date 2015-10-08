@@ -8,8 +8,8 @@
 
 #import "KSViewController.h"
 
-@interface KSFranchises : KSViewController
+@interface KSFranchises : KSViewController 
 {
-    NSArray *franchiseList;
+    
 }
 @end
