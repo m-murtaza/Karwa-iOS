@@ -356,7 +356,7 @@
         }];
         
         [KSConfirmationAlert showWithTitle:nil
-                                   message:@"Location Services Disabled. Please enable location services."
+                                   message:@"Location services are disabled. Please enable location services."
                                   okAction:okAction];
     }
     return locationAvailable;
@@ -376,14 +376,28 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-
     
-    //[self performSelector:@selector(reversGeoCodeMapLocation) withObject:nil afterDelay:0.1];
     if (isMaploaded) {
-        NSLog(@"------+----------");
+        
         [self setPickupLocationLblText];
         [self setCurrentLocaitonBtnState];
     }
+    else{
+       
+        NSInteger locationStatus = [CLLocationManager authorizationStatus];
+        
+        if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied || locationStatus == kCLAuthorizationStatusNotDetermined){
+            [self setPickupLocationLblText];
+            [self setCurrentLocaitonBtnState];
+        
+        }
+    }
+    //[self performSelector:@selector(reversGeoCodeMapLocation) withObject:nil afterDelay:0.1];
+    /*if (isMaploaded) {
+        //NSLog(@"------+----------");
+        [self setPickupLocationLblText];
+        [self setCurrentLocaitonBtnState];
+    //}*/
     
     
 }

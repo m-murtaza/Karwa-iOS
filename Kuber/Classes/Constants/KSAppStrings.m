@@ -43,12 +43,12 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidSession]:           @"Your session has expired. Please login again.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotVerified]:          @"Phone number is not verified. Please verify phone number using verification code.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusPasswordMatch]:            @"New password is same old password.",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusTooManyResetCalls]:        @"You have exceed maximum number of reset requests. Please send an email to ualeem@karwasolutions.com to reset your password",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusTooManyResetCalls]:        @"You have exceed maximum number of reset requests. Please send an email to support@karwasolutions.com to reset your password",
       
       
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiAllocated]:            @"Taxi allocated for you --",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You have another booking in process. Please select a different booking time.",
-      [NSNumber numberWithUnsignedInteger:KSAPIInvalidPickupLocation]:          @"Given loaction is out of range.",  //need to change
+      [NSNumber numberWithUnsignedInteger:KSAPIInvalidPickupLocation]:          @"Karwa services are only avaible in Qatar.",  //need to change
       [NSNumber numberWithUnsignedInteger:KSAPIStatusBookingCancelled]:         @"You have cancelled the booking --",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiNotAvailable]:         @"We are unable to book a taxi for the given time. Please try again for a different time.",
 

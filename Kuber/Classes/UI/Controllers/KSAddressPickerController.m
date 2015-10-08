@@ -378,14 +378,18 @@ KSTableViewType;
     [self performSelector:@selector(loadTbl) withObject:nil afterDelay:0.01];
     
     //Background server call for nearby locations.
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+    if (!_nearestLocations.count) {
+        [self showLoadingView];
+    }
+    
+    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         //Background Thread
         [self fetchNearByFromServer];
         
         //dispatch_async(dispatch_get_main_queue(), ^(void){
             //Run UI Updates
         //});
-    });
+    //});
 }
 -(void) loadAllNearByFromLocalDB
 {
@@ -424,11 +428,14 @@ KSTableViewType;
                                             longitude:currentLocation.coordinate.longitude
                                                radius:80.0 completion:^(KSAPIStatus status, id response) {
                                                    if (status == KSAPIStatusSuccess) {
-                                                       dispatch_async(dispatch_get_main_queue(), ^(void){
-                                                           NSLog(@"Reloading ===-");
+//                                                       dispatch_async(dispatch_get_main_queue(), ^(void){
+                                                           [self hideLoadingView];
                                                            [self loadAllNearByFromLocalDB];
                                                            [self reloadTableData];
-                                                           });
+//                                                           });
+                                                   }
+                                                   else{
+                                                       DLog(@"Error Fetching nearby location %lu",(unsigned long)status);
                                                    }
                                                }];
 }
