@@ -26,6 +26,9 @@
 #define TXT_TITLE_DROPOFF_ADDRESS   @"DROPOFF ADDRESS"
 #define TXT_TITLE_PICKUP_TIME       @"PICKUP TIME"
 
+#define DOHA_LATITUDE               25.2867
+#define DOHA_LONGITUDE              51.5333
+
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate>
 {
   
@@ -295,7 +298,17 @@
     self.txtPickupTime.text = [date formatedDateForBooking];
 }
 
--(void) setMapRegionToUserCurrentLocation
+-(void) updatePickupTimeIfNeeded
+{
+    KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
+    if ([datePicker.date isInPast]) {
+
+        [self updatePickupTime:[NSDate date]];
+        datePicker.picker.date = [NSDate date];
+    }
+}
+
+-(void) setMapRegionToLat:(CLLocationDegrees)lat Long:(CLLocationDegrees)lon
 {
     //Zoom map to users current location
     MKCoordinateRegion region;
@@ -304,16 +317,24 @@
     span.latitudeDelta = 0.00001;
     span.longitudeDelta = 0.00001;
     
-    CLLocationCoordinate2D location = self.mapView.userLocation.coordinate;
-    
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(lat, lon);
     region.span = span;
     region.center = location;
     
     [_mapView setRegion:region animated:TRUE];
     [_mapView regionThatFits:region];
     
-   [self performSelector:@selector(reversGeoCodeMapLocation)
-              withObject:nil afterDelay:1.5];
+    [self performSelector:@selector(reversGeoCodeMapLocation)
+               withObject:nil afterDelay:1.5];
+}
+
+-(void) setMapRegionToUserCurrentLocation
+{
+    
+    
+    CLLocationCoordinate2D location = self.mapView.userLocation.coordinate;
+    [self setMapRegionToLat:location.latitude Long:location.longitude];
+    
 }
 
 -(void) setPickupLocationLblText
@@ -348,7 +369,7 @@
     BOOL locationAvailable = TRUE;
     NSInteger locationStatus = [CLLocationManager authorizationStatus];
     
-    if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied){
+    if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied || locationStatus == kCLAuthorizationStatusNotDetermined){
         locationAvailable = FALSE;
         KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
             
@@ -362,7 +383,63 @@
     return locationAvailable;
 }
 
+-(void) updateViewForShowHideDropOff
+{
+    [self UpdateMapForDropOff:dropoffVisible];
+    [self setDestinationRevealBtnState];
+    [self setAddressTextStatus];
+}
+
+-(void) showDropOff
+{
+    dropoffVisible = TRUE;
+    [self setIndexForCell:dropoffVisible];
+    NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+    [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
+    [self.tableView layoutIfNeeded];
+    [self.btnCurrentLocaiton setHidden:TRUE];
+    self.tblViewHeight.constant += 94;
+    self.bottomMapToTopTblView.constant -=94;
+    [UIView animateWithDuration:1.0 animations:^{
+        [self.tableView layoutIfNeeded];
+        [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
+                              withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    
+    [self updateViewForShowHideDropOff];
+}
+
+-(void) hideDropOff
+{
+    dropoffVisible = FALSE;
+    [self setIndexForCell:dropoffVisible];
+    
+    NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+    [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
+    [self.tableView layoutIfNeeded];
+    [self.btnCurrentLocaiton setHidden:FALSE];
+    self.tblViewHeight.constant -= 94;
+    self.bottomMapToTopTblView.constant +=94;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.tableView layoutIfNeeded];
+        
+        [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
+                              withRowAnimation:UITableViewRowAnimationNone];
+    }];
+    
+    [self updateViewForShowHideDropOff];
+}
+
 #pragma mark - MapViewDelegate
+
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+    self.lblPickupLocaiton.text = @"Doha, Qatar";
+    self.lblPickupLocaitonTitle.text = @"Doha, Qatar";
+    [self setMapRegionToLat:DOHA_LATITUDE Long:DOHA_LONGITUDE];
+}
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation     *)userLocation
 {
@@ -490,9 +567,20 @@
 #pragma mark - UITableView Delegate
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == idxPickupLocation || indexPath.row == idxDropOffLocation) {
+    if (indexPath.row == idxPickupLocation) {
         
+        if (dropoffVisible) {
+            
+            [self hideDropOff];
+        }
+        else{
+         
             [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
+        }
+    }
+    else if(indexPath.row == idxDropOffLocation)
+    {
+        [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
     }
     else if(indexPath.row == idxPickupTime) {
 
@@ -550,51 +638,14 @@
 
 - (IBAction) btnShowDestinationTapped:(id)sender
 {
-
     if (dropoffVisible) {
         
-        dropoffVisible = FALSE;
-        [self setIndexForCell:dropoffVisible];
-        
-        
-        
-        
-        NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
-        [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
-        
-        [self.tableView layoutIfNeeded];
-        [self.btnCurrentLocaiton setHidden:FALSE];
-        self.tblViewHeight.constant -= 94;
-        self.bottomMapToTopTblView.constant +=94;
-        [UIView animateWithDuration:0.5 animations:^{
-            [self.tableView layoutIfNeeded];
-            
-            [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
-                                  withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        
+        [self hideDropOff];
     }
     else {
         
-        dropoffVisible = TRUE;
-        [self setIndexForCell:dropoffVisible];
-        NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
-        [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
-        
-        [self.tableView layoutIfNeeded];
-        [self.btnCurrentLocaiton setHidden:TRUE];
-        self.tblViewHeight.constant += 94;
-        self.bottomMapToTopTblView.constant -=94;
-        [UIView animateWithDuration:1.0 animations:^{
-            [self.tableView layoutIfNeeded];
-            [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
-                                  withRowAnimation:UITableViewRowAnimationNone];
-        }];
+        [self showDropOff];
     }
-    
-    [self UpdateMapForDropOff:dropoffVisible];
-    [self setDestinationRevealBtnState];
-    [self setAddressTextStatus];
 }
 
 - (IBAction)showCurrentLocationTapped:(id)sender
@@ -609,6 +660,8 @@
 
 - (IBAction) btnBookingRequestTapped:(id)sender
 {
+    [self updatePickupTimeIfNeeded];
+    
     [self showAlertWithHint];
 }
 

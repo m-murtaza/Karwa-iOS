@@ -790,7 +790,52 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
     KSBookmark *bookmark;
     KSGeoLocation *geolocation;
     KSTrip *trip;
-    switch (self.tableViewType) {
+    
+    if (indexPath.section == idxNearSection){
+        
+        if (!self.searchField.text.length) {
+            geolocation = [_nearestLocations objectAtIndex:indexPath.row];
+            
+        }
+        else {
+            geolocation = [_searchLocations objectAtIndex:indexPath.row];
+        }
+        placeName = geolocation.address;
+        location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
+    }
+    else if(indexPath.section == idxFavSection){
+    
+        if (!self.searchField.text.length) {
+        
+            bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+        }
+        else{
+            
+            bookmark = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+        }
+        placeName = bookmark.address.length ? bookmark.address : bookmark.name;
+        location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
+    }
+    else {
+        
+        if (!self.searchField.text.length) {
+            trip = [_recentBookings objectAtIndex:indexPath.row];
+        }
+        else {
+            trip = [_searchRecentBookings objectAtIndex:indexPath.row];
+        }
+        
+        placeName = trip.dropoffLandmark;
+        if (trip.pickupLandmark.length) {
+            placeName = trip.pickupLandmark;
+            location = [[CLLocation alloc] initWithLatitude:trip.pickupLat.doubleValue longitude:trip.pickupLon.doubleValue];
+        }
+        else {
+            location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
+        }
+    }
+    
+    /*switch (self.tableViewType) {
         case KSTableViewTypeFavorites:
             bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
             placeName = bookmark.address.length ? bookmark.address : bookmark.name;
@@ -819,7 +864,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             placeName = geolocation.address;
             location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
             break;
-    }
+    }*/
 
     [self.delegate addressPicker:self didDismissWithAddress:placeName location:location];
 
