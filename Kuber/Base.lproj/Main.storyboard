@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -4867,7 +4866,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CBK-6H-Kzi" id="QfN-3m-YX3">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="1050" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oX3-eK-RMe">
+                                                <imageView userInteractionEnabled="NO" tag="1050" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oX3-eK-RMe">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                                     <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
                                                         <rect key="frame" x="0.0" y="0.0" width="400" height="124"/>
@@ -4920,10 +4919,10 @@
                                 <exclude reference="SeM-f1-Ufq"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="P1N-1j-4in"/>
                                 <exclude reference="WOc-kb-zh2"/>
                                 <exclude reference="sDT-74-Cfi"/>
                                 <exclude reference="zag-rO-8Xt"/>
-                                <exclude reference="P1N-1j-4in"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -4931,10 +4930,10 @@
                                 <include reference="SeM-f1-Ufq"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="P1N-1j-4in"/>
                                 <include reference="WOc-kb-zh2"/>
                                 <include reference="sDT-74-Cfi"/>
                                 <include reference="zag-rO-8Xt"/>
-                                <include reference="P1N-1j-4in"/>
                             </mask>
                         </variation>
                     </view>
@@ -6543,7 +6542,7 @@
         <image name="login-button-pressed.png" width="658" height="99"/>
         <image name="logout-ico-active.png" width="26" height="26"/>
         <image name="logout-ico-idle.png" width="26" height="26"/>
-        <image name="main-screen.png" width="375" height="667"/>
+        <image name="main-screen.png" width="381" height="671"/>
         <image name="map-sep-line-09.png" width="1" height="1"/>
         <image name="map-sep-line.png" width="1" height="1"/>
         <image name="menu-active-bg.png" width="320" height="72"/>

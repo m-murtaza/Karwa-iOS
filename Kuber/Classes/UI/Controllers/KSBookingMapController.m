@@ -16,6 +16,9 @@
 #import "KSAddressPickerController.h"
 #import "KSBookingDetailsController.h"
 #import "KSDatePicker.h"
+#import "KSVehicleTrackingAnnotation.h"
+#import "KSPointAnnotation.h"
+#import "KSVehicleAnnotationView.h"
 
 
 #define ADDRESS_CELL_HEIGHT         86.0
@@ -28,6 +31,8 @@
 
 #define DOHA_LATITUDE               25.2867
 #define DOHA_LONGITUDE              51.5333
+
+#define MAX_TAXI_ANNOTATIONS    (10)
 
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate>
 {
@@ -85,6 +90,7 @@
     self.mapView.scrollEnabled = YES;
     self.mapView.zoomEnabled = YES;
     
+    
     [self addTableViewHeader];
     [self.btnCurrentLocaiton setSelected:TRUE];
     
@@ -92,6 +98,9 @@
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self checkLocationAvaliblityAndShowAlert];
+    
+    //MKPointAnnotation *a = [MKPointAnnotation
+
 }
 
 #pragma mark - Private Function
@@ -314,15 +323,15 @@
     MKCoordinateRegion region;
     MKCoordinateSpan span;
     
-    span.latitudeDelta = 0.00001;
-    span.longitudeDelta = 0.00001;
+    span.latitudeDelta = 0.01;
+    span.longitudeDelta = 0.01;
     
     CLLocationCoordinate2D location = CLLocationCoordinate2DMake(lat, lon);
     region.span = span;
     region.center = location;
     
     [_mapView setRegion:region animated:TRUE];
-    [_mapView regionThatFits:region];
+    //[_mapView regionThatFits:region];
     
     [self performSelector:@selector(reversGeoCodeMapLocation)
                withObject:nil afterDelay:1.5];
@@ -432,6 +441,31 @@
     [self updateViewForShowHideDropOff];
 }
 
+- (void)updateTaxisInCurrentRegion {
+    
+    CLLocationCoordinate2D center = _mapView.centerCoordinate;
+    CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height/1.3 ) toCoordinateFromView:_mapView];
+    CLLocationDistance radius = [[CLLocation locationWithCoordinate:center] distanceFromLocation:[CLLocation locationWithCoordinate:left]];
+    
+    [KSDAL taxisNearCoordinate:center radius:radius completion:^(KSAPIStatus status, NSArray * vehicles) {
+        
+        NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
+        for (int counter = 0; counter < vehicles.count && counter < MAX_TAXI_ANNOTATIONS; counter++) {
+            
+            [vehiclesAnnotations addObject:[KSVehicleTrackingAnnotation annotationWithTrackingInfo:[vehicles objectAtIndex:counter]]];
+        }
+        NSArray *previusAnnotations = self.mapView.annotations;
+        for (id annotation in previusAnnotations) {
+            if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+                [self.mapView removeAnnotation:annotation];
+            }
+        }
+        [self.mapView addAnnotations:vehiclesAnnotations];
+        
+    }];
+}
+
+
 #pragma mark - MapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
@@ -448,6 +482,7 @@
         mapLoadForFirstTime = FALSE;
         
         [self setMapRegionToUserCurrentLocation];
+        
     }
 }
 
@@ -458,6 +493,7 @@
         
         [self setPickupLocationLblText];
         [self setCurrentLocaitonBtnState];
+        [self updateTaxisInCurrentRegion];
     }
     else{
        
@@ -475,16 +511,32 @@
         [self setPickupLocationLblText];
         [self setCurrentLocaitonBtnState];
     //}*/
-    
-    
 }
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    // If the annotation is the user location, just return nil.
+        if ([annotation isKindOfClass:[MKUserLocation class]])
+            return nil;
+    
+    MKAnnotationView *annotationView = nil;
+    if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+        annotationView = (KSVehicleAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:[KSVehicleAnnotationView reuseIdentifier]];
+        if (!annotationView) {
+            annotationView = [[KSVehicleAnnotationView alloc] initWithAnnotation:annotation];
+        }
+        else {
+            annotationView.annotation = annotation;
+        }
+    }
+    return annotationView;
+}
+
 
 -(void) reversGeoCodeMapLocation
 {
-     NSLog(@"+++++-+++++++");
-    
     [self setPickupLocationLblText];
     isMaploaded = TRUE;
+    [self updateTaxisInCurrentRegion];
 }
 
 #pragma mark - UITableView Datasouce

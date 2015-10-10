@@ -147,6 +147,8 @@
 		1859E8FD1BC631D400354B84 /* KSFranchise.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8FC1BC631D400354B84 /* KSFranchise.m */; };
 		1859E9001BC6326F00354B84 /* KSDAL+Franchise.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */; };
 		1859E9031BC635A400354B84 /* KSFranchises.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E9021BC635A400354B84 /* KSFranchises.m */; };
+		1859E9071BC93F9E00354B84 /* ABManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1859E9061BC93F9E00354B84 /* ABManager.m */; };
+		1859E9081BC93FE400354B84 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1801E30B1B13059C00A8983E /* AddressBook.framework */; };
 		185E3BFC1B70779700909B20 /* KSDAL+Booking.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E3BF51B70779700909B20 /* KSDAL+Booking.m */; };
 		185E3BFD1B70779700909B20 /* KSDAL+Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E3BF71B70779700909B20 /* KSDAL+Bookmark.m */; };
 		185E3BFE1B70779700909B20 /* KSDAL+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 185E3BF91B70779700909B20 /* KSDAL+Location.m */; };
@@ -494,6 +496,8 @@
 		1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+Franchise.m"; sourceTree = "<group>"; };
 		1859E9011BC635A400354B84 /* KSFranchises.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFranchises.h; sourceTree = "<group>"; };
 		1859E9021BC635A400354B84 /* KSFranchises.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFranchises.m; sourceTree = "<group>"; };
+		1859E9051BC93F9E00354B84 /* ABManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ABManager.h; path = AddressBookManager/ABManager.h; sourceTree = "<group>"; };
+		1859E9061BC93F9E00354B84 /* ABManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ABManager.m; path = AddressBookManager/ABManager.m; sourceTree = "<group>"; };
 		185E3BF41B70779700909B20 /* KSDAL+Booking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Booking.h"; sourceTree = "<group>"; };
 		185E3BF51B70779700909B20 /* KSDAL+Booking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+Booking.m"; sourceTree = "<group>"; };
 		185E3BF61B70779700909B20 /* KSDAL+Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Bookmark.h"; sourceTree = "<group>"; };
@@ -704,6 +708,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1859E9081BC93FE400354B84 /* AddressBook.framework in Frameworks */,
 				18481AFE1B08812300855F54 /* MapKit.framework in Frameworks */,
 				4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */,
 			);
@@ -1030,6 +1035,15 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
+		1859E9041BC93F5D00354B84 /* AddressBookManager */ = {
+			isa = PBXGroup;
+			children = (
+				1859E9051BC93F9E00354B84 /* ABManager.h */,
+				1859E9061BC93F9E00354B84 /* ABManager.m */,
+			);
+			name = AddressBookManager;
+			sourceTree = "<group>";
+		};
 		185E3C2F1B772B3500909B20 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1284,6 +1298,7 @@
 		18A762AD1B006A7400B9ED32 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1859E9041BC93F5D00354B84 /* AddressBookManager */,
 				18481B781B0B3E8400855F54 /* DAL */,
 				18481AFA1B086E9A00855F54 /* Constants */,
 				189F5D9B1B085FD200EAF9B2 /* Location */,
@@ -1910,6 +1925,7 @@
 				18481B7E1B0B5F7D00855F54 /* KSSessionInfo.m in Sources */,
 				1880C5681B79D989004F0188 /* KSGeoLocationCell.m in Sources */,
 				18A762811AFF785B00B9ED32 /* main.m in Sources */,
+				1859E9071BC93F9E00354B84 /* ABManager.m in Sources */,
 				187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */,
 				185FEC791B94612600268296 /* UIButton+KSButton.m in Sources */,
 				184D22761BA56400007CB740 /* KSMenuButton.m in Sources */,
