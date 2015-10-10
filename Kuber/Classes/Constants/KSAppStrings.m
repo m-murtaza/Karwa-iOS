@@ -28,6 +28,9 @@ NSString * const KSMuseoSans300 = @"MuseoSans_300";
 NSString * const KSMuseoSans500 = @"MuseoSans_500";
 NSString * const KSMuseoSans700 = @"MuseoSans_700";
 
+NSString * const KSDetaultsPhoneNumber = @"KSDetaultsPhoneNumber";
+
+
 
 NSString *KSStringFromAPIStatus(KSAPIStatus status) {
     NSDictionary *stringsForAPIStatus =

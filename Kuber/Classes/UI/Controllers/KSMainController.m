@@ -8,6 +8,7 @@
 
 #import "KSMainController.h"
 #import "KSWebClient.h"
+#import "ABManager.h"
 
 @interface KSMainController ()
 {
@@ -30,6 +31,8 @@
         // TODO: Nothing
     }];
     
+    
+    [[[ABManager alloc] init] fetchUserPhoneNumber];
 }
 
 -(void) viewWillAppear:(BOOL)animated

@@ -27,4 +27,6 @@ extern NSString * const KSMuseoSans300;
 extern NSString * const KSMuseoSans500;
 extern NSString * const KSMuseoSans700;
 
+extern NSString * const KSDetaultsPhoneNumber;
+
 NSString *KSStringFromAPIStatus(KSAPIStatus status);

@@ -8,7 +8,7 @@
 
 #import "KSSignupController.h"
 #import "KSVerifyController.h"
-
+#import "ABManager.h"
 
 @interface KSSignupController ()
 
@@ -34,7 +34,7 @@
     [self setTransformValueForTextFields];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    
+    [self.txtMobile setText:[ABManager userPhoneNumber]];
     //[self addTapGesture];
 }
 

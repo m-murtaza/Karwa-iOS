@@ -13,6 +13,7 @@
 #import "KSResetPasswordController.h"
 #import "KSVerifyController.h"
 
+#import "ABManager.h"
 
 @interface KSLoginController ()
 
@@ -45,6 +46,8 @@
     [self.view addGestureRecognizer:tapper];
     */
     self.btnForgotPassword.titleLabel.font = [UIFont fontWithName:KSMuseoSans300 size:13];
+    
+    [self.txtMobile setText:[ABManager userPhoneNumber]];
 }
 
 -(void) viewWillAppear:(BOOL)animated

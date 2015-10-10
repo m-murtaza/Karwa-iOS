@@ -237,6 +237,8 @@
 
 -(void) handleNotificaiton:(NSString*) bookingId
 {
+    KSBookingDetailsController *detailC = [UIStoryboard bookingDetailsController];
+    [detailC showLoadingView];
     [KSDAL bookingWithBookingId:bookingId
                      completion:^(KSAPIStatus status, id response) {
                          NSLog(@"%@",response);
@@ -251,6 +253,7 @@
                              
                              UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
                              [navController pushViewController:detailController animated:NO];
+                             [detailController hideLoadingView];
                              
                          }
                      }];

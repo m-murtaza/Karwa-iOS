@@ -81,7 +81,6 @@
     [self setNavigationTitle];
 }
 
-
 - (void) setNavigationTitle
 {
     if (self.tripInfo.jobId.length) {
@@ -252,7 +251,6 @@
 
 #pragma mark - Event handler
 
-
 -(IBAction)btnCallDriveTapped:(id)sender
 {
     if (self.tripInfo.driver.phone != nil || ![self.tripInfo.driver.phone isEqualToString:@""]) {
@@ -269,7 +267,7 @@
             }
             else{
                 
-                [KSAlert show:@"Your phone does not support calling" title:@"Error"];
+                //[KSAlert show:@"Your phone does not support calling" title:@"Error"];
             }
         }
         else {

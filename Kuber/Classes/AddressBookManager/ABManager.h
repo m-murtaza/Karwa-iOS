@@ -10,6 +10,7 @@
 
 @interface ABManager : NSObject
 
-+ (NSString*) fetchUserPhoneNumber;
+- (void) fetchUserPhoneNumber;
 
++(NSString*) userPhoneNumber;
 @end
