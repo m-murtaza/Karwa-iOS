@@ -9,8 +9,9 @@
 #import "KSMainController.h"
 #import "KSWebClient.h"
 #import "ABManager.h"
+#import "KSLocationManager.h"
 
-@interface KSMainController ()
+@interface KSMainController () <CLLocationManagerDelegate>
 {
 
 }
@@ -32,6 +33,8 @@
     }];
     
     
+    [self askForLocationAccess];
+    
     [[[ABManager alloc] init] fetchUserPhoneNumber];
 }
 
@@ -47,6 +50,7 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [KSLocationManager stop];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,4 +67,22 @@
     }
 }
 
+-(void) askForLocationAccess
+{
+    /*CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    // Check for iOS 8. Without this guard the code will crash with "unknown selector" on iOS 7.
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    [locationManager startUpdatingLocation];*/
+    [KSLocationManager start];
+}
+
+// Location Manager Delegate Methods
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    NSLog(@"%@", [locations lastObject]);
+    [manager stopUpdatingLocation];
+}
 @end

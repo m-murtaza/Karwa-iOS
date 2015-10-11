@@ -56,10 +56,10 @@
                                              {
                                                  if (granted)
                                                  {
-                                                     //dispatch_async(dispatch_get_main_queue(), ^{
+                                                     dispatch_async(dispatch_get_main_queue(), ^{
                                                          
-                                                     [weakSelf fetchUserData];
-                                                     //});
+                                                         [weakSelf fetchUserData];
+                                                     });
                                                  }
                                              });
 }
