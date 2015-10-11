@@ -113,9 +113,10 @@
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
+    [self showLoadingView];
     [KSDAL syncIssueListWithCompletion:^(KSAPIStatus status, id response) {
         //TODO: Noting
-        NSLog(@"%@",response);
+        [self hideLoadingView];
         if (status == KSAPIStatusSuccess) {
             issueList = [NSArray arrayWithArray:[KSDAL allIssueList]];
             [self.tableView reloadData];

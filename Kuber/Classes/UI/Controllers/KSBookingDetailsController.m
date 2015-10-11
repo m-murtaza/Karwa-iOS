@@ -160,7 +160,7 @@
 
 -(void) setTaxiInfo:(KSTrip*)trip
 {
-    if (trip.taxi == nil) {
+    if (trip.driver == nil) {
         
         [self hideTaxiInfo:trip];
     }
@@ -267,7 +267,7 @@
             }
             else{
                 
-                //[KSAlert show:@"Your phone does not support calling" title:@"Error"];
+                [KSAlert show:@"Your phone does not support calling" title:@"Error"];
             }
         }
         else {
