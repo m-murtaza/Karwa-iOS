@@ -6071,7 +6071,7 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="FfD-Yc-zIm"/>
-                                        <include reference="IEa-7p-ahT"/>
+                                        <exclude reference="IEa-7p-ahT"/>
                                         <include reference="dGm-0s-CQr"/>
                                         <include reference="fPD-S8-uOG"/>
                                         <include reference="mPO-hI-d2c"/>
@@ -6112,6 +6112,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Le5-Mc-eHN" secondAttribute="trailing" constant="14" id="0ME-Gm-kvN"/>
                             <constraint firstItem="v2G-VZ-GPY" firstAttribute="top" secondItem="ctt-mr-gwD" secondAttribute="bottom" id="1L8-rH-65o"/>
                             <constraint firstAttribute="trailingMargin" secondItem="v2G-VZ-GPY" secondAttribute="trailing" constant="-16" id="25r-xc-e9V"/>
                             <constraint firstAttribute="centerY" secondItem="Le5-Mc-eHN" secondAttribute="centerY" id="CuT-kh-Tx6">
@@ -6125,6 +6126,7 @@
                             <constraint firstItem="v2G-VZ-GPY" firstAttribute="leading" secondItem="9Dm-ut-lOb" secondAttribute="leadingMargin" constant="-16" id="KyG-ZT-AzX"/>
                             <constraint firstItem="v2G-VZ-GPY" firstAttribute="top" secondItem="ctt-mr-gwD" secondAttribute="bottom" id="Ndb-L8-8SI"/>
                             <constraint firstItem="ctt-mr-gwD" firstAttribute="top" secondItem="mba-ik-13G" secondAttribute="bottom" id="R2g-fJ-ts5"/>
+                            <constraint firstItem="Le5-Mc-eHN" firstAttribute="leading" secondItem="9Dm-ut-lOb" secondAttribute="leadingMargin" constant="14" id="bIt-Qu-sht"/>
                             <constraint firstItem="v2G-VZ-GPY" firstAttribute="top" secondItem="mDq-2d-nwe" secondAttribute="bottom" constant="8" id="oeQ-y0-xfc"/>
                             <constraint firstAttribute="centerX" secondItem="Le5-Mc-eHN" secondAttribute="centerX" id="tZL-CI-8Yk"/>
                             <constraint firstItem="mDq-2d-nwe" firstAttribute="trailing" secondItem="9Dm-ut-lOb" secondAttribute="trailingMargin" id="u83-S9-0hU"/>
@@ -6138,19 +6140,21 @@
                                 <exclude reference="mDq-2d-nwe"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Flv-P9-Qol"/>
-                                <exclude reference="H3U-Ed-1jD"/>
-                                <exclude reference="u83-S9-0hU"/>
                                 <exclude reference="Hmc-RB-Ucb"/>
                                 <exclude reference="R2g-fJ-ts5"/>
                                 <exclude reference="wp6-pP-xzY"/>
+                                <exclude reference="0ME-Gm-kvN"/>
                                 <exclude reference="CuT-kh-Tx6"/>
+                                <exclude reference="bIt-Qu-sht"/>
                                 <exclude reference="tZL-CI-8Yk"/>
                                 <exclude reference="1L8-rH-65o"/>
                                 <exclude reference="25r-xc-e9V"/>
                                 <exclude reference="KyG-ZT-AzX"/>
                                 <exclude reference="Ndb-L8-8SI"/>
                                 <exclude reference="oeQ-y0-xfc"/>
+                                <exclude reference="u83-S9-0hU"/>
+                                <exclude reference="Flv-P9-Qol"/>
+                                <exclude reference="H3U-Ed-1jD"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -6161,19 +6165,21 @@
                                 <include reference="mDq-2d-nwe"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Flv-P9-Qol"/>
-                                <include reference="H3U-Ed-1jD"/>
-                                <include reference="u83-S9-0hU"/>
                                 <include reference="Hmc-RB-Ucb"/>
                                 <include reference="R2g-fJ-ts5"/>
                                 <include reference="wp6-pP-xzY"/>
+                                <include reference="0ME-Gm-kvN"/>
                                 <include reference="CuT-kh-Tx6"/>
+                                <include reference="bIt-Qu-sht"/>
                                 <include reference="tZL-CI-8Yk"/>
                                 <exclude reference="1L8-rH-65o"/>
                                 <include reference="25r-xc-e9V"/>
                                 <include reference="KyG-ZT-AzX"/>
                                 <include reference="Ndb-L8-8SI"/>
                                 <include reference="oeQ-y0-xfc"/>
+                                <include reference="u83-S9-0hU"/>
+                                <exclude reference="Flv-P9-Qol"/>
+                                <include reference="H3U-Ed-1jD"/>
                             </mask>
                         </variation>
                     </view>
