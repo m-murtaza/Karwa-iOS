@@ -144,13 +144,14 @@ NSString * const KSDropoffTextPlaceholder = @"Destination address hint";
     [KSLocationManager start];
 
     [KSGoogleAnalytics trackPage:@"BookingScreen"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [KSLocationManager stop];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.txtDropoffAddress resignFirstResponder];
     [self.txtPickupAddress resignFirstResponder];
@@ -659,7 +660,7 @@ NSString * const KSDropoffTextPlaceholder = @"Destination address hint";
 #pragma mark UITextField 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     return YES;
 }
 

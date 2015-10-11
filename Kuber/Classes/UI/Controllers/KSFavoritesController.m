@@ -37,7 +37,7 @@
 
     self.bookmarks = [NSMutableArray array];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFavoriteChangeNotification:) name:KSNotificationForNewBookmark object:nil];
+    
 
     UIBarButtonItem *btnAddPlace = self.navigationItem.rightBarButtonItem;
     UIBarButtonItem *btnDeletePlace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(onClickDeletePlaces:)];
@@ -56,19 +56,31 @@
     
     [self loadAllData];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(unfavBookmarkButtonTapped:)
-                                                 name:KSNotificationButtonUnFavBookmarkCellAction
-                                               object:nil];
+    
 
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self loadAllData];
+    
     [KSGoogleAnalytics trackPage:@"Change Password"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onFavoriteChangeNotification:) name:KSNotificationForNewBookmark object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(unfavBookmarkButtonTapped:)
+                                                 name:KSNotificationButtonUnFavBookmarkCellAction
+                                               object:nil];
 }
 
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)updateActionButtons {
     
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];

@@ -29,7 +29,7 @@
 // Check the authorization status of our application for Address Book
 -(void)checkAddressBookAccess
 {
-    switch (ABAddressBookGetAuthorizationStatus())
+    /*switch (ABAddressBookGetAuthorizationStatus())
     {
             // Update our UI if the user has granted access to their Contacts
         case  kABAuthorizationStatusAuthorized:
@@ -43,7 +43,7 @@
             // Display a message if the user has denied or restricted access to Contacts
         default:
             break;
-    }
+    }*/
 }
 
 

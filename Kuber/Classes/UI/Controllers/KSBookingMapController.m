@@ -8,6 +8,9 @@
 
 #import "KSBookingMapController.h"
 
+//ThirdParty
+#import <Crashlytics/Crashlytics.h>
+
 //Utilities
 #import "KSLocationManager.h"
 #import "KSConfirmationAlert.h"
@@ -93,6 +96,7 @@
     
     [self addTableViewHeader];
     [self.btnCurrentLocaiton setSelected:TRUE];
+    [self addCrashlyticsInfo];
     
 }
 -(void) viewDidAppear:(BOOL)animated{
@@ -104,6 +108,15 @@
 }
 
 #pragma mark - Private Function
+-(void) addCrashlyticsInfo
+{
+    KSUser *user = [KSDAL userWithPhone:[[KSSessionInfo currentSession] phone] ];
+    [[Crashlytics  sharedInstance] setObjectValue:user.phone forKey:@"Crashlytics_User_Id"];
+    [[Crashlytics  sharedInstance] setObjectValue:user.name forKey:@"Crashlytics_User_Name"];
+    [[Crashlytics  sharedInstance] setObjectValue:[[KSSessionInfo currentSession] sessionId] forKey:@"Crashlytics_Session_Id"];
+    
+}
+
 
 -(void) setCurrentLocaitonBtnState
 {

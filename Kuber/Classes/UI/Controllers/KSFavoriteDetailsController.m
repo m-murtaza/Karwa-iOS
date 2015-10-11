@@ -82,7 +82,7 @@
 
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollow];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChangeName:) name:UITextFieldTextDidChangeNotification object:self.txtName];
+    
 
     self.txtName.delegate = self;
     self.txtName.rightViewMode = UITextFieldViewModeAlways;
@@ -99,6 +99,10 @@
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Favorite Details"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChangeName:) name:UITextFieldTextDidChangeNotification object:self.txtName];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -127,6 +131,12 @@
     }
     MKCoordinateRegion region = [self createRegionForLocation:coordinate];
     [self.mapView setRegion:region animated:YES];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Private Method
@@ -251,13 +261,13 @@
 #pragma mark - Delegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     return YES;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
 }
 
