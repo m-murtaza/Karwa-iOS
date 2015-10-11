@@ -47,7 +47,7 @@
     */
     self.btnForgotPassword.titleLabel.font = [UIFont fontWithName:KSMuseoSans300 size:13];
     
-    [self.txtMobile setText:[ABManager userPhoneNumber]];
+    //[self.txtMobile setText:[ABManager userPhoneNumber]];
 }
 
 -(void) viewWillAppear:(BOOL)animated

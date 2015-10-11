@@ -8,7 +8,7 @@
 
 #import "KSMainController.h"
 #import "KSWebClient.h"
-#import "ABManager.h"
+//#import "ABManager.h"
 #import "KSLocationManager.h"
 
 @interface KSMainController () <CLLocationManagerDelegate>
@@ -35,7 +35,7 @@
     
     [self askForLocationAccess];
     
-    [[[ABManager alloc] init] fetchUserPhoneNumber];
+    //[[[ABManager alloc] init] fetchUserPhoneNumber];
 }
 
 -(void) viewWillAppear:(BOOL)animated

@@ -34,7 +34,7 @@
     [self setTransformValueForTextFields];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    [self.txtMobile setText:[ABManager userPhoneNumber]];
+    //[self.txtMobile setText:[ABManager userPhoneNumber]];
     //[self addTapGesture];
 }
 

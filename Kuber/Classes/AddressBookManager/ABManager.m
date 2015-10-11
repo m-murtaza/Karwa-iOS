@@ -7,11 +7,11 @@
 //
 
 #import "ABManager.h"
-#import <AddressBookUI/AddressBookUI.h>
+//#import <AddressBookUI/AddressBookUI.h>
 
 @interface ABManager ()
 
-@property (nonatomic, assign) ABAddressBookRef addressBook;
+//@property (nonatomic, assign) ABAddressBookRef addressBook;
 
 @end
 
@@ -20,7 +20,7 @@
 - (void) fetchUserPhoneNumber
 {
     
-    _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    //_addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     [self checkAddressBookAccess];
 }
 
@@ -50,7 +50,7 @@
 // Prompt the user for access to their Address Book data
 -(void)requestAddressBookAccess
 {
-    ABManager * __weak weakSelf = self;
+    /*ABManager * __weak weakSelf = self;
     
     ABAddressBookRequestAccessWithCompletion(self.addressBook, ^(bool granted, CFErrorRef error)
                                              {
@@ -61,12 +61,12 @@
                                                          [weakSelf fetchUserData];
                                                      });
                                                  }
-                                             });
+                                             });*/
 }
 
 -(void) fetchUserData
 {
-    NSArray *people = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(self.addressBook, CFSTR("me")));
+    /*NSArray *people = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(self.addressBook, CFSTR("me")));
     // Display "Appleseed" information if found in the address book
     if ((people != nil) && [people count])
     {
@@ -87,21 +87,22 @@
             }
         }
         //NSLog(@"name = %@ , Mobile = %@",name,mobile);
-    }
+    }*/
 }
 
 
 -(void) savePhoneInDefaults:(NSString*)pNum
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:pNum forKey:KSDetaultsPhoneNumber];
-    [defaults synchronize];
+    [defaults synchronize];*/
 }
 
 +(NSString*) userPhoneNumber
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *phoneNumber = [defaults objectForKey:KSDetaultsPhoneNumber];
-    return phoneNumber ? phoneNumber : @"";
+    return phoneNumber ? phoneNumber : @"";*/
+    return @"";
 }
 @end
