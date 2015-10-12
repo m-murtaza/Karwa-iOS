@@ -130,6 +130,9 @@
         self.txtName.text = self.user.name;
         self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Display Name" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtName.tintColor = [UIColor blackColor];
+        [self.txtName setKeyboardType:UIKeyboardTypeNamePhonePad];
+        //[self.txtName setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
+        
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"fullname.png"]];
         
@@ -141,6 +144,7 @@
         //self.txtEmail.placeholder = @"Email Address";
         self.txtEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email Address" attributes:@{NSForegroundColorAttributeName: color}];
         self.txtEmail.tintColor = [UIColor blackColor];
+        [self.txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"email.png"]];
     }

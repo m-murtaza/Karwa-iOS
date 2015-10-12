@@ -32,6 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
+
 -(IBAction)btnCallDriveTapped:(id)sender;
 
 
@@ -79,6 +81,10 @@
     }
     
     [self setNavigationTitle];
+    
+    if(IS_IPHONE_5){
+        self.constraintPickupTimeBottom.constant = 5.0;
+    }
 }
 
 - (void) setNavigationTitle
@@ -194,6 +200,8 @@
             [self.btnCancelBooking setHidden:FALSE];
     }
     
+    
+    //We might need this code in future. 
     /*switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
