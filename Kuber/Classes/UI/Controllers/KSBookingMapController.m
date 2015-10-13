@@ -207,7 +207,7 @@
             NSString *str;
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. We are working on it. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
             }
             else{
                 
@@ -230,7 +230,7 @@
 
 -(void) showAlertWithHint
 {
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Pickup location hint"
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide address details"
                                                                  message:nil
                                                           preferredStyle:UIAlertControllerStyleAlert];
     
@@ -257,7 +257,7 @@
                                                            }];
     [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
      {
-         txtField.placeholder = @"Please help us in locate you better";
+         txtField.placeholder = @"e.g. Villaggio Gate No.2";
      }];
     [alt addAction:okAction];
     [alt addAction:cancelAction];

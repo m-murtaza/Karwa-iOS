@@ -25,8 +25,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    __block KSBookingHistoryController *me = self;
     
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [KSGoogleAnalytics trackPage:@"Booking History"];
+    
+    [self fetchBookingDataFromServer];
+}
+
+
+#pragma mark - Server DataFetching 
+
+-(void) fetchBookingDataFromServer
+{
+    __block KSBookingHistoryController *me = self;
     
     //Todo Need to remove repitative code
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -60,8 +77,9 @@
             }
         }];
     }
-    
 }
+
+#pragma mark -
 
 - (void)buildTripsHistory:(NSArray*)data {
     
@@ -72,14 +90,6 @@
     [self.tableView reloadData];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    [KSGoogleAnalytics trackPage:@"Booking History"];
-    
-    //Fetch trips from DB
-    //[self buildTripsHistory:self.trips];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
