@@ -35,9 +35,12 @@
 #define DOHA_LATITUDE               25.2867
 #define DOHA_LONGITUDE              51.5333
 
-#define MAX_TAXI_ANNOTATIONS    (10)
+#define MAX_TAXI_ANNOTATIONS        (10)
 
-@interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate>
+#define TXT_HINT_TAG                1019
+#define MAX_PICKUP_TEXT             250
+
+@interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {
   
     //This will identify if map is loaded for the first time.
@@ -169,11 +172,15 @@
     self.tableView.tableHeaderView = headerView;
 }
 
+-(NSString*) completePickUpAddress:(NSString*)hint Pickup:(NSString*)pickUpadd
+{
+    return [NSString stringWithFormat:@"%@, %@",hint,pickUpadd];
+}
 
 -(void) bookTaxi
 {
     
-    NSString * pickup = [NSString stringWithFormat:@"%@, %@",hintTxt,self.lblPickupLocaiton.text];
+    NSString * pickup = [self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
     
     tripInfo = [KSDAL tripWithLandmark:pickup
                                    lat:self.mapView.centerCoordinate.latitude
@@ -258,6 +265,9 @@
     [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
      {
          txtField.placeholder = @"e.g. Villaggio Gate No.2";
+         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         txtField.delegate = self;
+         txtField.tag = TXT_HINT_TAG;
      }];
     [alt addAction:okAction];
     [alt addAction:cancelAction];
@@ -478,6 +488,23 @@
     }];
 }
 
+#pragma mark - UITextField Delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.tag == TXT_HINT_TAG) {
+        //textfield for hint
+        NSString *str =  [self completePickUpAddress:[NSString stringWithFormat:@"%@%@",textField.text,string]
+                                              Pickup:self.lblPickupLocaiton.text];
+        NSLog(@"%lu",(unsigned long)str.length);
+        if (str.length >= MAX_PICKUP_TEXT) {
+            NSLog(@"Bas kar day bahi");
+            return NO;
+        }
+    }
+    
+    return TRUE;
+}
 
 #pragma mark - MapViewDelegate
 
@@ -725,6 +752,7 @@
 
 - (IBAction) btnBookingRequestTapped:(id)sender
 {
+    //For Current booking if pickup time is in past then update pickup time.
     [self updatePickupTimeIfNeeded];
     
     [self showAlertWithHint];
