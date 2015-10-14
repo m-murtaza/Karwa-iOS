@@ -38,7 +38,7 @@
 #define MAX_TAXI_ANNOTATIONS        (10)
 
 #define TXT_HINT_TAG                1019
-#define MAX_PICKUP_TEXT             250
+#define MAX_PICKUP_TEXT             225
 
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {

@@ -925,10 +925,10 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
         [textField resignFirstResponder];
 
         if (textField.text.length > 2) {
-            
+           
             //KSAddressPickerController *me = self;
             [self showLoadingView];
-            [KSDAL  searchServerwithQuery:textField.text
+            [KSDAL  searchServerwithQuery:[textField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
                                completion:^(KSAPIStatus status, id response) {
                                    [self hideLoadingView];
                                    if (KSAPIStatusSuccess == status) {
