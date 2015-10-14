@@ -92,7 +92,12 @@
 		<key>format</key>
 		<string>json</string>
 		<key>url</key>
-		<string>http://services.karwasolutions.com/api/</string>
+		<string>http://stage1.karwasolutions.com/api/</string>
+	</dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 	</dict>
 </dict>
 </plist>
