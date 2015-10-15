@@ -101,13 +101,15 @@
     [self.btnCurrentLocaiton setSelected:TRUE];
     [self addCrashlyticsInfo];
     
+    
+    
 }
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self checkLocationAvaliblityAndShowAlert];
     
-    //MKPointAnnotation *a = [MKPointAnnotation
-
+    //Patch for iOS 9 other wise animation was bit odd.
+    [self showhideDropOff];
 }
 
 #pragma mark - Private Function
@@ -152,14 +154,14 @@
 }
 
 -(void) setDestinationRevealBtnState{
-    if (dropoffVisible) {
+    /*if (dropoffVisible) {
         [self.btnDestinationReveal setImage:[UIImage imageNamed:@"downarrow-idle.png"] forState:UIControlStateNormal];
         [self.btnDestinationReveal setImage:[UIImage imageNamed:@"downarrow-pressed.png"] forState:UIControlStateHighlighted];
     }
     else {
         [self.btnDestinationReveal setImage:[UIImage imageNamed:@"uparrow-idle.png"] forState:UIControlStateNormal];
         [self.btnDestinationReveal setImage:[UIImage imageNamed:@"uparrow-pressed.png"] forState:UIControlStateHighlighted];
-    }
+    }*/
 }
 
 -(void) addTableViewHeader
@@ -422,18 +424,27 @@
     [self setAddressTextStatus];
 }
 
--(void) showDropOff
+-(void)showhideDropOff
+{
+    [self showDropOff:FALSE];
+    [self hideDropOff:FALSE];
+}
+
+-(void) showDropOff:(BOOL)animated
 {
     dropoffVisible = TRUE;
     [self setIndexForCell:dropoffVisible];
     NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
     [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
     
-    [self.tableView layoutIfNeeded];
+    //[self.tableView layoutIfNeeded];
     [self.btnCurrentLocaiton setHidden:TRUE];
     self.tblViewHeight.constant += 94;
     self.bottomMapToTopTblView.constant -=94;
-    [UIView animateWithDuration:1.0 animations:^{
+    //[self.tableView layoutIfNeeded];
+    NSTimeInterval animDuration = animated ? 0.5 : 0;
+    
+    [UIView animateWithDuration:animDuration animations:^{
         [self.tableView layoutIfNeeded];
         [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                               withRowAnimation:UITableViewRowAnimationNone];
@@ -442,7 +453,7 @@
     [self updateViewForShowHideDropOff];
 }
 
--(void) hideDropOff
+-(void) hideDropOff:(BOOL)animated
 {
     dropoffVisible = FALSE;
     [self setIndexForCell:dropoffVisible];
@@ -454,7 +465,10 @@
     [self.btnCurrentLocaiton setHidden:FALSE];
     self.tblViewHeight.constant -= 94;
     self.bottomMapToTopTblView.constant +=94;
-    [UIView animateWithDuration:0.5 animations:^{
+    
+    NSTimeInterval animDuration = animated ? 0.5 : 0;
+    
+    [UIView animateWithDuration:animDuration animations:^{
         [self.tableView layoutIfNeeded];
         
         [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
@@ -615,6 +629,7 @@
     if(indexPath.row == idxPickupLocation){
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingCellIdentifier"];
+        //UITableViewCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"bookingCellIdentifier"];
         self.lblPickupLocaitonTitle = (UILabel*) [cell viewWithTag:6001];
         [self.lblPickupLocaitonTitle setText:TXT_TITLE_PICKUP_ADDRESS];
        
@@ -663,7 +678,7 @@
         
         if (dropoffVisible) {
             
-            [self hideDropOff];
+            [self hideDropOff:TRUE];
         }
         else{
          
@@ -732,11 +747,11 @@
 {
     if (dropoffVisible) {
         
-        [self hideDropOff];
+        [self hideDropOff:TRUE];
     }
     else {
         
-        [self showDropOff];
+        [self showDropOff:TRUE];
     }
 }
 
