@@ -10,4 +10,6 @@
 
 @interface KSTrackTaxiController : KSViewController
 
+
+@property (nonatomic, strong) NSString *taxiNo;
 @end

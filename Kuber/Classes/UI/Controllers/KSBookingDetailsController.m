@@ -9,9 +9,10 @@
 #import "KSBookingDetailsController.h"
 #import "KSTrip.h"
 #import "NSString+KSExtended.h"
+
+//ViewControllers
 #import "KSTripRatingController.h"
-
-
+#import "KSTrackTaxiController.h"
 
 @interface KSBookingDetailsController ()
 
@@ -85,6 +86,8 @@
     if(IS_IPHONE_5){
         self.constraintPickupTimeBottom.constant = 5.0;
     }
+    
+    [self showHideTrackATaxiButton];
 }
 
 - (void) setNavigationTitle
@@ -255,6 +258,11 @@
         KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
         ratingController.trip = self.tripInfo;
     }
+    else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
+    {
+        KSTrackTaxiController *trackTaxi = (KSTrackTaxiController*) segue.destinationViewController;
+        trackTaxi.taxiNo = self.tripInfo.taxi.number;
+    }
 }
 
 #pragma mark - Event handler
@@ -294,6 +302,14 @@
 
 
 #pragma mark - Private Functions 
+-(void) showHideTrackATaxiButton
+{
+    if (self.tripInfo.taxi == nil) {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+
 -(void) disableCancelButton
 {
     [self.btnCancelBooking setEnabled:FALSE];

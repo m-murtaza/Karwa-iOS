@@ -42,9 +42,12 @@
         /*ZAssert([a conformsToProtocol:@protocol(MKAnnotation)], @"ERROR: All elements of the array MUST conform to the MKAnnotation protocol. Element (%@) did not fulfill this requirement", a);*/
         MKMapPoint p = MKMapPointForCoordinate(a.coordinate);
         //MKMapRectUnion performs the union between 2 rects, returning a bigger rect containing both (or just one if the other is null). here we do it for rects without a size (points)
-        r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, 0, 0));
+        r = MKMapRectUnion(r, MKMapRectMake(p.x, p.y, r.size.width+10000,r.size.height+10000));
     }
-    
+//    r.size.width += 10000;
+//    r.size.height += 10000;
+   r.origin.x -=5000;
+    r.origin.y -=5000;
     [mapView setVisibleMapRect:r animated:animated];
     
 }

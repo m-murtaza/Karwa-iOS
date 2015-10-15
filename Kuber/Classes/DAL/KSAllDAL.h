@@ -17,6 +17,7 @@
 #import "KSSessionInfo.h"
 #import "KSDAL+TripIssue.h"
 #import "KSDAL+Franchise.h"
+#import "KSDAL+Taxi.h"
 
 
 #endif

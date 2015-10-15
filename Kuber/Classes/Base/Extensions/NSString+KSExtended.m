@@ -74,5 +74,10 @@ NSString *KSLocalize(NSString *key) {
     return date;
 }
 
+
+-(NSString*) URLEncodedString
+{
+    return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
 @end
 

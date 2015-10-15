@@ -928,7 +928,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
            
             //KSAddressPickerController *me = self;
             [self showLoadingView];
-            [KSDAL  searchServerwithQuery:[textField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+            [KSDAL  searchServerwithQuery:[textField.text URLEncodedString]
                                completion:^(KSAPIStatus status, id response) {
                                    [self hideLoadingView];
                                    if (KSAPIStatusSuccess == status) {

@@ -294,6 +294,7 @@
 		18D65E001B9ED25800D6C1BD /* phone-box-focused-s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF71B9ED25800D6C1BD /* phone-box-focused-s@2x.png */; };
 		18D65E011B9ED25800D6C1BD /* phone-box-idle-s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF81B9ED25800D6C1BD /* phone-box-idle-s@2x.png */; };
 		18D65E041B9EE56300D6C1BD /* KSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65E031B9EE56300D6C1BD /* KSTextField.m */; };
+		18D6E6151BCE454300D6BBA0 /* KSDAL+Taxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6E6141BCE454300D6BBA0 /* KSDAL+Taxi.m */; settings = {ASSET_TAGS = (); }; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -703,6 +704,8 @@
 		18D65DF81B9ED25800D6C1BD /* phone-box-idle-s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-idle-s@2x.png"; path = "Signup/phone-box-idle-s@2x.png"; sourceTree = "<group>"; };
 		18D65E021B9EE56300D6C1BD /* KSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTextField.h; sourceTree = "<group>"; };
 		18D65E031B9EE56300D6C1BD /* KSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTextField.m; sourceTree = "<group>"; };
+		18D6E6131BCE454300D6BBA0 /* KSDAL+Taxi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Taxi.h"; sourceTree = "<group>"; };
+		18D6E6141BCE454300D6BBA0 /* KSDAL+Taxi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+Taxi.m"; sourceTree = "<group>"; };
 		49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D470927F06592D06A19BCD41 /* Pods-Kuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.release.xcconfig"; sourceTree = "<group>"; };
 		D713B6CDA9189D253F4EE8EE /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
@@ -892,6 +895,8 @@
 				18BB7EBB1B9C299200F75BC9 /* KSAllDAL.h */,
 				1859E8FE1BC6326F00354B84 /* KSDAL+Franchise.h */,
 				1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */,
+				18D6E6131BCE454300D6BBA0 /* KSDAL+Taxi.h */,
+				18D6E6141BCE454300D6BBA0 /* KSDAL+Taxi.m */,
 			);
 			path = DAL;
 			sourceTree = "<group>";
@@ -1891,6 +1896,7 @@
 				18A762BA1B006A7400B9ED32 /* KSUserManagement.m in Sources */,
 				1880C56B1B79E141004F0188 /* KSBookmarkCell.m in Sources */,
 				1850436E1B2554D900AECDE9 /* KSDriver.m in Sources */,
+				18D6E6151BCE454300D6BBA0 /* KSDAL+Taxi.m in Sources */,
 				18481B5E1B09C41800855F54 /* KSAlert.m in Sources */,
 				1801E3071B11ADE300A8983E /* KSFavoritesController.m in Sources */,
 				1859E90B1BCD214C00354B84 /* KSTrackTaxiController.m in Sources */,

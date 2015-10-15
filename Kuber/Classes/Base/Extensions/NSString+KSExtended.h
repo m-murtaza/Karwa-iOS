@@ -26,5 +26,7 @@ NSString *KSLocalize(NSString *key);
 
 - (NSDate *)dateValue;
 
+-(NSString*) URLEncodedString;
+
 @end
 
