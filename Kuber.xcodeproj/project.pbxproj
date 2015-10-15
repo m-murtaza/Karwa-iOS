@@ -237,7 +237,6 @@
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
-		189F5D981B085A6C00EAF9B2 /* KSMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D971B085A6C00EAF9B2 /* KSMapController.m */; };
 		189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */; };
 		18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */; };
 		18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A19DA81B6E43CD0057EED9 /* KSSplashController.m */; };
@@ -266,33 +265,22 @@
 		18CFC4AE1BA18949009B5D70 /* time-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A81BA18949009B5D70 /* time-icon.png */; };
 		18CFC4AF1BA18949009B5D70 /* to.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A91BA18949009B5D70 /* to.png */; };
 		18D65D9B1B9D556100D6C1BD /* NSDate+KSDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */; };
-		18D65DA41B9D802200D6C1BD /* login-button-idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65D9E1B9D802200D6C1BD /* login-button-idle.png */; };
-		18D65DA51B9D802200D6C1BD /* login-button-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65D9F1B9D802200D6C1BD /* login-button-pressed.png */; };
-		18D65DA61B9D802200D6C1BD /* password-box-focused.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DA01B9D802200D6C1BD /* password-box-focused.png */; };
-		18D65DA71B9D802200D6C1BD /* password-box-idle.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DA11B9D802200D6C1BD /* password-box-idle.png */; };
-		18D65DA81B9D802200D6C1BD /* phone-box-focused.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DA21B9D802200D6C1BD /* phone-box-focused.png */; };
 		18D65DC81B9D82B600D6C1BD /* KS_login_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC21B9D82B600D6C1BD /* KS_login_logo@2x.png */; };
 		18D65DC91B9D82B600D6C1BD /* login-button-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC31B9D82B600D6C1BD /* login-button-idle@2x.png */; };
 		18D65DCA1B9D82B600D6C1BD /* login-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC41B9D82B600D6C1BD /* login-button-pressed@2x.png */; };
-		18D65DCB1B9D82B600D6C1BD /* password-box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC51B9D82B600D6C1BD /* password-box-focused@2x.png */; };
-		18D65DCC1B9D82B600D6C1BD /* password-box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC61B9D82B600D6C1BD /* password-box-idle@2x.png */; };
-		18D65DCD1B9D82B600D6C1BD /* phone-box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DC71B9D82B600D6C1BD /* phone-box-focused@2x.png */; };
-		18D65DCF1B9D901700D6C1BD /* phone-box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DCE1B9D901700D6C1BD /* phone-box-idle@2x.png */; };
 		18D65DD41B9EC13000D6C1BD /* blue-button-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DD11B9EC13000D6C1BD /* blue-button-idle@2x.png */; };
 		18D65DD51B9EC13000D6C1BD /* blue-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DD21B9EC13000D6C1BD /* blue-button-pressed@2x.png */; };
 		18D65DD61B9EC13000D6C1BD /* VerifyCode-box@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */; };
 		18D65DD91B9EC39100D6C1BD /* KSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65DD81B9EC39100D6C1BD /* KSLabel.m */; };
 		18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65DDB1B9EC6B700D6C1BD /* KSButton.m */; };
-		18D65DFA1B9ED25800D6C1BD /* email-box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF11B9ED25800D6C1BD /* email-box-focused@2x.png */; };
-		18D65DFB1B9ED25800D6C1BD /* email-box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF21B9ED25800D6C1BD /* email-box-idle@2x.png */; };
-		18D65DFC1B9ED25800D6C1BD /* fullname-box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF31B9ED25800D6C1BD /* fullname-box-focused@2x.png */; };
-		18D65DFD1B9ED25800D6C1BD /* fullname-box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF41B9ED25800D6C1BD /* fullname-box-idle@2x.png */; };
-		18D65DFE1B9ED25800D6C1BD /* password-box-focused-s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF51B9ED25800D6C1BD /* password-box-focused-s@2x.png */; };
-		18D65DFF1B9ED25800D6C1BD /* password-box-idle-s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF61B9ED25800D6C1BD /* password-box-idle-s@2x.png */; };
-		18D65E001B9ED25800D6C1BD /* phone-box-focused-s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF71B9ED25800D6C1BD /* phone-box-focused-s@2x.png */; };
-		18D65E011B9ED25800D6C1BD /* phone-box-idle-s@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D65DF81B9ED25800D6C1BD /* phone-box-idle-s@2x.png */; };
 		18D65E041B9EE56300D6C1BD /* KSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65E031B9EE56300D6C1BD /* KSTextField.m */; };
 		18D6E6171BCFB20700D6BBA0 /* Destination-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6161BCFB20700D6BBA0 /* Destination-button.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E61B1BCFCAE300D6BBA0 /* box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E61C1BCFCAE300D6BBA0 /* box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E6211BCFDE6A00D6BBA0 /* email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61E1BCFDE6A00D6BBA0 /* email@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E6231BCFDE6A00D6BBA0 /* username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */; settings = {ASSET_TAGS = (); }; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -615,8 +603,6 @@
 		189F5D921B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryBoard+KSStoryBoard.h"; sourceTree = "<group>"; };
 		189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryBoard+KSStoryBoard.m"; sourceTree = "<group>"; };
 		189F5D951B08565000EAF9B2 /* Kuber-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kuber-Prefix.pch"; sourceTree = "<group>"; };
-		189F5D961B085A6C00EAF9B2 /* KSMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMapController.h; sourceTree = "<group>"; };
-		189F5D971B085A6C00EAF9B2 /* KSMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMapController.m; sourceTree = "<group>"; };
 		189F5D991B085DA900EAF9B2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		189F5D9C1B08600000EAF9B2 /* KSLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocationManager.h; sourceTree = "<group>"; };
 		189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLocationManager.m; sourceTree = "<group>"; };
@@ -669,18 +655,9 @@
 		18CFC4A91BA18949009B5D70 /* to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = to.png; path = BookingHistory/to.png; sourceTree = "<group>"; };
 		18D65D991B9D556100D6C1BD /* NSDate+KSDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSDate.h"; sourceTree = "<group>"; };
 		18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSDate.m"; sourceTree = "<group>"; };
-		18D65D9E1B9D802200D6C1BD /* login-button-idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-idle.png"; path = "LoginView/login-button-idle.png"; sourceTree = "<group>"; };
-		18D65D9F1B9D802200D6C1BD /* login-button-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-pressed.png"; path = "LoginView/login-button-pressed.png"; sourceTree = "<group>"; };
-		18D65DA01B9D802200D6C1BD /* password-box-focused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-focused.png"; path = "LoginView/password-box-focused.png"; sourceTree = "<group>"; };
-		18D65DA11B9D802200D6C1BD /* password-box-idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-idle.png"; path = "LoginView/password-box-idle.png"; sourceTree = "<group>"; };
-		18D65DA21B9D802200D6C1BD /* phone-box-focused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-focused.png"; path = "LoginView/phone-box-focused.png"; sourceTree = "<group>"; };
 		18D65DC21B9D82B600D6C1BD /* KS_login_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KS_login_logo@2x.png"; path = "LoginView/KS_login_logo@2x.png"; sourceTree = "<group>"; };
 		18D65DC31B9D82B600D6C1BD /* login-button-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-idle@2x.png"; path = "LoginView/login-button-idle@2x.png"; sourceTree = "<group>"; };
 		18D65DC41B9D82B600D6C1BD /* login-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-button-pressed@2x.png"; path = "LoginView/login-button-pressed@2x.png"; sourceTree = "<group>"; };
-		18D65DC51B9D82B600D6C1BD /* password-box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-focused@2x.png"; path = "LoginView/password-box-focused@2x.png"; sourceTree = "<group>"; };
-		18D65DC61B9D82B600D6C1BD /* password-box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-idle@2x.png"; path = "LoginView/password-box-idle@2x.png"; sourceTree = "<group>"; };
-		18D65DC71B9D82B600D6C1BD /* phone-box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-focused@2x.png"; path = "LoginView/phone-box-focused@2x.png"; sourceTree = "<group>"; };
-		18D65DCE1B9D901700D6C1BD /* phone-box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-idle@2x.png"; path = "LoginView/phone-box-idle@2x.png"; sourceTree = "<group>"; };
 		18D65DD11B9EC13000D6C1BD /* blue-button-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue-button-idle@2x.png"; path = "Varify/blue-button-idle@2x.png"; sourceTree = "<group>"; };
 		18D65DD21B9EC13000D6C1BD /* blue-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue-button-pressed@2x.png"; path = "Varify/blue-button-pressed@2x.png"; sourceTree = "<group>"; };
 		18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "VerifyCode-box@2x.png"; path = "Varify/VerifyCode-box@2x.png"; sourceTree = "<group>"; };
@@ -688,17 +665,15 @@
 		18D65DD81B9EC39100D6C1BD /* KSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLabel.m; sourceTree = "<group>"; };
 		18D65DDA1B9EC6B700D6C1BD /* KSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSButton.h; sourceTree = "<group>"; };
 		18D65DDB1B9EC6B700D6C1BD /* KSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSButton.m; sourceTree = "<group>"; };
-		18D65DF11B9ED25800D6C1BD /* email-box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email-box-focused@2x.png"; path = "Signup/email-box-focused@2x.png"; sourceTree = "<group>"; };
-		18D65DF21B9ED25800D6C1BD /* email-box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email-box-idle@2x.png"; path = "Signup/email-box-idle@2x.png"; sourceTree = "<group>"; };
-		18D65DF31B9ED25800D6C1BD /* fullname-box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullname-box-focused@2x.png"; path = "Signup/fullname-box-focused@2x.png"; sourceTree = "<group>"; };
-		18D65DF41B9ED25800D6C1BD /* fullname-box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fullname-box-idle@2x.png"; path = "Signup/fullname-box-idle@2x.png"; sourceTree = "<group>"; };
-		18D65DF51B9ED25800D6C1BD /* password-box-focused-s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-focused-s@2x.png"; path = "Signup/password-box-focused-s@2x.png"; sourceTree = "<group>"; };
-		18D65DF61B9ED25800D6C1BD /* password-box-idle-s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "password-box-idle-s@2x.png"; path = "Signup/password-box-idle-s@2x.png"; sourceTree = "<group>"; };
-		18D65DF71B9ED25800D6C1BD /* phone-box-focused-s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-focused-s@2x.png"; path = "Signup/phone-box-focused-s@2x.png"; sourceTree = "<group>"; };
-		18D65DF81B9ED25800D6C1BD /* phone-box-idle-s@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone-box-idle-s@2x.png"; path = "Signup/phone-box-idle-s@2x.png"; sourceTree = "<group>"; };
 		18D65E021B9EE56300D6C1BD /* KSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTextField.h; sourceTree = "<group>"; };
 		18D65E031B9EE56300D6C1BD /* KSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTextField.m; sourceTree = "<group>"; };
 		18D6E6161BCFB20700D6BBA0 /* Destination-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Destination-button.png"; path = "Booking/Destination-button.png"; sourceTree = "<group>"; };
+		18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-focused@2x.png"; path = "LoginView/test/box-focused@2x.png"; sourceTree = "<group>"; };
+		18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-idle@2x.png"; path = "LoginView/test/box-idle@2x.png"; sourceTree = "<group>"; };
+		18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pass-ico@2x.png"; path = "LoginView/test/pass-ico@2x.png"; sourceTree = "<group>"; };
+		18D6E61E1BCFDE6A00D6BBA0 /* email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email@2x.png"; path = "LoginView/test/email@2x.png"; sourceTree = "<group>"; };
+		18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone@2x.png"; path = "LoginView/test/phone@2x.png"; sourceTree = "<group>"; };
+		18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "username@2x.png"; path = "LoginView/test/username@2x.png"; sourceTree = "<group>"; };
 		49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D470927F06592D06A19BCD41 /* Pods-Kuber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.release.xcconfig"; sourceTree = "<group>"; };
 		D713B6CDA9189D253F4EE8EE /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1114,7 +1089,6 @@
 				18CFC4A31BA1892D009B5D70 /* BookingHistory */,
 				184CF91D1BA03F0E0025B883 /* BookingDetails */,
 				18713B3E1BA0054C00244E1F /* Booking */,
-				18D65DDD1B9ED10400D6C1BD /* Signup */,
 				18D65DD01B9EC0FE00D6C1BD /* Varify */,
 				18D65D9C1B9D800C00D6C1BD /* LoginView */,
 				1880C4D81B7877ED004F0188 /* draft */,
@@ -1354,8 +1328,6 @@
 				18A762B61B006A7400B9ED32 /* KSLoginController.m */,
 				18A762B71B006A7400B9ED32 /* KSMainController.h */,
 				18A762B81B006A7400B9ED32 /* KSMainController.m */,
-				189F5D961B085A6C00EAF9B2 /* KSMapController.h */,
-				189F5D971B085A6C00EAF9B2 /* KSMapController.m */,
 				18481B6F1B09CC2500855F54 /* KSMenuController.h */,
 				18481B701B09CC2500855F54 /* KSMenuController.m */,
 				18481B721B09DFD000855F54 /* KSResetPasswordController.h */,
@@ -1447,18 +1419,15 @@
 		18D65D9C1B9D800C00D6C1BD /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
-				18D65DCE1B9D901700D6C1BD /* phone-box-idle@2x.png */,
+				18D6E61E1BCFDE6A00D6BBA0 /* email@2x.png */,
+				18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */,
+				18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */,
+				18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */,
+				18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */,
+				18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */,
 				18D65DC21B9D82B600D6C1BD /* KS_login_logo@2x.png */,
 				18D65DC31B9D82B600D6C1BD /* login-button-idle@2x.png */,
 				18D65DC41B9D82B600D6C1BD /* login-button-pressed@2x.png */,
-				18D65DC51B9D82B600D6C1BD /* password-box-focused@2x.png */,
-				18D65DC61B9D82B600D6C1BD /* password-box-idle@2x.png */,
-				18D65DC71B9D82B600D6C1BD /* phone-box-focused@2x.png */,
-				18D65D9E1B9D802200D6C1BD /* login-button-idle.png */,
-				18D65D9F1B9D802200D6C1BD /* login-button-pressed.png */,
-				18D65DA01B9D802200D6C1BD /* password-box-focused.png */,
-				18D65DA11B9D802200D6C1BD /* password-box-idle.png */,
-				18D65DA21B9D802200D6C1BD /* phone-box-focused.png */,
 			);
 			name = LoginView;
 			sourceTree = "<group>";
@@ -1471,21 +1440,6 @@
 				18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */,
 			);
 			name = Varify;
-			sourceTree = "<group>";
-		};
-		18D65DDD1B9ED10400D6C1BD /* Signup */ = {
-			isa = PBXGroup;
-			children = (
-				18D65DF11B9ED25800D6C1BD /* email-box-focused@2x.png */,
-				18D65DF21B9ED25800D6C1BD /* email-box-idle@2x.png */,
-				18D65DF31B9ED25800D6C1BD /* fullname-box-focused@2x.png */,
-				18D65DF41B9ED25800D6C1BD /* fullname-box-idle@2x.png */,
-				18D65DF51B9ED25800D6C1BD /* password-box-focused-s@2x.png */,
-				18D65DF61B9ED25800D6C1BD /* password-box-idle-s@2x.png */,
-				18D65DF71B9ED25800D6C1BD /* phone-box-focused-s@2x.png */,
-				18D65DF81B9ED25800D6C1BD /* phone-box-idle-s@2x.png */,
-			);
-			name = Signup;
 			sourceTree = "<group>";
 		};
 		B6AB35F206D1F36D83C4554C /* Pods */ = {
@@ -1605,6 +1559,7 @@
 				1880C52A1B7877ED004F0188 /* menu_logout_selected@2x.png in Resources */,
 				18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */,
 				1880C5401B7877ED004F0188 /* StarFullLarge@2x.png in Resources */,
+				18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */,
 				184D22931BA58BED007CB740 /* star-filled@2x.png in Resources */,
 				184CF92D1BA056DC0025B883 /* green-button-pressed@2x.png in Resources */,
 				1880C5261B7877ED004F0188 /* menu_history@2x.png in Resources */,
@@ -1615,6 +1570,7 @@
 				1880C52C1B7877ED004F0188 /* menu_profile_selected@2x.png in Resources */,
 				1880C55D1B79B47B004F0188 /* segment_selected@2x.png in Resources */,
 				184D225A1BA55E64007CB740 /* bookataxi-ico-active@2x.png in Resources */,
+				18D6E61C1BCFCAE300D6BBA0 /* box-idle@2x.png in Resources */,
 				184245FD1BBCF997001C780A /* MuseoSans-900Italic.otf in Resources */,
 				1822C4311BA968810087ACE3 /* partners_list@2x.png in Resources */,
 				184D22601BA55E64007CB740 /* bookings-idle@2x.png in Resources */,
@@ -1624,9 +1580,9 @@
 				1880C5171B7877ED004F0188 /* blue_button@2x.png in Resources */,
 				1842460B1BBD0BCF001C780A /* location-idle@2x.png in Resources */,
 				184245F81BBCF997001C780A /* MuseoSans-100.otf in Resources */,
+				18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */,
 				184CF9171BA02A080025B883 /* map-sep-line@2x.png in Resources */,
-				18D65DCB1B9D82B600D6C1BD /* password-box-focused@2x.png in Resources */,
-				18D65DA51B9D802200D6C1BD /* login-button-pressed.png in Resources */,
+				18D6E6211BCFDE6A00D6BBA0 /* email@2x.png in Resources */,
 				184CF9281BA03F1D0025B883 /* driver-icon@2x.png in Resources */,
 				1880C53C1B7877ED004F0188 /* StarEmptyLarge@2x.png in Resources */,
 				184D22711BA55E64007CB740 /* settings-ico-active@2x.png in Resources */,
@@ -1637,8 +1593,6 @@
 				184D226E1BA55E64007CB740 /* Rateyourtrips-active@2x.png in Resources */,
 				184245FC1BBCF997001C780A /* MuseoSans-700Italic.otf in Resources */,
 				1880C51D1B7877ED004F0188 /* details_bg_top@2x.png in Resources */,
-				18D65DA71B9D802200D6C1BD /* password-box-idle.png in Resources */,
-				18D65DFD1B9ED25800D6C1BD /* fullname-box-idle@2x.png in Resources */,
 				184CF9251BA03F1D0025B883 /* Booking-details_07@2x.png in Resources */,
 				1880C53B1B7877ED004F0188 /* StarEmptyLarge.png in Resources */,
 				184CF9181BA02A080025B883 /* menu@2x.png in Resources */,
@@ -1660,14 +1614,12 @@
 				184CF9291BA03F1D0025B883 /* ver-sep@2x.png in Resources */,
 				184D22901BA58BED007CB740 /* reasons-white-box@2x.png in Resources */,
 				184CF91A1BA02A080025B883 /* taxi-icon@2x.png in Resources */,
-				18D65DFC1B9ED25800D6C1BD /* fullname-box-focused@2x.png in Resources */,
 				1880C5651B79B786004F0188 /* search-icon@2x.png in Resources */,
 				18CFC4AF1BA18949009B5D70 /* to.png in Resources */,
 				184D225C1BA55E64007CB740 /* bookataxi-idle@2x.png in Resources */,
 				18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */,
 				1842460A1BBD0BCF001C780A /* location-active@2x.png in Resources */,
 				1880C5181B7877ED004F0188 /* booklater-button@2x.png in Resources */,
-				18D65DA61B9D802200D6C1BD /* password-box-focused.png in Resources */,
 				1880C53A1B7877ED004F0188 /* StarEmpty@2x.png in Resources */,
 				184D225E1BA55E64007CB740 /* bookings-ico-active@2x.png in Resources */,
 				18481B611B09C89700855F54 /* Localizable.strings in Resources */,
@@ -1675,7 +1627,6 @@
 				184CF9191BA02A080025B883 /* pickup-pointer@2x.png in Resources */,
 				184D22721BA55E64007CB740 /* settings-ico-idle@2x.png in Resources */,
 				184B744D1BC0FFA8003AD936 /* white-box@2x.png in Resources */,
-				18D65DFF1B9ED25800D6C1BD /* password-box-idle-s@2x.png in Resources */,
 				18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */,
 				184D22631BA55E64007CB740 /* favorites-active@2x.png in Resources */,
 				184CF9131BA02A080025B883 /* forward-arrow@2x.png in Resources */,
@@ -1711,10 +1662,10 @@
 				1880C5351B7877ED004F0188 /* textfield_bg@2x.png in Resources */,
 				18D65DD41B9EC13000D6C1BD /* blue-button-idle@2x.png in Resources */,
 				1880C51E1B7877ED004F0188 /* details_box@2x.png in Resources */,
-				18D65E001B9ED25800D6C1BD /* phone-box-focused-s@2x.png in Resources */,
 				1880C5471B7877ED004F0188 /* place_pin@2x.png in Resources */,
 				1880C53E1B7877ED004F0188 /* StarFull@2x.png in Resources */,
 				184CF9271BA03F1D0025B883 /* callicon@2x.png in Resources */,
+				18D6E61B1BCFCAE300D6BBA0 /* box-focused@2x.png in Resources */,
 				184246081BBD0BCF001C780A /* downarrow-idle@2x.png in Resources */,
 				18D65DD51B9EC13000D6C1BD /* blue-button-pressed@2x.png in Resources */,
 				1880C5361B7877ED004F0188 /* topbar@2x.png in Resources */,
@@ -1730,10 +1681,8 @@
 				184D22691BA55E64007CB740 /* menu-active-bg@2x.png in Resources */,
 				1880C5441B7877ED004F0188 /* favorites.png in Resources */,
 				1880C5311B7877ED004F0188 /* searchbox@2x.png in Resources */,
-				18D65DA81B9D802200D6C1BD /* phone-box-focused.png in Resources */,
 				1822C4281BA821A20087ACE3 /* password.png in Resources */,
 				1880C52B1B7877ED004F0188 /* menu_profile@2x.png in Resources */,
-				18D65DCD1B9D82B600D6C1BD /* phone-box-focused@2x.png in Resources */,
 				1822C4221BA821A20087ACE3 /* avatar@2x.png in Resources */,
 				18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */,
 				1822C4051BA7FC320087ACE3 /* email@2x.png in Resources */,
@@ -1741,6 +1690,7 @@
 				184D22681BA55E64007CB740 /* logout-idle@2x.png in Resources */,
 				184CF9151BA02A080025B883 /* location@2x.png in Resources */,
 				1880C52D1B7877ED004F0188 /* pointericon.png in Resources */,
+				18D6E6231BCFDE6A00D6BBA0 /* username@2x.png in Resources */,
 				1822C4211BA821A20087ACE3 /* account-info-background@2x.png in Resources */,
 				1880C54B1B7877ED004F0188 /* taxi.png in Resources */,
 				184D22731BA55E64007CB740 /* settings-idle@2x.png in Resources */,
@@ -1749,19 +1699,14 @@
 				184D22651BA55E64007CB740 /* logout-active@2x.png in Resources */,
 				1880C5241B7877ED004F0188 /* menu_favorites@2x.png in Resources */,
 				184246091BBD0BCF001C780A /* downarrow-pressed@2x.png in Resources */,
-				18D65DA41B9D802200D6C1BD /* login-button-idle.png in Resources */,
 				1880C5191B7877ED004F0188 /* booknow-button@2x.png in Resources */,
 				184D22611BA55E64007CB740 /* favorite-ico-active@2x.png in Resources */,
 				18D6E6171BCFB20700D6BBA0 /* Destination-button.png in Resources */,
 				18A7628F1AFF785B00B9ED32 /* Images.xcassets in Resources */,
-				18D65DFA1B9ED25800D6C1BD /* email-box-focused@2x.png in Resources */,
 				184245F71BBCF997001C780A /* MuseoSans_900.otf in Resources */,
 				1880C5151B7877ED004F0188 /* activetabbar@2x.png in Resources */,
-				18D65DCF1B9D901700D6C1BD /* phone-box-idle@2x.png in Resources */,
 				1880C5421B7877ED004F0188 /* edit@2x.png in Resources */,
 				1822C4081BA7FC320087ACE3 /* phonenumber@2x.png in Resources */,
-				18D65E011B9ED25800D6C1BD /* phone-box-idle-s@2x.png in Resources */,
-				18D65DCC1B9D82B600D6C1BD /* password-box-idle@2x.png in Resources */,
 				1880C5491B7877ED004F0188 /* s_place_pin@2x.png in Resources */,
 				184D225B1BA55E64007CB740 /* bookataxi-ico-idle@2x.png in Resources */,
 				184CF9141BA02A080025B883 /* location-button@2x.png in Resources */,
@@ -1777,8 +1722,6 @@
 				184246061BBD0BCF001C780A /* callout@2x.png in Resources */,
 				18D65DCA1B9D82B600D6C1BD /* login-button-pressed@2x.png in Resources */,
 				184B744C1BC0FFA8003AD936 /* sep@2x.png in Resources */,
-				18D65DFB1B9ED25800D6C1BD /* email-box-idle@2x.png in Resources */,
-				18D65DFE1B9ED25800D6C1BD /* password-box-focused-s@2x.png in Resources */,
 				184245F61BBCF997001C780A /* MuseoSans_700.otf in Resources */,
 				1822C42A1BA836430087ACE3 /* edit-info-button-pressed@2x.png in Resources */,
 				184245F41BBCF997001C780A /* MuseoSans_500_Italic.otf in Resources */,
@@ -1873,7 +1816,6 @@
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
 				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
 				180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */,
-				189F5D981B085A6C00EAF9B2 /* KSMapController.m in Sources */,
 				1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */,
 				18A762C11B006D8E00B9ED32 /* KSViewController.m in Sources */,
 				18481B4F1B091EFA00855F54 /* MBProgressHUD.m in Sources */,

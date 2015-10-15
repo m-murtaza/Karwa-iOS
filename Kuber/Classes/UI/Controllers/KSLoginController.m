@@ -48,6 +48,8 @@
     self.btnForgotPassword.titleLabel.font = [UIFont fontWithName:KSMuseoSans300 size:13];
     
     //[self.txtMobile setText:[ABManager userPhoneNumber]];
+    
+    [self setLeftViewOfTextBox];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -74,6 +76,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - Private Function
+-(void) setLeftViewOfTextBox
+{
+    [self.txtPassword setRightViewMode:UITextFieldViewModeAlways];
+    self.txtPassword.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
+    
+    [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
+    self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+}
 
 #pragma mark - Gesture
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -97,10 +108,10 @@
     
     if ([textField isEqual:self.txtMobile]) {
         
-        imgName = @"phone-box-focused.png";
+        imgName = @"box-focused.png";
     }
     else if([textField isEqual:self.txtPassword]){
-        imgName = @"password-box-focused.png";
+        imgName = @"box-focused.png";
     }
 
     [textField setBackground:[UIImage imageNamed:imgName]];
@@ -114,19 +125,19 @@
     if ([textField.text isEqualToString:@""] || nil == textField.text) {
         if ([textField isEqual:self.txtMobile]) {
             
-            imgName = @"phone-box-idle.png";
+            imgName = @"box-idle.png";
         }
         else if([textField isEqual:self.txtPassword]){
-            imgName = @"password-box-idle.png";
+            imgName = @"box-idle.png";
         }
     }
     else {
         if ([textField isEqual:self.txtMobile]) {
             
-            imgName = @"phone-box-focused.png";
+            imgName = @"box-focused.png";
         }
         else if([textField isEqual:self.txtPassword]){
-            imgName = @"password-box-focused.png";
+            imgName = @"box-focused.png";
         }
     }
     

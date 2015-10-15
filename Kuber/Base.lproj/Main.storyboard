@@ -146,7 +146,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="phone-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" minimumFontSize="17" background="box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -170,7 +170,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Cp2-LC-edT"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="password-box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -655,7 +655,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" background="email-box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="wOp-Ii-80Z" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" background="box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="wOp-Ii-80Z" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -678,7 +678,7 @@
                                     <outlet property="delegate" destination="VQC-Rf-KsE" id="1WH-UB-mgH"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" minimumFontSize="17" background="phone-box-idle-s.png" translatesAutoresizingMaskIntoConstraints="NO" id="FSc-64-WBw" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" minimumFontSize="17" background="box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="FSc-64-WBw" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -701,7 +701,7 @@
                                     <outlet property="delegate" destination="VQC-Rf-KsE" id="WO0-8s-snU"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="password-box-idle-s.png" translatesAutoresizingMaskIntoConstraints="NO" id="DDv-vH-Zon" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="DDv-vH-Zon" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -724,7 +724,7 @@
                                     <outlet property="delegate" destination="VQC-Rf-KsE" id="HlA-RE-TAr"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" background="password-box-idle-s.png" translatesAutoresizingMaskIntoConstraints="NO" id="GPO-YQ-lI7" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" minimumFontSize="17" background="box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="GPO-YQ-lI7" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -747,7 +747,7 @@
                                     <outlet property="delegate" destination="VQC-Rf-KsE" id="T5f-a9-mWM"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="17" background="fullname-box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="xNc-iH-LEq" customClass="KSTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="17" background="box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="xNc-iH-LEq" customClass="KSTextField">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <animations/>
                                 <constraints>
@@ -1797,6 +1797,9 @@
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                                 <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="8" y="20" width="356" height="21"/>
+                                                </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="cVv-U3-4XU">
                                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1804,7 +1807,7 @@
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                                                     <rect key="frame" x="34" y="75" width="39" height="14"/>
                                                 </variation>
                                             </label>
@@ -1814,6 +1817,9 @@
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="83" y="68" width="78" height="30"/>
+                                                </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS8-UJ-WsI">
                                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -1833,7 +1839,8 @@
                                                         <exclude reference="Ygk-j2-pA5"/>
                                                     </mask>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=compact">
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="171" y="73" width="18" height="20"/>
                                                     <mask key="constraints">
                                                         <include reference="Shv-dC-SNV"/>
                                                         <include reference="Ygk-j2-pA5"/>
@@ -1856,7 +1863,8 @@
                                                         <exclude reference="dlI-5r-aXO"/>
                                                     </mask>
                                                 </variation>
-                                                <variation key="heightClass=regular-widthClass=compact">
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="199" y="68" width="73" height="30"/>
                                                     <mask key="constraints">
                                                         <include reference="dlI-5r-aXO"/>
                                                     </mask>
@@ -1868,7 +1876,7 @@
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                                                     <rect key="frame" x="282" y="75" width="55" height="14"/>
                                                 </variation>
                                             </label>
@@ -1993,43 +2001,43 @@
                                                 <exclude reference="qnX-jm-Pt5"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="0iD-DE-0jv"/>
-                                                <exclude reference="OfZ-a8-k1W"/>
-                                                <exclude reference="rE5-Dw-yub"/>
-                                                <exclude reference="rZv-KC-GXI"/>
-                                                <exclude reference="3Wj-JE-78S"/>
-                                                <exclude reference="Pej-un-igb"/>
-                                                <exclude reference="TnJ-DC-tfu"/>
-                                                <exclude reference="6BJ-GT-mQg"/>
-                                                <exclude reference="Swg-jT-kHM"/>
-                                                <exclude reference="X2W-yl-ubk"/>
-                                                <exclude reference="9M2-k7-rbZ"/>
-                                                <exclude reference="NtC-27-obO"/>
-                                                <exclude reference="bPu-xY-0zv"/>
-                                                <exclude reference="jXn-fd-Tw6"/>
-                                                <exclude reference="Qwu-Yl-lLf"/>
-                                                <exclude reference="hMY-hQ-yFQ"/>
-                                                <exclude reference="H4Y-Ku-4kK"/>
-                                                <exclude reference="Mj3-K8-QGR"/>
-                                                <exclude reference="vWL-rS-FOT"/>
                                                 <exclude reference="5dF-vw-O2t"/>
                                                 <exclude reference="VNr-5H-7CY"/>
                                                 <exclude reference="edN-iV-NtE"/>
                                                 <exclude reference="l0i-iu-Ii0"/>
-                                                <exclude reference="IMc-65-w7E"/>
-                                                <exclude reference="o7Q-TM-flb"/>
-                                                <exclude reference="0WB-tq-ksp"/>
-                                                <exclude reference="8xG-ib-CGh"/>
-                                                <exclude reference="Cw1-LV-8WR"/>
-                                                <exclude reference="F1S-aN-akt"/>
-                                                <exclude reference="QXo-rq-8d8"/>
-                                                <exclude reference="Sw4-D1-Xtt"/>
+                                                <exclude reference="9M2-k7-rbZ"/>
+                                                <exclude reference="NtC-27-obO"/>
+                                                <exclude reference="bPu-xY-0zv"/>
+                                                <exclude reference="jXn-fd-Tw6"/>
                                                 <exclude reference="6Tb-bn-DnJ"/>
                                                 <exclude reference="7Vm-in-9KM"/>
                                                 <exclude reference="CMA-s4-6cU"/>
                                                 <exclude reference="MXb-HD-6LM"/>
                                                 <exclude reference="dXO-tT-tBC"/>
                                                 <exclude reference="fnb-zb-LRK"/>
+                                                <exclude reference="0WB-tq-ksp"/>
+                                                <exclude reference="8xG-ib-CGh"/>
+                                                <exclude reference="Cw1-LV-8WR"/>
+                                                <exclude reference="F1S-aN-akt"/>
+                                                <exclude reference="QXo-rq-8d8"/>
+                                                <exclude reference="Sw4-D1-Xtt"/>
+                                                <exclude reference="6BJ-GT-mQg"/>
+                                                <exclude reference="Swg-jT-kHM"/>
+                                                <exclude reference="X2W-yl-ubk"/>
+                                                <exclude reference="H4Y-Ku-4kK"/>
+                                                <exclude reference="Mj3-K8-QGR"/>
+                                                <exclude reference="vWL-rS-FOT"/>
+                                                <exclude reference="3Wj-JE-78S"/>
+                                                <exclude reference="Pej-un-igb"/>
+                                                <exclude reference="TnJ-DC-tfu"/>
+                                                <exclude reference="Qwu-Yl-lLf"/>
+                                                <exclude reference="hMY-hQ-yFQ"/>
+                                                <exclude reference="IMc-65-w7E"/>
+                                                <exclude reference="o7Q-TM-flb"/>
+                                                <exclude reference="0iD-DE-0jv"/>
+                                                <exclude reference="OfZ-a8-k1W"/>
+                                                <exclude reference="rE5-Dw-yub"/>
+                                                <exclude reference="rZv-KC-GXI"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -2046,43 +2054,43 @@
                                                 <include reference="qnX-jm-Pt5"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="0iD-DE-0jv"/>
-                                                <include reference="OfZ-a8-k1W"/>
-                                                <include reference="rE5-Dw-yub"/>
-                                                <include reference="rZv-KC-GXI"/>
-                                                <include reference="3Wj-JE-78S"/>
-                                                <include reference="Pej-un-igb"/>
-                                                <include reference="TnJ-DC-tfu"/>
-                                                <include reference="6BJ-GT-mQg"/>
-                                                <exclude reference="Swg-jT-kHM"/>
-                                                <include reference="X2W-yl-ubk"/>
-                                                <include reference="9M2-k7-rbZ"/>
-                                                <include reference="NtC-27-obO"/>
-                                                <include reference="bPu-xY-0zv"/>
-                                                <include reference="jXn-fd-Tw6"/>
-                                                <include reference="Qwu-Yl-lLf"/>
-                                                <include reference="hMY-hQ-yFQ"/>
-                                                <include reference="H4Y-Ku-4kK"/>
-                                                <include reference="Mj3-K8-QGR"/>
-                                                <include reference="vWL-rS-FOT"/>
                                                 <include reference="5dF-vw-O2t"/>
                                                 <include reference="VNr-5H-7CY"/>
                                                 <include reference="edN-iV-NtE"/>
                                                 <include reference="l0i-iu-Ii0"/>
-                                                <include reference="IMc-65-w7E"/>
-                                                <include reference="o7Q-TM-flb"/>
-                                                <exclude reference="0WB-tq-ksp"/>
-                                                <include reference="8xG-ib-CGh"/>
-                                                <include reference="Cw1-LV-8WR"/>
-                                                <include reference="F1S-aN-akt"/>
-                                                <include reference="QXo-rq-8d8"/>
-                                                <exclude reference="Sw4-D1-Xtt"/>
+                                                <include reference="9M2-k7-rbZ"/>
+                                                <include reference="NtC-27-obO"/>
+                                                <include reference="bPu-xY-0zv"/>
+                                                <include reference="jXn-fd-Tw6"/>
                                                 <include reference="6Tb-bn-DnJ"/>
                                                 <include reference="7Vm-in-9KM"/>
                                                 <include reference="CMA-s4-6cU"/>
                                                 <exclude reference="MXb-HD-6LM"/>
                                                 <include reference="dXO-tT-tBC"/>
                                                 <exclude reference="fnb-zb-LRK"/>
+                                                <exclude reference="0WB-tq-ksp"/>
+                                                <include reference="8xG-ib-CGh"/>
+                                                <include reference="Cw1-LV-8WR"/>
+                                                <include reference="F1S-aN-akt"/>
+                                                <include reference="QXo-rq-8d8"/>
+                                                <exclude reference="Sw4-D1-Xtt"/>
+                                                <include reference="6BJ-GT-mQg"/>
+                                                <exclude reference="Swg-jT-kHM"/>
+                                                <include reference="X2W-yl-ubk"/>
+                                                <include reference="H4Y-Ku-4kK"/>
+                                                <include reference="Mj3-K8-QGR"/>
+                                                <include reference="vWL-rS-FOT"/>
+                                                <include reference="3Wj-JE-78S"/>
+                                                <include reference="Pej-un-igb"/>
+                                                <include reference="TnJ-DC-tfu"/>
+                                                <include reference="Qwu-Yl-lLf"/>
+                                                <include reference="hMY-hQ-yFQ"/>
+                                                <include reference="IMc-65-w7E"/>
+                                                <include reference="o7Q-TM-flb"/>
+                                                <include reference="0iD-DE-0jv"/>
+                                                <include reference="OfZ-a8-k1W"/>
+                                                <include reference="rE5-Dw-yub"/>
+                                                <include reference="rZv-KC-GXI"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -6025,6 +6033,9 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value=""/>
                                                     </userDefinedRuntimeAttributes>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="12" width="304" height="16"/>
+                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="6002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="---" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgY-Th-eVm">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -6045,7 +6056,8 @@
                                                             <exclude reference="Wbx-v4-8ul"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="28" width="304" height="47"/>
                                                         <mask key="constraints">
                                                             <include reference="Wbx-v4-8ul"/>
                                                         </mask>
@@ -6116,7 +6128,8 @@
                                                             <exclude reference="Ea9-KE-8Ky"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="20" y="0.0" width="280" height="1"/>
                                                         <mask key="constraints">
                                                             <include reference="4oj-bk-pZ7"/>
                                                             <include reference="Ea9-KE-8Ky"/>
@@ -6129,6 +6142,9 @@
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                                     <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="12" width="304" height="16"/>
+                                                    </variation>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" tag="6004" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pickup Time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gRg-sU-ydQ">
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
@@ -6143,7 +6159,8 @@
                                                             <exclude reference="iRY-PX-OQg"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="28" width="304" height="29"/>
                                                         <mask key="constraints">
                                                             <include reference="iRY-PX-OQg"/>
                                                         </mask>
@@ -6840,6 +6857,8 @@
         <image name="booking-history-forward-arrow.png" width="26" height="24"/>
         <image name="bookings-ico-active.png" width="26" height="26"/>
         <image name="bookings-ico-idle.png" width="26" height="26"/>
+        <image name="box-focused.png" width="329" height="39"/>
+        <image name="box-idle.png" width="329" height="39"/>
         <image name="callicon.png" width="43" height="43"/>
         <image name="callout.png" width="339" height="87"/>
         <image name="date-sep.png" width="1" height="1"/>
@@ -6851,20 +6870,18 @@
         <image name="driver-icon.png" width="28" height="28"/>
         <image name="edit-info-button-pressed.png" width="193" height="37"/>
         <image name="edit-info-button.png" width="193" height="37"/>
-        <image name="email-box-idle.png" width="329" height="35"/>
         <image name="favorite-ico-active.png" width="26" height="26"/>
         <image name="favorite-ico-idle.png" width="26" height="26"/>
         <image name="favorite.png" width="30" height="30"/>
         <image name="forward-arrow.png" width="13" height="11"/>
-        <image name="fullname-box-focused.png" width="329" height="35"/>
         <image name="green-button-idle.png" width="349" height="50"/>
         <image name="green-button-pressed.png" width="349" height="50"/>
         <image name="list-icons.png" width="44" height="154"/>
         <image name="location-active.png" width="43" height="43"/>
         <image name="location-idle.png" width="43" height="43"/>
         <image name="location.png" width="16" height="16"/>
-        <image name="login-button-idle.png" width="658" height="99"/>
-        <image name="login-button-pressed.png" width="658" height="99"/>
+        <image name="login-button-idle.png" width="329" height="49"/>
+        <image name="login-button-pressed.png" width="329" height="49"/>
         <image name="logout-ico-active.png" width="26" height="26"/>
         <image name="logout-ico-idle.png" width="26" height="26"/>
         <image name="main-screen.png" width="381" height="671"/>
@@ -6875,11 +6892,7 @@
         <image name="menu-sep.png" width="1" height="1"/>
         <image name="nearby-pin.png" width="18" height="21"/>
         <image name="partners.png" width="25" height="25"/>
-        <image name="password-box-idle-s.png" width="329" height="35"/>
-        <image name="password-box-idle.png" width="658" height="79"/>
         <image name="password.png" width="51" height="51"/>
-        <image name="phone-box-focused.png" width="658" height="79"/>
-        <image name="phone-box-idle-s.png" width="329" height="35"/>
         <image name="rate-ico-active.png" width="26" height="26"/>
         <image name="rate-ico-idle.png" width="26" height="26"/>
         <image name="rating-info-box.png" width="356" height="155"/>

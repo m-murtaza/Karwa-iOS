@@ -34,8 +34,7 @@
     [self setTransformValueForTextFields];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    //[self.txtMobile setText:[ABManager userPhoneNumber]];
-    //[self addTapGesture];
+    [self setLeftViewOfTextBox];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -80,6 +79,27 @@
 }
 
 #pragma mark - Private Function 
+
+-(void) setLeftViewOfTextBox
+{
+    [self.txtName setRightViewMode:UITextFieldViewModeAlways];
+    self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username.png"]];
+    
+    [self.txtEmail setRightViewMode:UITextFieldViewModeAlways];
+    self.txtEmail.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email.png"]];
+    
+    [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
+    self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+    
+    [self.txtPassword setRightViewMode:UITextFieldViewModeAlways];
+    self.txtPassword.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
+    
+    [self.txtConfirmPassword setRightViewMode:UITextFieldViewModeAlways];
+    self.txtConfirmPassword.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
+}
+
+
+
 -(void) resignAllResponder
 {
     [self.txtEmail resignFirstResponder];
@@ -105,30 +125,30 @@
     UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
     
     self.txtName.transformVal = 0;
-    self.txtName.focusedImg = @"fullname-box-focused.png";
-    self.txtName.idleImg = @"fullname-box-idle.png";
+    self.txtName.focusedImg = @"box-focused.png";
+    self.txtName.idleImg = @"box-idle.png";
     self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Full Name" attributes:@{NSForegroundColorAttributeName: color}];
     
     self.txtEmail.transformVal = 0;
-    self.txtEmail.focusedImg = @"email-box-focused.png";
-    self.txtEmail.idleImg = @"email-box-idle.png";
+    self.txtEmail.focusedImg = @"box-focused.png";
+    self.txtEmail.idleImg = @"box-idle.png";
     self.txtEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: color}];
     
     self.txtMobile.transformVal = -50;
-    self.txtMobile.focusedImg = @"phone-box-focused-s.png";
-    self.txtMobile.idleImg = @"phone-box-idle-s.png";
+    self.txtMobile.focusedImg = @"box-focused.png";
+    self.txtMobile.idleImg = @"box-idle.png";
     self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
     
     
     self.txtPassword.transformVal = -100;
-    self.txtPassword.focusedImg = @"password-box-focused-s.png";
-    self.txtPassword.idleImg = @"password-box-idle-s.png";
+    self.txtPassword.focusedImg = @"box-focused.png";
+    self.txtPassword.idleImg = @"box-idle.png";
     self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
     
     
     self.txtConfirmPassword.transformVal = -180;
-    self.txtConfirmPassword.focusedImg = @"password-box-focused-s.png";
-    self.txtConfirmPassword.idleImg = @"password-box-idle-s.png";
+    self.txtConfirmPassword.focusedImg = @"box-focused.png";
+    self.txtConfirmPassword.idleImg = @"box-idle.png";
     self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
 }
 
