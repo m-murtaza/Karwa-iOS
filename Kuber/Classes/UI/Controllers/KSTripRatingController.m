@@ -71,7 +71,9 @@
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 2.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"REASON BEHIND THIS RATING?";
+    //labelView.adjustsFontSizeToFitWidth = FALSE;
     labelView.font = [UIFont fontWithName:KSMuseoSans300 size:12];
+    labelView.font=[labelView.font fontWithSize:12];
     labelView.textColor = [UIColor colorFromHexString:@"#858585"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
@@ -288,7 +290,9 @@
             KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
             cell.textLabel.text = issue.valueEN;
             cell.textLabel.font = [UIFont fontWithName:KSMuseoSans300 size:15];
-            cell.textLabel.textColor = [UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
+            cell.textLabel.textColor = [UIColor colorFromHexString:@"#777777"];
+            
+            //[UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
             
             if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
                 
