@@ -111,7 +111,7 @@
     self.lblPickupTime.text = [self getTimeStringFromDate:self.trip.pickupTime];
     self.lblDropoffTime.text = [self getTimeStringFromDate:self.trip.dropOffTime];
     self.lblPickupAddress.text = self.trip.pickupLandmark ? self.trip.pickupLandmark : [NSString stringWithFormat:@"%@N , %@E",self.trip.pickupLat,self.trip.pickupLon];
-    self.lblDropoffAddress.text = self.trip.dropoffLandmark;
+    self.lblDropoffAddress.text = self.trip.dropoffLandmark ? self.trip.dropoffLandmark : @"-";
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
