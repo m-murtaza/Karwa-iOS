@@ -124,38 +124,37 @@
 
 - (void)onClickLogout:(id)sender {
     
-    /*KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-        NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
+    KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
         [self setButtonState:sender];
         KSMenuButton *btn = (KSMenuButton*)sender;
         [btn setSelected:FALSE];
         [self logoutThisUser];
+        
+        NSArray *arr = self.btnBookATaxi.superview.subviews;
+        
+        
+        for (id btn in arr) {
+            if ([btn isKindOfClass:[UIButton class]] ) {
+                KSMenuButton *b = (KSMenuButton*)btn;
+                [b setSelected:FALSE];
+            }
+        }
     }];
+    
     KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
-        NSLog(@"%s Cancel Handler", __PRETTY_FUNCTION__);
+        //NSLog(@"%s Cancel Handler", __PRETTY_FUNCTION__);
         [self.revealViewController revealToggleAnimated:YES];
 //        [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
     }];
     [KSConfirmationAlert showWithTitle:nil
-                               message:@"Cofirm Logout?"
+                               message:@"Are you sure you want to logout?"
                               okAction:okAction
                           cancelAction:cancelAction];
-    */
     
-    [self setButtonState:sender];
-    KSMenuButton *btn = (KSMenuButton*)sender;
-    [btn setSelected:FALSE];
-    [self logoutThisUser];
     
-    NSArray *arr = self.btnBookATaxi.superview.subviews;
-
+   
     
-    for (id btn in arr) {
-        if ([btn isKindOfClass:[UIButton class]] ) {
-            KSMenuButton *b = (KSMenuButton*)btn;
-            [b setSelected:FALSE];
-        }
-    }
+    
     
 }
 

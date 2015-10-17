@@ -10,6 +10,7 @@
 #import "KSTrip.h"
 #import "NSString+KSExtended.h"
 #import "KSTripRatingController.h"
+#import "KSConfirmationAlert.h"
 
 
 
@@ -288,7 +289,19 @@
 
 -(IBAction)btnCancelTapped:(id)sender{
     
-    [self cancelBooking];
+    KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+        
+        [self cancelBooking];
+        
+    }];
+    
+    KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
+        
+    }];
+    [KSConfirmationAlert showWithTitle:nil
+                               message:@"Are you sure you want to cancel your booking?"
+                              okAction:okAction
+                          cancelAction:cancelAction];
 }
 
 
