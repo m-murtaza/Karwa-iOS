@@ -56,15 +56,18 @@
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Login"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [self.txtMobile becomeFirstResponder];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //[self.txtMobile becomeFirstResponder];
+    
+    [self performSelector:@selector(selectPhoneField) withObject:nil afterDelay:0.5];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -77,6 +80,11 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark - Private Function
+
+-(void) selectPhoneField
+{
+    [self.txtMobile becomeFirstResponder];
+}
 -(void) setLeftViewOfTextBox
 {
     [self.txtPassword setRightViewMode:UITextFieldViewModeAlways];
@@ -227,6 +235,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[KSResetPasswordController class]]) {
+        [self.txtMobile resignFirstResponder];
+        [self.txtPassword resignFirstResponder];
         KSResetPasswordController* controller = segue.destinationViewController;
         controller.mobileNumber = self.txtMobile.text;
     }

@@ -349,6 +349,23 @@
     return YES;
 }
 
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
+//- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField
+//{
+//    [textField resignFirstResponder];
+//    return TRUE;
+//    
+//}
+
 #pragma mark - Rating View Delegate
 - (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate
 {
