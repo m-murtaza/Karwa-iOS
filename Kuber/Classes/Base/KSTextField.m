@@ -23,4 +23,9 @@
     return self;
 }
 
+/*- (void)setText:(NSString *)text {
+    
+    [super setText:text];
+}*/
+
 @end

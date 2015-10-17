@@ -75,6 +75,7 @@
     else {
         self.title = @"New Place";
         [KSLocationManager start];
+        self.txtName.text = nil;
     }
 
     UIGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressMapView:)];
@@ -89,7 +90,7 @@
     
     
     UIColor *color = [UIColor colorWithRed:119.0/256.0 green:119.0/256.0 blue:119.0/256.0 alpha:1.0];
-    self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter place Name" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter favorite name" attributes:@{NSForegroundColorAttributeName: color}];
     [self.txtName setTintColor:[UIColor blackColor]];
     //self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
     
@@ -176,15 +177,17 @@
         if (placemark) {
             NSString *address = placemark.address;
             me.lblAddress.text = address;
+
             if (!me.txtName.text.length) {
-                me.txtName.text = placemark.address;
+                //me.txtName.text = placemark.address;
                 me.annotation.title = placemark.address;
+                me.annotation.subtitle = @"";
             }
-            if (me.txtName.text.length) {
+            else {
+                me.annotation.title = me.txtName.text;
                 me.annotation.subtitle = placemark.area;
-            } else {
-                me.annotation.title = placemark.area;
             }
+
             [me.mapView selectAnnotation:me.annotation animated:YES];
         }
     }];
@@ -258,7 +261,6 @@
 #pragma mark -
 #pragma mark - UITextFieldDelegate
 
-#pragma mark - Delegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
