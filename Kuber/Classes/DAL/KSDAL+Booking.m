@@ -79,11 +79,6 @@
         }
         
         completionBlock(status, nil);
-        
-        
-        //Usman: Temp Fix
-        /*[trip MR_deleteEntity];
-        completionBlock(1,nil);*/
     }];
 }
 
@@ -143,52 +138,8 @@
         if (KSAPIStatusSuccess == status) {
             
             NSArray *trips = response[@"data"];
-            for (NSDictionary *tripData in trips) {
-                KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
-                trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
-                trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
-                trip.pickupTime = [tripData[@"PickTime"] dateValue];
-                trip.dropOffTime = [tripData[@"DropTime"] dateValue];
-                if (tripData[@"PickLocation"])
-                    trip.pickupLandmark = tripData[@"PickLocation"];
-                if (tripData[@"DropLat"])
-                     trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
-                if (tripData[@"DropLon"])
-                    trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
-                if (tripData[@"DropLocation"])
-                    trip.dropoffLandmark = tripData[@"DropLocation"];
-
-                trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
-                trip.bookingType = [tripData[@"BookingType"] lowercaseString];
-                
-                if (tripData[@"ETA"] && [tripData[@"ETA"] integerValue] > 0) {
-                    
-                    trip.estimatedTimeOfArival = tripData[@"ETA"];
-                }
-                
-                //Driver Information
-                if ([tripData[@"DriverID"] integerValue] > 0){
-                    
-                    KSDriver *driver = [KSDriver objWithValue:[tripData[@"DriverID"] stringValue] forAttrib:@"driverId"];
-                    driver.name = tripData[@"DriverName"];
-                    driver.phone = tripData[@"DriverPhone"];
-                    [driver addTripsObject:trip];
-                    trip.driver = driver;
-                }
-                
-                //Taxi info
-                if (tripData[@"TaxiNo"]) {
-                    
-                    KSTaxi *taxi = [KSTaxi objWithValue:tripData[@"TaxiNo"] forAttrib:@"number"];
-                    taxi.number = tripData[@"TaxiNo"];
-                    [taxi addTripsObject:trip];
-                    trip.taxi = taxi;
-                }
-
-                trip.passenger = user;
-
-                [user addTripsObject:trip];
-            }
+            [KSDAL addTrips:trips];
+           
             [KSDBManager saveContext:^{
                 completionBlock(status, [user.trips allObjects]);
             }];
@@ -255,54 +206,7 @@
             if(KSAPIStatusSuccess == status){
                 
                 NSDictionary * tripData = response[@"data"];
-                KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
-                trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
-                trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
-                trip.pickupTime = [tripData[@"PickTime"] dateValue];
-                trip.dropOffTime = [tripData[@"DropTime"] dateValue];
-                if (tripData[@"PickLocation"])
-                    trip.pickupLandmark = tripData[@"PickLocation"];
-                if (tripData[@"DropLat"])
-                    trip.dropOffLat = [NSNumber numberWithDouble:[tripData[@"DropLat"] doubleValue]];
-                if (tripData[@"DropLon"])
-                    trip.dropOffLon = [NSNumber numberWithDouble:[tripData[@"DropLon"] doubleValue]];
-                if (tripData[@"DropLocation"])
-                    trip.dropoffLandmark = tripData[@"DropLocation"];
-                
-                if (tripData[@"ETA"] && [tripData[@"ETA"] integerValue] > 0) {
-
-                    trip.estimatedTimeOfArival = tripData[@"ETA"];
-                }
-                
-                
-                trip.status = [NSNumber numberWithInteger:[tripData[@"Status"] integerValue]];
-                trip.bookingType = [tripData[@"BookingType"] lowercaseString];
-                
-                //Driver Information
-                if ([tripData[@"DriverID"] integerValue] > 0) {
-                    
-                    NSString *driverId = [tripData[@"DriverID"] stringValue];
-                    KSDriver *driver = [KSDriver objWithValue:driverId forAttrib:@"driverId"];
-//                    driver.driverId = [tripData[@"DriverID"] stringValue];
-                    driver.name = tripData[@"DriverName"];
-                    driver.phone = tripData[@"DriverPhone"];
-                    [driver addTripsObject:trip];
-                    trip.driver = driver;
-                }
-                
-                //Taxi info
-                if (tripData[@"TaxiNo"]) {
-                    
-                    KSTaxi *taxi = [KSTaxi objWithValue:tripData[@"TaxiNo"] forAttrib:@"number"];
-                    taxi.number = tripData[@"TaxiNo"];
-                    [taxi addTripsObject:trip];
-                    trip.taxi = taxi;
-                }
-                
-                KSUser *user = [KSDAL loggedInUser];
-                trip.passenger = user;
-                
-                [user addTripsObject:trip];
+                KSTrip *trip = [self addTrip:tripData];
             
                 [KSDBManager saveContext:^{
                     completionBlock(status, trip);
