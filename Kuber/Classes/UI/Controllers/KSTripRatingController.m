@@ -136,7 +136,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier  isEqual: @"SegueTripRatingToIssueIdentifier"]) {
-        self.issueIdentifierViewController = segue.destinationViewController;
+        self.issueIdentifierViewController = (KSServiceIssueIdentifierViewController*)segue.destinationViewController;
     }
 }
 
@@ -163,19 +163,23 @@
         }
     };
 
-    NSString *issues;
+   // NSString *issues = @"";
+    KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
+    tripRating.serviceRating = [NSNumber numberWithFloat:self.serviceRating.rate];
     if (self.serviceRating.rate <= 3) {
         
-        issues = [self issueList];
+        tripRating.issue = [self issueList];
+        tripRating.comments = @"";
     }
     else {
-        issues = _txtCommentView.text;
+        tripRating.issue = @"";
+        
+        tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     }
-    NSLog(@"issues = %@",issues);
+
+    //tripRating.issue = issues;
     
-    
-    KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
-    tripRating.issue = issues;
+    //tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     
     [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
     

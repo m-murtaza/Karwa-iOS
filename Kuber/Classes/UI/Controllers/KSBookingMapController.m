@@ -56,6 +56,7 @@
     KSTrip *tripInfo;
     CLLocationCoordinate2D dropoffPoint;
     BOOL isMaploaded;
+    //BOOL firstTimeLoad;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -84,7 +85,7 @@
 {
     
     [super viewDidLoad];
-    
+    //firstTimeLoad = TRUE;
     isMaploaded = FALSE;
     dropoffVisible = FALSE;
     [self setIndexForCell:dropoffVisible];
@@ -109,7 +110,11 @@
     [self checkLocationAvaliblityAndShowAlert];
     
     //Patch for iOS 9 other wise animation was bit odd.
-    [self showhideDropOff];
+    //if (firstTimeLoad) {
+        [self showhideDropOff];
+    //    firstTimeLoad = FALSE;
+   // }
+    
 }
 
 #pragma mark - Private Function
@@ -426,56 +431,65 @@
 
 -(void)showhideDropOff
 {
-    [self showDropOff:FALSE];
-    [self hideDropOff:FALSE];
+    if (dropoffVisible == FALSE) {
+        
+        [self showDropOff:FALSE];
+        [self hideDropOff:FALSE];
+    }
 }
 
 -(void) showDropOff:(BOOL)animated
 {
-    dropoffVisible = TRUE;
-    [self setIndexForCell:dropoffVisible];
-    NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
-    [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
-    
-    //[self.tableView layoutIfNeeded];
-    [self.btnCurrentLocaiton setHidden:TRUE];
-    self.tblViewHeight.constant += 94;
-    self.bottomMapToTopTblView.constant -=94;
-    //[self.tableView layoutIfNeeded];
-    NSTimeInterval animDuration = animated ? 0.5 : 0;
-    
-    [UIView animateWithDuration:animDuration animations:^{
-        [self.tableView layoutIfNeeded];
-        [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
-                              withRowAnimation:UITableViewRowAnimationNone];
-    }];
-    
-    [self updateViewForShowHideDropOff];
+    if (dropoffVisible == FALSE) {
+        
+        dropoffVisible = TRUE;
+        [self setIndexForCell:dropoffVisible];
+        NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+        [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+        
+        //[self.tableView layoutIfNeeded];
+        [self.btnCurrentLocaiton setHidden:TRUE];
+        self.tblViewHeight.constant += 94;
+        self.bottomMapToTopTblView.constant -=94;
+        //[self.tableView layoutIfNeeded];
+        NSTimeInterval animDuration = animated ? 0.5 : 0;
+        
+        [UIView animateWithDuration:animDuration animations:^{
+            [self.tableView layoutIfNeeded];
+            [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        }];
+        
+        [self updateViewForShowHideDropOff];
+    }
 }
 
 -(void) hideDropOff:(BOOL)animated
 {
-    dropoffVisible = FALSE;
-    [self setIndexForCell:dropoffVisible];
-    
-    NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
-    [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
-    
-    [self.tableView layoutIfNeeded];
-    [self.btnCurrentLocaiton setHidden:FALSE];
-    self.tblViewHeight.constant -= 94;
-    self.bottomMapToTopTblView.constant +=94;
-    
-    NSTimeInterval animDuration = animated ? 0.5 : 0;
-    
-    [UIView animateWithDuration:animDuration animations:^{
-        [self.tableView layoutIfNeeded];
+    if (dropoffVisible == TRUE) {
+
+        dropoffVisible = FALSE;
+        [self setIndexForCell:dropoffVisible];
         
-        [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
-                              withRowAnimation:UITableViewRowAnimationNone];
-    }];
-    
-    [self updateViewForShowHideDropOff];
+        NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+        [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+        
+        [self.tableView layoutIfNeeded];
+        [self.btnCurrentLocaiton setHidden:FALSE];
+        self.tblViewHeight.constant -= 94;
+        self.bottomMapToTopTblView.constant +=94;
+        
+        NSTimeInterval animDuration = animated ? 0.5 : 0;
+        
+        [UIView animateWithDuration:animDuration animations:^{
+            [self.tableView layoutIfNeeded];
+            
+            [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
+                                  withRowAnimation:UITableViewRowAnimationNone];
+        }];
+        
+        [self updateViewForShowHideDropOff];
+    }
 }
 
 - (void)updateTaxisInCurrentRegion {

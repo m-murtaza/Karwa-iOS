@@ -1523,10 +1523,10 @@
                                             <color key="titleColor" red="0.10588235294117647" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="selected" image="favorite-ico-active.png" backgroundImage="menu-active-bg.png">
+                                        <state key="selected" image="settings-ico-active.png" backgroundImage="menu-active-bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <state key="highlighted" image="favorite-ico-active.png" backgroundImage="menu-active-bg.png">
+                                        <state key="highlighted" image="settings-ico-active.png" backgroundImage="menu-active-bg.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <variation key="default">
@@ -1807,7 +1807,7 @@
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                                                     <rect key="frame" x="34" y="75" width="39" height="14"/>
                                                 </variation>
                                             </label>
@@ -6243,7 +6243,8 @@
                                                             <exclude reference="jX5-Md-bxU"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="260" y="8" width="52" height="49"/>
                                                         <mask key="constraints">
                                                             <include reference="48a-K6-cqK"/>
                                                             <include reference="jX5-Md-bxU"/>
@@ -6262,6 +6263,9 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="highlighted" title="REQUEST BOOKING" backgroundImage="blue-button-down.png"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="8" width="231" height="49"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="btnBookingRequestTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="3nt-Sa-uVy"/>
                                                     </connections>
@@ -6899,6 +6903,7 @@
         <image name="recent.png" width="19" height="18"/>
         <image name="reveal-icon.png" width="30" height="24"/>
         <image name="searchbox.png" width="357" height="53"/>
+        <image name="settings-ico-active.png" width="26" height="26"/>
         <image name="settings-ico-idle.png" width="26" height="26"/>
         <image name="startingpoint.png" width="22" height="22"/>
         <image name="time-icon.png" width="20" height="20"/>

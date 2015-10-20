@@ -115,6 +115,7 @@
         if(KSAPIStatusSuccess == status){
             
             NSArray *trips = response[@"data"];
+            //DLog(@"%@",trips);
             NSArray *ksTrips = [KSDAL addTrips:trips];
             [KSDBManager saveContext:^{
     
@@ -138,6 +139,7 @@
         if (KSAPIStatusSuccess == status) {
             
             NSArray *trips = response[@"data"];
+            //DLog(@"%@",trips);
             [KSDAL addTrips:trips];
            
             [KSDBManager saveContext:^{
@@ -328,6 +330,17 @@
     }
     
     trip.passenger = user;
+    
+    if (tripData[@"Rating"]) {
+        NSDictionary *rateData = tripData[@"Rating"];
+        KSTripRating *tripRating = [KSTripRating MR_createEntity];
+        tripRating.serviceRating = rateData[@"Value"];
+        tripRating.issue = rateData[@"Options"] ? rateData[@"Options"] : @"";
+        tripRating.comments = rateData[@"Remarks"] ? rateData[@"Remarks"] : @"";
+        tripRating.trip = trip;
+        trip.rating = tripRating;
+    
+    }
     
     [user addTripsObject:trip];
     return trip;
