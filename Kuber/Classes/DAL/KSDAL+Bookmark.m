@@ -349,10 +349,10 @@
                     sortOrder:bookmark.sortOrder
                    completion:^(KSAPIStatus status, id response) {
                        if (status == KSAPIStatusSuccess) {
-                            NSLog(@"----Success-----");
+                            DLog(@"----Success-----");
                        }
                        else{
-                           NSLog(@"----Fail-----");
+                           DLog(@"----Fail-----");
                        }
                        
                    }];

@@ -71,7 +71,9 @@
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 2.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"REASON BEHIND THIS RATING?";
+    //labelView.adjustsFontSizeToFitWidth = FALSE;
     labelView.font = [UIFont fontWithName:KSMuseoSans300 size:12];
+    labelView.font=[labelView.font fontWithSize:12];
     labelView.textColor = [UIColor colorFromHexString:@"#858585"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
@@ -109,7 +111,7 @@
     self.lblPickupTime.text = [self getTimeStringFromDate:self.trip.pickupTime];
     self.lblDropoffTime.text = [self getTimeStringFromDate:self.trip.dropOffTime];
     self.lblPickupAddress.text = self.trip.pickupLandmark ? self.trip.pickupLandmark : [NSString stringWithFormat:@"%@N , %@E",self.trip.pickupLat,self.trip.pickupLon];
-    self.lblDropoffAddress.text = self.trip.dropoffLandmark;
+    self.lblDropoffAddress.text = self.trip.dropoffLandmark ? self.trip.dropoffLandmark : @"-";
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
@@ -134,7 +136,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier  isEqual: @"SegueTripRatingToIssueIdentifier"]) {
-        self.issueIdentifierViewController = segue.destinationViewController;
+        self.issueIdentifierViewController = (KSServiceIssueIdentifierViewController*)segue.destinationViewController;
     }
 }
 
@@ -161,19 +163,23 @@
         }
     };
 
-    NSString *issues;
+   // NSString *issues = @"";
+    KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
+    tripRating.serviceRating = [NSNumber numberWithFloat:self.serviceRating.rate];
     if (self.serviceRating.rate <= 3) {
         
-        issues = [self issueList];
+        tripRating.issue = [self issueList];
+        tripRating.comments = @"";
     }
     else {
-        issues = _txtCommentView.text;
+        tripRating.issue = @"";
+        
+        tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     }
-    NSLog(@"issues = %@",issues);
+
+    //tripRating.issue = issues;
     
-    
-    KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
-    tripRating.issue = issues;
+    //tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     
     [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
     
@@ -288,7 +294,9 @@
             KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
             cell.textLabel.text = issue.valueEN;
             cell.textLabel.font = [UIFont fontWithName:KSMuseoSans300 size:15];
-            cell.textLabel.textColor = [UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
+            cell.textLabel.textColor = [UIColor colorFromHexString:@"#777777"];
+            
+            //[UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
             
             if (NSNotFound == [self idxPathInSelectedList:indexPath]) {
                 
@@ -344,6 +352,23 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
 }
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
+//- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField
+//{
+//    [textField resignFirstResponder];
+//    return TRUE;
+//    
+//}
 
 #pragma mark - Rating View Delegate
 - (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate

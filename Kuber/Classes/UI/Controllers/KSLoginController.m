@@ -48,21 +48,26 @@
     self.btnForgotPassword.titleLabel.font = [UIFont fontWithName:KSMuseoSans300 size:13];
     
     //[self.txtMobile setText:[ABManager userPhoneNumber]];
+    
+    [self setLeftViewOfTextBox];
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Login"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [self.txtMobile becomeFirstResponder];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //[self.txtMobile becomeFirstResponder];
+    
+    [self performSelector:@selector(selectPhoneField) withObject:nil afterDelay:0.5];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -73,6 +78,20 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+#pragma mark - Private Function
+
+-(void) selectPhoneField
+{
+    [self.txtMobile becomeFirstResponder];
+}
+-(void) setLeftViewOfTextBox
+{
+    [self.txtPassword setRightViewMode:UITextFieldViewModeAlways];
+    self.txtPassword.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
+    
+    [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
+    self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
 }
 
 #pragma mark - Gesture
@@ -97,10 +116,10 @@
     
     if ([textField isEqual:self.txtMobile]) {
         
-        imgName = @"phone-box-focused.png";
+        imgName = @"box-focused.png";
     }
     else if([textField isEqual:self.txtPassword]){
-        imgName = @"password-box-focused.png";
+        imgName = @"box-focused.png";
     }
 
     [textField setBackground:[UIImage imageNamed:imgName]];
@@ -114,19 +133,19 @@
     if ([textField.text isEqualToString:@""] || nil == textField.text) {
         if ([textField isEqual:self.txtMobile]) {
             
-            imgName = @"phone-box-idle.png";
+            imgName = @"box-idle.png";
         }
         else if([textField isEqual:self.txtPassword]){
-            imgName = @"password-box-idle.png";
+            imgName = @"box-idle.png";
         }
     }
     else {
         if ([textField isEqual:self.txtMobile]) {
             
-            imgName = @"phone-box-focused.png";
+            imgName = @"box-focused.png";
         }
         else if([textField isEqual:self.txtPassword]){
-            imgName = @"password-box-focused.png";
+            imgName = @"box-focused.png";
         }
     }
     
@@ -216,6 +235,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[KSResetPasswordController class]]) {
+        [self.txtMobile resignFirstResponder];
+        [self.txtPassword resignFirstResponder];
         KSResetPasswordController* controller = segue.destinationViewController;
         controller.mobileNumber = self.txtMobile.text;
     }
