@@ -92,6 +92,8 @@
     
     [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
     self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+    [self.txtMobile setLeftViewMode:UITextFieldViewModeAlways];
+    self.txtMobile.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
 }
 
 #pragma mark - Gesture
@@ -192,7 +194,7 @@
     NSString *password = self.txtPassword.text;
 #ifndef __KS_DISABLE_VALIDATIONS
     NSString *error = nil;
-    if (![phone isPhoneNumber]) {
+    if (![phone isQatarPhoneNumber]) {
         error = KSErrorPhoneValidation;
     }
     else if (!password.length) {
@@ -232,6 +234,10 @@
         }
     }];
 }
+
+
+
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[KSResetPasswordController class]]) {

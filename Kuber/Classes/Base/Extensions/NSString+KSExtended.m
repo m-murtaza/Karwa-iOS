@@ -33,6 +33,15 @@ NSString *KSLocalize(NSString *key) {
     return [self isValidForPattern:regExPattern];
 }
 
+-(BOOL) isQatarPhoneNumber
+{
+    BOOL qatarPhone = FALSE;
+    if (self.length == 8) {
+        qatarPhone = YES;
+    }
+    return qatarPhone;
+}
+
 - (BOOL)isPhoneNumber {
     NSString *regExPattern = @"^[\\+\\d](?:[0-9]●?){6,14}[0-9]$";
     return [self isValidForPattern:regExPattern];

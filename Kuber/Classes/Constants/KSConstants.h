@@ -31,6 +31,7 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusUserNotVerified          = 7,
     KSAPIStatusPasswordMatch            = 8,
     KSAPIStatusTooManyResetCalls        = 9,
+    KSAPIStatusInvalidPhoneNumber       = 10,
     
     KSAPIStatusTaxiAllocated            = 11,   // Taxi found/allocated
     KSAPIStatusJobAlreadyPending        = 12,   // Already has a pending job

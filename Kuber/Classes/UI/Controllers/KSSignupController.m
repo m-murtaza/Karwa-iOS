@@ -86,10 +86,13 @@
     self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username.png"]];
     
     [self.txtEmail setRightViewMode:UITextFieldViewModeAlways];
-    self.txtEmail.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email.png"]];
+    self.txtEmail.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email-signup.png"]];
     
     [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
     self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+    
+    [self.txtMobile setLeftViewMode:UITextFieldViewModeAlways];
+    self.txtMobile.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
     
     [self.txtPassword setRightViewMode:UITextFieldViewModeAlways];
     self.txtPassword.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
@@ -219,7 +222,7 @@
     if (!self.txtName.text.length) {
         [errors addObject:KSErrorNoUserName.localizedValue];
     }
-    if (![self.txtMobile.text isPhoneNumber]) {
+    if (![self.txtMobile.text isQatarPhoneNumber]) {
         [errors addObject:KSErrorPhoneValidation.localizedValue];
     }
     if (![self.txtEmail.text isEmailAddress]) {

@@ -240,6 +240,7 @@
 		189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */; };
 		18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */; };
 		18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A19DA81B6E43CD0057EED9 /* KSSplashController.m */; };
+		18A268831BE1EA53006FC942 /* email-signup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268821BE1EA53006FC942 /* email-signup@2x.png */; settings = {ASSET_TAGS = (); }; };
 		18A762811AFF785B00B9ED32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762801AFF785B00B9ED32 /* main.m */; };
 		18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762831AFF785B00B9ED32 /* AppDelegate.m */; };
 		18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18A762851AFF785B00B9ED32 /* Kuber.xcdatamodeld */; };
@@ -278,7 +279,6 @@
 		18D6E61B1BCFCAE300D6BBA0 /* box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */; settings = {ASSET_TAGS = (); }; };
 		18D6E61C1BCFCAE300D6BBA0 /* box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */; settings = {ASSET_TAGS = (); }; };
 		18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18D6E6211BCFDE6A00D6BBA0 /* email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61E1BCFDE6A00D6BBA0 /* email@2x.png */; settings = {ASSET_TAGS = (); }; };
 		18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */; settings = {ASSET_TAGS = (); }; };
 		18D6E6231BCFDE6A00D6BBA0 /* username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */; settings = {ASSET_TAGS = (); }; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
@@ -610,6 +610,7 @@
 		18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+KSExtended.m"; sourceTree = "<group>"; };
 		18A19DA71B6E43CD0057EED9 /* KSSplashController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSplashController.h; sourceTree = "<group>"; };
 		18A19DA81B6E43CD0057EED9 /* KSSplashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSplashController.m; sourceTree = "<group>"; };
+		18A268821BE1EA53006FC942 /* email-signup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email-signup@2x.png"; path = "LoginView/test/email-signup@2x.png"; sourceTree = "<group>"; };
 		18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Karwa Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A762801AFF785B00B9ED32 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18A762821AFF785B00B9ED32 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -671,7 +672,6 @@
 		18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-focused@2x.png"; path = "LoginView/test/box-focused@2x.png"; sourceTree = "<group>"; };
 		18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-idle@2x.png"; path = "LoginView/test/box-idle@2x.png"; sourceTree = "<group>"; };
 		18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pass-ico@2x.png"; path = "LoginView/test/pass-ico@2x.png"; sourceTree = "<group>"; };
-		18D6E61E1BCFDE6A00D6BBA0 /* email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email@2x.png"; path = "LoginView/test/email@2x.png"; sourceTree = "<group>"; };
 		18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone@2x.png"; path = "LoginView/test/phone@2x.png"; sourceTree = "<group>"; };
 		18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "username@2x.png"; path = "LoginView/test/username@2x.png"; sourceTree = "<group>"; };
 		49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1419,7 +1419,7 @@
 		18D65D9C1B9D800C00D6C1BD /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
-				18D6E61E1BCFDE6A00D6BBA0 /* email@2x.png */,
+				18A268821BE1EA53006FC942 /* email-signup@2x.png */,
 				18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */,
 				18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */,
 				18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */,
@@ -1582,7 +1582,6 @@
 				184245F81BBCF997001C780A /* MuseoSans-100.otf in Resources */,
 				18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */,
 				184CF9171BA02A080025B883 /* map-sep-line@2x.png in Resources */,
-				18D6E6211BCFDE6A00D6BBA0 /* email@2x.png in Resources */,
 				184CF9281BA03F1D0025B883 /* driver-icon@2x.png in Resources */,
 				1880C53C1B7877ED004F0188 /* StarEmptyLarge@2x.png in Resources */,
 				184D22711BA55E64007CB740 /* settings-ico-active@2x.png in Resources */,
@@ -1600,6 +1599,7 @@
 				184B74471BC0FFA8003AD936 /* filled-star@2x.png in Resources */,
 				184B74481BC0FFA8003AD936 /* idle-star@2x.png in Resources */,
 				1880C5341B7877ED004F0188 /* startingpoint@2x.png in Resources */,
+				18A268831BE1EA53006FC942 /* email-signup@2x.png in Resources */,
 				1880C5211B7877ED004F0188 /* karwa-tech-logo.png in Resources */,
 				1822C42C1BA929C40087ACE3 /* backarrow@2x.png in Resources */,
 				1822C4271BA821A20087ACE3 /* partners@2x.png in Resources */,
@@ -2034,7 +2034,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
-				PROVISIONING_PROFILE = "3aa409b4-bd75-4915-8abd-207065e45895";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2053,7 +2053,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
-				PROVISIONING_PROFILE = "3aa409b4-bd75-4915-8abd-207065e45895";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
