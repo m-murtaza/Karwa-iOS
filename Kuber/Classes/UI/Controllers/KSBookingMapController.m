@@ -221,7 +221,7 @@
             NSString *str;
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
             }
             else{
                 
