@@ -17,6 +17,8 @@
 #import "KSButtonCell.h"
 #import "KSFavoriteDetailsController.h"
 
+#import "KSSafeArray.h"
+
 typedef enum {
     
     KSTableViewTypeFavorites = 0,
@@ -35,15 +37,15 @@ KSTableViewType;
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
-    NSArray *_recentBookings;
+    KSSafeArray *_recentBookings;
     
-    NSArray *_savedBookmarks;
+    KSSafeArray *_savedBookmarks;
     
-    NSArray *_nearestLocations;
+    KSSafeArray *_nearestLocations;
     
-    NSArray *_searchLocations;
-    NSArray *_searchSavedBookmarks;
-    NSArray *_searchRecentBookings;
+    KSSafeArray *_searchLocations;
+    KSSafeArray *_searchSavedBookmarks;
+    KSSafeArray *_searchRecentBookings;
     
     NSInteger idxNearSection;
     NSInteger idxFavSection;
@@ -749,101 +751,87 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSLog(@"%s", __func__);
-    if (indexPath.section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX) {
-        showAllNearBy = TRUE;
-        [UIView transitionWithView:tableView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                            [self reloadTableData];
-                        } completion:NULL];
-        return;
-    }
-    else if (indexPath.section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX){
-    
-        showAllFav = TRUE;
-        [UIView transitionWithView:tableView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                            [self reloadTableData];
-                        } completion:NULL];
-        return;
+    @try {
+        
+        if (indexPath.section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX) {
+            showAllNearBy = TRUE;
+            [UIView transitionWithView:tableView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void) {
+                                [self reloadTableData];
+                            } completion:NULL];
+            return;
+        }
+        else if (indexPath.section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX){
+        
+            showAllFav = TRUE;
+            [UIView transitionWithView:tableView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void) {
+                                [self reloadTableData];
+                            } completion:NULL];
+            return;
 
-    }
-    else if (indexPath.section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX){
-        
-        showAllRecent = TRUE;
-        [UIView transitionWithView:tableView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                            [self reloadTableData];
-                        } completion:NULL];
-        return;
-        
-    }
-    
-    NSString *placeName = nil;
-    CLLocation *location = nil;
-    KSBookmark *bookmark;
-    KSGeoLocation *geolocation;
-    KSTrip *trip;
-    
-    if (indexPath.section == idxNearSection){
-        
-        if (!self.searchField.text.length) {
-            geolocation = [_nearestLocations objectAtIndex:indexPath.row];
+        }
+        else if (indexPath.section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX){
+            
+            showAllRecent = TRUE;
+            [UIView transitionWithView:tableView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void) {
+                                [self reloadTableData];
+                            } completion:NULL];
+            return;
             
         }
-        else {
-            geolocation = [_searchLocations objectAtIndex:indexPath.row];
-        }
-        placeName = geolocation.address;
-        location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
-    }
-    else if(indexPath.section == idxFavSection){
-    
-        if (!self.searchField.text.length) {
         
-            bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
-        }
-        else{
+        NSString *placeName = nil;
+        CLLocation *location = nil;
+        KSBookmark *bookmark;
+        KSGeoLocation *geolocation;
+        KSTrip *trip;
+        
+        if (indexPath.section == idxNearSection){
             
-            bookmark = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+            if (!self.searchField.text.length) {
+                geolocation = [_nearestLocations objectAtIndex:indexPath.row];
+                
+                
+                
+            }
+            else {
+                geolocation = [_searchLocations objectAtIndex:indexPath.row];
+                
+                
+            }
+            placeName = geolocation.address;
+            location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
         }
-        placeName = bookmark.address.length ? bookmark.address : bookmark.name;
-        location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
-    }
-    else {
+        else if(indexPath.section == idxFavSection){
         
-        if (!self.searchField.text.length) {
-            trip = [_recentBookings objectAtIndex:indexPath.row];
-        }
-        else {
-            trip = [_searchRecentBookings objectAtIndex:indexPath.row];
-        }
-        
-        placeName = trip.dropoffLandmark;
-        if (trip.pickupLandmark.length) {
-            placeName = trip.pickupLandmark;
-            location = [[CLLocation alloc] initWithLatitude:trip.pickupLat.doubleValue longitude:trip.pickupLon.doubleValue];
-        }
-        else {
-            location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
-        }
-    }
-    
-    /*switch (self.tableViewType) {
-        case KSTableViewTypeFavorites:
-            bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+            if (!self.searchField.text.length) {
+            
+                bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+            }
+            else{
+                
+                bookmark = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+            }
             placeName = bookmark.address.length ? bookmark.address : bookmark.name;
             location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
-            break;
-
-        case KSTableViewTypeRecent:
-            trip = [_recentBookings objectAtIndex:indexPath.row];
+        }
+        else {
+            
+            if (!self.searchField.text.length) {
+                trip = [_recentBookings objectAtIndex:indexPath.row];
+            }
+            else {
+                trip = [_searchRecentBookings objectAtIndex:indexPath.row];
+            }
+            
             placeName = trip.dropoffLandmark;
             if (trip.pickupLandmark.length) {
                 placeName = trip.pickupLandmark;
@@ -852,27 +840,28 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             else {
                 location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
             }
-            break;
+        }
 
-        default:
-            if (self.searchField.text.length) {
-                geolocation = [_searchLocations objectAtIndex:indexPath.row];
-            }
-            else {
-                geolocation = [_nearestLocations objectAtIndex:indexPath.row];
-            }
-            placeName = geolocation.address;
-            location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
-            break;
-    }*/
+        [self.delegate addressPicker:self didDismissWithAddress:placeName location:location];
 
-    [self.delegate addressPicker:self didDismissWithAddress:placeName location:location];
-
-    // Dismiss on selection
-    [self.navigationController popViewControllerAnimated:YES];
+        // Dismiss on selection
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    @catch (NSException *exception) {
+        DLog(@"%@",exception);
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Exception"     // Event category (required)
+                                                              action:@"Address Picker didselectedrow"  // Event action (required)
+                                                               label:[NSString stringWithFormat:@"indexpath.row = %ld - indexpath.section = %ld",(long)indexPath.row,(long)indexPath.section]         // Event label
+                                                               value:nil] build]];    // Event value
+        
+    }
+    
 }
 
-#pragma mark - 
+#pragma mark -
 
 -(void) searchForQuery:(NSString*)searchString
 {

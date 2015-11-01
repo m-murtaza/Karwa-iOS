@@ -242,6 +242,7 @@
 		18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A19DA81B6E43CD0057EED9 /* KSSplashController.m */; };
 		18A268831BE1EA53006FC942 /* email-signup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268821BE1EA53006FC942 /* email-signup@2x.png */; settings = {ASSET_TAGS = (); }; };
 		18A268851BE5D5CE006FC942 /* phonecode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268841BE5D5CE006FC942 /* phonecode@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18A268881BE5F8D7006FC942 /* KSSafeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268871BE5F8D7006FC942 /* KSSafeArray.m */; settings = {ASSET_TAGS = (); }; };
 		18A762811AFF785B00B9ED32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762801AFF785B00B9ED32 /* main.m */; };
 		18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762831AFF785B00B9ED32 /* AppDelegate.m */; };
 		18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18A762851AFF785B00B9ED32 /* Kuber.xcdatamodeld */; };
@@ -613,6 +614,8 @@
 		18A19DA81B6E43CD0057EED9 /* KSSplashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSplashController.m; sourceTree = "<group>"; };
 		18A268821BE1EA53006FC942 /* email-signup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "email-signup@2x.png"; path = "LoginView/test/email-signup@2x.png"; sourceTree = "<group>"; };
 		18A268841BE5D5CE006FC942 /* phonecode@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phonecode@2x.png"; path = "LoginView/phonecode@2x.png"; sourceTree = "<group>"; };
+		18A268861BE5F8D7006FC942 /* KSSafeArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSafeArray.h; sourceTree = "<group>"; };
+		18A268871BE5F8D7006FC942 /* KSSafeArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSafeArray.m; sourceTree = "<group>"; };
 		18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Karwa Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A762801AFF785B00B9ED32 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18A762821AFF785B00B9ED32 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1401,6 +1404,8 @@
 				184D22961BA5ADF6007CB740 /* KSPlaceHolderTextView.m */,
 				184B744E1BC102D2003AD936 /* KSSearchTextField.h */,
 				184B744F1BC102D2003AD936 /* KSSearchTextField.m */,
+				18A268861BE5F8D7006FC942 /* KSSafeArray.h */,
+				18A268871BE5F8D7006FC942 /* KSSafeArray.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1852,6 +1857,7 @@
 				1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */,
 				185043781B26BCD900AECDE9 /* KSAddress.m in Sources */,
 				18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */,
+				18A268881BE5F8D7006FC942 /* KSSafeArray.m in Sources */,
 				18481B741B09DFD000855F54 /* KSResetPasswordController.m in Sources */,
 				1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */,
 				185FEC851B96E6EB00268296 /* KSGoogleAnalytics.m in Sources */,
