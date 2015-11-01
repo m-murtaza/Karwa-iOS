@@ -172,13 +172,13 @@ KSTableViewType;
 - (void) filterFavLocationFortext:(NSString*)searchText
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@",searchText];
-    _searchSavedBookmarks = [_savedBookmarks filteredArrayUsingPredicate:predicate];
+    _searchSavedBookmarks = (KSSafeArray*)[_savedBookmarks filteredArrayUsingPredicate:predicate];
 }
 
 - (void) filterRecentLocationsForText: (NSString*) searchText
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pickupLandmark CONTAINS[c] %@",searchText];
-    _searchRecentBookings = [_recentBookings filteredArrayUsingPredicate:predicate];
+    _searchRecentBookings = (KSSafeArray*)[_recentBookings filteredArrayUsingPredicate:predicate];
 }
 - (NSInteger) numberOfRowWhenSearchingForSection:(NSInteger)section
 {
@@ -322,24 +322,24 @@ KSTableViewType;
 {
     //_savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
     NSArray *arr = [[[KSDAL loggedInUser] bookmarks] allObjects];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:YES];
-    _savedBookmarks = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:NO];
+    _savedBookmarks = (KSSafeArray*)[arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
 }
 -(void) loadAllData
 {
     [self loadAllBookmarkData];
  
-    _recentBookings = [KSDAL recentTripsWithLandmark:10];
+    _recentBookings = (KSSafeArray*)[KSDAL recentTripsWithLandmark:10];
     //_recentBookings = [KSDAL recentTripsWithLandmarkText];
-    _nearestLocations = [NSArray array];
+    _nearestLocations = (KSSafeArray*)[NSArray array];
     
     if(self.searchField.text != nil && ![self.searchField.text isEqualToString:@""])
     {
-        _searchLocations = [KSDAL locationsMatchingText:self.searchField.text];
+        _searchLocations = (KSSafeArray*)[KSDAL locationsMatchingText:self.searchField.text];
     }
     else{
-      _searchLocations = [NSArray array];
+      _searchLocations = (KSSafeArray*)[NSArray array];
     }
     
     
@@ -348,32 +348,6 @@ KSTableViewType;
     //self.tableViewType = KSTableViewTypeFavorites;
     
     [self loadAllNearByFromLocalDB];
-//--
-//    if (currentLocation) {
-//        
-//        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
-//        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
-//        
-//        NSMutableArray *tempLocations = [NSMutableArray array];
-//        for (KSGeoLocation *location in _nearestLocations) {
-//            BOOL isUnique = YES;
-//            for (KSGeoLocation *location2 in tempLocations) {
-//                if ([location2.address isEqual:location.address]) {
-//                    isUnique = NO;
-//                    break;
-//                }
-//            }
-//            if (isUnique) {
-//                [tempLocations addObject:location];
-//            }
-//        }
-//        _nearestLocations = [NSArray arrayWithArray:tempLocations];
-//        
-//        if (_nearestLocations.count) {
-//            self.tableViewType = KSTableViewTypeNearby;
-//        }
-//    }
-    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
     [self.tableView reloadData];
     
     //Ultimate Jugar (patch)
@@ -384,14 +358,9 @@ KSTableViewType;
         [self showLoadingView];
     }
     
-    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //Background Thread
-        [self fetchNearByFromServer];
+    [self fetchNearByFromServer];
         
-        //dispatch_async(dispatch_get_main_queue(), ^(void){
-            //Run UI Updates
-        //});
-    //});
+    
 }
 -(void) loadAllNearByFromLocalDB
 {
@@ -399,7 +368,7 @@ KSTableViewType;
     if (currentLocation) {
         
         CLLocationCoordinate2D coordinate = currentLocation.coordinate;
-        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
+        _nearestLocations = (KSSafeArray*)[KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
         
         NSMutableArray *tempLocations = [NSMutableArray array];
         for (KSGeoLocation *location in _nearestLocations) {
@@ -414,7 +383,7 @@ KSTableViewType;
                 [tempLocations addObject:location];
             }
         }
-        _nearestLocations = [NSArray arrayWithArray:tempLocations];
+        _nearestLocations = (KSSafeArray*)[NSArray arrayWithArray:tempLocations];
         
         if (_nearestLocations.count) {
             self.tableViewType = KSTableViewTypeNearby;
@@ -430,11 +399,11 @@ KSTableViewType;
                                             longitude:currentLocation.coordinate.longitude
                                                radius:80.0 completion:^(KSAPIStatus status, id response) {
                                                    if (status == KSAPIStatusSuccess) {
-//                                                       dispatch_async(dispatch_get_main_queue(), ^(void){
+
                                                            [self hideLoadingView];
                                                            [self loadAllNearByFromLocalDB];
                                                            [self reloadTableData];
-//                                                           });
+
                                                    }
                                                    else{
                                                        DLog(@"Error Fetching nearby location %lu",(unsigned long)status);
@@ -869,7 +838,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
     //[self showLoadingView];
     [[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
         //[self hideLoadingView];
-        _searchLocations = placemarks;
+        _searchLocations = (KSSafeArray*)placemarks;
         
         [self filterFavLocationFortext:searchString];
         [self filterRecentLocationsForText:searchString];
