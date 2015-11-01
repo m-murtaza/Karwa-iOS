@@ -65,6 +65,7 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tblViewHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
+@property (nonatomic, weak) IBOutlet UIView *mapDisableView;
 
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
@@ -103,7 +104,7 @@
     [self addCrashlyticsInfo];
     
     
-    
+    [self.mapDisableView setHidden:FALSE];
 }
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -455,6 +456,7 @@
         
         //[self.tableView layoutIfNeeded];
         [self.btnCurrentLocaiton setHidden:TRUE];
+        
         self.tblViewHeight.constant += 94;
         self.bottomMapToTopTblView.constant -=94;
         //[self.tableView layoutIfNeeded];
@@ -464,6 +466,12 @@
             [self.tableView layoutIfNeeded];
             [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
+            [self.mapDisableView setAlpha:0.6];
+        } completion:^(BOOL finished) {
+            if (animated) {
+                //[self.mapDisableView setHidden:FALSE];
+            }
+            
         }];
         
         [self updateViewForShowHideDropOff];
@@ -482,6 +490,7 @@
         
         [self.tableView layoutIfNeeded];
         [self.btnCurrentLocaiton setHidden:FALSE];
+        
         self.tblViewHeight.constant -= 94;
         self.bottomMapToTopTblView.constant +=94;
         
@@ -492,6 +501,12 @@
             
             [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
+            [self.mapDisableView setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            if (animated) {
+                //[self.mapDisableView setHidden:TRUE];
+            }
+            
         }];
         
         [self updateViewForShowHideDropOff];
