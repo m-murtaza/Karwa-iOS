@@ -244,7 +244,7 @@
 
 -(void) showAlertWithHint
 {
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide address details"
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Additional Pickup Information"
                                                                  message:nil
                                                           preferredStyle:UIAlertControllerStyleAlert];
     

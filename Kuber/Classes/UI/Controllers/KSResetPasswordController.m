@@ -75,6 +75,18 @@
     self.tableView.tableHeaderView = headerView;
 }
 
+
+#pragma mark - Gesture
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch * touch = [touches anyObject];
+    if(touch.phase == UITouchPhaseBegan) {
+        [self.txtMobile resignFirstResponder];
+        [self.txtPassword resignFirstResponder];
+        [self.txtConfirmPassword resignFirstResponder];
+    }
+}
+
+
 #pragma mark - Events
 - (IBAction)onClickResetPassword:(id)sender {
 //    [self.view endEditing:TRUE];
