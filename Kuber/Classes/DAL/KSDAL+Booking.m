@@ -38,6 +38,7 @@
     [requestData setObjectOrNothing:trip.dropOffLon forKey:@"DropLon"];
     [requestData setObjectOrNothing:trip.dropoffLandmark forKey:@"DropLocation"];
     [requestData setObjectOrNothing:[NSDate date] forKey:@"CreationTime"];
+    [requestData setObjectOrNothing:trip.pickupHint forKey:@"PickMessage"];
 
     KSWebClient *webClient = [KSWebClient instance];
     __block KSTrip *tripInfo = trip;
@@ -308,6 +309,10 @@
     if (tripData[@"ETA"] && [tripData[@"ETA"] integerValue] > 0) {
         
         trip.estimatedTimeOfArival = tripData[@"ETA"];
+    }
+    
+    if(tripData[@"PickMessage"]){
+        trip.pickupHint = tripData[@"PickMessage"];
     }
     
     //Driver Information

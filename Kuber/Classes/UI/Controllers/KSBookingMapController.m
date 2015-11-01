@@ -116,6 +116,11 @@
    // }
     
 }
+//-(void) viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    hintTxt = @"";
+//}
 
 #pragma mark - Private Function
 -(void) addCrashlyticsInfo
@@ -187,7 +192,7 @@
 -(void) bookTaxi
 {
     
-    NSString * pickup = [self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
+    NSString * pickup = self.lblPickupLocaiton.text; //[self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
     
     tripInfo = [KSDAL tripWithLandmark:pickup
                                    lat:self.mapView.centerCoordinate.latitude
@@ -204,7 +209,7 @@
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
     tripInfo.pickupTime = datePicker.date;
-    
+    tripInfo.pickupHint = hintTxt ? hintTxt : @"";
     
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
@@ -275,6 +280,7 @@
          txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
          txtField.delegate = self;
          txtField.tag = TXT_HINT_TAG;
+         txtField.text = hintTxt ? hintTxt : @"";
      }];
     [alt addAction:okAction];
     [alt addAction:cancelAction];
@@ -755,6 +761,30 @@
     }
 }
 
+- (void)addressPicker:(KSAddressPickerController *)picker didDismissWithAddress:(NSString *)address location:(CLLocation *)location hint:(NSString *)hint{
+    
+    if(picker.pickerId == KSPickerIdForPickupAddress){
+        
+        [self.lblPickupLocaiton setText:address];
+        self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
+        if (location) {
+            
+            [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+        }
+        if (hint && ![hint isEqualToString:@""]) {
+            hintTxt = hint;
+        }
+        else{
+            hintTxt = @"";
+        }
+    }
+    else
+    {
+        [self.lblDropoffLocaiton setText:address];
+        dropoffPoint = location.coordinate;
+    }
+}
+
 #pragma mark - UI Events
 
 - (IBAction) btnShowDestinationTapped:(id)sender
@@ -783,8 +813,14 @@
 {
     //For Current booking if pickup time is in past then update pickup time.
     [self updatePickupTimeIfNeeded];
+//    if (hintTxt && ![hintTxt isEqualToString:@""]) {
+//        
+//        [self bookTaxi];
+//    }
+//    else{
     
-    [self showAlertWithHint];
+        [self showAlertWithHint];
+//    }
 }
 
 @end

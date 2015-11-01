@@ -762,6 +762,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
         KSBookmark *bookmark;
         KSGeoLocation *geolocation;
         KSTrip *trip;
+        NSString *hint = @"";
         
         if (indexPath.section == idxNearSection){
             
@@ -809,9 +810,10 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             else {
                 location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
             }
+            hint = trip.pickupHint;
         }
 
-        [self.delegate addressPicker:self didDismissWithAddress:placeName location:location];
+        [self.delegate addressPicker:self didDismissWithAddress:placeName location:location hint:hint];
 
         // Dismiss on selection
         [self.navigationController popViewControllerAnimated:YES];

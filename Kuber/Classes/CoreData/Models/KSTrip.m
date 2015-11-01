@@ -28,6 +28,7 @@
 @dynamic pickupLon;
 @dynamic pickupTime;
 @dynamic status;
+@dynamic pickupHint;
 @dynamic driver;
 @dynamic passenger;
 @dynamic rating;

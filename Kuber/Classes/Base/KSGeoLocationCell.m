@@ -78,6 +78,10 @@
                 subtitle = [temp substringWithRange:NSMakeRange(0, wordbreak)];
             }
         }
+        
+        if (trip.pickupHint) {
+            address = [NSString stringWithFormat:@"%@, %@",trip.pickupHint,address];
+        }
         self.txtLabel.text = address;
         self.detailTxtLabel.text = subtitle;
     }
