@@ -240,6 +240,9 @@
 		189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */; };
 		18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */; };
 		18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A19DA81B6E43CD0057EED9 /* KSSplashController.m */; };
+		18A2688B1BE6396B006FC942 /* KSTrackTaxiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2688A1BE6396B006FC942 /* KSTrackTaxiController.m */; settings = {ASSET_TAGS = (); }; };
+		18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2688D1BE639D8006FC942 /* MKMapView+KSExtensions.m */; settings = {ASSET_TAGS = (); }; };
+		18A268911BE63A30006FC942 /* KSDAL+Taxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268901BE63A30006FC942 /* KSDAL+Taxi.m */; settings = {ASSET_TAGS = (); }; };
 		18A762811AFF785B00B9ED32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762801AFF785B00B9ED32 /* main.m */; };
 		18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762831AFF785B00B9ED32 /* AppDelegate.m */; };
 		18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18A762851AFF785B00B9ED32 /* Kuber.xcdatamodeld */; };
@@ -610,6 +613,12 @@
 		18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+KSExtended.m"; sourceTree = "<group>"; };
 		18A19DA71B6E43CD0057EED9 /* KSSplashController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSSplashController.h; sourceTree = "<group>"; };
 		18A19DA81B6E43CD0057EED9 /* KSSplashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSSplashController.m; sourceTree = "<group>"; };
+		18A268891BE6396B006FC942 /* KSTrackTaxiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTrackTaxiController.h; sourceTree = "<group>"; };
+		18A2688A1BE6396B006FC942 /* KSTrackTaxiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrackTaxiController.m; sourceTree = "<group>"; };
+		18A2688C1BE639D8006FC942 /* MKMapView+KSExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+KSExtensions.h"; sourceTree = "<group>"; };
+		18A2688D1BE639D8006FC942 /* MKMapView+KSExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+KSExtensions.m"; sourceTree = "<group>"; };
+		18A2688F1BE63A30006FC942 /* KSDAL+Taxi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+Taxi.h"; sourceTree = "<group>"; };
+		18A268901BE63A30006FC942 /* KSDAL+Taxi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+Taxi.m"; sourceTree = "<group>"; };
 		18A7627B1AFF785B00B9ED32 /* Karwa Taxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Karwa Taxi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A762801AFF785B00B9ED32 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18A762821AFF785B00B9ED32 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -769,6 +778,8 @@
 		18481AFF1B08C4F400855F54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				18A2688C1BE639D8006FC942 /* MKMapView+KSExtensions.h */,
+				18A2688D1BE639D8006FC942 /* MKMapView+KSExtensions.m */,
 				1819A4C61BC3DCB600D7AB88 /* NSDate+Utilities.h */,
 				1819A4C71BC3DCB600D7AB88 /* NSDate+Utilities.m */,
 				185043821B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.h */,
@@ -844,6 +855,8 @@
 		18481B781B0B3E8400855F54 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				18A2688F1BE63A30006FC942 /* KSDAL+Taxi.h */,
+				18A268901BE63A30006FC942 /* KSDAL+Taxi.m */,
 				185E3BF41B70779700909B20 /* KSDAL+Booking.h */,
 				185E3BF51B70779700909B20 /* KSDAL+Booking.m */,
 				185E3BF61B70779700909B20 /* KSDAL+Bookmark.h */,
@@ -1310,6 +1323,8 @@
 		18A762B41B006A7400B9ED32 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18A268891BE6396B006FC942 /* KSTrackTaxiController.h */,
+				18A2688A1BE6396B006FC942 /* KSTrackTaxiController.m */,
 				1801E2FF1B0E952C00A8983E /* KSAccountEditController.h */,
 				1801E3001B0E952C00A8983E /* KSAccountEditController.m */,
 				1801E3511B159C0D00A8983E /* KSAddressPickerController.h */,
@@ -1813,6 +1828,7 @@
 				185043841B2953DE00AECDE9 /* NSMutableDictionary+KSExtended.m in Sources */,
 				18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */,
 				184B74501BC102D2003AD936 /* KSSearchTextField.m in Sources */,
+				18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */,
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
 				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
 				180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */,
@@ -1861,6 +1877,7 @@
 				187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */,
 				1801E30A1B11ADFF00A8983E /* KSBookingHistoryController.m in Sources */,
 				18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */,
+				18A2688B1BE6396B006FC942 /* KSTrackTaxiController.m in Sources */,
 				185E3C0B1B7087EF00909B20 /* KSTripIssue.m in Sources */,
 				1801E2F21B0D9F4900A8983E /* KSAppStrings.m in Sources */,
 				18481B581B09B64E00855F54 /* NSString+KSExtended.m in Sources */,
@@ -1879,6 +1896,7 @@
 				1801E34A1B1498AA00A8983E /* CLPlacemark+KSExtended.m in Sources */,
 				18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */,
 				18481AFD1B086EBB00855F54 /* KSConstants.m in Sources */,
+				18A268911BE63A30006FC942 /* KSDAL+Taxi.m in Sources */,
 				1819A4C21BC394A500D7AB88 /* KSTrip.m in Sources */,
 				185E3C081B7087EF00909B20 /* KSTripRating.m in Sources */,
 				189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */,
@@ -2034,7 +2052,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
-				PROVISIONING_PROFILE = "3aa409b4-bd75-4915-8abd-207065e45895";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2053,7 +2071,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
-				PROVISIONING_PROFILE = "3aa409b4-bd75-4915-8abd-207065e45895";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

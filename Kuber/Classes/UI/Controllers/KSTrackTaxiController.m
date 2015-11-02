@@ -73,7 +73,16 @@
                 [self.mapView removeAnnotation:annotation];
             }
         }
+        [self.mapView setCenterCoordinate:passengerLocation.coordinate];
         [self.mapView addAnnotation:taxiAnnotation];
+
+        const CGFloat padding = 1.3; // 20%
+        CGFloat latDelta = padding * fabs(passengerLocation.coordinate.latitude - taxiAnnotation.coordinate.latitude) * 2.0;
+        CGFloat lonDelta = padding * fabs(passengerLocation.coordinate.longitude - taxiAnnotation.coordinate.longitude) * 2.0;
+        MKCoordinateSpan span = MKCoordinateSpanMake(latDelta, lonDelta);
+        MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
+        [self.mapView setRegion:region];
+
         [self.mapView ij_setVisibleRectToFitAllLoadedAnnotationsAnimated:YES];
     }
 }

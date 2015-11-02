@@ -1807,7 +1807,7 @@
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
+                                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
                                                     <rect key="frame" x="34" y="75" width="39" height="14"/>
                                                 </variation>
                                             </label>
@@ -6031,10 +6031,10 @@
                                 <exclude reference="PFZ-qc-hE8"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="pLF-kE-fez"/>
                                 <exclude reference="VFy-ss-RNZ"/>
                                 <exclude reference="akQ-8Y-ifT"/>
                                 <exclude reference="rAu-Ro-dGk"/>
-                                <exclude reference="pLF-kE-fez"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -6042,10 +6042,10 @@
                                 <include reference="PFZ-qc-hE8"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="pLF-kE-fez"/>
                                 <include reference="VFy-ss-RNZ"/>
                                 <include reference="akQ-8Y-ifT"/>
                                 <include reference="rAu-Ro-dGk"/>
-                                <include reference="pLF-kE-fez"/>
                             </mask>
                         </variation>
                     </view>
