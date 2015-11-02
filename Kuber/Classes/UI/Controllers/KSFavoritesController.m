@@ -95,7 +95,7 @@
         return [obj1.name compare:obj2.name options:NSCaseInsensitiveSearch];
     }];*/
 
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:YES];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:NO];
     NSArray *sortedBookmarks = [user.bookmarks.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
     [self.bookmarks removeAllObjects];

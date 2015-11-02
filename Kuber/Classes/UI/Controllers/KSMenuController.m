@@ -63,6 +63,7 @@
     
     KSUser *user = [KSDAL loggedInUser];
     self.lblDisplayName.text = [[user name] uppercaseString];
+    self.lblPhone.text = user.phone;
     [KSGoogleAnalytics trackPage:@"Menu"];
 }
 

@@ -65,6 +65,7 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tblViewHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
+@property (nonatomic, weak) IBOutlet UIView *mapDisableView;
 
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
@@ -103,7 +104,7 @@
     [self addCrashlyticsInfo];
     
     
-    
+    [self.mapDisableView setHidden:FALSE];
 }
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -116,6 +117,11 @@
    // }
     
 }
+//-(void) viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    hintTxt = @"";
+//}
 
 #pragma mark - Private Function
 -(void) addCrashlyticsInfo
@@ -187,7 +193,7 @@
 -(void) bookTaxi
 {
     
-    NSString * pickup = [self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
+    NSString * pickup = self.lblPickupLocaiton.text; //[self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
     
     tripInfo = [KSDAL tripWithLandmark:pickup
                                    lat:self.mapView.centerCoordinate.latitude
@@ -204,7 +210,7 @@
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
     tripInfo.pickupTime = datePicker.date;
-    
+    tripInfo.pickupHint = hintTxt ? hintTxt : @"";
     
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
@@ -221,7 +227,7 @@
             NSString *str;
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmaiton message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
             }
             else{
                 
@@ -244,7 +250,7 @@
 
 -(void) showAlertWithHint
 {
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide address details"
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Additional Pickup Information"
                                                                  message:nil
                                                           preferredStyle:UIAlertControllerStyleAlert];
     
@@ -275,6 +281,7 @@
          txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
          txtField.delegate = self;
          txtField.tag = TXT_HINT_TAG;
+         txtField.text = hintTxt ? hintTxt : @"";
      }];
     [alt addAction:okAction];
     [alt addAction:cancelAction];
@@ -449,6 +456,7 @@
         
         //[self.tableView layoutIfNeeded];
         [self.btnCurrentLocaiton setHidden:TRUE];
+        
         self.tblViewHeight.constant += 94;
         self.bottomMapToTopTblView.constant -=94;
         //[self.tableView layoutIfNeeded];
@@ -458,6 +466,12 @@
             [self.tableView layoutIfNeeded];
             [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
+            [self.mapDisableView setAlpha:0.6];
+        } completion:^(BOOL finished) {
+            if (animated) {
+                //[self.mapDisableView setHidden:FALSE];
+            }
+            
         }];
         
         [self updateViewForShowHideDropOff];
@@ -476,6 +490,7 @@
         
         [self.tableView layoutIfNeeded];
         [self.btnCurrentLocaiton setHidden:FALSE];
+        
         self.tblViewHeight.constant -= 94;
         self.bottomMapToTopTblView.constant +=94;
         
@@ -486,6 +501,12 @@
             
             [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
+            [self.mapDisableView setAlpha:0.0];
+        } completion:^(BOOL finished) {
+            if (animated) {
+                //[self.mapDisableView setHidden:TRUE];
+            }
+            
         }];
         
         [self updateViewForShowHideDropOff];
@@ -755,6 +776,30 @@
     }
 }
 
+- (void)addressPicker:(KSAddressPickerController *)picker didDismissWithAddress:(NSString *)address location:(CLLocation *)location hint:(NSString *)hint{
+    
+    if(picker.pickerId == KSPickerIdForPickupAddress){
+        
+        [self.lblPickupLocaiton setText:address];
+        self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
+        if (location) {
+            
+            [self.mapView setCenterCoordinate:location.coordinate animated:YES];
+        }
+        if (hint && ![hint isEqualToString:@""]) {
+            hintTxt = hint;
+        }
+        else{
+            hintTxt = @"";
+        }
+    }
+    else
+    {
+        [self.lblDropoffLocaiton setText:address];
+        dropoffPoint = location.coordinate;
+    }
+}
+
 #pragma mark - UI Events
 
 - (IBAction) btnShowDestinationTapped:(id)sender
@@ -783,8 +828,14 @@
 {
     //For Current booking if pickup time is in past then update pickup time.
     [self updatePickupTimeIfNeeded];
+//    if (hintTxt && ![hintTxt isEqualToString:@""]) {
+//        
+//        [self bookTaxi];
+//    }
+//    else{
     
-    [self showAlertWithHint];
+        [self showAlertWithHint];
+//    }
 }
 
 @end

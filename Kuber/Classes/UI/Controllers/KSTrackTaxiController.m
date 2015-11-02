@@ -83,7 +83,7 @@
         MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
         [self.mapView setRegion:region];
 
-        [self.mapView ij_setVisibleRectToFitAllLoadedAnnotationsAnimated:YES];
+       // [self.mapView ij_setVisibleRectToFitAllLoadedAnnotationsAnimated:YES];
     }
 }
 

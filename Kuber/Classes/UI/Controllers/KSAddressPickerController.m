@@ -17,6 +17,8 @@
 #import "KSButtonCell.h"
 #import "KSFavoriteDetailsController.h"
 
+#import "KSSafeArray.h"
+
 typedef enum {
     
     KSTableViewTypeFavorites = 0,
@@ -35,15 +37,15 @@ KSTableViewType;
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
-    NSArray *_recentBookings;
+    KSSafeArray *_recentBookings;
     
-    NSArray *_savedBookmarks;
+    KSSafeArray *_savedBookmarks;
     
-    NSArray *_nearestLocations;
+    KSSafeArray *_nearestLocations;
     
-    NSArray *_searchLocations;
-    NSArray *_searchSavedBookmarks;
-    NSArray *_searchRecentBookings;
+    KSSafeArray *_searchLocations;
+    KSSafeArray *_searchSavedBookmarks;
+    KSSafeArray *_searchRecentBookings;
     
     NSInteger idxNearSection;
     NSInteger idxFavSection;
@@ -170,13 +172,13 @@ KSTableViewType;
 - (void) filterFavLocationFortext:(NSString*)searchText
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@",searchText];
-    _searchSavedBookmarks = [_savedBookmarks filteredArrayUsingPredicate:predicate];
+    _searchSavedBookmarks = (KSSafeArray*)[_savedBookmarks filteredArrayUsingPredicate:predicate];
 }
 
 - (void) filterRecentLocationsForText: (NSString*) searchText
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pickupLandmark CONTAINS[c] %@",searchText];
-    _searchRecentBookings = [_recentBookings filteredArrayUsingPredicate:predicate];
+    _searchRecentBookings = (KSSafeArray*)[_recentBookings filteredArrayUsingPredicate:predicate];
 }
 - (NSInteger) numberOfRowWhenSearchingForSection:(NSInteger)section
 {
@@ -320,24 +322,24 @@ KSTableViewType;
 {
     //_savedBookmarks = [[[KSDAL loggedInUser] bookmarks] allObjects];
     NSArray *arr = [[[KSDAL loggedInUser] bookmarks] allObjects];
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:YES];
-    _savedBookmarks = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:NO];
+    _savedBookmarks = (KSSafeArray*)[arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
 }
 -(void) loadAllData
 {
     [self loadAllBookmarkData];
  
-    _recentBookings = [KSDAL recentTripsWithLandmark:10];
+    _recentBookings = (KSSafeArray*)[KSDAL recentTripsWithLandmark:10];
     //_recentBookings = [KSDAL recentTripsWithLandmarkText];
-    _nearestLocations = [NSArray array];
+    _nearestLocations = (KSSafeArray*)[NSArray array];
     
     if(self.searchField.text != nil && ![self.searchField.text isEqualToString:@""])
     {
-        _searchLocations = [KSDAL locationsMatchingText:self.searchField.text];
+        _searchLocations = (KSSafeArray*)[KSDAL locationsMatchingText:self.searchField.text];
     }
     else{
-      _searchLocations = [NSArray array];
+      _searchLocations = (KSSafeArray*)[NSArray array];
     }
     
     
@@ -346,32 +348,6 @@ KSTableViewType;
     //self.tableViewType = KSTableViewTypeFavorites;
     
     [self loadAllNearByFromLocalDB];
-//--
-//    if (currentLocation) {
-//        
-//        CLLocationCoordinate2D coordinate = currentLocation.coordinate;
-//        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
-//        
-//        NSMutableArray *tempLocations = [NSMutableArray array];
-//        for (KSGeoLocation *location in _nearestLocations) {
-//            BOOL isUnique = YES;
-//            for (KSGeoLocation *location2 in tempLocations) {
-//                if ([location2.address isEqual:location.address]) {
-//                    isUnique = NO;
-//                    break;
-//                }
-//            }
-//            if (isUnique) {
-//                [tempLocations addObject:location];
-//            }
-//        }
-//        _nearestLocations = [NSArray arrayWithArray:tempLocations];
-//        
-//        if (_nearestLocations.count) {
-//            self.tableViewType = KSTableViewTypeNearby;
-//        }
-//    }
-    //self.segmentControl.selectedSegmentIndex = self.tableViewType;
     [self.tableView reloadData];
     
     //Ultimate Jugar (patch)
@@ -382,14 +358,9 @@ KSTableViewType;
         [self showLoadingView];
     }
     
-    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //Background Thread
-        [self fetchNearByFromServer];
+    [self fetchNearByFromServer];
         
-        //dispatch_async(dispatch_get_main_queue(), ^(void){
-            //Run UI Updates
-        //});
-    //});
+    
 }
 -(void) loadAllNearByFromLocalDB
 {
@@ -397,7 +368,7 @@ KSTableViewType;
     if (currentLocation) {
         
         CLLocationCoordinate2D coordinate = currentLocation.coordinate;
-        _nearestLocations = [KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
+        _nearestLocations = (KSSafeArray*)[KSDAL nearestLocationsMatchingLatitude:coordinate.latitude longitude:coordinate.longitude radius:500.0];
         
         NSMutableArray *tempLocations = [NSMutableArray array];
         for (KSGeoLocation *location in _nearestLocations) {
@@ -412,7 +383,7 @@ KSTableViewType;
                 [tempLocations addObject:location];
             }
         }
-        _nearestLocations = [NSArray arrayWithArray:tempLocations];
+        _nearestLocations = (KSSafeArray*)[NSArray arrayWithArray:tempLocations];
         
         if (_nearestLocations.count) {
             self.tableViewType = KSTableViewTypeNearby;
@@ -428,11 +399,11 @@ KSTableViewType;
                                             longitude:currentLocation.coordinate.longitude
                                                radius:80.0 completion:^(KSAPIStatus status, id response) {
                                                    if (status == KSAPIStatusSuccess) {
-//                                                       dispatch_async(dispatch_get_main_queue(), ^(void){
+
                                                            [self hideLoadingView];
                                                            [self loadAllNearByFromLocalDB];
                                                            [self reloadTableData];
-//                                                           });
+
                                                    }
                                                    else{
                                                        DLog(@"Error Fetching nearby location %lu",(unsigned long)status);
@@ -749,101 +720,88 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSLog(@"%s", __func__);
-    if (indexPath.section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX) {
-        showAllNearBy = TRUE;
-        [UIView transitionWithView:tableView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                            [self reloadTableData];
-                        } completion:NULL];
-        return;
-    }
-    else if (indexPath.section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX){
-    
-        showAllFav = TRUE;
-        [UIView transitionWithView:tableView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                            [self reloadTableData];
-                        } completion:NULL];
-        return;
+    @try {
+        
+        if (indexPath.section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX) {
+            showAllNearBy = TRUE;
+            [UIView transitionWithView:tableView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void) {
+                                [self reloadTableData];
+                            } completion:NULL];
+            return;
+        }
+        else if (indexPath.section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX){
+        
+            showAllFav = TRUE;
+            [UIView transitionWithView:tableView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void) {
+                                [self reloadTableData];
+                            } completion:NULL];
+            return;
 
-    }
-    else if (indexPath.section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX){
-        
-        showAllRecent = TRUE;
-        [UIView transitionWithView:tableView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                            [self reloadTableData];
-                        } completion:NULL];
-        return;
-        
-    }
-    
-    NSString *placeName = nil;
-    CLLocation *location = nil;
-    KSBookmark *bookmark;
-    KSGeoLocation *geolocation;
-    KSTrip *trip;
-    
-    if (indexPath.section == idxNearSection){
-        
-        if (!self.searchField.text.length) {
-            geolocation = [_nearestLocations objectAtIndex:indexPath.row];
+        }
+        else if (indexPath.section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX){
+            
+            showAllRecent = TRUE;
+            [UIView transitionWithView:tableView
+                              duration:0.5f
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^(void) {
+                                [self reloadTableData];
+                            } completion:NULL];
+            return;
             
         }
-        else {
-            geolocation = [_searchLocations objectAtIndex:indexPath.row];
-        }
-        placeName = geolocation.address;
-        location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
-    }
-    else if(indexPath.section == idxFavSection){
-    
-        if (!self.searchField.text.length) {
         
-            bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
-        }
-        else{
+        NSString *placeName = nil;
+        CLLocation *location = nil;
+        KSBookmark *bookmark;
+        KSGeoLocation *geolocation;
+        KSTrip *trip;
+        NSString *hint = @"";
+        
+        if (indexPath.section == idxNearSection){
             
-            bookmark = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+            if (!self.searchField.text.length) {
+                geolocation = [_nearestLocations objectAtIndex:indexPath.row];
+                
+                
+                
+            }
+            else {
+                geolocation = [_searchLocations objectAtIndex:indexPath.row];
+                
+                
+            }
+            placeName = geolocation.address;
+            location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
         }
-        placeName = bookmark.address.length ? bookmark.address : bookmark.name;
-        location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
-    }
-    else {
+        else if(indexPath.section == idxFavSection){
         
-        if (!self.searchField.text.length) {
-            trip = [_recentBookings objectAtIndex:indexPath.row];
-        }
-        else {
-            trip = [_searchRecentBookings objectAtIndex:indexPath.row];
-        }
-        
-        placeName = trip.dropoffLandmark;
-        if (trip.pickupLandmark.length) {
-            placeName = trip.pickupLandmark;
-            location = [[CLLocation alloc] initWithLatitude:trip.pickupLat.doubleValue longitude:trip.pickupLon.doubleValue];
-        }
-        else {
-            location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
-        }
-    }
-    
-    /*switch (self.tableViewType) {
-        case KSTableViewTypeFavorites:
-            bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+            if (!self.searchField.text.length) {
+            
+                bookmark = [_savedBookmarks objectAtIndex:indexPath.row];
+            }
+            else{
+                
+                bookmark = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+            }
             placeName = bookmark.address.length ? bookmark.address : bookmark.name;
             location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
-            break;
-
-        case KSTableViewTypeRecent:
-            trip = [_recentBookings objectAtIndex:indexPath.row];
+        }
+        else {
+            
+            if (!self.searchField.text.length) {
+                trip = [_recentBookings objectAtIndex:indexPath.row];
+            }
+            else {
+                trip = [_searchRecentBookings objectAtIndex:indexPath.row];
+            }
+            
             placeName = trip.dropoffLandmark;
             if (trip.pickupLandmark.length) {
                 placeName = trip.pickupLandmark;
@@ -852,27 +810,29 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             else {
                 location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
             }
-            break;
+            hint = trip.pickupHint;
+        }
 
-        default:
-            if (self.searchField.text.length) {
-                geolocation = [_searchLocations objectAtIndex:indexPath.row];
-            }
-            else {
-                geolocation = [_nearestLocations objectAtIndex:indexPath.row];
-            }
-            placeName = geolocation.address;
-            location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
-            break;
-    }*/
+        [self.delegate addressPicker:self didDismissWithAddress:placeName location:location hint:hint];
 
-    [self.delegate addressPicker:self didDismissWithAddress:placeName location:location];
-
-    // Dismiss on selection
-    [self.navigationController popViewControllerAnimated:YES];
+        // Dismiss on selection
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    @catch (NSException *exception) {
+        DLog(@"%@",exception);
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Exception"     // Event category (required)
+                                                              action:@"Address Picker didselectedrow"  // Event action (required)
+                                                               label:[NSString stringWithFormat:@"indexpath.row = %ld - indexpath.section = %ld",(long)indexPath.row,(long)indexPath.section]         // Event label
+                                                               value:nil] build]];    // Event value
+        
+    }
+    
 }
 
-#pragma mark - 
+#pragma mark -
 
 -(void) searchForQuery:(NSString*)searchString
 {
@@ -880,7 +840,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
     //[self showLoadingView];
     [[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
         //[self hideLoadingView];
-        _searchLocations = placemarks;
+        _searchLocations = (KSSafeArray*)placemarks;
         
         [self filterFavLocationFortext:searchString];
         [self filterRecentLocationsForText:searchString];

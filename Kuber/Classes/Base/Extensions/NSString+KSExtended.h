@@ -28,5 +28,7 @@ NSString *KSLocalize(NSString *key);
 
 -(NSString*) URLEncodedString;
 
+-(BOOL) isQatarPhoneNumber;
+
 @end
 

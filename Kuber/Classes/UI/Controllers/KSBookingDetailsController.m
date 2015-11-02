@@ -105,7 +105,7 @@
     //Set Pickup Address
     if (trip.pickupLandmark.length) {
         
-        self.lblPickupAddress.text = trip.pickupLandmark;
+        self.lblPickupAddress.text = [NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
     }
     else if ([self isValidLat:trip.pickupLat lon:trip.pickupLon]){
         

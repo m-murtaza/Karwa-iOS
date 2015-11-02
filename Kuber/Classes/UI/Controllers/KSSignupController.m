@@ -86,10 +86,18 @@
     self.txtName.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"username.png"]];
     
     [self.txtEmail setRightViewMode:UITextFieldViewModeAlways];
-    self.txtEmail.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email.png"]];
+    self.txtEmail.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"email-signup.png"]];
     
     [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
     self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+    
+    [self.txtMobile setLeftViewMode:UITextFieldViewModeAlways];
+    //self.txtMobile.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+    UIImage *img = [UIImage imageNamed:@"phonecode.png"];
+    UIImageView *imgVeiw = [[UIImageView alloc] initWithImage:img];
+    imgVeiw.contentMode = UIViewContentModeTop;
+    [imgVeiw setFrame:CGRectMake(0, 0, img.size.width, img.size.height+2.5)];
+    self.txtMobile.leftView = imgVeiw;
     
     [self.txtPassword setRightViewMode:UITextFieldViewModeAlways];
     self.txtPassword.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pass-ico.png"]];
@@ -137,7 +145,7 @@
     self.txtMobile.transformVal = -50;
     self.txtMobile.focusedImg = @"box-focused.png";
     self.txtMobile.idleImg = @"box-idle.png";
-    self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"XXX XXXXX" attributes:@{NSForegroundColorAttributeName: color}];
     
     
     self.txtPassword.transformVal = -100;
@@ -219,7 +227,7 @@
     if (!self.txtName.text.length) {
         [errors addObject:KSErrorNoUserName.localizedValue];
     }
-    if (![self.txtMobile.text isPhoneNumber]) {
+    if (![self.txtMobile.text isQatarPhoneNumber]) {
         [errors addObject:KSErrorPhoneValidation.localizedValue];
     }
     if (![self.txtEmail.text isEmailAddress]) {

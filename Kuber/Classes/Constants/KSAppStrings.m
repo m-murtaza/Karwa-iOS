@@ -47,7 +47,7 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       [NSNumber numberWithUnsignedInteger:KSAPIStatusUserNotVerified]:          @"Phone number is not verified. Please verify phone number using verification code.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusPasswordMatch]:            @"New password is same old password.",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTooManyResetCalls]:        @"You have exceed maximum number of reset requests. Please send an email to support@karwasolutions.com to reset your password",
-      
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusInvalidPhoneNumber]:       @"Please enter a valid Mobile number",
       
       [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiAllocated]:            @"Taxi allocated for you --",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You have another booking in process. Please select a different booking time.",

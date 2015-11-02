@@ -33,7 +33,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
-    self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Phone Number" attributes:@{NSForegroundColorAttributeName: color}];
+    self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"XXX XXXXX" attributes:@{NSForegroundColorAttributeName: color}];
     self.txtMobile.font = [UIFont fontWithName:KSMuseoSans300 size:15.0];
     self.txtMobile.tintColor = [UIColor whiteColor];
     self.txtPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
@@ -92,6 +92,14 @@
     
     [self.txtMobile setRightViewMode:UITextFieldViewModeAlways];
     self.txtMobile.rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"phone.png"]];
+    [self.txtMobile setLeftViewMode:UITextFieldViewModeAlways];
+    
+    UIImage *img = [UIImage imageNamed:@"phonecode.png"];
+    UIImageView *imgVeiw = [[UIImageView alloc] initWithImage:img];
+    imgVeiw.contentMode = UIViewContentModeTop;
+    [imgVeiw setFrame:CGRectMake(0, 0, img.size.width, img.size.height+2.5)];
+    self.txtMobile.leftView = imgVeiw;
+    
 }
 
 #pragma mark - Gesture
@@ -192,7 +200,7 @@
     NSString *password = self.txtPassword.text;
 #ifndef __KS_DISABLE_VALIDATIONS
     NSString *error = nil;
-    if (![phone isPhoneNumber]) {
+    if (![phone isQatarPhoneNumber]) {
         error = KSErrorPhoneValidation;
     }
     else if (!password.length) {
@@ -217,10 +225,18 @@
             
             [KSAlert show:@"Invalid phone number or password"];
         }
+        else if(KSAPIStatusUserNotVerified == status){
+            KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
+            controller.phone = phone;
+            
+            self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+            
+            [self.navigationController pushViewController:controller animated:YES];
+        }
         else {
             [KSAlert show:KSStringFromAPIStatus(status)];
             // Go to verify screen, if user is registered but not verified
-            if (KSAPIStatusUserNotVerified == status) {
+            /*if (KSAPIStatusUserNotVerified == status) {
                 KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
                 controller.phone = phone;
                 
@@ -228,10 +244,14 @@
                 
                 [self.navigationController pushViewController:controller animated:YES];
                 
-            }
+            }*/
         }
     }];
 }
+
+
+
+#pragma mark - Segue
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[KSResetPasswordController class]]) {

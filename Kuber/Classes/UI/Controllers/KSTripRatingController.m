@@ -12,6 +12,8 @@
 #import "DYRateView.h"
 #import "KSPlaceHolderTextView.h"
 
+#define COMMENTS_MAX_LENGTH 512
+
 @interface KSTripRatingController ()
 {
     NSUInteger _rating;
@@ -169,13 +171,14 @@
     if (self.serviceRating.rate <= 3) {
         
         tripRating.issue = [self issueList];
-        tripRating.comments = @"";
+        //tripRating.comments = @"";
     }
     else {
         tripRating.issue = @"";
         
-        tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
+        //tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     }
+    tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
 
     //tripRating.issue = issues;
     
@@ -217,10 +220,10 @@
     }
     
     //Adding Comments
-    if (_txtCommentView != nil && ![_txtCommentView.text isEqualToString:@""]) {
+    /*if (_txtCommentView != nil && ![_txtCommentView.text isEqualToString:@""]) {
     
         [strIssues appendString:[NSString stringWithFormat:@"%@,",_txtCommentView.text]];
-    }
+    }*/
     
     if (strIssues.length) {
         return (NSString*)[strIssues substringToIndex:[strIssues length]-1];
@@ -358,6 +361,11 @@
     
     if([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+        return NO;
+    }
+    
+     NSString *completeText = [NSString stringWithFormat:@"%@%@",textView.text,text];
+    if (completeText.length >= COMMENTS_MAX_LENGTH) {
         return NO;
     }
     

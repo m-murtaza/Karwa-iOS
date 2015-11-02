@@ -28,4 +28,15 @@
     [super setText:text];
 }*/
 
+- (void) drawPlaceholderInRect:(CGRect)rect
+{
+    UIColor *color = [UIColor colorWithRed:123.0/256.0 green:169.0/256.0 blue:178.0/256.0 alpha:1.0];
+    CGRect placeholderRect = CGRectMake(rect.origin.x, (rect.size.height- self.font.pointSize)/2+2.5, rect.size.width, self.font.pointSize);
+    
+    NSDictionary *attributes = @{
+                                 NSForegroundColorAttributeName : color};
+    
+
+    [[self placeholder] drawInRect:placeholderRect withAttributes:attributes];
+}
 @end

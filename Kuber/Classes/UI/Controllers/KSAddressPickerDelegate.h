@@ -19,6 +19,7 @@
 @required
 
 - (void)addressPicker:(KSAddressPickerController *)picker didDismissWithAddress:(NSString *)address location:(CLLocation *)location;
+- (void)addressPicker:(KSAddressPickerController *)picker didDismissWithAddress:(NSString *)address location:(CLLocation *)location hint:(NSString*)hint;
 
 @end
 

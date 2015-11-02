@@ -40,7 +40,11 @@
     
     
     if (trip.pickupLandmark.length) {
-        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@", trip.pickupLandmark];
+        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
+    }
+    else if (trip.pickupHint){
+        
+        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@",trip.pickupHint];
     }
     else {
         NSString *loc = KSStringFromLatLng(trip.pickupLat.doubleValue, trip.pickupLon.doubleValue);
