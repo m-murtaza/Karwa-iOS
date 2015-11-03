@@ -7,6 +7,8 @@
 //
 
 #import <MapKit/MapKit.h>
+#import "KSVehicleTrackingInfo.h"
+#import "KSVehicleTrackingAnnotation.h"
 
 @class KSVehicleTrackingAnnotation;
 

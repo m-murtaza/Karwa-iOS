@@ -8,8 +8,7 @@
 
 #import "KSVehicleAnnotationView.h"
 
-#import "KSVehicleTrackingInfo.h"
-#import "KSVehicleTrackingAnnotation.h"
+
 
 @implementation KSVehicleAnnotationView
 
