@@ -146,7 +146,7 @@
         self.lblDropoffTime.text = [self getTimeStringFromDate:trip.dropOffTime];
     }
     else {
-        self.lblDropoffTime.text = @"...";
+        self.lblDropoffTime.text = @"--:--";
     }
     
     /*if (trip.taxi == nil) {
@@ -155,7 +155,7 @@
     }*/
     
     [self.lblAcknowlegement setHidden:TRUE];
-    [self.btnCancelBooking setHidden:TRUE];
+    //--[self.btnCancelBooking setHidden:TRUE];
     [self setStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
@@ -195,14 +195,14 @@
 
 -(void) setStatusForTrip:(KSTrip*)trip
 {
-    switch (trip.status.integerValue) {
+    /*switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
         case KSTripStatusPending:
         case 12:
         case 4:
             [self.btnCancelBooking setHidden:FALSE];
-    }
+    }*/
     
     
     //We might need this code in future. 
