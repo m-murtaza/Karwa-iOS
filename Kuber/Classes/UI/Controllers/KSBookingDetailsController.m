@@ -33,8 +33,13 @@
 @property (weak, nonatomic) IBOutlet KSLabel *lblTaxiNumber;
 
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
+@property (weak, nonatomic) IBOutlet UIView *viewTrackMyTaxi;
+@property (weak, nonatomic) IBOutlet UIImageView *imgTrackTaxiSepLine;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoBGImgBottom;
+
 
 -(IBAction)btnCallDriveTapped:(id)sender;
 
@@ -86,6 +91,7 @@
     
     if(IS_IPHONE_5){
         self.constraintPickupTimeBottom.constant = 5.0;
+        self.constraintTaxiInfoViewHeight.constant -= 40;
     }
     
     [self showHideTrackATaxiButton];
@@ -155,7 +161,7 @@
     }*/
     
     [self.lblAcknowlegement setHidden:TRUE];
-    //--[self.btnCancelBooking setHidden:TRUE];
+    [self.btnCancelBooking setHidden:TRUE];
     [self setStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
@@ -189,20 +195,28 @@
             self.lblETA.text = eta;
         }
         
+        if ([trip.status integerValue] == KSTripStatusComplete || [trip.status integerValue] == KSTripStatusCancelled) {
+            
+            [self.viewTrackMyTaxi setHidden:TRUE];
+            [self.imgTrackTaxiSepLine setHidden:TRUE];
+            self.constraintTaxiInfoBGImgBottom.constant += 50;
+        }
+        
+        
     }
 }
 
 
 -(void) setStatusForTrip:(KSTrip*)trip
 {
-    /*switch (trip.status.integerValue) {
+    switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
         case KSTripStatusPending:
         case 12:
         case 4:
             [self.btnCancelBooking setHidden:FALSE];
-    }*/
+    }
     
     
     //We might need this code in future. 
