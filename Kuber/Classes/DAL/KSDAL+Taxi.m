@@ -10,7 +10,7 @@
 
 @implementation KSDAL (Taxi)
 
-+(void) trackTaxiWithTaxiNo:(NSString*)taxiNo completion:(KSDALCompletionBlock)completionBlock
++(void) trackTaxiWithTaxiNo:(NSString*)taxiNo JobID:(NSString*)jobId completion:(KSDALCompletionBlock)completionBlock
 {
     if (taxiNo.length == 0) {
     
@@ -20,7 +20,7 @@
     taxiNo = [taxiNo URLEncodedString];
     
     KSWebClient *webClient = [KSWebClient instance];
-    [webClient GET:[NSString stringWithFormat:@"/track/%@",taxiNo]
+    [webClient GET:[NSString stringWithFormat:@"/track/job/%@/%@",jobId,taxiNo]
             params:nil
         completion:^(BOOL success, id response) {
             KSAPIStatus status = [KSDAL statusFromResponse:response success:success];

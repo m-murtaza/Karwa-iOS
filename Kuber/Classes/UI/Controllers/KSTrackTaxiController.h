@@ -12,4 +12,5 @@
 
 
 @property (nonatomic, strong) NSString *taxiNo;
+@property (nonatomic, strong) NSString *jobId;
 @end

@@ -55,13 +55,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
-//    [self.lblPickupAddress setFontSize:13];
-//    [self.lblDropoffAddress setFontSize:13];
-//    [self.lblTitleTaxiInfo setFontSize:12];
-//    [self.lblTaxiNumber setFontSize:12];
-//    [self.lblDriverNumber setFontSize:12];
     
     [self.lblAcknowlegement setHidden:TRUE];
     
@@ -195,12 +188,12 @@
             self.lblETA.text = eta;
         }
         
-        if ([trip.status integerValue] == KSTripStatusComplete || [trip.status integerValue] == KSTripStatusCancelled) {
+        /*if ([trip.status integerValue] == KSTripStatusComplete || [trip.status integerValue] == KSTripStatusCancelled) {
             
             [self.viewTrackMyTaxi setHidden:TRUE];
             [self.imgTrackTaxiSepLine setHidden:TRUE];
             self.constraintTaxiInfoBGImgBottom.constant += 50;
-        }
+        }*/
         
         
     }
@@ -277,6 +270,7 @@
     {
         KSTrackTaxiController *trackTaxi = (KSTrackTaxiController*) segue.destinationViewController;
         trackTaxi.taxiNo = self.tripInfo.taxi.number;
+        trackTaxi.jobId = self.tripInfo.jobId;
     }
 }
 

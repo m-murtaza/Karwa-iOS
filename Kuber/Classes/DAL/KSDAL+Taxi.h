@@ -10,5 +10,5 @@
 
 @interface KSDAL (Taxi)
 
-+(void) trackTaxiWithTaxiNo:(NSString*)taxiNo completion:(KSDALCompletionBlock)completionBlock;
++(void) trackTaxiWithTaxiNo:(NSString*)taxiNo JobID:(NSString*)jobId completion:(KSDALCompletionBlock)completionBlock;
 @end
