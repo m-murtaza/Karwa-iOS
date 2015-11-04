@@ -250,7 +250,7 @@
 
 -(void) showAlertWithHint
 {
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Additional Pickup Information"
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide additional pickup information."
                                                                  message:nil
                                                           preferredStyle:UIAlertControllerStyleAlert];
     

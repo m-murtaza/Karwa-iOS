@@ -162,6 +162,18 @@
     return YES;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField isEqual:self.txtMobile]) {
+        
+        NSString *mobileNumber = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        if (mobileNumber.length > phoneNumberLength) {
+            
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
 
 #pragma mark - View Adjectment
 - (void)keyboardWillShow:(NSNotification *)notification

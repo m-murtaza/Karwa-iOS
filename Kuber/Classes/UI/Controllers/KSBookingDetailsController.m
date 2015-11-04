@@ -90,6 +90,13 @@
     [self showHideTrackATaxiButton];
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateTrackingOption];
+    [KSGoogleAnalytics trackPage:@"Booking Details"];
+}
+
 - (void) setNavigationTitle
 {
     if (self.tripInfo.jobId.length) {
@@ -180,25 +187,40 @@
         self.lblDriverNumber.text = driver.phone ;
 
         KSTaxi *taxi = trip.taxi;
-        self.lblTaxiNumber.text = [NSString stringWithFormat:@"Taxi #: %@",taxi.number]; 
+        
+        NSString *taxiNum = [NSString stringWithFormat:@"%@",taxi.number];
+        taxiNum = [taxiNum substringFromIndex:3];
+        self.lblTaxiNumber.text = taxiNum;
+        
         
         if (trip.estimatedTimeOfArival != nil) {
             
-            NSString *eta = [NSString stringWithFormat:@"%@ Mins",trip.estimatedTimeOfArival];
+            NSString *eta = [NSString stringWithFormat:@"ETA: %@ Mins",trip.estimatedTimeOfArival];
             self.lblETA.text = eta;
         }
         
-        /*if ([trip.status integerValue] == KSTripStatusComplete || [trip.status integerValue] == KSTripStatusCancelled) {
-            
-            [self.viewTrackMyTaxi setHidden:TRUE];
-            [self.imgTrackTaxiSepLine setHidden:TRUE];
-            self.constraintTaxiInfoBGImgBottom.constant += 50;
-        }*/
-        
-        
+        [self updateTrackingOption];
     }
 }
 
+-(void) updateTrackingOption
+{
+    if ([self.tripInfo.status integerValue] != KSAPIStatusTaxiAssigned) {
+        
+        [self.viewTrackMyTaxi setHidden:TRUE];
+        [self.imgTrackTaxiSepLine setHidden:TRUE];
+        self.constraintTaxiInfoBGImgBottom.constant = 50;
+    }
+    else{
+        [self.viewTrackMyTaxi setHidden:FALSE];
+        [self.imgTrackTaxiSepLine setHidden:FALSE];
+        self.constraintTaxiInfoBGImgBottom.constant = 0;
+    }
+//    [self.viewTrackMyTaxi setHidden:FALSE];
+//    [self.imgTrackTaxiSepLine setHidden:FALSE];
+//    self.constraintTaxiInfoBGImgBottom.constant = 0;
+    
+}
 
 -(void) setStatusForTrip:(KSTrip*)trip
 {
@@ -211,8 +233,11 @@
             [self.btnCancelBooking setHidden:FALSE];
     }
     
+    /***************************
+     Do no Delete
+     We might need this code in future.
+     *****************************/
     
-    //We might need this code in future. 
     /*switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
@@ -248,11 +273,7 @@
             break;
     }*/
 }
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [KSGoogleAnalytics trackPage:@"Booking Details"];
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -269,8 +290,9 @@
     else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
     {
         KSTrackTaxiController *trackTaxi = (KSTrackTaxiController*) segue.destinationViewController;
-        trackTaxi.taxiNo = self.tripInfo.taxi.number;
-        trackTaxi.jobId = self.tripInfo.jobId;
+        //trackTaxi.taxiNo = self.tripInfo.taxi.number;
+        //trackTaxi.jobId = self.tripInfo.jobId;
+        trackTaxi.trip = self.tripInfo;
     }
 }
 

@@ -20,6 +20,8 @@ extern NSString * const KSPickerIdForDropoffAddress;
 
 extern NSString * const KSBookingTypeCurrent;
 
+extern NSInteger const phoneNumberLength;
+
 typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusUnknownError             = 0,    // Generic Error
     KSAPIStatusSuccess                  = 1,    // Success Case
@@ -70,6 +72,7 @@ typedef NS_OPTIONS(NSUInteger, KSBookingOption) {
 typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
     KSTripStatusOpen = 0,
     KSTripStatusInProcess = 1,
+    KSAPIStatusTaxiAssigned = 4,
     KSTripStatusCancelled = 7,
     KSTripStatusComplete = 6,
     KSTripStatusTaxiNotFound = 9,

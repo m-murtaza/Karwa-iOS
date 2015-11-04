@@ -13,4 +13,5 @@
 
 @property (nonatomic, strong) NSString *taxiNo;
 @property (nonatomic, strong) NSString *jobId;
+@property (nonatomic, weak) KSTrip *trip;
 @end

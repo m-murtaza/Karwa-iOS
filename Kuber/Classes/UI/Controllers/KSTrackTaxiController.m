@@ -17,11 +17,13 @@
 //Classes
 #import "KSVehicleTrackingAnnotation.h"
 #import "KSTrackingAnnotationView.h"
+#import "KSConfirmationAlert.h"
 
 @interface KSTrackTaxiController () <MKMapViewDelegate>
 {
     KSVehicleTrackingInfo *taxiInfo;
     MKUserLocation *passengerLocation;
+    NSTimer *timer;
 }
 
 @property(nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -36,6 +38,20 @@
 {
     [super viewDidLoad];
     [self setMapParameters];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [timer invalidate];
+    timer = nil;
+}
+
+- (void)dealloc
+{
+    //[super viewWillDisappear:animated];
+    [timer invalidate];
+    timer = nil;
 }
 
 //-(void) viewWillAppear:(BOOL)animated
@@ -64,16 +80,16 @@
     
     [self fetchTaxiInfo:nil];
     
-    [NSTimer scheduledTimerWithTimeInterval:60.0f
+    timer = [NSTimer scheduledTimerWithTimeInterval:61.0f
                                      target:self selector:@selector(fetchTaxiInfo:) userInfo:nil repeats:YES];
     
     
 }
 
-- (void) fetchTaxiInfo:(NSTimer *)timer
+- (void) fetchTaxiInfo:(NSTimer *)t
 {
-    [KSDAL trackTaxiWithTaxiNo:self.taxiNo
-                         JobID:self.jobId
+    [KSDAL trackTaxiWithTaxiNo:self.trip.taxi.number
+                         JobID:self.trip.jobId
                     completion:^(KSAPIStatus status, id response) {
                         if (status == KSAPIStatusSuccess) {
                             
@@ -82,6 +98,21 @@
                             
                             //[self updateMapAnnotation];
                         }
+                        else if(status == KSAPIStatusPassengerInTaxi){
+                            
+                            
+                            KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+                                
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }];
+                            //[timer invalidate];
+                            //timer = nil;
+                            self.trip.status = [NSNumber numberWithInt:KSAPIStatusPassengerInTaxi];
+                            [KSConfirmationAlert showWithTitle:@"Trip started"
+                                                       message:@"We wish you a pleasant trip"
+                                                      okAction:okAction
+                                                  cancelAction:nil];
+                            }
                         
                         
                     }];

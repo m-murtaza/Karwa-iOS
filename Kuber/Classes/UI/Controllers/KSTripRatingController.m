@@ -158,7 +158,7 @@
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
-            [navController popViewControllerAnimated:YES];
+            [navController popToRootViewControllerAnimated:YES];
         }
         else {
             [KSAlert show:KSStringFromAPIStatus(status)];
