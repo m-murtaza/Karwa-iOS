@@ -13,7 +13,7 @@
 + (NSDate *)dateAtBeginningOfDayForDate:(NSDate *)inputDate;
 + (NSDate *)dateByAddingYears:(NSInteger)numberOfYears toDate:(NSDate *)inputDate;
 +(NSString*) bookingHistoryDateToString:(NSDate*)date;
-
+- (NSString*) bookingDateServerFormat;
 
 
 @end

@@ -33,11 +33,11 @@
     [requestData setObjectOrNothing:trip.pickupLandmark forKey:@"PickLocation"];
     [requestData setObjectOrNothing:trip.pickupLat forKey:@"PickLat"];
     [requestData setObjectOrNothing:trip.pickupLon forKey:@"PickLon"];
-    [requestData setObjectOrNothing:trip.pickupTime forKey:@"PickTime"];
+    [requestData setObjectOrNothing:[trip.pickupTime bookingDateServerFormat] forKey:@"PickTime"];
     [requestData setObjectOrNothing:trip.dropOffLat forKey:@"DropLat"];
     [requestData setObjectOrNothing:trip.dropOffLon forKey:@"DropLon"];
     [requestData setObjectOrNothing:trip.dropoffLandmark forKey:@"DropLocation"];
-    [requestData setObjectOrNothing:[NSDate date] forKey:@"CreationTime"];
+    [requestData setObjectOrNothing:[[NSDate date] bookingDateServerFormat] forKey:@"CreationTime"];
     [requestData setObjectOrNothing:trip.pickupHint forKey:@"PickMessage"];
 
     KSWebClient *webClient = [KSWebClient instance];

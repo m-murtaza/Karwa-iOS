@@ -8,6 +8,9 @@
 
 #import "NSDate+KSDate.h"
 
+#define SERVER_DATE_FORMAT      @"yyyy-MM-dd'T'HH:mm:ss.SSS"
+#define DEFAULT_LOCALE          @"en_US"
+
 @implementation NSDate (KSDate)
 
 + (NSDate *)dateAtBeginningOfDayForDate:(NSDate *)inputDate
@@ -54,5 +57,16 @@
     return stringFromDate;
 }
 
+
+- (NSString*) bookingDateServerFormat
+{
+    NSString *strServerFormat = @"";
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:SERVER_DATE_FORMAT];
+    [dateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:DEFAULT_LOCALE]];
+    strServerFormat = [dateFormat stringFromDate:self];
+    return strServerFormat;
+    
+}
 
 @end
