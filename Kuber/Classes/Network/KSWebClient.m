@@ -137,6 +137,8 @@
         if (session.sessionId.length) {
             AFHTTPRequestSerializer *serializer = _sessionManager.requestSerializer;
             [serializer setValue:session.sessionId forHTTPHeaderField:@"Session-ID"];
+            [serializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+             //forKey:@"Content-Type"];
             serializer.timeoutInterval = 20;
         }
     

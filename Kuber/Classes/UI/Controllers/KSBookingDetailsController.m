@@ -66,7 +66,7 @@
         [barButton setImage:[UIImage imageNamed:@"reveal-icon.png"]];
         self.navigationItem.leftBarButtonItem = barButton;
         [self setupRevealViewController];
-        
+                
         if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
             [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
         }
@@ -94,6 +94,10 @@
 {
     [super viewWillAppear:animated];
     [self updateTrackingOption];
+    
+    [self setCancelBtnStatusForTrip:self.tripInfo];
+    [self setTaxiInfo:self.tripInfo];
+    
     [KSGoogleAnalytics trackPage:@"Booking Details"];
 }
 
@@ -160,9 +164,8 @@
         [self.viewTaxiInfo setHidden:TRUE];
     }*/
     
-    [self.lblAcknowlegement setHidden:TRUE];
-    [self.btnCancelBooking setHidden:TRUE];
-    [self setStatusForTrip:trip];
+    
+    [self setCancelBtnStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
     
@@ -222,8 +225,11 @@
     
 }
 
--(void) setStatusForTrip:(KSTrip*)trip
+-(void) setCancelBtnStatusForTrip:(KSTrip*)trip
 {
+    
+    [self.lblAcknowlegement setHidden:TRUE];
+    [self.btnCancelBooking setHidden:TRUE];
     switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
@@ -384,12 +390,12 @@
     [KSDAL cancelTrip:self.tripInfo completion:^(KSAPIStatus status, id response) {
        
         [hud hide:YES];
-        if (KSAPIStatusSuccess == status) {
-        
+        if (KSAPIStatusSuccess == status || KSAPIStatusInvalidJob == status) {
+            //KSAPIStatusInvalidJob == status is added after very long discussion with Asif bahi, on 4th of Nov around 7:30 AM.
             [self.navigationController popViewControllerAnimated:YES];
         }
         else{
-            NSLog(@"%s,cancel booking unSuccess \n Response is %@",__func__,response);
+            //NSLog(@"%s,cancel booking unSuccess \n Response is %@",__func__,response);
             KSStringFromAPIStatus(status);
             
             [KSAlert show:KSStringFromAPIStatus(status)

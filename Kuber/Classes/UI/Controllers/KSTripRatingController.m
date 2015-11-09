@@ -7,7 +7,8 @@
 //
 
 #import "KSTripRatingController.h"
-
+#import "SWRevealViewController.h"
+#import "KSMenuController.h"
 
 #import "DYRateView.h"
 #import "KSPlaceHolderTextView.h"
@@ -152,13 +153,16 @@
         return;
     }
     
+    //__block UINavigationController *navController = self.navigationController;
     
-    __block UINavigationController *navController = self.navigationController;
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
-            [navController popToRootViewControllerAnimated:YES];
+            
+            UIViewController *controller = [UIStoryboard mainRootController];
+            [self.revealViewController setFrontViewController:controller animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
         }
         else {
             [KSAlert show:KSStringFromAPIStatus(status)];

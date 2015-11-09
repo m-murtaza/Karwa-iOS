@@ -10,4 +10,5 @@
 
 @interface KSMenuController : KSViewController
 
+-(void) setBookingSelected;
 @end

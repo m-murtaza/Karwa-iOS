@@ -29,8 +29,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
-    //[self testFunc];
+   //[self testFunc];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 
     [Fabric with:@[[Crashlytics class]]];
@@ -198,67 +197,82 @@
     NSLog(@"%s: %@", __func__, userInfo);
     
     NSString *bookingId = [userInfo objectForKey:@"BookingID"];
-    if (!bookingId || [bookingId isEqualToString:@""]) {
+    
+    if (!bookingId || [bookingId isEqualToString:@""] || (NSNull*)bookingId == [NSNull null] || [bookingId isEqualToString:@"null"]) {
+        //Sub chk kar lo .....
         return;
     }
     
     
-    if ( application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground  )
-    {
-        [self handleNotificaiton:bookingId];
-    }
-    else
-    {
-        KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-           [self handleNotificaiton:bookingId];
-        }];
-        KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel"
-        handler:^(KSConfirmationAlertAction *action) {
-            
-                                                   }];
-        
-        
-        NSString *message = nil;
-        NSDictionary *alert = [userInfo objectForKey:@"aps"];
-        if (alert) {
-            message = [alert objectForKey:@"alert"];
-        }
-        if (message) {
-        
-            [KSConfirmationAlert showWithTitle:@"Notification"
-                                       message:message
-                                      okAction:okAction
-                                  cancelAction:cancelAction];
-        }
-    }
-    
-    
+    [self handleNotificaiton:bookingId UserInfo:userInfo];
 }
 
--(void) handleNotificaiton:(NSString*) bookingId
+-(void) handleNotificaiton:(NSString*) bookingId UserInfo:(NSDictionary*)userinfo
 {
-    KSBookingDetailsController *detailC = [UIStoryboard bookingDetailsController];
-    [detailC showLoadingView];
+    BOOL appInBackGround = FALSE;
+    UIApplication *application = [UIApplication sharedApplication];
+    if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
+        appInBackGround = TRUE;
+    }
+    
     [KSDAL bookingWithBookingId:bookingId
                      completion:^(KSAPIStatus status, id response) {
-                         NSLog(@"%@",response);
-                         if (KSAPIStatusSuccess == status) {
-                             KSTrip *trip = (KSTrip*)response;
+                         if (KSAPIStatusSuccess == status && response != nil) {
                              
-                             KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
-                             detailController.tripInfo = trip;
-                             detailController.isOpenedFromPushNotification = TRUE;
-                             
-                             SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
-                             
-                             UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
-                             [navController pushViewController:detailController animated:NO];
-                             [detailController hideLoadingView];
+                             if (appInBackGround) {
+                                 
+                                 [self navigateToBookingDetailsForTrip:(KSTrip*)response];
+                             }
+                             else{
+                                 [self showAlertForTrip:(KSTrip*)response UserInfo:userinfo];
+                             }
                              
                          }
                      }];
 }
 
+-(void) showAlertForTrip:(KSTrip*)trip UserInfo:(NSDictionary*)userInfo
+{
+    
+    NSString *okBtnTitle = @"Details";
+    if ([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil) {
+        okBtnTitle = @"Rate Trip";
+    }
+    
+    KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:okBtnTitle handler:^(KSConfirmationAlertAction *action) {
+        [self navigateToBookingDetailsForTrip:trip];
+    }];
+    KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel"
+                                                                                 handler:^(KSConfirmationAlertAction *action) {
+                                                                                     
+                                                                                 }];
+    NSString *message = nil;
+    NSDictionary *alert = [userInfo objectForKey:@"aps"];
+    if (alert) {
+        message = [alert objectForKey:@"alert"];
+    }
+    if (message) {
+        
+        [KSConfirmationAlert showWithTitle:@"Notification"
+                                   message:message
+                                  okAction:okAction
+                              cancelAction:cancelAction];
+    }
+}
+
+-(void) navigateToBookingDetailsForTrip:(KSTrip*)trip
+{
+    
+    KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
+    detailController.tripInfo = trip;
+    detailController.isOpenedFromPushNotification = TRUE;
+    
+    SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+    
+    UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+    [navController pushViewController:detailController animated:NO];
+    //[detailController hideLoadingView];
+}
 
 - (UIColor *)colorWithRed:(int)r green:(int)g blue:(int)b {
     

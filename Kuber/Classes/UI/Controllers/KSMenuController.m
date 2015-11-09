@@ -39,7 +39,10 @@
     self.lblDisplayName.font = [UIFont fontWithName:KSMuseoSans500 size:17];
     self.lblPhone.text = user.phone;
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setBookingSelected)
+                                                 name:@"KSSetBookingSelected"
+                                               object:nil];
 }
 
 
@@ -90,6 +93,25 @@
     self.view.userInteractionEnabled = TRUE;
 }
 
+-(void) setBookingSelected
+{
+    [self deSelectAll];
+    [self.btnBookATaxi setSelected:TRUE];
+}
+
+-(void) deSelectAll{
+
+    NSArray *arr = self.btnBookATaxi.superview.subviews;
+    
+    
+    for (id btn in arr) {
+        if ([btn isKindOfClass:[UIButton class]] ) {
+            KSMenuButton *b = (KSMenuButton*)btn;
+            [b setSelected:FALSE];
+        }
+    }
+
+}
 
 #pragma mark -
 #pragma mark - Storyboard events
@@ -131,7 +153,7 @@
         [btn setSelected:FALSE];
         [self logoutThisUser];
         
-        NSArray *arr = self.btnBookATaxi.superview.subviews;
+        /*NSArray *arr = self.btnBookATaxi.superview.subviews;
         
         
         for (id btn in arr) {
@@ -139,7 +161,8 @@
                 KSMenuButton *b = (KSMenuButton*)btn;
                 [b setSelected:FALSE];
             }
-        }
+        }*/
+        [self deSelectAll];
     }];
     
     KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
