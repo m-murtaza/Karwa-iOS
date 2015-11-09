@@ -12,6 +12,10 @@
 #import "KSWebClient.h"
 #import "MagicalRecord.h"
 
+#define BOOKING_SYNC_TIME @"bookingSyncTime"
+#define BOOKING_LIST_NUM_RECORD 10
+
+
 @implementation KSDAL (KSBooking)
 
 
@@ -134,7 +138,7 @@
 
     KSWebClient *webClient = [KSWebClient instance];
 
-    [webClient GET:@"/booking" params:@{} completion:^(BOOL success, NSDictionary *response) {
+    [webClient GET:@"/booking" params:@{@"synctime":[KSDAL bookingSyncTime]} completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         KSUser *user = [KSDAL loggedInUser];
         if (KSAPIStatusSuccess == status) {
@@ -144,6 +148,7 @@
             [KSDAL addTrips:trips];
            
             [KSDBManager saveContext:^{
+                [KSDAL updateBookingSyncTime];
                 completionBlock(status, [user.trips allObjects]);
             }];
         }
@@ -221,6 +226,61 @@
         }];
 }
 
++ (NSArray*) fetchPendingBookingHistoryFromDB
+{
+    NSPredicate *pendingPredicate = [NSPredicate predicateWithFormat:@"status == %d || status == %d || status == %d || status == %d || status == %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSAPIStatusTaxiAssigned];
+    NSArray *pendingBookings = [KSTrip MR_findAllSortedBy:@"pickupTime"
+                                                ascending:YES
+                                            withPredicate:pendingPredicate ];
+    return pendingBookings;
+    
+}
++ (NSArray*) fetchTopNonPendingBookingHistoryFromDB
+{
+    return [KSDAL fetchTopNonPendingBookingHistoryFromDB:0 Limit:BOOKING_LIST_NUM_RECORD];
+}
+
++ (NSArray*) fetchTopNonPendingBookingHistoryFromDB:(NSInteger)offset Limit:(NSInteger)limit
+{
+    NSPredicate *otherBookingsPredicate = [NSPredicate predicateWithFormat:@"status != %d && status != %d && status != %d && status != %d && status != %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSAPIStatusTaxiAssigned];
+    
+    
+    NSFetchRequest *otherBookingFetchRequest = [KSTrip MR_requestAllWithPredicate:otherBookingsPredicate];
+    
+    [otherBookingFetchRequest setFetchOffset:offset];
+    if (limit>0) {
+            [otherBookingFetchRequest setFetchLimit:limit];
+    }
+    
+    
+    NSSortDescriptor *otherBookingSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:otherBookingSortDescriptor];
+    [otherBookingFetchRequest setSortDescriptors:sortDescriptors];
+    
+    NSArray *otherBookings = [KSTrip MR_executeFetchRequest:otherBookingFetchRequest];
+    return otherBookings;
+}
+
++ (NSArray*) fetchBookingHistoryFromDB
+{
+    
+    NSArray *pendingBookings = [KSDAL fetchPendingBookingHistoryFromDB];
+    NSArray *otherBookings = [KSDAL fetchTopNonPendingBookingHistoryFromDB];
+    
+    NSArray * bookingHistory = [pendingBookings arrayByAddingObjectsFromArray:otherBookings];
+    return bookingHistory;
+    
+}
+
++ (void) removeOldBookings
+{
+    NSArray *otherBookings = [KSDAL fetchTopNonPendingBookingHistoryFromDB:50 Limit:0];
+    for (KSTrip *trip in otherBookings) {
+      
+        [trip MR_deleteEntity];
+    }
+    [KSDBManager saveContext:nil];
+}
 
 #pragma mark -
 #pragma mark - Trip rating
@@ -350,5 +410,32 @@
     [user addTripsObject:trip];
     return trip;
 }
+
++(NSString*) bookingSyncTime
+{
+    NSDate *syncDate = [[NSUserDefaults standardUserDefaults] objectForKey:BOOKING_SYNC_TIME];
+    if (!syncDate) {
+
+        syncDate = [self defaultSyncDate];
+    }
+    
+    NSTimeInterval syncTimeInterval = [syncDate timeIntervalSince1970];
+    NSString *strSyncTimeInterval = [NSString stringWithFormat:@"%f",syncTimeInterval];
+    return strSyncTimeInterval;
+    
+}
+
++(void) updateBookingSyncTime
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSDate date] forKey:BOOKING_SYNC_TIME];
+    [defaults synchronize];
+}
+
++(NSDate*) defaultSyncDate
+{
+    return [NSDate dateWithTimeIntervalSince1970:0];        //Default date of 1970
+}
+
 
 @end

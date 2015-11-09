@@ -76,6 +76,7 @@ typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
     KSTripStatusCancelled = 7,
     KSTripStatusComplete = 6,
     KSTripStatusTaxiNotFound = 9,
+    KSTripStatusManuallyAssigned = 12,
     KSTripStatusPending = 98,
     KSTripStatusCompletedNotRated = 99
 };

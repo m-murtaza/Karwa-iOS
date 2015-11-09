@@ -33,4 +33,14 @@
 
 +(void) bookingWithBookingId:(NSString*)bookingId completion:(KSDALCompletionBlock)completionBlock;
 
++ (NSArray*) fetchBookingHistoryFromDB;
++ (NSArray*) fetchPendingBookingHistoryFromDB;
++ (NSArray*) fetchTopNonPendingBookingHistoryFromDB;
+
++ (void) removeOldBookings;
+
+
+//+(NSString*) bookingSyncTime;
+//+(void) updateBookingSyncTime;
+//+(NSDate*) defaultSyncDate;
 @end

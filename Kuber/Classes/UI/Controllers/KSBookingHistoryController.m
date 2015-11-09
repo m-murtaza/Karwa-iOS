@@ -50,17 +50,18 @@
     
     if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Bookings";
-        [KSDAL syncPendingBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+        
+    [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
                 
-                [me buildTripsHistory:trips];
-            }
-            else{
+                [me buildTripsHistory:[KSDAL fetchBookingHistoryFromDB]];
                 
+            }
+            else
+            {
                 [KSAlert show:KSStringFromAPIStatus(status)];
             }
-            
         }];
     }
     else if(_tripStatus == KSTripStatusCompletedNotRated){
