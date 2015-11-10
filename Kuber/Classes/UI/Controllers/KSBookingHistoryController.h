@@ -12,4 +12,7 @@
 
 
 @property (nonatomic) NSUInteger tripStatus;
+@property (nonatomic, strong) NSArray *trips;
+
+- (void)buildTripsHistory:(NSArray*)data;
 @end

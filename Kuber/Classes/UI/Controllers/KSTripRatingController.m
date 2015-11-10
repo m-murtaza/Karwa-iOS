@@ -153,41 +153,36 @@
         return;
     }
     
-    //__block UINavigationController *navController = self.navigationController;
-    
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
-            
-            UIViewController *controller = [UIStoryboard mainRootController];
-            [self.revealViewController setFrontViewController:controller animated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
+            if (self.isOpenedFromPushNotification) {
+                
+                UIViewController *controller = [UIStoryboard mainRootController];
+                [self.revealViewController setFrontViewController:controller animated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
+            }
+            else{
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
         else {
             [KSAlert show:KSStringFromAPIStatus(status)];
         }
     };
 
-   // NSString *issues = @"";
     KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
     tripRating.serviceRating = [NSNumber numberWithFloat:self.serviceRating.rate];
     if (self.serviceRating.rate <= 3) {
         
         tripRating.issue = [self issueList];
-        //tripRating.comments = @"";
     }
     else {
         tripRating.issue = @"";
         
-        //tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     }
     tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
-
-    //tripRating.issue = issues;
-    
-    //tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
-    
     [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
     
 }

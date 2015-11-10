@@ -71,6 +71,7 @@
 		18481B7E1B0B5F7D00855F54 /* KSSessionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B7D1B0B5F7D00855F54 /* KSSessionInfo.m */; };
 		18481B841B0B6AFF00855F54 /* NSManagedObject+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B831B0B6AFF00855F54 /* NSManagedObject+KSExtended.m */; };
 		18481B871B0B929F00855F54 /* KSDAL.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B861B0B929F00855F54 /* KSDAL.m */; };
+		1848E7F01BF0AF3E00C2B2A3 /* KSRateYourTripController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */; settings = {ASSET_TAGS = (); }; };
 		184B74471BC0FFA8003AD936 /* filled-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184B74401BC0FFA8003AD936 /* filled-star@2x.png */; };
 		184B74481BC0FFA8003AD936 /* idle-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184B74411BC0FFA8003AD936 /* idle-star@2x.png */; };
 		184B74491BC0FFA8003AD936 /* nearby-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184B74421BC0FFA8003AD936 /* nearby-pin@2x.png */; };
@@ -406,6 +407,8 @@
 		18481B831B0B6AFF00855F54 /* NSManagedObject+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+KSExtended.m"; sourceTree = "<group>"; };
 		18481B851B0B929F00855F54 /* KSDAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDAL.h; sourceTree = "<group>"; };
 		18481B861B0B929F00855F54 /* KSDAL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDAL.m; sourceTree = "<group>"; };
+		1848E7EE1BF0AF3E00C2B2A3 /* KSRateYourTripController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSRateYourTripController.h; sourceTree = "<group>"; };
+		1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSRateYourTripController.m; sourceTree = "<group>"; };
 		184B74401BC0FFA8003AD936 /* filled-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "filled-star@2x.png"; path = "AddressPicker/filled-star@2x.png"; sourceTree = "<group>"; };
 		184B74411BC0FFA8003AD936 /* idle-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "idle-star@2x.png"; path = "AddressPicker/idle-star@2x.png"; sourceTree = "<group>"; };
 		184B74421BC0FFA8003AD936 /* nearby-pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nearby-pin@2x.png"; path = "AddressPicker/nearby-pin@2x.png"; sourceTree = "<group>"; };
@@ -1400,6 +1403,8 @@
 				18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */,
 				1859E9011BC635A400354B84 /* KSFranchises.h */,
 				1859E9021BC635A400354B84 /* KSFranchises.m */,
+				1848E7EE1BF0AF3E00C2B2A3 /* KSRateYourTripController.h */,
+				1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1882,6 +1887,7 @@
 				18A762C11B006D8E00B9ED32 /* KSViewController.m in Sources */,
 				18481B4F1B091EFA00855F54 /* MBProgressHUD.m in Sources */,
 				1819A4C51BC394A600D7AB88 /* KSBookmark.m in Sources */,
+				1848E7F01BF0AF3E00C2B2A3 /* KSRateYourTripController.m in Sources */,
 				18481B711B09CC2500855F54 /* KSMenuController.m in Sources */,
 				18D65E041B9EE56300D6C1BD /* KSTextField.m in Sources */,
 				18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */,

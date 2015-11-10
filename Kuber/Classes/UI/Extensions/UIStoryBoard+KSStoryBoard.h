@@ -26,4 +26,6 @@
 
 + (id)tripRatingController;
 
++ (id) bookingMapController;
+
 @end

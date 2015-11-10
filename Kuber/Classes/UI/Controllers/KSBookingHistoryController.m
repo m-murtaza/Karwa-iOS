@@ -9,12 +9,12 @@
 #import "KSBookingHistoryController.h"
 
 #import "KSBookingHistoryCell.h"
-#import "KSTripRatingController.h"
+
 #import "KSBookingDetailsController.h"
 
 @interface KSBookingHistoryController ()
 
-@property (nonatomic, strong) NSArray *trips;
+
 @property (nonatomic, strong) NSMutableDictionary *tripsData;
 @property (nonatomic, strong) NSMutableArray *datesHeader;
 
@@ -47,8 +47,8 @@
     
     //Todo Need to remove repitative code
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    if (_tripStatus == KSTripStatusPending) {
+//    
+//    if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Bookings";
         
     [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
@@ -63,21 +63,21 @@
                 [KSAlert show:KSStringFromAPIStatus(status)];
             }
         }];
-    }
-    else if(_tripStatus == KSTripStatusCompletedNotRated){
-        
-        self.navigationItem.title = @"Rate your Trips";
-        [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-            [hud hide:YES];
-            if (KSAPIStatusSuccess == status) {
-                [me buildTripsHistory:trips];
-            }
-            else{
-                
-                [KSAlert show:KSStringFromAPIStatus(status)];
-            }
-        }];
-    }
+//    }
+//    else if(_tripStatus == KSTripStatusCompletedNotRated){
+//        
+//        self.navigationItem.title = @"Rate your Trips";
+//        [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+//            [hud hide:YES];
+//            if (KSAPIStatusSuccess == status) {
+//                [me buildTripsHistory:trips];
+//            }
+//            else{
+//                
+//                [KSAlert show:KSStringFromAPIStatus(status)];
+//            }
+//        }];
+//    }
 }
 
 #pragma mark -
@@ -172,18 +172,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     KSTrip *trip = self.trips[indexPath.row];
-    if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
-        KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
-        ratingController.trip = trip;
-        [self.navigationController pushViewController:ratingController animated:YES];
-    }
-    else {
+//    if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
+//        KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
+//        ratingController.trip = trip;
+//        [self.navigationController pushViewController:ratingController animated:YES];
+//    }
+//    else {
         KSBookingDetailsController *detailsController = [UIStoryboard bookingDetailsController];
         detailsController.tripInfo = trip;
         detailsController.showsAcknowledgement = NO;
         detailsController.navigationItem.leftBarButtonItem = nil;
         [self.navigationController pushViewController:detailsController animated:YES];
-    }
+//    }
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     

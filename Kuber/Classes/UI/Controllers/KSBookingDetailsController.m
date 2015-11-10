@@ -292,6 +292,7 @@
     if([segue.identifier isEqualToString:@"segueBookingDetailsToRate"]){
         KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
         ratingController.trip = self.tripInfo;
+        ratingController.isOpenedFromPushNotification = self.isOpenedFromPushNotification;
     }
     else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
     {

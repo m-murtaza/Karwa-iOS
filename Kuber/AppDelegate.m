@@ -16,8 +16,7 @@
 #import "KSTripRatingController.h"
 #import "AFNetworking.h"
 #import "KSConfirmationAlert.h"
-
-
+//#import "KSBookingMapController.h"
 
 @interface AppDelegate ()
 
@@ -268,6 +267,9 @@
     KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
     detailController.tripInfo = trip;
     detailController.isOpenedFromPushNotification = TRUE;
+    
+    //KSBookingMapController *mapController = [UIStoryboard bookingMapController];
+    
     
     SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
     

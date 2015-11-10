@@ -45,4 +45,9 @@
     return [self viewControllerWithIdentifier:@"KSTripRatingController"];
 }
 
++ (id) bookingMapController {
+    
+    return [self viewControllerWithIdentifier:@"BookingMapScene"];
+}
+
 @end
