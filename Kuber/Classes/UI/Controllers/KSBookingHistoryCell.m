@@ -12,10 +12,11 @@
 
 @interface KSBookingHistoryCell ()
 
-@property (nonatomic, strong) IBOutlet KSLabel *lblPickupFrom;
-@property (nonatomic, strong) IBOutlet KSLabel *lblDropoffTo;
-@property (nonatomic, strong) IBOutlet KSLabel *lblDate;
-@property (nonatomic, strong) IBOutlet KSLabel *lblTime;
+@property (nonatomic, weak) IBOutlet KSLabel *lblPickupFrom;
+@property (nonatomic, weak) IBOutlet KSLabel *lblDropoffTo;
+@property (nonatomic, weak) IBOutlet KSLabel *lblDate;
+@property (nonatomic, weak) IBOutlet KSLabel *lblTime;
+@property (nonatomic, weak) IBOutlet UIImageView *imgStatus;
 
 
 @end
@@ -68,7 +69,37 @@
         
         self.lblTime.text = time;
     }
+    
+    [self setStatusImage:trip];
+    
 }
+
+-(void) setStatusImage:(KSTrip*)trip
+{
+    NSInteger status = [trip.status integerValue];
+    
+    if (status == KSTripStatusOpen || status == KSTripStatusInProcess || status == KSTripStatusPending || status == KSTripStatusManuallyAssigned || status == KSAPIStatusTaxiAssigned ) {
+        
+        if (trip.taxi ) {
+            [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];
+        }
+        else {
+            [self.imgStatus setImage:[UIImage imageNamed:@"upcoming-tag.png"]];
+        }
+    }
+    else if(status == KSTripStatusCancelled){
+    
+        [self.imgStatus setImage:[UIImage imageNamed:@"cancelled-tag.png"]];
+    }
+    else if(status == KSTripStatusComplete){
+    
+        [self.imgStatus setImage:[UIImage imageNamed:@"completed-tag.png"]];
+    }
+        
+
+}
+
+
 
 -(NSString*) formatedDate:(NSDate*)date
 {

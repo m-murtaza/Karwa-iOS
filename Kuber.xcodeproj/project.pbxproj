@@ -22,6 +22,12 @@
 		1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E35B1B15B1CC00A8983E /* NSString+Levenshtein.m */; };
 		1801E3661B16293900A8983E /* KSReadOnlyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E3651B16293900A8983E /* KSReadOnlyTextField.m */; };
 		180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */; };
+		181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 181029FA1BF1C7AD00242CCD /* KSLocation.m */; };
+		18102A011BF1E45700242CCD /* bluePin-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FC1BF1E45700242CCD /* bluePin-ico@2x.png */; };
+		18102A021BF1E45700242CCD /* cancelled-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */; };
+		18102A031BF1E45700242CCD /* completed-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FE1BF1E45700242CCD /* completed-tag@2x.png */; };
+		18102A041BF1E45700242CCD /* confirmed-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */; };
+		18102A051BF1E45700242CCD /* upcoming-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18102A001BF1E45700242CCD /* upcoming-tag@2x.png */; };
 		1819A4C21BC394A500D7AB88 /* KSTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C11BC394A500D7AB88 /* KSTrip.m */; };
 		1819A4C51BC394A600D7AB88 /* KSBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C41BC394A600D7AB88 /* KSBookmark.m */; };
 		1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C71BC3DCB600D7AB88 /* NSDate+Utilities.m */; };
@@ -71,7 +77,7 @@
 		18481B7E1B0B5F7D00855F54 /* KSSessionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B7D1B0B5F7D00855F54 /* KSSessionInfo.m */; };
 		18481B841B0B6AFF00855F54 /* NSManagedObject+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B831B0B6AFF00855F54 /* NSManagedObject+KSExtended.m */; };
 		18481B871B0B929F00855F54 /* KSDAL.m in Sources */ = {isa = PBXBuildFile; fileRef = 18481B861B0B929F00855F54 /* KSDAL.m */; };
-		1848E7F01BF0AF3E00C2B2A3 /* KSRateYourTripController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */; settings = {ASSET_TAGS = (); }; };
+		1848E7F01BF0AF3E00C2B2A3 /* KSRateYourTripController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */; };
 		184B74471BC0FFA8003AD936 /* filled-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184B74401BC0FFA8003AD936 /* filled-star@2x.png */; };
 		184B74481BC0FFA8003AD936 /* idle-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184B74411BC0FFA8003AD936 /* idle-star@2x.png */; };
 		184B74491BC0FFA8003AD936 /* nearby-pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184B74421BC0FFA8003AD936 /* nearby-pin@2x.png */; };
@@ -241,19 +247,19 @@
 		189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */; };
 		18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A05E731BAD71F7004DA12A /* UITextField+KSExtended.m */; };
 		18A19DA91B6E43CD0057EED9 /* KSSplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A19DA81B6E43CD0057EED9 /* KSSplashController.m */; };
-		18A268831BE1EA53006FC942 /* email-signup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268821BE1EA53006FC942 /* email-signup@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A268851BE5D5CE006FC942 /* phonecode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268841BE5D5CE006FC942 /* phonecode@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A268881BE5F8D7006FC942 /* KSSafeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268871BE5F8D7006FC942 /* KSSafeArray.m */; settings = {ASSET_TAGS = (); }; };
-		18A2688B1BE6396B006FC942 /* KSTrackTaxiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2688A1BE6396B006FC942 /* KSTrackTaxiController.m */; settings = {ASSET_TAGS = (); }; };
-		18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2688D1BE639D8006FC942 /* MKMapView+KSExtensions.m */; settings = {ASSET_TAGS = (); }; };
-		18A268911BE63A30006FC942 /* KSDAL+Taxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268901BE63A30006FC942 /* KSDAL+Taxi.m */; settings = {ASSET_TAGS = (); }; };
-		18A268941BE759B5006FC942 /* right-arrow-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268921BE759B5006FC942 /* right-arrow-track@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A268951BE759B5006FC942 /* trackpin-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268931BE759B5006FC942 /* trackpin-detail@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A268981BE7708A006FC942 /* KSTrackingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268971BE7708A006FC942 /* KSTrackingAnnotationView.m */; settings = {ASSET_TAGS = (); }; };
-		18A2689C1BE7725C006FC942 /* myPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A2689A1BE7725C006FC942 /* myPin@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A2689D1BE7725C006FC942 /* taxiPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A2689B1BE7725C006FC942 /* taxiPin@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A2689F1BE7811C006FC942 /* distanceb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A2689E1BE7811C006FC942 /* distanceb@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18A268A11BE8BA21006FC942 /* numberplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268A01BE8BA21006FC942 /* numberplate@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18A268831BE1EA53006FC942 /* email-signup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268821BE1EA53006FC942 /* email-signup@2x.png */; };
+		18A268851BE5D5CE006FC942 /* phonecode@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268841BE5D5CE006FC942 /* phonecode@2x.png */; };
+		18A268881BE5F8D7006FC942 /* KSSafeArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268871BE5F8D7006FC942 /* KSSafeArray.m */; };
+		18A2688B1BE6396B006FC942 /* KSTrackTaxiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2688A1BE6396B006FC942 /* KSTrackTaxiController.m */; };
+		18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2688D1BE639D8006FC942 /* MKMapView+KSExtensions.m */; };
+		18A268911BE63A30006FC942 /* KSDAL+Taxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268901BE63A30006FC942 /* KSDAL+Taxi.m */; };
+		18A268941BE759B5006FC942 /* right-arrow-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268921BE759B5006FC942 /* right-arrow-track@2x.png */; };
+		18A268951BE759B5006FC942 /* trackpin-detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268931BE759B5006FC942 /* trackpin-detail@2x.png */; };
+		18A268981BE7708A006FC942 /* KSTrackingAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A268971BE7708A006FC942 /* KSTrackingAnnotationView.m */; };
+		18A2689C1BE7725C006FC942 /* myPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A2689A1BE7725C006FC942 /* myPin@2x.png */; };
+		18A2689D1BE7725C006FC942 /* taxiPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A2689B1BE7725C006FC942 /* taxiPin@2x.png */; };
+		18A2689F1BE7811C006FC942 /* distanceb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A2689E1BE7811C006FC942 /* distanceb@2x.png */; };
+		18A268A11BE8BA21006FC942 /* numberplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A268A01BE8BA21006FC942 /* numberplate@2x.png */; };
 		18A762811AFF785B00B9ED32 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762801AFF785B00B9ED32 /* main.m */; };
 		18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A762831AFF785B00B9ED32 /* AppDelegate.m */; };
 		18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 18A762851AFF785B00B9ED32 /* Kuber.xcdatamodeld */; };
@@ -288,12 +294,12 @@
 		18D65DD91B9EC39100D6C1BD /* KSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65DD81B9EC39100D6C1BD /* KSLabel.m */; };
 		18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65DDB1B9EC6B700D6C1BD /* KSButton.m */; };
 		18D65E041B9EE56300D6C1BD /* KSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D65E031B9EE56300D6C1BD /* KSTextField.m */; };
-		18D6E6171BCFB20700D6BBA0 /* Destination-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6161BCFB20700D6BBA0 /* Destination-button.png */; settings = {ASSET_TAGS = (); }; };
-		18D6E61B1BCFCAE300D6BBA0 /* box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18D6E61C1BCFCAE300D6BBA0 /* box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */; settings = {ASSET_TAGS = (); }; };
-		18D6E6231BCFDE6A00D6BBA0 /* username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */; settings = {ASSET_TAGS = (); }; };
+		18D6E6171BCFB20700D6BBA0 /* Destination-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6161BCFB20700D6BBA0 /* Destination-button.png */; };
+		18D6E61B1BCFCAE300D6BBA0 /* box-focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6181BCFCAE300D6BBA0 /* box-focused@2x.png */; };
+		18D6E61C1BCFCAE300D6BBA0 /* box-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6191BCFCAE300D6BBA0 /* box-idle@2x.png */; };
+		18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */; };
+		18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */; };
+		18D6E6231BCFDE6A00D6BBA0 /* username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */; };
 		4AC2746EAC6FEC29212317C9 /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE7C04732DFDF9FF4EBE42 /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -342,6 +348,13 @@
 		1801E3651B16293900A8983E /* KSReadOnlyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReadOnlyTextField.m; sourceTree = "<group>"; };
 		180B77621B8C5FDF0008930F /* KSDAL+TripIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+TripIssue.h"; sourceTree = "<group>"; };
 		180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+TripIssue.m"; sourceTree = "<group>"; };
+		181029F91BF1C7AD00242CCD /* KSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocation.h; sourceTree = "<group>"; };
+		181029FA1BF1C7AD00242CCD /* KSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLocation.m; sourceTree = "<group>"; };
+		181029FC1BF1E45700242CCD /* bluePin-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bluePin-ico@2x.png"; path = "BookingHistory/bluePin-ico@2x.png"; sourceTree = "<group>"; };
+		181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancelled-tag@2x.png"; path = "BookingHistory/cancelled-tag@2x.png"; sourceTree = "<group>"; };
+		181029FE1BF1E45700242CCD /* completed-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "completed-tag@2x.png"; path = "BookingHistory/completed-tag@2x.png"; sourceTree = "<group>"; };
+		181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "confirmed-tag@2x.png"; path = "BookingHistory/confirmed-tag@2x.png"; sourceTree = "<group>"; };
+		18102A001BF1E45700242CCD /* upcoming-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upcoming-tag@2x.png"; path = "BookingHistory/upcoming-tag@2x.png"; sourceTree = "<group>"; };
 		1819A4C01BC394A500D7AB88 /* KSTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTrip.h; sourceTree = "<group>"; };
 		1819A4C11BC394A500D7AB88 /* KSTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrip.m; sourceTree = "<group>"; };
 		1819A4C31BC394A600D7AB88 /* KSBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookmark.h; sourceTree = "<group>"; };
@@ -1241,6 +1254,8 @@
 				185043891B29792200AECDE9 /* KSPlacemark.m */,
 				189F5D9C1B08600000EAF9B2 /* KSLocationManager.h */,
 				189F5D9D1B08600000EAF9B2 /* KSLocationManager.m */,
+				181029F91BF1C7AD00242CCD /* KSLocation.h */,
+				181029FA1BF1C7AD00242CCD /* KSLocation.m */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -1464,6 +1479,11 @@
 		18CFC4A31BA1892D009B5D70 /* BookingHistory */ = {
 			isa = PBXGroup;
 			children = (
+				181029FC1BF1E45700242CCD /* bluePin-ico@2x.png */,
+				181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */,
+				181029FE1BF1E45700242CCD /* completed-tag@2x.png */,
+				181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */,
+				18102A001BF1E45700242CCD /* upcoming-tag@2x.png */,
 				18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */,
 				18CFC4A51BA18949009B5D70 /* list-icons.png */,
 				18CFC4A61BA18949009B5D70 /* list-sep.png */,
@@ -1674,6 +1694,7 @@
 				18A2689F1BE7811C006FC942 /* distanceb@2x.png in Resources */,
 				184CF9291BA03F1D0025B883 /* ver-sep@2x.png in Resources */,
 				184D22901BA58BED007CB740 /* reasons-white-box@2x.png in Resources */,
+				18102A011BF1E45700242CCD /* bluePin-ico@2x.png in Resources */,
 				184CF91A1BA02A080025B883 /* taxi-icon@2x.png in Resources */,
 				1880C5651B79B786004F0188 /* search-icon@2x.png in Resources */,
 				18CFC4AF1BA18949009B5D70 /* to.png in Resources */,
@@ -1683,12 +1704,14 @@
 				1880C5181B7877ED004F0188 /* booklater-button@2x.png in Resources */,
 				1880C53A1B7877ED004F0188 /* StarEmpty@2x.png in Resources */,
 				184D225E1BA55E64007CB740 /* bookings-ico-active@2x.png in Resources */,
+				18102A021BF1E45700242CCD /* cancelled-tag@2x.png in Resources */,
 				18481B611B09C89700855F54 /* Localizable.strings in Resources */,
 				1880C5321B7877ED004F0188 /* setpickuplocation@2x.png in Resources */,
 				184CF9191BA02A080025B883 /* pickup-pointer@2x.png in Resources */,
 				184D22721BA55E64007CB740 /* settings-ico-idle@2x.png in Resources */,
 				184B744D1BC0FFA8003AD936 /* white-box@2x.png in Resources */,
 				18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */,
+				18102A051BF1E45700242CCD /* upcoming-tag@2x.png in Resources */,
 				184D22631BA55E64007CB740 /* favorites-active@2x.png in Resources */,
 				184CF9131BA02A080025B883 /* forward-arrow@2x.png in Resources */,
 				184D226B1BA55E64007CB740 /* menu-sep@2x.png in Resources */,
@@ -1719,6 +1742,7 @@
 				184245FB1BBCF997001C780A /* MuseoSans-300Italic.otf in Resources */,
 				1880C5281B7877ED004F0188 /* menu_item_selected@2x.png in Resources */,
 				1822C4061BA7FC320087ACE3 /* fullname@2x.png in Resources */,
+				18102A031BF1E45700242CCD /* completed-tag@2x.png in Resources */,
 				184246071BBD0BCF001C780A /* date-sep@2x.png in Resources */,
 				184D22621BA55E64007CB740 /* favorite-ico-idle@2x.png in Resources */,
 				1880C5271B7877ED004F0188 /* menu_history_selected@2x.png in Resources */,
@@ -1793,6 +1817,7 @@
 				184D22941BA58BED007CB740 /* topback-ratings@2x.png in Resources */,
 				1880C5481B7877ED004F0188 /* s_place_pin.png in Resources */,
 				184D228E1BA58BED007CB740 /* option-check@2x.png in Resources */,
+				18102A041BF1E45700242CCD /* confirmed-tag@2x.png in Resources */,
 				1880C5291B7877ED004F0188 /* menu_logout@2x.png in Resources */,
 				185E3C371B772B3500909B20 /* MuseoForDell-300.otf in Resources */,
 				1880C51B1B7877ED004F0188 /* close@2x.png in Resources */,
@@ -1902,6 +1927,7 @@
 				185E3BFD1B70779700909B20 /* KSDAL+Bookmark.m in Sources */,
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
 				1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */,
+				181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */,
 				1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */,
 				18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */,
 				1859E8FD1BC631D400354B84 /* KSFranchise.m in Sources */,

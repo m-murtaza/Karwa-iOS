@@ -11,6 +11,7 @@
 #import "KSDBManager.h"
 #import "KSWebClient.h"
 #import "MagicalRecord.h"
+#import "KSLocation.h"
 
 #define BOOKING_SYNC_TIME @"bookingSyncTime"
 #define BOOKING_LIST_NUM_RECORD 10
@@ -190,6 +191,61 @@
     }
     return [NSArray arrayWithArray:recentBookings];
 }
+
+/*+ (NSArray *)recentTripsWithLandmark:(NSInteger)numRecord
+{
+    NSMutableArray *recentBookings = [NSMutableArray array];
+    NSArray * arr = [[[self loggedInUser] trips] allObjects];
+    NSSortDescriptor *sdesc = [[NSSortDescriptor alloc] initWithKey:@"pickupTime" ascending:NO];
+    
+    NSArray *sortedArry = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObject:sdesc]];
+    
+    int i = 0;
+    
+    
+    for (KSTrip *trip in sortedArry) {
+        for (KSLocation *l in recentBookings) {
+            NSLog(@"%@ - %f - %f",l.landmark,l.location.latitude,l.location.longitude);
+        }
+        if (trip.pickupLandmark.length && [trip.pickupLat doubleValue] != 0.0 && [trip.pickupLon doubleValue] != 0.0) {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"landmark = %@",trip.pickupLandmark];
+            
+            NSArray *tempArray = [recentBookings filteredArrayUsingPredicate:predicate];
+            if (tempArray == nil || tempArray.count == 0) {
+                
+                 CLLocationCoordinate2D pLocation = CLLocationCoordinate2DMake([trip.pickupLat doubleValue], [trip.pickupLon doubleValue]);
+                KSLocation *location = [[KSLocation alloc] initWithLandmark:trip.pickupLandmark location:pLocation Hint:trip.pickupHint];
+                
+                [recentBookings addObject:location];
+                i++;
+                if (i >= numRecord) {
+                    break;
+                }
+            }
+        }
+        if (trip.dropoffLandmark.length && ![trip.dropoffLandmark isEqualToString:@"---"] && [trip.dropOffLat doubleValue] != 0 && [trip.dropOffLon doubleValue] != 0.0) {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"landmark = %@",trip.dropoffLandmark];
+            
+            NSArray *tempArray = [recentBookings filteredArrayUsingPredicate:predicate];
+            if (tempArray == nil || tempArray.count == 0) {
+                
+                CLLocationCoordinate2D pLocation = CLLocationCoordinate2DMake([trip.dropOffLat doubleValue], [trip.dropOffLon doubleValue]);
+                KSLocation *location = [[KSLocation alloc] initWithLandmark:trip.dropoffLandmark location:pLocation Hint:@""];
+                
+                [recentBookings addObject:location];
+                i++;
+                if (i >= numRecord) {
+                    break;
+                }
+            }
+        }
+        
+    }
+    return [NSArray arrayWithArray:recentBookings];
+}*/
+
 
 + (NSArray *)recentTripsWithLandmarkText {
     
