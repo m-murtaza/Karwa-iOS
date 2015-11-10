@@ -13,4 +13,6 @@
 
 @interface KSBookingMapController : KSViewController <MKMapViewDelegate, UITableViewDataSource,UITableViewDelegate>
 
+
+@property (nonatomic, strong) KSTrip *repeatTrip;
 @end

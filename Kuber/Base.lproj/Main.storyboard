@@ -47,6 +47,7 @@
             <string>MuseoSans-500</string>
             <string>MuseoSans-500</string>
             <string>MuseoSans-500</string>
+            <string>MuseoSans-500</string>
         </mutableArray>
         <mutableArray key="MuseoSans_700.otf">
             <string>MuseoSans-700</string>
@@ -5285,6 +5286,82 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0I5-7C-PW4">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrived.png" translatesAutoresizingMaskIntoConstraints="NO" id="T1W-SP-pJ9">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <animations/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taxi Not Yet Arrived" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEf-bT-2yS">
+                                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="276" id="Bal-tU-MAA">
+                                                        <variation key="heightClass=regular-widthClass=compact" constant="215"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="height" constant="21" id="nRZ-Fy-FUl"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="Bal-tU-MAA"/>
+                                                        <exclude reference="nRZ-Fy-FUl"/>
+                                                    </mask>
+                                                </variation>
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="85" y="2" width="215" height="21"/>
+                                                    <mask key="constraints">
+                                                        <include reference="Bal-tU-MAA"/>
+                                                        <include reference="nRZ-Fy-FUl"/>
+                                                    </mask>
+                                                </variation>
+                                            </label>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="T1W-SP-pJ9" secondAttribute="trailing" id="0ci-lc-Jfw"/>
+                                            <constraint firstItem="GEf-bT-2yS" firstAttribute="centerY" secondItem="0I5-7C-PW4" secondAttribute="centerY" id="5II-pI-lyN"/>
+                                            <constraint firstItem="T1W-SP-pJ9" firstAttribute="top" secondItem="0I5-7C-PW4" secondAttribute="top" id="IHY-LW-Vbs"/>
+                                            <constraint firstItem="T1W-SP-pJ9" firstAttribute="leading" secondItem="0I5-7C-PW4" secondAttribute="leading" id="Kbx-Px-5MV"/>
+                                            <constraint firstAttribute="bottom" secondItem="T1W-SP-pJ9" secondAttribute="bottom" id="U3d-qe-dWs"/>
+                                            <constraint firstAttribute="height" constant="26" id="d5a-2f-6Pj"/>
+                                            <constraint firstItem="GEf-bT-2yS" firstAttribute="centerX" secondItem="0I5-7C-PW4" secondAttribute="centerX" id="zEL-kB-ov2"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="subviews">
+                                                <exclude reference="T1W-SP-pJ9"/>
+                                                <exclude reference="GEf-bT-2yS"/>
+                                            </mask>
+                                            <mask key="constraints">
+                                                <exclude reference="d5a-2f-6Pj"/>
+                                                <exclude reference="0ci-lc-Jfw"/>
+                                                <exclude reference="IHY-LW-Vbs"/>
+                                                <exclude reference="Kbx-Px-5MV"/>
+                                                <exclude reference="U3d-qe-dWs"/>
+                                                <exclude reference="5II-pI-lyN"/>
+                                                <exclude reference="zEL-kB-ov2"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact">
+                                            <mask key="subviews">
+                                                <include reference="T1W-SP-pJ9"/>
+                                                <include reference="GEf-bT-2yS"/>
+                                            </mask>
+                                            <mask key="constraints">
+                                                <include reference="d5a-2f-6Pj"/>
+                                                <include reference="0ci-lc-Jfw"/>
+                                                <include reference="IHY-LW-Vbs"/>
+                                                <include reference="Kbx-Px-5MV"/>
+                                                <include reference="U3d-qe-dWs"/>
+                                                <include reference="5II-pI-lyN"/>
+                                                <include reference="zEL-kB-ov2"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -5295,38 +5372,49 @@
                                         <variation key="heightClass=regular-widthClass=compact" constant="-10.312138728323703"/>
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="qNs-Ru-PqO" secondAttribute="bottom" constant="14" id="C8B-XJ-pUI"/>
+                                    <constraint firstItem="0I5-7C-PW4" firstAttribute="top" secondItem="cE8-WD-Luh" secondAttribute="top" id="EZD-Jz-akX"/>
                                     <constraint firstItem="D1v-Lh-IPD" firstAttribute="top" secondItem="cE8-WD-Luh" secondAttribute="top" id="ODx-YW-XGS"/>
                                     <constraint firstItem="D1v-Lh-IPD" firstAttribute="leading" secondItem="cE8-WD-Luh" secondAttribute="leading" id="Uvc-v0-KpK"/>
                                     <constraint firstAttribute="trailing" secondItem="D1v-Lh-IPD" secondAttribute="trailing" id="fpP-f5-rA7"/>
+                                    <constraint firstItem="0I5-7C-PW4" firstAttribute="leading" secondItem="cE8-WD-Luh" secondAttribute="leading" id="jLa-Ml-xsi"/>
+                                    <constraint firstAttribute="trailing" secondItem="0I5-7C-PW4" secondAttribute="trailing" id="ywv-Nc-oVm"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="D1v-Lh-IPD"/>
                                         <exclude reference="qNs-Ru-PqO"/>
+                                        <exclude reference="0I5-7C-PW4"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="Bbj-3B-PsL"/>
-                                        <exclude reference="1tA-6e-INM"/>
-                                        <exclude reference="C8B-XJ-pUI"/>
+                                        <exclude reference="EZD-Jz-akX"/>
+                                        <exclude reference="jLa-Ml-xsi"/>
+                                        <exclude reference="ywv-Nc-oVm"/>
                                         <exclude reference="0uv-JF-BF9"/>
                                         <exclude reference="ODx-YW-XGS"/>
                                         <exclude reference="Uvc-v0-KpK"/>
                                         <exclude reference="fpP-f5-rA7"/>
+                                        <exclude reference="1tA-6e-INM"/>
+                                        <exclude reference="C8B-XJ-pUI"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="D1v-Lh-IPD"/>
                                         <include reference="qNs-Ru-PqO"/>
+                                        <include reference="0I5-7C-PW4"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="Bbj-3B-PsL"/>
-                                        <include reference="1tA-6e-INM"/>
-                                        <include reference="C8B-XJ-pUI"/>
+                                        <include reference="EZD-Jz-akX"/>
+                                        <include reference="jLa-Ml-xsi"/>
+                                        <include reference="ywv-Nc-oVm"/>
                                         <include reference="0uv-JF-BF9"/>
                                         <include reference="ODx-YW-XGS"/>
                                         <include reference="Uvc-v0-KpK"/>
                                         <include reference="fpP-f5-rA7"/>
+                                        <include reference="1tA-6e-INM"/>
+                                        <include reference="C8B-XJ-pUI"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -6556,6 +6644,7 @@
                         <outlet property="constraintPickupTimeBottom" destination="C8B-XJ-pUI" id="Xin-ht-BEE"/>
                         <outlet property="constraintTaxiInfoBGImgBottom" destination="ZrJ-95-MHn" id="Dv9-Wz-Y6u"/>
                         <outlet property="constraintTaxiInfoViewHeight" destination="mUZ-nT-CuQ" id="Qek-3g-d1N"/>
+                        <outlet property="imgStatus" destination="T1W-SP-pJ9" id="1mc-Vh-r72"/>
                         <outlet property="imgTrackTaxiSepLine" destination="ii6-ha-q6b" id="YLF-y1-WV1"/>
                         <outlet property="lblDriverName" destination="gtG-F6-2Uu" id="ZZ3-hw-QcH"/>
                         <outlet property="lblDriverNumber" destination="4uG-8Q-6ZJ" id="JEJ-DI-VMQ"/>
@@ -6565,17 +6654,19 @@
                         <outlet property="lblPickupAddress" destination="Kzx-Mp-O9Z" id="lcH-MD-LUy"/>
                         <outlet property="lblPickupDate" destination="qNs-Ru-PqO" id="BvL-Y1-jBF"/>
                         <outlet property="lblPickupTime" destination="QNU-9s-cNj" id="LKW-xz-b8z"/>
+                        <outlet property="lblStatus" destination="GEf-bT-2yS" id="1WB-oP-uMb"/>
                         <outlet property="lblTaxiNumber" destination="rfE-SO-Pn6" id="ozR-3Z-5C6"/>
                         <outlet property="lblTitleTaxiInfo" destination="Sn6-es-YOx" id="5Ap-bn-JMN"/>
                         <outlet property="revealButtonItem" destination="Zoi-3x-Zo4" id="2mH-qS-fC8"/>
                         <outlet property="viewTaxiInfo" destination="yHl-xf-otu" id="nO2-pa-Ctp"/>
                         <outlet property="viewTrackMyTaxi" destination="zNH-ld-eBT" id="BOa-Xe-2D7"/>
                         <segue destination="OFs-9T-1p0" kind="show" identifier="segueBookingDetailsToRate" id="nbB-dK-Gpq"/>
+                        <segue destination="R2Z-NB-JBO" kind="show" identifier="segueDetailsToBookATaxi" id="QFx-wv-VWz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGm-1Y-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="591" y="792"/>
+            <point key="canvasLocation" x="835.5" y="763.5"/>
         </scene>
         <!--Track My Taxi-->
         <scene sceneID="Z40-iQ-9fC">
@@ -7992,6 +8083,7 @@
         <image name="Destination-button.png" width="104" height="98"/>
         <image name="KS_login_logo.png" width="185" height="55"/>
         <image name="VerifyCode-box.png" width="335" height="40"/>
+        <image name="arrived.png" width="374" height="26"/>
         <image name="avatar.png" width="36" height="36"/>
         <image name="blue-button-down.png" width="185" height="55"/>
         <image name="blue-button-idle.png" width="329" height="50"/>
@@ -8062,7 +8154,8 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yeV-6V-ZSt"/>
         <segue reference="zRd-7U-Rqs"/>
+        <segue reference="QFx-wv-VWz"/>
+        <segue reference="nbB-dK-Gpq"/>
     </inferredMetricsTieBreakers>
 </document>

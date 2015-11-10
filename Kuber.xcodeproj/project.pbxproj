@@ -28,6 +28,10 @@
 		18102A031BF1E45700242CCD /* completed-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FE1BF1E45700242CCD /* completed-tag@2x.png */; };
 		18102A041BF1E45700242CCD /* confirmed-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */; };
 		18102A051BF1E45700242CCD /* upcoming-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18102A001BF1E45700242CCD /* upcoming-tag@2x.png */; };
+		18102A121BF1F72A00242CCD /* arrived@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18102A0E1BF1F72A00242CCD /* arrived@2x.png */; };
+		18102A131BF1F72A00242CCD /* cancelled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18102A0F1BF1F72A00242CCD /* cancelled@2x.png */; };
+		18102A141BF1F72A00242CCD /* completed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18102A101BF1F72A00242CCD /* completed@2x.png */; };
+		18102A151BF1F72A00242CCD /* not-arrived@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18102A111BF1F72A00242CCD /* not-arrived@2x.png */; };
 		1819A4C21BC394A500D7AB88 /* KSTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C11BC394A500D7AB88 /* KSTrip.m */; };
 		1819A4C51BC394A600D7AB88 /* KSBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C41BC394A600D7AB88 /* KSBookmark.m */; };
 		1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1819A4C71BC3DCB600D7AB88 /* NSDate+Utilities.m */; };
@@ -355,6 +359,10 @@
 		181029FE1BF1E45700242CCD /* completed-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "completed-tag@2x.png"; path = "BookingHistory/completed-tag@2x.png"; sourceTree = "<group>"; };
 		181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "confirmed-tag@2x.png"; path = "BookingHistory/confirmed-tag@2x.png"; sourceTree = "<group>"; };
 		18102A001BF1E45700242CCD /* upcoming-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upcoming-tag@2x.png"; path = "BookingHistory/upcoming-tag@2x.png"; sourceTree = "<group>"; };
+		18102A0E1BF1F72A00242CCD /* arrived@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrived@2x.png"; path = "BookingDetails/arrived@2x.png"; sourceTree = "<group>"; };
+		18102A0F1BF1F72A00242CCD /* cancelled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancelled@2x.png"; path = "BookingDetails/cancelled@2x.png"; sourceTree = "<group>"; };
+		18102A101BF1F72A00242CCD /* completed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "completed@2x.png"; path = "BookingDetails/completed@2x.png"; sourceTree = "<group>"; };
+		18102A111BF1F72A00242CCD /* not-arrived@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "not-arrived@2x.png"; path = "BookingDetails/not-arrived@2x.png"; sourceTree = "<group>"; };
 		1819A4C01BC394A500D7AB88 /* KSTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTrip.h; sourceTree = "<group>"; };
 		1819A4C11BC394A500D7AB88 /* KSTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTrip.m; sourceTree = "<group>"; };
 		1819A4C31BC394A600D7AB88 /* KSBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookmark.h; sourceTree = "<group>"; };
@@ -962,6 +970,10 @@
 		184CF91D1BA03F0E0025B883 /* BookingDetails */ = {
 			isa = PBXGroup;
 			children = (
+				18102A0E1BF1F72A00242CCD /* arrived@2x.png */,
+				18102A0F1BF1F72A00242CCD /* cancelled@2x.png */,
+				18102A101BF1F72A00242CCD /* completed@2x.png */,
+				18102A111BF1F72A00242CCD /* not-arrived@2x.png */,
 				18A268A01BE8BA21006FC942 /* numberplate@2x.png */,
 				18A268921BE759B5006FC942 /* right-arrow-track@2x.png */,
 				18A268931BE759B5006FC942 /* trackpin-detail@2x.png */,
@@ -1654,6 +1666,7 @@
 				184245FD1BBCF997001C780A /* MuseoSans-900Italic.otf in Resources */,
 				1822C4311BA968810087ACE3 /* partners_list@2x.png in Resources */,
 				184D22601BA55E64007CB740 /* bookings-idle@2x.png in Resources */,
+				18102A131BF1F72A00242CCD /* cancelled@2x.png in Resources */,
 				184D226D1BA55E64007CB740 /* rate-ico-idle@2x.png in Resources */,
 				185E3C381B772B3500909B20 /* MuseoForDell-700.otf in Resources */,
 				184D22641BA55E64007CB740 /* favorites-idle@2x.png in Resources */,
@@ -1724,6 +1737,7 @@
 				185FEC811B96DB0E00268296 /* GoogleService-Info.plist in Resources */,
 				1880C53D1B7877ED004F0188 /* StarFull.png in Resources */,
 				1880C54A1B7877ED004F0188 /* taxi-568h@2x.png in Resources */,
+				18102A141BF1F72A00242CCD /* completed@2x.png in Resources */,
 				18CFC4AD1BA18949009B5D70 /* section-bar.png in Resources */,
 				1880C5391B7877ED004F0188 /* StarEmpty.png in Resources */,
 				18A268851BE5D5CE006FC942 /* phonecode@2x.png in Resources */,
@@ -1763,6 +1777,7 @@
 				184CF9241BA03F1D0025B883 /* Booking-details_07-03@2x.png in Resources */,
 				1880C52E1B7877ED004F0188 /* recent@2x.png in Resources */,
 				18D65DC81B9D82B600D6C1BD /* KS_login_logo@2x.png in Resources */,
+				18102A151BF1F72A00242CCD /* not-arrived@2x.png in Resources */,
 				184D22701BA55E64007CB740 /* settings-active@2x.png in Resources */,
 				184D223B1BA55D93007CB740 /* main-screen@2x.png in Resources */,
 				184D22691BA55E64007CB740 /* menu-active-bg@2x.png in Resources */,
@@ -1783,6 +1798,7 @@
 				1880C54B1B7877ED004F0188 /* taxi.png in Resources */,
 				184D22731BA55E64007CB740 /* settings-idle@2x.png in Resources */,
 				1880C5371B7877ED004F0188 /* unfavorite@2x.png in Resources */,
+				18102A121BF1F72A00242CCD /* arrived@2x.png in Resources */,
 				184CF91C1BA02A080025B883 /* white-background@2x.png in Resources */,
 				184D22651BA55E64007CB740 /* logout-active@2x.png in Resources */,
 				1880C5241B7877ED004F0188 /* menu_favorites@2x.png in Resources */,

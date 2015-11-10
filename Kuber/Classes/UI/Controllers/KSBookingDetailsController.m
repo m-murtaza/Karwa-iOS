@@ -14,6 +14,16 @@
 #import "KSTripRatingController.h"
 #import "KSConfirmationAlert.h"
 #import "KSTrackTaxiController.h"
+#import "SWRevealViewController.h"
+#import "KSBookingMapController.h"
+
+typedef enum {
+    
+    BtnStateCancel = 0,
+    BtnStateBookAgain = 1
+    
+}
+BtnState;
 
 @interface KSBookingDetailsController ()
 
@@ -35,6 +45,9 @@
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
 @property (weak, nonatomic) IBOutlet UIView *viewTrackMyTaxi;
 @property (weak, nonatomic) IBOutlet UIImageView *imgTrackTaxiSepLine;
+
+@property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
+@property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
@@ -229,14 +242,23 @@
 {
     
     [self.lblAcknowlegement setHidden:TRUE];
-    [self.btnCancelBooking setHidden:TRUE];
+    //[self.btnCancelBooking setHidden:FALSE];
     switch (trip.status.integerValue) {
         case KSTripStatusOpen:
         case KSTripStatusInProcess:
         case KSTripStatusPending:
         case 12:
         case 4:
-            [self.btnCancelBooking setHidden:FALSE];
+            //[self.btnCancelBooking setHidden:FALSE];
+            [self.btnCancelBooking setTag:BtnStateCancel];
+            [self.btnCancelBooking setTitle:@"Cancel Booking" forState:UIControlStateNormal];
+            [self.btnCancelBooking setTitle:@"CANCEL BOOKING" forState:UIControlStateHighlighted];
+            break;
+        default:
+            //[self.btnCancelBooking setHidden:FALSE];
+            [self.btnCancelBooking setTag:BtnStateBookAgain];
+            [self.btnCancelBooking setTitle:@"BOOK AGAIN" forState:UIControlStateNormal];
+            [self.btnCancelBooking setTitle:@"BOOK AGAIN" forState:UIControlStateHighlighted];
     }
     
     /***************************
@@ -334,6 +356,28 @@
 
 -(IBAction)btnCancelTapped:(id)sender{
     
+    if (self.btnCancelBooking.tag == BtnStateBookAgain) {
+        
+        UINavigationController *controller = [UIStoryboard mainRootController];
+        KSBookingMapController *bookingController = (KSBookingMapController *)[controller.viewControllers firstObject];
+        bookingController.repeatTrip = self.tripInfo;
+        
+        
+        
+        
+        [self.revealViewController setFrontViewController:controller animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
+    }
+    else{
+        [self showAlertForCancelBooking];
+    }
+}
+
+
+
+#pragma mark - Private Functions 
+-(void) showAlertForCancelBooking
+{
     KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
         
         [self cancelBooking];
@@ -347,11 +391,10 @@
                                message:@"Are you sure you want to cancel your booking?"
                               okAction:okAction
                           cancelAction:cancelAction];
+    
 }
 
 
-
-#pragma mark - Private Functions 
 -(void) showHideTrackATaxiButton
 {
     if (self.tripInfo.taxi == nil) {

@@ -73,6 +73,8 @@
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
 
+
+
 //Top Right navigation item
 - (IBAction)showCurrentLocationTapped:(id)sender;
 - (IBAction) btnShowDestinationTapped:(id)sender;
@@ -91,7 +93,14 @@
     dropoffVisible = FALSE;
     [self setIndexForCell:dropoffVisible];
 
-    mapLoadForFirstTime = TRUE;
+    
+    if (self.repeatTrip) {
+        //[self populateOldTripData];
+        mapLoadForFirstTime = FALSE;
+    }
+    else{
+        mapLoadForFirstTime = TRUE;
+    }
     
     
     self.mapView.delegate = self;
@@ -111,19 +120,35 @@
     [self checkLocationAvaliblityAndShowAlert];
     
     //Patch for iOS 9 other wise animation was bit odd.
-    //if (firstTimeLoad) {
-        [self showhideDropOff];
-    //    firstTimeLoad = FALSE;
-   // }
+    
+    [self showhideDropOff];
+    if (self.repeatTrip) {
+     
+        [self populateOldTripData];
+    }
     
 }
-//-(void) viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    hintTxt = @"";
-//}
+
 
 #pragma mark - Private Function
+
+-(void) populateOldTripData
+{
+    [self setMapRegionToLat:[self.repeatTrip.pickupLat doubleValue] Long:[self.repeatTrip.pickupLon doubleValue]];
+    
+    if(self.repeatTrip.dropoffLandmark.length){
+        self.lblDropoffLocaiton.text = self.repeatTrip.dropoffLandmark;
+        dropoffPoint = CLLocationCoordinate2DMake([self.repeatTrip.dropOffLat doubleValue], [self.repeatTrip.dropOffLon doubleValue]);
+    }
+    
+    if (self.repeatTrip.pickupHint.length) {
+        hintTxt = self.repeatTrip.pickupHint;
+    }
+    
+    //[self.mapView setCenterCoordinate:CLLocationCoordinate2DMake([tripInfo.pickupLat doubleValue], [tripInfo.pickupLon doubleValue]) animated:YES];
+    
+}
+
 -(void) addCrashlyticsInfo
 {
     KSUser *user = [KSDAL userWithPhone:[[KSSessionInfo currentSession] phone] ];
@@ -594,12 +619,6 @@
         
         }
     }
-    //[self performSelector:@selector(reversGeoCodeMapLocation) withObject:nil afterDelay:0.1];
-    /*if (isMaploaded) {
-        //NSLog(@"------+----------");
-        [self setPickupLocationLblText];
-        [self setCurrentLocaitonBtnState];
-    //}*/
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
