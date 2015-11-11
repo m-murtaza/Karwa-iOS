@@ -45,6 +45,7 @@
   
     //This will identify if map is loaded for the first time.
     BOOL mapLoadForFirstTime;
+    
     NSInteger idxPickupLocation;
     NSInteger idxDropOffLocation;
     NSInteger idxPickupTime;
@@ -109,7 +110,7 @@
     
     
     [self addTableViewHeader];
-    [self.btnCurrentLocaiton setSelected:TRUE];
+    //[self.btnCurrentLocaiton setSelected:TRUE];
     [self addCrashlyticsInfo];
     
     
@@ -598,6 +599,10 @@
         [self setMapRegionToUserCurrentLocation];
         
     }
+    else{
+        [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+    }
+    
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
@@ -606,7 +611,7 @@
     if (isMaploaded) {
         
         [self setPickupLocationLblText];
-        [self setCurrentLocaitonBtnState];
+        //[self setCurrentLocaitonBtnState];
         [self updateTaxisInCurrentRegion];
     }
     else{
@@ -615,7 +620,7 @@
         
         if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied || locationStatus == kCLAuthorizationStatusNotDetermined){
             [self setPickupLocationLblText];
-            [self setCurrentLocaitonBtnState];
+            //[self setCurrentLocaitonBtnState];
         
         }
     }
@@ -836,7 +841,8 @@
 - (IBAction)showCurrentLocationTapped:(id)sender
 {
     if ([self checkLocationAvaliblityAndShowAlert]) {
-
+        
+        //mapLoadForFirstTime = TRUE;
         self.mapView.showsUserLocation = YES;
         [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
     }
