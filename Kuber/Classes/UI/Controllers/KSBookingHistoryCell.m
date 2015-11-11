@@ -77,26 +77,32 @@
 -(void) setStatusImage:(KSTrip*)trip
 {
     NSInteger status = [trip.status integerValue];
+    [self.imgStatus setHidden:FALSE];
     
-    if (status == KSTripStatusOpen || status == KSTripStatusInProcess || status == KSTripStatusPending || status == KSTripStatusManuallyAssigned || status == KSAPIStatusTaxiAssigned ) {
-        
-        if (trip.taxi ) {
+    switch (status) {
+        case KSTripStatusOpen:
+            [self.imgStatus setImage:[UIImage imageNamed:@"scheduled-tag.png"]];
+            break;
+        case KSTripStatusInProcess:
+        case KSTripStatusManuallyAssigned:
+            [self.imgStatus setImage:[UIImage imageNamed:@"in-process-tag.png"]];
+            break;
+        case KSAPIStatusTaxiAssigned:
             [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];
-        }
-        else {
-            [self.imgStatus setImage:[UIImage imageNamed:@"upcoming-tag.png"]];
-        }
+            break;
+        case KSTripStatusCancelled:
+            [self.imgStatus setImage:[UIImage imageNamed:@"cancelled-tag.png"]];
+            break;
+        case KSTripStatusTaxiNotFound:
+            [self.imgStatus setImage:[UIImage imageNamed:@"taxi-unavailable-tag.png"]];
+            break;
+        case KSTripStatusComplete:
+            [self.imgStatus setImage:[UIImage imageNamed:@"completed-tag.png"]];
+            break;
+        default:
+            [self.imgStatus setHidden:TRUE];
+            break;
     }
-    else if(status == KSTripStatusCancelled){
-    
-        [self.imgStatus setImage:[UIImage imageNamed:@"cancelled-tag.png"]];
-    }
-    else if(status == KSTripStatusComplete){
-    
-        [self.imgStatus setImage:[UIImage imageNamed:@"completed-tag.png"]];
-    }
-        
-
 }
 
 

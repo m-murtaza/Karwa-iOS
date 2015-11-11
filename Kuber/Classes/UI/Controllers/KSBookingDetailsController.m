@@ -112,6 +112,8 @@ BtnState;
     [self setTaxiInfo:self.tripInfo];
     
     [KSGoogleAnalytics trackPage:@"Booking Details"];
+    
+    [self updateStatusOfTaxi];
 }
 
 - (void) setNavigationTitle
@@ -376,6 +378,49 @@ BtnState;
 
 
 #pragma mark - Private Functions 
+-(void) updateStatusOfTaxi
+{
+    NSInteger status = [self.tripInfo.status integerValue];
+    [self.imgStatus setHidden:FALSE];
+    [self.lblStatus setHidden:FALSE];
+    switch (status) {
+        case KSTripStatusOpen:
+            [self.imgStatus setImage:[UIImage imageNamed:@"scheduled-bar.png"]];
+            [self.lblStatus setText:@"Your booking has been scheduled!"];
+            break;
+        case KSTripStatusInProcess:
+        case KSTripStatusManuallyAssigned:
+            [self.imgStatus setImage:[UIImage imageNamed:@"inprocess-bar.png"]];
+            [self.lblStatus setText:@"Booking is in process, will assign soon!"];
+            //[self.imgStatus setImage:[UIImage imageNamed:@"in-process-tag.png"]];
+            break;
+        case KSAPIStatusTaxiAssigned:
+            [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-bar.png"]];
+            [self.lblStatus setText:@"Your booking has confirmed, taxi will arrived soon!"];
+            //[self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];
+            break;
+        case KSTripStatusCancelled:
+            [self.imgStatus setImage:[UIImage imageNamed:@"cancelled-bar.png"]];
+            [self.lblStatus setText:@"Your have cancelled this booking"];
+            //[self.imgStatus setImage:[UIImage imageNamed:@"cancelled-tag.png"]];
+            break;
+        case KSTripStatusTaxiNotFound:
+            [self.imgStatus setImage:[UIImage imageNamed:@"unavailable-bar.png"]];
+            [self.lblStatus setText:@"Taxi not available, please try again later"];
+            //[self.imgStatus setImage:[UIImage imageNamed:@"taxi-unavailable-tag.png"]];
+            break;
+        case KSTripStatusComplete:
+            [self.imgStatus setImage:[UIImage imageNamed:@"completed-bar.png"]];
+            [self.lblStatus setText:@"Trip has been completed!"];
+            break;
+        default:
+            [self.imgStatus setHidden:TRUE];
+            [self.lblStatus setHidden:TRUE];
+            break;
+    }
+}
+
+
 -(void) showAlertForCancelBooking
 {
     KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
