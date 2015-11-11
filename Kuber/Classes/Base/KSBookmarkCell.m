@@ -49,7 +49,7 @@
                                                       userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
     
     //TODO catch this notification on table view
-    [super onClickButton:sender];
+    [super onClickButton:nil];
     
 }
 
