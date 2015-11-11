@@ -223,7 +223,7 @@ BtnState;
 
 -(void) updateTrackingOption
 {
-    if ([self.tripInfo.status integerValue] != KSAPIStatusTaxiAssigned) {
+    if ([self.tripInfo.status integerValue] != KSTripStatusTaxiAssigned) {
         
         [self.viewTrackMyTaxi setHidden:TRUE];
         [self.imgTrackTaxiSepLine setHidden:TRUE];
@@ -394,7 +394,7 @@ BtnState;
             [self.lblStatus setText:@"Booking is in process, will assign soon!"];
             //[self.imgStatus setImage:[UIImage imageNamed:@"in-process-tag.png"]];
             break;
-        case KSAPIStatusTaxiAssigned:
+        case KSTripStatusTaxiAssigned:
             [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-bar.png"]];
             [self.lblStatus setText:@"Your booking has confirmed, taxi will arrived soon!"];
             //[self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];

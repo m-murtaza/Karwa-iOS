@@ -39,7 +39,6 @@
 
 - (void)updateCellData:(KSTrip *)trip {
     
-    
     if (trip.pickupLandmark.length) {
         self.lblPickupFrom.text = [NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
     }
@@ -87,7 +86,7 @@
         case KSTripStatusManuallyAssigned:
             [self.imgStatus setImage:[UIImage imageNamed:@"in-process-tag.png"]];
             break;
-        case KSAPIStatusTaxiAssigned:
+        case KSTripStatusTaxiAssigned:
             [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];
             break;
         case KSTripStatusCancelled:

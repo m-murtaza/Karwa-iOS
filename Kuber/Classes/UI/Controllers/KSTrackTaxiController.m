@@ -47,6 +47,8 @@
     self.timer = nil;
 }
 
+
+
 - (void)dealloc
 {
     //[super viewWillDisappear:animated];
@@ -68,6 +70,27 @@
 
 
 #pragma mark - Private Functions
+
+-(BOOL) checkLocationAvaliblityAndShowAlert
+{
+    BOOL locationAvailable = TRUE;
+    NSInteger locationStatus = [CLLocationManager authorizationStatus];
+    
+    if(locationStatus == kCLAuthorizationStatusRestricted || locationStatus == kCLAuthorizationStatusDenied || locationStatus == kCLAuthorizationStatusNotDetermined){
+        locationAvailable = FALSE;
+        KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+        
+        [KSConfirmationAlert showWithTitle:nil
+                                   message:@"Location services are disabled. Please enable location services."
+                                  okAction:okAction];
+    }
+    return locationAvailable;
+}
+
+
 
 -(void) setMapParameters
 {
@@ -162,7 +185,7 @@
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
-    DLog(@"");
+    [self checkLocationAvaliblityAndShowAlert];
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation     *)userLocation

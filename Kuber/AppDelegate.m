@@ -220,12 +220,16 @@
                      completion:^(KSAPIStatus status, id response) {
                          if (KSAPIStatusSuccess == status && response != nil) {
                              
+                             KSTrip *trip = (KSTrip*) response;
+                             //trip.status = [NSNumber numberWithInt:KSTripStatusComplete];
+                             trip.rating = nil;
+                             
                              if (appInBackGround) {
                                  
-                                 [self navigateToBookingDetailsForTrip:(KSTrip*)response];
+                                 [self navigateToBookingDetailsForTrip:trip];
                              }
                              else{
-                                 [self showAlertForTrip:(KSTrip*)response UserInfo:userinfo];
+                                 [self showAlertForTrip:trip UserInfo:userinfo];
                              }
                              
                          }

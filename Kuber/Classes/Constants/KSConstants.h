@@ -72,7 +72,7 @@ typedef NS_OPTIONS(NSUInteger, KSBookingOption) {
 typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
     KSTripStatusOpen                = 0,                   //For Advance Job before dispatcher pick up this job and move to current bookings.
     KSTripStatusInProcess           = 1,              //When a job is current or dispatcher moves advance job to current bookings.
-    KSAPIStatusTaxiAssigned         = 4,            //When Taxi is assigned to some job Automaticly.
+    KSTripStatusTaxiAssigned         = 4,            //When Taxi is assigned to some job Automaticly.
     KSTripStatusCancelled           = 7,
     KSTripStatusComplete            = 6,
     KSTripStatusTaxiNotFound        = 9,
