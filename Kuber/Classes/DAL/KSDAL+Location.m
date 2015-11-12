@@ -305,4 +305,18 @@
                      }];
 }
 
++(KSGeoLocation*)geolocationWithLandmark:(NSNumber *)lat Longitude:(NSNumber*)lon
+{
+    //TODO check land mark on lat long.
+    KSGeoLocation *geolocation = nil;
+    //landmark = @"Al Rayyan";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"latitude == %@ && longitude == %@",lat,lon];
+   NSArray *geolocations = [KSGeoLocation MR_findAllWithPredicate:predicate];
+     //NSArray *geolocations = [KSGeoLocation MR_findAll];
+    if(geolocations && geolocations.count > 0)
+        geolocation = [geolocations firstObject];
+    
+    return geolocation;
+}
+
 @end

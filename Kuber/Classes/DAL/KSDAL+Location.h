@@ -39,4 +39,6 @@
 + (KSGeoLocation *)locationsWithLocationID:(NSNumber *)locId;
 
 +(void) searchServerwithQuery:(NSString*)query completion:(KSDALCompletionBlock)completionBlock;
+
++(KSGeoLocation*)geolocationWithLandmark:(NSNumber *)lat Longitude:(NSNumber*)lon;
 @end

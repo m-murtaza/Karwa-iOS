@@ -159,6 +159,42 @@
     }];
 }
 
++ (NSArray *)recentTripDestinationGeoLocation:(NSInteger)numRecord;
+{
+    NSMutableArray *recentBookings = [NSMutableArray array];
+    NSArray * arr = [[[self loggedInUser] trips] allObjects];
+    NSSortDescriptor *sdesc = [[NSSortDescriptor alloc] initWithKey:@"pickupTime" ascending:NO];
+    
+    NSArray *sortedArry = [arr sortedArrayUsingDescriptors:[NSArray arrayWithObject:sdesc]];
+    
+    int i = 0;
+    
+    for (KSTrip *trip in sortedArry) {
+        
+        if (trip.dropoffLandmark.length) {
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"latitude == %@ && longitude == %@",trip.dropOffLat,trip.dropOffLon];
+            
+            NSArray *tempArray = [recentBookings filteredArrayUsingPredicate:predicate];
+            if (tempArray == nil || tempArray.count == 0) {
+                //Find geolocation for dropoff land mark
+                KSGeoLocation * geolocation = [KSDAL geolocationWithLandmark:trip.dropOffLat Longitude:trip.dropOffLon];
+                if (geolocation) {
+                   
+                    [recentBookings addObject:geolocation];
+                    i++;
+                    if (i >= numRecord)
+                        break;
+                }
+            }
+        }
+    }
+    return [NSArray arrayWithArray:recentBookings];
+}
+
+    
+
+
 + (NSArray *)recentTripsWithLandmark:(NSInteger)numRecord
 {
     NSMutableArray *recentBookings = [NSMutableArray array];
@@ -172,7 +208,7 @@
     
     for (KSTrip *trip in sortedArry) {
     
-        if (trip.pickupLandmark.length || trip.dropoffLandmark.length) {
+        if (trip.pickupLandmark.length) {
             
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pickupLandmark = %@",trip.pickupLandmark];
             

@@ -37,7 +37,8 @@ KSTableViewType;
 
 @interface KSAddressPickerController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 {
-    KSSafeArray *_recentBookings;
+    KSSafeArray *_recentBookings;                   //will have KSTrip Object
+    KSSafeArray *_recentBookingsForDestination;     //Will have KSGeolocaiton object;
     
     KSSafeArray *_savedBookmarks;
     
@@ -223,8 +224,8 @@ KSTableViewType;
     }
     
     else if(section == idxRecentSection){
-        if (showAllRecent || _recentBookings.count <= LOADING_CELL_IDX)
-            numRow = _recentBookings.count;
+        if (showAllRecent || _recentBookings.count + _recentBookingsForDestination.count <= LOADING_CELL_IDX)
+            numRow = _recentBookings.count + _recentBookingsForDestination.count;
         else
             numRow = LOADING_CELL_IDX + 1;
     }
@@ -331,6 +332,9 @@ KSTableViewType;
     [self loadAllBookmarkData];
  
     _recentBookings = (KSSafeArray*)[KSDAL recentTripsWithLandmark:10];
+    _recentBookingsForDestination = (KSSafeArray*) [KSDAL recentTripDestinationGeoLocation:5];
+    
+    
     //_recentBookings = [KSDAL recentTripsWithLandmarkText];
     _nearestLocations = (KSSafeArray*)[NSArray array];
     
@@ -678,7 +682,10 @@ KSTableViewType;
     }
     else {
         
-        cellReuseId = recentCellReuseId;
+        if (indexPath.row <= _recentBookings.count)
+            cellReuseId = recentCellReuseId;
+        else
+            cellReuseId = nearbyCellReuseId;
         if (!showAllRecent && indexPath.row == LOADING_CELL_IDX) {
             
             UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
@@ -691,7 +698,13 @@ KSTableViewType;
         }
         else {
             
-            cellData = [_recentBookings objectAtIndex:indexPath.row];
+            if (indexPath.row < _recentBookings.count) {
+                cellData = [_recentBookings objectAtIndex:indexPath.row];
+            }
+            else {
+                cellData = [_recentBookingsForDestination objectAtIndex:indexPath.row - _recentBookings.count];
+            }
+            
         }
     }
 
