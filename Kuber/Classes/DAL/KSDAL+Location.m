@@ -83,7 +83,6 @@
 + (NSArray *)locationsMatchingText:(NSString *)text {
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address contains[c] %@", text];
-#warning TODO: Test this method
     NSArray *locations = [KSGeoLocation MR_findAllWithPredicate:predicate];
     //NSString *str = [NSString stringWithFormat:@""];
 
@@ -312,9 +311,13 @@
     //landmark = @"Al Rayyan";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"latitude == %@ && longitude == %@",lat,lon];
    NSArray *geolocations = [KSGeoLocation MR_findAllWithPredicate:predicate];
-     //NSArray *geolocations = [KSGeoLocation MR_findAll];
-    if(geolocations && geolocations.count > 0)
-        geolocation = [geolocations firstObject];
+    
+    if(geolocations && geolocations.count > 0){
+        
+        if (![(KSGeoLocation*)[geolocations firstObject] geoLocationToBookmark]) {
+            geolocation = [geolocations firstObject];
+        }
+    }
     
     return geolocation;
 }

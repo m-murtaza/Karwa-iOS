@@ -47,6 +47,7 @@ KSTableViewType;
     KSSafeArray *_searchLocations;
     KSSafeArray *_searchSavedBookmarks;
     KSSafeArray *_searchRecentBookings;
+    KSSafeArray *_searchRecentBookingForDest;
     
     NSInteger idxNearSection;
     NSInteger idxFavSection;
@@ -170,6 +171,11 @@ KSTableViewType;
     return sectionTitle;
 }
 
+-(void) filterGeoLocationFortext:(NSString*)searchText
+{
+    _searchLocations = (KSSafeArray*)[KSDAL locationsMatchingText:searchText];
+}
+
 - (void) filterFavLocationFortext:(NSString*)searchText
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[c] %@",searchText];
@@ -181,6 +187,16 @@ KSTableViewType;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pickupLandmark CONTAINS[c] %@",searchText];
     _searchRecentBookings = (KSSafeArray*)[_recentBookings filteredArrayUsingPredicate:predicate];
 }
+-(void) filterRecentDestinationForText:(NSString*)searchText
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"address contains[c] %@", searchText];
+    
+    _searchRecentBookingForDest = (KSSafeArray*)[_recentBookingsForDestination filteredArrayUsingPredicate:predicate];
+    
+}
+
+
+
 - (NSInteger) numberOfRowWhenSearchingForSection:(NSInteger)section
 {
     NSInteger numRow = 0;
@@ -198,8 +214,8 @@ KSTableViewType;
             numRow = LOADING_CELL_IDX + 1;
     }
     else if(section == idxRecentSection){
-        if (showAllRecent || _searchRecentBookings.count <= LOADING_CELL_IDX)
-            numRow = _searchRecentBookings.count;
+        if (showAllRecent || _searchRecentBookings.count + _searchRecentBookingForDest.count <= LOADING_CELL_IDX)
+            numRow = _searchRecentBookings.count + _searchRecentBookingForDest.count;
         else
             numRow = LOADING_CELL_IDX + 1;
     }
@@ -250,7 +266,7 @@ KSTableViewType;
         idxFavSection = idxNearSection + 1;
         sectionCount++;
     }
-    if (_searchRecentBookings.count > 0) {
+    if (_searchRecentBookings.count + _searchRecentBookingForDest.count > 0) {
         
         idxRecentSection = idxNearSection + idxFavSection + 2;
         if (idxRecentSection > 2) {
@@ -331,8 +347,8 @@ KSTableViewType;
 {
     [self loadAllBookmarkData];
  
-    _recentBookings = (KSSafeArray*)[KSDAL recentTripsWithLandmark:10];
-    _recentBookingsForDestination = (KSSafeArray*) [KSDAL recentTripDestinationGeoLocation:5];
+    _recentBookings = (KSSafeArray*)[KSDAL recentTripsWithLandmark:7];
+    _recentBookingsForDestination = (KSSafeArray*) [KSDAL recentTripDestinationGeoLocation:7];
     
     
     //_recentBookings = [KSDAL recentTripsWithLandmarkText];
@@ -693,8 +709,10 @@ KSTableViewType;
         }
         
         if (isSearching) {
-            
-            cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
+            if (indexPath.row < _searchRecentBookings.count)
+                cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
+            else
+                cellData = [_searchRecentBookingForDest objectAtIndex:indexPath.row - _searchRecentBookings.count];
         }
         else {
             
@@ -809,13 +827,29 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
         else {
             
             if (!self.searchField.text.length) {
-                trip = [_recentBookings objectAtIndex:indexPath.row];
+                NSLog(@"%ld, %lu, %lu",(long)indexPath.row,(unsigned long)_recentBookings.count,(unsigned long)_recentBookingsForDestination.count);
+                if (_recentBookings.count > indexPath.row)
+                    trip = [_recentBookings objectAtIndex:indexPath.row];
+                else
+                    geolocation = [_recentBookingsForDestination objectAtIndex:indexPath.row - _recentBookings.count];
             }
             else {
-                trip = [_searchRecentBookings objectAtIndex:indexPath.row];
+                if (_searchRecentBookings.count > indexPath.row)
+                    trip = [_searchRecentBookings objectAtIndex:indexPath.row];
+                else
+                    geolocation = [_searchRecentBookingForDest objectAtIndex:indexPath.row - _searchRecentBookings.count];
+            }
+            if (trip) {
+                placeName = trip.pickupLandmark;
+                location = [[CLLocation alloc] initWithLatitude:trip.pickupLat.doubleValue longitude:trip.pickupLon.doubleValue];
+                hint = trip.pickupHint;
+            }
+            else{
+                placeName = geolocation.address;
+                location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
             }
             
-            placeName = trip.dropoffLandmark;
+            /*placeName = trip.dropoffLandmark;
             if (trip.pickupLandmark.length) {
                 placeName = trip.pickupLandmark;
                 location = [[CLLocation alloc] initWithLatitude:trip.pickupLat.doubleValue longitude:trip.pickupLon.doubleValue];
@@ -823,7 +857,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             else {
                 location = [[CLLocation alloc] initWithLatitude:trip.dropOffLat.doubleValue longitude:trip.dropOffLon.doubleValue];
             }
-            hint = trip.pickupHint;
+            hint = trip.pickupHint;*/
         }
 
         [self.delegate addressPicker:self didDismissWithAddress:placeName location:location hint:hint];
@@ -849,16 +883,17 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
 
 -(void) searchForQuery:(NSString*)searchString
 {
-    KSAddressPickerController *me = self;
+    //KSAddressPickerController *me = self;
     //[self showLoadingView];
-    [[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
+    //[[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
         //[self hideLoadingView];
-        _searchLocations = (KSSafeArray*)placemarks;
-        
-        [self filterFavLocationFortext:searchString];
-        [self filterRecentLocationsForText:searchString];
-        [me.tableView reloadData];
-    }];
+        //_searchLocations = (KSSafeArray*)placemarks;
+    [self filterGeoLocationFortext:searchString];
+    [self filterFavLocationFortext:searchString];
+    [self filterRecentLocationsForText:searchString];
+    [self filterRecentDestinationForText:searchString];
+        [self.tableView reloadData];
+    //}];
 }
 
 #pragma mark -
@@ -913,14 +948,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                                    
                                }];
              
-            /*[[KSLocationManager instance] placemarksMatchingQuery:textField.text country:@"" completion:^(NSArray *placemarks) {
-                [self hideLoadingView];
-                _searchLocations = placemarks;
-                
-                [self filterFavLocationFortext:textField.text];
-                [self filterRecentLocationsForText:textField.text];
-                [me.tableView reloadData];
-            }];*/
+            
         }
         return NO;
     }
@@ -929,35 +957,12 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    //textField.text = @"";
-
+    
     [textField resignFirstResponder];
-        //[self.tableView reloadData];
+    
     return YES;
 }
 
-//- (void)onSearchTextChange:(UITextField *)textField {
-//    
-//    if (textField == self.searchField) {
-//
-//        if (!textField.text.length) {
-//            if (KSTableViewTypeNearby == self.segmentControl.selectedSegmentIndex) {
-//                
-//                [self.tableView reloadData];
-//            }
-//        }
-//    }
-//}
-
-//#pragma mark -
-//#pragma mark - Event handlers
-//
-//- (IBAction)onSegmentChange:(id)sender {
-//    
-//    self.tableViewType =  (KSTableViewType)self.segmentControl.selectedSegmentIndex;
-//
-//    [self.tableView reloadData];
-//}
 
 
 @end
