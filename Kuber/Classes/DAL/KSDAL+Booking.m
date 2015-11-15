@@ -14,7 +14,7 @@
 #import "KSLocation.h"
 
 #define BOOKING_SYNC_TIME @"bookingSyncTime"
-#define BOOKING_LIST_NUM_RECORD 10
+#define BOOKING_LIST_NUM_RECORD 20
 
 
 @implementation KSDAL (KSBooking)
@@ -521,6 +521,13 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSDate date] forKey:BOOKING_SYNC_TIME];
+    [defaults synchronize];
+}
+
++(void) removeSyncTime
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:BOOKING_SYNC_TIME];
     [defaults synchronize];
 }
 

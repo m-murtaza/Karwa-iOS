@@ -257,7 +257,7 @@
             }
             else{
                 
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for chosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
             }
             
             

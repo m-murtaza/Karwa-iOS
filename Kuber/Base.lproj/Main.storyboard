@@ -32,8 +32,10 @@
             <string>MuseoSans-300</string>
             <string>MuseoSans-300</string>
             <string>MuseoSans-300</string>
+            <string>MuseoSans-300</string>
         </mutableArray>
         <mutableArray key="MuseoSans_500.otf">
+            <string>MuseoSans-500</string>
             <string>MuseoSans-500</string>
             <string>MuseoSans-500</string>
             <string>MuseoSans-500</string>
@@ -121,6 +123,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="7X7-vk-3AU" firstAttribute="centerX" secondItem="sZG-6z-zuk" secondAttribute="centerX" id="83k-wk-ctQ"/>
                                     <constraint firstAttribute="centerY" secondItem="7X7-vk-3AU" secondAttribute="centerY" id="Jfe-QI-QGc">
                                         <variation key="heightClass=regular-widthClass=compact" constant="20"/>
                                     </constraint>
@@ -135,6 +138,7 @@
                                         <exclude reference="7X7-vk-3AU"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="83k-wk-ctQ"/>
                                         <exclude reference="Jfe-QI-QGc"/>
                                         <exclude reference="fpe-Nh-umj"/>
                                         <exclude reference="l2I-WI-cb7"/>
@@ -146,10 +150,11 @@
                                         <include reference="7X7-vk-3AU"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <include reference="83k-wk-ctQ"/>
                                         <include reference="Jfe-QI-QGc"/>
-                                        <include reference="fpe-Nh-umj"/>
-                                        <include reference="l2I-WI-cb7"/>
-                                        <include reference="nBT-4A-glD"/>
+                                        <exclude reference="fpe-Nh-umj"/>
+                                        <exclude reference="l2I-WI-cb7"/>
+                                        <exclude reference="nBT-4A-glD"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -827,6 +832,30 @@
                                     <action selector="onClickSignup:" destination="VQC-Rf-KsE" eventType="touchUpInside" id="kPF-W1-PwU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you agree to the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2f-Ra-bcu">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
+                                <color key="textColor" red="0.12941176470588234" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="20" y="404" width="209" height="21"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jax-e6-Etc" customClass="UIUnderlinedButton">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
+                                <state key="normal" title="Terms of Services ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="226" y="401" width="124" height="27"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="4K4-dV-UHQ" kind="show" id="PGr-La-UFe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -835,13 +864,20 @@
                             <constraint firstItem="GPO-YQ-lI7" firstAttribute="top" secondItem="DDv-vH-Zon" secondAttribute="bottom" priority="990" constant="20" id="2Ss-93-LxF">
                                 <variation key="heightClass=regular-widthClass=compact" constant="37"/>
                             </constraint>
+                            <constraint firstItem="u2f-Ra-bcu" firstAttribute="leading" secondItem="iad-xr-dyr" secondAttribute="leadingMargin" id="2n1-dF-eDg"/>
                             <constraint firstItem="wOp-Ii-80Z" firstAttribute="top" secondItem="xNc-iH-LEq" secondAttribute="bottom" priority="990" constant="20" id="6kP-9c-ohS">
                                 <variation key="heightClass=regular-widthClass=compact" constant="33"/>
                             </constraint>
                             <constraint firstItem="DDv-vH-Zon" firstAttribute="leading" secondItem="FSc-64-WBw" secondAttribute="leading" id="Ae0-hB-Ngw"/>
                             <constraint firstItem="DDv-vH-Zon" firstAttribute="top" secondItem="FSc-64-WBw" secondAttribute="bottom" constant="20" id="Bw1-hv-ipK"/>
+                            <constraint firstItem="u2f-Ra-bcu" firstAttribute="top" secondItem="GPO-YQ-lI7" secondAttribute="bottom" constant="52" id="EL6-Is-KGU">
+                                <variation key="heightClass=regular-widthClass=compact" constant="33"/>
+                            </constraint>
                             <constraint firstItem="GPO-YQ-lI7" firstAttribute="leading" secondItem="DDv-vH-Zon" secondAttribute="leading" id="FLp-4U-t7i"/>
                             <constraint firstItem="xNc-iH-LEq" firstAttribute="leading" secondItem="wOp-Ii-80Z" secondAttribute="leading" id="G3C-81-ClV"/>
+                            <constraint firstItem="jax-e6-Etc" firstAttribute="top" secondItem="GPO-YQ-lI7" secondAttribute="bottom" constant="49" id="GNN-kx-XCT">
+                                <variation key="heightClass=regular-widthClass=compact" constant="30"/>
+                            </constraint>
                             <constraint firstItem="GPO-YQ-lI7" firstAttribute="leading" secondItem="iad-xr-dyr" secondAttribute="leadingMargin" id="HxE-IN-hvm"/>
                             <constraint firstItem="GPO-YQ-lI7" firstAttribute="leading" secondItem="C0l-Ja-Nn5" secondAttribute="leading" id="IE9-mq-Wtv"/>
                             <constraint firstItem="GPO-YQ-lI7" firstAttribute="trailing" secondItem="DDv-vH-Zon" secondAttribute="trailing" id="JaR-7l-kES"/>
@@ -852,18 +888,30 @@
                             </constraint>
                             <constraint firstItem="FSc-64-WBw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="wOp-Ii-80Z" secondAttribute="bottom" constant="22" id="S9R-N1-MIf"/>
                             <constraint firstItem="wOp-Ii-80Z" firstAttribute="trailing" secondItem="xNc-iH-LEq" secondAttribute="trailing" id="TUh-xu-DTE"/>
+                            <constraint firstItem="C0l-Ja-Nn5" firstAttribute="top" secondItem="u2f-Ra-bcu" secondAttribute="bottom" constant="8" id="TXM-U8-et1">
+                                <variation key="heightClass=regular-widthClass=compact" constant="27"/>
+                            </constraint>
+                            <constraint firstItem="jax-e6-Etc" firstAttribute="leading" secondItem="u2f-Ra-bcu" secondAttribute="trailing" id="YQg-BQ-GIT">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-3"/>
+                            </constraint>
                             <constraint firstItem="FSc-64-WBw" firstAttribute="trailing" secondItem="DDv-vH-Zon" secondAttribute="trailing" id="ZNs-Cn-i0l"/>
                             <constraint firstItem="C0l-Ja-Nn5" firstAttribute="top" secondItem="GPO-YQ-lI7" secondAttribute="bottom" priority="990" constant="20" id="h8X-4K-VYH">
-                                <variation key="heightClass=regular-widthClass=compact" constant="44"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="81"/>
                             </constraint>
                             <constraint firstItem="wOp-Ii-80Z" firstAttribute="trailing" secondItem="FSc-64-WBw" secondAttribute="trailing" id="j9t-vh-WIM"/>
                             <constraint firstItem="FSc-64-WBw" firstAttribute="top" secondItem="wOp-Ii-80Z" secondAttribute="bottom" priority="990" constant="20" id="jsc-ad-Uhj">
                                 <variation key="heightClass=regular-widthClass=compact" constant="34"/>
                             </constraint>
                             <constraint firstItem="GPO-YQ-lI7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DDv-vH-Zon" secondAttribute="bottom" constant="22" id="ml0-8r-jmt"/>
+                            <constraint firstItem="C0l-Ja-Nn5" firstAttribute="top" secondItem="jax-e6-Etc" secondAttribute="bottom" constant="5" id="nEg-iG-mSG">
+                                <variation key="heightClass=regular-widthClass=compact" constant="24"/>
+                            </constraint>
                             <constraint firstItem="FSc-64-WBw" firstAttribute="leading" secondItem="wOp-Ii-80Z" secondAttribute="leading" id="ofG-CZ-wlJ"/>
                             <constraint firstItem="wOp-Ii-80Z" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xNc-iH-LEq" secondAttribute="bottom" constant="22" id="pfB-4N-F0Y"/>
                             <constraint firstItem="C0l-Ja-Nn5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="GPO-YQ-lI7" secondAttribute="bottom" constant="50" id="u0q-xH-I1l"/>
+                            <constraint firstItem="jax-e6-Etc" firstAttribute="leading" secondItem="u2f-Ra-bcu" secondAttribute="trailing" id="uq3-6f-8TH">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-3"/>
+                            </constraint>
                             <constraint firstItem="r11-6Y-X2g" firstAttribute="top" secondItem="C0l-Ja-Nn5" secondAttribute="bottom" constant="50" id="wax-mN-bzu"/>
                             <constraint firstItem="C0l-Ja-Nn5" firstAttribute="trailing" secondItem="GPO-YQ-lI7" secondAttribute="trailing" id="xHy-9k-wPD"/>
                             <constraint firstItem="DDv-vH-Zon" firstAttribute="top" secondItem="FSc-64-WBw" secondAttribute="bottom" priority="990" constant="20" id="xiP-ib-7QC">
@@ -878,6 +926,8 @@
                                 <exclude reference="GPO-YQ-lI7"/>
                                 <exclude reference="xNc-iH-LEq"/>
                                 <exclude reference="C0l-Ja-Nn5"/>
+                                <exclude reference="u2f-Ra-bcu"/>
+                                <exclude reference="jax-e6-Etc"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="1LU-HB-ABL"/>
@@ -903,9 +953,16 @@
                                 <exclude reference="pfB-4N-F0Y"/>
                                 <exclude reference="G3C-81-ClV"/>
                                 <exclude reference="RyQ-AP-v5K"/>
+                                <exclude reference="TXM-U8-et1"/>
                                 <exclude reference="h8X-4K-VYH"/>
+                                <exclude reference="nEg-iG-mSG"/>
                                 <exclude reference="u0q-xH-I1l"/>
                                 <exclude reference="xHy-9k-wPD"/>
+                                <exclude reference="GNN-kx-XCT"/>
+                                <exclude reference="YQg-BQ-GIT"/>
+                                <exclude reference="uq3-6f-8TH"/>
+                                <exclude reference="2n1-dF-eDg"/>
+                                <exclude reference="EL6-Is-KGU"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -926,6 +983,8 @@
                                 <include reference="GPO-YQ-lI7"/>
                                 <include reference="xNc-iH-LEq"/>
                                 <include reference="C0l-Ja-Nn5"/>
+                                <include reference="u2f-Ra-bcu"/>
+                                <include reference="jax-e6-Etc"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="1LU-HB-ABL"/>
@@ -950,9 +1009,16 @@
                                 <exclude reference="pfB-4N-F0Y"/>
                                 <include reference="G3C-81-ClV"/>
                                 <include reference="RyQ-AP-v5K"/>
+                                <include reference="TXM-U8-et1"/>
                                 <include reference="h8X-4K-VYH"/>
+                                <include reference="nEg-iG-mSG"/>
                                 <exclude reference="u0q-xH-I1l"/>
                                 <include reference="xHy-9k-wPD"/>
+                                <include reference="GNN-kx-XCT"/>
+                                <include reference="YQg-BQ-GIT"/>
+                                <include reference="uq3-6f-8TH"/>
+                                <include reference="2n1-dF-eDg"/>
+                                <include reference="EL6-Is-KGU"/>
                             </mask>
                         </variation>
                     </view>
@@ -969,6 +1035,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RXm-9G-O6c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-277.5" y="1797"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cJ2-Bq-gDi">
+            <objects>
+                <viewController id="4K4-dV-UHQ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4P9-qO-1Fb"/>
+                        <viewControllerLayoutGuide type="bottom" id="YaL-tq-Ad0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YBk-3v-AqP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.92941176470588238" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O95-SC-CIL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="337.5" y="2262.75"/>
         </scene>
         <!--Verify-->
         <scene sceneID="ydr-vo-BB4">
@@ -1191,7 +1276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hW-ke-Ipw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="652.5" y="2175"/>
+            <point key="canvasLocation" x="958.5" y="2163.75"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="b6k-jk-nrf">
@@ -8105,7 +8190,7 @@
         <image name="Booking-details_07-03.png" width="360" height="143"/>
         <image name="Booking-details_07.png" width="360" height="110"/>
         <image name="Destination-button.png" width="104" height="98"/>
-        <image name="KS_login_logo.png" width="185" height="55"/>
+        <image name="KS_login_logo.png" width="147" height="121"/>
         <image name="VerifyCode-box.png" width="335" height="40"/>
         <image name="arrived.png" width="374" height="26"/>
         <image name="avatar.png" width="36" height="36"/>
@@ -8148,7 +8233,7 @@
         <image name="login-button-pressed.png" width="329" height="49"/>
         <image name="logout-ico-active.png" width="26" height="26"/>
         <image name="logout-ico-idle.png" width="26" height="26"/>
-        <image name="main-screen.png" width="381" height="671"/>
+        <image name="main-screen.png" width="375" height="667"/>
         <image name="map-sep-line-09.png" width="1" height="1"/>
         <image name="map-sep-line.png" width="1" height="1"/>
         <image name="menu-active-bg.png" width="320" height="72"/>

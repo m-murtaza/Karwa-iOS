@@ -84,9 +84,11 @@
 
 - (void)buildTripsHistory:(NSArray*)data {
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
-    self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+    //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
+    //self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
+    
+    self.trips = [NSArray arrayWithArray:data];
     NSLog(@"%@",self.trips);
     [self.tableView reloadData];
 }
@@ -178,11 +180,12 @@
 //        [self.navigationController pushViewController:ratingController animated:YES];
 //    }
 //    else {
-        KSBookingDetailsController *detailsController = [UIStoryboard bookingDetailsController];
-        detailsController.tripInfo = trip;
-        detailsController.showsAcknowledgement = NO;
-        detailsController.navigationItem.leftBarButtonItem = nil;
-        [self.navigationController pushViewController:detailsController animated:YES];
+    KSBookingDetailsController *detailsController = [UIStoryboard bookingDetailsController];
+
+    detailsController.tripInfo = trip;
+    detailsController.showsAcknowledgement = NO;
+    detailsController.navigationItem.leftBarButtonItem = nil;
+    [self.navigationController pushViewController:detailsController animated:YES];
 //    }
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];

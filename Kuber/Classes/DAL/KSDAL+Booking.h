@@ -41,6 +41,7 @@
 
 + (void) removeOldBookings;
 
++(void) removeSyncTime;
 
 //+(NSString*) bookingSyncTime;
 //+(void) updateBookingSyncTime;

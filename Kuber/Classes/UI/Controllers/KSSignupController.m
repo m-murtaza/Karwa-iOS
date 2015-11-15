@@ -11,6 +11,10 @@
 #import "ABManager.h"
 
 @interface KSSignupController ()
+{
+
+    BOOL isBackFromAnotherView;
+}
 
 @property (weak, nonatomic) IBOutlet KSTextField *txtEmail;
 @property (weak, nonatomic) IBOutlet KSTextField *txtName;
@@ -31,14 +35,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    isBackFromAnotherView = FALSE;
+    
     [self setTransformValueForTextFields];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     [self setLeftViewOfTextBox];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self.txtName becomeFirstResponder];
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Signup View Controller"];
     
@@ -53,9 +63,16 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.txtName becomeFirstResponder];
+    
 }
 
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -163,60 +180,6 @@
 - (IBAction)onClickSignup:(id)sender {
     
     [self signUp];
-    //[self resignAllResponder];
-    //Temp Work to show varification screen
-    /*KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    [self.navigationController pushViewController:controller animated:YES];
-    return;
-    */
-  /*
-#ifndef __KS_DISABLE_VALIDATIONS
-    NSMutableArray *errors = [NSMutableArray arrayWithCapacity:6];
-    if (!self.txtName.text.length) {
-        [errors addObject:KSErrorNoUserName.localizedValue];
-    }
-    if (![self.txtMobile.text isPhoneNumber]) {
-        [errors addObject:KSErrorPhoneValidation.localizedValue];
-    }
-    if (![self.txtEmail.text isEmailAddress]) {
-        [errors addObject:KSErrorEmailValidation.localizedValue];
-    }
-    if (!self.txtPassword.text.length) {
-        [errors addObject:KSErrorNoPassword.localizedValue];
-    }
-    else if (![self.txtPassword.text isEqualToString:self.txtConfirmPassword.text]) {
-        [errors addObject:KSErrorPasswordsMismatch.localizedValue];
-    }
-    if (errors.count) {
-        NSString *title = errors.count > 1 ? KSAlertTitleMultipleErrors : KSAlertTitleError;
-        NSString *errorMessage = [errors componentsJoinedByString:@"\r\n"];
-        [KSAlert show:errorMessage title:title];
-        return;
-    }
-#endif
-    KSUser *user = [KSDAL userWithPhone:self.txtMobile.text];
-    user.name = self.txtName.text;
-    user.email = self.txtEmail.text;
-
-    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-
-    [KSDAL registerUser:user password:self.txtPassword.text completion:^(KSAPIStatus statusCode, NSDictionary *data) {
-        [hud hide:YES];
-        if (statusCode == KSAPIStatusSuccess) {
-            KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];
-            controller.phone = user.phone;
-
-            self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-
-            [self.navigationController pushViewController:controller animated:YES];
-        }
-        else {
-            [KSAlert show:KSStringFromAPIStatus(statusCode)];
-        }
-    }];*/
 }
 
 -(void) signUp
@@ -289,19 +252,23 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    KSTextField *txtField = (KSTextField*) textField;
-    [txtField setBackground:[UIImage imageNamed:txtField.focusedImg]];
-    
-    [UIView animateWithDuration:0.3f
-                     animations:^{
-                         [self.view setTransform:CGAffineTransformMakeTranslation(0, txtField.transformVal)];
-                         
-                     }
-                     completion:^(BOOL finished){
-                         //tran = val;
-                     }
-     ];
-
+//    if(!isBackFromAnotherView){
+        KSTextField *txtField = (KSTextField*) textField;
+        [txtField setBackground:[UIImage imageNamed:txtField.focusedImg]];
+        
+        [UIView animateWithDuration:0.3f
+                         animations:^{
+                             [self.view setTransform:CGAffineTransformMakeTranslation(0, txtField.transformVal)];
+                             
+                         }
+                         completion:^(BOOL finished){
+                             //tran = val;
+                         }
+         ];
+//    }
+//    else{
+//        isBackFromAnotherView = FALSE;
+//    }
     return TRUE;
 }
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -330,5 +297,14 @@
                      }
      ];
     
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self.txtEmail resignFirstResponder];
+    [self.txtName resignFirstResponder];
+    [self.txtMobile resignFirstResponder];
+    [self.txtPassword resignFirstResponder];
+    [self.txtConfirmPassword resignFirstResponder];
 }
 @end

@@ -184,6 +184,7 @@
 		185FEC811B96DB0E00268296 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 185FEC801B96DB0E00268296 /* GoogleService-Info.plist */; };
 		185FEC851B96E6EB00268296 /* KSGoogleAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */; };
 		18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18692ECC1B2EA55F006FC825 /* KSUser.m */; };
+		1870EE0C1BF4A69D00FADFBD /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870EE0B1BF4A69D00FADFBD /* UIUnderlinedButton.m */; };
 		187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */; };
 		187318181B2EF62C0003DC5C /* KSTripRatingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318171B2EF62C0003DC5C /* KSTripRatingController.m */; };
 		1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873181B1B2EF8D60003DC5C /* DYRateView.m */; };
@@ -567,6 +568,8 @@
 		185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSGoogleAnalytics.m; sourceTree = "<group>"; };
 		18692ECB1B2EA55F006FC825 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
 		18692ECC1B2EA55F006FC825 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
+		1870EE0A1BF4A69D00FADFBD /* UIUnderlinedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIUnderlinedButton.h; path = Underlinebutton/UIUnderlinedButton.h; sourceTree = "<group>"; };
+		1870EE0B1BF4A69D00FADFBD /* UIUnderlinedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIUnderlinedButton.m; path = Underlinebutton/UIUnderlinedButton.m; sourceTree = "<group>"; };
 		187318131B2EC1290003DC5C /* KSBookingHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingHistoryCell.h; sourceTree = "<group>"; };
 		187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KSBookingHistoryCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		187318161B2EF62C0003DC5C /* KSTripRatingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTripRatingController.h; sourceTree = "<group>"; };
@@ -981,6 +984,8 @@
 				1801E3541B15B1CC00A8983E /* MLPAutoCompleteTextField */,
 				18481B491B091EFA00855F54 /* MBProgressHUD */,
 				18481B4C1B091EFA00855F54 /* SWRevealViewController */,
+				1870EE0A1BF4A69D00FADFBD /* UIUnderlinedButton.h */,
+				1870EE0B1BF4A69D00FADFBD /* UIUnderlinedButton.m */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -2031,6 +2036,7 @@
 				18A268911BE63A30006FC942 /* KSDAL+Taxi.m in Sources */,
 				1819A4C21BC394A500D7AB88 /* KSTrip.m in Sources */,
 				185E3C081B7087EF00909B20 /* KSTripRating.m in Sources */,
+				1870EE0C1BF4A69D00FADFBD /* UIUnderlinedButton.m in Sources */,
 				189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */,
 				1880C56E1B79E1B8004F0188 /* KSButtonCell.m in Sources */,
 				18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */,
