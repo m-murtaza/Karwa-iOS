@@ -7,11 +7,12 @@
 //
 
 #import "KSChangePasswordController.h"
+#import "KSTextField.h"
 
 @interface KSChangePasswordController ()
-@property (weak, nonatomic) IBOutlet UITextField *txtCurrentPassword;
-@property (weak, nonatomic) IBOutlet UITextField *txtNewPassword;
-@property (weak, nonatomic) IBOutlet UITextField *txtConfirmPassword;
+@property (weak, nonatomic) IBOutlet KSTextField *txtCurrentPassword;
+@property (weak, nonatomic) IBOutlet KSTextField *txtNewPassword;
+@property (weak, nonatomic) IBOutlet KSTextField *txtConfirmPassword;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -121,7 +122,8 @@
     if (indexPath.row == 0) {
         
         self.txtCurrentPassword = (KSTextField*)[cell viewWithTag:4001];
-        self.txtCurrentPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Current Password" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtCurrentPassword.placeholder = @"Current Password";
+        self.txtCurrentPassword.placeholderColor = color;
         self.txtCurrentPassword.tintColor = [UIColor blackColor];
         self.txtCurrentPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
@@ -130,7 +132,8 @@
     else if(indexPath.row == 1){
         
         self.txtNewPassword = (KSTextField*)[cell viewWithTag:4001];
-        self.txtNewPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"New Password" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtNewPassword.placeholder = @"New Password";
+        self.txtNewPassword.placeholderColor = color;
         self.txtNewPassword.tintColor = [UIColor blackColor];
         self.txtNewPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
@@ -140,7 +143,8 @@
     else if (indexPath.row == 2){
         
         self.txtConfirmPassword = (KSTextField*)[cell viewWithTag:4001];
-        self.txtConfirmPassword.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm Password" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtConfirmPassword.placeholder = @"Confirm Password";
+        self.txtConfirmPassword.placeholderColor = color;
         self.txtConfirmPassword.tintColor = [UIColor blackColor];
         self.txtConfirmPassword.secureTextEntry = TRUE;
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];

@@ -28,9 +28,9 @@
     [self.btnSignIn.titleLabel setFont:[UIFont fontWithName:@"MuseoForDell-500" size:15.0]];
     
     // Sync locations
-    [KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
+    /*[KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {
         // TODO: Nothing
-    }];
+    }];*/
     
     
     [self askForLocationAccess];

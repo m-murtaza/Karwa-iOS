@@ -23,6 +23,7 @@
 {
     KSVehicleTrackingInfo *taxiInfo;
     MKUserLocation *passengerLocation;
+    int temp;           //This variable is for testing 
 }
 
 @property(nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -38,6 +39,7 @@
 {
     [super viewDidLoad];
     [self setMapParameters];
+    temp = 0;
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -116,6 +118,10 @@
     [KSDAL trackTaxiWithTaxiNo:self.trip.taxi.number
                          JobID:self.trip.jobId
                     completion:^(KSAPIStatus status, id response) {
+//                        temp++;
+//                        if (temp > 2) {
+//                            status = KSAPIStatusInvalidTaxi;
+//                        }
                         if (status == KSAPIStatusSuccess) {
                             
                             me->taxiInfo = (KSVehicleTrackingInfo *) response;

@@ -82,12 +82,15 @@ NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
     else {
         [defaultStore removeObjectForKey:key];
     }
+    
+    [defaultStore synchronize];
 }
 
 - (void)updateSession:(NSString *)sessionId phone:(NSString *)phone {
     
     [self saveValue:phone forKey:KSPhoneKey];
     [self saveValue:sessionId forKey:KSSessionIdKey];
+    
 }
 
 - (void)updateToken:(NSString *)token {

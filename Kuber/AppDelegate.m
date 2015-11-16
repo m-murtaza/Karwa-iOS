@@ -28,6 +28,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    
    //[self testFunc];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 
@@ -38,13 +40,14 @@
     [self applyUICustomizations];
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
+    KSUser *user = [KSDAL loggedInUser];
 
     [self getAPNSToken];
 
     UIViewController *menuController = [UIStoryboard menuController];
     UIViewController *frontController;
 
-    KSUser *user = [KSDAL loggedInUser];
+   //KSUser *user = [KSDAL loggedInUser];
     // TODO: Think of validation session
 //    user = nil;
     if (user) {

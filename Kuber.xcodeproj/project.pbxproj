@@ -190,6 +190,7 @@
 		1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873181B1B2EF8D60003DC5C /* DYRateView.m */; };
 		187FAF411B1D7AB3007FCB72 /* KSBookingDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FAF401B1D7AB3007FCB72 /* KSBookingDetailsController.m */; };
 		187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 187FAF431B1EB6BA007FCB72 /* KSBookingConfirmationController.m */; };
+		18801D2F1BF83F9600B8EDB8 /* KSTOSController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18801D2E1BF83F9600B8EDB8 /* KSTOSController.m */; };
 		1880C5151B7877ED004F0188 /* activetabbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4D91B7877ED004F0188 /* activetabbar@2x.png */; };
 		1880C5171B7877ED004F0188 /* blue_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4DB1B7877ED004F0188 /* blue_button@2x.png */; };
 		1880C5181B7877ED004F0188 /* booklater-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4DC1B7877ED004F0188 /* booklater-button@2x.png */; };
@@ -580,6 +581,8 @@
 		187FAF401B1D7AB3007FCB72 /* KSBookingDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = KSBookingDetailsController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		187FAF421B1EB6BA007FCB72 /* KSBookingConfirmationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingConfirmationController.h; sourceTree = "<group>"; };
 		187FAF431B1EB6BA007FCB72 /* KSBookingConfirmationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingConfirmationController.m; sourceTree = "<group>"; };
+		18801D2D1BF83F9600B8EDB8 /* KSTOSController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSTOSController.h; sourceTree = "<group>"; };
+		18801D2E1BF83F9600B8EDB8 /* KSTOSController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSTOSController.m; sourceTree = "<group>"; };
 		1880C4D91B7877ED004F0188 /* activetabbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "activetabbar@2x.png"; sourceTree = "<group>"; };
 		1880C4DB1B7877ED004F0188 /* blue_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue_button@2x.png"; sourceTree = "<group>"; };
 		1880C4DC1B7877ED004F0188 /* booklater-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "booklater-button@2x.png"; sourceTree = "<group>"; };
@@ -1459,6 +1462,8 @@
 				18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */,
 				1859E9011BC635A400354B84 /* KSFranchises.h */,
 				1859E9021BC635A400354B84 /* KSFranchises.m */,
+				18801D2D1BF83F9600B8EDB8 /* KSTOSController.h */,
+				18801D2E1BF83F9600B8EDB8 /* KSTOSController.m */,
 				1848E7EE1BF0AF3E00C2B2A3 /* KSRateYourTripController.h */,
 				1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */,
 			);
@@ -1964,6 +1969,7 @@
 				18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */,
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
 				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
+				18801D2F1BF83F9600B8EDB8 /* KSTOSController.m in Sources */,
 				180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */,
 				1850436F1B2554D900AECDE9 /* KSTaxi.m in Sources */,
 				18A762C11B006D8E00B9ED32 /* KSViewController.m in Sources */,

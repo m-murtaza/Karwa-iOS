@@ -84,6 +84,7 @@
             break;
         case KSTripStatusInProcess:
         case KSTripStatusManuallyAssigned:
+        case KSTripStatusPassengerInTaxi:
             [self.imgStatus setImage:[UIImage imageNamed:@"in-process-tag.png"]];
             break;
         case KSTripStatusTaxiAssigned:

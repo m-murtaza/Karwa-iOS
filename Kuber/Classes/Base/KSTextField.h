@@ -13,6 +13,6 @@
 @property (nonatomic) NSInteger transformVal;
 @property (nonatomic, strong) NSString *focusedImg;
 @property (nonatomic, strong) NSString *idleImg;
-
+@property (nonatomic, strong) UIColor *placeholderColor;
 
 @end

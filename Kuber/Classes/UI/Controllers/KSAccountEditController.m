@@ -11,8 +11,8 @@
 
 
 @interface KSAccountEditController ()
-@property (weak, nonatomic) IBOutlet UITextField *txtName;
-@property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+@property (weak, nonatomic) IBOutlet KSTextField *txtName;
+@property (weak, nonatomic) IBOutlet KSTextField *txtEmail;
 @property (weak, nonatomic) IBOutlet KSTextField *txtMobile;
 
 
@@ -117,7 +117,8 @@
     if (indexPath.row == 0) {
         
         self.txtMobile = (KSTextField*)[cell viewWithTag:4001];
-        self.txtMobile.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Mobile number" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtMobile.placeholder = @"Mobile number";
+        self.txtMobile.placeholderColor = color;
         self.txtMobile.text = self.user.phone;
         [self.txtMobile setEnabled:FALSE];
         self.txtMobile.tintColor = [UIColor blackColor];
@@ -128,11 +129,11 @@
         
         self.txtName = (KSTextField*)[cell viewWithTag:4001];
         self.txtName.text = self.user.name;
-        self.txtName.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Display Name" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtName.placeholder = @"Display Name";
+        self.txtName.placeholderColor = color;
         self.txtName.tintColor = [UIColor blackColor];
-        [self.txtName setKeyboardType:UIKeyboardTypeNamePhonePad];
-        //[self.txtName setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
-        
+        [self.txtName setKeyboardType:UIKeyboardTypeDefault];
+        [self.txtName setAutocapitalizationType:UITextAutocapitalizationTypeWords];
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];
         [imgView setImage:[UIImage imageNamed:@"fullname.png"]];
         
@@ -141,8 +142,8 @@
         
         self.txtEmail = (KSTextField*)[cell viewWithTag:4001];
         self.txtEmail.text = self.user.email;
-        //self.txtEmail.placeholder = @"Email Address";
-        self.txtEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email Address" attributes:@{NSForegroundColorAttributeName: color}];
+        self.txtEmail.placeholder = @"Email Address";
+        self.txtEmail.placeholderColor = color;
         self.txtEmail.tintColor = [UIColor blackColor];
         [self.txtEmail setKeyboardType:UIKeyboardTypeEmailAddress];
         UIImageView *imgView = (UIImageView*)[cell viewWithTag:4002];

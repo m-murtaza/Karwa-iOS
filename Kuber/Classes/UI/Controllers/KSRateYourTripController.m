@@ -17,7 +17,7 @@
     
     //Todo Need to remove repitative code
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        self.navigationItem.title = @"Rate your Trips";
+        self.navigationItem.title = @"Rate your Trip";
         [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {

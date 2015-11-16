@@ -320,7 +320,7 @@
 
 + (NSArray*) fetchPendingBookingHistoryFromDB
 {
-    NSPredicate *pendingPredicate = [NSPredicate predicateWithFormat:@"status == %d || status == %d || status == %d || status == %d || status == %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned];
+    NSPredicate *pendingPredicate = [NSPredicate predicateWithFormat:@"status == %d || status == %d || status == %d || status == %d || status == %d || status == %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned, KSTripStatusPassengerInTaxi];
     NSArray *pendingBookings = [KSTrip MR_findAllSortedBy:@"pickupTime"
                                                 ascending:YES
                                             withPredicate:pendingPredicate ];
@@ -334,7 +334,7 @@
 
 + (NSArray*) fetchTopNonPendingBookingHistoryFromDB:(NSInteger)offset Limit:(NSInteger)limit
 {
-    NSPredicate *otherBookingsPredicate = [NSPredicate predicateWithFormat:@"status != %d && status != %d && status != %d && status != %d && status != %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned];
+    NSPredicate *otherBookingsPredicate = [NSPredicate predicateWithFormat:@"status != %d && status != %d && status != %d && status != %d && status != %d && status != %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned, KSTripStatusPassengerInTaxi];
     
     
     NSFetchRequest *otherBookingFetchRequest = [KSTrip MR_requestAllWithPredicate:otherBookingsPredicate];

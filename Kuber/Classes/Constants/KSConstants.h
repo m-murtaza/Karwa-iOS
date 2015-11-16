@@ -37,7 +37,7 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     
     KSAPIStatusTaxiAllocated            = 11,   // Taxi found/allocated
     KSAPIStatusJobAlreadyPending        = 12,   // Already has a pending job
-    KSAPIStatusPassengerInTaxi          = 13,   // Job is running
+    KSAPIStatusPassengerInTaxi          = 13,   // Job is running  
     KSAPIInvalidPickupLocation          = 14,   // Job is in dispatch queue
     KSAPIStatusBookingCancelled         = 15,   // Job cancelled by user or dispatcher
     KSAPIStatusTaxiNotAvailable         = 16,   // No taxi available sent by dispatcher
@@ -77,6 +77,7 @@ typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
     KSTripStatusComplete            = 6,
     KSTripStatusTaxiNotFound        = 9,
     KSTripStatusManuallyAssigned    = 12,
+    KSTripStatusPassengerInTaxi     = 13,
     KSTripStatusPending             = 98,
     KSTripStatusCompletedNotRated   = 99
 };
