@@ -40,6 +40,7 @@
 + (NSArray*) fetchTopNonPendingBookingHistoryFromDB;
 
 + (void) removeOldBookings;
++ (void) removeAllBookings;
 
 +(void) removeSyncTime;
 

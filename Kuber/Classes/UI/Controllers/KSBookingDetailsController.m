@@ -323,6 +323,7 @@ BtnState;
         KSTrackTaxiController *trackTaxi = (KSTrackTaxiController*) segue.destinationViewController;
         //trackTaxi.taxiNo = self.tripInfo.taxi.number;
         //trackTaxi.jobId = self.tripInfo.jobId;
+        
         trackTaxi.trip = self.tripInfo;
     }
 }

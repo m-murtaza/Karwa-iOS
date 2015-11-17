@@ -89,7 +89,7 @@
     
     
     self.trips = [NSArray arrayWithArray:data];
-    NSLog(@"%@",self.trips);
+    DLog(@"%@",self.trips);
     [self.tableView reloadData];
 }
 

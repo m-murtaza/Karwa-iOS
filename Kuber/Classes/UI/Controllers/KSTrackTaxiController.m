@@ -97,8 +97,8 @@
 -(void) setMapParameters
 {
     self.mapView.delegate = self;
-    self.mapView.scrollEnabled = YES;
-    self.mapView.zoomEnabled = YES;
+    //self.mapView.scrollEnabled = YES;
+    //self.mapView.zoomEnabled = YES;
     [self.mapView setShowsUserLocation: YES];
     
     //[self addAnotations];
@@ -151,24 +151,26 @@
 {
     if (passengerLocation && taxiInfo) {
         KSVehicleTrackingAnnotation *taxiAnnotation = [KSVehicleTrackingAnnotation annotationWithTrackingInfo:taxiInfo];
-        
-        NSArray *previusAnnotations = self.mapView.annotations;
-        for (id annotation in previusAnnotations) {
-            if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
-                [self.mapView removeAnnotation:annotation];
+        if (CLLocationCoordinate2DIsValid(taxiInfo.coordinate) && CLLocationCoordinate2DIsValid(passengerLocation.location.coordinate)) {
+            
+            NSArray *previusAnnotations = self.mapView.annotations;
+            for (id annotation in previusAnnotations) {
+                if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+                    [self.mapView removeAnnotation:annotation];
+                }
             }
+            [self.mapView setCenterCoordinate:passengerLocation.coordinate];
+            [self.mapView addAnnotation:taxiAnnotation];
+
+            const CGFloat padding = 2.5; // 20%
+            CGFloat latDelta = padding * fabs(passengerLocation.coordinate.latitude - taxiAnnotation.coordinate.latitude) * 2.0;
+            CGFloat lonDelta = padding * fabs(passengerLocation.coordinate.longitude - taxiAnnotation.coordinate.longitude) * 2.0;
+            MKCoordinateSpan span = MKCoordinateSpanMake(latDelta, lonDelta);
+            MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
+            [self.mapView setRegion:region];
+
+            [self updateDistance:passengerLocation.location.coordinate TaxiLocation:taxiAnnotation.coordinate];
         }
-        [self.mapView setCenterCoordinate:passengerLocation.coordinate];
-        [self.mapView addAnnotation:taxiAnnotation];
-
-        const CGFloat padding = 2.5; // 20%
-        CGFloat latDelta = padding * fabs(passengerLocation.coordinate.latitude - taxiAnnotation.coordinate.latitude) * 2.0;
-        CGFloat lonDelta = padding * fabs(passengerLocation.coordinate.longitude - taxiAnnotation.coordinate.longitude) * 2.0;
-        MKCoordinateSpan span = MKCoordinateSpanMake(latDelta, lonDelta);
-        MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
-        [self.mapView setRegion:region];
-
-        [self updateDistance:passengerLocation.location.coordinate TaxiLocation:taxiAnnotation.coordinate];
     }
 }
 
@@ -204,7 +206,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    NSLog(@"regionDidChangeAnimated");
+    DLog(@"regionDidChangeAnimated");
 }
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
    

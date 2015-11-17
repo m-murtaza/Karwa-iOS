@@ -27,6 +27,7 @@
     [webClient GET:@"/user/logout" params:nil completion:^(BOOL success, NSDictionary *response) {
         // Do nothing
         [KSDAL removeSyncTime];
+        [KSDAL removeAllBookings];
     }];
     // Remove session info from client, any how
     [KSSessionInfo removeSession];

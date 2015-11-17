@@ -12,7 +12,9 @@
 
 
 @interface KSTOSController () <UIWebViewDelegate>
-
+{
+    MBProgressHUD *hud;
+}
 @property (nonatomic, weak) IBOutlet UIWebView *webView;
 
 @end
@@ -29,6 +31,8 @@
 {
     [super viewWillAppear:animated];
     [self loadWebView];
+    
+    self.navigationItem.title = @"Terms of Services";
 }
 
 #pragma mark - Private Functions
@@ -45,15 +49,15 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSLog(@"webViewDidStartLoad");
+    hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"webViewDidFinishLoad");
+    [hud hide:YES];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error
 {
-    NSLog(@"Error %@",error);
+    [hud hide:YES];
 }
 
 @end

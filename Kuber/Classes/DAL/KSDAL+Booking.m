@@ -374,6 +374,12 @@
     [KSDBManager saveContext:nil];
 }
 
+
++ (void) removeAllBookings
+{
+    [KSUser MR_truncateAll];
+    [KSTrip MR_truncateAll];
+}
 #pragma mark -
 #pragma mark - Trip rating
 
