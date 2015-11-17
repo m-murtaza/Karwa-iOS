@@ -19,6 +19,8 @@
 #import "KSTrackingAnnotationView.h"
 #import "KSConfirmationAlert.h"
 
+#define UPDATE_TEXT @"Taxi status last updated on %@"
+
 @interface KSTrackTaxiController () <MKMapViewDelegate>
 {
     KSVehicleTrackingInfo *taxiInfo;
@@ -29,6 +31,7 @@
 @property(nonatomic, weak) IBOutlet MKMapView *mapView;
 @property(nonatomic, weak) IBOutlet UILabel *lblDistance;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, weak) IBOutlet UILabel *lblUpdate;
 
 @end
 
@@ -40,6 +43,7 @@
     [super viewDidLoad];
     [self setMapParameters];
     temp = 0;
+    [self updateTaxiStatusUpdateLabel];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -53,25 +57,17 @@
 
 - (void)dealloc
 {
-    //[super viewWillDisappear:animated];
     [self.timer invalidate];
     self.timer = nil;
 }
 
-//-(void) viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    if ([self.mapView respondsToSelector:@selector(camera)]) {
-//        MKMapCamera *newCamera = [[self.mapView camera] copy];
-//        [newCamera setHeading:90.0]; // or newCamera.heading + 90.0 % 360.0
-//        [self.mapView setCamera:newCamera animated:NO];
-//    }
-//}
-
-
-
 #pragma mark - Private Functions
+
+-(void) updateTaxiStatusUpdateLabel
+{
+    NSDate *date = [NSDate date];
+    [self.lblUpdate setText:[NSString stringWithFormat:UPDATE_TEXT,[date formatedDateForTaxiTracking]]];
+}
 
 -(BOOL) checkLocationAvaliblityAndShowAlert
 {
@@ -127,7 +123,7 @@
                             me->taxiInfo = (KSVehicleTrackingInfo *) response;
                             [me performSelectorOnMainThread:@selector(updateMapAnnotation) withObject:nil waitUntilDone:YES];
                             
-                            //[self updateMapAnnotation];
+                            [me updateTaxiStatusUpdateLabel];
                         }
                         else if(status == KSAPIStatusPassengerInTaxi){
                             

@@ -33,6 +33,7 @@
             <string>MuseoSans-300</string>
             <string>MuseoSans-300</string>
             <string>MuseoSans-300</string>
+            <string>MuseoSans-300</string>
         </mutableArray>
         <mutableArray key="MuseoSans_500.otf">
             <string>MuseoSans-500</string>
@@ -6950,49 +6951,106 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDB-Y5-DJ8">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyO-fh-qyG">
+                                        <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="AyO-fh-qyG" firstAttribute="leading" secondItem="tDB-Y5-DJ8" secondAttribute="leading" constant="8" id="8tK-c4-kaL"/>
+                                    <constraint firstAttribute="trailing" secondItem="AyO-fh-qyG" secondAttribute="trailing" constant="8" id="GjG-wi-wcX"/>
+                                    <constraint firstAttribute="bottom" secondItem="AyO-fh-qyG" secondAttribute="bottom" constant="1" id="SKw-al-xGb"/>
+                                    <constraint firstItem="AyO-fh-qyG" firstAttribute="top" secondItem="tDB-Y5-DJ8" secondAttribute="top" constant="2" id="gPT-N5-Val"/>
+                                    <constraint firstAttribute="height" constant="24" id="j0l-Yf-Q5V"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="AyO-fh-qyG"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="j0l-Yf-Q5V"/>
+                                        <exclude reference="8tK-c4-kaL"/>
+                                        <exclude reference="GjG-wi-wcX"/>
+                                        <exclude reference="SKw-al-xGb"/>
+                                        <exclude reference="gPT-N5-Val"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="AyO-fh-qyG"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="j0l-Yf-Q5V"/>
+                                        <include reference="8tK-c4-kaL"/>
+                                        <include reference="GjG-wi-wcX"/>
+                                        <include reference="SKw-al-xGb"/>
+                                        <include reference="gPT-N5-Val"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="K8b-rl-Ih3" firstAttribute="leading" secondItem="qJ0-0G-q2B" secondAttribute="leadingMargin" id="8HX-8w-pxp"/>
+                            <constraint firstItem="tDB-Y5-DJ8" firstAttribute="top" secondItem="vvJ-Fo-kC4" secondAttribute="bottom" id="Uh7-pk-zpa"/>
                             <constraint firstItem="PFZ-qc-hE8" firstAttribute="top" secondItem="vvJ-Fo-kC4" secondAttribute="bottom" id="VFy-ss-RNZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="PFZ-qc-hE8" secondAttribute="trailing" constant="-20" id="akQ-8Y-ifT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tDB-Y5-DJ8" secondAttribute="trailing" constant="-20" id="jOC-gA-4aZ"/>
                             <constraint firstItem="zhF-Tm-Wn6" firstAttribute="top" secondItem="PFZ-qc-hE8" secondAttribute="bottom" id="pLF-kE-fez"/>
                             <constraint firstItem="PFZ-qc-hE8" firstAttribute="leading" secondItem="qJ0-0G-q2B" secondAttribute="leadingMargin" constant="-20" id="rAu-Ro-dGk"/>
+                            <constraint firstItem="tDB-Y5-DJ8" firstAttribute="leading" secondItem="qJ0-0G-q2B" secondAttribute="leadingMargin" constant="-20" id="tvI-Gf-Bsz"/>
                             <constraint firstItem="zhF-Tm-Wn6" firstAttribute="top" secondItem="K8b-rl-Ih3" secondAttribute="bottom" constant="20" id="uys-tb-EzK"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="PFZ-qc-hE8"/>
                                 <exclude reference="K8b-rl-Ih3"/>
+                                <exclude reference="tDB-Y5-DJ8"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="pLF-kE-fez"/>
-                                <exclude reference="uys-tb-EzK"/>
-                                <exclude reference="8HX-8w-pxp"/>
                                 <exclude reference="VFy-ss-RNZ"/>
                                 <exclude reference="akQ-8Y-ifT"/>
                                 <exclude reference="rAu-Ro-dGk"/>
+                                <exclude reference="Uh7-pk-zpa"/>
+                                <exclude reference="jOC-gA-4aZ"/>
+                                <exclude reference="tvI-Gf-Bsz"/>
+                                <exclude reference="8HX-8w-pxp"/>
+                                <exclude reference="pLF-kE-fez"/>
+                                <exclude reference="uys-tb-EzK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="PFZ-qc-hE8"/>
                                 <include reference="K8b-rl-Ih3"/>
+                                <include reference="tDB-Y5-DJ8"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="pLF-kE-fez"/>
-                                <include reference="uys-tb-EzK"/>
-                                <include reference="8HX-8w-pxp"/>
                                 <include reference="VFy-ss-RNZ"/>
                                 <include reference="akQ-8Y-ifT"/>
                                 <include reference="rAu-Ro-dGk"/>
+                                <include reference="Uh7-pk-zpa"/>
+                                <include reference="jOC-gA-4aZ"/>
+                                <include reference="tvI-Gf-Bsz"/>
+                                <include reference="8HX-8w-pxp"/>
+                                <include reference="pLF-kE-fez"/>
+                                <include reference="uys-tb-EzK"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Track My Taxi" id="vij-It-zW0"/>
                     <connections>
                         <outlet property="lblDistance" destination="QMJ-LW-qFp" id="MFs-De-Qr2"/>
+                        <outlet property="lblUpdate" destination="AyO-fh-qyG" id="Npk-J2-2Gk"/>
                         <outlet property="mapView" destination="PFZ-qc-hE8" id="OQP-pH-6x0"/>
                     </connections>
                 </viewController>

@@ -23,4 +23,5 @@
 - (NSString*) getTimeStringFromDate;
 
 - (NSString*) formatedDateForBooking;
+- (NSString*) formatedDateForTaxiTracking;
 @end

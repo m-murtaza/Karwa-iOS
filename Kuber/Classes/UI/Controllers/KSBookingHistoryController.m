@@ -174,12 +174,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     KSTrip *trip = self.trips[indexPath.row];
-//    if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
-//        KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
-//        ratingController.trip = trip;
-//        [self.navigationController pushViewController:ratingController animated:YES];
-//    }
-//    else {
+    //trip.status = [NSNumber numberWithInteger:KSTripStatusTaxiAssigned];
+    
     KSBookingDetailsController *detailsController = [UIStoryboard bookingDetailsController];
 
     detailsController.tripInfo = trip;

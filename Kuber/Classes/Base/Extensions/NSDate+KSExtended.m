@@ -72,4 +72,16 @@
     NSString *stringFromDate = [formatter stringFromDate:self];
     return stringFromDate;
 }
+
+- (NSString*) formatedDateForTaxiTracking
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat: @"EE d MMM, hh:mm:ss a"];
+    
+    //Optionally for time zone conversions
+    //[formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    NSString *stringFromDate = [formatter stringFromDate:self];
+    return stringFromDate;
+}
 @end
