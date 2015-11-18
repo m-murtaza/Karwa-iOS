@@ -436,6 +436,30 @@ KSTableViewType;
     [self.tableView reloadData];
 }
 
+-(void) sendAnalyticsForLoadMore:(NSString*)section
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                         action:@"btnLoadMoreTapped"
+                                                          label:section
+                                                           value:nil] build]];
+    
+
+}
+
+-(void) sendAnalyticsForItemSelected:(NSString*)section Location:(NSString*)landmark
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"location selected Address picker"
+                                                           label:[NSString stringWithFormat:@"Section: %@ | Landmark:%@",section,landmark]
+                                                           value:nil] build]];
+    
+    
+}
+
 #pragma mark - Event handlers 
 
 -(void) closeSearch:(id)sender
@@ -755,6 +779,8 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
         
         if (indexPath.section == idxNearSection && showAllNearBy == FALSE && indexPath.row == LOADING_CELL_IDX) {
             showAllNearBy = TRUE;
+            
+            [self sendAnalyticsForLoadMore:@"Near By Section"];
             [UIView transitionWithView:tableView
                               duration:0.5f
                                options:UIViewAnimationOptionTransitionCrossDissolve
@@ -766,6 +792,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
         else if (indexPath.section == idxFavSection && showAllFav == FALSE && indexPath.row == LOADING_CELL_IDX){
         
             showAllFav = TRUE;
+            [self sendAnalyticsForLoadMore:@"Favorite Section"];
             [UIView transitionWithView:tableView
                               duration:0.5f
                                options:UIViewAnimationOptionTransitionCrossDissolve
@@ -778,6 +805,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
         else if (indexPath.section == idxRecentSection && showAllRecent == FALSE && indexPath.row == LOADING_CELL_IDX){
             
             showAllRecent = TRUE;
+            [self sendAnalyticsForLoadMore:@"Recent Section"];
             [UIView transitionWithView:tableView
                               duration:0.5f
                                options:UIViewAnimationOptionTransitionCrossDissolve
@@ -810,6 +838,8 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             }
             placeName = geolocation.address;
             location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
+            
+            [self sendAnalyticsForItemSelected:@"Near By Section" Location:placeName];
         }
         else if(indexPath.section == idxFavSection){
         
@@ -823,21 +853,36 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
             }
             placeName = bookmark.address.length ? bookmark.address : bookmark.name;
             location = [[CLLocation alloc] initWithLatitude:bookmark.latitude.doubleValue longitude:bookmark.longitude.doubleValue];
+            
+            [self sendAnalyticsForItemSelected:@"Favorite Section" Location:placeName];
         }
         else {
             
             if (!self.searchField.text.length) {
                 NSLog(@"%ld, %lu, %lu",(long)indexPath.row,(unsigned long)_recentBookings.count,(unsigned long)_recentBookingsForDestination.count);
-                if (_recentBookings.count > indexPath.row)
+                if (_recentBookings.count > indexPath.row){
+                    
                     trip = [_recentBookings objectAtIndex:indexPath.row];
+                    [self sendAnalyticsForItemSelected:@"Recent-Pickup Section" Location:geolocation.address];
+                }
+                
                 else
+                {
                     geolocation = [_recentBookingsForDestination objectAtIndex:indexPath.row - _recentBookings.count];
+                    [self sendAnalyticsForItemSelected:@"Recent-Dropoff Section" Location:geolocation.address];
+                
+                }
+                
             }
             else {
-                if (_searchRecentBookings.count > indexPath.row)
+                if (_searchRecentBookings.count > indexPath.row){
                     trip = [_searchRecentBookings objectAtIndex:indexPath.row];
-                else
+                    [self sendAnalyticsForItemSelected:@"Recent-Pickup Section" Location:geolocation.address];
+                }
+                else{
                     geolocation = [_searchRecentBookingForDest objectAtIndex:indexPath.row - _searchRecentBookings.count];
+                    [self sendAnalyticsForItemSelected:@"Recent-Dropoff Section" Location:geolocation.address];
+                }
             }
             if (trip) {
                 placeName = trip.pickupLandmark;
@@ -848,6 +893,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                 placeName = geolocation.address;
                 location = [[CLLocation alloc] initWithLatitude:geolocation.latitude.doubleValue longitude:geolocation.longitude.doubleValue];
             }
+            
             
             /*placeName = trip.dropoffLandmark;
             if (trip.pickupLandmark.length) {
@@ -868,11 +914,12 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
     @catch (NSException *exception) {
         DLog(@"%@",exception);
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
         
         [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Exception"     // Event category (required)
                                                               action:@"Address Picker didselectedrow"  // Event action (required)
-                                                               label:[NSString stringWithFormat:@"indexpath.row = %ld - indexpath.section = %ld",(long)indexPath.row,(long)indexPath.section]         // Event label
+                                                               label:[NSString stringWithFormat:@"%@",exception]         // Event label
                                                                value:nil] build]];    // Event value
         
     }
@@ -883,17 +930,14 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
 
 -(void) searchForQuery:(NSString*)searchString
 {
-    //KSAddressPickerController *me = self;
-    //[self showLoadingView];
-    //[[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
-        //[self hideLoadingView];
-        //_searchLocations = (KSSafeArray*)placemarks;
+    
     [self filterGeoLocationFortext:searchString];
     [self filterFavLocationFortext:searchString];
     [self filterRecentLocationsForText:searchString];
     [self filterRecentDestinationForText:searchString];
-        [self.tableView reloadData];
-    //}];
+    
+    [self.tableView reloadData];
+
 }
 
 #pragma mark -
@@ -906,20 +950,18 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
     
     if (textField == self.searchField) {
         
-        //[textField resignFirstResponder];
+        
         
         if (textField.text.length > 2) {
             [self searchForQuery:searchString];
-            /*KSAddressPickerController *me = self;
-            //[self showLoadingView];
-            [[KSLocationManager instance] placemarksMatchingQuery:searchString country:@"" completion:^(NSArray *placemarks) {
-                //[self hideLoadingView];
-                _searchLocations = placemarks;
-                
-                [self filterFavLocationFortext:searchString];
-                [self filterRecentLocationsForText:searchString];
-                [me.tableView reloadData];
-            }];*/
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                                  action:@"AddressPicker Local Search"
+                                                                   label:[NSString stringWithFormat:@"SearchQuery: %@ | geoLoc: %lu | Fav: %lu |RecentPickUp: %lu | RecentDrop: %lu",searchString,(unsigned long)_searchLocations.count,(unsigned long)_searchSavedBookmarks.count,(unsigned long)_searchRecentBookings.count,_searchRecentBookingForDest.count]
+                                                                   value:nil] build]];
+            
         }
         return YES;
     }
@@ -940,7 +982,15 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                                completion:^(KSAPIStatus status, id response) {
                                    [self hideLoadingView];
                                    if (KSAPIStatusSuccess == status) {
-                                        [self searchForQuery:textField.text];
+                                       [self searchForQuery:textField.text];
+                                       id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                                       
+                                       [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                                                             action:@"AddressPicker Server Search"
+                                                                                              label:[NSString stringWithFormat:@"SearchQuery: %@ | geoLoc: %lu | Fav: %lu |RecentPickUp: %lu | RecentDrop: %lu",textField.text,(unsigned long)_searchLocations.count,(unsigned long)_searchSavedBookmarks.count,(unsigned long)_searchRecentBookings.count,_searchRecentBookingForDest.count]
+                                                                                              value:nil] build]];
+                                       
+                                       
                                    }
                                    else{
                                        [KSAlert show:KSStringFromAPIStatus(status)];

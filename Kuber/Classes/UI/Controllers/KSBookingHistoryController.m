@@ -186,6 +186,13 @@
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"didSelectedRowForBookingDetails"
+                                                           label:[NSString stringWithFormat:@"jobId: %@ | Status = %@",trip.jobId,trip.status]
+                                                           value:nil] build]];
 }
 
 @end

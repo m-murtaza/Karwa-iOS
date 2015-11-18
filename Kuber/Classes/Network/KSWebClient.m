@@ -110,7 +110,7 @@
         };
     
         void (^failBlock)(NSURLSessionDataTask *, NSError *) = ^(NSURLSessionDataTask *task, NSError *error) {
-            NSLog(@"%@ %@ %@", method, uri, error);
+            DLog(@"%@ %@ %@", method, uri, error);
             if ([error.domain isEqualToString:@"NSURLErrorDomain"] && error.code == -1009) {
                 NSDictionary *response = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:KSAPIStatusNoInternet],@"status", nil];
                 completionBlock(YES,response);
@@ -124,8 +124,8 @@
                 id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                 
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"HTTP Errors"     // Event category (required)
-                                                                      action:@"Server Call"  // Event action (required)
-                                                                       label:[NSString stringWithFormat:@"Error Code: %ld",errorCode]         // Event label
+                                                                      action:[NSString stringWithFormat:@"URL: %@ - Params: %@ ",uri,params]  // Event action (required)
+                                                                       label:[NSString stringWithFormat:@"Error Code: %ld - Complete Error: %@",errorCode,error]         // Event label
                                                                        value:[NSNumber numberWithLong:errorCode]] build]];    // Event value
             
                 completionBlock(YES,response);

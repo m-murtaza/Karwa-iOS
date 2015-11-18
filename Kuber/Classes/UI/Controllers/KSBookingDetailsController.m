@@ -361,6 +361,13 @@ BtnState;
     
     if (self.btnCancelBooking.tag == BtnStateBookAgain) {
         
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                              action:@"btnBookAgainTapped"
+                                                               label:[NSString stringWithFormat:@"jobId:%@",self.tripInfo.jobId]
+                                                               value:nil] build]];
+        
         UINavigationController *controller = [UIStoryboard mainRootController];
         KSBookingMapController *bookingController = (KSBookingMapController *)[controller.viewControllers firstObject];
         bookingController.repeatTrip = self.tripInfo;
@@ -477,11 +484,23 @@ BtnState;
     
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
+    NSString * phone = [[KSSessionInfo currentSession] phone];
+    NSString * sessionId = [[KSSessionInfo currentSession] sessionId];
+    
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"btnCancelBookingTapped"
+                                                           label:[NSString stringWithFormat:@"jobId:%@ | Phone: %@ | SessionID: %@",self.tripInfo.jobId,phone,sessionId]
+                                                           value:nil] build]];
+    
+    
     [KSDAL cancelTrip:self.tripInfo completion:^(KSAPIStatus status, id response) {
        
         [hud hide:YES];
         if (KSAPIStatusSuccess == status || KSAPIStatusInvalidJob == status) {
-            //KSAPIStatusInvalidJob == status is added after very long discussion with Asif bahi, on 4th of Nov around 7:30 AM.
+            //KSAPIStatusInvalidJob == status is added after very long discussion with Asif bahi, on 4th of Nov 2015 around 7:30 AM.
             [self.navigationController popViewControllerAnimated:YES];
         }
         else{

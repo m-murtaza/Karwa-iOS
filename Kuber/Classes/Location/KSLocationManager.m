@@ -132,6 +132,14 @@
                                           [revGoecodeData valueForKey:@"area"]
                                                                      address:[revGoecodeData valueForKey:@"address"]
                                                                           Id:[revGoecodeData valueForKey:@"id"]];
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                  action:@"Reverse geocode from KISS Server"
+                                                                   label:[NSString stringWithFormat:@"coordinate %f-%f | landmark:%@",location.coordinate.latitude,location.coordinate.longitude,geolocation.address]
+                                                                   value:nil] build]];
+
         
             completionBlock(geolocation);
         }
@@ -142,6 +150,14 @@
                     
                     KSGeoLocation *geolocation = [KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address];
                     
+                    
+                    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                    
+                    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                          action:@"Reverse geocode from Apple"
+                                                                           label:[NSString stringWithFormat:@"coordinate %f-%f | landmark:%@",location.coordinate.latitude,location.coordinate.longitude,geolocation.address]
+                                                                           value:nil] build]];
+                    
                     completionBlock(geolocation);
                 }
                 else
@@ -150,111 +166,8 @@
         }
     }];
     
-    /*__block KSLocationManager *locationManager = self;
-
-    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (placemarks.count) {
-            CLPlacemark *placemark = [placemarks firstObject];
-
-            KSGeoLocation *geolocation = [KSDAL addGeolocationWithCoordinate:placemark.location.coordinate area:placemark.administrativeArea address:placemark.address];
-
-            completionBlock(geolocation);
-        }
-        else {
-            [locationManager reverseGeocodeLocation:location completion:^(NSArray *placemarks) {
-                completionBlock([placemarks firstObject]);
-            }];
-        }
-    }];*/
 }
 
-/*
-- (NSArray *)addressTokens:(NSString *)address {
-
-    NSArray *addressTokens = [address componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@",:; \t"]];
-    NSLog(@"Address Tokens: %@", addressTokens);
-    return addressTokens;
-}*/
-
-/*
-- (void)nearestPlacemarksForPlace:(CLPlacemark *)placemark toAddress:(NSString *)address completion:(KSPlacemarkListCompletionBlock)completion {
-    // Format address string based on given string
-    NSString *addressString = nil;
-    if (!placemark) {
-        placemark = _lastPlacemark;
-    }
-    if (!placemark) {
-        addressString = address;
-    }
-    else if (false) {
-
-        NSArray *addressTokens = [self addressTokens:address];
-        NSMutableArray *nameComponents = [NSMutableArray array];
-        
-        __block NSMutableDictionary *optionalAddressComponents = [NSMutableDictionary dictionary];
-        BOOL (^buildOptionalAddressComponent)(NSString *, NSString *) =  ^BOOL(NSString *key, NSString *value) {
-            BOOL inserted = FALSE;
-            if (!optionalAddressComponents[key]) {
-                NSString *placemarkValue = [placemark performSelector:NSSelectorFromString(key)];
-                if ([placemarkValue startsWithCaseInsensitive:value]) {
-                    [optionalAddressComponents setObject:placemarkValue forKey:key];
-                    inserted = TRUE;
-                }
-            }
-            return inserted;
-        };
-
-        for (NSString *addressComponent in addressTokens) {
-            if (addressComponent.length) {
-                BOOL inserted = buildOptionalAddressComponent(@"subLocality", addressComponent);
-                if (!inserted) {
-                    inserted = buildOptionalAddressComponent(@"locality", addressComponent);
-                }
-                if (!inserted) {
-                    inserted = buildOptionalAddressComponent(@"subAdministrativeArea", addressComponent);
-                }
-                if (!inserted) {
-                    inserted = buildOptionalAddressComponent(@"administrativeArea", addressComponent);
-                }
-                if (!inserted) {
-                    inserted = buildOptionalAddressComponent(@"postalCode", addressComponent);
-                }
-                if (!inserted) {
-                    inserted = buildOptionalAddressComponent(@"country", addressComponent);
-                }
-                if (!inserted) {
-                    [nameComponents addObject: addressComponent];
-                }
-            }
-        }
-
-        __block NSMutableArray *finalAddressComponents = [NSMutableArray arrayWithArray:nameComponents];
-        void (^appendOptionalAddressComponent)(NSString *, NSString *) = ^(NSString *key, NSString *defaultVal) {
-            NSString *value = [optionalAddressComponents[key] length] ? optionalAddressComponents[key] : defaultVal;
-            if (value.length && NSNotFound == [finalAddressComponents indexOfObject:value]) {
-                [finalAddressComponents addObject:value];
-            }
-        };
-
-        appendOptionalAddressComponent(@"subLocality", nil);
-        appendOptionalAddressComponent(@"locality", placemark.locality);
-        appendOptionalAddressComponent(@"subAdministrativeArea", nil);
-        appendOptionalAddressComponent(@"administrativeArea", placemark.administrativeArea);
-        appendOptionalAddressComponent(@"postalCode", nil);
-        appendOptionalAddressComponent(@"country", placemark.country);
-        
-        addressString = [finalAddressComponents componentsJoinedByString:@" "];
-    }
-    NSLog(@"Address String is: %@", addressString);
-    NSLog(@"Region is: %@", placemark.region);
-    CLRegion *region = [[CLCircularRegion alloc] initWithCenter:placemark.location.coordinate radius:100000.0 identifier:@"user_location"];
-    [_geocoder geocodeAddressString:addressString inRegion:region completionHandler:^(NSArray *placemarks, NSError *error) {
-        completion(placemarks);
-        if (error) {
-            NSLog(@"%@", error);
-        }
-    }];
-}*/
 
 #pragma mark -
 #pragma mark - CLLocationManagerDelegate
@@ -390,11 +303,21 @@
     
     KSGeoLocation *location =  [KSDAL nearestLocationMatchingLatitude:coordinate.latitude longitude:coordinate.longitude];
     if (location) {
+        
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                              action:@"Reverse geocode from LocalDB"
+                                                               label:[NSString stringWithFormat:@"coordinate %f-%f | landmark:%@",coordinate.latitude,coordinate.longitude,location.address]
+                                                               value:nil] build]];
+        
         [self performSelector:@selector(invokeBlock:) withObject:^() {
             completionBlock(location);
         } afterDelay:0.01];
     }
     else {
+        
+        
         [self placemarkForLocation:[CLLocation locationWithCoordinate:coordinate] completion:completionBlock];
     }
 

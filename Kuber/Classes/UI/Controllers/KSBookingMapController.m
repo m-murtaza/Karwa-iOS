@@ -116,6 +116,13 @@
     
     [self.mapDisableView setHidden:FALSE];
 }
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [KSGoogleAnalytics trackPage:@"Map Booking Screen"];
+}
+
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self checkLocationAvaliblityAndShowAlert];
@@ -240,6 +247,8 @@
     
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
+    
+    
     [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (status == KSAPIStatusSuccess) {
@@ -254,10 +263,25 @@
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
                 str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
+                
+                
+                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                
+                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                      action:@"CurrentTaxiBooking"
+                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+                                                                       value:nil] build]];
             }
             else{
                 
                 str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
+                
+                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                
+                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                      action:@"AdvTaxiBooking"
+                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+                                                                       value:nil] build]];
             }
             
             
@@ -289,6 +313,14 @@
                                    NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
                                    
                                    if (!text.length) {
+                                       id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                                       
+                                       [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                            action:@"btnHintOkTap"
+                                                            label:@"No Input"
+                                                            value:nil]
+                                                      build]];
+                                       
                                        [self showAlertWithHint];
                                    }
                                    else{
@@ -428,6 +460,12 @@
         }
         else {
         
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                  action:@"Reverse geocode not found"
+                                                                   label:[NSString stringWithFormat:@"coordinate %f-%f",self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude]
+                                                                   value:nil] build]];
             DLog(@"Address is not found for %f - %f",self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude);
         }
         
@@ -772,6 +810,13 @@
         KSAddressPickerController *addressPicker = (KSAddressPickerController*) segue.destinationViewController;
         addressPicker.pickerId = dropoffVisible ? KSPickerIdForDropoffAddress :KSPickerIdForPickupAddress;
         addressPicker.delegate = self;
+        
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                              action:@"Navigate to Addresspicker"
+                                                               label:addressPicker.pickerId
+                                                               value:nil] build]];
     }
     else if([segue.identifier isEqualToString:@"segueBookingToDetail"]) {
         
@@ -829,10 +874,23 @@
 - (IBAction) btnShowDestinationTapped:(id)sender
 {
     if (dropoffVisible) {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                              action:@"btnShowDestinationTapped"
+                                                               label:@"Hide dropoff location"
+                                                               value:nil] build]];
         
         [self hideDropOff:TRUE];
     }
     else {
+        
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                              action:@"btnShowDestinationTapped"
+                                                               label:@"Show dropoff location"
+                                                               value:nil] build]];
         
         [self showDropOff:TRUE];
     }
@@ -853,14 +911,17 @@
 {
     //For Current booking if pickup time is in past then update pickup time.
     [self updatePickupTimeIfNeeded];
-//    if (hintTxt && ![hintTxt isEqualToString:@""]) {
-//        
-//        [self bookTaxi];
-//    }
-//    else{
+
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
     
-        [self showAlertWithHint];
-//    }
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"btnBookingRequestTapped"
+                                                           label:[NSString stringWithFormat:@"Pickup: %@ | Dest: %@ | Time: %@",self.lblPickupLocaiton.text,self.lblDropoffLocaiton.text,self.txtPickupTime.text]
+                                                           value:nil] build]];
+    
+    
+    [self showAlertWithHint];
+
 }
 
 @end
