@@ -81,7 +81,7 @@
     [webClient DELETE:uri completion:^(BOOL success, id response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
-            [trip MR_deleteEntity];
+            //[trip MR_deleteEntity];
         }
         
         completionBlock(status, nil);

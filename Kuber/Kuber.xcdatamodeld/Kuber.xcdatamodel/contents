@@ -52,7 +52,7 @@
         <attribute name="pickupTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="driver" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSDriver" inverseName="trips" inverseEntity="KSDriver" syncable="YES"/>
-        <relationship name="passenger" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSUser" inverseName="trips" inverseEntity="KSUser" syncable="YES"/>
+        <relationship name="passenger" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSUser" inverseName="trips" inverseEntity="KSUser" syncable="YES"/>
         <relationship name="rating" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSTripRating" inverseName="trip" inverseEntity="KSTripRating" syncable="YES"/>
         <relationship name="taxi" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSTaxi" inverseName="trips" inverseEntity="KSTaxi" syncable="YES"/>
         <relationship name="tripToBookmark" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSBookmark" inverseName="bookmarkToTrip" inverseEntity="KSBookmark" syncable="YES"/>
@@ -82,10 +82,10 @@
     <elements>
         <element name="KSBookmark" positionX="34" positionY="0" width="128" height="180"/>
         <element name="KSDriver" positionX="196" positionY="-135" width="128" height="105"/>
-        <element name="KSFranchise" positionX="-117" positionY="-63" width="128" height="90"/>
+        <element name="KSFranchise" positionX="-110" positionY="-225" width="128" height="90"/>
         <element name="KSGeoLocation" positionX="52" positionY="315" width="128" height="135"/>
         <element name="KSTaxi" positionX="-243" positionY="-135" width="128" height="120"/>
-        <element name="KSTrip" positionX="-315" positionY="189" width="128" height="313"/>
+        <element name="KSTrip" positionX="-315" positionY="198" width="128" height="313"/>
         <element name="KSTripIssue" positionX="268" positionY="-9" width="128" height="105"/>
         <element name="KSTripRating" positionX="232" positionY="102" width="128" height="105"/>
         <element name="KSUser" positionX="61" positionY="-261" width="128" height="163"/>
