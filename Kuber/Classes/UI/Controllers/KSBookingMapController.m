@@ -272,13 +272,6 @@
 -(void) bookTaxi
 {
     
-    NSString * pickup = self.lblPickupLocaiton.text; //[self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
-    
-    tripInfo = [KSDAL tripWithLandmark:pickup
-                                   lat:self.mapView.centerCoordinate.latitude
-                                   lon:self.mapView.centerCoordinate.longitude];
-    
-    
     if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
         [self resetDropoffHintConter];
         tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
@@ -291,6 +284,13 @@
             return;
         }
     }
+    
+    
+    NSString * pickup = self.lblPickupLocaiton.text; //[self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
+    
+    tripInfo = [KSDAL tripWithLandmark:pickup
+                                   lat:self.mapView.centerCoordinate.latitude
+                                   lon:self.mapView.centerCoordinate.longitude];
        
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
