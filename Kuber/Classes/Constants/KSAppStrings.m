@@ -53,7 +53,7 @@ NSString *KSStringFromAPIStatus(KSAPIStatus status) {
       [NSNumber numberWithUnsignedInteger:KSAPIStatusJobAlreadyPending]:        @"You have another booking in process. Please select a different booking time.",
       [NSNumber numberWithUnsignedInteger:KSAPIInvalidPickupLocation]:          @"Karwa services are only avaible in Qatar.",  //need to change
       [NSNumber numberWithUnsignedInteger:KSAPIStatusBookingCancelled]:         @"You have cancelled the booking --",
-      [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiNotAvailable]:         @"We are unable to book a taxi for the given time. Please try again for a different time.",
+      [NSNumber numberWithUnsignedInteger:KSAPIStatusTaxiNotAvailable]:         @"Dear Customer, we are fully booked, Please try different pick up time.",
 
       [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoriteAlreadyExists]:    @"Favorite name already exists, please try a different name",
       [NSNumber numberWithUnsignedInteger:KSAPIStatusFavoritesLimitReached]:    @"You have reach maximum number of favorites.",

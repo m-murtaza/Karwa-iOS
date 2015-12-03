@@ -64,6 +64,8 @@
 {
     [super viewWillAppear:animated];
     
+    [KSGoogleAnalytics trackPage:@"Favorites List"];
+    
     [self loadAllData];
     
     [KSGoogleAnalytics trackPage:@"Change Password"];

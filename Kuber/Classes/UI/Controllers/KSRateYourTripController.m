@@ -11,6 +11,14 @@
 
 @implementation KSRateYourTripController
 
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [KSGoogleAnalytics trackPage:@"Rate your trip"];
+}
+
 -(void) fetchBookingDataFromServer
 {
     __block KSBookingHistoryController *me = self;

@@ -39,6 +39,8 @@
 
 #define TXT_HINT_TAG                1019
 #define MAX_PICKUP_TEXT             225
+#define MAX_HINT_DETAIL_COUNT       5
+#define DETAIL_HINT_KEY             @"dtailCountKey"
 
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {
@@ -57,7 +59,7 @@
     KSTrip *tripInfo;
     CLLocationCoordinate2D dropoffPoint;
     BOOL isMaploaded;
-    //BOOL firstTimeLoad;
+    BOOL isPickupFromMap;                 //Used for analytics
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -67,13 +69,16 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
 @property (nonatomic, weak) IBOutlet UIView *mapDisableView;
+@property (nonatomic, weak) IBOutlet UIImageView *imgDestinationHelp;
+//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *destinationHelpRight;
+
+
 
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
-
 
 
 //Top Right navigation item
@@ -92,6 +97,7 @@
     //firstTimeLoad = TRUE;
     isMaploaded = FALSE;
     dropoffVisible = FALSE;
+    isPickupFromMap = TRUE;
     [self setIndexForCell:dropoffVisible];
 
     
@@ -115,6 +121,11 @@
     
     
     [self.mapDisableView setHidden:FALSE];
+    
+    if(IS_IPHONE_5)
+    {
+        [self.imgDestinationHelp setImage:[UIImage imageNamed:@"destination-help-iphone5.png"]];
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -223,6 +234,41 @@
     return [NSString stringWithFormat:@"%@, %@",hint,pickUpadd];
 }
 
+-(void) resetDropoffHintConter
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInt:0] forKey:DETAIL_HINT_KEY];
+    [defaults synchronize];
+}
+
+-(BOOL) showHintForDestination
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *hintCount = [defaults objectForKey:DETAIL_HINT_KEY];
+    if ([hintCount integerValue] >= MAX_HINT_DETAIL_COUNT || hintCount == nil) {
+        [self resetDropoffHintConter];
+        return TRUE;
+    }
+    hintCount = [NSNumber numberWithInt:[hintCount intValue]+1];
+    [defaults setObject:hintCount forKey:DETAIL_HINT_KEY];
+    [defaults synchronize];
+    return FALSE;
+}
+
+-(void) hideHintView:(BOOL)hide
+{
+    if (hide)
+    {
+        self.mapView.userInteractionEnabled = TRUE;
+        self.imgDestinationHelp.hidden = TRUE;
+    }
+    else {
+        [self.view endEditing:TRUE];
+        self.mapView.userInteractionEnabled = FALSE;
+        self.imgDestinationHelp.hidden = FALSE;
+    }
+}
+
 -(void) bookTaxi
 {
     
@@ -233,24 +279,31 @@
                                    lon:self.mapView.centerCoordinate.longitude];
     
     
-    if (self.lblDropoffLocaiton.text.length) {
-        
+    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
+        [self resetDropoffHintConter];
         tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
         tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
         tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
+    }
+    else{
+        if ([self showHintForDestination]) {
+            [self hideHintView:FALSE];
+            return;
+        }
     }
        
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
     tripInfo.pickupTime = datePicker.date;
     tripInfo.pickupHint = hintTxt ? hintTxt : @"";
-    
+
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     
-    
+
     [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
+        
         if (status == KSAPIStatusSuccess) {
             NSLog(@"%@",data);
             KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
@@ -259,13 +312,16 @@
                 
             }];
             
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                  action:@"PickupAddress"
+                                                                   label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
+                                                                   value:nil] build]];
+            
             NSString *str;
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
                 str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
-                
-                
-                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                 
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
                                                                       action:@"CurrentTaxiBooking"
@@ -275,8 +331,6 @@
             else{
                 
                 str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
-                
-                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
                 
                 [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
                                                                       action:@"AdvTaxiBooking"
@@ -443,7 +497,8 @@
 
 -(void) setPickupLocationLblText
 {
-
+    
+    isPickupFromMap = TRUE;
     //Firstly only show the lat long
     [self.lblPickupLocaiton setText:[NSString stringWithFormat:@"%f - %f",self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude]];
     self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
@@ -618,6 +673,14 @@
     
     return TRUE;
 }
+-(BOOL) textFieldShouldBeginEditing:(UITextField *)textField{
+    if (!self.imgDestinationHelp.hidden) {
+        [self hideHintView:TRUE];
+        return FALSE;
+    }
+    return TRUE;
+}
+
 
 #pragma mark - MapViewDelegate
 
@@ -771,6 +834,11 @@
 #pragma mark - UITableView Delegate
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (!self.imgDestinationHelp.hidden) {
+        [self hideHintView:TRUE];
+        return;
+    }
+    
     if (indexPath.row == idxPickupLocation) {
         
         if (dropoffVisible) {
@@ -830,7 +898,7 @@
 - (void)addressPicker:(KSAddressPickerController *)picker didDismissWithAddress:(NSString *)address location:(CLLocation *)location {
 
     if(picker.pickerId == KSPickerIdForPickupAddress){
-        
+        isPickupFromMap = FALSE;
         [self.lblPickupLocaiton setText:address];
         self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
         if (location) {
@@ -848,7 +916,7 @@
 - (void)addressPicker:(KSAddressPickerController *)picker didDismissWithAddress:(NSString *)address location:(CLLocation *)location hint:(NSString *)hint{
     
     if(picker.pickerId == KSPickerIdForPickupAddress){
-        
+        isPickupFromMap = FALSE;
         [self.lblPickupLocaiton setText:address];
         self.lblLocationLandMark.text = self.lblPickupLocaiton.text;
         if (location) {
@@ -871,8 +939,18 @@
 
 #pragma mark - UI Events
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
+    //[self.imgDestinationHelp setHidden:TRUE];
+    [self hideHintView:TRUE];
+}
+
 - (IBAction) btnShowDestinationTapped:(id)sender
 {
+    if (!self.imgDestinationHelp.hidden) {
+        [self hideHintView:TRUE];
+    }
+    
     if (dropoffVisible) {
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
         
@@ -898,6 +976,11 @@
 
 - (IBAction)showCurrentLocationTapped:(id)sender
 {
+    if (!self.imgDestinationHelp.hidden) {
+        [self hideHintView:TRUE];
+        return;
+    }
+    
     if ([self checkLocationAvaliblityAndShowAlert]) {
         
         //mapLoadForFirstTime = TRUE;
@@ -909,6 +992,10 @@
 
 - (IBAction) btnBookingRequestTapped:(id)sender
 {
+    if (!self.imgDestinationHelp.hidden) {
+        [self hideHintView:TRUE];
+        return;
+    }
     //For Current booking if pickup time is in past then update pickup time.
     [self updatePickupTimeIfNeeded];
 

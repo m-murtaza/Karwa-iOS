@@ -31,7 +31,7 @@
 {
     [super viewWillAppear:animated];
     [self loadWebView];
-    
+    [KSGoogleAnalytics trackPage:@"Terms of Services"];
     self.navigationItem.title = @"Terms of Services";
 }
 
