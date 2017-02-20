@@ -153,7 +153,7 @@
 {
     if (passengerLocation && taxiInfo) {
         KSVehicleTrackingAnnotation *taxiAnnotation = [KSVehicleTrackingAnnotation annotationWithTrackingInfo:taxiInfo];
-        if (CLLocationCoordinate2DIsValid(taxiInfo.coordinate) && CLLocationCoordinate2DIsValid(passengerLocation.location.coordinate)) {
+        if (CLLocationCoordinate2DIsValid(taxiInfo.coordinate) && CLLocationCoordinate2DIsValid(passengerLocation.coordinate)) {
             
             NSArray *previusAnnotations = self.mapView.annotations;
             for (id annotation in previusAnnotations) {

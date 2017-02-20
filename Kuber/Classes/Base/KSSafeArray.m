@@ -12,7 +12,7 @@
 
 - (id)objectAtIndex:(NSUInteger)index
 {
-    if (self.count > index) {
+    if (index < self.count) {
         return [super objectAtIndex:index];
     }
     else

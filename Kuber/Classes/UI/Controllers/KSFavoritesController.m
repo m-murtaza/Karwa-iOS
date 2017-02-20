@@ -54,7 +54,7 @@
 //
 //    [self buildBookmarks];
     
-    [self loadAllData];
+    //[self loadAllData];
     
     
 

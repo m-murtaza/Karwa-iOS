@@ -259,7 +259,7 @@
             if (response[@"data"][@"Address"]) {
                 bookmark.address = response[@"data"][@"Address"];
             }
-            
+            //bookmark.sortOrder = aBookmark.sortOrder;
             //Goe location
             if ([response[@"data"][@"LocationID"] integerValue] != 0) {
                 

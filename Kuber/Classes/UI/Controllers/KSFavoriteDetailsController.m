@@ -351,7 +351,7 @@
         }
     };
     if (self.bookmark) {
-        [KSDAL updateBookmark:self.bookmark withName:self.txtName.text coordinate:self.annotation.coordinate completion:completionHandler];
+        [KSDAL updateBookmark:self.bookmark withName:self.txtName.text coordinate:self.annotation.coordinate sortOrder:self.bookmark.sortOrder  completion:completionHandler];
     }
     else if (self.gLocation)
     {

@@ -44,12 +44,12 @@
 - (void)onClickButton:(id)sender {
     
     //KSBookmark *bookmark = (KSBookmark*)self.cellData;
-    /*[[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavBookmarkCellAction
+    [[NSNotificationCenter defaultCenter] postNotificationName:KSNotificationButtonUnFavBookmarkCellAction
                                                         object:nil
                                                       userInfo:[NSDictionary dictionaryWithObject:self.cellData forKey:@"cellData"]];
     
     //TODO catch this notification on table view
-    [super onClickButton:nil];*/
+    [super onClickButton:nil];
     
 }
 
