@@ -60,6 +60,8 @@
     CLLocationCoordinate2D dropoffPoint;
     BOOL isMaploaded;
     BOOL isPickupFromMap;                 //Used for analytics
+    
+    KSVehicleType vehicleType;              //This is for service type i.e. limo or taxi
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -98,6 +100,7 @@
     isMaploaded = FALSE;
     dropoffVisible = FALSE;
     isPickupFromMap = TRUE;
+    vehicleType = KSCityTaxi;
     [self setIndexForCell:dropoffVisible];
 
     
@@ -297,6 +300,8 @@
     tripInfo.pickupTime = datePicker.date;
     tripInfo.pickupHint = hintTxt ? hintTxt : @"";
 
+    tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
+    
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     

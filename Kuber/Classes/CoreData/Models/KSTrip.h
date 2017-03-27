@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSDate * pickupTime;
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * pickupHint;
+@property (nonatomic, retain) NSNumber * vehicleType;
 
 @property (nonatomic, retain) KSDriver *driver;
 @property (nonatomic, retain) KSUser *passenger;

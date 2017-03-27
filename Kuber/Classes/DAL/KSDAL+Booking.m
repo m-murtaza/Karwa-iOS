@@ -44,6 +44,7 @@
     [requestData setObjectOrNothing:trip.dropoffLandmark forKey:@"DropLocation"];
     [requestData setObjectOrNothing:[[NSDate date] bookingDateServerFormat] forKey:@"CreationTime"];
     [requestData setObjectOrNothing:trip.pickupHint forKey:@"PickMessage"];
+    [requestData setObjectOrNothing:trip.vehicleType forKey:@"VehicleType"];
 
     KSWebClient *webClient = [KSWebClient instance];
     __block KSTrip *tripInfo = trip;
@@ -69,7 +70,6 @@
             completionBlock(status, nil);
         }
     }];
-
 }
 
 + (void)cancelTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock {

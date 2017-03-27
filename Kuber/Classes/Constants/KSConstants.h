@@ -82,3 +82,11 @@ typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
     KSTripStatusCompletedNotRated   = 99
 };
 
+
+typedef NS_OPTIONS(NSUInteger, KSVehicleType) {
+    KSCityTaxi                      = 1,
+    KSCompactLimo                   = 20,
+    KSStandardLimo                  = 30,
+    KSBusinessLimo                  = 50,
+    KSKuxuryLimo                    = 70
+};
