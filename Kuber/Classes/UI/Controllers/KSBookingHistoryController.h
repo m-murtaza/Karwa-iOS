@@ -10,9 +10,9 @@
 
 @interface KSBookingHistoryController : KSTableViewController
 
-
 @property (nonatomic) NSUInteger tripStatus;
-@property (nonatomic, strong) NSArray *trips;
+@property (nonatomic, strong) NSArray *taxiTrips;
+@property (nonatomic, strong) NSArray *limoTrips;
 
 - (void)buildTripsHistory:(NSArray*)data;
 @end

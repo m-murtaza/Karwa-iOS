@@ -318,62 +318,108 @@
         }];
 }
 
-+ (NSArray*) fetchPendingBookingHistoryFromDB
++ (NSArray*) pendingTaxiBookingsDB
 {
-    NSPredicate *pendingPredicate = [NSPredicate predicateWithFormat:@"status == %d || status == %d || status == %d || status == %d || status == %d || status == %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned, KSTripStatusPassengerInTaxi];
-    NSArray *pendingBookings = [KSTrip MR_findAllSortedBy:@"pickupTime"
-                                                ascending:YES
-                                            withPredicate:pendingPredicate ];
-    return pendingBookings;
-    
-}
-+ (NSArray*) fetchTopNonPendingBookingHistoryFromDB
-{
-    return [KSDAL fetchTopNonPendingBookingHistoryFromDB:0 Limit:BOOKING_LIST_NUM_RECORD];
+    return [KSDAL pendingBookingsDBWithPredicate:[KSDAL taxiPredicate]];
 }
 
-+ (NSArray*) fetchTopNonPendingBookingHistoryFromDB:(NSInteger)offset Limit:(NSInteger)limit
++ (NSPredicate*) taxiPredicate
 {
-    NSPredicate *otherBookingsPredicate = [NSPredicate predicateWithFormat:@"status != %d && status != %d && status != %d && status != %d && status != %d && status != %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned, KSTripStatusPassengerInTaxi];
+    return [NSPredicate predicateWithFormat:@"vehicleType ==  %d || vehicleType == %d || vehicleType == %d || vehicleType == %d || vehicleType == %d",KSCityTaxi,KSAiport7Seater,KSAirportSpare,KSSpecialNeedTaxi,KSAiportTaxi];
+}
+
++(NSPredicate*) limoPredicate
+{
+    return [NSPredicate predicateWithFormat:@"vehicleType ==  %d || vehicleType == %d || vehicleType == %d || vehicleType == %d",KSCompactLimo,KSStandardLimo,KSBusinessLimo,KSKuxuryLimo];
+}
+
++ (NSArray*) pendingLimoBookingsDB
+{
+    return [KSDAL pendingBookingsDBWithPredicate:[KSDAL limoPredicate]];
+}
+
++ (NSArray*) pendingBookingsDBWithPredicate:(NSPredicate*) predicate
+{
+    NSPredicate *pendingPredicate = [NSPredicate predicateWithFormat:@"status == %d || status == %d || status == %d || status == %d || status == %d || status == %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned, KSTripStatusPassengerInTaxi];
     
+    NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[pendingPredicate,predicate]];
+    NSArray *pendingBookings = [KSTrip MR_findAllSortedBy:@"pickupTime"
+                                                 ascending:YES
+                                             withPredicate:compoundPredicate];
+   return pendingBookings;
     
-    NSFetchRequest *otherBookingFetchRequest = [KSTrip MR_requestAllWithPredicate:otherBookingsPredicate];
+}
+
++ (NSArray*) topFinishedLimoBookingsDB
+{
+    return [KSDAL topFinishedBookingsDBWithPredicate:[KSDAL limoPredicate]];
+}
+
+
++ (NSArray*) topFinishedTaxiBookingsDB
+{
+    return [KSDAL topFinishedBookingsDBWithPredicate:[KSDAL taxiPredicate]];
+}
+
++ (NSArray*) topFinishedTaxiBookingsDB:(NSInteger)offset Limit:(NSInteger)limit
+{
+    return [KSDAL topFinishedBookingsDB:offset Limit:limit Predicate:[KSDAL taxiPredicate]];
+}
+
++ (NSArray*) topFinishedBookingsDBWithPredicate:(NSPredicate*) predicate
+{
+    return [KSDAL topFinishedBookingsDB:0 Limit:BOOKING_LIST_NUM_RECORD Predicate:predicate];
+}
+
++ (NSArray*) topFinishedBookingsDB:(NSInteger)offset Limit:(NSInteger)limit Predicate:(NSPredicate*) predicate
+{
+    NSPredicate *finishedBookingsPredicate = [NSPredicate predicateWithFormat:@"status != %d && status != %d && status != %d && status != %d && status != %d && status != %d",KSTripStatusOpen,KSTripStatusInProcess,KSTripStatusPending,KSTripStatusManuallyAssigned,KSTripStatusTaxiAssigned, KSTripStatusPassengerInTaxi];
     
-    [otherBookingFetchRequest setFetchOffset:offset];
+    NSCompoundPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[finishedBookingsPredicate,predicate]];
+    
+    NSFetchRequest *finishedBookingFetchRequest = [KSTrip MR_requestAllWithPredicate:compoundPredicate];
+    
+    [finishedBookingFetchRequest setFetchOffset:offset];
     if (limit>0) {
-            [otherBookingFetchRequest setFetchLimit:limit];
+            [finishedBookingFetchRequest setFetchLimit:limit];
     }
     
     
     NSSortDescriptor *otherBookingSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
     NSArray *sortDescriptors = [NSArray arrayWithObject:otherBookingSortDescriptor];
-    [otherBookingFetchRequest setSortDescriptors:sortDescriptors];
+    [finishedBookingFetchRequest setSortDescriptors:sortDescriptors];
     
-    NSArray *otherBookings = [KSTrip MR_executeFetchRequest:otherBookingFetchRequest];
+    NSArray *otherBookings = [KSTrip MR_executeFetchRequest:finishedBookingFetchRequest];
     return otherBookings;
 }
 
-+ (NSArray*) fetchBookingHistoryFromDB
++ (NSArray*) fetchTaxiBookingDB
 {
-    
-    NSArray *pendingBookings = [KSDAL fetchPendingBookingHistoryFromDB];
-    NSArray *otherBookings = [KSDAL fetchTopNonPendingBookingHistoryFromDB];
+    NSArray *pendingBookings = [KSDAL pendingTaxiBookingsDB];
+    NSArray *otherBookings = [KSDAL topFinishedTaxiBookingsDB];
     
     NSArray * bookingHistory = [pendingBookings arrayByAddingObjectsFromArray:otherBookings];
     return bookingHistory;
+}
+
++(NSArray*) fetchLimoBookingDB
+{
+    NSArray *pendingBookings = [KSDAL pendingLimoBookingsDB];
+    NSArray *otherBookings = [KSDAL topFinishedLimoBookingsDB];
     
+    NSArray * bookingHistory = [pendingBookings arrayByAddingObjectsFromArray:otherBookings];
+    return bookingHistory;
 }
 
 + (void) removeOldBookings
 {
-    NSArray *otherBookings = [KSDAL fetchTopNonPendingBookingHistoryFromDB:50 Limit:0];
+    NSArray *otherBookings = [KSDAL topFinishedTaxiBookingsDB:50 Limit:0];
     for (KSTrip *trip in otherBookings) {
       
         [trip MR_deleteEntity];
     }
     [KSDBManager saveContext:nil];
 }
-
 
 + (void) removeAllBookings
 {
@@ -471,6 +517,11 @@
     
     if(tripData[@"PickMessage"]){
         trip.pickupHint = tripData[@"PickMessage"];
+    }
+    
+    if(tripData[@"VehicleType"] && [tripData[@"VehicleType"] integerValue] > 0)
+    {
+        trip.vehicleType = tripData[@"VehicleType"];
     }
     
     //Driver Information

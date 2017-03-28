@@ -36,6 +36,8 @@
 
 + (void)taxisNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius completion:(KSDALCompletionBlock)completionBlock;
 
++ (void)vehiclesNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius type:(KSVehicleType)type completion:(KSDALCompletionBlock)completionBlock;
+
 + (KSGeoLocation *)locationsWithLocationID:(NSNumber *)locId;
 
 +(void) searchServerwithQuery:(NSString*)query completion:(KSDALCompletionBlock)completionBlock;

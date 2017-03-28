@@ -85,6 +85,10 @@ typedef NS_OPTIONS(NSUInteger, KSTripStatus) {
 
 typedef NS_OPTIONS(NSUInteger, KSVehicleType) {
     KSCityTaxi                      = 1,
+    KSAiport7Seater                 = 3,
+    KSAirportSpare                  = 5,
+    KSSpecialNeedTaxi               = 10,
+    KSAiportTaxi                    = 11,
     KSCompactLimo                   = 20,
     KSStandardLimo                  = 30,
     KSBusinessLimo                  = 50,

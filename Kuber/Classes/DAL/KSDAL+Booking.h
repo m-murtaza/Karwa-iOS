@@ -35,9 +35,10 @@
 
 +(void) bookingWithBookingId:(NSString*)bookingId completion:(KSDALCompletionBlock)completionBlock;
 
-+ (NSArray*) fetchBookingHistoryFromDB;
-+ (NSArray*) fetchPendingBookingHistoryFromDB;
-+ (NSArray*) fetchTopNonPendingBookingHistoryFromDB;
++ (NSArray*) fetchTaxiBookingDB;
++ (NSArray*) fetchLimoBookingDB;
+//+ (NSArray*) pendingBookingsDB;
++ (NSArray*) topFinishedBookingsDB;
 
 + (void) removeOldBookings;
 + (void) removeAllBookings;

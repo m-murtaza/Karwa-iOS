@@ -15,8 +15,8 @@
 @interface KSBookingHistoryController ()
 
 
-@property (nonatomic, strong) NSMutableDictionary *tripsData;
-@property (nonatomic, strong) NSMutableArray *datesHeader;
+//@property (nonatomic, strong) NSMutableDictionary *tripsData;
+//@property (nonatomic, strong) NSMutableArray *datesHeader;
 
 @end
 
@@ -55,7 +55,13 @@
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
                 
-                [me buildTripsHistory:[KSDAL fetchBookingHistoryFromDB]];
+                //[me buildTripsHistory:[KSDAL fetchTaxiBookingDB]];
+                self.taxiTrips = [NSArray arrayWithArray:[KSDAL fetchTaxiBookingDB]];
+                self.limoTrips = [NSArray arrayWithArray:[KSDAL fetchLimoBookingDB]];
+                //DLog(@"%@",self.trips);
+                [self.tableView reloadData];
+
+                
                 
             }
             else
@@ -82,16 +88,16 @@
 
 #pragma mark -
 
-- (void)buildTripsHistory:(NSArray*)data {
-    
-    //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
-    //self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
-    
-    
-    self.trips = [NSArray arrayWithArray:data];
-    DLog(@"%@",self.trips);
-    [self.tableView reloadData];
-}
+//- (void)buildTripsHistory:(NSArray*)data {
+//    
+//    //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
+//    //self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
+//    
+//    
+//    self.taxiTrips = [NSArray arrayWithArray:data];
+//    DLog(@"%@",self.trips);
+//    [self.tableView reloadData];
+//}
 
 
 - (void)didReceiveMemoryWarning {
@@ -100,45 +106,44 @@
 }
 
 #pragma mark - Priveate Methods
--(void) createSectionHeader
-{
-    NSMutableArray * dates = [[NSMutableArray alloc] init];
-    //self.datesHeader = [[NSMutableArray alloc] init];
-    for (KSTrip *trip in self.trips) {
-        
-        NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
-        [dates addObject:d];
-    }
-    
-    //This is unsorted array of date headers
-    NSSet *uniqueStates = [NSSet setWithArray:dates];
-    DLog(@"%@",uniqueStates);
-    
-    //Sorting the dates
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"self"
-                                                               ascending:NO];
-    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-    self.datesHeader = (NSMutableArray*)[uniqueStates.allObjects sortedArrayUsingDescriptors:descriptors];
-
-}
--(void) createSectionData
-{
-    
-    self.tripsData = [[NSMutableDictionary alloc] init];
-    for (NSDate *date in self.datesHeader) {
-       
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-            KSTrip *trip = (KSTrip*)evaluatedObject;
-            NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
-            return [d isEqualToDate:date];
-        }];
-        
-        NSArray *secData = [self.trips filteredArrayUsingPredicate:predicate];
-        [self.tripsData setObject:secData forKey:[NSDate bookingHistoryDateToString:date]];
-    }
-                                   
-}
-                                   
+//-(void) createSectionHeader
+//{
+//    NSMutableArray * dates = [[NSMutableArray alloc] init];
+//    //self.datesHeader = [[NSMutableArray alloc] init];
+//    for (KSTrip *trip in self.trips) {
+//        
+//        NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
+//        [dates addObject:d];
+//    }
+//    
+//    //This is unsorted array of date headers
+//    NSSet *uniqueStates = [NSSet setWithArray:dates];
+//    DLog(@"%@",uniqueStates);
+//    
+//    //Sorting the dates
+//    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"self"
+//                                                               ascending:NO];
+//    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+//    self.datesHeader = (NSMutableArray*)[uniqueStates.allObjects sortedArrayUsingDescriptors:descriptors];
+//
+//}
+//-(void) createSectionData
+//{
+//    
+//    self.tripsData = [[NSMutableDictionary alloc] init];
+//    for (NSDate *date in self.datesHeader) {
+//       
+//        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+//            KSTrip *trip = (KSTrip*)evaluatedObject;
+//            NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
+//            return [d isEqualToDate:date];
+//        }];
+//        
+//        NSArray *secData = [self.trips filteredArrayUsingPredicate:predicate];
+//        [self.tripsData setObject:secData forKey:[NSDate bookingHistoryDateToString:date]];
+//    }
+//                                   
+//}
 
 
 #pragma mark -
