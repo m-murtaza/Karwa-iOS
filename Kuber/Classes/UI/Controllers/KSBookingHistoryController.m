@@ -45,108 +45,40 @@
 {
     __block KSBookingHistoryController *me = self;
     
-    //Todo Need to remove repitative code
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//    
-//    if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Bookings";
         
     [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
-                
-                //[me buildTripsHistory:[KSDAL fetchTaxiBookingDB]];
-                self.taxiTrips = [NSArray arrayWithArray:[KSDAL fetchTaxiBookingDB]];
-                self.limoTrips = [NSArray arrayWithArray:[KSDAL fetchLimoBookingDB]];
-                //DLog(@"%@",self.trips);
-                [self.tableView reloadData];
-
-                
-                
+            
+                me.taxiTrips = [NSArray arrayWithArray:[KSDAL fetchTaxiBookingDB]];
+                me.limoTrips = [NSArray arrayWithArray:[KSDAL fetchLimoBookingDB]];
+                me.trips = [NSArray arrayWithArray:me.taxiTrips];
+                [me.tableView reloadData];
             }
             else
             {
                 [KSAlert show:KSStringFromAPIStatus(status)];
             }
         }];
-//    }
-//    else if(_tripStatus == KSTripStatusCompletedNotRated){
-//        
-//        self.navigationItem.title = @"Rate your Trips";
-//        [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-//            [hud hide:YES];
-//            if (KSAPIStatusSuccess == status) {
-//                [me buildTripsHistory:trips];
-//            }
-//            else{
-//                
-//                [KSAlert show:KSStringFromAPIStatus(status)];
-//            }
-//        }];
-//    }
 }
-
-#pragma mark -
-
-//- (void)buildTripsHistory:(NSArray*)data {
-//    
-//    //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
-//    //self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
-//    
-//    
-//    self.taxiTrips = [NSArray arrayWithArray:data];
-//    DLog(@"%@",self.trips);
-//    [self.tableView reloadData];
-//}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Priveate Methods
-//-(void) createSectionHeader
-//{
-//    NSMutableArray * dates = [[NSMutableArray alloc] init];
-//    //self.datesHeader = [[NSMutableArray alloc] init];
-//    for (KSTrip *trip in self.trips) {
-//        
-//        NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
-//        [dates addObject:d];
-//    }
-//    
-//    //This is unsorted array of date headers
-//    NSSet *uniqueStates = [NSSet setWithArray:dates];
-//    DLog(@"%@",uniqueStates);
-//    
-//    //Sorting the dates
-//    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"self"
-//                                                               ascending:NO];
-//    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-//    self.datesHeader = (NSMutableArray*)[uniqueStates.allObjects sortedArrayUsingDescriptors:descriptors];
-//
-//}
-//-(void) createSectionData
-//{
-//    
-//    self.tripsData = [[NSMutableDictionary alloc] init];
-//    for (NSDate *date in self.datesHeader) {
-//       
-//        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-//            KSTrip *trip = (KSTrip*)evaluatedObject;
-//            NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
-//            return [d isEqualToDate:date];
-//        }];
-//        
-//        NSArray *secData = [self.trips filteredArrayUsingPredicate:predicate];
-//        [self.tripsData setObject:secData forKey:[NSDate bookingHistoryDateToString:date]];
-//    }
-//                                   
-//}
+#pragma mark - Vehicle Type Selection
+- (IBAction)onSegmentVehicleTypeChange:(id)sender
+{
+    if(_segmentVehicleType.selectedSegmentIndex == 0)
+        self.trips = [NSArray arrayWithArray:self.taxiTrips];
+    else
+        self.trips = [NSArray arrayWithArray:self.limoTrips];
+    [self.tableView reloadData];
+}
 
-
-#pragma mark -
 #pragma mark - Table View Datasource and Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -154,7 +86,12 @@
     return 1;
 }
 
-- (NSInteger)numberOfRowsInSection:(NSInteger)section {
+//- (NSInteger)numberOfRowsInSection:(NSInteger)section {
+//    return self.taxiTrips.count;
+//}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.trips.count;
 }
 

@@ -10,8 +10,7 @@
 
 #import "KSViewController.h"
 
-@interface KSViewController ()
-
+@interface KSViewController () 
 
 
 @end

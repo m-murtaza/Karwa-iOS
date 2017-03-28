@@ -47,7 +47,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    KSTrip *trip = self.trips[indexPath.row];
+    KSTrip *trip = self.taxiTrips[indexPath.row];
     if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
         KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
         ratingController.trip = trip;
