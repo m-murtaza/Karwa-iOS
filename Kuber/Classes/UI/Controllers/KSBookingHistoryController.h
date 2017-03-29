@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSArray *limoTrips;
 
 @property (weak,nonatomic) IBOutlet UITableView *tableView;
-@property (weak,nonatomic) IBOutlet UISegmentedControl *segmentVehicleType;
+//@property (weak,nonatomic) IBOutlet UISegmentedControl *segmentVehicleType;
 
 - (IBAction)onSegmentVehicleTypeChange:(id)sender;
 
