@@ -9,7 +9,8 @@
 
 #import "KSDBManager.h"
 #import "KSWebClient.h"
-#import "MagicalRecord.h"
+//#import <MagicalRecord/MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation KSDAL
 

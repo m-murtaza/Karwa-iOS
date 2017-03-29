@@ -8,7 +8,7 @@
 
 #import "KSDAL+Franchise.h"
 #import "KSDBManager.h"
-#import "MagicalRecord.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation KSDAL (Franchise)
 

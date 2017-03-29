@@ -10,7 +10,7 @@
 
 #import "KSDBManager.h"
 #import "KSWebClient.h"
-#import "MagicalRecord.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import "KSLocation.h"
 
 #define BOOKING_SYNC_TIME @"bookingSyncTime"
