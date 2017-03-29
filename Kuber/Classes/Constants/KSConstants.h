@@ -92,5 +92,5 @@ typedef NS_OPTIONS(NSUInteger, KSVehicleType) {
     KSCompactLimo                   = 20,
     KSStandardLimo                  = 30,
     KSBusinessLimo                  = 50,
-    KSKuxuryLimo                    = 70
+    KSLuxuryLimo                    = 70
 };

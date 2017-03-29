@@ -32,6 +32,8 @@
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
+    [self addSegmentControl];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -39,8 +41,6 @@
     [super viewWillAppear:animated];
     
     [KSGoogleAnalytics trackPage:@"Booking History"];
-    
-    [self addSegmentControl];
     
     [self fetchBookingDataFromServer];
 }
@@ -100,7 +100,11 @@
             
                 me.taxiTrips = [NSArray arrayWithArray:[KSDAL fetchTaxiBookingDB]];
                 me.limoTrips = [NSArray arrayWithArray:[KSDAL fetchLimoBookingDB]];
-                me.trips = [NSArray arrayWithArray:me.taxiTrips];
+                if(segmentVehicleType.selectedSegmentIndex == 0)
+                    me.trips = [NSArray arrayWithArray:self.taxiTrips];
+                else
+                    me.trips = [NSArray arrayWithArray:self.limoTrips];
+
                 [me.tableView reloadData];
             }
             else

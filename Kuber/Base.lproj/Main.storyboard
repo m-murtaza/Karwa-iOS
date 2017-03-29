@@ -27,7 +27,7 @@
         <scene sceneID="RhO-6x-Dx9">
             <objects>
                 <navigationController storyboardIdentifier="KSLoginRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PVP-WB-Dam" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VrS-2r-kUF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VrS-2r-kUF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -43,7 +43,7 @@
         <scene sceneID="fMy-gq-ST0">
             <objects>
                 <navigationController storyboardIdentifier="KSMainRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YOd-38-N3f" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="96K-dZ-F0d">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="96K-dZ-F0d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2935,7 +2935,7 @@
                                                     </variation>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancelled-tag.png" translatesAutoresizingMaskIntoConstraints="NO" id="dDk-qR-Efs">
-                                                    <rect key="frame" x="249" y="15" width="94" height="15"/>
+                                                    <rect key="frame" x="263" y="15" width="94" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="Xk1-1M-aSs"/>
                                                         <constraint firstAttribute="width" constant="94" id="m0l-VI-v3t"/>
@@ -2972,7 +2972,7 @@
                                                 <constraint firstItem="EYr-ML-q1q" firstAttribute="centerY" secondItem="Dge-mc-YVu" secondAttribute="centerY" id="TV6-OM-1hB"/>
                                                 <constraint firstItem="dux-Ug-G6D" firstAttribute="leading" secondItem="9Lg-us-OCL" secondAttribute="leading" id="Td9-i8-ig3"/>
                                                 <constraint firstItem="cQa-pB-ucu" firstAttribute="leading" secondItem="dux-Ug-G6D" secondAttribute="trailing" constant="4" id="WKX-NF-sSu"/>
-                                                <constraint firstItem="dDk-qR-Efs" firstAttribute="leading" secondItem="9Km-ry-dJy" secondAttribute="trailing" constant="33" id="Zii-XX-QIh"/>
+                                                <constraint firstItem="dDk-qR-Efs" firstAttribute="leading" secondItem="9Km-ry-dJy" secondAttribute="trailing" constant="47" id="Zii-XX-QIh"/>
                                                 <constraint firstItem="Dge-mc-YVu" firstAttribute="leading" secondItem="G4p-Uk-eJs" secondAttribute="trailing" constant="8" id="aCG-ja-kLy"/>
                                                 <constraint firstAttribute="centerY" secondItem="G4p-Uk-eJs" secondAttribute="centerY" constant="-8" id="e8o-zD-IL3"/>
                                                 <constraint firstItem="cQa-pB-ucu" firstAttribute="bottom" secondItem="dux-Ug-G6D" secondAttribute="bottom" id="eKH-CH-kAC"/>
@@ -3083,6 +3083,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imgStatus" destination="dDk-qR-Efs" id="NPg-0E-q7M"/>
+                                            <outlet property="imgVehicleType" destination="G4p-Uk-eJs" id="Nro-YI-O0i"/>
                                             <outlet property="lblDate" destination="Dge-mc-YVu" id="bWk-ek-BkF"/>
                                             <outlet property="lblDropoffTo" destination="cQa-pB-ucu" id="qqv-QU-WEq"/>
                                             <outlet property="lblPickupFrom" destination="9Lg-us-OCL" id="HI4-sz-SzQ"/>
@@ -3393,7 +3394,7 @@
         <scene sceneID="xfQ-ge-Gll">
             <objects>
                 <navigationController id="M6q-v2-FeV" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FkY-g3-FGl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FkY-g3-FGl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3409,7 +3410,7 @@
         <scene sceneID="h2N-OZ-k4c">
             <objects>
                 <navigationController id="Ve9-1A-DjD" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9KR-Nu-0HP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9KR-Nu-0HP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3425,7 +3426,7 @@
         <scene sceneID="gWE-fY-pTh">
             <objects>
                 <navigationController id="4pK-1t-Gvn" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v1R-l0-iPE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="v1R-l0-iPE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3441,7 +3442,7 @@
         <scene sceneID="6Pf-Ka-d7U">
             <objects>
                 <navigationController id="3Te-L5-Re1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AJ8-5N-wLV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="AJ8-5N-wLV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -6136,7 +6137,7 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Micheal Smith" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtG-F6-2Uu">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Micheal Smith" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtG-F6-2Uu">
                                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="gtG-F6-2Uu" secondAttribute="height" multiplier="11:2" id="IzY-wn-BdT"/>
@@ -6189,7 +6190,7 @@
                                                     <action selector="btnCallDriveTapped:" destination="BJO-Sg-uAr" eventType="touchUpInside" id="BD6-qA-lGp"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" misplaced="YES" text="+974 333 1129" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-8Q-6ZJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" text="+974 333 1129" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-8Q-6ZJ">
                                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="4uG-8Q-6ZJ" secondAttribute="height" multiplier="81:14" id="f0j-i2-KMc"/>
