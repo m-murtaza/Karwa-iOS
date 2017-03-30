@@ -7,6 +7,7 @@
 //
 
 #import "KSViewController.h"
+#import <NYSegmentedControl/NYSegmentedControl.h>
 
 @interface KSBookingHistoryController : KSViewController <UITableViewDelegate,UITableViewDataSource>
 
@@ -14,6 +15,8 @@
 @property (nonatomic, strong) NSArray *trips;
 @property (nonatomic, strong) NSArray *taxiTrips;
 @property (nonatomic, strong) NSArray *limoTrips;
+@property (nonatomic, strong) NYSegmentedControl *segmentVehicleType;
+
 
 @property (weak,nonatomic) IBOutlet UITableView *tableView;
 //@property (weak,nonatomic) IBOutlet UISegmentedControl *segmentVehicleType;

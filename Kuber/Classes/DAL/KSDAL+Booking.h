@@ -19,6 +19,9 @@
 
 + (void)cancelTrip:(KSTrip *)trip completion:(KSDALCompletionBlock)completionBlock;
 
++ (NSArray*) TaxiTrips:(NSArray*) trips;
++ (NSArray*) LimoTrips:(NSArray*) trips ; 
+
 + (KSTripRating *)tripRatingForTrip:(KSTrip *)trip;
 
 + (void)rateTrip:(KSTrip *)aTrip withRating:(KSTripRating *)aRating completion:(KSDALCompletionBlock)completionBlock;

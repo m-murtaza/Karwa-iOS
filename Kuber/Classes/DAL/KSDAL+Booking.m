@@ -88,6 +88,16 @@
     }];
 }
 
++ (NSArray*) TaxiTrips:(NSArray*) trips {
+    
+    NSArray *fTrips = [trips filteredArrayUsingPredicate:[KSDAL taxiPredicate]];
+    return fTrips;
+}
+
++(NSArray*) LimoTrips:(NSArray*) trips {
+    
+    return [trips filteredArrayUsingPredicate:[KSDAL limoPredicate]];
+}
 
 //TODO: Need to optimize repitative code.
 + (void) syncUnRatedBookingsWithCompletion:(KSDALCompletionBlock)completionBlock
@@ -192,9 +202,6 @@
     return [NSArray arrayWithArray:recentBookings];
 }
 
-    
-
-
 + (NSArray *)recentTripsWithLandmark:(NSInteger)numRecord
 {
     NSMutableArray *recentBookings = [NSMutableArray array];
@@ -281,7 +288,6 @@
     }
     return [NSArray arrayWithArray:recentBookings];
 }*/
-
 
 + (NSArray *)recentTripsWithLandmarkText {
     

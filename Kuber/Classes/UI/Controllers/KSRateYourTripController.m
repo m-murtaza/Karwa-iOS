@@ -29,7 +29,16 @@
         [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
-                [me buildTripsHistory:trips];
+                //[me buildTripsHistory:trips];
+                
+                me.taxiTrips = [NSArray arrayWithArray:[KSDAL TaxiTrips:trips]];
+                me.limoTrips = [NSArray arrayWithArray:[KSDAL LimoTrips:trips]];
+                if(me.segmentVehicleType.selectedSegmentIndex == 0)
+                    me.trips = [NSArray arrayWithArray:self.taxiTrips];
+                else
+                    me.trips = [NSArray arrayWithArray:self.limoTrips];
+                
+                [me.tableView reloadData];
             }
             else{
                 
@@ -44,10 +53,9 @@
 }
 
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    KSTrip *trip = self.taxiTrips[indexPath.row];
+    KSTrip *trip = self.trips[indexPath.row];
     if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
         KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
         ratingController.trip = trip;
