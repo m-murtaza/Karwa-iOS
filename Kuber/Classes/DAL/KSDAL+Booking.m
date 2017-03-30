@@ -361,6 +361,10 @@
     return [KSDAL topFinishedBookingsDBWithPredicate:[KSDAL limoPredicate]];
 }
 
++ (NSArray*) topFinishedLimoBookingsDB:(NSInteger)offset Limit:(NSInteger)limit
+{
+    return [KSDAL topFinishedBookingsDB:offset Limit:limit Predicate:[KSDAL limoPredicate]];
+}
 
 + (NSArray*) topFinishedTaxiBookingsDB
 {
@@ -419,11 +423,16 @@
 
 + (void) removeOldBookings
 {
-    NSArray *otherBookings = [KSDAL topFinishedTaxiBookingsDB:50 Limit:0];
-    for (KSTrip *trip in otherBookings) {
+    NSArray *oldTaxiBookings = [KSDAL topFinishedTaxiBookingsDB:50 Limit:0];
+    NSArray *oldLimoBookings = [KSDAL topFinishedLimoBookingsDB:50 Limit:0];
+    
+    NSArray *oldBookings = [oldTaxiBookings arrayByAddingObjectsFromArray:oldLimoBookings];
+    
+    for (KSTrip *trip in oldBookings) {
       
         [trip MR_deleteEntity];
     }
+    
     [KSDBManager saveContext:nil];
 }
 
