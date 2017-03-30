@@ -7,7 +7,7 @@
 //
 
 #import "NSManagedObject+KSExtended.h"
-#import "MagicalRecord.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 @implementation NSManagedObject (KSExtended)
 

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "KSDBManager.h"
 #import "SWRevealViewController.h"
-#import "MagicalRecord+Setup.h"
+#import <MagicalRecord/MagicalRecord+Setup.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "KSBookingDetailsController.h"

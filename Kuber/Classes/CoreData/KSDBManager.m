@@ -9,7 +9,7 @@
 //
 
 #import "KSDBManager.h"
-#import "MagicalRecord.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import "KSTripIssue.h"
 
 

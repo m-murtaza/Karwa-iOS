@@ -12,11 +12,15 @@
 
 #import "KSBookingDetailsController.h"
 
+#import "NYSegmentedControl.h"
+
 @interface KSBookingHistoryController ()
+{
+    NYSegmentedControl *segmentVehicleType;
+}
 
-
-@property (nonatomic, strong) NSMutableDictionary *tripsData;
-@property (nonatomic, strong) NSMutableArray *datesHeader;
+//@property (nonatomic, strong) NSMutableDictionary *tripsData;
+//@property (nonatomic, strong) NSMutableArray *datesHeader;
 
 @end
 
@@ -25,7 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
+    [self addSegmentControl];
     
 }
 
@@ -38,6 +45,45 @@
     [self fetchBookingDataFromServer];
 }
 
+#pragma mark - SegmentControl 
+
+//This function is to add UI and have lot of hardcode values.
+-(void) addSegmentControl
+{
+    //self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
+    //Background view
+    UIView *segmentBg = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
+                                                                 0.0f,
+                                                                 CGRectGetWidth([UIScreen
+                                                                                 mainScreen].bounds),
+                                                                 65.0f)];
+    segmentBg.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    [self.view addSubview:segmentBg];
+    
+    //Segment Control
+    segmentVehicleType = [[NYSegmentedControl alloc] initWithItems:@[@"Taxi", @"Limo"]];
+    
+    segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
+    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
+    segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmentVehicleType.backgroundColor = [UIColor whiteColor];
+    segmentVehicleType.borderWidth = 0.0f;
+    segmentVehicleType.segmentIndicatorBorderWidth = 0.0f;
+    segmentVehicleType.segmentIndicatorInset = 2.0f;
+    segmentVehicleType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    [segmentVehicleType setFrame:CGRectMake(self.view.frame.size.width / 2 -150, 13, 300, 40)];
+    segmentVehicleType.cornerRadius = CGRectGetHeight(segmentVehicleType.frame) / 2.0f;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
+    segmentVehicleType.usesSpringAnimations = YES;
+#endif
+    
+    [segmentVehicleType addTarget:self action:@selector(onSegmentVehicleTypeChange) forControlEvents:UIControlEventValueChanged];
+    
+    [self.view addSubview:segmentVehicleType];
+}
 
 #pragma mark - Server DataFetching 
 
@@ -45,103 +91,44 @@
 {
     __block KSBookingHistoryController *me = self;
     
-    //Todo Need to remove repitative code
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//    
-//    if (_tripStatus == KSTripStatusPending) {
         self.navigationItem.title = @"Bookings";
         
     [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
             [hud hide:YES];
             if (KSAPIStatusSuccess == status) {
-                
-                [me buildTripsHistory:[KSDAL fetchBookingHistoryFromDB]];
-                
+            
+                me.taxiTrips = [NSArray arrayWithArray:[KSDAL fetchTaxiBookingDB]];
+                me.limoTrips = [NSArray arrayWithArray:[KSDAL fetchLimoBookingDB]];
+                if(segmentVehicleType.selectedSegmentIndex == 0)
+                    me.trips = [NSArray arrayWithArray:self.taxiTrips];
+                else
+                    me.trips = [NSArray arrayWithArray:self.limoTrips];
+
+                [me.tableView reloadData];
             }
             else
             {
                 [KSAlert show:KSStringFromAPIStatus(status)];
             }
         }];
-//    }
-//    else if(_tripStatus == KSTripStatusCompletedNotRated){
-//        
-//        self.navigationItem.title = @"Rate your Trips";
-//        [KSDAL syncUnRatedBookingsWithCompletion:^(KSAPIStatus status, NSArray *trips) {
-//            [hud hide:YES];
-//            if (KSAPIStatusSuccess == status) {
-//                [me buildTripsHistory:trips];
-//            }
-//            else{
-//                
-//                [KSAlert show:KSStringFromAPIStatus(status)];
-//            }
-//        }];
-//    }
 }
-
-#pragma mark -
-
-- (void)buildTripsHistory:(NSArray*)data {
-    
-    //NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"pickupTime" ascending:NO];
-    //self.trips = [data sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
-    
-    
-    self.trips = [NSArray arrayWithArray:data];
-    DLog(@"%@",self.trips);
-    [self.tableView reloadData];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Priveate Methods
--(void) createSectionHeader
+#pragma mark - Vehicle Type Selection
+- (IBAction)onSegmentVehicleTypeChange
 {
-    NSMutableArray * dates = [[NSMutableArray alloc] init];
-    //self.datesHeader = [[NSMutableArray alloc] init];
-    for (KSTrip *trip in self.trips) {
-        
-        NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
-        [dates addObject:d];
-    }
-    
-    //This is unsorted array of date headers
-    NSSet *uniqueStates = [NSSet setWithArray:dates];
-    DLog(@"%@",uniqueStates);
-    
-    //Sorting the dates
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"self"
-                                                               ascending:NO];
-    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-    self.datesHeader = (NSMutableArray*)[uniqueStates.allObjects sortedArrayUsingDescriptors:descriptors];
-
+    if(segmentVehicleType.selectedSegmentIndex == 0)
+        self.trips = [NSArray arrayWithArray:self.taxiTrips];
+    else
+        self.trips = [NSArray arrayWithArray:self.limoTrips];
+    [self.tableView reloadData];
 }
--(void) createSectionData
-{
-    
-    self.tripsData = [[NSMutableDictionary alloc] init];
-    for (NSDate *date in self.datesHeader) {
-       
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-            KSTrip *trip = (KSTrip*)evaluatedObject;
-            NSDate *d = [NSDate dateAtBeginningOfDayForDate:trip.pickupTime];
-            return [d isEqualToDate:date];
-        }];
-        
-        NSArray *secData = [self.trips filteredArrayUsingPredicate:predicate];
-        [self.tripsData setObject:secData forKey:[NSDate bookingHistoryDateToString:date]];
-    }
-                                   
-}
-                                   
 
-
-#pragma mark -
 #pragma mark - Table View Datasource and Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -149,7 +136,12 @@
     return 1;
 }
 
-- (NSInteger)numberOfRowsInSection:(NSInteger)section {
+//- (NSInteger)numberOfRowsInSection:(NSInteger)section {
+//    return self.taxiTrips.count;
+//}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.trips.count;
 }
 

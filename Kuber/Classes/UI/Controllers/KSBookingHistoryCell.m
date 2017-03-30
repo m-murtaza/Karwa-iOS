@@ -17,6 +17,7 @@
 @property (nonatomic, weak) IBOutlet KSLabel *lblDate;
 @property (nonatomic, weak) IBOutlet KSLabel *lblTime;
 @property (nonatomic, weak) IBOutlet UIImageView *imgStatus;
+@property (nonatomic, weak) IBOutlet UIImageView *imgVehicleType;
 
 
 @end
@@ -71,6 +72,29 @@
     
     [self setStatusImage:trip];
     
+    [self setVehicleTypeImage:(KSVehicleType)[trip.vehicleType intValue]];
+    
+}
+
+-(void) setVehicleTypeImage:(KSVehicleType) type
+{
+    switch (type) {
+        case KSCityTaxi:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"taxi-ico.png"]];
+            break;
+        case KSStandardLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"standard-limo-ico.png"]];
+            break;
+        case KSBusinessLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"business-limo-ico.png"]];
+            break;
+        case KSLuxuryLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"luxury-limo-ico.png"]];
+            break;
+        default:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"taxi-ico.png"]];
+            break;
+    }
 }
 
 -(void) setStatusImage:(KSTrip*)trip
@@ -104,8 +128,6 @@
             break;
     }
 }
-
-
 
 -(NSString*) formatedDate:(NSDate*)date
 {

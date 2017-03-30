@@ -10,7 +10,7 @@
 
 #import "KSDBManager.h"
 #import "KSWebClient.h"
-#import "MagicalRecord.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 
 @implementation KSDAL (KSLocation)
@@ -241,6 +241,49 @@
 
     return location;
 }
+
+
++ (void)vehiclesNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius type:(KSVehicleType)type completion:(KSDALCompletionBlock)completionBlock
+{
+    NSDictionary *queryParams = @{
+                                  @"status": @"0,1",
+                                  @"lat": @(coordinate.latitude),
+                                  @"lon": @(coordinate.longitude),
+                                  @"radius": @(radius),
+                                  @"type" : @(type)
+                                  };
+    KSWebClient *webClient = [KSWebClient instance];
+    static NSMutableArray *callbacks = nil;
+    static BOOL isRunning = NO;
+    if (!callbacks) {
+        callbacks = [NSMutableArray array];
+    }
+    
+    [callbacks addObject:completionBlock];
+    
+    if (isRunning) {
+        return;
+    }
+    isRunning = YES;
+    [webClient GET:@"/track/" params:queryParams completion:^(BOOL success, id response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        isRunning = NO;
+        NSMutableArray *vehiclesData = [NSMutableArray array];
+        if (KSAPIStatusSuccess == status) {
+            NSArray *trackingData = response[@"data"];
+            for (NSDictionary *singleVehicleData in trackingData) {
+                KSVehicleTrackingInfo *info = [KSVehicleTrackingInfo trackInfoWithDictionary:singleVehicleData];
+                [vehiclesData addObject:info];
+            }
+        }
+        for (KSDALCompletionBlock callback in callbacks) {
+            callback(status, vehiclesData);
+        }
+        [callbacks removeAllObjects];
+    }];
+
+}
+
 
 + (void)taxisNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius completion:(KSDALCompletionBlock)completionBlock
 {
