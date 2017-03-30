@@ -14,9 +14,7 @@
 
 @interface KSBookingHistoryController ()
 
-
-//@property (nonatomic, strong) NSMutableDictionary *tripsData;
-//@property (nonatomic, strong) NSMutableArray *datesHeader;
+@property (nonatomic, strong) UIView *overlayView;
 
 @end
 
@@ -138,7 +136,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.trips.count;
+    NSInteger numberOfRows = self.trips.count;
+    if (!numberOfRows) {
+        [self showNoDataLabel];
+    }
+    else {
+        [self hideNoDataLabel];
+    }
+    return numberOfRows;
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -182,5 +189,54 @@
                                                            label:[NSString stringWithFormat:@"jobId: %@ | Status = %@",trip.jobId,trip.status]
                                                            value:nil] build]];
 }
+
+
+#pragma mark - Overlay view 
+
+const NSInteger KSViewOverlayTagForLoadingView = 10;
+const NSInteger KSViewOverlayTagForNoDataLabel = 10;
+
+
+- (UILabel *)noDataLabel {
+    return (UILabel *)[self.overlayView viewWithTag:KSViewOverlayTagForNoDataLabel];
+}
+
+- (UIView *)overlayView {
+    if (!_overlayView) {
+        CGRect frameRect = self.tableView.frame;
+        CGFloat y = 0;
+        if (self.navigationController) {
+            y = self.navigationController.navigationBar.frame.size.height;
+        }
+        _overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 65.0, frameRect.size.width, frameRect.size.height - y)];
+        _overlayView.backgroundColor = [UIColor clearColor];
+        
+        frameRect = _overlayView.frame;
+        
+        UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 65.0, frameRect.size.width, frameRect.size.height)];
+        noDataLabel.textAlignment = NSTextAlignmentCenter;
+        noDataLabel.text = KSTableViewDefaultErrorMessage;
+        noDataLabel.textColor = [UIColor darkTextColor];
+        noDataLabel.backgroundColor = self.tableView.backgroundColor;
+        noDataLabel.tag = KSViewOverlayTagForNoDataLabel;
+        
+        [_overlayView addSubview:noDataLabel];
+    }
+    return _overlayView;
+}
+
+- (void)showNoDataLabel {
+    
+    [self.view addSubview:self.overlayView];
+    //[self.tableView setScrollEnabled:NO];
+    //[self.tableView setContentOffset:CGPointMake(self.tableView.contentOffset.x, 0)];
+}
+
+- (void)hideNoDataLabel {
+    
+    [self.overlayView removeFromSuperview];
+    //[self.tableView setScrollEnabled:YES];
+}
+
 
 @end
