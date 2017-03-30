@@ -41,6 +41,9 @@ BtnState;
 @property (weak, nonatomic) IBOutlet KSLabel *lblDriverNumber;
 @property (weak, nonatomic) IBOutlet UILabel *lblETA;
 @property (weak, nonatomic) IBOutlet KSLabel *lblTaxiNumber;
+@property (weak, nonatomic) IBOutlet UIImageView *imgVehicleType;
+@property (weak, nonatomic) IBOutlet UIImageView *imgNumberPlate;
+
 
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
 @property (weak, nonatomic) IBOutlet UIView *viewTrackMyTaxi;
@@ -209,6 +212,29 @@ BtnState;
         NSString *taxiNum = [NSString stringWithFormat:@"%@",taxi.number];
         taxiNum = [taxiNum substringFromIndex:3];
         self.lblTaxiNumber.text = taxiNum;
+        
+        switch((KSVehicleType)[trip.vehicleType integerValue])
+        {
+            case KSCityTaxi:
+                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-taxi.png"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"numberplate.png"]];
+                break;
+            case KSStandardLimo:
+                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-standard.png"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                break;
+            case KSBusinessLimo:
+                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-business.png"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                break;
+            case KSLuxuryLimo:
+                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-luxury.png"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                break;
+            default:
+                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-taxi.png"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"numberplate.png"]];
+        }
         
         
         if (trip.estimatedTimeOfArival != nil) {
