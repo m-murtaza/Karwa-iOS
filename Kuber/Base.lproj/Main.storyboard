@@ -27,7 +27,7 @@
         <scene sceneID="RhO-6x-Dx9">
             <objects>
                 <navigationController storyboardIdentifier="KSLoginRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PVP-WB-Dam" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VrS-2r-kUF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VrS-2r-kUF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2411,11 +2411,11 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="KSBookingHistoryCell" rowHeight="120" id="EHM-57-Qll" customClass="KSBookingHistoryCell">
                                         <rect key="frame" x="0.0" y="22" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EHM-57-Qll" id="XjL-CW-Ouc">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="EHM-57-Qll" id="XjL-CW-Ouc">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list-icons.png" translatesAutoresizingMaskIntoConstraints="NO" id="tHB-e4-gN3">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="list-icons.png" translatesAutoresizingMaskIntoConstraints="NO" id="tHB-e4-gN3">
                                                     <rect key="frame" x="8" y="22" width="22" height="77"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="22" id="JoB-1x-wQN"/>
@@ -2434,7 +2434,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 20 AUG, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PW2-UB-gH3">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="FRI 20 AUG, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PW2-UB-gH3">
                                                     <rect key="frame" x="38" y="22" width="133" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="18B-dr-cml"/>
@@ -2456,7 +2456,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDh-XN-kzC">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="10:10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDh-XN-kzC">
                                                     <rect key="frame" x="188" y="20" width="103" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="103" id="OX1-2R-sdv"/>
@@ -2467,18 +2467,18 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="zYt-FX-ymb"/>
                                                             <exclude reference="OX1-2R-sdv"/>
+                                                            <exclude reference="zYt-FX-ymb"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
-                                                            <include reference="zYt-FX-ymb"/>
                                                             <include reference="OX1-2R-sdv"/>
+                                                            <include reference="zYt-FX-ymb"/>
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Sadd, Al Nasar, Doha Qatar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YyE-Q9-JMM">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Al Sadd, Al Nasar, Doha Qatar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YyE-Q9-JMM">
                                                     <rect key="frame" x="38" y="52" width="285" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="FFD-7n-iGt">
@@ -2502,7 +2502,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Wakara Street, Doha Qatar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8L-oW-lyX">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Al Wakara Street, Doha Qatar" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8L-oW-lyX">
                                                     <rect key="frame" x="68" y="79" width="255" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="255" id="4xn-vR-jao"/>
@@ -2524,7 +2524,7 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="to.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zg0-Qy-oe5">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="to.png" translatesAutoresizingMaskIntoConstraints="NO" id="Zg0-Qy-oe5">
                                                     <rect key="frame" x="38" y="79" width="18" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="XIn-P8-gOh"/>
@@ -2532,18 +2532,18 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="t7d-Mb-EyY"/>
                                                             <exclude reference="XIn-P8-gOh"/>
+                                                            <exclude reference="t7d-Mb-EyY"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
-                                                            <include reference="t7d-Mb-EyY"/>
                                                             <include reference="XIn-P8-gOh"/>
+                                                            <include reference="t7d-Mb-EyY"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dc5-8b-qAZ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="time-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dc5-8b-qAZ">
                                                     <rect key="frame" x="176" y="22" width="10" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="EFE-tv-a6j"/>
@@ -2562,7 +2562,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="booking-history-forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="S82-um-7TX">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="booking-history-forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="S82-um-7TX">
                                                     <rect key="frame" x="354" y="25" width="13" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="13" id="PmM-kR-hkK"/>
@@ -2615,13 +2615,13 @@
                                                     <exclude reference="S82-um-7TX"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="LXY-5G-mmq"/>
-                                                    <exclude reference="W1V-nQ-CPA"/>
-                                                    <exclude reference="l11-8Y-2se"/>
                                                     <exclude reference="Ppj-8o-EX6"/>
                                                     <exclude reference="gN0-eK-ZMR"/>
                                                     <exclude reference="Cqj-Pt-1Y8"/>
                                                     <exclude reference="rrJ-h7-L9P"/>
+                                                    <exclude reference="LXY-5G-mmq"/>
+                                                    <exclude reference="W1V-nQ-CPA"/>
+                                                    <exclude reference="l11-8Y-2se"/>
                                                     <exclude reference="kpd-Mm-tWw"/>
                                                     <exclude reference="m3e-RO-Zbo"/>
                                                     <exclude reference="kXK-3c-fe5"/>
@@ -2645,13 +2645,13 @@
                                                     <include reference="S82-um-7TX"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="LXY-5G-mmq"/>
-                                                    <include reference="W1V-nQ-CPA"/>
-                                                    <include reference="l11-8Y-2se"/>
                                                     <include reference="Ppj-8o-EX6"/>
                                                     <include reference="gN0-eK-ZMR"/>
                                                     <include reference="Cqj-Pt-1Y8"/>
                                                     <include reference="rrJ-h7-L9P"/>
+                                                    <include reference="LXY-5G-mmq"/>
+                                                    <include reference="W1V-nQ-CPA"/>
+                                                    <include reference="l11-8Y-2se"/>
                                                     <include reference="kpd-Mm-tWw"/>
                                                     <include reference="m3e-RO-Zbo"/>
                                                     <include reference="kXK-3c-fe5"/>
@@ -3348,7 +3348,7 @@
         <scene sceneID="xfQ-ge-Gll">
             <objects>
                 <navigationController id="M6q-v2-FeV" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FkY-g3-FGl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FkY-g3-FGl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3380,7 +3380,7 @@
         <scene sceneID="gWE-fY-pTh">
             <objects>
                 <navigationController id="4pK-1t-Gvn" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="v1R-l0-iPE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v1R-l0-iPE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5436,14 +5436,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-WD-Luh">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-WD-Luh">
+                                <rect key="frame" x="0.0" y="20" width="375" height="167"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Booking-details-top-view.png" translatesAutoresizingMaskIntoConstraints="NO" id="D1v-Lh-IPD">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details-top-view.png" translatesAutoresizingMaskIntoConstraints="NO" id="D1v-Lh-IPD">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FRI 8 AUG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qNs-Ru-PqO">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 8 AUG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qNs-Ru-PqO">
+                                        <rect key="frame" x="111" y="133" width="153" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="qNs-Ru-PqO" secondAttribute="height" multiplier="153:20" id="ZHq-cC-RUj"/>
                                             <constraint firstAttribute="width" constant="81" id="cVg-V0-prG">
@@ -5469,14 +5469,14 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0I5-7C-PW4">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0I5-7C-PW4">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="26"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="arrived.png" translatesAutoresizingMaskIntoConstraints="NO" id="T1W-SP-pJ9">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrived.png" translatesAutoresizingMaskIntoConstraints="NO" id="T1W-SP-pJ9">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="26"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Taxi Not Yet Arrived" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEf-bT-2yS">
-                                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taxi Not Yet Arrived" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEf-bT-2yS">
+                                                <rect key="frame" x="-0.5" y="3" width="376" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="276" id="Bal-tU-MAA">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="376"/>
@@ -5596,14 +5596,14 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p14-Lt-iJP">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p14-Lt-iJP">
+                                <rect key="frame" x="8" y="187" width="359" height="108"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Booking-details_07.png" translatesAutoresizingMaskIntoConstraints="NO" id="g2h-2f-gbZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details_07.png" translatesAutoresizingMaskIntoConstraints="NO" id="g2h-2f-gbZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="108"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="PICKUP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-6w-9oq">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-6w-9oq">
+                                        <rect key="frame" x="50" y="20" width="39" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="U2p-kF-koE"/>
                                             <constraint firstAttribute="height" constant="21" id="bCx-hc-YBg"/>
@@ -5624,8 +5624,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
+                                        <rect key="frame" x="273" y="20" width="55" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="4Uo-AZ-LvD"/>
                                             <constraint firstAttribute="height" constant="21" id="bSC-Hw-gka"/>
@@ -5646,8 +5646,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
+                                        <rect key="frame" x="195" y="16" width="67" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="JR7-NM-uGN"/>
                                             <constraint firstAttribute="width" constant="68" id="MbY-7Z-iT5"/>
@@ -5668,8 +5668,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-9s-cNj">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-9s-cNj">
+                                        <rect key="frame" x="100" y="16" width="65" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="KDU-kc-jC6"/>
                                             <constraint firstAttribute="width" constant="53" id="wIu-uI-rbR">
@@ -5692,8 +5692,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="All Sadd Plaza Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-Mp-O9Z">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Sadd Plaza Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-Mp-O9Z">
+                                        <rect key="frame" x="15" y="45" width="142" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="AH4-03-VxN"/>
                                             <constraint firstAttribute="width" constant="142" id="TC0-gk-fEd"/>
@@ -5714,8 +5714,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Al Jummaiz Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="TAf-1B-LTS">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Jummaiz Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="TAf-1B-LTS">
+                                        <rect key="frame" x="198" y="45" width="142" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="142" id="7Pw-CA-Lw3"/>
                                             <constraint firstAttribute="height" constant="50" id="db2-xI-SNj"/>
@@ -5736,8 +5736,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="248" misplaced="YES" image="forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-o4-WAw">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="248" image="forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-o4-WAw">
+                                        <rect key="frame" x="167" y="65" width="26" height="11"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="JkE-7S-KJJ"/>
                                             <constraint firstAttribute="height" constant="11" id="fLL-hV-eRQ"/>
@@ -5758,8 +5758,8 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-ku-jao">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-ku-jao">
+                                        <rect key="frame" x="165" y="20" width="30" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="42" id="15B-dd-ISn">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="30"/>
@@ -6023,8 +6023,8 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TAXI INFORMATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-es-YOx">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAXI INFORMATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-es-YOx">
+                                <rect key="frame" x="16" y="315" width="213" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="S5H-AA-o4A"/>
                                     <constraint firstAttribute="width" constant="213" id="xzT-mX-ZSc"/>
@@ -6045,17 +6045,17 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHl-xf-otu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHl-xf-otu">
+                                <rect key="frame" x="10" y="335" width="355" height="203"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" misplaced="YES" image="Booking-details_07-03.png" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-OI-Yf1">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="Booking-details_07-03.png" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-OI-Yf1">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="203"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QU4-19-ACM">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QU4-19-ACM">
+                                        <rect key="frame" x="0.0" y="2" width="355" height="88.5"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="driver-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TQP-r1-b3E">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="driver-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="TQP-r1-b3E">
+                                                <rect key="frame" x="15" y="33" width="23" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23" id="8Ov-tz-dt3"/>
                                                     <constraint firstAttribute="height" constant="23" id="A61-nR-jKr"/>
@@ -6092,7 +6092,7 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Micheal Smith" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtG-F6-2Uu">
-                                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                <rect key="frame" x="52" y="21" width="227" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="gtG-F6-2Uu" secondAttribute="height" multiplier="11:2" id="IzY-wn-BdT"/>
                                                     <constraint firstAttribute="width" secondItem="gtG-F6-2Uu" secondAttribute="height" multiplier="16:3" id="ys1-pJ-BUJ"/>
@@ -6113,8 +6113,8 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-lv-lWC">
-                                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoQ-lv-lWC">
+                                                <rect key="frame" x="287" y="23" width="43" height="43"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="CoQ-lv-lWC" secondAttribute="height" multiplier="1:1" id="6h3-5c-quh"/>
                                                     <constraint firstAttribute="width" secondItem="CoQ-lv-lWC" secondAttribute="height" multiplier="1:1" id="9H1-SW-joD"/>
@@ -6145,7 +6145,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" text="+974 333 1129" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uG-8Q-6ZJ">
-                                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                <rect key="frame" x="52" y="45" width="227" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="4uG-8Q-6ZJ" secondAttribute="height" multiplier="81:14" id="f0j-i2-KMc"/>
                                                     <constraint firstAttribute="width" secondItem="4uG-8Q-6ZJ" secondAttribute="height" multiplier="27:5" id="xCQ-fn-cWL"/>
@@ -6169,19 +6169,19 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="4uG-8Q-6ZJ" firstAttribute="top" secondItem="gtG-F6-2Uu" secondAttribute="bottom" id="6tw-Ju-mgc"/>
+                                            <constraint firstItem="4uG-8Q-6ZJ" firstAttribute="top" secondItem="gtG-F6-2Uu" secondAttribute="bottom" constant="3" id="6tw-Ju-mgc"/>
                                             <constraint firstAttribute="width" secondItem="QU4-19-ACM" secondAttribute="height" multiplier="372:79" id="8nZ-cT-4O9"/>
-                                            <constraint firstItem="4uG-8Q-6ZJ" firstAttribute="bottom" secondItem="TQP-r1-b3E" secondAttribute="bottom" constant="5" id="EKT-TQ-tfj"/>
+                                            <constraint firstItem="4uG-8Q-6ZJ" firstAttribute="bottom" secondItem="TQP-r1-b3E" secondAttribute="bottom" constant="10" id="EKT-TQ-tfj"/>
                                             <constraint firstAttribute="trailing" secondItem="CoQ-lv-lWC" secondAttribute="trailing" constant="25" id="Jcy-ao-iQ6"/>
                                             <constraint firstItem="TQP-r1-b3E" firstAttribute="leading" secondItem="QU4-19-ACM" secondAttribute="leading" constant="15" id="MG2-xR-7U3"/>
-                                            <constraint firstItem="gtG-F6-2Uu" firstAttribute="top" secondItem="TQP-r1-b3E" secondAttribute="top" constant="-5" id="S5Z-V4-2eU"/>
-                                            <constraint firstItem="CoQ-lv-lWC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gtG-F6-2Uu" secondAttribute="trailing" constant="15" id="TJ7-fP-6AW"/>
+                                            <constraint firstItem="gtG-F6-2Uu" firstAttribute="top" secondItem="TQP-r1-b3E" secondAttribute="top" constant="-12" id="S5Z-V4-2eU"/>
+                                            <constraint firstItem="CoQ-lv-lWC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gtG-F6-2Uu" secondAttribute="trailing" constant="8" id="TJ7-fP-6AW"/>
                                             <constraint firstAttribute="height" constant="80" id="Z5D-he-53G">
                                                 <variation key="heightClass=regular-widthClass=compact" constant="79"/>
                                             </constraint>
                                             <constraint firstItem="4uG-8Q-6ZJ" firstAttribute="leading" secondItem="gtG-F6-2Uu" secondAttribute="leading" id="clV-Sb-lfQ"/>
                                             <constraint firstItem="CoQ-lv-lWC" firstAttribute="centerY" secondItem="TQP-r1-b3E" secondAttribute="centerY" id="nO8-Os-zSM"/>
-                                            <constraint firstItem="gtG-F6-2Uu" firstAttribute="leading" secondItem="TQP-r1-b3E" secondAttribute="trailing" constant="10" id="qnH-Hu-gMn"/>
+                                            <constraint firstItem="gtG-F6-2Uu" firstAttribute="leading" secondItem="TQP-r1-b3E" secondAttribute="trailing" constant="14" id="qnH-Hu-gMn"/>
                                             <constraint firstItem="TQP-r1-b3E" firstAttribute="centerY" secondItem="QU4-19-ACM" secondAttribute="centerY" id="wez-bs-Avp"/>
                                         </constraints>
                                         <variation key="default">
@@ -6229,8 +6229,8 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ver-sep.png" translatesAutoresizingMaskIntoConstraints="NO" id="CLk-GH-Jtd">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ver-sep.png" translatesAutoresizingMaskIntoConstraints="NO" id="CLk-GH-Jtd">
+                                        <rect key="frame" x="51" y="89.5" width="279" height="1"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="CLk-GH-Jtd" secondAttribute="height" multiplier="305:1" id="IuS-vt-9p1"/>
                                             <constraint firstAttribute="height" constant="1" id="hat-Dd-UNc"/>
@@ -6248,14 +6248,14 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QW4-Pr-xOW">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QW4-Pr-xOW">
+                                        <rect key="frame" x="0.0" y="89.5" width="355" height="57.5"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="numberplate.png" translatesAutoresizingMaskIntoConstraints="NO" id="GLn-Rj-xfR">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="numberplate.png" translatesAutoresizingMaskIntoConstraints="NO" id="GLn-Rj-xfR">
+                                                <rect key="frame" x="228" y="8.5" width="109" height="42"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="15 Mins" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lao-Eq-z4a">
-                                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="15 Mins" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lao-Eq-z4a">
+                                                <rect key="frame" x="51" y="20.5" width="150" height="18"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="HO8-Qe-45Q"/>
                                                     <constraint firstAttribute="width" secondItem="lao-Eq-z4a" secondAttribute="height" multiplier="25:3" id="WWc-gc-BrY"/>
@@ -6282,8 +6282,8 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="8843" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-SO-Pn6">
-                                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8843" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-SO-Pn6">
+                                                <rect key="frame" x="243" y="22.5" width="112" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="81" id="3rj-Af-tEu">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="112"/>
@@ -6326,7 +6326,7 @@
                                             <constraint firstItem="lao-Eq-z4a" firstAttribute="leading" secondItem="QW4-Pr-xOW" secondAttribute="leading" constant="51" id="CWi-5h-J5K"/>
                                             <constraint firstItem="GLn-Rj-xfR" firstAttribute="leading" secondItem="lao-Eq-z4a" secondAttribute="trailing" constant="54" id="IWo-Mb-GNt"/>
                                             <constraint firstAttribute="trailing" secondItem="GLn-Rj-xfR" secondAttribute="trailing" constant="18" id="TyB-pW-WAE"/>
-                                            <constraint firstAttribute="width" secondItem="QW4-Pr-xOW" secondAttribute="height" multiplier="31:5" id="Ugp-4H-ba2"/>
+                                            <constraint firstAttribute="width" secondItem="QW4-Pr-xOW" secondAttribute="height" multiplier="31:5" constant="-1.5" id="Ugp-4H-ba2"/>
                                             <constraint firstAttribute="trailing" secondItem="rfE-SO-Pn6" secondAttribute="trailing" id="XTa-Px-W1h"/>
                                             <constraint firstItem="rfE-SO-Pn6" firstAttribute="centerY" secondItem="QW4-Pr-xOW" secondAttribute="centerY" id="YNZ-af-M26"/>
                                             <constraint firstItem="GLn-Rj-xfR" firstAttribute="centerY" secondItem="lao-Eq-z4a" secondAttribute="centerY" id="nir-BG-5Eb"/>
@@ -6369,8 +6369,8 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ver-sep.png" translatesAutoresizingMaskIntoConstraints="NO" id="ii6-ha-q6b">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ver-sep.png" translatesAutoresizingMaskIntoConstraints="NO" id="ii6-ha-q6b">
+                                        <rect key="frame" x="5" y="146" width="345" height="1"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="Mf9-Wa-cRg"/>
                                             <constraint firstAttribute="width" secondItem="ii6-ha-q6b" secondAttribute="height" multiplier="305:1" id="nh7-Tz-ZfU"/>
@@ -6388,11 +6388,11 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zNH-ld-eBT">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNH-ld-eBT">
+                                        <rect key="frame" x="0.0" y="146" width="355" height="44"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="trackpin-detail.png" translatesAutoresizingMaskIntoConstraints="NO" id="NJn-fI-N73">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trackpin-detail.png" translatesAutoresizingMaskIntoConstraints="NO" id="NJn-fI-N73">
+                                                <rect key="frame" x="15" y="15" width="20" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="Sec-kO-I0d"/>
                                                     <constraint firstAttribute="height" constant="24" id="gFE-uh-uaE"/>
@@ -6410,8 +6410,8 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="right-arrow-track.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nqo-qO-AHC">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right-arrow-track.png" translatesAutoresizingMaskIntoConstraints="NO" id="Nqo-qO-AHC">
+                                                <rect key="frame" x="313" y="20" width="17" height="15"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="17" id="Tpg-8n-mW2"/>
                                                     <constraint firstAttribute="height" constant="15" id="uSC-uY-TwF"/>
@@ -6429,14 +6429,14 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TRACK MY TAXI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MK0-kb-Q8P">
-                                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRACK MY TAXI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MK0-kb-Q8P">
+                                                <rect key="frame" x="51" y="19" width="237" height="17"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                 <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHJ-EC-FuM">
-                                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHJ-EC-FuM">
+                                                <rect key="frame" x="35" y="0.0" width="278" height="39"/>
                                                 <connections>
                                                     <segue destination="Mrw-Su-08g" kind="show" identifier="segueDetailsToTrack" id="vwj-qd-tjh"/>
                                                 </connections>
@@ -6639,8 +6639,8 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6u-Oa-J8d" customClass="KSButton">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6u-Oa-J8d" customClass="KSButton">
+                                <rect key="frame" x="16" y="608" width="343" height="49"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="g6u-Oa-J8d" secondAttribute="height" multiplier="368:49" id="Erh-oj-6lN"/>
                                     <constraint firstAttribute="height" constant="49" id="HzZ-9o-Df9"/>
@@ -6809,7 +6809,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vGm-1Y-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="835" y="763"/>
+            <point key="canvasLocation" x="834.39999999999998" y="762.36881559220399"/>
         </scene>
         <!--Track My Taxi-->
         <scene sceneID="Z40-iQ-9fC">
@@ -8153,20 +8153,20 @@
                                         <mask key="constraints">
                                             <exclude reference="UrA-8T-Kfn"/>
                                             <exclude reference="mOC-2G-v9i"/>
-                                            <exclude reference="4nM-LI-smY"/>
-                                            <exclude reference="URG-Yv-Y4E"/>
                                             <exclude reference="d5J-3O-AbU"/>
                                             <exclude reference="plE-XL-WNX"/>
-                                            <exclude reference="Pdl-rh-ayA"/>
-                                            <exclude reference="ays-nC-VOn"/>
-                                            <exclude reference="qm6-TX-RHe"/>
-                                            <exclude reference="Q8B-t1-dNt"/>
-                                            <exclude reference="xtQ-AS-FT6"/>
                                             <exclude reference="CQE-T1-BSQ"/>
                                             <exclude reference="eD7-zh-WgG"/>
                                             <exclude reference="fGY-GQ-04T"/>
-                                            <exclude reference="yEA-18-SMh"/>
+                                            <exclude reference="Q8B-t1-dNt"/>
+                                            <exclude reference="xtQ-AS-FT6"/>
+                                            <exclude reference="4nM-LI-smY"/>
+                                            <exclude reference="URG-Yv-Y4E"/>
                                             <exclude reference="ay5-NZ-vi6"/>
+                                            <exclude reference="Pdl-rh-ayA"/>
+                                            <exclude reference="ays-nC-VOn"/>
+                                            <exclude reference="qm6-TX-RHe"/>
+                                            <exclude reference="yEA-18-SMh"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -8183,20 +8183,20 @@
                                         <mask key="constraints">
                                             <include reference="UrA-8T-Kfn"/>
                                             <include reference="mOC-2G-v9i"/>
-                                            <include reference="4nM-LI-smY"/>
-                                            <include reference="URG-Yv-Y4E"/>
                                             <include reference="d5J-3O-AbU"/>
                                             <include reference="plE-XL-WNX"/>
-                                            <include reference="Pdl-rh-ayA"/>
-                                            <include reference="ays-nC-VOn"/>
-                                            <include reference="qm6-TX-RHe"/>
-                                            <include reference="Q8B-t1-dNt"/>
-                                            <include reference="xtQ-AS-FT6"/>
                                             <include reference="CQE-T1-BSQ"/>
                                             <include reference="eD7-zh-WgG"/>
                                             <include reference="fGY-GQ-04T"/>
-                                            <include reference="yEA-18-SMh"/>
+                                            <include reference="Q8B-t1-dNt"/>
+                                            <include reference="xtQ-AS-FT6"/>
+                                            <include reference="4nM-LI-smY"/>
+                                            <include reference="URG-Yv-Y4E"/>
                                             <include reference="ay5-NZ-vi6"/>
+                                            <include reference="Pdl-rh-ayA"/>
+                                            <include reference="ays-nC-VOn"/>
+                                            <include reference="qm6-TX-RHe"/>
+                                            <include reference="yEA-18-SMh"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
