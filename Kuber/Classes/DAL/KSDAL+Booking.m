@@ -88,6 +88,16 @@
     }];
 }
 
++ (NSArray*) TaxiTrips:(NSArray*) trips {
+    
+    NSArray *fTrips = [trips filteredArrayUsingPredicate:[KSDAL taxiPredicate]];
+    return fTrips;
+}
+
++(NSArray*) LimoTrips:(NSArray*) trips {
+    
+    return [trips filteredArrayUsingPredicate:[KSDAL limoPredicate]];
+}
 
 //TODO: Need to optimize repitative code.
 + (void) syncUnRatedBookingsWithCompletion:(KSDALCompletionBlock)completionBlock
@@ -192,9 +202,6 @@
     return [NSArray arrayWithArray:recentBookings];
 }
 
-    
-
-
 + (NSArray *)recentTripsWithLandmark:(NSInteger)numRecord
 {
     NSMutableArray *recentBookings = [NSMutableArray array];
@@ -282,7 +289,6 @@
     return [NSArray arrayWithArray:recentBookings];
 }*/
 
-
 + (NSArray *)recentTripsWithLandmarkText {
     
     NSMutableArray *recentBookings = [NSMutableArray array];
@@ -355,6 +361,10 @@
     return [KSDAL topFinishedBookingsDBWithPredicate:[KSDAL limoPredicate]];
 }
 
++ (NSArray*) topFinishedLimoBookingsDB:(NSInteger)offset Limit:(NSInteger)limit
+{
+    return [KSDAL topFinishedBookingsDB:offset Limit:limit Predicate:[KSDAL limoPredicate]];
+}
 
 + (NSArray*) topFinishedTaxiBookingsDB
 {
@@ -413,11 +423,16 @@
 
 + (void) removeOldBookings
 {
-    NSArray *otherBookings = [KSDAL topFinishedTaxiBookingsDB:50 Limit:0];
-    for (KSTrip *trip in otherBookings) {
+    NSArray *oldTaxiBookings = [KSDAL topFinishedTaxiBookingsDB:50 Limit:0];
+    NSArray *oldLimoBookings = [KSDAL topFinishedLimoBookingsDB:50 Limit:0];
+    
+    NSArray *oldBookings = [oldTaxiBookings arrayByAddingObjectsFromArray:oldLimoBookings];
+    
+    for (KSTrip *trip in oldBookings) {
       
         [trip MR_deleteEntity];
     }
+    
     [KSDBManager saveContext:nil];
 }
 

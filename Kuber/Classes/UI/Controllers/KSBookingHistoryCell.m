@@ -18,6 +18,7 @@
 @property (nonatomic, weak) IBOutlet KSLabel *lblTime;
 @property (nonatomic, weak) IBOutlet UIImageView *imgStatus;
 @property (nonatomic, weak) IBOutlet UIImageView *imgVehicleType;
+@property (nonatomic, weak) IBOutlet UIImageView *imgVehicleTypeRateYourTrip;
 
 
 @end
@@ -73,8 +74,31 @@
     [self setStatusImage:trip];
     
     [self setVehicleTypeImage:(KSVehicleType)[trip.vehicleType intValue]];
+    [self setListImage:(KSVehicleType)[trip.vehicleType intValue]];
     
 }
+
+-(void) setListImage:(KSVehicleType) type
+{
+    switch (type) {
+        case KSCityTaxi:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"taxi-standard-ico.png"]];
+            break;
+        case KSStandardLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"limo-standard-ico.png"]];
+            break;
+        case KSBusinessLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"limo-business-ico.png"]];
+            break;
+        case KSLuxuryLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"limo-luxury-ico.png"]];
+            break;
+        default:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"taxi-standard-ico.png"]];
+            break;
+    }
+}
+
 
 -(void) setVehicleTypeImage:(KSVehicleType) type
 {

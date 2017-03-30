@@ -12,15 +12,9 @@
 
 #import "KSBookingDetailsController.h"
 
-#import "NYSegmentedControl.h"
-
 @interface KSBookingHistoryController ()
-{
-    NYSegmentedControl *segmentVehicleType;
-}
 
-//@property (nonatomic, strong) NSMutableDictionary *tripsData;
-//@property (nonatomic, strong) NSMutableArray *datesHeader;
+@property (nonatomic, strong) UIView *overlayView;
 
 @end
 
@@ -62,27 +56,27 @@
     [self.view addSubview:segmentBg];
     
     //Segment Control
-    segmentVehicleType = [[NYSegmentedControl alloc] initWithItems:@[@"Taxi", @"Limo"]];
+    _segmentVehicleType = [[NYSegmentedControl alloc] initWithItems:@[@"Taxi", @"Limo"]];
     
-    segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
-    segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
-    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
-    segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
-    segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
-    segmentVehicleType.backgroundColor = [UIColor whiteColor];
-    segmentVehicleType.borderWidth = 0.0f;
-    segmentVehicleType.segmentIndicatorBorderWidth = 0.0f;
-    segmentVehicleType.segmentIndicatorInset = 2.0f;
-    segmentVehicleType.segmentIndicatorBorderColor = self.view.backgroundColor;
-    [segmentVehicleType setFrame:CGRectMake(self.view.frame.size.width / 2 -150, 13, 300, 40)];
-    segmentVehicleType.cornerRadius = CGRectGetHeight(segmentVehicleType.frame) / 2.0f;
+    _segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    _segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
+    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    _segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
+    _segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    _segmentVehicleType.backgroundColor = [UIColor whiteColor];
+    _segmentVehicleType.borderWidth = 0.0f;
+    _segmentVehicleType.segmentIndicatorBorderWidth = 0.0f;
+    _segmentVehicleType.segmentIndicatorInset = 2.0f;
+    _segmentVehicleType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    [_segmentVehicleType setFrame:CGRectMake(self.view.frame.size.width / 2 -150, 13, 300, 40)];
+    _segmentVehicleType.cornerRadius = CGRectGetHeight(_segmentVehicleType.frame) / 2.0f;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
-    segmentVehicleType.usesSpringAnimations = YES;
+    _segmentVehicleType.usesSpringAnimations = YES;
 #endif
     
-    [segmentVehicleType addTarget:self action:@selector(onSegmentVehicleTypeChange) forControlEvents:UIControlEventValueChanged];
+    [_segmentVehicleType addTarget:self action:@selector(onSegmentVehicleTypeChange) forControlEvents:UIControlEventValueChanged];
     
-    [self.view addSubview:segmentVehicleType];
+    [self.view addSubview:_segmentVehicleType];
 }
 
 #pragma mark - Server DataFetching 
@@ -100,7 +94,7 @@
             
                 me.taxiTrips = [NSArray arrayWithArray:[KSDAL fetchTaxiBookingDB]];
                 me.limoTrips = [NSArray arrayWithArray:[KSDAL fetchLimoBookingDB]];
-                if(segmentVehicleType.selectedSegmentIndex == 0)
+                if(_segmentVehicleType.selectedSegmentIndex == 0)
                     me.trips = [NSArray arrayWithArray:self.taxiTrips];
                 else
                     me.trips = [NSArray arrayWithArray:self.limoTrips];
@@ -122,7 +116,7 @@
 #pragma mark - Vehicle Type Selection
 - (IBAction)onSegmentVehicleTypeChange
 {
-    if(segmentVehicleType.selectedSegmentIndex == 0)
+    if(_segmentVehicleType.selectedSegmentIndex == 0)
         self.trips = [NSArray arrayWithArray:self.taxiTrips];
     else
         self.trips = [NSArray arrayWithArray:self.limoTrips];
@@ -142,7 +136,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.trips.count;
+    NSInteger numberOfRows = self.trips.count;
+    if (!numberOfRows) {
+        [self showNoDataLabel];
+    }
+    else {
+        [self hideNoDataLabel];
+    }
+    return numberOfRows;
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -186,5 +189,54 @@
                                                            label:[NSString stringWithFormat:@"jobId: %@ | Status = %@",trip.jobId,trip.status]
                                                            value:nil] build]];
 }
+
+
+#pragma mark - Overlay view 
+
+const NSInteger KSViewOverlayTagForLoadingView = 10;
+const NSInteger KSViewOverlayTagForNoDataLabel = 10;
+
+
+- (UILabel *)noDataLabel {
+    return (UILabel *)[self.overlayView viewWithTag:KSViewOverlayTagForNoDataLabel];
+}
+
+- (UIView *)overlayView {
+    if (!_overlayView) {
+        CGRect frameRect = self.tableView.frame;
+        CGFloat y = 0;
+        if (self.navigationController) {
+            y = self.navigationController.navigationBar.frame.size.height;
+        }
+        _overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 65.0, frameRect.size.width, frameRect.size.height - y)];
+        _overlayView.backgroundColor = [UIColor clearColor];
+        
+        frameRect = _overlayView.frame;
+        
+        UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 65.0, frameRect.size.width, frameRect.size.height)];
+        noDataLabel.textAlignment = NSTextAlignmentCenter;
+        noDataLabel.text = KSTableViewDefaultErrorMessage;
+        noDataLabel.textColor = [UIColor darkTextColor];
+        noDataLabel.backgroundColor = self.tableView.backgroundColor;
+        noDataLabel.tag = KSViewOverlayTagForNoDataLabel;
+        
+        [_overlayView addSubview:noDataLabel];
+    }
+    return _overlayView;
+}
+
+- (void)showNoDataLabel {
+    
+    [self.view addSubview:self.overlayView];
+    //[self.tableView setScrollEnabled:NO];
+    //[self.tableView setContentOffset:CGPointMake(self.tableView.contentOffset.x, 0)];
+}
+
+- (void)hideNoDataLabel {
+    
+    [self.overlayView removeFromSuperview];
+    //[self.tableView setScrollEnabled:YES];
+}
+
 
 @end
