@@ -322,6 +322,12 @@
 		18F539131E8BAD6F001093B5 /* luxury-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F5390F1E8BAD6F001093B5 /* luxury-limo-ico@2x.png */; };
 		18F539141E8BAD6F001093B5 /* standard-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539101E8BAD6F001093B5 /* standard-limo-ico@2x.png */; };
 		18F539151E8BAD6F001093B5 /* taxi-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539111E8BAD6F001093B5 /* taxi-ico@2x.png */; };
+		18F539251E8D26D0001093B5 /* limo-numberplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539201E8D26D0001093B5 /* limo-numberplate@2x.png */; };
+		18F539261E8D26D0001093B5 /* tag-business@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539211E8D26D0001093B5 /* tag-business@2x.png */; };
+		18F539271E8D26D0001093B5 /* tag-luxury@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539221E8D26D0001093B5 /* tag-luxury@2x.png */; };
+		18F539281E8D26D0001093B5 /* tag-standard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539231E8D26D0001093B5 /* tag-standard@2x.png */; };
+		18F539291E8D26D0001093B5 /* tag-taxi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539241E8D26D0001093B5 /* tag-taxi@2x.png */; };
+		18F5392D1E90C672001093B5 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5392C1E90C672001093B5 /* AppUtils.m */; };
 		8BF60827BA6A55C83D46280F /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51402CE2205250312C8A9F1A /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -765,6 +771,13 @@
 		18F5390F1E8BAD6F001093B5 /* luxury-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "luxury-limo-ico@2x.png"; path = "BookingHistory/luxury-limo-ico@2x.png"; sourceTree = "<group>"; };
 		18F539101E8BAD6F001093B5 /* standard-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "standard-limo-ico@2x.png"; path = "BookingHistory/standard-limo-ico@2x.png"; sourceTree = "<group>"; };
 		18F539111E8BAD6F001093B5 /* taxi-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "taxi-ico@2x.png"; path = "BookingHistory/taxi-ico@2x.png"; sourceTree = "<group>"; };
+		18F539201E8D26D0001093B5 /* limo-numberplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "limo-numberplate@2x.png"; path = "BookingDetails/limo-numberplate@2x.png"; sourceTree = "<group>"; };
+		18F539211E8D26D0001093B5 /* tag-business@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-business@2x.png"; path = "BookingDetails/tag-business@2x.png"; sourceTree = "<group>"; };
+		18F539221E8D26D0001093B5 /* tag-luxury@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-luxury@2x.png"; path = "BookingDetails/tag-luxury@2x.png"; sourceTree = "<group>"; };
+		18F539231E8D26D0001093B5 /* tag-standard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-standard@2x.png"; path = "BookingDetails/tag-standard@2x.png"; sourceTree = "<group>"; };
+		18F539241E8D26D0001093B5 /* tag-taxi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-taxi@2x.png"; path = "BookingDetails/tag-taxi@2x.png"; sourceTree = "<group>"; };
+		18F5392B1E90C672001093B5 /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtils.h; path = Commons/AppUtils.h; sourceTree = "<group>"; };
+		18F5392C1E90C672001093B5 /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtils.m; path = Commons/AppUtils.m; sourceTree = "<group>"; };
 		455DA6422707B3020A511B1A /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
 		51402CE2205250312C8A9F1A /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F008D3707228B95EBC54233 /* libPods-KuberTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KuberTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1013,6 +1026,11 @@
 		184CF91D1BA03F0E0025B883 /* BookingDetails */ = {
 			isa = PBXGroup;
 			children = (
+				18F539201E8D26D0001093B5 /* limo-numberplate@2x.png */,
+				18F539211E8D26D0001093B5 /* tag-business@2x.png */,
+				18F539221E8D26D0001093B5 /* tag-luxury@2x.png */,
+				18F539231E8D26D0001093B5 /* tag-standard@2x.png */,
+				18F539241E8D26D0001093B5 /* tag-taxi@2x.png */,
 				18102A1C1BF31F1300242CCD /* cancelled-bar@2x.png */,
 				18102A1D1BF31F1300242CCD /* completed-bar@2x.png */,
 				18102A1E1BF31F1300242CCD /* confirmed-bar@2x.png */,
@@ -1401,6 +1419,7 @@
 		18A762AD1B006A7400B9ED32 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18F5392A1E90C63E001093B5 /* Commons */,
 				1859E9041BC93F5D00354B84 /* AddressBookManager */,
 				18481B781B0B3E8400855F54 /* DAL */,
 				18481AFA1B086E9A00855F54 /* Constants */,
@@ -1593,6 +1612,15 @@
 			name = Varify;
 			sourceTree = "<group>";
 		};
+		18F5392A1E90C63E001093B5 /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				18F5392B1E90C672001093B5 /* AppUtils.h */,
+				18F5392C1E90C672001093B5 /* AppUtils.m */,
+			);
+			name = Commons;
+			sourceTree = "<group>";
+		};
 		E3D5785917E714EE55411B2F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1711,6 +1739,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18A2689C1BE7725C006FC942 /* myPin@2x.png in Resources */,
+				18F539261E8D26D0001093B5 /* tag-business@2x.png in Resources */,
 				184B744B1BC0FFA8003AD936 /* search-ico@2x.png in Resources */,
 				18F539131E8BAD6F001093B5 /* luxury-limo-ico@2x.png in Resources */,
 				1880C55F1B79B47B004F0188 /* segment_unselected@2x.png in Resources */,
@@ -1755,6 +1784,7 @@
 				184D226E1BA55E64007CB740 /* Rateyourtrips-active@2x.png in Resources */,
 				184245FC1BBCF997001C780A /* MuseoSans-700Italic.otf in Resources */,
 				1880C51D1B7877ED004F0188 /* details_bg_top@2x.png in Resources */,
+				18F539291E8D26D0001093B5 /* tag-taxi@2x.png in Resources */,
 				184CF9251BA03F1D0025B883 /* Booking-details_07@2x.png in Resources */,
 				1880C53B1B7877ED004F0188 /* StarEmptyLarge.png in Resources */,
 				18102A271BF31F1400242CCD /* unavailable-bar@2x.png in Resources */,
@@ -1796,6 +1826,7 @@
 				184B744D1BC0FFA8003AD936 /* white-box@2x.png in Resources */,
 				18F539121E8BAD6F001093B5 /* business-limo-ico@2x.png in Resources */,
 				18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */,
+				18F539251E8D26D0001093B5 /* limo-numberplate@2x.png in Resources */,
 				18102A261BF31F1400242CCD /* scheduled-bar@2x.png in Resources */,
 				18102A051BF1E45700242CCD /* upcoming-tag@2x.png in Resources */,
 				184D22631BA55E64007CB740 /* favorites-active@2x.png in Resources */,
@@ -1886,6 +1917,7 @@
 				18D6E6171BCFB20700D6BBA0 /* Destination-button.png in Resources */,
 				18A7628F1AFF785B00B9ED32 /* Images.xcassets in Resources */,
 				184245F71BBCF997001C780A /* MuseoSans_900.otf in Resources */,
+				18F539281E8D26D0001093B5 /* tag-standard@2x.png in Resources */,
 				1880C5151B7877ED004F0188 /* activetabbar@2x.png in Resources */,
 				1880C5421B7877ED004F0188 /* edit@2x.png in Resources */,
 				1822C4081BA7FC320087ACE3 /* phonenumber@2x.png in Resources */,
@@ -1902,6 +1934,7 @@
 				184D22911BA58BED007CB740 /* sep@2x.png in Resources */,
 				18102A1B1BF319D600242CCD /* taxi-unavailable-tag@2x.png in Resources */,
 				184CF9121BA02A080025B883 /* destination@2x.png in Resources */,
+				18F539271E8D26D0001093B5 /* tag-luxury@2x.png in Resources */,
 				184D225D1BA55E64007CB740 /* bookings-active@2x.png in Resources */,
 				184246061BBD0BCF001C780A /* callout@2x.png in Resources */,
 				18D65DCA1B9D82B600D6C1BD /* login-button-pressed@2x.png in Resources */,
@@ -2064,6 +2097,7 @@
 				184B74501BC102D2003AD936 /* KSSearchTextField.m in Sources */,
 				18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */,
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
+				18F5392D1E90C672001093B5 /* AppUtils.m in Sources */,
 				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
 				18801D2F1BF83F9600B8EDB8 /* KSTOSController.m in Sources */,
 				180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */,
