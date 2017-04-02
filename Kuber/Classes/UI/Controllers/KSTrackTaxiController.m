@@ -18,6 +18,7 @@
 #import "KSVehicleTrackingAnnotation.h"
 #import "KSTrackingAnnotationView.h"
 #import "KSConfirmationAlert.h"
+#import "AppUtils.h"
 
 #define UPDATE_TEXT @"Taxi status last updated on %@"
 
@@ -44,6 +45,8 @@
     [self setMapParameters];
     temp = 0;
     [self updateTaxiStatusUpdateLabel];
+    
+    [self updateNavigationTitle];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -68,6 +71,11 @@
 }
 
 #pragma mark - Private Functions
+
+-(void) updateNavigationTitle
+{
+    self.navigationItem.title = [NSString stringWithFormat:@"Track My %@",[AppUtils taxiLimo:_trip.vehicleType]];
+}
 
 -(void) updateTaxiStatusUpdateLabel
 {

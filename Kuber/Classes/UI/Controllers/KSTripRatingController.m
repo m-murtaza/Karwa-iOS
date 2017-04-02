@@ -9,6 +9,7 @@
 #import "KSTripRatingController.h"
 #import "SWRevealViewController.h"
 #import "KSMenuController.h"
+#import "AppUtils.h"
 
 #import "DYRateView.h"
 #import "KSPlaceHolderTextView.h"
@@ -109,6 +110,8 @@
 -(void) setupView
 {
     self.serviceRating.padding = 20;
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"Rate %@ Service",[AppUtils taxiLimo:self.trip.vehicleType]];
     
     self.lblPickupDate.text = [self getFormattedTitleDate:self.trip.pickupTime];
     self.lblPickupTime.text = [self getTimeStringFromDate:self.trip.pickupTime];
