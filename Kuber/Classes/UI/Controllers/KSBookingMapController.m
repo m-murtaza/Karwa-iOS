@@ -22,6 +22,7 @@
 #import "KSVehicleTrackingAnnotation.h"
 #import "KSPointAnnotation.h"
 #import "KSVehicleAnnotationView.h"
+#import "NYSegmentedControl.h"
 
 
 #define ADDRESS_CELL_HEIGHT         86.0
@@ -75,12 +76,12 @@
 //@property (nonatomic, weak) IBOutlet NSLayoutConstraint *destinationHelpRight;
 
 
-
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
+@property (nonatomic, strong) NYSegmentedControl *segmentVehicleType;
 
 
 //Top Right navigation item
@@ -129,6 +130,8 @@
     {
         [self.imgDestinationHelp setImage:[UIImage imageNamed:@"destination-help-iphone5.png"]];
     }
+    
+    [self addSegmentControl];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -148,6 +151,64 @@
      
         [self populateOldTripData];
     }
+    
+}
+
+#pragma mark - Vehicle Type Segment Control
+
+//This function is to add UI and have lot of hardcode values.
+-(void) addSegmentControl
+{
+    //self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    
+    //Background view
+//    UIView *segmentBg = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
+//                                                                 0.0f,
+//                                                                 CGRectGetWidth([UIScreen
+//                                                                                 mainScreen].bounds),
+//                                                                 65.0f)];
+//    segmentBg.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+//    [self.view addSubview:segmentBg];
+    
+    //Segment Control
+    _segmentVehicleType = [[NYSegmentedControl alloc] initWithItems:@[@"Taxi", @"Limo"]];
+    
+    _segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    _segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
+    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    _segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
+    _segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    _segmentVehicleType.backgroundColor = [UIColor whiteColor];
+    _segmentVehicleType.borderWidth = 0.0f;
+    _segmentVehicleType.segmentIndicatorBorderWidth = 0.0f;
+    _segmentVehicleType.segmentIndicatorInset = 2.0f;
+    _segmentVehicleType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    [_segmentVehicleType setFrame:CGRectMake(self.view.frame.size.width / 2 -150, 13, 200, 35)];
+    _segmentVehicleType.cornerRadius = CGRectGetHeight(_segmentVehicleType.frame) / 2.0f;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
+    _segmentVehicleType.usesSpringAnimations = YES;
+#endif
+    
+    [_segmentVehicleType addTarget:self action:@selector(onSegmentVehicleTypeChange) forControlEvents:UIControlEventValueChanged];
+    
+    self.navigationItem.titleView =_segmentVehicleType;
+}
+
+- (IBAction)onSegmentVehicleTypeChange
+{
+    if(_segmentVehicleType.selectedSegmentIndex == 0)
+        [self updateUIForTaxi];
+    else
+        [self updateUIForLimo];
+    [self updateTaxisInCurrentRegion];
+}
+
+-(void) updateUIForTaxi
+{
+    vehicleType = KSCityTaxi;
+}
+-(void) updateUIForLimo
+{
     
 }
 
@@ -643,7 +704,7 @@
     CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height/1.3 ) toCoordinateFromView:_mapView];
     CLLocationDistance radius = [[CLLocation locationWithCoordinate:center] distanceFromLocation:[CLLocation locationWithCoordinate:left]];
     
-    [KSDAL taxisNearCoordinate:center radius:radius completion:^(KSAPIStatus status, NSArray * vehicles) {
+    [KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
         
         NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
         for (int counter = 0; counter < vehicles.count && counter < MAX_TAXI_ANNOTATIONS; counter++) {

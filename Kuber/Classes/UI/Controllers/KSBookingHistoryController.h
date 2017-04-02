@@ -23,5 +23,5 @@
 
 - (IBAction)onSegmentVehicleTypeChange:(id)sender;
 
-- (void)buildTripsHistory:(NSArray*)data;
+//- (void)buildTripsHistory:(NSArray*)data;
 @end
