@@ -327,6 +327,7 @@
 		18F539271E8D26D0001093B5 /* tag-luxury@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539221E8D26D0001093B5 /* tag-luxury@2x.png */; };
 		18F539281E8D26D0001093B5 /* tag-standard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539231E8D26D0001093B5 /* tag-standard@2x.png */; };
 		18F539291E8D26D0001093B5 /* tag-taxi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539241E8D26D0001093B5 /* tag-taxi@2x.png */; };
+		18F5392D1E90C672001093B5 /* AppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F5392C1E90C672001093B5 /* AppUtils.m */; };
 		8BF60827BA6A55C83D46280F /* libPods-Kuber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51402CE2205250312C8A9F1A /* libPods-Kuber.a */; };
 /* End PBXBuildFile section */
 
@@ -775,6 +776,8 @@
 		18F539221E8D26D0001093B5 /* tag-luxury@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-luxury@2x.png"; path = "BookingDetails/tag-luxury@2x.png"; sourceTree = "<group>"; };
 		18F539231E8D26D0001093B5 /* tag-standard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-standard@2x.png"; path = "BookingDetails/tag-standard@2x.png"; sourceTree = "<group>"; };
 		18F539241E8D26D0001093B5 /* tag-taxi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-taxi@2x.png"; path = "BookingDetails/tag-taxi@2x.png"; sourceTree = "<group>"; };
+		18F5392B1E90C672001093B5 /* AppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtils.h; path = Commons/AppUtils.h; sourceTree = "<group>"; };
+		18F5392C1E90C672001093B5 /* AppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtils.m; path = Commons/AppUtils.m; sourceTree = "<group>"; };
 		455DA6422707B3020A511B1A /* Pods-Kuber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kuber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kuber/Pods-Kuber.debug.xcconfig"; sourceTree = "<group>"; };
 		51402CE2205250312C8A9F1A /* libPods-Kuber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kuber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F008D3707228B95EBC54233 /* libPods-KuberTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KuberTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1416,6 +1419,7 @@
 		18A762AD1B006A7400B9ED32 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18F5392A1E90C63E001093B5 /* Commons */,
 				1859E9041BC93F5D00354B84 /* AddressBookManager */,
 				18481B781B0B3E8400855F54 /* DAL */,
 				18481AFA1B086E9A00855F54 /* Constants */,
@@ -1606,6 +1610,15 @@
 				18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */,
 			);
 			name = Varify;
+			sourceTree = "<group>";
+		};
+		18F5392A1E90C63E001093B5 /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				18F5392B1E90C672001093B5 /* AppUtils.h */,
+				18F5392C1E90C672001093B5 /* AppUtils.m */,
+			);
+			name = Commons;
 			sourceTree = "<group>";
 		};
 		E3D5785917E714EE55411B2F /* Pods */ = {
@@ -2084,6 +2097,7 @@
 				184B74501BC102D2003AD936 /* KSSearchTextField.m in Sources */,
 				18A2688E1BE639D8006FC942 /* MKMapView+KSExtensions.m in Sources */,
 				18A762841AFF785B00B9ED32 /* AppDelegate.m in Sources */,
+				18F5392D1E90C672001093B5 /* AppUtils.m in Sources */,
 				1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */,
 				18801D2F1BF83F9600B8EDB8 /* KSTOSController.m in Sources */,
 				180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */,

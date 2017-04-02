@@ -16,6 +16,7 @@
 #import "KSTrackTaxiController.h"
 #import "SWRevealViewController.h"
 #import "KSBookingMapController.h"
+#import "AppUtils.h"
 
 typedef enum {
     
@@ -47,6 +48,7 @@ BtnState;
 
 @property (weak, nonatomic) IBOutlet UIView *viewTaxiInfo;
 @property (weak, nonatomic) IBOutlet UIView *viewTrackMyTaxi;
+@property (weak, nonatomic) IBOutlet UIButton *btnTrack;
 @property (weak, nonatomic) IBOutlet UIImageView *imgTrackTaxiSepLine;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
@@ -55,6 +57,7 @@ BtnState;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoBGImgBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintVehicleNumber;
 
 
 -(IBAction)btnCallDriveTapped:(id)sender;
@@ -213,6 +216,7 @@ BtnState;
         taxiNum = [taxiNum substringFromIndex:3];
         self.lblTaxiNumber.text = taxiNum;
         
+        
         switch((KSVehicleType)[trip.vehicleType integerValue])
         {
             case KSCityTaxi:
@@ -222,14 +226,20 @@ BtnState;
             case KSStandardLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"tag-standard.png"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant += 5;
                 break;
             case KSBusinessLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"tag-business.png"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant += 5;
                 break;
             case KSLuxuryLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"tag-luxury.png"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant += 5;
                 break;
             default:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"tag-taxi.png"]];
@@ -398,9 +408,6 @@ BtnState;
         KSBookingMapController *bookingController = (KSBookingMapController *)[controller.viewControllers firstObject];
         bookingController.repeatTrip = self.tripInfo;
         
-        
-        
-        
         [self.revealViewController setFrontViewController:controller animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
     }
@@ -408,7 +415,6 @@ BtnState;
         [self showAlertForCancelBooking];
     }
 }
-
 
 
 #pragma mark - Private Functions 
@@ -430,7 +436,8 @@ BtnState;
             break;
         case KSTripStatusTaxiAssigned:
             [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-bar.png"]];
-            [self.lblStatus setText:@"Your booking has confirmed, taxi will arrived soon!"];
+            //[self.lblStatus setText:@"Your booking has confirmed, taxi will arrived soon!"];
+            [self.lblStatus setText:[NSString stringWithFormat:@"Your booking has confirmed, %@ will arrived soon!",[AppUtils taxiLimo:_tripInfo.vehicleType]]];
             //[self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];
             break;
         case KSTripStatusCancelled:
@@ -440,7 +447,8 @@ BtnState;
             break;
         case KSTripStatusTaxiNotFound:
             [self.imgStatus setImage:[UIImage imageNamed:@"unavailable-bar.png"]];
-            [self.lblStatus setText:@"Taxi not available, please try again later"];
+            //[self.lblStatus setText:@"Taxi not available, please try again later"];
+            [self.lblStatus setText:[NSString stringWithFormat:@"%@ not available, please try again later",[AppUtils taxiLimo:_tripInfo.vehicleType]]];
             //[self.imgStatus setImage:[UIImage imageNamed:@"taxi-unavailable-tag.png"]];
             break;
         case KSTripStatusComplete:
@@ -479,6 +487,9 @@ BtnState;
     if (self.tripInfo.taxi == nil) {
         self.navigationItem.rightBarButtonItem = nil;
     }
+    
+    [_btnTrack setTitle:[NSString stringWithFormat:@"Track my %@",[AppUtils taxiLimo:self.tripInfo.vehicleType]]
+               forState:UIControlStateNormal]; //[AppUtils taxiLimo:self.tripInfo.vehicleType];
 }
 
 
