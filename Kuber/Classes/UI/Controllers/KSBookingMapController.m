@@ -404,7 +404,11 @@
        
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
-    tripInfo.pickupTime = datePicker.date;
+    if([AppUtils isTaxiType:vehicleType])
+        tripInfo.pickupTime = datePicker.date;
+    else
+        tripInfo.pickupTime = [NSDate date];
+    
     tripInfo.pickupHint = hintTxt ? hintTxt : @"";
 
     tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
