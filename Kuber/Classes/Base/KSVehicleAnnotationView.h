@@ -18,4 +18,6 @@
 
 - (instancetype)initWithAnnotation:(KSVehicleTrackingAnnotation *)annotation;
 
+-(void) setUpdateVehicleIcon:(KSVehicleType) t;
+
 @end

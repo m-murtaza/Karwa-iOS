@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KSConstants.h"
 
 @interface KSVehicleTrackingInfo : NSObject
 
@@ -25,6 +26,12 @@
 @property (nonatomic, readonly) NSString *driverName;
 
 @property (nonatomic, readonly) NSString *driverPhone;
+
+@property (readonly) KSVehicleType vehicleType;
+
+@property (readonly) NSInteger bearing;
+
+@property (nonatomic, readonly) NSInteger currentETA;
 
 + (instancetype)trackInfoWithDictionary:(NSDictionary *)trackingInfo;
 
