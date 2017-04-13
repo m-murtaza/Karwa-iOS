@@ -57,7 +57,8 @@
 
 - (void)setAnnotation:(KSVehicleTrackingAnnotation *)annotation
 {
-    [self setUpdateVehicleIcon:annotation.trackingInfo.vehicleType];
+    
+    [self setUpdateVehicleIcon:((KSVehicleTrackingAnnotation*)annotation).trackingInfo.vehicleType];
     [super setAnnotation:annotation];
     
 }

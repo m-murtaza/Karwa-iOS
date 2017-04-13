@@ -1828,7 +1828,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFg-9r-exu">
-                                <rect key="frame" x="0.0" y="63" width="375" height="239"/>
+                                <rect key="frame" x="0.0" y="19" width="375" height="239"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topback-ratings.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZrO-Sv-B4J">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="239"/>
@@ -2205,10 +2205,10 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4M-Ba-hNT">
-                                <rect key="frame" x="0.0" y="303" width="375" height="364"/>
+                                <rect key="frame" x="0.0" y="259" width="375" height="408"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JhK-g9-Eij">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="280"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="324"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="lbg-N9-zqg"/>
@@ -2273,7 +2273,7 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNf-Rt-0gX" customClass="KSButton">
-                                        <rect key="frame" x="16" y="299" width="343" height="50"/>
+                                        <rect key="frame" x="16" y="343" width="343" height="50"/>
                                         <state key="normal" title="SUBMIT" backgroundImage="blue-button-idle.png">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -5220,7 +5220,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-WD-Luh">
-                                <rect key="frame" x="0.0" y="64" width="375" height="167"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="167"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details-top-view.png" translatesAutoresizingMaskIntoConstraints="NO" id="D1v-Lh-IPD">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="167"/>
@@ -5380,7 +5380,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p14-Lt-iJP">
-                                <rect key="frame" x="8" y="231" width="359" height="108"/>
+                                <rect key="frame" x="8" y="187" width="359" height="108"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details_07.png" translatesAutoresizingMaskIntoConstraints="NO" id="g2h-2f-gbZ">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="108"/>
@@ -5807,7 +5807,7 @@
                                 </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAXI INFORMATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-es-YOx">
-                                <rect key="frame" x="16" y="359" width="213" height="15"/>
+                                <rect key="frame" x="16" y="315" width="213" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="S5H-AA-o4A"/>
                                     <constraint firstAttribute="width" constant="213" id="xzT-mX-ZSc"/>
@@ -5829,7 +5829,7 @@
                                 </variation>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHl-xf-otu">
-                                <rect key="frame" x="10" y="379" width="355" height="203"/>
+                                <rect key="frame" x="10" y="335" width="355" height="203"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="Booking-details_07-03.png" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-OI-Yf1">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="203"/>
@@ -6595,6 +6595,7 @@
                         <outlet property="lblStatus" destination="GEf-bT-2yS" id="1WB-oP-uMb"/>
                         <outlet property="lblTaxiNumber" destination="rfE-SO-Pn6" id="ozR-3Z-5C6"/>
                         <outlet property="lblTitleTaxiInfo" destination="Sn6-es-YOx" id="5Ap-bn-JMN"/>
+                        <outlet property="lblTrackMyTaxi" destination="MK0-kb-Q8P" id="zGD-Jt-GfW"/>
                         <outlet property="revealButtonItem" destination="Zoi-3x-Zo4" id="2mH-qS-fC8"/>
                         <outlet property="viewTaxiInfo" destination="yHl-xf-otu" id="nO2-pa-Ctp"/>
                         <outlet property="viewTrackMyTaxi" destination="zNH-ld-eBT" id="BOa-Xe-2D7"/>
@@ -6619,7 +6620,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFZ-qc-hE8">
-                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
+                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
                                 <connections>
                                     <outlet property="delegate" destination="Mrw-Su-08g" id="6dK-uO-VLl"/>
                                 </connections>
@@ -6734,7 +6735,7 @@
                                 </variation>
                             </view>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDB-Y5-DJ8">
-                                <rect key="frame" x="-4" y="64" width="383" height="24"/>
+                                <rect key="frame" x="-4" y="20" width="383" height="24"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyO-fh-qyG">
                                         <rect key="frame" x="8" y="2" width="367" height="21"/>
@@ -6853,7 +6854,7 @@
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                             </imageView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctt-mr-gwD">
-                                <rect key="frame" x="0.0" y="64" width="375" height="385"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="429"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-Mc-eHN">
                                 <rect key="frame" x="30" y="161" width="315" height="88"/>
@@ -6919,7 +6920,7 @@
                                 </variation>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dj6-A8-V8C">
-                                <rect key="frame" x="0.0" y="64" width="375" height="535"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="579"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="v2G-VZ-GPY">
@@ -7859,7 +7860,7 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yqw-R3-lfa"/>
+        <segue reference="QFx-wv-VWz"/>
         <segue reference="X1O-ak-DHc"/>
     </inferredMetricsTieBreakers>
 </document>

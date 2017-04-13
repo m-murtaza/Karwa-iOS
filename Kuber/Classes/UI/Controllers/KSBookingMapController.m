@@ -383,25 +383,25 @@
 -(void) bookTaxi
 {
     
-    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
-        [self resetDropoffHintConter];
-        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
-        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
-        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
-    }
-    else{
+    if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
+    {
         if ([self showHintForDestination]) {
             [self hideHintView:FALSE];
             return;
         }
     }
     
-    NSString * pickup = self.lblPickupLocaiton.text; //[self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
-    
-    tripInfo = [KSDAL tripWithLandmark:pickup
+    tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
                                    lat:self.mapView.centerCoordinate.latitude
                                    lon:self.mapView.centerCoordinate.longitude];
-       
+    
+    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
+        [self resetDropoffHintConter];
+        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
+        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
+        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
+    }
+    
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
     if([AppUtils isTaxiType:vehicleType])
