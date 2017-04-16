@@ -275,6 +275,19 @@
         hintTxt = self.repeatTrip.pickupHint;
     }
     
+    vehicleType = (KSVehicleType)[self.repeatTrip.vehicleType integerValue];
+    
+    if([AppUtils isTaxiType: vehicleType])
+        [segmentVehicleType setSelectedSegmentIndex:0];
+    else
+    {
+        [segmentVehicleType setSelectedSegmentIndex:1];
+        
+        [self.tableView reloadData];
+    }
+    
+    
+    
     //[self.mapView setCenterCoordinate:CLLocationCoordinate2DMake([tripInfo.pickupLat doubleValue], [tripInfo.pickupLon doubleValue]) animated:YES];
     
 }
@@ -940,6 +953,23 @@
             UIView *segmentView = [cell viewWithTag:101];
             segmantLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
             segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
+            
+            
+            switch (vehicleType) {
+                case KSStandardLimo:
+                    [segmantLimoType setSelectedSegmentIndex:0];
+                    break;
+                case KSBusinessLimo:
+                    [segmantLimoType setSelectedSegmentIndex:1];
+                    break;
+                case KSLuxuryLimo:
+                    [segmantLimoType setSelectedSegmentIndex:2];
+                    break;
+                default:
+                    [segmantLimoType setSelectedSegmentIndex:0];
+                    break;
+            }
+            
             [segmentView addSubview:segmantLimoType];
         }
     }
