@@ -196,6 +196,13 @@
             break;
     }
     [self updateTaxisInCurrentRegion];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking - Limo Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",[AppUtils vehicleTypeToString:vehicleType]]
+                                                           value:nil] build]];
 }
 
 #pragma mark - Vehicle Type Segment Control
@@ -236,11 +243,20 @@
         [self updateUIForLimo];
     [self updateTaxisInCurrentRegion];
     [_tableView reloadData];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking - Vehicle Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",(segmentVehicleType.selectedSegmentIndex == 0) ? @"Tax" : @"Limo"]
+                                                           value:nil] build]];
+
 }
 
 -(void) updateUIForTaxi
 {
     vehicleType = KSCityTaxi;
+    [self updateTaxisInCurrentRegion];
 }
 -(void) updateUIForLimo
 {
@@ -257,7 +273,7 @@
         default:
             break;
     }
-    //vehicleType = KSStandardLimo;
+    [self onSegmentLimoTypeChange];
 }
 
 #pragma mark - Private Function
@@ -441,7 +457,7 @@
             
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-                                                                  action:@"PickupAddress"
+                                                                  action:[AppUtils vehicleTypeToString:vehicleType]
                                                                    label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
                                                                    value:nil] build]];
             
@@ -477,7 +493,6 @@
     }];
     
 }
-
 
 -(void) showAlertWithHint
 {
@@ -526,7 +541,6 @@
     [alt addAction:cancelAction];
     [self presentViewController:alt animated:YES completion:nil];
 }
-
 
 -(void) addDataPickerToTxtPickupTime
 {

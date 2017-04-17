@@ -14,4 +14,6 @@
 
 + (NSString *) taxiLimoText:(KSVehicleType) type;
 + (NSString *) taxiLimo:(NSNumber *) type;
++ (NSString *) vehicleTypeToString:(KSVehicleType)type;
+
 @end
