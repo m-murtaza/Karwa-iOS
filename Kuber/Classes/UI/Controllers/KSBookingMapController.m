@@ -23,6 +23,7 @@
 #import "KSPointAnnotation.h"
 #import "KSVehicleAnnotationView.h"
 #import "NYSegmentedControl.h"
+#import "AppUtils.h"
 
 
 #define ADDRESS_CELL_HEIGHT         86.0
@@ -63,6 +64,8 @@
     BOOL isPickupFromMap;                 //Used for analytics
     
     KSVehicleType vehicleType;              //This is for service type i.e. limo or taxi
+    NYSegmentedControl *segmentVehicleType;     //Vehicletype limo or texi on top navigation bar
+    NYSegmentedControl *segmantLimoType;        //Limo type: Standard, Business, Luxury
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -73,15 +76,11 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
 @property (nonatomic, weak) IBOutlet UIView *mapDisableView;
 @property (nonatomic, weak) IBOutlet UIImageView *imgDestinationHelp;
-//@property (nonatomic, weak) IBOutlet NSLayoutConstraint *destinationHelpRight;
-
-
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
-@property (nonatomic, strong) NYSegmentedControl *segmentVehicleType;
 
 
 //Top Right navigation item
@@ -131,7 +130,8 @@
         [self.imgDestinationHelp setImage:[UIImage imageNamed:@"destination-help-iphone5.png"]];
     }
     
-    [self addSegmentControl];
+    [self addVehicleTypeSegment];
+    [self createLimoTypeSegmant];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -154,64 +154,127 @@
     
 }
 
+#pragma mark - Limo Type Segment Control
+-(void) createLimoTypeSegmant
+{
+    //Segment Control
+    segmantLimoType = [[NYSegmentedControl alloc] initWithItems:@[@"STANDARD", @"BUSINESS",@"LUXURY"]];
+    
+    segmantLimoType.titleTextColor = [UIColor whiteColor];//[UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    segmantLimoType.selectedTitleTextColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmantLimoType.selectedTitleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:5];
+    segmantLimoType.titleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:10.0];
+    segmantLimoType.segmentIndicatorBackgroundColor = [UIColor whiteColor];
+    segmantLimoType.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+
+    segmantLimoType.borderWidth = 0.0f;
+    segmantLimoType.segmentIndicatorBorderWidth = 0.0f;
+    segmantLimoType.segmentIndicatorInset = 2.0f;
+    segmantLimoType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    //[segmantLimoType setFrame:CGRectMake(20, 5, 300, 35)];
+    //[segmantLimoType sizeToFit] ;
+    segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
+    segmantLimoType.usesSpringAnimations = YES;
+#endif
+    
+    [segmantLimoType addTarget:self action:@selector(onSegmentLimoTypeChange) forControlEvents:UIControlEventValueChanged];
+}
+-(IBAction)onSegmentLimoTypeChange
+{
+    switch (segmantLimoType.selectedSegmentIndex) {
+        case 0:
+            vehicleType = KSStandardLimo;
+            break;
+        case 1:
+            vehicleType = KSBusinessLimo;
+            break;
+        case 2:
+            vehicleType = KSLuxuryLimo;
+            break;
+        default:
+            break;
+    }
+    [self updateTaxisInCurrentRegion];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking - Limo Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",[AppUtils vehicleTypeToString:vehicleType]]
+                                                           value:nil] build]];
+}
+
 #pragma mark - Vehicle Type Segment Control
 
 //This function is to add UI and have lot of hardcode values.
--(void) addSegmentControl
+// This control will be visible on top navigation bar.
+-(void) addVehicleTypeSegment
 {
-    //self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    //Background view
-//    UIView *segmentBg = [[UIView alloc] initWithFrame:CGRectMake(0.0f,
-//                                                                 0.0f,
-//                                                                 CGRectGetWidth([UIScreen
-//                                                                                 mainScreen].bounds),
-//                                                                 65.0f)];
-//    segmentBg.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
-//    [self.view addSubview:segmentBg];
-    
     //Segment Control
-    _segmentVehicleType = [[NYSegmentedControl alloc] initWithItems:@[@"Taxi", @"Limo"]];
+    segmentVehicleType = [[NYSegmentedControl alloc] initWithItems:@[@"Taxi", @"Limo"]];
     
-    _segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
-    _segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
-    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
-    _segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
-    _segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
-    _segmentVehicleType.backgroundColor = [UIColor whiteColor];
-    _segmentVehicleType.borderWidth = 0.0f;
-    _segmentVehicleType.segmentIndicatorBorderWidth = 0.0f;
-    _segmentVehicleType.segmentIndicatorInset = 2.0f;
-    _segmentVehicleType.segmentIndicatorBorderColor = self.view.backgroundColor;
-    [_segmentVehicleType setFrame:CGRectMake(self.view.frame.size.width / 2 -150, 13, 200, 35)];
-    _segmentVehicleType.cornerRadius = CGRectGetHeight(_segmentVehicleType.frame) / 2.0f;
+    segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
+    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
+    segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmentVehicleType.backgroundColor = [UIColor whiteColor];
+    segmentVehicleType.borderWidth = 0.0f;
+    segmentVehicleType.segmentIndicatorBorderWidth = 0.0f;
+    segmentVehicleType.segmentIndicatorInset = 2.0f;
+    segmentVehicleType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    [segmentVehicleType setFrame:CGRectMake(self.view.frame.size.width / 2 -150, 13, 200, 35)];
+    segmentVehicleType.cornerRadius = CGRectGetHeight(segmentVehicleType.frame) / 2.0f;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
-    _segmentVehicleType.usesSpringAnimations = YES;
+    segmentVehicleType.usesSpringAnimations = YES;
 #endif
     
-    [_segmentVehicleType addTarget:self action:@selector(onSegmentVehicleTypeChange) forControlEvents:UIControlEventValueChanged];
+    [segmentVehicleType addTarget:self action:@selector(onSegmentVehicleTypeChange) forControlEvents:UIControlEventValueChanged];
     
-    self.navigationItem.titleView =_segmentVehicleType;
+    self.navigationItem.titleView =segmentVehicleType;
 }
 
 - (IBAction)onSegmentVehicleTypeChange
 {
-    if(_segmentVehicleType.selectedSegmentIndex == 0)
+    if(segmentVehicleType.selectedSegmentIndex == 0)
         [self updateUIForTaxi];
     else
         [self updateUIForLimo];
     [self updateTaxisInCurrentRegion];
+    [_tableView reloadData];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking - Vehicle Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",(segmentVehicleType.selectedSegmentIndex == 0) ? @"Tax" : @"Limo"]
+                                                           value:nil] build]];
+
 }
 
 -(void) updateUIForTaxi
 {
     vehicleType = KSCityTaxi;
+    [self updateTaxisInCurrentRegion];
 }
 -(void) updateUIForLimo
 {
-    
+    switch (segmantLimoType.selectedSegmentIndex) {
+        case 0:
+            vehicleType = KSStandardLimo;
+            break;
+        case 1:
+            vehicleType = KSBusinessLimo;
+            break;
+        case 2:
+            vehicleType = KSLuxuryLimo;
+            break;
+        default:
+            break;
+    }
+    [self onSegmentLimoTypeChange];
 }
-
 
 #pragma mark - Private Function
 
@@ -227,6 +290,19 @@
     if (self.repeatTrip.pickupHint.length) {
         hintTxt = self.repeatTrip.pickupHint;
     }
+    
+    vehicleType = (KSVehicleType)[self.repeatTrip.vehicleType integerValue];
+    
+    if([AppUtils isTaxiType: vehicleType])
+        [segmentVehicleType setSelectedSegmentIndex:0];
+    else
+    {
+        [segmentVehicleType setSelectedSegmentIndex:1];
+        
+        [self.tableView reloadData];
+    }
+    
+    
     
     //[self.mapView setCenterCoordinate:CLLocationCoordinate2DMake([tripInfo.pickupLat doubleValue], [tripInfo.pickupLon doubleValue]) animated:YES];
     
@@ -336,37 +412,38 @@
 -(void) bookTaxi
 {
     
-    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
-        [self resetDropoffHintConter];
-        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
-        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
-        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
-    }
-    else{
+    if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
+    {
         if ([self showHintForDestination]) {
             [self hideHintView:FALSE];
             return;
         }
     }
     
-    
-    NSString * pickup = self.lblPickupLocaiton.text; //[self completePickUpAddress:hintTxt Pickup:self.lblPickupLocaiton.text];
-    
-    tripInfo = [KSDAL tripWithLandmark:pickup
+    tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
                                    lat:self.mapView.centerCoordinate.latitude
                                    lon:self.mapView.centerCoordinate.longitude];
-       
+    
+    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
+        [self resetDropoffHintConter];
+        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
+        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
+        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
+    }
+    
     KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
     
-    tripInfo.pickupTime = datePicker.date;
+    if([AppUtils isTaxiType:vehicleType])
+        tripInfo.pickupTime = datePicker.date;
+    else
+        tripInfo.pickupTime = [NSDate date];
+    
     tripInfo.pickupHint = hintTxt ? hintTxt : @"";
 
     tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
     
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    
-
     [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         
@@ -380,7 +457,7 @@
             
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-                                                                  action:@"PickupAddress"
+                                                                  action:[AppUtils vehicleTypeToString:vehicleType]
                                                                    label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
                                                                    value:nil] build]];
             
@@ -416,7 +493,6 @@
     }];
     
 }
-
 
 -(void) showAlertWithHint
 {
@@ -465,7 +541,6 @@
     [alt addAction:cancelAction];
     [self presentViewController:alt animated:YES completion:nil];
 }
-
 
 -(void) addDataPickerToTxtPickupTime
 {
@@ -811,7 +886,6 @@
     return annotationView;
 }
 
-
 -(void) reversGeoCodeMapLocation
 {
     [self setPickupLocationLblText];
@@ -875,16 +949,43 @@
     }
     else if(indexPath.row == idxPickupTime){
         
-        cell = [tableView dequeueReusableCellWithIdentifier:@"pickupTimeCellIdentifier"];
-        UILabel *lblTitle = (UILabel*) [cell viewWithTag:6003];
-        [lblTitle setText:TXT_TITLE_PICKUP_TIME];
-        if (!self.txtPickupTime.text.length) {
-            
-            self.txtPickupTime = (UITextField*) [cell viewWithTag:6004];
-            [self updatePickupTime:[NSDate date]];
-            [self addDataPickerToTxtPickupTime];
+        if([AppUtils isTaxiType:vehicleType])
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"pickupTimeCellIdentifier"];
+            UILabel *lblTitle = (UILabel*) [cell viewWithTag:6003];
+            [lblTitle setText:TXT_TITLE_PICKUP_TIME];
+            if (!self.txtPickupTime.text.length) {
+                
+                self.txtPickupTime = (UITextField*) [cell viewWithTag:6004];
+                [self updatePickupTime:[NSDate date]];
+                [self addDataPickerToTxtPickupTime];
+            }
         }
-        
+        else
+        {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"segmentCellIdentifier"];
+            UIView *segmentView = [cell viewWithTag:101];
+            segmantLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
+            segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
+            
+            
+            switch (vehicleType) {
+                case KSStandardLimo:
+                    [segmantLimoType setSelectedSegmentIndex:0];
+                    break;
+                case KSBusinessLimo:
+                    [segmantLimoType setSelectedSegmentIndex:1];
+                    break;
+                case KSLuxuryLimo:
+                    [segmantLimoType setSelectedSegmentIndex:2];
+                    break;
+                default:
+                    [segmantLimoType setSelectedSegmentIndex:0];
+                    break;
+            }
+            
+            [segmentView addSubview:segmantLimoType];
+        }
     }
     else if(indexPath.row == idxBtnCell){
         

@@ -34,6 +34,12 @@
         _driverName = trackingInfo[@"DriverName"];
         
         _driverPhone = trackingInfo[@"DriverPhone"];
+        
+        _vehicleType = (KSVehicleType)[trackingInfo[@"TaxiType"] integerValue];
+        
+        _bearing = [trackingInfo[@"Bearing"] integerValue];
+        
+        _currentETA = [trackingInfo[@"CurrentETA"] integerValue];
     }
     return self;
 }

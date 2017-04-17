@@ -23,13 +23,42 @@
 
         self.canShowCallout = YES;
         self.draggable = NO;
-        self.image = [UIImage imageNamed:@"taxi-icon.png"];
+        
+        [self setUpdateVehicleIcon:annotation.trackingInfo.vehicleType];
     }
     return self;
 }
 
-- (void)setAnnotation:(KSVehicleTrackingAnnotation *)annotation {
+-(void) setUpdateVehicleIcon:(KSVehicleType) t
+{
+    switch (t) {
+        case KSCityTaxi:
+        case KSAiportTaxi:
+        case KSAirportSpare:
+        case KSAiport7Seater:
+        case KSSpecialNeedTaxi:
+            self.image = [UIImage imageNamed:@"taxi-icon.png"];
+            break;
+        case KSStandardLimo:
+        case KSCompactLimo:
+            self.image = [UIImage imageNamed:@"limo-standard-icon.png"];
+            break;
+        case KSBusinessLimo:
+            self.image = [UIImage imageNamed:@"limo-business-icon.png"];
+            break;
+        case KSLuxuryLimo:
+            self.image = [UIImage imageNamed:@"limo-luxury-icon.png"];
+            break;
+        default:
+            self.image = [UIImage imageNamed:@"taxi-icon.png"];
+            break;
+    }
+}
 
+- (void)setAnnotation:(KSVehicleTrackingAnnotation *)annotation
+{
+    
+    [self setUpdateVehicleIcon:((KSVehicleTrackingAnnotation*)annotation).trackingInfo.vehicleType];
     [super setAnnotation:annotation];
     
 }

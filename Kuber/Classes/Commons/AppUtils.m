@@ -43,4 +43,34 @@
     return [AppUtils taxiLimoText: (KSVehicleType)[type integerValue]];
 }
 
+
++ (NSString *) vehicleTypeToString:(KSVehicleType)type
+{
+    NSString *strType = @"";
+    switch (type) {
+        case KSCityTaxi:
+        case KSAiportTaxi:
+        case KSAirportSpare:
+        case KSAiport7Seater:
+        case KSSpecialNeedTaxi:
+            strType = @"Taxi";
+            break;
+        case KSStandardLimo:
+            strType = @"Standard Limo";
+            break;
+        case KSBusinessLimo:
+            strType = @"Business Limo";
+            break;
+        case KSLuxuryLimo:
+            strType = @"Luxury Limo";
+            break;
+        case KSCompactLimo:
+            strType = @"Compact Limo";
+            break;
+        default:
+            strType = @"Taxi";
+            break;
+    }
+    return strType;
+}
 @end

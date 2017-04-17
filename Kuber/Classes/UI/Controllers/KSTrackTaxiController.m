@@ -62,8 +62,6 @@
     self.timer = nil;
 }
 
-
-
 - (void)dealloc
 {
     [self.timer invalidate];
@@ -179,9 +177,16 @@
             MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
             [self.mapView setRegion:region];
 
-            [self updateDistance:passengerLocation.location.coordinate TaxiLocation:taxiAnnotation.coordinate];
+            [self updateETA:taxiAnnotation.trackingInfo.currentETA];
+            
+            //[self updateDistance:passengerLocation.location.coordinate TaxiLocation:taxiAnnotation.coordinate];
         }
     }
+}
+
+-(void) updateETA:(NSInteger) eTA
+{
+    self.lblDistance.text = [NSString stringWithFormat:@"%ld Min",(long)eTA];
 }
 
 -(void) updateDistance:(CLLocationCoordinate2D)passengerLoc TaxiLocation:(CLLocationCoordinate2D)taxiLocaiton
@@ -220,7 +225,9 @@
 }
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
    
-    
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+
     KSAnnotationType annotationType = KSAnnotationTypeUser;
     if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
         annotationType = KSAnnotationTypeTaxi;

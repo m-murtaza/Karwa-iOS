@@ -54,6 +54,8 @@ BtnState;
 @property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblTrackMyTaxi;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoBGImgBottom;
@@ -189,6 +191,15 @@ BtnState;
     [self setCancelBtnStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
+    
+    if([AppUtils isTaxiType:(KSVehicleType)[trip.vehicleType integerValue]])
+    {
+        _lblTrackMyTaxi.text = @"Track My Taxi";
+    }
+    else
+    {
+        _lblTrackMyTaxi.text = @"Track My Limo";
+    }
     
 }
 
