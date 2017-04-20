@@ -42,7 +42,7 @@
 - (void)updateCellData:(KSTrip *)trip {
     
     if (trip.pickupLandmark.length) {
-        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
+        self.lblPickupFrom.text = [NSString stringWithString:trip.pickupLandmark]; //[NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];        //removed after discussion with shadab bahi.
     }
     else if (trip.pickupHint){
         

@@ -8,6 +8,8 @@
 
 #import "NSString+KSExtended.h"
 
+#define LOCALE          @"en_US"
+
 NSString *KSLocalize(NSString *key) {
     return NSLocalizedString(key, nil);
 }
@@ -78,6 +80,11 @@ NSString *KSLocalize(NSString *key) {
 
     if (!date) {
         [dateFormatter setDateFormat:@"MMM dd, yyyy"];
+        date = [dateFormatter dateFromString:self];
+    }
+    
+    if(!date){
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZZZZ"];
         date = [dateFormatter dateFromString:self];
     }
     return date;

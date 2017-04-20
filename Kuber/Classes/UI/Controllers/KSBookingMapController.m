@@ -96,6 +96,11 @@
 {
     
     [super viewDidLoad];
+    
+//    NSString *strdate = @"2017-04-18T13:43:13.22+03:00";
+//    NSDate *date = [strdate dateValue];
+//    
+//    DLog(@"%@",date);
     //firstTimeLoad = TRUE;
     isMaploaded = FALSE;
     dropoffVisible = FALSE;
@@ -777,7 +782,10 @@
     
     CLLocationCoordinate2D center = _mapView.centerCoordinate;
     CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height/1.3 ) toCoordinateFromView:_mapView];
+    
     CLLocationDistance radius = [[CLLocation locationWithCoordinate:center] distanceFromLocation:[CLLocation locationWithCoordinate:left]];
+    
+    radius = 10000000.0;
     
     [KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
         

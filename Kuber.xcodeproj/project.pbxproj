@@ -750,6 +750,7 @@
 		18CFC4A71BA18949009B5D70 /* section-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "section-bar.png"; path = "BookingHistory/section-bar.png"; sourceTree = "<group>"; };
 		18CFC4A81BA18949009B5D70 /* time-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "time-icon.png"; path = "BookingHistory/time-icon.png"; sourceTree = "<group>"; };
 		18CFC4A91BA18949009B5D70 /* to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = to.png; path = BookingHistory/to.png; sourceTree = "<group>"; };
+		18D3A7E71EA48BDA004B01A1 /* Karwa Taxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Karwa Taxi.entitlements"; sourceTree = "<group>"; };
 		18D65D991B9D556100D6C1BD /* NSDate+KSDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSDate.h"; sourceTree = "<group>"; };
 		18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSDate.m"; sourceTree = "<group>"; };
 		18D65DC21B9D82B600D6C1BD /* KS_login_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KS_login_logo@2x.png"; path = "LoginView/KS_login_logo@2x.png"; sourceTree = "<group>"; };
@@ -1383,6 +1384,7 @@
 		18A7627D1AFF785B00B9ED32 /* Kuber */ = {
 			isa = PBXGroup;
 			children = (
+				18D3A7E71EA48BDA004B01A1 /* Karwa Taxi.entitlements */,
 				1880C4D61B7877ED004F0188 /* Images */,
 				185E3C2F1B772B3500909B20 /* Fonts */,
 				18481B591B09C19900855F54 /* Localization */,
@@ -1712,6 +1714,9 @@
 						DevelopmentTeam = 2U24J4Z466;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -2329,6 +2334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Kuber/Karwa Taxi.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Muhammad Aleem (857UN36Z7P)";
 				ENABLE_BITCODE = NO;
@@ -2349,6 +2355,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Kuber/Karwa Taxi.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				ENABLE_BITCODE = NO;

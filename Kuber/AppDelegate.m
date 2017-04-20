@@ -16,7 +16,8 @@
 #import "KSTripRatingController.h"
 #import "AFNetworking.h"
 #import "KSConfirmationAlert.h"
-//#import "KSBookingMapController.h"
+
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate ()
 
@@ -42,7 +43,7 @@
     [MagicalRecord setupAutoMigratingCoreDataStack];
     KSUser *user = [KSDAL loggedInUser];
 
-    [self getAPNSToken];
+    [self registerForRemoteNotification];
 
     UIViewController *menuController = [UIStoryboard menuController];
     UIViewController *frontController;
@@ -120,31 +121,34 @@
 
 #pragma mark - APNS function
 
--(void) getAPNSToken
+// This is initial function for APNS to fethc device token.
+-(void) registerForRemoteNotification
 {
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    /*if (![[KSSessionInfo currentSession] pushToken]) {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-    }*/
-    
-    
-    if (![[KSSessionInfo currentSession] pushToken]) {
+    if (![[KSSessionInfo currentSession] pushToken])
+    {
+        if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")) {
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            center.delegate = self;
+            [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+                if( !error ){
+                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                }
+            }];
+        }
         
-        UIApplication *application = [UIApplication sharedApplication];
-        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-    #ifdef __IPHONE_8_0
+        /*else
+        {
+        
+            UIApplication *application = [UIApplication sharedApplication];
             UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert
                                                                                                  | UIUserNotificationTypeBadge
-                                                                                                 | UIUserNotificationTypeSound) categories:nil];
+                                                                                                | UIUserNotificationTypeSound) categories:nil];
             [application registerUserNotificationSettings:settings];
-    #endif
-        } else {
-            UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-            [application registerForRemoteNotificationTypes:myTypes];
-        }
+        }*/
     }
 }
 
+//Device token delegate
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     NSCharacterSet *extraChars = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
@@ -152,10 +156,6 @@
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
 
     NSLog(@"Device Token %@",token);
-    
-    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:token forKey:@"APNS_Token"];
-    [defaults synchronize];*/
     
     [KSSessionInfo updateToken:token];
     
@@ -174,51 +174,90 @@
     }
 }
 
-#ifdef __IPHONE_8_0
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    //register to receive notifications
-    [application registerForRemoteNotifications];
-}
 
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
-{
-    //handle the actions
-    if ([identifier isEqualToString:@"declineAction"]){
-    }
-    else if ([identifier isEqualToString:@"answerAction"]){
-    }
-}
-#endif
+
+//- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+//{
+//    //register to receive notifications
+//    [application registerForRemoteNotifications];
+//}
+//
+//- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
+//{
+//    //handle the actions
+//    if ([identifier isEqualToString:@"declineAction"]){
+//    }
+//    else if ([identifier isEqualToString:@"answerAction"]){
+//    }
+//}
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
     NSLog(@"Failed to get token: %@", error);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+//
+//    NSLog(@"%s: %@", __func__, userInfo);
+//    
+//    NSString *bookingId = [userInfo objectForKey:@"BookingID"];
+//    
+//    if (!bookingId || [bookingId isEqualToString:@""] || (NSNull*)bookingId == [NSNull null] || [bookingId isEqualToString:@"null"]) {
+//        //Sub chk kar lo .....
+//        return;
+//    }
+//    
+//    
+//    [self handleNotificaiton:bookingId UserInfo:userInfo];
+//}
 
-    NSLog(@"%s: %@", __func__, userInfo);
+#pragma mark - UNUserNotificationCenter Delegate // >= iOS 10
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
     
-    NSString *bookingId = [userInfo objectForKey:@"BookingID"];
-    
+    NSLog(@"willPresentNotification - User Info = %@",notification.request.content.userInfo);
+    NSString *bookingId = [notification.request.content.userInfo objectForKey:@"BookingID"];
     if (!bookingId || [bookingId isEqualToString:@""] || (NSNull*)bookingId == [NSNull null] || [bookingId isEqualToString:@"null"]) {
         //Sub chk kar lo .....
-        return;
+        DLog("unable to find booking ID");
     }
-    
-    
-    [self handleNotificaiton:bookingId UserInfo:userInfo];
+    else
+        [self handleNotificationForAppliactionState:FALSE BookingID:bookingId UserInfo:notification.request.content.userInfo];
+    //completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound);
+    completionHandler(UNNotificationPresentationOptionNone);
 }
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+    
+    NSLog(@"didReceiveNotificationResponse - User Info = %@",response.notification.request.content.userInfo);
+    
+    NSString *bookingId = [response.notification.request.content.userInfo objectForKey:@"BookingID"];
+    if (!bookingId || [bookingId isEqualToString:@""] || (NSNull*)bookingId == [NSNull null] || [bookingId isEqualToString:@"null"]) {
+        //Sub chk kar lo .....
+        DLog("unable to find booking ID");
+    }
+    else
+        [self handleNotificationForAppliactionState:TRUE BookingID:bookingId UserInfo:response.notification.request.content.userInfo];
+    
+    completionHandler();
+}
+
+#pragma mark - iOS 9
 
 -(void) handleNotificaiton:(NSString*) bookingId UserInfo:(NSDictionary*)userinfo
 {
+    DLog("Handle notification");
     BOOL appInBackGround = FALSE;
     UIApplication *application = [UIApplication sharedApplication];
     if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
         appInBackGround = TRUE;
     }
-    
+    [self handleNotificationForAppliactionState:appInBackGround BookingID:bookingId UserInfo:userinfo];
+    }
+
+-(void) handleNotificationForAppliactionState:(BOOL)appInBackGround BookingID:(NSString*) bookingId UserInfo:(NSDictionary*)userinfo
+{
+    DLog("Notification for applicaiton state");
     [KSDAL bookingWithBookingId:bookingId
                      completion:^(KSAPIStatus status, id response) {
                          if (KSAPIStatusSuccess == status && response != nil) {
@@ -237,6 +276,7 @@
                              
                          }
                      }];
+
 }
 
 -(void) showAlertForTrip:(KSTrip*)trip UserInfo:(NSDictionary*)userInfo
