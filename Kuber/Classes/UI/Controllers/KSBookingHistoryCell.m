@@ -78,23 +78,23 @@
 
 -(void) setVehicleTypeImage:(KSVehicleType) type
 {
-//    switch (type) {
-//        case KSCityTaxi:
-//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-taxi-ico.png"]];
-//            break;
-//        case KSStandardLimo:
-//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-standard-limo-ico.png"]];
-//            break;
-//        case KSBusinessLimo:
-//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-business-limo-ico.png"]];
-//            break;
-//        case KSLuxuryLimo:
-//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-luxury-limo-ico.png"]];
-//            break;
-//        default:
-//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-taxi-ico.png"]];
-//            break;
-//    }
+    switch (type) {
+        case KSCityTaxi:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-taxi-ico.png"]];
+            break;
+        case KSStandardLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-standard-limo-ico.png"]];
+            break;
+        case KSBusinessLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-business-limo-ico.png"]];
+            break;
+        case KSLuxuryLimo:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-luxury-limo-ico.png"]];
+            break;
+        default:
+            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-taxi-ico.png"]];
+            break;
+    }
     
 }
 
