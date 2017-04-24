@@ -16,9 +16,15 @@
 #import "KSTripRatingController.h"
 #import "AFNetworking.h"
 #import "KSConfirmationAlert.h"
-//#import "KSBookingMapController.h"
+
+#import "KSiOS10APNS.h"
+#import "KSiOS9APNS.h"
+
+#define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) KSBaseAPNSManager *apnsManager;
 
 @end
 
@@ -42,7 +48,7 @@
     [MagicalRecord setupAutoMigratingCoreDataStack];
     KSUser *user = [KSDAL loggedInUser];
 
-    [self getAPNSToken];
+    [self registerForRemoteNotification];
 
     UIViewController *menuController = [UIStoryboard menuController];
     UIViewController *frontController;
@@ -120,123 +126,75 @@
 
 #pragma mark - APNS function
 
--(void) getAPNSToken
+// This is initial function for APNS to fethc device token.
+-(void) registerForRemoteNotification
 {
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    /*if (![[KSSessionInfo currentSession] pushToken]) {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-    }*/
-    
-    
-    if (![[KSSessionInfo currentSession] pushToken]) {
+    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")) {
+        _apnsManager = [[KSiOS10APNS alloc] init];
         
-        UIApplication *application = [UIApplication sharedApplication];
-        if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-    #ifdef __IPHONE_8_0
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert
-                                                                                                 | UIUserNotificationTypeBadge
-                                                                                                 | UIUserNotificationTypeSound) categories:nil];
-            [application registerUserNotificationSettings:settings];
-    #endif
-        } else {
-            UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-            [application registerForRemoteNotificationTypes:myTypes];
-        }
     }
+    else
+        _apnsManager = [[KSiOS9APNS alloc] init];
+    
+    [_apnsManager registerForRemoteNotification];
 }
 
+//Device token delegate
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
-    NSCharacterSet *extraChars = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
-    NSString *token = [deviceToken.description stringByTrimmingCharactersInSet:extraChars];
-    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-
-    NSLog(@"Device Token %@",token);
-    
-    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:token forKey:@"APNS_Token"];
-    [defaults synchronize];*/
-    
-    [KSSessionInfo updateToken:token];
-    
-    if ([[KSSessionInfo currentSession] sessionId]) {
-        [KSDAL updateUserWithPushToken:token completion:^(KSAPIStatus status, id response) {
-            
-            if (status == KSAPIStatusSuccess) {
-                
-                NSLog(@"Push Token updated successfully");
-            }
-            else{
-                
-                NSLog(@"Push token not updated");
-            }
-        }];
-    }
+    [_apnsManager application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
-#ifdef __IPHONE_8_0
+
+
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
     //register to receive notifications
     [application registerForRemoteNotifications];
 }
 
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler
-{
-    //handle the actions
-    if ([identifier isEqualToString:@"declineAction"]){
-    }
-    else if ([identifier isEqualToString:@"answerAction"]){
-    }
-}
-#endif
-
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
-    NSLog(@"Failed to get token: %@", error);
+    [_apnsManager application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
+
+#pragma mark - iOS 9 APNS
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-
-    NSLog(@"%s: %@", __func__, userInfo);
     
-    NSString *bookingId = [userInfo objectForKey:@"BookingID"];
-    
-    if (!bookingId || [bookingId isEqualToString:@""] || (NSNull*)bookingId == [NSNull null] || [bookingId isEqualToString:@"null"]) {
-        //Sub chk kar lo .....
-        return;
-    }
-    
-    
-    [self handleNotificaiton:bookingId UserInfo:userInfo];
+    [_apnsManager application:application didReceiveRemoteNotification:userInfo];
 }
 
--(void) handleNotificaiton:(NSString*) bookingId UserInfo:(NSDictionary*)userinfo
+#pragma mark - UI Action on Notification 
+
+-(void) updateUIForNotification:(NSDictionary*)userinfo Trip:(KSTrip*) trip AppState:(bool)appInBackGround
 {
-    BOOL appInBackGround = FALSE;
-    UIApplication *application = [UIApplication sharedApplication];
-    if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) {
-        appInBackGround = TRUE;
-    }
+     if (appInBackGround) {
+
+         [self navigateToBookingDetailsForTrip:trip];
+     }
+     else {
+        
+         [self showAlertForTrip:trip UserInfo:userinfo];
+     }
+
+}
+
+-(void) navigateToBookingDetailsForTrip:(KSTrip*)trip
+{
     
-    [KSDAL bookingWithBookingId:bookingId
-                     completion:^(KSAPIStatus status, id response) {
-                         if (KSAPIStatusSuccess == status && response != nil) {
-                             
-                             KSTrip *trip = (KSTrip*) response;
-                             //trip.status = [NSNumber numberWithInt:KSTripStatusComplete];
-                             trip.rating = nil;
-                             
-                             if (appInBackGround) {
-                                 
-                                 [self navigateToBookingDetailsForTrip:trip];
-                             }
-                             else{
-                                 [self showAlertForTrip:trip UserInfo:userinfo];
-                             }
-                             
-                         }
-                     }];
+    KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
+    detailController.tripInfo = trip;
+    detailController.isOpenedFromPushNotification = TRUE;
+    
+    //KSBookingMapController *mapController = [UIStoryboard bookingMapController];
+    
+    
+    SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
+    
+    UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
+    [navController pushViewController:detailController animated:NO];
+    //[detailController hideLoadingView];
 }
 
 -(void) showAlertForTrip:(KSTrip*)trip UserInfo:(NSDictionary*)userInfo
@@ -268,23 +226,8 @@
     }
 }
 
--(void) navigateToBookingDetailsForTrip:(KSTrip*)trip
-{
-    
-    KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
-    detailController.tripInfo = trip;
-    detailController.isOpenedFromPushNotification = TRUE;
-    
-    //KSBookingMapController *mapController = [UIStoryboard bookingMapController];
-    
-    
-    SWRevealViewController *swReveal =(SWRevealViewController *) self.window.rootViewController;
-    
-    UINavigationController *navController = (UINavigationController*)swReveal.frontViewController;
-    [navController pushViewController:detailController animated:NO];
-    //[detailController hideLoadingView];
-}
 
+#pragma mark - UI Customization for App
 - (UIColor *)colorWithRed:(int)r green:(int)g blue:(int)b {
     
     return [UIColor colorWithRed:(CGFloat)r / 255.0
@@ -332,6 +275,7 @@
 
 }
 
+#pragma mark - Google Analytics
 -(void) setupGoogleAnalytics
 {
     NSError *configureError;

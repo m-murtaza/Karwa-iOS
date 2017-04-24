@@ -134,11 +134,11 @@ BtnState;
 -(void) loadViewData
 {
     KSTrip *trip = self.tripInfo;
-    
+    DLog(@"Booking Detail Trip data %@",trip);
     //Set Pickup Address
     if (trip.pickupLandmark.length) {
         
-        self.lblPickupAddress.text = [NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
+        self.lblPickupAddress.text = trip.pickupLandmark;//[NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
     }
     else if ([self isValidLat:trip.pickupLat lon:trip.pickupLon]){
         
@@ -158,10 +158,14 @@ BtnState;
     }
     
     //Set Top Pick Up date
+    DLog(@"Detail screen Pickup time %@", trip.pickupTime);
     if ([trip.pickupTime isValidDate]) {
+        DLog(@"Pickup date is valid ");
         self.lblPickupDate.text = [self getFormattedTitleDate:trip.pickupTime];
+        DLog(@"Date is %@",self.lblPickupDate.text);
     }
     else {
+        DLog(@"Date is not valid");
         self.lblPickupDate.text = @"...";
     }
     
@@ -549,7 +553,8 @@ BtnState;
         [hud hide:YES];
         if (KSAPIStatusSuccess == status || KSAPIStatusInvalidJob == status) {
             //KSAPIStatusInvalidJob == status is added after very long discussion with Asif bahi, on 4th of Nov 2015 around 7:30 AM.
-            [self.navigationController popViewControllerAnimated:YES];
+            //[self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else{
             //NSLog(@"%s,cancel booking unSuccess \n Response is %@",__func__,response);

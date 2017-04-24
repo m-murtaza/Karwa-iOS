@@ -186,7 +186,8 @@
 
 -(void) updateETA:(NSInteger) eTA
 {
-    self.lblDistance.text = [NSString stringWithFormat:@"%ld Min",(long)eTA];
+    float minEta = (float)eTA / 60.0;
+    self.lblDistance.text = [NSString stringWithFormat:@"%.0f Min",ceil(minEta)];
 }
 
 -(void) updateDistance:(CLLocationCoordinate2D)passengerLoc TaxiLocation:(CLLocationCoordinate2D)taxiLocaiton

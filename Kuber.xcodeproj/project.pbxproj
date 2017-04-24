@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,7 +24,6 @@
 		1801E3661B16293900A8983E /* KSReadOnlyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E3651B16293900A8983E /* KSReadOnlyTextField.m */; };
 		180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */; };
 		181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 181029FA1BF1C7AD00242CCD /* KSLocation.m */; };
-		18102A011BF1E45700242CCD /* bluePin-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FC1BF1E45700242CCD /* bluePin-ico@2x.png */; };
 		18102A021BF1E45700242CCD /* cancelled-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */; };
 		18102A031BF1E45700242CCD /* completed-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FE1BF1E45700242CCD /* completed-tag@2x.png */; };
 		18102A041BF1E45700242CCD /* confirmed-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */; };
@@ -258,6 +257,13 @@
 		1880C56B1B79E141004F0188 /* KSBookmarkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C56A1B79E141004F0188 /* KSBookmarkCell.m */; };
 		1880C56E1B79E1B8004F0188 /* KSButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C56D1B79E1B8004F0188 /* KSButtonCell.m */; };
 		1880C5741B80942A004F0188 /* NSDate+KSExtended.m in Sources */ = {isa = PBXBuildFile; fileRef = 1880C5731B80942A004F0188 /* NSDate+KSExtended.m */; };
+		189490081EA88C1C00DB2104 /* KSBaseAPNSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490071EA88C1C00DB2104 /* KSBaseAPNSManager.m */; };
+		1894900B1EA88E0300DB2104 /* KSiOS10APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1894900A1EA88E0300DB2104 /* KSiOS10APNS.m */; };
+		1894900E1EA8B5B700DB2104 /* KSiOS9APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1894900D1EA8B5B700DB2104 /* KSiOS9APNS.m */; };
+		189490131EA8C47600DB2104 /* history-business-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894900F1EA8C47600DB2104 /* history-business-limo-ico@2x.png */; };
+		189490141EA8C47600DB2104 /* history-luxury-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490101EA8C47600DB2104 /* history-luxury-limo-ico@2x.png */; };
+		189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490111EA8C47600DB2104 /* history-standard-limo-ico@2x.png */; };
+		189490161EA8C47600DB2104 /* history-taxi-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -318,10 +324,6 @@
 		18D6E61D1BCFCAE300D6BBA0 /* pass-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */; };
 		18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */; };
 		18D6E6231BCFDE6A00D6BBA0 /* username@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */; };
-		18F539121E8BAD6F001093B5 /* business-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F5390E1E8BAD6F001093B5 /* business-limo-ico@2x.png */; };
-		18F539131E8BAD6F001093B5 /* luxury-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F5390F1E8BAD6F001093B5 /* luxury-limo-ico@2x.png */; };
-		18F539141E8BAD6F001093B5 /* standard-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539101E8BAD6F001093B5 /* standard-limo-ico@2x.png */; };
-		18F539151E8BAD6F001093B5 /* taxi-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539111E8BAD6F001093B5 /* taxi-ico@2x.png */; };
 		18F539251E8D26D0001093B5 /* limo-numberplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539201E8D26D0001093B5 /* limo-numberplate@2x.png */; };
 		18F539261E8D26D0001093B5 /* tag-business@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539211E8D26D0001093B5 /* tag-business@2x.png */; };
 		18F539271E8D26D0001093B5 /* tag-luxury@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F539221E8D26D0001093B5 /* tag-luxury@2x.png */; };
@@ -382,7 +384,6 @@
 		180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+TripIssue.m"; sourceTree = "<group>"; };
 		181029F91BF1C7AD00242CCD /* KSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocation.h; sourceTree = "<group>"; };
 		181029FA1BF1C7AD00242CCD /* KSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSLocation.m; sourceTree = "<group>"; };
-		181029FC1BF1E45700242CCD /* bluePin-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bluePin-ico@2x.png"; path = "BookingHistory/bluePin-ico@2x.png"; sourceTree = "<group>"; };
 		181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cancelled-tag@2x.png"; path = "BookingHistory/cancelled-tag@2x.png"; sourceTree = "<group>"; };
 		181029FE1BF1E45700242CCD /* completed-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "completed-tag@2x.png"; path = "BookingHistory/completed-tag@2x.png"; sourceTree = "<group>"; };
 		181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "confirmed-tag@2x.png"; path = "BookingHistory/confirmed-tag@2x.png"; sourceTree = "<group>"; };
@@ -674,6 +675,16 @@
 		1880C56D1B79E1B8004F0188 /* KSButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSButtonCell.m; sourceTree = "<group>"; };
 		1880C5721B80942A004F0188 /* NSDate+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSExtended.h"; sourceTree = "<group>"; };
 		1880C5731B80942A004F0188 /* NSDate+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSExtended.m"; sourceTree = "<group>"; };
+		189490061EA88C1C00DB2104 /* KSBaseAPNSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSBaseAPNSManager.h; path = APNS/KSBaseAPNSManager.h; sourceTree = "<group>"; };
+		189490071EA88C1C00DB2104 /* KSBaseAPNSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSBaseAPNSManager.m; path = APNS/KSBaseAPNSManager.m; sourceTree = "<group>"; };
+		189490091EA88E0300DB2104 /* KSiOS10APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSiOS10APNS.h; path = APNS/KSiOS10APNS.h; sourceTree = "<group>"; };
+		1894900A1EA88E0300DB2104 /* KSiOS10APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSiOS10APNS.m; path = APNS/KSiOS10APNS.m; sourceTree = "<group>"; };
+		1894900C1EA8B5B700DB2104 /* KSiOS9APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSiOS9APNS.h; path = APNS/KSiOS9APNS.h; sourceTree = "<group>"; };
+		1894900D1EA8B5B700DB2104 /* KSiOS9APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSiOS9APNS.m; path = APNS/KSiOS9APNS.m; sourceTree = "<group>"; };
+		1894900F1EA8C47600DB2104 /* history-business-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-business-limo-ico@2x.png"; path = "BookingHistory/history-business-limo-ico@2x.png"; sourceTree = "<group>"; };
+		189490101EA8C47600DB2104 /* history-luxury-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-luxury-limo-ico@2x.png"; path = "BookingHistory/history-luxury-limo-ico@2x.png"; sourceTree = "<group>"; };
+		189490111EA8C47600DB2104 /* history-standard-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-standard-limo-ico@2x.png"; path = "BookingHistory/history-standard-limo-ico@2x.png"; sourceTree = "<group>"; };
+		189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-taxi-ico@2x.png"; path = "BookingHistory/history-taxi-ico@2x.png"; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -750,6 +761,7 @@
 		18CFC4A71BA18949009B5D70 /* section-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "section-bar.png"; path = "BookingHistory/section-bar.png"; sourceTree = "<group>"; };
 		18CFC4A81BA18949009B5D70 /* time-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "time-icon.png"; path = "BookingHistory/time-icon.png"; sourceTree = "<group>"; };
 		18CFC4A91BA18949009B5D70 /* to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = to.png; path = BookingHistory/to.png; sourceTree = "<group>"; };
+		18D3A7E71EA48BDA004B01A1 /* Karwa Taxi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Karwa Taxi.entitlements"; sourceTree = "<group>"; };
 		18D65D991B9D556100D6C1BD /* NSDate+KSDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KSDate.h"; sourceTree = "<group>"; };
 		18D65D9A1B9D556100D6C1BD /* NSDate+KSDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KSDate.m"; sourceTree = "<group>"; };
 		18D65DC21B9D82B600D6C1BD /* KS_login_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KS_login_logo@2x.png"; path = "LoginView/KS_login_logo@2x.png"; sourceTree = "<group>"; };
@@ -770,10 +782,6 @@
 		18D6E61A1BCFCAE300D6BBA0 /* pass-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pass-ico@2x.png"; path = "LoginView/test/pass-ico@2x.png"; sourceTree = "<group>"; };
 		18D6E61F1BCFDE6A00D6BBA0 /* phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "phone@2x.png"; path = "LoginView/test/phone@2x.png"; sourceTree = "<group>"; };
 		18D6E6201BCFDE6A00D6BBA0 /* username@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "username@2x.png"; path = "LoginView/test/username@2x.png"; sourceTree = "<group>"; };
-		18F5390E1E8BAD6F001093B5 /* business-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "business-limo-ico@2x.png"; path = "BookingHistory/business-limo-ico@2x.png"; sourceTree = "<group>"; };
-		18F5390F1E8BAD6F001093B5 /* luxury-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "luxury-limo-ico@2x.png"; path = "BookingHistory/luxury-limo-ico@2x.png"; sourceTree = "<group>"; };
-		18F539101E8BAD6F001093B5 /* standard-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "standard-limo-ico@2x.png"; path = "BookingHistory/standard-limo-ico@2x.png"; sourceTree = "<group>"; };
-		18F539111E8BAD6F001093B5 /* taxi-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "taxi-ico@2x.png"; path = "BookingHistory/taxi-ico@2x.png"; sourceTree = "<group>"; };
 		18F539201E8D26D0001093B5 /* limo-numberplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "limo-numberplate@2x.png"; path = "BookingDetails/limo-numberplate@2x.png"; sourceTree = "<group>"; };
 		18F539211E8D26D0001093B5 /* tag-business@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-business@2x.png"; path = "BookingDetails/tag-business@2x.png"; sourceTree = "<group>"; };
 		18F539221E8D26D0001093B5 /* tag-luxury@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tag-luxury@2x.png"; path = "BookingDetails/tag-luxury@2x.png"; sourceTree = "<group>"; };
@@ -1328,6 +1336,19 @@
 			path = DYRateView;
 			sourceTree = "<group>";
 		};
+		189490051EA88B0000DB2104 /* APNS */ = {
+			isa = PBXGroup;
+			children = (
+				189490061EA88C1C00DB2104 /* KSBaseAPNSManager.h */,
+				189490071EA88C1C00DB2104 /* KSBaseAPNSManager.m */,
+				189490091EA88E0300DB2104 /* KSiOS10APNS.h */,
+				1894900A1EA88E0300DB2104 /* KSiOS10APNS.m */,
+				1894900C1EA8B5B700DB2104 /* KSiOS9APNS.h */,
+				1894900D1EA8B5B700DB2104 /* KSiOS9APNS.m */,
+			);
+			name = APNS;
+			sourceTree = "<group>";
+		};
 		189F5D8E1B0853CA00EAF9B2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1383,6 +1404,7 @@
 		18A7627D1AFF785B00B9ED32 /* Kuber */ = {
 			isa = PBXGroup;
 			children = (
+				18D3A7E71EA48BDA004B01A1 /* Karwa Taxi.entitlements */,
 				1880C4D61B7877ED004F0188 /* Images */,
 				185E3C2F1B772B3500909B20 /* Fonts */,
 				18481B591B09C19900855F54 /* Localization */,
@@ -1428,6 +1450,7 @@
 		18A762AD1B006A7400B9ED32 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				189490051EA88B0000DB2104 /* APNS */,
 				18F5392A1E90C63E001093B5 /* Commons */,
 				1859E9041BC93F5D00354B84 /* AddressBookManager */,
 				18481B781B0B3E8400855F54 /* DAL */,
@@ -1572,14 +1595,13 @@
 		18CFC4A31BA1892D009B5D70 /* BookingHistory */ = {
 			isa = PBXGroup;
 			children = (
-				18F5390E1E8BAD6F001093B5 /* business-limo-ico@2x.png */,
-				18F5390F1E8BAD6F001093B5 /* luxury-limo-ico@2x.png */,
-				18F539101E8BAD6F001093B5 /* standard-limo-ico@2x.png */,
-				18F539111E8BAD6F001093B5 /* taxi-ico@2x.png */,
+				1894900F1EA8C47600DB2104 /* history-business-limo-ico@2x.png */,
+				189490101EA8C47600DB2104 /* history-luxury-limo-ico@2x.png */,
+				189490111EA8C47600DB2104 /* history-standard-limo-ico@2x.png */,
+				189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */,
 				18102A161BF319D600242CCD /* in-process-tag@2x.png */,
 				18102A171BF319D600242CCD /* scheduled-tag@2x.png */,
 				18102A181BF319D600242CCD /* taxi-unavailable-tag@2x.png */,
-				181029FC1BF1E45700242CCD /* bluePin-ico@2x.png */,
 				181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */,
 				181029FE1BF1E45700242CCD /* completed-tag@2x.png */,
 				181029FF1BF1E45700242CCD /* confirmed-tag@2x.png */,
@@ -1714,6 +1736,9 @@
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					18A762961AFF785B00B9ED32 = {
@@ -1723,7 +1748,7 @@
 				};
 			};
 			buildConfigurationList = 18A762761AFF785B00B9ED32 /* Build configuration list for PBXProject "Kuber" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1750,13 +1775,13 @@
 				18A2689C1BE7725C006FC942 /* myPin@2x.png in Resources */,
 				18F539261E8D26D0001093B5 /* tag-business@2x.png in Resources */,
 				184B744B1BC0FFA8003AD936 /* search-ico@2x.png in Resources */,
-				18F539131E8BAD6F001093B5 /* luxury-limo-ico@2x.png in Resources */,
 				1880C55F1B79B47B004F0188 /* segment_unselected@2x.png in Resources */,
 				18CFC4AE1BA18949009B5D70 /* time-icon.png in Resources */,
 				1880C51A1B7877ED004F0188 /* bottom-bar@2x.png in Resources */,
 				1880C52A1B7877ED004F0188 /* menu_logout_selected@2x.png in Resources */,
 				18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */,
 				1880C5401B7877ED004F0188 /* StarFullLarge@2x.png in Resources */,
+				189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */,
 				18102A1A1BF319D600242CCD /* scheduled-tag@2x.png in Resources */,
 				18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */,
 				184D22931BA58BED007CB740 /* star-filled@2x.png in Resources */,
@@ -1817,8 +1842,8 @@
 				1880C5201B7877ED004F0188 /* favorite@2x.png in Resources */,
 				18A2689F1BE7811C006FC942 /* distanceb@2x.png in Resources */,
 				184CF9291BA03F1D0025B883 /* ver-sep@2x.png in Resources */,
+				189490131EA8C47600DB2104 /* history-business-limo-ico@2x.png in Resources */,
 				184D22901BA58BED007CB740 /* reasons-white-box@2x.png in Resources */,
-				18102A011BF1E45700242CCD /* bluePin-ico@2x.png in Resources */,
 				184CF91A1BA02A080025B883 /* taxi-icon@2x.png in Resources */,
 				1880C5651B79B786004F0188 /* search-icon@2x.png in Resources */,
 				18CFC4AF1BA18949009B5D70 /* to.png in Resources */,
@@ -1826,6 +1851,7 @@
 				18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */,
 				1842460A1BBD0BCF001C780A /* location-active@2x.png in Resources */,
 				1880C5181B7877ED004F0188 /* booklater-button@2x.png in Resources */,
+				189490161EA8C47600DB2104 /* history-taxi-ico@2x.png in Resources */,
 				1880C53A1B7877ED004F0188 /* StarEmpty@2x.png in Resources */,
 				184D225E1BA55E64007CB740 /* bookings-ico-active@2x.png in Resources */,
 				18102A021BF1E45700242CCD /* cancelled-tag@2x.png in Resources */,
@@ -1834,7 +1860,6 @@
 				184CF9191BA02A080025B883 /* pickup-pointer@2x.png in Resources */,
 				184D22721BA55E64007CB740 /* settings-ico-idle@2x.png in Resources */,
 				184B744D1BC0FFA8003AD936 /* white-box@2x.png in Resources */,
-				18F539121E8BAD6F001093B5 /* business-limo-ico@2x.png in Resources */,
 				18CFC4AC1BA18949009B5D70 /* list-sep.png in Resources */,
 				18F539251E8D26D0001093B5 /* limo-numberplate@2x.png in Resources */,
 				18102A261BF31F1400242CCD /* scheduled-bar@2x.png in Resources */,
@@ -1856,6 +1881,7 @@
 				1880C5391B7877ED004F0188 /* StarEmpty.png in Resources */,
 				18A268851BE5D5CE006FC942 /* phonecode@2x.png in Resources */,
 				18A268951BE759B5006FC942 /* trackpin-detail@2x.png in Resources */,
+				189490141EA8C47600DB2104 /* history-luxury-limo-ico@2x.png in Resources */,
 				184D22671BA55E64007CB740 /* logout-ico-idle@2x.png in Resources */,
 				184245FA1BBCF997001C780A /* MuseoSans-300.otf in Resources */,
 				1880C54C1B7877ED004F0188 /* taxi@2x.png in Resources */,
@@ -1865,7 +1891,6 @@
 				1880C5451B7877ED004F0188 /* favorites@2x.png in Resources */,
 				1880C5231B7877ED004F0188 /* menu_book_selected@2x.png in Resources */,
 				1880C5411B7877ED004F0188 /* edit.png in Resources */,
-				18F539141E8BAD6F001093B5 /* standard-limo-ico@2x.png in Resources */,
 				184D226C1BA55E64007CB740 /* rate-ico-active@2x.png in Resources */,
 				184245FB1BBCF997001C780A /* MuseoSans-300Italic.otf in Resources */,
 				1880C5281B7877ED004F0188 /* menu_item_selected@2x.png in Resources */,
@@ -1887,7 +1912,6 @@
 				18D65DD51B9EC13000D6C1BD /* blue-button-pressed@2x.png in Resources */,
 				1880C5361B7877ED004F0188 /* topbar@2x.png in Resources */,
 				184245F91BBCF997001C780A /* MuseoSans-100Italic.otf in Resources */,
-				18F539151E8BAD6F001093B5 /* taxi-ico@2x.png in Resources */,
 				185E3C361B772B3500909B20 /* MuseoForDell-100.otf in Resources */,
 				1880C5431B7877ED004F0188 /* favorites-568h@2x.png in Resources */,
 				1880C5251B7877ED004F0188 /* menu_favorites_selected@2x.png in Resources */,
@@ -2129,6 +2153,7 @@
 				18481B5E1B09C41800855F54 /* KSAlert.m in Sources */,
 				1801E3071B11ADE300A8983E /* KSFavoritesController.m in Sources */,
 				1859E9031BC635A400354B84 /* KSFranchises.m in Sources */,
+				1894900E1EA8B5B700DB2104 /* KSiOS9APNS.m in Sources */,
 				185E3BFD1B70779700909B20 /* KSDAL+Bookmark.m in Sources */,
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
 				1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */,
@@ -2148,6 +2173,7 @@
 				1819A4C81BC3DCB600D7AB88 /* NSDate+Utilities.m in Sources */,
 				185043781B26BCD900AECDE9 /* KSAddress.m in Sources */,
 				18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */,
+				189490081EA88C1C00DB2104 /* KSBaseAPNSManager.m in Sources */,
 				18A268881BE5F8D7006FC942 /* KSSafeArray.m in Sources */,
 				18481B741B09DFD000855F54 /* KSResetPasswordController.m in Sources */,
 				1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */,
@@ -2169,6 +2195,7 @@
 				18A7DFDE1B2DA95200687600 /* KSPointAnnotation.m in Sources */,
 				1850438A1B29792200AECDE9 /* KSPlacemark.m in Sources */,
 				18481B7E1B0B5F7D00855F54 /* KSSessionInfo.m in Sources */,
+				1894900B1EA88E0300DB2104 /* KSiOS10APNS.m in Sources */,
 				1880C5681B79D989004F0188 /* KSGeoLocationCell.m in Sources */,
 				18A762811AFF785B00B9ED32 /* main.m in Sources */,
 				1859E9071BC93F9E00354B84 /* ABManager.m in Sources */,
@@ -2329,12 +2356,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Kuber/Karwa Taxi.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Muhammad Aleem (857UN36Z7P)";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
 				PROVISIONING_PROFILE = "";
@@ -2349,15 +2377,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Kuber/Karwa Taxi.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				DEVELOPMENT_TEAM = 2U24J4Z466;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6dde2672-0aae-495c-8440-29a140fbab1d";
+				PROVISIONING_PROFILE_SPECIFIER = TaxiAppAdhocDistribution;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

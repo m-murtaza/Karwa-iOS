@@ -42,7 +42,7 @@
 - (void)updateCellData:(KSTrip *)trip {
     
     if (trip.pickupLandmark.length) {
-        self.lblPickupFrom.text = [NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];
+        self.lblPickupFrom.text = [NSString stringWithString:trip.pickupLandmark]; //[NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];        //removed after discussion with shadab bahi.
     }
     else if (trip.pickupHint){
         
@@ -78,23 +78,24 @@
 
 -(void) setVehicleTypeImage:(KSVehicleType) type
 {
-    switch (type) {
-        case KSCityTaxi:
-            [self.imgVehicleType setImage:[UIImage imageNamed:@"taxi-ico.png"]];
-            break;
-        case KSStandardLimo:
-            [self.imgVehicleType setImage:[UIImage imageNamed:@"standard-limo-ico.png"]];
-            break;
-        case KSBusinessLimo:
-            [self.imgVehicleType setImage:[UIImage imageNamed:@"business-limo-ico.png"]];
-            break;
-        case KSLuxuryLimo:
-            [self.imgVehicleType setImage:[UIImage imageNamed:@"luxury-limo-ico.png"]];
-            break;
-        default:
-            [self.imgVehicleType setImage:[UIImage imageNamed:@"taxi-ico.png"]];
-            break;
-    }
+//    switch (type) {
+//        case KSCityTaxi:
+//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-taxi-ico.png"]];
+//            break;
+//        case KSStandardLimo:
+//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-standard-limo-ico.png"]];
+//            break;
+//        case KSBusinessLimo:
+//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-business-limo-ico.png"]];
+//            break;
+//        case KSLuxuryLimo:
+//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-luxury-limo-ico.png"]];
+//            break;
+//        default:
+//            [self.imgVehicleType setImage:[UIImage imageNamed:@"history-taxi-ico.png"]];
+//            break;
+//    }
+    
 }
 
 -(void) setStatusImage:(KSTrip*)trip
