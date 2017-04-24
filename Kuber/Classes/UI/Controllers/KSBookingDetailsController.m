@@ -91,15 +91,17 @@ BtnState;
         if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
             [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
         }
-        else if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
-            
-            [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
-            /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
-            ratingController.trip = self.tripInfo;
-            [self.navigationController pushViewController:ratingController animated:NO];*/
-        
-        }
     }
+    
+    if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+        
+        [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
+        /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
+         ratingController.trip = self.tripInfo;
+         [self.navigationController pushViewController:ratingController animated:NO];*/
+        
+    }
+
     
     [self setNavigationTitle];
     
