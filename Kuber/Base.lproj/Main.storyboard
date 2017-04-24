@@ -764,13 +764,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you agree to the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2f-Ra-bcu">
-                                <rect key="frame" x="16" y="404" width="212.5" height="21"/>
+                                <rect key="frame" x="16" y="404" width="213" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jax-e6-Etc" customClass="UIUnderlinedButton">
-                                <rect key="frame" x="225.5" y="401" width="125" height="27"/>
+                                <rect key="frame" x="226" y="401" width="125" height="27"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <state key="normal" title="Terms of Services ">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1271,7 +1271,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7O-90-CFq">
-                                <rect key="frame" x="69" y="64" width="32" height="16"/>
+                                <rect key="frame" x="69" y="64" width="33" height="16"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                 <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -5408,7 +5408,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
-                                        <rect key="frame" x="272.5" y="20" width="55" height="21"/>
+                                        <rect key="frame" x="273" y="20" width="55" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="4Uo-AZ-LvD"/>
                                             <constraint firstAttribute="height" constant="21" id="bSC-Hw-gka"/>
@@ -5430,7 +5430,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
-                                        <rect key="frame" x="195" y="16" width="66.5" height="28"/>
+                                        <rect key="frame" x="195" y="16" width="67" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="JR7-NM-uGN"/>
                                             <constraint firstAttribute="width" constant="68" id="MbY-7Z-iT5"/>
@@ -6850,6 +6850,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination-help.png" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-qX-lvt">
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
+                            </imageView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctt-mr-gwD">
                                 <rect key="frame" x="0.0" y="20" width="375" height="429"/>
                             </mapView>
@@ -6941,36 +6944,49 @@
                                                     <rect key="frame" x="35" y="5" width="305" height="40"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BASE 40QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIP-bA-6yt">
-                                                    <rect key="frame" x="52" y="45" width="66" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 40QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIP-bA-6yt">
+                                                    <rect key="frame" x="52" y="45" width="53.5" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="hWE-c7-a8B"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="155" y="45" width="67" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
+                                                    <rect key="frame" x="162" y="45" width="53" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BASE 70QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWA-Nk-jXb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 70QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWA-Nk-jXb">
                                                     <rect key="frame" x="261" y="45" width="64" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="bJ8-dE-9yX"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="zsg-i7-bLo" secondAttribute="bottom" constant="13" id="2Hb-3P-agP"/>
-                                                <constraint firstItem="AQi-1J-Six" firstAttribute="trailing" secondItem="zsg-i7-bLo" secondAttribute="trailing" constant="-12" id="D7R-Kz-WRw"/>
-                                                <constraint firstItem="AQi-1J-Six" firstAttribute="leading" secondItem="zsg-i7-bLo" secondAttribute="leading" constant="13" id="VBc-TZ-k5y"/>
-                                                <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="bNr-DS-v1Y" secondAttribute="centerX" id="q4y-dp-rCV"/>
-                                                <constraint firstItem="AQi-1J-Six" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="40" id="qBR-hx-Ptm"/>
-                                                <constraint firstItem="zsg-i7-bLo" firstAttribute="top" secondItem="AQi-1J-Six" secondAttribute="bottom" constant="4" id="qaf-d7-j1a"/>
-                                                <constraint firstItem="AQi-1J-Six" firstAttribute="top" secondItem="bNr-DS-v1Y" secondAttribute="top" id="tZR-GK-fhr"/>
+                                                <constraint firstAttribute="bottom" secondItem="sIP-bA-6yt" secondAttribute="bottom" id="6gq-OM-2bK"/>
+                                                <constraint firstItem="zsg-i7-bLo" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="27" id="6jO-wa-uQe"/>
+                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="baseline" secondItem="hWA-Nk-jXb" secondAttribute="baseline" id="86r-T6-6lj"/>
+                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="44" id="FCT-Jq-I5F"/>
+                                                <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="zsg-i7-bLo" secondAttribute="centerX" id="Hg5-7B-jxM"/>
+                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="baseline" secondItem="6oN-5y-VSr" secondAttribute="baseline" id="MZ0-c3-saw"/>
+                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="firstBaseline" secondItem="hWA-Nk-jXb" secondAttribute="firstBaseline" id="PPP-qV-lBb"/>
+                                                <constraint firstItem="AQi-1J-Six" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="40" id="aHL-Ow-mQq"/>
+                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="firstBaseline" secondItem="6oN-5y-VSr" secondAttribute="firstBaseline" id="b5L-BT-Ohm"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hWA-Nk-jXb" secondAttribute="trailing" constant="42" id="bmS-RZ-cQ6"/>
+                                                <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="6oN-5y-VSr" secondAttribute="centerX" id="h4V-Sx-pgY"/>
+                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="leading" secondItem="sIP-bA-6yt" secondAttribute="trailing" priority="250" constant="37" id="iJI-gK-RaP"/>
+                                                <constraint firstItem="zsg-i7-bLo" firstAttribute="top" secondItem="AQi-1J-Six" secondAttribute="bottom" constant="4" id="kJL-Ga-PHg"/>
+                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="top" secondItem="zsg-i7-bLo" secondAttribute="bottom" id="lyx-ZL-HVY"/>
+                                                <constraint firstItem="hWA-Nk-jXb" firstAttribute="leading" secondItem="6oN-5y-VSr" secondAttribute="trailing" priority="250" constant="39" id="s0o-zS-qAK"/>
+                                                <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="bNr-DS-v1Y" secondAttribute="centerX" id="sWk-zB-r2l"/>
+                                                <constraint firstItem="AQi-1J-Six" firstAttribute="top" secondItem="bNr-DS-v1Y" secondAttribute="top" id="w5e-1X-dxa"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -7296,9 +7312,6 @@
                                     <action selector="showCurrentLocationTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="eTa-lE-kCu"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination-help.png" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-qX-lvt">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -7332,12 +7345,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="vnr-qX-lvt"/>
                                 <exclude reference="ctt-mr-gwD"/>
                                 <exclude reference="Le5-Mc-eHN"/>
                                 <exclude reference="dj6-A8-V8C"/>
                                 <exclude reference="v2G-VZ-GPY"/>
                                 <exclude reference="mDq-2d-nwe"/>
-                                <exclude reference="vnr-qX-lvt"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="4ti-RM-RJ0"/>
@@ -7367,12 +7380,12 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
+                                <include reference="vnr-qX-lvt"/>
                                 <include reference="ctt-mr-gwD"/>
                                 <include reference="Le5-Mc-eHN"/>
                                 <include reference="dj6-A8-V8C"/>
                                 <include reference="v2G-VZ-GPY"/>
                                 <include reference="mDq-2d-nwe"/>
-                                <include reference="vnr-qX-lvt"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="4ti-RM-RJ0"/>

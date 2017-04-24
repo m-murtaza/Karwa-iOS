@@ -977,7 +977,11 @@
         else
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"segmentCellIdentifier"];
+            
+            
             UIView *segmentView = [cell viewWithTag:101];
+            //[segmentView setNeedsDisplay];
+            
             segmantLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
             segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
             
@@ -996,8 +1000,17 @@
                     [segmantLimoType setSelectedSegmentIndex:0];
                     break;
             }
-            
+            //[segmentView setBackgroundColor:[UIColor orangeColor]];
             [segmentView addSubview:segmantLimoType];
+            segmantLimoType.translatesAutoresizingMaskIntoConstraints = false;
+            
+            NSDictionary *viewBindings = NSDictionaryOfVariableBindings(segmentView,segmantLimoType);
+            [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
+            [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
+            // put a breakpoint after this line to see the frame of your UIWebView.
+            // It should be the same as the view
+            [segmentView layoutIfNeeded];
+            
         }
     }
     else if(indexPath.row == idxBtnCell){
