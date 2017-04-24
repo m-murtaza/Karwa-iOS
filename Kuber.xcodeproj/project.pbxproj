@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1748,7 +1748,7 @@
 				};
 			};
 			buildConfigurationList = 18A762761AFF785B00B9ED32 /* Build configuration list for PBXProject "Kuber" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -2362,7 +2362,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
 				PROVISIONING_PROFILE = "";
@@ -2380,13 +2380,15 @@
 				CODE_SIGN_ENTITLEMENTS = "Kuber/Karwa Taxi.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				DEVELOPMENT_TEAM = 2U24J4Z466;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Karwa Taxi";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6dde2672-0aae-495c-8440-29a140fbab1d";
+				PROVISIONING_PROFILE_SPECIFIER = TaxiAppAdhocDistribution;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

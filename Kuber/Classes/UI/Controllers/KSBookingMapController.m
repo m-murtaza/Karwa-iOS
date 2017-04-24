@@ -783,10 +783,15 @@
     CLLocationCoordinate2D center = _mapView.centerCoordinate;
     CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height/1.3 ) toCoordinateFromView:_mapView];
     
-    CLLocationDistance radius = [[CLLocation locationWithCoordinate:center] distanceFromLocation:[CLLocation locationWithCoordinate:left]];
-    
-    radius = 10000000.0;
-    
+    CLLocationDistance radius;
+    if([AppUtils isTaxiType:vehicleType])
+    {
+        radius = [[CLLocation locationWithCoordinate:center] distanceFromLocation:[CLLocation locationWithCoordinate:left]];
+    }
+    else
+    {
+        radius = 10000000.0;                //Just a random big number. no need for constant.
+    }
     [KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
         
         NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
