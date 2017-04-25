@@ -266,6 +266,7 @@
     }
     isRunning = YES;
     [webClient GET:@"/track/" params:queryParams completion:^(BOOL success, id response) {
+        //DLog("Vehicle near by : %@",response);
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         isRunning = NO;
         NSMutableArray *vehiclesData = [NSMutableArray array];

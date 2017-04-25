@@ -780,6 +780,7 @@
 
 - (void)updateTaxisInCurrentRegion {
     
+    [self.mapView removeAnnotations:self.mapView.annotations];
     CLLocationCoordinate2D center = _mapView.centerCoordinate;
     CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height/1.3 ) toCoordinateFromView:_mapView];
     
