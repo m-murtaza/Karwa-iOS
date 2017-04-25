@@ -848,16 +848,16 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation     *)userLocation
 {
-    mapView.showsUserLocation = NO;
+    //mapView.showsUserLocation = NO;
     if (mapLoadForFirstTime) {
         mapLoadForFirstTime = FALSE;
         
         [self setMapRegionToUserCurrentLocation];
         
     }
-    else{
-        [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
-    }
+//    else{
+//        [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+//    }
     
 }
 
