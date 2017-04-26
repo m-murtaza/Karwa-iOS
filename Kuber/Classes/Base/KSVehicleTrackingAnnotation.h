@@ -12,7 +12,7 @@
 
 @interface KSVehicleTrackingAnnotation : MKPointAnnotation
 
-@property (nonatomic, strong, readonly) KSVehicleTrackingInfo *trackingInfo;
+@property (nonatomic, strong) KSVehicleTrackingInfo *trackingInfo;
 
 + (instancetype)annotationWithTrackingInfo:(KSVehicleTrackingInfo *)trackingInfo;
 

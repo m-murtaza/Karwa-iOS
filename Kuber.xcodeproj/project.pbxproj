@@ -264,6 +264,7 @@
 		189490141EA8C47600DB2104 /* history-luxury-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490101EA8C47600DB2104 /* history-luxury-limo-ico@2x.png */; };
 		189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490111EA8C47600DB2104 /* history-standard-limo-ico@2x.png */; };
 		189490161EA8C47600DB2104 /* history-taxi-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */; };
+		1894901A1EAF2E4B00DB2104 /* KSBookingAnnotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -685,6 +686,8 @@
 		189490101EA8C47600DB2104 /* history-luxury-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-luxury-limo-ico@2x.png"; path = "BookingHistory/history-luxury-limo-ico@2x.png"; sourceTree = "<group>"; };
 		189490111EA8C47600DB2104 /* history-standard-limo-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-standard-limo-ico@2x.png"; path = "BookingHistory/history-standard-limo-ico@2x.png"; sourceTree = "<group>"; };
 		189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-taxi-ico@2x.png"; path = "BookingHistory/history-taxi-ico@2x.png"; sourceTree = "<group>"; };
+		189490181EAF2E4B00DB2104 /* KSBookingAnnotationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSBookingAnnotationManager.h; path = MapAnnotations/KSBookingAnnotationManager.h; sourceTree = "<group>"; };
+		189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSBookingAnnotationManager.m; path = MapAnnotations/KSBookingAnnotationManager.m; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -1349,6 +1352,15 @@
 			name = APNS;
 			sourceTree = "<group>";
 		};
+		189490171EAF2E0000DB2104 /* MapAnnotations */ = {
+			isa = PBXGroup;
+			children = (
+				189490181EAF2E4B00DB2104 /* KSBookingAnnotationManager.h */,
+				189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */,
+			);
+			name = MapAnnotations;
+			sourceTree = "<group>";
+		};
 		189F5D8E1B0853CA00EAF9B2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1480,6 +1492,7 @@
 		18A762B31B006A7400B9ED32 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				189490171EAF2E0000DB2104 /* MapAnnotations */,
 				189F5D8E1B0853CA00EAF9B2 /* Extensions */,
 				18A762B41B006A7400B9ED32 /* Controllers */,
 			);
@@ -2158,6 +2171,7 @@
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
 				1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */,
 				181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */,
+				1894901A1EAF2E4B00DB2104 /* KSBookingAnnotationManager.m in Sources */,
 				1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */,
 				18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */,
 				1859E8FD1BC631D400354B84 /* KSFranchise.m in Sources */,

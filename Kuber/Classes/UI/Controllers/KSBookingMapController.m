@@ -24,7 +24,7 @@
 #import "KSVehicleAnnotationView.h"
 #import "NYSegmentedControl.h"
 #import "AppUtils.h"
-
+#import "KSBookingAnnotationManager.h"
 
 #define ADDRESS_CELL_HEIGHT         86.0
 #define TIME_CELL_HEIGHT            66.0
@@ -36,8 +36,6 @@
 
 #define DOHA_LATITUDE               25.2867
 #define DOHA_LONGITUDE              51.5333
-
-#define MAX_TAXI_ANNOTATIONS        (10)
 
 #define TXT_HINT_TAG                1019
 #define MAX_PICKUP_TEXT             225
@@ -66,6 +64,9 @@
     KSVehicleType vehicleType;              //This is for service type i.e. limo or taxi
     NYSegmentedControl *segmentVehicleType;     //Vehicletype limo or texi on top navigation bar
     NYSegmentedControl *segmantLimoType;        //Limo type: Standard, Business, Luxury
+    
+    KSBookingAnnotationManager *annotationManager;
+    NSTimer *annotationUpdateTimer;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -76,6 +77,11 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
 @property (nonatomic, weak) IBOutlet UIView *mapDisableView;
 @property (nonatomic, weak) IBOutlet UIImageView *imgDestinationHelp;
+
+@property (nonatomic, weak) IBOutlet UILabel *lblFareStandard;
+@property (nonatomic, weak) IBOutlet UILabel *lblFareBusiness;
+@property (nonatomic, weak) IBOutlet UILabel *lblFareLuxary;
+
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
@@ -143,6 +149,11 @@
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Map Booking Screen"];
+    
+    annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
+                                                             target: self
+                                                           selector:@selector(onAnnotationUpdateTick:)
+                                                           userInfo: nil repeats:YES];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -157,6 +168,12 @@
         [self populateOldTripData];
     }
     
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [annotationUpdateTimer invalidate];
+    annotationUpdateTimer = nil;
 }
 
 #pragma mark - Limo Type Segment Control
@@ -185,6 +202,14 @@
     
     [segmantLimoType addTarget:self action:@selector(onSegmentLimoTypeChange) forControlEvents:UIControlEventValueChanged];
 }
+
+-(void) showLimoFare:(KSVehicleType) vType
+{
+    _lblFareStandard.hidden = (KSStandardLimo == vType) ? false : true;
+    _lblFareBusiness.hidden = (KSBusinessLimo == vType) ? false : true;
+    _lblFareLuxary.hidden = (KSLuxuryLimo == vType) ? false : true;
+}
+
 -(IBAction)onSegmentLimoTypeChange
 {
     switch (segmantLimoType.selectedSegmentIndex) {
@@ -200,6 +225,8 @@
         default:
             break;
     }
+    
+    [self showLimoFare:vehicleType];
     [self updateTaxisInCurrentRegion];
     
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -793,7 +820,18 @@
     {
         radius = 10000000.0;                //Just a random big number. no need for constant.
     }
-    [KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
+    
+    if(annotationManager == nil)
+        annotationManager = [[KSBookingAnnotationManager alloc] init];
+    
+    [annotationManager vehiclesAnnotationNearCoordinate:center
+                                                 radius:radius
+                                                   type:vehicleType
+                                             completion:^(NSArray *vehicleAnnotation) {
+                                                 [self.mapView addAnnotations:vehicleAnnotation];
+                                             }];
+    
+    /*[KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
         
         NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
         for (int counter = 0; counter < vehicles.count && counter < MAX_TAXI_ANNOTATIONS; counter++) {
@@ -808,8 +846,21 @@
         }
         [self.mapView addAnnotations:vehiclesAnnotations];
         
-    }];
+    }];*/
 }
+
+#pragma mark - Annotation Management
+-(void) onAnnotationUpdateTick:(NSTimer *)timer {
+    
+    NSArray *mapAnnotations = self.mapView.annotations;
+    if(annotationManager != nil)
+        [annotationManager updateVehicleAnnotation:mapAnnotations
+                                        completion:^(NSArray *vehicleAddAnnotation,NSArray *vehicleRemoveAnnotation) {
+                                            [self.mapView addAnnotations:vehicleAddAnnotation];
+                                            [self.mapView removeAnnotations:vehicleRemoveAnnotation];
+                                        }];
+}
+
 
 #pragma mark - UITextField Delegate
 
@@ -979,6 +1030,9 @@
         {
             cell = [tableView dequeueReusableCellWithIdentifier:@"segmentCellIdentifier"];
             
+            _lblFareStandard = [cell viewWithTag:40];
+            _lblFareBusiness = [cell viewWithTag:50];
+            _lblFareLuxary = [cell viewWithTag:70];
             
             UIView *segmentView = [cell viewWithTag:101];
             //[segmentView setNeedsDisplay];

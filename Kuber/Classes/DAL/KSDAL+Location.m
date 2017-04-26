@@ -243,14 +243,15 @@
 }
 
 
-+ (void)vehiclesNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius type:(KSVehicleType)type completion:(KSDALCompletionBlock)completionBlock
++ (void)vehiclesNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius type:(KSVehicleType)type limit:(int)limit completion:(KSDALCompletionBlock)completionBlock
 {
     NSDictionary *queryParams = @{
                                   @"status": @"0,1",
                                   @"lat": @(coordinate.latitude),
                                   @"lon": @(coordinate.longitude),
                                   @"radius": @(radius),
-                                  @"type" : @(type)
+                                  @"type" : @(type),
+                                  @"limit":@(limit)
                                   };
     KSWebClient *webClient = [KSWebClient instance];
     static NSMutableArray *callbacks = nil;
