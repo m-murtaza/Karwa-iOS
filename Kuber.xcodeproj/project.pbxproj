@@ -265,6 +265,9 @@
 		189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490111EA8C47600DB2104 /* history-standard-limo-ico@2x.png */; };
 		189490161EA8C47600DB2104 /* history-taxi-ico@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */; };
 		1894901A1EAF2E4B00DB2104 /* KSBookingAnnotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */; };
+		1894901C1EB07AA100DB2104 /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894901B1EB07AA100DB2104 /* pin@2x.png */; };
+		1894901E1EB0805B00DB2104 /* customer_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894901D1EB0805B00DB2104 /* customer_location@2x.png */; };
+		189490221EB0824100DB2104 /* KSUserLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -688,6 +691,10 @@
 		189490121EA8C47600DB2104 /* history-taxi-ico@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "history-taxi-ico@2x.png"; path = "BookingHistory/history-taxi-ico@2x.png"; sourceTree = "<group>"; };
 		189490181EAF2E4B00DB2104 /* KSBookingAnnotationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSBookingAnnotationManager.h; path = MapAnnotations/KSBookingAnnotationManager.h; sourceTree = "<group>"; };
 		189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSBookingAnnotationManager.m; path = MapAnnotations/KSBookingAnnotationManager.m; sourceTree = "<group>"; };
+		1894901B1EB07AA100DB2104 /* pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pin@2x.png"; path = "Booking/pin@2x.png"; sourceTree = "<group>"; };
+		1894901D1EB0805B00DB2104 /* customer_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "customer_location@2x.png"; path = "Booking/customer_location@2x.png"; sourceTree = "<group>"; };
+		189490201EB0824100DB2104 /* KSUserLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSUserLocationAnnotation.h; path = MapAnnotations/UserLocationAnnotation/KSUserLocationAnnotation.h; sourceTree = "<group>"; };
+		189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSUserLocationAnnotation.m; path = MapAnnotations/UserLocationAnnotation/KSUserLocationAnnotation.m; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -1190,6 +1197,8 @@
 		18713B3E1BA0054C00244E1F /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				1894901D1EB0805B00DB2104 /* customer_location@2x.png */,
+				1894901B1EB07AA100DB2104 /* pin@2x.png */,
 				18F5392E1E924C0C001093B5 /* limo-luxury-icon@2x.png */,
 				18F5392F1E924C0C001093B5 /* limo-business-icon@2x.png */,
 				18F539301E924C0C001093B5 /* limo-standard-icon@2x.png */,
@@ -1355,10 +1364,20 @@
 		189490171EAF2E0000DB2104 /* MapAnnotations */ = {
 			isa = PBXGroup;
 			children = (
+				1894901F1EB081F200DB2104 /* UserLocationAnnotation */,
 				189490181EAF2E4B00DB2104 /* KSBookingAnnotationManager.h */,
 				189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */,
 			);
 			name = MapAnnotations;
+			sourceTree = "<group>";
+		};
+		1894901F1EB081F200DB2104 /* UserLocationAnnotation */ = {
+			isa = PBXGroup;
+			children = (
+				189490201EB0824100DB2104 /* KSUserLocationAnnotation.h */,
+				189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */,
+			);
+			name = UserLocationAnnotation;
 			sourceTree = "<group>";
 		};
 		189F5D8E1B0853CA00EAF9B2 /* Extensions */ = {
@@ -1797,6 +1816,7 @@
 				189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */,
 				18102A1A1BF319D600242CCD /* scheduled-tag@2x.png in Resources */,
 				18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */,
+				1894901E1EB0805B00DB2104 /* customer_location@2x.png in Resources */,
 				184D22931BA58BED007CB740 /* star-filled@2x.png in Resources */,
 				184CF92D1BA056DC0025B883 /* green-button-pressed@2x.png in Resources */,
 				1880C5261B7877ED004F0188 /* menu_history@2x.png in Resources */,
@@ -1943,6 +1963,7 @@
 				18BB63291C06E35E00FE80E5 /* destination-help@2x.png in Resources */,
 				18102A241BF31F1400242CCD /* confirmed-bar@2x.png in Resources */,
 				18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */,
+				1894901C1EB07AA100DB2104 /* pin@2x.png in Resources */,
 				1822C4051BA7FC320087ACE3 /* email@2x.png in Resources */,
 				1842460C1BBD0BCF001C780A /* uparrow-idle@2x.png in Resources */,
 				184D22681BA55E64007CB740 /* logout-idle@2x.png in Resources */,
@@ -2171,6 +2192,7 @@
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
 				1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */,
 				181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */,
+				189490221EB0824100DB2104 /* KSUserLocationAnnotation.m in Sources */,
 				1894901A1EAF2E4B00DB2104 /* KSBookingAnnotationManager.m in Sources */,
 				1873181C1B2EF8D60003DC5C /* DYRateView.m in Sources */,
 				18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */,

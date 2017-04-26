@@ -25,6 +25,7 @@
 #import "NYSegmentedControl.h"
 #import "AppUtils.h"
 #import "KSBookingAnnotationManager.h"
+#import "KSUserLocationAnnotation.h"
 
 #define ADDRESS_CELL_HEIGHT         86.0
 #define TIME_CELL_HEIGHT            66.0
@@ -67,6 +68,8 @@
     
     KSBookingAnnotationManager *annotationManager;
     NSTimer *annotationUpdateTimer;
+    
+    KSUserLocationAnnotation *userAnnotation;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -807,7 +810,14 @@
 
 - (void)updateTaxisInCurrentRegion {
     
-    [self.mapView removeAnnotations:self.mapView.annotations];
+    //[self.mapView removeAnnotations:self.mapView.annotations];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"self isKindOfClass: %@",
+                              [KSVehicleTrackingAnnotation class]];
+    
+    NSArray *vehicleTrackArray = [_mapView.annotations filteredArrayUsingPredicate:predicate];
+    [_mapView removeAnnotations:vehicleTrackArray];
+    
     CLLocationCoordinate2D center = _mapView.centerCoordinate;
     CLLocationCoordinate2D left = [_mapView convertPoint:CGPointMake(0, _mapView.frame.size.height/1.3 ) toCoordinateFromView:_mapView];
     
@@ -899,7 +909,15 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation     *)userLocation
 {
-    //mapView.showsUserLocation = NO;
+    mapView.showsUserLocation = NO;
+    
+    if(userAnnotation == nil)
+    {
+        userAnnotation = [[KSUserLocationAnnotation alloc] init];
+        [mapView addAnnotation:userAnnotation];
+    }
+    userAnnotation.coordinate = mapView.userLocation.coordinate;
+    
     if (mapLoadForFirstTime) {
         mapLoadForFirstTime = FALSE;
         
@@ -947,6 +965,18 @@
         else {
             annotationView.annotation = annotation;
         }
+    }
+    else if([annotation isKindOfClass:[KSUserLocationAnnotation class]])
+    {
+        annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:@"UserLocation"];
+        if(!annotationView)
+        {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation
+                                                          reuseIdentifier:@"UserLocation"];
+            annotationView.image = [UIImage imageNamed:@"customer_location.png"];
+        }
+        else
+            annotationView.annotation = annotation;
     }
     return annotationView;
 }
