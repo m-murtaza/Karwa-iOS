@@ -57,8 +57,12 @@
 
 - (void)setAnnotation:(KSVehicleTrackingAnnotation *)annotation
 {
-    
     [self setUpdateVehicleIcon:((KSVehicleTrackingAnnotation*)annotation).trackingInfo.vehicleType];
+    
+    self.image = [self.image imageRotatedByDegrees:(CGFloat)((KSVehicleTrackingAnnotation*)annotation).trackingInfo.bearing];
+    
+    DLog(@"Bearing : %ld",(long)((KSVehicleTrackingAnnotation*)annotation).trackingInfo.bearing);
+    
     [super setAnnotation:annotation];
     
 }

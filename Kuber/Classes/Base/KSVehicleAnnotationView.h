@@ -9,6 +9,7 @@
 #import <MapKit/MapKit.h>
 #import "KSVehicleTrackingInfo.h"
 #import "KSVehicleTrackingAnnotation.h"
+#import "UIImage+RotationMethods.h"
 
 @class KSVehicleTrackingAnnotation;
 

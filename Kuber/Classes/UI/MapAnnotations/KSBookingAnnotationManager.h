@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 typedef void(^KSBookingAnnotationCompletionBlock)(NSArray *vehicleAnnotation);
 typedef void(^KSUpdateAnnotationCompletionBlock)(NSArray *vehicleAddAnnotation,NSArray *vehicleRemoveAnnotation);
@@ -15,6 +16,7 @@ typedef void(^KSUpdateAnnotationCompletionBlock)(NSArray *vehicleAddAnnotation,N
 
 - (void)vehiclesAnnotationNearCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius type:(KSVehicleType)type completion:(KSBookingAnnotationCompletionBlock)completionBlock;
 
--(void) updateVehicleAnnotation:(NSArray*)annotations completion:(KSUpdateAnnotationCompletionBlock)completionBlock;
+//-(void) updateVehicleAnnotation:(NSArray*)annotations completion:(KSUpdateAnnotationCompletionBlock)completionBlock;
+-(void) updateVehicleInMap:(MKMapView*)mapView completion:(KSUpdateAnnotationCompletionBlock)completionBlock;
 
 @end

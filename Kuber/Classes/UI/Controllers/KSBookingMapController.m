@@ -862,9 +862,30 @@
 #pragma mark - Annotation Management
 -(void) onAnnotationUpdateTick:(NSTimer *)timer {
     
-    NSArray *mapAnnotations = self.mapView.annotations;
+    //NSArray *mapAnnotations = self.mapView.annotations;
     if(annotationManager != nil)
-        [annotationManager updateVehicleAnnotation:mapAnnotations
+        [annotationManager updateVehicleInMap:self.mapView
+                                   completion:^(NSArray *vehicleAddAnnotation, NSArray *vehicleRemoveAnnotation) {
+                                       [self.mapView addAnnotations:vehicleAddAnnotation];
+                                       
+                                       
+                                       NSMutableArray *annotationViews = [[NSMutableArray alloc] init];
+                                       [UIView animateWithDuration:1.5 delay:0.0 options:0 animations:^{
+                                           for(KSVehicleTrackingAnnotation *annotation in vehicleRemoveAnnotation)
+                                           {
+                                               UIView *view = [_mapView viewForAnnotation:annotation];
+                                               view.alpha = 0.0;
+                                               [annotationViews addObject:view];
+                                           }
+                                       } completion:^(BOOL finished) {
+                                           [self.mapView removeAnnotations:vehicleRemoveAnnotation];
+                                           for(UIView *view in annotationViews)
+                                               view.alpha = 1.0;       // remember to set alpha back to 1.0 because annotation view can be reused later
+                                           
+                                       }];
+                                   }];
+    
+        /*[annotationManager updateVehicleAnnotation:mapAnnotations
                                         completion:^(NSArray *vehicleAddAnnotation,NSArray *vehicleRemoveAnnotation) {
                                             
                                             [self.mapView addAnnotations:vehicleAddAnnotation];
@@ -887,7 +908,7 @@
                                             
                                             
                                             //[self.mapView removeAnnotations:vehicleRemoveAnnotation];
-                                        }];
+                                        }];*/
 }
 
 
@@ -1012,8 +1033,6 @@ didAddAnnotationViews:(NSArray *)annotationViews
 {
     for (MKAnnotationView *annView in annotationViews)
     {
-        //CGRect endFrame = annView.frame;
-        //annView.frame = CGRectOffset(endFrame, -500, 0);
         annView.alpha = 0.0;
         [UIView animateWithDuration:1.5
                          animations:^{

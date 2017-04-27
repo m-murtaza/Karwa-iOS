@@ -8,6 +8,8 @@
 
 #import "KSBookingAnnotationManager.h"
 #import "KSVehicleTrackingAnnotation.h"
+#import "KSVehicleAnnotationView.h"
+#import "UIImage+RotationMethods.h"
 #import "KSDAL.h"
 
 #define MAX_TAXI_ANNOTATIONS        (10)
@@ -43,8 +45,9 @@
                        }];
 }
 
--(void) updateVehicleAnnotation:(NSArray*)annotations completion:(KSUpdateAnnotationCompletionBlock)completionBlock
+-(void) updateVehicleInMap:(MKMapView*)mapView completion:(KSUpdateAnnotationCompletionBlock)completionBlock
 {
+    NSArray *annotations = mapView.annotations;
     NSArray *vAnnotations = [self vehicleAnnotations:annotations];
     if(vAnnotations != nil && vAnnotations.count != 0)
     {
@@ -54,13 +57,35 @@
                                 limit: MAX_TAXI_ANNOTATIONS
                            completion:^(KSAPIStatus status, NSArray * vehicles) {
                                
-                               NSArray *addVehicleAnnotation = [self updateAnnotation:vehicles MapAnnotations:vAnnotations];
+                               NSArray *addVehicleAnnotation = [self updateAnnotation:vehicles
+                                                                       MapAnnotations:vAnnotations
+                                                                              MapView:mapView];
+                               
                                NSArray *removeVehicleAnnotation = [self listDeleteAnnotation:vehicles MapAnnotations:vAnnotations];
                                completionBlock(addVehicleAnnotation,removeVehicleAnnotation);
                                
                            }];
     }
 }
+
+//-(void) updateVehicleAnnotation:(NSArray*)annotations completion:(KSUpdateAnnotationCompletionBlock)completionBlock
+//{
+//    NSArray *vAnnotations = [self vehicleAnnotations:annotations];
+//    if(vAnnotations != nil && vAnnotations.count != 0)
+//    {
+//        [KSDAL vehiclesNearCoordinate:lastCoordinate
+//                               radius:lastRadius
+//                                 type:lastVehicleType
+//                                limit: MAX_TAXI_ANNOTATIONS
+//                           completion:^(KSAPIStatus status, NSArray * vehicles) {
+//                               
+//                               NSArray *addVehicleAnnotation = [self updateAnnotation:vehicles MapAnnotations:vAnnotations];
+//                               NSArray *removeVehicleAnnotation = [self listDeleteAnnotation:vehicles MapAnnotations:vAnnotations];
+//                               completionBlock(addVehicleAnnotation,removeVehicleAnnotation);
+//                               
+//                           }];
+//    }
+//}
 
 -(NSArray*) listDeleteAnnotation:(NSArray*)vehicles MapAnnotations:(NSArray*)mapAnnotations
 {
@@ -79,23 +104,29 @@
 
 
 //Update location of present annotation and return list of new annotation.
--(NSArray*) updateAnnotation:(NSArray*) vehicles MapAnnotations:(NSArray*)mapAnnotations
+-(NSArray*) updateAnnotation:(NSArray*) vehicles MapAnnotations:(NSArray*)mapAnnotations MapView:(MKMapView*)mapView
 {
     NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
     for(KSVehicleTrackingInfo *vehicle in vehicles)
     {
-        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingInfo.vehicleId = %@", vehicle.vehicleId];
         NSArray *filteredAnnotations = [mapAnnotations filteredArrayUsingPredicate:predicate];
         if(filteredAnnotations != nil && filteredAnnotations.count != 0)
         {
-            [UIView animateWithDuration:1.5
+            KSVehicleTrackingAnnotation *vAnnotation = [filteredAnnotations objectAtIndex:0];
+            KSVehicleAnnotationView *a = (KSVehicleAnnotationView*)[mapView viewForAnnotation:vAnnotation];
+            a.image = [a.image imageRotatedByDegrees:(CGFloat)vAnnotation.trackingInfo.bearing];
+
+            [UIView animateWithDuration:3
                              animations:^{
-                                 //[vAnnotation setCoordinate:CLLocationCoordinate2DMake(25.268546, 51.530886)];
                                  KSVehicleTrackingAnnotation *vAnnotation = [filteredAnnotations objectAtIndex:0];
                                  vAnnotation.coordinate = vehicle.coordinate;
                                  vAnnotation.trackingInfo = vehicle;
                              }];
+//            [UIView animateWithDuration:2.0 animations:^{
+//                           } completion:^(BOOL finished) {
+//                
+//            }];
         }
         else
         {

@@ -268,6 +268,7 @@
 		1894901C1EB07AA100DB2104 /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894901B1EB07AA100DB2104 /* pin@2x.png */; };
 		1894901E1EB0805B00DB2104 /* customer_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894901D1EB0805B00DB2104 /* customer_location@2x.png */; };
 		189490221EB0824100DB2104 /* KSUserLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */; };
+		189490251EB0A38B00DB2104 /* UIImage+RotationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490241EB0A38B00DB2104 /* UIImage+RotationMethods.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -695,6 +696,8 @@
 		1894901D1EB0805B00DB2104 /* customer_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "customer_location@2x.png"; path = "Booking/customer_location@2x.png"; sourceTree = "<group>"; };
 		189490201EB0824100DB2104 /* KSUserLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSUserLocationAnnotation.h; path = MapAnnotations/UserLocationAnnotation/KSUserLocationAnnotation.h; sourceTree = "<group>"; };
 		189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSUserLocationAnnotation.m; path = MapAnnotations/UserLocationAnnotation/KSUserLocationAnnotation.m; sourceTree = "<group>"; };
+		189490231EB0A38B00DB2104 /* UIImage+RotationMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RotationMethods.h"; sourceTree = "<group>"; };
+		189490241EB0A38B00DB2104 /* UIImage+RotationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RotationMethods.m"; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -757,10 +760,10 @@
 		18BB7EBC1B9C2B8B00F75BC9 /* KSAllEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSAllEntity.h; sourceTree = "<group>"; };
 		18C44F711B81C7C000D2D27F /* KSVehicleTrackingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVehicleTrackingInfo.h; sourceTree = "<group>"; };
 		18C44F721B81C7C000D2D27F /* KSVehicleTrackingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleTrackingInfo.m; sourceTree = "<group>"; };
-		18C44F741B81D17400D2D27F /* KSVehicleTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVehicleTrackingAnnotation.h; sourceTree = "<group>"; };
-		18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleTrackingAnnotation.m; sourceTree = "<group>"; };
-		18C44F771B81E47100D2D27F /* KSVehicleAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVehicleAnnotationView.h; sourceTree = "<group>"; };
-		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSVehicleAnnotationView.m; sourceTree = "<group>"; };
+		18C44F741B81D17400D2D27F /* KSVehicleTrackingAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSVehicleTrackingAnnotation.h; path = ../Base/KSVehicleTrackingAnnotation.h; sourceTree = "<group>"; };
+		18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSVehicleTrackingAnnotation.m; path = ../Base/KSVehicleTrackingAnnotation.m; sourceTree = "<group>"; };
+		18C44F771B81E47100D2D27F /* KSVehicleAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSVehicleAnnotationView.h; path = ../Base/KSVehicleAnnotationView.h; sourceTree = "<group>"; };
+		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSVehicleAnnotationView.m; path = ../Base/KSVehicleAnnotationView.m; sourceTree = "<group>"; };
 		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
 		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
 		18C7A3CA1BB142F100E579A2 /* KSBookingMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingMapController.h; sourceTree = "<group>"; };
@@ -1364,6 +1367,10 @@
 		189490171EAF2E0000DB2104 /* MapAnnotations */ = {
 			isa = PBXGroup;
 			children = (
+				18C44F741B81D17400D2D27F /* KSVehicleTrackingAnnotation.h */,
+				18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */,
+				18C44F771B81E47100D2D27F /* KSVehicleAnnotationView.h */,
+				18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */,
 				1894901F1EB081F200DB2104 /* UserLocationAnnotation */,
 				189490181EAF2E4B00DB2104 /* KSBookingAnnotationManager.h */,
 				189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */,
@@ -1385,6 +1392,8 @@
 			children = (
 				189F5D921B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.h */,
 				189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */,
+				189490231EB0A38B00DB2104 /* UIImage+RotationMethods.h */,
+				189490241EB0A38B00DB2104 /* UIImage+RotationMethods.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1598,10 +1607,6 @@
 				1880C56A1B79E141004F0188 /* KSBookmarkCell.m */,
 				1880C56C1B79E1B8004F0188 /* KSButtonCell.h */,
 				1880C56D1B79E1B8004F0188 /* KSButtonCell.m */,
-				18C44F741B81D17400D2D27F /* KSVehicleTrackingAnnotation.h */,
-				18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */,
-				18C44F771B81E47100D2D27F /* KSVehicleAnnotationView.h */,
-				18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */,
 				18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */,
 				18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */,
 				185FEC7D1B96C75000268296 /* KSUITextFieldInCell.h */,
@@ -2221,6 +2226,7 @@
 				18481B841B0B6AFF00855F54 /* NSManagedObject+KSExtended.m in Sources */,
 				185E3BFE1B70779700909B20 /* KSDAL+Location.m in Sources */,
 				184D22971BA5ADF6007CB740 /* KSPlaceHolderTextView.m in Sources */,
+				189490251EB0A38B00DB2104 /* UIImage+RotationMethods.m in Sources */,
 				187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */,
 				1801E30A1B11ADFF00A8983E /* KSBookingHistoryController.m in Sources */,
 				18D65DDC1B9EC6B700D6C1BD /* KSButton.m in Sources */,
