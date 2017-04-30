@@ -153,7 +153,7 @@
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Map Booking Screen"];
     
-    annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
+    annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval: 10.0
                                                              target: self
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
@@ -991,7 +991,8 @@
     }
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
     // If the annotation is the user location, just return nil.
         if ([annotation isKindOfClass:[MKUserLocation class]])
             return nil;
@@ -1001,6 +1002,8 @@
         annotationView = (KSVehicleAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:[KSVehicleAnnotationView reuseIdentifier]];
         if (!annotationView) {
             annotationView = [[KSVehicleAnnotationView alloc] initWithAnnotation:annotation];
+            //[(KSVehicleAnnotationView*)annotationView updateImage:((KSVehicleTrackingAnnotation*)annotation).trackingInfo.vehicleType Bearing:(CGFloat)((KSVehicleTrackingAnnotation*)annotation).trackingInfo.bearing];
+        
         }
         else {
             annotationView.annotation = annotation;

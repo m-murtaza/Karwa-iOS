@@ -269,6 +269,8 @@
 		1894901E1EB0805B00DB2104 /* customer_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894901D1EB0805B00DB2104 /* customer_location@2x.png */; };
 		189490221EB0824100DB2104 /* KSUserLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */; };
 		189490251EB0A38B00DB2104 /* UIImage+RotationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490241EB0A38B00DB2104 /* UIImage+RotationMethods.m */; };
+		189490271EB1C9A100DB2104 /* 1PxTransparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490261EB1C9A100DB2104 /* 1PxTransparent@2x.png */; };
+		1894902A1EB1CE0700DB2104 /* KSUIImageViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490291EB1CE0700DB2104 /* KSUIImageViewAnnotation.m */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -698,6 +700,9 @@
 		189490211EB0824100DB2104 /* KSUserLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSUserLocationAnnotation.m; path = MapAnnotations/UserLocationAnnotation/KSUserLocationAnnotation.m; sourceTree = "<group>"; };
 		189490231EB0A38B00DB2104 /* UIImage+RotationMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RotationMethods.h"; sourceTree = "<group>"; };
 		189490241EB0A38B00DB2104 /* UIImage+RotationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RotationMethods.m"; sourceTree = "<group>"; };
+		189490261EB1C9A100DB2104 /* 1PxTransparent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1PxTransparent@2x.png"; sourceTree = "<group>"; };
+		189490281EB1CE0700DB2104 /* KSUIImageViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSUIImageViewAnnotation.h; path = MapAnnotations/KSUIImageViewAnnotation.h; sourceTree = "<group>"; };
+		189490291EB1CE0700DB2104 /* KSUIImageViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSUIImageViewAnnotation.m; path = MapAnnotations/KSUIImageViewAnnotation.m; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -1244,6 +1249,7 @@
 		1880C4D61B7877ED004F0188 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				189490261EB1C9A100DB2104 /* 1PxTransparent@2x.png */,
 				18A268991BE7724D006FC942 /* TaxiTracking */,
 				184B743F1BC0FF98003AD936 /* AddressPicker */,
 				1822C42D1BA9673C0087ACE3 /* Partners */,
@@ -1374,6 +1380,8 @@
 				1894901F1EB081F200DB2104 /* UserLocationAnnotation */,
 				189490181EAF2E4B00DB2104 /* KSBookingAnnotationManager.h */,
 				189490191EAF2E4B00DB2104 /* KSBookingAnnotationManager.m */,
+				189490281EB1CE0700DB2104 /* KSUIImageViewAnnotation.h */,
+				189490291EB1CE0700DB2104 /* KSUIImageViewAnnotation.m */,
 			);
 			name = MapAnnotations;
 			sourceTree = "<group>";
@@ -1818,6 +1826,7 @@
 				1880C52A1B7877ED004F0188 /* menu_logout_selected@2x.png in Resources */,
 				18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */,
 				1880C5401B7877ED004F0188 /* StarFullLarge@2x.png in Resources */,
+				189490271EB1C9A100DB2104 /* 1PxTransparent@2x.png in Resources */,
 				189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */,
 				18102A1A1BF319D600242CCD /* scheduled-tag@2x.png in Resources */,
 				18D6E6221BCFDE6A00D6BBA0 /* phone@2x.png in Resources */,
@@ -2220,6 +2229,7 @@
 				1850437B1B26C51600AECDE9 /* CLLocation+KSExtended.m in Sources */,
 				185FEC851B96E6EB00268296 /* KSGoogleAnalytics.m in Sources */,
 				18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */,
+				1894902A1EB1CE0700DB2104 /* KSUIImageViewAnnotation.m in Sources */,
 				1801E2FE1B0E041500A8983E /* KSTableViewController.m in Sources */,
 				18A762BB1B006A7400B9ED32 /* KSLoginController.m in Sources */,
 				18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */,

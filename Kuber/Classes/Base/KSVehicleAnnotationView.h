@@ -9,16 +9,23 @@
 #import <MapKit/MapKit.h>
 #import "KSVehicleTrackingInfo.h"
 #import "KSVehicleTrackingAnnotation.h"
-#import "UIImage+RotationMethods.h"
+#import "KSUIImageViewAnnotation.h"
+///#import "UIImage+RotationMethods.h"
 
 @class KSVehicleTrackingAnnotation;
 
 @interface KSVehicleAnnotationView : MKAnnotationView
+
+@property (nonatomic, strong) KSUIImageViewAnnotation *imgView;
 
 + (NSString *)reuseIdentifier;
 
 - (instancetype)initWithAnnotation:(KSVehicleTrackingAnnotation *)annotation;
 
 -(void) setUpdateVehicleIcon:(KSVehicleType) t;
+
+-(void) updateImage:(KSVehicleType)vType  Bearing:(CGFloat)bearing;
+
+
 
 @end

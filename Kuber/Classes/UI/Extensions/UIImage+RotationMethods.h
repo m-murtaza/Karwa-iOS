@@ -10,6 +10,8 @@
 
 @interface UIImage (RotationMethods)
 
+@property (nonatomic,strong) NSNumber *bearing;
+
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
 
 @end
