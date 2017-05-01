@@ -875,7 +875,8 @@
                                            {
                                                UIView *view = [_mapView viewForAnnotation:annotation];
                                                view.alpha = 0.0;
-                                               [annotationViews addObject:view];
+                                               if(view != nil)
+                                                   [annotationViews addObject:view];
                                            }
                                        } completion:^(BOOL finished) {
                                            [self.mapView removeAnnotations:vehicleRemoveAnnotation];

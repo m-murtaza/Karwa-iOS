@@ -27,7 +27,7 @@
         <scene sceneID="RhO-6x-Dx9">
             <objects>
                 <navigationController storyboardIdentifier="KSLoginRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PVP-WB-Dam" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VrS-2r-kUF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VrS-2r-kUF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -43,7 +43,7 @@
         <scene sceneID="fMy-gq-ST0">
             <objects>
                 <navigationController storyboardIdentifier="KSMainRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YOd-38-N3f" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="96K-dZ-F0d">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="96K-dZ-F0d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -764,13 +764,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you agree to the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2f-Ra-bcu">
-                                <rect key="frame" x="16" y="404" width="213" height="21"/>
+                                <rect key="frame" x="16" y="404" width="212.5" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jax-e6-Etc" customClass="UIUnderlinedButton">
-                                <rect key="frame" x="226" y="401" width="125" height="27"/>
+                                <rect key="frame" x="225.5" y="401" width="125" height="27"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <state key="normal" title="Terms of Services ">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1032,13 +1032,13 @@
                                 <rect key="frame" x="16" y="20" width="343" height="125"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have sent you an access code via SMS for mobile number verification. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SY-iC-bd6" customClass="KSLabel">
-                                        <rect key="frame" x="0.0" y="20" width="343" height="39"/>
+                                        <rect key="frame" x="0.0" y="20" width="343" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter varify code here" textAlignment="center" minimumFontSize="17" background="VerifyCode-box.png" translatesAutoresizingMaskIntoConstraints="NO" id="86b-9x-5oL">
-                                        <rect key="frame" x="0.0" y="89" width="343" height="32"/>
+                                        <rect key="frame" x="0.0" y="88.5" width="343" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="Uia-Uz-UiT"/>
                                         </constraints>
@@ -1271,7 +1271,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7O-90-CFq">
-                                <rect key="frame" x="69" y="64" width="33" height="16"/>
+                                <rect key="frame" x="69" y="64" width="32" height="16"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                 <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1839,7 +1839,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="157"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 8 AUG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1O-Bp-dLS">
-                                                <rect key="frame" x="8" y="20" width="339" height="20"/>
+                                                <rect key="frame" x="8" y="20" width="339" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                                 <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1851,13 +1851,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-Uh-kv2">
-                                                <rect key="frame" x="75" y="67" width="78" height="30"/>
+                                                <rect key="frame" x="75" y="67.5" width="78" height="30"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS8-UJ-WsI">
-                                                <rect key="frame" x="163" y="72" width="18" height="20"/>
+                                                <rect key="frame" x="163" y="72.5" width="18" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="Shv-dC-SNV">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="20"/>
@@ -1881,7 +1881,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="4of-Yw-eGl">
-                                                <rect key="frame" x="191" y="67" width="73" height="30"/>
+                                                <rect key="frame" x="191" y="67.5" width="73" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="69" id="dlI-5r-aXO">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="73"/>
@@ -3131,7 +3131,7 @@
         <scene sceneID="xfQ-ge-Gll">
             <objects>
                 <navigationController id="M6q-v2-FeV" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FkY-g3-FGl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FkY-g3-FGl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3147,7 +3147,7 @@
         <scene sceneID="h2N-OZ-k4c">
             <objects>
                 <navigationController id="Ve9-1A-DjD" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9KR-Nu-0HP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9KR-Nu-0HP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3163,7 +3163,7 @@
         <scene sceneID="gWE-fY-pTh">
             <objects>
                 <navigationController id="4pK-1t-Gvn" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v1R-l0-iPE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="v1R-l0-iPE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3179,7 +3179,7 @@
         <scene sceneID="6Pf-Ka-d7U">
             <objects>
                 <navigationController id="3Te-L5-Re1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AJ8-5N-wLV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="AJ8-5N-wLV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5408,7 +5408,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
-                                        <rect key="frame" x="273" y="20" width="55" height="21"/>
+                                        <rect key="frame" x="272.5" y="20" width="55" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="4Uo-AZ-LvD"/>
                                             <constraint firstAttribute="height" constant="21" id="bSC-Hw-gka"/>
@@ -5430,7 +5430,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
-                                        <rect key="frame" x="195" y="16" width="67" height="28"/>
+                                        <rect key="frame" x="195" y="16" width="66.5" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="JR7-NM-uGN"/>
                                             <constraint firstAttribute="width" constant="68" id="MbY-7Z-iT5"/>
@@ -6221,7 +6221,7 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRACK MY TAXI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MK0-kb-Q8P">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where is my ride?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MK0-kb-Q8P">
                                                 <rect key="frame" x="51" y="19" width="237" height="17"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                 <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6595,7 +6595,6 @@
                         <outlet property="lblStatus" destination="GEf-bT-2yS" id="1WB-oP-uMb"/>
                         <outlet property="lblTaxiNumber" destination="rfE-SO-Pn6" id="ozR-3Z-5C6"/>
                         <outlet property="lblTitleTaxiInfo" destination="Sn6-es-YOx" id="5Ap-bn-JMN"/>
-                        <outlet property="lblTrackMyTaxi" destination="MK0-kb-Q8P" id="zGD-Jt-GfW"/>
                         <outlet property="revealButtonItem" destination="Zoi-3x-Zo4" id="2mH-qS-fC8"/>
                         <outlet property="viewTaxiInfo" destination="yHl-xf-otu" id="nO2-pa-Ctp"/>
                         <outlet property="viewTrackMyTaxi" destination="zNH-ld-eBT" id="BOa-Xe-2D7"/>
@@ -6934,7 +6933,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="162" y="45" width="53" height="21"/>
+                                                    <rect key="frame" x="161.5" y="45" width="53" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
