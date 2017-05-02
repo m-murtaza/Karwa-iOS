@@ -95,7 +95,7 @@
             [navController popViewControllerAnimated:YES];
         }
         else {
-            //[KSAlert show:KSStringFromAPIStatus(status)];
+            //[self APICallFailAction:status];
             [self APICallFailAction:status];
         }
     }];

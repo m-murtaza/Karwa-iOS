@@ -106,7 +106,7 @@
                 [me.revealViewController setFrontViewController:controller animated:YES];
                 [me.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
             } else {
-                [KSAlert show:KSStringFromAPIStatus(status)];
+                [self APICallFailAction:status];
             }
         }];
     }
@@ -122,11 +122,11 @@
     [KSDAL sendOtpOnPhone:self.phone completion:^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess != status) {
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
         else {
             
-                [KSAlert show:KSStringFromAPIStatus(status)];
+                [self APICallFailAction:status];
             }
         
     }];

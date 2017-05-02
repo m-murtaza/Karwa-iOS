@@ -141,7 +141,7 @@ const NSInteger KSTableViewOverlayTagForNoDataLabel = 10;
     }
     else
     {
-        [KSAlert show:KSStringFromAPIStatus(status)];
+        [self APICallFailAction:status];
     }
 }
 

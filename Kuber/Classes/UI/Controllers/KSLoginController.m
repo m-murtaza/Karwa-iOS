@@ -230,7 +230,7 @@
             [self.navigationController pushViewController:controller animated:YES];
         }
         else {
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
             // Go to verify screen, if user is registered but not verified
             /*if (KSAPIStatusUserNotVerified == status) {
                 KSVerifyController *controller = (KSVerifyController *)[UIStoryboard verifyController];

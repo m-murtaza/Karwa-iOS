@@ -131,7 +131,7 @@
         }
         else {
             
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
             
         }
         
@@ -171,7 +171,7 @@
             }
         }
         else {
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
     };
 

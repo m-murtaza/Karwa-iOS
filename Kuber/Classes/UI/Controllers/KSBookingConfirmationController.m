@@ -248,7 +248,7 @@ NSString * const KSDefaultPickupText = @"You location";
             [self.navigationController pushViewController:controller animated:YES];
         }
         else {
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
 
     }];

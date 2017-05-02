@@ -347,7 +347,7 @@
             [navController popViewControllerAnimated:YES];
         }
         else {
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
     };
     if (self.bookmark) {

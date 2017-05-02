@@ -516,7 +516,7 @@ KSTableViewType;
             [self.tableView reloadData];
         }
         else{
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
         
     }];
@@ -552,7 +552,7 @@ KSTableViewType;
             [self.tableView reloadData];
         }
         else{
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
         
     }];
@@ -568,7 +568,7 @@ KSTableViewType;
             [self.tableView reloadData];
         }
         else{
-            [KSAlert show:KSStringFromAPIStatus(status)];
+            [self APICallFailAction:status];
         }
     }];*/
 }
@@ -993,7 +993,7 @@ UILabel *lbl = (UILabel*) [cell viewWithTag:120];
                                        
                                    }
                                    else{
-                                       [KSAlert show:KSStringFromAPIStatus(status)];
+                                       [self APICallFailAction:status];
                                    }
                                    
                                }];

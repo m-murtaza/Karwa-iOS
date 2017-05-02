@@ -104,7 +104,7 @@
             else
             {
                 [self APICallFailAction:status];
-                //[KSAlert show:KSStringFromAPIStatus(status)];
+                //[self APICallFailAction:status];
             }
         }];
 }
