@@ -166,20 +166,12 @@
     }];
     
     KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
-        //NSLog(@"%s Cancel Handler", __PRETTY_FUNCTION__);
         [self.revealViewController revealToggleAnimated:YES];
-//        [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
     }];
     [KSConfirmationAlert showWithTitle:nil
                                message:@"Are you sure you want to logout?"
                               okAction:okAction
                           cancelAction:cancelAction];
-    
-    
-   
-    
-    
-    
 }
 
 #pragma mark -

@@ -24,6 +24,7 @@
     [self setupRevealViewController];
     
     //set Back button title
+    //Use UIBarButtonItemStylePlain
     UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
                                 initWithTitle:@""
                                 style:UIBarButtonItemStyleBordered
@@ -47,6 +48,30 @@
 }
 */
 
+
+-(void) APICallFailAction:(KSAPIStatus) status
+{
+    if(status == KSAPIStatusInvalidSession || status == KSAPIStatusSessionExpired)
+    {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                       message:KSStringFromAPIStatus(status)
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                              
+                                                                  [((AppDelegate*)[UIApplication sharedApplication].delegate) showLoginScreen];
+                                                              }];
+        
+        [alert addAction:defaultAction];
+        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    }
+    else
+    {
+        [KSAlert show:KSStringFromAPIStatus(status)];
+    }
+}
 
 #pragma mark - Restoration
 - (void)applicationFinishedRestoringState {

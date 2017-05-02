@@ -58,9 +58,6 @@ typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusServerCrash              = 500,  //Server Crash
     KSAPIStatusNotImplemented           = 501,  //Service not implemented
     KSAPIStatusServiceUnavailable       = 503   //Request type not supported i.e. GET, POST
-    
-    
-    
 };
 
 typedef NS_OPTIONS(NSUInteger, KSBookingOption) {

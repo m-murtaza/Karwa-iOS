@@ -21,5 +21,6 @@
 - (void)reloadTableViewData;
 - (void)setNoDataMessage:(NSString *)message;
 
+-(void) APICallFailAction:(KSAPIStatus) status;
 @end
 

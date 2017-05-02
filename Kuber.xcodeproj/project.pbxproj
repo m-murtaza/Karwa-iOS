@@ -459,8 +459,8 @@
 		18481B4E1B091EFA00855F54 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		18481B561B09B64E00855F54 /* NSString+KSExtended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KSExtended.h"; sourceTree = "<group>"; };
 		18481B571B09B64E00855F54 /* NSString+KSExtended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KSExtended.m"; sourceTree = "<group>"; };
-		18481B5C1B09C41800855F54 /* KSAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAlert.h; sourceTree = "<group>"; };
-		18481B5D1B09C41800855F54 /* KSAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSAlert.m; sourceTree = "<group>"; };
+		18481B5C1B09C41800855F54 /* KSAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSAlert.h; path = Base/KSAlert.h; sourceTree = "<group>"; };
+		18481B5D1B09C41800855F54 /* KSAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSAlert.m; path = Base/KSAlert.m; sourceTree = "<group>"; };
 		18481B621B09C89700855F54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		18481B6D1B09CAB900855F54 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18481B6F1B09CC2500855F54 /* KSMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSMenuController.h; sourceTree = "<group>"; };
@@ -1395,6 +1395,15 @@
 			name = UserLocationAnnotation;
 			sourceTree = "<group>";
 		};
+		1894902B1EB87F0600DB2104 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				18481B5C1B09C41800855F54 /* KSAlert.h */,
+				18481B5D1B09C41800855F54 /* KSAlert.m */,
+			);
+			name = AlertView;
+			sourceTree = "<group>";
+		};
 		189F5D8E1B0853CA00EAF9B2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1601,8 +1610,6 @@
 				18A762C01B006D8E00B9ED32 /* KSViewController.m */,
 				1801E2FC1B0E041500A8983E /* KSTableViewController.h */,
 				1801E2FD1B0E041500A8983E /* KSTableViewController.m */,
-				18481B5C1B09C41800855F54 /* KSAlert.h */,
-				18481B5D1B09C41800855F54 /* KSAlert.m */,
 				18481B751B0B1B4000855F54 /* KSConfirmationAlert.h */,
 				18481B761B0B1B4000855F54 /* KSConfirmationAlert.m */,
 				1801E3641B16293900A8983E /* KSReadOnlyTextField.h */,
@@ -1691,6 +1698,7 @@
 		18F5392A1E90C63E001093B5 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				1894902B1EB87F0600DB2104 /* AlertView */,
 				18F5392B1E90C672001093B5 /* AppUtils.h */,
 				18F5392C1E90C672001093B5 /* AppUtils.m */,
 			);

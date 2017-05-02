@@ -26,5 +26,7 @@
 
 -(void) updateUIForNotification:(NSDictionary*)userinfo Trip:(KSTrip*) trip AppState:(bool)appInBackGround;
 
+-(void) showLoginScreen;
+
 @end
 

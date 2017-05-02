@@ -121,4 +121,29 @@ const NSInteger KSTableViewOverlayTagForNoDataLabel = 10;
     [self.tableView reloadData];
 }
 
+-(void) APICallFailAction:(KSAPIStatus) status
+{
+    if(status == KSAPIStatusInvalidSession || status == KSAPIStatusSessionExpired)
+    {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                       message:KSStringFromAPIStatus(status)
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  
+                                                                  [((AppDelegate*)[UIApplication sharedApplication].delegate) showLoginScreen];
+                                                              }];
+        
+        [alert addAction:defaultAction];
+        AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        [appDelegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    }
+    else
+    {
+        [KSAlert show:KSStringFromAPIStatus(status)];
+    }
+}
+
+
 @end

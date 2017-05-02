@@ -76,6 +76,16 @@
 }
 
 
+-(void) showLoginScreen
+{
+    UIViewController *menuController = [UIStoryboard menuController];
+    UIViewController *frontController = [UIStoryboard loginRootController];
+    SWRevealViewController *rootController = [[SWRevealViewController alloc] initWithRearViewController:menuController frontViewController:frontController];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = rootController;
+    [self.window makeKeyAndVisible];
+}
+
 /*-(void) testFunc
 {
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\bWWWWW.*" options:0 error:NULL];

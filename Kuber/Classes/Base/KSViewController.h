@@ -11,4 +11,6 @@
 @interface KSViewController : UIViewController
 
 @property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
+
+-(void) APICallFailAction:(KSAPIStatus) status;
 @end
