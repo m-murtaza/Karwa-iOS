@@ -57,14 +57,15 @@
                                 limit: MAX_TAXI_ANNOTATIONS
                            completion:^(KSAPIStatus status, NSArray * vehicles) {
                                
-                
-                               NSArray *addVehicleAnnotation = [self updateAnnotation:vehicles
-                                                                       MapAnnotations:vAnnotations
-                                                                              MapView:mapView];
-                               
-                               NSArray *removeVehicleAnnotation = [self listDeleteAnnotation:vehicles MapAnnotations:vAnnotations];
-                               completionBlock(addVehicleAnnotation,removeVehicleAnnotation);
-                               
+                               if(status == KSAPIStatusSuccess)
+                               {
+                                   NSArray *addVehicleAnnotation = [self updateAnnotation:vehicles
+                                                                           MapAnnotations:vAnnotations
+                                                                                  MapView:mapView];
+                                   
+                                   NSArray *removeVehicleAnnotation = [self listDeleteAnnotation:vehicles MapAnnotations:vAnnotations];
+                                   completionBlock(addVehicleAnnotation,removeVehicleAnnotation);
+                               }
                            }];
     }
 }

@@ -25,8 +25,7 @@
 @interface KSTrackTaxiController () <MKMapViewDelegate>
 {
     KSVehicleTrackingInfo *taxiInfo;
-    MKUserLocation *passengerLocation;
-    int temp;           //This variable is for testing 
+   // MKUserLocation *passengerLocation;
 }
 
 @property(nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -43,7 +42,6 @@
 {
     [super viewDidLoad];
     [self setMapParameters];
-    temp = 0;
     [self updateTaxiStatusUpdateLabel];
     
     [self updateNavigationTitle];
@@ -52,7 +50,9 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [KSGoogleAnalytics trackPage:@"Track My Taxi"];
+    [KSGoogleAnalytics trackPage:@"Where is my ride"];
+    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
+    [self updateMapRegion];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -60,6 +60,7 @@
     [super viewWillDisappear:animated];
     [self.timer invalidate];
     self.timer = nil;
+    [[UIApplication sharedApplication] setIdleTimerDisabled: NO];
 }
 
 - (void)dealloc
@@ -72,7 +73,7 @@
 
 -(void) updateNavigationTitle
 {
-    self.navigationItem.title = [NSString stringWithFormat:@"Track My %@",[AppUtils taxiLimo:_trip.vehicleType]];
+    self.navigationItem.title = @"Where is my ride?";
 }
 
 -(void) updateTaxiStatusUpdateLabel
@@ -100,23 +101,25 @@
     return locationAvailable;
 }
 
-
+-(void) addPickupAnnotation
+{
+    MKPointAnnotation *pickupAnnotation = [[MKPointAnnotation alloc] init];
+    pickupAnnotation.coordinate = CLLocationCoordinate2DMake([_trip.pickupLat doubleValue], [_trip.pickupLon doubleValue]);
+    [_mapView addAnnotation:pickupAnnotation];
+}
 
 -(void) setMapParameters
 {
     self.mapView.delegate = self;
-    //self.mapView.scrollEnabled = YES;
+    self.mapView.scrollEnabled = YES;
     //self.mapView.zoomEnabled = YES;
     [self.mapView setShowsUserLocation: YES];
     
-    //[self addAnotations];
-    
+    [self addPickupAnnotation];
     [self fetchTaxiInfo:nil];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:61.0f
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:11.0f
                                      target:self selector:@selector(fetchTaxiInfo:) userInfo:nil repeats:YES];
-    
-    
 }
 
 - (void) fetchTaxiInfo:(NSTimer *)t
@@ -126,14 +129,10 @@
     [KSDAL trackTaxiWithTaxiNo:self.trip.taxi.number
                          JobID:self.trip.jobId
                     completion:^(KSAPIStatus status, id response) {
-//                        temp++;
-//                        if (temp > 2) {
-//                            status = KSAPIStatusInvalidTaxi;
-//                        }
                         if (status == KSAPIStatusSuccess) {
                             
                             me->taxiInfo = (KSVehicleTrackingInfo *) response;
-                            [me performSelectorOnMainThread:@selector(updateMapAnnotation) withObject:nil waitUntilDone:YES];
+                            [me performSelectorOnMainThread:@selector(AnnimateVehicle) withObject:nil waitUntilDone:YES];
                             
                             [me updateTaxiStatusUpdateLabel];
                         }
@@ -155,34 +154,108 @@
                     }];
 }
 
--(void) updateMapAnnotation
+-(KSVehicleTrackingAnnotation*) vehicleAnnotation:(NSArray*) annotatios
 {
-    if (passengerLocation && taxiInfo) {
+    KSVehicleTrackingAnnotation *vAnnotation = nil;
+    
+    for (id annotation in annotatios) {
+        if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+            vAnnotation = annotation;
+            break;
+        }
+    }
+    return vAnnotation;
+}
+
+-(void) AnnimateVehicle
+{
+    KSVehicleTrackingAnnotation *annotation = [self vehicleAnnotation:_mapView.annotations];
+    if(annotation == nil)
+    {
         KSVehicleTrackingAnnotation *taxiAnnotation = [KSVehicleTrackingAnnotation annotationWithTrackingInfo:taxiInfo];
-        if (CLLocationCoordinate2DIsValid(taxiInfo.coordinate) && CLLocationCoordinate2DIsValid(passengerLocation.coordinate)) {
-            
-            NSArray *previusAnnotations = self.mapView.annotations;
-            for (id annotation in previusAnnotations) {
-                if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
-                    [self.mapView removeAnnotation:annotation];
-                }
-            }
-            [self.mapView setCenterCoordinate:passengerLocation.coordinate];
-            [self.mapView addAnnotation:taxiAnnotation];
+        [self.mapView addAnnotation:taxiAnnotation];
+        [self updateMapRegion];
+        [self updateETA:taxiInfo.currentETA];
+    }
+    else
+    {
+        KSVehicleAnnotationView *annotationView = (KSVehicleAnnotationView*)[_mapView viewForAnnotation:annotation];
+        if(annotationView != nil)
+        {
+        
+        [annotationView.imgView updateBearing:(CGFloat)taxiInfo.bearing
+                                   Completion:^{
+                                       
+                                       [UIView animateWithDuration:3
+                                                        animations:^{
+                                                            
+                                                            annotation.coordinate = taxiInfo.coordinate;
+                                                            annotation.trackingInfo = taxiInfo;
+                                                        }
+                                        completion:^(BOOL finished) {
+                                            if(finished)
+                                                [self updateMapRegion];
+                                                [self updateETA:taxiInfo.currentETA];
 
-            const CGFloat padding = 2.5; // 20%
-            CGFloat latDelta = padding * fabs(passengerLocation.coordinate.latitude - taxiAnnotation.coordinate.latitude) * 2.0;
-            CGFloat lonDelta = padding * fabs(passengerLocation.coordinate.longitude - taxiAnnotation.coordinate.longitude) * 2.0;
-            MKCoordinateSpan span = MKCoordinateSpanMake(latDelta, lonDelta);
-            MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
-            [self.mapView setRegion:region];
-
-            [self updateETA:taxiAnnotation.trackingInfo.currentETA];
-            
-            //[self updateDistance:passengerLocation.location.coordinate TaxiLocation:taxiAnnotation.coordinate];
+                                        }];
+                                   }];
+        }
+        else
+        {
+            [self updateMapRegion];
+            [self updateETA:taxiInfo.currentETA];
         }
     }
 }
+
+-(void) updateMapRegion
+{
+    if(taxiInfo != nil && _trip != nil)
+    {
+        CLLocationCoordinate2D pickup = CLLocationCoordinate2DMake([_trip.pickupLat doubleValue], [_trip.pickupLon doubleValue]);
+        if(CLLocationCoordinate2DIsValid(taxiInfo.coordinate) && CLLocationCoordinate2DIsValid(pickup))
+        {
+            [_mapView setCenterCoordinate:pickup];
+            
+            const CGFloat padding = 2.5; // 20%
+            CGFloat latDelta = padding * fabs(pickup.latitude - taxiInfo.coordinate.latitude) * 2.0;
+            CGFloat lonDelta = padding * fabs(pickup.longitude - taxiInfo.coordinate.longitude) * 2.0;
+            MKCoordinateSpan span = MKCoordinateSpanMake(latDelta, lonDelta);
+            MKCoordinateRegion region = MKCoordinateRegionMake(pickup, span);
+            [self.mapView setRegion:region animated:YES];
+        }
+    }
+}
+//TODO: Remove this function after testing.
+//-(void) updateMapAnnotation
+//{
+//   
+//    if (passengerLocation && taxiInfo) {
+//        KSVehicleTrackingAnnotation *taxiAnnotation = [KSVehicleTrackingAnnotation annotationWithTrackingInfo:taxiInfo];
+//        if (CLLocationCoordinate2DIsValid(taxiInfo.coordinate) && CLLocationCoordinate2DIsValid(passengerLocation.coordinate)) {
+//            
+//            NSArray *previusAnnotations = self.mapView.annotations;
+//            for (id annotation in previusAnnotations) {
+//                if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+//                    [self.mapView removeAnnotation:annotation];
+//                }
+//            }
+//            [self.mapView setCenterCoordinate:passengerLocation.coordinate];
+//            [self.mapView addAnnotation:taxiAnnotation];
+//
+//            const CGFloat padding = 2.5; // 20%
+//            CGFloat latDelta = padding * fabs(passengerLocation.coordinate.latitude - taxiAnnotation.coordinate.latitude) * 2.0;
+//            CGFloat lonDelta = padding * fabs(passengerLocation.coordinate.longitude - taxiAnnotation.coordinate.longitude) * 2.0;
+//            MKCoordinateSpan span = MKCoordinateSpanMake(latDelta, lonDelta);
+//            MKCoordinateRegion region = MKCoordinateRegionMake(passengerLocation.coordinate, span);
+//            [self.mapView setRegion:region];
+//
+//            [self updateETA:taxiAnnotation.trackingInfo.currentETA];
+//            
+//            //[self updateDistance:passengerLocation.location.coordinate TaxiLocation:taxiAnnotation.coordinate];
+//        }
+//    }
+//}
 
 -(void) updateETA:(NSInteger) eTA
 {
@@ -212,41 +285,35 @@
     [self checkLocationAvaliblityAndShowAlert];
 }
 
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation     *)userLocation
-{
-    DLog(@"didUpdateUserLocation");
-    passengerLocation = userLocation;
-    [self updateMapAnnotation];
-
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
-{
-    DLog(@"regionDidChangeAnimated");
-}
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
    
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil;
-
-    KSAnnotationType annotationType = KSAnnotationTypeUser;
-    if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
-        annotationType = KSAnnotationTypeTaxi;
+    else if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
+        
+        static NSString *trackingIdentifier = @"VehicleTracking";
+        KSVehicleAnnotationView *annotationVehicle = (KSVehicleAnnotationView*)[_mapView dequeueReusableAnnotationViewWithIdentifier:trackingIdentifier];
+        if(annotationVehicle == nil)
+        {
+            annotationVehicle = [[KSVehicleAnnotationView alloc] initWithAnnotation:annotation];
+        }
+        else
+        {
+            annotationVehicle.annotation = annotation;
+        }
+        return annotationVehicle;
     }
-    
-    MKAnnotationView *annotationView = nil;
-    //if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]]) {
-        annotationView = (KSTrackingAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:[KSTrackingAnnotationView reuseIdentifier]];
-        if (!annotationView) {
-            annotationView = [[KSTrackingAnnotationView alloc] initWithAnnotation:annotation Type:annotationType];
-        }
-        else {
-            [(KSTrackingAnnotationView*)annotationView SetAnnotationImageFor:annotationType];
-            annotationView.annotation = annotation;
-            
-        }
-    //}
-    return annotationView;
+    else if([annotation isKindOfClass:[MKPointAnnotation class]])
+    {
+        static NSString *pickupIdentifier = @"PickupLocation";
+        MKAnnotationView *annotationPickupView = [_mapView dequeueReusableAnnotationViewWithIdentifier:pickupIdentifier];
+        if(annotationPickupView == nil)
+            annotationPickupView = [[MKAnnotationView alloc] init];
+        annotationPickupView.image = [UIImage imageNamed:@"pin.png"];
+        annotationPickupView.canShowCallout = FALSE;
+        return annotationPickupView;
+    }
+    return nil;
 }
 
 @end
