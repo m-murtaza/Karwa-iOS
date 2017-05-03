@@ -271,6 +271,8 @@
 		189490251EB0A38B00DB2104 /* UIImage+RotationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490241EB0A38B00DB2104 /* UIImage+RotationMethods.m */; };
 		189490271EB1C9A100DB2104 /* 1PxTransparent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 189490261EB1C9A100DB2104 /* 1PxTransparent@2x.png */; };
 		1894902A1EB1CE0700DB2104 /* KSUIImageViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189490291EB1CE0700DB2104 /* KSUIImageViewAnnotation.m */; };
+		1894902E1EB9C42700DB2104 /* limo-coachmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894902C1EB9C42700DB2104 /* limo-coachmark@2x.png */; };
+		1894902F1EB9C42700DB2104 /* types-coachmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1894902D1EB9C42700DB2104 /* types-coachmark@2x.png */; };
 		1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */; };
 		189F5D8C1B04FD3A00EAF9B2 /* KSVerifyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D8B1B04FD3A00EAF9B2 /* KSVerifyController.m */; };
 		189F5D941B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F5D931B0855AA00EAF9B2 /* UIStoryBoard+KSStoryBoard.m */; };
@@ -703,6 +705,8 @@
 		189490261EB1C9A100DB2104 /* 1PxTransparent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1PxTransparent@2x.png"; sourceTree = "<group>"; };
 		189490281EB1CE0700DB2104 /* KSUIImageViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSUIImageViewAnnotation.h; path = MapAnnotations/KSUIImageViewAnnotation.h; sourceTree = "<group>"; };
 		189490291EB1CE0700DB2104 /* KSUIImageViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSUIImageViewAnnotation.m; path = MapAnnotations/KSUIImageViewAnnotation.m; sourceTree = "<group>"; };
+		1894902C1EB9C42700DB2104 /* limo-coachmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "limo-coachmark@2x.png"; path = "Booking/limo-coachmark@2x.png"; sourceTree = "<group>"; };
+		1894902D1EB9C42700DB2104 /* types-coachmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "types-coachmark@2x.png"; path = "Booking/types-coachmark@2x.png"; sourceTree = "<group>"; };
 		1896EB331B2D43DA0073172C /* KSFavoriteDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFavoriteDetailsController.h; sourceTree = "<group>"; };
 		1896EB341B2D43DA0073172C /* KSFavoriteDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFavoriteDetailsController.m; sourceTree = "<group>"; };
 		189F5D8A1B04FD3A00EAF9B2 /* KSVerifyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSVerifyController.h; sourceTree = "<group>"; };
@@ -1205,6 +1209,8 @@
 		18713B3E1BA0054C00244E1F /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				1894902C1EB9C42700DB2104 /* limo-coachmark@2x.png */,
+				1894902D1EB9C42700DB2104 /* types-coachmark@2x.png */,
 				1894901D1EB0805B00DB2104 /* customer_location@2x.png */,
 				1894901B1EB07AA100DB2104 /* pin@2x.png */,
 				18F5392E1E924C0C001093B5 /* limo-luxury-icon@2x.png */,
@@ -1889,6 +1895,7 @@
 				185E3C3A1B772DA100909B20 /* MuseoForDell-500.otf in Resources */,
 				184D22591BA55E64007CB740 /* bookataxi-active@2x.png in Resources */,
 				1842460D1BBD0BCF001C780A /* uparrow-pressed@2x.png in Resources */,
+				1894902F1EB9C42700DB2104 /* types-coachmark@2x.png in Resources */,
 				184245F51BBCF997001C780A /* MuseoSans_500.otf in Resources */,
 				18F539331E924C0C001093B5 /* limo-standard-icon@2x.png in Resources */,
 				184CF9261BA03F1D0025B883 /* Booking-details-top-view@2x.png in Resources */,
@@ -1945,6 +1952,7 @@
 				18D65DD61B9EC13000D6C1BD /* VerifyCode-box@2x.png in Resources */,
 				1880C5451B7877ED004F0188 /* favorites@2x.png in Resources */,
 				1880C5231B7877ED004F0188 /* menu_book_selected@2x.png in Resources */,
+				1894902E1EB9C42700DB2104 /* limo-coachmark@2x.png in Resources */,
 				1880C5411B7877ED004F0188 /* edit.png in Resources */,
 				184D226C1BA55E64007CB740 /* rate-ico-active@2x.png in Resources */,
 				184245FB1BBCF997001C780A /* MuseoSans-300Italic.otf in Resources */,

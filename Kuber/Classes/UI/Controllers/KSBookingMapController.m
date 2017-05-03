@@ -106,11 +106,6 @@
     
     [super viewDidLoad];
     
-//    NSString *strdate = @"2017-04-18T13:43:13.22+03:00";
-//    NSDate *date = [strdate dateValue];
-//    
-//    DLog(@"%@",date);
-    //firstTimeLoad = TRUE;
     isMaploaded = FALSE;
     dropoffVisible = FALSE;
     isPickupFromMap = TRUE;
@@ -170,6 +165,14 @@
      
         [self populateOldTripData];
     }
+    
+    
+//    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+//    imageView.image = [UIImage imageNamed:@"limo-coachmark.png"];
+//    [[UIApplication sharedApplication].keyWindow addSubview:imageView];
+//    
+    //[self.imgDestinationHelp setImage:[UIImage imageNamed:@"limo-coachmark.png"]];
+    //[self.imgDestinationHelp setHidden:false];
     
 }
 
@@ -485,7 +488,6 @@
         if (status == KSAPIStatusSuccess) {
             NSLog(@"%@",data);
             KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-                NSLog(@"%s OK Handler", __PRETTY_FUNCTION__);
                 [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
                 
             }];
@@ -496,24 +498,26 @@
                                                                    label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
                                                                    value:nil] build]];
             
+            
+            [self sendAnalyticsForBooking];
             NSString *str;
             if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
                 
                 str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
                 
-                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-                                                                      action:@"CurrentTaxiBooking"
-                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-                                                                       value:nil] build]];
+//                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+//                                                                      action:@"CurrentTaxiBooking"
+//                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+//                                                                       value:nil] build]];
             }
             else{
                 
                 str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
                 
-                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-                                                                      action:@"AdvTaxiBooking"
-                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-                                                                       value:nil] build]];
+//                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+//                                                                      action:@"AdvTaxiBooking"
+//                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+//                                                                       value:nil] build]];
             }
             
             
@@ -527,6 +531,31 @@
         
     }];
     
+}
+
+-(void) sendAnalyticsForBooking
+{
+    
+    if(tripInfo != nil)
+    {
+        @try {
+            NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
+            NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
+                                                                  action:bookingType
+                                                                   label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+                                                                   value:nil] build]];
+        } @catch (NSException *exception) {
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Exception"     // Event category (required)
+                                                                  action:@"Exception Sending Analytics"  // Event action (required)
+                                                                   label:[NSString stringWithFormat:@"%@",exception]         // Event label
+                                                                   value:nil] build]];    // Event value
+        }
+    }
 }
 
 -(void) showAlertWithHint
@@ -1121,6 +1150,8 @@ didAddAnnotationViews:(NSArray *)annotationViews
             _lblFareStandard = [cell viewWithTag:40];
             _lblFareBusiness = [cell viewWithTag:50];
             _lblFareLuxary = [cell viewWithTag:70];
+            
+            [self showLimoFare:vehicleType];
             
             UIView *segmentView = [cell viewWithTag:101];
             //[segmentView setNeedsDisplay];

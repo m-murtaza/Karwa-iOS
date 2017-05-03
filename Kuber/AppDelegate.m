@@ -34,6 +34,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *token = [defaults valueForKey:@"KSDeviceToken"];
+//    if(token != nil)
+//    {
+//        DLog(@"old instalation");
+//    }
+//    else
+//    {
+//        DLog(@"new instalaton")
+//    }
+
     
     
    //[self testFunc];
