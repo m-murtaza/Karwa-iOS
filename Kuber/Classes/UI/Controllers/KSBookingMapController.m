@@ -140,7 +140,12 @@
     }
     
     [self addVehicleTypeSegment];
+    //Send analytics for first time automatic selection.
+    [self sendVehicleTypeSelectionAnalytics];
+    
     [self createLimoTypeSegmant];
+    //Send analytics for first time automatic selection.
+    [self sendLimoTypeSelectionAnalytics];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -235,12 +240,7 @@
     [self showLimoFare:vehicleType];
     [self updateTaxisInCurrentRegion];
     
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
-                                                          action:@"Booking - Limo Type Selection"
-                                                           label:[NSString stringWithFormat:@"Selected Type %@",[AppUtils vehicleTypeToString:vehicleType]]
-                                                           value:nil] build]];
+    [self sendLimoTypeSelectionAnalytics];
 }
 
 #pragma mark - Vehicle Type Segment Control
@@ -282,13 +282,7 @@
     [self updateTaxisInCurrentRegion];
     [_tableView reloadData];
     
-    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-    
-    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
-                                                          action:@"Booking - Vehicle Type Selection"
-                                                           label:[NSString stringWithFormat:@"Selected Type %@",(segmentVehicleType.selectedSegmentIndex == 0) ? @"Tax" : @"Limo"]
-                                                           value:nil] build]];
-
+    [self sendVehicleTypeSelectionAnalytics];
 }
 
 -(void) updateUIForTaxi
@@ -312,6 +306,43 @@
             break;
     }
     [self onSegmentLimoTypeChange];
+}
+
+#pragma mark - Analytics 
+-(void) sendLimoTypeSelectionAnalytics
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking - Limo Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",[AppUtils vehicleTypeToString:vehicleType]]
+                                                           value:nil] build]];
+}
+
+-(void) sendVehicleTypeSelectionAnalytics
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking - Vehicle Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",(segmentVehicleType.selectedSegmentIndex == 0) ? @"Tax" : @"Limo"]
+                                                           value:nil] build]];
+
+}
+
+-(void) sendAnalyticsForBooking
+{
+    if(tripInfo != nil)
+    {
+        NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
+        NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
+        
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
+                                                              action:bookingType
+                                                               label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+                                                               value:nil] build]];
+    }
 }
 
 #pragma mark - Private Function
@@ -531,31 +562,6 @@
         
     }];
     
-}
-
--(void) sendAnalyticsForBooking
-{
-    
-    if(tripInfo != nil)
-    {
-        @try {
-            NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
-            NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
-            
-            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
-                                                                  action:bookingType
-                                                                   label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-                                                                   value:nil] build]];
-        } @catch (NSException *exception) {
-            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-            
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Exception"     // Event category (required)
-                                                                  action:@"Exception Sending Analytics"  // Event action (required)
-                                                                   label:[NSString stringWithFormat:@"%@",exception]         // Event label
-                                                                   value:nil] build]];    // Event value
-        }
-    }
 }
 
 -(void) showAlertWithHint

@@ -21,7 +21,7 @@
 @property (weak,nonatomic) IBOutlet UITableView *tableView;
 //@property (weak,nonatomic) IBOutlet UISegmentedControl *segmentVehicleType;
 
-- (IBAction)onSegmentVehicleTypeChange:(id)sender;
+//- (IBAction)onSegmentVehicleTypeChange:(id)sender;
 
 //- (void)buildTripsHistory:(NSArray*)data;
 @end

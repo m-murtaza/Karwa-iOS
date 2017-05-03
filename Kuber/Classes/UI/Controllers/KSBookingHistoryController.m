@@ -27,7 +27,7 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
     [self addSegmentControl];
-    
+    [self sendVehicleTypeSelectionAnalytics];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -122,6 +122,19 @@
     else
         self.trips = [NSArray arrayWithArray:self.limoTrips];
     [self.tableView reloadData];
+    [self sendVehicleTypeSelectionAnalytics];
+}
+
+#pragma mark - Analytics 
+-(void) sendVehicleTypeSelectionAnalytics
+{
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+                                                          action:@"Booking History- Vehicle Type Selection"
+                                                           label:[NSString stringWithFormat:@"Selected Type %@",(_segmentVehicleType.selectedSegmentIndex == 0) ? @"Tax" : @"Limo"]
+                                                           value:nil] build]];
+    
 }
 
 #pragma mark - Table View Datasource and Delegate
