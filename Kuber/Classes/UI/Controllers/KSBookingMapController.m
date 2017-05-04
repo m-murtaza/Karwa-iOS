@@ -155,7 +155,7 @@
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Map Booking Screen"];
     
-    annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval: 10.0
+    annotationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0
                                                              target: self
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
