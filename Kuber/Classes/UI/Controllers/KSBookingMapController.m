@@ -70,6 +70,8 @@
     NSTimer *annotationUpdateTimer;
     
     KSUserLocationAnnotation *userAnnotation;
+    
+    UIImageView * imgCoachMark;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -172,10 +174,10 @@
     }
     
     
-//    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    imageView.image = [UIImage imageNamed:@"limo-coachmark.png"];
-//    [[UIApplication sharedApplication].keyWindow addSubview:imageView];
-//    
+    [self showLimoTaxiCoachMarksIfNeeded];
+    
+    
+//
     //[self.imgDestinationHelp setImage:[UIImage imageNamed:@"limo-coachmark.png"]];
     //[self.imgDestinationHelp setHidden:false];
     
@@ -185,6 +187,52 @@
 {
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+}
+
+#pragma mark - CoachMarks
+-(void) showLimoTaxiCoachMarksIfNeeded
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //TODO remove this line
+    //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
+    if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
+    {
+        //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+        imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
+        imgCoachMark.image = [UIImage imageNamed:@"limo-coachmark.png"];
+        [[UIApplication sharedApplication].keyWindow addSubview:imgCoachMark];
+        
+        [defaults setValue:[NSNumber numberWithBool:true] forKey:KSTaxiLimoDefaultKey];
+        [defaults synchronize];
+    }
+}
+//types-coachmark@2x
+
+-(void) showLimoTypeCoachMarksIfNeeded
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //TODO remove this line
+    //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
+    if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
+    {
+        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+        
+        imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, statusBarFrame.size.height, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
+        imgCoachMark.image = [UIImage imageNamed:@"types-coachmark.png"];
+        [[UIApplication sharedApplication].keyWindow addSubview:imgCoachMark];
+        
+        [defaults setValue:[NSNumber numberWithBool:true] forKey:KSLimoTypeDefaultKey];
+        [defaults synchronize];
+    }
+}
+
+-(void) removeCochMarkImage
+{
+    if(imgCoachMark)
+    {
+        [imgCoachMark removeFromSuperview];
+        imgCoachMark = nil;
+    }
 }
 
 #pragma mark - Limo Type Segment Control
@@ -275,10 +323,13 @@
 
 - (IBAction)onSegmentVehicleTypeChange
 {
+    [self showLimoTypeCoachMarksIfNeeded];
+    
     if(segmentVehicleType.selectedSegmentIndex == 0)
         [self updateUIForTaxi];
     else
         [self updateUIForLimo];
+    
     [self updateTaxisInCurrentRegion];
     [_tableView reloadData];
     
@@ -1316,6 +1367,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
 
     //[self.imgDestinationHelp setHidden:TRUE];
     [self hideHintView:TRUE];
+    [self removeCochMarkImage];
 }
 
 - (IBAction) btnShowDestinationTapped:(id)sender

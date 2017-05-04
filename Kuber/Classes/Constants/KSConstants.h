@@ -22,6 +22,9 @@ extern NSString * const KSBookingTypeCurrent;
 
 extern NSInteger const phoneNumberLength;
 
+extern NSString * const KSTaxiLimoDefaultKey;
+extern NSString * const KSLimoTypeDefaultKey;
+
 typedef NS_OPTIONS(NSUInteger, KSAPIStatus) {
     KSAPIStatusUnknownError             = 0,    // Generic Error
     KSAPIStatusSuccess                  = 1,    // Success Case

@@ -34,18 +34,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    NSString *token = [defaults valueForKey:@"KSDeviceToken"];
-//    if(token != nil)
-//    {
-//        DLog(@"old instalation");
-//    }
-//    else
-//    {
-//        DLog(@"new instalaton")
-//    }
-
-    
+    //Limo coachmarks will display only when application run first time after update to version 1.4
+    [self setFlagForLimoCoachMarks];
     
    //[self testFunc];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
@@ -84,6 +74,35 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 
     return YES;
+}
+
+-(void) setFlagForLimoCoachMarks
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults valueForKey:@"KSDeviceToken"];
+    if(token != nil)
+    {
+        //Application is not new installation, KSDeviceToken have nothing to do with limocoachmarks, just using it to identify if applicaiton is fresh install(not update) or old one.
+        if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
+        {
+            //User havn't view Taxi limo coachmark.
+            [defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
+            [defaults synchronize];
+        }
+        
+        if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
+        {
+            //User havn't view Taxi limo coachmark.
+            [defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
+            [defaults synchronize];
+        }
+    }
+    else
+    {
+        [defaults setValue:[NSNumber numberWithBool:true] forKey:KSTaxiLimoDefaultKey];
+        [defaults setValue:[NSNumber numberWithBool:true] forKey:KSLimoTypeDefaultKey];
+        [defaults synchronize];
+    }
 }
 
 

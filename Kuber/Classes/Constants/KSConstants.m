@@ -21,3 +21,7 @@ NSString * const KSPickerIdForDropoffAddress = @"KSPickerIdForDropoffAddress";
 NSString * const KSBookingTypeCurrent = @"current";
 
 NSInteger const phoneNumberLength = 8;
+
+NSString * const KSTaxiLimoDefaultKey = @"TaxiLimoDefaultKey";
+NSString * const KSLimoTypeDefaultKey = @"LimoTypeDefaultKey";
+
