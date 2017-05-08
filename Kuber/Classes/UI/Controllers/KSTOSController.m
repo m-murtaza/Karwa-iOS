@@ -8,7 +8,7 @@
 
 #import "KSTOSController.h"
 
-#define TOS_URL     @"http://www.karwasolutions.com/tos.htm"
+//#define TOS_URL     @"http://www.karwasolutions.com/tos.htm"
 
 
 @interface KSTOSController () <UIWebViewDelegate>
@@ -30,18 +30,23 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     [self loadWebView];
     [KSGoogleAnalytics trackPage:@"Terms of Services"];
-    self.navigationItem.title = @"Terms of Services";
+    if(_navTitle != nil)
+        self.navigationItem.title = @"Terms of Services";
 }
 
 #pragma mark - Private Functions
 
 -(void) loadWebView
 {
-    self.webView.delegate = self;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:TOS_URL]];
-    [self.webView loadRequest:request];
+    if(_url != nil)
+    {
+        self.webView.delegate = self;
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_url]];
+        [self.webView loadRequest:request];
+    }
 }
 
 
