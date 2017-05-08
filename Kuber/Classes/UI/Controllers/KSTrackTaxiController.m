@@ -112,7 +112,7 @@
 {
     self.mapView.delegate = self;
     self.mapView.scrollEnabled = YES;
-    //self.mapView.zoomEnabled = YES;
+    self.mapView.zoomEnabled = YES;
     [self.mapView setShowsUserLocation: YES];
     
     [self addPickupAnnotation];
