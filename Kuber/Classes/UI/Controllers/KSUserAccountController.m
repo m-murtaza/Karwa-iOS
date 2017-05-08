@@ -8,6 +8,7 @@
 
 #import "KSUserAccountController.h"
 #import "KSAccountEditController.h"
+#import "KSConfirmationAlert.h"
 
 @interface KSUserAccountController ()
 
@@ -92,12 +93,13 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if(indexPath.row == 1){
+    if(indexPath.row == 0){
         
         [self performSegueWithIdentifier:@"segueSettingsToChangePassword" sender:self];
     }
     else {
-        [self performSegueWithIdentifier:@"segueSettingsToPartners" sender:self];
+        //[self performSegueWithIdentifier:@"segueSettingsToPartners" sender:self];
+        [self logout];
     }
 }
 
@@ -116,23 +118,47 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingActionCellIndentifier"];
     UIImageView *imgView = (UIImageView*) [cell viewWithTag:5001];
     KSLabel *lbl = (KSLabel*) [cell viewWithTag:5002];
+    //UIImageView *img = (UIImageView*) [cell viewWithTag:5003];
     [lbl setFont:[UIFont fontWithName:KSMuseoSans500 size:15]];
     [lbl setTextColor:[UIColor colorFromHexString:@"#1e1e1e"]];
     
     if(indexPath.row == 0)
     {
-        [imgView setImage:[UIImage imageNamed:@"partners.png"]];
-        [lbl setText:@"Partners"];
-    }
-    else{
-        
         [imgView setImage:[UIImage imageNamed:@"password.png"]];
         [lbl setText:@"Change Password"];
+        //[cell viewWithTag:101].hidden = FALSE;
+    }
+    else{
+        [imgView setImage:[UIImage imageNamed:@"logout-ico-idle.png"]];
+        [lbl setText:@"Logout"];
+        
+        [cell viewWithTag:5003].hidden = TRUE;
     }
     
     return cell;
+}
+
+#pragma mark - Logout
+
+-(void) logout
+{
+    KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+        [self logoutThisUser];
+    }];
     
-    
+    KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
+        //[self.revealViewController revealToggleAnimated:YES];
+    }];
+    [KSConfirmationAlert showWithTitle:nil
+                               message:@"Are you sure you want to logout?"
+                              okAction:okAction
+                          cancelAction:cancelAction];
+}
+
+-(void) logoutThisUser
+{
+    [KSDAL logoutUser];
+    [((AppDelegate*)[UIApplication sharedApplication].delegate) showLoginScreen];
 }
 
 @end

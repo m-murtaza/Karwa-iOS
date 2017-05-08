@@ -1,17 +1,16 @@
 //
-//  KSTOSController.m
+//  KSFareViewController.m
 //  Kuber
 //
-//  Created by Asif Kamboh on 11/15/15.
-//  Copyright © 2015 Karwa Solutions. All rights reserved.
+//  Created by Muhammad Usman on 5/8/17.
+//  Copyright © 2017 Karwa Solutions. All rights reserved.
 //
 
-#import "KSTOSController.h"
+#import "KSFareViewController.h"
 
-#define TOS_URL     @"http://www.karwasolutions.com/tos.htm"
+#define Fare_URL     @"http://www.karwatechnologies.com/fare.htm"
 
-
-@interface KSTOSController () <UIWebViewDelegate>
+@interface KSFareViewController () <UIWebViewDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -19,21 +18,24 @@
 
 @end
 
+@implementation KSFareViewController
 
-@implementation KSTOSController
-
--(void) viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    //[self loadWebView];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
+    
     [self loadWebView];
-    [KSGoogleAnalytics trackPage:@"Terms of Services"];
-    self.navigationItem.title = @"Terms of Services";
+    [KSGoogleAnalytics trackPage:@"Fare"];
+    self.navigationItem.title = @"Fare";
 }
 
 #pragma mark - Private Functions
@@ -41,7 +43,7 @@
 -(void) loadWebView
 {
     self.webView.delegate = self;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:TOS_URL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:Fare_URL]];
     [self.webView loadRequest:request];
 }
 
@@ -60,5 +62,4 @@
 {
     [hud hide:YES];
 }
-
 @end

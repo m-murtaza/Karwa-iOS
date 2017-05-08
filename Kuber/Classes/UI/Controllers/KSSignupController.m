@@ -27,7 +27,7 @@
 
 
 - (IBAction)onClickSignup:(id)sender;
-- (IBAction)btnTosTapped:(id)sender;
+//- (IBAction)btnTosTapped:(id)sender;
 
 @end
 
@@ -302,17 +302,7 @@
     [self.txtPassword resignFirstResponder];
     [self.txtConfirmPassword resignFirstResponder];
     
-    if ([segue.identifier isEqualToString:@"segueSignupToWebView"]) {
-        
-        KSTOSController *ksTOSView = (KSTOSController*) segue.destinationViewController;
-        ksTOSView.title = @"Term of Service";
-        ksTOSView.url = @"http://www.karwasolutions.com/tos.htm";
-    }
 }
 
-- (IBAction)btnTosTapped:(id)sender
-{
-    [self performSegueWithIdentifier:@"segueSignupToWebView" sender:self];
-}
 
 @end

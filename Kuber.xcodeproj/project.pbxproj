@@ -25,6 +25,7 @@
 		1802BC811EBF3B0A00DBAC1C /* FareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802BC801EBF3B0A00DBAC1C /* FareViewController.m */; };
 		1802BC861EC0391600DBAC1C /* fare-ico-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1802BC841EC0391600DBAC1C /* fare-ico-active@2x.png */; };
 		1802BC871EC0391600DBAC1C /* fare-ico-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1802BC851EC0391600DBAC1C /* fare-ico-idle@2x.png */; };
+		1802BC8A1EC0651500DBAC1C /* KSFareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802BC891EC0651500DBAC1C /* KSFareViewController.m */; };
 		180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */; };
 		181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 181029FA1BF1C7AD00242CCD /* KSLocation.m */; };
 		18102A021BF1E45700242CCD /* cancelled-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */; };
@@ -396,6 +397,8 @@
 		1802BC801EBF3B0A00DBAC1C /* FareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FareViewController.m; sourceTree = "<group>"; };
 		1802BC841EC0391600DBAC1C /* fare-ico-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fare-ico-active@2x.png"; path = "Menu/fare-ico-active@2x.png"; sourceTree = "<group>"; };
 		1802BC851EC0391600DBAC1C /* fare-ico-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fare-ico-idle@2x.png"; path = "Menu/fare-ico-idle@2x.png"; sourceTree = "<group>"; };
+		1802BC881EC0651500DBAC1C /* KSFareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSFareViewController.h; sourceTree = "<group>"; };
+		1802BC891EC0651500DBAC1C /* KSFareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSFareViewController.m; sourceTree = "<group>"; };
 		180B77621B8C5FDF0008930F /* KSDAL+TripIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+TripIssue.h"; sourceTree = "<group>"; };
 		180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+TripIssue.m"; sourceTree = "<group>"; };
 		181029F91BF1C7AD00242CCD /* KSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocation.h; sourceTree = "<group>"; };
@@ -1611,6 +1614,8 @@
 				1848E7EF1BF0AF3E00C2B2A3 /* KSRateYourTripController.m */,
 				1802BC7F1EBF3B0A00DBAC1C /* FareViewController.h */,
 				1802BC801EBF3B0A00DBAC1C /* FareViewController.m */,
+				1802BC881EC0651500DBAC1C /* KSFareViewController.h */,
+				1802BC891EC0651500DBAC1C /* KSFareViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2265,6 +2270,7 @@
 				18A762871AFF785B00B9ED32 /* Kuber.xcdatamodeld in Sources */,
 				18481B841B0B6AFF00855F54 /* NSManagedObject+KSExtended.m in Sources */,
 				185E3BFE1B70779700909B20 /* KSDAL+Location.m in Sources */,
+				1802BC8A1EC0651500DBAC1C /* KSFareViewController.m in Sources */,
 				184D22971BA5ADF6007CB740 /* KSPlaceHolderTextView.m in Sources */,
 				189490251EB0A38B00DB2104 /* UIImage+RotationMethods.m in Sources */,
 				187FAF441B1EB6BA007FCB72 /* KSBookingConfirmationController.m in Sources */,

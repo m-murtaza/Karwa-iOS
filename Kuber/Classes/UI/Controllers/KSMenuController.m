@@ -145,59 +145,58 @@
         KSBookingHistoryController * pendingBookings = [navController.viewControllers firstObject];
         pendingBookings.tripStatus = KSTripStatusCompletedNotRated;
     }
-    else if ([segue.identifier isEqualToString:@"SegueMenuFareToTOS"])
-    {
-        UINavigationController *navController = (UINavigationController*) segue.destinationViewController;
-        
-        
-        KSTOSController *tosView = (KSTOSController*) [navController.viewControllers firstObject];
-        tosView.url = @"http://www.karwatechnologies.com/fare.htm";
-        tosView.title = @"Fare";
-    }
+//    else if ([segue.identifier isEqualToString:@"SegueMenuFareToTOS"])
+//    {
+//        UINavigationController *navController = (UINavigationController*) segue.destinationViewController;
+//        
+//        
+//        KSTOSController *tosView = (KSTOSController*) [navController.viewControllers firstObject];
+//        
+//    }
 }
 
-#pragma mark -
-#pragma mark - Event handlers
+//#pragma mark -
+//#pragma mark - Event handlers
 
-- (void)onClickLogout:(id)sender {
-    
-    KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-        [self setButtonState:sender];
-        KSMenuButton *btn = (KSMenuButton*)sender;
-        [btn setSelected:FALSE];
-        [self logoutThisUser];
-        
-        /*NSArray *arr = self.btnBookATaxi.superview.subviews;
-        
-        
-        for (id btn in arr) {
-            if ([btn isKindOfClass:[UIButton class]] ) {
-                KSMenuButton *b = (KSMenuButton*)btn;
-                [b setSelected:FALSE];
-            }
-        }*/
-        [self deSelectAll];
-    }];
-    
-    KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
-        [self.revealViewController revealToggleAnimated:YES];
-    }];
-    [KSConfirmationAlert showWithTitle:nil
-                               message:@"Are you sure you want to logout?"
-                              okAction:okAction
-                          cancelAction:cancelAction];
-}
-
-#pragma mark -
-#pragma mark - Helper methods
-
-- (void)logoutThisUser {
-
-    [KSDAL logoutUser];
-    UIViewController *controller = [UIStoryboard loginRootController];
-    [self.revealViewController setFrontViewController:controller animated:YES];
-    [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
-    
-}
+//- (void)onClickLogout:(id)sender {
+//    
+//    KSConfirmationAlertAction *okAction = [KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+//        [self setButtonState:sender];
+//        KSMenuButton *btn = (KSMenuButton*)sender;
+//        [btn setSelected:FALSE];
+//        [self logoutThisUser];
+//        
+//        /*NSArray *arr = self.btnBookATaxi.superview.subviews;
+//        
+//        
+//        for (id btn in arr) {
+//            if ([btn isKindOfClass:[UIButton class]] ) {
+//                KSMenuButton *b = (KSMenuButton*)btn;
+//                [b setSelected:FALSE];
+//            }
+//        }*/
+//        [self deSelectAll];
+//    }];
+//    
+//    KSConfirmationAlertAction *cancelAction = [KSConfirmationAlertAction actionWithTitle:@"Cancel" handler:^(KSConfirmationAlertAction *action) {
+//        [self.revealViewController revealToggleAnimated:YES];
+//    }];
+//    [KSConfirmationAlert showWithTitle:nil
+//                               message:@"Are you sure you want to logout?"
+//                              okAction:okAction
+//                          cancelAction:cancelAction];
+//}
+//
+//#pragma mark -
+//#pragma mark - Helper methods
+//
+//- (void)logoutThisUser {
+//
+//    [KSDAL logoutUser];
+//    UIViewController *controller = [UIStoryboard loginRootController];
+//    [self.revealViewController setFrontViewController:controller animated:YES];
+//    [self.revealViewController setFrontViewPosition:FrontViewPositionLeft animated:YES];
+//    
+//}
 
 @end
