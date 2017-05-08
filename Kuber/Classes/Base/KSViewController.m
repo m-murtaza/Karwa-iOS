@@ -69,7 +69,7 @@
     }
     else
     {
-        [self APICallFailAction:status];
+        [KSAlert show:KSStringFromAPIStatus(status)];
     }
 }
 
