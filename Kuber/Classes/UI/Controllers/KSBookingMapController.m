@@ -1078,6 +1078,11 @@
     }
 }
 
+- (void)mapViewDidStopLocatingUser:(MKMapView *)mapView
+{
+    [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     // If the annotation is the user location, just return nil.
@@ -1410,7 +1415,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         //mapLoadForFirstTime = TRUE;
         self.mapView.showsUserLocation = YES;
-        [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
+        //--[self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
     }
     
 }
