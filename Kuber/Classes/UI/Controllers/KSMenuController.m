@@ -11,6 +11,7 @@
 #import "SWRevealViewController.h"
 #import "KSConfirmationAlert.h"
 #import "KSBookingHistoryController.h"
+#import "KSTOSController.h"
 #import "KSMenuButton.h"
 
 @interface KSMenuController ()
@@ -20,6 +21,7 @@
 @property (nonatomic, weak) NSArray *btnArray;
 
 @property (nonatomic, weak) IBOutlet KSMenuButton *btnBookATaxi;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *constraintTopSpace;
 
 
 - (IBAction)onClickLogout:(id)sender;
@@ -43,6 +45,10 @@
                                              selector:@selector(setBookingSelected)
                                                  name:@"KSSetBookingSelected"
                                                object:nil];
+    
+    
+    if(IS_IPHONE_5)
+        _constraintTopSpace.constant = 50;
 }
 
 
@@ -139,7 +145,15 @@
         KSBookingHistoryController * pendingBookings = [navController.viewControllers firstObject];
         pendingBookings.tripStatus = KSTripStatusCompletedNotRated;
     }
-
+    else if ([segue.identifier isEqualToString:@"SegueMenuFareToTOS"])
+    {
+        UINavigationController *navController = (UINavigationController*) segue.destinationViewController;
+        
+        
+        KSTOSController *tosView = (KSTOSController*) [navController.viewControllers firstObject];
+        tosView.url = @"http://www.karwatechnologies.com/fare.htm";
+        tosView.title = @"Fare";
+    }
 }
 
 #pragma mark -

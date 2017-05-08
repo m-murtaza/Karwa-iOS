@@ -22,9 +22,9 @@
 		1801E35C1B15B1CC00A8983E /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E3561B15B1CC00A8983E /* MLPAutoCompleteTextField.m */; };
 		1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E35B1B15B1CC00A8983E /* NSString+Levenshtein.m */; };
 		1801E3661B16293900A8983E /* KSReadOnlyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1801E3651B16293900A8983E /* KSReadOnlyTextField.m */; };
-		1802BC7D1EBF398000DBAC1C /* fare-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1802BC7B1EBF398000DBAC1C /* fare-active@2x.png */; };
 		1802BC811EBF3B0A00DBAC1C /* FareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802BC801EBF3B0A00DBAC1C /* FareViewController.m */; };
-		1802BC831EBF4C6C00DBAC1C /* fare-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1802BC821EBF4C6C00DBAC1C /* fare-idle@2x.png */; };
+		1802BC861EC0391600DBAC1C /* fare-ico-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1802BC841EC0391600DBAC1C /* fare-ico-active@2x.png */; };
+		1802BC871EC0391600DBAC1C /* fare-ico-idle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1802BC851EC0391600DBAC1C /* fare-ico-idle@2x.png */; };
 		180B77641B8C5FDF0008930F /* KSDAL+TripIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */; };
 		181029FB1BF1C7AD00242CCD /* KSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 181029FA1BF1C7AD00242CCD /* KSLocation.m */; };
 		18102A021BF1E45700242CCD /* cancelled-tag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 181029FD1BF1E45700242CCD /* cancelled-tag@2x.png */; };
@@ -392,10 +392,10 @@
 		1801E35B1B15B1CC00A8983E /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		1801E3641B16293900A8983E /* KSReadOnlyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSReadOnlyTextField.h; sourceTree = "<group>"; };
 		1801E3651B16293900A8983E /* KSReadOnlyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSReadOnlyTextField.m; sourceTree = "<group>"; };
-		1802BC7B1EBF398000DBAC1C /* fare-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fare-active@2x.png"; path = "Menu/fare-active@2x.png"; sourceTree = "<group>"; };
 		1802BC7F1EBF3B0A00DBAC1C /* FareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FareViewController.h; sourceTree = "<group>"; };
 		1802BC801EBF3B0A00DBAC1C /* FareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FareViewController.m; sourceTree = "<group>"; };
-		1802BC821EBF4C6C00DBAC1C /* fare-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fare-idle@2x.png"; path = "Menu/fare-idle@2x.png"; sourceTree = "<group>"; };
+		1802BC841EC0391600DBAC1C /* fare-ico-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fare-ico-active@2x.png"; path = "Menu/fare-ico-active@2x.png"; sourceTree = "<group>"; };
+		1802BC851EC0391600DBAC1C /* fare-ico-idle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fare-ico-idle@2x.png"; path = "Menu/fare-ico-idle@2x.png"; sourceTree = "<group>"; };
 		180B77621B8C5FDF0008930F /* KSDAL+TripIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "KSDAL+TripIssue.h"; sourceTree = "<group>"; };
 		180B77631B8C5FDF0008930F /* KSDAL+TripIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "KSDAL+TripIssue.m"; sourceTree = "<group>"; };
 		181029F91BF1C7AD00242CCD /* KSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSLocation.h; sourceTree = "<group>"; };
@@ -1152,8 +1152,8 @@
 		1852D09E1BA31022007E9D06 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				1802BC821EBF4C6C00DBAC1C /* fare-idle@2x.png */,
-				1802BC7B1EBF398000DBAC1C /* fare-active@2x.png */,
+				1802BC841EC0391600DBAC1C /* fare-ico-active@2x.png */,
+				1802BC851EC0391600DBAC1C /* fare-ico-idle@2x.png */,
 				1829FC551C071582007B9A68 /* avatar_menu@2x.png */,
 				184D223D1BA55E64007CB740 /* bookataxi-active@2x.png */,
 				184D223E1BA55E64007CB740 /* bookataxi-ico-active@2x.png */,
@@ -1851,6 +1851,7 @@
 				1880C52A1B7877ED004F0188 /* menu_logout_selected@2x.png in Resources */,
 				18A7628D1AFF785B00B9ED32 /* Main.storyboard in Resources */,
 				1880C5401B7877ED004F0188 /* StarFullLarge@2x.png in Resources */,
+				1802BC861EC0391600DBAC1C /* fare-ico-active@2x.png in Resources */,
 				189490271EB1C9A100DB2104 /* 1PxTransparent@2x.png in Resources */,
 				189490151EA8C47600DB2104 /* history-standard-limo-ico@2x.png in Resources */,
 				18102A1A1BF319D600242CCD /* scheduled-tag@2x.png in Resources */,
@@ -1907,7 +1908,6 @@
 				184D22591BA55E64007CB740 /* bookataxi-active@2x.png in Resources */,
 				1842460D1BBD0BCF001C780A /* uparrow-pressed@2x.png in Resources */,
 				1894902F1EB9C42700DB2104 /* types-coachmark@2x.png in Resources */,
-				1802BC7D1EBF398000DBAC1C /* fare-active@2x.png in Resources */,
 				184245F51BBCF997001C780A /* MuseoSans_500.otf in Resources */,
 				18F539331E924C0C001093B5 /* limo-standard-icon@2x.png in Resources */,
 				184CF9261BA03F1D0025B883 /* Booking-details-top-view@2x.png in Resources */,
@@ -1940,6 +1940,7 @@
 				18102A051BF1E45700242CCD /* upcoming-tag@2x.png in Resources */,
 				184D22631BA55E64007CB740 /* favorites-active@2x.png in Resources */,
 				184CF9131BA02A080025B883 /* forward-arrow@2x.png in Resources */,
+				1802BC871EC0391600DBAC1C /* fare-ico-idle@2x.png in Resources */,
 				184D226B1BA55E64007CB740 /* menu-sep@2x.png in Resources */,
 				1819A4CA1BC3F18F00D7AB88 /* cancel@2x.png in Resources */,
 				1880C5331B7877ED004F0188 /* splitter_gray@2x.png in Resources */,
@@ -2056,7 +2057,6 @@
 				184245F41BBCF997001C780A /* MuseoSans_500_Italic.otf in Resources */,
 				1829FC541C06F006007B9A68 /* destination-help-iphone5@2x.png in Resources */,
 				18A2689D1BE7725C006FC942 /* taxiPin@2x.png in Resources */,
-				1802BC831EBF4C6C00DBAC1C /* fare-idle@2x.png in Resources */,
 				184D22941BA58BED007CB740 /* topback-ratings@2x.png in Resources */,
 				18102A231BF31F1400242CCD /* completed-bar@2x.png in Resources */,
 				1880C5481B7877ED004F0188 /* s_place_pin.png in Resources */,
