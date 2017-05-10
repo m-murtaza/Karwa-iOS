@@ -43,6 +43,14 @@
 #define MAX_HINT_DETAIL_COUNT       5
 #define DETAIL_HINT_KEY             @"dtailCountKey"
 
+
+//typedef enum {
+//    kOverlayDestinationHelp,
+//    kOverlayVehicleType,
+//    KOverlayLimoType,
+//    kOverlayAll
+//}OverlyaImageType;
+
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {
   
@@ -190,8 +198,20 @@
 }
 
 #pragma mark - CoachMarks
+-(void) enableAllIntaractiveView :(BOOL) enable
+{
+    self.mapView.userInteractionEnabled = enable;
+    //[self.view endEditing:TRUE];
+    self.tableView.userInteractionEnabled = enable;
+    self.btnCurrentLocaiton.userInteractionEnabled = enable;
+    self.btnDestinationReveal.userInteractionEnabled = enable;
+    self.tableView.userInteractionEnabled = enable;
+    segmentVehicleType.userInteractionEnabled = enable;
+}
+
 -(void) showLimoTaxiCoachMarksIfNeeded
 {
+    [self enableAllIntaractiveView:false];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
@@ -230,8 +250,15 @@
 {
     if(imgCoachMark)
     {
-        [imgCoachMark removeFromSuperview];
-        imgCoachMark = nil;
+        [UIView animateWithDuration:1.0
+                         animations:^{
+                             imgCoachMark.alpha = 0.0;
+                         } completion:^(BOOL finished) {
+                             [imgCoachMark removeFromSuperview];
+                             imgCoachMark = nil;
+                         }];
+        
+        
     }
 }
 
@@ -521,6 +548,7 @@
     {
         self.mapView.userInteractionEnabled = TRUE;
         self.imgDestinationHelp.hidden = TRUE;
+        [self.view endEditing:FALSE];
     }
     else {
         [self.view endEditing:TRUE];
@@ -528,6 +556,23 @@
         self.imgDestinationHelp.hidden = FALSE;
     }
 }
+
+//-(void) showOverlay:(OverlyaImageType)type Show:(BOOL) show
+//{
+//    self.mapView.userInteractionEnabled = !show;
+//    [self.view endEditing:show];
+//    switch (type) {
+//        case kOverlayDestinationHelp:
+//            self.imgDestinationHelp.hidden = !show;
+//            break;
+//        case KOverlayLimoType:
+//            self.
+//        default:
+//            break;
+//    }
+//    
+//    
+//}
 
 -(void) bookTaxi
 {
@@ -1369,8 +1414,9 @@ didAddAnnotationViews:(NSArray *)annotationViews
 #pragma mark - UI Events
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
+    
     //[self.imgDestinationHelp setHidden:TRUE];
+    [self enableAllIntaractiveView:YES];
     [self hideHintView:TRUE];
     [self removeCochMarkImage];
 }

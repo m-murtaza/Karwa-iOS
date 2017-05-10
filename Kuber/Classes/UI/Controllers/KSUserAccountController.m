@@ -16,6 +16,8 @@
 @property (nonatomic, weak) IBOutlet KSLabel *lblName;
 @property (nonatomic, weak) IBOutlet KSLabel *lblEmail;
 @property (nonatomic, weak) IBOutlet KSLabel *lblPhone;
+@property (nonatomic, weak) IBOutlet UILabel *lblVersion;
+
 
 @end
 
@@ -25,6 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addHeadAndFooterToTableView];
+    [self UpdateVersion];
 
 }
 
@@ -43,6 +46,13 @@
 
 #pragma mark -
 #pragma mark - Private Methods
+
+-(void) UpdateVersion
+{
+    NSString * appVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString * appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    _lblVersion.text = [NSString stringWithFormat:@"%@ %@ (%@)",_lblVersion.text,appVersionString,appBuildString];
+}
 
 -(void) loadViewData
 {

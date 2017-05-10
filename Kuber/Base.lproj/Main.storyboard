@@ -3488,14 +3488,27 @@
                                             <outlet property="delegate" destination="GsM-n6-Wew" id="9Ud-og-YXC"/>
                                         </connections>
                                     </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.25" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmc-5d-Dyr">
+                                        <rect key="frame" x="0.0" y="324" width="375" height="21"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="JOA-ic-bhW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Nut-cz-FI1" secondAttribute="trailing" id="8CE-ua-rAs"/>
+                                    <constraint firstItem="zmc-5d-Dyr" firstAttribute="leading" secondItem="cMW-Lq-5ZR" secondAttribute="leading" id="FGC-Er-IKl"/>
                                     <constraint firstItem="Nut-cz-FI1" firstAttribute="leading" secondItem="cMW-Lq-5ZR" secondAttribute="leading" id="Onn-c0-KhM"/>
+                                    <constraint firstAttribute="bottom" secondItem="zmc-5d-Dyr" secondAttribute="bottom" id="TDl-dd-UoV"/>
                                     <constraint firstAttribute="trailing" secondItem="Nut-cz-FI1" secondAttribute="trailing" id="aEx-6c-Qha"/>
                                     <constraint firstAttribute="centerY" secondItem="Nut-cz-FI1" secondAttribute="centerY" id="aOZ-jm-Goa"/>
                                     <constraint firstItem="Nut-cz-FI1" firstAttribute="leading" secondItem="cMW-Lq-5ZR" secondAttribute="leading" id="qbO-Dx-DCs"/>
+                                    <constraint firstAttribute="trailing" secondItem="zmc-5d-Dyr" secondAttribute="trailing" id="xgV-T8-6tN"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
@@ -3586,6 +3599,7 @@
                         <outlet property="lblEmail" destination="A4G-Cr-lQX" id="I21-b3-L6l"/>
                         <outlet property="lblName" destination="HcP-Zg-2dL" id="TPv-FD-Xvl"/>
                         <outlet property="lblPhone" destination="ZTz-ju-vAR" id="Cgs-W1-2za"/>
+                        <outlet property="lblVersion" destination="zmc-5d-Dyr" id="YeA-sr-tuO"/>
                         <outlet property="revealButtonItem" destination="Vpr-lT-LXS" id="JBi-m0-MeU"/>
                         <outlet property="tableView" destination="Nut-cz-FI1" id="wQT-tP-wHx"/>
                         <segue destination="M4l-cN-ZIN" kind="show" identifier="segueSettingsToChangePassword" id="a9h-lX-6Uy"/>
@@ -6880,7 +6894,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="162.5" y="45" width="53" height="21"/>
+                                                    <rect key="frame" x="161.5" y="45" width="53" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
