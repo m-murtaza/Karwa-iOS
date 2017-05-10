@@ -36,12 +36,34 @@
                              type:type
                             limit:MAX_TAXI_ANNOTATIONS
                        completion:^(KSAPIStatus status, NSArray * vehicles) {
-                           NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
-        
-                           for (int counter = 0; counter < vehicles.count; counter++) {
-                               [vehiclesAnnotations addObject:[KSVehicleTrackingAnnotation annotationWithTrackingInfo:[vehicles objectAtIndex:counter]]];
+
+                           if(status == KSAPIStatusSuccess)
+                           {
+                               NSMutableArray *vehiclesAnnotations = [NSMutableArray array];
+            
+                               for (int counter = 0; counter < vehicles.count; counter++) {
+                                   [vehiclesAnnotations addObject:[KSVehicleTrackingAnnotation annotationWithTrackingInfo:[vehicles objectAtIndex:counter]]];
+                               }
+                               completionBlock([NSArray arrayWithArray:vehiclesAnnotations]);
                            }
-                           completionBlock([NSArray arrayWithArray:vehiclesAnnotations]);
+                           else{
+                               if(status == KSAPIStatusInvalidSession || status == KSAPIStatusSessionExpired)
+                               {
+                                   UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                                                  message:KSStringFromAPIStatus(status)
+                                                                                           preferredStyle:UIAlertControllerStyleAlert];
+                                   
+                                   UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                                         handler:^(UIAlertAction * action) {
+                                                                                             
+                                                                                             [((AppDelegate*)[UIApplication sharedApplication].delegate) showLoginScreen];
+                                                                                         }];
+                                   
+                                   [alert addAction:defaultAction];
+                                   AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+                                   [appDelegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
+                               }
+                           }
                        }];
 }
 

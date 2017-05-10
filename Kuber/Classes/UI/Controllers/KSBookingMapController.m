@@ -211,12 +211,13 @@
 
 -(void) showLimoTaxiCoachMarksIfNeeded
 {
-    [self enableAllIntaractiveView:false];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
     if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
+        [self enableAllIntaractiveView:false];
         //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
         imgCoachMark.image = [UIImage imageNamed:@"limo-coachmark.png"];
@@ -235,6 +236,8 @@
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
     if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
     {
+        [self enableAllIntaractiveView:false];
+        
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         
         imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, statusBarFrame.size.height, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
