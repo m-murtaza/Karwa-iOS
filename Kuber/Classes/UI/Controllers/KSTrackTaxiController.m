@@ -21,6 +21,8 @@
 #import "AppUtils.h"
 
 #define UPDATE_TEXT @"Taxi status last updated on %@"
+#define ARRIVE_THRESHOLD 1.0     //For less then 60 second ETA it will show Arrived.
+
 
 @interface KSTrackTaxiController () <MKMapViewDelegate>
 {
@@ -32,6 +34,7 @@
 @property(nonatomic, weak) IBOutlet UILabel *lblDistance;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, weak) IBOutlet UILabel *lblUpdate;
+@property (nonatomic, weak) IBOutlet UILabel *lblAway;
 
 @end
 
@@ -260,7 +263,16 @@
 -(void) updateETA:(NSInteger) eTA
 {
     float minEta = (float)eTA / 60.0;
-    self.lblDistance.text = [NSString stringWithFormat:@"%.0f Min",ceil(minEta)];
+    
+    if(minEta > ARRIVE_THRESHOLD && ![self.lblDistance.text isEqualToString:@"ARRIVED"])
+    {
+        self.lblDistance.text = [NSString stringWithFormat:@"%.0f Min",ceil(minEta)];
+    }
+    else
+    {
+        self.lblDistance.text = @"ARRIVED";
+        self.lblAway.hidden = TRUE;
+    }
 }
 
 -(void) updateDistance:(CLLocationCoordinate2D)passengerLoc TaxiLocation:(CLLocationCoordinate2D)taxiLocaiton

@@ -69,6 +69,7 @@
     CLLocationCoordinate2D dropoffPoint;
     BOOL isMaploaded;
     BOOL isPickupFromMap;                 //Used for analytics
+    BOOL rebookLoading;
     
     KSVehicleType vehicleType;              //This is for service type i.e. limo or taxi
     NYSegmentedControl *segmentVehicleType;     //Vehicletype limo or texi on top navigation bar
@@ -126,9 +127,11 @@
     if (self.repeatTrip) {
         //[self populateOldTripData];
         mapLoadForFirstTime = FALSE;
+        rebookLoading =  YES;
     }
     else{
         mapLoadForFirstTime = TRUE;
+        rebookLoading = NO;
     }
     
     
@@ -1128,7 +1131,14 @@
 
 - (void)mapViewDidStopLocatingUser:(MKMapView *)mapView
 {
-    [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
+    if(!rebookLoading)
+    {
+        [self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
+    }
+    else
+    {
+        rebookLoading = FALSE;
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -1485,9 +1495,29 @@ didAddAnnotationViews:(NSArray *)annotationViews
                                                            label:[NSString stringWithFormat:@"Pickup: %@ | Dest: %@ | Time: %@",self.lblPickupLocaiton.text,self.lblDropoffLocaiton.text,self.txtPickupTime.text]
                                                            value:nil] build]];
     
-    
-    [self showAlertWithHint];
+    if([self allowBooking])
+    {
+        [self showAlertWithHint];
+    }
+    else
+    {
+        [KSAlert show:@"We are fully booked right now. Please try agin some other time."];
+    }
 
+}
+
+-(BOOL) allowBooking
+{
+    if(segmentVehicleType.selectedSegmentIndex != 0)
+    {
+        for (id annotation in self.mapView.annotations)
+        {
+            if ([annotation isKindOfClass:[KSVehicleTrackingAnnotation class]])
+                return TRUE;
+        }
+            return FALSE;
+    }
+    return TRUE;
 }
 
 @end

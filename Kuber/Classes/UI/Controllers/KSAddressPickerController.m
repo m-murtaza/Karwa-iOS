@@ -58,6 +58,8 @@ KSTableViewType;
     
     KSGeoLocation *selectedGeoLocation;
     KSTrip *selectedTrip;
+    
+    BOOL fetchBookmark;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
@@ -80,6 +82,7 @@ KSTableViewType;
     selectedGeoLocation = nil;
     selectedTrip = nil;
     showAllNearBy = NO;
+    fetchBookmark = YES;
 
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = TABLEVIEW_CELL_HEIGHT;
@@ -342,6 +345,20 @@ KSTableViewType;
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"sortOrder" ascending:NO];
     _savedBookmarks = (KSSafeArray*)[arr sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sort, nil]];
     
+    if(_savedBookmarks ==nil || _savedBookmarks.count == 0)
+    {
+        if(fetchBookmark)
+        {
+            fetchBookmark = NO;
+            [KSDAL syncBookmarksWithCompletion:^(KSAPIStatus status, NSArray *bookmarks) {
+               if(status == KSAPIStatusSuccess)
+               {
+                   if(bookmarks != nil && bookmarks.count > 0)
+                       [self loadAllData];
+               }
+            }];
+        }
+    }
 }
 -(void) loadAllData
 {
