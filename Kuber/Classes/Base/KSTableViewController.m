@@ -47,7 +47,7 @@ const NSInteger KSTableViewOverlayTagForNoDataLabel = 10;
         noDataLabel.textColor = [UIColor darkTextColor];
         noDataLabel.backgroundColor = self.tableView.backgroundColor;
         noDataLabel.tag = KSTableViewOverlayTagForNoDataLabel;
-        noDataLabel.backgroundColor = [UIColor orangeColor];
+        noDataLabel.backgroundColor = [UIColor clearColor];
 
         [_overlayView addSubview:noDataLabel];
     }

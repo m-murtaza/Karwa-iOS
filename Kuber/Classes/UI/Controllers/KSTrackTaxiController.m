@@ -121,7 +121,7 @@
     [self addPickupAnnotation];
     [self fetchTaxiInfo:nil];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:11.0f
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:4.0f
                                      target:self selector:@selector(fetchTaxiInfo:) userInfo:nil repeats:YES];
 }
 

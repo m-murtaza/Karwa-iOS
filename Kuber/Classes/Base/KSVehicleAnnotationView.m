@@ -61,7 +61,6 @@
             img = [UIImage imageNamed:@"taxi-icon.png"];
             break;
         case KSStandardLimo:
-        case KSCompactLimo:
             img = [UIImage imageNamed:@"limo-standard-icon.png"];
             break;
         case KSBusinessLimo:
@@ -88,7 +87,6 @@
             self.image = [UIImage imageNamed:@"taxi-icon.png"];
             break;
         case KSStandardLimo:
-        case KSCompactLimo:
             self.image = [UIImage imageNamed:@"limo-standard-icon.png"];
             break;
         case KSBusinessLimo:

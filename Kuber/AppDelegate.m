@@ -210,11 +210,14 @@
 {
      if (appInBackGround) {
 
-         [self navigateToBookingDetailsForTrip:trip];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self navigateToBookingDetailsForTrip:trip];
+         });
      }
      else {
-        
-         [self showAlertForTrip:trip UserInfo:userinfo];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self showAlertForTrip:trip UserInfo:userinfo];
+         });
      }
 
 }
@@ -238,6 +241,8 @@
 
 -(void) showAlertForTrip:(KSTrip*)trip UserInfo:(NSDictionary*)userInfo
 {
+    
+    
     
     NSString *okBtnTitle = @"Details";
     if ([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil) {

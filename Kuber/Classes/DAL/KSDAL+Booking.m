@@ -336,7 +336,7 @@
 
 +(NSPredicate*) limoPredicate
 {
-    return [NSPredicate predicateWithFormat:@"vehicleType ==  %d || vehicleType == %d || vehicleType == %d || vehicleType == %d",KSCompactLimo,KSStandardLimo,KSBusinessLimo,KSLuxuryLimo];
+    return [NSPredicate predicateWithFormat:@"vehicleType == %d || vehicleType == %d || vehicleType == %d",KSStandardLimo,KSBusinessLimo,KSLuxuryLimo];
 }
 
 + (NSArray*) pendingLimoBookingsDB

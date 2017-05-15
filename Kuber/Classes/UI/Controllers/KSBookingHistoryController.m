@@ -217,7 +217,7 @@ const NSInteger KSViewOverlayTagForNoDataLabel = 10;
 
 - (UIView *)overlayView {
     if (!_overlayView) {
-        CGRect frameRect = self.tableView.frame;
+        CGRect frameRect = self.view.frame;
         CGFloat y = 0;
         if (self.navigationController) {
             y = self.navigationController.navigationBar.frame.size.height;

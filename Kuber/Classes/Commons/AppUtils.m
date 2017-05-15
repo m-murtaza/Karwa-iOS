@@ -17,7 +17,6 @@
         case KSLuxuryLimo:
         case KSBusinessLimo:
         case KSStandardLimo:
-        case KSCompactLimo:
             isTaxi = false;
             break;
         case KSCityTaxi:
@@ -63,9 +62,6 @@
             break;
         case KSLuxuryLimo:
             strType = @"Luxury Limo";
-            break;
-        case KSCompactLimo:
-            strType = @"Compact Limo";
             break;
         default:
             strType = @"Taxi";
