@@ -37,7 +37,7 @@ const NSInteger KSTableViewOverlayTagForNoDataLabel = 10;
             y = self.navigationController.navigationBar.frame.size.height;
         }
         _overlayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frameRect.size.width, frameRect.size.height - y)];
-        _overlayView.backgroundColor = [UIColor yellowColor];
+        _overlayView.backgroundColor = [UIColor clearColor];
 
         frameRect = _overlayView.frame;
 
@@ -47,7 +47,6 @@ const NSInteger KSTableViewOverlayTagForNoDataLabel = 10;
         noDataLabel.textColor = [UIColor darkTextColor];
         noDataLabel.backgroundColor = self.tableView.backgroundColor;
         noDataLabel.tag = KSTableViewOverlayTagForNoDataLabel;
-        noDataLabel.backgroundColor = [UIColor clearColor];
 
         [_overlayView addSubview:noDataLabel];
     }
