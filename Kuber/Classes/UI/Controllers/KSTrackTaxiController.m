@@ -178,7 +178,8 @@
         KSVehicleTrackingAnnotation *taxiAnnotation = [KSVehicleTrackingAnnotation annotationWithTrackingInfo:taxiInfo];
         [self.mapView addAnnotation:taxiAnnotation];
         [self updateMapRegion];
-        [self updateETA:taxiInfo.currentETA];
+        [self updateETA];
+        //--++[self updateETA:taxiInfo.currentETA];
     }
     else
     {
@@ -198,7 +199,8 @@
                                         completion:^(BOOL finished) {
                                             if(finished)
                                                 [self updateMapRegion];
-                                                [self updateETA:taxiInfo.currentETA];
+                                            [self updateETA];
+                                                //--++[self updateETA:taxiInfo.currentETA];
 
                                         }];
                                    }];
@@ -206,7 +208,8 @@
         else
         {
             [self updateMapRegion];
-            [self updateETA:taxiInfo.currentETA];
+            [self updateETA];
+            //--++[self updateETA:taxiInfo.currentETA];
         }
     }
 }
@@ -259,20 +262,34 @@
 //        }
 //    }
 //}
-
--(void) updateETA:(NSInteger) eTA
+-(void) updateETA
 {
-    float minEta = (float)eTA / 60.0;
-    
-    if(minEta > ARRIVE_THRESHOLD && ![self.lblDistance.text isEqualToString:@"ARRIVED"])
+    if(![self updateETA:taxiInfo.currentETA])
     {
-        self.lblDistance.text = [NSString stringWithFormat:@"%.0f Min",ceil(minEta)];
+        [self updateDistance:_mapView.userLocation.location.coordinate
+                TaxiLocation:taxiInfo.coordinate];
     }
-    else
+}
+
+
+-(BOOL) updateETA:(NSInteger) eTA
+{
+    if(eTA > 0)
     {
-        self.lblDistance.text = @"ARRIVED";
-        self.lblAway.hidden = TRUE;
+        float minEta = (float)eTA / 60.0;
+        
+        if(minEta > ARRIVE_THRESHOLD && ![self.lblDistance.text isEqualToString:@"ARRIVED"])
+        {
+            self.lblDistance.text = [NSString stringWithFormat:@"%.0f Min",ceil(minEta)];
+        }
+        else
+        {
+            self.lblDistance.text = @"ARRIVED";
+            self.lblAway.hidden = TRUE;
+        }
+        return true;
     }
+    return false;
 }
 
 -(void) updateDistance:(CLLocationCoordinate2D)passengerLoc TaxiLocation:(CLLocationCoordinate2D)taxiLocaiton
@@ -283,7 +300,9 @@
     CLLocationDistance meters = [passenger distanceFromLocation:taxi];
     
     if (meters > 1000) {
-        self.lblDistance.text = [NSString stringWithFormat:@"%0.0f KM",meters/1000];
+        CLLocationDistance KM = meters /1000;
+        if(KM < 100)
+            self.lblDistance.text = [NSString stringWithFormat:@"%0.0f KM",meters/1000];
     }
     else {
         self.lblDistance.text = [NSString stringWithFormat:@"%0.0f M",meters];
