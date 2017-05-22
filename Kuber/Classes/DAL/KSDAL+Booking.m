@@ -449,7 +449,7 @@
     KSTripRating *tripRating = trip.rating;
     if (!tripRating) {
         tripRating = [KSTripRating MR_createEntity];
-        tripRating.trip = trip;
+        //tripRating.trip = trip;
     }
     return tripRating;
 }
@@ -482,7 +482,7 @@
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if (KSAPIStatusSuccess == status) {
 
-            trip.rating = rating;
+            [trip MR_inThreadContext].rating = [rating MR_inThreadContext];
             [KSDBManager saveContext:^{
                 completionBlock(status, nil);
             }];

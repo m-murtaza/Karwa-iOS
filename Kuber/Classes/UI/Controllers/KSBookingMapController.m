@@ -416,16 +416,34 @@
 
 -(void) sendAnalyticsForBooking
 {
-    if(tripInfo != nil)
-    {
-        NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
-        NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
-        
-        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
-                                                              action:bookingType
-                                                               label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-                                                               value:nil] build]];
+    @try {
+    
+        if(tripInfo != nil)
+        {
+            NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
+            NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
+            
+            NSString *userPhoneNumber = [[KSDAL loggedInUser] phone];
+            
+            //NSDictionary *tripDetails =
+            
+            NSDictionary *tripDetails = @{
+                                         @"TripInfo" : tripInfo,
+                                         @"UserPhoneNumber" : userPhoneNumber,
+                                         @"TaxiLimoOption" : [NSString stringWithFormat:@"%lu", (unsigned long)segmentVehicleType.selectedSegmentIndex],
+                                         @"LimoType" : (segmentVehicleType.selectedSegmentIndex == 1) ?[NSString stringWithFormat:@"%lu", (unsigned long)segmantLimoType.selectedSegmentIndex] : @"-1"
+                                         };
+            
+            //[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
+                                                                  action:bookingType
+                                                                   label:[NSString stringWithFormat:@"%@",tripDetails]
+                                                                   value:nil] build]];
+        }
+    } @catch (NSException *exception) {
+        DLog(@"exception: %@",exception);
     }
 }
 
@@ -899,6 +917,7 @@
             [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
             [self.mapDisableView setAlpha:0.6];
+            self.mapView.userInteractionEnabled = FALSE;
         } completion:^(BOOL finished) {
             if (animated) {
                 //[self.mapDisableView setHidden:FALSE];
@@ -934,6 +953,7 @@
             [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
             [self.mapDisableView setAlpha:0.0];
+            self.mapView.userInteractionEnabled = TRUE;
         } completion:^(BOOL finished) {
             if (animated) {
                 //[self.mapDisableView setHidden:TRUE];
@@ -1428,6 +1448,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
+    [self hideDropOff:TRUE];
     //[self.imgDestinationHelp setHidden:TRUE];
     [self enableAllIntaractiveView:YES];
     [self hideHintView:TRUE];

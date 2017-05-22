@@ -436,8 +436,7 @@ KSTableViewType;
                                             longitude:currentLocation.coordinate.longitude
                                                radius:80.0 completion:^(KSAPIStatus status, id response) {
                                                    if (status == KSAPIStatusSuccess) {
-
-                                                           [self hideLoadingView];
+                                                       
                                                            [self loadAllNearByFromLocalDB];
                                                            [self reloadTableData];
 
@@ -445,6 +444,7 @@ KSTableViewType;
                                                    else{
                                                        DLog(@"Error Fetching nearby location %lu",(unsigned long)status);
                                                    }
+                                                   [self hideLoadingView];
                                                }];
 }
 
@@ -694,84 +694,116 @@ KSTableViewType;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- 
-    static NSString * const nearbyCellReuseId = @"KSGeoLocationCellId";
-    static NSString * const bookmarkCellReuseId = @"KSBoomarkCellId";
-    static NSString * const recentCellReuseId = @"KSRecentCellId";
-    static NSString * const loadMoreCellReuseId = @"LoadMoreCellIdentifier";
+    @try {
+        static NSString * const nearbyCellReuseId = @"KSGeoLocationCellId";
+        static NSString * const bookmarkCellReuseId = @"KSBoomarkCellId";
+        static NSString * const recentCellReuseId = @"KSRecentCellId";
+        static NSString * const loadMoreCellReuseId = @"LoadMoreCellIdentifier";
 
-    NSString *cellReuseId;
-    KSButtonCell *cell = nil;
-    id cellData;
-    
-    BOOL isSearching = self.searchField.text.length;
-    
-    if (indexPath.section == idxNearSection) {
-        cellReuseId = nearbyCellReuseId;
-        if (!showAllNearBy && indexPath.row == LOADING_CELL_IDX) {
-
-             UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
-            return loadMoreCell;
-        }
+        NSString *cellReuseId;
+        KSButtonCell *cell = nil;
+        id cellData;
         
-        if (isSearching) {
-            
-            cellData = [_searchLocations objectAtIndex:indexPath.row];
-        }
-        else {
-            
-            cellData = [_nearestLocations objectAtIndex:indexPath.row];
-        }
-    }
-    else if(indexPath.section == idxFavSection){
-        cellReuseId = bookmarkCellReuseId;
-        if (!showAllFav && indexPath.row == LOADING_CELL_IDX) {
-            
-            UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
-            return loadMoreCell;
-        }
-        if (isSearching) {
-            cellData = [_searchSavedBookmarks objectAtIndex:indexPath.row];
-        }
-        else {
-            cellData = [_savedBookmarks objectAtIndex:indexPath.row];
-        }
-    }
-    else {
+        BOOL isSearching = self.searchField.text.length;
         
-        if (indexPath.row <= _recentBookings.count)
-            cellReuseId = recentCellReuseId;
-        else
+        if (indexPath.section == idxNearSection) {
             cellReuseId = nearbyCellReuseId;
-        if (!showAllRecent && indexPath.row == LOADING_CELL_IDX) {
+            if (!showAllNearBy && indexPath.row == LOADING_CELL_IDX) {
+
+                 UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
+                return loadMoreCell;
+            }
             
-            UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
-            return loadMoreCell;
-        }
-        
-        if (isSearching) {
-            if (indexPath.row < _searchRecentBookings.count)
-                cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
-            else
-                cellData = [_searchRecentBookingForDest objectAtIndex:indexPath.row - _searchRecentBookings.count];
-        }
-        else {
-            
-            if (indexPath.row < _recentBookings.count) {
-                cellData = [_recentBookings objectAtIndex:indexPath.row];
+            if (isSearching) {
+                
+                cellData = [_searchLocations objectAtIndex:indexPath.row];
             }
             else {
-                cellData = [_recentBookingsForDestination objectAtIndex:indexPath.row - _recentBookings.count];
+                
+                cellData = [_nearestLocations objectAtIndex:indexPath.row];
+            }
+        }
+        else if(indexPath.section == idxFavSection){
+            cellReuseId = bookmarkCellReuseId;
+            if (!showAllFav && indexPath.row == LOADING_CELL_IDX) {
+                
+                UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
+                return loadMoreCell;
+            }
+            if (isSearching) {
+                cellData = [_searchSavedBookmarks objectAtIndex:indexPath.row];
+            }
+            else {
+                cellData = [_savedBookmarks objectAtIndex:indexPath.row];
+            }
+        }
+        else {
+            
+            if (indexPath.row <= _recentBookings.count)
+                cellReuseId = recentCellReuseId;
+            else
+                cellReuseId = nearbyCellReuseId;
+            if (!showAllRecent && indexPath.row == LOADING_CELL_IDX) {
+                
+                UITableViewCell *loadMoreCell =[tableView dequeueReusableCellWithIdentifier:loadMoreCellReuseId];
+                return loadMoreCell;
             }
             
+            if (isSearching) {
+                if (indexPath.row < _searchRecentBookings.count)
+                    cellData = [_searchRecentBookings objectAtIndex:indexPath.row];
+                else
+                    cellData = [_searchRecentBookingForDest objectAtIndex:indexPath.row - _searchRecentBookings.count];
+            }
+            else {
+                
+                if (indexPath.row < _recentBookings.count) {
+                    cellData = [_recentBookings objectAtIndex:indexPath.row];
+                }
+                else {
+                    cellData = [_recentBookingsForDestination objectAtIndex:indexPath.row - _recentBookings.count];
+                }
+                
+            }
         }
-    }
 
-    cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
-    
-    cell.cellData = cellData;
-    
-    return cell;
+        cell = (KSButtonCell *)[tableView dequeueReusableCellWithIdentifier:cellReuseId forIndexPath:indexPath];
+        
+        cell.cellData = cellData;
+        
+        return cell;
+    } @catch (NSException *exception) {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Exception"     // Event category (required)
+                                                              action:@"Address Picker cell for row at indexpath"  // Event action (required)
+                                                               label:[NSString stringWithFormat:@"%@",exception]         // Event label
+                                                               value:nil] build]];    // Event value
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Errorcell"];
+        UIAlertController * alert = [UIAlertController
+                                     alertControllerWithTitle:@"Error"
+                                     message:@"We are facing some technical difficulties, Please select the address again."
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        //Add Buttons
+        
+        UIAlertAction* yesButton = [UIAlertAction
+                                    actionWithTitle:@"OK"
+                                    style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action) {
+                                        //Handle your yes please button action here
+                                        [self.navigationController popViewControllerAnimated:YES];
+                                    }];
+        
+        
+        
+        //Add your buttons to alert controller
+        
+        [alert addAction:yesButton];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        return cell;
+    }
 }
 
 
