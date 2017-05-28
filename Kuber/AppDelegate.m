@@ -245,9 +245,6 @@
 
 -(void) showAlertForTrip:(KSTrip*)trip UserInfo:(NSDictionary*)userInfo
 {
-    
-    
-    
     NSString *okBtnTitle = @"Details";
     if ([trip.status integerValue] == KSTripStatusComplete && trip.rating == nil) {
         okBtnTitle = @"Rate Trip";
