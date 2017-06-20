@@ -1,0 +1,459 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
+		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
+		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
+		181344A11EF68671006E734A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181344A01EF68671006E734A /* Assets.xcassets */; };
+		181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181344A21EF68671006E734A /* LaunchScreen.storyboard */; };
+		181344AF1EF7B362006E734A /* KSWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344AE1EF7B362006E734A /* KSWebClient.swift */; };
+		181344B21EF7BC94006E734A /* KSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KSConfiguration.swift */; };
+		181344B61EF7E083006E734A /* KSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B51EF7E083006E734A /* KSConstants.swift */; };
+		181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KSAppSessionInfo.swift */; };
+		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1813449E1EF68671006E734A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		181344A01EF68671006E734A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		181344A31EF68671006E734A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		181344A51EF68671006E734A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		181344AE1EF7B362006E734A /* KSWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSWebClient.swift; path = Classes/HelperClasses/Network/KSWebClient.swift; sourceTree = "<group>"; };
+		181344B11EF7BC94006E734A /* KSConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSConfiguration.swift; path = Classes/HelperClasses/Configuration/KSConfiguration.swift; sourceTree = "<group>"; };
+		181344B51EF7E083006E734A /* KSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSConstants.swift; path = Classes/Common/Constants/KSConstants.swift; sourceTree = "<group>"; };
+		181344B81EF9171F006E734A /* KSAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KSAppSessionInfo.swift; sourceTree = "<group>"; };
+		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
+		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
+		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		181344931EF68671006E734A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1813448D1EF68671006E734A = {
+			isa = PBXGroup;
+			children = (
+				181344981EF68671006E734A /* KarwaRide */,
+				181344971EF68671006E734A /* Products */,
+				BD4440AA5AEB794F28535676 /* Pods */,
+				A58B8D61F51636D5CBD777D5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		181344971EF68671006E734A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				181344961EF68671006E734A /* KarwaRide.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		181344981EF68671006E734A /* KarwaRide */ = {
+			isa = PBXGroup;
+			children = (
+				181344AB1EF7B271006E734A /* Classes */,
+				181344991EF68671006E734A /* AppDelegate.swift */,
+				1813449B1EF68671006E734A /* ViewController.swift */,
+				1813449D1EF68671006E734A /* Main.storyboard */,
+				181344A01EF68671006E734A /* Assets.xcassets */,
+				181344A21EF68671006E734A /* LaunchScreen.storyboard */,
+				181344A51EF68671006E734A /* Info.plist */,
+			);
+			path = KarwaRide;
+			sourceTree = "<group>";
+		};
+		181344AB1EF7B271006E734A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				181344B31EF7E058006E734A /* Common */,
+				181344AC1EF7B2B0006E734A /* HelperClasses */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		181344AC1EF7B2B0006E734A /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				181344B71EF916DC006E734A /* ApplicationSession */,
+				181344B01EF7BC70006E734A /* Configuration */,
+				181344AD1EF7B2DD006E734A /* Network */,
+			);
+			name = HelperClasses;
+			sourceTree = "<group>";
+		};
+		181344AD1EF7B2DD006E734A /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				181344AE1EF7B362006E734A /* KSWebClient.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		181344B01EF7BC70006E734A /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				181344B11EF7BC94006E734A /* KSConfiguration.swift */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
+		181344B31EF7E058006E734A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				181344B41EF7E060006E734A /* Constants */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		181344B41EF7E060006E734A /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				181344B51EF7E083006E734A /* KSConstants.swift */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		181344B71EF916DC006E734A /* ApplicationSession */ = {
+			isa = PBXGroup;
+			children = (
+				181344B81EF9171F006E734A /* KSAppSessionInfo.swift */,
+			);
+			name = ApplicationSession;
+			sourceTree = "<group>";
+		};
+		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD4440AA5AEB794F28535676 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */,
+				6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		181344951EF68671006E734A /* KarwaRide */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 181344A81EF68671006E734A /* Build configuration list for PBXNativeTarget "KarwaRide" */;
+			buildPhases = (
+				A73D21A6E2BF48F601F4273E /* [CP] Check Pods Manifest.lock */,
+				181344921EF68671006E734A /* Sources */,
+				181344931EF68671006E734A /* Frameworks */,
+				181344941EF68671006E734A /* Resources */,
+				2829D11D0A5684BBDC46667E /* [CP] Embed Pods Frameworks */,
+				5AD6841055C07E0A83D414E4 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KarwaRide;
+			productName = KarwaRide;
+			productReference = 181344961EF68671006E734A /* KarwaRide.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1813448E1EF68671006E734A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Karwa;
+				TargetAttributes = {
+					181344951EF68671006E734A = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 2U24J4Z466;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 181344911EF68671006E734A /* Build configuration list for PBXProject "KarwaRide" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1813448D1EF68671006E734A;
+			productRefGroup = 181344971EF68671006E734A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				181344951EF68671006E734A /* KarwaRide */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		181344941EF68671006E734A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */,
+				181344A11EF68671006E734A /* Assets.xcassets in Resources */,
+				1813449F1EF68671006E734A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2829D11D0A5684BBDC46667E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5AD6841055C07E0A83D414E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A73D21A6E2BF48F601F4273E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		181344921EF68671006E734A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */,
+				181344AF1EF7B362006E734A /* KSWebClient.swift in Sources */,
+				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
+				181344B21EF7BC94006E734A /* KSConfiguration.swift in Sources */,
+				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
+				181344B61EF7E083006E734A /* KSConstants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1813449D1EF68671006E734A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1813449E1EF68671006E734A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		181344A21EF68671006E734A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				181344A31EF68671006E734A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		181344A61EF68671006E734A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		181344A71EF68671006E734A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		181344A91EF68671006E734A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2U24J4Z466;
+				INFOPLIST_FILE = KarwaRide/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp.KarwaRide;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		181344AA1EF68671006E734A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2U24J4Z466;
+				INFOPLIST_FILE = KarwaRide/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp.KarwaRide;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		181344911EF68671006E734A /* Build configuration list for PBXProject "KarwaRide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				181344A61EF68671006E734A /* Debug */,
+				181344A71EF68671006E734A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		181344A81EF68671006E734A /* Build configuration list for PBXNativeTarget "KarwaRide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				181344A91EF68671006E734A /* Debug */,
+				181344AA1EF68671006E734A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1813448E1EF68671006E734A /* Project object */;
+}
