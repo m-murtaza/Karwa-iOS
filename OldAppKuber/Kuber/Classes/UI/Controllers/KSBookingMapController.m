@@ -458,9 +458,9 @@
         dropoffPoint = CLLocationCoordinate2DMake([self.repeatTrip.dropOffLat doubleValue], [self.repeatTrip.dropOffLon doubleValue]);
     }
     
-    if (self.repeatTrip.pickupHint.length) {
+    /*if (self.repeatTrip.pickupHint.length) {
         hintTxt = self.repeatTrip.pickupHint;
-    }
+    }*/
     
     vehicleType = (KSVehicleType)[self.repeatTrip.vehicleType integerValue];
     
@@ -627,7 +627,7 @@
     else
         tripInfo.pickupTime = [NSDate date];
     
-    tripInfo.pickupHint = hintTxt ? hintTxt : @"";
+    //tripInfo.pickupHint = hintTxt ? hintTxt : @"";
 
     tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
     
@@ -684,6 +684,8 @@
     
 }
 
+
+// Not using it right now.
 -(void) showAlertWithHint
 {
     UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide additional pickup information."
@@ -1430,12 +1432,12 @@ didAddAnnotationViews:(NSArray *)annotationViews
             
             [self.mapView setCenterCoordinate:location.coordinate animated:YES];
         }
-        if (hint && ![hint isEqualToString:@""]) {
-            hintTxt = hint;
-        }
-        else{
-            hintTxt = @"";
-        }
+//        if (hint && ![hint isEqualToString:@""]) {
+//            hintTxt = hint;
+//        }
+//        else{
+//            hintTxt = @"";
+//        }
     }
     else
     {
@@ -1502,6 +1504,11 @@ didAddAnnotationViews:(NSArray *)annotationViews
 
 - (IBAction) btnBookingRequestTapped:(id)sender
 {
+    //if location services are off then show alter for location services.
+    if(![self checkLocationAvaliblityAndShowAlert])
+        return;         //location services are off, do not allow booking.
+    
+    
     if (!self.imgDestinationHelp.hidden) {
         [self hideHintView:TRUE];
         return;
@@ -1518,7 +1525,12 @@ didAddAnnotationViews:(NSArray *)annotationViews
     
     if([self allowBooking])
     {
-        [self showAlertWithHint];
+        hintTxt = @"";
+        [self bookTaxi];
+        
+        
+        //As decided hint text is not required for now. Right now commenting out the function if in upcoming version we do not receive any complaint then will remove it completely.
+        //[self showAlertWithHint];
     }
     else
     {
