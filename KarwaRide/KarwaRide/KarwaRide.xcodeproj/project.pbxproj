@@ -16,6 +16,13 @@
 		181344B21EF7BC94006E734A /* KSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KSConfiguration.swift */; };
 		181344B61EF7E083006E734A /* KSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B51EF7E083006E734A /* KSConstants.swift */; };
 		181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KSAppSessionInfo.swift */; };
+		186487221F0A361B00DDB003 /* KSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KSBaseViewController.swift */; };
+		186487251F0A368F00DDB003 /* KSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KSLoginViewController.swift */; };
+		186487271F0A36DD00DDB003 /* KSBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KSBaseViewModel.swift */; };
+		1864872A1F0A3FF600DDB003 /* KSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487291F0A3FF600DDB003 /* KSLoginViewModel.swift */; };
+		1864872E1F0BB04500DDB003 /* KSBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872D1F0BB04500DDB003 /* KSBase.swift */; };
+		186487301F0BB06800DDB003 /* KSDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KSDALManager.swift */; };
+		186487321F0BB11800DDB003 /* KSDALManager+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487311F0BB11800DDB003 /* KSDALManager+Login.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +38,13 @@
 		181344B11EF7BC94006E734A /* KSConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSConfiguration.swift; path = Classes/HelperClasses/Configuration/KSConfiguration.swift; sourceTree = "<group>"; };
 		181344B51EF7E083006E734A /* KSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSConstants.swift; path = Classes/Common/Constants/KSConstants.swift; sourceTree = "<group>"; };
 		181344B81EF9171F006E734A /* KSAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KSAppSessionInfo.swift; sourceTree = "<group>"; };
+		186487211F0A361B00DDB003 /* KSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSBaseViewController.swift; path = Classes/Views/Controllers/KSBaseViewController.swift; sourceTree = "<group>"; };
+		186487241F0A368F00DDB003 /* KSLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSLoginViewController.swift; path = Classes/Views/Controllers/Login/KSLoginViewController.swift; sourceTree = "<group>"; };
+		186487261F0A36DD00DDB003 /* KSBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSBaseViewModel.swift; path = "Classes/View Models/KSBaseViewModel.swift"; sourceTree = "<group>"; };
+		186487291F0A3FF600DDB003 /* KSLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSLoginViewModel.swift; path = "Classes/View Models/Login/KSLoginViewModel.swift"; sourceTree = "<group>"; };
+		1864872D1F0BB04500DDB003 /* KSBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSBase.swift; path = Classes/Common/CommonBase/KSBase.swift; sourceTree = "<group>"; };
+		1864872F1F0BB06800DDB003 /* KSDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSDALManager.swift; path = Classes/DAL/KSDALManager.swift; sourceTree = "<group>"; };
+		186487311F0BB11800DDB003 /* KSDALManager+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KSDALManager+Login.swift"; path = "Classes/DAL/KSDALManager+Login.swift"; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +97,9 @@
 		181344AB1EF7B271006E734A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1864872B1F0BAFD800DDB003 /* DAL */,
+				186487201F0A359D00DDB003 /* View Models */,
+				1864871E1F0A357C00DDB003 /* Views */,
 				181344B31EF7E058006E734A /* Common */,
 				181344AC1EF7B2B0006E734A /* HelperClasses */,
 			);
@@ -118,6 +135,7 @@
 		181344B31EF7E058006E734A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1864872C1F0BB01900DDB003 /* CommonBase */,
 				181344B41EF7E060006E734A /* Constants */,
 			);
 			name = Common;
@@ -137,6 +155,65 @@
 				181344B81EF9171F006E734A /* KSAppSessionInfo.swift */,
 			);
 			name = ApplicationSession;
+			sourceTree = "<group>";
+		};
+		1864871E1F0A357C00DDB003 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1864871F1F0A358600DDB003 /* Controllers */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		1864871F1F0A358600DDB003 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				186487231F0A362E00DDB003 /* Login */,
+				186487211F0A361B00DDB003 /* KSBaseViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		186487201F0A359D00DDB003 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				186487281F0A3FCE00DDB003 /* Login */,
+				186487261F0A36DD00DDB003 /* KSBaseViewModel.swift */,
+			);
+			name = "View Models";
+			sourceTree = "<group>";
+		};
+		186487231F0A362E00DDB003 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				186487241F0A368F00DDB003 /* KSLoginViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		186487281F0A3FCE00DDB003 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				186487291F0A3FF600DDB003 /* KSLoginViewModel.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		1864872B1F0BAFD800DDB003 /* DAL */ = {
+			isa = PBXGroup;
+			children = (
+				1864872F1F0BB06800DDB003 /* KSDALManager.swift */,
+				186487311F0BB11800DDB003 /* KSDALManager+Login.swift */,
+			);
+			name = DAL;
+			sourceTree = "<group>";
+		};
+		1864872C1F0BB01900DDB003 /* CommonBase */ = {
+			isa = PBXGroup;
+			children = (
+				1864872D1F0BB04500DDB003 /* KSBase.swift */,
+			);
+			name = CommonBase;
 			sourceTree = "<group>";
 		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
@@ -280,11 +357,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1864872A1F0A3FF600DDB003 /* KSLoginViewModel.swift in Sources */,
 				181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */,
 				181344AF1EF7B362006E734A /* KSWebClient.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
+				186487221F0A361B00DDB003 /* KSBaseViewController.swift in Sources */,
+				186487251F0A368F00DDB003 /* KSLoginViewController.swift in Sources */,
 				181344B21EF7BC94006E734A /* KSConfiguration.swift in Sources */,
+				186487301F0BB06800DDB003 /* KSDALManager.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
+				186487321F0BB11800DDB003 /* KSDALManager+Login.swift in Sources */,
+				186487271F0A36DD00DDB003 /* KSBaseViewModel.swift in Sources */,
+				1864872E1F0BB04500DDB003 /* KSBase.swift in Sources */,
 				181344B61EF7E083006E734A /* KSConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 
+typealias KSWebClientCompletionBlock = (_ success: Bool, _ response: Any) -> Void
+
 class KSWebClient: NSObject {
 
     var baseURL : String?
@@ -27,32 +29,32 @@ class KSWebClient: NSObject {
     static let sharedInstance = KSWebClient()
     
     //MARK: - Functions
-    func testServerCall ()
-    {
+//    func testServerCall ()
+//    {
+//    
+//        //KSConfiguration.sharedInstance.valueForKey(key: "Tetete")
+//        
+//        let url : String = KSConfiguration.sharedInstance.envValue(forKey: "BaseAPIURL")
+//        
+//        Alamofire.request("https://httpbin.org/get").responseString { response in
+//            print("Response String: \(String(describing: response.result.value))")
+//        }.responseJSON { (response) in
+//            print("Response JSON \(String(describing: response.result.value))")
+//        }
+//        
+//    }
     
-        //KSConfiguration.sharedInstance.valueForKey(key: "Tetete")
-        
-        let url : String = KSConfiguration.sharedInstance.envValue(forKey: "BaseAPIURL")
-        
-        Alamofire.request("https://httpbin.org/get").responseString { response in
-            print("Response String: \(String(describing: response.result.value))")
-        }.responseJSON { (response) in
-            print("Response JSON \(String(describing: response.result.value))")
-        }
-        
+    func post(uri: String, param: [String : Any], completion completionBlock: KSWebClientCompletionBlock)
+    {
+        sendRequest(httpMethod: .post, uri: uri, param: param, completion: completionBlock)
     }
     
-    func post(uri: String, param: [String: Any])
+    func  get(uri: String, param: [String : Any], completion completionBlock: KSWebClientCompletionBlock)
     {
-        sendRequest(httpMethod: .post, uri: uri, param: param)
+        sendRequest(httpMethod: .get, uri: uri, param: param,completion: completionBlock)
     }
     
-    func  get(uri: String, param: [String: Any])
-    {
-        sendRequest(httpMethod: .get, uri: uri, param: param)
-    }
-    
-    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String: Any])
+    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String : Any], completion completionBlock: KSWebClientCompletionBlock)
     {
         
         //Creating complet Url
@@ -79,5 +81,6 @@ class KSWebClient: NSObject {
                                 print(error)
                             }
         }
+        //Alamofire.request("https://httpbin.org/post", method: .post, parameters: param, encoding: URLEncoding.default)
     }
 }
