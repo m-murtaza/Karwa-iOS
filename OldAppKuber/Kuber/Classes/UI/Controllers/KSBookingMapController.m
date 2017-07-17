@@ -88,6 +88,8 @@
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tblViewHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *altLocationHeight;
+@property (nonatomic, weak) IBOutlet UIView *altWrongLocationView;
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
 @property (nonatomic, weak) IBOutlet UIView *mapDisableView;
 @property (nonatomic, weak) IBOutlet UIImageView *imgDestinationHelp;
@@ -1497,6 +1499,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         //mapLoadForFirstTime = TRUE;
         self.mapView.showsUserLocation = YES;
+        //[self hideTopBarAltForFarAwayLocation:FALSE];
         //--[self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
     }
     
@@ -1525,6 +1528,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
     
     if([self allowBooking])
     {
+        //[self showTopBarAltForFarAwayLocation];
         hintTxt = @"";
         [self bookTaxi];
         
@@ -1553,4 +1557,25 @@ didAddAnnotationViews:(NSArray *)annotationViews
     return TRUE;
 }
 
+#pragma mark - Show Hide Location Alert
+- (void) showTopBarAltForFarAwayLocation
+{
+    _altLocationHeight.constant = 41.0;
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     } ];
+}
+
+-(void) hideTopBarAltForFarAwayLocation:(BOOL) animation
+{
+    _altLocationHeight.constant = 0.0;
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:animation ? 1.0: 0.0
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     } ];
+    
+}
 @end
