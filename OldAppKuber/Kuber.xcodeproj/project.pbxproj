@@ -188,6 +188,7 @@
 		185FEC7F1B96C75000268296 /* KSUITextFieldInCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC7E1B96C75000268296 /* KSUITextFieldInCell.m */; };
 		185FEC811B96DB0E00268296 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 185FEC801B96DB0E00268296 /* GoogleService-Info.plist */; };
 		185FEC851B96E6EB00268296 /* KSGoogleAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */; };
+		186487341F1DE88D00DDB003 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 186487331F1DE88D00DDB003 /* AudioToolbox.framework */; };
 		18692ECD1B2EA55F006FC825 /* KSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 18692ECC1B2EA55F006FC825 /* KSUser.m */; };
 		1870EE0C1BF4A69D00FADFBD /* UIUnderlinedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1870EE0B1BF4A69D00FADFBD /* UIUnderlinedButton.m */; };
 		187318151B2EC1290003DC5C /* KSBookingHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187318141B2EC1290003DC5C /* KSBookingHistoryCell.m */; };
@@ -605,6 +606,7 @@
 		185FEC801B96DB0E00268296 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		185FEC831B96E6EB00268296 /* KSGoogleAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSGoogleAnalytics.h; sourceTree = "<group>"; };
 		185FEC841B96E6EB00268296 /* KSGoogleAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSGoogleAnalytics.m; sourceTree = "<group>"; };
+		186487331F1DE88D00DDB003 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		18692ECB1B2EA55F006FC825 /* KSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSUser.h; sourceTree = "<group>"; };
 		18692ECC1B2EA55F006FC825 /* KSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSUser.m; sourceTree = "<group>"; };
 		1870EE0A1BF4A69D00FADFBD /* UIUnderlinedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIUnderlinedButton.h; path = Underlinebutton/UIUnderlinedButton.h; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186487341F1DE88D00DDB003 /* AudioToolbox.framework in Frameworks */,
 				18481AFE1B08812300855F54 /* MapKit.framework in Frameworks */,
 				8BF60827BA6A55C83D46280F /* libPods-Kuber.a in Frameworks */,
 			);
@@ -1741,6 +1744,7 @@
 		EEFE53EB7EE1DF64CB8E1284 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				186487331F1DE88D00DDB003 /* AudioToolbox.framework */,
 				1801E30B1B13059C00A8983E /* AddressBook.framework */,
 				189F5D991B085DA900EAF9B2 /* MapKit.framework */,
 				18B0D0201B030942002645AD /* CoreData.framework */,

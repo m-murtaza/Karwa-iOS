@@ -8,6 +8,8 @@
 
 #import "KSBookingMapController.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 //ThirdParty
 #import <Crashlytics/Crashlytics.h>
 
@@ -1140,6 +1142,8 @@
         [self setPickupLocationLblText];
         //[self setCurrentLocaitonBtnState];
         [self updateTaxisInCurrentRegion];
+        
+        [self checkAndShowLocationAlert];
     }
     else{
        
@@ -1560,9 +1564,11 @@ didAddAnnotationViews:(NSArray *)annotationViews
 #pragma mark - Show Hide Location Alert
 - (void) showTopBarAltForFarAwayLocation
 {
+    AudioServicesPlaySystemSound (1106); // SMSReceived (see SystemSoundID below)
+    AudioServicesPlaySystemSound (4095);
     _altLocationHeight.constant = 41.0;
     [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:1.0
+    [UIView animateWithDuration:0.5
                      animations:^{
                          [self.view layoutIfNeeded];
                      } ];
@@ -1572,10 +1578,24 @@ didAddAnnotationViews:(NSArray *)annotationViews
 {
     _altLocationHeight.constant = 0.0;
     [self.view setNeedsUpdateConstraints];
-    [UIView animateWithDuration:animation ? 1.0: 0.0
+    [UIView animateWithDuration:animation ? 0.5: 0.0
                      animations:^{
                          [self.view layoutIfNeeded];
                      } ];
     
+}
+
+-(void) checkAndShowLocationAlert
+{
+    CLLocationDistance locationShift = [self.mapView.userLocation.location distanceFromLocation:[CLLocation locationWithCoordinate: self.mapView.centerCoordinate]];
+    
+    if(locationShift > 500)
+    {
+        [self showTopBarAltForFarAwayLocation];
+    }
+    else
+    {
+        [self hideTopBarAltForFarAwayLocation:YES];
+    }
 }
 @end
