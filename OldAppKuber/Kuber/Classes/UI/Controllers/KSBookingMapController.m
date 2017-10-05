@@ -12,6 +12,7 @@
 
 //ThirdParty
 #import <Crashlytics/Crashlytics.h>
+#import <SSSnackbar/SSSnackbar.h>
 
 //Utilities
 #import "KSLocationManager.h"
@@ -556,187 +557,55 @@
     [defaults synchronize];
 }
 
--(BOOL) showHintForDestination
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *hintCount = [defaults objectForKey:DETAIL_HINT_KEY];
-    if ([hintCount integerValue] >= MAX_HINT_DETAIL_COUNT || hintCount == nil) {
-        [self resetDropoffHintConter];
-        return TRUE;
-    }
-    hintCount = [NSNumber numberWithInt:[hintCount intValue]+1];
-    [defaults setObject:hintCount forKey:DETAIL_HINT_KEY];
-    [defaults synchronize];
-    return FALSE;
-}
-
--(void) hideHintView:(BOOL)hide
-{
-    if (hide)
-    {
-        self.mapView.userInteractionEnabled = TRUE;
-        self.imgDestinationHelp.hidden = TRUE;
-        [self.view endEditing:FALSE];
-    }
-    else {
-        [self.view endEditing:TRUE];
-        self.mapView.userInteractionEnabled = FALSE;
-        self.imgDestinationHelp.hidden = FALSE;
-    }
-}
-
-//-(void) showOverlay:(OverlyaImageType)type Show:(BOOL) show
-//{
-//    self.mapView.userInteractionEnabled = !show;
-//    [self.view endEditing:show];
-//    switch (type) {
-//        case kOverlayDestinationHelp:
-//            self.imgDestinationHelp.hidden = !show;
-//            break;
-//        case KOverlayLimoType:
-//            self.
-//        default:
-//            break;
-//    }
-//    
-//    
-//}
-
--(void) bookTaxi
-{
-    
-    if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
-    {
-        if ([self showHintForDestination]) {
-            [self hideHintView:FALSE];
-            return;
-        }
-    }
-    
-    tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
-                                   lat:self.mapView.centerCoordinate.latitude
-                                   lon:self.mapView.centerCoordinate.longitude];
-    
-    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
-        [self resetDropoffHintConter];
-        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
-        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
-        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
-    }
-    
-    KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
-    
-    if([AppUtils isTaxiType:vehicleType])
-        tripInfo.pickupTime = datePicker.date;
-    else
-        tripInfo.pickupTime = [NSDate date];
-    
-    //tripInfo.pickupHint = hintTxt ? hintTxt : @"";
-
-    tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
-    
-    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
-        [hud hide:YES];
-        
-        if (status == KSAPIStatusSuccess) {
-            NSLog(@"%@",data);
-            KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-                [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
-                
-            }];
-            
-            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-                                                                  action:[AppUtils vehicleTypeToString:vehicleType]
-                                                                   label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
-                                                                   value:nil] build]];
-            
-            
-            [self sendAnalyticsForBooking];
-            NSString *str;
-            if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
-                
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
-                
-//                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-//                                                                      action:@"CurrentTaxiBooking"
-//                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-//                                                                       value:nil] build]];
-            }
-            else{
-                
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
-                
-//                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-//                                                                      action:@"AdvTaxiBooking"
-//                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-//                                                                       value:nil] build]];
-            }
-            
-            
-            [KSConfirmationAlert showWithTitle:nil
-                                       message:str
-                                      okAction:okAction];
-        }
-        else {
-            [self APICallFailAction:status];
-        }
-        
-    }];
-    
-}
-
 
 // Not using it right now.
--(void) showAlertWithHint
-{
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide additional pickup information."
-                                                                 message:nil
-                                                          preferredStyle:UIAlertControllerStyleAlert];
-    
-    __weak UIAlertController *alertRef = alt;
-    UIAlertAction *okAction = [UIAlertAction
-                                 actionWithTitle:@"OK"
-                                 style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action) {
-                                   // access text from text field
-                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                   
-                                   if (!text.length) {
-                                       id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-                                       
-                                       [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
-                                                            action:@"btnHintOkTap"
-                                                            label:@"No Input"
-                                                            value:nil]
-                                                      build]];
-                                       
-                                       [self showAlertWithHint];
-                                   }
-                                   else{
-                                       hintTxt = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                       [self bookTaxi];
-                                   }
-                               }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                               
-                                                           }];
-    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
-     {
-         txtField.placeholder = @"e.g. Villaggio Gate No.2";
-         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-         txtField.delegate = self;
-         txtField.tag = TXT_HINT_TAG;
-         txtField.text = hintTxt ? hintTxt : @"";
-     }];
-    [alt addAction:okAction];
-    [alt addAction:cancelAction];
-    [self presentViewController:alt animated:YES completion:nil];
-}
+//-(void) showAlertWithHint
+//{
+//    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide additional pickup information."
+//                                                                 message:nil
+//                                                          preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    __weak UIAlertController *alertRef = alt;
+//    UIAlertAction *okAction = [UIAlertAction
+//                                 actionWithTitle:@"OK"
+//                                 style:UIAlertActionStyleDefault
+//                               handler:^(UIAlertAction * action) {
+//                                   // access text from text field
+//                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+//                                   
+//                                   if (!text.length) {
+//                                       id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+//                                       
+//                                       [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+//                                                            action:@"btnHintOkTap"
+//                                                            label:@"No Input"
+//                                                            value:nil]
+//                                                      build]];
+//                                       
+//                                       [self showAlertWithHint];
+//                                   }
+//                                   else{
+//                                       hintTxt = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+//                                       [self bookTaxi];
+//                                   }
+//                               }];
+//    
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+//                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//                                                               
+//                                                           }];
+//    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
+//     {
+//         txtField.placeholder = @"e.g. Villaggio Gate No.2";
+//         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+//         txtField.delegate = self;
+//         txtField.tag = TXT_HINT_TAG;
+//         txtField.text = hintTxt ? hintTxt : @"";
+//     }];
+//    [alt addAction:okAction];
+//    [alt addAction:cancelAction];
+//    [self presentViewController:alt animated:YES completion:nil];
+//}
 
 -(void) addDataPickerToTxtPickupTime
 {
@@ -1020,6 +889,147 @@
         [self.mapView addAnnotations:vehiclesAnnotations];
         
     }];*/
+}
+
+#pragma mark - Booking Processs
+
+-(void) bookTaxi
+{
+    tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
+                                   lat:self.mapView.centerCoordinate.latitude
+                                   lon:self.mapView.centerCoordinate.longitude];
+    
+    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
+        [self resetDropoffHintConter];
+        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
+        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
+        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
+    }
+    
+    KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
+    
+    if([AppUtils isTaxiType:vehicleType])
+        tripInfo.pickupTime = datePicker.date;
+    else
+        tripInfo.pickupTime = [NSDate date];
+    
+    tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
+    
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        
+        if (status == KSAPIStatusSuccess) {
+            NSLog(@"%@",data);
+            KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+                [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
+                
+            }];
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                  action:[AppUtils vehicleTypeToString:vehicleType]
+                                                                   label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
+                                                                   value:nil] build]];
+            
+            
+            [self sendAnalyticsForBooking];
+            NSString *str;
+            if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
+                
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
+            }
+            else{
+                
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
+            }
+            
+            
+            [KSConfirmationAlert showWithTitle:nil
+                                       message:str
+                                      okAction:okAction];
+        }
+        else {
+            [self APICallFailAction:status];
+        }
+        
+    }];
+}
+
+-(void) showSnackBar
+{
+    NSString *snackbarMessage = [NSString stringWithFormat:@"Creating Booking"];
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    SSSnackbar *snackbar = [SSSnackbar snackbarWithMessage:snackbarMessage
+                                                actionText:@"Cancel"
+                                                  duration:5
+                                               actionBlock:^(SSSnackbar *sender){
+                                                   [hud hide:true];
+                                               }
+                                            dismissalBlock:^(SSSnackbar *sender) {
+                                                [hud hide:true];
+                                                hintTxt = @"";
+                                                [self bookTaxi];
+                                            }];
+    [snackbar show];
+    
+}
+
+-(void) startBookingProcess
+{
+    if([self allowBooking])
+    {
+        if(![self showDestinationPopUp])
+            [self showSnackBar];
+    }
+    else
+    {
+        [KSAlert show:@"We are fully booked right now. Please try agin some other time."];
+    }
+}
+
+#pragma mark - Destination PopUp
+
+-(BOOL) showDestinationPopUp
+{
+    if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
+    {
+        if ([self showHintForDestination]) {
+            [self hideHintView:FALSE];
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+-(BOOL) showHintForDestination
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *hintCount = [defaults objectForKey:DETAIL_HINT_KEY];
+    if ([hintCount integerValue] >= MAX_HINT_DETAIL_COUNT || hintCount == nil) {
+        [self resetDropoffHintConter];
+        return TRUE;
+    }
+    hintCount = [NSNumber numberWithInt:[hintCount intValue]+1];
+    [defaults setObject:hintCount forKey:DETAIL_HINT_KEY];
+    [defaults synchronize];
+    return FALSE;
+}
+
+-(void) hideHintView:(BOOL)hide
+{
+    if (hide)
+    {
+        self.mapView.userInteractionEnabled = TRUE;
+        self.imgDestinationHelp.hidden = TRUE;
+        [self.view endEditing:FALSE];
+    }
+    else {
+        [self.view endEditing:TRUE];
+        self.mapView.userInteractionEnabled = FALSE;
+        self.imgDestinationHelp.hidden = FALSE;
+    }
 }
 
 #pragma mark - Annotation Management
@@ -1530,21 +1540,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
                                                            label:[NSString stringWithFormat:@"Pickup: %@ | Dest: %@ | Time: %@",self.lblPickupLocaiton.text,self.lblDropoffLocaiton.text,self.txtPickupTime.text]
                                                            value:nil] build]];
     
-    if([self allowBooking])
-    {
-        //[self showTopBarAltForFarAwayLocation];
-        hintTxt = @"";
-        [self bookTaxi];
-        
-        
-        //As decided hint text is not required for now. Right now commenting out the function if in upcoming version we do not receive any complaint then will remove it completely.
-        //[self showAlertWithHint];
-    }
-    else
-    {
-        [KSAlert show:@"We are fully booked right now. Please try agin some other time."];
-    }
-
+    [self startBookingProcess];
 }
 
 -(BOOL) allowBooking
