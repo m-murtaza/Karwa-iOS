@@ -1564,7 +1564,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
 #pragma mark - Show Hide Location Alert
 - (void) showTopBarAltForFarAwayLocation
 {
-    AudioServicesPlaySystemSound (1106); // SMSReceived (see SystemSoundID below)
+    AudioServicesPlaySystemSound (1106);        //Play sound
     AudioServicesPlaySystemSound (4095);
     _altLocationHeight.constant = 41.0;
     [self.view setNeedsUpdateConstraints];
