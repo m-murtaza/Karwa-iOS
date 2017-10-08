@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
+#import <StoreKit/StoreKit.h>
+
 #import "KSTripRatingController.h"
 #import "SWRevealViewController.h"
 #import "KSMenuController.h"
@@ -146,7 +148,15 @@
     }
 }
 
-#pragma mark -
+#pragma mark - AppstoreRating
+-(void) askForAppstoreRatingIfReq
+{
+    if(self.serviceRating.rate == 5.0)
+    {
+        if(@available(iOS 10.3, *))
+            [SKStoreReviewController requestReview] ;
+    }
+}
 #pragma mark - Event handlers
 
 - (IBAction)onClickDone:(id)sender {
@@ -155,6 +165,8 @@
         [KSAlert show:@"Please select your rating first" title:@"Error"];
         return;
     }
+    
+    [self askForAppstoreRatingIfReq];
     
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
