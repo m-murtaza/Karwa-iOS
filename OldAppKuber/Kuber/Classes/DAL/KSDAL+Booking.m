@@ -110,16 +110,67 @@
             
             NSArray *trips = response[@"data"];
             NSArray *ksTrips = [KSDAL addTrips:trips];
-            [KSDBManager saveContext:^{
+            //[KSDBManager saveContext:^{
                 
                 completionBlock(status, ksTrips);
-            }];
+            //}];
         }
         else{
             
             completionBlock(status, nil);
         }
     }];
+}
+
++ (void) syncUnRatedBookingsSinceDate:(NSDate*)date Completion:(KSDALCompletionBlock)completionBlock
+{
+    NSString *synctime = [NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
+    NSDictionary *params =@{@"type":@"unrated" , @"synctime":synctime};
+    KSWebClient *webClient = [KSWebClient instance];
+    [webClient GET:@"/booking"
+            params:params
+        completion:^(BOOL success, NSDictionary *response) {
+        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+        if(KSAPIStatusSuccess == status){
+
+            NSArray *trips = response[@"data"];
+            NSArray *ksTrips = [KSDAL addTrips:trips];
+            //[KSDBManager saveContext:^{
+
+                completionBlock(status, ksTrips);
+            //}];
+        }
+        else{
+
+            completionBlock(status, nil);
+        }
+    }];
+}
+
++ (void) syncUnRatedBookingsForLastThreeDaysWithCompletion:(KSDALCompletionBlock)completionBlock
+{
+    NSDate *beforeThreeDays = [[NSDate date] dateBySubtractingDays:3];
+    [self syncUnRatedBookingsSinceDate:beforeThreeDays
+                            Completion:completionBlock];
+    
+//    KSWebClient *webClient = [KSWebClient instance];
+//
+//    [webClient GET:@"/booking" params:@{@"type":@"unrated"} completion:^(BOOL success, NSDictionary *response) {
+//        KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
+//        if(KSAPIStatusSuccess == status){
+//
+//            NSArray *trips = response[@"data"];
+//            NSArray *ksTrips = [KSDAL addTrips:trips];
+//            [KSDBManager saveContext:^{
+//
+//                completionBlock(status, ksTrips);
+//            }];
+//        }
+//        else{
+//
+//            completionBlock(status, nil);
+//        }
+//    }];
 }
 
 + (void) syncPendingBookingsWithCompletion:(KSDALCompletionBlock)completionBlock;

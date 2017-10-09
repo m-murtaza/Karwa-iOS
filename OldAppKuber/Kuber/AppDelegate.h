@@ -19,5 +19,7 @@
 
 -(void) showLoginScreen;
 
+-(void) navigateToBookingDetailsForTrip:(KSTrip*)trip;
+
 @end
 

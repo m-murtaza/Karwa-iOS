@@ -29,6 +29,7 @@
 #import "AppUtils.h"
 #import "KSBookingAnnotationManager.h"
 #import "KSUserLocationAnnotation.h"
+#import "KSTripRatingController.h"
 
 #define ADDRESS_CELL_HEIGHT         86.0
 #define TIME_CELL_HEIGHT            66.0
@@ -84,6 +85,8 @@
     KSUserLocationAnnotation *userAnnotation;
     
     UIImageView * imgCoachMark;
+    
+    KSTrip *ratingTrip;
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -126,6 +129,7 @@
     dropoffVisible = FALSE;
     isPickupFromMap = TRUE;
     vehicleType = KSCityTaxi;
+    ratingTrip = nil;
     [self setIndexForCell:dropoffVisible];
 
     
@@ -175,6 +179,8 @@
                                                              target: self
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
+    
+    [self checkForUnRatedTrip];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -203,6 +209,22 @@
 {
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+}
+
+#pragma mark - Unrated Trips
+-(void) checkForUnRatedTrip
+{
+    
+    [KSDAL syncUnRatedBookingsForLastThreeDaysWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+      if (status == KSAPIStatusSuccess) {
+          if(trips != nil && [trips count] > 0)
+          {
+              ratingTrip = [trips objectAtIndex:0];
+              [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
+              
+          }
+      }
+    }];
 }
 
 #pragma mark - CoachMarks
@@ -1415,6 +1437,13 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         KSBookingDetailsController *bookingDetails = (KSBookingDetailsController *) segue.destinationViewController;
         bookingDetails.tripInfo = tripInfo;
+    }
+    else if([segue.identifier isEqualToString:@"segueBookingToRating"])
+    {
+        
+        KSTripRatingController *ratingController = (KSTripRatingController*) ([[(UINavigationController*)segue.destinationViewController viewControllers] objectAtIndex:0]);
+        ratingController.trip = ratingTrip;
+        ratingController.displaySource = kMendatoryRating;
     }
 }
 

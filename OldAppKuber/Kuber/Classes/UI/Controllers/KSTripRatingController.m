@@ -172,15 +172,21 @@
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
-            if (self.isOpenedFromPushNotification) {
+            if (_displaySource == kNotification) {
                 
                 UIViewController *controller = [UIStoryboard mainRootController];
                 [self.revealViewController setFrontViewController:controller animated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
             }
-            else{
+            else if(_displaySource == kMendatoryRating)
+            {
+                [[[self navigationController] presentingViewController] dismissViewControllerAnimated:TRUE completion:nil];
+            }
+            else
+            {
                 [self.navigationController popViewControllerAnimated:YES];
             }
+            
         }
         else {
             [self APICallFailAction:status];

@@ -59,6 +59,7 @@
     if (trip.status.integerValue == KSTripStatusComplete && !trip.rating) {
         KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
         ratingController.trip = trip;
+        ratingController.displaySource = kRatingList;
         [self.navigationController pushViewController:ratingController animated:YES];
     }
         
