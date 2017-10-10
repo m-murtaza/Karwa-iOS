@@ -110,10 +110,7 @@
             
             NSArray *trips = response[@"data"];
             NSArray *ksTrips = [KSDAL addTrips:trips];
-            //[KSDBManager saveContext:^{
-                
-                completionBlock(status, ksTrips);
-            //}];
+            completionBlock(status, ksTrips);
         }
         else{
             
@@ -135,10 +132,7 @@
 
             NSArray *trips = response[@"data"];
             NSArray *ksTrips = [KSDAL addTrips:trips];
-            //[KSDBManager saveContext:^{
-
-                completionBlock(status, ksTrips);
-            //}];
+            completionBlock(status, ksTrips);
         }
         else{
 
