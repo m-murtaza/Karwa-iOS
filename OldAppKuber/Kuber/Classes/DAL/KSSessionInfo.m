@@ -39,11 +39,6 @@ NSString * const KSCustomerTypeKey = @"KSCustomerType";
     return [self instance];
 }
 
-//+ (void)updateSession:(NSString *)sessionId phone:(NSString *)phone {
-//
-//    [[self instance] updateSession:sessionId phone:phone];
-//}
-
 + (void)updateSession:(NSString *)sessionId phone:(NSString *)phone  customerType:(NSNumber*)customerType{
     
     [[self instance] updateSession:sessionId phone:phone customerType:customerType];
