@@ -47,13 +47,7 @@
 #define MAX_HINT_DETAIL_COUNT       5
 #define DETAIL_HINT_KEY             @"dtailCountKey"
 
-
-//typedef enum {
-//    kOverlayDestinationHelp,
-//    kOverlayVehicleType,
-//    KOverlayLimoType,
-//    kOverlayAll
-//}OverlyaImageType;
+static BOOL showMendatoryRating = TRUE;
 
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {
@@ -87,6 +81,7 @@
     UIImageView * imgCoachMark;
     
     KSTrip *ratingTrip;
+    
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -168,6 +163,13 @@
     [self createLimoTypeSegmant];
     //Send analytics for first time automatic selection.
     [self sendLimoTypeSelectionAnalytics];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -180,14 +182,16 @@
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
     
-    [self checkForUnRatedTrip];
+    if(showMendatoryRating)
+    {
+        showMendatoryRating = FALSE;
+        [self checkForUnRatedTrip];
+    }
 }
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self checkLocationAvaliblityAndShowAlert];
-    
-    //Patch for iOS 9 other wise animation was bit odd.
     
     [self showhideDropOff];
     if (self.repeatTrip) {
@@ -195,20 +199,34 @@
         [self populateOldTripData];
     }
     
-    
     [self showLimoTaxiCoachMarksIfNeeded];
-    
-    
-//
-    //[self.imgDestinationHelp setImage:[UIImage imageNamed:@"limo-coachmark.png"]];
-    //[self.imgDestinationHelp setHidden:false];
-    
 }
 
 -(void) viewWillDisappear:(BOOL)animated
 {
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+}
+
+
+- (void)didBecomeActive:(NSNotification *)notification;
+{
+    if (self.isViewLoaded && self.view.window)
+    {
+        //if view is on screen. ask for unrated trips.
+        if(showMendatoryRating)
+            [self checkForUnRatedTrip];
+    }
+    else
+    {
+        //Else allow view to show mendatory rating when it on screen.
+        showMendatoryRating = TRUE;
+    }
+}
+
+-(void)appWillResignActive:(NSNotification*)note
+{
+    showMendatoryRating = TRUE;
 }
 
 #pragma mark - Unrated Trips
@@ -222,6 +240,7 @@
               ratingTrip = [trips objectAtIndex:0];
               [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
               
+              showMendatoryRating = FALSE;
           }
       }
     }];
@@ -1440,7 +1459,6 @@ didAddAnnotationViews:(NSArray *)annotationViews
     }
     else if([segue.identifier isEqualToString:@"segueBookingToRating"])
     {
-        
         KSTripRatingController *ratingController = (KSTripRatingController*) ([[(UINavigationController*)segue.destinationViewController viewControllers] objectAtIndex:0]);
         ratingController.trip = ratingTrip;
         ratingController.displaySource = kMendatoryRating;

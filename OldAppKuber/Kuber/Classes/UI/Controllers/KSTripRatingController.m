@@ -136,7 +136,6 @@
             [self APICallFailAction:status];
             
         }
-        
     }];
 }
 #pragma mark - Segue 
