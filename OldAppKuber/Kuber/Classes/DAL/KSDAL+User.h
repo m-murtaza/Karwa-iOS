@@ -18,8 +18,6 @@
 
 + (void)logoutUser;
 
-+ (void)saveLoggedInUserSession:(NSString *)sessionId phone:(NSString *)phone;
-
 + (void)registerUser:(KSUser *)user password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock;
 
 + (void)loginUserWithPhone:(NSString *)phone password:(NSString *)password completion:(KSDALCompletionBlock)completionBlock;
