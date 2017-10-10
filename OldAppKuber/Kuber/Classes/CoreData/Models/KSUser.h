@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * phone;
 @property (nonatomic, retain) NSString * secondaryPhone;
+@property (nonatomic, retain) NSNumber * customerType;
 @property (nonatomic, retain) NSSet *bookmarks;
 @property (nonatomic, retain) NSSet *trips;
 @end

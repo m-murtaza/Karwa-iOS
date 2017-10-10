@@ -19,6 +19,7 @@ NSString * const KSPhoneKey = @"KSSessionPhone";
 NSString * const KSDeviceTokenKey = @"KSDeviceToken";
 NSString * const KSSessionIdKey = @"KSSessionID";
 NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
+NSString * const KSCustomerTypeKey = @"KSCustomerType";
 
 @implementation KSSessionInfo
 
@@ -38,9 +39,9 @@ NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
     return [self instance];
 }
 
-+ (void)updateSession:(NSString *)sessionId phone:(NSString *)phone {
-
-    [[self instance] updateSession:sessionId phone:phone];
++ (void)updateSession:(NSString *)sessionId phone:(NSString *)phone  customerType:(NSNumber*)customerType{
+    
+    [[self instance] updateSession:sessionId phone:phone customerType:customerType];
 }
 
 + (void)updateToken:(NSString *)token {
@@ -86,10 +87,11 @@ NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
     [defaultStore synchronize];
 }
 
-- (void)updateSession:(NSString *)sessionId phone:(NSString *)phone {
+- (void)updateSession:(NSString *)sessionId phone:(NSString *)phone customerType:(NSNumber*)customerType{
     
     [self saveValue:phone forKey:KSPhoneKey];
     [self saveValue:sessionId forKey:KSSessionIdKey];
+    [self saveValue:customerType forKey:KSCustomerTypeKey];
     
 }
 
@@ -102,6 +104,7 @@ NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
     
     [self saveValue:nil forKey:KSPhoneKey];
     [self saveValue:nil forKey:KSSessionIdKey];
+    [self saveValue:nil forKey:KSCustomerTypeKey];
 }
 
 - (NSString *)description {
@@ -129,6 +132,11 @@ NSString * const KSLocationsSyncTimeKey = @"KSLocationsSyncTime";
 - (NSString *)phone {
     
     return [[NSUserDefaults standardUserDefaults] stringForKey:KSPhoneKey];
+}
+
+-(NSNumber *) customerType{
+    
+    return [[NSUserDefaults standardUserDefaults] objectForKey:KSCustomerTypeKey];
 }
 
 - (NSString *)pushToken {
