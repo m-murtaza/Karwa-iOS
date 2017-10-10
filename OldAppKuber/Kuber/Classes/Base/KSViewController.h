@@ -13,4 +13,6 @@
 @property (nonatomic) IBOutlet UIBarButtonItem* revealButtonItem;
 
 -(void) APICallFailAction:(KSAPIStatus) status;
+
+-(BOOL) isOnScreen;
 @end

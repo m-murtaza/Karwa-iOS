@@ -31,6 +31,8 @@
 + (void) syncPendingBookingsWithCompletion:(KSDALCompletionBlock)completionBlock;
 + (void) syncUnRatedBookingsWithCompletion:(KSDALCompletionBlock)completionBlock;
 
++ (void) syncUnRatedBookingsForLastThreeDaysWithCompletion:(KSDALCompletionBlock)completionBlock;
+
 + (NSArray *)recentTripsWithLandmark:(NSInteger)numRecord;
 + (NSArray *)recentTripDestinationGeoLocation:(NSInteger)numRecord;
 

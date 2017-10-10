@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
+#import <StoreKit/StoreKit.h>
+
 #import "KSTripRatingController.h"
 #import "SWRevealViewController.h"
 #import "KSMenuController.h"
@@ -134,7 +136,6 @@
             [self APICallFailAction:status];
             
         }
-        
     }];
 }
 #pragma mark - Segue 
@@ -146,7 +147,15 @@
     }
 }
 
-#pragma mark -
+#pragma mark - AppstoreRating
+-(void) askForAppstoreRatingIfReq
+{
+    if(self.serviceRating.rate == 5.0)
+    {
+        if(@available(iOS 10.3, *))
+            [SKStoreReviewController requestReview] ;
+    }
+}
 #pragma mark - Event handlers
 
 - (IBAction)onClickDone:(id)sender {
@@ -156,19 +165,27 @@
         return;
     }
     
+    [self askForAppstoreRatingIfReq];
+    
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         if (KSAPIStatusSuccess == status) {
-            if (self.isOpenedFromPushNotification) {
+            if (_displaySource == kNotification) {
                 
                 UIViewController *controller = [UIStoryboard mainRootController];
                 [self.revealViewController setFrontViewController:controller animated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
             }
-            else{
+            else if(_displaySource == kMendatoryRating)
+            {
+                [[[self navigationController] presentingViewController] dismissViewControllerAnimated:TRUE completion:nil];
+            }
+            else
+            {
                 [self.navigationController popViewControllerAnimated:YES];
             }
+            
         }
         else {
             [self APICallFailAction:status];

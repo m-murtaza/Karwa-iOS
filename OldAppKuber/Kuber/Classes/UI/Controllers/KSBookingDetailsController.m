@@ -357,7 +357,8 @@ BtnState;
     if([segue.identifier isEqualToString:@"segueBookingDetailsToRate"]){
         KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
         ratingController.trip = self.tripInfo;
-        ratingController.isOpenedFromPushNotification = self.isOpenedFromPushNotification;
+        
+        self.isOpenedFromPushNotification ? (ratingController.displaySource = kNotification) : (ratingController.displaySource = kRatingList);
     }
     else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
     {

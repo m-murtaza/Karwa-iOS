@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16B2659" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -29,7 +30,7 @@
             <objects>
                 <navigationController storyboardIdentifier="KSLoginRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PVP-WB-Dam" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VrS-2r-kUF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -45,7 +46,7 @@
             <objects>
                 <navigationController storyboardIdentifier="KSMainRootController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YOd-38-N3f" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="96K-dZ-F0d">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -765,13 +766,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you agree to the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2f-Ra-bcu">
-                                <rect key="frame" x="16" y="404" width="212.5" height="21"/>
+                                <rect key="frame" x="16" y="404" width="209" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jax-e6-Etc" customClass="UIUnderlinedButton">
-                                <rect key="frame" x="225.5" y="401" width="125" height="27"/>
+                                <rect key="frame" x="222" y="401" width="124" height="27"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <state key="normal" title="Terms of Services ">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -964,7 +965,7 @@
             <objects>
                 <navigationController id="aVD-Dg-LBU" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ZeA-cB-hha">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1801,7 +1802,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFg-9r-exu">
-                                <rect key="frame" x="0.0" y="19" width="375" height="239"/>
+                                <rect key="frame" x="0.0" y="63" width="375" height="239"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topback-ratings.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZrO-Sv-B4J">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="239"/>
@@ -1813,7 +1814,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="157"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 8 AUG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1O-Bp-dLS">
-                                                <rect key="frame" x="8" y="20" width="339" height="20.5"/>
+                                                <rect key="frame" x="8" y="20" width="339" height="21"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                                 <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1824,13 +1825,13 @@
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-Uh-kv2">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-Uh-kv2">
                                                 <rect key="frame" x="75" y="67.5" width="78" height="30"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS8-UJ-WsI">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS8-UJ-WsI">
                                                 <rect key="frame" x="163" y="72.5" width="18" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="Shv-dC-SNV">
@@ -1854,7 +1855,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="4of-Yw-eGl">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="4of-Yw-eGl">
                                                 <rect key="frame" x="191" y="67.5" width="73" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="69" id="dlI-5r-aXO">
@@ -2178,10 +2179,10 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4M-Ba-hNT">
-                                <rect key="frame" x="0.0" y="259" width="375" height="408"/>
+                                <rect key="frame" x="0.0" y="303" width="375" height="364"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="JhK-g9-Eij">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="324"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="280"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="lbg-N9-zqg"/>
@@ -2246,7 +2247,7 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNf-Rt-0gX" customClass="KSButton">
-                                        <rect key="frame" x="16" y="343" width="343" height="50"/>
+                                        <rect key="frame" x="16" y="299" width="343" height="50"/>
                                         <state key="normal" title="SUBMIT" backgroundImage="blue-button-idle.png">
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -2364,7 +2365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSf-YJ-4o6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1768.5" y="-1855.5"/>
+            <point key="canvasLocation" x="1650" y="-994"/>
         </scene>
         <!--Rate Your Trip-->
         <scene sceneID="lPS-Pe-SS7">
@@ -2697,7 +2698,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:10 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9Km-ry-dJy">
-                                                    <rect key="frame" x="165" y="16" width="51" height="14"/>
+                                                    <rect key="frame" x="166.5" y="16" width="51" height="14"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
                                                     <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2721,7 +2722,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="EYr-ML-q1q">
-                                                    <rect key="frame" x="151" y="18" width="10" height="10"/>
+                                                    <rect key="frame" x="152.5" y="18" width="10" height="10"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="10" id="Hjo-5V-2aw"/>
                                                         <constraint firstAttribute="width" constant="10" id="eNu-Zd-jV8"/>
@@ -2735,7 +2736,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 20 AUG, 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dge-mc-YVu">
-                                                    <rect key="frame" x="50" y="16" width="96" height="14"/>
+                                                    <rect key="frame" x="50" y="16" width="97.5" height="14"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2859,7 +2860,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" tag="7001" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yyJ-zk-fXg">
-                                            <rect key="frame" x="15" y="14" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="11" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2869,7 +2870,7 @@
                                             </variation>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" tag="7002" contentMode="left" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Qo-3D-P6B">
-                                            <rect key="frame" x="15" y="33.5" width="35.5" height="17"/>
+                                            <rect key="frame" x="16" y="33.5" width="35.5" height="17"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.15686274509803921" green="0.67843137254901964" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3111,7 +3112,7 @@
             <objects>
                 <navigationController id="M6q-v2-FeV" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FkY-g3-FGl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -3127,7 +3128,7 @@
             <objects>
                 <navigationController id="Ve9-1A-DjD" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9KR-Nu-0HP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -3143,7 +3144,7 @@
             <objects>
                 <navigationController id="4pK-1t-Gvn" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="v1R-l0-iPE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -3159,7 +3160,7 @@
             <objects>
                 <navigationController id="3Te-L5-Re1" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="AJ8-5N-wLV">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -4115,6 +4116,22 @@
             </objects>
             <point key="canvasLocation" x="1674" y="1410"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="idj-QU-Rae">
+            <objects>
+                <navigationController id="rM0-WP-RVN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yY5-qU-cL8">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="OFs-9T-1p0" kind="relationship" relationship="rootViewController" id="JW2-GG-KhI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HXN-md-fno" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="724" y="-304"/>
+        </scene>
         <!--Pick Your Address-->
         <scene sceneID="xPt-PM-Vuc">
             <objects>
@@ -4907,7 +4924,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kvx-uK-Dpv">
-                                                            <rect key="frame" x="60" y="26" width="31.5" height="19.5"/>
+                                                            <rect key="frame" x="60" y="23" width="31.5" height="19.5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5376,7 +5393,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="108"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-6w-9oq">
-                                        <rect key="frame" x="50" y="20" width="39" height="21"/>
+                                        <rect key="frame" x="52" y="20" width="39" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="U2p-kF-koE"/>
                                             <constraint firstAttribute="height" constant="21" id="bCx-hc-YBg"/>
@@ -5398,7 +5415,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
-                                        <rect key="frame" x="272.5" y="20" width="55" height="21"/>
+                                        <rect key="frame" x="269" y="20" width="55" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="4Uo-AZ-LvD"/>
                                             <constraint firstAttribute="height" constant="21" id="bSC-Hw-gka"/>
@@ -5420,7 +5437,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
-                                        <rect key="frame" x="195" y="16" width="66.5" height="28"/>
+                                        <rect key="frame" x="195" y="16" width="63" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="JR7-NM-uGN"/>
                                             <constraint firstAttribute="width" constant="68" id="MbY-7Z-iT5"/>
@@ -5442,7 +5459,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-9s-cNj">
-                                        <rect key="frame" x="100" y="16" width="65" height="28"/>
+                                        <rect key="frame" x="102" y="16" width="63" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="KDU-kc-jC6"/>
                                             <constraint firstAttribute="width" constant="53" id="wIu-uI-rbR">
@@ -6917,7 +6934,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="162" y="45" width="53" height="21"/>
+                                                    <rect key="frame" x="161.5" y="45" width="54.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -7250,7 +7267,7 @@
                                 </connections>
                             </tableView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination-help.png" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-qX-lvt">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
+                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-2d-nwe">
                                 <rect key="frame" x="316" y="398" width="43" height="43"/>
@@ -7322,29 +7339,29 @@
                                 <exclude reference="mDq-2d-nwe"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="12A-oK-EFz"/>
-                                <exclude reference="ZkT-Sw-4v0"/>
-                                <exclude reference="hQn-UO-Gk9"/>
-                                <exclude reference="Hmc-RB-Ucb"/>
-                                <exclude reference="R2g-fJ-ts5"/>
-                                <exclude reference="wp6-pP-xzY"/>
-                                <exclude reference="Bpv-fv-vfb"/>
-                                <exclude reference="btO-iq-TDC"/>
-                                <exclude reference="mZQ-vo-Ls6"/>
+                                <exclude reference="4ti-RM-RJ0"/>
+                                <exclude reference="Flv-P9-Qol"/>
+                                <exclude reference="H3U-Ed-1jD"/>
                                 <exclude reference="0ME-Gm-kvN"/>
                                 <exclude reference="CuT-kh-Tx6"/>
                                 <exclude reference="bIt-Qu-sht"/>
                                 <exclude reference="tZL-CI-8Yk"/>
+                                <exclude reference="Hmc-RB-Ucb"/>
+                                <exclude reference="R2g-fJ-ts5"/>
+                                <exclude reference="wp6-pP-xzY"/>
+                                <exclude reference="u83-S9-0hU"/>
+                                <exclude reference="Bpv-fv-vfb"/>
+                                <exclude reference="btO-iq-TDC"/>
+                                <exclude reference="mZQ-vo-Ls6"/>
                                 <exclude reference="1L8-rH-65o"/>
                                 <exclude reference="25r-xc-e9V"/>
                                 <exclude reference="Bts-JC-xV0"/>
                                 <exclude reference="KyG-ZT-AzX"/>
                                 <exclude reference="Ndb-L8-8SI"/>
                                 <exclude reference="oeQ-y0-xfc"/>
-                                <exclude reference="u83-S9-0hU"/>
-                                <exclude reference="4ti-RM-RJ0"/>
-                                <exclude reference="Flv-P9-Qol"/>
-                                <exclude reference="H3U-Ed-1jD"/>
+                                <exclude reference="12A-oK-EFz"/>
+                                <exclude reference="ZkT-Sw-4v0"/>
+                                <exclude reference="hQn-UO-Gk9"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -7357,29 +7374,29 @@
                                 <include reference="mDq-2d-nwe"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="12A-oK-EFz"/>
-                                <include reference="ZkT-Sw-4v0"/>
-                                <include reference="hQn-UO-Gk9"/>
-                                <include reference="Hmc-RB-Ucb"/>
-                                <include reference="R2g-fJ-ts5"/>
-                                <include reference="wp6-pP-xzY"/>
-                                <include reference="Bpv-fv-vfb"/>
-                                <include reference="btO-iq-TDC"/>
-                                <include reference="mZQ-vo-Ls6"/>
+                                <include reference="4ti-RM-RJ0"/>
+                                <exclude reference="Flv-P9-Qol"/>
+                                <include reference="H3U-Ed-1jD"/>
                                 <include reference="0ME-Gm-kvN"/>
                                 <include reference="CuT-kh-Tx6"/>
                                 <include reference="bIt-Qu-sht"/>
                                 <include reference="tZL-CI-8Yk"/>
+                                <include reference="Hmc-RB-Ucb"/>
+                                <include reference="R2g-fJ-ts5"/>
+                                <include reference="wp6-pP-xzY"/>
+                                <include reference="u83-S9-0hU"/>
+                                <include reference="Bpv-fv-vfb"/>
+                                <include reference="btO-iq-TDC"/>
+                                <include reference="mZQ-vo-Ls6"/>
                                 <exclude reference="1L8-rH-65o"/>
                                 <include reference="25r-xc-e9V"/>
                                 <include reference="Bts-JC-xV0"/>
                                 <include reference="KyG-ZT-AzX"/>
                                 <include reference="Ndb-L8-8SI"/>
                                 <include reference="oeQ-y0-xfc"/>
-                                <include reference="u83-S9-0hU"/>
-                                <include reference="4ti-RM-RJ0"/>
-                                <exclude reference="Flv-P9-Qol"/>
-                                <include reference="H3U-Ed-1jD"/>
+                                <include reference="12A-oK-EFz"/>
+                                <include reference="ZkT-Sw-4v0"/>
+                                <include reference="hQn-UO-Gk9"/>
                             </mask>
                         </variation>
                     </view>
@@ -7399,6 +7416,7 @@
                         <outlet property="tblViewHeight" destination="ats-hk-m4T" id="pGA-AX-96k"/>
                         <segue destination="GGw-zE-o73" kind="show" identifier="segueBookingToAddressPicker" id="A3E-FM-97q"/>
                         <segue destination="BJO-Sg-uAr" kind="show" identifier="segueBookingToDetail" id="Li1-w2-bB0"/>
+                        <segue destination="rM0-WP-RVN" kind="presentation" identifier="segueBookingToRating" id="NP6-xc-SII"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5U-vt-uPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7843,7 +7861,9 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X1O-ak-DHc"/>
+        <segue reference="Li1-w2-bB0"/>
         <segue reference="QFx-wv-VWz"/>
+        <segue reference="X1O-ak-DHc"/>
+        <segue reference="JW2-GG-KhI"/>
     </inferredMetricsTieBreakers>
 </document>

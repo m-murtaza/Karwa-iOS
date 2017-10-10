@@ -29,6 +29,7 @@
 #import "AppUtils.h"
 #import "KSBookingAnnotationManager.h"
 #import "KSUserLocationAnnotation.h"
+#import "KSTripRatingController.h"
 
 #define ADDRESS_CELL_HEIGHT         86.0
 #define TIME_CELL_HEIGHT            66.0
@@ -46,13 +47,7 @@
 #define MAX_HINT_DETAIL_COUNT       5
 #define DETAIL_HINT_KEY             @"dtailCountKey"
 
-
-//typedef enum {
-//    kOverlayDestinationHelp,
-//    kOverlayVehicleType,
-//    KOverlayLimoType,
-//    kOverlayAll
-//}OverlyaImageType;
+static BOOL showMendatoryRating = TRUE;
 
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {
@@ -84,6 +79,9 @@
     KSUserLocationAnnotation *userAnnotation;
     
     UIImageView * imgCoachMark;
+    
+    KSTrip *ratingTrip;
+    
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -126,6 +124,7 @@
     dropoffVisible = FALSE;
     isPickupFromMap = TRUE;
     vehicleType = KSCityTaxi;
+    ratingTrip = nil;
     [self setIndexForCell:dropoffVisible];
 
     
@@ -164,6 +163,7 @@
     [self createLimoTypeSegmant];
     //Send analytics for first time automatic selection.
     [self sendLimoTypeSelectionAnalytics];
+    [self registerForApplicationStateNotifications];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -175,13 +175,17 @@
                                                              target: self
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
+    
+    if(showMendatoryRating)
+    {
+        showMendatoryRating = FALSE;
+        [self checkForUnRatedTrip];
+    }
 }
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self checkLocationAvaliblityAndShowAlert];
-    
-    //Patch for iOS 9 other wise animation was bit odd.
     
     [self showhideDropOff];
     if (self.repeatTrip) {
@@ -189,20 +193,63 @@
         [self populateOldTripData];
     }
     
-    
     [self showLimoTaxiCoachMarksIfNeeded];
-    
-    
-//
-    //[self.imgDestinationHelp setImage:[UIImage imageNamed:@"limo-coachmark.png"]];
-    //[self.imgDestinationHelp setHidden:false];
-    
 }
 
 -(void) viewWillDisappear:(BOOL)animated
 {
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+}
+
+
+#pragma mark - Application Status Notifications
+
+-(void) registerForApplicationStateNotifications
+{
+    //Note: As of iOS 9 and macOS 10.11, NSNotificationCenter automatically deregisters an observer if the observer is deallocated. It is no longer necessary to deregister yourself manually in your dealloc method (or deinit in Swift) if your deployment target is iOS 9 or later or macOS 10.11 or later.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)didBecomeActive:(NSNotification *)notification;
+{
+    if ([self isOnScreen])
+    {
+        //if view is on screen. ask for unrated trips.
+        if(showMendatoryRating)
+            [self checkForUnRatedTrip];
+    }
+    else
+    {
+        //Else allow view to show mendatory rating when it on screen.
+        showMendatoryRating = TRUE;
+    }
+}
+
+-(void)appWillResignActive:(NSNotification*)note
+{
+    showMendatoryRating = TRUE;
+}
+
+#pragma mark - Unrated Trips
+-(void) checkForUnRatedTrip
+{
+    
+    [KSDAL syncUnRatedBookingsForLastThreeDaysWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+      if (status == KSAPIStatusSuccess) {
+          if(trips != nil && [trips count] > 0)
+          {
+              ratingTrip = [trips objectAtIndex:0];
+              [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
+              
+              showMendatoryRating = FALSE;
+          }
+      }
+    }];
 }
 
 #pragma mark - CoachMarks
@@ -1415,6 +1462,12 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         KSBookingDetailsController *bookingDetails = (KSBookingDetailsController *) segue.destinationViewController;
         bookingDetails.tripInfo = tripInfo;
+    }
+    else if([segue.identifier isEqualToString:@"segueBookingToRating"])
+    {
+        KSTripRatingController *ratingController = (KSTripRatingController*) ([[(UINavigationController*)segue.destinationViewController viewControllers] objectAtIndex:0]);
+        ratingController.trip = ratingTrip;
+        ratingController.displaySource = kMendatoryRating;
     }
 }
 
