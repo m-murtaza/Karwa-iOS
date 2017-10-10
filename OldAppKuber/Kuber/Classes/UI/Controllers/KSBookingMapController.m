@@ -163,13 +163,7 @@ static BOOL showMendatoryRating = TRUE;
     [self createLimoTypeSegmant];
     //Send analytics for first time automatic selection.
     [self sendLimoTypeSelectionAnalytics];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didBecomeActive:)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-    
+    [self registerForApplicationStateNotifications];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -209,9 +203,21 @@ static BOOL showMendatoryRating = TRUE;
 }
 
 
+#pragma mark - Application Status Notifications
+
+-(void) registerForApplicationStateNotifications
+{
+    //Note: As of iOS 9 and macOS 10.11, NSNotificationCenter automatically deregisters an observer if the observer is deallocated. It is no longer necessary to deregister yourself manually in your dealloc method (or deinit in Swift) if your deployment target is iOS 9 or later or macOS 10.11 or later.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
 - (void)didBecomeActive:(NSNotification *)notification;
 {
-    if (self.isViewLoaded && self.view.window)
+    if ([self isOnScreen])
     {
         //if view is on screen. ask for unrated trips.
         if(showMendatoryRating)
