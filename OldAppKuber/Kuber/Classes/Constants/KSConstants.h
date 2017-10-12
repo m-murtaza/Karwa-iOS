@@ -103,5 +103,5 @@ typedef NS_OPTIONS(NSUInteger, KSCustomerType) {
     KSPriorityCustomer             = 5,
     KSSpecialNeedCustomer          = 6,
     KSJinxedCustomer               = 7,
-    KSCorporateCustomer            = 10
+    KSCorporateCustomer            = 100
 };
