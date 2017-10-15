@@ -306,48 +306,21 @@
                                                         <constraint firstAttribute="height" constant="29" id="EfC-Og-k6q"/>
                                                         <constraint firstAttribute="width" constant="29" id="GZS-a8-d1V"/>
                                                     </constraints>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <include reference="EfC-Og-k6q"/>
-                                                            <include reference="GZS-a8-d1V"/>
-                                                        </mask>
-                                                    </variation>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="sT5-O4-uB8" firstAttribute="leading" secondItem="2wT-GE-Cq3" secondAttribute="leadingMargin" constant="22" id="0gp-cU-91O">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="22"/>
-                                                </constraint>
-                                                <constraint firstAttribute="bottomMargin" secondItem="sT5-O4-uB8" secondAttribute="bottom" constant="11" id="71b-cz-TiU">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="11"/>
-                                                </constraint>
-                                                <constraint firstItem="O6r-ht-bsR" firstAttribute="leading" secondItem="sT5-O4-uB8" secondAttribute="trailing" constant="17" id="LOT-Lp-Nxu">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="17"/>
-                                                </constraint>
-                                                <constraint firstItem="O6r-ht-bsR" firstAttribute="top" secondItem="2wT-GE-Cq3" secondAttribute="topMargin" constant="12" id="VtN-a6-62S">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="12"/>
-                                                </constraint>
-                                                <constraint firstAttribute="trailingMargin" secondItem="O6r-ht-bsR" secondAttribute="trailing" constant="22" id="VuY-Av-hxN">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="22"/>
-                                                </constraint>
-                                                <constraint firstItem="sT5-O4-uB8" firstAttribute="top" secondItem="2wT-GE-Cq3" secondAttribute="topMargin" constant="12" id="YSn-gV-DLJ">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="12"/>
-                                                </constraint>
+                                                <constraint firstItem="sT5-O4-uB8" firstAttribute="leading" secondItem="2wT-GE-Cq3" secondAttribute="leadingMargin" constant="22" id="0gp-cU-91O"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sT5-O4-uB8" secondAttribute="bottom" constant="11" id="71b-cz-TiU"/>
+                                                <constraint firstItem="O6r-ht-bsR" firstAttribute="leading" secondItem="sT5-O4-uB8" secondAttribute="trailing" constant="17" id="LOT-Lp-Nxu"/>
+                                                <constraint firstItem="O6r-ht-bsR" firstAttribute="top" secondItem="2wT-GE-Cq3" secondAttribute="topMargin" constant="12" id="VtN-a6-62S"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="O6r-ht-bsR" secondAttribute="trailing" constant="22" id="VuY-Av-hxN"/>
+                                                <constraint firstItem="sT5-O4-uB8" firstAttribute="top" secondItem="2wT-GE-Cq3" secondAttribute="topMargin" constant="12" id="YSn-gV-DLJ"/>
                                                 <constraint firstItem="sT5-O4-uB8" firstAttribute="centerY" secondItem="O6r-ht-bsR" secondAttribute="centerY" id="eqp-Mx-iuK"/>
                                             </constraints>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="sT5-O4-uB8"/>
                                                     <include reference="O6r-ht-bsR"/>
-                                                </mask>
-                                                <mask key="constraints">
-                                                    <include reference="LOT-Lp-Nxu"/>
-                                                    <include reference="VtN-a6-62S"/>
-                                                    <include reference="VuY-Av-hxN"/>
-                                                    <include reference="0gp-cU-91O"/>
-                                                    <include reference="71b-cz-TiU"/>
-                                                    <include reference="YSn-gV-DLJ"/>
-                                                    <include reference="eqp-Mx-iuK"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -374,11 +347,6 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="Rv3-P8-uX9"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="ehZ-iu-XbD"/>
-                                <include reference="iWR-J1-Plc"/>
-                                <include reference="sQ1-N5-GYA"/>
                             </mask>
                         </variation>
                     </view>
@@ -1625,25 +1593,25 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="157"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 8 AUG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1O-Bp-dLS">
-                                                <rect key="frame" x="8" y="20" width="339" height="20.5"/>
+                                                <rect key="frame" x="8" y="20" width="339" height="21"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                                 <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="PICKUP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="cVv-U3-4XU">
-                                                <rect key="frame" x="0.0" y="75.5" width="42" height="13.5"/>
+                                                <rect key="frame" x="0.0" y="76" width="42" height="13"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qoP-Uh-kv2">
-                                                <rect key="frame" x="75" y="67.5" width="78" height="30"/>
+                                                <rect key="frame" x="75" y="68" width="78" height="30"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS8-UJ-WsI">
-                                                <rect key="frame" x="163" y="72.5" width="18" height="20"/>
+                                                <rect key="frame" x="163" y="73" width="18" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="Shv-dC-SNV">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="20"/>
@@ -1667,7 +1635,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="4of-Yw-eGl">
-                                                <rect key="frame" x="191" y="67.5" width="73" height="30"/>
+                                                <rect key="frame" x="191" y="68" width="73" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="69" id="dlI-5r-aXO">
                                                         <variation key="heightClass=regular-widthClass=compact" constant="73"/>
@@ -1688,7 +1656,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="AUh-Mx-HMg">
-                                                <rect key="frame" x="0.0" y="75.5" width="42" height="13.5"/>
+                                                <rect key="frame" x="0.0" y="76" width="42" height="13"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
