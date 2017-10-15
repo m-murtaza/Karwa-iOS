@@ -70,10 +70,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZG-6z-zuk">
-                                <rect key="frame" x="20" y="20" width="728" height="399"/>
+                                <rect key="frame" x="16" y="20" width="343" height="220.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KS_login_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="7X7-vk-3AU">
-                                        <rect key="frame" x="92" y="139" width="545" height="121"/>
+                                        <rect key="frame" x="92" y="30" width="160" height="121"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -102,7 +102,7 @@
                                 </variation>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="XXX XXXXX" minimumFontSize="17" background="box-focused.png" translatesAutoresizingMaskIntoConstraints="NO" id="BHD-xA-yLE" customClass="KSTextField">
-                                <rect key="frame" x="219.5" y="427" width="329" height="40"/>
+                                <rect key="frame" x="36" y="213.5" width="303" height="40"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="329" id="JuD-sD-h8N"/>
@@ -116,11 +116,6 @@
                                         <exclude reference="JuD-sD-h8N"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="M9h-PO-ZhO"/>
-                                    </mask>
-                                </variation>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <mask key="constraints">
                                         <include reference="JuD-sD-h8N"/>
@@ -131,7 +126,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="box-idle.png" translatesAutoresizingMaskIntoConstraints="NO" id="6EB-EJ-iQY" customClass="KSTextField">
-                                <rect key="frame" x="219.5" y="492" width="329" height="40"/>
+                                <rect key="frame" x="36" y="283.5" width="303" height="40"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="7Cd-RT-H2b"/>
@@ -160,7 +155,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kw0-P8-XLf">
-                                <rect key="frame" x="40" y="652" width="688" height="30"/>
+                                <rect key="frame" x="36" y="446.5" width="303" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="j0V-T2-JCs"/>
                                 </constraints>
@@ -179,7 +174,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RUr-GH-tKZ">
-                                <rect key="frame" x="40" y="572" width="688" height="50"/>
+                                <rect key="frame" x="36" y="378.5" width="303" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3Lv-Af-C7A"/>
                                 </constraints>
@@ -239,30 +234,11 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <exclude reference="sZG-6z-zuk"/>
-                                <exclude reference="BHD-xA-yLE"/>
-                                <exclude reference="6EB-EJ-iQY"/>
-                                <exclude reference="Kw0-P8-XLf"/>
-                                <exclude reference="RUr-GH-tKZ"/>
-                            </mask>
                             <mask key="constraints">
-                                <exclude reference="2G6-fb-c1B"/>
-                                <exclude reference="XKh-fe-YWi"/>
-                                <exclude reference="kbR-nK-aUa"/>
-                                <exclude reference="7RH-Gu-fRB"/>
                                 <include reference="YjJ-YP-Db6"/>
                                 <include reference="bg4-9W-fsd"/>
-                                <exclude reference="0wt-vP-R0B"/>
                                 <include reference="HO6-vE-Pb5"/>
-                                <exclude reference="aE9-jH-Aai"/>
                                 <include reference="dIQ-45-HSe"/>
-                                <exclude reference="Vhw-Ny-XKh"/>
-                                <exclude reference="dFy-u3-Ekb"/>
-                                <exclude reference="zRb-zN-nR3"/>
-                                <exclude reference="bA9-1h-4h4"/>
-                                <exclude reference="bc9-fR-se3"/>
-                                <exclude reference="lyG-CK-fpT"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -491,9 +467,7 @@
                             <constraint firstItem="aAN-Fj-ail" firstAttribute="leading" secondItem="kEP-f7-WPw" secondAttribute="leadingMargin" constant="60" id="P7c-gi-hUl">
                                 <variation key="heightClass=regular-widthClass=compact" constant="40"/>
                             </constraint>
-                            <constraint firstItem="aAN-Fj-ail" firstAttribute="top" secondItem="qzY-dZ-4k5" secondAttribute="bottom" constant="44" id="T9p-vT-KUD">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-113"/>
-                            </constraint>
+                            <constraint firstItem="qzY-dZ-4k5" firstAttribute="top" secondItem="aAN-Fj-ail" secondAttribute="bottom" constant="33" id="PGk-eA-vam"/>
                             <constraint firstAttribute="bottom" secondItem="I49-aa-tIg" secondAttribute="bottom" id="Vfa-cI-hys"/>
                             <constraint firstItem="I49-aa-tIg" firstAttribute="leading" secondItem="kEP-f7-WPw" secondAttribute="leading" id="bt3-hJ-Qib"/>
                             <constraint firstItem="qzY-dZ-4k5" firstAttribute="leading" secondItem="kEP-f7-WPw" secondAttribute="leadingMargin" constant="60" id="dKy-oK-FzV">
