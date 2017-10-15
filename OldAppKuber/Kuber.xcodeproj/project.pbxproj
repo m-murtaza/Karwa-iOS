@@ -63,6 +63,7 @@
 		1822C4311BA968810087ACE3 /* partners_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4301BA968810087ACE3 /* partners_list@2x.png */; };
 		1829FC541C06F006007B9A68 /* destination-help-iphone5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1829FC531C06F006007B9A68 /* destination-help-iphone5@2x.png */; };
 		1829FC561C071582007B9A68 /* avatar_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1829FC551C071582007B9A68 /* avatar_menu@2x.png */; };
+		1831DCDA1F8F84AE00F244D8 /* main-screen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1831DCD91F8F84AE00F244D8 /* main-screen@3x.png */; };
 		184245F41BBCF997001C780A /* MuseoSans_500_Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184245EA1BBCF997001C780A /* MuseoSans_500_Italic.otf */; };
 		184245F51BBCF997001C780A /* MuseoSans_500.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184245EB1BBCF997001C780A /* MuseoSans_500.otf */; };
 		184245F61BBCF997001C780A /* MuseoSans_700.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184245EC1BBCF997001C780A /* MuseoSans_700.otf */; };
@@ -444,6 +445,8 @@
 		1829FC531C06F006007B9A68 /* destination-help-iphone5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "destination-help-iphone5@2x.png"; path = "Booking/destination-help-iphone5@2x.png"; sourceTree = "<group>"; };
 		1829FC551C071582007B9A68 /* avatar_menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar_menu@2x.png"; path = "Menu/avatar_menu@2x.png"; sourceTree = "<group>"; };
 		1831DCD81F8CAEFD00F244D8 /* Kuber 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Kuber 3.xcdatamodel"; sourceTree = "<group>"; };
+		1831DCD91F8F84AE00F244D8 /* main-screen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "main-screen@3x.png"; path = "MainMenu/main-screen@3x.png"; sourceTree = "<group>"; };
+		1831DCDB1F8F861B00F244D8 /* blue-button-idle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue-button-idle@3x.png"; path = "Varify/blue-button-idle@3x.png"; sourceTree = "<group>"; };
 		184245EA1BBCF997001C780A /* MuseoSans_500_Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MuseoSans_500_Italic.otf; path = "Museo-Sans/MuseoSans_500_Italic.otf"; sourceTree = "<group>"; };
 		184245EB1BBCF997001C780A /* MuseoSans_500.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MuseoSans_500.otf; path = "Museo-Sans/MuseoSans_500.otf"; sourceTree = "<group>"; };
 		184245EC1BBCF997001C780A /* MuseoSans_700.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MuseoSans_700.otf; path = "Museo-Sans/MuseoSans_700.otf"; sourceTree = "<group>"; };
@@ -1109,6 +1112,7 @@
 		184D22371BA54E5F007CB740 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				1831DCD91F8F84AE00F244D8 /* main-screen@3x.png */,
 				184D223A1BA55D93007CB740 /* main-screen@2x.png */,
 			);
 			name = MainMenu;
@@ -1714,6 +1718,7 @@
 		18D65DD01B9EC0FE00D6C1BD /* Varify */ = {
 			isa = PBXGroup;
 			children = (
+				1831DCDB1F8F861B00F244D8 /* blue-button-idle@3x.png */,
 				18D65DD11B9EC13000D6C1BD /* blue-button-idle@2x.png */,
 				18D65DD21B9EC13000D6C1BD /* blue-button-pressed@2x.png */,
 				18D65DD31B9EC13000D6C1BD /* VerifyCode-box@2x.png */,
@@ -1969,6 +1974,7 @@
 				189490141EA8C47600DB2104 /* history-luxury-limo-ico@2x.png in Resources */,
 				184D22671BA55E64007CB740 /* logout-ico-idle@2x.png in Resources */,
 				184245FA1BBCF997001C780A /* MuseoSans-300.otf in Resources */,
+				1831DCDA1F8F84AE00F244D8 /* main-screen@3x.png in Resources */,
 				1880C54C1B7877ED004F0188 /* taxi@2x.png in Resources */,
 				184CF91B1BA02A080025B883 /* vertical-dots@2x.png in Resources */,
 				18D65DC91B9D82B600D6C1BD /* login-button-idle@2x.png in Resources */,
@@ -2460,7 +2466,7 @@
 				PRODUCT_NAME = "Karwa Taxi";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = KarwaDevPP;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2482,7 +2488,7 @@
 				PRODUCT_NAME = "Karwa Taxi";
 				PROVISIONING_PROFILE = "4862021d-a66e-4ea7-b0c6-69515a476203";
 				PROVISIONING_PROFILE_SPECIFIER = KarwaAppStoreProvisionProfile;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
