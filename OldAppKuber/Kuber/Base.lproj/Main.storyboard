@@ -568,13 +568,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you agree to the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2f-Ra-bcu">
-                                <rect key="frame" x="219.5" y="423" width="212.5" height="18"/>
+                                <rect key="frame" x="219.5" y="423" width="209" height="18"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jax-e6-Etc" customClass="UIUnderlinedButton">
-                                <rect key="frame" x="429" y="417" width="125" height="30"/>
+                                <rect key="frame" x="425.5" y="417" width="124" height="30"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <state key="normal" title="Terms of Services ">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6248,11 +6248,11 @@
                                     <constraint firstItem="8W9-CM-t0v" firstAttribute="leading" secondItem="XqC-fe-XVl" secondAttribute="leading" id="ydV-rn-Sxz"/>
                                 </constraints>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-Mc-eHN">
-                                <rect key="frame" x="34" y="160.5" width="700" height="88"/>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-Mc-eHN">
+                                <rect key="frame" x="34" y="468" width="700" height="88"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="uwx-sN-XEs">
-                                        <rect key="frame" x="141" y="20" width="34" height="46"/>
+                                        <rect key="frame" x="333" y="20" width="34" height="46"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6262,26 +6262,6 @@
                                     <constraint firstAttribute="bottom" secondItem="uwx-sN-XEs" secondAttribute="bottom" constant="22" id="TKW-Q6-ncJ"/>
                                     <constraint firstItem="uwx-sN-XEs" firstAttribute="top" secondItem="Le5-Mc-eHN" secondAttribute="top" constant="20" id="uqm-Qo-P5g"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="uwx-sN-XEs"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <exclude reference="FfD-Yc-zIm"/>
-                                        <exclude reference="TKW-Q6-ncJ"/>
-                                        <exclude reference="uqm-Qo-P5g"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="uwx-sN-XEs"/>
-                                    </mask>
-                                    <mask key="constraints">
-                                        <include reference="FfD-Yc-zIm"/>
-                                        <include reference="TKW-Q6-ncJ"/>
-                                        <include reference="uqm-Qo-P5g"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="v2G-VZ-GPY">
                                 <rect key="frame" x="4" y="449" width="760" height="218"/>
@@ -6314,7 +6294,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="354" y="45" width="53" height="21"/>
+                                                    <rect key="frame" x="353.5" y="45" width="54.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -6358,7 +6338,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" tag="6005" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ar-fP-NnQ">
-                                                    <rect key="frame" x="700" y="32" width="52" height="49"/>
+                                                    <rect key="frame" x="700" y="8" width="52" height="49"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="49" id="48a-K6-cqK"/>
                                                         <constraint firstAttribute="width" constant="52" id="jX5-Md-bxU"/>
@@ -6373,7 +6353,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSp-91-qiu">
-                                                    <rect key="frame" x="8" y="32" width="668" height="50"/>
+                                                    <rect key="frame" x="8" y="8" width="671" height="49"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
                                                     <state key="normal" title="REQUEST BOOKING" backgroundImage="blue-button-idle.png">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6386,22 +6366,12 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="8ar-fP-NnQ" firstAttribute="leading" secondItem="pSp-91-qiu" secondAttribute="trailing" constant="24" id="DQu-wM-9Mh">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="21"/>
-                                                </constraint>
-                                                <constraint firstItem="pSp-91-qiu" firstAttribute="top" secondItem="xGh-3V-Ye9" secondAttribute="topMargin" constant="24" id="MHg-46-MKS">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                                                </constraint>
-                                                <constraint firstAttribute="bottomMargin" secondItem="8ar-fP-NnQ" secondAttribute="bottom" constant="23" id="SLl-6j-Ko6">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="12"/>
-                                                </constraint>
-                                                <constraint firstItem="8ar-fP-NnQ" firstAttribute="top" secondItem="xGh-3V-Ye9" secondAttribute="topMargin" constant="24" id="fWC-ud-0FI">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                                                </constraint>
+                                                <constraint firstItem="8ar-fP-NnQ" firstAttribute="leading" secondItem="pSp-91-qiu" secondAttribute="trailing" constant="21" id="DQu-wM-9Mh"/>
+                                                <constraint firstItem="pSp-91-qiu" firstAttribute="top" secondItem="xGh-3V-Ye9" secondAttribute="topMargin" id="MHg-46-MKS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="8ar-fP-NnQ" secondAttribute="bottom" constant="12" id="SLl-6j-Ko6"/>
+                                                <constraint firstItem="8ar-fP-NnQ" firstAttribute="top" secondItem="xGh-3V-Ye9" secondAttribute="topMargin" id="fWC-ud-0FI"/>
                                                 <constraint firstItem="8ar-fP-NnQ" firstAttribute="trailing" secondItem="xGh-3V-Ye9" secondAttribute="trailingMargin" id="llx-IF-ei5"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="pSp-91-qiu" secondAttribute="bottom" constant="23" id="uBq-Kv-9JF">
-                                                    <variation key="heightClass=regular-widthClass=compact" constant="12"/>
-                                                </constraint>
+                                                <constraint firstAttribute="bottomMargin" secondItem="pSp-91-qiu" secondAttribute="bottom" constant="12" id="uBq-Kv-9JF"/>
                                                 <constraint firstItem="pSp-91-qiu" firstAttribute="leading" secondItem="xGh-3V-Ye9" secondAttribute="leadingMargin" id="zxq-8x-5uT"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -6414,7 +6384,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="date-sep.png" translatesAutoresizingMaskIntoConstraints="NO" id="sZv-Km-OKZ">
-                                                    <rect key="frame" x="47.5" y="0.0" width="280" height="1"/>
+                                                    <rect key="frame" x="240" y="0.0" width="280" height="1"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="4oj-bk-pZ7"/>
                                                         <constraint firstAttribute="width" constant="280" id="Ea9-KE-8Ky"/>
@@ -6445,18 +6415,6 @@
                                                 <constraint firstAttribute="centerX" secondItem="sZv-Km-OKZ" secondAttribute="centerX" id="dlT-5K-fuG"/>
                                                 <constraint firstItem="egH-2G-aen" firstAttribute="trailing" secondItem="iFr-hp-pRd" secondAttribute="trailingMargin" id="mkv-91-z4i"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="subviews">
-                                                    <exclude reference="sZv-Km-OKZ"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <mask key="subviews">
-                                                    <include reference="sZv-Km-OKZ"/>
-                                                    <include reference="egH-2G-aen"/>
-                                                    <include reference="gRg-sU-ydQ"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookingCellIdentifier" rowHeight="86" id="Tal-ce-yuC">
@@ -7019,7 +6977,6 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Li1-w2-bB0"/>
         <segue reference="QFx-wv-VWz"/>
         <segue reference="X1O-ak-DHc"/>
         <segue reference="JW2-GG-KhI"/>
