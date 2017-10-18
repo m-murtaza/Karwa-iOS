@@ -6314,7 +6314,7 @@
                                                     </variation>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="40" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 40QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIP-bA-6yt">
-                                                    <rect key="frame" x="52" y="45" width="54" height="21"/>
+                                                    <rect key="frame" x="224.5" y="45" width="54" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="hWE-c7-a8B"/>
                                                     </constraints>
@@ -6324,12 +6324,15 @@
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
                                                     <rect key="frame" x="353.5" y="45" width="53" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="EFG-78-vaB"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.094117647060000004" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="70" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 70QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWA-Nk-jXb">
-                                                    <rect key="frame" x="646" y="45" width="64" height="21"/>
+                                                    <rect key="frame" x="470.5" y="49.5" width="64" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="64" id="bJ8-dE-9yX"/>
                                                     </constraints>
@@ -6341,18 +6344,18 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="sIP-bA-6yt" secondAttribute="bottom" id="6gq-OM-2bK"/>
                                                 <constraint firstItem="zsg-i7-bLo" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="27" id="6jO-wa-uQe"/>
-                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="baseline" secondItem="hWA-Nk-jXb" secondAttribute="baseline" id="86r-T6-6lj"/>
                                                 <constraint firstItem="sIP-bA-6yt" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="44" id="FCT-Jq-I5F"/>
                                                 <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="zsg-i7-bLo" secondAttribute="centerX" id="Hg5-7B-jxM"/>
-                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="baseline" secondItem="6oN-5y-VSr" secondAttribute="baseline" id="MZ0-c3-saw"/>
-                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="firstBaseline" secondItem="hWA-Nk-jXb" secondAttribute="firstBaseline" id="PPP-qV-lBb"/>
+                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="leading" secondItem="zsg-i7-bLo" secondAttribute="leading" constant="20" id="OXm-bE-RgV"/>
+                                                <constraint firstItem="hWA-Nk-jXb" firstAttribute="trailing" secondItem="zsg-i7-bLo" secondAttribute="trailing" constant="-20" id="SAC-Xl-5ta"/>
                                                 <constraint firstItem="AQi-1J-Six" firstAttribute="leading" secondItem="bNr-DS-v1Y" secondAttribute="leadingMargin" constant="40" id="aHL-Ow-mQq"/>
-                                                <constraint firstItem="sIP-bA-6yt" firstAttribute="firstBaseline" secondItem="6oN-5y-VSr" secondAttribute="firstBaseline" id="b5L-BT-Ohm"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="hWA-Nk-jXb" secondAttribute="trailing" constant="42" id="bmS-RZ-cQ6"/>
                                                 <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="6oN-5y-VSr" secondAttribute="centerX" id="h4V-Sx-pgY"/>
+                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="centerY" secondItem="sIP-bA-6yt" secondAttribute="centerY" id="htC-Xm-y6y"/>
                                                 <constraint firstItem="6oN-5y-VSr" firstAttribute="leading" secondItem="sIP-bA-6yt" secondAttribute="trailing" priority="250" constant="37" id="iJI-gK-RaP"/>
                                                 <constraint firstItem="zsg-i7-bLo" firstAttribute="top" secondItem="AQi-1J-Six" secondAttribute="bottom" constant="4" id="kJL-Ga-PHg"/>
                                                 <constraint firstItem="sIP-bA-6yt" firstAttribute="top" secondItem="zsg-i7-bLo" secondAttribute="bottom" id="lyx-ZL-HVY"/>
+                                                <constraint firstItem="6oN-5y-VSr" firstAttribute="centerY" secondItem="hWA-Nk-jXb" secondAttribute="centerY" id="qlR-fi-eq6"/>
                                                 <constraint firstItem="hWA-Nk-jXb" firstAttribute="leading" secondItem="6oN-5y-VSr" secondAttribute="trailing" priority="250" constant="39" id="s0o-zS-qAK"/>
                                                 <constraint firstItem="AQi-1J-Six" firstAttribute="centerX" secondItem="bNr-DS-v1Y" secondAttribute="centerX" id="sWk-zB-r2l"/>
                                                 <constraint firstItem="AQi-1J-Six" firstAttribute="top" secondItem="bNr-DS-v1Y" secondAttribute="top" id="w5e-1X-dxa"/>
@@ -6361,12 +6364,26 @@
                                                 <mask key="constraints">
                                                     <exclude reference="6jO-wa-uQe"/>
                                                     <exclude reference="aHL-Ow-mQq"/>
+                                                    <exclude reference="FCT-Jq-I5F"/>
+                                                    <exclude reference="OXm-bE-RgV"/>
+                                                    <exclude reference="iJI-gK-RaP"/>
+                                                    <exclude reference="bmS-RZ-cQ6"/>
+                                                    <exclude reference="s0o-zS-qAK"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="6jO-wa-uQe"/>
                                                     <include reference="aHL-Ow-mQq"/>
+                                                    <include reference="FCT-Jq-I5F"/>
+                                                    <include reference="iJI-gK-RaP"/>
+                                                    <include reference="bmS-RZ-cQ6"/>
+                                                    <include reference="s0o-zS-qAK"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <include reference="OXm-bE-RgV"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
