@@ -117,16 +117,15 @@ static BOOL showMendatoryRating = TRUE;
 
 -(void) viewDidLoad
 {
-    
     [super viewDidLoad];
     
     isMaploaded = FALSE;
-    dropoffVisible = FALSE;
+    
     isPickupFromMap = TRUE;
     vehicleType = KSCityTaxi;
     ratingTrip = nil;
-    [self setIndexForCell:dropoffVisible];
-
+    
+    [self ShowHideDropoffForScreenSize];
     
     if (self.repeatTrip) {
         //[self populateOldTripData];
@@ -476,10 +475,7 @@ static BOOL showMendatoryRating = TRUE;
         {
             NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
             NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
-            
             NSString *userPhoneNumber = [[KSDAL loggedInUser] phone];
-            
-            //NSDictionary *tripDetails =
             
             NSDictionary *tripDetails = @{
                                          @"TripInfo" : tripInfo,
@@ -487,8 +483,6 @@ static BOOL showMendatoryRating = TRUE;
                                          @"TaxiLimoOption" : [NSString stringWithFormat:@"%lu", (unsigned long)segmentVehicleType.selectedSegmentIndex],
                                          @"LimoType" : (segmentVehicleType.selectedSegmentIndex == 1) ?[NSString stringWithFormat:@"%lu", (unsigned long)segmantLimoType.selectedSegmentIndex] : @"-1"
                                          };
-            
-            //[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
             
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
@@ -501,6 +495,72 @@ static BOOL showMendatoryRating = TRUE;
     }
 }
 
+#pragma mark - DropOff
+
+-(void) ShowHideDropoffForScreenSize
+{
+    if([self isLargeScreen])
+    {
+        dropoffVisible = TRUE;
+        [self setIndexForCell:dropoffVisible];
+        
+        self.tblViewHeight.constant += 94;
+        self.bottomMapToTopTblView.constant -=94;
+    }
+    else
+    {
+        dropoffVisible = FALSE;
+        [self setIndexForCell:dropoffVisible];
+    }
+}
+
+-(void) UpdateMapForDropOff:(BOOL) withDropOff
+{
+    if (withDropOff) {
+        self.mapView.scrollEnabled = FALSE;
+    }
+    else{
+        self.mapView.scrollEnabled = TRUE;
+    }
+}
+
+-(void) setIndexForCell:(BOOL)withDropOff
+{
+    if (withDropOff) {
+        
+        idxPickupLocation = 0;
+        idxDropOffLocation = 1;
+        idxPickupTime = 2;
+        idxBtnCell = 3;
+    }
+    else {
+        
+        idxPickupLocation = 0;
+        idxPickupTime = 1;
+        idxBtnCell = 2;
+        idxDropOffLocation = 100; //
+        
+    }
+}
+
+
+-(BOOL) isLargeScreen
+{
+    BOOL largeScreen = TRUE;
+    NSInteger horizontalClass = self.traitCollection.horizontalSizeClass;
+    switch (horizontalClass) {
+        case UIUserInterfaceSizeClassCompact :
+            largeScreen = FALSE;
+            break;
+        case UIUserInterfaceSizeClassRegular :
+            largeScreen = TRUE;
+            break;
+        default :
+            largeScreen = FALSE;
+            break;
+    }
+    return largeScreen;
+}
 #pragma mark - Private Function
 
 -(void) populateOldTripData
@@ -512,10 +572,6 @@ static BOOL showMendatoryRating = TRUE;
         dropoffPoint = CLLocationCoordinate2DMake([self.repeatTrip.dropOffLat doubleValue], [self.repeatTrip.dropOffLon doubleValue]);
     }
     
-    /*if (self.repeatTrip.pickupHint.length) {
-        hintTxt = self.repeatTrip.pickupHint;
-    }*/
-    
     vehicleType = (KSVehicleType)[self.repeatTrip.vehicleType integerValue];
     
     if([AppUtils isTaxiType: vehicleType])
@@ -526,11 +582,6 @@ static BOOL showMendatoryRating = TRUE;
         
         [self.tableView reloadData];
     }
-    
-    
-    
-    //[self.mapView setCenterCoordinate:CLLocationCoordinate2DMake([tripInfo.pickupLat doubleValue], [tripInfo.pickupLon doubleValue]) animated:YES];
-    
 }
 
 -(void) addCrashlyticsInfo
@@ -673,35 +724,6 @@ static BOOL showMendatoryRating = TRUE;
     
     self.txtPickupTime.inputView = picker;
     [self updatePickupTime:[NSDate date]];
-}
-
--(void) UpdateMapForDropOff:(BOOL) withDropOff
-{
-    if (withDropOff) {
-        self.mapView.scrollEnabled = FALSE;
-    }
-    else{
-        self.mapView.scrollEnabled = TRUE;
-    }
-}
-
--(void) setIndexForCell:(BOOL)withDropOff
-{
-    if (withDropOff) {
-        
-        idxPickupLocation = 0;
-        idxDropOffLocation = 1;
-        idxPickupTime = 2;
-        idxBtnCell = 3;
-    }
-    else {
-        
-        idxPickupLocation = 0;
-        idxPickupTime = 1;
-        idxBtnCell = 2;
-        idxDropOffLocation = 100; //
-        
-    }
 }
 
 - (void)updatePickupTime:(NSDate *)date {
@@ -1042,11 +1064,14 @@ static BOOL showMendatoryRating = TRUE;
 
 -(BOOL) showDestinationPopUp
 {
-    if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
+    if(![self isLargeScreen])
     {
-        if ([self showHintForDestination]) {
-            [self hideHintView:FALSE];
-            return TRUE;
+        if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
+        {
+            if ([self showHintForDestination]) {
+                [self hideHintView:FALSE];
+                return TRUE;
+            }
         }
     }
     return FALSE;
