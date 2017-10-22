@@ -377,7 +377,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main-screen.png" translatesAutoresizingMaskIntoConstraints="NO" id="I49-aa-tIg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="main-screen" translatesAutoresizingMaskIntoConstraints="NO" id="I49-aa-tIg">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzY-dZ-4k5">
@@ -568,13 +568,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you agree to the " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2f-Ra-bcu">
-                                <rect key="frame" x="219.5" y="423" width="209" height="18"/>
+                                <rect key="frame" x="219.5" y="423" width="212.5" height="18"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jax-e6-Etc" customClass="UIUnderlinedButton">
-                                <rect key="frame" x="425.5" y="417" width="124" height="30"/>
+                                <rect key="frame" x="429" y="417" width="125" height="30"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <state key="normal" title="Terms of Services ">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6216,14 +6216,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctt-mr-gwD">
-                                <rect key="frame" x="4" y="20" width="760" height="786"/>
+                                <rect key="frame" x="4" y="64" width="760" height="742"/>
                             </mapView>
                             <view hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dj6-A8-V8C">
-                                <rect key="frame" x="0.0" y="20" width="768" height="936"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="892"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqC-fe-XVl">
-                                <rect key="frame" x="4" y="20" width="760" height="0.0"/>
+                                <rect key="frame" x="4" y="64" width="760" height="0.0"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8W9-CM-t0v">
                                         <rect key="frame" x="0.0" y="0.0" width="760" height="0.0"/>
@@ -6249,7 +6249,7 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Le5-Mc-eHN">
-                                <rect key="frame" x="34" y="346" width="700" height="88"/>
+                                <rect key="frame" x="34" y="368" width="700" height="88"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="uwx-sN-XEs">
                                         <rect key="frame" x="333" y="20" width="34" height="46"/>
@@ -6320,7 +6320,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="357" y="45" width="54.5" height="21"/>
+                                                    <rect key="frame" x="358" y="45" width="53" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="EFG-78-vaB"/>
                                                     </constraints>
@@ -6540,7 +6540,7 @@
                                 </connections>
                             </button>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination-help.png" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-qX-lvt">
-                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6999,7 +6999,7 @@
         <image name="location.png" width="16" height="16"/>
         <image name="login-button-idle.png" width="329" height="49"/>
         <image name="login-button-pressed.png" width="329" height="49"/>
-        <image name="main-screen.png" width="375" height="667"/>
+        <image name="main-screen" width="1152" height="1536"/>
         <image name="map-sep-line-09.png" width="1" height="1"/>
         <image name="map-sep-line.png" width="1" height="1"/>
         <image name="menu-active-bg.png" width="320" height="72"/>
@@ -7029,9 +7029,8 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Li1-w2-bB0"/>
-        <segue reference="QFx-wv-VWz"/>
-        <segue reference="X1O-ak-DHc"/>
-        <segue reference="JW2-GG-KhI"/>
+        <segue reference="yqw-R3-lfa"/>
+        <segue reference="l1Z-UY-714"/>
+        <segue reference="nbB-dK-Gpq"/>
     </inferredMetricsTieBreakers>
 </document>
