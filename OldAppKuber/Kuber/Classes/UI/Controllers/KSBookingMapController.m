@@ -137,16 +137,11 @@ static BOOL showMendatoryRating = TRUE;
         rebookLoading = NO;
     }
     
-    
-    self.mapView.delegate = self;
-    self.mapView.scrollEnabled = YES;
-    self.mapView.zoomEnabled = YES;
-    
+    [self setMapParameterForScreenSize];
     
     [self addTableViewHeader];
     //[self.btnCurrentLocaiton setSelected:TRUE];
     [self addCrashlyticsInfo];
-    
     
     [self.mapDisableView setHidden:FALSE];
     
@@ -256,7 +251,8 @@ static BOOL showMendatoryRating = TRUE;
 #pragma mark - CoachMarks
 -(void) enableAllIntaractiveView :(BOOL) enable
 {
-    self.mapView.userInteractionEnabled = enable;
+    [self setMapUserInteraction:enable];
+    //self.mapView.userInteractionEnabled = enable;
     //[self.view endEditing:TRUE];
     self.tableView.userInteractionEnabled = enable;
     self.btnCurrentLocaiton.userInteractionEnabled = enable;
@@ -495,8 +491,35 @@ static BOOL showMendatoryRating = TRUE;
     }
 }
 
-#pragma mark - DropOff
+#pragma mark - Map
+-(void) setMapParameterForScreenSize
+{
+    self.mapView.delegate = self;
+    BOOL CorporateCustomer = [[[KSSessionInfo currentSession] customerType] integerValue] == KSCorporateCustomer ;
+    self.mapView.scrollEnabled = !CorporateCustomer;
+    self.mapView.zoomEnabled = !CorporateCustomer;
+    //self.mapView.userInteractionEnabled = !CorporateCustomer;
+    [self setMapUserInteraction:!CorporateCustomer];
+}
 
+-(void) setMapUserInteraction :(BOOL) enable
+{
+    BOOL CorporateCustomer = [[[KSSessionInfo currentSession] customerType] integerValue] == KSCorporateCustomer ;
+    
+    if(!CorporateCustomer)
+    {
+        
+        self.mapView.userInteractionEnabled = enable;
+    }
+    else
+    {
+        
+        self.mapView.userInteractionEnabled = FALSE;
+    }
+}
+
+
+#pragma mark - DropOff
 -(void) ShowHideDropoffForScreenSize
 {
     if([self isLargeScreen])
@@ -863,7 +886,8 @@ static BOOL showMendatoryRating = TRUE;
             [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
             [self.mapDisableView setAlpha:0.6];
-            self.mapView.userInteractionEnabled = FALSE;
+            [self setMapUserInteraction:FALSE];
+            //self.mapView.userInteractionEnabled = FALSE;
         } completion:^(BOOL finished) {
             if (animated) {
                 //[self.mapDisableView setHidden:FALSE];
@@ -899,7 +923,8 @@ static BOOL showMendatoryRating = TRUE;
             [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
             [self.mapDisableView setAlpha:0.0];
-            self.mapView.userInteractionEnabled = TRUE;
+            [self setMapUserInteraction:TRUE];
+            //self.mapView.userInteractionEnabled = TRUE;
         } completion:^(BOOL finished) {
             if (animated) {
                 //[self.mapDisableView setHidden:TRUE];
@@ -1095,13 +1120,15 @@ static BOOL showMendatoryRating = TRUE;
 {
     if (hide)
     {
-        self.mapView.userInteractionEnabled = TRUE;
+        [self setMapUserInteraction:TRUE];
+        //self.mapView.userInteractionEnabled = TRUE;
         self.imgDestinationHelp.hidden = TRUE;
         [self.view endEditing:FALSE];
     }
     else {
         [self.view endEditing:TRUE];
-        self.mapView.userInteractionEnabled = FALSE;
+        [self setMapUserInteraction:FALSE];
+        //self.mapView.userInteractionEnabled = FALSE;
         self.imgDestinationHelp.hidden = FALSE;
     }
 }
@@ -1445,7 +1472,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
             [self hideDropOff:TRUE];
         }
         else{
-         
+         if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
             [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
         }
     }
