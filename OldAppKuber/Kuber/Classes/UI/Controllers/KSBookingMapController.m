@@ -901,38 +901,41 @@ static BOOL showMendatoryRating = TRUE;
 
 -(void) hideDropOff:(BOOL)animated
 {
-    if (dropoffVisible == TRUE) {
+    if(![self isLargeScreen])
+    {
+        if (dropoffVisible == TRUE) {
 
-        dropoffVisible = FALSE;
-        [self setIndexForCell:dropoffVisible];
-        
-        NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
-        [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
-        
-        [self.tableView layoutIfNeeded];
-        [self.btnCurrentLocaiton setHidden:FALSE];
-        
-        self.tblViewHeight.constant -= 94;
-        self.bottomMapToTopTblView.constant +=94;
-        
-        NSTimeInterval animDuration = animated ? 0.5 : 0;
-        
-        [UIView animateWithDuration:animDuration animations:^{
+            dropoffVisible = FALSE;
+            [self setIndexForCell:dropoffVisible];
+            
+            NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+            [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+            
             [self.tableView layoutIfNeeded];
+            [self.btnCurrentLocaiton setHidden:FALSE];
             
-            [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
-                                  withRowAnimation:UITableViewRowAnimationNone];
-            [self.mapDisableView setAlpha:0.0];
-            [self setMapUserInteraction:TRUE];
-            //self.mapView.userInteractionEnabled = TRUE;
-        } completion:^(BOOL finished) {
-            if (animated) {
-                //[self.mapDisableView setHidden:TRUE];
-            }
+            self.tblViewHeight.constant -= 94;
+            self.bottomMapToTopTblView.constant +=94;
             
-        }];
-        
-        [self updateViewForShowHideDropOff];
+            NSTimeInterval animDuration = animated ? 0.5 : 0;
+            
+            [UIView animateWithDuration:animDuration animations:^{
+                [self.tableView layoutIfNeeded];
+                
+                [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
+                                      withRowAnimation:UITableViewRowAnimationNone];
+                [self.mapDisableView setAlpha:0.0];
+                [self setMapUserInteraction:TRUE];
+                //self.mapView.userInteractionEnabled = TRUE;
+            } completion:^(BOOL finished) {
+                if (animated) {
+                    //[self.mapDisableView setHidden:TRUE];
+                }
+                
+            }];
+            
+            [self updateViewForShowHideDropOff];
+        }
     }
 }
 
@@ -1450,7 +1453,8 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
-        
+        if([self isLargeScreen])
+            self.btnDestinationReveal.hidden = TRUE;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
