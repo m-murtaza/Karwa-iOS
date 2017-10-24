@@ -221,7 +221,10 @@ static BOOL showMendatoryRating = TRUE;
     {
         //if view is on screen. ask for unrated trips.
         if(showMendatoryRating)
+        {
+            showMendatoryRating = FALSE;
             [self checkForUnRatedTrip];
+        }
     }
     else
     {
@@ -238,8 +241,8 @@ static BOOL showMendatoryRating = TRUE;
 #pragma mark - Unrated Trips
 -(void) checkForUnRatedTrip
 {
-     if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
-     {
+     //if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+     //{
         [KSDAL syncUnRatedBookingsForLastThreeDaysWithCompletion:^(KSAPIStatus status, NSArray *trips) {
           if (status == KSAPIStatusSuccess) {
               if(trips != nil && [trips count] > 0)
@@ -251,7 +254,7 @@ static BOOL showMendatoryRating = TRUE;
               }
           }
         }];
-     }
+     //}
 }
 
 #pragma mark - CoachMarks
@@ -1640,7 +1643,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
 {
     CLLocationDistance locationShift = [self.mapView.userLocation.location distanceFromLocation:[CLLocation locationWithCoordinate: self.mapView.centerCoordinate]];
     
-    if(locationShift > 500)
+    if(locationShift > 50)              //50 meters
     {
         [self showTopBarAltForFarAwayLocation];
     }
