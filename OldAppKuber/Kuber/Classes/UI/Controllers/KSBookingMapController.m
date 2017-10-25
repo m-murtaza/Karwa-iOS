@@ -267,7 +267,7 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
-    if(1 || ![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
+    if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
@@ -286,7 +286,7 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
-    if(1 || ![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
+    if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         
