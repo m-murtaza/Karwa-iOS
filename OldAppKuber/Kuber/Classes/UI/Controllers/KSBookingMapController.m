@@ -267,12 +267,12 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
-    if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
+    if(1 || ![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
-        imgCoachMark.image = [UIImage imageNamed:@"limo-coachmark.png"];
+        imgCoachMark.image = [UIImage imageNamed:@"limo-coachmark"];
         [[UIApplication sharedApplication].keyWindow addSubview:imgCoachMark];
         
         [defaults setValue:[NSNumber numberWithBool:true] forKey:KSTaxiLimoDefaultKey];
@@ -286,14 +286,14 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
-    if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
+    if(1 || ![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         
         imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, statusBarFrame.size.height, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
-        imgCoachMark.image = [UIImage imageNamed:@"types-coachmark.png"];
+        imgCoachMark.image = [UIImage imageNamed:@"limo-types-coachmark"];
         [[UIApplication sharedApplication].keyWindow addSubview:imgCoachMark];
         
         [defaults setValue:[NSNumber numberWithBool:true] forKey:KSLimoTypeDefaultKey];
