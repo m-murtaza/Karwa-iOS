@@ -91,7 +91,7 @@ BtnState;
         }
     }
     
-    if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+    if(1 || [self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
         
         [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
