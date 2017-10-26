@@ -69,4 +69,24 @@
     }
     return strType;
 }
+
+
++ (BOOL) isLargeScreen:(UIViewController*)controller
+{
+    BOOL largeScreen = TRUE;
+    NSInteger horizontalClass = controller.traitCollection.horizontalSizeClass;
+    switch (horizontalClass) {
+        case UIUserInterfaceSizeClassCompact :
+            largeScreen = FALSE;
+            break;
+        case UIUserInterfaceSizeClassRegular :
+            largeScreen = TRUE;
+            break;
+        default :
+            largeScreen = FALSE;
+            break;
+    }
+    return largeScreen;
+    
+}
 @end

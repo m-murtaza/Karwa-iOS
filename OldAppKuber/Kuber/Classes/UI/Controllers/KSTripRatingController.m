@@ -78,8 +78,9 @@
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 2.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"REASON BEHIND THIS RATING?";
     //labelView.adjustsFontSizeToFitWidth = FALSE;
-    labelView.font = [UIFont fontWithName:KSMuseoSans300 size:12];
-    labelView.font=[labelView.font fontWithSize:12];
+    BOOL largeScree  = [AppUtils isLargeScreen:self];
+    labelView.font = [UIFont fontWithName:KSMuseoSans300 size:largeScree? 18:12];
+    labelView.font=[labelView.font fontWithSize:largeScree? 18:12];
     labelView.textColor = [UIColor colorFromHexString:@"#858585"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
@@ -287,7 +288,7 @@
     CGFloat height;
     if(self.serviceRating.rate <= 3 && indexPath.row < [issueList count]){
         
-        height = 40;
+        height = [AppUtils isLargeScreen:self]? 60:40;
     }
     else{
 
@@ -313,9 +314,10 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
             }
             
+            BOOL largeScreen = [AppUtils isLargeScreen:self];
             KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
             cell.textLabel.text = issue.valueEN;
-            cell.textLabel.font = [UIFont fontWithName:KSMuseoSans300 size:15];
+            cell.textLabel.font = [UIFont fontWithName:KSMuseoSans300 size:largeScreen? 22: 15];
             cell.textLabel.textColor = [UIColor colorFromHexString:@"#777777"];
             
             //[UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];
