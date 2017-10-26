@@ -4302,13 +4302,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cE8-WD-Luh" userLabel="Top View">
-                                <rect key="frame" x="0.0" y="20" width="768" height="332"/>
+                                <rect key="frame" x="0.0" y="20" width="768" height="336.5"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details-top-view" translatesAutoresizingMaskIntoConstraints="NO" id="D1v-Lh-IPD">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="769" height="336.5"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FRI 8 AUG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="qNs-Ru-PqO">
-                                        <rect key="frame" x="257.5" y="262" width="253" height="50"/>
+                                        <rect key="frame" x="257.5" y="266.5" width="253" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="153" id="cVg-V0-prG">
                                                 <variation key="heightClass=regular-widthClass=regular" constant="253"/>
@@ -4362,12 +4362,12 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="D1v-Lh-IPD" secondAttribute="bottom" id="0uv-JF-BF9"/>
                                     <constraint firstAttribute="centerX" secondItem="qNs-Ru-PqO" secondAttribute="centerX" id="1tA-6e-INM"/>
-                                    <constraint firstAttribute="width" secondItem="cE8-WD-Luh" secondAttribute="height" multiplier="400:173" id="Bbj-3B-PsL">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="-10.312138728323703"/>
+                                    <constraint firstAttribute="width" secondItem="cE8-WD-Luh" secondAttribute="height" multiplier="400:173" constant="-10.31" id="Bbj-3B-PsL">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="-10.31"/>
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="qNs-Ru-PqO" secondAttribute="bottom" constant="14" id="C8B-XJ-pUI">
                                         <variation key="heightClass=regular-widthClass=regular" constant="20"/>
@@ -4375,18 +4375,18 @@
                                     <constraint firstItem="0I5-7C-PW4" firstAttribute="top" secondItem="cE8-WD-Luh" secondAttribute="top" id="EZD-Jz-akX"/>
                                     <constraint firstItem="D1v-Lh-IPD" firstAttribute="top" secondItem="cE8-WD-Luh" secondAttribute="top" id="ODx-YW-XGS"/>
                                     <constraint firstItem="D1v-Lh-IPD" firstAttribute="leading" secondItem="cE8-WD-Luh" secondAttribute="leading" id="Uvc-v0-KpK"/>
-                                    <constraint firstAttribute="trailing" secondItem="D1v-Lh-IPD" secondAttribute="trailing" id="fpP-f5-rA7"/>
+                                    <constraint firstAttribute="trailing" secondItem="D1v-Lh-IPD" secondAttribute="trailing" constant="-1" id="fpP-f5-rA7"/>
                                     <constraint firstItem="0I5-7C-PW4" firstAttribute="leading" secondItem="cE8-WD-Luh" secondAttribute="leading" id="jLa-Ml-xsi"/>
                                     <constraint firstAttribute="trailing" secondItem="0I5-7C-PW4" secondAttribute="trailing" id="ywv-Nc-oVm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p14-Lt-iJP" userLabel="Booking Info View">
-                                <rect key="frame" x="12" y="352" width="744" height="162"/>
+                                <rect key="frame" x="12" y="356.5" width="744" height="162"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details_07.png" translatesAutoresizingMaskIntoConstraints="NO" id="g2h-2f-gbZ">
                                         <rect key="frame" x="0.0" y="0.0" width="744" height="162"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-6w-9oq">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="i0a-6w-9oq">
                                         <rect key="frame" x="156.5" y="25" width="82" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="U2p-kF-koE">
@@ -4400,7 +4400,7 @@
                                         <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="23"/>
+                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DROP OFF" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="WDm-GA-9Cp">
@@ -4417,7 +4417,7 @@
                                         <color key="textColor" red="0.72156862745098038" green="0.74901960784313726" blue="0.76862745098039209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="23"/>
+                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="fym-at-Xrl">
@@ -4430,9 +4430,12 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="102"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="51"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="37"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-9s-cNj">
                                         <rect key="frame" x="249.5" y="19" width="102" height="42"/>
@@ -4444,9 +4447,12 @@
                                                 <variation key="heightClass=regular-widthClass=regular" constant="102"/>
                                             </constraint>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="51"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="25"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="37"/>
+                                        </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Sadd Plaza Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-Mp-O9Z">
                                         <rect key="frame" x="136.5" y="54.5" width="213" height="75"/>
@@ -4462,7 +4468,7 @@
                                         <color key="textColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="27"/>
+                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="21"/>
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al Jummaiz Street, Doha Qatar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="TAf-1B-LTS">
@@ -4479,7 +4485,7 @@
                                         <color key="textColor" red="0.031372549019607843" green="0.32941176470588235" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="27"/>
+                                            <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="21"/>
                                         </variation>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="center" verticalHuggingPriority="248" image="forward-arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="6K5-o4-WAw">
@@ -4540,7 +4546,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAXI INFORMATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-es-YOx">
-                                <rect key="frame" x="20" y="534" width="213" height="20"/>
+                                <rect key="frame" x="20" y="538.5" width="213" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="S5H-AA-o4A">
                                         <variation key="heightClass=regular-widthClass=regular" constant="20"/>
@@ -4555,7 +4561,7 @@
                                 </variation>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHl-xf-otu">
-                                <rect key="frame" x="14" y="559" width="740" height="275"/>
+                                <rect key="frame" x="14" y="563.5" width="740" height="275"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="Booking-details_07-03.png" translatesAutoresizingMaskIntoConstraints="NO" id="YHP-OI-Yf1">
                                         <rect key="frame" x="0.0" y="0.0" width="740" height="275"/>
@@ -4659,12 +4665,12 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="15 Mins" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lao-Eq-z4a">
-                                                <rect key="frame" x="51" y="57.5" width="124" height="24"/>
+                                                <rect key="frame" x="51" y="57.5" width="124" height="26.5"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="15"/>
                                                 <color key="textColor" red="0.094117647058823528" green="0.47843137254901957" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="22"/>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8843" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-SO-Pn6">
@@ -4760,18 +4766,18 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where is my ride?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MK0-kb-Q8P">
-                                                <rect key="frame" x="58" y="23.5" width="632" height="24"/>
+                                                <rect key="frame" x="58" y="23" width="632" height="25.5"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                 <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="21"/>
                                                 </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHJ-EC-FuM">
                                                 <rect key="frame" x="50" y="0.0" width="648" height="70.5"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 </variation>
                                                 <connections>
                                                     <segue destination="Mrw-Su-08g" kind="show" identifier="segueDetailsToTrack" id="vwj-qd-tjh"/>
@@ -4869,6 +4875,9 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <state key="highlighted" backgroundImage="green-button-pressed.png"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                </variation>
                                 <connections>
                                     <action selector="btnCancelTapped:" destination="BJO-Sg-uAr" eventType="touchUpInside" id="19E-Wx-4Dy"/>
                                 </connections>
@@ -5283,7 +5292,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="358" y="45" width="53" height="21"/>
+                                                    <rect key="frame" x="358.5" y="45" width="53" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="EFG-78-vaB"/>
                                                     </constraints>
