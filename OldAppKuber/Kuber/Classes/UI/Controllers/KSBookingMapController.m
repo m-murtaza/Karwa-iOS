@@ -243,8 +243,8 @@ static BOOL showMendatoryRating = TRUE;
 #pragma mark - Unrated Trips
 -(void) checkForUnRatedTrip
 {
-     //if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
-     //{
+     if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+     {
         [KSDAL syncUnRatedBookingsForLastThreeDaysWithCompletion:^(KSAPIStatus status, NSArray *trips) {
           if (status == KSAPIStatusSuccess) {
               if(trips != nil && [trips count] > 0)
@@ -256,7 +256,7 @@ static BOOL showMendatoryRating = TRUE;
               }
           }
         }];
-     //}
+     }
 }
 
 #pragma mark - CoachMarks
