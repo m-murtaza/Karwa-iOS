@@ -55,7 +55,7 @@
     [self addTableViewheader];
     [self setupView];
     //[self addGesture];
-
+    self.navigationItem.hidesBackButton = TRUE;
 }
 
 -(void) viewWillAppear:(BOOL)animated

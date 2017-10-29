@@ -6942,13 +6942,14 @@
                                                         <action selector="btnShowDestinationTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="u0j-cb-mQm"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSp-91-qiu">
+                                                <button opaque="NO" tag="6006" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSp-91-qiu">
                                                     <rect key="frame" x="8" y="8" width="286" height="49"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
                                                     <state key="normal" title="REQUEST BOOKING" backgroundImage="blue-button-idle.png">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <state key="disabled" title="REQUEST BOOKING"/>
                                                     <state key="highlighted" title="REQUEST BOOKING" backgroundImage="blue-button-down.png"/>
                                                     <connections>
                                                         <action selector="btnBookingRequestTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="3nt-Sa-uVy"/>
@@ -6975,9 +6976,6 @@
                                                 <constraint firstItem="pSp-91-qiu" firstAttribute="leading" secondItem="xGh-3V-Ye9" secondAttribute="leadingMargin" id="zxq-8x-5uT"/>
                                             </constraints>
                                             <variation key="default">
-                                                <mask key="subviews">
-                                                    <exclude reference="pSp-91-qiu"/>
-                                                </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="MHg-46-MKS"/>
                                                     <exclude reference="uBq-Kv-9JF"/>
@@ -7204,9 +7202,6 @@
                                     <outlet property="delegate" destination="R2Z-NB-JBO" id="l6q-xw-Rfl"/>
                                 </connections>
                             </tableView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination-help.png" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-qX-lvt">
-                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDq-2d-nwe">
                                 <rect key="frame" x="316" y="398" width="43" height="43"/>
                                 <constraints>
@@ -7233,6 +7228,9 @@
                                     <action selector="showCurrentLocationTapped:" destination="R2Z-NB-JBO" eventType="touchUpInside" id="eTa-lE-kCu"/>
                                 </connections>
                             </button>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination-help.png" translatesAutoresizingMaskIntoConstraints="NO" id="vnr-qX-lvt">
+                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -7273,8 +7271,8 @@
                                 <exclude reference="dj6-A8-V8C"/>
                                 <exclude reference="Le5-Mc-eHN"/>
                                 <exclude reference="v2G-VZ-GPY"/>
-                                <exclude reference="vnr-qX-lvt"/>
                                 <exclude reference="mDq-2d-nwe"/>
+                                <exclude reference="vnr-qX-lvt"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="4ti-RM-RJ0"/>
@@ -7308,8 +7306,8 @@
                                 <include reference="dj6-A8-V8C"/>
                                 <include reference="Le5-Mc-eHN"/>
                                 <include reference="v2G-VZ-GPY"/>
-                                <include reference="vnr-qX-lvt"/>
                                 <include reference="mDq-2d-nwe"/>
+                                <include reference="vnr-qX-lvt"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="4ti-RM-RJ0"/>
@@ -7797,6 +7795,7 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Li1-w2-bB0"/>
         <segue reference="QFx-wv-VWz"/>
         <segue reference="X1O-ak-DHc"/>
         <segue reference="JW2-GG-KhI"/>

@@ -98,12 +98,14 @@ static BOOL showMendatoryRating = TRUE;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareStandard;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareBusiness;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareLuxary;
+@property (nonatomic, weak) UIButton *btnBookTaxi;
 
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
+
 
 
 //Top Right navigation item
@@ -893,7 +895,7 @@ static BOOL showMendatoryRating = TRUE;
 }
 
 - (void)updateTaxisInCurrentRegion {
-    
+    _btnBookTaxi.enabled = FALSE;
     //[self.mapView removeAnnotations:self.mapView.annotations];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
                               @"self isKindOfClass: %@",
@@ -923,6 +925,7 @@ static BOOL showMendatoryRating = TRUE;
                                                    type:vehicleType
                                              completion:^(NSArray *vehicleAnnotation) {
                                                  [self.mapView addAnnotations:vehicleAnnotation];
+                                                 _btnBookTaxi.enabled = TRUE;
                                              }];
     
     /*[KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
@@ -1401,7 +1404,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
-        
+        self.btnBookTaxi = (UIButton*) [cell viewWithTag:6006];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
