@@ -55,7 +55,10 @@
     [self addTableViewheader];
     [self setupView];
     //[self addGesture];
-
+    if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+    {
+        self.navigationItem.hidesBackButton = TRUE;
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated
