@@ -30,6 +30,7 @@
 @dynamic status;
 @dynamic pickupHint;
 @dynamic vehicleType;
+@dynamic callerId;
 @dynamic driver;
 @dynamic passenger;
 @dynamic rating;

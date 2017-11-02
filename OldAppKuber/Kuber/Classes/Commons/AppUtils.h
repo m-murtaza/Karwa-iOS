@@ -18,5 +18,6 @@
 
 
 + (BOOL) isLargeScreen:(UIViewController*)controller;
++ (BOOL) isPhoneNumber:(NSString*)txt;
 
 @end

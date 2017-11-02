@@ -45,7 +45,8 @@
     [requestData setObjectOrNothing:[[NSDate date] bookingDateServerFormat] forKey:@"CreationTime"];
     [requestData setObjectOrNothing:trip.pickupHint forKey:@"PickMessage"];
     [requestData setObjectOrNothing:trip.vehicleType forKey:@"VehicleType"];
-
+    [requestData setObjectOrNothing:trip.callerId forKey:@"CallerId"];
+    
     KSWebClient *webClient = [KSWebClient instance];
     __block KSTrip *tripInfo = trip;
     [webClient POST:@"/booking" data:requestData completion:^(BOOL success, NSDictionary *response) {
@@ -558,6 +559,10 @@
     trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
     trip.pickupTime = [tripData[@"PickTime"] dateValue];
     trip.dropOffTime = [tripData[@"DropTime"] dateValue];
+    
+    if(tripData[@"callerId"])
+        trip.callerId = tripData[@"callerId"];
+    
     if (tripData[@"PickLocation"])
         trip.pickupLandmark = tripData[@"PickLocation"];
     if (tripData[@"DropLat"])

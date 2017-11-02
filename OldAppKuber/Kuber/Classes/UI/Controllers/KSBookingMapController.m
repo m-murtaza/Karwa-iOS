@@ -589,7 +589,86 @@ static BOOL showMendatoryRating = TRUE;
     }
     return largeScreen;
 }
+#pragma  mark - Customer Phone Input
+
+-(void) showAltForWrongCustomerPhoneInput
+{
+    [self showAltForWrongCustomerPhoneInput:@"Please enter valid phone number"];
+}
+
+-(void) showAltForWrongCustomerPhoneInput:(NSString*)errorMsg
+{
+    
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                 message:errorMsg
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   
+                                   [self showPhoneInputPopupForCorporateBooking];
+                               }];
+    
+    [alt addAction:okAction];
+    
+    [self presentViewController:alt animated:YES completion:nil];
+}
+
+-(void) showPhoneInputPopupForCorporateBooking
+{
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide phone number of passenger."
+                                                                 message:nil
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak UIAlertController *alertRef = alt;
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   // access text from text field
+                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                   
+                                   if (!text.length) {
+                                       [self showAltForWrongCustomerPhoneInput:@"Phone number can't be empty"];
+                                   }
+                                   else{
+                                       NSString *inputText = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                       if([AppUtils isPhoneNumber:inputText])
+                                       {
+                                           tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                           [self bookTaxi];
+                                       }
+                                       else
+                                       {
+                                           
+                                           [self showAltForWrongCustomerPhoneInput];
+                                       }
+                                   }
+                               }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                               
+                                                           }];
+    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
+     {
+         txtField.placeholder = @"Passenger Phone Number";
+         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         txtField.delegate = self;
+         txtField.tag = TXT_HINT_TAG;
+         //txtField.text = hintTxt ? hintTxt : @"";
+     }];
+    [alt addAction:okAction];
+    [alt addAction:cancelAction];
+    [self presentViewController:alt animated:YES completion:nil];
+    
+    
+}
+
 #pragma mark - Private Function
+
 
 -(void) populateOldTripData
 {
@@ -1083,10 +1162,15 @@ static BOOL showMendatoryRating = TRUE;
 
 -(void) startBookingProcess
 {
-    if([self allowBooking])
+    if([self allowBooking] && ![self showDestinationPopUp])
     {
-        if(![self showDestinationPopUp])
+        if([[KSSessionInfo currentSession].customerType integerValue] !=  KSCorporateCustomer)
+        {
+            tripInfo.callerId = [KSSessionInfo currentSession].phone;
             [self showSnackBar];
+        }
+        else
+            [self showPhoneInputPopupForCorporateBooking];
     }
     else
     {
