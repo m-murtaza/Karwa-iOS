@@ -4806,7 +4806,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="6006" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSp-91-qiu">
-                                                    <rect key="frame" x="8" y="8" width="679" height="49"/>
+                                                    <rect key="frame" x="8" y="8" width="740" height="49"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
                                                     <state key="normal" title="REQUEST BOOKING" backgroundImage="blue-button-idle.png">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4824,10 +4824,27 @@
                                                 <constraint firstItem="pSp-91-qiu" firstAttribute="top" secondItem="xGh-3V-Ye9" secondAttribute="topMargin" id="MHg-46-MKS"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="8ar-fP-NnQ" secondAttribute="bottom" constant="12" id="SLl-6j-Ko6"/>
                                                 <constraint firstItem="8ar-fP-NnQ" firstAttribute="top" secondItem="xGh-3V-Ye9" secondAttribute="topMargin" id="fWC-ud-0FI"/>
+                                                <constraint firstAttribute="trailing" secondItem="pSp-91-qiu" secondAttribute="trailing" constant="20" id="feG-MQ-6yX"/>
                                                 <constraint firstItem="8ar-fP-NnQ" firstAttribute="trailing" secondItem="xGh-3V-Ye9" secondAttribute="trailingMargin" id="llx-IF-ei5"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="pSp-91-qiu" secondAttribute="bottom" constant="12" id="uBq-Kv-9JF"/>
                                                 <constraint firstItem="pSp-91-qiu" firstAttribute="leading" secondItem="xGh-3V-Ye9" secondAttribute="leadingMargin" id="zxq-8x-5uT"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="feG-MQ-6yX"/>
+                                                    <exclude reference="DQu-wM-9Mh"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=compact-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <include reference="DQu-wM-9Mh"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <include reference="feG-MQ-6yX"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pickupTimeCellIdentifier" rowHeight="66" id="j5k-dv-C5T">
