@@ -272,7 +272,7 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
-    if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
+    if(1 || ![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
@@ -291,7 +291,7 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
-    if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
+    if(1 || ![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         
@@ -1165,8 +1165,10 @@ static BOOL showMendatoryRating = TRUE;
 
 -(void) startBookingProcess
 {
-    if([self allowBooking] && ![self showDestinationPopUp])
+    if([self allowBooking] )
     {
+        if(![self showDestinationPopUp])
+        {
         if([[KSSessionInfo currentSession].customerType integerValue] !=  KSCorporateCustomer)
         {
             tripInfo.callerId = [KSSessionInfo currentSession].phone;
@@ -1174,6 +1176,7 @@ static BOOL showMendatoryRating = TRUE;
         }
         else
             [self showPhoneInputPopupForCorporateBooking];
+        }
     }
     else
     {
@@ -1185,6 +1188,7 @@ static BOOL showMendatoryRating = TRUE;
 
 -(BOOL) showDestinationPopUp
 {
+    
     if(![self isLargeScreen])
     {
         if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
