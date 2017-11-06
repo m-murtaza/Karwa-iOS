@@ -546,7 +546,9 @@
 {
     NSMutableArray *tripsArray = [[NSMutableArray alloc] init];
     for (NSDictionary *tripData in trips) {
-         [tripsArray addObject:[KSDAL addTrip:tripData]];
+        KSTrip *trip = [KSDAL addTrip:tripData];
+        if(trip)
+         [tripsArray addObject:trip];
     }
     return [NSArray arrayWithArray:tripsArray];
 }
@@ -555,6 +557,15 @@
 {
     KSUser *user = [KSDAL loggedInUser];
     KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
+    if(tripData[@"BookingID"] == nil || trip.jobId == nil)
+    {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Error-Rating"     // Event category (required)
+                                                              action:(tripData[@"BookingID"] == nil) ? @"AddTrip Booking id nil from server" : @"AddTrip Booking id nil when inserted in DB"  // Event action (required)
+                                                               label:[NSString stringWithFormat:@"CallerId: %@ || PickupTime: %@",tripData[@"callerId"],[tripData[@"PickTime"] dateValue]]
+                                                               value:nil] build]];    // Event value
+        return nil;
+    }
     trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
     trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
     trip.pickupTime = [tripData[@"PickTime"] dateValue];

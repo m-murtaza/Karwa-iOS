@@ -91,7 +91,16 @@ BtnState;
         }
     }
     
-    if(1 || [self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+    if(self.tripInfo.jobId == nil)
+    {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Error-Rating"
+                                                              action: @"JobID is nil on detail page"
+                                                               label:[NSString stringWithFormat:@"CallerId: %@ || PickupTime: %@",self.tripInfo.callerId,self.tripInfo.pickupTime]
+                                                               value:nil] build]];    
+        
+    }
+    else if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
         
         [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
