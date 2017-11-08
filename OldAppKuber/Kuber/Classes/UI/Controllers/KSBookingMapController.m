@@ -194,8 +194,18 @@ static BOOL showMendatoryRating = TRUE;
 
 -(void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+    
+    if (![[self.navigationController viewControllers] containsObject: self]) //any other hierarchy compare if it contains self or not
+    {
+        // the view has been removed from the navigation stack or hierarchy, back is probably the cause
+        // this will be slow with a large stack however.
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 
@@ -244,7 +254,8 @@ static BOOL showMendatoryRating = TRUE;
               if(trips != nil && [trips count] > 0)
               {
                   ratingTrip = [trips objectAtIndex:0];
-                  [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
+                  if(ratingTrip.jobId != nil && ![ratingTrip.jobId isEqualToString:@""])
+                      [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
                   
                   showMendatoryRating = FALSE;
               }
@@ -272,7 +283,7 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
-    if(1 || ![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
+    if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
@@ -291,7 +302,7 @@ static BOOL showMendatoryRating = TRUE;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSLimoTypeDefaultKey];
-    if(1 || ![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
+    if(![((NSNumber*)[defaults valueForKey:KSLimoTypeDefaultKey]) boolValue])
     {
         [self enableAllIntaractiveView:false];
         
