@@ -65,6 +65,12 @@
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Rating View"];
+    
+    if(self.trip.jobId == nil || [self.trip.jobId isEqualToString:@""])
+    {
+        _displaySource = kMendatoryRating;
+        [self moveToPreviousView:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -175,7 +181,7 @@
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
         //Move to previous view even if there is some error from server. 
-        [self moveToPreviousView];
+        [self moveToPreviousView:YES];
         
     };
 
@@ -191,27 +197,27 @@
     }
     tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
     if(self.trip.jobId == nil)
-        [self moveToPreviousView];
+        [self moveToPreviousView:YES];
     else
         [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
     
 }
 
--(void) moveToPreviousView
+-(void) moveToPreviousView:(BOOL)animation
 {
     if (_displaySource == kNotification) {
         
         UIViewController *controller = [UIStoryboard mainRootController];
-        [self.revealViewController setFrontViewController:controller animated:YES];
+        [self.revealViewController setFrontViewController:controller animated:animation];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
     }
     else if(_displaySource == kMendatoryRating)
     {
-        [[[self navigationController] presentingViewController] dismissViewControllerAnimated:TRUE completion:nil];
+        [[[self navigationController] presentingViewController] dismissViewControllerAnimated:animation completion:nil];
     }
     else
     {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:animation];
     }
     
 }

@@ -51,6 +51,7 @@
 		1822C42A1BA836430087ACE3 /* edit-info-button-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4291BA836430087ACE3 /* edit-info-button-pressed@2x.png */; };
 		1822C42C1BA929C40087ACE3 /* backarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C42B1BA929C40087ACE3 /* backarrow@2x.png */; };
 		1822C4311BA968810087ACE3 /* partners_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1822C4301BA968810087ACE3 /* partners_list@2x.png */; };
+		1823E5991FB315D60040A596 /* NSManagedObject+Clone.m in Sources */ = {isa = PBXBuildFile; fileRef = 1823E5981FB315D60040A596 /* NSManagedObject+Clone.m */; };
 		1829FC541C06F006007B9A68 /* destination-help-iphone5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1829FC531C06F006007B9A68 /* destination-help-iphone5@2x.png */; };
 		1829FC561C071582007B9A68 /* avatar_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1829FC551C071582007B9A68 /* avatar_menu@2x.png */; };
 		184245F41BBCF997001C780A /* MuseoSans_500_Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 184245EA1BBCF997001C780A /* MuseoSans_500_Italic.otf */; };
@@ -406,6 +407,8 @@
 		1822C4291BA836430087ACE3 /* edit-info-button-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "edit-info-button-pressed@2x.png"; path = "Settings/edit-info-button-pressed@2x.png"; sourceTree = "<group>"; };
 		1822C42B1BA929C40087ACE3 /* backarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "backarrow@2x.png"; path = "Signup/backarrow@2x.png"; sourceTree = "<group>"; };
 		1822C4301BA968810087ACE3 /* partners_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "partners_list@2x.png"; path = "Partners/partners_list@2x.png"; sourceTree = "<group>"; };
+		1823E5971FB315D60040A596 /* NSManagedObject+Clone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Clone.h"; sourceTree = "<group>"; };
+		1823E5981FB315D60040A596 /* NSManagedObject+Clone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Clone.m"; sourceTree = "<group>"; };
 		182472151E88E8FD009FAB9A /* Kuber 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Kuber 2.xcdatamodel"; sourceTree = "<group>"; };
 		1829FC531C06F006007B9A68 /* destination-help-iphone5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "destination-help-iphone5@2x.png"; path = "Booking/destination-help-iphone5@2x.png"; sourceTree = "<group>"; };
 		1829FC551C071582007B9A68 /* avatar_menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar_menu@2x.png"; path = "Menu/avatar_menu@2x.png"; sourceTree = "<group>"; };
@@ -976,6 +979,8 @@
 				18BB7EBB1B9C299200F75BC9 /* KSAllDAL.h */,
 				1859E8FE1BC6326F00354B84 /* KSDAL+Franchise.h */,
 				1859E8FF1BC6326F00354B84 /* KSDAL+Franchise.m */,
+				1823E5971FB315D60040A596 /* NSManagedObject+Clone.h */,
+				1823E5981FB315D60040A596 /* NSManagedObject+Clone.m */,
 			);
 			path = DAL;
 			sourceTree = "<group>";
@@ -2140,6 +2145,7 @@
 				1801E3071B11ADE300A8983E /* KSFavoritesController.m in Sources */,
 				1859E9031BC635A400354B84 /* KSFranchises.m in Sources */,
 				1894900E1EA8B5B700DB2104 /* KSiOS9APNS.m in Sources */,
+				1823E5991FB315D60040A596 /* NSManagedObject+Clone.m in Sources */,
 				185E3BFD1B70779700909B20 /* KSDAL+Bookmark.m in Sources */,
 				18A762BC1B006A7400B9ED32 /* KSMainController.m in Sources */,
 				1880C5551B795176004F0188 /* UISegmentedControl+KSExtended.m in Sources */,

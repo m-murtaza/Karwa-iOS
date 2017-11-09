@@ -48,4 +48,10 @@
 {
     return [KSUser MR_findAll];
 }
+
++(NSManagedObject*) clone:(NSManagedObject*)source
+{
+    
+    return [source clone];
+}
 @end

@@ -2936,7 +2936,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HXN-md-fno" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="724" y="-304"/>
+            <point key="canvasLocation" x="834" y="-194"/>
         </scene>
         <!--Pick Your Address-->
         <scene sceneID="xPt-PM-Vuc">
@@ -4719,7 +4719,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BASE 50QR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oN-5y-VSr">
-                                                    <rect key="frame" x="167.5" y="45" width="54.5" height="21"/>
+                                                    <rect key="frame" x="168" y="45" width="54.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="EFG-78-vaB"/>
                                                     </constraints>
@@ -5003,7 +5003,7 @@
                         <outlet property="tblViewHeight" destination="ats-hk-m4T" id="pGA-AX-96k"/>
                         <segue destination="GGw-zE-o73" kind="show" identifier="segueBookingToAddressPicker" id="A3E-FM-97q"/>
                         <segue destination="BJO-Sg-uAr" kind="show" identifier="segueBookingToDetail" id="Li1-w2-bB0"/>
-                        <segue destination="rM0-WP-RVN" kind="presentation" identifier="segueBookingToRating" id="NP6-xc-SII"/>
+                        <segue destination="rM0-WP-RVN" kind="showDetail" identifier="segueBookingToRating" id="NP6-xc-SII"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5U-vt-uPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5273,7 +5273,6 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Li1-w2-bB0"/>
         <segue reference="QFx-wv-VWz"/>
         <segue reference="X1O-ak-DHc"/>
         <segue reference="nbB-dK-Gpq"/>

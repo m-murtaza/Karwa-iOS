@@ -13,6 +13,7 @@
 //ThirdParty
 #import <Crashlytics/Crashlytics.h>
 #import <SSSnackbar/SSSnackbar.h>
+#import "ManagedObjectCloner.h"
 
 //Utilities
 #import "KSLocationManager.h"
@@ -253,7 +254,7 @@ static BOOL showMendatoryRating = TRUE;
           if (status == KSAPIStatusSuccess) {
               if(trips != nil && [trips count] > 0)
               {
-                  ratingTrip = [trips objectAtIndex:0];
+                  ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
                   if(ratingTrip.jobId != nil && ![ratingTrip.jobId isEqualToString:@""])
                       [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
                   
@@ -1644,9 +1645,11 @@ didAddAnnotationViews:(NSArray *)annotationViews
     else if([segue.identifier isEqualToString:@"segueBookingToRating"])
     {
         KSTripRatingController *ratingController = (KSTripRatingController*) ([[(UINavigationController*)segue.destinationViewController viewControllers] objectAtIndex:0]);
+        
         ratingController.trip = ratingTrip;
         ratingController.displaySource = kMendatoryRating;
     }
+    
 }
 
 #pragma mark - AddressPicker Delegate
