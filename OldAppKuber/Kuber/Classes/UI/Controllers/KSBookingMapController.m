@@ -13,7 +13,6 @@
 //ThirdParty
 #import <Crashlytics/Crashlytics.h>
 #import <SSSnackbar/SSSnackbar.h>
-#import "ManagedObjectCloner.h"
 
 //Utilities
 #import "KSLocationManager.h"
