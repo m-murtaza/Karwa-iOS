@@ -1204,7 +1204,7 @@ static BOOL showMendatoryRating = TRUE;
     {
         if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
         {
-            if ([self showHintForDestination]) {
+            if (1||[self showHintForDestination]) {
                 [self hideHintView:FALSE];
                 return TRUE;
             }
