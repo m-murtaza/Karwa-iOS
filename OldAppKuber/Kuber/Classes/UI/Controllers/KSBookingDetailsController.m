@@ -54,6 +54,9 @@ BtnState;
 @property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
+@property (weak, nonatomic) IBOutlet UIView *viewCorporateCustPhoneNumber;
+@property (weak, nonatomic) IBOutlet UILabel *lblCorporateCustPhoneNumber;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoBGImgBottom;
@@ -118,6 +121,8 @@ BtnState;
     }
     
     [self showHideTrackATaxiButton];
+    
+    [self showHideCorporateCustPhoneNumber];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -359,7 +364,22 @@ BtnState;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma  mark -
+-(void) showHideCorporateCustPhoneNumber
+{
+    if([AppUtils isLargeScreen:self] && [[KSSessionInfo currentSession].customerType integerValue] == KSCorporateCustomer)
+    {
+        
+        self.viewCorporateCustPhoneNumber.hidden = FALSE;
+        self.lblCorporateCustPhoneNumber.text = self.tripInfo.callerId;
+    }
+    else
+    {
+        
+        self.viewCorporateCustPhoneNumber.hidden = TRUE;
+    }
+    
+}
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
