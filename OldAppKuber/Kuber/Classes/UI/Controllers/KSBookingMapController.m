@@ -171,12 +171,6 @@ static BOOL showMendatoryRating = TRUE;
                                                              target: self
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
-    
-    if(showMendatoryRating)
-    {
-        showMendatoryRating = FALSE;
-        [self checkForUnRatedTrip];
-    }
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -190,6 +184,12 @@ static BOOL showMendatoryRating = TRUE;
     }
     
     [self showLimoTaxiCoachMarksIfNeeded];
+    
+    if(showMendatoryRating)
+    {
+        showMendatoryRating = FALSE;
+        [self checkForUnRatedTrip];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -1204,7 +1204,7 @@ static BOOL showMendatoryRating = TRUE;
     {
         if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
         {
-            if (1||[self showHintForDestination]) {
+            if ([self showHintForDestination]) {
                 [self hideHintView:FALSE];
                 return TRUE;
             }
