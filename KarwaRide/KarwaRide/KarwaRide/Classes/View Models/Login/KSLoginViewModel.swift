@@ -12,7 +12,9 @@ class KSLoginViewModel: KSBaseViewModel, KSViewModelDelegate {
 
     func loginBtnTapped()
     {
-        
+        KSDALManager.init().login(phone: "50569963", password: "d97efba289c7b62681731b0bd1ce4ae9") { (status, response) in
+            print("Success")
+        }
     }
     
 }

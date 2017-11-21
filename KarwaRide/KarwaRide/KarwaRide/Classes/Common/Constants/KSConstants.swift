@@ -13,9 +13,13 @@
 //    let KEY_BASE_URL = "BaseAPIURL"
 //}
 
+typealias KSResponseCompletionBlock = (_ success: Bool, _ response: Any) -> Void
+
+
 struct Constants {
     struct API {
         static let BaseURLKey = "BaseAPIURL"
+        static let RequestTimeOut = 10.0
     }
     
     struct KSAPIStatus : OptionSet {
@@ -29,5 +33,16 @@ struct Constants {
         // Mobile number provided doesn't exist in DB
         static let userAlreadyRegistered = KSAPIStatus(rawValue: 3)
         
+    }
+    
+    struct LoginParams {
+        static let Phone = "Phone"
+        static let Password = "Password"
+        static let DeviceType = "DeviceType"
+        static let DeviceToken = "DeviceToken"
+    }
+    
+    struct APIURL {
+        static let Login = "213/user/login"
     }
 }

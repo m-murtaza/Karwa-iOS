@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-typealias KSWebClientCompletionBlock = (_ success: Bool, _ response: Any) -> Void
+//typealias KSWebClientCompletionBlock = (_ success: Bool, _ response: Any) -> Void
 
 class KSWebClient: NSObject {
 
@@ -22,7 +22,7 @@ class KSWebClient: NSObject {
         self.baseURL = KSConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForRequest = Constants.API.RequestTimeOut
         _ = Alamofire.SessionManager(configuration: configuration)
     }
     
@@ -44,17 +44,17 @@ class KSWebClient: NSObject {
 //        
 //    }
     
-    func post(uri: String, param: [String : Any], completion completionBlock: KSWebClientCompletionBlock)
+    func post(uri: String, param: [String : Any], completion completionBlock:@escaping  KSResponseCompletionBlock)
     {
         sendRequest(httpMethod: .post, uri: uri, param: param, completion: completionBlock)
     }
     
-    func  get(uri: String, param: [String : Any], completion completionBlock: KSWebClientCompletionBlock)
+    func  get(uri: String, param: [String : Any], completion completionBlock:@escaping KSResponseCompletionBlock)
     {
         sendRequest(httpMethod: .get, uri: uri, param: param,completion: completionBlock)
     }
     
-    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String : Any], completion completionBlock: KSWebClientCompletionBlock)
+    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String : Any], completion  completionBlock:@escaping  KSResponseCompletionBlock)
     {
         
         //Creating complet Url
@@ -74,13 +74,27 @@ class KSWebClient: NSObject {
                           parameters : param,
                           headers:httpHeaders).validate().responseJSON { (response) -> Void in
                             
-                            switch response.result {
-                            case .success:
-                                print("Validation Successful")
-                            case .failure(let error):
-                                print(error)
+                            guard response.result.isSuccess else {
+                                
+                                //TODO: Handle specific errors.
+                                
+                                let statusCode = response.response?.statusCode
+                                let error : NSDictionary = ["ErrorCode" : statusCode as Any,
+                                                            "Message" : response.result.error?.localizedDescription as Any]
+                                completionBlock(false,error)
+                                return
                             }
-        }
-        //Alamofire.request("https://httpbin.org/post", method: .post, parameters: param, encoding: URLEncoding.default)
+                            
+                            guard let responseJSON = response.result.value as? [String: Any] else {
+                                let error : NSDictionary = ["ErrorCode" : 1001,
+                                                            "Message" : "Invalid tag information received from the service"]
+                                
+                                completionBlock(false,error)
+                                return
+                            }
+                            
+                            print(responseJSON)
+                            completionBlock(true,responseJSON)
+                        }
     }
 }
