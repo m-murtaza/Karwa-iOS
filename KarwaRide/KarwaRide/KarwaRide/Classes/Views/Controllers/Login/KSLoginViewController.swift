@@ -10,8 +10,14 @@ import UIKit
 
 class KSLoginViewController: KSBaseViewController {
 
+    //MARK: - Properties
+    
+    @IBOutlet weak var lblDeviceToken: UILabel!
+    
+    
     let viewModel : KSLoginViewModel = KSLoginViewModel(del: self)
     
+    //MARK: -View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +50,9 @@ class KSLoginViewController: KSBaseViewController {
     
     @IBAction func loginBtnTapped(_ sender: Any)
     {
-        self.viewModel.loginBtnTapped()
+        //self.viewModel.loginBtnTapped()
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //lblDeviceToken.text = appDelegate.token
     }
 
 }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import UserNotifications
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+            let aps = notification["aps"] as! [String: AnyObject]
+            print(aps)
+            apnsManager.receiveNotification(userInfo: aps)
+        }
+        else
+        {
+            //register For APNS if needed
+            registerForPushNotifications()
+        }
+
         return true
     }
 
@@ -40,7 +54,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+// MARK: APPLE PUSH NOTIFICATION
+    private let apnsManager : KSAPNSManager = KSAPNSManager.init()
+    
+    func registerForPushNotifications() {
+        apnsManager.registerForPushNotifications()
+    }
+    
+    //delegate device token success
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        apnsManager.deviceTokenReceived(deviceToken: deviceToken)
+    }
+    
+    //delegate device token fail
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
+    //Notifiacation receive when application is in background
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        apnsManager.receiveNotification(userInfo: userInfo)
+        
+    }
+    
 }
 

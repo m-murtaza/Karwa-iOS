@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BaseAPIURL</key>
+	<dict>
+		<key>DEV</key>
+		<string>http://devservices.karwasolutions.com/api/</string>
+		<key>PROD</key>
+		<string>https://services.karwasolutions.com/api1/</string>
+		<key>STAGE</key>
+		<string>http://devservices.karwasolutions.com/api/</string>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -18,6 +27,8 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Development Environment</key>
+	<string>PROD</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -34,16 +45,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>Development Environment</key>
-	<string>PROD</string>
-	<key>BaseAPIURL</key>
-	<dict>
-		<key>PROD</key>
-		<string>https://services.karwasolutions.com/api1/</string>
-		<key>STAGE</key>
-		<string>http://devservices.karwasolutions.com/api/</string>
-		<key>DEV</key>
-		<string>http://devservices.karwasolutions.com/api/</string>
-	</dict>
 </dict>
 </plist>
