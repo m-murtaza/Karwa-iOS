@@ -20,6 +20,7 @@ class ViewController: KSBaseDrawerRootViewController {
         //KSWebClient.sharedInstance.testServerCall()
         ///Open.target = self.revealViewController()
         //Open.action = #selector(SWRevealViewController.revealToggle(_:))
+        self.navigationItem.hidesBackButton = true;
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,6 +28,10 @@ class ViewController: KSBaseDrawerRootViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func btnTapped(_ sender: Any) {
+        
+        self.revealViewController().performSegue(withIdentifier: "sw_front", sender: self)
+    }
+    
 }
 

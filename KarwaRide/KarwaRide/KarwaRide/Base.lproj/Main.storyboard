@@ -26,7 +26,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <action selector="loginBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hXy-iz-DyC"/>
+                                    <segue destination="L23-ue-kpU" kind="show" id="dqo-r6-ZJv"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2co-wK-mbg">
@@ -77,14 +77,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="oej-Cv-m1r" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="mBO-HX-apT"/>
-                        <segue destination="K87-Yv-m6i" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="oky-AA-Uxg"/>
+                        <segue destination="GiH-tG-C4s" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="D1x-Px-gAJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttt-Ie-j9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1142" y="2367"/>
+            <point key="canvasLocation" x="-660" y="1590"/>
         </scene>
         <!--Side Drawer Table View-->
         <scene sceneID="Pru-q9-Rrf">
@@ -153,6 +154,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hes-Vc-s2p">
+                                <rect key="frame" x="49" y="394" width="283" height="191"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="btnTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="LA2-1f-Wcc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -202,6 +211,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee7-pN-KXm">
+                                <rect key="frame" x="60" y="409" width="267" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -215,6 +229,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="acW-vg-UgA"/>
+        <segue reference="dqo-r6-ZJv"/>
     </inferredMetricsTieBreakers>
 </document>
