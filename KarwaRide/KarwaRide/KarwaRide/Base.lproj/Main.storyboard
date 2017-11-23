@@ -160,7 +160,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" id="m2P-Jy-JP4"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="Open" destination="m2P-Jy-JP4" id="Pn2-t2-rlH"/>
+                        <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -205,7 +205,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Obg-Pl-JHh"/>
+                    <navigationItem key="navigationItem" id="Obg-Pl-JHh">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="MXs-qP-NrD"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBJ-qX-p11" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

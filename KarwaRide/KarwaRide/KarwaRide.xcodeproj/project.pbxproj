@@ -12,6 +12,7 @@
 		1810C0D31FC5A572008E8D91 /* KSSideDrawerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D21FC5A572008E8D91 /* KSSideDrawerModel.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KSBaseTableViewController.swift */; };
 		1810C0D81FC5AC1B008E8D91 /* KSSideDrawerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KSSideDrawerTableView.swift */; };
+		1810C0DA1FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D91FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		1810C0D21FC5A572008E8D91 /* KSSideDrawerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSSideDrawerModel.swift; path = "Classes/View Models/SideDrawer/KSSideDrawerModel.swift"; sourceTree = "<group>"; };
 		1810C0D41FC5A60A008E8D91 /* KSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSBaseTableViewController.swift; path = Classes/Views/Controllers/KSBaseTableViewController.swift; sourceTree = "<group>"; };
 		1810C0D61FC5A633008E8D91 /* KSSideDrawerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSSideDrawerTableView.swift; path = Classes/Views/Controllers/SideDrawer/KSSideDrawerTableView.swift; sourceTree = "<group>"; };
+		1810C0D91FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSBaseDrawerRootViewController.swift; path = Classes/Views/Controllers/KSBaseDrawerRootViewController.swift; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				186487231F0A362E00DDB003 /* Login */,
 				186487211F0A361B00DDB003 /* KSBaseViewController.swift */,
 				1810C0D41FC5A60A008E8D91 /* KSBaseTableViewController.swift */,
+				1810C0D91FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */,
 				1864872A1F0A3FF600DDB003 /* KSLoginViewModel.swift in Sources */,
 				181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */,
+				1810C0DA1FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift in Sources */,
 				181344AF1EF7B362006E734A /* KSWebClient.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				186487221F0A361B00DDB003 /* KSBaseViewController.swift in Sources */,
