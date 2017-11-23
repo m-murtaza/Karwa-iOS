@@ -9,15 +9,18 @@
 import UIKit
 
 
-class ViewController: UIViewController {
+class ViewController: KSBaseDrawerRootViewController {
 
     
+    //@IBOutlet weak var Open: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //KSWebClient.sharedInstance.testServerCall()
-    
+        ///Open.target = self.revealViewController()
+        //Open.action = #selector(SWRevealViewController.revealToggle(_:))
+        self.navigationItem.hidesBackButton = true;
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,6 +28,10 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func btnTapped(_ sender: Any) {
+        
+        self.revealViewController().performSegue(withIdentifier: "sw_front", sender: self)
+    }
+    
 }
 
