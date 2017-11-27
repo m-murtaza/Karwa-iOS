@@ -22,4 +22,6 @@ typedef void(^KSDALCompletionBlock)(KSAPIStatus status, id response);
 
 +(NSArray*) allUser;
 
++(NSManagedObject*) clone:(NSManagedObject*)source;
+
 @end

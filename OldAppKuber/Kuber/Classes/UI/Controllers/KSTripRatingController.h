@@ -10,6 +10,11 @@
 
 #import "DYRateView.h"
 
+typedef enum {
+    kRatingList,
+    kNotification,
+    kMendatoryRating
+} RatingViewDisplaySource;
 
 @class KSTrip;
 @class KSServiceIssueIdentifierViewController;
@@ -27,7 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIView *serviceIssueView;
 @property (weak, nonatomic) KSServiceIssueIdentifierViewController *issueIdentifierViewController;
 
-@property (nonatomic) BOOL isOpenedFromPushNotification;
+@property (nonatomic) RatingViewDisplaySource displaySource;
+
 
 
 @end

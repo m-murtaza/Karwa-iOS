@@ -19,7 +19,8 @@
 */
 
 - (CGRect)placeholderRectForBounds:(CGRect)bounds {
-    return CGRectMake(35.0,3.0,bounds.size.width,bounds.size.height);//Return your desired x,y position and width,height
+    //return CGRectMake(35.0,3.0,bounds.size.width,bounds.size.height);//Return your desired x,y position and width,height
+    return CGRectMake(35.0,0.0,bounds.size.width,bounds.size.height);
 }
 
 /*- (void)drawPlaceholderInRect:(CGRect)rect {

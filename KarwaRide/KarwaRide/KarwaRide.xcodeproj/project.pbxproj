@@ -98,7 +98,6 @@
 			children = (
 				1810C0CC1FC59BCF008E8D91 /* SWRevealViewController.h */,
 				1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */,
-				1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";
@@ -117,6 +116,14 @@
 				1810C0D21FC5A572008E8D91 /* KSSideDrawerModel.swift */,
 			);
 			name = SideDrawer;
+			sourceTree = "<group>";
+		};
+		1810C0DB1FCBE3C2008E8D91 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */,
+			);
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		1813448D1EF68671006E734A = {
@@ -140,6 +147,7 @@
 		181344981EF68671006E734A /* KarwaRide */ = {
 			isa = PBXGroup;
 			children = (
+				1810C0DB1FCBE3C2008E8D91 /* SupportingFiles */,
 				1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */,
 				181344AB1EF7B271006E734A /* Classes */,
 				181344991EF68671006E734A /* AppDelegate.swift */,

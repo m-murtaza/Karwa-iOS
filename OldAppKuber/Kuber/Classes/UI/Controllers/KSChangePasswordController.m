@@ -7,6 +7,7 @@
 //
 
 #import "KSChangePasswordController.h"
+#import "AppUtils.h"
 #import "KSTextField.h"
 
 @interface KSChangePasswordController ()
@@ -62,7 +63,7 @@
     headerView.backgroundColor = [UIColor clearColor];
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 12.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"PASSWORD";
-    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:14];
+    labelView.font = [UIFont fontWithName:@"MuseoForDell-300" size:[AppUtils isLargeScreen:self] ? 21:14];
     labelView.textColor = [UIColor colorFromHexString:@"#187a89"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;

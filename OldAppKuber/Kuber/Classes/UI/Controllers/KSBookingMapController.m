@@ -8,8 +8,11 @@
 
 #import "KSBookingMapController.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 //ThirdParty
 #import <Crashlytics/Crashlytics.h>
+#import <SSSnackbar/SSSnackbar.h>
 
 //Utilities
 #import "KSLocationManager.h"
@@ -26,6 +29,7 @@
 #import "AppUtils.h"
 #import "KSBookingAnnotationManager.h"
 #import "KSUserLocationAnnotation.h"
+#import "KSTripRatingController.h"
 
 #define ADDRESS_CELL_HEIGHT         86.0
 #define TIME_CELL_HEIGHT            66.0
@@ -43,13 +47,7 @@
 #define MAX_HINT_DETAIL_COUNT       5
 #define DETAIL_HINT_KEY             @"dtailCountKey"
 
-
-//typedef enum {
-//    kOverlayDestinationHelp,
-//    kOverlayVehicleType,
-//    KOverlayLimoType,
-//    kOverlayAll
-//}OverlyaImageType;
+static BOOL showMendatoryRating = TRUE;
 
 @interface KSBookingMapController () <KSAddressPickerDelegate,KSDatePickerDelegate,UITextFieldDelegate>
 {
@@ -73,7 +71,7 @@
     
     KSVehicleType vehicleType;              //This is for service type i.e. limo or taxi
     NYSegmentedControl *segmentVehicleType;     //Vehicletype limo or texi on top navigation bar
-    NYSegmentedControl *segmantLimoType;        //Limo type: Standard, Business, Luxury
+    NYSegmentedControl *segmentLimoType;        //Limo type: Standard, Business, Luxury
     
     KSBookingAnnotationManager *annotationManager;
     NSTimer *annotationUpdateTimer;
@@ -81,6 +79,9 @@
     KSUserLocationAnnotation *userAnnotation;
     
     UIImageView * imgCoachMark;
+    
+    KSTrip *ratingTrip;
+    
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -88,6 +89,8 @@
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *tblViewHeight;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomMapToTopTblView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *altLocationHeight;
+@property (nonatomic, weak) IBOutlet UIView *altWrongLocationView;
 @property (nonatomic, weak) IBOutlet UIButton *btnCurrentLocaiton;
 @property (nonatomic, weak) IBOutlet UIView *mapDisableView;
 @property (nonatomic, weak) IBOutlet UIImageView *imgDestinationHelp;
@@ -95,12 +98,14 @@
 @property (nonatomic, weak) IBOutlet UILabel *lblFareStandard;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareBusiness;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareLuxary;
+@property (nonatomic, weak) UIButton *btnBookTaxi;
 
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
+
 
 
 //Top Right navigation item
@@ -114,15 +119,17 @@
 
 -(void) viewDidLoad
 {
-    
     [super viewDidLoad];
     
     isMaploaded = FALSE;
-    dropoffVisible = FALSE;
+    
     isPickupFromMap = TRUE;
     vehicleType = KSCityTaxi;
-    [self setIndexForCell:dropoffVisible];
-
+    ratingTrip = nil;
+    
+    [self.mapDisableView setHidden:FALSE];
+    
+    [self ShowHideDropoffForScreenSize];
     
     if (self.repeatTrip) {
         //[self populateOldTripData];
@@ -134,18 +141,11 @@
         rebookLoading = NO;
     }
     
-    
-    self.mapView.delegate = self;
-    self.mapView.scrollEnabled = YES;
-    self.mapView.zoomEnabled = YES;
-    
+    [self setMapParameterForScreenSize];
     
     [self addTableViewHeader];
     //[self.btnCurrentLocaiton setSelected:TRUE];
     [self addCrashlyticsInfo];
-    
-    
-    [self.mapDisableView setHidden:FALSE];
     
     if(IS_IPHONE_5)
     {
@@ -159,6 +159,7 @@
     [self createLimoTypeSegmant];
     //Send analytics for first time automatic selection.
     [self sendLimoTypeSelectionAnalytics];
+    [self registerForApplicationStateNotifications];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -176,34 +177,98 @@
     [super viewDidAppear:animated];
     [self checkLocationAvaliblityAndShowAlert];
     
-    //Patch for iOS 9 other wise animation was bit odd.
-    
     [self showhideDropOff];
     if (self.repeatTrip) {
      
         [self populateOldTripData];
     }
     
-    
     [self showLimoTaxiCoachMarksIfNeeded];
     
-    
-//
-    //[self.imgDestinationHelp setImage:[UIImage imageNamed:@"limo-coachmark.png"]];
-    //[self.imgDestinationHelp setHidden:false];
-    
+    if(showMendatoryRating)
+    {
+        showMendatoryRating = FALSE;
+        [self checkForUnRatedTrip];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+    
+    if (![[self.navigationController viewControllers] containsObject: self]) //any other hierarchy compare if it contains self or not
+    {
+        // the view has been removed from the navigation stack or hierarchy, back is probably the cause
+        // this will be slow with a large stack however.
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
+}
+
+
+#pragma mark - Application Status Notifications
+
+-(void) registerForApplicationStateNotifications
+{
+    //Note: As of iOS 9 and macOS 10.11, NSNotificationCenter automatically deregisters an observer if the observer is deallocated. It is no longer necessary to deregister yourself manually in your dealloc method (or deinit in Swift) if your deployment target is iOS 9 or later or macOS 10.11 or later.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didBecomeActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+}
+
+- (void)didBecomeActive:(NSNotification *)notification;
+{
+    if ([self isOnScreen])
+    {
+        //if view is on screen. ask for unrated trips.
+        if(showMendatoryRating)
+        {
+            showMendatoryRating = FALSE;
+            [self checkForUnRatedTrip];
+        }
+    }
+    else
+    {
+        //Else allow view to show mendatory rating when it on screen.
+        showMendatoryRating = TRUE;
+    }
+}
+
+-(void)appWillResignActive:(NSNotification*)note
+{
+    showMendatoryRating = TRUE;
+}
+
+#pragma mark - Unrated Trips
+-(void) checkForUnRatedTrip
+{
+     if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+     {
+        [KSDAL syncUnRatedBookingsForLastThreeDaysWithCompletion:^(KSAPIStatus status, NSArray *trips) {
+          if (status == KSAPIStatusSuccess) {
+              if(trips != nil && [trips count] > 0)
+              {
+                  ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
+                  if(ratingTrip.jobId != nil && ![ratingTrip.jobId isEqualToString:@""])
+                      [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
+                  
+                  showMendatoryRating = FALSE;
+              }
+          }
+        }];
+     }
 }
 
 #pragma mark - CoachMarks
 -(void) enableAllIntaractiveView :(BOOL) enable
 {
-    self.mapView.userInteractionEnabled = enable;
+    [self setMapUserInteraction:enable];
+    //self.mapView.userInteractionEnabled = enable;
     //[self.view endEditing:TRUE];
     self.tableView.userInteractionEnabled = enable;
     self.btnCurrentLocaiton.userInteractionEnabled = enable;
@@ -223,7 +288,7 @@
         [self enableAllIntaractiveView:false];
         //CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
-        imgCoachMark.image = [UIImage imageNamed:@"limo-coachmark.png"];
+        imgCoachMark.image = [UIImage imageNamed:@"limo-coachmark"];
         [[UIApplication sharedApplication].keyWindow addSubview:imgCoachMark];
         
         [defaults setValue:[NSNumber numberWithBool:true] forKey:KSTaxiLimoDefaultKey];
@@ -244,7 +309,7 @@
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         
         imgCoachMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, statusBarFrame.size.height, self.view.frame.size.width, self.view.frame.size.height+self.navigationController.navigationBar.frame.size.height)];
-        imgCoachMark.image = [UIImage imageNamed:@"types-coachmark.png"];
+        imgCoachMark.image = [UIImage imageNamed:@"limo-types-coachmark"];
         [[UIApplication sharedApplication].keyWindow addSubview:imgCoachMark];
         
         [defaults setValue:[NSNumber numberWithBool:true] forKey:KSLimoTypeDefaultKey];
@@ -272,27 +337,27 @@
 -(void) createLimoTypeSegmant
 {
     //Segment Control
-    segmantLimoType = [[NYSegmentedControl alloc] initWithItems:@[@"STANDARD", @"BUSINESS",@"LUXURY"]];
+    segmentLimoType = [[NYSegmentedControl alloc] initWithItems:@[@"STANDARD", @"BUSINESS",@"LUXURY"]];
     
-    segmantLimoType.titleTextColor = [UIColor whiteColor];//[UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
-    segmantLimoType.selectedTitleTextColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
-    segmantLimoType.selectedTitleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:5];
-    segmantLimoType.titleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:10.0];
-    segmantLimoType.segmentIndicatorBackgroundColor = [UIColor whiteColor];
-    segmantLimoType.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmentLimoType.titleTextColor = [UIColor whiteColor];//[UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    segmentLimoType.selectedTitleTextColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmentLimoType.selectedTitleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:5];
+    segmentLimoType.titleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:10.0];
+    segmentLimoType.segmentIndicatorBackgroundColor = [UIColor whiteColor];
+    segmentLimoType.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
 
-    segmantLimoType.borderWidth = 0.0f;
-    segmantLimoType.segmentIndicatorBorderWidth = 0.0f;
-    segmantLimoType.segmentIndicatorInset = 2.0f;
-    segmantLimoType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    segmentLimoType.borderWidth = 0.0f;
+    segmentLimoType.segmentIndicatorBorderWidth = 0.0f;
+    segmentLimoType.segmentIndicatorInset = 2.0f;
+    segmentLimoType.segmentIndicatorBorderColor = self.view.backgroundColor;
     //[segmantLimoType setFrame:CGRectMake(20, 5, 300, 35)];
     //[segmantLimoType sizeToFit] ;
-    segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
+    segmentLimoType.cornerRadius = CGRectGetHeight(segmentLimoType.frame) / 2.0f;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
-    segmantLimoType.usesSpringAnimations = YES;
+    segmentLimoType.usesSpringAnimations = YES;
 #endif
     
-    [segmantLimoType addTarget:self action:@selector(onSegmentLimoTypeChange) forControlEvents:UIControlEventValueChanged];
+    [segmentLimoType addTarget:self action:@selector(onSegmentLimoTypeChange) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void) showLimoFare:(KSVehicleType) vType
@@ -304,7 +369,7 @@
 
 -(IBAction)onSegmentLimoTypeChange
 {
-    switch (segmantLimoType.selectedSegmentIndex) {
+    switch (segmentLimoType.selectedSegmentIndex) {
         case 0:
             vehicleType = KSStandardLimo;
             break;
@@ -365,6 +430,9 @@
     
     [self updateTaxisInCurrentRegion];
     [_tableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [_tableView reloadData];
+    });
     
     [self sendVehicleTypeSelectionAnalytics];
 }
@@ -376,7 +444,7 @@
 }
 -(void) updateUIForLimo
 {
-    switch (segmantLimoType.selectedSegmentIndex) {
+    switch (segmentLimoType.selectedSegmentIndex) {
         case 0:
             vehicleType = KSStandardLimo;
             break;
@@ -422,19 +490,14 @@
         {
             NSString *analyticsCategory = [NSString stringWithFormat: @"Booking-%@",  [AppUtils vehicleTypeToString:vehicleType]];
             NSString *bookingType = [tripInfo.bookingType isEqualToString:KSBookingTypeCurrent] ? @"Current" : @"Advance";
-            
             NSString *userPhoneNumber = [[KSDAL loggedInUser] phone];
-            
-            //NSDictionary *tripDetails =
             
             NSDictionary *tripDetails = @{
                                          @"TripInfo" : tripInfo,
                                          @"UserPhoneNumber" : userPhoneNumber,
                                          @"TaxiLimoOption" : [NSString stringWithFormat:@"%lu", (unsigned long)segmentVehicleType.selectedSegmentIndex],
-                                         @"LimoType" : (segmentVehicleType.selectedSegmentIndex == 1) ?[NSString stringWithFormat:@"%lu", (unsigned long)segmantLimoType.selectedSegmentIndex] : @"-1"
+                                         @"LimoType" : (segmentVehicleType.selectedSegmentIndex == 1) ?[NSString stringWithFormat:@"%lu", (unsigned long)segmentLimoType.selectedSegmentIndex] : @"-1"
                                          };
-            
-            //[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
             
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
             [tracker send:[[GAIDictionaryBuilder createEventWithCategory:analyticsCategory
@@ -447,7 +510,179 @@
     }
 }
 
+#pragma mark - Map
+-(void) setMapParameterForScreenSize
+{
+    self.mapView.delegate = self;
+    BOOL CorporateCustomer = [[[KSSessionInfo currentSession] customerType] integerValue] == KSCorporateCustomer ;
+    self.mapView.scrollEnabled = !CorporateCustomer;
+    self.mapView.zoomEnabled = !CorporateCustomer;
+    //self.mapView.userInteractionEnabled = !CorporateCustomer;
+    [self setMapUserInteraction:!CorporateCustomer];
+}
+
+-(void) setMapUserInteraction :(BOOL) enable
+{
+    BOOL CorporateCustomer = [[[KSSessionInfo currentSession] customerType] integerValue] == KSCorporateCustomer ;
+    
+    if(!CorporateCustomer)
+    {
+        
+        self.mapView.userInteractionEnabled = enable;
+    }
+    else
+    {
+        
+        self.mapView.userInteractionEnabled = FALSE;
+    }
+}
+
+
+#pragma mark - DropOff
+-(void) ShowHideDropoffForScreenSize
+{
+    if([self isLargeScreen])
+    {
+        dropoffVisible = TRUE;
+        [self setIndexForCell:dropoffVisible];
+        
+        self.tblViewHeight.constant += 94;
+        self.bottomMapToTopTblView.constant -=94;
+    }
+    else
+    {
+        dropoffVisible = FALSE;
+        [self setIndexForCell:dropoffVisible];
+    }
+}
+
+-(void) UpdateMapForDropOff:(BOOL) withDropOff
+{
+    if (withDropOff) {
+        self.mapView.scrollEnabled = FALSE;
+    }
+    else{
+        self.mapView.scrollEnabled = TRUE;
+    }
+}
+
+-(void) setIndexForCell:(BOOL)withDropOff
+{
+    if (withDropOff) {
+        
+        idxPickupLocation = 0;
+        idxDropOffLocation = 1;
+        idxPickupTime = 2;
+        idxBtnCell = 3;
+    }
+    else {
+        
+        idxPickupLocation = 0;
+        idxPickupTime = 1;
+        idxBtnCell = 2;
+        idxDropOffLocation = 100; //
+        
+    }
+}
+
+
+-(BOOL) isLargeScreen
+{
+    BOOL largeScreen = TRUE;
+    NSInteger horizontalClass = self.traitCollection.horizontalSizeClass;
+    switch (horizontalClass) {
+        case UIUserInterfaceSizeClassCompact :
+            largeScreen = FALSE;
+            break;
+        case UIUserInterfaceSizeClassRegular :
+            largeScreen = TRUE;
+            break;
+        default :
+            largeScreen = FALSE;
+            break;
+    }
+    return largeScreen;
+}
+#pragma  mark - Customer Phone Input
+
+-(void) showAltForWrongCustomerPhoneInput
+{
+    [self showAltForWrongCustomerPhoneInput:@"Please enter valid phone number"];
+}
+
+-(void) showAltForWrongCustomerPhoneInput:(NSString*)errorMsg
+{
+    
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                 message:errorMsg
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   
+                                   [self showPhoneInputPopupForCorporateBooking];
+                               }];
+    
+    [alt addAction:okAction];
+    
+    [self presentViewController:alt animated:YES completion:nil];
+}
+
+-(void) showPhoneInputPopupForCorporateBooking
+{
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide phone number of passenger."
+                                                                 message:nil
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak UIAlertController *alertRef = alt;
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   // access text from text field
+                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                   
+                                   if (!text.length) {
+                                       [self showAltForWrongCustomerPhoneInput:@"Phone number can't be empty"];
+                                   }
+                                   else{
+                                       NSString *inputText = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                       if([AppUtils isPhoneNumber:inputText])
+                                       {
+                                           tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                           [self bookTaxi];
+                                       }
+                                       else
+                                       {
+                                           
+                                           [self showAltForWrongCustomerPhoneInput];
+                                       }
+                                   }
+                               }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                               
+                                                           }];
+    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
+     {
+         txtField.placeholder = @"Passenger Phone Number";
+         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         txtField.delegate = self;
+         txtField.tag = TXT_HINT_TAG;
+         //txtField.text = hintTxt ? hintTxt : @"";
+     }];
+    [alt addAction:okAction];
+    [alt addAction:cancelAction];
+    [self presentViewController:alt animated:YES completion:nil];
+    
+    
+}
+
 #pragma mark - Private Function
+
 
 -(void) populateOldTripData
 {
@@ -456,10 +691,6 @@
     if(self.repeatTrip.dropoffLandmark.length){
         self.lblDropoffLocaiton.text = self.repeatTrip.dropoffLandmark;
         dropoffPoint = CLLocationCoordinate2DMake([self.repeatTrip.dropOffLat doubleValue], [self.repeatTrip.dropOffLon doubleValue]);
-    }
-    
-    if (self.repeatTrip.pickupHint.length) {
-        hintTxt = self.repeatTrip.pickupHint;
     }
     
     vehicleType = (KSVehicleType)[self.repeatTrip.vehicleType integerValue];
@@ -472,11 +703,6 @@
         
         [self.tableView reloadData];
     }
-    
-    
-    
-    //[self.mapView setCenterCoordinate:CLLocationCoordinate2DMake([tripInfo.pickupLat doubleValue], [tripInfo.pickupLon doubleValue]) animated:YES];
-    
 }
 
 -(void) addCrashlyticsInfo
@@ -552,185 +778,55 @@
     [defaults synchronize];
 }
 
--(BOOL) showHintForDestination
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *hintCount = [defaults objectForKey:DETAIL_HINT_KEY];
-    if ([hintCount integerValue] >= MAX_HINT_DETAIL_COUNT || hintCount == nil) {
-        [self resetDropoffHintConter];
-        return TRUE;
-    }
-    hintCount = [NSNumber numberWithInt:[hintCount intValue]+1];
-    [defaults setObject:hintCount forKey:DETAIL_HINT_KEY];
-    [defaults synchronize];
-    return FALSE;
-}
 
--(void) hideHintView:(BOOL)hide
-{
-    if (hide)
-    {
-        self.mapView.userInteractionEnabled = TRUE;
-        self.imgDestinationHelp.hidden = TRUE;
-        [self.view endEditing:FALSE];
-    }
-    else {
-        [self.view endEditing:TRUE];
-        self.mapView.userInteractionEnabled = FALSE;
-        self.imgDestinationHelp.hidden = FALSE;
-    }
-}
-
-//-(void) showOverlay:(OverlyaImageType)type Show:(BOOL) show
+// Not using it right now.
+//-(void) showAlertWithHint
 //{
-//    self.mapView.userInteractionEnabled = !show;
-//    [self.view endEditing:show];
-//    switch (type) {
-//        case kOverlayDestinationHelp:
-//            self.imgDestinationHelp.hidden = !show;
-//            break;
-//        case KOverlayLimoType:
-//            self.
-//        default:
-//            break;
-//    }
+//    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide additional pickup information."
+//                                                                 message:nil
+//                                                          preferredStyle:UIAlertControllerStyleAlert];
 //    
+//    __weak UIAlertController *alertRef = alt;
+//    UIAlertAction *okAction = [UIAlertAction
+//                                 actionWithTitle:@"OK"
+//                                 style:UIAlertActionStyleDefault
+//                               handler:^(UIAlertAction * action) {
+//                                   // access text from text field
+//                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+//                                   
+//                                   if (!text.length) {
+//                                       id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+//                                       
+//                                       [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
+//                                                            action:@"btnHintOkTap"
+//                                                            label:@"No Input"
+//                                                            value:nil]
+//                                                      build]];
+//                                       
+//                                       [self showAlertWithHint];
+//                                   }
+//                                   else{
+//                                       hintTxt = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+//                                       [self bookTaxi];
+//                                   }
+//                               }];
 //    
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+//                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//                                                               
+//                                                           }];
+//    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
+//     {
+//         txtField.placeholder = @"e.g. Villaggio Gate No.2";
+//         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+//         txtField.delegate = self;
+//         txtField.tag = TXT_HINT_TAG;
+//         txtField.text = hintTxt ? hintTxt : @"";
+//     }];
+//    [alt addAction:okAction];
+//    [alt addAction:cancelAction];
+//    [self presentViewController:alt animated:YES completion:nil];
 //}
-
--(void) bookTaxi
-{
-    
-    if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
-    {
-        if ([self showHintForDestination]) {
-            [self hideHintView:FALSE];
-            return;
-        }
-    }
-    
-    tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
-                                   lat:self.mapView.centerCoordinate.latitude
-                                   lon:self.mapView.centerCoordinate.longitude];
-    
-    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
-        [self resetDropoffHintConter];
-        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
-        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
-        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
-    }
-    
-    KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
-    
-    if([AppUtils isTaxiType:vehicleType])
-        tripInfo.pickupTime = datePicker.date;
-    else
-        tripInfo.pickupTime = [NSDate date];
-    
-    tripInfo.pickupHint = hintTxt ? hintTxt : @"";
-
-    tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
-    
-    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
-        [hud hide:YES];
-        
-        if (status == KSAPIStatusSuccess) {
-            NSLog(@"%@",data);
-            KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
-                [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
-                
-            }];
-            
-            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-                                                                  action:[AppUtils vehicleTypeToString:vehicleType]
-                                                                   label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
-                                                                   value:nil] build]];
-            
-            
-            [self sendAnalyticsForBooking];
-            NSString *str;
-            if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
-                
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
-                
-//                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-//                                                                      action:@"CurrentTaxiBooking"
-//                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-//                                                                       value:nil] build]];
-            }
-            else{
-                
-                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
-                
-//                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
-//                                                                      action:@"AdvTaxiBooking"
-//                                                                       label:[NSString stringWithFormat:@"TripInfo: %@",tripInfo]
-//                                                                       value:nil] build]];
-            }
-            
-            
-            [KSConfirmationAlert showWithTitle:nil
-                                       message:str
-                                      okAction:okAction];
-        }
-        else {
-            [self APICallFailAction:status];
-        }
-        
-    }];
-    
-}
-
--(void) showAlertWithHint
-{
-    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide additional pickup information."
-                                                                 message:nil
-                                                          preferredStyle:UIAlertControllerStyleAlert];
-    
-    __weak UIAlertController *alertRef = alt;
-    UIAlertAction *okAction = [UIAlertAction
-                                 actionWithTitle:@"OK"
-                                 style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction * action) {
-                                   // access text from text field
-                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                   
-                                   if (!text.length) {
-                                       id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
-                                       
-                                       [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"User Input"
-                                                            action:@"btnHintOkTap"
-                                                            label:@"No Input"
-                                                            value:nil]
-                                                      build]];
-                                       
-                                       [self showAlertWithHint];
-                                   }
-                                   else{
-                                       hintTxt = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                       [self bookTaxi];
-                                   }
-                               }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                                                               
-                                                           }];
-    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
-     {
-         txtField.placeholder = @"e.g. Villaggio Gate No.2";
-         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-         txtField.delegate = self;
-         txtField.tag = TXT_HINT_TAG;
-         txtField.text = hintTxt ? hintTxt : @"";
-     }];
-    [alt addAction:okAction];
-    [alt addAction:cancelAction];
-    [self presentViewController:alt animated:YES completion:nil];
-}
 
 -(void) addDataPickerToTxtPickupTime
 {
@@ -749,35 +845,6 @@
     
     self.txtPickupTime.inputView = picker;
     [self updatePickupTime:[NSDate date]];
-}
-
--(void) UpdateMapForDropOff:(BOOL) withDropOff
-{
-    if (withDropOff) {
-        self.mapView.scrollEnabled = FALSE;
-    }
-    else{
-        self.mapView.scrollEnabled = TRUE;
-    }
-}
-
--(void) setIndexForCell:(BOOL)withDropOff
-{
-    if (withDropOff) {
-        
-        idxPickupLocation = 0;
-        idxDropOffLocation = 1;
-        idxPickupTime = 2;
-        idxBtnCell = 3;
-    }
-    else {
-        
-        idxPickupLocation = 0;
-        idxPickupTime = 1;
-        idxBtnCell = 2;
-        idxDropOffLocation = 100; //
-        
-    }
 }
 
 - (void)updatePickupTime:(NSDate *)date {
@@ -917,7 +984,8 @@
             [self.tableView insertRowsAtIndexPaths:arrayOfIndexPaths
                                   withRowAnimation:UITableViewRowAnimationNone];
             [self.mapDisableView setAlpha:0.6];
-            self.mapView.userInteractionEnabled = FALSE;
+            [self setMapUserInteraction:FALSE];
+            //self.mapView.userInteractionEnabled = FALSE;
         } completion:^(BOOL finished) {
             if (animated) {
                 //[self.mapDisableView setHidden:FALSE];
@@ -931,42 +999,46 @@
 
 -(void) hideDropOff:(BOOL)animated
 {
-    if (dropoffVisible == TRUE) {
+    if(![self isLargeScreen])
+    {
+        if (dropoffVisible == TRUE) {
 
-        dropoffVisible = FALSE;
-        [self setIndexForCell:dropoffVisible];
-        
-        NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
-        [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
-        
-        [self.tableView layoutIfNeeded];
-        [self.btnCurrentLocaiton setHidden:FALSE];
-        
-        self.tblViewHeight.constant -= 94;
-        self.bottomMapToTopTblView.constant +=94;
-        
-        NSTimeInterval animDuration = animated ? 0.5 : 0;
-        
-        [UIView animateWithDuration:animDuration animations:^{
+            dropoffVisible = FALSE;
+            [self setIndexForCell:dropoffVisible];
+            
+            NSMutableArray *arrayOfIndexPaths = [[NSMutableArray alloc] init];
+            [arrayOfIndexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+            
             [self.tableView layoutIfNeeded];
+            [self.btnCurrentLocaiton setHidden:FALSE];
             
-            [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
-                                  withRowAnimation:UITableViewRowAnimationNone];
-            [self.mapDisableView setAlpha:0.0];
-            self.mapView.userInteractionEnabled = TRUE;
-        } completion:^(BOOL finished) {
-            if (animated) {
-                //[self.mapDisableView setHidden:TRUE];
-            }
+            self.tblViewHeight.constant -= 94;
+            self.bottomMapToTopTblView.constant +=94;
             
-        }];
-        
-        [self updateViewForShowHideDropOff];
+            NSTimeInterval animDuration = animated ? 0.5 : 0;
+            
+            [UIView animateWithDuration:animDuration animations:^{
+                [self.tableView layoutIfNeeded];
+                
+                [self.tableView deleteRowsAtIndexPaths:arrayOfIndexPaths
+                                      withRowAnimation:UITableViewRowAnimationNone];
+                [self.mapDisableView setAlpha:0.0];
+                [self setMapUserInteraction:TRUE];
+                //self.mapView.userInteractionEnabled = TRUE;
+            } completion:^(BOOL finished) {
+                if (animated) {
+                    //[self.mapDisableView setHidden:TRUE];
+                }
+                
+            }];
+            
+            [self updateViewForShowHideDropOff];
+        }
     }
 }
 
 - (void)updateTaxisInCurrentRegion {
-    
+    _btnBookTaxi.enabled = FALSE;
     //[self.mapView removeAnnotations:self.mapView.annotations];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
                               @"self isKindOfClass: %@",
@@ -996,6 +1068,7 @@
                                                    type:vehicleType
                                              completion:^(NSArray *vehicleAnnotation) {
                                                  [self.mapView addAnnotations:vehicleAnnotation];
+                                                 _btnBookTaxi.enabled = TRUE;
                                              }];
     
     /*[KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
@@ -1014,6 +1087,161 @@
         [self.mapView addAnnotations:vehiclesAnnotations];
         
     }];*/
+}
+
+#pragma mark - Booking Processs
+
+-(void) bookTaxi
+{
+    tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
+                                   lat:self.mapView.centerCoordinate.latitude
+                                   lon:self.mapView.centerCoordinate.longitude];
+    
+    if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
+        [self resetDropoffHintConter];
+        tripInfo.dropoffLandmark = self.lblDropoffLocaiton.text;
+        tripInfo.dropOffLat = [NSNumber numberWithDouble:dropoffPoint.latitude];
+        tripInfo.dropOffLon = [NSNumber numberWithDouble:dropoffPoint.longitude];
+    }
+    
+    KSDatePicker *datePicker = (KSDatePicker *)self.txtPickupTime.inputView;
+    
+    if([AppUtils isTaxiType:vehicleType])
+        tripInfo.pickupTime = datePicker.date;
+    else
+        tripInfo.pickupTime = [NSDate date];
+    
+    tripInfo.vehicleType = [NSNumber numberWithInt:vehicleType];
+    
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [KSDAL bookTrip:tripInfo completion:^(KSAPIStatus status, NSDictionary *data) {
+        [hud hide:YES];
+        
+        if (status == KSAPIStatusSuccess) {
+            NSLog(@"%@",data);
+            KSConfirmationAlertAction *okAction =[KSConfirmationAlertAction actionWithTitle:@"OK" handler:^(KSConfirmationAlertAction *action) {
+                [self performSegueWithIdentifier:@"segueBookingToDetail" sender:self];
+                
+            }];
+            
+            id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+            [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Booking"
+                                                                  action:[AppUtils vehicleTypeToString:vehicleType]
+                                                                   label:isPickupFromMap ? @"Address Pick from Map" : @"Address Pick from Address Picker"
+                                                                   value:nil] build]];
+            
+            
+            [self sendAnalyticsForBooking];
+            NSString *str;
+            if ([tripInfo.bookingType isEqualToString:KSBookingTypeCurrent]) {
+                
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. You will receive a confirmation message in few minutes",[tripInfo.pickupTime formatedDateForBooking]];
+            }
+            else{
+                
+                str = [NSString stringWithFormat:@"We have received your booking request for %@. Thank you for choosing Karwa.",[tripInfo.pickupTime formatedDateForBooking]];
+            }
+            
+            
+            [KSConfirmationAlert showWithTitle:nil
+                                       message:str
+                                      okAction:okAction];
+        }
+        else {
+            [self APICallFailAction:status];
+        }
+        
+    }];
+}
+
+-(void) showSnackBar
+{
+    NSString *snackbarMessage = [NSString stringWithFormat:@"Creating Booking"];
+    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    SSSnackbar *snackbar = [SSSnackbar snackbarWithMessage:snackbarMessage
+                                                actionText:@"Cancel"
+                                                  duration:5
+                                               actionBlock:^(SSSnackbar *sender){
+                                                   [hud hide:true];
+                                               }
+                                            dismissalBlock:^(SSSnackbar *sender) {
+                                                [hud hide:true];
+                                                hintTxt = @"";
+                                                [self bookTaxi];
+                                            }];
+    [snackbar show];
+    
+}
+
+-(void) startBookingProcess
+{
+    if([self allowBooking] )
+    {
+        if(![self showDestinationPopUp])
+        {
+        if([[KSSessionInfo currentSession].customerType integerValue] !=  KSCorporateCustomer)
+        {
+            tripInfo.callerId = [KSSessionInfo currentSession].phone;
+            [self showSnackBar];
+        }
+        else
+            [self showPhoneInputPopupForCorporateBooking];
+        }
+    }
+    else
+    {
+        [KSAlert show:@"We are fully booked right now. Please try agin some other time."];
+    }
+}
+
+#pragma mark - Destination PopUp
+
+-(BOOL) showDestinationPopUp
+{
+    
+    if(![self isLargeScreen])
+    {
+        if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
+        {
+            if ([self showHintForDestination]) {
+                [self hideHintView:FALSE];
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+
+-(BOOL) showHintForDestination
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *hintCount = [defaults objectForKey:DETAIL_HINT_KEY];
+    if ([hintCount integerValue] >= MAX_HINT_DETAIL_COUNT || hintCount == nil) {
+        [self resetDropoffHintConter];
+        return TRUE;
+    }
+    hintCount = [NSNumber numberWithInt:[hintCount intValue]+1];
+    [defaults setObject:hintCount forKey:DETAIL_HINT_KEY];
+    [defaults synchronize];
+    return FALSE;
+}
+
+-(void) hideHintView:(BOOL)hide
+{
+    if (hide)
+    {
+        [self setMapUserInteraction:TRUE];
+        //self.mapView.userInteractionEnabled = TRUE;
+        self.imgDestinationHelp.hidden = TRUE;
+        [self.view endEditing:FALSE];
+    }
+    else {
+        [self.view endEditing:TRUE];
+        [self setMapUserInteraction:FALSE];
+        //self.mapView.userInteractionEnabled = FALSE;
+        self.imgDestinationHelp.hidden = FALSE;
+    }
 }
 
 #pragma mark - Annotation Management
@@ -1136,6 +1364,8 @@
         [self setPickupLocationLblText];
         //[self setCurrentLocaitonBtnState];
         [self updateTaxisInCurrentRegion];
+        
+        [self checkAndShowLocationAlert];
     }
     else{
        
@@ -1296,34 +1526,45 @@ didAddAnnotationViews:(NSArray *)annotationViews
             UIView *segmentView = [cell viewWithTag:101];
             //[segmentView setNeedsDisplay];
             
-            segmantLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
-            segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
-            
+            segmentLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
+            segmentLimoType.cornerRadius = CGRectGetHeight(segmentView.frame) / 2.0f;
+//            DLog(@"SegmentView Width = %f      Height = %f",segmentView.frame.size.width,segmentView.frame.size.height);
+//            DLog(@"segmentLimoType Width = %f      Height = %f",segmentLimoType.frame.size.width,segmentLimoType.frame.size.height);
             
             switch (vehicleType) {
                 case KSStandardLimo:
-                    [segmantLimoType setSelectedSegmentIndex:0];
+                    [segmentLimoType setSelectedSegmentIndex:0];
                     break;
                 case KSBusinessLimo:
-                    [segmantLimoType setSelectedSegmentIndex:1];
+                    [segmentLimoType setSelectedSegmentIndex:1];
                     break;
                 case KSLuxuryLimo:
-                    [segmantLimoType setSelectedSegmentIndex:2];
+                    [segmentLimoType setSelectedSegmentIndex:2];
                     break;
                 default:
-                    [segmantLimoType setSelectedSegmentIndex:0];
+                    [segmentLimoType setSelectedSegmentIndex:0];
                     break;
             }
             //[segmentView setBackgroundColor:[UIColor orangeColor]];
-            [segmentView addSubview:segmantLimoType];
-            segmantLimoType.translatesAutoresizingMaskIntoConstraints = false;
+            //--[segmentView addSubview:segmantLimoType];
+            if(![[segmentView subviews] containsObject:segmentLimoType])
+            {
+                segmentLimoType.translatesAutoresizingMaskIntoConstraints = false;
+                [segmentView layoutIfNeeded];
+                [segmentView addSubview:segmentLimoType];
+                NSDictionary *viewBindings = NSDictionaryOfVariableBindings(segmentView,segmentLimoType);
+                [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[segmentLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
+                [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[segmentLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
+                // put a breakpoint after this line to see the frame of your UIWebView.
+                // It should be the same as the view
+                [segmentView layoutIfNeeded];
+                //segmentLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
+                //segmentLimoType.cornerRadius = CGRectGetHeight(segmentLimoType.frame) / 2.0f;
+                //[segmentLimoType layoutIfNeeded];
+                //[cell.contentView layoutSubviews];
+            }
             
-            NSDictionary *viewBindings = NSDictionaryOfVariableBindings(segmentView,segmantLimoType);
-            [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
-            [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
-            // put a breakpoint after this line to see the frame of your UIWebView.
-            // It should be the same as the view
-            [segmentView layoutIfNeeded];
+            //[cell layoutIfNeeded];
             
         }
     }
@@ -1331,7 +1572,9 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
-        
+        self.btnBookTaxi = (UIButton*) [cell viewWithTag:6006];
+        if([self isLargeScreen])
+            self.btnDestinationReveal.hidden = TRUE;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -1353,7 +1596,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
             [self hideDropOff:TRUE];
         }
         else{
-         
+         if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
             [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
         }
     }
@@ -1398,6 +1641,14 @@ didAddAnnotationViews:(NSArray *)annotationViews
         KSBookingDetailsController *bookingDetails = (KSBookingDetailsController *) segue.destinationViewController;
         bookingDetails.tripInfo = tripInfo;
     }
+    else if([segue.identifier isEqualToString:@"segueBookingToRating"])
+    {
+        KSTripRatingController *ratingController = (KSTripRatingController*) ([[(UINavigationController*)segue.destinationViewController viewControllers] objectAtIndex:0]);
+        
+        ratingController.trip = ratingTrip;
+        ratingController.displaySource = kMendatoryRating;
+    }
+    
 }
 
 #pragma mark - AddressPicker Delegate
@@ -1430,12 +1681,12 @@ didAddAnnotationViews:(NSArray *)annotationViews
             
             [self.mapView setCenterCoordinate:location.coordinate animated:YES];
         }
-        if (hint && ![hint isEqualToString:@""]) {
-            hintTxt = hint;
-        }
-        else{
-            hintTxt = @"";
-        }
+//        if (hint && ![hint isEqualToString:@""]) {
+//            hintTxt = hint;
+//        }
+//        else{
+//            hintTxt = @"";
+//        }
     }
     else
     {
@@ -1495,6 +1746,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         //mapLoadForFirstTime = TRUE;
         self.mapView.showsUserLocation = YES;
+        //[self hideTopBarAltForFarAwayLocation:FALSE];
         //--[self.mapView setCenterCoordinate:_mapView.userLocation.location.coordinate animated:YES];
     }
     
@@ -1502,6 +1754,11 @@ didAddAnnotationViews:(NSArray *)annotationViews
 
 - (IBAction) btnBookingRequestTapped:(id)sender
 {
+    //if location services are off then show alter for location services.
+    if(![self checkLocationAvaliblityAndShowAlert])
+        return;         //location services are off, do not allow booking.
+    
+    
     if (!self.imgDestinationHelp.hidden) {
         [self hideHintView:TRUE];
         return;
@@ -1516,15 +1773,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
                                                            label:[NSString stringWithFormat:@"Pickup: %@ | Dest: %@ | Time: %@",self.lblPickupLocaiton.text,self.lblDropoffLocaiton.text,self.txtPickupTime.text]
                                                            value:nil] build]];
     
-    if([self allowBooking])
-    {
-        [self showAlertWithHint];
-    }
-    else
-    {
-        [KSAlert show:@"We are fully booked right now. Please try agin some other time."];
-    }
-
+    [self startBookingProcess];
 }
 
 -(BOOL) allowBooking
@@ -1541,4 +1790,41 @@ didAddAnnotationViews:(NSArray *)annotationViews
     return TRUE;
 }
 
+#pragma mark - Show Hide Location Alert
+- (void) showTopBarAltForFarAwayLocation
+{
+    AudioServicesPlaySystemSound (1106);        //Play sound
+    AudioServicesPlaySystemSound (4095);
+    _altLocationHeight.constant = 41.0;
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     } ];
+}
+
+-(void) hideTopBarAltForFarAwayLocation:(BOOL) animation
+{
+    _altLocationHeight.constant = 0.0;
+    [self.view setNeedsUpdateConstraints];
+    [UIView animateWithDuration:animation ? 0.5: 0.0
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     } ];
+    
+}
+
+-(void) checkAndShowLocationAlert
+{
+    CLLocationDistance locationShift = [self.mapView.userLocation.location distanceFromLocation:[CLLocation locationWithCoordinate: self.mapView.centerCoordinate]];
+    
+    if(locationShift > 50)              //50 meters
+    {
+        [self showTopBarAltForFarAwayLocation];
+    }
+    else
+    {
+        [self hideTopBarAltForFarAwayLocation:YES];
+    }
+}
 @end

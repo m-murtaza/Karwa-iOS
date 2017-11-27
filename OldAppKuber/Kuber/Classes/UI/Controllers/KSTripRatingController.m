@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
+#import <StoreKit/StoreKit.h>
+
 #import "KSTripRatingController.h"
 #import "SWRevealViewController.h"
 #import "KSMenuController.h"
@@ -53,13 +55,22 @@
     [self addTableViewheader];
     [self setupView];
     //[self addGesture];
-
+    if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+    {
+        self.navigationItem.hidesBackButton = TRUE;
+    }
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [KSGoogleAnalytics trackPage:@"Rating View"];
+    
+    if(self.trip.jobId == nil || [self.trip.jobId isEqualToString:@""])
+    {
+        _displaySource = kMendatoryRating;
+        [self moveToPreviousView:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,8 +87,9 @@
     UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(5.0, 2.0,self.tableView.frame.size.width-10 , 30)];
     labelView.text = @"REASON BEHIND THIS RATING?";
     //labelView.adjustsFontSizeToFitWidth = FALSE;
-    labelView.font = [UIFont fontWithName:KSMuseoSans300 size:12];
-    labelView.font=[labelView.font fontWithSize:12];
+    BOOL largeScree  = [AppUtils isLargeScreen:self];
+    labelView.font = [UIFont fontWithName:KSMuseoSans300 size:largeScree? 18:12];
+    labelView.font=[labelView.font fontWithSize:largeScree? 18:12];
     labelView.textColor = [UIColor colorFromHexString:@"#858585"];
     [headerView addSubview:labelView];
     self.tableView.tableHeaderView = headerView;
@@ -134,7 +146,6 @@
             [self APICallFailAction:status];
             
         }
-        
     }];
 }
 #pragma mark - Segue 
@@ -146,7 +157,15 @@
     }
 }
 
-#pragma mark -
+#pragma mark - AppstoreRating
+-(void) askForAppstoreRatingIfReq
+{
+    if(self.serviceRating.rate == 5.0)
+    {
+        if(@available(iOS 10.3, *))
+            [SKStoreReviewController requestReview] ;
+    }
+}
 #pragma mark - Event handlers
 
 - (IBAction)onClickDone:(id)sender {
@@ -156,23 +175,14 @@
         return;
     }
     
+    [self askForAppstoreRatingIfReq];
+    
     __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     void (^completionHandler)(KSAPIStatus, id) = ^(KSAPIStatus status, NSDictionary *data) {
         [hud hide:YES];
-        if (KSAPIStatusSuccess == status) {
-            if (self.isOpenedFromPushNotification) {
-                
-                UIViewController *controller = [UIStoryboard mainRootController];
-                [self.revealViewController setFrontViewController:controller animated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
-            }
-            else{
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
-        else {
-            [self APICallFailAction:status];
-        }
+        //Move to previous view even if there is some error from server. 
+        [self moveToPreviousView:YES];
+        
     };
 
     KSTripRating *tripRating = [KSDAL tripRatingForTrip:self.trip];
@@ -186,10 +196,31 @@
         
     }
     tripRating.comments = _txtCommentView.text ? _txtCommentView.text : @"";
-    [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
+    if(self.trip.jobId == nil)
+        [self moveToPreviousView:YES];
+    else
+        [KSDAL rateTrip:self.trip withRating:tripRating completion:completionHandler];
     
 }
 
+-(void) moveToPreviousView:(BOOL)animation
+{
+    if (_displaySource == kNotification) {
+        
+        UIViewController *controller = [UIStoryboard mainRootController];
+        [self.revealViewController setFrontViewController:controller animated:animation];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"KSSetBookingSelected" object:nil];
+    }
+    else if(_displaySource == kMendatoryRating)
+    {
+        [[[self navigationController] presentingViewController] dismissViewControllerAnimated:animation completion:nil];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:animation];
+    }
+    
+}
 #pragma mark - Private Functions
 
 -(NSString*) getFormattedTitleDate:(NSDate*)date
@@ -270,7 +301,7 @@
     CGFloat height;
     if(self.serviceRating.rate <= 3 && indexPath.row < [issueList count]){
         
-        height = 40;
+        height = [AppUtils isLargeScreen:self]? 60:40;
     }
     else{
 
@@ -296,9 +327,10 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServiceIssueCellIdentifier"];
             }
             
+            BOOL largeScreen = [AppUtils isLargeScreen:self];
             KSTripIssue *issue = [issueList objectAtIndex:indexPath.row];
             cell.textLabel.text = issue.valueEN;
-            cell.textLabel.font = [UIFont fontWithName:KSMuseoSans300 size:15];
+            cell.textLabel.font = [UIFont fontWithName:KSMuseoSans300 size:largeScreen? 22: 15];
             cell.textLabel.textColor = [UIColor colorFromHexString:@"#777777"];
             
             //[UIColor colorWithRed:199/255 green:199/255 blue:199/255 alpha:1];

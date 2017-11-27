@@ -17,10 +17,6 @@
 #pragma mark -
 #pragma mark - User management
 
-+ (void)saveLoggedInUserSession:(NSString *)sessionId phone:(NSString *)phone {
-    [KSSessionInfo updateSession:sessionId phone:phone];
-}
-
 + (void)logoutUser {
 
     KSWebClient *webClient = [KSWebClient instance];
@@ -94,11 +90,15 @@
                 KSUser *user = [KSDAL userWithPhone:userInfo[@"Phone"]];
                 user.email = userInfo[@"Email"];
                 user.name = userInfo[@"Name"];
+                if(userInfo[@"CustomerType"])
+                    user.customerType = userInfo[@"CustomerType"];
+                else
+                    user.customerType = [NSNumber numberWithInteger:0];
                 [KSDBManager saveContext:^{
                     completionBlock(status, nil);
                 }];
                 
-                [KSSessionInfo updateSession:userInfo[@"SessionID"] phone:userInfo[@"Phone"]];
+                [KSSessionInfo updateSession:userInfo[@"SessionID"] phone:userInfo[@"Phone"] customerType:user.customerType];
             }
             else {
                 completionBlock(status, nil);
