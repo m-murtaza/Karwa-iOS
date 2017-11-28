@@ -8,10 +8,10 @@
 
 import UIKit
 
-class KSSideDrawerTableView: KSBaseTableViewController {
+class KTSideDrawerTableView: KTBaseTableViewController {
     
     var DrawerOption = [String]()
-    let viewModel : KSSideDrawerModel = KSSideDrawerModel(del: self)
+    let viewModel : KTSideDrawerModel = KTSideDrawerModel(del: self)
     
     override func viewDidLoad() {
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KSConfiguration: NSObject {
+class KTConfiguration: NSObject {
 
     var resourceFileDictionary: NSDictionary?
     var environment : String?
@@ -23,7 +23,7 @@ class KSConfiguration: NSObject {
         self.getDevelopmentEnvironment()
     }
     
-    static let sharedInstance = KSConfiguration()
+    static let sharedInstance = KTConfiguration()
     
     func getDevelopmentEnvironment() {
         if(resourceFileDictionary != nil)

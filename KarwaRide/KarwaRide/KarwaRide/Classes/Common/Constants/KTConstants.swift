@@ -13,7 +13,7 @@
 //    let KEY_BASE_URL = "BaseAPIURL"
 //}
 
-typealias KSResponseCompletionBlock = (_ success: Bool, _ response: Any) -> Void
+typealias KTResponseCompletionBlock = (_ success: Bool, _ response: Any) -> Void
 
 
 struct Constants {
@@ -22,16 +22,16 @@ struct Constants {
         static let RequestTimeOut = 10.0
     }
     
-    struct KSAPIStatus : OptionSet {
+    struct KTAPIStatus : OptionSet {
         let rawValue: Int
         
-        static let unknownError = KSAPIStatus(rawValue: 0)
+        static let unknownError = KTAPIStatus(rawValue: 0)
         // Generic Error
-        static let success = KSAPIStatus(rawValue: 1)
+        static let success = KTAPIStatus(rawValue: 1)
         // Success Case
-        static let userNotRegistered = KSAPIStatus(rawValue: 2)
+        static let userNotRegistered = KTAPIStatus(rawValue: 2)
         // Mobile number provided doesn't exist in DB
-        static let userAlreadyRegistered = KSAPIStatus(rawValue: 3)
+        static let userAlreadyRegistered = KTAPIStatus(rawValue: 3)
         
     }
     

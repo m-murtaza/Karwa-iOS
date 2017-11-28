@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KSBaseViewController: UIViewController,KSViewModelDelegate {
+class KTBaseViewController: UIViewController,KTViewModelDelegate {
 
     //var viewModel : KSBaseViewModel? //= KSBaseViewModel(del: self as! KSViewModelDelegate)
     

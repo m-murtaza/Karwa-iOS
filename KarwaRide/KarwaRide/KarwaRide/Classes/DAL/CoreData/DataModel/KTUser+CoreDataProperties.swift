@@ -1,8 +1,8 @@
 //
-//  KSUser+CoreDataProperties.swift
+//  KTUser+CoreDataProperties.swift
 //  
 //
-//  Created by Muhammad Usman on 11/27/17.
+//  Created by Muhammad Usman on 11/28/17.
 //
 //
 
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension KSUser {
+extension KTUser {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<KSUser> {
-        return NSFetchRequest<KSUser>(entityName: "KSUser")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<KTUser> {
+        return NSFetchRequest<KTUser>(entityName: "KTUser")
     }
 
     @NSManaged public var name: String?

@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 // MARK: APPLE PUSH NOTIFICATION
-    private let apnsManager : KSAPNSManager = KSAPNSManager.init()
+    private let apnsManager : KTAPNSManager = KTAPNSManager.init()
     
     func registerForPushNotifications() {
         apnsManager.registerForPushNotifications()

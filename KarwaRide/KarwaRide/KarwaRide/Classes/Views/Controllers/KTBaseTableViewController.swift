@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KSBaseTableViewController: UITableViewController,KSViewModelDelegate {
+class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()

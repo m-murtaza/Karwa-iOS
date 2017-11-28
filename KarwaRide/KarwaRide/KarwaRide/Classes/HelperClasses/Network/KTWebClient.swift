@@ -11,7 +11,7 @@ import Alamofire
 
 //typealias KSWebClientCompletionBlock = (_ success: Bool, _ response: Any) -> Void
 
-class KSWebClient: NSObject {
+class KTWebClient: NSObject {
 
     var baseURL : String?
     
@@ -19,14 +19,14 @@ class KSWebClient: NSObject {
     private override init()
     {
         super.init()
-        self.baseURL = KSConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
+        self.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = Constants.API.RequestTimeOut
         _ = Alamofire.SessionManager(configuration: configuration)
     }
     
-    static let sharedInstance = KSWebClient()
+    static let sharedInstance = KTWebClient()
     
     //MARK: - Functions
 //    func testServerCall ()
@@ -44,17 +44,17 @@ class KSWebClient: NSObject {
 //        
 //    }
     
-    func post(uri: String, param: [String : Any], completion completionBlock:@escaping  KSResponseCompletionBlock)
+    func post(uri: String, param: [String : Any], completion completionBlock:@escaping  KTResponseCompletionBlock)
     {
         sendRequest(httpMethod: .post, uri: uri, param: param, completion: completionBlock)
     }
     
-    func  get(uri: String, param: [String : Any], completion completionBlock:@escaping KSResponseCompletionBlock)
+    func  get(uri: String, param: [String : Any], completion completionBlock:@escaping KTResponseCompletionBlock)
     {
         sendRequest(httpMethod: .get, uri: uri, param: param,completion: completionBlock)
     }
     
-    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String : Any], completion  completionBlock:@escaping  KSResponseCompletionBlock)
+    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String : Any], completion  completionBlock:@escaping  KTResponseCompletionBlock)
     {
         
         //Creating complet Url
@@ -64,7 +64,7 @@ class KSWebClient: NSObject {
         httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
         
         //TODO: Add Session id in request header
-        if let sessionId = KSAppSessionInfo.currentSession.sessionId , !(KSAppSessionInfo.currentSession.sessionId?.isEmpty)!
+        if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
         {
             httpHeaders["Session-ID"] = sessionId
         }

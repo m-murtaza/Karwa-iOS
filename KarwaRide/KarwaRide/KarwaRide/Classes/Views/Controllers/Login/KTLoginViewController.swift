@@ -9,14 +9,14 @@
 import UIKit
 import MagicalRecord
 
-class KSLoginViewController: KSBaseViewController {
+class KTLoginViewController: KTBaseViewController {
 
     //MARK: - Properties
     
     @IBOutlet weak var lblDeviceToken: UILabel!
     
     
-    let viewModel : KSLoginViewModel = KSLoginViewModel(del: self)
+    let viewModel : KTLoginViewModel = KTLoginViewModel(del: self)
     
     //MARK: -View LifeCycle
     override func viewDidLoad() {
@@ -51,7 +51,7 @@ class KSLoginViewController: KSBaseViewController {
     
     @IBAction func Insert(_ sender: Any) {
         
-        let user : KSUser = KSUser.mr_createEntity()!
+        let user : KTUser = KTUser.mr_createEntity()!
         user.customerType = 1
         user.name = "Usman"
         user.phone = "+974 50569963"
@@ -68,7 +68,7 @@ class KSLoginViewController: KSBaseViewController {
     @IBAction func loginBtnTapped(_ sender: Any)
     {
         
-        let user : KSUser = KSUser.mr_createEntity()!
+        let user : KTUser = KTUser.mr_createEntity()!
         user.customerType = 1
         user.name = "Usman"
         user.phone = "+974 50569963"
@@ -88,8 +88,8 @@ class KSLoginViewController: KSBaseViewController {
     @IBAction func Fetch(_ sender: Any) {
         
         var users: [NSManagedObject]!
-        users = KSUser.mr_findAll()
-        let user = users[0] as! KSUser
+        users = KTUser.mr_findAll()
+        let user = users[0] as! KTUser
         
         print(user.name!)
         

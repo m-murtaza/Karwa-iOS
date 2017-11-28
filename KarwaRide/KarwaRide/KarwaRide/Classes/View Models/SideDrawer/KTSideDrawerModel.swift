@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KSSideDrawerModel: KSBaseViewModel, KSViewModelDelegate {
+class KTSideDrawerModel: KTBaseViewModel, KTViewModelDelegate {
 
     var drawerOptions = [String]()
     

@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension KSDALManager
+extension KTDALManager
 {
-    func login(phone: String, password: String,completion completionBlock:@escaping KSResponseCompletionBlock)
+    func login(phone: String, password: String,completion completionBlock:@escaping KTResponseCompletionBlock)
     {
         let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
                                              Constants.LoginParams.Password: password]
@@ -18,7 +18,7 @@ extension KSDALManager
         params[Constants.LoginParams.DeviceType] = 1
         params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
         
-        KSWebClient.sharedInstance.post(uri: Constants.APIURL.Login, param: params as! [String : Any], completion: { (status, response) in
+        KTWebClient.sharedInstance.post(uri: Constants.APIURL.Login, param: params as! [String : Any], completion: { (status, response) in
              if status != true
              {
                 

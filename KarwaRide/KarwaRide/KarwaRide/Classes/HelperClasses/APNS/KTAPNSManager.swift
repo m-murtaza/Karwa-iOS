@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class KSAPNSManager: NSObject {
+class KTAPNSManager: NSObject {
 
     func registerForPushNotifications() {
         UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate 
@@ -35,7 +35,7 @@ class KSAPNSManager: NSObject {
     
     
     func deviceTokenReceived(deviceToken : Data)  {
-        let token : String = tokenString(deviceToken)
+        let _ : String = tokenString(deviceToken)
     }
     
     func receiveNotification(userInfo: [AnyHashable : Any])

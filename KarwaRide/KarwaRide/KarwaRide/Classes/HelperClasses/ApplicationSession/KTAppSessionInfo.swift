@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KSAppSessionInfo: NSObject {
+class KTAppSessionInfo: NSObject {
 
     //MARK: - Singleton
     private override init()
@@ -16,7 +16,7 @@ class KSAppSessionInfo: NSObject {
         super.init()
     }
     
-    static let currentSession = KSAppSessionInfo()
+    static let currentSession = KTAppSessionInfo()
  
     var sessionId : String?
     var phone : String?

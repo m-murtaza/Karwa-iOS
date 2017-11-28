@@ -1,5 +1,5 @@
 //
-//  KSBase.swift
+//  KSDALManager.swift
 //  KarwaRide
 //
 //  Created by Muhammad Usman on 7/4/17.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class KSBase: NSObject {
+class KTDALManager: KTBase {
 
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KSBaseDrawerRootViewController: KSBaseViewController {
+class KTBaseDrawerRootViewController: KTBaseViewController {
 
     @IBOutlet weak var revealBarButton: UIBarButtonItem!
     

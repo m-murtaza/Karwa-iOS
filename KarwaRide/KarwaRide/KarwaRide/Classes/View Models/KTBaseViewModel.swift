@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol KSViewModelDelegate: NSObjectProtocol {
+@objc protocol KTViewModelDelegate: NSObjectProtocol {
     @objc optional func modelDidStartLoading()
     
     @objc optional func modelDidLoad()
@@ -16,10 +16,10 @@ import UIKit
     @objc optional func modelFailedToLoadWithError(_ error: Error?)
 }
 
-class KSBaseViewModel: NSObject {
+class KTBaseViewModel: NSObject {
     
     /** The controller which is using this view model object, so that it can be notified in case of any events. */
-    weak var delegate: KSViewModelDelegate?
+    weak var delegate: KTViewModelDelegate?
     
     /**
      * Initializes a new view model object.
@@ -28,7 +28,7 @@ class KSBaseViewModel: NSObject {
      */
     init(del: Any) {
         super.init()
-        delegate = del as? KSViewModelDelegate
+        delegate = del as? KTViewModelDelegate
         
     }
     
