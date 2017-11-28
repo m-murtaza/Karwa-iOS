@@ -8,7 +8,7 @@
 
 import UIKit
 import UserNotifications
-
+import MagicalRecord
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             registerForPushNotifications()
         }
 
+        MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
+        
         return true
     }
 

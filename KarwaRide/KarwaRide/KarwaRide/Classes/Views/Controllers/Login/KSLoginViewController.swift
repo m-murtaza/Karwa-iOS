@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MagicalRecord
 
 class KSLoginViewController: KSBaseViewController {
 
@@ -48,11 +49,51 @@ class KSLoginViewController: KSBaseViewController {
     }
     
     
+    @IBAction func Insert(_ sender: Any) {
+        
+        let user : KSUser = KSUser.mr_createEntity()!
+        user.customerType = 1
+        user.name = "Usman"
+        user.phone = "+974 50569963"
+        user.email = "ualeem@faad.com"
+        
+        //let ctx : NSManagedObjectContext = NSManagedObjectContext.mr_default()
+        
+        MagicalRecord.save({ (localContext : NSManagedObjectContext!) in
+            // This block runs in background thread
+            print("SAVED")
+        })
+    }
+    
     @IBAction func loginBtnTapped(_ sender: Any)
     {
+        
+        let user : KSUser = KSUser.mr_createEntity()!
+        user.customerType = 1
+        user.name = "Usman"
+        user.phone = "+974 50569963"
+        user.email = "ualeem@faad.com"
+        
+        //let ctx : NSManagedObjectContext = NSManagedObjectContext.mr_default()
+        
+        MagicalRecord.save({ (localContext : NSManagedObjectContext!) in
+            // This block runs in background thread
+            print("SAVED")
+        })
         //self.viewModel.loginBtnTapped()
         //let appDelegate = UIApplication.shared.delegate as! AppDelegate
         //lblDeviceToken.text = appDelegate.token
     }
+    
+    @IBAction func Fetch(_ sender: Any) {
+        
+        var users: [NSManagedObject]!
+        users = KSUser.mr_findAll()
+        let user = users[0] as! KSUser
+        
+        print(user.name!)
+        
+    }
+    
 
 }

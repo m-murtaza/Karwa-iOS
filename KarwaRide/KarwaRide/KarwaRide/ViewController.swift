@@ -21,6 +21,8 @@ class ViewController: KSBaseDrawerRootViewController {
         ///Open.target = self.revealViewController()
         //Open.action = #selector(SWRevealViewController.revealToggle(_:))
         self.navigationItem.hidesBackButton = true;
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,6 +34,7 @@ class ViewController: KSBaseDrawerRootViewController {
         
         self.revealViewController().performSegue(withIdentifier: "sw_front", sender: self)
     }
+    
     
 }
 
