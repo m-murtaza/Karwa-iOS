@@ -19,6 +19,7 @@
 @dynamic name;
 @dynamic phone;
 @dynamic secondaryPhone;
+@dynamic customerType;
 @dynamic bookmarks;
 @dynamic trips;
 

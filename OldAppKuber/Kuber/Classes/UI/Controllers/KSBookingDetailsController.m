@@ -54,6 +54,9 @@ BtnState;
 @property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
+@property (weak, nonatomic) IBOutlet UIView *viewCorporateCustPhoneNumber;
+@property (weak, nonatomic) IBOutlet UILabel *lblCorporateCustPhoneNumber;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoBGImgBottom;
@@ -91,7 +94,16 @@ BtnState;
         }
     }
     
-    if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+    if(self.tripInfo.jobId == nil)
+    {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Error-Rating"
+                                                              action: @"JobID is nil on detail page"
+                                                               label:[NSString stringWithFormat:@"CallerId: %@ || PickupTime: %@",self.tripInfo.callerId,self.tripInfo.pickupTime]
+                                                               value:nil] build]];    
+        
+    }
+    else if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
         
         [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
@@ -109,6 +121,8 @@ BtnState;
     }
     
     [self showHideTrackATaxiButton];
+    
+    [self showHideCorporateCustPhoneNumber];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -225,30 +239,30 @@ BtnState;
         switch((KSVehicleType)[trip.vehicleType integerValue])
         {
             case KSCityTaxi:
-                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-taxi.png"]];
-                [_imgNumberPlate setImage:[UIImage imageNamed:@"numberplate.png"]];
+                [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-taxitag"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-numberplate"]];
                 break;
             case KSStandardLimo:
-                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-standard.png"]];
-                [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-standardtag"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
                 [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
                 _constraintVehicleNumber.constant += 5;
                 break;
             case KSBusinessLimo:
-                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-business.png"]];
-                [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-businesstag"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
                 [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
                 _constraintVehicleNumber.constant += 5;
                 break;
             case KSLuxuryLimo:
-                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-luxury.png"]];
-                [_imgNumberPlate setImage:[UIImage imageNamed:@"limo-numberplate.png"]];
+                [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-luxurytag"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
                 [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
                 _constraintVehicleNumber.constant += 5;
                 break;
             default:
-                [_imgVehicleType setImage:[UIImage imageNamed:@"tag-taxi.png"]];
-                [_imgNumberPlate setImage:[UIImage imageNamed:@"numberplate.png"]];
+                [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-taxitag"]];
+                [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-numberplate"]];
         }
         
         
@@ -350,14 +364,30 @@ BtnState;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma  mark -
+-(void) showHideCorporateCustPhoneNumber
+{
+    if([AppUtils isLargeScreen:self] && [[KSSessionInfo currentSession].customerType integerValue] == KSCorporateCustomer)
+    {
+        
+        self.viewCorporateCustPhoneNumber.hidden = FALSE;
+        self.lblCorporateCustPhoneNumber.text = self.tripInfo.callerId;
+    }
+    else
+    {
+        
+        self.viewCorporateCustPhoneNumber.hidden = TRUE;
+    }
+    
+}
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"segueBookingDetailsToRate"]){
         KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
         ratingController.trip = self.tripInfo;
-        ratingController.isOpenedFromPushNotification = self.isOpenedFromPushNotification;
+        
+        self.isOpenedFromPushNotification ? (ratingController.displaySource = kNotification) : (ratingController.displaySource = kRatingList);
     }
     else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
     {
@@ -430,34 +460,34 @@ BtnState;
     [self.lblStatus setHidden:FALSE];
     switch (status) {
         case KSTripStatusOpen:
-            [self.imgStatus setImage:[UIImage imageNamed:@"scheduled-bar.png"]];
+            [self.imgStatus setImage:[UIImage imageNamed:@"scheduled-bar"]];
             [self.lblStatus setText:@"Your booking has been scheduled!"];
             break;
         case KSTripStatusInProcess:
         case KSTripStatusManuallyAssigned:
-            [self.imgStatus setImage:[UIImage imageNamed:@"inprocess-bar.png"]];
+            [self.imgStatus setImage:[UIImage imageNamed:@"Booking-details-inprocess-bar"]];
             [self.lblStatus setText:@"Booking is in process, will assign soon!"];
             //[self.imgStatus setImage:[UIImage imageNamed:@"in-process-tag.png"]];
             break;
         case KSTripStatusTaxiAssigned:
-            [self.imgStatus setImage:[UIImage imageNamed:@"confirmed-bar.png"]];
+            [self.imgStatus setImage:[UIImage imageNamed:@"Booking-deatils-confirmed-bar"]];
             //[self.lblStatus setText:@"Your booking has confirmed, taxi will arrived soon!"];
             [self.lblStatus setText:[NSString stringWithFormat:@"Your booking has confirmed, %@ will arrived soon!",[AppUtils taxiLimo:_tripInfo.vehicleType]]];
             //[self.imgStatus setImage:[UIImage imageNamed:@"confirmed-tag.png"]];
             break;
         case KSTripStatusCancelled:
-            [self.imgStatus setImage:[UIImage imageNamed:@"cancelled-bar.png"]];
+            [self.imgStatus setImage:[UIImage imageNamed:@"Booking-details-cancelled-bar"]];
             [self.lblStatus setText:@"Your have cancelled this booking"];
             //[self.imgStatus setImage:[UIImage imageNamed:@"cancelled-tag.png"]];
             break;
         case KSTripStatusTaxiNotFound:
-            [self.imgStatus setImage:[UIImage imageNamed:@"unavailable-bar.png"]];
+            [self.imgStatus setImage:[UIImage imageNamed:@"Booking-details-unavailable-bar"]];
             //[self.lblStatus setText:@"Taxi not available, please try again later"];
             [self.lblStatus setText:[NSString stringWithFormat:@"%@ not available, please try again later",[AppUtils taxiLimo:_tripInfo.vehicleType]]];
             //[self.imgStatus setImage:[UIImage imageNamed:@"taxi-unavailable-tag.png"]];
             break;
         case KSTripStatusComplete:
-            [self.imgStatus setImage:[UIImage imageNamed:@"completed-bar.png"]];
+            [self.imgStatus setImage:[UIImage imageNamed:@"Booking-details-completed-bar"]];
             [self.lblStatus setText:@"Trip has been completed!"];
             break;
         default:

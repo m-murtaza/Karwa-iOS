@@ -69,4 +69,43 @@
     }
     return strType;
 }
+
+
++ (BOOL) isLargeScreen:(UIViewController*)controller
+{
+    BOOL largeScreen = TRUE;
+    NSInteger horizontalClass = controller.traitCollection.horizontalSizeClass;
+    switch (horizontalClass) {
+        case UIUserInterfaceSizeClassCompact :
+            largeScreen = FALSE;
+            break;
+        case UIUserInterfaceSizeClassRegular :
+            largeScreen = TRUE;
+            break;
+        default :
+            largeScreen = FALSE;
+            break;
+    }
+    return largeScreen;
+}
+
++ (BOOL) isPhoneNumber:(NSString*)txt
+{
+    
+    BOOL success = TRUE;
+    NSError *error = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypePhoneNumber
+                                                               error:&error];
+    if(error)
+        success = FALSE;
+    else
+    {
+        NSUInteger numberOfMatches = [detector numberOfMatchesInString:txt
+                                                               options:0
+                                                                 range:NSMakeRange(0, [txt length])];
+        if(numberOfMatches != 1)
+            success = FALSE;
+    }
+    return success;
+}
 @end

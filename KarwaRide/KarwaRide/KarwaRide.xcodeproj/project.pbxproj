@@ -7,41 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1810C0C01FC4078C008E8D91 /* KSAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KSAPNSManager.swift */; };
+		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */; };
-		1810C0D31FC5A572008E8D91 /* KSSideDrawerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D21FC5A572008E8D91 /* KSSideDrawerModel.swift */; };
-		1810C0D51FC5A60A008E8D91 /* KSBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KSBaseTableViewController.swift */; };
-		1810C0D81FC5AC1B008E8D91 /* KSSideDrawerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KSSideDrawerTableView.swift */; };
-		1810C0DA1FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D91FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift */; };
+		1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D21FC5A572008E8D91 /* KTSideDrawerModel.swift */; };
+		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
+		1810C0D81FC5AC1B008E8D91 /* KTSideDrawerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTSideDrawerTableView.swift */; };
+		1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */; };
+		1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */; };
+		1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */; };
+		1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1301FCD30E1008E8D91 /* KTConstants.swift */; };
+		1810C13B1FCD7FB7008E8D91 /* KTLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C13A1FCD7FB7008E8D91 /* KTLoginManager.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
 		181344A11EF68671006E734A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181344A01EF68671006E734A /* Assets.xcassets */; };
 		181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181344A21EF68671006E734A /* LaunchScreen.storyboard */; };
-		181344AF1EF7B362006E734A /* KSWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344AE1EF7B362006E734A /* KSWebClient.swift */; };
-		181344B21EF7BC94006E734A /* KSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KSConfiguration.swift */; };
-		181344B61EF7E083006E734A /* KSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B51EF7E083006E734A /* KSConstants.swift */; };
-		181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KSAppSessionInfo.swift */; };
-		186487221F0A361B00DDB003 /* KSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KSBaseViewController.swift */; };
-		186487251F0A368F00DDB003 /* KSLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KSLoginViewController.swift */; };
-		186487271F0A36DD00DDB003 /* KSBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KSBaseViewModel.swift */; };
-		1864872A1F0A3FF600DDB003 /* KSLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487291F0A3FF600DDB003 /* KSLoginViewModel.swift */; };
-		1864872E1F0BB04500DDB003 /* KSBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872D1F0BB04500DDB003 /* KSBase.swift */; };
-		186487301F0BB06800DDB003 /* KSDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KSDALManager.swift */; };
-		186487321F0BB11800DDB003 /* KSDALManager+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487311F0BB11800DDB003 /* KSDALManager+Login.swift */; };
+		181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344AE1EF7B362006E734A /* KTWebClient.swift */; };
+		181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KTConfiguration.swift */; };
+		181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KTAppSessionInfo.swift */; };
+		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
+		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
+		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
+		1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872D1F0BB04500DDB003 /* KTBase.swift */; };
+		186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KTDALManager.swift */; };
+		186487321F0BB11800DDB003 /* KTDALManager+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487311F0BB11800DDB003 /* KTDALManager+Login.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
-		1810C0BF1FC4078C008E8D91 /* KSAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSAPNSManager.swift; path = Classes/HelperClasses/APNS/KSAPNSManager.swift; sourceTree = "<group>"; };
+		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
 		1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KarwaRide-Bridging-Header.h"; sourceTree = "<group>"; };
 		1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Classes/ThirdParty/SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
 		1810C0CC1FC59BCF008E8D91 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Classes/ThirdParty/SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
-		1810C0D21FC5A572008E8D91 /* KSSideDrawerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSSideDrawerModel.swift; path = "Classes/View Models/SideDrawer/KSSideDrawerModel.swift"; sourceTree = "<group>"; };
-		1810C0D41FC5A60A008E8D91 /* KSBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSBaseTableViewController.swift; path = Classes/Views/Controllers/KSBaseTableViewController.swift; sourceTree = "<group>"; };
-		1810C0D61FC5A633008E8D91 /* KSSideDrawerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSSideDrawerTableView.swift; path = Classes/Views/Controllers/SideDrawer/KSSideDrawerTableView.swift; sourceTree = "<group>"; };
-		1810C0D91FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KSBaseDrawerRootViewController.swift; path = Classes/Views/Controllers/KSBaseDrawerRootViewController.swift; sourceTree = "<group>"; };
+		1810C0D21FC5A572008E8D91 /* KTSideDrawerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSideDrawerModel.swift; path = "Classes/View Models/SideDrawer/KTSideDrawerModel.swift"; sourceTree = "<group>"; };
+		1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseTableViewController.swift; path = Classes/Views/Controllers/KTBaseTableViewController.swift; sourceTree = "<group>"; };
+		1810C0D61FC5A633008E8D91 /* KTSideDrawerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSideDrawerTableView.swift; path = Classes/Views/Controllers/SideDrawer/KTSideDrawerTableView.swift; sourceTree = "<group>"; };
+		1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseDrawerRootViewController.swift; path = Classes/Views/Controllers/KTBaseDrawerRootViewController.swift; sourceTree = "<group>"; };
+		1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karwa.xcdatamodel; sourceTree = "<group>"; };
+		1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewModel.swift; path = "Classes/View Models/Login/KTLoginViewModel.swift"; sourceTree = "<group>"; };
+		1810C1301FCD30E1008E8D91 /* KTConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTConstants.swift; path = Classes/Common/Constants/KTConstants.swift; sourceTree = "<group>"; };
+		1810C1361FCD32E7008E8D91 /* KTUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUser+CoreDataClass.swift"; path = "Classes/DAL/CoreData/DataModel/KTUser+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1810C1371FCD32E7008E8D91 /* KTUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUser+CoreDataProperties.swift"; path = "Classes/DAL/CoreData/DataModel/KTUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1810C13A1FCD7FB7008E8D91 /* KTLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginManager.swift; path = Classes/DAL/KTLoginManager.swift; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,17 +57,15 @@
 		181344A01EF68671006E734A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		181344A31EF68671006E734A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		181344A51EF68671006E734A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		181344AE1EF7B362006E734A /* KSWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSWebClient.swift; path = Classes/HelperClasses/Network/KSWebClient.swift; sourceTree = "<group>"; };
-		181344B11EF7BC94006E734A /* KSConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSConfiguration.swift; path = Classes/HelperClasses/Configuration/KSConfiguration.swift; sourceTree = "<group>"; };
-		181344B51EF7E083006E734A /* KSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSConstants.swift; path = Classes/Common/Constants/KSConstants.swift; sourceTree = "<group>"; };
-		181344B81EF9171F006E734A /* KSAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KSAppSessionInfo.swift; sourceTree = "<group>"; };
-		186487211F0A361B00DDB003 /* KSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSBaseViewController.swift; path = Classes/Views/Controllers/KSBaseViewController.swift; sourceTree = "<group>"; };
-		186487241F0A368F00DDB003 /* KSLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSLoginViewController.swift; path = Classes/Views/Controllers/Login/KSLoginViewController.swift; sourceTree = "<group>"; };
-		186487261F0A36DD00DDB003 /* KSBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSBaseViewModel.swift; path = "Classes/View Models/KSBaseViewModel.swift"; sourceTree = "<group>"; };
-		186487291F0A3FF600DDB003 /* KSLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSLoginViewModel.swift; path = "Classes/View Models/Login/KSLoginViewModel.swift"; sourceTree = "<group>"; };
-		1864872D1F0BB04500DDB003 /* KSBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSBase.swift; path = Classes/Common/CommonBase/KSBase.swift; sourceTree = "<group>"; };
-		1864872F1F0BB06800DDB003 /* KSDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KSDALManager.swift; path = Classes/DAL/KSDALManager.swift; sourceTree = "<group>"; };
-		186487311F0BB11800DDB003 /* KSDALManager+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KSDALManager+Login.swift"; path = "Classes/DAL/KSDALManager+Login.swift"; sourceTree = "<group>"; };
+		181344AE1EF7B362006E734A /* KTWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTWebClient.swift; path = Classes/HelperClasses/Network/KTWebClient.swift; sourceTree = "<group>"; };
+		181344B11EF7BC94006E734A /* KTConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTConfiguration.swift; path = Classes/HelperClasses/Configuration/KTConfiguration.swift; sourceTree = "<group>"; };
+		181344B81EF9171F006E734A /* KTAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KTAppSessionInfo.swift; sourceTree = "<group>"; };
+		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
+		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
+		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
+		1864872D1F0BB04500DDB003 /* KTBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBase.swift; path = Classes/Common/CommonBase/KTBase.swift; sourceTree = "<group>"; };
+		1864872F1F0BB06800DDB003 /* KTDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTDALManager.swift; path = Classes/DAL/KTDALManager.swift; sourceTree = "<group>"; };
+		186487311F0BB11800DDB003 /* KTDALManager+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTDALManager+Login.swift"; path = "Classes/DAL/KTDALManager+Login.swift"; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +86,7 @@
 		1810C0BA1FC4061E008E8D91 /* APNS */ = {
 			isa = PBXGroup;
 			children = (
-				1810C0BF1FC4078C008E8D91 /* KSAPNSManager.swift */,
+				1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */,
 			);
 			name = APNS;
 			sourceTree = "<group>";
@@ -98,7 +104,6 @@
 			children = (
 				1810C0CC1FC59BCF008E8D91 /* SWRevealViewController.h */,
 				1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */,
-				1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
 			sourceTree = "<group>";
@@ -106,7 +111,7 @@
 		1810C0CE1FC5A3DF008E8D91 /* SideDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				1810C0D61FC5A633008E8D91 /* KSSideDrawerTableView.swift */,
+				1810C0D61FC5A633008E8D91 /* KTSideDrawerTableView.swift */,
 			);
 			name = SideDrawer;
 			sourceTree = "<group>";
@@ -114,9 +119,35 @@
 		1810C0D11FC5A526008E8D91 /* SideDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				1810C0D21FC5A572008E8D91 /* KSSideDrawerModel.swift */,
+				1810C0D21FC5A572008E8D91 /* KTSideDrawerModel.swift */,
 			);
 			name = SideDrawer;
+			sourceTree = "<group>";
+		};
+		1810C0DB1FCBE3C2008E8D91 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		1810C1211FCC3091008E8D91 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1810C1221FCC371A008E8D91 /* CoreDataModel */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		1810C1221FCC371A008E8D91 /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				1810C1361FCD32E7008E8D91 /* KTUser+CoreDataClass.swift */,
+				1810C1371FCD32E7008E8D91 /* KTUser+CoreDataProperties.swift */,
+				1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */,
+			);
+			name = CoreDataModel;
 			sourceTree = "<group>";
 		};
 		1813448D1EF68671006E734A = {
@@ -140,6 +171,7 @@
 		181344981EF68671006E734A /* KarwaRide */ = {
 			isa = PBXGroup;
 			children = (
+				1810C0DB1FCBE3C2008E8D91 /* SupportingFiles */,
 				1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */,
 				181344AB1EF7B271006E734A /* Classes */,
 				181344991EF68671006E734A /* AppDelegate.swift */,
@@ -179,7 +211,7 @@
 		181344AD1EF7B2DD006E734A /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				181344AE1EF7B362006E734A /* KSWebClient.swift */,
+				181344AE1EF7B362006E734A /* KTWebClient.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -187,7 +219,7 @@
 		181344B01EF7BC70006E734A /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				181344B11EF7BC94006E734A /* KSConfiguration.swift */,
+				181344B11EF7BC94006E734A /* KTConfiguration.swift */,
 			);
 			name = Configuration;
 			sourceTree = "<group>";
@@ -204,7 +236,7 @@
 		181344B41EF7E060006E734A /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				181344B51EF7E083006E734A /* KSConstants.swift */,
+				1810C1301FCD30E1008E8D91 /* KTConstants.swift */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -212,7 +244,7 @@
 		181344B71EF916DC006E734A /* ApplicationSession */ = {
 			isa = PBXGroup;
 			children = (
-				181344B81EF9171F006E734A /* KSAppSessionInfo.swift */,
+				181344B81EF9171F006E734A /* KTAppSessionInfo.swift */,
 			);
 			name = ApplicationSession;
 			sourceTree = "<group>";
@@ -230,9 +262,9 @@
 			children = (
 				1810C0CE1FC5A3DF008E8D91 /* SideDrawer */,
 				186487231F0A362E00DDB003 /* Login */,
-				186487211F0A361B00DDB003 /* KSBaseViewController.swift */,
-				1810C0D41FC5A60A008E8D91 /* KSBaseTableViewController.swift */,
-				1810C0D91FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift */,
+				186487211F0A361B00DDB003 /* KTBaseViewController.swift */,
+				1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */,
+				1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -242,7 +274,7 @@
 			children = (
 				1810C0D11FC5A526008E8D91 /* SideDrawer */,
 				186487281F0A3FCE00DDB003 /* Login */,
-				186487261F0A36DD00DDB003 /* KSBaseViewModel.swift */,
+				186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -250,7 +282,7 @@
 		186487231F0A362E00DDB003 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				186487241F0A368F00DDB003 /* KSLoginViewController.swift */,
+				186487241F0A368F00DDB003 /* KTLoginViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -258,7 +290,7 @@
 		186487281F0A3FCE00DDB003 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				186487291F0A3FF600DDB003 /* KSLoginViewModel.swift */,
+				1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -266,8 +298,10 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
-				1864872F1F0BB06800DDB003 /* KSDALManager.swift */,
-				186487311F0BB11800DDB003 /* KSDALManager+Login.swift */,
+				1810C1211FCC3091008E8D91 /* CoreData */,
+				1810C13A1FCD7FB7008E8D91 /* KTLoginManager.swift */,
+				1864872F1F0BB06800DDB003 /* KTDALManager.swift */,
+				186487311F0BB11800DDB003 /* KTDALManager+Login.swift */,
 			);
 			name = DAL;
 			sourceTree = "<group>";
@@ -275,7 +309,7 @@
 		1864872C1F0BB01900DDB003 /* CommonBase */ = {
 			isa = PBXGroup;
 			children = (
-				1864872D1F0BB04500DDB003 /* KSBase.swift */,
+				1864872D1F0BB04500DDB003 /* KTBase.swift */,
 			);
 			name = CommonBase;
 			sourceTree = "<group>";
@@ -327,7 +361,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Karwa;
 				TargetAttributes = {
 					181344951EF68671006E734A = {
@@ -337,7 +371,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -430,25 +464,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1810C0D81FC5AC1B008E8D91 /* KSSideDrawerTableView.swift in Sources */,
+				1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */,
+				1810C0D81FC5AC1B008E8D91 /* KTSideDrawerTableView.swift in Sources */,
+				1810C13B1FCD7FB7008E8D91 /* KTLoginManager.swift in Sources */,
 				1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */,
-				1864872A1F0A3FF600DDB003 /* KSLoginViewModel.swift in Sources */,
-				181344B91EF9171F006E734A /* KSAppSessionInfo.swift in Sources */,
-				1810C0DA1FC69E67008E8D91 /* KSBaseDrawerRootViewController.swift in Sources */,
-				181344AF1EF7B362006E734A /* KSWebClient.swift in Sources */,
+				181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */,
+				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
+				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
+				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
-				186487221F0A361B00DDB003 /* KSBaseViewController.swift in Sources */,
-				186487251F0A368F00DDB003 /* KSLoginViewController.swift in Sources */,
-				181344B21EF7BC94006E734A /* KSConfiguration.swift in Sources */,
-				186487301F0BB06800DDB003 /* KSDALManager.swift in Sources */,
+				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
+				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
+				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
+				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
-				186487321F0BB11800DDB003 /* KSDALManager+Login.swift in Sources */,
-				186487271F0A36DD00DDB003 /* KSBaseViewModel.swift in Sources */,
-				1810C0D31FC5A572008E8D91 /* KSSideDrawerModel.swift in Sources */,
-				1810C0C01FC4078C008E8D91 /* KSAPNSManager.swift in Sources */,
-				1864872E1F0BB04500DDB003 /* KSBase.swift in Sources */,
-				1810C0D51FC5A60A008E8D91 /* KSBaseTableViewController.swift in Sources */,
-				181344B61EF7E083006E734A /* KSConstants.swift in Sources */,
+				186487321F0BB11800DDB003 /* KTDALManager+Login.swift in Sources */,
+				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
+				1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */,
+				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
+				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
+				1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */,
+				1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,7 +520,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -492,7 +530,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -534,7 +576,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -542,7 +586,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -581,7 +629,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -598,7 +647,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -624,6 +674,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
+			);
+			currentVersion = 1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */;
+			name = Karwa.xcdatamodeld;
+			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1813448E1EF68671006E734A /* Project object */;
 }

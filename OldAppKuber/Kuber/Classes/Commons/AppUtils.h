@@ -16,4 +16,8 @@
 + (NSString *) taxiLimo:(NSNumber *) type;
 + (NSString *) vehicleTypeToString:(KSVehicleType)type;
 
+
++ (BOOL) isLargeScreen:(UIViewController*)controller;
++ (BOOL) isPhoneNumber:(NSString*)txt;
+
 @end

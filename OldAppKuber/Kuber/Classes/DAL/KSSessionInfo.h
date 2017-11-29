@@ -14,7 +14,7 @@
 
 + (instancetype)currentSession;
 
-+ (void)updateSession:(NSString *)sessionId phone:(NSString *)phone;
++ (void)updateSession:(NSString *)sessionId phone:(NSString *)phone customerType:(NSNumber*)customerType;
 
 + (void)updateToken:(NSString *)token;
 
@@ -31,5 +31,7 @@
 - (NSString *)phone;
 
 - (NSString *)pushToken;
+
+-(NSNumber *) customerType;
 
 @end

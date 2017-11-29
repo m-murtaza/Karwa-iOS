@@ -78,4 +78,10 @@
     
 }
 
+#pragma mark -
+- (BOOL)isOnScreen {
+    return [self isViewLoaded] && self.view.window;
+}
+
+
 @end

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Xcode 9.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="KSBookmark" representedClassName="KSBookmark" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookmarkId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSGeoLocation" inverseName="geoLocationToBookmark" inverseEntity="KSGeoLocation" syncable="YES"/>
+        <relationship name="bookmarkToTrip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="tripToBookmark" inverseEntity="KSTrip" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSUser" inverseName="bookmarks" inverseEntity="KSUser" syncable="YES"/>
+    </entity>
+    <entity name="KSDriver" representedClassName="KSDriver" syncable="YES">
+        <attribute name="driverId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="driver" inverseEntity="KSTrip" syncable="YES"/>
+    </entity>
+    <entity name="KSFranchise" representedClassName="KSFranchise" syncable="YES">
+        <attribute name="franchiseId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="logoUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="KSGeoLocation" representedClassName="KSGeoLocation" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="locationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="geoLocationToBookmark" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSBookmark" inverseName="bookmarkToGeoLocation" inverseEntity="KSBookmark" syncable="YES"/>
+    </entity>
+    <entity name="KSTaxi" representedClassName="KSTaxi" syncable="YES">
+        <attribute name="make" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="model" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="trips" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="taxi" inverseEntity="KSTrip" syncable="YES"/>
+    </entity>
+    <entity name="KSTrip" representedClassName="KSTrip" syncable="YES">
+        <attribute name="bookingType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="callerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dropoffLandmark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dropOffLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dropOffLon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="dropOffTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="estimatedTimeOfArival" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="jobId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupHint" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupLandmark" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pickupLon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pickupTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="driver" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSDriver" inverseName="trips" inverseEntity="KSDriver" syncable="YES"/>
+        <relationship name="passenger" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSUser" inverseName="trips" inverseEntity="KSUser" syncable="YES"/>
+        <relationship name="rating" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSTripRating" inverseName="trip" inverseEntity="KSTripRating" syncable="YES"/>
+        <relationship name="taxi" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSTaxi" inverseName="trips" inverseEntity="KSTaxi" syncable="YES"/>
+        <relationship name="tripToBookmark" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KSBookmark" inverseName="bookmarkToTrip" inverseEntity="KSBookmark" syncable="YES"/>
+    </entity>
+    <entity name="KSTripIssue" representedClassName="KSTripIssue" syncable="YES">
+        <attribute name="issueId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="issueKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="valueAR" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="valueEN" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="KSTripRating" representedClassName="KSTripRating" syncable="YES">
+        <attribute name="comments" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="issue" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serviceRating" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="trip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KSTrip" inverseName="rating" inverseEntity="KSTrip" syncable="YES"/>
+    </entity>
+    <entity name="KSUser" representedClassName="KSUser" syncable="YES">
+        <attribute name="customerType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondaryPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bookmarks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KSBookmark" inverseName="user" inverseEntity="KSBookmark" syncable="YES"/>
+        <relationship name="trips" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KSTrip" inverseName="passenger" inverseEntity="KSTrip" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="KSBookmark" positionX="34" positionY="0" width="128" height="180"/>
+        <element name="KSDriver" positionX="196" positionY="-135" width="128" height="105"/>
+        <element name="KSFranchise" positionX="-110" positionY="-225" width="128" height="90"/>
+        <element name="KSGeoLocation" positionX="52" positionY="315" width="128" height="135"/>
+        <element name="KSTaxi" positionX="-243" positionY="-135" width="128" height="120"/>
+        <element name="KSTrip" positionX="-315" positionY="198" width="128" height="345"/>
+        <element name="KSTripIssue" positionX="268" positionY="-9" width="128" height="105"/>
+        <element name="KSTripRating" positionX="232" positionY="102" width="128" height="105"/>
+        <element name="KSUser" positionX="61" positionY="-261" width="128" height="180"/>
+    </elements>
+</model>

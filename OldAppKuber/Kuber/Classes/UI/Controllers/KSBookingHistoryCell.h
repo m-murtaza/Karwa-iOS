@@ -12,6 +12,6 @@
 
 @interface KSBookingHistoryCell : UITableViewCell
 
-- (void)updateCellData:(KSTrip *)trip;
+- (void)updateCellData:(KSTrip *)trip ShowCallerID:(BOOL)showCallerId;
 
 @end

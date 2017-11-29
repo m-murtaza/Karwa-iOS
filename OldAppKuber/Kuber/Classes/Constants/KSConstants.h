@@ -94,3 +94,14 @@ typedef NS_OPTIONS(NSUInteger, KSVehicleType) {
     KSBusinessLimo                  = 50,
     KSLuxuryLimo                    = 70
 };
+
+typedef NS_OPTIONS(NSUInteger, KSCustomerType) {
+    KSStandardCustomer             = 1,
+    KSVVIPCustomer                 = 2,
+    KSVIPCustomer                  = 3,
+    KSMowasalatEmpCustomer         = 4,
+    KSPriorityCustomer             = 5,
+    KSSpecialNeedCustomer          = 6,
+    KSJinxedCustomer               = 7,
+    KSCorporateCustomer            = 100
+};
