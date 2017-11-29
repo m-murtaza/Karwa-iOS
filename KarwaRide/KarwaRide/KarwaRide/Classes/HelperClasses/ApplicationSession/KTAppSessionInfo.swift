@@ -21,5 +21,6 @@ class KTAppSessionInfo: NSObject {
     var sessionId : String?
     var phone : String?
     var pushToken : String?
+    var customerType : Int32?
     
 }

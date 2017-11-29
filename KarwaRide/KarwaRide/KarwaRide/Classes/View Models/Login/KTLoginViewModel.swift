@@ -17,4 +17,10 @@ class KTLoginViewModel: KTBaseViewModel, KTViewModelDelegate {
         }
     }
     
+    func viewDidLoad(completion:(Bool) -> Void)  {
+        
+        completion(KTUserManager.init().isUserLogin())
+        
+    }
+    
 }

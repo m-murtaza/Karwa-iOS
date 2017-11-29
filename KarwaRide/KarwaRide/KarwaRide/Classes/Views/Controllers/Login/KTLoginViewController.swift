@@ -23,9 +23,15 @@ class KTLoginViewController: KTBaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        //var abc : UITableView
-        //viewModel.delegate = self
+        viewModel.viewDidLoad { (navigate:Bool) in
+            if navigate {
+                print("naigate")
+            }
+            else
+            {
+                print("")
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
