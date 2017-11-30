@@ -22,6 +22,27 @@ struct Constants {
         static let RequestTimeOut = 10.0
     }
     
+    struct ResponseAPIKey {
+        static let Data = "D"
+        static let Status = "S"
+        static let MessageDictionary = "E"
+        static let Message = "M"
+        static let Title = "T"
+    }
+    
+    struct APIResponseStatus {
+        static let Success = "SUCCESS"
+    }
+    
+    struct LoginResponseAPIKey {
+        static let CustomerType = "CustomerType"
+        static let Email = "Email"
+        static let Name = "Name"
+        static let Phone = "Phone"
+        static let SessionID = "SessionID"
+    }
+    
+    
     struct KTAPIStatus : OptionSet {
         let rawValue: Int
         

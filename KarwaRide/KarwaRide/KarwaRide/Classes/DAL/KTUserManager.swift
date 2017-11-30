@@ -32,11 +32,11 @@ class KTUserManager: KTDALManager {
         MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
            _ = KTUser.mr_truncateAll(in: localContext)
             let user : KTUser = KTUser.mr_createEntity(in: localContext)! //KTUser.mr_createEntity()!
-            user.customerType = response["CustomerType"] as! Int32
-            user.name = response["Name"] as? String
-            user.phone = response["Phone"] as? String
-            user.email = response["Email"] as? String
-            user.sessionId = response["SessionID"] as? String
+            user.customerType = response[Constants.LoginResponseAPIKey.CustomerType] as! Int32
+            user.name = response[Constants.LoginResponseAPIKey.Name] as? String
+            user.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
+            user.email = response[Constants.LoginResponseAPIKey.Email] as? String
+            user.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
         }, completion: {(_ success: Bool, _ error: Error?) -> Void in
             completion(success)
         })
@@ -63,7 +63,7 @@ class KTUserManager: KTDALManager {
         }
         else
         {
-            
+            //TODO: Login check in current version. 
             
         }
         
@@ -117,10 +117,10 @@ class KTUserManager: KTDALManager {
             }
             else
             {
-                if response["S"] as! String == "SUCCESS"
+                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.Success
                 {
                     
-                    self.saveUserInfoInDB(response["D"] as! [AnyHashable : Any],completion: completion)
+                    self.saveUserInfoInDB(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any],completion: completion)
                 }
                 else
                 {
