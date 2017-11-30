@@ -63,12 +63,28 @@ class KTUserManager: KTDALManager {
         }
         else
         {
-            //TODO: Login check in current version. 
-            
+            //Login check in current version.
+            isUserAlreadyLogin(completion : completion)
         }
         
     }
+    // Mark: - Login User in new Application
+    private func isUserAlreadyLogin(completion: @escaping (Bool) -> Void)
+    {
+        let loginUser : KTUser? = fetchUser()
+        guard (loginUser != nil) else {
+            
+            completion(false)
+            return
+        }
+        KTAppSessionInfo.currentSession.customerType = loginUser?.customerType
+        KTAppSessionInfo.currentSession.phone = loginUser?.phone
+        KTAppSessionInfo.currentSession.sessionId = loginUser?.sessionId
+        completion(true)
+        
+    }
     
+    // Mark: - Login User in old Application
     private let appRunBeforeAfterMajorUpdateKey : String = "appRunBeforeAfterMajorUpdate"
     private func runFirstTimeAfterMajorUpdate() -> Bool
     {
