@@ -14,6 +14,7 @@ import Alamofire
 class KTWebClient: NSObject {
 
     var baseURL : String?
+    var sessionId : String?
     
     //MARK: - Singleton
     private override init()
@@ -49,19 +50,19 @@ class KTWebClient: NSObject {
         sendRequest(httpMethod: .post, uri: uri, param: param, completion: completionBlock)
     }
     
-    func  get(uri: String, param: [String : Any], completion completionBlock:@escaping KTResponseCompletionBlock)
+    func  get(uri: String, param: Parameters?, completion completionBlock:@escaping KTResponseCompletionBlock)
     {
         sendRequest(httpMethod: .get, uri: uri, param: param,completion: completionBlock)
     }
     
-    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: [String : Any], completion  completionBlock:@escaping  KTResponseCompletionBlock)
+    private func sendRequest(httpMethod: HTTPMethod, uri: String, param: Parameters?, completion  completionBlock:@escaping  KTResponseCompletionBlock)
     {
         
         //Creating complet Url
         let url = baseURL! + uri
         
         var httpHeaders : [String:String] = [:]
-        httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
+        httpHeaders["Content-Type"] = "application/json"
         
         //TODO: Add Session id in request header
         if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
@@ -81,7 +82,7 @@ class KTWebClient: NSObject {
                                 let statusCode = response.response?.statusCode
                                 let error : NSDictionary = ["ErrorCode" : statusCode as Any,
                                                             "Message" : response.result.error?.localizedDescription as Any]
-                                completionBlock(false,error)
+                                completionBlock(false,error as! [AnyHashable : Any])
                                 return
                             }
                             
@@ -89,7 +90,7 @@ class KTWebClient: NSObject {
                                 let error : NSDictionary = ["ErrorCode" : 1001,
                                                             "Message" : "Invalid tag information received from the service"]
                                 
-                                completionBlock(false,error)
+                                completionBlock(false,error as! [AnyHashable : Any])
                                 return
                             }
                             

@@ -17,6 +17,8 @@
 		1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */; };
 		1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1301FCD30E1008E8D91 /* KTConstants.swift */; };
 		1810C13B1FCD7FB7008E8D91 /* KTLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C13A1FCD7FB7008E8D91 /* KTLoginManager.swift */; };
+		1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C13D1FCE95CA008E8D91 /* KTMainViewController.swift */; };
+		1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1401FCE960E008E8D91 /* KTMainViewModel.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 		1810C1361FCD32E7008E8D91 /* KTUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUser+CoreDataClass.swift"; path = "Classes/DAL/CoreData/DataModel/KTUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1810C1371FCD32E7008E8D91 /* KTUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUser+CoreDataProperties.swift"; path = "Classes/DAL/CoreData/DataModel/KTUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1810C13A1FCD7FB7008E8D91 /* KTLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginManager.swift; path = Classes/DAL/KTLoginManager.swift; sourceTree = "<group>"; };
+		1810C13D1FCE95CA008E8D91 /* KTMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMainViewController.swift; path = Classes/Views/Controllers/Main/KTMainViewController.swift; sourceTree = "<group>"; };
+		1810C1401FCE960E008E8D91 /* KTMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMainViewModel.swift; path = "Classes/View Models/Main/KTMainViewModel.swift"; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +152,22 @@
 				1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */,
 			);
 			name = CoreDataModel;
+			sourceTree = "<group>";
+		};
+		1810C13C1FCE9526008E8D91 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1810C13D1FCE95CA008E8D91 /* KTMainViewController.swift */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		1810C13F1FCE95DD008E8D91 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1810C1401FCE960E008E8D91 /* KTMainViewModel.swift */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 		1813448D1EF68671006E734A = {
@@ -260,6 +280,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1810C13C1FCE9526008E8D91 /* Main */,
 				1810C0CE1FC5A3DF008E8D91 /* SideDrawer */,
 				186487231F0A362E00DDB003 /* Login */,
 				186487211F0A361B00DDB003 /* KTBaseViewController.swift */,
@@ -272,6 +293,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				1810C13F1FCE95DD008E8D91 /* Main */,
 				1810C0D11FC5A526008E8D91 /* SideDrawer */,
 				186487281F0A3FCE00DDB003 /* Login */,
 				186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */,
@@ -476,10 +498,12 @@
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
+				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
 				186487321F0BB11800DDB003 /* KTDALManager+Login.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
+				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,

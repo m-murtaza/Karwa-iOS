@@ -20,5 +20,5 @@ extension KTUser {
     @NSManaged public var phone: String?
     @NSManaged public var email: String?
     @NSManaged public var customerType: Int32
-
+    @NSManaged public var sessionId: String?
 }

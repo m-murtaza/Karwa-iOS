@@ -1,28 +1,28 @@
 //
-//  LoginViewController.swift
+//  KTMainViewController.swift
 //  KarwaRide
 //
-//  Created by Muhammad Usman on 7/3/17.
+//  Created by Muhammad Usman on 11/29/17.
 //  Copyright © 2017 Karwa. All rights reserved.
 //
 
 import UIKit
 import MagicalRecord
 
-class KTLoginViewController: KTBaseViewController {
+class KTMainViewController: KTBaseViewController {
 
-    //MARK: - Properties
-    
-    @IBOutlet weak var lblDeviceToken: UILabel!
+    let viewModel : KTMainViewModel = KTMainViewModel(del: self)
     
     
-    let viewModel : KTLoginViewModel = KTLoginViewModel(del: self)
-    
-    //MARK: -View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        viewModel.viewDidLoad { (navigate:Bool) in
+            if navigate {
+                self.performSegue(withIdentifier: "segueMainToBooking", sender: self)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,12 +40,19 @@ class KTLoginViewController: KTBaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
-    @IBAction func loginBtnTapped(_ sender: Any)
-    {
+    /*@IBAction func Fetch(_ sender: Any) {
         
-        //self.viewModel.loginBtnTapped()
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //lblDeviceToken.text = appDelegate.token
+        var users: [NSManagedObject]!
+        users = KTUser.mr_findAll()
+        let user = users[0] as! KTUser
+        
+        print(user.name!)
     }
+    @IBAction func Delete(_ sender: Any) {
+        MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
+            _ = KTUser.mr_truncateAll(in: localContext)
+            
+        })
+    }*/
+    
 }

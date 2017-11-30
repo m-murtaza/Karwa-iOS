@@ -13,7 +13,7 @@
 //    let KEY_BASE_URL = "BaseAPIURL"
 //}
 
-typealias KTResponseCompletionBlock = (_ success: Bool, _ response: Any) -> Void
+typealias KTResponseCompletionBlock = (_ success: Bool, _ response: [AnyHashable: Any]) -> Void
 
 
 struct Constants {
@@ -43,6 +43,7 @@ struct Constants {
     }
     
     struct APIURL {
-        static let Login = "213/user/login"
+        static let Login = "user/login"
+        static let GetUserInfo = "user/"
     }
 }
