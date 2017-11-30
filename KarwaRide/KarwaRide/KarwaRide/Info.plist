@@ -7,9 +7,9 @@
 		<key>DEV</key>
 		<string>http://devservices.karwasolutions.com/api/</string>
 		<key>PROD</key>
-		<string>https://services.karwasolutions.com/api1/</string>
+		<string>https://services.karwasolutions.com/api/</string>
 		<key>STAGE</key>
-		<string>http://devservices.karwasolutions.com/api/</string>
+		<string>http://devservices.karwasolutions.com:70/apiv2/</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -28,7 +28,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Development Environment</key>
-	<string>PROD</string>
+	<string>STAGE</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -49,5 +49,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
