@@ -72,7 +72,6 @@ class KTUserManager: KTDALManager {
     private let appRunBeforeAfterMajorUpdateKey : String = "appRunBeforeAfterMajorUpdate"
     private func runFirstTimeAfterMajorUpdate() -> Bool
     {
-        return true;
         let appRunBeforeAfterMajorUpdate : Bool = UserDefaults.standard.bool(forKey: appRunBeforeAfterMajorUpdateKey)
         
         UserDefaults.standard.set(true, forKey: appRunBeforeAfterMajorUpdateKey)
@@ -97,15 +96,12 @@ class KTUserManager: KTDALManager {
         }
         else
         {
-            KTAppSessionInfo.currentSession.sessionId = "7c2e2fd2b616819e274bc8f9d125f6aa"//sessionId
+            KTAppSessionInfo.currentSession.sessionId = sessionId
             KTAppSessionInfo.currentSession.phone = UserDefaults.standard.string(forKey: KTPhoneKey)!
             KTAppSessionInfo.currentSession.customerType = Int32(UserDefaults.standard.integer(forKey: KTCustomerTypeKey))
             
-            //DispatchQueue.global(qos: .background).async {
-              //  print("This is run on the background queue")
-                
             self.fetchUserInfoFromServer(completion: completion)
-            //}
+            
         }
     }
     
