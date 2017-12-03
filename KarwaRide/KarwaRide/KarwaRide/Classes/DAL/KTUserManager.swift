@@ -57,8 +57,8 @@ class KTUserManager: KTDALManager {
     
     func isUserLogin(completion:@escaping (Bool) -> Void)
     {
-        completion(false)
-        /*if runFirstTimeAfterMajorUpdate() {
+        
+        if runFirstTimeAfterMajorUpdate() {
             //Is running first time after Major Update
             userLoginInOldApplication(completion: completion)
         }
@@ -66,8 +66,7 @@ class KTUserManager: KTDALManager {
         {
             //Login check in current version.
             isUserAlreadyLogin(completion : completion)
-        }*/
-        
+        }
     }
     // Mark: - Login User in new Application
     private func isUserAlreadyLogin(completion: @escaping (Bool) -> Void)
@@ -154,7 +153,6 @@ class KTUserManager: KTDALManager {
             
         }
     }
-    
     
     // Mark: API User Info
     private func fetchUserInfoFromServer(completion:@escaping (Bool) -> Void) {
