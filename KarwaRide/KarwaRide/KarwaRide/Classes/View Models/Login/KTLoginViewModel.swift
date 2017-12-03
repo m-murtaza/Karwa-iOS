@@ -8,12 +8,39 @@
 
 import UIKit
 
-class KTLoginViewModel: KTBaseViewModel, KTViewModelDelegate {
+protocol KTLoginViewModelDelegate: KTViewModelDelegate {
+    func phoneNumber() -> String
+    func password() -> String
+    
+    func navigateToBooking()
+    func showError(title:String, message:String)
+    
+}
 
+class KTLoginViewModel: KTBaseViewModel {
+
+    weak var delegate: KTLoginViewModelDelegate?
+    
+    init(del: Any) {
+        super.init()
+        delegate = del as? KTLoginViewModelDelegate
+    }
+    
     func loginBtnTapped()
     {
-        KTDALManager.init().login(phone: "50569963", password: "d97efba289c7b62681731b0bd1ce4ae9") { (status, response) in
-            print("Success")
+        let phone : String = (delegate?.phoneNumber())!
+        let password: String = "5df74bed761f1a361415b14c68839eac"//(delegate?.Password())!
+        
+        //delegate.model
+        KTUserManager.init().login(phone: phone, password:password ) { (status, response) in
+            if status == true
+            {
+                self.delegate?.navigateToBooking()
+            }
+            else
+            {
+                self.delegate?.showError(title: response["T"] as! String, message: response["M"] as! String)
+            }
         }
     }
 }

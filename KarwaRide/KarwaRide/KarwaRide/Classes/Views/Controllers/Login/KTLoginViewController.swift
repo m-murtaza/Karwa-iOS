@@ -9,11 +9,11 @@
 import UIKit
 import MagicalRecord
 
-class KTLoginViewController: KTBaseViewController {
-
-    //MARK: - Properties
+class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
     
-    @IBOutlet weak var lblDeviceToken: UILabel!
+    //MARK: - Properties
+    @IBOutlet weak var txtPhoneNumber: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
     
     
     let viewModel : KTLoginViewModel = KTLoginViewModel(del: self)
@@ -21,8 +21,9 @@ class KTLoginViewController: KTBaseViewController {
     //MARK: -View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //viewModel! = KTLoginViewModel(del:self)
         // Do any additional setup after loading the view.
+        viewModel.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,9 +44,29 @@ class KTLoginViewController: KTBaseViewController {
     
     @IBAction func loginBtnTapped(_ sender: Any)
     {
-        
-        //self.viewModel.loginBtnTapped()
-        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        //lblDeviceToken.text = appDelegate.token
+        viewModel.loginBtnTapped()
     }
+    
+    //Mark: - View Model Delegate
+    func phoneNumber() -> String {
+        return txtPhoneNumber.text!
+    }
+    
+    func password() -> String {
+        return txtPassword.text!
+    }
+    
+    func navigateToBooking()
+    {
+        self.performSegue(withIdentifier: "segueLoginToBooking", sender: self)
+        
+    }
+    func showError(title:String, message:String)
+    {
+        let altError = UIAlertController(title: title,message: message,preferredStyle:UIAlertControllerStyle.alert)
+        
+        altError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil ))
+        self.present(altError,animated: true, completion: nil)
+    }
+    
 }

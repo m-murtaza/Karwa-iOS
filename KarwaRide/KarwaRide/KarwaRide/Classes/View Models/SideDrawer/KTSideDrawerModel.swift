@@ -8,8 +8,15 @@
 
 import UIKit
 
-class KTSideDrawerModel: KTBaseViewModel, KTViewModelDelegate {
+class KTSideDrawerModel: KTBaseViewModel {
 
+    weak var delegate: KTViewModelDelegate?
+    
+    init(del: Any) {
+        super.init()
+        delegate = del as? KTViewModelDelegate
+    }
+    
     var drawerOptions = [String]()
     
     func ViewDidLoad() {

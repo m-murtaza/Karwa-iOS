@@ -57,7 +57,8 @@ class KTUserManager: KTDALManager {
     
     func isUserLogin(completion:@escaping (Bool) -> Void)
     {
-        if runFirstTimeAfterMajorUpdate() {
+        completion(false)
+        /*if runFirstTimeAfterMajorUpdate() {
             //Is running first time after Major Update
             userLoginInOldApplication(completion: completion)
         }
@@ -65,7 +66,7 @@ class KTUserManager: KTDALManager {
         {
             //Login check in current version.
             isUserAlreadyLogin(completion : completion)
-        }
+        }*/
         
     }
     // Mark: - Login User in new Application
@@ -83,6 +84,39 @@ class KTUserManager: KTDALManager {
         completion(true)
         
     }
+    
+    func login(phone: String, password: String,completion completionBlock:@escaping KTResponseCompletionBlock)
+    {
+        let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
+                                            Constants.LoginParams.Password: password]
+        
+        params[Constants.LoginParams.DeviceType] = 1
+        params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
+        
+        KTWebClient.sharedInstance.post(uri: Constants.APIURL.Login, param: params as! [String : Any], completion: { (status, response) in
+            if status != true
+            {
+                
+                completionBlock(status,response)
+            }
+            else
+            {
+                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.Success
+                {
+                    
+                    self.saveUserInfoInDB(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any],completion: {(success:Bool) -> Void in
+                        completionBlock(true, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
+                    })
+                }
+                else
+                {
+                    completionBlock(false,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                    
+                }
+            }
+        })
+    }
+    
     
     // Mark: - Login User in old Application
     private let appRunBeforeAfterMajorUpdateKey : String = "appRunBeforeAfterMajorUpdate"

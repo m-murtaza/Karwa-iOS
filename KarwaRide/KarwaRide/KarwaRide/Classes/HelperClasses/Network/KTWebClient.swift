@@ -9,7 +9,11 @@
 import UIKit
 import Alamofire
 
-//typealias KSWebClientCompletionBlock = (_ success: Bool, _ response: Any) -> Void
+class Connectivity {
+    class var isConnectedToInternet:Bool {
+        return NetworkReachabilityManager()!.isReachable
+    }
+}
 
 class KTWebClient: NSObject {
 
@@ -57,12 +61,17 @@ class KTWebClient: NSObject {
     
     private func sendRequest(httpMethod: HTTPMethod, uri: String, param: Parameters?, completion  completionBlock:@escaping  KTResponseCompletionBlock)
     {
-        
+        guard Connectivity.isConnectedToInternet else {
+            let error : NSDictionary = [Constants.ResponseAPIKey.Title : "No Internet" as Any,
+                                        Constants.ResponseAPIKey.Message : "Internet not available" as Any]
+            completionBlock(false,error as! [AnyHashable : Any])
+            return
+        }
         //Creating complet Url
         let url = baseURL! + uri
         
         var httpHeaders : [String:String] = [:]
-        httpHeaders["Content-Type"] = "application/json"
+        httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
         
         //TODO: Add Session id in request header
         if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
@@ -77,7 +86,7 @@ class KTWebClient: NSObject {
                             
                             guard response.result.isSuccess else {
                                 
-                                //TODO: Handle specific errors.
+                                //TODO: Handle specific errors. With error title and message
                                 
                                 let statusCode = response.response?.statusCode
                                 let error : NSDictionary = ["ErrorCode" : statusCode as Any,

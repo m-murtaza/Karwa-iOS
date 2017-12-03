@@ -19,18 +19,18 @@ import UIKit
 class KTBaseViewModel: NSObject {
     
     /** The controller which is using this view model object, so that it can be notified in case of any events. */
-    weak var delegate: KTViewModelDelegate?
+    //weak var delegate: KTViewModelDelegate?
     
     /**
      * Initializes a new view model object.
      *
      * @param delegate The controller which is using this view model object, so that it can be notified in case of any events.
      */
-    init(del: Any) {
+    /*init(del: Any) {
         super.init()
         delegate = del as? KTViewModelDelegate
         
-    }
+    }*/
     
    
 }
