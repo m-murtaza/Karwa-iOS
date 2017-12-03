@@ -86,18 +86,25 @@ class KTWebClient: NSObject {
                             
                             guard response.result.isSuccess else {
                                 
-                                //TODO: Handle specific errors. With error title and message
+                                //TODO: Handle 401 UnAuthorize
                                 
-                                let statusCode = response.response?.statusCode
-                                let error : NSDictionary = ["ErrorCode" : statusCode as Any,
-                                                            "Message" : response.result.error?.localizedDescription as Any]
+                                print("ErrorCode: \(String(describing:  response.response?.statusCode))")
+                                print("Message: \(String(describing: response.result.error?.localizedDescription))")
+
+                                let error : NSDictionary = [Constants.ResponseAPIKey.Title : "Ops!",
+                                    Constants.ResponseAPIKey.Message: "Something went wrong"]
+                                
                                 completionBlock(false,error as! [AnyHashable : Any])
                                 return
                             }
                             
                             guard let responseJSON = response.result.value as? [String: Any] else {
-                                let error : NSDictionary = ["ErrorCode" : 1001,
-                                                            "Message" : "Invalid tag information received from the service"]
+                                
+                                print("ErrorCode: 1001")
+                                print("Message: Invalid tag information received from the service")
+                                
+                                let error : NSDictionary = [Constants.ResponseAPIKey.Title  : 1001,
+                                                            Constants.ResponseAPIKey.Message : "Invalid tag information received from the service"]
                                 
                                 completionBlock(false,error as! [AnyHashable : Any])
                                 return
