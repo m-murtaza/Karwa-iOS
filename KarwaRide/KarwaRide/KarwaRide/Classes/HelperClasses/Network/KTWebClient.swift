@@ -70,6 +70,9 @@ class KTWebClient: NSObject {
         //Creating complet Url
         let url = baseURL! + uri
         
+        print("Server call: \(url)")
+        print("Param: \(String(describing: param))")
+        
         var httpHeaders : [String:String] = [:]
         httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
         
