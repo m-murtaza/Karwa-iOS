@@ -1453,8 +1453,30 @@ didAddAnnotationViews:(NSArray *)annotationViews
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
+        
+        //Fix for large scree. Total Jugar Can't find better way. 
         if([self isLargeScreen])
-            self.btnDestinationReveal.hidden = TRUE;
+        {
+            for(UIView *subView in cell.contentView.subviews)
+            {
+                for(NSLayoutConstraint *constraint in subView.constraints)
+                {
+                    if([constraint.identifier  isEqual: @"destBtnWidth"])
+                        constraint.constant = 0;
+                    
+                }
+                
+            }
+            
+            for(NSLayoutConstraint *constraint in cell.contentView.constraints)
+            {
+                if([constraint.identifier  isEqual: @"ReqAndDestLeading"])
+                    constraint.constant = 0;
+                
+            }
+            
+            [cell.contentView layoutIfNeeded];
+        }    //self.btnDestinationReveal.hidden = TRUE;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
