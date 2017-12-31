@@ -1454,9 +1454,11 @@ didAddAnnotationViews:(NSArray *)annotationViews
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
         
-        //Fix for large scree. Total Jugar Can't find better way. 
+        //Fix for large scree.
         if([self isLargeScreen])
         {
+            //Jugar to hide destination help. As it hides but its constraints didn't change and for cell we can't use IBOutlet
+            
             for(UIView *subView in cell.contentView.subviews)
             {
                 for(NSLayoutConstraint *constraint in subView.constraints)
@@ -1465,7 +1467,6 @@ didAddAnnotationViews:(NSArray *)annotationViews
                         constraint.constant = 0;
                     
                 }
-                
             }
             
             for(NSLayoutConstraint *constraint in cell.contentView.constraints)
@@ -1476,7 +1477,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
             }
             
             [cell.contentView layoutIfNeeded];
-        }    //self.btnDestinationReveal.hidden = TRUE;
+        }    
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
