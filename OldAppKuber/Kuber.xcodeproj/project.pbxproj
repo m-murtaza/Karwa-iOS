@@ -296,6 +296,8 @@
 		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
 		18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */; };
 		18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */; };
+		18C63B241FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C63B231FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m */; };
+		18C63B271FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */; };
 		18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */; };
 		18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */; };
 		18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A51BA18949009B5D70 /* list-icons.png */; };
@@ -746,6 +748,10 @@
 		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSVehicleAnnotationView.m; path = ../Base/KSVehicleAnnotationView.m; sourceTree = "<group>"; };
 		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
 		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
+		18C63B221FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSBaseRevealViewRightControllerViewController.h; sourceTree = "<group>"; };
+		18C63B231FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSBaseRevealViewRightControllerViewController.m; sourceTree = "<group>"; };
+		18C63B251FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSBaseRevealViewRightTableViewController.h; sourceTree = "<group>"; };
+		18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSBaseRevealViewRightTableViewController.m; sourceTree = "<group>"; };
 		18C7A3CA1BB142F100E579A2 /* KSBookingMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingMapController.h; sourceTree = "<group>"; };
 		18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingMapController.m; sourceTree = "<group>"; };
 		18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "booking-history-forward-arrow.png"; path = "BookingHistory/booking-history-forward-arrow.png"; sourceTree = "<group>"; };
@@ -1587,6 +1593,10 @@
 				18A268871BE5F8D7006FC942 /* KSSafeArray.m */,
 				18A268961BE7708A006FC942 /* KSTrackingAnnotationView.h */,
 				18A268971BE7708A006FC942 /* KSTrackingAnnotationView.m */,
+				18C63B221FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.h */,
+				18C63B231FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m */,
+				18C63B251FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.h */,
+				18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2153,6 +2163,7 @@
 				18B0D0251B031C93002645AD /* KSDBManager.m in Sources */,
 				1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */,
 				18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */,
+				18C63B241FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m in Sources */,
 				1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */,
 				18481B501B091EFA00855F54 /* SWRevealViewController.m in Sources */,
 				1859E9001BC6326F00354B84 /* KSDAL+Franchise.m in Sources */,
@@ -2204,6 +2215,7 @@
 				185E3C081B7087EF00909B20 /* KSTripRating.m in Sources */,
 				1870EE0C1BF4A69D00FADFBD /* UIUnderlinedButton.m in Sources */,
 				189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */,
+				18C63B271FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m in Sources */,
 				1880C56E1B79E1B8004F0188 /* KSButtonCell.m in Sources */,
 				18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */,
 				1801E35C1B15B1CC00A8983E /* MLPAutoCompleteTextField.m in Sources */,

@@ -11,6 +11,11 @@
 
 @implementation KSRateYourTripController
 
+-(void) viewDidLoad
+{
+    [super viewDidLoad];
+    
+}
 
 -(void) viewWillAppear:(BOOL)animated
 {

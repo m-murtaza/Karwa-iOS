@@ -84,14 +84,14 @@ BtnState;
         self.revealButtonItem = barButton;
         [barButton setImage:[UIImage imageNamed:@"reveal-icon.png"]];
         self.navigationItem.leftBarButtonItem = barButton;
-        [self setupRevealViewController];
+        //[self setupRevealViewController];
                 
         if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
             [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
         }
     }
     
-    if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+    if(1 || [self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
         
         [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];

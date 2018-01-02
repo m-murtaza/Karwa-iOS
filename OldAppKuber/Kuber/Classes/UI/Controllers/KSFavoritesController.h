@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSTableViewController.h"
+#import "KSBaseRevealViewRightTableViewController.h"
 
-@interface KSFavoritesController : KSTableViewController
+@interface KSFavoritesController : KSBaseRevealViewRightTableViewController
 {
     BOOL tblIsEditing;
 }

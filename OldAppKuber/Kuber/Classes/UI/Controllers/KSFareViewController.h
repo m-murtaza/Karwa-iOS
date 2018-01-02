@@ -6,8 +6,8 @@
 //  Copyright © 2017 Karwa Solutions. All rights reserved.
 //
 
-#import "KSViewController.h"
+#import "KSBaseRevealViewRightControllerViewController.h"
 
-@interface KSFareViewController : KSViewController 
+@interface KSFareViewController : KSBaseRevealViewRightControllerViewController
 
 @end
