@@ -367,13 +367,15 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    if([_tableView numberOfRowsInSection:0] != 1)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    if([_tableView numberOfRowsInSection:0] != 1)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
 }
 
@@ -419,9 +421,12 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    int translation = -200;
+    if([AppUtils isLargeScreen:self])
+        translation = -70;
     [UIView animateWithDuration:0.3f
                      animations:^{
-                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -200)];
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, translation)];
                          
                      }
                      completion:^(BOOL finished){
