@@ -24,6 +24,7 @@ extern NSString * const KSAlertTitleMultipleErrors;
 extern NSString * const KSTableViewDefaultErrorMessage;
 
 extern NSString * const KSMuseoSans300;
+extern NSString * const KSMuseoSans300Italic;
 extern NSString * const KSMuseoSans500;
 extern NSString * const KSMuseoSans700;
 

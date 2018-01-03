@@ -25,6 +25,7 @@ NSString * const KSErrorPasswordsMatch = @"Current and new passwords can not be 
 NSString * const KSTableViewDefaultErrorMessage = @"No Data Available";
 
 NSString * const KSMuseoSans300 = @"MuseoSans_300";
+NSString * const KSMuseoSans300Italic = @"MuseoSans-300Italic";
 NSString * const KSMuseoSans500 = @"MuseoSans_500";
 NSString * const KSMuseoSans700 = @"MuseoSans_700";
 

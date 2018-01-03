@@ -84,8 +84,7 @@ BtnState;
         self.revealButtonItem = barButton;
         [barButton setImage:[UIImage imageNamed:@"reveal-icon.png"]];
         self.navigationItem.leftBarButtonItem = barButton;
-        //[self setupRevealViewController];
-                
+        
         if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
             [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
         }
@@ -97,10 +96,7 @@ BtnState;
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
          ratingController.trip = self.tripInfo;
          [self.navigationController pushViewController:ratingController animated:NO];*/
-        
     }
-
-    
     [self setNavigationTitle];
     
     if(IS_IPHONE_5){
@@ -114,6 +110,7 @@ BtnState;
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self updateTrackingOption];
     
     [self setCancelBtnStatusForTrip:self.tripInfo];
@@ -133,6 +130,7 @@ BtnState;
 
 -(void) loadViewData
 {
+    [self.view layoutIfNeeded];                 //For some reason not able to change the font size if don't call this method.  Strange!
     KSTrip *trip = self.tripInfo;
     DLog(@"Booking Detail Trip data %@",trip);
     //Set Pickup Address
@@ -149,12 +147,13 @@ BtnState;
     }
     
     //Set Drop Off Address
-    if (trip.dropoffLandmark.length) {
+    if (trip.dropoffLandmark && trip.dropoffLandmark.length) {
         
         self.lblDropoffAddress.text = trip.dropoffLandmark;
     }
     else {
-        self.lblDropoffAddress.text = @"";
+        self.lblDropoffAddress.text = @"No Destination Set";
+        [self.lblDropoffAddress setFont: [UIFont fontWithName:KSMuseoSans300Italic size:17]];
     }
     
     //Set Top Pick Up date
@@ -195,6 +194,8 @@ BtnState;
     [self setCancelBtnStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
+    
+    
 }
 
 -(void) hideTaxiInfo:(KSTrip*)trip

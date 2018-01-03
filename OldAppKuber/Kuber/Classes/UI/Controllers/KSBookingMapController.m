@@ -1494,7 +1494,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
     
     if (indexPath.row == idxPickupLocation) {
         
-        if (dropoffVisible) {
+        if (dropoffVisible && ![self isLargeScreen]) {
             
             [self hideDropOff:TRUE];
         }

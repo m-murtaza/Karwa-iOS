@@ -107,11 +107,11 @@
                                       initWithTarget:self action:@selector(handleSingleTap:)];
     tapper.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapper];
-
 }
 
 -(void) setupView
 {
+    [self.view layoutIfNeeded];             //This line is required for font change
     self.serviceRating.padding = 20;
     
     self.navigationItem.title = [NSString stringWithFormat:@"Rate %@ Service",[AppUtils taxiLimo:self.trip.vehicleType]];
@@ -120,7 +120,13 @@
     self.lblPickupTime.text = [self getTimeStringFromDate:self.trip.pickupTime];
     self.lblDropoffTime.text = [self getTimeStringFromDate:self.trip.dropOffTime];
     self.lblPickupAddress.text = self.trip.pickupLandmark ? self.trip.pickupLandmark : [NSString stringWithFormat:@"%@N , %@E",self.trip.pickupLat,self.trip.pickupLon];
-    self.lblDropoffAddress.text = self.trip.dropoffLandmark ? self.trip.dropoffLandmark : @"-";
+    if(self.trip.dropoffLandmark)
+        self.lblDropoffAddress.text = self.trip.dropoffLandmark;
+    else
+    {
+        self.lblDropoffAddress.text = @"No Destination Set";
+        [self.lblDropoffAddress setFont: [UIFont fontWithName:KSMuseoSans300Italic size:17]];
+    }
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
