@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * pickupHint;
 @property (nonatomic, retain) NSNumber * vehicleType;
+@property (nonatomic, retain) NSString * callerId;
 
 @property (nonatomic, retain) KSDriver *driver;
 @property (nonatomic, retain) KSUser *passenger;

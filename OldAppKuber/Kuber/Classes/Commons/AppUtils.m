@@ -87,6 +87,25 @@
             break;
     }
     return largeScreen;
+}
+
++ (BOOL) isPhoneNumber:(NSString*)txt
+{
     
+    BOOL success = TRUE;
+    NSError *error = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypePhoneNumber
+                                                               error:&error];
+    if(error)
+        success = FALSE;
+    else
+    {
+        NSUInteger numberOfMatches = [detector numberOfMatchesInString:txt
+                                                               options:0
+                                                                 range:NSMakeRange(0, [txt length])];
+        if(numberOfMatches != 1)
+            success = FALSE;
+    }
+    return success;
 }
 @end

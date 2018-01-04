@@ -11,6 +11,7 @@
 #import "KSBookingHistoryCell.h"
 
 #import "KSBookingDetailsController.h"
+#import "AppUtils.h"
 
 @interface KSBookingHistoryController ()
 
@@ -172,7 +173,9 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
-    [cell updateCellData:trip];
+    
+    
+    [cell updateCellData:trip ShowCallerID:[self showCallerId]];
 
     return cell;
 }
@@ -205,6 +208,14 @@
                                                            value:nil] build]];
 }
 
+
+-(BOOL) showCallerId
+{
+    BOOL show = NO;
+    if([AppUtils isLargeScreen:self] && [[[KSSessionInfo currentSession] customerType] integerValue] == KSCorporateCustomer)
+        show = YES;
+    return show;
+}
 
 #pragma mark - Overlay view 
 

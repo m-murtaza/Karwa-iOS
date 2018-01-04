@@ -306,19 +306,10 @@
                                                            [UIFont fontWithName:@"MuseoForDell-500" size:21.0], NSFontAttributeName, nil]];
     
     [appearance setTintColor:[UIColor colorFromHexString:@"#21d7d7"]];
-
-   [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
+    [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];
-    
-    
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
-    
-    
-    //for Customise font
-    //[[UILabel appearance] setFont:[UIFont fontWithName:@"MuseoForDell-300" size:18.0]];
-     
-
-}
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+    }
 
 #pragma mark - Google Analytics
 -(void) setupGoogleAnalytics

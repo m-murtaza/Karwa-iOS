@@ -18,6 +18,8 @@
 @property (nonatomic, weak) IBOutlet KSLabel *lblTime;
 @property (nonatomic, weak) IBOutlet UIImageView *imgStatus;
 @property (nonatomic, weak) IBOutlet UIImageView *imgVehicleType;
+@property (nonatomic, weak) IBOutlet UIView *viewCallerId;
+@property (nonatomic, weak) IBOutlet UILabel *lblCallerId;
 //@property (nonatomic, weak) IBOutlet UIImageView *imgVehicleTypeRateYourTrip;
 
 
@@ -39,7 +41,7 @@
     // Configure the view for the selected state
 }
 
-- (void)updateCellData:(KSTrip *)trip {
+- (void)updateCellData:(KSTrip *)trip ShowCallerID:(BOOL)showCallerId{
     
     if (trip.pickupLandmark.length) {
         self.lblPickupFrom.text = [NSString stringWithString:trip.pickupLandmark]; //[NSString stringWithFormat:@"%@, %@",trip.pickupHint, trip.pickupLandmark];        //removed after discussion with shadab bahi.
@@ -74,6 +76,17 @@
     [self setStatusImage:trip];
     
     [self setVehicleTypeImage:(KSVehicleType)[trip.vehicleType intValue]];
+    
+    if(showCallerId)
+    {
+        
+        self.lblCallerId.text = trip.callerId;
+    }
+    else
+    {
+        
+        self.viewCallerId.hidden = TRUE;
+    }
 }
 
 -(void) setVehicleTypeImage:(KSVehicleType) type

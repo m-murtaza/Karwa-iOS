@@ -45,7 +45,8 @@
     [requestData setObjectOrNothing:[[NSDate date] bookingDateServerFormat] forKey:@"CreationTime"];
     [requestData setObjectOrNothing:trip.pickupHint forKey:@"PickMessage"];
     [requestData setObjectOrNothing:trip.vehicleType forKey:@"VehicleType"];
-
+    [requestData setObjectOrNothing:trip.callerId forKey:@"CallerID"];
+    
     KSWebClient *webClient = [KSWebClient instance];
     __block KSTrip *tripInfo = trip;
     [webClient POST:@"/booking" data:requestData completion:^(BOOL success, NSDictionary *response) {
@@ -545,7 +546,9 @@
 {
     NSMutableArray *tripsArray = [[NSMutableArray alloc] init];
     for (NSDictionary *tripData in trips) {
-         [tripsArray addObject:[KSDAL addTrip:tripData]];
+        KSTrip *trip = [KSDAL addTrip:tripData];
+        if(trip)
+         [tripsArray addObject:trip];
     }
     return [NSArray arrayWithArray:tripsArray];
 }
@@ -554,10 +557,23 @@
 {
     KSUser *user = [KSDAL loggedInUser];
     KSTrip *trip = [KSTrip objWithValue:tripData[@"BookingID"] forAttrib:@"jobId"];
+    if(tripData[@"BookingID"] == nil || trip.jobId == nil)
+    {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Error-Rating"     // Event category (required)
+                                                              action:(tripData[@"BookingID"] == nil) ? @"AddTrip Booking id nil from server" : @"AddTrip Booking id nil when inserted in DB"  // Event action (required)
+                                                               label:[NSString stringWithFormat:@"CallerId: %@ || PickupTime: %@",tripData[@"CallerID"],[tripData[@"PickTime"] dateValue]]
+                                                               value:nil] build]];    // Event value
+        return nil;
+    }
     trip.pickupLat = [NSNumber numberWithDouble:[tripData[@"PickLat"] doubleValue]];
     trip.pickupLon = [NSNumber numberWithDouble:[tripData[@"PickLon"] doubleValue]];
     trip.pickupTime = [tripData[@"PickTime"] dateValue];
     trip.dropOffTime = [tripData[@"DropTime"] dateValue];
+    
+    if(tripData[@"CallerID"])
+        trip.callerId = tripData[@"CallerID"];
+    
     if (tripData[@"PickLocation"])
         trip.pickupLandmark = tripData[@"PickLocation"];
     if (tripData[@"DropLat"])

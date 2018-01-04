@@ -18,6 +18,5 @@
 #import "KSDAL+TripIssue.h"
 #import "KSDAL+Franchise.h"
 #import "KSDAL+Taxi.h"
-
-
+#import "NSManagedObject+Clone.h"
 #endif

@@ -54,6 +54,9 @@ BtnState;
 @property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
+@property (weak, nonatomic) IBOutlet UIView *viewCorporateCustPhoneNumber;
+@property (weak, nonatomic) IBOutlet UILabel *lblCorporateCustPhoneNumber;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintPickupTimeBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintTaxiInfoBGImgBottom;
@@ -90,7 +93,16 @@ BtnState;
         }
     }
     
-    if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
+    if(self.tripInfo.jobId == nil)
+    {
+        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Error-Rating"
+                                                              action: @"JobID is nil on detail page"
+                                                               label:[NSString stringWithFormat:@"CallerId: %@ || PickupTime: %@",self.tripInfo.callerId,self.tripInfo.pickupTime]
+                                                               value:nil] build]];    
+        
+    }
+    else if([self.tripInfo.status integerValue] == KSTripStatusComplete && self.tripInfo.rating == nil){
         
         [self performSegueWithIdentifier:@"segueBookingDetailsToRate" sender:self];
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
@@ -105,6 +117,8 @@ BtnState;
     }
     
     [self showHideTrackATaxiButton];
+    
+    [self showHideCorporateCustPhoneNumber];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -351,7 +365,22 @@ BtnState;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+#pragma  mark -
+-(void) showHideCorporateCustPhoneNumber
+{
+    if([AppUtils isLargeScreen:self] && [[KSSessionInfo currentSession].customerType integerValue] == KSCorporateCustomer)
+    {
+        
+        self.viewCorporateCustPhoneNumber.hidden = FALSE;
+        self.lblCorporateCustPhoneNumber.text = self.tripInfo.callerId;
+    }
+    else
+    {
+        
+        self.viewCorporateCustPhoneNumber.hidden = TRUE;
+    }
+    
+}
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

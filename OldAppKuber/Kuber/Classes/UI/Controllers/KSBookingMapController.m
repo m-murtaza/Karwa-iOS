@@ -71,7 +71,7 @@ static BOOL showMendatoryRating = TRUE;
     
     KSVehicleType vehicleType;              //This is for service type i.e. limo or taxi
     NYSegmentedControl *segmentVehicleType;     //Vehicletype limo or texi on top navigation bar
-    NYSegmentedControl *segmantLimoType;        //Limo type: Standard, Business, Luxury
+    NYSegmentedControl *segmentLimoType;        //Limo type: Standard, Business, Luxury
     
     KSBookingAnnotationManager *annotationManager;
     NSTimer *annotationUpdateTimer;
@@ -98,12 +98,14 @@ static BOOL showMendatoryRating = TRUE;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareStandard;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareBusiness;
 @property (nonatomic, weak) IBOutlet UILabel *lblFareLuxary;
+@property (nonatomic, weak) UIButton *btnBookTaxi;
 
 @property (nonatomic, strong) UILabel *lblPickupLocaitonTitle;
 @property (nonatomic, strong) UILabel *lblPickupLocaiton;
 @property (nonatomic, strong) UITextField *txtPickupTime;
 @property (nonatomic, strong) UILabel *lblDropoffLocaiton;
 @property (nonatomic, strong) UIButton *btnDestinationReveal;
+
 
 
 //Top Right navigation item
@@ -125,6 +127,8 @@ static BOOL showMendatoryRating = TRUE;
     vehicleType = KSCityTaxi;
     ratingTrip = nil;
     
+    [self.mapDisableView setHidden:FALSE];
+    
     [self ShowHideDropoffForScreenSize];
     
     if (self.repeatTrip) {
@@ -142,8 +146,6 @@ static BOOL showMendatoryRating = TRUE;
     [self addTableViewHeader];
     //[self.btnCurrentLocaiton setSelected:TRUE];
     [self addCrashlyticsInfo];
-    
-    [self.mapDisableView setHidden:FALSE];
     
     if(IS_IPHONE_5)
     {
@@ -169,12 +171,6 @@ static BOOL showMendatoryRating = TRUE;
                                                              target: self
                                                            selector:@selector(onAnnotationUpdateTick:)
                                                            userInfo: nil repeats:YES];
-    
-    if(showMendatoryRating)
-    {
-        showMendatoryRating = FALSE;
-        [self checkForUnRatedTrip];
-    }
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -188,12 +184,28 @@ static BOOL showMendatoryRating = TRUE;
     }
     
     [self showLimoTaxiCoachMarksIfNeeded];
+    
+    if(showMendatoryRating)
+    {
+        showMendatoryRating = FALSE;
+        [self checkForUnRatedTrip];
+    }
 }
 
 -(void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     [annotationUpdateTimer invalidate];
     annotationUpdateTimer = nil;
+    
+    if (![[self.navigationController viewControllers] containsObject: self]) //any other hierarchy compare if it contains self or not
+    {
+        // the view has been removed from the navigation stack or hierarchy, back is probably the cause
+        // this will be slow with a large stack however.
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 
@@ -215,7 +227,10 @@ static BOOL showMendatoryRating = TRUE;
     {
         //if view is on screen. ask for unrated trips.
         if(showMendatoryRating)
+        {
+            showMendatoryRating = FALSE;
             [self checkForUnRatedTrip];
+        }
     }
     else
     {
@@ -238,8 +253,9 @@ static BOOL showMendatoryRating = TRUE;
           if (status == KSAPIStatusSuccess) {
               if(trips != nil && [trips count] > 0)
               {
-                  ratingTrip = [trips objectAtIndex:0];
-                  [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
+                  ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
+                  if(ratingTrip.jobId != nil && ![ratingTrip.jobId isEqualToString:@""])
+                      [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
                   
                   showMendatoryRating = FALSE;
               }
@@ -321,27 +337,27 @@ static BOOL showMendatoryRating = TRUE;
 -(void) createLimoTypeSegmant
 {
     //Segment Control
-    segmantLimoType = [[NYSegmentedControl alloc] initWithItems:@[@"STANDARD", @"BUSINESS",@"LUXURY"]];
+    segmentLimoType = [[NYSegmentedControl alloc] initWithItems:@[@"STANDARD", @"BUSINESS",@"LUXURY"]];
     
-    segmantLimoType.titleTextColor = [UIColor whiteColor];//[UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
-    segmantLimoType.selectedTitleTextColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
-    segmantLimoType.selectedTitleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:5];
-    segmantLimoType.titleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:10.0];
-    segmantLimoType.segmentIndicatorBackgroundColor = [UIColor whiteColor];
-    segmantLimoType.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmentLimoType.titleTextColor = [UIColor whiteColor];//[UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
+    segmentLimoType.selectedTitleTextColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
+    segmentLimoType.selectedTitleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:5];
+    segmentLimoType.titleFont = [UIFont systemFontOfSize:13.0f];//[UIFont fontWithName:KSMuseoSans700 size:10.0];
+    segmentLimoType.segmentIndicatorBackgroundColor = [UIColor whiteColor];
+    segmentLimoType.backgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
 
-    segmantLimoType.borderWidth = 0.0f;
-    segmantLimoType.segmentIndicatorBorderWidth = 0.0f;
-    segmantLimoType.segmentIndicatorInset = 2.0f;
-    segmantLimoType.segmentIndicatorBorderColor = self.view.backgroundColor;
+    segmentLimoType.borderWidth = 0.0f;
+    segmentLimoType.segmentIndicatorBorderWidth = 0.0f;
+    segmentLimoType.segmentIndicatorInset = 2.0f;
+    segmentLimoType.segmentIndicatorBorderColor = self.view.backgroundColor;
     //[segmantLimoType setFrame:CGRectMake(20, 5, 300, 35)];
     //[segmantLimoType sizeToFit] ;
-    segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
+    segmentLimoType.cornerRadius = CGRectGetHeight(segmentLimoType.frame) / 2.0f;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
-    segmantLimoType.usesSpringAnimations = YES;
+    segmentLimoType.usesSpringAnimations = YES;
 #endif
     
-    [segmantLimoType addTarget:self action:@selector(onSegmentLimoTypeChange) forControlEvents:UIControlEventValueChanged];
+    [segmentLimoType addTarget:self action:@selector(onSegmentLimoTypeChange) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void) showLimoFare:(KSVehicleType) vType
@@ -353,7 +369,7 @@ static BOOL showMendatoryRating = TRUE;
 
 -(IBAction)onSegmentLimoTypeChange
 {
-    switch (segmantLimoType.selectedSegmentIndex) {
+    switch (segmentLimoType.selectedSegmentIndex) {
         case 0:
             vehicleType = KSStandardLimo;
             break;
@@ -414,12 +430,7 @@ static BOOL showMendatoryRating = TRUE;
     
     [self updateTaxisInCurrentRegion];
     [_tableView reloadData];
-    
-    
-    //Usman: Workaroud (Total Jugar) to show limo type segment proper curve. Couldn't find better and proper solution.
-    double delayInSeconds = 0.05;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [_tableView reloadData];
     });
     
@@ -433,7 +444,7 @@ static BOOL showMendatoryRating = TRUE;
 }
 -(void) updateUIForLimo
 {
-    switch (segmantLimoType.selectedSegmentIndex) {
+    switch (segmentLimoType.selectedSegmentIndex) {
         case 0:
             vehicleType = KSStandardLimo;
             break;
@@ -485,7 +496,7 @@ static BOOL showMendatoryRating = TRUE;
                                          @"TripInfo" : tripInfo,
                                          @"UserPhoneNumber" : userPhoneNumber,
                                          @"TaxiLimoOption" : [NSString stringWithFormat:@"%lu", (unsigned long)segmentVehicleType.selectedSegmentIndex],
-                                         @"LimoType" : (segmentVehicleType.selectedSegmentIndex == 1) ?[NSString stringWithFormat:@"%lu", (unsigned long)segmantLimoType.selectedSegmentIndex] : @"-1"
+                                         @"LimoType" : (segmentVehicleType.selectedSegmentIndex == 1) ?[NSString stringWithFormat:@"%lu", (unsigned long)segmentLimoType.selectedSegmentIndex] : @"-1"
                                          };
             
             id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -592,7 +603,86 @@ static BOOL showMendatoryRating = TRUE;
     }
     return largeScreen;
 }
+#pragma  mark - Customer Phone Input
+
+-(void) showAltForWrongCustomerPhoneInput
+{
+    [self showAltForWrongCustomerPhoneInput:@"Please enter valid phone number"];
+}
+
+-(void) showAltForWrongCustomerPhoneInput:(NSString*)errorMsg
+{
+    
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                 message:errorMsg
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   
+                                   [self showPhoneInputPopupForCorporateBooking];
+                               }];
+    
+    [alt addAction:okAction];
+    
+    [self presentViewController:alt animated:YES completion:nil];
+}
+
+-(void) showPhoneInputPopupForCorporateBooking
+{
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"Please provide phone number of passenger."
+                                                                 message:nil
+                                                          preferredStyle:UIAlertControllerStyleAlert];
+    
+    __weak UIAlertController *alertRef = alt;
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   // access text from text field
+                                   NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                   
+                                   if (!text.length) {
+                                       [self showAltForWrongCustomerPhoneInput:@"Phone number can't be empty"];
+                                   }
+                                   else{
+                                       NSString *inputText = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                       if([AppUtils isPhoneNumber:inputText])
+                                       {
+                                           tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                           [self bookTaxi];
+                                       }
+                                       else
+                                       {
+                                           
+                                           [self showAltForWrongCustomerPhoneInput];
+                                       }
+                                   }
+                               }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                                                               
+                                                           }];
+    [alt addTextFieldWithConfigurationHandler:^(UITextField *txtField)
+     {
+         txtField.placeholder = @"Passenger Phone Number";
+         txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         txtField.delegate = self;
+         txtField.tag = TXT_HINT_TAG;
+         //txtField.text = hintTxt ? hintTxt : @"";
+     }];
+    [alt addAction:okAction];
+    [alt addAction:cancelAction];
+    [self presentViewController:alt animated:YES completion:nil];
+    
+    
+}
+
 #pragma mark - Private Function
+
 
 -(void) populateOldTripData
 {
@@ -948,7 +1038,7 @@ static BOOL showMendatoryRating = TRUE;
 }
 
 - (void)updateTaxisInCurrentRegion {
-    
+    _btnBookTaxi.enabled = FALSE;
     //[self.mapView removeAnnotations:self.mapView.annotations];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:
                               @"self isKindOfClass: %@",
@@ -978,6 +1068,7 @@ static BOOL showMendatoryRating = TRUE;
                                                    type:vehicleType
                                              completion:^(NSArray *vehicleAnnotation) {
                                                  [self.mapView addAnnotations:vehicleAnnotation];
+                                                 _btnBookTaxi.enabled = TRUE;
                                              }];
     
     /*[KSDAL vehiclesNearCoordinate:center radius:radius type:vehicleType completion:^(KSAPIStatus status, NSArray * vehicles) {
@@ -1085,10 +1176,18 @@ static BOOL showMendatoryRating = TRUE;
 
 -(void) startBookingProcess
 {
-    if([self allowBooking])
+    if([self allowBooking] )
     {
         if(![self showDestinationPopUp])
+        {
+        if([[KSSessionInfo currentSession].customerType integerValue] !=  KSCorporateCustomer)
+        {
+            tripInfo.callerId = [KSSessionInfo currentSession].phone;
             [self showSnackBar];
+        }
+        else
+            [self showPhoneInputPopupForCorporateBooking];
+        }
     }
     else
     {
@@ -1100,6 +1199,7 @@ static BOOL showMendatoryRating = TRUE;
 
 -(BOOL) showDestinationPopUp
 {
+    
     if(![self isLargeScreen])
     {
         if(self.lblDropoffLocaiton.text.length == 0 || [self.lblDropoffLocaiton.text isEqualToString:@"---"])
@@ -1426,41 +1526,53 @@ didAddAnnotationViews:(NSArray *)annotationViews
             UIView *segmentView = [cell viewWithTag:101];
             //[segmentView setNeedsDisplay];
             
-            segmantLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
-            segmantLimoType.cornerRadius = CGRectGetHeight(segmantLimoType.frame) / 2.0f;
-            
+            segmentLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
+            segmentLimoType.cornerRadius = CGRectGetHeight(segmentView.frame) / 2.0f;
+//            DLog(@"SegmentView Width = %f      Height = %f",segmentView.frame.size.width,segmentView.frame.size.height);
+//            DLog(@"segmentLimoType Width = %f      Height = %f",segmentLimoType.frame.size.width,segmentLimoType.frame.size.height);
             
             switch (vehicleType) {
                 case KSStandardLimo:
-                    [segmantLimoType setSelectedSegmentIndex:0];
+                    [segmentLimoType setSelectedSegmentIndex:0];
                     break;
                 case KSBusinessLimo:
-                    [segmantLimoType setSelectedSegmentIndex:1];
+                    [segmentLimoType setSelectedSegmentIndex:1];
                     break;
                 case KSLuxuryLimo:
-                    [segmantLimoType setSelectedSegmentIndex:2];
+                    [segmentLimoType setSelectedSegmentIndex:2];
                     break;
                 default:
-                    [segmantLimoType setSelectedSegmentIndex:0];
+                    [segmentLimoType setSelectedSegmentIndex:0];
                     break;
             }
             //[segmentView setBackgroundColor:[UIColor orangeColor]];
-            [segmentView addSubview:segmantLimoType];
-            segmantLimoType.translatesAutoresizingMaskIntoConstraints = false;
+            //--[segmentView addSubview:segmantLimoType];
+            if(![[segmentView subviews] containsObject:segmentLimoType])
+            {
+                segmentLimoType.translatesAutoresizingMaskIntoConstraints = false;
+                [segmentView layoutIfNeeded];
+                [segmentView addSubview:segmentLimoType];
+                NSDictionary *viewBindings = NSDictionaryOfVariableBindings(segmentView,segmentLimoType);
+                [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[segmentLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
+                [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[segmentLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
+                // put a breakpoint after this line to see the frame of your UIWebView.
+                // It should be the same as the view
+                [segmentView layoutIfNeeded];
+                //segmentLimoType.frame = CGRectMake(0, 0, segmentView.frame.size.width, segmentView.frame.size.height);
+                //segmentLimoType.cornerRadius = CGRectGetHeight(segmentLimoType.frame) / 2.0f;
+                //[segmentLimoType layoutIfNeeded];
+                //[cell.contentView layoutSubviews];
+            }
             
-            NSDictionary *viewBindings = NSDictionaryOfVariableBindings(segmentView,segmantLimoType);
-            [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
-            [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
-            // put a breakpoint after this line to see the frame of your UIWebView.
-            // It should be the same as the view
+            //[cell layoutIfNeeded];
+            
         }
     }
     else if(indexPath.row == idxBtnCell){
         
         cell = [tableView dequeueReusableCellWithIdentifier:@"bookingBtnCellIdentifier"];
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
-        
-        //Fix for large scree.
+        self.btnBookTaxi = (UIButton*) [cell viewWithTag:6006];
         if([self isLargeScreen])
         {
             //Jugar to hide destination help. As it hides but its constraints didn't change and for cell we can't use IBOutlet
@@ -1553,9 +1665,11 @@ didAddAnnotationViews:(NSArray *)annotationViews
     else if([segue.identifier isEqualToString:@"segueBookingToRating"])
     {
         KSTripRatingController *ratingController = (KSTripRatingController*) ([[(UINavigationController*)segue.destinationViewController viewControllers] objectAtIndex:0]);
+        
         ratingController.trip = ratingTrip;
         ratingController.displaySource = kMendatoryRating;
     }
+    
 }
 
 #pragma mark - AddressPicker Delegate
@@ -1725,7 +1839,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
 {
     CLLocationDistance locationShift = [self.mapView.userLocation.location distanceFromLocation:[CLLocation locationWithCoordinate: self.mapView.centerCoordinate]];
     
-    if(locationShift > 500)
+    if(locationShift > 50)              //50 meters
     {
         [self showTopBarAltForFarAwayLocation];
     }
