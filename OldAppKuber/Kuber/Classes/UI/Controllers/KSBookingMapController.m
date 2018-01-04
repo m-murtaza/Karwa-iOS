@@ -415,6 +415,14 @@ static BOOL showMendatoryRating = TRUE;
     [self updateTaxisInCurrentRegion];
     [_tableView reloadData];
     
+    
+    //Usman: Workaroud (Total Jugar) to show limo type segment proper curve. Couldn't find better and proper solution.
+    double delayInSeconds = 0.05;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_tableView reloadData];
+    });
+    
     [self sendVehicleTypeSelectionAnalytics];
 }
 
@@ -1445,8 +1453,6 @@ didAddAnnotationViews:(NSArray *)annotationViews
             [segmentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[segmantLimoType]-0-|" options:0 metrics:nil views:viewBindings]];
             // put a breakpoint after this line to see the frame of your UIWebView.
             // It should be the same as the view
-            [segmentView layoutIfNeeded];
-            
         }
     }
     else if(indexPath.row == idxBtnCell){
