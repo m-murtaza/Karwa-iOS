@@ -4001,11 +4001,40 @@
                                             <constraint firstItem="GEf-bT-2yS" firstAttribute="centerX" secondItem="0I5-7C-PW4" secondAttribute="centerX" id="zEL-kB-ov2"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1I3-Yo-TD0">
+                                        <rect key="frame" x="484" y="210.5" width="264" height="31"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Booking-details-callerId-Box" translatesAutoresizingMaskIntoConstraints="NO" id="a6o-7S-4qc">
+                                                <rect key="frame" x="0.0" y="0.0" width="264" height="31"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQo-qE-Grt">
+                                                <rect key="frame" x="44" y="5" width="195" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="WQz-Ed-qzx"/>
+                                                    <constraint firstAttribute="width" constant="195" id="y6E-TN-EbD"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="4Xp-nM-jtG"/>
+                                            <constraint firstAttribute="trailing" secondItem="lQo-qE-Grt" secondAttribute="trailing" constant="25" id="65E-Sr-FSe"/>
+                                            <constraint firstAttribute="trailing" secondItem="a6o-7S-4qc" secondAttribute="trailing" id="FOd-dv-gOA"/>
+                                            <constraint firstItem="lQo-qE-Grt" firstAttribute="centerY" secondItem="1I3-Yo-TD0" secondAttribute="centerY" id="PCF-Pz-KTq"/>
+                                            <constraint firstItem="a6o-7S-4qc" firstAttribute="leading" secondItem="1I3-Yo-TD0" secondAttribute="leading" id="WN1-y5-fGZ"/>
+                                            <constraint firstAttribute="width" constant="264" id="fdM-6c-AP2"/>
+                                            <constraint firstAttribute="bottom" secondItem="a6o-7S-4qc" secondAttribute="bottom" id="hkn-lo-VA9"/>
+                                            <constraint firstItem="a6o-7S-4qc" firstAttribute="top" secondItem="1I3-Yo-TD0" secondAttribute="top" id="yPi-qu-lPg"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="D1v-Lh-IPD" secondAttribute="bottom" id="0uv-JF-BF9"/>
                                     <constraint firstAttribute="centerX" secondItem="qNs-Ru-PqO" secondAttribute="centerX" id="1tA-6e-INM"/>
+                                    <constraint firstItem="1I3-Yo-TD0" firstAttribute="bottom" secondItem="qNs-Ru-PqO" secondAttribute="top" constant="-25" id="7ec-8Y-C6K"/>
                                     <constraint firstAttribute="width" secondItem="cE8-WD-Luh" secondAttribute="height" multiplier="400:173" constant="-10.31" id="Bbj-3B-PsL">
                                         <variation key="heightClass=regular-widthClass=compact" constant="-10.31"/>
                                     </constraint>
@@ -4017,8 +4046,19 @@
                                     <constraint firstItem="D1v-Lh-IPD" firstAttribute="leading" secondItem="cE8-WD-Luh" secondAttribute="leading" id="Uvc-v0-KpK"/>
                                     <constraint firstAttribute="trailing" secondItem="D1v-Lh-IPD" secondAttribute="trailing" constant="-1" id="fpP-f5-rA7"/>
                                     <constraint firstItem="0I5-7C-PW4" firstAttribute="leading" secondItem="cE8-WD-Luh" secondAttribute="leading" id="jLa-Ml-xsi"/>
+                                    <constraint firstAttribute="trailing" secondItem="1I3-Yo-TD0" secondAttribute="trailing" constant="20" id="jmE-xP-1c9"/>
                                     <constraint firstAttribute="trailing" secondItem="0I5-7C-PW4" secondAttribute="trailing" id="ywv-Nc-oVm"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="1I3-Yo-TD0"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="subviews">
+                                        <include reference="1I3-Yo-TD0"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p14-Lt-iJP" userLabel="Booking Info View">
                                 <rect key="frame" x="12" y="356.5" width="744" height="162"/>
@@ -4560,6 +4600,7 @@
                         <outlet property="imgStatus" destination="T1W-SP-pJ9" id="1mc-Vh-r72"/>
                         <outlet property="imgTrackTaxiSepLine" destination="ii6-ha-q6b" id="YLF-y1-WV1"/>
                         <outlet property="imgVehicleType" destination="PBZ-uX-cae" id="mYX-BA-LK9"/>
+                        <outlet property="lblCorporateCustPhoneNumber" destination="lQo-qE-Grt" id="YUS-oT-OQy"/>
                         <outlet property="lblDriverName" destination="gtG-F6-2Uu" id="ZZ3-hw-QcH"/>
                         <outlet property="lblDriverNumber" destination="4uG-8Q-6ZJ" id="JEJ-DI-VMQ"/>
                         <outlet property="lblDropoffAddress" destination="TAf-1B-LTS" id="bI3-GZ-xMR"/>
@@ -4572,6 +4613,7 @@
                         <outlet property="lblTaxiNumber" destination="rfE-SO-Pn6" id="ozR-3Z-5C6"/>
                         <outlet property="lblTitleTaxiInfo" destination="Sn6-es-YOx" id="5Ap-bn-JMN"/>
                         <outlet property="revealButtonItem" destination="Zoi-3x-Zo4" id="2mH-qS-fC8"/>
+                        <outlet property="viewCorporateCustPhoneNumber" destination="1I3-Yo-TD0" id="AI4-h0-Nux"/>
                         <outlet property="viewTaxiInfo" destination="yHl-xf-otu" id="nO2-pa-Ctp"/>
                         <outlet property="viewTrackMyTaxi" destination="zNH-ld-eBT" id="BOa-Xe-2D7"/>
                         <segue destination="OFs-9T-1p0" kind="show" identifier="segueBookingDetailsToRate" id="nbB-dK-Gpq"/>
@@ -5270,6 +5312,7 @@
     <resources>
         <image name="Booking-details-arrive-bar" width="374" height="26"/>
         <image name="Booking-details-businesstag" width="112" height="17"/>
+        <image name="Booking-details-callerId-Box" width="264" height="31"/>
         <image name="Booking-details-callicon" width="43" height="43"/>
         <image name="Booking-details-driver-icon" width="28" height="28"/>
         <image name="Booking-details-numberplate" width="109" height="42"/>
