@@ -128,11 +128,18 @@ BtnState;
     [self updateTrackingOption];
     
     [self setCancelBtnStatusForTrip:self.tripInfo];
-    [self setTaxiInfo:self.tripInfo];
+    //[self setTaxiInfo:self.tripInfo];
     
     [KSGoogleAnalytics trackPage:@"Booking Details"];
     
     [self updateStatusOfTaxi];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setTaxiInfo:self.tripInfo];
+    
 }
 
 - (void) setNavigationTitle
@@ -220,6 +227,7 @@ BtnState;
 
 -(void) setTaxiInfo:(KSTrip*)trip
 {
+    //[self.view layoutIfNeeded];
     if (trip.driver == nil) {
         
         [self hideTaxiInfo:trip];
@@ -236,6 +244,12 @@ BtnState;
         taxiNum = [taxiNum substringFromIndex:3];
         self.lblTaxiNumber.text = taxiNum;
         
+        /*for (NSString *familyName in [UIFont familyNames]){
+            NSLog(@"Family name: %@", familyName);
+            for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
+                NSLog(@"--Font name: %@", fontName);
+            }
+        }*/
         
         switch((KSVehicleType)[trip.vehicleType integerValue])
         {

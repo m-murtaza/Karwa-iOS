@@ -282,6 +282,8 @@ static BOOL showMendatoryRating = TRUE;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
+    //NSNumber * num =(NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey];
+    
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
     if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
@@ -400,7 +402,7 @@ static BOOL showMendatoryRating = TRUE;
     
     segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
     segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
-    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:25.0];
     segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
     segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
     segmentVehicleType.backgroundColor = [UIColor whiteColor];
@@ -651,8 +653,8 @@ static BOOL showMendatoryRating = TRUE;
                                        NSString *inputText = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
                                        if([AppUtils isPhoneNumber:inputText])
                                        {
-                                           tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                           [self bookTaxi];
+                                           //tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                           [self bookTaxiForCaller:inputText];
                                        }
                                        else
                                        {
@@ -1091,11 +1093,13 @@ static BOOL showMendatoryRating = TRUE;
 
 #pragma mark - Booking Processs
 
--(void) bookTaxi
+-(void) bookTaxiForCaller:(NSString*)callerId
 {
     tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
                                    lat:self.mapView.centerCoordinate.latitude
                                    lon:self.mapView.centerCoordinate.longitude];
+    
+    tripInfo.callerId = callerId;
     
     if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
         [self resetDropoffHintConter];
@@ -1153,6 +1157,12 @@ static BOOL showMendatoryRating = TRUE;
         }
         
     }];
+    
+}
+
+-(void) bookTaxi
+{
+    [self bookTaxiForCaller:[KSSessionInfo currentSession].phone];
 }
 
 -(void) showSnackBar
@@ -1660,6 +1670,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
     else if([segue.identifier isEqualToString:@"segueBookingToDetail"]) {
         
         KSBookingDetailsController *bookingDetails = (KSBookingDetailsController *) segue.destinationViewController;
+        bookingDetails.navigationItem.leftBarButtonItem = nil;
         bookingDetails.tripInfo = tripInfo;
     }
     else if([segue.identifier isEqualToString:@"segueBookingToRating"])

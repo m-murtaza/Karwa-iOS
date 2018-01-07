@@ -62,7 +62,7 @@
     
     _segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
     _segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
-    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:25.0];
     _segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
     _segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
     _segmentVehicleType.backgroundColor = [UIColor whiteColor];

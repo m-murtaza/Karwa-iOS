@@ -80,7 +80,7 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"KSDeviceToken"];
-    if(token != nil)
+    if(token == nil)
     {
         //Application is not new installation, KSDeviceToken have nothing to do with limocoachmarks, just using it to identify if applicaiton is fresh install(not update) or old one.
         if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
