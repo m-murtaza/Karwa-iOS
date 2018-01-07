@@ -197,7 +197,7 @@
     [self.navigationController pushViewController:detailsController animated:YES];
 //    }
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
     
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];

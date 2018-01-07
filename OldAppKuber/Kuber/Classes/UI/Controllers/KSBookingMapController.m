@@ -672,6 +672,7 @@ static BOOL showMendatoryRating = TRUE;
      {
          txtField.placeholder = @"Passenger Phone Number";
          txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         txtField.keyboardType = UIKeyboardTypePhonePad;
          txtField.delegate = self;
          txtField.tag = TXT_HINT_TAG;
          //txtField.text = hintTxt ? hintTxt : @"";

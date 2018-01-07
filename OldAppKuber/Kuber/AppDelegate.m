@@ -284,32 +284,32 @@
 - (void)applyUICustomizations {
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+
     UINavigationBar *appearance = [UINavigationBar appearance];
-    
+
     UIColor *navBarColor = [self colorWithRed:24.0 green:122.0 blue:137.0];
     [appearance setBarTintColor:navBarColor];
     if(IS_IOS8)
         [appearance setTranslucent:FALSE];
-
-
-    /*NSShadow *shadow = [[NSShadow alloc] init];
-
-    shadow.shadowColor = [UIColor colorWithRed:1 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    */
-    
-    
+//
+//
+//    /*NSShadow *shadow = [[NSShadow alloc] init];
+//
+//    shadow.shadowColor = [UIColor colorWithRed:1 green:0.0 blue:0.0 alpha:0.8];
+//    shadow.shadowOffset = CGSizeMake(0, 1);
+//    */
+//
+//
     UIColor *navTitleColor = [self colorWithRed:245 green:245 blue:245];
     [appearance setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            navTitleColor, NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"MuseoForDell-500" size:21.0], NSFontAttributeName, nil]];
-    
+
     [appearance setTintColor:[UIColor colorFromHexString:@"#21d7d7"]];
     [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
-    }
+//    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+}
 
 #pragma mark - Google Analytics
 -(void) setupGoogleAnalytics
