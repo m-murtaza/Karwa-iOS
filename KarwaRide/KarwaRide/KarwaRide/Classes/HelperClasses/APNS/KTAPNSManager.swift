@@ -35,7 +35,8 @@ class KTAPNSManager: NSObject {
     
     
     func deviceTokenReceived(deviceToken : Data)  {
-        let _ : String = tokenString(deviceToken)
+        KTAppSessionInfo.currentSession.pushToken = tokenString(deviceToken)
+        //let _ : String = tokenString(deviceToken)
     }
     
     func receiveNotification(userInfo: [AnyHashable : Any])

@@ -89,8 +89,16 @@ class KTUserManager: KTDALManager {
         let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
                                             Constants.LoginParams.Password: password]
         
-        params[Constants.LoginParams.DeviceType] = 1
-        params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
+        params[Constants.LoginParams.DeviceType] = Constants.DeviceTypes.iOS
+        if KTUtils.isObjectNotNil(object: KTAppSessionInfo.currentSession.pushToken as AnyObject)
+        {
+            params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
+        }
+        else
+        {
+            params[Constants.LoginParams.DeviceToken] = ""
+        }
+            //params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
         
         KTWebClient.sharedInstance.post(uri: Constants.APIURL.Login, param: params as! [String : Any], completion: { (status, response) in
             if status != true
@@ -115,7 +123,6 @@ class KTUserManager: KTDALManager {
             }
         })
     }
-    
     
     // Mark: - Login User in old Application
     private let appRunBeforeAfterMajorUpdateKey : String = "appRunBeforeAfterMajorUpdate"

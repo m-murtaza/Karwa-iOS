@@ -67,4 +67,11 @@ struct Constants {
         static let Login = "user/login"
         static let GetUserInfo = "user/"
     }
+    
+    struct DeviceTypes {
+        static let iOS = "1"
+        static let Android = "2"
+        static let Unknown = "0"
+        
+    }
 }
