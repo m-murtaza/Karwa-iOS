@@ -118,7 +118,6 @@ class KTUserManager: KTDALManager {
                 else
                 {
                     completionBlock(false,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
-                    
                 }
             }
         })

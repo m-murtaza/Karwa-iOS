@@ -63,9 +63,17 @@ struct Constants {
         static let DeviceToken = "DeviceToken"
     }
     
+    struct SignUpParams {
+        static let Name = "Name"
+        static let Phone = "Phone"
+        static let Email = "Email"
+        static let Password = "Password"
+    }
+    
     struct APIURL {
         static let Login = "user/login"
         static let GetUserInfo = "user/"
+        static let SignUp = "user/"
     }
     
     struct DeviceTypes {
