@@ -398,15 +398,18 @@ BtnState;
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     if([segue.identifier isEqualToString:@"segueBookingDetailsToRate"]){
         KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
         ratingController.trip = self.tripInfo;
-        
+        //ratingController.navigationItem.backBarButtonItem.title = @" ";
         self.isOpenedFromPushNotification ? (ratingController.displaySource = kNotification) : (ratingController.displaySource = kRatingList);
     }
     else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
     {
         KSTrackTaxiController *trackTaxi = (KSTrackTaxiController*) segue.destinationViewController;
+        //trackTaxi.navigationItem.backBarButtonItem.title = @" ";
         //trackTaxi.taxiNo = self.tripInfo.taxi.number;
         //trackTaxi.jobId = self.tripInfo.jobId;
         
