@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -124,7 +125,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                         <connections>
                                             <outlet property="delegate" destination="cQY-xs-9LD" id="2Kn-xx-UE7"/>
                                         </connections>
@@ -134,7 +135,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="cQY-xs-9LD" id="zWK-Nv-ae6"/>
                                         </connections>
@@ -144,7 +145,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="cQY-xs-9LD" id="wTg-Mu-7tM"/>
                                         </connections>
@@ -201,11 +202,55 @@
                         <outlet property="txtMobileNo" destination="AQ3-T8-m79" id="Zf9-uL-goz"/>
                         <outlet property="txtName" destination="0Xl-Bt-XhR" id="MDy-T1-atY"/>
                         <outlet property="txtPassword" destination="mGX-vF-dNn" id="wkT-7Q-m5p"/>
+                        <segue destination="eo2-jb-kjP" kind="show" identifier="segueSignupToOtp" id="OD2-FV-5Rn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6q-tp-29f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2205.5999999999999" y="273.91304347826087"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1I3-Id-U4b">
+            <objects>
+                <viewController id="eo2-jb-kjP" customClass="KTOTPViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XgK-O5-eEi"/>
+                        <viewControllerLayoutGuide type="bottom" id="dq7-xY-DQl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KfG-AU-Jcy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="16" y="104" width="343" height="128"/>
+                                <color key="backgroundColor" red="1" green="0.69062690439999996" blue="0.1612375321" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="DAq-bU-2Ex"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6">
+                                <rect key="frame" x="16" y="254" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Confirm Code"/>
+                                <connections>
+                                    <action selector="btnConfirmCode:" destination="eo2-jb-kjP" eventType="touchUpInside" id="CXs-pS-G9K"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="d91-ed-7cZ" firstAttribute="trailing" secondItem="KfG-AU-Jcy" secondAttribute="trailingMargin" id="31O-zQ-wLc"/>
+                            <constraint firstItem="d91-ed-7cZ" firstAttribute="top" secondItem="XgK-O5-eEi" secondAttribute="bottom" constant="40" id="d9b-gY-vwE"/>
+                            <constraint firstItem="d91-ed-7cZ" firstAttribute="leading" secondItem="KfG-AU-Jcy" secondAttribute="leadingMargin" id="shX-hj-sc8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="otpView" destination="d91-ed-7cZ" id="Vyt-2A-nKN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iWc-R7-K4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3016.8000000000002" y="261.31934032983509"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JFs-6F-Nvu">

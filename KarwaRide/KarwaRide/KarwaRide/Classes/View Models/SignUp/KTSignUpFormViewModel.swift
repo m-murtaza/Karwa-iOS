@@ -14,7 +14,7 @@ protocol KTSignUpViewModelDelegate: KTViewModelDelegate {
     func email() -> String?
     func password() -> String?
     
-    func navigateToBooking()
+    func navigateToOTP()
     func showError(title:String, message:String)
     
 }
@@ -31,6 +31,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
     struct SignUpValidationError {
         let NoName = "Name is mandatory"
         let NoPassword = "Password is mandatory"
+        let PasswordSixChar = "Password should be more then six charecter"
         let NoPhone = "Mobile number is mandatory"
         let WrongPhone = "Please enter valid mobile number"
         let WrongEmail = "Please enter valid email address"
@@ -46,23 +47,55 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         mobileNo = self.delegate?.mobileNo()
         password = self.delegate?.password()
         email = self.delegate?.email()
-        if validate().count > 0
+        let error = validate()
+        
+        if error.count == 0
         {
             KTUserManager.init().signUp(name: name!, mobileNo: mobileNo!, email: email!, password: password!, completion: { (status, response) in
+                if status == true
+                {
+                    self.delegate?.navigateToOTP()
+                }
+                else
+                {
+                    self.delegate?.showError(title: response["T"] as! String, message: response["M"] as! String)
+                }
                 
             })
-            
+        }
+        else
+        {
+            self.delegate?.navigateToOTP()
+            //--delegate?.showError(title: "Error", message: error)
         }
     }
     
     func validate() -> String {
         var error : String = ""
-        if !KTUtils.isObjectNotNil(object: name! as AnyObject) && name!.count == 0
+        if !KTUtils.isObjectNotNil(object: name! as AnyObject) || name!.count == 0
         {
             error = SignUpValidationError.init().NoName
-            
         }
-        
+        else if !KTUtils.isObjectNotNil(object: mobileNo! as AnyObject) || mobileNo!.count == 0
+        {
+            error = SignUpValidationError.init().NoPhone
+        }
+        else if !(mobileNo?.isPhoneNumber)!
+        {
+            error = SignUpValidationError.init().WrongPhone
+        }
+        else if  (email?.isEmail)!
+        {
+            error = SignUpValidationError.init().WrongEmail
+        }
+        else if !KTUtils.isObjectNotNil(object: password as AnyObject) || password?.count == 0
+        {
+            error = SignUpValidationError.init().NoPassword
+        }
+        else if (password?.count)! < 6
+        {
+            error = SignUpValidationError.init().PasswordSixChar
+        }
         return error
     }
 }

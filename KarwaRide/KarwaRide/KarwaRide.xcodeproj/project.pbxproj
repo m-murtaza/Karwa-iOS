@@ -37,6 +37,11 @@
 		18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */; };
 		18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */; };
 		18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACD20037C21002D4B88 /* KTUserManager+SignUp.swift */; };
+		18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACF2004913F002D4B88 /* String+Utils.swift */; };
+		18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AD82004A41F002D4B88 /* VPMOTPView.swift */; };
+		18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AD92004A420002D4B88 /* VPMOTPTextField.swift */; };
+		18C24ADD2004AC19002D4B88 /* KTOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ADC2004AC18002D4B88 /* KTOTPViewController.swift */; };
+		18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ADE2004B031002D4B88 /* KTOTPViewModel.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +83,11 @@
 		18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewController.swift; path = Classes/Views/Controllers/SignUp/KTSignUpFormViewController.swift; sourceTree = "<group>"; };
 		18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewModel.swift; path = "Classes/View Models/SignUp/KTSignUpFormViewModel.swift"; sourceTree = "<group>"; };
 		18C24ACD20037C21002D4B88 /* KTUserManager+SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+SignUp.swift"; path = "Classes/DAL/KTUserManager+SignUp.swift"; sourceTree = "<group>"; };
+		18C24ACF2004913F002D4B88 /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Utils.swift"; path = "Classes/Common/Extensions/String+Utils.swift"; sourceTree = "<group>"; };
+		18C24AD82004A41F002D4B88 /* VPMOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VPMOTPView.swift; path = Classes/ThirdParty/VPMOTPView/VPMOTPView.swift; sourceTree = "<group>"; };
+		18C24AD92004A420002D4B88 /* VPMOTPTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VPMOTPTextField.swift; path = Classes/ThirdParty/VPMOTPView/VPMOTPTextField.swift; sourceTree = "<group>"; };
+		18C24ADC2004AC18002D4B88 /* KTOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOTPViewController.swift; path = Classes/Views/Controllers/SignUp/KTOTPViewController.swift; sourceTree = "<group>"; };
+		18C24ADE2004B031002D4B88 /* KTOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOTPViewModel.swift; path = "Classes/View Models/SignUp/KTOTPViewModel.swift"; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +116,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				18C24AD72004A401002D4B88 /* VPMOTPView */,
 				1810C0C91FC59BB5008E8D91 /* SWRevealViewController */,
 			);
 			name = ThirdParty;
@@ -255,6 +266,7 @@
 		181344B31EF7E058006E734A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				18C24AD120049145002D4B88 /* Extension */,
 				18C24AC2200340B0002D4B88 /* Utility */,
 				1864872C1F0BB01900DDB003 /* CommonBase */,
 				181344B41EF7E060006E734A /* Constants */,
@@ -360,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */,
+				18C24ADC2004AC18002D4B88 /* KTOTPViewController.swift */,
 			);
 			name = SignUp;
 			sourceTree = "<group>";
@@ -368,8 +381,26 @@
 			isa = PBXGroup;
 			children = (
 				18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */,
+				18C24ADE2004B031002D4B88 /* KTOTPViewModel.swift */,
 			);
 			name = SignUp;
+			sourceTree = "<group>";
+		};
+		18C24AD120049145002D4B88 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				18C24ACF2004913F002D4B88 /* String+Utils.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+		18C24AD72004A401002D4B88 /* VPMOTPView */ = {
+			isa = PBXGroup;
+			children = (
+				18C24AD92004A420002D4B88 /* VPMOTPTextField.swift */,
+				18C24AD82004A41F002D4B88 /* VPMOTPView.swift */,
+			);
+			name = VPMOTPView;
 			sourceTree = "<group>";
 		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
@@ -522,18 +553,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C24ADD2004AC19002D4B88 /* KTOTPViewController.swift in Sources */,
 				1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */,
 				1810C0D81FC5AC1B008E8D91 /* KTSideDrawerTableView.swift in Sources */,
 				1810C13B1FCD7FB7008E8D91 /* KTUserManager.swift in Sources */,
 				1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */,
 				181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */,
 				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
+				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
+				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
+				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
+				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
