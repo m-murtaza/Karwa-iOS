@@ -9,11 +9,13 @@
 import UIKit
 
 class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
+    
     var viewModel : KTOTPViewModel!
     
+    @IBOutlet weak var btnConfirmCode: UIButton!
     @IBOutlet weak var otpView: VPMOTPView!
     var otpString : String?
-    
+    var phone : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +23,13 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
         // Do any additional setup after loading the view.
         viewModel = KTOTPViewModel.init(del: self)
         
-        otpView.otpFieldsCount = 4
-        otpView.otpFieldDisplayType = .square
-        otpView.otpFieldDefaultBorderColor = UIColor.lightGray
-        otpView.otpFieldEnteredBorderColor = UIColor.darkGray
-        otpView.otpFieldDefaultBackgroundColor = UIColor.white
-        otpView.otpFieldEnteredBackgroundColor = UIColor.gray
-        otpView.otpFieldBorderWidth = 1
+        //otpView.otpFieldsCount = 4
+        //otpView.otpFieldDisplayType = .square
+//        otpView.otpFieldDefaultBorderColor = UIColor.lightGray
+//        otpView.otpFieldEnteredBorderColor = UIColor.darkGray
+//        otpView.otpFieldDefaultBackgroundColor = UIColor.white
+//        otpView.otpFieldEnteredBackgroundColor = UIColor.gray
+//        otpView.otpFieldBorderWidth = 1
         otpView.delegate = self
         // Create the UI
         otpView.initalizeUI()
@@ -61,6 +63,13 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     func OTPCode() -> String? {
         return otpString
     }
+    func phoneNum() -> String?  {
+        return phone
+    }
+    
+    func navigateToBooking() {
+        self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
+    }
 }
 
 
@@ -71,10 +80,12 @@ extension KTOTPViewController: VPMOTPViewDelegate {
     
     func hasEnteredAllOTP(hasEntered: Bool) {
         print("Has entered all OTP? \(hasEntered)")
+        btnConfirmCode.isEnabled = hasEntered
     }
     
-    func enteredOTP(otp: String) {
-        print("OTPString: \(otpString)")
+    func enteredOTP(otpString otp: String) {
+        print("OTPString: \(String(describing: otpString))")
+    
         otpString = otp
         
     }

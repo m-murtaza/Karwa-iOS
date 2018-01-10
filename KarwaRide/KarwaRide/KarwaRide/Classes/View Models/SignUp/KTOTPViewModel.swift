@@ -10,12 +10,16 @@ import UIKit
 
 protocol KTOTPViewModelDelegate: KTViewModelDelegate {
     func OTPCode() -> String?
+    func phoneNum() -> String?
     
+    func navigateToBooking()
 }
 
 class KTOTPViewModel: KTBaseViewModel {
     
     weak var delegate: KTOTPViewModelDelegate?
+    
+    
     
     init(del: Any) {
         super.init()
@@ -23,12 +27,22 @@ class KTOTPViewModel: KTBaseViewModel {
     }
     
     func confirmCode() -> Void {
-        let otp : String = (self.delegate?.OTPCode())!
-        if !KTUtils.isObjectNotNil(object: otp as AnyObject)
+        let otp : String? = (self.delegate?.OTPCode())!
+        let phone : String = (self.delegate?.phoneNum())!
+        if KTUtils.isObjectNotNil(object: otp as AnyObject)
         {
-            
+            KTUserManager.init().VarifyOTP(phone: phone, code: otp!
+                , completion: { (status, completion) in
+                    
+                    if status == true
+                    {
+                        print("Success")
+                    }
+                    else
+                    {
+                        print("fail")
+                    }
+            })
         }
-        
-        
     }
 }

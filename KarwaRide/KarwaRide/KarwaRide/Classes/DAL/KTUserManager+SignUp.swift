@@ -22,9 +22,24 @@ extension KTUserManager
             }
             else
             {
-                NSLog("Success")
-                
+                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.Success
+                {
+                    completionBlock(true, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
+           
+                }
+                else
+                {
+                    completionBlock(false,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                }
             }
         }
     }
+    
+    func VarifyOTP(phone:String,code:String,completion completionBlock:@escaping KTResponseCompletionBlock) -> Void {
+        let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
+                                            Constants.LoginParams.OTP:code ]
+        self.login(params: params,url:Constants.APIURL.Otp, completion: completionBlock)
+        
+        }
+    
 }

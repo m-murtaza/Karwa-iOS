@@ -14,6 +14,8 @@ import UIKit
     @objc optional func modelDidLoad()
     
     @objc optional func modelFailedToLoadWithError(_ error: Error?)
+    
+    @objc optional func showError(title:String, message:String)
 }
 
 class KTBaseViewModel: NSObject {

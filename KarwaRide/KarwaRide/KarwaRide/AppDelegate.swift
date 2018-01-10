@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
         
+        updateUIAppreance()
+        
         return true
     }
 
@@ -57,7 +59,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-// MARK: APPLE PUSH NOTIFICATION
+    
+    // MARK: UI Appreance
+    private func updateUIAppreance ()
+    {
+        //printFonts()
+        let appearance : UINavigationBar = UINavigationBar.appearance()
+        
+        appearance.barTintColor = UIColor(hexString:"#E5F5F2")
+        //UIBarButtonItem.appearance().tintColor = UIColor.purple
+        appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
+        NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
+        
+        let backImage = UIImage(named: "BackButton");
+        appearance.backIndicatorImage = backImage
+        appearance.backIndicatorTransitionMaskImage = backImage
+    }
+    
+    func printFonts() {
+        let fontFamilyNames = UIFont.familyNames
+        for familyName in fontFamilyNames {
+            print("------------------------------")
+            print("Font Family Name = [\(familyName)]")
+            let names = UIFont.fontNames(forFamilyName: familyName )
+            print("Font Names = [\(names)]")
+        }
+    }
+    
+    // MARK: APPLE PUSH NOTIFICATION
     private let apnsManager : KTAPNSManager = KTAPNSManager.init()
     
     func registerForPushNotifications() {

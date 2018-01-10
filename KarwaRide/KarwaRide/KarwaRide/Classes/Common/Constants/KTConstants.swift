@@ -61,6 +61,7 @@ struct Constants {
         static let Password = "Password"
         static let DeviceType = "DeviceType"
         static let DeviceToken = "DeviceToken"
+        static let OTP = "Otp"
     }
     
     struct SignUpParams {
@@ -74,6 +75,7 @@ struct Constants {
         static let Login = "user/login"
         static let GetUserInfo = "user/"
         static let SignUp = "user/"
+        static let Otp = "user/otp"
     }
     
     struct DeviceTypes {

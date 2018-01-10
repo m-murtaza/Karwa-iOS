@@ -12,9 +12,7 @@ protocol KTLoginViewModelDelegate: KTViewModelDelegate {
     func phoneNumber() -> String
     func password() -> String
     
-    func navigateToBooking()
-    func showError(title:String, message:String)
-    
+    func navigateToBooking()    
 }
 
 class KTLoginViewModel: KTBaseViewModel {
@@ -39,7 +37,7 @@ class KTLoginViewModel: KTBaseViewModel {
             }
             else
             {
-                self.delegate?.showError(title: response["T"] as! String, message: response["M"] as! String)
+                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
             }
         }
     }

@@ -57,6 +57,9 @@ class KTUserManager: KTDALManager {
     
     func isUserLogin(completion:@escaping (Bool) -> Void)
     {
+        completion(false)
+        return
+            //-- Remove above two lines.
         
         if runFirstTimeAfterMajorUpdate() {
             //Is running first time after Major Update
@@ -83,11 +86,7 @@ class KTUserManager: KTDALManager {
         completion(true)
         
     }
-    
-    func login(phone: String, password: String,completion completionBlock:@escaping KTResponseCompletionBlock)
-    {
-        let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
-                                            Constants.LoginParams.Password: password]
+    func login(params : NSMutableDictionary,url : String?,completion completionBlock: @escaping KTResponseCompletionBlock)  {
         
         params[Constants.LoginParams.DeviceType] = Constants.DeviceTypes.iOS
         if KTUtils.isObjectNotNil(object: KTAppSessionInfo.currentSession.pushToken as AnyObject)
@@ -98,9 +97,9 @@ class KTUserManager: KTDALManager {
         {
             params[Constants.LoginParams.DeviceToken] = ""
         }
-            //params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
+        //params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
         
-        KTWebClient.sharedInstance.post(uri: Constants.APIURL.Login, param: params as! [String : Any], completion: { (status, response) in
+        KTWebClient.sharedInstance.post(uri: url!, param: params as! [String : Any], completion: { (status, response) in
             if status != true
             {
                 
@@ -121,6 +120,16 @@ class KTUserManager: KTDALManager {
                 }
             }
         })
+    }
+    
+    
+    func login(phone: String, password: String,completion completionBlock:@escaping KTResponseCompletionBlock)
+    {
+        let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
+                                            Constants.LoginParams.Password: password]
+        
+        self.login(params: params,url: Constants.APIURL.Login, completion: completionBlock)
+        
     }
     
     // Mark: - Login User in old Application

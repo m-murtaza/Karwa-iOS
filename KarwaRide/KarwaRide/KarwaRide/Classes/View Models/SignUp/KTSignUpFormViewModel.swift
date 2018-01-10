@@ -15,8 +15,6 @@ protocol KTSignUpViewModelDelegate: KTViewModelDelegate {
     func password() -> String?
     
     func navigateToOTP()
-    func showError(title:String, message:String)
-    
 }
 
 class KTSignUpFormViewModel: KTBaseViewModel {
@@ -58,7 +56,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
                 }
                 else
                 {
-                    self.delegate?.showError(title: response["T"] as! String, message: response["M"] as! String)
+                    self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
                 }
                 
             })
@@ -66,7 +64,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         else
         {
             self.delegate?.navigateToOTP()
-            //--delegate?.showError(title: "Error", message: error)
+            //--delegate?.showError!(title: "Error", message: error)
         }
     }
     

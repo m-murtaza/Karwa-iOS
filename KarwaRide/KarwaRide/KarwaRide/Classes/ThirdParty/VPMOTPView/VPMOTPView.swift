@@ -66,7 +66,7 @@ class VPMOTPView: UIView {
     }
     
     /// Define the display type for OTP fields. Defaults to `circular`.
-    var otpFieldDisplayType: DisplayType = .circular
+    var otpFieldDisplayType: DisplayType = .square
     
     /// Defines the number of OTP field needed. Defaults to 4.
     var otpFieldsCount: Int = 4
@@ -96,22 +96,22 @@ class VPMOTPView: UIView {
     var otpFieldSeparatorSpace: CGFloat = 16
     
     /// Border width to be used, if border is needed. Defaults to `2`.
-    var otpFieldBorderWidth: CGFloat = 2
+    var otpFieldBorderWidth: CGFloat = 1
     
     /// If set, then editing can be done to intermediate fields even though previous fields are empty. Else editing will take place from last filled text field only. Defaults to `true`.
     var shouldAllowIntermediateEditing: Bool = true
     
     /// Set this value if a background color is needed when a text is not enetered in the OTP field. Defaults to `clear` color.
-    var otpFieldDefaultBackgroundColor: UIColor = UIColor.lightGray
+    var otpFieldDefaultBackgroundColor: UIColor = UIColor(hexString: "#FFFFFF")
     
     /// Set this value if a background color is needed when a text is enetered in the OTP field. Defaults to `clear` color.
-    var otpFieldEnteredBackgroundColor: UIColor = UIColor.lightGray
+    var otpFieldEnteredBackgroundColor: UIColor = UIColor(hexString: "#CFD0D1")
     
     /// Set this value if a border color is needed when a text is not enetered in the OTP field. Defaults to `black` color.
-    var otpFieldDefaultBorderColor: UIColor = UIColor.black
+    var otpFieldDefaultBorderColor: UIColor = UIColor(hexString: "#B0B0B0")
     
     /// Set this value if a border color is needed when a text is enetered in the OTP field. Defaults to `black` color.
-    var otpFieldEnteredBorderColor: UIColor = UIColor.black
+    var otpFieldEnteredBorderColor: UIColor = UIColor(hexString:"#F5F6F7")
     
     weak var delegate: VPMOTPViewDelegate?
     
