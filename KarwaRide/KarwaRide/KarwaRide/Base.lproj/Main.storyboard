@@ -27,28 +27,66 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-Ly-soI">
-                                <rect key="frame" x="16" y="318" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="IsY-nq-8bd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvX-Kf-bc5">
-                                <rect key="frame" x="16" y="403" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Signup"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuBG" translatesAutoresizingMaskIntoConstraints="NO" id="mxy-PE-Iiv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvX-Kf-bc5">
+                                <rect key="frame" x="26" y="449" width="323" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="323" id="CDt-3H-hmm"/>
+                                    <constraint firstAttribute="height" constant="80" id="z2s-V8-THA"/>
+                                </constraints>
+                                <state key="normal" image="CreateAnAccount"/>
                                 <connections>
                                     <segue destination="cQY-xs-9LD" kind="show" id="Otx-q2-Oud"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-ay-ZX6">
+                                <rect key="frame" x="134.5" y="58" width="105" height="108"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="108" id="TiV-lg-Obm"/>
+                                    <constraint firstAttribute="width" constant="105" id="gwm-e7-LI7"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="XjH-Iy-HXy">
+                                <rect key="frame" x="107" y="174" width="160" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="4Lp-Gr-ERi"/>
+                                    <constraint firstAttribute="width" constant="160" id="hHz-Nr-Swe"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-Ly-soI">
+                                <rect key="frame" x="37" y="529" width="300" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="UqQ-8u-fap"/>
+                                    <constraint firstAttribute="width" constant="300" id="kSy-Vd-v2O"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                <state key="normal" title="Already have an account?"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="IsY-nq-8bd"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vDV-Ly-soI" firstAttribute="top" secondItem="lvX-Kf-bc5" secondAttribute="bottom" id="4QJ-h5-jqW"/>
+                            <constraint firstAttribute="trailing" secondItem="mxy-PE-Iiv" secondAttribute="trailing" id="6Qc-yg-0G7"/>
+                            <constraint firstAttribute="bottom" secondItem="mxy-PE-Iiv" secondAttribute="bottom" id="MQY-ze-ppC"/>
+                            <constraint firstItem="wFI-ay-ZX6" firstAttribute="centerX" secondItem="qn8-Nh-TlO" secondAttribute="centerX" id="UsH-ew-gb1"/>
+                            <constraint firstItem="wFI-ay-ZX6" firstAttribute="top" secondItem="Ltq-BC-XWV" secondAttribute="bottom" constant="38" id="WVj-DK-o2K"/>
+                            <constraint firstItem="lvX-Kf-bc5" firstAttribute="top" secondItem="XjH-Iy-HXy" secondAttribute="bottom" constant="230" id="awj-xF-70c"/>
+                            <constraint firstItem="XjH-Iy-HXy" firstAttribute="centerX" secondItem="qn8-Nh-TlO" secondAttribute="centerX" id="bX0-80-FZI"/>
+                            <constraint firstItem="mxy-PE-Iiv" firstAttribute="top" secondItem="qn8-Nh-TlO" secondAttribute="top" id="gF6-O1-2CL"/>
+                            <constraint firstItem="lvX-Kf-bc5" firstAttribute="centerX" secondItem="qn8-Nh-TlO" secondAttribute="centerX" id="gw7-AP-1Bm"/>
+                            <constraint firstItem="XjH-Iy-HXy" firstAttribute="top" secondItem="wFI-ay-ZX6" secondAttribute="bottom" constant="8" id="jVK-Iu-DaE"/>
+                            <constraint firstItem="vDV-Ly-soI" firstAttribute="centerX" secondItem="qn8-Nh-TlO" secondAttribute="centerX" id="lLo-0k-c8A"/>
+                            <constraint firstItem="mxy-PE-Iiv" firstAttribute="leading" secondItem="qn8-Nh-TlO" secondAttribute="leading" id="luV-03-SfF"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="la2-Rb-Bla">
                         <barButtonItem key="backBarButtonItem" title=" " id="pK0-dd-bV4"/>
                     </navigationItem>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="L23-ue-kpU" kind="show" identifier="segueMainToBooking" id="A9o-xm-kbF"/>
                     </connections>
@@ -234,20 +272,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="16" y="174" width="343" height="80"/>
+                                <rect key="frame" x="16" y="130" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8zJ-pj-Rtr"/>
                                     <constraint firstAttribute="width" constant="343" id="JUb-GW-Tvd"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification code has been sent to your mobile number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l">
-                                <rect key="frame" x="16" y="81" width="343" height="38.5"/>
+                                <rect key="frame" x="16" y="37" width="343" height="38.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="41" y="328" width="293" height="51"/>
+                                <rect key="frame" x="41" y="284" width="293" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
@@ -262,7 +300,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39w-hz-ala">
-                                <rect key="frame" x="57" y="262" width="240" height="46"/>
+                                <rect key="frame" x="57" y="218" width="240" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="didn't get?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-OC-hX7">
                                         <rect key="frame" x="8" y="13" width="127" height="21"/>
@@ -283,7 +321,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN">
-                                <rect key="frame" x="113" y="134.5" width="149" height="19.5"/>
+                                <rect key="frame" x="113" y="90.5" width="149" height="19.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -321,7 +359,8 @@
         <!--Navigation Controller-->
         <scene sceneID="JFs-6F-Nvu">
             <objects>
-                <navigationController toolbarHidden="NO" id="GiH-tG-C4s" sceneMemberID="viewController">
+                <navigationController id="GiH-tG-C4s" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R6E-Gl-Kab">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -499,6 +538,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CreateAnAccount" width="323" height="80"/>
+        <image name="KarwaLogoWithText" width="160" height="45"/>
+        <image name="MainMenuBG" width="375" height="667"/>
+        <image name="MainMenuKarwalogo" width="105" height="108"/>
         <image name="SummitButton" width="293" height="51"/>
     </resources>
     <inferredMetricsTieBreakers>
