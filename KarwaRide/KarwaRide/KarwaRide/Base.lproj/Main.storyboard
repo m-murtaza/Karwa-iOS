@@ -246,13 +246,17 @@
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6">
-                                <rect key="frame" x="26.5" y="328" width="323" height="80"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="41" y="328" width="293" height="51"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="323" id="aTw-lE-5Gd"/>
-                                    <constraint firstAttribute="height" constant="80" id="yFW-Fj-UgP"/>
+                                    <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
+                                    <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
                                 </constraints>
-                                <state key="normal" title="Confirm Code" image="ConfirmCode"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                <state key="normal" title="CONFIRM CODE" backgroundImage="SummitButton"/>
+                                <state key="disabled" backgroundImage="SummitButton">
+                                    <color key="titleColor" red="0.7843137255" green="0.78823529410000004" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="btnConfirmCode:" destination="eo2-jb-kjP" eventType="touchUpInside" id="CXs-pS-G9K"/>
                                 </connections>
@@ -495,7 +499,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ConfirmCode" width="323" height="80"/>
+        <image name="SummitButton" width="293" height="51"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Ph-lk-0dd"/>

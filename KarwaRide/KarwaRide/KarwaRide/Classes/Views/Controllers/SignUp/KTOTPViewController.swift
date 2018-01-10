@@ -12,7 +12,7 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     
     var viewModel : KTOTPViewModel!
     
-    @IBOutlet weak var btnConfirmCode: UIButton!
+    @IBOutlet weak var btnConfirmCode: ButtonWithShadow!
     @IBOutlet weak var otpView: VPMOTPView!
     var otpString : String?
     var phone : String = ""
@@ -81,6 +81,8 @@ extension KTOTPViewController: VPMOTPViewDelegate {
     func hasEnteredAllOTP(hasEntered: Bool) {
         print("Has entered all OTP? \(hasEntered)")
         btnConfirmCode.isEnabled = hasEntered
+        //btnConfirmCode.updateLayerProperties()
+        btnConfirmCode.layoutIfNeeded()
     }
     
     func enteredOTP(otpString otp: String) {

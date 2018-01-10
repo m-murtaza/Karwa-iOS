@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appearance : UINavigationBar = UINavigationBar.appearance()
         
         appearance.barTintColor = UIColor(hexString:"#E5F5F2")
-        //UIBarButtonItem.appearance().tintColor = UIColor.purple
+        UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
         appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
         NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
         
