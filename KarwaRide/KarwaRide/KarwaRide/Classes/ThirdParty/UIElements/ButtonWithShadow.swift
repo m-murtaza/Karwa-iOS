@@ -7,11 +7,11 @@
 //
 
 import UIKit
-
-class ButtonWithShadow: UIButton {
+@IBDesignable
+open class ButtonWithShadow: UIButton {
     
     let spacing: CGFloat = 0.69
-    override func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         updateLayerProperties()
     }
     

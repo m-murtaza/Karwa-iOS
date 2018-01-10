@@ -53,7 +53,8 @@
 		18C24B0A2004E26A002D4B88 /* MuseoSans-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18C24B002004E269002D4B88 /* MuseoSans-900.otf */; };
 		18C24B0B2004E26A002D4B88 /* MuseoSans-900Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18C24B012004E269002D4B88 /* MuseoSans-900Italic.otf */; };
 		18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */; };
-		18C24B132005F226002D4B88 /* ButtonWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B122005F226002D4B88 /* ButtonWithShadow.swift */; };
+		18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1520061890002D4B88 /* ButtonWithShadow.swift */; };
+		18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +112,8 @@
 		18C24B002004E269002D4B88 /* MuseoSans-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-900.otf"; sourceTree = "<group>"; };
 		18C24B012004E269002D4B88 /* MuseoSans-900Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MuseoSans-900Italic.otf"; sourceTree = "<group>"; };
 		18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Utils.swift"; path = "Classes/Common/Extensions/UIColor+Utils.swift"; sourceTree = "<group>"; };
-		18C24B122005F226002D4B88 /* ButtonWithShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonWithShadow.swift; path = Classes/ThirdParty/ShadowButton/ButtonWithShadow.swift; sourceTree = "<group>"; };
+		18C24B1520061890002D4B88 /* ButtonWithShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonWithShadow.swift; path = Classes/ThirdParty/UIElements/ButtonWithShadow.swift; sourceTree = "<group>"; };
+		18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewWithRoundCorner.swift; path = Classes/ThirdParty/UIElements/ViewWithRoundCorner.swift; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +142,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				18C24B0E2005EDBE002D4B88 /* ShadowButton */,
+				18C24B0E2005EDBE002D4B88 /* UIElements */,
 				18C24AD72004A401002D4B88 /* VPMOTPView */,
 				1810C0C91FC59BB5008E8D91 /* SWRevealViewController */,
 			);
@@ -464,12 +466,13 @@
 			path = "Resources/Fonts/Museo-Sans";
 			sourceTree = "<group>";
 		};
-		18C24B0E2005EDBE002D4B88 /* ShadowButton */ = {
+		18C24B0E2005EDBE002D4B88 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
-				18C24B122005F226002D4B88 /* ButtonWithShadow.swift */,
+				18C24B1520061890002D4B88 /* ButtonWithShadow.swift */,
+				18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */,
 			);
-			name = ShadowButton;
+			name = UIElements;
 			sourceTree = "<group>";
 		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
@@ -639,7 +642,7 @@
 				1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */,
 				181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */,
 				18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */,
-				18C24B132005F226002D4B88 /* ButtonWithShadow.swift in Sources */,
+				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
 				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
@@ -661,6 +664,7 @@
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
+				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
