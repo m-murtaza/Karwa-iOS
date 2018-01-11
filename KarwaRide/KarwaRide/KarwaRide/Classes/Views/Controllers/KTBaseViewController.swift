@@ -24,6 +24,14 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     }
     
 
+    func showError(title:String, message:String)
+    {
+        let altError = UIAlertController(title: title,message: message,preferredStyle:UIAlertControllerStyle.alert)
+        
+        altError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil ))
+        self.present(altError,animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

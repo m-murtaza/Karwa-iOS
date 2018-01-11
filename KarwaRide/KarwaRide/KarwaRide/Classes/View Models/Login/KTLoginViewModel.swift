@@ -12,7 +12,8 @@ protocol KTLoginViewModelDelegate: KTViewModelDelegate {
     func phoneNumber() -> String
     func password() -> String
     
-    func navigateToBooking()    
+    func navigateToBooking()
+    func navigateToOTP()
 }
 
 class KTLoginViewModel: KTBaseViewModel {
@@ -31,9 +32,13 @@ class KTLoginViewModel: KTBaseViewModel {
         
         //delegate.model
         KTUserManager.init().login(phone: phone, password:password ) { (status, response) in
-            if status == true
+            if status == Constants.APIResponseStatus.SUCCESS
             {
                 self.delegate?.navigateToBooking()
+            }
+            else if(status == Constants.APIResponseStatus.INACTIVE)
+            {
+                self.delegate?.navigateToOTP()
             }
             else
             {

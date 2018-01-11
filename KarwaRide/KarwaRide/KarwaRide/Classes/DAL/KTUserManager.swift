@@ -86,7 +86,7 @@ class KTUserManager: KTDALManager {
         completion(true)
         
     }
-    func login(params : NSMutableDictionary,url : String?,completion completionBlock: @escaping KTResponseCompletionBlock)  {
+    func login(params : NSMutableDictionary,url : String?,completion completionBlock: @escaping KTDALCompletionBlock)  {
         
         params[Constants.LoginParams.DeviceType] = Constants.DeviceTypes.iOS
         if KTUtils.isObjectNotNil(object: KTAppSessionInfo.currentSession.pushToken as AnyObject)
@@ -103,27 +103,26 @@ class KTUserManager: KTDALManager {
             if status != true
             {
                 
-                completionBlock(status,response)
+                completionBlock(Constants.APIResponseStatus.FAILED,response)
             }
             else
             {
-                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.Success
+                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
                 {
                     
                     self.saveUserInfoInDB(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any],completion: {(success:Bool) -> Void in
-                        completionBlock(true, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
+                        completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
                     })
                 }
                 else
                 {
-                    completionBlock(false,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
                 }
             }
         })
     }
     
-    
-    func login(phone: String, password: String,completion completionBlock:@escaping KTResponseCompletionBlock)
+    func login(phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
     {
         let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
                                             Constants.LoginParams.Password: password]
@@ -180,7 +179,7 @@ class KTUserManager: KTDALManager {
             }
             else
             {
-                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.Success
+                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
                 {
                     
                     self.saveUserInfoInDB(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any],completion: completion)

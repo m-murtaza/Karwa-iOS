@@ -50,7 +50,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         if error.count == 0
         {
             KTUserManager.init().signUp(name: name!, mobileNo: mobileNo!, email: email!, password: password!, completion: { (status, response) in
-                if status == true
+                if status == Constants.APIResponseStatus.SUCCESS
                 {
                     self.delegate?.navigateToOTP()
                 }
@@ -58,13 +58,12 @@ class KTSignUpFormViewModel: KTBaseViewModel {
                 {
                     self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
                 }
-                
             })
         }
         else
         {
-            self.delegate?.navigateToOTP()
-            //--delegate?.showError!(title: "Error", message: error)
+            //self.delegate?.navigateToOTP()
+            delegate?.showError!(title: "Error", message: error)
         }
     }
     

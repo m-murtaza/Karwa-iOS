@@ -76,14 +76,10 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
     func navigateToBooking()
     {
         self.performSegue(withIdentifier: "segueLoginToBooking", sender: self)
-        
     }
-    func showError(title:String, message:String)
-    {
-        let altError = UIAlertController(title: title,message: message,preferredStyle:UIAlertControllerStyle.alert)
-        
-        altError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil ))
-        self.present(altError,animated: true, completion: nil)
+    func navigateToOTP() {
+        self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
     }
+    
     
 }

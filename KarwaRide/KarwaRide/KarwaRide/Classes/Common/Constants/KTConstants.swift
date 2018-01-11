@@ -14,6 +14,7 @@
 //}
 
 typealias KTResponseCompletionBlock = (_ success: Bool, _ response: [AnyHashable: Any]) -> Void
+typealias KTDALCompletionBlock = (_ success: String, _ response: [AnyHashable: Any]) -> Void
 
 
 struct Constants {
@@ -31,7 +32,20 @@ struct Constants {
     }
     
     struct APIResponseStatus {
-        static let Success = "SUCCESS"
+        static let SUCCESS = "SUCCESS"
+        static let UNKNOWN = "UNKNOWN";
+        static let FAILED = "FAILED";
+        static let ALREADY_EXIST = "ALREADY_EXIST";
+        static let NOT_FOUND = "NOT_FOUND";
+        static let INVALID = "INVALID";
+        static let EXCEPTION = "EXCEPTION";
+        static let INACTIVE = "INACTIVE";
+        static let UNASSIGNED = "UNASSIGNED";
+        static let TIMEOUT = "TIMEOUT";
+        static let REJECTED = "REJECTED";
+        static let PENDING_IMPLEMENTATION = "PENDING_IMPLEMENTATION";
+        static let SUSPENDED = "SUSPENDED";
+        static let NO_UPDATE = "NO_UPDATE";
     }
     
     struct LoginResponseAPIKey {

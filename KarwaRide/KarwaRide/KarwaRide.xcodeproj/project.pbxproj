@@ -32,7 +32,6 @@
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
 		1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872D1F0BB04500DDB003 /* KTBase.swift */; };
 		186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KTDALManager.swift */; };
-		186487321F0BB11800DDB003 /* KTDALManager+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487311F0BB11800DDB003 /* KTDALManager+Login.swift */; };
 		18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC5200340F3002D4B88 /* KTUtils.swift */; };
 		18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */; };
 		18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */; };
@@ -91,7 +90,6 @@
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
 		1864872D1F0BB04500DDB003 /* KTBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBase.swift; path = Classes/Common/CommonBase/KTBase.swift; sourceTree = "<group>"; };
 		1864872F1F0BB06800DDB003 /* KTDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTDALManager.swift; path = Classes/DAL/KTDALManager.swift; sourceTree = "<group>"; };
-		186487311F0BB11800DDB003 /* KTDALManager+Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTDALManager+Login.swift"; path = "Classes/DAL/KTDALManager+Login.swift"; sourceTree = "<group>"; };
 		18C24AC5200340F3002D4B88 /* KTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTUtils.swift; path = Classes/Common/Utility/KTUtils.swift; sourceTree = "<group>"; };
 		18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewController.swift; path = Classes/Views/Controllers/SignUp/KTSignUpFormViewController.swift; sourceTree = "<group>"; };
 		18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewModel.swift; path = "Classes/View Models/SignUp/KTSignUpFormViewModel.swift"; sourceTree = "<group>"; };
@@ -375,7 +373,6 @@
 				1810C13A1FCD7FB7008E8D91 /* KTUserManager.swift */,
 				18C24ACD20037C21002D4B88 /* KTUserManager+SignUp.swift */,
 				1864872F1F0BB06800DDB003 /* KTDALManager.swift */,
-				186487311F0BB11800DDB003 /* KTDALManager+Login.swift */,
 			);
 			name = DAL;
 			sourceTree = "<group>";
@@ -659,7 +656,6 @@
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
-				186487321F0BB11800DDB003 /* KTDALManager+Login.swift in Sources */,
 				18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,

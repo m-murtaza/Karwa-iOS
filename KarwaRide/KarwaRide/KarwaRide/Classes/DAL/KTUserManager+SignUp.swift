@@ -9,7 +9,7 @@
 extension KTUserManager
 {
     
-    func signUp(name: String, mobileNo:String,email:String,password:String,completion completionBlock:@escaping KTResponseCompletionBlock) -> Void {
+    func signUp(name: String, mobileNo:String,email:String,password:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         let param : NSMutableDictionary = [Constants.SignUpParams.Name : name,
                                            Constants.SignUpParams.Phone : mobileNo,
                                            Constants.SignUpParams.Email : email,
@@ -18,24 +18,23 @@ extension KTUserManager
             if status != true
             {
                 
-                completionBlock(status,response)
+                completionBlock(Constants.APIResponseStatus.FAILED,response)
             }
             else
             {
-                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.Success
+                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
                 {
-                    completionBlock(true, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
-           
+                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
                 }
                 else
                 {
-                    completionBlock(false,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
                 }
             }
         }
     }
     
-    func VarifyOTP(phone:String,code:String,completion completionBlock:@escaping KTResponseCompletionBlock) -> Void {
+    func VarifyOTP(phone:String,code:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
                                             Constants.LoginParams.OTP:code ]
         self.login(params: params,url:Constants.APIURL.Otp, completion: completionBlock)

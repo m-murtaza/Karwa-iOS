@@ -32,15 +32,15 @@ class KTOTPViewModel: KTBaseViewModel {
         if KTUtils.isObjectNotNil(object: otp as AnyObject)
         {
             KTUserManager.init().VarifyOTP(phone: phone, code: otp!
-                , completion: { (status, completion) in
+                , completion: { (status, response) in
                     
-                    if status == true
+                    if status == Constants.APIResponseStatus.SUCCESS
                     {
-                        print("Success")
+                        self.delegate?.navigateToBooking()
                     }
                     else
                     {
-                        print("fail")
+                        self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
                     }
             })
         }
