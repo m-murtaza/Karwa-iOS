@@ -132,7 +132,7 @@
                                 <rect key="frame" x="40" y="196" width="295" height="102"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vc5-gB-qdI">
-                                        <rect key="frame" x="20" y="61" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="60" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -148,7 +148,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="50569963" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-zq-thV">
-                                        <rect key="frame" x="20" y="20" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="20" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -204,6 +204,9 @@
                                 <state key="normal" title="Forgot password?">
                                     <color key="titleColor" red="0.47450980392156861" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="C3v-6E-eFB" kind="show" identifier="segueLoginToForgotPass" id="Fwc-Ed-VuC"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jw5-Sy-Exe">
                                 <rect key="frame" x="40" y="453" width="295" height="31"/>
@@ -279,7 +282,7 @@
                                 <rect key="frame" x="40" y="40" width="295" height="202"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Xl-Bt-XhR">
-                                        <rect key="frame" x="20" y="15" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="14.5" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -288,7 +291,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AQ3-T8-m79">
-                                        <rect key="frame" x="20" y="65.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="65" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -297,7 +300,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-cn-IYH">
-                                        <rect key="frame" x="20" y="116" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="115.5" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
@@ -306,7 +309,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mGX-vF-dNn">
-                                        <rect key="frame" x="20" y="166.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="166" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -439,6 +442,162 @@
             </objects>
             <point key="canvasLocation" x="2277.5999999999999" y="291.90404797601201"/>
         </scene>
+        <!--Forgot Your Password-->
+        <scene sceneID="HEs-ut-tSI">
+            <objects>
+                <viewController title="Forgot Your Password" id="C3v-6E-eFB" customClass="KTForgotPassViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oq4-Lg-4bP"/>
+                        <viewControllerLayoutGuide type="bottom" id="bNd-dB-3Za"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Om-CZ-sBB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-YY-NES">
+                                <rect key="frame" x="40" y="104" width="295" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="CHS-XD-lVb"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="No Worries!">
+                                        <attributes>
+                                            <color key="NSColor" red="0.38039215686274508" green="0.37647058823529411" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="14" name="MicrosoftSansSerif"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="MicrosoftSansSerif"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="enter your details blow, and you will get your account back ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="14" name="MicrosoftSansSerif"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oaI-B6-vX2" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="40" y="157" width="295" height="150"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih5-Tj-ObB">
+                                        <rect key="frame" x="20" y="14" width="255" height="22"/>
+                                        <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="cQY-xs-9LD" id="IXy-PM-9yv"/>
+                                        </connections>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB4-bw-ffx">
+                                        <rect key="frame" x="0.0" y="49.5" width="295" height="1"/>
+                                        <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="DUG-mK-Z4C"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-WY-89p">
+                                        <rect key="frame" x="0.0" y="99.5" width="295" height="1"/>
+                                        <color key="backgroundColor" red="0.81176470590000005" green="0.81176470590000005" blue="0.81176470590000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="671-nI-Jcp"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYH-hK-gaq">
+                                        <rect key="frame" x="20" y="114" width="255" height="22"/>
+                                        <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="cQY-xs-9LD" id="nh8-Lz-ZVL"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ce2-eZ-A8z">
+                                        <rect key="frame" x="20" y="64" width="255" height="22"/>
+                                        <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="cQY-xs-9LD" id="5hi-Ra-NKB"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="ce2-eZ-A8z" firstAttribute="centerY" secondItem="oaI-B6-vX2" secondAttribute="centerY" id="3Bk-Eh-f7k"/>
+                                    <constraint firstItem="WB4-bw-ffx" firstAttribute="leading" secondItem="oaI-B6-vX2" secondAttribute="leading" id="5yZ-AY-HR1"/>
+                                    <constraint firstItem="wYH-hK-gaq" firstAttribute="trailing" secondItem="ce2-eZ-A8z" secondAttribute="trailing" id="FLc-dF-IwA"/>
+                                    <constraint firstItem="ce2-eZ-A8z" firstAttribute="leading" secondItem="ih5-Tj-ObB" secondAttribute="leading" id="IJQ-Yu-vQo"/>
+                                    <constraint firstItem="f4f-WY-89p" firstAttribute="leading" secondItem="oaI-B6-vX2" secondAttribute="leading" id="JC1-TI-9Hb"/>
+                                    <constraint firstItem="f4f-WY-89p" firstAttribute="centerY" secondItem="oaI-B6-vX2" secondAttribute="centerY" multiplier="1.33333" id="Kiy-dB-akB"/>
+                                    <constraint firstAttribute="trailing" secondItem="WB4-bw-ffx" secondAttribute="trailing" id="OQt-0Z-2MI"/>
+                                    <constraint firstAttribute="trailing" secondItem="ih5-Tj-ObB" secondAttribute="trailing" constant="20" id="PUB-kG-AsZ"/>
+                                    <constraint firstItem="ih5-Tj-ObB" firstAttribute="leading" secondItem="oaI-B6-vX2" secondAttribute="leading" constant="20" id="PVg-HF-Tte"/>
+                                    <constraint firstItem="ih5-Tj-ObB" firstAttribute="centerY" secondItem="oaI-B6-vX2" secondAttribute="centerY" multiplier="0.33333" id="TIK-ad-oL9"/>
+                                    <constraint firstAttribute="trailing" secondItem="f4f-WY-89p" secondAttribute="trailing" id="bPk-oe-98W"/>
+                                    <constraint firstAttribute="height" constant="150" id="fff-HM-Qoy"/>
+                                    <constraint firstItem="wYH-hK-gaq" firstAttribute="leading" secondItem="ce2-eZ-A8z" secondAttribute="leading" id="ftG-lT-cuF"/>
+                                    <constraint firstItem="ce2-eZ-A8z" firstAttribute="trailing" secondItem="ih5-Tj-ObB" secondAttribute="trailing" id="izD-T2-r6F"/>
+                                    <constraint firstItem="WB4-bw-ffx" firstAttribute="centerY" secondItem="oaI-B6-vX2" secondAttribute="centerY" multiplier="0.666666" id="sCL-B3-8Vd"/>
+                                    <constraint firstItem="wYH-hK-gaq" firstAttribute="centerY" secondItem="oaI-B6-vX2" secondAttribute="centerY" multiplier="1.66667" id="sIf-wJ-cpu"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pD4-TJ-DZh" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="40" y="361" width="295" height="51"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                <state key="normal" title="SUBMIT" backgroundImage="SummitButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnSubmitTapped:" destination="cQY-xs-9LD" eventType="touchUpInside" id="Wg5-9y-YTo"/>
+                                    <action selector="btnSubmitTapped:" destination="C3v-6E-eFB" eventType="touchUpInside" id="utK-AS-oxr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pD4-TJ-DZh" firstAttribute="top" secondItem="oaI-B6-vX2" secondAttribute="bottom" constant="54" id="05e-Wy-ZyH"/>
+                            <constraint firstItem="KhF-YY-NES" firstAttribute="centerX" secondItem="3Om-CZ-sBB" secondAttribute="centerX" id="5cT-UN-Ddy"/>
+                            <constraint firstItem="pD4-TJ-DZh" firstAttribute="leading" secondItem="oaI-B6-vX2" secondAttribute="leading" id="8H1-HX-JVj"/>
+                            <constraint firstItem="oaI-B6-vX2" firstAttribute="leading" secondItem="KhF-YY-NES" secondAttribute="leading" id="AHw-6A-8L4"/>
+                            <constraint firstItem="oaI-B6-vX2" firstAttribute="top" secondItem="KhF-YY-NES" secondAttribute="bottom" constant="20" id="F8K-O9-2iC"/>
+                            <constraint firstItem="oaI-B6-vX2" firstAttribute="trailing" secondItem="KhF-YY-NES" secondAttribute="trailing" id="PdR-Xf-ODF"/>
+                            <constraint firstItem="pD4-TJ-DZh" firstAttribute="trailing" secondItem="oaI-B6-vX2" secondAttribute="trailing" id="WYp-Wu-zTO"/>
+                            <constraint firstItem="KhF-YY-NES" firstAttribute="top" secondItem="oq4-Lg-4bP" secondAttribute="bottom" constant="40" id="hDB-Yt-VG5"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="txtConfirmPass" destination="wYH-hK-gaq" id="3nA-yE-xTt"/>
+                        <outlet property="txtPassword" destination="ce2-eZ-A8z" id="aSz-6T-LAh"/>
+                        <outlet property="txtPhoneNumber" destination="ih5-Tj-ObB" id="gQG-sZ-UNd"/>
+                        <segue destination="eo2-jb-kjP" kind="show" identifier="SegueForgotPassToOTP" id="67X-ka-fJY"/>
+                    </connections>
+                </viewController>
+                <navigationItem title="Forgot Your Password" id="yub-cY-VGE">
+                    <barButtonItem key="backBarButtonItem" title="  " id="Lgu-b7-S1D"/>
+                </navigationItem>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qpe-6C-J6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3280.8000000000002" y="483.50824587706148"/>
+        </scene>
         <!--Verify Code-->
         <scene sceneID="1I3-Id-U4b">
             <objects>
@@ -452,20 +611,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="16" y="128.5" width="343" height="80"/>
+                                <rect key="frame" x="16" y="173.5" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8zJ-pj-Rtr"/>
                                     <constraint firstAttribute="width" constant="343" id="JUb-GW-Tvd"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification code has been sent to your mobile number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l">
-                                <rect key="frame" x="16" y="37" width="343" height="37.5"/>
+                                <rect key="frame" x="16" y="81" width="343" height="38.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="41" y="282.5" width="293" height="51"/>
+                                <rect key="frame" x="41" y="327.5" width="293" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
@@ -480,7 +639,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39w-hz-ala">
-                                <rect key="frame" x="57" y="216.5" width="240" height="46"/>
+                                <rect key="frame" x="57" y="261.5" width="240" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="didn't get?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-OC-hX7">
                                         <rect key="frame" x="8" y="13" width="127" height="21"/>
@@ -501,7 +660,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN">
-                                <rect key="frame" x="113" y="89.5" width="149" height="19"/>
+                                <rect key="frame" x="113" y="134.5" width="149" height="19"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -727,8 +886,8 @@
         <image name="SummitButton" width="293" height="51"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bsC-QL-uBN"/>
-        <segue reference="hoq-Ye-9op"/>
+        <segue reference="7Ph-lk-0dd"/>
+        <segue reference="67X-ka-fJY"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>

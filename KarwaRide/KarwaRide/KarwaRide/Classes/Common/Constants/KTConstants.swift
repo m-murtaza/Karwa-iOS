@@ -90,12 +90,18 @@ struct Constants {
         static let GetUserInfo = "user/"
         static let SignUp = "user/"
         static let Otp = "user/otp"
+        static let UpdatePass = "user/update"
+        static let ForgotPass = "user/pwd"
     }
     
     struct DeviceTypes {
         static let iOS = "1"
         static let Android = "2"
         static let Unknown = "0"
-        
+    }
+    
+    struct UpdatePassParam {
+        static let Phone = "Phone"
+        static let Password = "Password"
     }
 }

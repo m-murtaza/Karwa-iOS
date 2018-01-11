@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MagicalRecord
 
 class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
     

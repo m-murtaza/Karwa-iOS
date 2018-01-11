@@ -27,6 +27,9 @@
 		181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344AE1EF7B362006E734A /* KTWebClient.swift */; };
 		181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KTConfiguration.swift */; };
 		181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KTAppSessionInfo.swift */; };
+		1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA692007467F00AD885B /* KTForgotPassViewController.swift */; };
+		1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */; };
+		1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -85,6 +88,9 @@
 		181344AE1EF7B362006E734A /* KTWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTWebClient.swift; path = Classes/HelperClasses/Network/KTWebClient.swift; sourceTree = "<group>"; };
 		181344B11EF7BC94006E734A /* KTConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTConfiguration.swift; path = Classes/HelperClasses/Configuration/KTConfiguration.swift; sourceTree = "<group>"; };
 		181344B81EF9171F006E734A /* KTAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KTAppSessionInfo.swift; sourceTree = "<group>"; };
+		1833CA692007467F00AD885B /* KTForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewController.swift; path = Classes/Views/Controllers/Login/KTForgotPassViewController.swift; sourceTree = "<group>"; };
+		1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewModel.swift; path = "Classes/View Models/Login/KTForgotPassViewModel.swift"; sourceTree = "<group>"; };
+		1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+ForgotPass.swift"; path = "Classes/DAL/KTUserManager+ForgotPass.swift"; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -354,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				186487241F0A368F00DDB003 /* KTLoginViewController.swift */,
+				1833CA692007467F00AD885B /* KTForgotPassViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -362,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */,
+				1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -373,6 +381,7 @@
 				1810C13A1FCD7FB7008E8D91 /* KTUserManager.swift */,
 				18C24ACD20037C21002D4B88 /* KTUserManager+SignUp.swift */,
 				1864872F1F0BB06800DDB003 /* KTDALManager.swift */,
+				1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */,
 			);
 			name = DAL;
 			sourceTree = "<group>";
@@ -641,6 +650,7 @@
 				18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
 				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
+				1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
@@ -658,8 +668,10 @@
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
 				18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
+				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
+				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,

@@ -166,8 +166,6 @@
                         NSLog(@"%@",u);
                     }
                     completionBlock(status, nil);
-                    
-                    
                 }];
             }
             else {
