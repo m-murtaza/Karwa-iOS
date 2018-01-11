@@ -59,6 +59,11 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
         viewModel.loginBtnTapped()
     }
     
+    @IBAction func btnBackTapped(_ sender:Any)
+    {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     //Mark: - View Model Delegate
     func phoneNumber() -> String {
         return txtPhoneNumber.text!

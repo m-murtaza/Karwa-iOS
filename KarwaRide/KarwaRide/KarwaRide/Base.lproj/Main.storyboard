@@ -189,6 +189,9 @@
                                     <constraint firstAttribute="width" constant="40" id="ojj-Yj-Hqh"/>
                                 </constraints>
                                 <state key="normal" image="BackButton"/>
+                                <connections>
+                                    <action selector="btnBackTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wRx-yN-P8s"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yR2-3e-uTJ">
                                 <rect key="frame" x="222" y="303" width="113" height="30"/>
@@ -217,6 +220,9 @@
                                         <state key="normal" title="create new">
                                             <color key="titleColor" red="0.078431372549019607" green="0.66274509803921566" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="cQY-xs-9LD" kind="show" id="Pzn-gK-scz"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -361,7 +367,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6q-tp-29f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889" y="243"/>
+            <point key="canvasLocation" x="2278" y="292"/>
         </scene>
         <!--Verify Code-->
         <scene sceneID="1I3-Id-U4b">
@@ -652,5 +658,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bsC-QL-uBN"/>
+        <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>
