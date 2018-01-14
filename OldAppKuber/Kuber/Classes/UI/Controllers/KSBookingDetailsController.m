@@ -91,6 +91,8 @@ BtnState;
         if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
             [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
         }
+        
+        [self setupRevealViewController];
     }
     
     if(self.tripInfo.jobId == nil)
@@ -133,6 +135,14 @@ BtnState;
     [KSGoogleAnalytics trackPage:@"Booking Details"];
     
     [self updateStatusOfTaxi];
+    
+    [self addPanGestureForRevealView];
+}
+-(void) viewWillDisappear:(BOOL)animated
+{
+    
+    [super viewWillDisappear:animated];
+    [self removePanGestureForRevealView];
 }
 
 - (void) viewDidAppear:(BOOL)animated
