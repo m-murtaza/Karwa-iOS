@@ -396,6 +396,7 @@
                                         </state>
                                         <connections>
                                             <action selector="btnTremsOfServicesTapped:" destination="cQY-xs-9LD" eventType="touchUpInside" id="VGz-PN-VsK"/>
+                                            <segue destination="3g9-9d-c1L" kind="show" identifier="segueRegisterToWebView" id="Ezc-XK-P0w"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -611,20 +612,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="16" y="173.5" width="343" height="80"/>
+                                <rect key="frame" x="16" y="129.5" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8zJ-pj-Rtr"/>
                                     <constraint firstAttribute="width" constant="343" id="JUb-GW-Tvd"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification code has been sent to your mobile number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l">
-                                <rect key="frame" x="16" y="81" width="343" height="38.5"/>
+                                <rect key="frame" x="16" y="37" width="343" height="38.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="41" y="327.5" width="293" height="51"/>
+                                <rect key="frame" x="41" y="283.5" width="293" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
@@ -639,7 +640,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39w-hz-ala">
-                                <rect key="frame" x="57" y="261.5" width="240" height="46"/>
+                                <rect key="frame" x="57" y="217.5" width="240" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="didn't get?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-OC-hX7">
                                         <rect key="frame" x="8" y="13" width="127" height="21"/>
@@ -660,7 +661,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN">
-                                <rect key="frame" x="113" y="134.5" width="149" height="19"/>
+                                <rect key="frame" x="113" y="90.5" width="149" height="19"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -694,6 +695,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWc-R7-K4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2580" y="1080.8095952023989"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="xzn-OT-FS0">
+            <objects>
+                <viewController id="3g9-9d-c1L" customClass="KTWebViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e6f-Hy-PbL"/>
+                        <viewControllerLayoutGuide type="bottom" id="QKR-mn-dBd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9XB-Y6-mqE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJ1-Yf-eXp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zJ1-Yf-eXp" secondAttribute="trailing" id="CFI-zC-hwK"/>
+                            <constraint firstItem="zJ1-Yf-eXp" firstAttribute="leading" secondItem="9XB-Y6-mqE" secondAttribute="leading" id="DWz-gA-UTl"/>
+                            <constraint firstItem="zJ1-Yf-eXp" firstAttribute="top" secondItem="9XB-Y6-mqE" secondAttribute="top" id="ezA-4D-CKE"/>
+                            <constraint firstItem="QKR-mn-dBd" firstAttribute="top" secondItem="zJ1-Yf-eXp" secondAttribute="bottom" id="lex-ga-kg5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="zJ1-Yf-eXp" id="ZtT-HC-Moa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sJF-Iu-Ca2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3584.8000000000002" y="1282.3088455772115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JFs-6F-Nvu">
@@ -887,7 +925,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Ph-lk-0dd"/>
-        <segue reference="67X-ka-fJY"/>
+        <segue reference="OD2-FV-5Rn"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>

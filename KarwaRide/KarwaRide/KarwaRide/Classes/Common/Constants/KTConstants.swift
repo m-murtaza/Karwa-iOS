@@ -18,6 +18,9 @@ typealias KTDALCompletionBlock = (_ success: String, _ response: [AnyHashable: A
 
 
 struct Constants {
+    static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
+
+    
     struct API {
         static let BaseURLKey = "BaseAPIURL"
         static let RequestTimeOut = 10.0

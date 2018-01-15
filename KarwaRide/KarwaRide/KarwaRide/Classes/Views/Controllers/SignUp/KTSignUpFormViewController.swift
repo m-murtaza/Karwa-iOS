@@ -28,8 +28,6 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
         // Dispose of any resources that can be recreated.
     }
     
-
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -38,13 +36,17 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
         // Pass the selected object to the new view controller.
         if segue.identifier == "segueSignupToOtp"
         {
-            
             let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
             otpView.phone = mobileNo()!
         }
+        if segue.identifier == "segueRegisterToWebView"
+        {
+            let webView : KTWebViewController = segue.destination as! KTWebViewController
+            webView.url = Constants.TOSUrl
+            webView.navTitle = "Terms of Service"
+        }
     }
  
-    
     // MARK : - User Intraction
     @IBAction func btnTremsOfServicesTapped(_ sender: Any) {
     }

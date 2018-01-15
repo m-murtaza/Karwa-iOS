@@ -30,6 +30,7 @@
 		1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA692007467F00AD885B /* KTForgotPassViewController.swift */; };
 		1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */; };
 		1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */; };
+		1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA70200B531400AD885B /* KTWebViewController.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -91,6 +92,7 @@
 		1833CA692007467F00AD885B /* KTForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewController.swift; path = Classes/Views/Controllers/Login/KTForgotPassViewController.swift; sourceTree = "<group>"; };
 		1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewModel.swift; path = "Classes/View Models/Login/KTForgotPassViewModel.swift"; sourceTree = "<group>"; };
 		1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+ForgotPass.swift"; path = "Classes/DAL/KTUserManager+ForgotPass.swift"; sourceTree = "<group>"; };
+		1833CA70200B531400AD885B /* KTWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTWebViewController.swift; path = Classes/Views/Controllers/WebView/KTWebViewController.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -322,6 +324,14 @@
 			name = ApplicationSession;
 			sourceTree = "<group>";
 		};
+		1833CA6F200B52C700AD885B /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				1833CA70200B531400AD885B /* KTWebViewController.swift */,
+			);
+			name = WebView;
+			sourceTree = "<group>";
+		};
 		1864871E1F0A357C00DDB003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +343,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1833CA6F200B52C700AD885B /* WebView */,
 				18C24AC720035939002D4B88 /* SignUp */,
 				1810C13C1FCE9526008E8D91 /* Main */,
 				1810C0CE1FC5A3DF008E8D91 /* SideDrawer */,
@@ -657,6 +668,7 @@
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
+				1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */,
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
@@ -750,7 +762,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -800,7 +812,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
