@@ -14,7 +14,7 @@ import MagicalRecord
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var location :KTLocationManager?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
         
         updateUIAppreance()
+        
+        location = KTLocationManager.sharedInstance
+        location?.setUp()
         
         return true
     }

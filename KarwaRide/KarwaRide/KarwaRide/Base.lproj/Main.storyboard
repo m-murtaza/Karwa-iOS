@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -821,10 +820,10 @@
             </objects>
             <point key="canvasLocation" x="673" y="1499"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Booking View Controller-->
         <scene sceneID="pKq-i1-mEE">
             <objects>
-                <viewController id="L23-ue-kpU" customClass="ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="L23-ue-kpU" customClass="KTCreateBookingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ERe-3M-HzO"/>
                         <viewControllerLayoutGuide type="bottom" id="nEz-mS-fjP"/>
