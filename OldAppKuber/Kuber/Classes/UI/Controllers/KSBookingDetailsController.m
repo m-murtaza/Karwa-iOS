@@ -81,7 +81,7 @@ BtnState;
     [self.lblAcknowlegement setHidden:TRUE];
     
     [self loadViewData];
-    if (self.isOpenedFromPushNotification ) {
+    //if (!self.isOpenedFromPushNotification ) {
         
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
         self.revealButtonItem = barButton;
@@ -93,7 +93,7 @@ BtnState;
         }
         
         [self setupRevealViewController];
-    }
+    //}
     
     if(self.tripInfo.jobId == nil)
     {
