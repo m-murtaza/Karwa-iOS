@@ -1928,6 +1928,7 @@
                                                 <constraint firstItem="dux-Ug-G6D" firstAttribute="top" secondItem="cQa-pB-ucu" secondAttribute="top" id="lJz-Oz-VG5"/>
                                                 <constraint firstItem="Dge-mc-YVu" firstAttribute="leading" secondItem="9Lg-us-OCL" secondAttribute="leading" id="mlE-f5-kXf"/>
                                                 <constraint firstItem="G4p-Uk-eJs" firstAttribute="bottom" secondItem="dux-Ug-G6D" secondAttribute="bottom" id="nVd-4T-VAj"/>
+                                                <constraint firstItem="dDk-qR-Efs" firstAttribute="centerY" secondItem="9Km-ry-dJy" secondAttribute="centerY" priority="250" id="uOh-lv-gy2"/>
                                                 <constraint firstItem="dDk-qR-Efs" firstAttribute="top" secondItem="cPz-a5-B4j" secondAttribute="topMargin" constant="7" id="xIt-9b-QjZ"/>
                                                 <constraint firstItem="G4p-Uk-eJs" firstAttribute="top" secondItem="cPz-a5-B4j" secondAttribute="topMargin" constant="29" id="xQW-Dg-fRM"/>
                                                 <constraint firstItem="dux-Ug-G6D" firstAttribute="top" secondItem="9Lg-us-OCL" secondAttribute="bottom" constant="5" id="zDW-M2-jSp"/>
@@ -1974,6 +1975,9 @@
                                             <outlet property="lblDropoffTo" destination="cQa-pB-ucu" id="qqv-QU-WEq"/>
                                             <outlet property="lblPickupFrom" destination="9Lg-us-OCL" id="HI4-sz-SzQ"/>
                                             <outlet property="lblTime" destination="9Km-ry-dJy" id="nGK-zC-0pw"/>
+                                            <outlet property="statusAlignPickup" destination="6Pg-N8-BpF" id="JLi-mm-pij"/>
+                                            <outlet property="statusAlignTime" destination="uOh-lv-gy2" id="d0a-t5-uHH"/>
+                                            <outlet property="viewCallerId" destination="EVl-BK-EDQ" id="5Dk-nw-VOW"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -5396,7 +5400,6 @@
         <image name="white-background.png" width="375" height="257"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Li1-w2-bB0"/>
         <segue reference="QFx-wv-VWz"/>
         <segue reference="zRd-7U-Rqs"/>
         <segue reference="nbB-dK-Gpq"/>
