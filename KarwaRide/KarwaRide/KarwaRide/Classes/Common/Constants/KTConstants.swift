@@ -15,12 +15,26 @@
 
 typealias KTResponseCompletionBlock = (_ success: Bool, _ response: [AnyHashable: Any]) -> Void
 typealias KTDALCompletionBlock = (_ success: String, _ response: [AnyHashable: Any]) -> Void
+typealias KTDALSuccessBlock = (_ response: [AnyHashable: Any],_ success: KTDALCompletionBlock) -> Void
+//typealias KTDALCompletionBlock = (_ success: String, _ response: Any) -> Void
+//typealias KTDALSuccessBlock = (_ response: Any,_ success: KTDALCompletionBlock) -> Void
+
+enum KTVehicleType: Int {
+    case KTCityTaxi = 1
+    case KTAiport7Seater = 3
+    case KTAirportSpare = 5
+    case KTSpecialNeedTaxi = 10
+    case KTAiportTaxi = 11
+    case KTCompactLimo = 20
+    case KTStandardLimo = 30
+    case KTBusinessLimo = 50
+    case KTLuxuryLimo = 70
+}
 
 
 struct Constants {
     static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
 
-    
     struct API {
         static let BaseURLKey = "BaseAPIURL"
         static let RequestTimeOut = 10.0
@@ -37,7 +51,9 @@ struct Constants {
     struct APIResponseStatus {
         static let SUCCESS = "SUCCESS"
         static let UNKNOWN = "UNKNOWN";
-        static let FAILED = "FAILED";
+        static let FAILED = "FAILED"
+        static let FAILED_API = "FAILED_API";
+        static let FAILED_NETWORK = "FAILED_NETWORK"
         static let ALREADY_EXIST = "ALREADY_EXIST";
         static let NOT_FOUND = "NOT_FOUND";
         static let INVALID = "INVALID";
@@ -95,6 +111,16 @@ struct Constants {
         static let Otp = "user/otp"
         static let UpdatePass = "user/update"
         static let ForgotPass = "user/pwd"
+        static let TrackTaxi = "track/"
+    }
+    
+    struct TrackTaxiParams {
+        static let Status = "status"
+        static let Lat = "lat"
+        static let Lon = "lon"
+        static let Radius = "Radius"
+        static let VehicleType = "type"
+        static let Limit  = "limit"
     }
     
     struct DeviceTypes {

@@ -35,6 +35,8 @@
 		1833CA7C200CBE8100AD885B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1833CA7B200CBE8100AD885B /* CoreLocation.framework */; };
 		1833CA7F200DC74300AD885B /* KTCreateBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */; };
 		1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */; };
+		1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA84200E048100AD885B /* KTBookingManager.swift */; };
+		1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -101,6 +103,8 @@
 		1833CA7B200CBE8100AD885B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCreateBookingViewController.swift; path = Classes/Views/Controllers/Booking/KTCreateBookingViewController.swift; sourceTree = "<group>"; };
 		1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCreateBookingViewModel.swift; path = "Classes/View Models/Booking/KTCreateBookingViewModel.swift"; sourceTree = "<group>"; };
+		1833CA84200E048100AD885B /* KTBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingManager.swift; path = Classes/DAL/Booking/KTBookingManager.swift; sourceTree = "<group>"; };
+		1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Track.swift"; path = "Classes/DAL/Booking/KTBookingManager+Track.swift"; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -366,6 +370,15 @@
 			name = Booking;
 			sourceTree = "<group>";
 		};
+		1833CA83200E044000AD885B /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				1833CA84200E048100AD885B /* KTBookingManager.swift */,
+				1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */,
+			);
+			name = Booking;
+			sourceTree = "<group>";
+		};
 		1864871E1F0A357C00DDB003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +437,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				1833CA83200E044000AD885B /* Booking */,
 				1810C1211FCC3091008E8D91 /* CoreData */,
 				1810C13A1FCD7FB7008E8D91 /* KTUserManager.swift */,
 				18C24ACD20037C21002D4B88 /* KTUserManager+SignUp.swift */,
@@ -707,6 +721,8 @@
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
 				1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */,
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
+				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
+				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,

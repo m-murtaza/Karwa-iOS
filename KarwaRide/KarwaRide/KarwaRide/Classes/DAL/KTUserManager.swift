@@ -57,9 +57,9 @@ class KTUserManager: KTDALManager {
     
     func isUserLogin(completion:@escaping (Bool) -> Void)
     {
-        completion(false)
-        return
-            //-- Remove above two lines.
+//        completion(false)
+//        return
+//            //-- Remove above two lines.
         
         if runFirstTimeAfterMajorUpdate() {
             //Is running first time after Major Update
@@ -103,7 +103,7 @@ class KTUserManager: KTDALManager {
             if status != true
             {
                 
-                completionBlock(Constants.APIResponseStatus.FAILED,response)
+                completionBlock(Constants.APIResponseStatus.FAILED_API,response)
             }
             else
             {

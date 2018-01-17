@@ -2,15 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>BaseAPIURL</key>
-	<dict>
-		<key>DEV</key>
-		<string>http://devservices.karwasolutions.com/api/</string>
-		<key>PROD</key>
-		<string>https://services.karwasolutions.com/api/</string>
-		<key>STAGE</key>
-		<string>http://devservices.karwasolutions.com:70/apiv2/</string>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -28,7 +19,16 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Development Environment</key>
-	<string>STAGE</string>
+	<string>DEV</string>
+	<key>BaseAPIURL</key>
+	<dict>
+		<key>DEV</key>
+		<string>http://192.168.146.121:9000/apiv2/</string>
+		<key>PROD</key>
+		<string>https://services.karwasolutions.com/api/</string>
+		<key>STAGE</key>
+		<string>http://devservices.karwasolutions.com:70/apiv2/</string>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>

@@ -18,7 +18,7 @@ extension KTUserManager
             if status != true
             {
                 
-                completionBlock(Constants.APIResponseStatus.FAILED,response)
+                completionBlock(Constants.APIResponseStatus.FAILED_API,response)
             }
             else
             {

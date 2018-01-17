@@ -16,7 +16,7 @@ extension KTUserManager
         KTWebClient.sharedInstance.post(uri: Constants.APIURL.ForgotPass, param: param as! [String : Any]) { (status, response) in
             if status != true
             {
-                completionBlock(Constants.APIResponseStatus.FAILED,response)
+                completionBlock(Constants.APIResponseStatus.FAILED_API,response)
             }
             else
             {

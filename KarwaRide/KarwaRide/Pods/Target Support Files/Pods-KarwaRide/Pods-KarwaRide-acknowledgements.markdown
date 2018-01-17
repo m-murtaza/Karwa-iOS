@@ -24,6 +24,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## GoogleMaps
+
+Copyright 2017 Google
+
 ## MagicalRecord
 
  Copyright (c) 2010-2015, Magical Panda Software, LLC

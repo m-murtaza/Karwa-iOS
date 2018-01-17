@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import MagicalRecord
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         location = KTLocationManager.sharedInstance
         location?.setUp()
+        
+        GMSServices.provideAPIKey("AIzaSyBWEik2kFj1hYESIhS2GgUblo_amSfjqT0")
         
         return true
     }
