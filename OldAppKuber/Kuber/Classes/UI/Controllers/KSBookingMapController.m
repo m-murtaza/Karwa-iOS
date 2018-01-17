@@ -82,6 +82,7 @@ static BOOL showMendatoryRating = TRUE;
     
     KSTrip *ratingTrip;
     
+    NSString *pickerID;                     //Used for AddressPicker
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -1629,11 +1630,16 @@ didAddAnnotationViews:(NSArray *)annotationViews
         }
         else{
          if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+         {
+             pickerID = KSPickerIdForPickupAddress;                  //Bug#2299 : Fixed
             [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
+             
+         }
         }
     }
     else if(indexPath.row == idxDropOffLocation)
     {
+        pickerID = KSPickerIdForDropoffAddress;                     //Bug#2299 : Fixed
         [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
     }
     else if(indexPath.row == idxPickupTime) {
@@ -1658,7 +1664,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
     if ([segue.identifier isEqualToString:@"segueBookingToAddressPicker"]) {
         
         KSAddressPickerController *addressPicker = (KSAddressPickerController*) segue.destinationViewController;
-        addressPicker.pickerId = dropoffVisible ? KSPickerIdForDropoffAddress :KSPickerIdForPickupAddress;
+        addressPicker.pickerId = pickerID;/*dropoffVisible ? KSPickerIdForDropoffAddress :KSPickerIdForPickupAddress;*/
         addressPicker.delegate = self;
         
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
