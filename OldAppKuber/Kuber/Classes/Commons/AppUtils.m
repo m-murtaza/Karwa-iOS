@@ -91,8 +91,8 @@
 
 + (BOOL) isPhoneNumber:(NSString*)txt
 {
-    
-    BOOL success = TRUE;
+    //old implementation 
+    /*BOOL success = TRUE;
     NSError *error = nil;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypePhoneNumber
                                                                error:&error];
@@ -106,6 +106,12 @@
         if(numberOfMatches != 1)
             success = FALSE;
     }
-    return success;
+    return success;*/
+    
+    NSString *phoneRegex = @"^(\\+\\d{1,3}[\\- ]?)?\\d{6,10}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
+    
+    return [phoneTest evaluateWithObject:txt];
+    
 }
 @end
