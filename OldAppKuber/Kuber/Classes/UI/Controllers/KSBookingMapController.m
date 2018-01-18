@@ -649,20 +649,19 @@ static BOOL showMendatoryRating = TRUE;
                                    NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
                                    
                                    if (!text.length) {
-                                       [self showAltForWrongCustomerPhoneInput:@"Phone number can't be empty"];
+                                       //If no phone is provided then add user phone number in caller ID
+                                       text = [KSSessionInfo currentSession].phone;
                                    }
-                                   else{
-                                       NSString *inputText = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                       if([AppUtils isPhoneNumber:inputText])
-                                       {
-                                           //tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                           [self bookTaxiForCaller:inputText];
-                                       }
-                                       else
-                                       {
-                                           
-                                           [self showAltForWrongCustomerPhoneInput];
-                                       }
+                                   NSString *inputText = text;
+                                   if([AppUtils isPhoneNumber:inputText])
+                                   {
+                                       //tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                       [self bookTaxiForCaller:inputText];
+                                   }
+                                   else
+                                   {
+                                       
+                                       [self showAltForWrongCustomerPhoneInput];
                                    }
                                }];
     
