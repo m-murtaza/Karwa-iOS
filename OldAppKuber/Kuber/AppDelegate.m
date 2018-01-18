@@ -232,6 +232,7 @@
     KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
     detailController.tripInfo = trip;
     detailController.isOpenedFromPushNotification = TRUE;
+    detailController.showRevealButton = TRUE;
     
     //KSBookingMapController *mapController = [UIStoryboard bookingMapController];
     

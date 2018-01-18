@@ -81,7 +81,7 @@ BtnState;
     [self.lblAcknowlegement setHidden:TRUE];
     
     [self loadViewData];
-    //if (!self.isOpenedFromPushNotification ) {
+    if (self.showRevealButton ) {
         
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
         self.revealButtonItem = barButton;
@@ -93,7 +93,7 @@ BtnState;
         }
         
         [self setupRevealViewController];
-    //}
+    }
     
     if(self.tripInfo.jobId == nil)
     {
@@ -270,20 +270,20 @@ BtnState;
             case KSStandardLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-standardtag"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
-                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
-                _constraintVehicleNumber.constant += 5;
+//                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant = -10;
                 break;
             case KSBusinessLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-businesstag"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
-                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
-                _constraintVehicleNumber.constant += 5;
+//                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant = -10;
                 break;
             case KSLuxuryLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-luxurytag"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
-                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
-                _constraintVehicleNumber.constant += 5;
+//                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant = -10;
                 break;
             default:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-taxitag"]];

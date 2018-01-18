@@ -4362,7 +4362,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8843" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="rfE-SO-Pn6">
-                                                <rect key="frame" x="647" y="37" width="58.5" height="29"/>
+                                                <rect key="frame" x="658.5" y="37" width="58.5" height="29"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4408,7 +4408,7 @@
                                             <constraint firstAttribute="width" secondItem="QW4-Pr-xOW" secondAttribute="height" multiplier="31:5" constant="1.5999999999999659" id="Ugp-4H-ba2"/>
                                             <constraint firstItem="PBZ-uX-cae" firstAttribute="centerY" secondItem="QW4-Pr-xOW" secondAttribute="centerY" constant="-12" id="WZx-wH-BmB"/>
                                             <constraint firstItem="rfE-SO-Pn6" firstAttribute="centerY" secondItem="QW4-Pr-xOW" secondAttribute="centerY" id="YNZ-af-M26"/>
-                                            <constraint firstItem="rfE-SO-Pn6" firstAttribute="trailing" secondItem="GLn-Rj-xfR" secondAttribute="trailing" constant="-16.5" id="btT-zs-46s"/>
+                                            <constraint firstItem="rfE-SO-Pn6" firstAttribute="trailing" secondItem="GLn-Rj-xfR" secondAttribute="trailing" constant="-5" id="btT-zs-46s"/>
                                             <constraint firstItem="GLn-Rj-xfR" firstAttribute="centerY" secondItem="QW4-Pr-xOW" secondAttribute="centerY" id="eRI-hq-3fe"/>
                                             <constraint firstItem="GLn-Rj-xfR" firstAttribute="width" secondItem="QW4-Pr-xOW" secondAttribute="width" multiplier="30.7%" id="xTN-iC-4fe"/>
                                         </constraints>
@@ -4604,6 +4604,7 @@
                         <outlet property="constraintPickupTimeBottom" destination="C8B-XJ-pUI" id="Xin-ht-BEE"/>
                         <outlet property="constraintTaxiInfoBGImgBottom" destination="ZrJ-95-MHn" id="Dv9-Wz-Y6u"/>
                         <outlet property="constraintTaxiInfoViewHeight" destination="mUZ-nT-CuQ" id="Qek-3g-d1N"/>
+                        <outlet property="constraintVehicleNumber" destination="btT-zs-46s" id="rvh-cK-ksE"/>
                         <outlet property="imgNumberPlate" destination="GLn-Rj-xfR" id="NOj-3z-oWb"/>
                         <outlet property="imgStatus" destination="T1W-SP-pJ9" id="1mc-Vh-r72"/>
                         <outlet property="imgTrackTaxiSepLine" destination="ii6-ha-q6b" id="YLF-y1-WV1"/>

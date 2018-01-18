@@ -1679,6 +1679,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
         KSBookingDetailsController *bookingDetails = (KSBookingDetailsController *) segue.destinationViewController;
         bookingDetails.navigationItem.leftBarButtonItem = nil;
         bookingDetails.tripInfo = tripInfo;
+        bookingDetails.showRevealButton = TRUE;
     }
     else if([segue.identifier isEqualToString:@"segueBookingToRating"])
     {
@@ -1687,7 +1688,6 @@ didAddAnnotationViews:(NSArray *)annotationViews
         ratingController.trip = ratingTrip;
         ratingController.displaySource = kMendatoryRating;
     }
-    
 }
 
 #pragma mark - AddressPicker Delegate
