@@ -254,7 +254,8 @@ static BOOL showMendatoryRating = TRUE;
           if (status == KSAPIStatusSuccess) {
               if(trips != nil && [trips count] > 0)
               {
-                  ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
+                  //ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
+                  ratingTrip = [trips objectAtIndex:0];
                   if(ratingTrip.jobId != nil && ![ratingTrip.jobId isEqualToString:@""])
                       [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
                   

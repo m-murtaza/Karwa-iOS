@@ -149,10 +149,10 @@
 
     //
     
-    
-    [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
-        [KSDAL removeOldBookings];
-    }];
+    [KSDAL removeOldBookings];
+    /*[KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
+        
+    }];*/
     
     //Removed after discussing with Asif Kamboh, Now reverse goecode implementation will be on server side. 
     //[KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {}];
