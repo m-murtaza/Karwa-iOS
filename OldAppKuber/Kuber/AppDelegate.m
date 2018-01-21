@@ -16,6 +16,8 @@
 #import "KSTripRatingController.h"
 #import "AFNetworking.h"
 #import "KSConfirmationAlert.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 
 #import "KSiOS10APNS.h"
 #import "KSiOS9APNS.h"
@@ -33,7 +35,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
     //Limo coachmarks will display only when application run first time after update to version 1.4
     [self setFlagForLimoCoachMarks];
     
@@ -74,6 +77,19 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
 
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                    ];
+    // Add any custom logic here.
+    return handled;
 }
 
 -(void) setFlagForLimoCoachMarks
@@ -147,7 +163,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
-    //
+    
+    [FBSDKAppEvents activateApp];
     
     [KSDAL removeOldBookings];
     /*[KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {

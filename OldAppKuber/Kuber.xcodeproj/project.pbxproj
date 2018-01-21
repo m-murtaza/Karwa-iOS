@@ -292,6 +292,10 @@
 		18A7DFDE1B2DA95200687600 /* KSPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7DFDD1B2DA95200687600 /* KSPointAnnotation.m */; };
 		18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0CFF91B01ECD3002645AD /* KSWebClient.m */; };
 		18B0D0251B031C93002645AD /* KSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0D0241B031C93002645AD /* KSDBManager.m */; };
+		18B5EA472014599C00D9B1D1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA432014599800D9B1D1 /* Bolts.framework */; };
+		18B5EA482014599C00D9B1D1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA442014599A00D9B1D1 /* FBSDKCoreKit.framework */; };
+		18B5EA492014599C00D9B1D1 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA452014599B00D9B1D1 /* FBSDKShareKit.framework */; };
+		18B5EA4A2014599C00D9B1D1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA462014599C00D9B1D1 /* FBSDKLoginKit.framework */; };
 		18BB63291C06E35E00FE80E5 /* destination-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BB63281C06E35E00FE80E5 /* destination-help@2x.png */; };
 		18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F721B81C7C000D2D27F /* KSVehicleTrackingInfo.m */; };
 		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
@@ -741,6 +745,10 @@
 		18B0D0201B030942002645AD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18B0D0231B031C93002645AD /* KSDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDBManager.h; sourceTree = "<group>"; };
 		18B0D0241B031C93002645AD /* KSDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDBManager.m; sourceTree = "<group>"; };
+		18B5EA432014599800D9B1D1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		18B5EA442014599A00D9B1D1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		18B5EA452014599B00D9B1D1 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		18B5EA462014599C00D9B1D1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		18BB63281C06E35E00FE80E5 /* destination-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "destination-help@2x.png"; path = "Booking/destination-help@2x.png"; sourceTree = "<group>"; };
 		18BB7EBB1B9C299200F75BC9 /* KSAllDAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAllDAL.h; sourceTree = "<group>"; };
 		18BB7EBC1B9C2B8B00F75BC9 /* KSAllEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSAllEntity.h; sourceTree = "<group>"; };
@@ -802,9 +810,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B5EA482014599C00D9B1D1 /* FBSDKCoreKit.framework in Frameworks */,
 				186487341F1DE88D00DDB003 /* AudioToolbox.framework in Frameworks */,
+				18B5EA492014599C00D9B1D1 /* FBSDKShareKit.framework in Frameworks */,
 				18481AFE1B08812300855F54 /* MapKit.framework in Frameworks */,
+				18B5EA4A2014599C00D9B1D1 /* FBSDKLoginKit.framework in Frameworks */,
 				8BF60827BA6A55C83D46280F /* libPods-Kuber.a in Frameworks */,
+				18B5EA472014599C00D9B1D1 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,6 +1428,7 @@
 		18A7627D1AFF785B00B9ED32 /* Kuber */ = {
 			isa = PBXGroup;
 			children = (
+				18B5EA42201453B700D9B1D1 /* Framework */,
 				18D3A7E71EA48BDA004B01A1 /* Karwa Taxi.entitlements */,
 				1880C4D61B7877ED004F0188 /* Images */,
 				185E3C2F1B772B3500909B20 /* Fonts */,
@@ -1605,6 +1618,17 @@
 				18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		18B5EA42201453B700D9B1D1 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				18B5EA432014599800D9B1D1 /* Bolts.framework */,
+				18B5EA442014599A00D9B1D1 /* FBSDKCoreKit.framework */,
+				18B5EA462014599C00D9B1D1 /* FBSDKLoginKit.framework */,
+				18B5EA452014599B00D9B1D1 /* FBSDKShareKit.framework */,
+			);
+			path = Framework;
 			sourceTree = "<group>";
 		};
 		18CFC4A31BA1892D009B5D70 /* BookingHistory */ = {
@@ -2370,6 +2394,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Muhammad Aleem (857UN36Z7P)";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kuber/Framework",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2392,6 +2420,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kuber/Framework",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
