@@ -99,7 +99,7 @@ class KTUserManager: KTDALManager {
         }
         //params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
         
-        KTWebClient.sharedInstance.post(uri: url!, param: params as! [String : Any], completion: { (status, response) in
+        KTWebClient.sharedInstance.post(uri: url!, param: params as? [String : Any], completion: { (status, response) in
             if status != true
             {
                 
@@ -109,6 +109,7 @@ class KTUserManager: KTDALManager {
             {
                 if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
                 {
+                    self.saveUserInSessionInfo(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
                     
                     self.saveUserInfoInDB(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any],completion: {(success:Bool) -> Void in
                         completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
@@ -130,6 +131,14 @@ class KTUserManager: KTDALManager {
         self.login(params: params,url: Constants.APIURL.Login, completion: completionBlock)
         
     }
+    
+    func saveUserInSessionInfo(_ response:[AnyHashable: Any]) {
+        
+        KTAppSessionInfo.currentSession.customerType = response[Constants.LoginResponseAPIKey.CustomerType] as? Int32
+        KTAppSessionInfo.currentSession.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
+        KTAppSessionInfo.currentSession.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
+    }
+    
     
     // Mark: - Login User in old Application
     private let appRunBeforeAfterMajorUpdateKey : String = "appRunBeforeAfterMajorUpdate"

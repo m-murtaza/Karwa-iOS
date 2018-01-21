@@ -81,6 +81,9 @@ class KTWebClient: NSObject {
         {
             httpHeaders["Session-ID"] = sessionId
         }
+        else {
+            print("Unable to find SessionID for API call \(uri)")
+        }
         
         Alamofire.request(url,
                           method: httpMethod,

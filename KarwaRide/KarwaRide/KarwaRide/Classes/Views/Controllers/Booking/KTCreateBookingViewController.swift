@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 
 class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate {
+    
     let viewModel : KTCreateBookingViewModel = KTCreateBookingViewModel(del: self)
     @IBOutlet weak var mapView : GMSMapView!
     override func viewDidLoad() {
@@ -54,11 +55,71 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     */
 
     //Mark: - View Model Delegate
+    var allowReset : Bool = true
     func updateLocationInMap(location: CLLocation) {
         
         //Update map
-        let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
-        
-        self.mapView?.animate(to: camera)
+        if allowReset {
+            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
+            
+            self.mapView?.animate(to: camera)
+        }
+        else{
+            for i in 0...gmsMarker.count-1
+            {
+                if gmsMarker[i].zIndex == 1000 {
+                    gmsMarker.remove(at: i)
+                    break
+                }
+            }
+            
+            let marker = GMSMarker()
+            marker.position = location.coordinate
+            //marker.map = self.mapView
+            marker.zIndex = 1000
+            
+            gmsMarker.append(marker)
+            
+            self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
+        }
     }
+    var gmsMarker : Array<GMSMarker> = Array()
+    func addMarkerOnMap(vTrack: Array<VehicleTrack>) {
+        
+        vTrack.forEach { track in
+            let marker = GMSMarker()
+            marker.position = track.position!
+            marker.map = self.mapView
+            gmsMarker.append(marker)
+        }
+        self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
+    }
+    
+    
+    
+    func focusMapToShowAllMarkers(gsmMarker : Array<GMSMarker>) {
+        allowReset = false
+        var bounds = GMSCoordinateBounds()
+        for marker: GMSMarker in gsmMarker {
+            bounds = bounds.includingCoordinate(marker.position)
+        }
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
+        mapView.animate(with: update)
+        
+        //mapView.z
+    }
+    
+//    - (void)focusMapToShowAllMarkers
+//    {
+//
+//    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
+//
+//    for (GMSMarker *marker in <An array of your markers>)
+//    bounds = [bounds includingCoordinate:marker.position];
+//
+//    [self.mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
+//
+//
+//    }
+    
 }
