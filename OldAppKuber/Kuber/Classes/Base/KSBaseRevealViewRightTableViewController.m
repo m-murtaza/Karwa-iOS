@@ -23,13 +23,13 @@
 -(void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self addPanGestureForRevealView];
+    //[self addPanGestureForRevealView];
 }
 
 -(void) viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [self removePanGestureForRevealView];
+    //[self removePanGestureForRevealView];
 }
 
 - (void)didReceiveMemoryWarning {
