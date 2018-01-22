@@ -182,6 +182,7 @@ static BOOL showMendatoryRating = TRUE;
     if (self.repeatTrip) {
      
         [self populateOldTripData];
+        self.repeatTrip = nil;
     }
     
     [self showLimoTaxiCoachMarksIfNeeded];

@@ -5247,16 +5247,14 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="inputCellIdentifier" rowHeight="70" id="vee-iX-JuY">
                                         <rect key="frame" x="0.0" y="22" width="774" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="vee-iX-JuY" id="4qK-DW-7Fx">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vee-iX-JuY" id="4qK-DW-7Fx">
                                             <rect key="frame" x="0.0" y="0.0" width="774" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="4001" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wfP-jn-zwZ" customClass="KSTextField">
-                                                    <rect key="frame" x="37" y="23" width="347" height="25"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="4001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wfP-jn-zwZ" customClass="KSTextField">
+                                                    <rect key="frame" x="37" y="17" width="654" height="36"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="347" id="VTq-Mk-j4E">
-                                                            <variation key="heightClass=regular-widthClass=compact" constant="300"/>
-                                                        </constraint>
+                                                        <constraint firstAttribute="height" constant="36" id="CYa-Aa-CvJ"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -5265,8 +5263,8 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     </variation>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" tag="4002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="password.png" translatesAutoresizingMaskIntoConstraints="NO" id="ksQ-rt-ecw">
-                                                    <rect key="frame" x="401" y="23" width="29" height="25"/>
+                                                <imageView userInteractionEnabled="NO" tag="4002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="password.png" translatesAutoresizingMaskIntoConstraints="NO" id="ksQ-rt-ecw">
+                                                    <rect key="frame" x="708" y="20.5" width="29" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="29" id="fEQ-B3-dRo"/>
                                                         <constraint firstAttribute="width" constant="29" id="pen-u7-a8t"/>
@@ -5275,11 +5273,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ksQ-rt-ecw" firstAttribute="leading" secondItem="wfP-jn-zwZ" secondAttribute="trailing" constant="17" id="3Yk-5K-m9c"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="wfP-jn-zwZ" secondAttribute="bottom" constant="11" id="ObL-zh-ih6"/>
-                                                <constraint firstItem="wfP-jn-zwZ" firstAttribute="top" secondItem="4qK-DW-7Fx" secondAttribute="topMargin" constant="12" id="RFg-G4-Ihv"/>
                                                 <constraint firstItem="wfP-jn-zwZ" firstAttribute="leading" secondItem="4qK-DW-7Fx" secondAttribute="leadingMargin" constant="22" id="SuD-Ag-1jx"/>
                                                 <constraint firstItem="wfP-jn-zwZ" firstAttribute="centerY" secondItem="ksQ-rt-ecw" secondAttribute="centerY" id="U8E-8N-QEA"/>
-                                                <constraint firstItem="ksQ-rt-ecw" firstAttribute="top" secondItem="4qK-DW-7Fx" secondAttribute="topMargin" constant="12" id="be1-y6-8yU"/>
+                                                <constraint firstItem="wfP-jn-zwZ" firstAttribute="centerY" secondItem="4qK-DW-7Fx" secondAttribute="centerY" id="kxA-vD-9C1"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ksQ-rt-ecw" secondAttribute="trailing" constant="22" id="sUD-KE-RUz"/>
                                             </constraints>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -5304,7 +5300,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="LXQ-Dl-g8i" secondAttribute="trailing" constant="-20" id="Ibq-4i-qp5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Change Pasword" id="LBq-id-ESA">
+                    <navigationItem key="navigationItem" title="Change Password" id="LBq-id-ESA">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="4ad-VT-hyG">
                             <connections>
                                 <action selector="onClickSave:" destination="M4l-cN-ZIN" id="N4R-XL-BoY"/>
