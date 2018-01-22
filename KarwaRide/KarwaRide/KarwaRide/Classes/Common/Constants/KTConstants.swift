@@ -54,17 +54,18 @@ struct Constants {
         static let FAILED = "FAILED"
         static let FAILED_API = "FAILED_API";
         static let FAILED_NETWORK = "FAILED_NETWORK"
-        static let ALREADY_EXIST = "ALREADY_EXIST";
-        static let NOT_FOUND = "NOT_FOUND";
-        static let INVALID = "INVALID";
-        static let EXCEPTION = "EXCEPTION";
-        static let INACTIVE = "INACTIVE";
-        static let UNASSIGNED = "UNASSIGNED";
-        static let TIMEOUT = "TIMEOUT";
-        static let REJECTED = "REJECTED";
-        static let PENDING_IMPLEMENTATION = "PENDING_IMPLEMENTATION";
-        static let SUSPENDED = "SUSPENDED";
-        static let NO_UPDATE = "NO_UPDATE";
+        static let ALREADY_EXIST = "ALREADY_EXIST"
+        static let NOT_FOUND = "NOT_FOUND"
+        static let INVALID = "INVALID"
+        static let EXCEPTION = "EXCEPTION"
+        static let INACTIVE = "INACTIVE"
+        static let UNASSIGNED = "UNASSIGNED"
+        static let TIMEOUT = "TIMEOUT"
+        static let REJECTED = "REJECTED"
+        static let PENDING_IMPLEMENTATION = "PENDING_IMPLEMENTATION"
+        static let SUSPENDED = "SUSPENDED"
+        static let NO_UPDATE = "NO_UPDATE"
+        static let UNVERIFIED = "UNVERIFIED"
     }
     
     struct LoginResponseAPIKey {

@@ -36,7 +36,7 @@ class KTLoginViewModel: KTBaseViewModel {
             {
                 self.delegate?.navigateToBooking()
             }
-            else if(status == Constants.APIResponseStatus.INACTIVE)
+            else if(status == Constants.APIResponseStatus.UNVERIFIED)
             {
                 self.delegate?.navigateToOTP()
             }

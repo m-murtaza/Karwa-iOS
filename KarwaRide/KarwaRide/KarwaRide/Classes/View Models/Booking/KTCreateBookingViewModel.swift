@@ -33,7 +33,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         self.delegate?.updateLocationInMap(location: location)
         
         
-        self.fetchVehiclesNearCordinates(location: location)
+        //--self.fetchVehiclesNearCordinates(location: location)
 //        KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: KTVehicleType(rawValue: 50)!, completion:{
 //            (status,response) in
 //            
