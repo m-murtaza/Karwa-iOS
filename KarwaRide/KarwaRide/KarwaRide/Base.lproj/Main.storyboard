@@ -905,6 +905,23 @@
                                     <outlet property="delegate" destination="L23-ue-kpU" id="M2L-z6-adN"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
+                                <rect key="frame" x="0.0" y="519" width="375" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
+                                        <rect key="frame" x="62" y="15" width="305" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqc-sp-fcf">
+                                        <rect key="frame" x="62" y="81" width="305" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -920,6 +937,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1448.8" y="1529.6851574212894"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="3YX-v2-1Ul">
+            <objects>
+                <viewController id="2HM-Qh-ieS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aLr-5T-1GJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Jw-QL-xBI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u4y-Oy-gbr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="smE-lt-CxL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2191" y="1776"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uLb-7H-oLy">

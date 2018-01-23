@@ -44,6 +44,7 @@
 		186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KTDALManager.swift */; };
 		18A3948A2017089A000FCE92 /* KTVehicleType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A394882017089A000FCE92 /* KTVehicleType+CoreDataClass.swift */; };
 		18A3948B2017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A394892017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift */; };
+		18A3948D20173EF1000FCE92 /* KTPickDropSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948C20173EF1000FCE92 /* KTPickDropSelectionViewController.swift */; };
 		18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */; };
 		18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */; };
 		18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC5200340F3002D4B88 /* KTUtils.swift */; };
@@ -116,6 +117,7 @@
 		1864872F1F0BB06800DDB003 /* KTDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTDALManager.swift; path = Classes/DAL/KTDALManager.swift; sourceTree = "<group>"; };
 		18A394882017089A000FCE92 /* KTVehicleType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTVehicleType+CoreDataClass.swift"; path = "Classes/DAL/CoreData/DataModel/KTVehicleType+CoreDataClass.swift"; sourceTree = "<group>"; };
 		18A394892017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTVehicleType+CoreDataProperties.swift"; path = "Classes/DAL/CoreData/DataModel/KTVehicleType+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		18A3948C20173EF1000FCE92 /* KTPickDropSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTPickDropSelectionViewController.swift; path = Classes/Views/Controllers/Booking/KTPickDropSelectionViewController.swift; sourceTree = "<group>"; };
 		18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VehicleTrack.swift; path = Classes/Models/VehicleTrack.swift; sourceTree = "<group>"; };
 		18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTVehicleTypeManager.swift; path = Classes/DAL/VehicleType/KTVehicleTypeManager.swift; sourceTree = "<group>"; };
 		18C24AC5200340F3002D4B88 /* KTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTUtils.swift; path = Classes/Common/Utility/KTUtils.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */,
+				18A3948C20173EF1000FCE92 /* KTPickDropSelectionViewController.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
+				18A3948D20173EF1000FCE92 /* KTPickDropSelectionViewController.swift in Sources */,
 				1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */,
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,

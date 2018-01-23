@@ -13,11 +13,6 @@ import CoreLocation
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:Array<VehicleTrack>)
-    
-    /*func numberOfRowVType() -> Int
-    func <#name#>(<#parameters#>) -> <#return type#> {
-    <#function body#>
-    }*/
 }
 class KTCreateBookingViewModel: KTBaseViewModel {
     
@@ -37,7 +32,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         self.fetchVechicleTypes()
     }
     
-    //Mark: - Vehicle Types
+    //MARK:-  Vehicle Types
     private func fetchVechicleTypes() {
         let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
         vechicleTypes = vTypeManager.VehicleTypes()
@@ -58,7 +53,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         let vType : KTVehicleType = vechicleTypes![idx]
         return String(vType.typeBaseFare)
     }
-    //Mark:- Location manager
+    //MARK:- Location manager
     
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
         //print(notification.userInfo!["location"] as Any)
@@ -66,7 +61,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         self.delegate?.updateLocationInMap(location: location)
         
         
-        //--self.fetchVehiclesNearCordinates(location: location)
+        self.fetchVehiclesNearCordinates(location: location)
 //        KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: KTVehicleType(rawValue: 50)!, completion:{
 //            (status,response) in
 //            
@@ -82,7 +77,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             oneTimeCheck = false
             KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: VehicleType(rawValue: 50)!, completion:{
             (status,response) in
-               var vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
+                let vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
                 self.delegate?.addMarkerOnMap(vTrack: vTrack)
             
             })
@@ -92,10 +87,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func parseVehicleTrack(_ respons: [AnyHashable: Any]) -> Array<VehicleTrack> {
         var vTrack: Array<VehicleTrack> = Array()
         
-        var responseArray: Array<[AnyHashable: Any]> = respons[Constants.ResponseAPIKey.Data] as! Array<[AnyHashable: Any]>
+        let responseArray: Array<[AnyHashable: Any]> = respons[Constants.ResponseAPIKey.Data] as! Array<[AnyHashable: Any]>
         //respons[Constants.ResponseAPIKey.Data] as! [AnyHashable: Any].forEach { track in
         responseArray.forEach { rtrack in
-            var track : VehicleTrack = VehicleTrack()
+            let track : VehicleTrack = VehicleTrack()
             track.vehicleNo = rtrack["VehicleNo"] as? String
             track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
             track.vehicleType = rtrack["VehicleType"] as? Int
