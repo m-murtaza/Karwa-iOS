@@ -41,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyBWEik2kFj1hYESIhS2GgUblo_amSfjqT0")
         
+        let vTypeManager :KTVehicleTypeManager = KTVehicleTypeManager()
+        vTypeManager.addDefaultVechicletypes()
+        
         return true
     }
 

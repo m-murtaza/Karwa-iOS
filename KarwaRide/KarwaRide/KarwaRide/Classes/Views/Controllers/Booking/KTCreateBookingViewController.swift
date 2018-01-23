@@ -22,7 +22,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
 
         // Do any additional setup after loading the view.
         viewModel.delegate = self
-        
+        viewModel.viewDidLoad()
         let camera = GMSCameraPosition.camera(withLatitude: 25.343899,
                                                           longitude: 51.511294, zoom: 15)
         self.mapView.camera = camera;
@@ -132,14 +132,18 @@ typealias CarouselDatasource = KTCreateBookingViewController
 extension CarouselDatasource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.numberOfRowsVType()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         if let scalingCell = cell as? ScalingCarouselCell {
-            scalingCell.mainView.backgroundColor = .red
+            let title: UILabel = scalingCell.mainView.viewWithTag(1001) as! UILabel
+            title.text = viewModel.vTypeTitle(forIndex: indexPath.row)
+            
+            let baseFare :UILabel = scalingCell.mainView.viewWithTag(1002) as! UILabel
+            baseFare.text = viewModel.vTypeBaseFare(forIndex: indexPath.row)
         }
         
         return cell

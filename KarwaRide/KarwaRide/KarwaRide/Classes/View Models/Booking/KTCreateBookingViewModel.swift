@@ -13,11 +13,17 @@ import CoreLocation
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:Array<VehicleTrack>)
+    
+    /*func numberOfRowVType() -> Int
+    func <#name#>(<#parameters#>) -> <#return type#> {
+    <#function body#>
+    }*/
 }
 class KTCreateBookingViewModel: KTBaseViewModel {
     
     weak var delegate: KTCreateBookingViewModelDelegate?
-    var vehicleType : KTVehicleType = KTVehicleType.KTBusinessLimo
+    var vehicleType : VehicleType = VehicleType.KTBusinessLimo
+    var vechicleTypes : [KTVehicleType]?
     
     init(del: Any) {
         super.init()
@@ -26,6 +32,33 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         KTLocationManager.sharedInstance.start()
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil)
     }
+    
+    override func viewDidLoad() {
+        self.fetchVechicleTypes()
+    }
+    
+    //Mark: - Vehicle Types
+    private func fetchVechicleTypes() {
+        let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
+        vechicleTypes = vTypeManager.VehicleTypes()
+    }
+    
+    func numberOfRowsVType() -> Int {
+        guard (vechicleTypes != nil) else {
+            return 0;
+        }
+        return (vechicleTypes?.count)!
+    }
+    func vTypeTitle(forIndex idx: Int) -> String {
+        let vType : KTVehicleType = vechicleTypes![idx]
+        return vType.typeName!
+    }
+    
+    func vTypeBaseFare(forIndex idx: Int) -> String {
+        let vType : KTVehicleType = vechicleTypes![idx]
+        return String(vType.typeBaseFare)
+    }
+    //Mark:- Location manager
     
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
         //print(notification.userInfo!["location"] as Any)
@@ -47,7 +80,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if oneTimeCheck {
             //Righ now allow only one time.
             oneTimeCheck = false
-            KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: KTVehicleType(rawValue: 50)!, completion:{
+            KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: VehicleType(rawValue: 50)!, completion:{
             (status,response) in
                var vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
                 self.delegate?.addMarkerOnMap(vTrack: vTrack)

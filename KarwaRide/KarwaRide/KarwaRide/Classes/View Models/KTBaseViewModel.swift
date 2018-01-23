@@ -33,6 +33,7 @@ class KTBaseViewModel: NSObject {
         delegate = del as? KTViewModelDelegate
         
     }*/
-    
+    func viewDidLoad() {
+    }
    
 }

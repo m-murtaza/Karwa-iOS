@@ -19,7 +19,7 @@ typealias KTDALSuccessBlock = (_ response: [AnyHashable: Any],_ success: KTDALCo
 //typealias KTDALCompletionBlock = (_ success: String, _ response: Any) -> Void
 //typealias KTDALSuccessBlock = (_ response: Any,_ success: KTDALCompletionBlock) -> Void
 
-enum KTVehicleType: Int {
+enum VehicleType: Int {
     case KTCityTaxi = 1
     case KTAiport7Seater = 3
     case KTAirportSpare = 5

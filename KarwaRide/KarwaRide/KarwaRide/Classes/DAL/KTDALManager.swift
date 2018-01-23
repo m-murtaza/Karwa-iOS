@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MagicalRecord
 
 class KTDALManager: KTBase {
 
