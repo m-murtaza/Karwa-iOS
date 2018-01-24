@@ -16,7 +16,7 @@ protocol KTForgotPassViewModelDelegate: KTViewModelDelegate {
 }
 
 class KTForgotPassViewModel: KTBaseViewModel {
-    weak var delegate: KTForgotPassViewModelDelegate?
+    //weak var delegate: KTForgotPassViewModelDelegate?
     var phone : String?
     var password: String?
     var rePassword: String?
@@ -30,16 +30,16 @@ class KTForgotPassViewModel: KTBaseViewModel {
         let WrongPhone = "Please enter valid mobile number"
     }
     
-    init(del: Any) {
-        super.init()
-        delegate = del as? KTForgotPassViewModelDelegate
-    }
+//    init(del: Any) {
+//        super.init()
+//        delegate = del as? KTForgotPassViewModelDelegate
+//    }
     
     func btnSubmitTapped() ->Void
     {
-        phone = self.delegate!.phoneNumber()
-        password = self.delegate!.password()
-        rePassword = self.delegate!.rePassword()
+        phone = (delegate as! KTForgotPassViewModelDelegate).phoneNumber()
+        password = (delegate as! KTForgotPassViewModelDelegate).password()
+        rePassword = (delegate as! KTForgotPassViewModelDelegate).rePassword()
         let error = validate()
         if error.count == 0
         {
@@ -47,17 +47,17 @@ class KTForgotPassViewModel: KTBaseViewModel {
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     
-                    self.delegate?.navigateToOTP()
+                    (self.delegate as! KTForgotPassViewModelDelegate).navigateToOTP()
                 }
                 else
                 {
-                    self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                    (self.delegate as! KTForgotPassViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
                 }
             })
         }
         else
         {
-            self.delegate?.showError!(title: "Error", message: error)
+            (delegate as! KTForgotPassViewModelDelegate).showError!(title: "Error", message: error)
         }
         
     }

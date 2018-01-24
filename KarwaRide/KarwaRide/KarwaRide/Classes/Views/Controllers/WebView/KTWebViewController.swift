@@ -16,6 +16,7 @@ class KTWebViewController: KTBaseViewController,WKNavigationDelegate {
     var navTitle : String = ""
     
     override func viewDidLoad() {
+
         super.viewDidLoad()
         if title != ""
         {

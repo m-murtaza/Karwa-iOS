@@ -14,25 +14,19 @@ class Cell: ScalingCarouselCell {}
 
 class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate {
     
-    let viewModel : KTCreateBookingViewModel = KTCreateBookingViewModel(del: self)
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
     override func viewDidLoad() {
+        viewModel = KTCreateBookingViewModel(del:self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        viewModel.delegate = self
-        viewModel.viewDidLoad()
+        //viewModel?.viewDidLoad()
         let camera = GMSCameraPosition.camera(withLatitude: 25.343899,
                                                           longitude: 51.511294, zoom: 15)
         self.mapView.camera = camera;
         self.mapView!.isMyLocationEnabled = true
-        
-        
-        
         self.navigationItem.hidesBackButton = true;
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,14 +34,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         // Dispose of any resources that can be recreated.
     }
     
-//    @objc func methodOfReceivedNotification(notification: Notification){
-//        print(notification.userInfo!["location"] as Any)
-//        let location : CLLocation = notification.userInfo!["location"] as! CLLocation
-//        let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
-//        
-//        self.mapView?.animate(to: camera)
-//        
-//    }
     /*
     // MARK: - Navigation
 
@@ -99,8 +85,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
     }
     
-    
-    
     func focusMapToShowAllMarkers(gsmMarker : Array<GMSMarker>) {
         allowReset = false
         var bounds = GMSCoordinateBounds()
@@ -109,30 +93,14 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
         let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
         mapView.animate(with: update)
-        
-        //mapView.z
     }
-    
-//    - (void)focusMapToShowAllMarkers
-//    {
-//
-//    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] init];
-//
-//    for (GMSMarker *marker in <An array of your markers>)
-//    bounds = [bounds includingCoordinate:marker.position];
-//
-//    [self.mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:30.0f]];
-//
-//
-//    }
-    
 }
 
 typealias CarouselDatasource = KTCreateBookingViewController
 extension CarouselDatasource: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfRowsVType()
+        return (viewModel as! KTCreateBookingViewModel).numberOfRowsVType()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -140,10 +108,10 @@ extension CarouselDatasource: UICollectionViewDataSource {
         
         if let scalingCell = cell as? ScalingCarouselCell {
             let title: UILabel = scalingCell.mainView.viewWithTag(1001) as! UILabel
-            title.text = viewModel.vTypeTitle(forIndex: indexPath.row)
+            title.text = (viewModel as! KTCreateBookingViewModel).vTypeTitle(forIndex: indexPath.row)
             
             let baseFare :UILabel = scalingCell.mainView.viewWithTag(1002) as! UILabel
-            baseFare.text = viewModel.vTypeBaseFare(forIndex: indexPath.row)
+            baseFare.text = (viewModel as! KTCreateBookingViewModel).vTypeBaseFare(forIndex: indexPath.row)
         }
         
         return cell
@@ -156,8 +124,6 @@ extension CarouselDelegate: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         carousel.didScroll()
         
-        guard let currentCenterIndex = carousel.currentCenterCellIndex?.row else { return }
-        
-        //output.text = String(describing: currentCenterIndex)
+        guard (carousel.currentCenterCellIndex?.row) != nil else { return }
     }
 }

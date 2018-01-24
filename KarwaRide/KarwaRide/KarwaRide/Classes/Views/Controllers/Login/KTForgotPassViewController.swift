@@ -14,13 +14,13 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
     @IBOutlet weak var txtPassword : UITextField!
     @IBOutlet weak var txtConfirmPass : UITextField!
     
-    let viewModel : KTForgotPassViewModel = KTForgotPassViewModel(del: self)
     //MARK: -View LifeCycle
     override func viewDidLoad() {
+        viewModel = KTForgotPassViewModel(del:self)
         super.viewDidLoad()
-        //viewModel! = KTLoginViewModel(del:self)
+        
         // Do any additional setup after loading the view.
-        viewModel.delegate = self
+        
     }
     // MARK: - Navigation
     
@@ -38,7 +38,7 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
     
     @IBAction func btnSubmitTapped(_ sender: Any)
     {
-        viewModel.btnSubmitTapped()
+        (viewModel as! KTForgotPassViewModel).btnSubmitTapped()
     }
     
     func phoneNumber() -> String? {

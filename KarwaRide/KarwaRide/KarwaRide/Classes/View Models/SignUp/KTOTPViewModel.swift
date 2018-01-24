@@ -17,18 +17,19 @@ protocol KTOTPViewModelDelegate: KTViewModelDelegate {
 
 class KTOTPViewModel: KTBaseViewModel {
     
-    weak var delegate: KTOTPViewModelDelegate?
+    //weak var delegate: KTOTPViewModelDelegate?
     
     
     
-    init(del: Any) {
-        super.init()
-        delegate = del as? KTOTPViewModelDelegate
-    }
+//    init(del: Any) {
+//        super.init()
+//        delegate = del as? KTOTPViewModelDelegate
+//    }
     
     func confirmCode() -> Void {
-        let otp : String? = (self.delegate?.OTPCode())!
-        let phone : String = (self.delegate?.phoneNum())!
+        
+        let otp : String? = ((self.delegate as! KTOTPViewModelDelegate).OTPCode())!
+        let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
         if KTUtils.isObjectNotNil(object: otp as AnyObject)
         {
             KTUserManager.init().VarifyOTP(phone: phone, code: otp!
@@ -36,7 +37,7 @@ class KTOTPViewModel: KTBaseViewModel {
                     
                     if status == Constants.APIResponseStatus.SUCCESS
                     {
-                        self.delegate?.navigateToBooking()
+                        (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
                     }
                     else
                     {

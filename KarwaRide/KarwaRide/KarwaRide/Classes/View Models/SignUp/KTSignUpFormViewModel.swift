@@ -24,7 +24,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
     var email: String?
     var password: String?
     
-    weak var delegate: KTSignUpViewModelDelegate?
+    //weak var delegate: KTSignUpViewModelDelegate?
 
     struct SignUpValidationError {
         let NoName = "Name is mandatory"
@@ -35,16 +35,16 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         let WrongEmail = "Please enter valid email address"
     }
     
-    init(del: Any) {
-        super.init()
-        delegate = del as? KTSignUpViewModelDelegate
-    }
+//    init(del: Any) {
+//        super.init()
+//        delegate = del as? KTSignUpViewModelDelegate
+//    }
     
     func SignUp() -> Void {
-        name = self.delegate?.name()
-        mobileNo = self.delegate?.mobileNo()
-        password = self.delegate?.password()
-        email = self.delegate?.email()
+        name = (self.delegate as! KTSignUpViewModelDelegate).name()
+        mobileNo = (self.delegate as! KTSignUpViewModelDelegate).mobileNo()
+        password = (self.delegate as! KTSignUpViewModelDelegate).password()
+        email = (self.delegate as! KTSignUpViewModelDelegate).email()
         let error = validate()
         
         if error.count == 0
@@ -52,18 +52,18 @@ class KTSignUpFormViewModel: KTBaseViewModel {
             KTUserManager.init().signUp(name: name!, mobileNo: mobileNo!, email: email!, password: password!, completion: { (status, response) in
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
-                    self.delegate?.navigateToOTP()
+                    (self.delegate as! KTSignUpViewModelDelegate).navigateToOTP()
                 }
                 else
                 {
-                    self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                    (self.delegate as! KTSignUpViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
                 }
             })
         }
         else
         {
             //self.delegate?.navigateToOTP()
-            delegate?.showError!(title: "Error", message: error)
+            (self.delegate as! KTSignUpViewModelDelegate).showError!(title: "Error", message: error)
         }
     }
     

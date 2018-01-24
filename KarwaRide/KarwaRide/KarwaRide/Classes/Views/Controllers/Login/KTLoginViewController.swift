@@ -14,15 +14,12 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
-    
-    let viewModel : KTLoginViewModel = KTLoginViewModel(del: self)
-    
     //MARK: -View LifeCycle
     override func viewDidLoad() {
+        viewModel = KTLoginViewModel(del:self)
         super.viewDidLoad()
-        //viewModel! = KTLoginViewModel(del:self)
         // Do any additional setup after loading the view.
-        viewModel.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,15 +31,12 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -55,7 +49,7 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
     
     @IBAction func loginBtnTapped(_ sender: Any)
     {
-        viewModel.loginBtnTapped()
+        (viewModel as! KTLoginViewModel).loginBtnTapped()
     }
     
     @IBAction func btnBackTapped(_ sender:Any)

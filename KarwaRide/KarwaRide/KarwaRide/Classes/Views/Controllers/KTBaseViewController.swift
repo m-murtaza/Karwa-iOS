@@ -10,12 +10,12 @@ import UIKit
 
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
 
-    //var viewModel : KSBaseViewModel? //= KSBaseViewModel(del: self as! KSViewModelDelegate)
+    var viewModel : KTBaseViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        viewModel?.viewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {

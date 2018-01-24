@@ -18,31 +18,31 @@ protocol KTLoginViewModelDelegate: KTViewModelDelegate {
 
 class KTLoginViewModel: KTBaseViewModel {
 
-    weak var delegate: KTLoginViewModelDelegate?
+    //weak var delegate: KTLoginViewModelDelegate?
     
-    init(del: Any) {
-        super.init()
-        delegate = del as? KTLoginViewModelDelegate
-    }
+//    init(del: Any) {
+//        super.init()
+//        delegate = del as? KTLoginViewModelDelegate
+//    }
     
     func loginBtnTapped()
     {
-        let phone : String = (delegate?.phoneNumber())!
+        let phone : String = ((delegate as! KTLoginViewModelDelegate).phoneNumber())
         let password: String = "5df74bed761f1a361415b14c68839eac"//(delegate?.Password())!
         
         //delegate.model
         KTUserManager.init().login(phone: phone, password:password ) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS
             {
-                self.delegate?.navigateToBooking()
+                (self.delegate as! KTLoginViewModelDelegate).navigateToBooking()
             }
             else if(status == Constants.APIResponseStatus.UNVERIFIED)
             {
-                self.delegate?.navigateToOTP()
+                (self.delegate as! KTLoginViewModelDelegate).navigateToOTP()
             }
             else
             {
-                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                (self.delegate as! KTLoginViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
             }
         }
     }

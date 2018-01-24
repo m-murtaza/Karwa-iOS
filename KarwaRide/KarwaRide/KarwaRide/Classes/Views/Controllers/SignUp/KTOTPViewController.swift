@@ -10,27 +10,17 @@ import UIKit
 
 class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     
-    var viewModel : KTOTPViewModel!
-    
     @IBOutlet weak var btnConfirmCode: ButtonWithShadow!
     @IBOutlet weak var otpView: VPMOTPView!
     var otpString : String?
     var phone : String = ""
     
     override func viewDidLoad() {
+        viewModel = KTOTPViewModel(del:self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        viewModel = KTOTPViewModel.init(del: self)
-        
-        //otpView.otpFieldsCount = 4
-        //otpView.otpFieldDisplayType = .square
-//        otpView.otpFieldDefaultBorderColor = UIColor.lightGray
-//        otpView.otpFieldEnteredBorderColor = UIColor.darkGray
-//        otpView.otpFieldDefaultBackgroundColor = UIColor.white
-//        otpView.otpFieldEnteredBackgroundColor = UIColor.gray
-//        otpView.otpFieldBorderWidth = 1
-        otpView.delegate = self
+       
         // Create the UI
         otpView.initalizeUI()
     }
@@ -57,7 +47,7 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     */
 
     @IBAction func btnConfirmCode(_ sender: Any) {
-        viewModel.confirmCode()
+        (viewModel as! KTOTPViewModel).confirmCode()
     }
     
     func OTPCode() -> String? {

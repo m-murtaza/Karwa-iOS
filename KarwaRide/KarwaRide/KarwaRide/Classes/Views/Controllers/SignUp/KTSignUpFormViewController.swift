@@ -14,12 +14,10 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
     @IBOutlet weak var txtMobileNo: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-    
-    var viewModel : KTSignUpFormViewModel!
-    
+
     override func viewDidLoad() {
+        viewModel = KTSignUpFormViewModel(del:self)
         super.viewDidLoad()
-        viewModel = KTSignUpFormViewModel.init(del: self)
         // Do any additional setup after loading the view.
     }
 
@@ -52,7 +50,7 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
     }
     
     @IBAction func btnSubmitTapped(_ sender: Any) {
-        viewModel.SignUp()
+        (viewModel as! KTSignUpFormViewModel).SignUp()
     }
     
     // MARK: - View model Delegates
@@ -76,14 +74,4 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
         self.performSegue(withIdentifier: "segueSignupToOtp", sender: self)
     }
     
-//    func showError(title: String, message: String) {
-//        // create the alert
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-//        
-//        // add an action (button)
-//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//        
-//        // show the alert
-//        self.present(alert, animated: true, completion: nil)
-//    }
 }

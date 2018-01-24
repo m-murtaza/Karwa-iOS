@@ -10,9 +10,11 @@ import UIKit
 
 class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
 
+    var viewModel : KTBaseViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        viewModel?.viewDidLoad()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

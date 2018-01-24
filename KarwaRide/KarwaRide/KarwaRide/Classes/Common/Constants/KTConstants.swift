@@ -113,6 +113,7 @@ struct Constants {
         static let UpdatePass = "user/update"
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"
+        static let AddressPick = "geocode/"
     }
     
     struct TrackTaxiParams {
@@ -122,6 +123,11 @@ struct Constants {
         static let Radius = "Radius"
         static let VehicleType = "type"
         static let Limit  = "limit"
+    }
+    
+    struct AddressPickParams {
+        static let Lat = "lat"
+        static let Lon = "lon"
     }
     
     struct DeviceTypes {

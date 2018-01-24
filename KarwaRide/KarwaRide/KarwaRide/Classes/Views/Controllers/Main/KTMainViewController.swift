@@ -11,14 +11,12 @@ import MagicalRecord
 
 class KTMainViewController: KTBaseViewController {
 
-    let viewModel : KTMainViewModel = KTMainViewModel(del: self)
-    
-    
     override func viewDidLoad() {
+        viewModel = KTMainViewModel(del:self)
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        viewModel.viewDidLoad { (navigate:Bool) in
+        (viewModel as! KTMainViewModel).viewDidLoad { (navigate:Bool) in
             if navigate {
                 self.performSegue(withIdentifier: "segueMainToBooking", sender: self)
             }

@@ -16,20 +16,13 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
 }
 class KTCreateBookingViewModel: KTBaseViewModel {
     
-    weak var delegate: KTCreateBookingViewModelDelegate?
     var vehicleType : VehicleType = VehicleType.KTBusinessLimo
     var vechicleTypes : [KTVehicleType]?
     
-    init(del: Any) {
-        super.init()
-        delegate = del as? KTCreateBookingViewModelDelegate
-        
-        KTLocationManager.sharedInstance.start()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil)
-    }
-    
     override func viewDidLoad() {
         self.fetchVechicleTypes()
+        KTLocationManager.sharedInstance.start()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil)
     }
     
     //MARK:-  Vehicle Types
@@ -54,32 +47,24 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return String(vType.typeBaseFare)
     }
     //MARK:- Location manager
-    
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
-        //print(notification.userInfo!["location"] as Any)
-        let location : CLLocation = notification.userInfo!["location"] as! CLLocation
-        self.delegate?.updateLocationInMap(location: location)
         
+        let location : CLLocation = notification.userInfo!["location"] as! CLLocation
+        (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location)
         
         self.fetchVehiclesNearCordinates(location: location)
-//        KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: KTVehicleType(rawValue: 50)!, completion:{
-//            (status,response) in
-//            
-//            
-//        })
-
     }
     
     var oneTimeCheck : Bool = true
     func fetchVehiclesNearCordinates(location:CLLocation) {
+        
         if oneTimeCheck {
             //Righ now allow only one time.
             oneTimeCheck = false
             KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: VehicleType(rawValue: 50)!, completion:{
             (status,response) in
                 let vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
-                self.delegate?.addMarkerOnMap(vTrack: vTrack)
-            
+                (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: vTrack)
             })
         }
     }
