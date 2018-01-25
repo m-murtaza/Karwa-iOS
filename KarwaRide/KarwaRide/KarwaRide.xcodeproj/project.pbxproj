@@ -48,6 +48,8 @@
 		18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */; };
 		18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949020185458000FCE92 /* KTBookingManager+Address.swift */; };
 		18A3949320187C2F000FCE92 /* NSManageObject+KTExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949220187C2F000FCE92 /* NSManageObject+KTExtended.swift */; };
+		18A3949620199FC9000FCE92 /* KTGeoLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949420199FC8000FCE92 /* KTGeoLocation+CoreDataClass.swift */; };
+		18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949520199FC8000FCE92 /* KTGeoLocation+CoreDataProperties.swift */; };
 		18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */; };
 		18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */; };
 		18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC5200340F3002D4B88 /* KTUtils.swift */; };
@@ -124,6 +126,8 @@
 		18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewModel.swift; path = "Classes/View Models/Booking/KTAddressPickerViewModel.swift"; sourceTree = "<group>"; };
 		18A3949020185458000FCE92 /* KTBookingManager+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Address.swift"; path = "Classes/DAL/Booking/KTBookingManager+Address.swift"; sourceTree = "<group>"; };
 		18A3949220187C2F000FCE92 /* NSManageObject+KTExtended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSManageObject+KTExtended.swift"; path = "Classes/DAL/CoreData/NSManageObject+KTExtended.swift"; sourceTree = "<group>"; };
+		18A3949420199FC8000FCE92 /* KTGeoLocation+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTGeoLocation+CoreDataClass.swift"; path = "Classes/DAL/CoreData/DataModel/KTGeoLocation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		18A3949520199FC8000FCE92 /* KTGeoLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTGeoLocation+CoreDataProperties.swift"; path = "Classes/DAL/CoreData/DataModel/KTGeoLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VehicleTrack.swift; path = Classes/Models/VehicleTrack.swift; sourceTree = "<group>"; };
 		18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTVehicleTypeManager.swift; path = Classes/DAL/VehicleType/KTVehicleTypeManager.swift; sourceTree = "<group>"; };
 		18C24AC5200340F3002D4B88 /* KTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTUtils.swift; path = Classes/Common/Utility/KTUtils.swift; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 		1810C1221FCC371A008E8D91 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
+				18A3949420199FC8000FCE92 /* KTGeoLocation+CoreDataClass.swift */,
+				18A3949520199FC8000FCE92 /* KTGeoLocation+CoreDataProperties.swift */,
 				18A394882017089A000FCE92 /* KTVehicleType+CoreDataClass.swift */,
 				18A394892017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift */,
 				1810C1361FCD32E7008E8D91 /* KTUser+CoreDataClass.swift */,
@@ -759,6 +765,7 @@
 				18A3948B2017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
+				18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
@@ -784,6 +791,7 @@
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
 				18A3948A2017089A000FCE92 /* KTVehicleType+CoreDataClass.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
+				18A3949620199FC9000FCE92 /* KTGeoLocation+CoreDataClass.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,

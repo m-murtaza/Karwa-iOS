@@ -23,8 +23,6 @@ class KTVehicleTypeManager: KTDALManager {
                 self.addStandardLmioType(localContext: localContext)
                 self.addBusinessLimoType(localContext: localContext)
                 self.addLuxuryLimoType(localContext: localContext)
-            }, completion: {(_ success: Bool, _ error: Error?) -> Void in
-                print("Success")
             })
         
             UserDefaults.standard.set(true, forKey: "VehicleTypeSaved")

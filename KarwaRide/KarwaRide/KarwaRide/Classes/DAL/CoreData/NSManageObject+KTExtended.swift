@@ -21,7 +21,7 @@ extension NSManagedObject {
         var obj: NSManagedObject? = self.mr_findFirst(byAttribute: attrib, withValue: value,in:context)
         
         if obj == nil {
-            obj = self.mr_createEntity()
+            obj = self.mr_createEntity(in: context)
             obj?.setValue(value, forKey: attrib)
         }
         return obj ?? NSManagedObject()

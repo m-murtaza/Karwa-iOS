@@ -41,34 +41,29 @@ extension KTBookingManager
     
     
     private func saveGeoLocations(locations:[Any],completion: @escaping (Bool) -> Void) {
-        //MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
+        MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
            for location in locations {
-                self.saveGeoLocation(location:location as! [AnyHashable : Any])
+                self.saveGeoLocation(location:location as! [AnyHashable : Any],context: localContext)
             }
-//        }, completion: {(_ success: Bool, _ error: Error?) -> Void in
-//            if success == false && error != nil {
-//                completion(false)
-//            }
-//            else{
-//                completion(true)
-//            }
-//        })
+        }, completion: {(_ success: Bool, _ error: Error?) -> Void in
+            if success == false && error != nil {
+                completion(false)
+            }
+            else{
+                completion(true)
+            }
+        })
     }
     
-    //private func saveGeoLocation(location: [AnyHashable:Any], localContext: NSManagedObjectContext) {
-    private func saveGeoLocation(location: [AnyHashable:Any]) {
-    MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
-            //let loc : KTGeoLocation = KTGeoLocation.mr_createEntity(in: localContext)!
-            let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.AddressPickResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
-                //loc.locationId = location[Constants.AddressPickResponseAPIKey.LocationId] as! Int32
-                loc.latitude = 12.3 as Double//location[Constants.AddressPickResponseAPIKey.Latitude] as! Double
-                loc.longitude = 23.2 as Double //location[Constants.AddressPickResponseAPIKey.Longitude] as! Double
-                loc.area = "ab" as String//location[Constants.AddressPickResponseAPIKey.Area] as? String
-                loc.name = "ac" as String//location[Constants.AddressPickResponseAPIKey.Name] as? String
+    private func saveGeoLocation(location: [AnyHashable:Any],context localContext: NSManagedObjectContext) {
+
+        let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.AddressPickResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
+        
+                loc.latitude = location[Constants.AddressPickResponseAPIKey.Latitude] as! Double
+                loc.longitude = location[Constants.AddressPickResponseAPIKey.Longitude] as! Double
+                loc.area = location[Constants.AddressPickResponseAPIKey.Area] as? String
+                loc.name = location[Constants.AddressPickResponseAPIKey.Name] as? String
                 // TODO: Add parser for type
-            }, completion: {(_ success: Bool, _ error: Error?) -> Void in
-                print(success)
-        })
     }
     
     func VehicleTypes() -> [KTVehicleType]? {

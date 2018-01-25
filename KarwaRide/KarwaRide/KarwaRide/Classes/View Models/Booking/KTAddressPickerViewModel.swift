@@ -36,4 +36,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     func numberOfRow() -> Int {
         return locations.count
     }
+    func addressTitle(forRow row: Int) -> String
+    {
+        return locations[row].name!
+    }
 }

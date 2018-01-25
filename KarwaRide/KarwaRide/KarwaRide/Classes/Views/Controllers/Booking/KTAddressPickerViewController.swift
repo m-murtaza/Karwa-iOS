@@ -28,14 +28,19 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "AddPickCellIdentifier")
+        let cell : AddressPickCell = tableView.dequeueReusableCell(withIdentifier: "AddPickCellIdentifier", for: indexPath) as! AddressPickCell
+            /*AddressPickCell(style: UITableViewCellStyle.default, reuseIdentifier: "AddPickCellIdentifier")*/
         
-        let lblAddress  : UILabel = cell.contentView.viewWithTag(1001) as! UILabel
-        lblAddress.text = "abcd"
+        cell.addressTitle.text = (viewModel as! KTAddressPickerViewModel).addressTitle(forRow: indexPath.row)
+        
         
         return cell
     }
     
 }
 
+
+class AddressPickCell: UITableViewCell {
+    @IBOutlet weak var addressTitle : UILabel!
+}
 
