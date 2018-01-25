@@ -26,19 +26,6 @@ extension KTBookingManager
             (responseData,cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         })
-        
-        /*KTWebClient.sharedInstance.get(uri: Constants.APIURL.TrackTaxi, param: param as? [String : Any]) { (status, response) in
-            if status != true
-            {
-                
-                completionBlock(Constants.APIResponseStatus.FAILED_API, response)
-            }
-            else
-            {
-                
-                
-            }
-        }*/
     }
     
     

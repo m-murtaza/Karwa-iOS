@@ -52,6 +52,7 @@ struct Constants {
         static let SUCCESS = "SUCCESS"
         static let UNKNOWN = "UNKNOWN";
         static let FAILED = "FAILED"
+        static let FAILED_DB = "FAILED_DB";
         static let FAILED_API = "FAILED_API";
         static let FAILED_NETWORK = "FAILED_NETWORK"
         static let ALREADY_EXIST = "ALREADY_EXIST"
@@ -76,6 +77,13 @@ struct Constants {
         static let SessionID = "SessionID"
     }
     
+    struct AddressPickResponseAPIKey {
+        static let LocationId = "ID"
+        static let Latitude = "Lat"
+        static let Longitude = "Lon"
+        static let Name = "Name"
+        static let Area = "Area"
+    }
     
     struct KTAPIStatus : OptionSet {
         let rawValue: Int

@@ -63,8 +63,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             oneTimeCheck = false
             KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: VehicleType(rawValue: 50)!, completion:{
             (status,response) in
-                let vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
-                (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: vTrack)
+                if status == Constants.APIResponseStatus.SUCCESS {
+                    let vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
+                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: vTrack)
+                }
             })
         }
     }

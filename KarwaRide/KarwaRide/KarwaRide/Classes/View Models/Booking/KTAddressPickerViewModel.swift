@@ -8,15 +8,32 @@
 
 import UIKit
 
+protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
+    func loadData()
+}
 
 
 class KTAddressPickerViewModel: KTBaseViewModel {
+    
+    var locations : [KTGeoLocation] = []
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         KTBookingManager().addressForLocation(location: (KTLocationManager.sharedInstance.currentLocation?.coordinate)!) { (status, response) in
-            print(response)
+            if status == Constants.APIResponseStatus.SUCCESS {
+                //Success
+                self.getAllLocations()
+            }
         }
+    }
+    
+    func getAllLocations() {
+        locations  = KTBookingManager().allGeoLocations()!
+        (delegate as! KTAddressPickerViewModelDelegate).loadData()
+    }
+    
+    func numberOfRow() -> Int {
+        return locations.count
     }
 }
