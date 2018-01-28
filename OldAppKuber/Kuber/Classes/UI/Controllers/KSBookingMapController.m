@@ -298,6 +298,7 @@ static BOOL showMendatoryRating = TRUE;
         
         [defaults setValue:[NSNumber numberWithBool:true] forKey:KSTaxiLimoDefaultKey];
         [defaults synchronize];
+        showMendatoryRating = FALSE;
     }
 }
 //types-coachmark@2x
