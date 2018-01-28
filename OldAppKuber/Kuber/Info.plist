@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0</string>
+	<string>12</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -55,8 +55,10 @@
 		<string>MuseoForDell-300.otf</string>
 		<string>MuseoForDell-500.otf</string>
 		<string>MuseoForDell-700.otf</string>
-		<string>MuseoSans_500.otf</string>
-		<string>MuseoSans_700.otf</string>
+		<string>MuseoSans-500.otf</string>
+		<string>MuseoSans-700.otf</string>
+		<string>MuseoSans-300.otf</string>
+		<string>MuseoSans-300Italic.otf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
@@ -75,8 +77,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
@@ -85,7 +85,27 @@
 		<key>format</key>
 		<string>json</string>
 		<key>url</key>
-		<string>http://devservices.karwasolutions.com:70/api/</string>
+		<string>https://services.karwasolutions.com/api/</string>
 	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1050410517</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1050410517</string>
+	<key>FacebookDisplayName</key>
+	<string>Karwa</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>

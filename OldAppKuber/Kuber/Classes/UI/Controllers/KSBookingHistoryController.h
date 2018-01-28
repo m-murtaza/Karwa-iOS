@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Karwa Solutions. All rights reserved.
 //
 
-#import "KSViewController.h"
+#import "KSBaseRevealViewRightControllerViewController.h"
 #import <NYSegmentedControl/NYSegmentedControl.h>
 
-@interface KSBookingHistoryController : KSViewController <UITableViewDelegate,UITableViewDataSource>
+@interface KSBookingHistoryController : KSBaseRevealViewRightControllerViewController <UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic) NSUInteger tripStatus;
 @property (nonatomic, strong) NSArray *trips;

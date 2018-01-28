@@ -16,6 +16,8 @@
 #import "KSTripRatingController.h"
 #import "AFNetworking.h"
 #import "KSConfirmationAlert.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 
 #import "KSiOS10APNS.h"
 #import "KSiOS9APNS.h"
@@ -33,7 +35,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
     //Limo coachmarks will display only when application run first time after update to version 1.4
     [self setFlagForLimoCoachMarks];
     
@@ -76,11 +79,24 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                    ];
+    // Add any custom logic here.
+    return handled;
+}
+
 -(void) setFlagForLimoCoachMarks
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [defaults valueForKey:@"KSDeviceToken"];
-    if(token != nil)
+    if(token == nil)
     {
         //Application is not new installation, KSDeviceToken have nothing to do with limocoachmarks, just using it to identify if applicaiton is fresh install(not update) or old one.
         if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
@@ -147,12 +163,13 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
-    //
     
+    [FBSDKAppEvents activateApp];
     
-    [KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
-        [KSDAL removeOldBookings];
-    }];
+    [KSDAL removeOldBookings];
+    /*[KSDAL syncBookingHistoryWithCompletion:^(KSAPIStatus status, id response) {
+        
+    }];*/
     
     //Removed after discussing with Asif Kamboh, Now reverse goecode implementation will be on server side. 
     //[KSDAL syncLocationsWithCompletion:^(KSAPIStatus status, id response) {}];
@@ -232,6 +249,7 @@
     KSBookingDetailsController *detailController = [UIStoryboard bookingDetailsController];
     detailController.tripInfo = trip;
     detailController.isOpenedFromPushNotification = TRUE;
+    detailController.showRevealButton = TRUE;
     
     //KSBookingMapController *mapController = [UIStoryboard bookingMapController];
     
@@ -284,32 +302,32 @@
 - (void)applyUICustomizations {
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+
     UINavigationBar *appearance = [UINavigationBar appearance];
-    
+
     UIColor *navBarColor = [self colorWithRed:24.0 green:122.0 blue:137.0];
     [appearance setBarTintColor:navBarColor];
     if(IS_IOS8)
         [appearance setTranslucent:FALSE];
-
-
-    /*NSShadow *shadow = [[NSShadow alloc] init];
-
-    shadow.shadowColor = [UIColor colorWithRed:1 green:0.0 blue:0.0 alpha:0.8];
-    shadow.shadowOffset = CGSizeMake(0, 1);
-    */
-    
-    
+//
+//
+//    /*NSShadow *shadow = [[NSShadow alloc] init];
+//
+//    shadow.shadowColor = [UIColor colorWithRed:1 green:0.0 blue:0.0 alpha:0.8];
+//    shadow.shadowOffset = CGSizeMake(0, 1);
+//    */
+//
+//
     UIColor *navTitleColor = [self colorWithRed:245 green:245 blue:245];
     [appearance setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            navTitleColor, NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"MuseoForDell-500" size:21.0], NSFontAttributeName, nil]];
-    
+
     [appearance setTintColor:[UIColor colorFromHexString:@"#21d7d7"]];
     [appearance setBackIndicatorImage:[UIImage imageNamed:@"backarrow.png"]];
     [appearance setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"backarrow.png"]];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
-    }
+//    [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor clearColor]} forState:UIControlStateNormal];
+}
 
 #pragma mark - Google Analytics
 -(void) setupGoogleAnalytics

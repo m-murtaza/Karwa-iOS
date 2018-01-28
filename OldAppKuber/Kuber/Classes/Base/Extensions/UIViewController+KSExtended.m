@@ -44,9 +44,21 @@ const NSInteger KSViewControllerTagForLoadingView = 1000000001;
         if (self.revealButtonItem) {
             [self.revealButtonItem setTarget: revealViewController];
             [self.revealButtonItem setAction: @selector(revealToggle:)];
-            [self.navigationController.navigationBar addGestureRecognizer: revealViewController.panGestureRecognizer];
+            //[self.navigationController.navigationBar addGestureRecognizer: revealViewController.panGestureRecognizer];
         }        
     }
+}
+
+-(void) addPanGestureForRevealView
+{
+    [self.navigationController.navigationBar addGestureRecognizer: self.revealViewController.panGestureRecognizer];
+    
+}
+
+-(void) removePanGestureForRevealView
+{
+    [self.navigationController.navigationBar removeGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    
 }
 
 @end

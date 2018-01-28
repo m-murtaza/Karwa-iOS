@@ -15,5 +15,7 @@
 - (void)hideLoadingView;
 
 - (void)setupRevealViewController;
+-(void) addPanGestureForRevealView;
+-(void) removePanGestureForRevealView;
 
 @end

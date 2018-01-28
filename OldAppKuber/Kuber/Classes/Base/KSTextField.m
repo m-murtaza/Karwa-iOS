@@ -35,7 +35,7 @@
     }
     
     
-    CGRect placeholderRect = CGRectMake(rect.origin.x, (rect.size.height- self.font.pointSize)/2, rect.size.width, self.font.pointSize);
+    CGRect placeholderRect = CGRectMake(rect.origin.x, ((rect.size.height- self.font.pointSize)/2)-3, rect.size.width, self.font.pointSize+1);
     
     UIFont *font = [UIFont fontWithName:self.font.fontName size:15.0];
     

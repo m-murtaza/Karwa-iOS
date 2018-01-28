@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "KSViewController.h"
+#import "KSBaseRevealViewRightControllerViewController.h"
 
 
-@interface KSBookingMapController : KSViewController <MKMapViewDelegate, UITableViewDataSource,UITableViewDelegate>
+@interface KSBookingMapController : KSBaseRevealViewRightControllerViewController <MKMapViewDelegate, UITableViewDataSource,UITableViewDelegate>
 
 
 @property (nonatomic, strong) KSTrip *repeatTrip;

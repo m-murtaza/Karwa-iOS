@@ -81,17 +81,18 @@ BtnState;
     [self.lblAcknowlegement setHidden:TRUE];
     
     [self loadViewData];
-    if (self.isOpenedFromPushNotification ) {
+    if (self.showRevealButton ) {
         
         UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
         self.revealButtonItem = barButton;
         [barButton setImage:[UIImage imageNamed:@"reveal-icon.png"]];
         self.navigationItem.leftBarButtonItem = barButton;
-        [self setupRevealViewController];
-                
+        
         if ([self.tripInfo.status integerValue] == KSTripStatusTaxiNotFound) {
             [KSAlert show:@"Dear Customer, we are fully booked, Please try different pick up time"];
         }
+        
+        [self setupRevealViewController];
     }
     
     if(self.tripInfo.jobId == nil)
@@ -109,10 +110,7 @@ BtnState;
         /*KSTripRatingController *ratingController = [UIStoryboard tripRatingController];
          ratingController.trip = self.tripInfo;
          [self.navigationController pushViewController:ratingController animated:NO];*/
-        
     }
-
-    
     [self setNavigationTitle];
     
     if(IS_IPHONE_5){
@@ -128,14 +126,30 @@ BtnState;
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self updateTrackingOption];
     
     [self setCancelBtnStatusForTrip:self.tripInfo];
-    [self setTaxiInfo:self.tripInfo];
+    //[self setTaxiInfo:self.tripInfo];
     
     [KSGoogleAnalytics trackPage:@"Booking Details"];
     
     [self updateStatusOfTaxi];
+    
+    //[self addPanGestureForRevealView];
+}
+-(void) viewWillDisappear:(BOOL)animated
+{
+    
+    [super viewWillDisappear:animated];
+    //[self removePanGestureForRevealView];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setTaxiInfo:self.tripInfo];
+    
 }
 
 - (void) setNavigationTitle
@@ -147,6 +161,7 @@ BtnState;
 
 -(void) loadViewData
 {
+    [self.view layoutIfNeeded];                 //For some reason not able to change the font size if don't call this method.  Strange!
     KSTrip *trip = self.tripInfo;
     DLog(@"Booking Detail Trip data %@",trip);
     //Set Pickup Address
@@ -163,12 +178,13 @@ BtnState;
     }
     
     //Set Drop Off Address
-    if (trip.dropoffLandmark.length) {
+    if (trip.dropoffLandmark && trip.dropoffLandmark.length) {
         
         self.lblDropoffAddress.text = trip.dropoffLandmark;
     }
     else {
-        self.lblDropoffAddress.text = @"";
+        self.lblDropoffAddress.text = @"No Destination Set";
+        [self.lblDropoffAddress setFont: [UIFont fontWithName:KSMuseoSans300Italic size:17]];
     }
     
     //Set Top Pick Up date
@@ -209,6 +225,8 @@ BtnState;
     [self setCancelBtnStatusForTrip:trip];
     
     [self setTaxiInfo:trip];
+    
+    
 }
 
 -(void) hideTaxiInfo:(KSTrip*)trip
@@ -219,6 +237,7 @@ BtnState;
 
 -(void) setTaxiInfo:(KSTrip*)trip
 {
+    //[self.view layoutIfNeeded];
     if (trip.driver == nil) {
         
         [self hideTaxiInfo:trip];
@@ -235,6 +254,12 @@ BtnState;
         taxiNum = [taxiNum substringFromIndex:3];
         self.lblTaxiNumber.text = taxiNum;
         
+        /*for (NSString *familyName in [UIFont familyNames]){
+            NSLog(@"Family name: %@", familyName);
+            for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
+                NSLog(@"--Font name: %@", fontName);
+            }
+        }*/
         
         switch((KSVehicleType)[trip.vehicleType integerValue])
         {
@@ -245,20 +270,20 @@ BtnState;
             case KSStandardLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-standardtag"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
-                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
-                _constraintVehicleNumber.constant += 5;
+//                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant = -10;
                 break;
             case KSBusinessLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-businesstag"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
-                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
-                _constraintVehicleNumber.constant += 5;
+//                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant = -10;
                 break;
             case KSLuxuryLimo:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-luxurytag"]];
                 [_imgNumberPlate setImage:[UIImage imageNamed:@"Booking-details-limonumberplate"]];
-                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
-                _constraintVehicleNumber.constant += 5;
+//                [self.lblTaxiNumber setFont:[UIFont fontWithName:KSMuseoSans700 size:21]];
+                _constraintVehicleNumber.constant = -10;
                 break;
             default:
                 [_imgVehicleType setImage:[UIImage imageNamed:@"Booking-details-taxitag"]];
@@ -383,15 +408,18 @@ BtnState;
 #pragma mark - Segue
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     if([segue.identifier isEqualToString:@"segueBookingDetailsToRate"]){
         KSTripRatingController *ratingController = (KSTripRatingController*)segue.destinationViewController;
         ratingController.trip = self.tripInfo;
-        
+        //ratingController.navigationItem.backBarButtonItem.title = @" ";
         self.isOpenedFromPushNotification ? (ratingController.displaySource = kNotification) : (ratingController.displaySource = kRatingList);
     }
     else if([segue.identifier isEqualToString:@"segueDetailsToTrack"])
     {
         KSTrackTaxiController *trackTaxi = (KSTrackTaxiController*) segue.destinationViewController;
+        //trackTaxi.navigationItem.backBarButtonItem.title = @" ";
         //trackTaxi.taxiNo = self.tripInfo.taxi.number;
         //trackTaxi.jobId = self.tripInfo.jobId;
         

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) KSTrip *tripInfo;
 @property (nonatomic) BOOL showsAcknowledgement;
 @property (nonatomic) BOOL isOpenedFromPushNotification;
+@property (nonatomic) BOOL showRevealButton;
 
 
 -(IBAction)btnCancelTapped:(id)sender;

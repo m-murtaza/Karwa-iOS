@@ -82,6 +82,7 @@ static BOOL showMendatoryRating = TRUE;
     
     KSTrip *ratingTrip;
     
+    NSString *pickerID;                     //Used for AddressPicker
 }
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -181,6 +182,7 @@ static BOOL showMendatoryRating = TRUE;
     if (self.repeatTrip) {
      
         [self populateOldTripData];
+        self.repeatTrip = nil;
     }
     
     [self showLimoTaxiCoachMarksIfNeeded];
@@ -253,7 +255,8 @@ static BOOL showMendatoryRating = TRUE;
           if (status == KSAPIStatusSuccess) {
               if(trips != nil && [trips count] > 0)
               {
-                  ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
+                  //ratingTrip = (KSTrip*)[KSDAL clone: [trips objectAtIndex:0]];
+                  ratingTrip = [trips objectAtIndex:0];
                   if(ratingTrip.jobId != nil && ![ratingTrip.jobId isEqualToString:@""])
                       [self performSegueWithIdentifier:@"segueBookingToRating" sender:self];
                   
@@ -282,6 +285,8 @@ static BOOL showMendatoryRating = TRUE;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //TODO remove this line
+    //NSNumber * num =(NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey];
+    
     //[defaults setValue:[NSNumber numberWithBool:false] forKey:KSTaxiLimoDefaultKey];
     if(![((NSNumber*)[defaults valueForKey:KSTaxiLimoDefaultKey]) boolValue])
     {
@@ -293,6 +298,7 @@ static BOOL showMendatoryRating = TRUE;
         
         [defaults setValue:[NSNumber numberWithBool:true] forKey:KSTaxiLimoDefaultKey];
         [defaults synchronize];
+        showMendatoryRating = FALSE;
     }
 }
 //types-coachmark@2x
@@ -400,7 +406,7 @@ static BOOL showMendatoryRating = TRUE;
     
     segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
     segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
-    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:25.0];
     segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
     segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
     segmentVehicleType.backgroundColor = [UIColor whiteColor];
@@ -645,20 +651,19 @@ static BOOL showMendatoryRating = TRUE;
                                    NSString *text = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
                                    
                                    if (!text.length) {
-                                       [self showAltForWrongCustomerPhoneInput:@"Phone number can't be empty"];
+                                       //If no phone is provided then add user phone number in caller ID
+                                       text = [KSSessionInfo currentSession].phone;
                                    }
-                                   else{
-                                       NSString *inputText = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                       if([AppUtils isPhoneNumber:inputText])
-                                       {
-                                           tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
-                                           [self bookTaxi];
-                                       }
-                                       else
-                                       {
-                                           
-                                           [self showAltForWrongCustomerPhoneInput];
-                                       }
+                                   NSString *inputText = text;
+                                   if([AppUtils isPhoneNumber:inputText])
+                                   {
+                                       //tripInfo.callerId = ((UITextField *)[alertRef.textFields objectAtIndex:0]).text;
+                                       [self bookTaxiForCaller:inputText];
+                                   }
+                                   else
+                                   {
+                                       
+                                       [self showAltForWrongCustomerPhoneInput];
                                    }
                                }];
     
@@ -670,6 +675,7 @@ static BOOL showMendatoryRating = TRUE;
      {
          txtField.placeholder = @"Passenger Phone Number";
          txtField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+         txtField.keyboardType = UIKeyboardTypePhonePad;
          txtField.delegate = self;
          txtField.tag = TXT_HINT_TAG;
          //txtField.text = hintTxt ? hintTxt : @"";
@@ -1091,11 +1097,13 @@ static BOOL showMendatoryRating = TRUE;
 
 #pragma mark - Booking Processs
 
--(void) bookTaxi
+-(void) bookTaxiForCaller:(NSString*)callerId
 {
     tripInfo = [KSDAL tripWithLandmark:self.lblPickupLocaiton.text
                                    lat:self.mapView.centerCoordinate.latitude
                                    lon:self.mapView.centerCoordinate.longitude];
+    
+    tripInfo.callerId = callerId;
     
     if (self.lblDropoffLocaiton.text.length && ![self.lblDropoffLocaiton.text isEqualToString:@"---"]) {
         [self resetDropoffHintConter];
@@ -1153,6 +1161,12 @@ static BOOL showMendatoryRating = TRUE;
         }
         
     }];
+    
+}
+
+-(void) bookTaxi
+{
+    [self bookTaxiForCaller:[KSSessionInfo currentSession].phone];
 }
 
 -(void) showSnackBar
@@ -1574,7 +1588,28 @@ didAddAnnotationViews:(NSArray *)annotationViews
         self.btnDestinationReveal = (UIButton*) [cell viewWithTag:6005];
         self.btnBookTaxi = (UIButton*) [cell viewWithTag:6006];
         if([self isLargeScreen])
-            self.btnDestinationReveal.hidden = TRUE;
+        {
+            //Jugar to hide destination help. As it hides but its constraints didn't change and for cell we can't use IBOutlet
+            
+            for(UIView *subView in cell.contentView.subviews)
+            {
+                for(NSLayoutConstraint *constraint in subView.constraints)
+                {
+                    if([constraint.identifier  isEqual: @"destBtnWidth"])
+                        constraint.constant = 0;
+                    
+                }
+            }
+            
+            for(NSLayoutConstraint *constraint in cell.contentView.constraints)
+            {
+                if([constraint.identifier  isEqual: @"ReqAndDestLeading"])
+                    constraint.constant = 0;
+                
+            }
+            
+            [cell.contentView layoutIfNeeded];
+        }    
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -1591,17 +1626,22 @@ didAddAnnotationViews:(NSArray *)annotationViews
     
     if (indexPath.row == idxPickupLocation) {
         
-        if (dropoffVisible) {
+        if (dropoffVisible && ![self isLargeScreen]) {
             
             [self hideDropOff:TRUE];
         }
         else{
          if([[[KSSessionInfo currentSession] customerType] integerValue] != KSCorporateCustomer)
+         {
+             pickerID = KSPickerIdForPickupAddress;                  //Bug#2299 : Fixed
             [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
+             
+         }
         }
     }
     else if(indexPath.row == idxDropOffLocation)
     {
+        pickerID = KSPickerIdForDropoffAddress;                     //Bug#2299 : Fixed
         [self performSegueWithIdentifier:@"segueBookingToAddressPicker" sender:self];
     }
     else if(indexPath.row == idxPickupTime) {
@@ -1626,7 +1666,7 @@ didAddAnnotationViews:(NSArray *)annotationViews
     if ([segue.identifier isEqualToString:@"segueBookingToAddressPicker"]) {
         
         KSAddressPickerController *addressPicker = (KSAddressPickerController*) segue.destinationViewController;
-        addressPicker.pickerId = dropoffVisible ? KSPickerIdForDropoffAddress :KSPickerIdForPickupAddress;
+        addressPicker.pickerId = pickerID;/*dropoffVisible ? KSPickerIdForDropoffAddress :KSPickerIdForPickupAddress;*/
         addressPicker.delegate = self;
         
         id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
@@ -1639,7 +1679,9 @@ didAddAnnotationViews:(NSArray *)annotationViews
     else if([segue.identifier isEqualToString:@"segueBookingToDetail"]) {
         
         KSBookingDetailsController *bookingDetails = (KSBookingDetailsController *) segue.destinationViewController;
+        bookingDetails.navigationItem.leftBarButtonItem = nil;
         bookingDetails.tripInfo = tripInfo;
+        bookingDetails.showRevealButton = TRUE;
     }
     else if([segue.identifier isEqualToString:@"segueBookingToRating"])
     {
@@ -1648,7 +1690,6 @@ didAddAnnotationViews:(NSArray *)annotationViews
         ratingController.trip = ratingTrip;
         ratingController.displaySource = kMendatoryRating;
     }
-    
 }
 
 #pragma mark - AddressPicker Delegate

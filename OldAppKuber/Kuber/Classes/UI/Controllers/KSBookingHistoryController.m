@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupRevealViewController];
     // Do any additional setup after loading the view.
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
@@ -61,7 +62,7 @@
     
     _segmentVehicleType.titleTextColor = [UIColor colorWithRed:0.082f green:0.478f blue:0.537f alpha:1.0f];
     _segmentVehicleType.selectedTitleTextColor = [UIColor whiteColor];
-    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:30.0];
+    _segmentVehicleType.selectedTitleFont = [UIFont fontWithName:KSMuseoSans500 size:25.0];
     _segmentVehicleType.titleFont = [UIFont fontWithName:KSMuseoSans500 size:20.0];
     _segmentVehicleType.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0f green:0.476f blue:0.527f alpha:1.0f];
     _segmentVehicleType.backgroundColor = [UIColor whiteColor];
@@ -196,7 +197,7 @@
     [self.navigationController pushViewController:detailsController animated:YES];
 //    }
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:UIBarButtonItemStylePlain target:nil action:nil];
     
 
     id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];

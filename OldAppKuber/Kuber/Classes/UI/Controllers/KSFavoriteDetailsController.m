@@ -15,6 +15,7 @@
 #import "KSPointAnnotation.h"
 #import "KSAlert.h"
 #import "KSGeoLocation.h"
+#import "AppUtils.h"
 
 #define LATITUDE_DELTA          0.112872
 #define LONGITUDE_DELTA         0.109863
@@ -103,7 +104,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onChangeName:) name:UITextFieldTextDidChangeNotification object:self.txtName];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
+
 }
 
 -(void) viewDidAppear:(BOOL)animated
@@ -296,9 +297,17 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    // Get the size of the keyboard.
+   // CGSize keyboardSize = [[[notification userInfo] valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    CGSize keyboardSize = [[[notification userInfo] valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    //Given size may not account for screen rotation
+    int height = MIN(keyboardSize.height,keyboardSize.width);
+    
     [UIView animateWithDuration:0.3f
                      animations:^{
-                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -200)];
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -height)];
                          
                      }
                      completion:^(BOOL finished){

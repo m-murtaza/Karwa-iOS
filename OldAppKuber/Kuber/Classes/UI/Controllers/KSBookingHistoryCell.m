@@ -20,6 +20,9 @@
 @property (nonatomic, weak) IBOutlet UIImageView *imgVehicleType;
 @property (nonatomic, weak) IBOutlet UIView *viewCallerId;
 @property (nonatomic, weak) IBOutlet UILabel *lblCallerId;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *statusAlignPickup;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *statusAlignTime;
+
 //@property (nonatomic, weak) IBOutlet UIImageView *imgVehicleTypeRateYourTrip;
 
 
@@ -86,6 +89,10 @@
     {
         
         self.viewCallerId.hidden = TRUE;
+        
+        //Bug#2291 : Fixed
+        self.statusAlignPickup.active   = false;
+        self.statusAlignTime.priority = 999;
     }
 }
 

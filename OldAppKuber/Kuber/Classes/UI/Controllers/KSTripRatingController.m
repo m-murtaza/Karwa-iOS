@@ -116,11 +116,11 @@
                                       initWithTarget:self action:@selector(handleSingleTap:)];
     tapper.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapper];
-
 }
 
 -(void) setupView
 {
+    [self.view layoutIfNeeded];             //This line is required for font change
     self.serviceRating.padding = 20;
     
     self.navigationItem.title = [NSString stringWithFormat:@"Rate %@ Service",[AppUtils taxiLimo:self.trip.vehicleType]];
@@ -129,7 +129,13 @@
     self.lblPickupTime.text = [self getTimeStringFromDate:self.trip.pickupTime];
     self.lblDropoffTime.text = [self getTimeStringFromDate:self.trip.dropOffTime];
     self.lblPickupAddress.text = self.trip.pickupLandmark ? self.trip.pickupLandmark : [NSString stringWithFormat:@"%@N , %@E",self.trip.pickupLat,self.trip.pickupLon];
-    self.lblDropoffAddress.text = self.trip.dropoffLandmark ? self.trip.dropoffLandmark : @"-";
+    if(self.trip.dropoffLandmark)
+        self.lblDropoffAddress.text = self.trip.dropoffLandmark;
+    else
+    {
+        self.lblDropoffAddress.text = @"No Destination Set";
+        [self.lblDropoffAddress setFont: [UIFont fontWithName:KSMuseoSans300Italic size:17]];
+    }
     
     selectedIndexs = [[NSMutableArray alloc] init];
     
@@ -380,13 +386,15 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    if([_tableView numberOfRowsInSection:0] != 1)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    if([_tableView numberOfRowsInSection:0] != 1)
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
 }
 
@@ -432,9 +440,12 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    int translation = -200;
+    if([AppUtils isLargeScreen:self])
+        translation = -70;
     [UIView animateWithDuration:0.3f
                      animations:^{
-                         [self.view setTransform:CGAffineTransformMakeTranslation(0, -200)];
+                         [self.view setTransform:CGAffineTransformMakeTranslation(0, translation)];
                          
                      }
                      completion:^(BOOL finished){

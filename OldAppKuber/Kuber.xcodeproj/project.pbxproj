@@ -208,7 +208,6 @@
 		1880C52B1B7877ED004F0188 /* menu_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F11B7877ED004F0188 /* menu_profile@2x.png */; };
 		1880C52C1B7877ED004F0188 /* menu_profile_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F21B7877ED004F0188 /* menu_profile_selected@2x.png */; };
 		1880C52D1B7877ED004F0188 /* pointericon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F31B7877ED004F0188 /* pointericon.png */; };
-		1880C52E1B7877ED004F0188 /* recent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F41B7877ED004F0188 /* recent@2x.png */; };
 		1880C52F1B7877ED004F0188 /* reveal-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F51B7877ED004F0188 /* reveal-icon@2x.png */; };
 		1880C5311B7877ED004F0188 /* searchbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F71B7877ED004F0188 /* searchbox@2x.png */; };
 		1880C5321B7877ED004F0188 /* setpickuplocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1880C4F81B7877ED004F0188 /* setpickuplocation@2x.png */; };
@@ -292,11 +291,17 @@
 		18A7DFDE1B2DA95200687600 /* KSPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A7DFDD1B2DA95200687600 /* KSPointAnnotation.m */; };
 		18B0CFFA1B01ECD3002645AD /* KSWebClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0CFF91B01ECD3002645AD /* KSWebClient.m */; };
 		18B0D0251B031C93002645AD /* KSDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B0D0241B031C93002645AD /* KSDBManager.m */; };
+		18B5EA472014599C00D9B1D1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA432014599800D9B1D1 /* Bolts.framework */; };
+		18B5EA482014599C00D9B1D1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA442014599A00D9B1D1 /* FBSDKCoreKit.framework */; };
+		18B5EA492014599C00D9B1D1 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA452014599B00D9B1D1 /* FBSDKShareKit.framework */; };
+		18B5EA4A2014599C00D9B1D1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B5EA462014599C00D9B1D1 /* FBSDKLoginKit.framework */; };
 		18BB63291C06E35E00FE80E5 /* destination-help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BB63281C06E35E00FE80E5 /* destination-help@2x.png */; };
 		18C44F731B81C7C000D2D27F /* KSVehicleTrackingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F721B81C7C000D2D27F /* KSVehicleTrackingInfo.m */; };
 		18C44F761B81D17400D2D27F /* KSVehicleTrackingAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F751B81D17400D2D27F /* KSVehicleTrackingAnnotation.m */; };
 		18C44F791B81E47100D2D27F /* KSVehicleAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */; };
 		18C44F7C1B81E4CE00D2D27F /* KSPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */; };
+		18C63B241FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C63B231FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m */; };
+		18C63B271FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */; };
 		18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */; };
 		18CFC4AA1BA18949009B5D70 /* booking-history-forward-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */; };
 		18CFC4AB1BA18949009B5D70 /* list-icons.png in Resources */ = {isa = PBXBuildFile; fileRef = 18CFC4A51BA18949009B5D70 /* list-icons.png */; };
@@ -615,7 +620,6 @@
 		1880C4F11B7877ED004F0188 /* menu_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_profile@2x.png"; sourceTree = "<group>"; };
 		1880C4F21B7877ED004F0188 /* menu_profile_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_profile_selected@2x.png"; sourceTree = "<group>"; };
 		1880C4F31B7877ED004F0188 /* pointericon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointericon.png; sourceTree = "<group>"; };
-		1880C4F41B7877ED004F0188 /* recent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recent@2x.png"; sourceTree = "<group>"; };
 		1880C4F51B7877ED004F0188 /* reveal-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon@2x.png"; sourceTree = "<group>"; };
 		1880C4F71B7877ED004F0188 /* searchbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchbox@2x.png"; sourceTree = "<group>"; };
 		1880C4F81B7877ED004F0188 /* setpickuplocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setpickuplocation@2x.png"; sourceTree = "<group>"; };
@@ -739,6 +743,10 @@
 		18B0D0201B030942002645AD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		18B0D0231B031C93002645AD /* KSDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSDBManager.h; sourceTree = "<group>"; };
 		18B0D0241B031C93002645AD /* KSDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSDBManager.m; sourceTree = "<group>"; };
+		18B5EA432014599800D9B1D1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		18B5EA442014599A00D9B1D1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		18B5EA452014599B00D9B1D1 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		18B5EA462014599C00D9B1D1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		18BB63281C06E35E00FE80E5 /* destination-help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "destination-help@2x.png"; path = "Booking/destination-help@2x.png"; sourceTree = "<group>"; };
 		18BB7EBB1B9C299200F75BC9 /* KSAllDAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSAllDAL.h; sourceTree = "<group>"; };
 		18BB7EBC1B9C2B8B00F75BC9 /* KSAllEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSAllEntity.h; sourceTree = "<group>"; };
@@ -750,6 +758,10 @@
 		18C44F781B81E47100D2D27F /* KSVehicleAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSVehicleAnnotationView.m; path = ../Base/KSVehicleAnnotationView.m; sourceTree = "<group>"; };
 		18C44F7A1B81E4CE00D2D27F /* KSPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSPinAnnotationView.h; sourceTree = "<group>"; };
 		18C44F7B1B81E4CE00D2D27F /* KSPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSPinAnnotationView.m; sourceTree = "<group>"; };
+		18C63B221FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSBaseRevealViewRightControllerViewController.h; sourceTree = "<group>"; };
+		18C63B231FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSBaseRevealViewRightControllerViewController.m; sourceTree = "<group>"; };
+		18C63B251FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KSBaseRevealViewRightTableViewController.h; sourceTree = "<group>"; };
+		18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KSBaseRevealViewRightTableViewController.m; sourceTree = "<group>"; };
 		18C7A3CA1BB142F100E579A2 /* KSBookingMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSBookingMapController.h; sourceTree = "<group>"; };
 		18C7A3CB1BB142F100E579A2 /* KSBookingMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSBookingMapController.m; sourceTree = "<group>"; };
 		18CFC4A41BA18949009B5D70 /* booking-history-forward-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "booking-history-forward-arrow.png"; path = "BookingHistory/booking-history-forward-arrow.png"; sourceTree = "<group>"; };
@@ -796,9 +808,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B5EA482014599C00D9B1D1 /* FBSDKCoreKit.framework in Frameworks */,
 				186487341F1DE88D00DDB003 /* AudioToolbox.framework in Frameworks */,
+				18B5EA492014599C00D9B1D1 /* FBSDKShareKit.framework in Frameworks */,
 				18481AFE1B08812300855F54 /* MapKit.framework in Frameworks */,
+				18B5EA4A2014599C00D9B1D1 /* FBSDKLoginKit.framework in Frameworks */,
 				8BF60827BA6A55C83D46280F /* libPods-Kuber.a in Frameworks */,
+				18B5EA472014599C00D9B1D1 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1250,7 +1266,6 @@
 				1880C4E61B7877ED004F0188 /* karwa-tech-logo.png */,
 				1880C4E71B7877ED004F0188 /* menu */,
 				1880C4F31B7877ED004F0188 /* pointericon.png */,
-				1880C4F41B7877ED004F0188 /* recent@2x.png */,
 				1880C4F51B7877ED004F0188 /* reveal-icon@2x.png */,
 				1880C4F71B7877ED004F0188 /* searchbox@2x.png */,
 				1880C4F81B7877ED004F0188 /* setpickuplocation@2x.png */,
@@ -1410,6 +1425,7 @@
 		18A7627D1AFF785B00B9ED32 /* Kuber */ = {
 			isa = PBXGroup;
 			children = (
+				18B5EA42201453B700D9B1D1 /* Framework */,
 				18D3A7E71EA48BDA004B01A1 /* Karwa Taxi.entitlements */,
 				1880C4D61B7877ED004F0188 /* Images */,
 				185E3C2F1B772B3500909B20 /* Fonts */,
@@ -1593,8 +1609,23 @@
 				18A268871BE5F8D7006FC942 /* KSSafeArray.m */,
 				18A268961BE7708A006FC942 /* KSTrackingAnnotationView.h */,
 				18A268971BE7708A006FC942 /* KSTrackingAnnotationView.m */,
+				18C63B221FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.h */,
+				18C63B231FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m */,
+				18C63B251FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.h */,
+				18C63B261FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		18B5EA42201453B700D9B1D1 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				18B5EA432014599800D9B1D1 /* Bolts.framework */,
+				18B5EA442014599A00D9B1D1 /* FBSDKCoreKit.framework */,
+				18B5EA462014599C00D9B1D1 /* FBSDKLoginKit.framework */,
+				18B5EA452014599B00D9B1D1 /* FBSDKShareKit.framework */,
+			);
+			path = Framework;
 			sourceTree = "<group>";
 		};
 		18CFC4A31BA1892D009B5D70 /* BookingHistory */ = {
@@ -1917,7 +1948,6 @@
 				1880C5431B7877ED004F0188 /* favorites-568h@2x.png in Resources */,
 				1880C5251B7877ED004F0188 /* menu_favorites_selected@2x.png in Resources */,
 				184CF9241BA03F1D0025B883 /* Booking-details_07-03@2x.png in Resources */,
-				1880C52E1B7877ED004F0188 /* recent@2x.png in Resources */,
 				18D65DC81B9D82B600D6C1BD /* KS_login_logo@2x.png in Resources */,
 				184D22701BA55E64007CB740 /* settings-active@2x.png in Resources */,
 				184D22691BA55E64007CB740 /* menu-active-bg@2x.png in Resources */,
@@ -2160,6 +2190,7 @@
 				18B0D0251B031C93002645AD /* KSDBManager.m in Sources */,
 				1896EB351B2D43DA0073172C /* KSFavoriteDetailsController.m in Sources */,
 				18A05E741BAD71F7004DA12A /* UITextField+KSExtended.m in Sources */,
+				18C63B241FFB705500F391FB /* KSBaseRevealViewRightControllerViewController.m in Sources */,
 				1801E35D1B15B1CC00A8983E /* NSString+Levenshtein.m in Sources */,
 				18481B501B091EFA00855F54 /* SWRevealViewController.m in Sources */,
 				1859E9001BC6326F00354B84 /* KSDAL+Franchise.m in Sources */,
@@ -2211,6 +2242,7 @@
 				185E3C081B7087EF00909B20 /* KSTripRating.m in Sources */,
 				1870EE0C1BF4A69D00FADFBD /* UIUnderlinedButton.m in Sources */,
 				189F5D9E1B08600000EAF9B2 /* KSLocationManager.m in Sources */,
+				18C63B271FFB748E00F391FB /* KSBaseRevealViewRightTableViewController.m in Sources */,
 				1880C56E1B79E1B8004F0188 /* KSButtonCell.m in Sources */,
 				18C7A3CC1BB142F100E579A2 /* KSBookingMapController.m in Sources */,
 				1801E35C1B15B1CC00A8983E /* MLPAutoCompleteTextField.m in Sources */,
@@ -2358,6 +2390,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Muhammad Aleem (857UN36Z7P)";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kuber/Framework",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2380,6 +2416,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Kuber/Framework",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = Kuber/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
