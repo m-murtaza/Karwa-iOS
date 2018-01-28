@@ -11,51 +11,61 @@ import MagicalRecord
 
 extension KTBookingManager
 {
-    func addressForLocation(location: CLLocationCoordinate2D,completion completionBlock: @escaping KTDALCompletionBlock ) {
+    func address(forLocation location: CLLocationCoordinate2D,completion completionBlock: @escaping KTDALCompletionBlock ) {
         
         let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,
                                     Constants.AddressPickParams.Lon: location.longitude]
+        address(forParam: param, completion: completionBlock)
+        
+    }
+    
+    func address(forSearch query: String,completion conpletionBlock: @escaping KTDALCompletionBlock) {
+        let param : NSDictionary = [Constants.AddressPickParams.Address: query]
+        address(forParam:param,completion: conpletionBlock)
+    }
+    
+    func address(forParam param:NSDictionary,completion completionBlock: @escaping KTDALCompletionBlock) {
+        
         self.get(url: Constants.APIURL.AddressPick, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
             print(responseData)
             
             self.removeUnnecessaryLocations()
-            self.saveGeoLocations(locations: responseData[Constants.ResponseAPIKey.Data] as! [Any],completion:{(success:Bool) -> Void in
+            self.saveGeoLocations(locations: responseData[Constants.ResponseAPIKey.Data] as! [Any],completion:{(success:Bool,geoLocations:[KTGeoLocation] ) -> Void in
                 if success {
-                    completionBlock(Constants.APIResponseStatus.SUCCESS, [:])  //No need to send data, UI need to fetch data as per requirnment.
+                    completionBlock(Constants.APIResponseStatus.SUCCESS, [Constants.ResponseAPIKey.Data:geoLocations])  //No need to send data, UI need to fetch data as per requirnment.
                 }
                 else {
                     let error : NSDictionary = [Constants.ResponseAPIKey.Title : "Ops!" as Any,
                                                 Constants.ResponseAPIKey.Message : "Something went wrong" as Any]
                     completionBlock(Constants.APIResponseStatus.FAILED_DB,error as! [AnyHashable : Any])
                 }
-                
             })
-            //cBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         })
+        
     }
-    
     private func removeUnnecessaryLocations() {
         // TODO: Need to add code to remove specific type of locaiton.
     }
     
     
-    private func saveGeoLocations(locations:[Any],completion: @escaping (Bool) -> Void) {
+    private func saveGeoLocations(locations:[Any],completion: @escaping (Bool,[KTGeoLocation]) -> Void) {
+        var geolocations : [KTGeoLocation] = []
         MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
            for location in locations {
-                self.saveGeoLocation(location:location as! [AnyHashable : Any],context: localContext)
+                geolocations.append(self.saveGeoLocation(location:location as! [AnyHashable : Any],context: localContext))
             }
         }, completion: {(_ success: Bool, _ error: Error?) -> Void in
             if success == false && error != nil {
-                completion(false)
+                completion(false,geolocations)
             }
             else{
-                completion(true)
+                completion(true,geolocations)
             }
         })
     }
     
-    private func saveGeoLocation(location: [AnyHashable:Any],context localContext: NSManagedObjectContext) {
+    private func saveGeoLocation(location: [AnyHashable:Any],context localContext: NSManagedObjectContext) -> KTGeoLocation{
 
         let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.AddressPickResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
         
@@ -64,6 +74,7 @@ extension KTBookingManager
                 loc.area = location[Constants.AddressPickResponseAPIKey.Area] as? String
                 loc.name = location[Constants.AddressPickResponseAPIKey.Name] as? String
                 // TODO: Add parser for type
+        return loc
     }
     
     func VehicleTypes() -> [KTVehicleType]? {

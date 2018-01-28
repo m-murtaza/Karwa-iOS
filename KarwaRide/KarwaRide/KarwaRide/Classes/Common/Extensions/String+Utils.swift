@@ -31,4 +31,9 @@ extension String {
         return emailTest.evaluate(with: self)
         
     }
+    
+    func urlEncodedString(plainString: String) -> String? {
+        
+        return plainString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+    }
 }

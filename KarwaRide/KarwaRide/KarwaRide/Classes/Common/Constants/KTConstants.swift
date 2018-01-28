@@ -136,6 +136,8 @@ struct Constants {
     struct AddressPickParams {
         static let Lat = "lat"
         static let Lon = "lon"
+        static let Address = "address"
+        static let Limit = "limit"
     }
     
     struct DeviceTypes {
