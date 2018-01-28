@@ -136,13 +136,13 @@ BtnState;
     
     [self updateStatusOfTaxi];
     
-    [self addPanGestureForRevealView];
+    //[self addPanGestureForRevealView];
 }
 -(void) viewWillDisappear:(BOOL)animated
 {
     
     [super viewWillDisappear:animated];
-    [self removePanGestureForRevealView];
+    //[self removePanGestureForRevealView];
 }
 
 - (void) viewDidAppear:(BOOL)animated
