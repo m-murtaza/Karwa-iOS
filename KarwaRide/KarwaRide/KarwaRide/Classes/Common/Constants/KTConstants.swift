@@ -121,7 +121,8 @@ struct Constants {
         static let UpdatePass = "user/update"
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"
-        static let AddressPick = "geocode/"
+        static let AddressPickViaGeoCode = "geocode"
+        static let AddressPickViaSearch = "geocode/a"
     }
     
     struct TrackTaxiParams {

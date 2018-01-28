@@ -15,18 +15,18 @@ extension KTBookingManager
         
         let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,
                                     Constants.AddressPickParams.Lon: location.longitude]
-        address(forParam: param, completion: completionBlock)
+        address(fromUrl: Constants.APIURL.AddressPickViaGeoCode, forParam: param, completion: completionBlock)
         
     }
     
     func address(forSearch query: String,completion conpletionBlock: @escaping KTDALCompletionBlock) {
         let param : NSDictionary = [Constants.AddressPickParams.Address: query]
-        address(forParam:param,completion: conpletionBlock)
+        address(fromUrl: Constants.APIURL.AddressPickViaSearch, forParam:param,completion: conpletionBlock)
     }
     
-    func address(forParam param:NSDictionary,completion completionBlock: @escaping KTDALCompletionBlock) {
+    func address(fromUrl url:String, forParam param:NSDictionary,completion completionBlock: @escaping KTDALCompletionBlock) {
         
-        self.get(url: Constants.APIURL.AddressPick, param: param as? [String : Any], completion: completionBlock, success: {
+        self.get(url: url, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
             print(responseData)
             
