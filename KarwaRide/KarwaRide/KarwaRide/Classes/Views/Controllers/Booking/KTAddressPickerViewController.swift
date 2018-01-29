@@ -63,15 +63,16 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             
             searchTimer.invalidate()
         }
-        
-        searchTimer = Timer.scheduledTimer(timeInterval: 3, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: false)
+        if let txt = textField.text, txt.count >= 3 {
+            searchTimer = Timer.scheduledTimer(timeInterval: 3, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: false)
+        }
         
         return true;
     }
     
     @objc func updateTimer() {
         print("OK Start searching now")
-        UIApplication.shared.beginIgnoringInteractionEvents()
+       
         (viewModel as! KTAddressPickerViewModel).fetchLocations(forSearch: searchText)
     }
     func updateSelectedField(txt: UITextField) {

@@ -16,6 +16,8 @@ import UIKit
     @objc optional func modelFailedToLoadWithError(_ error: Error?)
     
     @objc optional func showError(title:String, message:String)
+    
+    @objc func userIntraction(enable: Bool)
 }
 
 class KTBaseViewModel: NSObject {

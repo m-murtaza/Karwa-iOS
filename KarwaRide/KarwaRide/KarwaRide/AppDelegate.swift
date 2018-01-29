@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
+        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
         
         updateUIAppreance()
         

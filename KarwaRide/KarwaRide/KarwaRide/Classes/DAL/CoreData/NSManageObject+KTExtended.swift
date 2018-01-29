@@ -8,14 +8,14 @@
 
 import MagicalRecord
 extension NSManagedObject {
-    class func obj(withValue value: Any, forAttrib attrib: String) -> NSManagedObject {
-        var obj: NSManagedObject? = self.mr_findFirst(byAttribute: attrib, withValue: value)
-        if obj == nil {
-            obj = self.mr_createEntity()
-            obj?.setValue(value, forKey: attrib)
-        }
-        return obj ?? NSManagedObject()
-    }
+//    class func obj(withValue value: Any, forAttrib attrib: String) -> NSManagedObject {
+//        var obj: NSManagedObject? = self.mr_findFirst(byAttribute: attrib, withValue: value)
+//        if obj == nil {
+//            obj = self.mr_createEntity()
+//            obj?.setValue(value, forKey: attrib)
+//        }
+//        return obj ?? NSManagedObject()
+//    }
     
     class func obj(withValue value: Any, forAttrib attrib: String,inContext context:NSManagedObjectContext) -> NSManagedObject {
         var obj: NSManagedObject? = self.mr_findFirst(byAttribute: attrib, withValue: value,in:context)

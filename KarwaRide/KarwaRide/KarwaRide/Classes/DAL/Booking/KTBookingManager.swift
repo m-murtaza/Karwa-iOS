@@ -9,5 +9,15 @@
 import UIKit
 
 class KTBookingManager: KTDALManager {
+    //MARK: - Singleton
+//    override init()
+//    {
+//        super.init()
+//    }
+//    
+//    static let sharedInstance = KTDALManager()
+//    
+    
+    //var geolocations : [KTGeoLocation] = []
 
 }

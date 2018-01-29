@@ -23,15 +23,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     func getAllLocations() {
+        
         locations  = KTBookingManager().allGeoLocations()!
         (delegate as! KTAddressPickerViewModelDelegate).loadData()
+        delegate?.userIntraction(enable: true)
     }
     
     func fetchLocations()  {
+        
+        delegate?.userIntraction(enable: false)
         KTBookingManager().address(forLocation: (KTLocationManager.sharedInstance.currentLocation?.coordinate)!) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success
-                
                 self.getAllLocations()
             }
             else {
@@ -42,12 +45,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     func fetchLocations(forSearch query:String) {
+       
+        delegate?.userIntraction(enable: false)
         KTBookingManager().address(forSearch: query) { (status, response) in
-            print(response)
+        
+            self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
+            (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
+            self.delegate?.userIntraction(enable: true)
         }
     }
     
     func numberOfRow() -> Int {
+        print(locations.count)
         return locations.count
     }
     func addressTitle(forRow row: Int) -> String

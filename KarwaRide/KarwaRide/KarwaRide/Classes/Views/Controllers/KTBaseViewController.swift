@@ -32,6 +32,19 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         self.present(altError,animated: true, completion: nil)
     }
     
+    
+    func userIntraction(enable: Bool) {
+        
+        if enable {
+            
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        else {
+            
+            UIApplication.shared.beginIgnoringInteractionEvents()
+        
+        }
+    }
     /*
     // MARK: - Navigation
 

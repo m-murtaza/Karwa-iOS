@@ -9,7 +9,7 @@
 import UIKit
 
 class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
-
+    
     var viewModel : KTBaseViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,4 +94,16 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
     }
     */
 
+    
+    func userIntraction(enable: Bool) {
+        if enable {
+            
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        else {
+            
+            UIApplication.shared.beginIgnoringInteractionEvents()
+        }
+    }
+    
 }
