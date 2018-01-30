@@ -11,6 +11,14 @@ import MagicalRecord
 
 extension KTBookingManager
 {
+    func address(forLocation location: CLLocationCoordinate2D,Limit limit: Int ,completion completionBlock: @escaping KTDALCompletionBlock ) {
+    
+        let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,
+                                    Constants.AddressPickParams.Lon: location.longitude,
+                                    Constants.AddressPickParams.Limit: limit]
+        address(fromUrl: Constants.APIURL.AddressPickViaGeoCode, forParam: param, completion: completionBlock)
+    }
+    
     func address(forLocation location: CLLocationCoordinate2D,completion completionBlock: @escaping KTDALCompletionBlock ) {
         
         let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,

@@ -10,15 +10,25 @@ import UIKit
 
 protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func loadData()
+    func pickUpTxt() -> String
+    func dropOffTxt() -> String
+    func setPickUp(pick: String)
+    func setDropOff(drop: String)
+    func navigateToPreviousView(pickup: KTGeoLocation?, dropOff:KTGeoLocation?)
 }
 
 
 class KTAddressPickerViewModel: KTBaseViewModel {
     
-    var locations : [KTGeoLocation] = []
+    public var pickUpAddress : KTGeoLocation?
+    public var dropOffAddress : KTGeoLocation?
+    
+    private var locations : [KTGeoLocation] = []
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
         fetchLocations()
     }
     
@@ -62,5 +72,30 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     func addressTitle(forRow row: Int) -> String
     {
         return locations[row].name!
+    }
+    
+    func didSelectRow(at idx:Int, type:SelectedTextField) {
+        if type == SelectedTextField.PickupAddress {
+            
+            pickUpAddress = locations[idx]
+            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+        }
+        else {
+            
+            dropOffAddress = locations[idx]
+            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name)!)
+        }
+        
+        moveBackIfNeeded()
+    }
+    
+    private func moveBackIfNeeded() {
+        if pickUpAddress != nil && dropOffAddress != nil {
+            
+            if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() {
+            
+                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+            }
+        }
     }
 }

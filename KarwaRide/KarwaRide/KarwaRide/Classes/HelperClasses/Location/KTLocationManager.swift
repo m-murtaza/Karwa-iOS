@@ -32,10 +32,12 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         
         locManager.requestWhenInUseAuthorization()
+        locManager.distanceFilter = 20.0
     }
     func start() {
         
         locManager.startUpdatingLocation()
+        //locManager.startMonitoringSignificantLocationChanges()
     }
     
     func stop() {

@@ -13,11 +13,14 @@ import CoreLocation
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:Array<VehicleTrack>)
+    func updateCurrentAddress(addressName:String)
 }
 class KTCreateBookingViewModel: KTBaseViewModel {
     
     var vehicleType : VehicleType = VehicleType.KTBusinessLimo
     var vechicleTypes : [KTVehicleType]?
+    public var pickupAddress : KTGeoLocation?
+    public var droffAddress : KTGeoLocation?
     
     override func viewDidLoad() {
         self.fetchVechicleTypes()
@@ -50,13 +53,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
         
         let location : CLLocation = notification.userInfo!["location"] as! CLLocation
+        //Show user Location on map
         (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location)
         
+        //Fetch location name (from Server) for current location.
+        self.fetchLocationName(forGeoCoordinate: location.coordinate)
+        
+        //Fetch Vehicles to show on map
         self.fetchVehiclesNearCordinates(location: location)
     }
     
     var oneTimeCheck : Bool = true
-    func fetchVehiclesNearCordinates(location:CLLocation) {
+    private func fetchVehiclesNearCordinates(location:CLLocation) {
         
         if oneTimeCheck {
             //Righ now allow only one time.
@@ -71,7 +79,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
-    func parseVehicleTrack(_ respons: [AnyHashable: Any]) -> Array<VehicleTrack> {
+    private func parseVehicleTrack(_ respons: [AnyHashable: Any]) -> Array<VehicleTrack> {
         var vTrack: Array<VehicleTrack> = Array()
         
         let responseArray: Array<[AnyHashable: Any]> = respons[Constants.ResponseAPIKey.Data] as! Array<[AnyHashable: Any]>
@@ -85,6 +93,28 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             vTrack.append(track)
         }
         return vTrack
+    }
+    
+    
+    private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
+        
+        KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
+                
+                self.pickupAddress = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
+                DispatchQueue.main.async {
+                    
+                    (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickupAddress?.name!)!)
+                }
+                
+                
+            }
+        }
+    }
+    
+    func prepareToMoveAddressPicker(addPickerController: KTAddressPickerViewController) {
+        
+        addPickerController.pickupAddress = pickupAddress
     }
 }
 

@@ -16,6 +16,12 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
+    @IBOutlet weak var btnPickupAddress: UIButton!
+    @IBOutlet weak var btnDropoffAddress: UIButton!
+    
+    public var pickupAddress : KTGeoLocation?
+    public var droffAddress : KTGeoLocation?
+    
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
         super.viewDidLoad()
@@ -34,15 +40,17 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         // Dispose of any resources that can be recreated.
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
+        destination.previousView = self
+        (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker(addPickerController: destination )
     }
-    */
+
 
     //Mark: - View Model Delegate
     var allowReset : Bool = true
@@ -93,6 +101,12 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
         let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
         mapView.animate(with: update)
+    }
+    
+    // MARK: - View Model Delegate
+    func updateCurrentAddress(addressName: String) {
+        btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
+        
     }
 }
 

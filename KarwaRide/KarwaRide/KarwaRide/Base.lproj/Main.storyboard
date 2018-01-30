@@ -912,7 +912,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
                                         <rect key="frame" x="62" y="15" width="305" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Fetching your current location "/>
                                         <connections>
                                             <segue destination="2HM-Qh-ieS" kind="popoverPresentation" popoverAnchorView="bcL-JI-p0b" id="2rQ-ed-ASM">
                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -922,7 +922,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqc-sp-fcf">
                                         <rect key="frame" x="62" y="81" width="305" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Set Destination, Start your booking"/>
                                         <connections>
                                             <segue destination="2HM-Qh-ieS" kind="popoverPresentation" popoverAnchorView="tqc-sp-fcf" id="DD5-0R-hl2">
                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -939,6 +939,8 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" id="m2P-Jy-JP4"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnDropoffAddress" destination="tqc-sp-fcf" id="xxb-xB-WBH"/>
+                        <outlet property="btnPickupAddress" destination="bcL-JI-p0b" id="Z4R-yI-70b"/>
                         <outlet property="carousel" destination="bwK-YS-F1J" id="H9w-bK-ds2"/>
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>

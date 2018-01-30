@@ -17,19 +17,51 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBOutlet weak var txtPickAddress: UITextField!
     @IBOutlet weak var txtDropAddress: UITextField!
     
+    public var pickupAddress : KTGeoLocation?
+    public var droffAddress : KTGeoLocation?
+    public weak var previousView : KTCreateBookingViewController?
+    
     private var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var searchTimer: Timer = Timer()
     private var searchText : String = ""
     
     override func viewDidLoad() {
         viewModel = KTAddressPickerViewModel(del:self)
+        (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
         super.viewDidLoad()
     }
     
     // MARK: - View Model Delegate
     func loadData() {
         tblView.reloadData()
+    }
+    
+    func navigateToPreviousView(pickup: KTGeoLocation?, dropOff: KTGeoLocation?) {
+        if pickup != nil {
+            
+            previousView?.pickupAddress = pickup
+        }
+        if dropOff != nil {
+            
+            previousView?.droffAddress = dropOff
+        }
         
+        previousView?.dismiss(animated: true, completion: nil)
+    }
+    
+    func pickUpTxt() -> String {
+        return self.txtPickAddress.text!
+    }
+    
+    func dropOffTxt() -> String {
+        return self.txtDropAddress.text!
+    }
+    func setPickUp(pick: String) {
+        txtPickAddress.text = pick
+    }
+    
+    func setDropOff(drop: String) {
+        txtDropAddress.text = drop
     }
     
     // MARK: - TableView Delegates
@@ -45,6 +77,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath.row, type:selectedTxtField)
     }
     
     // MARK: - UItextField Delegates
