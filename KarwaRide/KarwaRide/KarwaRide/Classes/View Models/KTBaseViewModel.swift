@@ -37,6 +37,14 @@ class KTBaseViewModel: NSObject {
         
     }
     func viewDidLoad() {
+    
     }
-   
+    
+    func viewWillAppear() {
+        
+    }
+    
+    func viewWillDisappear() {
+        
+    }
 }

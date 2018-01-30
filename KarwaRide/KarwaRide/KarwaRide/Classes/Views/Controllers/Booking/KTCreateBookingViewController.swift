@@ -34,12 +34,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         self.mapView!.isMyLocationEnabled = true
         self.navigationItem.hidesBackButton = true;
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     // MARK: - Navigation
 
@@ -105,8 +99,35 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     // MARK: - View Model Delegate
     func updateCurrentAddress(addressName: String) {
-        btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
         
+        btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
+    }
+    
+    func pickUpAdd() -> KTGeoLocation? {
+       
+        return pickupAddress
+    }
+    
+    func dropOffAdd() -> KTGeoLocation? {
+        
+        return droffAddress
+    }
+    
+    func setPickUp(pick: String?) {
+        
+        guard pick != nil else {
+            return
+        }
+        self.btnPickupAddress.setTitle(pick, for: UIControlState.normal)
+    }
+    
+    func setDropOff(drop: String?) {
+        
+        guard drop != nil else {
+            return
+        }
+        
+        self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
     }
 }
 

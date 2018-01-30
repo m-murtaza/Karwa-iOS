@@ -18,6 +18,17 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         viewModel?.viewDidLoad()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        viewModel?.viewWillAppear()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        viewModel?.viewWillDisappear()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

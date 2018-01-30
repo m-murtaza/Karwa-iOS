@@ -14,20 +14,50 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:Array<VehicleTrack>)
     func updateCurrentAddress(addressName:String)
+    func pickUpAdd() -> KTGeoLocation?
+    func dropOffAdd() -> KTGeoLocation?
+    func setPickUp(pick: String?)
+    func setDropOff(drop: String?)
 }
 class KTCreateBookingViewModel: KTBaseViewModel {
     
     var vehicleType : VehicleType = VehicleType.KTBusinessLimo
     var vechicleTypes : [KTVehicleType]?
-    public var pickupAddress : KTGeoLocation?
-    public var droffAddress : KTGeoLocation?
+    private var pickUpAddress : KTGeoLocation?
+    private var dropOffAddress : KTGeoLocation?
     
     override func viewDidLoad() {
+        
+        super.viewDidLoad()
         self.fetchVechicleTypes()
         KTLocationManager.sharedInstance.start()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil)
+        
     }
     
+    override func viewWillAppear() {
+        
+        super.viewWillAppear()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil)
+        
+        pickUpAddress = (delegate as! KTCreateBookingViewModelDelegate).pickUpAdd()
+        dropOffAddress = (delegate as! KTCreateBookingViewModelDelegate).dropOffAdd()
+        
+        if pickUpAddress != nil {
+            
+            (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: pickUpAddress?.name)
+        }
+        
+        if(dropOffAddress != nil) {
+            
+            (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffAddress?.name)
+        }
+    }
+    
+    override func viewWillDisappear() {
+        
+        super.viewWillDisappear()
+        NotificationCenter.default.removeObserver(self)
+    }
     //MARK:-  Vehicle Types
     private func fetchVechicleTypes() {
         let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
@@ -101,10 +131,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
                 
-                self.pickupAddress = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
+                self.pickUpAddress = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                 DispatchQueue.main.async {
                     
-                    (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickupAddress?.name!)!)
+                    (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
                 }
                 
                 
@@ -114,7 +144,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func prepareToMoveAddressPicker(addPickerController: KTAddressPickerViewController) {
         
-        addPickerController.pickupAddress = pickupAddress
+        addPickerController.pickupAddress = pickUpAddress
     }
 }
 
