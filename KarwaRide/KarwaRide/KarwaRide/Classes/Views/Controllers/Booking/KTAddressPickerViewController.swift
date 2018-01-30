@@ -31,6 +31,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         super.viewDidLoad()
     }
     
+    @IBAction func btnSkipTapped(_ sender: Any) {
+        
+        (viewModel as! KTAddressPickerViewModel).skipDestination()
+    }
     // MARK: - View Model Delegate
     func loadData() {
         tblView.reloadData()

@@ -51,6 +51,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffAddress?.name)
         }
+        else {
+            
+            (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Destination Not Set")
+        }
     }
     
     override func viewWillDisappear() {

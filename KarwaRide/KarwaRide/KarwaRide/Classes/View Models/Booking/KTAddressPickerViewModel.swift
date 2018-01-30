@@ -86,16 +86,31 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name)!)
         }
         
-        moveBackIfNeeded()
+        moveBackIfNeeded(skipDestination: false)
     }
     
-    private func moveBackIfNeeded() {
-        if pickUpAddress != nil && dropOffAddress != nil {
+//    private func moveBackIfNeeded() {
+//        if pickUpAddress != nil && dropOffAddress != nil {
+//
+//            if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() {
+//
+//                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+//            }
+//        }
+//    }
+    
+    private func moveBackIfNeeded(skipDestination : Bool) {
+        if pickUpAddress != nil && (skipDestination || dropOffAddress != nil) {
             
-            if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() {
-            
-                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+            if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()) {
+                    (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+                
             }
         }
+    }
+    
+    func skipDestination() {
+        
+        moveBackIfNeeded(skipDestination:true)
     }
 }
