@@ -21,8 +21,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
 }
 class KTCreateBookingViewModel: KTBaseViewModel {
     
-    var vehicleType : VehicleType = VehicleType.KTBusinessLimo
-    var vechicleTypes : [KTVehicleType]?
+    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+    var vehicleTypes : [KTVehicleType]?
     private var pickUpAddress : KTGeoLocation?
     private var dropOffAddress : KTGeoLocation?
     
@@ -65,23 +65,45 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //MARK:-  Vehicle Types
     private func fetchVechicleTypes() {
         let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
-        vechicleTypes = vTypeManager.VehicleTypes()
+        vehicleTypes = vTypeManager.VehicleTypes()
     }
     
     func numberOfRowsVType() -> Int {
-        guard (vechicleTypes != nil) else {
+        guard (vehicleTypes != nil) else {
             return 0;
         }
-        return (vechicleTypes?.count)!
+        return (vehicleTypes?.count)!
     }
     func vTypeTitle(forIndex idx: Int) -> String {
-        let vType : KTVehicleType = vechicleTypes![idx]
+        let vType : KTVehicleType = vehicleTypes![idx]
         return vType.typeName!
     }
     
     func vTypeBaseFare(forIndex idx: Int) -> String {
-        let vType : KTVehicleType = vechicleTypes![idx]
+        let vType : KTVehicleType = vehicleTypes![idx]
         return String(vType.typeBaseFare)
+    }
+    //MARK:- Create Booking
+    func bookTaxi() {
+        let bookManager : KTBookingManager = KTBookingManager()
+        let booking : KTBooking = bookManager.booking(pickUp: pickUpAddress, dropOff: dropOffAddress)
+        booking.pickupTime = Date()
+        booking.creationTime = Date()
+        booking.pickupHint = "This is test booking"
+        booking.vehicleType = Int16(selectedVehicleType.rawValue)
+        booking.callerId = KTAppSessionInfo.currentSession.phone
+        
+        bookManager.bookTaxi(job: booking) { (status, response) in
+            print(response)
+        }
+    }
+    
+    func vTypeViewScroll(currentIdx:Int?)  {
+        
+        if currentIdx! < (vehicleTypes?.count)! {
+            selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
+            print("Selected Vehicle Type: \(selectedVehicleType) ---- \(selectedVehicleType.rawValue)")
+        }
     }
     //MARK:- Location manager
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
@@ -103,7 +125,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if oneTimeCheck {
             //Righ now allow only one time.
             oneTimeCheck = false
-            KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: VehicleType(rawValue: 50)!, completion:{
+            KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
                 if status == Constants.APIResponseStatus.SUCCESS {
                     let vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)

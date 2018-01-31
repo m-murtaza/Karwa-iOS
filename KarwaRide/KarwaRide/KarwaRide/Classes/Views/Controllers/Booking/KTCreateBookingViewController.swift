@@ -35,6 +35,10 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         self.navigationItem.hidesBackButton = true;
     }
     
+    @IBAction func btnRequestBooking(_ sender: Any) {
+        
+        (viewModel as! KTCreateBookingViewModel).bookTaxi()
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -160,5 +164,6 @@ extension CarouselDelegate: UICollectionViewDelegate {
         carousel.didScroll()
         
         guard (carousel.currentCenterCellIndex?.row) != nil else { return }
+        (viewModel as! KTCreateBookingViewModel).vTypeViewScroll(currentIdx: carousel.currentCenterCellIndex!.row)
     }
 }

@@ -113,6 +113,23 @@ struct Constants {
         static let Password = "Password"
     }
     
+    struct BookingParams {
+        static let BookingId = "BookingID"
+        static let PickLocation = "PickupAddress"
+        static let PickLat = "PickupLat"
+        static let PickLon = "PickupLon"
+        static let PickTime = "PickupTime"
+        static let DropLat = "DropLat"
+        static let DropLon = "DropLon"
+        static let DropLocation = "DropAddress"
+        static let CreationTime = "CreationTime"
+        static let PickHint = "PickupMessage"
+        static let VehicleType = "VehicleType"
+        static let CallerID = "CallerID"
+        static let Status = "BookingStatus"
+        static let BookingType = "BookingType"
+    }
+    
     struct APIURL {
         static let Login = "user/login"
         static let GetUserInfo = "user/"
@@ -123,6 +140,7 @@ struct Constants {
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
         static let AddressPickViaSearch = "geocode/a"
+        static let Booking = "/booking"
     }
     
     struct TrackTaxiParams {
