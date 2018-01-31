@@ -63,8 +63,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
                                 (self.viewModel as! KTCreateBookingViewModel).setPickupDate(date: dt)
                             }
         }
-        
-    
     }
     
     // MARK: - Navigation
