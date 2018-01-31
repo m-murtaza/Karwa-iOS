@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SwiftDate
 
 
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
@@ -18,13 +19,21 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func dropOffAdd() -> KTGeoLocation?
     func setPickUp(pick: String?)
     func setDropOff(drop: String?)
+    func setPickDate(date: String)
+    
 }
+
+let CHECK_DELAY = 90.0
+
 class KTCreateBookingViewModel: KTBaseViewModel {
     
-    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+    
     var vehicleTypes : [KTVehicleType]?
     private var pickUpAddress : KTGeoLocation?
     private var dropOffAddress : KTGeoLocation?
+    
+    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+    var selectedPickupDateTime : Date = Date()
     
     override func viewDidLoad() {
         
@@ -55,6 +64,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Destination Not Set")
         }
+        
+        
+        registerForMinuteChange()
     }
     
     override func viewWillDisappear() {
@@ -62,6 +74,62 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         super.viewWillDisappear()
         NotificationCenter.default.removeObserver(self)
     }
+    
+    //MARK:- Minute Change
+    private func registerForMinuteChange() {
+        
+        setPickupDate(date: Date())
+        KTTimer.sharedInstance.startMinTimer()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.MinuteChanged(notification:)), name: Notification.Name(Constants.Notification.MinuteChanged), object: nil)
+    }
+    
+    private func unregisterForMinuteChange() {
+        KTTimer.sharedInstance.stoprMinTimer()
+    }
+    
+    @objc func MinuteChanged(notification: Notification) {
+        
+        if selectedPickupDateTime.timeIntervalSinceNow < CHECK_DELAY {
+            //Update UI as its current time.
+            //updateUIForCurrentDate()
+            setPickupDate(date: Date())
+            
+        }
+    }
+    
+    func setPickupDate(date: Date)  {
+        selectedPickupDateTime = date
+        updateUI(forDate: selectedPickupDateTime)
+    }
+    
+    func updateUI(forDate date: Date) {
+    
+        let formatedDate : String = formatedDateForUI(date: date)
+        (delegate as! KTCreateBookingViewModelDelegate).setPickDate(date: formatedDate)
+    }
+    
+    func formatedDateForUI(date: Date) -> String {
+        
+        var datePart : String = ""
+        if date.isToday {
+        
+            datePart = "Today"
+        }
+        else {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            datePart = dateFormatter.string(from: date)
+        }
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mma"
+        
+        let time = "\(datePart), \(timeFormatter.string(from: date))"
+        
+        return time
+    }
+    
     //MARK:-  Vehicle Types
     private func fetchVechicleTypes() {
         let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
@@ -87,7 +155,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func bookTaxi() {
         let bookManager : KTBookingManager = KTBookingManager()
         let booking : KTBooking = bookManager.booking(pickUp: pickUpAddress, dropOff: dropOffAddress)
-        booking.pickupTime = Date()
+        booking.pickupTime = selectedPickupDateTime
         booking.creationTime = Date()
         booking.pickupHint = "This is test booking"
         booking.vehicleType = Int16(selectedVehicleType.rawValue)
@@ -102,9 +170,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         if currentIdx! < (vehicleTypes?.count)! {
             selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
-            print("Selected Vehicle Type: \(selectedVehicleType) ---- \(selectedVehicleType.rawValue)")
         }
     }
+    
     //MARK:- Location manager
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
         

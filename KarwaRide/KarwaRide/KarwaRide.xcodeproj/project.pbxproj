@@ -52,6 +52,8 @@
 		18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949520199FC8000FCE92 /* KTGeoLocation+CoreDataProperties.swift */; };
 		18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */; };
 		18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */; };
+		18B9076220219533000F45FE /* KTTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9076120219533000F45FE /* KTTimer.swift */; };
+		18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907642021C7D7000F45FE /* DatePickerDialog.swift */; };
 		18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC5200340F3002D4B88 /* KTUtils.swift */; };
 		18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */; };
 		18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */; };
@@ -130,6 +132,8 @@
 		18A3949520199FC8000FCE92 /* KTGeoLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTGeoLocation+CoreDataProperties.swift"; path = "Classes/DAL/CoreData/DataModel/KTGeoLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VehicleTrack.swift; path = Classes/Models/VehicleTrack.swift; sourceTree = "<group>"; };
 		18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTVehicleTypeManager.swift; path = Classes/DAL/VehicleType/KTVehicleTypeManager.swift; sourceTree = "<group>"; };
+		18B9076120219533000F45FE /* KTTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTTimer.swift; path = Classes/HelperClasses/Timer/KTTimer.swift; sourceTree = "<group>"; };
+		18B907642021C7D7000F45FE /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerDialog.swift; path = Classes/ThirdParty/DatePickerDialog/DatePickerDialog.swift; sourceTree = "<group>"; };
 		18C24AC5200340F3002D4B88 /* KTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTUtils.swift; path = Classes/Common/Utility/KTUtils.swift; sourceTree = "<group>"; };
 		18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewController.swift; path = Classes/Views/Controllers/SignUp/KTSignUpFormViewController.swift; sourceTree = "<group>"; };
 		18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewModel.swift; path = "Classes/View Models/SignUp/KTSignUpFormViewModel.swift"; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				18B907632021C73B000F45FE /* DatePickerDialog */,
 				18C24B0E2005EDBE002D4B88 /* UIElements */,
 				18C24AD72004A401002D4B88 /* VPMOTPView */,
 				1810C0C91FC59BB5008E8D91 /* SWRevealViewController */,
@@ -312,6 +317,7 @@
 		181344AC1EF7B2B0006E734A /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				18B9076020219511000F45FE /* Timer */,
 				1833CA78200CB1DA00AD885B /* Location */,
 				1810C0BA1FC4061E008E8D91 /* APNS */,
 				181344B71EF916DC006E734A /* ApplicationSession */,
@@ -499,6 +505,22 @@
 				18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */,
 			);
 			name = VehicleType;
+			sourceTree = "<group>";
+		};
+		18B9076020219511000F45FE /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				18B9076120219533000F45FE /* KTTimer.swift */,
+			);
+			name = Timer;
+			sourceTree = "<group>";
+		};
+		18B907632021C73B000F45FE /* DatePickerDialog */ = {
+			isa = PBXGroup;
+			children = (
+				18B907642021C7D7000F45FE /* DatePickerDialog.swift */,
+			);
+			name = DatePickerDialog;
 			sourceTree = "<group>";
 		};
 		18C24AC2200340B0002D4B88 /* Utility */ = {
@@ -753,6 +775,7 @@
 				1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */,
 				1810C0D81FC5AC1B008E8D91 /* KTSideDrawerTableView.swift in Sources */,
 				1810C13B1FCD7FB7008E8D91 /* KTUserManager.swift in Sources */,
+				18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */,
 				1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */,
 				18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */,
 				18A3949320187C2F000FCE92 /* NSManageObject+KTExtended.swift in Sources */,
@@ -789,6 +812,7 @@
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
+				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				18A3948A2017089A000FCE92 /* KTVehicleType+CoreDataClass.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
 				18A3949620199FC9000FCE92 /* KTGeoLocation+CoreDataClass.swift in Sources */,

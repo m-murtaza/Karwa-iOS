@@ -35,6 +35,11 @@ enum VehicleType: Int {
 struct Constants {
     static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
 
+    struct Notification {
+        static let MinuteChanged = "MinuteChangedNotification"
+        static let LocationManager = "LocationManagerNotificationIdentifier"
+    }
+    
     struct API {
         static let BaseURLKey = "BaseAPIURL"
         static let RequestTimeOut = 10.0

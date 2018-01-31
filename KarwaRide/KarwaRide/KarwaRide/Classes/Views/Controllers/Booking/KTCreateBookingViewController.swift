@@ -18,6 +18,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     @IBOutlet weak var carousel: ScalingCarouselView!
     @IBOutlet weak var btnPickupAddress: UIButton!
     @IBOutlet weak var btnDropoffAddress: UIButton!
+    @IBOutlet weak var btnPickDate: UIButton!
     
     public var pickupAddress : KTGeoLocation?
     public var droffAddress : KTGeoLocation?
@@ -39,6 +40,33 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
         (viewModel as! KTCreateBookingViewModel).bookTaxi()
     }
+    
+    
+    @IBAction func btnPickDateTapped(_ sender: Any) {
+        
+        let currentDate = Date()
+        var dateComponents = DateComponents()
+        dateComponents.month = 3
+        let threeMonth = Calendar.current.date(byAdding: dateComponents, to: currentDate)
+        
+        let datePicker = DatePickerDialog(textColor: .red,
+                                          buttonColor: .red,
+                                          font: UIFont.boldSystemFont(ofSize: 17),
+                                          showCancelButton: true)
+        datePicker.show("DatePickerDialog",
+                        doneButtonTitle: "Done",
+                        cancelButtonTitle: "Cancel", defaultDate: (viewModel as! KTCreateBookingViewModel).selectedPickupDateTime,
+                        minimumDate: currentDate,
+                        maximumDate: threeMonth,
+                        datePickerMode: .dateAndTime) { (date) in
+                            if let dt = date {
+                                (self.viewModel as! KTCreateBookingViewModel).setPickupDate(date: dt)
+                            }
+        }
+        
+    
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -48,8 +76,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         destination.previousView = self
         (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker(addPickerController: destination )
     }
-
-
+    
     //Mark: - View Model Delegate
     var allowReset : Bool = true
     func updateLocationInMap(location: CLLocation) {
@@ -132,6 +159,10 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
         
         self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
+    }
+    
+    func setPickDate(date: String) {
+        btnPickDate.setTitle(date, for: UIControlState.normal)
     }
 }
 
