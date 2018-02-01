@@ -17,9 +17,11 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateCurrentAddress(addressName:String)
     func pickUpAdd() -> KTGeoLocation?
     func dropOffAdd() -> KTGeoLocation?
+    func hintForPickup() -> String
     func setPickUp(pick: String?)
     func setDropOff(drop: String?)
     func setPickDate(date: String)
+    func showBookingConfirmation()
     
 }
 
@@ -152,12 +154,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return String(vType.typeBaseFare)
     }
     //MARK:- Create Booking
-    func bookTaxi() {
+    func btnRequestBookingTapped() {
+        
+        (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+    }
+    
+    func bookRide() {
         let bookManager : KTBookingManager = KTBookingManager()
         let booking : KTBooking = bookManager.booking(pickUp: pickUpAddress, dropOff: dropOffAddress)
         booking.pickupTime = selectedPickupDateTime
         booking.creationTime = Date()
-        booking.pickupHint = "This is test booking"
+        booking.pickupHint = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
         booking.vehicleType = Int16(selectedVehicleType.rawValue)
         booking.callerId = KTAppSessionInfo.currentSession.phone
         

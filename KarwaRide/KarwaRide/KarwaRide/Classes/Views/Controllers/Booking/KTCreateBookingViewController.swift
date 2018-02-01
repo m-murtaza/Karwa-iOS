@@ -22,6 +22,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     public var pickupAddress : KTGeoLocation?
     public var droffAddress : KTGeoLocation?
+    public var pickupHint : String = ""
     
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
@@ -38,9 +39,19 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     @IBAction func btnRequestBooking(_ sender: Any) {
         
-        (viewModel as! KTCreateBookingViewModel).bookTaxi()
+        (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
+    }
+    func bookRide()  {
+        (viewModel as! KTCreateBookingViewModel).bookRide()
     }
     
+    func showBookingConfirmation() {
+        
+        let confirmationPopup = storyboard?.instantiateViewController(withIdentifier: "ConfermationPopupVC") as! BookingConfermationPopupVC
+        confirmationPopup.previousView = self
+        view.addSubview(confirmationPopup.view)
+        addChildViewController(confirmationPopup)
+    }
     
     @IBAction func btnPickDateTapped(_ sender: Any) {
         
@@ -132,6 +143,9 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
     }
     
+    func hintForPickup() -> String {
+        return pickupHint
+    }
     func pickUpAdd() -> KTGeoLocation? {
        
         return pickupAddress

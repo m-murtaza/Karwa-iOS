@@ -994,6 +994,73 @@
             </objects>
             <point key="canvasLocation" x="1448.8" y="1529.6851574212894"/>
         </scene>
+        <!--Booking Confermation PopupVC-->
+        <scene sceneID="r6A-cr-Yv7">
+            <objects>
+                <viewController restorationIdentifier="ConfermationPopupVC" storyboardIdentifier="ConfermationPopupVC" id="HXQ-to-juM" customClass="BookingConfermationPopupVC" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wHt-F7-9Sm"/>
+                        <viewControllerLayoutGuide type="bottom" id="91b-Ae-IHe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b3c-lE-WrL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3sb-QA-6CQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZz-4W-QnH">
+                                <rect key="frame" x="16" y="138" width="343" height="325"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is PopUp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tco-BU-Y0d">
+                                        <rect key="frame" x="8" y="32" width="327" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ObY-1y-cSB">
+                                        <rect key="frame" x="8" y="155" width="327" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdR-wq-0W7">
+                                        <rect key="frame" x="8" y="287" width="162" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="btnCancelTapped:" destination="HXQ-to-juM" eventType="touchUpInside" id="9M4-k7-LS7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvt-vJ-Jxe">
+                                        <rect key="frame" x="178" y="287" width="157" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Book"/>
+                                        <connections>
+                                            <action selector="btnBookedTapped:" destination="HXQ-to-juM" eventType="touchUpInside" id="FD4-lE-QD9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="txtPickupHint" destination="ObY-1y-cSB" id="4pN-s0-ic3"/>
+                        <outlet property="viewMain" destination="3sb-QA-6CQ" id="FZh-2h-Ckc"/>
+                        <outlet property="viewPopupUI" destination="mZz-4W-QnH" id="axX-VY-ojo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DQS-11-clT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3332" y="1940.7796101949027"/>
+        </scene>
         <!--Address Picker View Controller-->
         <scene sceneID="3YX-v2-1Ul">
             <objects>
@@ -1090,7 +1157,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="smE-lt-CxL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2189.5999999999999" y="1775.2623688155923"/>
+            <point key="canvasLocation" x="2230" y="2111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uLb-7H-oLy">
