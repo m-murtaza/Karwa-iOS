@@ -42,7 +42,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     func fetchLocations()  {
         
         delegate?.userIntraction(enable: false)
-        KTBookingManager().address(forLocation: (KTLocationManager.sharedInstance.currentLocation?.coordinate)!) { (status, response) in
+        KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success
                 self.getAllLocations()

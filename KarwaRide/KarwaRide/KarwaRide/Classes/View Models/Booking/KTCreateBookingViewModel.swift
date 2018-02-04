@@ -48,7 +48,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     override func viewWillAppear() {
         
         super.viewWillAppear()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
         
         pickUpAddress = (delegate as! KTCreateBookingViewModelDelegate).pickUpAdd()
         dropOffAddress = (delegate as! KTCreateBookingViewModelDelegate).dropOffAdd()
@@ -66,7 +66,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Destination Not Set")
         }
-        
         
         registerForMinuteChange()
     }
@@ -175,8 +174,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func vTypeViewScroll(currentIdx:Int?)  {
         
-        if currentIdx! < (vehicleTypes?.count)! {
-            selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
+        if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!{
+            
+                selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
+            fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
         }
     }
     
@@ -197,9 +198,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var oneTimeCheck : Bool = true
     private func fetchVehiclesNearCordinates(location:CLLocation) {
         
-        if oneTimeCheck {
+        print("- - - - Fetch vehicle called - - - - ")
+        //if oneTimeCheck {
             //Righ now allow only one time.
-            oneTimeCheck = false
+          //  oneTimeCheck = false
             KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
                 if status == Constants.APIResponseStatus.SUCCESS {
@@ -207,7 +209,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: vTrack)
                 }
             })
-        }
+        //}
     }
     
     private func parseVehicleTrack(_ respons: [AnyHashable: Any]) -> Array<VehicleTrack> {

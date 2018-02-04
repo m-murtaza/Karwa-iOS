@@ -17,7 +17,7 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
     
 //    var delegate : KTLocationManagerDelegate?
     let locManager = CLLocationManager()
-    var currentLocation : CLLocation?
+    var currentLocation : CLLocation = CLLocation(latitude: 0.0,longitude: 0.0)
     
     //MARK: - Singleton
     private override init()
