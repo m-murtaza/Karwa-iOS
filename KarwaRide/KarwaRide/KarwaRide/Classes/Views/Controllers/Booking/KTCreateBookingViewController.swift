@@ -29,12 +29,39 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        //viewModel?.viewDidLoad()
-        let camera = GMSCameraPosition.camera(withLatitude: 25.343899,
-                                                          longitude: 51.511294, zoom: 15)
-        self.mapView.camera = camera;
-        self.mapView!.isMyLocationEnabled = true
+        addMap()
+        
         self.navigationItem.hidesBackButton = true;
+        
+    }
+    
+    func addMap() {
+        
+        /*let camera = GMSCameraPosition.camera(withLatitude: 25.343899,
+                                              longitude: 51.511294, zoom: 15)
+        
+        self.mapView.camera = camera;
+        
+        self.mapView.setMinZoom(15, maxZoom: 500)
+        self.mapView!.isMyLocationEnabled = true*/
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 25.343899, longitude: 51.511294, zoom: 14.0)
+        self.mapView.setMinZoom(15, maxZoom: 500)
+        self.mapView!.isMyLocationEnabled = true
+        
+        self.mapView.camera = camera;
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+        
+        //self.view = mapView
     }
     
     @IBAction func btnRequestBooking(_ sender: Any) {
@@ -89,9 +116,9 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     //Mark: - View Model Delegate
     var allowReset : Bool = true
     func updateLocationInMap(location: CLLocation) {
-        
+        //return
         //Update map
-        if allowReset {
+        /*if allowReset {
             let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
             
             self.mapView?.animate(to: camera)
@@ -113,16 +140,18 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
             gmsMarker.append(marker)
             
             self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
-        }
+        }*/
     }
     var gmsMarker : Array<GMSMarker> = Array()
-    func addMarkerOnMap(vTrack: Array<VehicleTrack>) {
-        
+    func addMarkerOnMap(vTrack: [VehicleTrack]) {
+        mapView.clear()
         vTrack.forEach { track in
-            let marker = GMSMarker()
-            marker.position = track.position!
-            marker.map = self.mapView
-            gmsMarker.append(marker)
+            if !track.position.isZeroCoordinate  {
+                let marker = GMSMarker()
+                marker.position = track.position
+                marker.map = self.mapView
+                gmsMarker.append(marker)
+            }
         }
         self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
     }
@@ -133,7 +162,8 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         for marker: GMSMarker in gsmMarker {
             bounds = bounds.includingCoordinate(marker.position)
         }
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 275)
+        //print(mapView.minZoom)
         mapView.animate(with: update)
     }
     

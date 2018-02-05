@@ -13,7 +13,7 @@ import SwiftDate
 
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
-    func addMarkerOnMap(vTrack:Array<VehicleTrack>)
+    func addMarkerOnMap(vTrack:[VehicleTrack])
     func updateCurrentAddress(addressName:String)
     func pickUpAdd() -> KTGeoLocation?
     func dropOffAdd() -> KTGeoLocation?
@@ -205,24 +205,37 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
                 if status == Constants.APIResponseStatus.SUCCESS {
-                    let vTrack: Array<VehicleTrack> = self.parseVehicleTrack(response)
+                    var vTrack: [VehicleTrack] = self.parseVehicleTrack(response)
+                    
+                    //Add User current location.
+                    vTrack.append(self.userCurrentLocaitonMarker())
+                    
                     (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: vTrack)
                 }
             })
         //}
     }
     
+    private func userCurrentLocaitonMarker() -> VehicleTrack {
+        
+        let track : VehicleTrack = VehicleTrack()
+        track.position = KTLocationManager.sharedInstance.currentLocation.coordinate
+        track.trackType = VehicleTrackType.user
+        return track
+    }
+    
     private func parseVehicleTrack(_ respons: [AnyHashable: Any]) -> Array<VehicleTrack> {
-        var vTrack: Array<VehicleTrack> = Array()
+        var vTrack: [VehicleTrack] = []
         
         let responseArray: Array<[AnyHashable: Any]> = respons[Constants.ResponseAPIKey.Data] as! Array<[AnyHashable: Any]>
         //respons[Constants.ResponseAPIKey.Data] as! [AnyHashable: Any].forEach { track in
         responseArray.forEach { rtrack in
             let track : VehicleTrack = VehicleTrack()
-            track.vehicleNo = rtrack["VehicleNo"] as? String
+            track.vehicleNo = rtrack["VehicleNo"] as! String
             track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
-            track.vehicleType = rtrack["VehicleType"] as? Int
-            track.bearing = rtrack["Bearing"] as? Float
+            track.vehicleType = rtrack["VehicleType"] as! Int
+            track.bearing = rtrack["Bearing"] as! Float
+            track.trackType = VehicleTrackType.vehicle
             vTrack.append(track)
         }
         return vTrack

@@ -56,6 +56,8 @@
 		18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907642021C7D7000F45FE /* DatePickerDialog.swift */; };
 		18B907682022F64A000F45FE /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907672022F64A000F45FE /* PopupVC.swift */; };
 		18B9076A2022F89C000F45FE /* BookingConfermationPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907692022F89C000F45FE /* BookingConfermationPopupVC.swift */; };
+		18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9076B2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift */; };
+		18B9076E20271184000F45FE /* map_style_karwa.json in Resources */ = {isa = PBXBuildFile; fileRef = 18B9076D20271183000F45FE /* map_style_karwa.json */; };
 		18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC5200340F3002D4B88 /* KTUtils.swift */; };
 		18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */; };
 		18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */; };
@@ -138,6 +140,8 @@
 		18B907642021C7D7000F45FE /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerDialog.swift; path = Classes/ThirdParty/DatePickerDialog/DatePickerDialog.swift; sourceTree = "<group>"; };
 		18B907672022F64A000F45FE /* PopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupVC.swift; path = Classes/ThirdParty/PopUp/PopupVC.swift; sourceTree = "<group>"; };
 		18B907692022F89C000F45FE /* BookingConfermationPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingConfermationPopupVC.swift; path = Classes/Views/Controllers/Booking/BookingConfermationPopupVC.swift; sourceTree = "<group>"; };
+		18B9076B2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CLLocationCoordinate2D +Utils.swift"; path = "Classes/Common/Extensions/CLLocationCoordinate2D +Utils.swift"; sourceTree = "<group>"; };
+		18B9076D20271183000F45FE /* map_style_karwa.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map_style_karwa.json; path = Resources/map_style_karwa.json; sourceTree = "<group>"; };
 		18C24AC5200340F3002D4B88 /* KTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTUtils.swift; path = Classes/Common/Utility/KTUtils.swift; sourceTree = "<group>"; };
 		18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewController.swift; path = Classes/Views/Controllers/SignUp/KTSignUpFormViewController.swift; sourceTree = "<group>"; };
 		18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewModel.swift; path = "Classes/View Models/SignUp/KTSignUpFormViewModel.swift"; sourceTree = "<group>"; };
@@ -568,6 +572,7 @@
 			children = (
 				18C24ACF2004913F002D4B88 /* String+Utils.swift */,
 				18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */,
+				18B9076B2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 		18C24AE02004E201002D4B88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18B9076D20271183000F45FE /* map_style_karwa.json */,
 				18C24AE12004E222002D4B88 /* Fonts */,
 			);
 			name = Resources;
@@ -725,6 +731,7 @@
 				181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */,
 				18C24B0A2004E26A002D4B88 /* MuseoSans-900.otf in Resources */,
 				181344A11EF68671006E734A /* Assets.xcassets in Resources */,
+				18B9076E20271184000F45FE /* map_style_karwa.json in Resources */,
 				18C24B082004E269002D4B88 /* MuseoSans-700.otf in Resources */,
 				1813449F1EF68671006E734A /* Main.storyboard in Resources */,
 			);
@@ -805,6 +812,7 @@
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
+				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
