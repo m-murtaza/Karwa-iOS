@@ -842,53 +842,107 @@
                                     <constraint firstAttribute="height" constant="110" id="QUJ-wR-Jsb"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2s2-OU-1zm">
-                                    <size key="itemSize" width="301" height="109"/>
+                                    <size key="itemSize" width="345" height="110"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="pMm-oH-kQh" customClass="Cell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="37" y="0.0" width="301" height="109"/>
+                                        <rect key="frame" x="15" y="0.0" width="345" height="110"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="301" height="109"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdI-he-Kmi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="301" height="109"/>
+                                                    <rect key="frame" x="0.0" y="-0.5" width="345" height="110"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardStandardBox" translatesAutoresizingMaskIntoConstraints="NO" id="7nc-V4-vnf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="301" height="109"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="110"/>
+                                                            <color key="backgroundColor" red="1" green="0.69062690439999996" blue="0.1612375321" alpha="1" colorSpace="calibratedRGB"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Karwa Taxi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEh-c6-fAE">
-                                                            <rect key="frame" x="25" y="8" width="188" height="28"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                                            <color key="textColor" red="0.87531524896621704" green="0.95272034406661987" blue="0.93600630760192871" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOQ-H6-cAa">
-                                                            <rect key="frame" x="25" y="43" width="125" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
-                                                            <color key="textColor" red="0.87531524900000002" green="0.95272034409999995" blue="0.93600630760000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starting Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYw-Jx-VxU">
-                                                            <rect key="frame" x="25" y="63" width="113" height="14"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
-                                                            <color key="textColor" red="0.87531524900000002" green="0.95272034409999995" blue="0.93600630760000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGU-aE-fm8">
+                                                            <rect key="frame" x="14" y="0.0" width="317" height="85"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Karwa Taxi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEh-c6-fAE">
+                                                                    <rect key="frame" x="15" y="10" width="188" height="28"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="28" id="cRe-As-S1O"/>
+                                                                        <constraint firstAttribute="width" constant="188" id="i5p-zz-m2x"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                                                    <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOQ-H6-cAa">
+                                                                    <rect key="frame" x="15" y="48" width="125" height="21"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="21" id="4YU-Gv-e84"/>
+                                                                        <constraint firstAttribute="width" constant="125" id="RxS-DP-rDX"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
+                                                                    <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starting Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYw-Jx-VxU">
+                                                                    <rect key="frame" x="15" y="70" width="113" height="14"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="14" id="48u-8R-kF6"/>
+                                                                        <constraint firstAttribute="width" constant="113" id="I5h-ws-P2s"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                                    <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingVehiclePad" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-dE-XWy">
+                                                                    <rect key="frame" x="245" y="17" width="50" height="50"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="50" id="AgU-Os-lmc"/>
+                                                                        <constraint firstAttribute="width" constant="50" id="Edf-Bx-su8"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardTaxiIco" translatesAutoresizingMaskIntoConstraints="NO" id="VKc-6T-VSF">
+                                                                    <rect key="frame" x="251" y="11.5" width="38" height="71"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="71" id="G0l-b7-uUx"/>
+                                                                        <constraint firstAttribute="width" constant="38" id="p5V-w6-VKp"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingWaves" translatesAutoresizingMaskIntoConstraints="NO" id="gwA-Ab-D7u">
+                                                                    <rect key="frame" x="0.0" y="46" width="317" height="39"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="39" id="wuy-jh-AlC"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstItem="VKc-6T-VSF" firstAttribute="centerX" secondItem="dNr-dE-XWy" secondAttribute="centerX" id="1np-UR-rCY"/>
+                                                                <constraint firstItem="MEh-c6-fAE" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" constant="15" id="DeT-La-e33"/>
+                                                                <constraint firstItem="UYw-Jx-VxU" firstAttribute="top" secondItem="dOQ-H6-cAa" secondAttribute="bottom" constant="1" id="DfG-BS-o5M"/>
+                                                                <constraint firstAttribute="trailing" secondItem="dNr-dE-XWy" secondAttribute="trailing" constant="22" id="EsJ-Ly-o0K"/>
+                                                                <constraint firstAttribute="bottom" secondItem="gwA-Ab-D7u" secondAttribute="bottom" id="JF6-gZ-nUU"/>
+                                                                <constraint firstItem="dOQ-H6-cAa" firstAttribute="top" secondItem="MEh-c6-fAE" secondAttribute="bottom" constant="10" id="Znf-87-ugR"/>
+                                                                <constraint firstItem="dOQ-H6-cAa" firstAttribute="leading" secondItem="MEh-c6-fAE" secondAttribute="leading" id="e6z-Zs-jY7"/>
+                                                                <constraint firstAttribute="trailing" secondItem="gwA-Ab-D7u" secondAttribute="trailing" id="fQL-Mj-P2Z"/>
+                                                                <constraint firstItem="VKc-6T-VSF" firstAttribute="centerY" secondItem="dNr-dE-XWy" secondAttribute="centerY" constant="5" id="hyH-kZ-eyB"/>
+                                                                <constraint firstItem="MEh-c6-fAE" firstAttribute="top" secondItem="MGU-aE-fm8" secondAttribute="top" constant="10" id="iSP-UD-7KL"/>
+                                                                <constraint firstItem="UYw-Jx-VxU" firstAttribute="leading" secondItem="dOQ-H6-cAa" secondAttribute="leading" id="n0p-OA-ZNt"/>
+                                                                <constraint firstItem="dNr-dE-XWy" firstAttribute="centerY" secondItem="MGU-aE-fm8" secondAttribute="centerY" id="sAu-MF-6nX"/>
+                                                                <constraint firstItem="gwA-Ab-D7u" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" id="yDd-Io-iTP"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstItem="MGU-aE-fm8" firstAttribute="top" secondItem="NdI-he-Kmi" secondAttribute="top" id="2m4-bz-eGD"/>
                                                         <constraint firstItem="7nc-V4-vnf" firstAttribute="leading" secondItem="NdI-he-Kmi" secondAttribute="leading" id="5zo-KB-DXF"/>
+                                                        <constraint firstItem="MGU-aE-fm8" firstAttribute="leading" secondItem="NdI-he-Kmi" secondAttribute="leading" constant="14" id="9cj-GN-Otb"/>
                                                         <constraint firstItem="7nc-V4-vnf" firstAttribute="top" secondItem="NdI-he-Kmi" secondAttribute="top" id="IuA-3S-CnX"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MGU-aE-fm8" secondAttribute="bottom" constant="25" id="Sdx-iC-Sy8"/>
                                                         <constraint firstAttribute="bottom" secondItem="7nc-V4-vnf" secondAttribute="bottom" id="dvn-9T-1ze"/>
                                                         <constraint firstAttribute="trailing" secondItem="7nc-V4-vnf" secondAttribute="trailing" id="gdk-zv-EEn"/>
+                                                        <constraint firstAttribute="trailing" secondItem="MGU-aE-fm8" secondAttribute="trailing" constant="14" id="zAN-dc-OkC"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -1233,6 +1287,9 @@
     <resources>
         <image name="BackButton" width="16" height="16"/>
         <image name="BookingCardStandardBox" width="345" height="110"/>
+        <image name="BookingCardTaxiIco" width="38" height="71"/>
+        <image name="BookingVehiclePad" width="50" height="50"/>
+        <image name="BookingWaves" width="315" height="39"/>
         <image name="CreateAnAccount" width="323" height="80"/>
         <image name="KarwaLogoWithText" width="160" height="45"/>
         <image name="LoginKarwaLogo" width="160" height="45"/>
