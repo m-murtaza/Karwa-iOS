@@ -221,7 +221,7 @@
                                         <rect key="frame" x="181" y="0.0" width="93" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="create new">
-                                            <color key="titleColor" red="0.078431372549019607" green="0.66274509803921566" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.082388058304786682" green="0.66273003816604614" blue="0.9568636417388916" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="cQY-xs-9LD" kind="show" id="Pzn-gK-scz"/>
@@ -833,57 +833,67 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYM-p6-0VQ" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="331"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="321"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bwK-YS-F1J" customClass="ScalingCarouselView" customModule="ScalingCarousel">
-                                <rect key="frame" x="0.0" y="331" width="375" height="100"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="321" width="375" height="110"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="QUJ-wR-Jsb"/>
+                                    <constraint firstAttribute="height" constant="110" id="QUJ-wR-Jsb"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2s2-OU-1zm">
-                                    <size key="itemSize" width="281" height="100"/>
+                                    <size key="itemSize" width="301" height="109"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="pMm-oH-kQh" customClass="Cell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="47" y="0.0" width="281" height="100"/>
+                                        <rect key="frame" x="37" y="0.0" width="301" height="109"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="281" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="301" height="109"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdI-he-Kmi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="281" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="301" height="109"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Standard Limousine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEh-c6-fAE">
-                                                            <rect key="frame" x="8" y="8" width="188" height="21"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardStandardBox" translatesAutoresizingMaskIntoConstraints="NO" id="7nc-V4-vnf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="301" height="109"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Karwa Taxi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEh-c6-fAE">
+                                                            <rect key="frame" x="25" y="8" width="188" height="28"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                                            <color key="textColor" red="0.87531524896621704" green="0.95272034406661987" blue="0.93600630760192871" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOQ-H6-cAa">
-                                                            <rect key="frame" x="8" y="53" width="125" height="21"/>
+                                                            <rect key="frame" x="25" y="43" width="125" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
+                                                            <color key="textColor" red="0.87531524900000002" green="0.95272034409999995" blue="0.93600630760000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Starting Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYw-Jx-VxU">
-                                                            <rect key="frame" x="8" y="74" width="113" height="18"/>
+                                                            <rect key="frame" x="25" y="63" width="113" height="14"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                            <color key="textColor" red="0.87531524900000002" green="0.95272034409999995" blue="0.93600630760000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="7nc-V4-vnf" firstAttribute="leading" secondItem="NdI-he-Kmi" secondAttribute="leading" id="5zo-KB-DXF"/>
+                                                        <constraint firstItem="7nc-V4-vnf" firstAttribute="top" secondItem="NdI-he-Kmi" secondAttribute="top" id="IuA-3S-CnX"/>
+                                                        <constraint firstAttribute="bottom" secondItem="7nc-V4-vnf" secondAttribute="bottom" id="dvn-9T-1ze"/>
+                                                        <constraint firstAttribute="trailing" secondItem="7nc-V4-vnf" secondAttribute="trailing" id="gdk-zv-EEn"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="NdI-he-Kmi" firstAttribute="centerY" secondItem="pMm-oH-kQh" secondAttribute="centerY" id="6Yj-cD-I21"/>
                                             <constraint firstItem="NdI-he-Kmi" firstAttribute="width" secondItem="pMm-oH-kQh" secondAttribute="width" id="MGJ-WW-iUk"/>
@@ -897,7 +907,7 @@
                                 </cells>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                        <real key="value" value="44"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1199,6 +1209,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6e-Zo-Ifs">
+                                <rect key="frame" x="60" y="556" width="276" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1213,6 +1232,7 @@
     </scenes>
     <resources>
         <image name="BackButton" width="16" height="16"/>
+        <image name="BookingCardStandardBox" width="345" height="110"/>
         <image name="CreateAnAccount" width="323" height="80"/>
         <image name="KarwaLogoWithText" width="160" height="45"/>
         <image name="LoginKarwaLogo" width="160" height="45"/>
@@ -1222,8 +1242,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2rQ-ed-ASM"/>
-        <segue reference="XB0-DD-FoR"/>
-        <segue reference="OD2-FV-5Rn"/>
+        <segue reference="bsC-QL-uBN"/>
+        <segue reference="hoq-Ye-9op"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>
