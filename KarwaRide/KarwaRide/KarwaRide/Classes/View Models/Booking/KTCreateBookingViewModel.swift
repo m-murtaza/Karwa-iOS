@@ -149,14 +149,52 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         return (vehicleTypes?.count)!
     }
-    func vTypeTitle(forIndex idx: Int) -> String {
+    func sTypeTitle(forIndex idx: Int) -> String {
         let vType : KTVehicleType = vehicleTypes![idx]
         return vType.typeName!
     }
     
-    func vTypeBaseFare(forIndex idx: Int) -> String {
+    func sTypeBaseFare(forIndex idx: Int) -> String {
         let vType : KTVehicleType = vehicleTypes![idx]
         return String(vType.typeBaseFare)
+    }
+    
+    func sTypeBackgroundImage(forIndex idx: Int) -> UIImage {
+        let sType : KTVehicleType = vehicleTypes![idx]
+        var imgBg : UIImage = UIImage()
+        switch sType.typeId {
+            case Int16(VehicleType.KTCityTaxi.rawValue):
+                imgBg = UIImage(named: "BookingCardTaxiBox")!
+            case Int16(VehicleType.KTStandardLimo.rawValue):
+                imgBg = UIImage(named: "BookingCardStandardBox")!
+            case Int16(VehicleType.KTBusinessLimo.rawValue):
+                imgBg = UIImage(named: "BookingCardBusinessBox")!
+            case Int16(VehicleType.KTLuxuryLimo.rawValue):
+                imgBg = UIImage(named: "BookingCardLuxuryBox")!
+            default:
+                imgBg = UIImage(named: "BookingCardTaxiBox")!
+        }
+        
+        return imgBg
+    }
+    
+    func sTypeVehicleImage(forIndex idx: Int) -> UIImage {
+        let sType : KTVehicleType = vehicleTypes![idx]
+        var imgSType : UIImage = UIImage()
+        switch sType.typeId {
+        case Int16(VehicleType.KTCityTaxi.rawValue):
+            imgSType = UIImage(named: "BookingCardTaxiIco")!
+        case Int16(VehicleType.KTStandardLimo.rawValue):
+            imgSType = UIImage(named: "BookingCardStandardIco")!
+        case Int16(VehicleType.KTBusinessLimo.rawValue):
+            imgSType = UIImage(named: "BookingCardBusinessIco")!
+        case Int16(VehicleType.KTLuxuryLimo.rawValue):
+            imgSType = UIImage(named: "BookingCardLuxuryIco")!
+        default:
+            imgSType = UIImage(named: "BookingCardTaxiIco")!
+        }
+        
+        return imgSType
     }
     //MARK:- Create Booking
     func btnRequestBookingTapped() {

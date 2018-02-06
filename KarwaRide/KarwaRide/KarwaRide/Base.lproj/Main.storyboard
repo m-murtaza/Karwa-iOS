@@ -852,7 +852,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="pMm-oH-kQh" customClass="Cell" customModule="KarwaRide" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="pMm-oH-kQh" customClass="KTServiceCardCell" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="22.5" y="0.0" width="330" height="94"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -959,6 +959,10 @@
                                             <constraint firstItem="NdI-he-Kmi" firstAttribute="height" secondItem="pMm-oH-kQh" secondAttribute="height" id="NBY-bI-mc9"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="imgBg" destination="7nc-V4-vnf" id="ufp-Aq-N8p"/>
+                                            <outlet property="imgVehicleType" destination="VKc-6T-VSF" id="7pb-BL-G89"/>
+                                            <outlet property="lblBaseFare" destination="dOQ-H6-cAa" id="zNa-GL-gxF"/>
+                                            <outlet property="lblServiceType" destination="MEh-c6-fAE" id="HUb-8y-TtD"/>
                                             <outlet property="mainView" destination="NdI-he-Kmi" id="Uao-w9-69d"/>
                                         </connections>
                                     </collectionViewCell>

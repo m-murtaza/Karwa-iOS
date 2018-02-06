@@ -10,7 +10,13 @@ import UIKit
 import GoogleMaps
 import ScalingCarousel
 
-class Cell: ScalingCarouselCell {}
+class KTServiceCardCell: ScalingCarouselCell {
+    
+    @IBOutlet weak var lblServiceType : UILabel!
+    @IBOutlet weak var lblBaseFare : UILabel!
+    @IBOutlet weak var imgBg : UIImageView!
+    @IBOutlet weak var imgVehicleType : UIImageView!
+}
 
 class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate {
     
@@ -239,12 +245,15 @@ extension CarouselDatasource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
-        if let scalingCell = cell as? ScalingCarouselCell {
-            let title: UILabel = scalingCell.mainView.viewWithTag(1001) as! UILabel
-            title.text = (viewModel as! KTCreateBookingViewModel).vTypeTitle(forIndex: indexPath.row)
+        if let sTypeCell = cell as? KTServiceCardCell {
+            //let title: UILabel = sTypeCell.mainView.viewWithTag(1001) as! UILabel
+            //title.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
+            sTypeCell.lblServiceType.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
             
-            let baseFare :UILabel = scalingCell.mainView.viewWithTag(1002) as! UILabel
-            baseFare.text = (viewModel as! KTCreateBookingViewModel).vTypeBaseFare(forIndex: indexPath.row)
+            //let baseFare :UILabel = sTypeCell.mainView.viewWithTag(1002) as! UILabel
+            sTypeCell.lblBaseFare.text = (viewModel as! KTCreateBookingViewModel).sTypeBaseFare(forIndex: indexPath.row) + "QR"
+            sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
+            sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
         }
         
         return cell
