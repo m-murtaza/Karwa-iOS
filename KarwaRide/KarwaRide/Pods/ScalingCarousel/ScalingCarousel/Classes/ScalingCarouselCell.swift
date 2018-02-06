@@ -70,7 +70,7 @@ open class ScalingCarouselCell: UICollectionViewCell {
         let scaleCalculator = fabs(width - fabs(originXActual))
         let percentageScale = (scaleCalculator/width)
         
-        let scaleValue: CGFloat = 1.0 //scaleMinimum
+        let scaleValue: CGFloat = 1 //scaleMinimum
             //+ (percentageScale/InternalConstants.scaleDivisor)
         
         let alphaValue = InternalConstants.alphaSmallestValue

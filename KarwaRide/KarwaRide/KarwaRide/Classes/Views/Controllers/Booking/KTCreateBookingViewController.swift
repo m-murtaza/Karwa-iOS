@@ -35,6 +35,25 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.carousel!.scrollToItem(at: IndexPath(row: (viewModel as! KTCreateBookingViewModel).maxCarouselIdx(), section: 0), at: UICollectionViewScrollPosition.right, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+            self.carousel!.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
     func addMap() {
         
         /*let camera = GMSCameraPosition.camera(withLatitude: 25.343899,
@@ -66,6 +85,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     @IBAction func btnRequestBooking(_ sender: Any) {
         
+        //self.carousel!.scrollToItem(at: IndexPath(row: 3, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
         (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
     }
     func bookRide()  {
@@ -107,10 +127,11 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
-        destination.previousView = self
-        (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker(addPickerController: destination )
+        if segue.identifier == "segueBookingToAddresspicker" {
+            let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
+            destination.previousView = self
+            (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker(addPickerController: destination )
+        }
     }
     
     //Mark: - View Model Delegate

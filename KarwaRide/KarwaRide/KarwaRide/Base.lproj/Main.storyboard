@@ -833,45 +833,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYM-p6-0VQ" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="321"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingBottomBack" translatesAutoresizingMaskIntoConstraints="NO" id="pfV-HZ-0xI">
+                                <rect key="frame" x="0.0" y="414" width="375" height="253"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bwK-YS-F1J" customClass="ScalingCarouselView" customModule="ScalingCarousel">
-                                <rect key="frame" x="0.0" y="321" width="375" height="110"/>
+                                <rect key="frame" x="0.0" y="414" width="375" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="QUJ-wR-Jsb"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2s2-OU-1zm">
-                                    <size key="itemSize" width="345" height="110"/>
+                                    <size key="itemSize" width="330" height="94"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="pMm-oH-kQh" customClass="Cell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="0.0" width="345" height="110"/>
+                                        <rect key="frame" x="22.5" y="0.0" width="330" height="94"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="110"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="330" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NdI-he-Kmi">
-                                                    <rect key="frame" x="0.0" y="-0.5" width="345" height="110"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="330" height="94"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardStandardBox" translatesAutoresizingMaskIntoConstraints="NO" id="7nc-V4-vnf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="110"/>
-                                                            <color key="backgroundColor" red="1" green="0.69062690439999996" blue="0.1612375321" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardTaxiBox" translatesAutoresizingMaskIntoConstraints="NO" id="7nc-V4-vnf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="330" height="94"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGU-aE-fm8">
-                                                            <rect key="frame" x="14" y="0.0" width="317" height="85"/>
+                                                            <rect key="frame" x="8" y="0.0" width="314" height="78"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Karwa Taxi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEh-c6-fAE">
-                                                                    <rect key="frame" x="15" y="10" width="188" height="28"/>
+                                                                    <rect key="frame" x="15" y="10" width="220" height="28"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="28" id="cRe-As-S1O"/>
-                                                                        <constraint firstAttribute="width" constant="188" id="i5p-zz-m2x"/>
+                                                                        <constraint firstAttribute="width" constant="220" id="i5p-zz-m2x"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
                                                                     <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -881,7 +885,7 @@
                                                                         <constraint firstAttribute="height" constant="21" id="4YU-Gv-e84"/>
                                                                         <constraint firstAttribute="width" constant="125" id="RxS-DP-rDX"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="22"/>
                                                                     <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -891,26 +895,26 @@
                                                                         <constraint firstAttribute="height" constant="14" id="48u-8R-kF6"/>
                                                                         <constraint firstAttribute="width" constant="113" id="I5h-ws-P2s"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingVehiclePad" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-dE-XWy">
-                                                                    <rect key="frame" x="245" y="17" width="50" height="50"/>
+                                                                    <rect key="frame" x="244" y="8.5" width="50" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="AgU-Os-lmc"/>
                                                                         <constraint firstAttribute="width" constant="50" id="Edf-Bx-su8"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardTaxiIco" translatesAutoresizingMaskIntoConstraints="NO" id="VKc-6T-VSF">
-                                                                    <rect key="frame" x="251" y="11.5" width="38" height="71"/>
+                                                                    <rect key="frame" x="250" y="3" width="38" height="71"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="71" id="G0l-b7-uUx"/>
                                                                         <constraint firstAttribute="width" constant="38" id="p5V-w6-VKp"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingWaves" translatesAutoresizingMaskIntoConstraints="NO" id="gwA-Ab-D7u">
-                                                                    <rect key="frame" x="0.0" y="46" width="317" height="39"/>
+                                                                    <rect key="frame" x="0.0" y="39" width="314" height="39"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="39" id="wuy-jh-AlC"/>
                                                                     </constraints>
@@ -921,7 +925,7 @@
                                                                 <constraint firstItem="VKc-6T-VSF" firstAttribute="centerX" secondItem="dNr-dE-XWy" secondAttribute="centerX" id="1np-UR-rCY"/>
                                                                 <constraint firstItem="MEh-c6-fAE" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" constant="15" id="DeT-La-e33"/>
                                                                 <constraint firstItem="UYw-Jx-VxU" firstAttribute="top" secondItem="dOQ-H6-cAa" secondAttribute="bottom" constant="1" id="DfG-BS-o5M"/>
-                                                                <constraint firstAttribute="trailing" secondItem="dNr-dE-XWy" secondAttribute="trailing" constant="22" id="EsJ-Ly-o0K"/>
+                                                                <constraint firstAttribute="trailing" secondItem="dNr-dE-XWy" secondAttribute="trailing" constant="20" id="EsJ-Ly-o0K"/>
                                                                 <constraint firstAttribute="bottom" secondItem="gwA-Ab-D7u" secondAttribute="bottom" id="JF6-gZ-nUU"/>
                                                                 <constraint firstItem="dOQ-H6-cAa" firstAttribute="top" secondItem="MEh-c6-fAE" secondAttribute="bottom" constant="10" id="Znf-87-ugR"/>
                                                                 <constraint firstItem="dOQ-H6-cAa" firstAttribute="leading" secondItem="MEh-c6-fAE" secondAttribute="leading" id="e6z-Zs-jY7"/>
@@ -929,7 +933,7 @@
                                                                 <constraint firstItem="VKc-6T-VSF" firstAttribute="centerY" secondItem="dNr-dE-XWy" secondAttribute="centerY" constant="5" id="hyH-kZ-eyB"/>
                                                                 <constraint firstItem="MEh-c6-fAE" firstAttribute="top" secondItem="MGU-aE-fm8" secondAttribute="top" constant="10" id="iSP-UD-7KL"/>
                                                                 <constraint firstItem="UYw-Jx-VxU" firstAttribute="leading" secondItem="dOQ-H6-cAa" secondAttribute="leading" id="n0p-OA-ZNt"/>
-                                                                <constraint firstItem="dNr-dE-XWy" firstAttribute="centerY" secondItem="MGU-aE-fm8" secondAttribute="centerY" id="sAu-MF-6nX"/>
+                                                                <constraint firstItem="dNr-dE-XWy" firstAttribute="centerY" secondItem="MGU-aE-fm8" secondAttribute="centerY" constant="-5.5" id="sAu-MF-6nX"/>
                                                                 <constraint firstItem="gwA-Ab-D7u" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" id="yDd-Io-iTP"/>
                                                             </constraints>
                                                         </view>
@@ -937,12 +941,12 @@
                                                     <constraints>
                                                         <constraint firstItem="MGU-aE-fm8" firstAttribute="top" secondItem="NdI-he-Kmi" secondAttribute="top" id="2m4-bz-eGD"/>
                                                         <constraint firstItem="7nc-V4-vnf" firstAttribute="leading" secondItem="NdI-he-Kmi" secondAttribute="leading" id="5zo-KB-DXF"/>
-                                                        <constraint firstItem="MGU-aE-fm8" firstAttribute="leading" secondItem="NdI-he-Kmi" secondAttribute="leading" constant="14" id="9cj-GN-Otb"/>
+                                                        <constraint firstItem="MGU-aE-fm8" firstAttribute="leading" secondItem="NdI-he-Kmi" secondAttribute="leading" constant="8" id="9cj-GN-Otb"/>
                                                         <constraint firstItem="7nc-V4-vnf" firstAttribute="top" secondItem="NdI-he-Kmi" secondAttribute="top" id="IuA-3S-CnX"/>
-                                                        <constraint firstAttribute="bottom" secondItem="MGU-aE-fm8" secondAttribute="bottom" constant="25" id="Sdx-iC-Sy8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MGU-aE-fm8" secondAttribute="bottom" constant="16" id="Sdx-iC-Sy8"/>
                                                         <constraint firstAttribute="bottom" secondItem="7nc-V4-vnf" secondAttribute="bottom" id="dvn-9T-1ze"/>
                                                         <constraint firstAttribute="trailing" secondItem="7nc-V4-vnf" secondAttribute="trailing" id="gdk-zv-EEn"/>
-                                                        <constraint firstAttribute="trailing" secondItem="MGU-aE-fm8" secondAttribute="trailing" constant="14" id="zAN-dc-OkC"/>
+                                                        <constraint firstAttribute="trailing" secondItem="MGU-aE-fm8" secondAttribute="trailing" constant="8" id="zAN-dc-OkC"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -961,7 +965,7 @@
                                 </cells>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="inset">
-                                        <real key="value" value="30"/>
+                                        <real key="value" value="22"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -970,31 +974,39 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
-                                <rect key="frame" x="0.0" y="431" width="375" height="179"/>
+                                <rect key="frame" x="0.0" y="524" width="375" height="130"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
-                                        <rect key="frame" x="62" y="15" width="305" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Fetching your current location "/>
-                                        <connections>
-                                            <segue destination="2HM-Qh-ieS" kind="popoverPresentation" popoverAnchorView="bcL-JI-p0b" id="2rQ-ed-ASM">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqc-sp-fcf">
-                                        <rect key="frame" x="62" y="63" width="305" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Set Destination, Start your booking"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingPickDropBox" translatesAutoresizingMaskIntoConstraints="NO" id="fg2-1w-EdU">
+                                        <rect key="frame" x="15" y="0.0" width="345" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="345" id="4Bk-Uk-sfG"/>
+                                            <constraint firstAttribute="height" constant="130" id="GUS-Gw-LDE"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingPickDropBar" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-3t-46I">
+                                        <rect key="frame" x="44" y="36" width="10" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="TjI-JK-Dyf"/>
+                                            <constraint firstAttribute="width" constant="10" id="fBj-59-8a7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqc-sp-fcf">
+                                        <rect key="frame" x="79" y="63" width="263" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="4an-eV-K6f"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
+                                        <state key="normal" title="Set Destination, Start your booking">
+                                            <color key="titleColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <segue destination="2HM-Qh-ieS" kind="popoverPresentation" popoverAnchorView="tqc-sp-fcf" id="DD5-0R-hl2">
                                                 <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                             </segue>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XGv-lc-4TG">
-                                        <rect key="frame" x="0.0" y="101" width="375" height="78"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGv-lc-4TG">
+                                        <rect key="frame" x="0.0" y="130" width="375" height="0.0"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dxv-8E-RNU">
                                                 <rect key="frame" x="144" y="8" width="133" height="70"/>
@@ -1005,18 +1017,49 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="qLQ-TH-Rnt"/>
+                                        </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
+                                        <rect key="frame" x="79" y="25" width="263" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="nWe-Jm-uhH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
+                                        <state key="normal" title="Fetching your current location ">
+                                            <color key="titleColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="2HM-Qh-ieS" kind="popoverPresentation" identifier="segueBookingToAddresspicker" popoverAnchorView="bcL-JI-p0b" id="2rQ-ed-ASM">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="179" id="OmZ-Ai-RAX"/>
+                                    <constraint firstItem="mBc-3t-46I" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" constant="44" id="29c-uo-MaM"/>
+                                    <constraint firstItem="mBc-3t-46I" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" constant="36" id="9hC-LL-gWn"/>
+                                    <constraint firstItem="XGv-lc-4TG" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" id="Glw-mS-K4n"/>
+                                    <constraint firstItem="tqc-sp-fcf" firstAttribute="trailing" secondItem="bcL-JI-p0b" secondAttribute="trailing" id="JGI-aW-K9A"/>
+                                    <constraint firstItem="fg2-1w-EdU" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" id="Mde-gX-m7d"/>
+                                    <constraint firstAttribute="bottom" secondItem="XGv-lc-4TG" secondAttribute="bottom" id="MmG-TB-XoB"/>
+                                    <constraint firstAttribute="height" constant="130" id="OmZ-Ai-RAX"/>
+                                    <constraint firstItem="tqc-sp-fcf" firstAttribute="top" secondItem="bcL-JI-p0b" secondAttribute="bottom" constant="8" id="RLz-jR-vK1"/>
+                                    <constraint firstItem="tqc-sp-fcf" firstAttribute="leading" secondItem="bcL-JI-p0b" secondAttribute="leading" id="Spk-nJ-n9K"/>
+                                    <constraint firstItem="bcL-JI-p0b" firstAttribute="trailing" secondItem="fg2-1w-EdU" secondAttribute="trailing" constant="-18" id="W4A-Gi-3PE"/>
+                                    <constraint firstItem="fg2-1w-EdU" firstAttribute="centerX" secondItem="QCN-32-Vxz" secondAttribute="centerX" id="Xlu-c8-36N"/>
+                                    <constraint firstItem="bcL-JI-p0b" firstAttribute="leading" secondItem="mBc-3t-46I" secondAttribute="trailing" constant="25" id="lgp-KO-7et"/>
+                                    <constraint firstItem="bcL-JI-p0b" firstAttribute="top" secondItem="mBc-3t-46I" secondAttribute="top" constant="-11" id="tFm-qd-ewc"/>
+                                    <constraint firstAttribute="trailing" secondItem="XGv-lc-4TG" secondAttribute="trailing" id="zLN-5w-AH9"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hf-ht-uDd">
-                                <rect key="frame" x="16" y="622" width="343" height="30"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hf-ht-uDd">
+                                <rect key="frame" x="16" y="666" width="343" height="0.0"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="LQh-VH-vnG"/>
+                                    <constraint firstAttribute="height" id="LQh-VH-vnG"/>
                                 </constraints>
                                 <state key="normal" title="Request Book"/>
                                 <connections>
@@ -1026,13 +1069,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="pfV-HZ-0xI" secondAttribute="trailing" id="0og-Kv-DP1"/>
+                            <constraint firstItem="nEz-mS-fjP" firstAttribute="top" secondItem="pfV-HZ-0xI" secondAttribute="bottom" id="9rj-cD-gFK"/>
                             <constraint firstItem="3Hf-ht-uDd" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="bottom" constant="12" id="Bxa-5H-gFb"/>
                             <constraint firstAttribute="trailing" secondItem="bwK-YS-F1J" secondAttribute="trailing" id="J6S-0F-P8t"/>
-                            <constraint firstItem="nEz-mS-fjP" firstAttribute="top" secondItem="3Hf-ht-uDd" secondAttribute="bottom" constant="15" id="Lq7-ci-cMK"/>
-                            <constraint firstItem="bwK-YS-F1J" firstAttribute="top" secondItem="uYM-p6-0VQ" secondAttribute="bottom" id="O1Q-va-Wtk"/>
+                            <constraint firstItem="nEz-mS-fjP" firstAttribute="top" secondItem="3Hf-ht-uDd" secondAttribute="bottom" constant="1" id="Lq7-ci-cMK"/>
+                            <constraint firstItem="bwK-YS-F1J" firstAttribute="bottom" secondItem="uYM-p6-0VQ" secondAttribute="bottom" id="O1Q-va-Wtk"/>
+                            <constraint firstItem="pfV-HZ-0xI" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leading" id="QyW-a2-lff"/>
                             <constraint firstAttribute="trailing" secondItem="uYM-p6-0VQ" secondAttribute="trailing" id="TTv-WV-nBn"/>
                             <constraint firstItem="QCN-32-Vxz" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leading" id="aAF-DT-U8u"/>
                             <constraint firstItem="bwK-YS-F1J" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leading" id="fv8-G1-I5g"/>
+                            <constraint firstItem="pfV-HZ-0xI" firstAttribute="top" secondItem="bwK-YS-F1J" secondAttribute="top" id="gMM-4k-HsG"/>
                             <constraint firstItem="QCN-32-Vxz" firstAttribute="top" secondItem="bwK-YS-F1J" secondAttribute="bottom" id="gbc-bB-jHf"/>
                             <constraint firstItem="uYM-p6-0VQ" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leading" id="hoh-LD-5cw"/>
                             <constraint firstItem="3Hf-ht-uDd" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leadingMargin" id="kfq-CJ-l90"/>
@@ -1286,8 +1333,11 @@
     </scenes>
     <resources>
         <image name="BackButton" width="16" height="16"/>
-        <image name="BookingCardStandardBox" width="345" height="110"/>
+        <image name="BookingBottomBack" width="375" height="232"/>
+        <image name="BookingCardTaxiBox" width="329" height="94"/>
         <image name="BookingCardTaxiIco" width="38" height="71"/>
+        <image name="BookingPickDropBar" width="10" height="59"/>
+        <image name="BookingPickDropBox" width="345" height="130"/>
         <image name="BookingVehiclePad" width="50" height="50"/>
         <image name="BookingWaves" width="315" height="39"/>
         <image name="CreateAnAccount" width="323" height="80"/>

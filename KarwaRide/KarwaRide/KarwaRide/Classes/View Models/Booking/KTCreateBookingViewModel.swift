@@ -36,6 +36,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
     var selectedPickupDateTime : Date = Date()
+    var dropOffBtnText = "Set Destination, Start your booking"
     
     override func viewDidLoad() {
         
@@ -64,7 +65,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         else {
             
-            (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Destination Not Set")
+            (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffBtnText)
         }
         
         registerForMinuteChange()
@@ -132,6 +133,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     //MARK:-  Vehicle Types
+    func maxCarouselIdx() -> Int {
+        
+        return (vehicleTypes?.count)! - 1
+    }
+    
     private func fetchVechicleTypes() {
         let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
         vehicleTypes = vTypeManager.VehicleTypes()
@@ -261,6 +267,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func prepareToMoveAddressPicker(addPickerController: KTAddressPickerViewController) {
         
         addPickerController.pickupAddress = pickUpAddress
+        dropOffBtnText = "Destination not set"
     }
 }
 
