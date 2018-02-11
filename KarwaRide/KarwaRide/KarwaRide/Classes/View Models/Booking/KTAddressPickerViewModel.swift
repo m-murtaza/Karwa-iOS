@@ -28,8 +28,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+        
         fetchLocations()
+    }
+    override func viewWillAppear() {
+        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
     }
     
     func getAllLocations() {

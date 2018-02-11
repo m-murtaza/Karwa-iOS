@@ -119,8 +119,9 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     // MARK : - UI Update
     func showRequestBookingBtn()  {
-        constraintBtnRequestBookingHeight.constant = 50
-        constraintBtnRequestBookingBottomSpace.constant = 50
+        constraintBtnRequestBookingHeight.constant = 60
+        constraintBtnRequestBookingBottomSpace.constant = 20
+        self.view.layoutIfNeeded()
     }
     
     // MARK: - Navigation
@@ -129,8 +130,9 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueBookingToAddresspicker" {
             let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
-            destination.previousView = self
             (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker(addPickerController: destination )
+            destination.previousView1 = (viewModel as! KTCreateBookingViewModel)
+            
         }
     }
     

@@ -18,6 +18,8 @@ import UIKit
     @objc optional func showError(title:String, message:String)
     
     @objc func userIntraction(enable: Bool)
+    
+    @objc func dismiss()
 }
 
 class KTBaseViewModel: NSObject {

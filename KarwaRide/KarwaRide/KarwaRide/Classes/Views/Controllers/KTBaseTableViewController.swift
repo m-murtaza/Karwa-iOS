@@ -106,4 +106,8 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
         }
     }
     
+    func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

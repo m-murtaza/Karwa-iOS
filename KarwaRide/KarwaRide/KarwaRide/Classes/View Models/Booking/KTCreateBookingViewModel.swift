@@ -22,7 +22,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func setDropOff(drop: String?)
     func setPickDate(date: String)
     func showBookingConfirmation()
-    
+    func showRequestBookingBtn()
 }
 
 let CHECK_DELAY = 90.0
@@ -31,8 +31,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     
     var vehicleTypes : [KTVehicleType]?
-    private var pickUpAddress : KTGeoLocation?
-    private var dropOffAddress : KTGeoLocation?
+    public var pickUpAddress : KTGeoLocation?  
+    public var dropOffAddress : KTGeoLocation?
     
     private var nearByVehicle: [VehicleTrack] = []
     
@@ -57,6 +57,21 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         pickUpAddress = (delegate as! KTCreateBookingViewModelDelegate).pickUpAdd()
         dropOffAddress = (delegate as! KTCreateBookingViewModelDelegate).dropOffAdd()
         
+        registerForMinuteChange()
+        
+        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear() {
+        
+        super.viewWillDisappear()
+        NotificationCenter.default.removeObserver(self)
+        timerFetchNearbyVehicle.invalidate()
+    }
+    
+    //MARK: - Navigation view functions
+    func dismiss() {
+        
         if pickUpAddress != nil {
             
             (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: pickUpAddress?.name)
@@ -71,16 +86,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffBtnText)
         }
         
-        registerForMinuteChange()
+        (delegate as! KTCreateBookingViewModelDelegate).showRequestBookingBtn()
         
-        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
-    }
-    
-    override func viewWillDisappear() {
-        
-        super.viewWillDisappear()
-        NotificationCenter.default.removeObserver(self)
-        timerFetchNearbyVehicle.invalidate()
+        delegate?.dismiss()
     }
     
     //MARK: - Minute Change

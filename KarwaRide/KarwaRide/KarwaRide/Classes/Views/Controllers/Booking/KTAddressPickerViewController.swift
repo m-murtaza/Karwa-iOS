@@ -20,6 +20,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     public var pickupAddress : KTGeoLocation?
     public var droffAddress : KTGeoLocation?
     public weak var previousView : KTCreateBookingViewController?
+    public weak var previousView1 : KTCreateBookingViewModel?
     
     private var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var searchTimer: Timer = Timer()
@@ -43,14 +44,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     func navigateToPreviousView(pickup: KTGeoLocation?, dropOff: KTGeoLocation?) {
         if pickup != nil {
             
-            previousView?.pickupAddress = pickup
+            previousView1?.pickUpAddress = pickup
         }
         if dropOff != nil {
             
-            previousView?.droffAddress = dropOff
+            previousView1?.dropOffAddress = dropOff
         }
         
-        previousView?.dismiss(animated: true, completion: nil)
+        previousView1?.dismiss()
     }
     
     func pickUpTxt() -> String {
