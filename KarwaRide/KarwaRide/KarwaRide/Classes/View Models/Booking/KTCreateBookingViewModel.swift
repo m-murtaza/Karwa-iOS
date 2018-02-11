@@ -34,9 +34,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     private var pickUpAddress : KTGeoLocation?
     private var dropOffAddress : KTGeoLocation?
     
+    private var nearByVehicle: [VehicleTrack] = []
+    
     var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
     var selectedPickupDateTime : Date = Date()
     var dropOffBtnText = "Set Destination, Start your booking"
+    var timerFetchNearbyVehicle : Timer = Timer()
     
     override func viewDidLoad() {
         
@@ -69,15 +72,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         
         registerForMinuteChange()
+        
+        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
     }
     
     override func viewWillDisappear() {
         
         super.viewWillDisappear()
         NotificationCenter.default.removeObserver(self)
+        timerFetchNearbyVehicle.invalidate()
     }
     
-    //MARK:- Minute Change
+    //MARK: - Minute Change
     private func registerForMinuteChange() {
         
         setPickupDate(date: Date())
@@ -220,12 +226,27 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!{
             
-                selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
-            fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
+            selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
+            //fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
         }
     }
     
-    //MARK:- Location manager
+    //MARK: - Fetch near by vehicle
+    @objc func FetchNearByVehicle() {
+        //print("----- Timer Called \(Date()) ------")
+        self.fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
+    }
+    
+    
+    //MARK:- Location manager & NearBy vehicles
+    func isVehicleNearBy() -> Bool {
+        var vehicleNearBy : Bool = false
+        if self.nearByVehicle.count > 0 {
+            vehicleNearBy = true
+        }
+        return vehicleNearBy
+    }
+    
     @objc func LocationManagerLocaitonUpdate(notification: Notification){
         
         let location : CLLocation = notification.userInfo!["location"] as! CLLocation
@@ -234,30 +255,26 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         //Fetch location name (from Server) for current location.
         self.fetchLocationName(forGeoCoordinate: location.coordinate)
+//        print("Accuracy : \(location.horizontalAccuracy)")
+//        //Fetch Vehicles to show on map
         
-        //Fetch Vehicles to show on map
-        self.fetchVehiclesNearCordinates(location: location)
     }
     
-    var oneTimeCheck : Bool = true
     private func fetchVehiclesNearCordinates(location:CLLocation) {
         
-        print("- - - - Fetch vehicle called - - - - ")
-        //if oneTimeCheck {
-            //Righ now allow only one time.
-          //  oneTimeCheck = false
-            KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
-            (status,response) in
-                if status == Constants.APIResponseStatus.SUCCESS {
-                    var vTrack: [VehicleTrack] = self.parseVehicleTrack(response)
-                    
-                    //Add User current location.
-                    vTrack.append(self.userCurrentLocaitonMarker())
-                    
-                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: vTrack)
+        KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
+        (status,response) in
+            if status == Constants.APIResponseStatus.SUCCESS {
+                self.nearByVehicle = self.parseVehicleTrack(response)
+                
+                //Add User current location.
+                if self.nearByVehicle.count > 0 {
+                    self.nearByVehicle.append(self.userCurrentLocaitonMarker())
                 }
-            })
-        //}
+                
+                (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle)
+            }
+        })
     }
     
     private func userCurrentLocaitonMarker() -> VehicleTrack {
@@ -285,7 +302,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return vTrack
     }
     
-    
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
         
         KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
@@ -296,8 +312,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     
                     (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
                 }
-                
-                
             }
         }
     }

@@ -25,10 +25,16 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     @IBOutlet weak var btnPickupAddress: UIButton!
     @IBOutlet weak var btnDropoffAddress: UIButton!
     @IBOutlet weak var btnPickDate: UIButton!
+    @IBOutlet weak var btnRevealBtn : UIButton!
+    
+    @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
+    @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
     
     public var pickupAddress : KTGeoLocation?
     public var droffAddress : KTGeoLocation?
     public var pickupHint : String = ""
+    
+    
     
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
@@ -38,6 +44,13 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         addMap()
         
         self.navigationItem.hidesBackButton = true;
+        
+        self.btnRevealBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+        
+        //button.addTarget(self, action: #selector(pressButton(button:)), for: .touchUpInside)
+        
+        //revealBarButton.target = self.revealViewController()
+        //revealBarButton.action = #selector(SWRevealViewController.revealToggle(_:))
         
     }
     
@@ -60,34 +73,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         navigationController?.isNavigationBarHidden = false
     }
     
-    func addMap() {
-        
-        /*let camera = GMSCameraPosition.camera(withLatitude: 25.343899,
-                                              longitude: 51.511294, zoom: 15)
-        
-        self.mapView.camera = camera;
-        
-        self.mapView.setMinZoom(15, maxZoom: 500)
-        self.mapView!.isMyLocationEnabled = true*/
-        
-        let camera = GMSCameraPosition.camera(withLatitude: 25.343899, longitude: 51.511294, zoom: 14.0)
-        self.mapView.setMinZoom(15, maxZoom: 500)
-        self.mapView!.isMyLocationEnabled = true
-        
-        self.mapView.camera = camera;
-        do {
-            // Set the map style by passing the URL of the local file.
-            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                NSLog("Unable to find style.json")
-            }
-        } catch {
-            NSLog("One or more of the map styles failed to load. \(error)")
-        }
-        
-        //self.view = mapView
-    }
+    
     
     @IBAction func btnRequestBooking(_ sender: Any) {
         
@@ -97,6 +83,8 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     func bookRide()  {
         (viewModel as! KTCreateBookingViewModel).bookRide()
     }
+    
+    //MARK: - ViewModel Delegate
     
     func showBookingConfirmation() {
         
@@ -129,6 +117,12 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
     }
     
+    // MARK : - UI Update
+    func showRequestBookingBtn()  {
+        constraintBtnRequestBookingHeight.constant = 50
+        constraintBtnRequestBookingBottomSpace.constant = 50
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -140,43 +134,77 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
     }
     
-    //Mark: - View Model Delegate
-    var allowReset : Bool = true
+    //MARK: - Location & Maps
+    private func addMap() {
+
+        let camera = GMSCameraPosition.camera(withLatitude: 25.343899, longitude: 51.511294, zoom: 14.0)
+        self.mapView.setMinZoom(15, maxZoom: 500)
+        self.mapView!.isMyLocationEnabled = true
+        mapView.tintColor = UIColor.red
+        
+        self.mapView.camera = camera;
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+    }
+    
+    func updateCurrentAddress(addressName: String) {
+        
+        btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
+    }
+    
     func updateLocationInMap(location: CLLocation) {
         //return
         //Update map
-        /*if allowReset {
+        if !(viewModel as! KTCreateBookingViewModel).isVehicleNearBy() {
             let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
-            
+         
             self.mapView?.animate(to: camera)
         }
-        else if gmsMarker.count > 0{
-            for i in 0...gmsMarker.count-1
-            {
-                if gmsMarker[i].zIndex == 1000 {
-                    gmsMarker.remove(at: i)
-                    break
-                }
-            }
-            
-            let marker = GMSMarker()
-            marker.position = location.coordinate
-            //marker.map = self.mapView
-            marker.zIndex = 1000
-            
-            gmsMarker.append(marker)
-            
-            self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
-        }*/
+        
+        //self.mapView?.blu
+         /*}
+         else if gmsMarker.count > 0{
+         for i in 0...gmsMarker.count-1
+         {
+         if gmsMarker[i].zIndex == 1000 {
+         gmsMarker.remove(at: i)
+         break
+         }
+         }
+         
+         let marker = GMSMarker()
+         marker.position = location.coordinate
+         //marker.map = self.mapView
+         marker.zIndex = 1000
+         
+         gmsMarker.append(marker)
+         
+         self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
+         }*/
     }
+    
     var gmsMarker : Array<GMSMarker> = Array()
     func addMarkerOnMap(vTrack: [VehicleTrack]) {
         mapView.clear()
         vTrack.forEach { track in
-            if !track.position.isZeroCoordinate  {
+            if !track.position.isZeroCoordinate   {
                 let marker = GMSMarker()
                 marker.position = track.position
-                marker.map = self.mapView
+                
+                if track.trackType == VehicleTrackType.vehicle {
+                    marker.rotation = CLLocationDegrees(track.bearing)
+                    marker.icon = UIImage(named: "BookingMapTaxiIco")
+                    marker.map = self.mapView
+                }
+                
                 gmsMarker.append(marker)
             }
         }
@@ -184,22 +212,27 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     }
     
     func focusMapToShowAllMarkers(gsmMarker : Array<GMSMarker>) {
-        allowReset = false
-        var bounds = GMSCoordinateBounds()
-        for marker: GMSMarker in gsmMarker {
-            bounds = bounds.includingCoordinate(marker.position)
-        }
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 275)
-        //print(mapView.minZoom)
-        mapView.animate(with: update)
+
+        if gsmMarker.count > 1 {
+        
+            var bounds = GMSCoordinateBounds()
+            for marker: GMSMarker in gsmMarker {
+                bounds = bounds.includingCoordinate(marker.position)
+            }
+            
+            var padding = 275.0
+            if bounds.northEast.distance(from: bounds.southWest) < 5000 {
+             
+                print("Bound area : \(bounds.northEast.distance(from: bounds.southWest))")
+                padding = 5000.0
+            }
+            
+            let update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(padding))
+            mapView.animate(with: update)
+            }
     }
     
     // MARK: - View Model Delegate
-    func updateCurrentAddress(addressName: String) {
-        
-        btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
-    }
-    
     func hintForPickup() -> String {
         return pickupHint
     }
@@ -246,11 +279,8 @@ extension CarouselDatasource: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         if let sTypeCell = cell as? KTServiceCardCell {
-            //let title: UILabel = sTypeCell.mainView.viewWithTag(1001) as! UILabel
-            //title.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
             sTypeCell.lblServiceType.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
             
-            //let baseFare :UILabel = sTypeCell.mainView.viewWithTag(1002) as! UILabel
             sTypeCell.lblBaseFare.text = (viewModel as! KTCreateBookingViewModel).sTypeBaseFare(forIndex: indexPath.row) + "QR"
             sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
             sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
@@ -268,5 +298,14 @@ extension CarouselDelegate: UICollectionViewDelegate {
         
         guard (carousel.currentCenterCellIndex?.row) != nil else { return }
         (viewModel as! KTCreateBookingViewModel).vTypeViewScroll(currentIdx: carousel.currentCenterCellIndex!.row)
+    }
+}
+
+
+extension CLLocationCoordinate2D {
+    //distance in meters, as explained in CLLoactionDistance definition
+    func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
+        let destination=CLLocation(latitude:from.latitude,longitude:from.longitude)
+        return CLLocation(latitude: latitude, longitude: longitude).distance(from: destination)
     }
 }

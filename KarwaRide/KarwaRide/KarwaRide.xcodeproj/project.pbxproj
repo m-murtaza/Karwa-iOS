@@ -27,6 +27,7 @@
 		181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344AE1EF7B362006E734A /* KTWebClient.swift */; };
 		181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KTConfiguration.swift */; };
 		181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KTAppSessionInfo.swift */; };
+		1814238E2029A20000992151 /* VehicleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814238D2029A20000992151 /* VehicleMarker.swift */; };
 		1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA692007467F00AD885B /* KTForgotPassViewController.swift */; };
 		1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */; };
 		1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */; };
@@ -111,6 +112,7 @@
 		181344AE1EF7B362006E734A /* KTWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTWebClient.swift; path = Classes/HelperClasses/Network/KTWebClient.swift; sourceTree = "<group>"; };
 		181344B11EF7BC94006E734A /* KTConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTConfiguration.swift; path = Classes/HelperClasses/Configuration/KTConfiguration.swift; sourceTree = "<group>"; };
 		181344B81EF9171F006E734A /* KTAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KTAppSessionInfo.swift; sourceTree = "<group>"; };
+		1814238D2029A20000992151 /* VehicleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VehicleMarker.swift; path = Classes/Views/Controllers/Booking/VehicleMarker.swift; sourceTree = "<group>"; };
 		1833CA692007467F00AD885B /* KTForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewController.swift; path = Classes/Views/Controllers/Login/KTForgotPassViewController.swift; sourceTree = "<group>"; };
 		1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewModel.swift; path = "Classes/View Models/Login/KTForgotPassViewModel.swift"; sourceTree = "<group>"; };
 		1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+ForgotPass.swift"; path = "Classes/DAL/KTUserManager+ForgotPass.swift"; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */,
 				18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */,
 				18B907692022F89C000F45FE /* BookingConfermationPopupVC.swift */,
+				1814238D2029A20000992151 /* VehicleMarker.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */,
+				1814238E2029A20000992151 /* VehicleMarker.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
