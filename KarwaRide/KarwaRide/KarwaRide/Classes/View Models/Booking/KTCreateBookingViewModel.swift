@@ -15,14 +15,13 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
     func updateCurrentAddress(addressName:String)
-    func pickUpAdd() -> KTGeoLocation?
-    func dropOffAdd() -> KTGeoLocation?
     func hintForPickup() -> String
     func setPickUp(pick: String?)
     func setDropOff(drop: String?)
     func setPickDate(date: String)
     func showBookingConfirmation()
     func showRequestBookingBtn()
+    func updatePickDropBox()
 }
 
 let CHECK_DELAY = 90.0
@@ -54,12 +53,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         super.viewWillAppear()
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
         
-        pickUpAddress = (delegate as! KTCreateBookingViewModelDelegate).pickUpAdd()
-        dropOffAddress = (delegate as! KTCreateBookingViewModelDelegate).dropOffAdd()
+        /*pickUpAddress = (delegate as! KTCreateBookingViewModelDelegate).pickUpAdd()
+        dropOffAddress = (delegate as! KTCreateBookingViewModelDelegate).dropOffAdd()*/
         
         registerForMinuteChange()
         
         timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+        if pickUpAddress == nil {
+            
+            delegate?.userIntraction(enable: false)
+        }
     }
     
     override func viewWillDisappear() {
@@ -86,11 +89,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffBtnText)
         }
         
-        (delegate as! KTCreateBookingViewModelDelegate).showRequestBookingBtn()
+        updateUI()
         
         delegate?.dismiss()
     }
     
+    func updateUI() {
+        (delegate as! KTCreateBookingViewModelDelegate).showRequestBookingBtn()
+        (delegate as! KTCreateBookingViewModelDelegate).updatePickDropBox()
+    }
     //MARK: - Minute Change
     private func registerForMinuteChange() {
         
@@ -147,6 +154,21 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     //MARK:-  Vehicle Types
+    func idxToSelectVehicleType() -> Int {
+        
+        var idx:Int = 0
+        if vehicleTypes != nil {
+            
+            for i in 0...(vehicleTypes?.count)!-1 {
+                if selectedVehicleType.rawValue == vehicleTypes![i].typeId {
+                    
+                    idx = i
+                    break
+                }
+            }
+        }
+        return idx
+    }
     func maxCarouselIdx() -> Int {
         
         return (vehicleTypes?.count)! - 1
@@ -236,7 +258,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
             selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
             //fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
+            print(selectedVehicleType.rawValue)
         }
+    }
+    
+    func vehicleTypeShouldAnimate() -> Bool {
+        
+        var animate : Bool = true
+        if pickUpAddress != nil {
+            
+            animate = false
+        }
+        return animate
     }
     
     //MARK: - Fetch near by vehicle
@@ -317,16 +350,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 
                 self.pickUpAddress = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                 DispatchQueue.main.async {
-                    
+                    self.delegate?.userIntraction(enable: true)
                     (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
                 }
             }
         }
     }
     
-    func prepareToMoveAddressPicker(addPickerController: KTAddressPickerViewController) {
+    func prepareToMoveAddressPicker() {
         
-        addPickerController.pickupAddress = pickUpAddress
         dropOffBtnText = "Destination not set"
     }
 }

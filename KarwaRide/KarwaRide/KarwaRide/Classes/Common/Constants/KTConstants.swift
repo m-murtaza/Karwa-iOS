@@ -144,7 +144,7 @@ struct Constants {
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
-        static let AddressPickViaSearch = "geocode/a"
+        static let AddressPickViaSearch = "geocode/name"
         static let Booking = "/booking"
     }
     

@@ -24,14 +24,21 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     @IBOutlet weak var carousel: ScalingCarouselView!
     @IBOutlet weak var btnPickupAddress: UIButton!
     @IBOutlet weak var btnDropoffAddress: UIButton!
-    @IBOutlet weak var btnPickDate: UIButton!
     @IBOutlet weak var btnRevealBtn : UIButton!
+    @IBOutlet weak var btnRequestBooking :UIButton!
+    @IBOutlet weak var imgPickDestBoxBG :UIImageView!
+    //@IBOutlet weak var viewPickDestBox : UIView!
+    @IBOutlet weak var btnPickDate: UIButton!
+    @IBOutlet weak var btnCash :UIButton!
     
+    @IBOutlet weak var constraintBoxHeight : NSLayoutConstraint!
+    @IBOutlet weak var constraintBoxBGImageHeight : NSLayoutConstraint!
+    @IBOutlet weak var constraintBoxItemsTopSpace : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
     
-    public var pickupAddress : KTGeoLocation?
-    public var droffAddress : KTGeoLocation?
+    //public var pickupAddress : KTGeoLocation?
+    //public var droffAddress : KTGeoLocation?
     public var pickupHint : String = ""
     
     
@@ -63,11 +70,16 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.carousel!.scrollToItem(at: IndexPath(row: (viewModel as! KTCreateBookingViewModel).maxCarouselIdx(), section: 0), at: UICollectionViewScrollPosition.right, animated: false)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
-            self.carousel!.scrollToItem(at: IndexPath(row: 0, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+        
+        //TODO: If no pick
+        if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
+            self.carousel!.scrollToItem(at: IndexPath(row: (viewModel as! KTCreateBookingViewModel).maxCarouselIdx(), section: 0), at: UICollectionViewScrollPosition.right, animated: false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                self.carousel!.scrollToItem(at: IndexPath(row: (self.viewModel as! KTCreateBookingViewModel).idxToSelectVehicleType(), section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+            }
         }
     }
+        
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
@@ -121,7 +133,17 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     func showRequestBookingBtn()  {
         constraintBtnRequestBookingHeight.constant = 60
         constraintBtnRequestBookingBottomSpace.constant = 20
+        btnRequestBooking.isHidden = false
         self.view.layoutIfNeeded()
+    }
+    
+    func updatePickDropBox() {
+        constraintBoxHeight.constant = 144
+        constraintBoxBGImageHeight.constant = 144
+        constraintBoxItemsTopSpace.constant = 24
+        imgPickDestBoxBG.image = UIImage(named: "BookingPickDropTimeBox")
+        btnCash.isHidden = false
+        btnPickDate.isHidden = false
     }
     
     // MARK: - Navigation
@@ -129,9 +151,16 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueBookingToAddresspicker" {
+            print("prepare for sague")
             let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
-            (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker(addPickerController: destination )
-            destination.previousView1 = (viewModel as! KTCreateBookingViewModel)
+            (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker()
+            destination.pickupAddress = (viewModel as! KTCreateBookingViewModel).pickUpAddress
+            if (viewModel as! KTCreateBookingViewModel).dropOffAddress != nil {
+                
+                    destination.droffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
+            }
+        
+            destination.previousView = (viewModel as! KTCreateBookingViewModel)
             
         }
     }
@@ -238,15 +267,15 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     func hintForPickup() -> String {
         return pickupHint
     }
-    func pickUpAdd() -> KTGeoLocation? {
-       
-        return pickupAddress
-    }
-    
-    func dropOffAdd() -> KTGeoLocation? {
-        
-        return droffAddress
-    }
+//    func pickUpAdd() -> KTGeoLocation? {
+//
+//        return pickupAddress
+//    }
+//
+//    func dropOffAdd() -> KTGeoLocation? {
+//
+//        return droffAddress
+//    }
     
     func setPickUp(pick: String?) {
         
