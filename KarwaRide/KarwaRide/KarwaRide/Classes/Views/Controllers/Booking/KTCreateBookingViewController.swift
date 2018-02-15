@@ -9,6 +9,8 @@
 import UIKit
 import GoogleMaps
 import ScalingCarousel
+import Alamofire
+import SwiftyJSON
 
 class KTServiceCardCell: ScalingCarouselCell {
     
@@ -54,11 +56,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
         self.btnRevealBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
         
-        //button.addTarget(self, action: #selector(pressButton(button:)), for: .touchUpInside)
-        
-        //revealBarButton.target = self.revealViewController()
-        //revealBarButton.action = #selector(SWRevealViewController.revealToggle(_:))
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,15 +78,15 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     }
         
     override func viewWillDisappear(_ animated: Bool) {
+        if timer != nil {
+            timer.invalidate()
+        }
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
     
-    
-    
     @IBAction func btnRequestBooking(_ sender: Any) {
         
-        //self.carousel!.scrollToItem(at: IndexPath(row: 3, section: 0), at: UICollectionViewScrollPosition.right, animated: true)
         (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
     }
     func bookRide()  {
@@ -166,12 +163,16 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     }
     
     //MARK: - Location & Maps
+    func showCurrentLocationDot(show: Bool) {
+        self.mapView!.isMyLocationEnabled = show
+    }
+    
     private func addMap() {
 
         let camera = GMSCameraPosition.camera(withLatitude: 25.343899, longitude: 51.511294, zoom: 14.0)
-        self.mapView.setMinZoom(15, maxZoom: 500)
-        self.mapView!.isMyLocationEnabled = true
-        mapView.tintColor = UIColor.red
+        
+        
+        showCurrentLocationDot(show: true)
         
         self.mapView.camera = camera;
         do {
@@ -224,7 +225,8 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     var gmsMarker : Array<GMSMarker> = Array()
     func addMarkerOnMap(vTrack: [VehicleTrack]) {
-        mapView.clear()
+        
+        clearMap()
         vTrack.forEach { track in
             if !track.position.isZeroCoordinate   {
                 let marker = GMSMarker()
@@ -262,6 +264,79 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
             mapView.animate(with: update)
             }
     }
+    
+    func clearMap()
+    {
+        mapView.clear()
+    }
+    func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+    }
+    
+    
+    //Animated Polyline
+    var polyline = GMSPolyline()
+    var animationPolyline = GMSPolyline()
+    var path = GMSPath()
+    var animationPath = GMSMutablePath()
+    var i: UInt = 0
+    var timer: Timer!
+    var bgPolylineColor : UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
+    
+    func addPointsOnMap(points: String) {
+        path = GMSPath.init(fromEncodedPath: points)!
+        polyline = GMSPolyline.init(path: path)
+        polyline.strokeWidth = 3
+        polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+        polyline.map = self.mapView
+        
+        var bounds = GMSCoordinateBounds()
+        for index in 1 ... (path.count().toInt) {
+            bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
+
+        }
+        
+        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+        
+        bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+    }
+    
+    @objc func animatePolylinePath() {
+        if (self.i < self.path.count()) {
+            
+            self.animationPath.add(self.path.coordinate(at: self.i))
+            self.animationPolyline.path = self.animationPath
+            self.animationPolyline.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+            self.animationPolyline.strokeWidth = 4
+            self.animationPolyline.map = self.mapView
+            self.i += 1
+        }
+        else if self.i == self.path.count() {
+            timer.invalidate()
+            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+            self.i += 1
+            
+            //self.i = 0
+            self.animationPath = GMSMutablePath()
+            self.animationPolyline.map = nil
+            polyline.strokeColor = bgPolylineColor
+        }
+        else {
+            
+                self.i = 0
+
+            timer.invalidate()
+            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+        }
+    }
+    
+    
     
     // MARK: - View Model Delegate
     func hintForPickup() -> String {
@@ -332,11 +407,7 @@ extension CarouselDelegate: UICollectionViewDelegate {
     }
 }
 
-
-extension CLLocationCoordinate2D {
-    //distance in meters, as explained in CLLoactionDistance definition
-    func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
-        let destination=CLLocation(latitude:from.latitude,longitude:from.longitude)
-        return CLLocation(latitude: latitude, longitude: longitude).distance(from: destination)
-    }
+extension UInt {
+    /// SwiftExtensionKit
+    var toInt: Int { return Int(self) }
 }
