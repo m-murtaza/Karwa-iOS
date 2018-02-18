@@ -175,6 +175,10 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         showCurrentLocationDot(show: true)
         
         self.mapView.camera = camera;
+        
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
+        mapView.padding = padding
+        
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {

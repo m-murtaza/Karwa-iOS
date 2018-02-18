@@ -32,6 +32,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.txtDropAddress.becomeFirstResponder()
+    }
+    
     @IBAction func btnSkipTapped(_ sender: Any) {
         
         (viewModel as! KTAddressPickerViewModel).skipDestination()
@@ -74,12 +79,16 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         return (viewModel as! KTAddressPickerViewModel).numberOfRow()
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 76.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : AddressPickCell = tableView.dequeueReusableCell(withIdentifier: "AddPickCellIdentifier", for: indexPath) as! AddressPickCell
             /*AddressPickCell(style: UITableViewCellStyle.default, reuseIdentifier: "AddPickCellIdentifier")*/
         
         cell.addressTitle.text = (viewModel as! KTAddressPickerViewModel).addressTitle(forRow: indexPath.row)
-        
+        cell.addressArea.text = (viewModel as! KTAddressPickerViewModel).addressArea(forRow: indexPath.row)
         
         return cell
     }
@@ -131,5 +140,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
 
 class AddressPickCell: UITableViewCell {
     @IBOutlet weak var addressTitle : UILabel!
+    @IBOutlet weak var addressArea : UILabel!
+    @IBOutlet weak var ImgTypeIcon : UIImageView!
 }
 

@@ -72,9 +72,21 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         print(locations.count)
         return locations.count
     }
-    func addressTitle(forRow row: Int) -> String
-    {
-        return locations[row].name!
+    func addressTitle(forRow row: Int) -> String {
+        var title : String = ""
+        if row < locations.count-1 && locations[row].name != nil {
+            title = locations[row].name!
+        }
+        return title
+    }
+    
+    func addressArea(forRow row: Int) -> String {
+        
+        var area : String = ""
+        if row < locations.count-1 && locations[row].area != nil {
+            area = locations[row].area!
+        }
+        return area
     }
     
     func didSelectRow(at idx:Int, type:SelectedTextField) {
