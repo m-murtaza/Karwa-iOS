@@ -25,11 +25,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBOutlet weak var imgMapMarker : UIImageView!
     
     public var pickupAddress : KTGeoLocation?
-    public var droffAddress : KTGeoLocation?
+    public var dropoffAddress : KTGeoLocation?
     
     public weak var previousView : KTCreateBookingViewModel?
     
-    //private var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var searchTimer: Timer = Timer()
     private var searchText : String = ""
     
@@ -37,10 +36,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     override func viewDidLoad() {
         viewModel = KTAddressPickerViewModel(del:self)
+        
         (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
+        
+        if dropoffAddress != nil {
+        
+            (viewModel as! KTAddressPickerViewModel).dropOffAddress = dropoffAddress
+        }
+        //Do not move these line after super.viewDidLoad
         super.viewDidLoad()
         
-        addMap()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,7 +57,27 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     //MARK: - Map related functions.
     private func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: (viewModel as! KTAddressPickerViewModel).currentLatitude(), longitude: (viewModel as! KTAddressPickerViewModel).currentLongitude(), zoom: 14.0)
+        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
+        
+        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.DropoffAddress {
+            //If focus is on Dropoff Address.
+            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil  {
+                //If dropoff is not empty.
+                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
+            }
+            
+        }
+        else {
+            //If focus is on Pickup
+            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil  {
+                //If dropoff is not empty.
+                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
+            }
+            
+        }
+        
+        
+        let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
         
         //showCurrentLocationDot(show: true)
         
@@ -104,6 +130,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
+        
+        addMap()
         
         imgListSelected.isHidden = true
         imgMapSelected.isHidden = false

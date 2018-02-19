@@ -1377,7 +1377,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select your destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XPM-5Y-fbX">
-                                        <rect key="frame" x="57" y="64" width="290" height="30"/>
+                                        <rect key="frame" x="57" y="64" width="236" height="30"/>
                                         <color key="tintColor" red="0.0" green="0.60392156862745094" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1407,6 +1407,7 @@
                                     <constraint firstItem="XPM-5Y-fbX" firstAttribute="height" secondItem="iKR-ng-bZe" secondAttribute="height" id="Kur-EV-RZq"/>
                                     <constraint firstItem="Rw3-Z0-XDz" firstAttribute="top" secondItem="cB8-eo-llu" secondAttribute="top" id="OV0-yq-f55"/>
                                     <constraint firstAttribute="trailing" secondItem="Rw3-Z0-XDz" secondAttribute="trailing" id="UMT-Zf-xRE"/>
+                                    <constraint firstItem="uAf-9D-Eh5" firstAttribute="leading" secondItem="XPM-5Y-fbX" secondAttribute="trailing" constant="8" id="f8V-JP-7ra"/>
                                     <constraint firstItem="uAf-9D-Eh5" firstAttribute="centerY" secondItem="XPM-5Y-fbX" secondAttribute="centerY" id="gZB-Pp-Lc3"/>
                                     <constraint firstItem="Rw3-Z0-XDz" firstAttribute="leading" secondItem="cB8-eo-llu" secondAttribute="leading" id="hd7-Sn-YoE"/>
                                     <constraint firstAttribute="trailing" secondItem="iKR-ng-bZe" secondAttribute="trailing" constant="8" id="inp-Sy-lZ8"/>
@@ -1414,7 +1415,6 @@
                                     <constraint firstItem="YI2-IB-fsZ" firstAttribute="top" secondItem="cB8-eo-llu" secondAttribute="top" constant="28" id="mj4-Rd-cDA"/>
                                     <constraint firstItem="iKR-ng-bZe" firstAttribute="leading" secondItem="YI2-IB-fsZ" secondAttribute="trailing" constant="19" id="pkY-Lx-A4u"/>
                                     <constraint firstAttribute="height" constant="112" id="uta-SP-RbX"/>
-                                    <constraint firstItem="XPM-5Y-fbX" firstAttribute="trailing" secondItem="iKR-ng-bZe" secondAttribute="trailing" id="vgA-N2-zrK"/>
                                     <constraint firstItem="XPM-5Y-fbX" firstAttribute="leading" secondItem="iKR-ng-bZe" secondAttribute="leading" id="ygF-0v-9DJ"/>
                                 </constraints>
                             </view>

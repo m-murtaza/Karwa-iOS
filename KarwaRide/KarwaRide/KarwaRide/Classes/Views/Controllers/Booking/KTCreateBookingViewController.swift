@@ -141,7 +141,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         btnPickDate.isHidden = false
     }
     
-    // MARK: - Navigation
+    //MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -152,7 +152,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
             destination.pickupAddress = (viewModel as! KTCreateBookingViewModel).pickUpAddress
             if (viewModel as! KTCreateBookingViewModel).dropOffAddress != nil {
                 
-                    destination.droffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
+                    destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
             }
         
             destination.previousView = (viewModel as! KTCreateBookingViewModel)
