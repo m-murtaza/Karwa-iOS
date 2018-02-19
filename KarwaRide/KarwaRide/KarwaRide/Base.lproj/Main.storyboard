@@ -1308,15 +1308,29 @@
                                     <outlet property="delegate" destination="2HM-Qh-ieS" id="oWX-kJ-gMz"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJr-hz-P1r">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJr-hz-P1r">
                                 <rect key="frame" x="0.0" y="182" width="375" height="485"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPx-ek-hva" customClass="GMSMapView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="485"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTB-r8-ctO" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="40" y="414" width="295" height="51"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="51" id="pzs-by-hp1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                        <state key="normal" title="CONFIRM" backgroundImage="SummitButton">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnConfirmTapped:" destination="2HM-Qh-ieS" eventType="touchUpInside" id="Sby-8e-AT2"/>
+                                            <action selector="loginBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q3p-9k-r0x"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APPickUpMarker" translatesAutoresizingMaskIntoConstraints="NO" id="2bR-Se-fLd">
-                                        <rect key="frame" x="161" y="207" width="53" height="71"/>
+                                        <rect key="frame" x="161" y="201" width="53" height="71"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="53" id="9zB-WJ-bAj"/>
                                             <constraint firstAttribute="height" constant="71" id="jNY-3t-uJl"/>
@@ -1325,11 +1339,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="LTB-r8-ctO" secondAttribute="bottom" constant="20" id="Itb-ly-r71"/>
                                     <constraint firstAttribute="bottom" secondItem="sPx-ek-hva" secondAttribute="bottom" id="Nn3-W0-cte"/>
+                                    <constraint firstAttribute="trailing" secondItem="LTB-r8-ctO" secondAttribute="trailing" constant="40" id="QKW-5Y-m9h"/>
+                                    <constraint firstItem="LTB-r8-ctO" firstAttribute="leading" secondItem="ZJr-hz-P1r" secondAttribute="leading" constant="40" id="USD-Ai-GeC"/>
                                     <constraint firstItem="sPx-ek-hva" firstAttribute="top" secondItem="ZJr-hz-P1r" secondAttribute="top" id="aAk-1w-glB"/>
                                     <constraint firstItem="2bR-Se-fLd" firstAttribute="centerX" secondItem="ZJr-hz-P1r" secondAttribute="centerX" id="fxs-eb-hv4"/>
                                     <constraint firstItem="sPx-ek-hva" firstAttribute="leading" secondItem="ZJr-hz-P1r" secondAttribute="leading" id="gGu-N1-0Hl"/>
-                                    <constraint firstItem="2bR-Se-fLd" firstAttribute="centerY" secondItem="ZJr-hz-P1r" secondAttribute="centerY" id="hqS-wl-NHF"/>
+                                    <constraint firstItem="2bR-Se-fLd" firstAttribute="centerY" secondItem="ZJr-hz-P1r" secondAttribute="centerY" constant="-6" id="hqS-wl-NHF"/>
                                     <constraint firstAttribute="trailing" secondItem="sPx-ek-hva" secondAttribute="trailing" id="ui9-8S-bMO"/>
                                 </constraints>
                             </view>
@@ -1348,6 +1365,7 @@
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iKR-ng-bZe">
                                         <rect key="frame" x="57" y="18" width="290" height="30"/>
+                                        <color key="tintColor" red="0.0" green="0.60392156862745094" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="WSo-fB-4d8"/>
                                         </constraints>
@@ -1360,6 +1378,7 @@
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select your destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XPM-5Y-fbX">
                                         <rect key="frame" x="57" y="64" width="290" height="30"/>
+                                        <color key="tintColor" red="0.0" green="0.60392156862745094" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1485,6 +1504,7 @@
                     </view>
                     <connections>
                         <outlet property="imgListSelected" destination="dDe-Fh-cc3" id="tPg-PS-vxV"/>
+                        <outlet property="imgMapMarker" destination="2bR-Se-fLd" id="Lfk-gy-G2c"/>
                         <outlet property="imgMapSelected" destination="YQh-6D-ekg" id="TGK-Wv-NXQ"/>
                         <outlet property="mapSuperView" destination="ZJr-hz-P1r" id="Toh-aT-Hbf"/>
                         <outlet property="mapView" destination="sPx-ek-hva" id="dq9-H4-rRz"/>

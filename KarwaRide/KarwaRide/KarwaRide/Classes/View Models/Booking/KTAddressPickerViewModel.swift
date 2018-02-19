@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func loadData()
@@ -22,7 +23,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     public var pickUpAddress : KTGeoLocation?
     public var dropOffAddress : KTGeoLocation?
-    
+    public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var locations : [KTGeoLocation] = []
     
     //MARK: - View Lifecycle
@@ -68,6 +69,17 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
     }
     
+    //Fetch single location
+    private func fetchLocation(forGeoCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping (_ location:KTGeoLocation) -> Void) {
+        
+        KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
+                
+                   completion((response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0])
+            }
+        }
+    }
+    
     func fetchLocations(forSearch query:String) {
        
         delegate?.userIntraction(enable: false)
@@ -79,6 +91,24 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
     }
     
+    //MARK: - Map realted
+    
+    func MapStopMoving(location : CLLocationCoordinate2D) {
+        fetchLocation(forGeoCoordinate: location , completion: {
+            (reverseLocation) -> Void in
+            
+            if self.selectedTxtField == SelectedTextField.DropoffAddress {
+                self.dropOffAddress  = reverseLocation
+                (self.delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: reverseLocation.name!)
+            }
+            else {
+                self.pickUpAddress = reverseLocation
+                (self.delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: reverseLocation.name!)
+            }
+        })
+    }
+    
+    //MARK: - TableView Related
     func numberOfRow() -> Int {
         print(locations.count)
         return locations.count
@@ -135,8 +165,12 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
     }
     
-    func skipDestination() {
+    public func skipDestination() {
         
         moveBackIfNeeded(skipDestination:true)
+    }
+    public func confimMapSelection() {
+        
+        moveBackIfNeeded(skipDestination:false)
     }
 }

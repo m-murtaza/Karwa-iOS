@@ -13,7 +13,7 @@ enum SelectedTextField: Int {
     case PickupAddress = 1
     case DropoffAddress = 2
 }
-class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate {
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var txtPickAddress: UITextField!
@@ -22,15 +22,18 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBOutlet weak var imgMapSelected : UIImageView!
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var mapSuperView : UIView!
+    @IBOutlet weak var imgMapMarker : UIImageView!
     
     public var pickupAddress : KTGeoLocation?
     public var droffAddress : KTGeoLocation?
     
     public weak var previousView : KTCreateBookingViewModel?
     
-    private var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
+    //private var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var searchTimer: Timer = Timer()
     private var searchText : String = ""
+    
+    let selectedTxtFieldColor : UIColor = UIColor(hexString: "#F5F5F5")
     
     override func viewDidLoad() {
         viewModel = KTAddressPickerViewModel(del:self)
@@ -45,11 +48,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         self.txtDropAddress.becomeFirstResponder()
     }
     
-    @IBAction func btnSkipTapped(_ sender: Any) {
-        
-        (viewModel as! KTAddressPickerViewModel).skipDestination()
-    }
-    
     //MARK: - Map related functions.
     private func addMap() {
         
@@ -58,7 +56,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         //showCurrentLocationDot(show: true)
         
         self.mapView.camera = camera;
-        
+        self.mapView.delegate = self
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
@@ -71,25 +69,67 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
     }
     
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        //print("Idel Position")
+        (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
+    }
+    
+//    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+//        print("End Draging")
+//    }
+    
+    //MARK: - User Actions
+    
+    @IBAction func btnConfirmTapped(_ sender: Any) {
+        
+        (viewModel as! KTAddressPickerViewModel).confimMapSelection()
+    }
+    
+    @IBAction func btnSkipTapped(_ sender: Any) {
+        
+        (viewModel as! KTAddressPickerViewModel).skipDestination()
+    }
     //MARK: - MAP/ LIST Selected
     
     @IBAction func btnListViewTapped(_ sender: Any) {
         
         imgListSelected.isHidden = false
         imgMapSelected.isHidden = true
-        self.txtDropAddress.becomeFirstResponder()
+        //self.txtDropAddress.becomeFirstResponder()
         self.tblView.isHidden = false
         self.mapSuperView.isHidden = true
+        
+        txtDropAddress.inputView = nil
+        txtPickAddress.inputView = nil
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
         
         imgListSelected.isHidden = true
         imgMapSelected.isHidden = false
-        self.txtDropAddress.resignFirstResponder()
-        self.txtPickAddress.resignFirstResponder()
+        
+        
         self.tblView.isHidden = true
         self.mapSuperView.isHidden = false
+        
+        //UIView* dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+        //myTextField.inputView = dummyView; // Hide keyboard, but show blinking cursor
+        
+        //let dummyView : UIView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0))
+        txtDropAddress.inputView = UIView()
+        txtPickAddress.inputView = UIView()
+        
+        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.DropoffAddress {
+            
+            self.txtDropAddress.resignFirstResponder()
+            txtDropAddress.becomeFirstResponder()
+        }
+        else {
+            
+            self.txtPickAddress.resignFirstResponder()
+            txtPickAddress.becomeFirstResponder()
+        }
+        
     }
     // MARK: - View Model Delegate
     func loadData() {
@@ -144,10 +184,15 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath.row, type:selectedTxtField)
+        (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath.row, type:(viewModel as! KTAddressPickerViewModel).selectedTxtField)
     }
     
     // MARK: - UItextField Delegates
+    
+    /*func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return false
+    }*/
+    
     func textFieldDidBeginEditing(_ textField: UITextField){
         updateSelectedField(txt:textField)
         
@@ -179,11 +224,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         if txt.isEqual(txtDropAddress) {
             searchText = txtDropAddress.text!
-            selectedTxtField = SelectedTextField.DropoffAddress
+            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.DropoffAddress
+            txtDropAddress.backgroundColor = selectedTxtFieldColor
+            txtPickAddress.backgroundColor = UIColor.white
+            imgMapMarker.image = UIImage(named: "APDropOffMarker")
         }
         else {
             searchText = txtPickAddress.text!
-            selectedTxtField = SelectedTextField.PickupAddress
+            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.PickupAddress
+            txtDropAddress.backgroundColor = UIColor.white
+            txtPickAddress.backgroundColor = selectedTxtFieldColor
+            imgMapMarker.image = UIImage(named: "APPickUpMarker")
         }
     }
 }
