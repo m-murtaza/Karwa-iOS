@@ -43,8 +43,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     //public var droffAddress : KTGeoLocation?
     public var pickupHint : String = ""
     
-    
-    
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
         super.viewDidLoad()

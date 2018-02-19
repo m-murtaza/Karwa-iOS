@@ -25,6 +25,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     private var locations : [KTGeoLocation] = []
     
+    //MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -33,6 +35,15 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     override func viewWillAppear() {
         (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+    }
+    
+    //MARK: - Locations
+    func currentLatitude() -> Double {
+        return KTLocationManager.sharedInstance.currentLocation.coordinate.latitude
+    }
+    
+    func currentLongitude() -> Double {
+        return KTLocationManager.sharedInstance.currentLocation.coordinate.longitude
     }
     
     func getAllLocations() {

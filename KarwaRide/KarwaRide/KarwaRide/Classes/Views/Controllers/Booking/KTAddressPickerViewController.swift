@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMaps
+
 enum SelectedTextField: Int {
     case PickupAddress = 1
     case DropoffAddress = 2
@@ -16,6 +18,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var txtPickAddress: UITextField!
     @IBOutlet weak var txtDropAddress: UITextField!
+    @IBOutlet weak var imgListSelected : UIImageView!
+    @IBOutlet weak var imgMapSelected : UIImageView!
+    @IBOutlet weak var mapView : GMSMapView!
+    @IBOutlet weak var mapSuperView : UIView!
     
     public var pickupAddress : KTGeoLocation?
     public var droffAddress : KTGeoLocation?
@@ -30,6 +36,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         viewModel = KTAddressPickerViewModel(del:self)
         (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
         super.viewDidLoad()
+        
+        addMap()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,6 +48,48 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBAction func btnSkipTapped(_ sender: Any) {
         
         (viewModel as! KTAddressPickerViewModel).skipDestination()
+    }
+    
+    //MARK: - Map related functions.
+    private func addMap() {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: (viewModel as! KTAddressPickerViewModel).currentLatitude(), longitude: (viewModel as! KTAddressPickerViewModel).currentLongitude(), zoom: 14.0)
+        
+        //showCurrentLocationDot(show: true)
+        
+        self.mapView.camera = camera;
+        
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+    }
+    
+    //MARK: - MAP/ LIST Selected
+    
+    @IBAction func btnListViewTapped(_ sender: Any) {
+        
+        imgListSelected.isHidden = false
+        imgMapSelected.isHidden = true
+        self.txtDropAddress.becomeFirstResponder()
+        self.tblView.isHidden = false
+        self.mapSuperView.isHidden = true
+    }
+    
+    @IBAction func btnMapViewTapped(_ sender: Any) {
+        
+        imgListSelected.isHidden = true
+        imgMapSelected.isHidden = false
+        self.txtDropAddress.resignFirstResponder()
+        self.txtPickAddress.resignFirstResponder()
+        self.tblView.isHidden = true
+        self.mapSuperView.isHidden = false
     }
     // MARK: - View Model Delegate
     func loadData() {
@@ -142,5 +192,11 @@ class AddressPickCell: UITableViewCell {
     @IBOutlet weak var addressTitle : UILabel!
     @IBOutlet weak var addressArea : UILabel!
     @IBOutlet weak var ImgTypeIcon : UIImageView!
+    
+    
+    @IBAction func btnMoreTapped(_ sender: Any) {
+        
+        //TODO: Show action sheet. As discussed with Danish bahi 
+    }
 }
 
