@@ -11,6 +11,9 @@ import MagicalRecord
 
 class KTMainViewController: KTBaseViewController {
 
+    @IBOutlet weak var btnCreatAccount : UIButton!
+    @IBOutlet weak var btnAlreadyHaveAccount : UIButton!
+    
     override func viewDidLoad() {
         viewModel = KTMainViewModel(del:self)
         super.viewDidLoad()
@@ -19,6 +22,13 @@ class KTMainViewController: KTBaseViewController {
         (viewModel as! KTMainViewModel).viewDidLoad { (navigate:Bool) in
             if navigate {
                 self.performSegue(withIdentifier: "segueMainToBooking", sender: self)
+                
+            }
+            else {
+                DispatchQueue.main.async {
+                    self.btnCreatAccount.isHidden = false
+                    self.btnAlreadyHaveAccount.isHidden = false
+                }
             }
         }
     }

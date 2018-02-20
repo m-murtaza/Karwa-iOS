@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import QuartzCore
 
 class BookingConfermationPopupVC: PopupVC {
 
     @IBOutlet weak var txtPickupHint: UITextField!
+    @IBOutlet weak var btnClose : UIButton!
+    @IBOutlet weak var btnConfirm : UIButton!
     public weak var previousView : KTCreateBookingViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +21,13 @@ class BookingConfermationPopupVC: PopupVC {
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(BookingConfermationPopupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(BookingConfermationPopupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        viewPopupUI.layer.cornerRadius = 18;
+        viewPopupUI.layer.masksToBounds = true;
+        btnClose.layer.borderWidth = 0.5
+        btnClose.layer.borderColor = UIColor.lightGray.cgColor
+        btnConfirm.layer.borderWidth = 0.5
+        btnConfirm.layer.borderColor = UIColor.lightGray.cgColor
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {

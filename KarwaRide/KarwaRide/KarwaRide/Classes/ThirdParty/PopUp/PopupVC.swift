@@ -10,7 +10,7 @@ import UIKit
 
 class PopupVC: UIViewController {
 
-    @IBOutlet private weak var viewPopupUI:UIView!
+    @IBOutlet weak var viewPopupUI:UIView!
     @IBOutlet private weak var viewMain:UIView!
     
     override func viewDidLoad() {

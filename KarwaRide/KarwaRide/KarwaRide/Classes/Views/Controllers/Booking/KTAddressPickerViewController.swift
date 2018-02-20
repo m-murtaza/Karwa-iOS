@@ -96,13 +96,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        //print("Idel Position")
+        
         (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
     }
     
-//    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
-//        print("End Draging")
-//    }
+
     
     //MARK: - User Actions
     
