@@ -113,9 +113,9 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         dateComponents.month = 3
         let threeMonth = Calendar.current.date(byAdding: dateComponents, to: currentDate)
         
-        let datePicker = DatePickerDialog(textColor: .red,
-                                          buttonColor: .red,
-                                          font: UIFont.boldSystemFont(ofSize: 17),
+        let datePicker = DatePickerDialog(textColor: UIColor(hexString: "4A4A4A"),
+                                          buttonColor: UIColor(hexString: "129793"),
+                                          font: UIFont(name: "MuseoSans-500", size: 18.0)!,
                                           showCancelButton: true)
         datePicker.show("DatePickerDialog",
                         doneButtonTitle: "Done",
