@@ -1148,6 +1148,7 @@
                         <outlet property="imgPickDestBoxBG" destination="fg2-1w-EdU" id="tyb-oO-c5L"/>
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
+                        <segue destination="yYS-V6-JUX" kind="show" identifier="segueBookToDetail" id="WCt-jx-7Th"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1278,6 +1279,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQS-11-clT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3208.8000000000002" y="1960.569715142429"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="anX-fY-x5x">
+            <objects>
+                <viewController id="yYS-V6-JUX" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I5v-6b-fHj"/>
+                        <viewControllerLayoutGuide type="bottom" id="3yP-2p-jtX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HVa-yi-bVX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMN-L7-BeM">
+                                <rect key="frame" x="16" y="28" width="343" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="YVW-KK-ajU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="32"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This will be detail view." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiq-wH-OIx">
+                                <rect key="frame" x="16" y="93" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="PNI-jO-1nc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UnderConstruction" translatesAutoresizingMaskIntoConstraints="NO" id="FY4-QU-YOK">
+                                <rect key="frame" x="0.0" y="122" width="375" height="545"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="bMN-L7-BeM" firstAttribute="leading" secondItem="eiq-wH-OIx" secondAttribute="leading" id="1AL-E9-Ops"/>
+                            <constraint firstAttribute="trailing" secondItem="FY4-QU-YOK" secondAttribute="trailing" id="1B8-CE-wQY"/>
+                            <constraint firstItem="eiq-wH-OIx" firstAttribute="centerX" secondItem="FY4-QU-YOK" secondAttribute="centerX" id="84S-hj-1Ys"/>
+                            <constraint firstItem="FY4-QU-YOK" firstAttribute="bottom" secondItem="3yP-2p-jtX" secondAttribute="top" id="9Ia-AV-K1d"/>
+                            <constraint firstItem="eiq-wH-OIx" firstAttribute="top" secondItem="bMN-L7-BeM" secondAttribute="bottom" constant="8" symbolic="YES" id="L2c-H9-aPx"/>
+                            <constraint firstItem="bMN-L7-BeM" firstAttribute="leading" secondItem="HVa-yi-bVX" secondAttribute="leadingMargin" id="NJd-f7-XPJ"/>
+                            <constraint firstItem="bMN-L7-BeM" firstAttribute="top" secondItem="I5v-6b-fHj" secondAttribute="bottom" constant="8" symbolic="YES" id="SFe-Db-V0a"/>
+                            <constraint firstItem="bMN-L7-BeM" firstAttribute="trailing" secondItem="eiq-wH-OIx" secondAttribute="trailing" id="oO7-Pg-dED"/>
+                            <constraint firstItem="FY4-QU-YOK" firstAttribute="leading" secondItem="HVa-yi-bVX" secondAttribute="leading" id="xcG-iN-lRd"/>
+                            <constraint firstItem="FY4-QU-YOK" firstAttribute="top" secondItem="eiq-wH-OIx" secondAttribute="bottom" constant="8" symbolic="YES" id="y9d-ia-Tsw"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hOP-Oj-gHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3194.4000000000001" y="2615.4422788605698"/>
         </scene>
         <!--Address Picker View Controller-->
         <scene sceneID="3YX-v2-1Ul">
@@ -1690,6 +1744,7 @@
         <image name="MainMenuKarwalogo" width="105" height="108"/>
         <image name="RevealButton" width="20" height="17"/>
         <image name="SummitButton" width="293" height="51"/>
+        <image name="UnderConstruction" width="750" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DD5-0R-hl2"/>

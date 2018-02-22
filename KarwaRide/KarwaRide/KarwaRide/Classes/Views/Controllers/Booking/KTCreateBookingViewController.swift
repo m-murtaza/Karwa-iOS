@@ -19,7 +19,15 @@ class KTServiceCardCell: ScalingCarouselCell {
     @IBOutlet weak var imgBg : UIImageView!
     @IBOutlet weak var imgVehicleType : UIImageView!
 }
-
+class KTCreateBookingConstants {
+    
+    // MARK: List of Constants
+    
+    static let DEFAULT_MAP_ZOOM : Float = 15.0
+    static let BOUNDS_MARKER_DISTANCE_THRESHOULD : Double = 2000
+    static let DEFAULT_MAP_PADDING : Float = 100
+    
+}
 class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
@@ -29,7 +37,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     @IBOutlet weak var btnRevealBtn : UIButton!
     @IBOutlet weak var btnRequestBooking :UIButton!
     @IBOutlet weak var imgPickDestBoxBG :UIImageView!
-    //@IBOutlet weak var viewPickDestBox : UIView!
     @IBOutlet weak var btnPickDate: UIButton!
     @IBOutlet weak var btnCash :UIButton!
     
@@ -39,8 +46,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
     
-    //public var pickupAddress : KTGeoLocation?
-    //public var droffAddress : KTGeoLocation?
     public var pickupHint : String = ""
     
     override func viewDidLoad() {
@@ -140,7 +145,10 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         btnCash.isHidden = false
         btnPickDate.isHidden = false
     }
-    
+    //MARK: - Detail
+    func moveToDetailView() {
+        self.performSegue(withIdentifier: "segueBookToDetail", sender: self)
+    }
     //MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -195,39 +203,18 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     }
     
     func updateLocationInMap(location: CLLocation) {
-        //return
+        
         //Update map
         if !(viewModel as! KTCreateBookingViewModel).isVehicleNearBy() {
-            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: 17.0)
+            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
          
             self.mapView?.animate(to: camera)
         }
-        
-        //self.mapView?.blu
-         /*}
-         else if gmsMarker.count > 0{
-         for i in 0...gmsMarker.count-1
-         {
-         if gmsMarker[i].zIndex == 1000 {
-         gmsMarker.remove(at: i)
-         break
-         }
-         }
-         
-         let marker = GMSMarker()
-         marker.position = location.coordinate
-         //marker.map = self.mapView
-         marker.zIndex = 1000
-         
-         gmsMarker.append(marker)
-         
-         self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
-         }*/
     }
     
     var gmsMarker : Array<GMSMarker> = Array()
     func addMarkerOnMap(vTrack: [VehicleTrack]) {
-        
+        gmsMarker.removeAll()
         clearMap()
         vTrack.forEach { track in
             if !track.position.isZeroCoordinate   {
@@ -248,23 +235,23 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     
     func focusMapToShowAllMarkers(gsmMarker : Array<GMSMarker>) {
 
-        if gsmMarker.count > 1 {
-        
             var bounds = GMSCoordinateBounds()
             for marker: GMSMarker in gsmMarker {
                 bounds = bounds.includingCoordinate(marker.position)
             }
+        
+        
+        var update : GMSCameraUpdate?
+        if bounds.northEast.distance(from: bounds.southWest) > KTCreateBookingConstants.BOUNDS_MARKER_DISTANCE_THRESHOULD {
             
-            var padding = 275.0
-            if bounds.northEast.distance(from: bounds.southWest) < 5000 {
-             
-                print("Bound area : \(bounds.northEast.distance(from: bounds.southWest))")
-                padding = 5000.0
-            }
-            
-            let update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(padding))
-            mapView.animate(with: update)
-            }
+            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
+        }
+        else {
+            update = GMSCameraUpdate.zoom(to: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        }
+        
+        mapView.animate(with: update!)
+    
     }
     
     func clearMap()

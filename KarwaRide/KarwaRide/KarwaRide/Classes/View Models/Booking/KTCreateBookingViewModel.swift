@@ -28,6 +28,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func addPointsOnMap(points : String)
     func clearMap()
     func showCurrentLocationDot(show : Bool)
+    func moveToDetailView()
 }
 
 let CHECK_DELAY = 90.0
@@ -140,15 +141,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
-    
-    
     func drawPath()
     {
         let origin = String(format:"%f", (pickUpAddress?.latitude)!) + "," + String(format:"%f", (pickUpAddress?.longitude)!)
         //"\(String(describing: pickUpAddress?.latitude)),\(String(describing: pickUpAddress?.longitude))"
         let destination = String(format:"%f", (dropOffAddress?.latitude)!) + "," + String(format:"%f", (dropOffAddress?.longitude)!)
         //"\(String(describing: dropOffAddress?.latitude)),\(String(describing: dropOffAddress?.longitude))"
-        
         
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
         
@@ -158,10 +156,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             switch(response.result) {
             case .success(_):
                 if response.result.value != nil{
-                    
-                    //DispatchQueue.main.async {
-                    
-                    
                     do {
                         let json = try JSON(data: response.data!)
                         
@@ -173,7 +167,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             let points = routeOverviewPolyline?["points"]?.stringValue
                             
                             (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: points!)
-                            
                         }
                     }
                     catch _ {
@@ -189,6 +182,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
         }
     }
+    
     func directionBounds() -> GMSCoordinateBounds
     {
         
@@ -349,7 +343,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         booking.callerId = KTAppSessionInfo.currentSession.phone
         
         bookManager.bookTaxi(job: booking) { (status, response) in
-            print(response)
+            
+            if status == Constants.APIResponseStatus.SUCCESS {
+                (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
+            }
+            else {
+                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                
+            }
         }
     }
     
@@ -358,8 +359,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!{
             
             selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
-            //fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
-            print(selectedVehicleType.rawValue)
+            
+            if currentBookingStep == BookingStep.step1 {
+                
+                fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
+            }
+            
         }
     }
     
@@ -375,7 +380,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Fetch near by vehicle
     @objc func FetchNearByVehicle() {
-        //print("----- Timer Called \(Date()) ------")
+    
         self.fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
     }
     

@@ -28,7 +28,7 @@ class KTBookingManager: KTDALManager {
                                     Constants.BookingParams.PickLon: job.pickupLocation!.longitude,
                                     Constants.BookingParams.PickTime: job.pickupTime!,
                                     Constants.BookingParams.DropLocation: (job.dropoffLocation != nil) ? job.dropoffLocation!.name! : "",
-                                    Constants.BookingParams.DropLat : (job.dropoffLocation != nil) ? job.dropoffLocation!.longitude : 0.0,
+                                    Constants.BookingParams.DropLat : (job.dropoffLocation != nil) ? job.dropoffLocation!.latitude : 0.0,
                                     Constants.BookingParams.DropLon : (job.dropoffLocation != nil) ? job.dropoffLocation!.longitude : 0.0,
                                     Constants.BookingParams.CreationTime : job.creationTime!,
                                     Constants.BookingParams.PickHint : job.pickupHint!,
@@ -38,8 +38,9 @@ class KTBookingManager: KTDALManager {
         
         self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
-            //TODO: Set booking id in booking object and save it
-                print(responseData)
+            
+            completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            
         })
     }
 }
