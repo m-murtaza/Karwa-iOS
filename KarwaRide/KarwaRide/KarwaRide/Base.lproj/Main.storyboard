@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -48,21 +49,21 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-ay-ZX6">
-                                <rect key="frame" x="134.5" y="58" width="105" height="108"/>
+                                <rect key="frame" x="135" y="58" width="105" height="108"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="108" id="TiV-lg-Obm"/>
                                     <constraint firstAttribute="width" constant="105" id="gwm-e7-LI7"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="XjH-Iy-HXy">
-                                <rect key="frame" x="107" y="174" width="160" height="45"/>
+                                <rect key="frame" x="107.5" y="174" width="160" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="4Lp-Gr-ERi"/>
                                     <constraint firstAttribute="width" constant="160" id="hHz-Nr-Swe"/>
                                 </constraints>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-Ly-soI">
-                                <rect key="frame" x="37" y="529" width="300" height="42"/>
+                                <rect key="frame" x="37.5" y="529" width="300" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="UqQ-8u-fap"/>
                                     <constraint firstAttribute="width" constant="300" id="kSy-Vd-v2O"/>
@@ -129,7 +130,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginKarwaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="O4j-4h-4WK">
-                                <rect key="frame" x="107" y="118" width="160" height="45"/>
+                                <rect key="frame" x="107.5" y="118" width="160" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="cGd-dH-6Wt"/>
                                     <constraint firstAttribute="width" constant="160" id="v1j-rn-b1c"/>
