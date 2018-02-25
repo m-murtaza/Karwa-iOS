@@ -57,7 +57,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
         self.navigationItem.hidesBackButton = true;
         
-        self.btnRevealBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+        self.btnRevealBtn.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
         
     }
     

@@ -32,7 +32,7 @@ class ViewController: KTBaseDrawerRootViewController {
 
     @IBAction func btnTapped(_ sender: Any) {
         
-        self.revealViewController().performSegue(withIdentifier: "sw_front", sender: self)
+        //self.revealViewController().performSegue(withIdentifier: "sw_front", sender: self)
     }
     
     

@@ -16,9 +16,9 @@ class KTBaseDrawerRootViewController: KTBaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        revealBarButton.target = self.revealViewController()
+        /*revealBarButton.target = self.revealViewController()
         revealBarButton.action = #selector(SWRevealViewController.revealToggle(_:))
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())*/
     }
 
     override func didReceiveMemoryWarning() {

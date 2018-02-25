@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
-		1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */; };
-		1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D21FC5A572008E8D91 /* KTSideDrawerModel.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
-		1810C0D81FC5AC1B008E8D91 /* KTSideDrawerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTSideDrawerTableView.swift */; };
+		1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */; };
 		1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */; };
 		1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */; };
 		1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */; };
@@ -81,6 +79,9 @@
 		18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */; };
 		18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1520061890002D4B88 /* ButtonWithShadow.swift */; };
 		18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */; };
+		18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B26E204293F000600966 /* SSASideMenu.swift */; };
+		18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */; };
+		18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,11 +89,8 @@
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
 		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
 		1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KarwaRide-Bridging-Header.h"; sourceTree = "<group>"; };
-		1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Classes/ThirdParty/SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
-		1810C0CC1FC59BCF008E8D91 /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Classes/ThirdParty/SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
-		1810C0D21FC5A572008E8D91 /* KTSideDrawerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSideDrawerModel.swift; path = "Classes/View Models/SideDrawer/KTSideDrawerModel.swift"; sourceTree = "<group>"; };
 		1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseTableViewController.swift; path = Classes/Views/Controllers/KTBaseTableViewController.swift; sourceTree = "<group>"; };
-		1810C0D61FC5A633008E8D91 /* KTSideDrawerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSideDrawerTableView.swift; path = Classes/Views/Controllers/SideDrawer/KTSideDrawerTableView.swift; sourceTree = "<group>"; };
+		1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTLeftMenuViewController.swift; path = Classes/Views/Controllers/SideDrawer/KTLeftMenuViewController.swift; sourceTree = "<group>"; };
 		1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseDrawerRootViewController.swift; path = Classes/Views/Controllers/KTBaseDrawerRootViewController.swift; sourceTree = "<group>"; };
 		1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karwa.xcdatamodel; sourceTree = "<group>"; };
 		1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewModel.swift; path = "Classes/View Models/Login/KTLoginViewModel.swift"; sourceTree = "<group>"; };
@@ -166,6 +164,9 @@
 		18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Utils.swift"; path = "Classes/Common/Extensions/UIColor+Utils.swift"; sourceTree = "<group>"; };
 		18C24B1520061890002D4B88 /* ButtonWithShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonWithShadow.swift; path = Classes/ThirdParty/UIElements/ButtonWithShadow.swift; sourceTree = "<group>"; };
 		18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewWithRoundCorner.swift; path = Classes/ThirdParty/UIElements/ViewWithRoundCorner.swift; sourceTree = "<group>"; };
+		18F2B26E204293F000600966 /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSASideMenu.swift; path = Classes/ThirdParty/SSASideMenu/SSASideMenu.swift; sourceTree = "<group>"; };
+		18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLeftMenuModel.swift; path = "Classes/View Models/SideDrawer/KTLeftMenuModel.swift"; sourceTree = "<group>"; };
+		18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuTableViewCell.swift; path = Classes/Views/Controllers/SideDrawer/LeftMenuTableViewCell.swift; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,28 +196,20 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				18F2B26D2042932300600966 /* SSASideMenu */,
 				18B907662022F630000F45FE /* PopUp */,
 				18B907632021C73B000F45FE /* DatePickerDialog */,
 				18C24B0E2005EDBE002D4B88 /* UIElements */,
 				18C24AD72004A401002D4B88 /* VPMOTPView */,
-				1810C0C91FC59BB5008E8D91 /* SWRevealViewController */,
 			);
 			name = ThirdParty;
-			sourceTree = "<group>";
-		};
-		1810C0C91FC59BB5008E8D91 /* SWRevealViewController */ = {
-			isa = PBXGroup;
-			children = (
-				1810C0CC1FC59BCF008E8D91 /* SWRevealViewController.h */,
-				1810C0CB1FC59BCF008E8D91 /* SWRevealViewController.m */,
-			);
-			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 		1810C0CE1FC5A3DF008E8D91 /* SideDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				1810C0D61FC5A633008E8D91 /* KTSideDrawerTableView.swift */,
+				1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */,
+				18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */,
 			);
 			name = SideDrawer;
 			sourceTree = "<group>";
@@ -224,7 +217,7 @@
 		1810C0D11FC5A526008E8D91 /* SideDrawer */ = {
 			isa = PBXGroup;
 			children = (
-				1810C0D21FC5A572008E8D91 /* KTSideDrawerModel.swift */,
+				18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */,
 			);
 			name = SideDrawer;
 			sourceTree = "<group>";
@@ -633,6 +626,14 @@
 			name = UIElements;
 			sourceTree = "<group>";
 		};
+		18F2B26D2042932300600966 /* SSASideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				18F2B26E204293F000600966 /* SSASideMenu.swift */,
+			);
+			name = SSASideMenu;
+			sourceTree = "<group>";
+		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -820,10 +821,9 @@
 			files = (
 				18C24ADD2004AC19002D4B88 /* KTOTPViewController.swift in Sources */,
 				1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */,
-				1810C0D81FC5AC1B008E8D91 /* KTSideDrawerTableView.swift in Sources */,
+				1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */,
 				1810C13B1FCD7FB7008E8D91 /* KTUserManager.swift in Sources */,
 				18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */,
-				1810C0CD1FC59E6C008E8D91 /* SWRevealViewController.m in Sources */,
 				18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */,
 				18A3949320187C2F000FCE92 /* NSManageObject+KTExtended.swift in Sources */,
 				181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */,
@@ -836,6 +836,7 @@
 				18A3948B2017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
+				18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */,
 				18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */,
 				1814238E2029A20000992151 /* VehicleMarker.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
@@ -851,6 +852,7 @@
 				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
+				18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */,
 				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
@@ -859,6 +861,7 @@
 				1833CA7F200DC74300AD885B /* KTCreateBookingViewController.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
 				18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */,
+				18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
@@ -871,7 +874,6 @@
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
-				1810C0D31FC5A572008E8D91 /* KTSideDrawerModel.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
