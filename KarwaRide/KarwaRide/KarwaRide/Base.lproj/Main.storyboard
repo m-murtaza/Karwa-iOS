@@ -792,7 +792,7 @@
         <!--Booking Navigation Controller-->
         <scene sceneID="DuT-Gg-z1c">
             <objects>
-                <navigationController title="Booking Navigation Controller" id="K87-Yv-m6i" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BookingNavigationViewController" title="Booking Navigation Controller" id="K87-Yv-m6i" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hRh-23-Ovz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1256,6 +1256,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQS-11-clT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3208.8000000000002" y="1960.569715142429"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kjA-VI-BM7">
+            <objects>
+                <navigationController storyboardIdentifier="SettingsNavigationController" id="8ld-0p-5OO" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z63-wu-xKn">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="zZa-3z-CbZ" kind="relationship" relationship="rootViewController" id="z7i-xK-KsF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVO-mn-sv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="923" y="3078"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="vSg-DV-8ud">
+            <objects>
+                <viewController id="zZa-3z-CbZ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ShO-BL-YHL"/>
+                        <viewControllerLayoutGuide type="bottom" id="LLb-Ob-112"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MM6-8P-ho7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q1K-f7-fJp">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="DTi-Wa-RZa">
+                        <barButtonItem key="leftBarButtonItem" image="RevealButton" id="c5p-E5-YcE">
+                            <connections>
+                                <action selector="presentLeftMenuViewController" destination="zZa-3z-CbZ" id="bhh-pN-Q5C"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lKC-iq-3de" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1749.5999999999999" y="3126.3868065967017"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="anX-fY-x5x">
@@ -1760,7 +1808,7 @@
         <!--Navigation Controller-->
         <scene sceneID="uLb-7H-oLy">
             <objects>
-                <navigationController id="E4U-jb-4MC" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MyTirpsNavigationController" id="E4U-jb-4MC" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bze-Mh-PeL">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1785,32 +1833,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2nd View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxF-Qj-dmP">
-                                <rect key="frame" x="16" y="117" width="343" height="213"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Under Construction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DxF-Qj-dmP">
+                                <rect key="frame" x="16" y="72" width="343" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ee7-pN-KXm">
-                                <rect key="frame" x="60" y="409" width="267" height="98"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Finger" translatesAutoresizingMaskIntoConstraints="NO" id="4WB-g7-cbv">
+                                <rect key="frame" x="50" y="178" width="274" height="363"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6e-Zo-Ifs">
-                                <rect key="frame" x="60" y="556" width="276" height="98"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.8980392157" green="0.96078431369999995" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Obg-Pl-JHh">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="MXs-qP-NrD"/>
+                        <barButtonItem key="leftBarButtonItem" image="RevealButton" id="MXs-qP-NrD">
+                            <connections>
+                                <action selector="presentLeftMenuViewController" destination="MPU-wy-aX7" id="Rit-tQ-whG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBJ-qX-p11" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1838,6 +1880,7 @@
         <image name="BookingVehiclePad" width="50" height="50"/>
         <image name="BookingWaves" width="315" height="39"/>
         <image name="CreateAnAccount" width="323" height="80"/>
+        <image name="Finger" width="95" height="155"/>
         <image name="KarwaLogoWithText" width="160" height="45"/>
         <image name="LMActiveback" width="320" height="50"/>
         <image name="LMBgImage" width="375" height="667"/>
@@ -1851,7 +1894,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DD5-0R-hl2"/>
-        <segue reference="A9o-xm-kbF"/>
+        <segue reference="XB0-DD-FoR"/>
         <segue reference="OD2-FV-5Rn"/>
         <segue reference="Otx-q2-Oud"/>
     </inferredMetricsTieBreakers>

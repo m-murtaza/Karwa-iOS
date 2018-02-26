@@ -69,8 +69,51 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
                 cell.imgSelected.isHidden = false
         
         lastSelectedCell = cell
+        
+        //
+        switch indexPath.row {
+        case 0:
+            
+             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuViewController?.hideMenuViewController()
+            break
+        case 1:
+            
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuViewController?.hideMenuViewController()
+            break
+        default:
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuViewController?.hideMenuViewController()
+            break
+        }
+        
         return false
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//        tableView.deselectRow(at: indexPath, animated: true)
+//
+//        switch indexPath.row {
+//        case 0:
+//            print("Case - 1")
+//           // sideMenuViewController?.contentViewController = UINavigationController(rootViewController: FirstViewController())
+//            //sideMenuViewController?.hideMenuViewController()
+//            break
+//        case 1:
+//            print("Case - 2")
+//            //sideMenuViewController?.contentViewController = UINavigationController(rootViewController: SecondViewController())
+//            //sideMenuViewController?.hideMenuViewController()
+//            break
+//        default:
+//            print("Case - Default")
+//            break
+//        }
+//
+//
+//    }
+    
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //       // self.performSegue(withIdentifier: (viewModel as! KTLeftMenuModel).segueIdentifireForIdxPath(idx: indexPath.row), sender: self)

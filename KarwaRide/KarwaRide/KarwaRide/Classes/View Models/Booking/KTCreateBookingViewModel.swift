@@ -71,7 +71,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
             if pickUpAddress == nil {
                 
-                delegate?.userIntraction(enable: false)
+                //delegate?.userIntraction(enable: false)
             }
         }
         else if currentBookingStep == BookingStep.step3 {
@@ -80,7 +80,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             drawDirectionOnMap()
             showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
         }
-        
     }
     
     override func viewWillDisappear() {
@@ -471,7 +470,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 
                 self.pickUpAddress = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                 DispatchQueue.main.async {
-                    self.delegate?.userIntraction(enable: true)
+                    //self.delegate?.userIntraction(enable: true)
                     (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
                 }
             }

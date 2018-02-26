@@ -1,26 +1,19 @@
 //
-//  KSBaseDrawerRootViewController.swift
+//  KTSettingsViewController.swift
 //  KarwaRide
 //
-//  Created by Muhammad Usman on 11/23/17.
-//  Copyright © 2017 Karwa. All rights reserved.
+//  Created by Muhammad Usman on 2/26/18.
+//  Copyright © 2018 Karwa. All rights reserved.
 //
 
 import UIKit
 
-class KTBaseDrawerRootViewController: KTBaseViewController {
+class KTSettingsViewController: KTBaseViewController {
 
-    @IBOutlet weak var revealBarButton: UIBarButtonItem!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        /*revealBarButton.target = self.revealViewController()
-        revealBarButton.action = #selector(SWRevealViewController.revealToggle(_:))
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())*/
-        //navigationItem.leftBarButtonItem?.action =  #selector(SSASideMenu.presentLeftMenuViewController)
-        
     }
 
     override func didReceiveMemoryWarning() {
