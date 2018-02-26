@@ -17,7 +17,9 @@ import UIKit
     
     @objc optional func showError(title:String, message:String)
     
-    @objc func userIntraction(enable: Bool)
+    func userIntraction(enable: Bool)
+    func showProgressHud(show : Bool)
+    func showProgressHud(show : Bool, status:String)
     
     @objc func dismiss()
 }

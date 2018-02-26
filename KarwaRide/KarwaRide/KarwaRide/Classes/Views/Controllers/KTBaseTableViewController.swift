@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
     
     var viewModel : KTBaseViewModel?
@@ -94,7 +94,28 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
     }
     */
 
+    func showProgressHud(show : Bool, status:String){
+        if show {
+            SVProgressHUD.show(withStatus: status)
+            userIntraction(enable: false)
+        }
+        else {
+            SVProgressHUD.dismiss()
+            userIntraction(enable: true)
+        }
+        
+    }
     
+    func showProgressHud(show: Bool) {
+        if show {
+            SVProgressHUD.show();
+            userIntraction(enable: false)
+        }
+        else {
+            SVProgressHUD.dismiss()
+            userIntraction(enable: true)
+        }
+    }
     func userIntraction(enable: Bool) {
         if enable {
             

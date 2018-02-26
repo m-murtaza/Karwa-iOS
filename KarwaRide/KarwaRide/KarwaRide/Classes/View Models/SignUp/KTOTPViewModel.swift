@@ -32,9 +32,10 @@ class KTOTPViewModel: KTBaseViewModel {
         let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
         if KTUtils.isObjectNotNil(object: otp as AnyObject)
         {
-            KTUserManager.init().VarifyOTP(phone: phone, code: otp!
+            delegate?.showProgressHud(show: true, status: "Confirming Code")
+            KTUserManager().VarifyOTP(phone: phone, code: otp!
                 , completion: { (status, response) in
-                    
+                    self.delegate?.showProgressHud(show: false)
                     if status == Constants.APIResponseStatus.SUCCESS
                     {
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)

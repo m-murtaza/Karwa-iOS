@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
-
+    
     var viewModel : KTBaseViewModel?
     
     override func viewDidLoad() {
@@ -43,7 +44,28 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         self.present(altError,animated: true, completion: nil)
     }
     
+    func showProgressHud(show : Bool, status:String){
+        if show {
+            SVProgressHUD.show(withStatus: status)
+            userIntraction(enable: false)
+        }
+        else {
+            SVProgressHUD.dismiss()
+            userIntraction(enable: true)
+        }
+        
+    }
     
+    func showProgressHud(show: Bool) {
+        if show {
+            SVProgressHUD.show();
+            userIntraction(enable: false)
+        }
+        else {
+            SVProgressHUD.dismiss()
+            userIntraction(enable: true)
+        }
+    }
     func userIntraction(enable: Bool) {
         
         if enable {

@@ -342,8 +342,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         booking.vehicleType = Int16(selectedVehicleType.rawValue)
         booking.callerId = KTAppSessionInfo.currentSession.phone
         
+        delegate?.showProgressHud(show: true, status: "Booking a ride")
         bookManager.bookTaxi(job: booking) { (status, response) in
-            
+            self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS {
                 (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
             }

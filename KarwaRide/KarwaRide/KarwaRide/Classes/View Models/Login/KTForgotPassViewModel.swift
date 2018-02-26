@@ -43,7 +43,10 @@ class KTForgotPassViewModel: KTBaseViewModel {
         let error = validate()
         if error.count == 0
         {
-            KTUserManager.init().sendForgotPassRequest(phone: phone!, password: "5df74bed761f1a361415b14c68839eac", completion: { (status, response) in
+            delegate?.showProgressHud(show: true, status: "Retriving your password")
+            KTUserManager.init().sendForgotPassRequest(phone: phone!, password: (password?.md5())!, completion: { (status, response) in
+                
+                self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     
