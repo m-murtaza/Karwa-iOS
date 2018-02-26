@@ -28,7 +28,7 @@ class KTLoginViewModel: KTBaseViewModel {
     func loginBtnTapped()
     {
         let phone : String = ((delegate as! KTLoginViewModelDelegate).phoneNumber())
-        let password: String = "5df74bed761f1a361415b14c68839eac"//(delegate?.Password())!
+        let password: String = (delegate as! KTLoginViewModelDelegate).password().md5()
         
         //delegate.model
         KTUserManager.init().login(phone: phone, password:password ) { (status, response) in

@@ -59,10 +59,18 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
     
     //Mark: - View Model Delegate
     func phoneNumber() -> String {
+        guard let _ =  txtPassword.text else {
+            return ""
+        }
+        
         return txtPhoneNumber.text!
     }
     
     func password() -> String {
+        guard let _ = txtPassword.text else {
+            
+            return ""
+        }
         return txtPassword.text!
     }
     
