@@ -16,8 +16,6 @@
 typealias KTResponseCompletionBlock = (_ success: Bool, _ response: [AnyHashable: Any]) -> Void
 typealias KTDALCompletionBlock = (_ success: String, _ response: [AnyHashable: Any]) -> Void
 typealias KTDALSuccessBlock = (_ response: [AnyHashable: Any],_ success: KTDALCompletionBlock) -> Void
-//typealias KTDALCompletionBlock = (_ success: String, _ response: Any) -> Void
-//typealias KTDALSuccessBlock = (_ response: Any,_ success: KTDALCompletionBlock) -> Void
 
 enum VehicleType: Int {
     case KTCityTaxi = 1
@@ -38,6 +36,7 @@ struct Constants {
     struct Notification {
         static let MinuteChanged = "MinuteChangedNotification"
         static let LocationManager = "LocationManagerNotificationIdentifier"
+        static let UserLogin = "UserLoginNotificationIdentifire"
     }
     
     struct API {

@@ -9,17 +9,15 @@
 import UIKit
 
 class KTMainViewModel: KTBaseViewModel {
-
-//    weak var delegate: KTViewModelDelegate?
-//    
-//    init(del: Any) {
-//        super.init()
-//        delegate = del as? KTViewModelDelegate
-//    }
     
     func viewDidLoad(completion: @escaping (Bool) -> Void)  {
         
         KTUserManager.init().isUserLogin { (login:Bool) in
+            
+            if login == true {
+                //User is login throw a notification so that others can update thenself. like side menu.
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
+            }
             completion(login)
         }
         

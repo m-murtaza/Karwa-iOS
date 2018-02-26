@@ -34,6 +34,7 @@ class KTLoginViewModel: KTBaseViewModel {
         KTUserManager.init().login(phone: phone, password:password ) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS
             {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
                 (self.delegate as! KTLoginViewModelDelegate).navigateToBooking()
             }
             else if(status == Constants.APIResponseStatus.UNVERIFIED)

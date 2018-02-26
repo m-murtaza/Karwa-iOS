@@ -20,19 +20,30 @@ struct KTMenuItems {
     }
 }
 
+protocol KTLeftMenuDelegate : KTViewModelDelegate {
+    
+    func updateUserName (name : String)
+    func updatePhoneNumber(phone: String)
+}
+
 class KTLeftMenuModel: KTBaseViewModel {
 
-    //weak var delegate: KTViewModelDelegate?
-    
-//    init(del: Any) {
-//        super.init()
-//        delegate = del as? KTViewModelDelegate
-//    }
-    
     var drawerOptions = [KTMenuItems]()
     
     override func viewDidLoad() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.userLogin(notification:)), name:Notification.Name(Constants.Notification.UserLogin) , object: nil)
+        
         setMenuItems()
+    }
+    
+    @objc func userLogin(notification: Notification) {
+        let user:KTUser? = KTUserManager().fetchUser()
+        if user != nil {
+            (delegate as! KTLeftMenuDelegate).updateUserName(name: (user?.name!)!)  
+            (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user?.phone!)!)
+            
+        }
     }
     
     func setMenuItems() {

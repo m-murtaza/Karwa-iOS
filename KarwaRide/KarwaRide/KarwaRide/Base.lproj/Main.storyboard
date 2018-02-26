@@ -1748,6 +1748,10 @@
                             <constraint firstItem="8hf-CG-sZ7" firstAttribute="top" secondItem="5oN-4f-GzP" secondAttribute="bottom" constant="69" id="rbJ-3V-e92"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lblName" destination="uql-U0-u82" id="0uX-iH-r1S"/>
+                        <outlet property="lblPhone" destination="5oN-4f-GzP" id="sjR-JH-33g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYQ-zE-0fH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

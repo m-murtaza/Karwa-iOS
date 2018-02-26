@@ -37,6 +37,7 @@ class KTOTPViewModel: KTBaseViewModel {
                     
                     if status == Constants.APIResponseStatus.SUCCESS
                     {
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
                         (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
                     }
                     else

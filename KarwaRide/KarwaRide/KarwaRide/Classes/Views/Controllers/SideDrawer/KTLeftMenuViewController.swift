@@ -8,7 +8,10 @@
 
 import UIKit
 
-class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITableViewDataSource {
+class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITableViewDataSource,KTLeftMenuDelegate {
+    
+    @IBOutlet weak var lblName : UILabel!
+    @IBOutlet weak var lblPhone : UILabel!
     
     var DrawerOption = [String]()
     var lastSelectedCell:LeftMenuTableViewCell?
@@ -19,6 +22,15 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         super.viewDidLoad()
     }
     
+    //MARK: - ViewModel Delegate
+    func updateUserName (name : String) {
+        self.lblName.text = name
+    }
+    
+    func updatePhoneNumber(phone: String) {
+        self.lblPhone.text = phone
+    }
+    //MARK: - TableView DataSource and Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
