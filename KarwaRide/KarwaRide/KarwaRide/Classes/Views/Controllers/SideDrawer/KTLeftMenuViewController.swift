@@ -13,6 +13,8 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     var DrawerOption = [String]()
     var lastSelectedCell:LeftMenuTableViewCell?
     override func viewDidLoad() {
+        
+        //view.backgroundColor = UIColor.clear
         viewModel = KTLeftMenuModel(del:self)
         super.viewDidLoad()
     }
