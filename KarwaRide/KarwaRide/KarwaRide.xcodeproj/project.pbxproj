@@ -36,6 +36,9 @@
 		1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */; };
 		1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA84200E048100AD885B /* KTBookingManager.swift */; };
 		1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */; };
+		18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839110F204517FB002EDE1A /* KTSettingsViewModel.swift */; };
+		18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18391113204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift */; };
+		1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -123,6 +126,9 @@
 		1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCreateBookingViewModel.swift; path = "Classes/View Models/Booking/KTCreateBookingViewModel.swift"; sourceTree = "<group>"; };
 		1833CA84200E048100AD885B /* KTBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingManager.swift; path = Classes/DAL/Booking/KTBookingManager.swift; sourceTree = "<group>"; };
 		1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Track.swift"; path = "Classes/DAL/Booking/KTBookingManager+Track.swift"; sourceTree = "<group>"; };
+		1839110F204517FB002EDE1A /* KTSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSettingsViewModel.swift; path = "Classes/View Models/Settings/KTSettingsViewModel.swift"; sourceTree = "<group>"; };
+		18391113204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTSettingsImgTextTableViewCell.swift; path = Classes/Views/Controllers/Settings/KTSettingsImgTextTableViewCell.swift; sourceTree = "<group>"; };
+		1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSettingCalendarTableViewCell.swift; path = Classes/Views/Controllers/Settings/KTSettingCalendarTableViewCell.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -424,6 +430,14 @@
 			name = Booking;
 			sourceTree = "<group>";
 		};
+		1839110E204517C0002EDE1A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1839110F204517FB002EDE1A /* KTSettingsViewModel.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		1864871E1F0A357C00DDB003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +467,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				1839110E204517C0002EDE1A /* Settings */,
 				1833CA80200DC81800AD885B /* Booking */,
 				18C24ACC2003674D002D4B88 /* SignUp */,
 				1810C13F1FCE95DD008E8D91 /* Main */,
@@ -651,7 +666,9 @@
 		18F2B277204420FC00600966 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				18391113204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift */,
 				18F2B2782044214000600966 /* KTSettingsViewController.swift */,
+				1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -777,6 +794,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/JTMaterialSwitch/JTMaterialSwitch.framework",
 				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ScalingCarousel/ScalingCarousel.framework",
@@ -789,6 +807,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTMaterialSwitch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScalingCarousel.framework",
@@ -860,6 +879,7 @@
 				18A3948B2017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
+				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
 				18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */,
 				18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */,
 				1814238E2029A20000992151 /* VehicleMarker.swift in Sources */,
@@ -895,6 +915,7 @@
 				18A3948A2017089A000FCE92 /* KTVehicleType+CoreDataClass.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
 				18A3949620199FC9000FCE92 /* KTGeoLocation+CoreDataClass.swift in Sources */,
+				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
@@ -903,6 +924,7 @@
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
+				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */,
 				1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */,
 			);
