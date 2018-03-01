@@ -79,6 +79,11 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         }
     }
     
+    func viewStoryboard() -> UIStoryboard {
+        return self.storyboard!
+        
+    }
+    
     func dismiss()  {
         self.dismiss(animated: true, completion: nil)
     }

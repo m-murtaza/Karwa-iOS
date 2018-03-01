@@ -760,7 +760,7 @@
         <!--Side Menu-->
         <scene sceneID="Ju1-0F-rpa">
             <objects>
-                <viewController id="x1n-cl-kCl" customClass="SSASideMenu" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ApplicationRootViewStoryboardId" id="x1n-cl-kCl" customClass="SSASideMenu" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fbO-3x-c46"/>
                         <viewControllerLayoutGuide type="bottom" id="yLO-0d-h6R"/>
@@ -1286,10 +1286,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q1K-f7-fJp">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="576"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.98039215686274506" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfoCellIdentifier" rowHeight="80" id="Xon-4r-yED">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfoCellIdentifier" rowHeight="80" id="Xon-4r-yED" customClass="KTSettingsProfileTableViewCell" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xon-4r-yED" id="UoP-KA-kY9">
@@ -1325,6 +1325,11 @@
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="lblName" destination="q0g-J1-x8L" id="aec-70-vsh"/>
+                                            <outlet property="lblPhone" destination="NaH-my-MIh" id="tzs-ud-r9t"/>
+                                            <outlet property="lblShortName" destination="oIm-rt-Kgn" id="uMU-be-LmI"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImgTxtCellIdentifier" rowHeight="50" id="eWz-1F-iPj" customClass="KTSettingsImgTextTableViewCell" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="108" width="375" height="50"/>
@@ -1382,13 +1387,22 @@
                                     <outlet property="delegate" destination="zZa-3z-CbZ" id="XMl-Xt-eBI"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="app version 1.9.0(3)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spv-HR-1gg">
+                                <rect key="frame" x="16" y="645" width="343" height="12"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.98039215686274506" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Q1K-f7-fJp" firstAttribute="top" secondItem="ShO-BL-YHL" secondAttribute="bottom" id="5Tu-op-Zoi"/>
                             <constraint firstAttribute="trailing" secondItem="Q1K-f7-fJp" secondAttribute="trailing" id="77t-Yb-BdS"/>
-                            <constraint firstItem="LLb-Ob-112" firstAttribute="top" secondItem="Q1K-f7-fJp" secondAttribute="bottom" id="B9z-YA-2KI"/>
+                            <constraint firstItem="Spv-HR-1gg" firstAttribute="leading" secondItem="MM6-8P-ho7" secondAttribute="leadingMargin" id="IdC-Pg-0jb"/>
                             <constraint firstItem="Q1K-f7-fJp" firstAttribute="leading" secondItem="MM6-8P-ho7" secondAttribute="leading" id="PtI-Wf-DCr"/>
+                            <constraint firstItem="LLb-Ob-112" firstAttribute="top" secondItem="Spv-HR-1gg" secondAttribute="bottom" constant="10" id="b9A-Mf-4FE"/>
+                            <constraint firstItem="Spv-HR-1gg" firstAttribute="top" secondItem="Q1K-f7-fJp" secondAttribute="bottom" constant="5" id="kO8-8X-jPX"/>
+                            <constraint firstItem="Spv-HR-1gg" firstAttribute="trailing" secondItem="MM6-8P-ho7" secondAttribute="trailingMargin" id="uhW-U0-PFZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="DTi-Wa-RZa">
@@ -1399,6 +1413,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="lblVersion" destination="Spv-HR-1gg" id="jgg-0K-F8c"/>
                         <outlet property="tableView" destination="Q1K-f7-fJp" id="Du0-Nm-vRE"/>
                     </connections>
                 </viewController>

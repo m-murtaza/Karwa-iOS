@@ -131,4 +131,9 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func viewStoryboard() -> UIStoryboard {
+        return self.storyboard!
+        
+    }
+    
 }

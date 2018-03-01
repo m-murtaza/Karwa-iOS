@@ -22,5 +22,13 @@ class KTAppSessionInfo: NSObject {
     var phone : String?
     var pushToken : String?
     var customerType : Int32?
-    
+ 
+    func removeCurrentSession()  {
+        sessionId = nil
+        phone = nil
+        customerType = 0
+        pushToken = nil
+    }
 }
+
+

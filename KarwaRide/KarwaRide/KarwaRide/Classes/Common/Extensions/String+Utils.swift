@@ -37,6 +37,9 @@ extension String {
         return plainString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
     }
     
+//    func firstLetter() -> String {
+//        return self.characters.startIndex
+//    }
     /*func md5(_ string: String) -> String {
         
         let context = UnsafeMutablePointer<CC_MD5_CTX>.allocate(capacity: 1)

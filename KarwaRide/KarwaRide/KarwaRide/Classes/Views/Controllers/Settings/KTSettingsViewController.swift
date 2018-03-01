@@ -11,10 +11,13 @@ import UIKit
 class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegate ,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var lblVersion : UILabel!
     
     override func viewDidLoad() {
         viewModel = KTSettingsViewModel(del: self)
         super.viewDidLoad()
+        
+        setVersionLable()
         
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
@@ -25,7 +28,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         // Dispose of any resources that can be recreated.
     }
     
-
+    func setVersionLable()  {
+        
+        lblVersion.text = (viewModel as! KTSettingsViewModel).appVersion()
+    }
     /*
     // MARK: - Navigation
 
@@ -100,6 +106,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
             
+            let name = (viewModel as! KTSettingsViewModel).userName()
+            let phone = (viewModel as! KTSettingsViewModel).userPhone()
+            
+            (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone)
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             
         }
@@ -171,6 +181,29 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 4 {
+            if indexPath.row == 0 {
+                (viewModel as! KTSettingsViewModel).startLogoutProcess()
+            }
+        }
+    }
+    
+    //MARK: - Logout
+    func showLogoutConfirmAlt() {
+        
+        let logoutAlt = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        logoutAlt.addAction(UIAlertAction(title: "Yes! Log me out", style: UIAlertActionStyle.destructive, handler: { (action) in
+            
+            (self.viewModel as! KTSettingsViewModel).logout()
+        }))
+        
+        logoutAlt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        
+        self.present(logoutAlt, animated: true, completion: nil)
     }
     
     

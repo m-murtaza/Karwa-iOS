@@ -129,5 +129,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    func showLogin()  {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: "FirstViewController")
+        let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: "LeftMenuViewController")
+        
+        let sideMeun : SSASideMenu = SSASideMenu(contentViewController: contentView, leftMenuViewController: leftView)
+        
+        
+        
+        window? = UIWindow(frame: UIScreen.main.bounds)
+        
+        window?.rootViewController = sideMeun
+        window?.makeKeyAndVisible()
+    }
+    
 }
 
