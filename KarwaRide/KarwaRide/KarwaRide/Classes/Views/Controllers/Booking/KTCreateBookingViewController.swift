@@ -171,6 +171,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     //MARK: - Location & Maps
     func showCurrentLocationDot(show: Bool) {
         self.mapView!.isMyLocationEnabled = show
+        self.mapView!.settings.myLocationButton = show
     }
     
     private func addMap() {

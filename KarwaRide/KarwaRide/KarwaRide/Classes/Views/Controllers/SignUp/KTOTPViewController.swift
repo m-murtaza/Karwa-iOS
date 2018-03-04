@@ -79,7 +79,7 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     func navigateToBooking() {
         //self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
        // previousView?.dismiss()
-        previousView?.navigateToBooking()
+        previousView?.dismissAndNavigateToBooking()
     }
 }
 

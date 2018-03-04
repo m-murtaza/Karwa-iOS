@@ -81,10 +81,10 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         return txtPassword.text!
     }
     
-//    override func navigateToBooking()
-//    {
-//        self.performSegue(withIdentifier: "segueLoginToBooking", sender: self)
-//    }
+    func navigateToBooking()
+    {
+        self.performSegue(withIdentifier: "segueToBooking", sender: self)
+    }
     func navigateToOTP() {
         self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
     }

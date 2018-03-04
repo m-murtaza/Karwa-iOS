@@ -19,6 +19,14 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
     let locManager = CLLocationManager()
     var currentLocation : CLLocation = CLLocation(latitude: 0.0,longitude: 0.0)
     
+    var isLocationAvailable: Bool {
+        if currentLocation.coordinate.isZeroCoordinate {
+         
+            return false
+        }
+        return true
+    }
+    
     //MARK: - Singleton
     private override init()
     {

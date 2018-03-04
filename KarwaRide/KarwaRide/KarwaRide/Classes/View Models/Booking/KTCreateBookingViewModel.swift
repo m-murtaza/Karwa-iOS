@@ -56,7 +56,19 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         super.viewDidLoad()
         self.fetchVechicleTypes()
-        KTLocationManager.sharedInstance.start()
+        if KTLocationManager.sharedInstance.isLocationAvailable {
+            var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
+            
+            var userInfo : [String :Any] = [:]
+            userInfo["location"] = KTLocationManager.sharedInstance.currentLocation
+            
+            notification.userInfo = userInfo
+            //notification.userInfo!["location"] as! CLLocation
+            LocationManagerLocaitonUpdate(notification: notification)
+        }
+        else {
+            KTLocationManager.sharedInstance.start()
+        }
         
     }
     
@@ -400,6 +412,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         //Show user Location on map
         if currentBookingStep == BookingStep.step1 {
             (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location)
+            
+            if pickUpAddress == nil{
+                
+                pickUpAddress = KTBookingManager().goeLocation(forLocation: location.coordinate)
+                (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
+            }
             
             //Fetch location name (from Server) for current location.
             self.fetchLocationName(forGeoCoordinate: location.coordinate)

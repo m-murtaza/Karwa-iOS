@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         location = KTLocationManager.sharedInstance
         location?.setUp()
+        location?.start()
         
         GMSServices.provideAPIKey("AIzaSyBWEik2kFj1hYESIhS2GgUblo_amSfjqT0")
         

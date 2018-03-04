@@ -31,7 +31,7 @@ class KTBaseLoginSignUpViewController: KTBaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func navigateToBooking()
+    func dismissAndNavigateToBooking()
     {
         self.dismiss(animated: true) {
                 self.performSegue(withIdentifier: "segueToBooking", sender: self)
