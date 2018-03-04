@@ -83,7 +83,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         {
             error = SignUpValidationError.init().WrongPhone
         }
-        else if  (email?.isEmail)!
+        else if  !(email?.isEmail)!
         {
             error = SignUpValidationError.init().WrongEmail
         }

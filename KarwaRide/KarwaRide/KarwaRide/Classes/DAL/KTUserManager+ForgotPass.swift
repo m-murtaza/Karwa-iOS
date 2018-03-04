@@ -13,7 +13,7 @@ extension KTUserManager
         let param : NSMutableDictionary = [Constants.UpdatePassParam.Phone : phone,
                                            Constants.UpdatePassParam.Password: password]
         
-        KTWebClient.sharedInstance.post(uri: Constants.APIURL.ForgotPass, param: param as! [String : Any]) { (status, response) in
+        KTWebClient.sharedInstance.post(uri: Constants.APIURL.ForgotPass, param: param as? [String : Any]) { (status, response) in
             if status != true
             {
                 completionBlock(Constants.APIResponseStatus.FAILED_API,response)
@@ -22,7 +22,7 @@ extension KTUserManager
             {
                 if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
                 {
-                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response as! [AnyHashable : Any])
+                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response )
                 }
                 else
                 {

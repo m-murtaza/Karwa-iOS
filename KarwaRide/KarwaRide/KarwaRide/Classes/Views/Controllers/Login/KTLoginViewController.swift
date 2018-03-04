@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
+class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDelegate {
     
     //MARK: - Properties
     @IBOutlet weak var txtPhoneNumber: UITextField!
@@ -37,15 +37,22 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "segueLoginToForgotPass" {
+            let forgotPassNav : UINavigationController  = segue.destination as! UINavigationController
+            let forgotPassViewController = forgotPassNav.topViewController as! KTForgotPassViewController
+            forgotPassViewController.previousView = self
+        }
+        
     }
-    */
+    
+    //MARK: UI Events
     
     @IBAction func loginBtnTapped(_ sender: Any)
     {
@@ -74,13 +81,15 @@ class KTLoginViewController: KTBaseViewController, KTLoginViewModelDelegate {
         return txtPassword.text!
     }
     
-    func navigateToBooking()
-    {
-        self.performSegue(withIdentifier: "segueLoginToBooking", sender: self)
-    }
+//    override func navigateToBooking()
+//    {
+//        self.performSegue(withIdentifier: "segueLoginToBooking", sender: self)
+//    }
     func navigateToOTP() {
         self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
     }
+    
+    
     
     
 }

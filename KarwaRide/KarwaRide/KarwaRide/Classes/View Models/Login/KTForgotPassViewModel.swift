@@ -25,7 +25,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
         
         let NoPassword = "Password is mandatory"
         let NoRePassword = "Confirm Password is mandatory"
-        let PasswordNotMatch = "Password & confirm password don't batch"
+        let PasswordNotMatch = "Password & confirm password don't match"
         let NoPhone = "Mobile number is mandatory"
         let WrongPhone = "Please enter valid mobile number"
     }

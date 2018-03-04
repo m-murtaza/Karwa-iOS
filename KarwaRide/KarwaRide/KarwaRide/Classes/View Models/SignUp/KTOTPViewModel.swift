@@ -17,23 +17,14 @@ protocol KTOTPViewModelDelegate: KTViewModelDelegate {
 
 class KTOTPViewModel: KTBaseViewModel {
     
-    //weak var delegate: KTOTPViewModelDelegate?
-    
-    
-    
-//    init(del: Any) {
-//        super.init()
-//        delegate = del as? KTOTPViewModelDelegate
-//    }
-    
-    func confirmCode() -> Void {
+    func confirmCode() {
         
         let otp : String? = ((self.delegate as! KTOTPViewModelDelegate).OTPCode())!
         let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
         if KTUtils.isObjectNotNil(object: otp as AnyObject)
         {
             delegate?.showProgressHud(show: true, status: "Confirming Code")
-            KTUserManager().VarifyOTP(phone: phone, code: otp!
+            KTUserManager().varifyOTP(phone: phone, code: otp!
                 , completion: { (status, response) in
                     self.delegate?.showProgressHud(show: false)
                     if status == Constants.APIResponseStatus.SUCCESS
@@ -46,6 +37,24 @@ class KTOTPViewModel: KTBaseViewModel {
                         self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
                     }
             })
+        }
+    }
+    
+    func resendOTP() {
+        
+        let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
+        delegate?.showProgressHud(show: true, status: "Confirming Code")
+        KTUserManager().resendOTP(phone: phone) { (status, response) in
+            
+            self.delegate?.hideProgressHud()
+            if status == Constants.APIResponseStatus.SUCCESS {
+            
+                self.delegate?.showError!(title: "", message: "Verification code sent")
+            }
+            else
+            {
+                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
         }
     }
 }

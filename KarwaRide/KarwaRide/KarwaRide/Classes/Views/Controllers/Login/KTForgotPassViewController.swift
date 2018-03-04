@@ -14,6 +14,8 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
     @IBOutlet weak var txtPassword : UITextField!
     @IBOutlet weak var txtConfirmPass : UITextField!
     
+    var previousView : KTBaseLoginSignUpViewController?
+    
     //MARK: -View LifeCycle
     override func viewDidLoad() {
         viewModel = KTForgotPassViewModel(del:self)
@@ -32,6 +34,7 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
         {
             
             let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
+            otpView.previousView = previousView
             otpView.phone = phoneNumber()!
         }
     }
@@ -39,6 +42,7 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
     @IBAction func btnSubmitTapped(_ sender: Any)
     {
         (viewModel as! KTForgotPassViewModel).btnSubmitTapped()
+        //navigateToOTP()
     }
     
     func phoneNumber() -> String? {
@@ -55,5 +59,14 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
     
     func navigateToOTP() {
         self.performSegue(withIdentifier: "SegueForgotPassToOTP", sender: self)
+    }
+    
+    @IBAction func btnCloseTapped(_ sender: Any) {
+    
+        if previousView != nil {
+            
+            previousView?.dismiss()
+        }
+    
     }
 }

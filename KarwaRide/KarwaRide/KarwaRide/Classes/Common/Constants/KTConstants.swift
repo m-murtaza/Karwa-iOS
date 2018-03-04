@@ -140,6 +140,7 @@ struct Constants {
         static let GetUserInfo = "user/"
         static let SignUp = "user/"
         static let Otp = "user/otp"
+        static let ResendOtp = "user/otp"
         static let UpdatePass = "user/update"
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"

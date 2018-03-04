@@ -41,6 +41,7 @@
 		1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */; };
 		1839111A20457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111920457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift */; };
 		1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */; };
+		1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -133,6 +134,7 @@
 		1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSettingCalendarTableViewCell.swift; path = Classes/Views/Controllers/Settings/KTSettingCalendarTableViewCell.swift; sourceTree = "<group>"; };
 		1839111920457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSettingsProfileTableViewCell.swift; path = Classes/Views/Controllers/Settings/KTSettingsProfileTableViewCell.swift; sourceTree = "<group>"; };
 		1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+Logout.swift"; path = "Classes/DAL/KTUserManager+Logout.swift"; sourceTree = "<group>"; };
+		1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseLoginSignUpViewController.swift; path = Classes/Views/Controllers/Login/KTBaseLoginSignUpViewController.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 			children = (
 				186487241F0A368F00DDB003 /* KTLoginViewController.swift */,
 				1833CA692007467F00AD885B /* KTForgotPassViewController.swift */,
+				1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -880,6 +883,7 @@
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
 				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
+				1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */,
 				1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */,
 				18B9076A2022F89C000F45FE /* BookingConfermationPopupVC.swift in Sources */,
 				18A3948B2017089A000FCE92 /* KTVehicleType+CoreDataProperties.swift in Sources */,

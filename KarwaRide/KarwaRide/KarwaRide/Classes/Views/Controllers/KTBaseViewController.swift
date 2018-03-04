@@ -55,6 +55,10 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         }
         
     }
+    func hideProgressHud() {
+        
+        showProgressHud(show: false)
+    }
     
     func showProgressHud(show: Bool) {
         if show {

@@ -20,6 +20,7 @@ import UIKit
     func userIntraction(enable: Bool)
     func showProgressHud(show : Bool)
     func showProgressHud(show : Bool, status:String)
+    func hideProgressHud()
     func viewStoryboard() -> UIStoryboard
     
     @objc func dismiss()

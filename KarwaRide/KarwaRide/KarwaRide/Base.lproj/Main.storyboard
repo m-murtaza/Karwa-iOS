@@ -154,11 +154,11 @@
                                             <constraint firstAttribute="height" constant="1" id="z3D-Vr-Uo1"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-zq-thV">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-zq-thV">
                                         <rect key="frame" x="20" y="20" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                         <connections>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="rb3-zE-yOW"/>
                                         </connections>
@@ -212,7 +212,7 @@
                                     <color key="titleColor" red="0.47450980392156861" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="C3v-6E-eFB" kind="show" identifier="segueLoginToForgotPass" id="Fwc-Ed-VuC"/>
+                                    <segue destination="tJ4-oA-6Qf" kind="presentation" identifier="segueLoginToForgotPass" id="Jcx-8Y-dFX"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jw5-Sy-Exe">
@@ -265,8 +265,8 @@
                     <connections>
                         <outlet property="txtPassword" destination="vc5-gB-qdI" id="1mU-LH-RE0"/>
                         <outlet property="txtPhoneNumber" destination="lAT-zq-thV" id="71K-2G-4X7"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueLoginToBooking" id="bsC-QL-uBN"/>
-                        <segue destination="eo2-jb-kjP" kind="show" identifier="segueLoginToOTP" id="hoq-Ye-9op"/>
+                        <segue destination="L23-ue-kpU" kind="show" identifier="segueToBooking" id="bsC-QL-uBN"/>
+                        <segue destination="4DU-b4-Mvb" kind="presentation" identifier="segueLoginToOTP" id="uRk-Bz-EyY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -306,7 +306,7 @@
                                             <outlet property="delegate" destination="cQY-xs-9LD" id="2Kn-xx-UE7"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-cn-IYH">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-cn-IYH">
                                         <rect key="frame" x="20" y="115.5" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
@@ -443,12 +443,29 @@
                         <outlet property="txtMobileNo" destination="AQ3-T8-m79" id="Zf9-uL-goz"/>
                         <outlet property="txtName" destination="0Xl-Bt-XhR" id="MDy-T1-atY"/>
                         <outlet property="txtPassword" destination="mGX-vF-dNn" id="wkT-7Q-m5p"/>
-                        <segue destination="eo2-jb-kjP" kind="show" identifier="segueSignupToOtp" id="OD2-FV-5Rn"/>
+                        <segue destination="4DU-b4-Mvb" kind="presentation" identifier="segueSignupToOtp" id="UM1-sb-1vB"/>
+                        <segue destination="L23-ue-kpU" kind="show" identifier="segueToBooking" id="bJb-3g-Kix"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6q-tp-29f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2277.5999999999999" y="291.90404797601201"/>
+            <point key="canvasLocation" x="2183" y="331"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uDV-tU-Hpj">
+            <objects>
+                <navigationController id="tJ4-oA-6Qf" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y9z-l9-Pr3">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="C3v-6E-eFB" kind="relationship" relationship="rootViewController" id="etV-VZ-g1L"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uIu-NZ-sYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2908" y="46"/>
         </scene>
         <!--Forgot Your Password-->
         <scene sceneID="HEs-ut-tSI">
@@ -462,13 +479,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-YY-NES">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KhF-YY-NES" userLabel="No Worries! enter your details blow, and you will get your account back">
                                 <rect key="frame" x="40" y="104" width="295" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="295" id="CHS-XD-lVb"/>
                                 </constraints>
                                 <attributedString key="attributedText">
-                                    <fragment content="No Worries!">
+                                    <fragment content="No worries!">
                                         <attributes>
                                             <color key="NSColor" red="0.38039215686274508" green="0.37647058823529411" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="14" name="MicrosoftSansSerif"/>
@@ -591,6 +608,13 @@
                             <constraint firstItem="KhF-YY-NES" firstAttribute="top" secondItem="oq4-Lg-4bP" secondAttribute="bottom" constant="40" id="hDB-Yt-VG5"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Forgot Password" id="DDv-Hm-bQ0">
+                        <barButtonItem key="leftBarButtonItem" image="CrossBarButton" id="Arj-Ss-u9i">
+                            <connections>
+                                <action selector="btnCloseTapped:" destination="C3v-6E-eFB" id="bXv-Dh-4pA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="txtConfirmPass" destination="wYH-hK-gaq" id="3nA-yE-xTt"/>
@@ -604,7 +628,7 @@
                 </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qpe-6C-J6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3280.8000000000002" y="483.50824587706148"/>
+            <point key="canvasLocation" x="3822" y="178"/>
         </scene>
         <!--Verify Code-->
         <scene sceneID="1I3-Id-U4b">
@@ -619,20 +643,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="16" y="129.5" width="343" height="80"/>
+                                <rect key="frame" x="16" y="173.5" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8zJ-pj-Rtr"/>
                                     <constraint firstAttribute="width" constant="343" id="JUb-GW-Tvd"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification code has been sent to your mobile number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l">
-                                <rect key="frame" x="16" y="37" width="343" height="38.5"/>
+                                <rect key="frame" x="16" y="81" width="343" height="38.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="41" y="283.5" width="293" height="51"/>
+                                <rect key="frame" x="41" y="327.5" width="293" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
@@ -647,7 +671,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39w-hz-ala">
-                                <rect key="frame" x="57" y="217.5" width="240" height="46"/>
+                                <rect key="frame" x="57" y="261.5" width="240" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="didn't get?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-OC-hX7">
                                         <rect key="frame" x="8" y="13" width="127" height="21"/>
@@ -661,6 +685,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <state key="normal" title="resend"/>
+                                        <connections>
+                                            <action selector="btnReSendOTP:" destination="eo2-jb-kjP" eventType="touchUpInside" id="v25-LG-9K6"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -668,7 +695,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN">
-                                <rect key="frame" x="113" y="90.5" width="149" height="19"/>
+                                <rect key="frame" x="113" y="134.5" width="149" height="19"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -693,15 +720,37 @@
                             <constraint firstItem="hdP-zW-75l" firstAttribute="leading" secondItem="KfG-AU-Jcy" secondAttribute="leadingMargin" id="tff-SA-HtR"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Verify Code" id="Rrp-8H-Acd">
+                        <barButtonItem key="leftBarButtonItem" image="CrossBarButton" id="82A-qD-jUB">
+                            <connections>
+                                <action selector="btnCloseTapped:" destination="eo2-jb-kjP" id="YUn-68-O9h"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnConfirmCode" destination="9Ep-Vx-SD6" id="Slz-rg-tKc"/>
                         <outlet property="otpView" destination="d91-ed-7cZ" id="Vyt-2A-nKN"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueOtpToBooking" id="7Ph-lk-0dd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWc-R7-K4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2580" y="1080.8095952023989"/>
+            <point key="canvasLocation" x="2958" y="1066"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Z7Q-pd-bNm">
+            <objects>
+                <navigationController id="4DU-b4-Mvb" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qlb-el-xMz">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="eo2-jb-kjP" kind="relationship" relationship="rootViewController" id="6WV-05-qhJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oZN-AW-31r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2202" y="1340"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="xzn-OT-FS0">
@@ -1996,6 +2045,7 @@
         <image name="BookingVehiclePad" width="50" height="50"/>
         <image name="BookingWaves" width="315" height="39"/>
         <image name="CreateAnAccount" width="323" height="80"/>
+        <image name="CrossBarButton" width="16" height="16"/>
         <image name="KarwaLogoWithText" width="160" height="45"/>
         <image name="LMActiveback" width="320" height="50"/>
         <image name="LMBgImage" width="375" height="667"/>
@@ -2012,8 +2062,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="DD5-0R-hl2"/>
-        <segue reference="XB0-DD-FoR"/>
-        <segue reference="OD2-FV-5Rn"/>
-        <segue reference="Otx-q2-Oud"/>
+        <segue reference="bJb-3g-Kix"/>
+        <segue reference="UM1-sb-1vB"/>
+        <segue reference="67X-ka-fJY"/>
+        <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>

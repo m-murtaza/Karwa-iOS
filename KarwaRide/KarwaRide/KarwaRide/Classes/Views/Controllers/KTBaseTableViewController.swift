@@ -105,7 +105,10 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
         }
         
     }
-    
+    func hideProgressHud() {
+        
+        showProgressHud(show: false)
+    }
     func showProgressHud(show: Bool) {
         if show {
             SVProgressHUD.show();

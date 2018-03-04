@@ -15,6 +15,8 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     var otpString : String?
     var phone : String = ""
     
+    var previousView : KTBaseLoginSignUpViewController?
+    
     override func viewDidLoad() {
         viewModel = KTOTPViewModel(del:self)
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
        
         // Create the UI
         otpView.initalizeUI()
+        otpView.delegate = self
     }
 
 //    override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +50,23 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     */
 
     @IBAction func btnConfirmCode(_ sender: Any) {
-        (viewModel as! KTOTPViewModel).confirmCode()
+       (viewModel as! KTOTPViewModel).confirmCode()
+        
+        //navigateToBooking()
+    }
+    
+    @IBAction func btnCloseTapped(_ sender: Any) {
+        
+        if previousView != nil {
+            
+            previousView?.dismiss()
+        }
+        
+    }
+    
+    @IBAction func btnReSendOTP(_ sender: Any) {
+        
+        (viewModel as! KTOTPViewModel).resendOTP()
     }
     
     func OTPCode() -> String? {
@@ -58,8 +77,9 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     }
     
     func navigateToBooking() {
-        self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
-        
+        //self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
+       // previousView?.dismiss()
+        previousView?.navigateToBooking()
     }
 }
 

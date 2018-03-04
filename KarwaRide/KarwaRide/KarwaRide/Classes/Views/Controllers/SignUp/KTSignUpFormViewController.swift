@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate {
+class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewModelDelegate {
     
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtMobileNo: UITextField!
@@ -34,7 +34,12 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
         // Pass the selected object to the new view controller.
         if segue.identifier == "segueSignupToOtp"
         {
-            let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
+            
+                let otpViewNav : UINavigationController  = segue.destination as! UINavigationController
+                let otpView = otpViewNav.topViewController as! KTOTPViewController
+                otpView.previousView = self
+            
+            
             otpView.phone = mobileNo()!
         }
         if segue.identifier == "segueRegisterToWebView"
@@ -51,6 +56,8 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
     
     @IBAction func btnSubmitTapped(_ sender: Any) {
         (viewModel as! KTSignUpFormViewModel).SignUp()
+        //To Skip signup process
+        //--self.performSegue(withIdentifier: "segueSignupToOtp", sender: self)
     }
     
     // MARK: - View model Delegates
@@ -73,5 +80,9 @@ class KTSignUpFormViewController: KTBaseViewController,KTSignUpViewModelDelegate
     func navigateToOTP() {
         self.performSegue(withIdentifier: "segueSignupToOtp", sender: self)
     }
+//    override func navigateToBooking()
+//    {
+//        self.performSegue(withIdentifier: "segueSignUpToBooking", sender: self)
+//    }
     
 }
