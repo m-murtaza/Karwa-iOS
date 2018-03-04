@@ -125,7 +125,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
                                           buttonColor: UIColor(hexString: "129793"),
                                           font: UIFont(name: "MuseoSans-500", size: 18.0)!,
                                           showCancelButton: true)
-        datePicker.show("DatePickerDialog",
+        datePicker.show("Set Pickup Time",
                         doneButtonTitle: "Done",
                         cancelButtonTitle: "Cancel", defaultDate: (viewModel as! KTCreateBookingViewModel).selectedPickupDateTime,
                         minimumDate: currentDate,

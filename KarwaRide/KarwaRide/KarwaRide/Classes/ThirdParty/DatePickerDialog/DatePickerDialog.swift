@@ -12,7 +12,7 @@ open class DatePickerDialog: UIView {
     // MARK: - Constants
     private let kDefaultButtonHeight: CGFloat = 50
     private let kDefaultButtonSpacerHeight: CGFloat = 1
-    private let kCornerRadius: CGFloat = 7
+    private let kCornerRadius: CGFloat = 12
     private let kDoneButtonTag: Int     = 1
 
     // MARK: - Views
@@ -182,7 +182,7 @@ open class DatePickerDialog: UIView {
         container.layer.insertSublayer(gradient, at: 0)
 
         container.layer.cornerRadius = cornerRadius
-        container.layer.borderColor = UIColor(red: 198/255, green: 198/255, blue: 198/255, alpha: 1).cgColor
+        container.layer.borderColor = UIColor(hexString:"#CFCFCF").cgColor//UIColor(red: 198/255, green: 198/255, blue: 198/255, alpha: 1).cgColor
         container.layer.borderWidth = 1
         container.layer.shadowRadius = cornerRadius + 5
         container.layer.shadowOpacity = 0.1
@@ -201,7 +201,7 @@ open class DatePickerDialog: UIView {
         container.addSubview(lineView)
 
         //Title
-        self.titleLabel = UILabel(frame: CGRect(x: 10, y: 10, width: 280, height: 30))
+        self.titleLabel = UILabel(frame: CGRect(x: 0, y: 10, width: dialogSize.width, height: 30))
         self.titleLabel.textAlignment = .center
         self.titleLabel.textColor = self.textColor
         self.titleLabel.font = self.font.withSize(17)
@@ -220,7 +220,7 @@ open class DatePickerDialog: UIView {
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 30, width: 0, height: 0))
         datePicker.setValue(self.textColor, forKeyPath: "textColor")
         datePicker.autoresizingMask = .flexibleRightMargin
-        datePicker.frame.size.width = 300
+        datePicker.frame.size.width = 310
         datePicker.frame.size.height = 216
         return datePicker
     }
