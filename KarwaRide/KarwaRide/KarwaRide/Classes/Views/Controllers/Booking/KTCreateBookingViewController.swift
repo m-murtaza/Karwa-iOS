@@ -92,7 +92,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
     }
     @IBAction func btnDropAddTapped(_ sender: Any) {
-        
+        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
         
     }
     
@@ -142,6 +142,8 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         constraintBtnRequestBookingHeight.constant = 60
         constraintBtnRequestBookingBottomSpace.constant = 20
         btnRequestBooking.isHidden = false
+        
+        self.btnRequestBooking.setNeedsDisplay()
         self.view.layoutIfNeeded()
     }
     

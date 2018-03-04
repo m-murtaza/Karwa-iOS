@@ -29,7 +29,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
     struct SignUpValidationError {
         let NoName = "Name is mandatory"
         let NoPassword = "Password is mandatory"
-        let PasswordSixChar = "Password should be more then six charecter"
+        let PasswordSixChar = "Password should be more than six charecter"
         let NoPhone = "Mobile number is mandatory"
         let WrongPhone = "Please enter valid mobile number"
         let WrongEmail = "Please enter valid email address"
