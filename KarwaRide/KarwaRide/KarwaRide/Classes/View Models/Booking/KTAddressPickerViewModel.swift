@@ -35,7 +35,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         fetchLocations()
     }
     override func viewWillAppear() {
-        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+        if pickUpAddress != nil {
+            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+        }
         
         if dropOffAddress != nil{
             (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name)!)

@@ -91,6 +91,12 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     func dismiss()  {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func performSegue(name:String) {
+        
+        self.performSegue(withIdentifier: name, sender: self)
+    }
+    
     /*
     // MARK: - Navigation
 

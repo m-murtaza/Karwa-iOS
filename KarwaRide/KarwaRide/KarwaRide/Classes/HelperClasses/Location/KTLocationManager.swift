@@ -35,13 +35,44 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
     
     static let sharedInstance = KTLocationManager()
     
+    func locationIsOn() -> Bool {
+        var locationOn = true
+        
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                locationOn = false
+            case .authorizedAlways, .authorizedWhenInUse:
+                locationOn = true
+            }
+        } else {
+            locationOn = false
+        }
+        return locationOn
+    }
+    
     func setUp() {
+        
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         
         locManager.requestWhenInUseAuthorization()
         locManager.distanceFilter = 20.0
     }
+    
+    /*func showAlertForLocaiton() {
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Enter your title here", comment: ""), message: NSLocalizedString("Enter your message here.", comment: ""), preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+        let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: ""), style: .default) { (UIAlertAction) in
+            UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        //KTLocationManager.sharedInstance.present(alertController, animated: true, completion: nil)
+    }*/
     func start() {
         
         locManager.startUpdatingLocation()

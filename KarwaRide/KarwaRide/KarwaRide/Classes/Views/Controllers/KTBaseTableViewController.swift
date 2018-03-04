@@ -134,6 +134,11 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func performSegue(name:String) {
+        
+        self.performSegue(withIdentifier: name, sender: self)
+    }
+    
     func viewStoryboard() -> UIStoryboard {
         return self.storyboard!
         

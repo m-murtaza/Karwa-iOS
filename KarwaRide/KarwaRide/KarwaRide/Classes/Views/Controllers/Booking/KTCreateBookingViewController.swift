@@ -88,6 +88,14 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         navigationController?.isNavigationBarHidden = false
     }
     
+    @IBAction func btnPickupAddTapped(_ sender: Any) {
+        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
+    }
+    @IBAction func btnDropAddTapped(_ sender: Any) {
+        
+        
+    }
+    
     @IBAction func btnRequestBooking(_ sender: Any) {
         
         (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
@@ -154,13 +162,18 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueBookingToAddresspicker" {
-            print("prepare for sague")
+            
+            
             let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
             (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker()
-            destination.pickupAddress = (viewModel as! KTCreateBookingViewModel).pickUpAddress
+            
+            if (viewModel as! KTCreateBookingViewModel).pickUpAddress != nil {
+                
+                destination.pickupAddress = (viewModel as! KTCreateBookingViewModel).pickUpAddress
+            }
             if (viewModel as! KTCreateBookingViewModel).dropOffAddress != nil {
                 
-                    destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
+                destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
             }
         
             destination.previousView = (viewModel as! KTCreateBookingViewModel)
@@ -168,7 +181,25 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
     }
     
+    //MARK:- Locations
+    func showAlertForLocationServerOn() {
+        
+        let alertController = UIAlertController(title: NSLocalizedString("", comment: ""), message: NSLocalizedString("Location services are disabled. Please enable location services.", comment: ""), preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
+        let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: ""), style: .default) { (UIAlertAction) in
+            //UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+            
+            UIApplication.shared.open(NSURL(string: UIApplicationOpenSettingsURLString)! as URL, options: [:], completionHandler: nil)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(settingsAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     //MARK: - Location & Maps
+    
     func showCurrentLocationDot(show: Bool) {
         self.mapView!.isMyLocationEnabled = show
         self.mapView!.settings.myLocationButton = show

@@ -29,6 +29,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func clearMap()
     func showCurrentLocationDot(show : Bool)
     func moveToDetailView()
+    func showAlertForLocationServerOn()
 }
 
 let CHECK_DELAY = 90.0
@@ -56,23 +57,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         super.viewDidLoad()
         self.fetchVechicleTypes()
-        if KTLocationManager.sharedInstance.isLocationAvailable {
-            var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
-            
-            var userInfo : [String :Any] = [:]
-            userInfo["location"] = KTLocationManager.sharedInstance.currentLocation
-            
-            notification.userInfo = userInfo
-            //notification.userInfo!["location"] as! CLLocation
-            LocationManagerLocaitonUpdate(notification: notification)
-        }
-        else {
-            KTLocationManager.sharedInstance.start()
-        }
         
     }
     
     override func viewWillAppear() {
+        
+        setupCurrentLocaiton()
         
         super.viewWillAppear()
         
@@ -101,6 +91,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         timerFetchNearbyVehicle.invalidate()
     }
     
+    //MARK: - Navigation to Address Picker
+    func btnPickupAddTapped(){
+        
+        delegate?.performSegue(name: "segueBookingToAddresspicker")
+    }
+    
+    func btnDropAddTapped() {
+        
+        delegate?.performSegue(name: "segueBookingToAddresspicker")
+    }
     //MARK: - Navigation view functions
     func dismiss() {
         currentBookingStep = BookingStep.step3
@@ -396,8 +396,37 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         self.fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
     }
     
+    //MARK:- Location Manager
+    static var askedToTurnOnLocaiton : Bool = false
+    
+    func setupCurrentLocaiton() {
+        if KTLocationManager.sharedInstance.locationIsOn() {
+            if KTLocationManager.sharedInstance.isLocationAvailable {
+                var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
+                
+                var userInfo : [String :Any] = [:]
+                userInfo["location"] = KTLocationManager.sharedInstance.currentLocation
+                
+                notification.userInfo = userInfo
+                //notification.userInfo!["location"] as! CLLocation
+                LocationManagerLocaitonUpdate(notification: notification)
+            }
+            else {
+                KTLocationManager.sharedInstance.start()
+            }
+        }
+        else if KTCreateBookingViewModel.askedToTurnOnLocaiton == false{
+            (delegate as! KTCreateBookingViewModelDelegate).showAlertForLocationServerOn()
+            KTCreateBookingViewModel.askedToTurnOnLocaiton = true
+            
+        }
+    }
+    
     
     //MARK:- Location manager & NearBy vehicles
+    
+    
+    
     func isVehicleNearBy() -> Bool {
         var vehicleNearBy : Bool = false
         if self.nearByVehicle.count > 0 {

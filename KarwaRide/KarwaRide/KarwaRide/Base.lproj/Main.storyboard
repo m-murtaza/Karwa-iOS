@@ -1048,9 +1048,7 @@
                                             <color key="titleColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="2HM-Qh-ieS" kind="popoverPresentation" identifier="segueBookingToAddresspicker" popoverAnchorView="tqc-sp-fcf" id="DD5-0R-hl2">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <action selector="btnDropAddTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="COf-0x-dlh"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
@@ -1063,9 +1061,7 @@
                                             <color key="titleColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="2HM-Qh-ieS" kind="popoverPresentation" identifier="segueBookingToAddresspicker" popoverAnchorView="bcL-JI-p0b" id="2rQ-ed-ASM">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <action selector="btnPickupAddTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="vCf-fe-tnr"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dxv-8E-RNU">
@@ -1175,6 +1171,7 @@
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
                         <segue destination="yYS-V6-JUX" kind="show" identifier="segueBookToDetail" id="WCt-jx-7Th"/>
+                        <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspicker" id="FaI-op-NCo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1693,7 +1690,7 @@
                                             <constraint firstAttribute="width" constant="10" id="yDK-e1-aj1"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iKR-ng-bZe">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select your pickup" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iKR-ng-bZe">
                                         <rect key="frame" x="57" y="18" width="290" height="30"/>
                                         <color key="tintColor" red="0.0" green="0.60392156862745094" blue="0.66274509803921566" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -2061,7 +2058,6 @@
         <image name="UnderConstruction" width="750" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DD5-0R-hl2"/>
         <segue reference="bJb-3g-Kix"/>
         <segue reference="UM1-sb-1vB"/>
         <segue reference="67X-ka-fJY"/>
