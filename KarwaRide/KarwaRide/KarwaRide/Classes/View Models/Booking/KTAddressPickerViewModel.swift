@@ -16,26 +16,18 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func setPickUp(pick: String)
     func setDropOff(drop: String)
     func navigateToPreviousView(pickup: KTGeoLocation?, dropOff:KTGeoLocation?)
+    func inFocusTextField() -> SelectedTextField 
 }
 
 
-enum SelectedTextField: Int {
-    case PickupAddress = 1
-    case DropoffAddress = 2
-}
 
-enum SelectedInputMechanism : Int {
-    
-    case ListView = 1
-    case MapView = 2
-}
 
 class KTAddressPickerViewModel: KTBaseViewModel {
     
     public var pickUpAddress : KTGeoLocation?
     public var dropOffAddress : KTGeoLocation?
-    public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
-    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
+//    public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
+//    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     private var locations : [KTGeoLocation] = []
     
     //MARK: - View Lifecycle
@@ -73,12 +65,13 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         locations  = KTBookingManager().allGeoLocations()!
         (delegate as! KTAddressPickerViewModelDelegate).loadData()
-        delegate?.userIntraction(enable: true)
+        //delegate?.userIntraction(enable: true)
     }
     
     func fetchLocations()  {
         
-        delegate?.userIntraction(enable: false)
+        //delegate?.userIntraction(enable: false)
+        delegate?.showProgressHud(show: true, status: "Fetching Locations")
         KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success
@@ -87,8 +80,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
-                self.delegate?.userIntraction(enable: true)
+                //self.delegate?.userIntraction(enable: true)
             }
+            self.delegate?.hideProgressHud()
         }
     }
     
@@ -109,10 +103,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         delegate?.showProgressHud(show: true, status: "Searching Location")
         KTBookingManager().address(forSearch: query) { (status, response) in
         
-            self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
-            (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
-            //self.delegate?.userIntraction(enable: true)
-            self.delegate?.hideProgressHud()
+            if status == Constants.APIResponseStatus.SUCCESS {
+                self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
+                (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
+                //self.delegate?.userIntraction(enable: true)
+                self.delegate?.hideProgressHud()
+            }
+        
+            else {
+                
+                self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                self.delegate?.hideProgressHud()
+            }
         }
     }
     
@@ -122,7 +124,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         fetchLocation(forGeoCoordinate: location , completion: {
             (reverseLocation) -> Void in
             
-            if self.selectedTxtField == SelectedTextField.DropoffAddress {
+            if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress {
                 self.dropOffAddress  = reverseLocation
                 (self.delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: reverseLocation.name!)
             }

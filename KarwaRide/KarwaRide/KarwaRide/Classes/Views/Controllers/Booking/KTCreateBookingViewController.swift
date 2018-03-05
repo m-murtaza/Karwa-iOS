@@ -163,8 +163,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueBookingToAddresspicker" {
-            
+        if segue.identifier == "segueBookingToAddresspickerForDropoff"  || segue.identifier == "segueBookingToAddresspickerForPickup"{
             
             let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
             (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker()
@@ -179,6 +178,14 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
             }
         
             destination.previousView = (viewModel as! KTCreateBookingViewModel)
+            
+            if segue.identifier == "segueBookingToAddresspickerForDropoff" {
+                
+                destination.selectedTxtField = SelectedTextField.DropoffAddress
+            }
+            else {
+                destination.selectedTxtField = SelectedTextField.PickupAddress
+            }
             
         }
     }

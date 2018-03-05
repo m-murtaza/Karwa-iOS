@@ -1178,7 +1178,8 @@
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
                         <segue destination="yYS-V6-JUX" kind="show" identifier="segueBookToDetail" id="WCt-jx-7Th"/>
-                        <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspicker" id="FaI-op-NCo"/>
+                        <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForPickup" id="FaI-op-NCo"/>
+                        <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForDropoff" id="4lO-1G-0fb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1346,7 +1347,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xon-4r-yED" id="UoP-KA-kY9">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingsInitialsHolder" translatesAutoresizingMaskIntoConstraints="NO" id="MKV-yX-U0n">
@@ -1388,7 +1389,7 @@
                                         <rect key="frame" x="0.0" y="108" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eWz-1F-iPj" id="G5W-Ck-3zd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingIconPassword" translatesAutoresizingMaskIntoConstraints="NO" id="hjT-L3-puO">
@@ -1413,7 +1414,7 @@
                                         <rect key="frame" x="0.0" y="158" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WbN-Ew-Efz" id="8ec-jL-A3u">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingIconCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="eCh-TJ-15I">
@@ -2065,6 +2066,7 @@
         <image name="UnderConstruction" width="750" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="4lO-1G-0fb"/>
         <segue reference="bsC-QL-uBN"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="67X-ka-fJY"/>

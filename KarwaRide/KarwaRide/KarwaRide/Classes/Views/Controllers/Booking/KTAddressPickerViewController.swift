@@ -9,16 +9,16 @@
 import UIKit
 import GoogleMaps
 
-//enum SelectedTextField: Int {
-//    case PickupAddress = 1
-//    case DropoffAddress = 2
-//}
-//
-//enum SelectedInputMechanism : Int {
-//    
-//    case ListView = 1
-//    case MapView = 2
-//}
+enum SelectedTextField: Int {
+    case PickupAddress = 1
+    case DropoffAddress = 2
+}
+
+enum SelectedInputMechanism : Int {
+    
+    case ListView = 1
+    case MapView = 2
+}
 
 let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 3
 let SEC_WAIT_START_SEARCH = 1.5
@@ -43,6 +43,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     private var searchTimer: Timer = Timer()
     private var searchText : String = ""
     
+    public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
+    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
+    
     ///This bool will be use to check if selected text box should be clear when user type a charecter.
     ///http://redmine.karwatechnologies.com/issues/2430 Point D.
     ///D)Tap and type in the Set current/destination address should clear the current/destination address
@@ -59,13 +62,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
         //Do not move these line after super.viewDidLoad
         super.viewDidLoad()
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.txtDropAddress.becomeFirstResponder()
+        
+        if selectedTxtField == SelectedTextField.DropoffAddress {
+            self.txtDropAddress.becomeFirstResponder()
+        }
+        else {
+            self.txtPickAddress.becomeFirstResponder()
+        }
     }
     
     //MARK: - Map related functions.
@@ -73,7 +80,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
         
-        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.DropoffAddress {
+        if selectedTxtField == SelectedTextField.DropoffAddress {
             //If focus is on Dropoff Address.
             if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil  {
                 //If dropoff is not empty.
@@ -140,7 +147,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         txtDropAddress.inputView = nil
         txtPickAddress.inputView = nil
         
-        (viewModel as! KTAddressPickerViewModel).selectedInputMechanism = SelectedInputMechanism.ListView
+        selectedInputMechanism = SelectedInputMechanism.ListView
         
         txtPickAddress.tintColor = UIColor(hexString:"#006170")
         txtPickAddress.backgroundColor = UIColor.white
@@ -151,7 +158,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
-        (viewModel as! KTAddressPickerViewModel).selectedInputMechanism = SelectedInputMechanism.MapView
+        selectedInputMechanism = SelectedInputMechanism.MapView
         
         addMap()
         
@@ -169,7 +176,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         txtDropAddress.inputView = UIView()
         txtPickAddress.inputView = UIView()
         
-        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.DropoffAddress {
+        if selectedTxtField == SelectedTextField.DropoffAddress {
             
             self.txtDropAddress.resignFirstResponder()
             txtDropAddress.becomeFirstResponder()
@@ -183,7 +190,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         txtPickAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
         txtDropAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
         
-        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.PickupAddress {
+        if selectedTxtField == SelectedTextField.PickupAddress {
             
            txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
         }
@@ -193,6 +200,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
     }
     // MARK: - View Model Delegate
+    func inFocusTextField() -> SelectedTextField {
+        
+        return selectedTxtField
+    }
+    
     func loadData() {
         tblView.reloadData()
     }
@@ -245,7 +257,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath.row, type:(viewModel as! KTAddressPickerViewModel).selectedTxtField)
+        (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath.row, type:selectedTxtField)
     }
     
     // MARK: - UItextField Delegates
@@ -255,18 +267,18 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }*/
     
     func textFieldDidBeginEditing(_ textField: UITextField){
-        if (viewModel as! KTAddressPickerViewModel).selectedInputMechanism == SelectedInputMechanism.MapView {
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
             
             updateSelectedField(txt:textField)
         }
         
         if textField.isEqual(txtDropAddress) {
             
-            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.DropoffAddress
+            selectedTxtField = SelectedTextField.DropoffAddress
         }
         else {
             
-            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.PickupAddress
+            selectedTxtField = SelectedTextField.PickupAddress
         }
         
         
@@ -275,11 +287,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.PickupAddress && (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
+        if selectedTxtField == SelectedTextField.PickupAddress && (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
             
             textField.text = (viewModel as! KTAddressPickerViewModel).pickUpAddress?.name
         }
-        else if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.DropoffAddress && (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
+        else if selectedTxtField == SelectedTextField.DropoffAddress && (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
             
             textField.text = (viewModel as! KTAddressPickerViewModel).dropOffAddress?.name
         }

@@ -94,12 +94,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //MARK: - Navigation to Address Picker
     func btnPickupAddTapped(){
         
-        delegate?.performSegue(name: "segueBookingToAddresspicker")
+        delegate?.performSegue(name: "segueBookingToAddresspickerForPickup")
     }
     
     func btnDropAddTapped() {
         
-        delegate?.performSegue(name: "segueBookingToAddresspicker")
+        delegate?.performSegue(name: "segueBookingToAddresspickerForDropoff")
     }
     //MARK: - Navigation view functions
     func dismiss() {
