@@ -1030,6 +1030,11 @@
                                             <constraint firstAttribute="width" constant="345" id="4Bk-Uk-sfG"/>
                                             <constraint firstAttribute="height" constant="130" id="GUS-Gw-LDE"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="4Bk-Uk-sfG"/>
+                                            </mask>
+                                        </variation>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingPickDropBar" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-3t-46I">
                                         <rect key="frame" x="44" y="30" width="10" height="59"/>
@@ -1096,9 +1101,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="mBc-3t-46I" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" constant="44" id="29c-uo-MaM"/>
+                                    <constraint firstItem="mBc-3t-46I" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" priority="998" constant="44" id="29c-uo-MaM"/>
                                     <constraint firstItem="mBc-3t-46I" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" constant="30" id="9hC-LL-gWn"/>
                                     <constraint firstAttribute="bottom" secondItem="Dxv-8E-RNU" secondAttribute="bottom" id="AhN-xn-HZq"/>
+                                    <constraint firstItem="fg2-1w-EdU" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" constant="15" id="HFR-IM-mY1"/>
                                     <constraint firstItem="tqc-sp-fcf" firstAttribute="trailing" secondItem="bcL-JI-p0b" secondAttribute="trailing" id="JGI-aW-K9A"/>
                                     <constraint firstItem="fg2-1w-EdU" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" id="Mde-gX-m7d"/>
                                     <constraint firstAttribute="height" constant="130" id="OmZ-Ai-RAX"/>
@@ -1108,6 +1114,7 @@
                                     <constraint firstItem="Dxv-8E-RNU" firstAttribute="leading" secondItem="e8y-S6-yyP" secondAttribute="trailing" constant="5" id="UMH-0D-d7V"/>
                                     <constraint firstItem="bcL-JI-p0b" firstAttribute="trailing" secondItem="fg2-1w-EdU" secondAttribute="trailing" constant="-18" id="W4A-Gi-3PE"/>
                                     <constraint firstItem="fg2-1w-EdU" firstAttribute="centerX" secondItem="QCN-32-Vxz" secondAttribute="centerX" id="Xlu-c8-36N"/>
+                                    <constraint firstAttribute="trailing" secondItem="fg2-1w-EdU" secondAttribute="trailing" constant="15" id="iaf-3J-tu1"/>
                                     <constraint firstItem="bcL-JI-p0b" firstAttribute="leading" secondItem="mBc-3t-46I" secondAttribute="trailing" constant="25" id="lgp-KO-7et"/>
                                     <constraint firstItem="e8y-S6-yyP" firstAttribute="centerY" secondItem="Dxv-8E-RNU" secondAttribute="centerY" id="moW-2y-iKG"/>
                                     <constraint firstItem="bcL-JI-p0b" firstAttribute="top" secondItem="mBc-3t-46I" secondAttribute="top" constant="-8" id="tFm-qd-ewc"/>
