@@ -271,13 +271,26 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
                 gmsMarker.append(marker)
             }
         }
-        self.focusMapToShowAllMarkers(gsmMarker: gmsMarker)
+        if gmsMarker.count > 0 {
+            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+        }
+        else {
+            
+            self.focusMapToCurrentLocation()
+        }
     }
     
-    func focusMapToShowAllMarkers(gsmMarker : Array<GMSMarker>) {
+    func focusMapToCurrentLocation() {
+        if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false) {
+            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            mapView.animate(with: update)
+        }
+    }
+    
+    func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
 
             var bounds = GMSCoordinateBounds()
-            for marker: GMSMarker in gsmMarker {
+            for marker: GMSMarker in gmsMarker {
                 bounds = bounds.includingCoordinate(marker.position)
             }
         
