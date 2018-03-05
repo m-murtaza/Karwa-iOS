@@ -141,6 +141,13 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         txtPickAddress.inputView = nil
         
         (viewModel as! KTAddressPickerViewModel).selectedInputMechanism = SelectedInputMechanism.ListView
+        
+        txtPickAddress.tintColor = UIColor(hexString:"#006170")
+        txtPickAddress.backgroundColor = UIColor.white
+        txtDropAddress.tintColor = UIColor(hexString:"#006170")
+        txtDropAddress.backgroundColor = UIColor.white
+        
+        //006170
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
@@ -173,6 +180,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             txtPickAddress.becomeFirstResponder()
         }
         
+        txtPickAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
+        txtDropAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
+        
+        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.PickupAddress {
+            
+           txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+        }
+        else {
+            
+           txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+        }
     }
     // MARK: - View Model Delegate
     func loadData() {
@@ -180,14 +198,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func navigateToPreviousView(pickup: KTGeoLocation?, dropOff: KTGeoLocation?) {
-        if pickup != nil {
+        //if pickup != nil {
             
             previousView?.pickUpAddress = pickup
-        }
-        if dropOff != nil {
+        //}
+        //if dropOff != nil {
             
             previousView?.dropOffAddress = dropOff
-        }
+        //}
         
         previousView?.dismiss()
     }
@@ -299,14 +317,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         if txt.isEqual(txtDropAddress) {
             searchText = txtDropAddress.text!
-            //(viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.DropoffAddress
             txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             txtPickAddress.backgroundColor = UIColor.white
             imgMapMarker.image = UIImage(named: "APDropOffMarker")
         }
         else {
             searchText = txtPickAddress.text!
-           // (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.PickupAddress
             txtDropAddress.backgroundColor = UIColor.white
             txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             imgMapMarker.image = UIImage(named: "APPickUpMarker")

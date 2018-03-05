@@ -87,6 +87,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                self.delegate?.userIntraction(enable: true)
             }
         }
     }
@@ -173,7 +174,10 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         if pickUpAddress != nil && (skipDestination || dropOffAddress != nil) {
             
             if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()) {
-                    (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+                if skipDestination {
+                    dropOffAddress = nil
+                }
+                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
                 
             }
         }
