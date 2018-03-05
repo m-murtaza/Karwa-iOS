@@ -19,11 +19,23 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
 }
 
 
+enum SelectedTextField: Int {
+    case PickupAddress = 1
+    case DropoffAddress = 2
+}
+
+enum SelectedInputMechanism : Int {
+    
+    case ListView = 1
+    case MapView = 2
+}
+
 class KTAddressPickerViewModel: KTBaseViewModel {
     
     public var pickUpAddress : KTGeoLocation?
     public var dropOffAddress : KTGeoLocation?
     public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
+    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     private var locations : [KTGeoLocation] = []
     
     //MARK: - View Lifecycle
@@ -92,12 +104,14 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     func fetchLocations(forSearch query:String) {
        
-        delegate?.userIntraction(enable: false)
+        //delegate?.userIntraction(enable: false)
+        delegate?.showProgressHud(show: true, status: "Searching Location")
         KTBookingManager().address(forSearch: query) { (status, response) in
         
             self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
             (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
-            self.delegate?.userIntraction(enable: true)
+            //self.delegate?.userIntraction(enable: true)
+            self.delegate?.hideProgressHud()
         }
     }
     
@@ -154,16 +168,6 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         moveBackIfNeeded(skipDestination: false)
     }
-    
-//    private func moveBackIfNeeded() {
-//        if pickUpAddress != nil && dropOffAddress != nil {
-//
-//            if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() {
-//
-//                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
-//            }
-//        }
-//    }
     
     private func moveBackIfNeeded(skipDestination : Bool) {
         if pickUpAddress != nil && (skipDestination || dropOffAddress != nil) {

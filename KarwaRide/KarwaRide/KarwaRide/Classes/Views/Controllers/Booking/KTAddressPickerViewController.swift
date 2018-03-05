@@ -9,10 +9,21 @@
 import UIKit
 import GoogleMaps
 
-enum SelectedTextField: Int {
-    case PickupAddress = 1
-    case DropoffAddress = 2
-}
+//enum SelectedTextField: Int {
+//    case PickupAddress = 1
+//    case DropoffAddress = 2
+//}
+//
+//enum SelectedInputMechanism : Int {
+//    
+//    case ListView = 1
+//    case MapView = 2
+//}
+
+let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 3
+let SEC_WAIT_START_SEARCH = 1.5
+let SELECTED_TEXT_FIELD_COLOR : UIColor = UIColor(hexString: "#F5F5F5")
+
 class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate {
     
     @IBOutlet weak var tblView: UITableView!
@@ -32,7 +43,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     private var searchTimer: Timer = Timer()
     private var searchText : String = ""
     
-    let selectedTxtFieldColor : UIColor = UIColor(hexString: "#F5F5F5")
+    ///This bool will be use to check if selected text box should be clear when user type a charecter.
+    ///http://redmine.karwatechnologies.com/issues/2430 Point D.
+    ///D)Tap and type in the Set current/destination address should clear the current/destination address
+    private var removeTxtFromTextBox : Bool = true
     
     override func viewDidLoad() {
         viewModel = KTAddressPickerViewModel(del:self)
@@ -125,9 +139,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         txtDropAddress.inputView = nil
         txtPickAddress.inputView = nil
+        
+        (viewModel as! KTAddressPickerViewModel).selectedInputMechanism = SelectedInputMechanism.ListView
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
+        (viewModel as! KTAddressPickerViewModel).selectedInputMechanism = SelectedInputMechanism.MapView
         
         addMap()
         
@@ -220,22 +237,54 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }*/
     
     func textFieldDidBeginEditing(_ textField: UITextField){
-        updateSelectedField(txt:textField)
+        if (viewModel as! KTAddressPickerViewModel).selectedInputMechanism == SelectedInputMechanism.MapView {
+            
+            updateSelectedField(txt:textField)
+        }
         
+        if textField.isEqual(txtDropAddress) {
+            
+            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.DropoffAddress
+        }
+        else {
+            
+            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.PickupAddress
+        }
+        
+        
+        //print("+++textFieldDidBeginEditing+++")
+        removeTxtFromTextBox = true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.PickupAddress && (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
+            
+            textField.text = (viewModel as! KTAddressPickerViewModel).pickUpAddress?.name
+        }
+        else if (viewModel as! KTAddressPickerViewModel).selectedTxtField == SelectedTextField.DropoffAddress && (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
+            
+            textField.text = (viewModel as! KTAddressPickerViewModel).dropOffAddress?.name
+        }
+        return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
+        //print("---textFieldDidEndEditing---")
         
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        if removeTxtFromTextBox == true {
+            removeTxtFromTextBox = false
+            textField.text = ""
+        }
         searchText = textField.text!;
         if searchTimer.isValid {
             
             searchTimer.invalidate()
         }
-        if let txt = textField.text, txt.count >= 3 {
-            searchTimer = Timer.scheduledTimer(timeInterval: 3, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: false)
+        if let txt = textField.text, txt.count >= MIN_ALLOWED_TEXT_COUNT_SEARCH {
+            searchTimer = Timer.scheduledTimer(timeInterval: SEC_WAIT_START_SEARCH, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: false)
         }
         
         return true;
@@ -250,16 +299,16 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         if txt.isEqual(txtDropAddress) {
             searchText = txtDropAddress.text!
-            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.DropoffAddress
-            txtDropAddress.backgroundColor = selectedTxtFieldColor
+            //(viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.DropoffAddress
+            txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             txtPickAddress.backgroundColor = UIColor.white
             imgMapMarker.image = UIImage(named: "APDropOffMarker")
         }
         else {
             searchText = txtPickAddress.text!
-            (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.PickupAddress
+           // (viewModel as! KTAddressPickerViewModel).selectedTxtField = SelectedTextField.PickupAddress
             txtDropAddress.backgroundColor = UIColor.white
-            txtPickAddress.backgroundColor = selectedTxtFieldColor
+            txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             imgMapMarker.image = UIImage(named: "APPickUpMarker")
         }
     }
