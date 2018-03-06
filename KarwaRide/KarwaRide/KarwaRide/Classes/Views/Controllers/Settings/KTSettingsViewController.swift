@@ -42,6 +42,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     }
     */
     
+    func reloadTable()  {
+        self.tableView.reloadData()
+    }
+    
     // MARK: - UITableView DataSource & Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numRows = 1
@@ -184,7 +188,14 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 4 {
+        if indexPath.section == 0{
+            
+            if indexPath.row == 0 {
+                
+                self.performSegue(name: "segueSettingToEditAccount")
+            }
+        }
+        else if indexPath.section == 4 {
             if indexPath.row == 0 {
                 (viewModel as! KTSettingsViewModel).startLogoutProcess()
             }

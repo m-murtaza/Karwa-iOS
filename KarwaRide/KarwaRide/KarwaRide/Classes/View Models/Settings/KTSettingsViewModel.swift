@@ -9,12 +9,18 @@
 import UIKit
 protocol KTSettingsViewModelDelegate {
     func showLogoutConfirmAlt()
+    func reloadTable()
 }
 class KTSettingsViewModel: KTBaseViewModel {
 
     private var userInfo : KTUser?
     override func viewDidLoad() {
-        userInfo = KTUserManager().fetchUser()
+        
+    }
+    
+    override func viewWillAppear() {
+        userInfo = KTUserManager().loginUserInfo()
+        (delegate as! KTSettingsViewModelDelegate).reloadTable()
     }
     
     func userName() -> String {

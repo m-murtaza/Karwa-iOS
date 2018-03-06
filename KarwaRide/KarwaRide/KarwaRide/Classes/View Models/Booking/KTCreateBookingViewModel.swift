@@ -133,27 +133,31 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     private func drawDirectionOnMap() {
         
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
-        
-        if pickUpAddress != nil {
-        //Setting Pick marker
-            (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: (pickUpAddress?.latitude)!,longitude: (pickUpAddress?.longitude)!) , image: UIImage(named: "BookingMapDirectionPickup")!)
-        }
-        
-        if dropOffAddress != nil {
-        //Setting drop
-            //dropOffAddress?.latitude = 25.275636
-            //dropOffAddress?.longitude = 51.489212
-            
-            (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: (dropOffAddress?.latitude)!,longitude: (dropOffAddress?.longitude)!) , image: UIImage(named: "BookingMapDirectionDropOff")!)
-        }
-        
         if pickUpAddress != nil && dropOffAddress != nil {
+            //if both pickup and dropoff are available then draw path.
             drawPath()
         }
+        else {
+            //else draw point what ever is available
+            if pickUpAddress != nil {
+            //Setting Pick marker
+                (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: (pickUpAddress?.latitude)!,longitude: (pickUpAddress?.longitude)!) , image: UIImage(named: "BookingMapDirectionPickup")!)
+            }
+            
+            if dropOffAddress != nil {
+            //Setting drop
+                //dropOffAddress?.latitude = 25.275636
+                //dropOffAddress?.longitude = 51.489212
+                
+                (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: (dropOffAddress?.latitude)!,longitude: (dropOffAddress?.longitude)!) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            }
+        }
+        
+        
     }
     
-    func drawPath()
-    {
+    func drawPath(){
+        
         let origin = String(format:"%f", (pickUpAddress?.latitude)!) + "," + String(format:"%f", (pickUpAddress?.longitude)!)
         //"\(String(describing: pickUpAddress?.latitude)),\(String(describing: pickUpAddress?.longitude))"
         let destination = String(format:"%f", (dropOffAddress?.latitude)!) + "," + String(format:"%f", (dropOffAddress?.longitude)!)
@@ -424,8 +428,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     
     //MARK:- Location manager & NearBy vehicles
-    
-    
     
     func isVehicleNearBy() -> Bool {
         var vehicleNearBy : Bool = false

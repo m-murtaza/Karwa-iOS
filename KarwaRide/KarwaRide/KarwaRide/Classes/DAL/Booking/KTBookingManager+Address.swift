@@ -99,7 +99,9 @@ extension KTBookingManager
     
     func allGeoLocations() -> [KTGeoLocation]? {
         
-        return KTGeoLocation.mr_findAll() as? [KTGeoLocation]
+        let predicate : NSPredicate = NSPredicate(format: "locationId != -1")
+        return KTGeoLocation.mr_findAll(with: predicate) as? [KTGeoLocation]
+        //return KTGeoLocation.mr_findAll() as? [KTGeoLocation]
     }
     
     

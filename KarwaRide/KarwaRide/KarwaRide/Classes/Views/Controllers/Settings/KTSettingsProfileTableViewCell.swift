@@ -44,6 +44,10 @@ class KTSettingsProfileTableViewCell: UITableViewCell {
     }
     
     func firstLetter(sth: String)->String{
-        return String(sth.first!)
+        var first : String = ""
+        if !sth.isEmpty{
+            first = String(sth.first!)
+        }
+        return first
     }
 }

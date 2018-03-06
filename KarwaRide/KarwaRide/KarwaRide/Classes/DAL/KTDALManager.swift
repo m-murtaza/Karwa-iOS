@@ -47,7 +47,7 @@ class KTDALManager: KTBase {
                 }
                 else
                 {
-                    successBlock(response[Constants.ResponseAPIKey.Data] as! [AnyHashable:Any],completionBlock)
+                    successBlock(((response[Constants.ResponseAPIKey.Data] != nil) ? response[Constants.ResponseAPIKey.Data] : ["":""])  as! [AnyHashable:Any],completionBlock)
                 }
                 
                 //self.handleAPISuccess(status: status, response: response, completion: completionBlock)

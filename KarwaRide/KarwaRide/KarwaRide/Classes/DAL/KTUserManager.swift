@@ -42,11 +42,10 @@ class KTUserManager: KTDALManager {
         })
     }
     
-    func fetchUser() -> KTUser?
-    {
+    func loginUserInfo() -> KTUser? {
         var user : KTUser? = nil
         var users: [NSManagedObject]!
-        users = KTUser.mr_findAll()
+        users = KTUser.mr_findAll(in: NSManagedObjectContext.mr_default())
         if users.count > 0 {
             user = users[0] as? KTUser
         }
@@ -74,7 +73,7 @@ class KTUserManager: KTDALManager {
     // Mark: - Login User in new Application
     private func isUserAlreadyLogin(completion: @escaping (Bool) -> Void)
     {
-        let loginUser : KTUser? = fetchUser()
+        let loginUser : KTUser? = loginUserInfo()
         guard (loginUser != nil) else {
             
             completion(false)

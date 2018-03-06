@@ -92,7 +92,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
     }
     @IBAction func btnDropAddTapped(_ sender: Any) {
-        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
+        (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
         
     }
     
@@ -338,16 +338,32 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
         polyline.map = self.mapView
         
+        /*let lat1 = (path.coordinate(at:0)).latitude
+        let lon1 = (path.coordinate(at:0)).longitude
+        
+        let lat2 = (path.coordinate(at:path.count()-1)).latitude
+        let lon2 = (path.coordinate(at:path.count()-1)).longitude
+        
+        let str : String = "Start \(lat1) - \(lon1)  ---- End  \(lat2) - \(lon2)"
+        
+        print (str)*/
+        
+        //addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
+        //addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
+        
         var bounds = GMSCoordinateBounds()
         for index in 1 ... (path.count().toInt) {
             bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
-
+            //addMarkerOnMap(location: path.coordinate(at:UInt(index)), image: UIImage(named: "BookingMapDirectionPickup")!)
         }
         
         mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
         
         bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
         self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+        
+        addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
+        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
     }
     
     @objc func animatePolylinePath() {
@@ -410,6 +426,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
         
         self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
+        self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#006170"), for: UIControlState.normal)
     }
     
     func setPickDate(date: String) {

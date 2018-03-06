@@ -141,7 +141,7 @@ struct Constants {
         static let SignUp = "user/"
         static let Otp = "user/otp"
         static let ResendOtp = "user/otp"
-        static let UpdatePass = "user/update"
+        static let UpdateUserAccount = "user/update"
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
@@ -174,5 +174,13 @@ struct Constants {
     struct UpdatePassParam {
         static let Phone = "Phone"
         static let Password = "Password"
+    }
+    
+    struct EditAccountInfoParam {
+        static let Name = "Name"
+        static let Email = "Email"
+        static let OldPassword = "Password"
+        static let NewPassword = "NewPassword"
+        static let DeviceToken = "DeviceToken"
     }
 }
