@@ -80,6 +80,7 @@ class KTWebClient: NSObject {
         if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
         {
             httpHeaders["Session-ID"] = sessionId
+            print("Session-ID = \(sessionId)")
         }
         else {
             print("Unable to find SessionID for API call \(uri)")

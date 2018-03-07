@@ -81,12 +81,24 @@ struct Constants {
         static let SessionID = "SessionID"
     }
     
-    struct AddressPickResponseAPIKey {
+    struct GeoLocationResponseAPIKey {
         static let LocationId = "ID"
         static let Latitude = "Lat"
         static let Longitude = "Lon"
         static let Name = "Name"
         static let Area = "Area"
+    }
+    
+    struct BookmarkResponseAPIKey {
+        static let Name = "Name"
+        static let Address = "Address"
+        static let Latitude = "Lat"
+        static let Longitude = "Lon"
+    }
+    
+    struct BookmarkName {
+        static let Home = "home"
+        static let Work = "work"
     }
     
     struct KTAPIStatus : OptionSet {
@@ -147,6 +159,7 @@ struct Constants {
         static let AddressPickViaGeoCode = "geocode"
         static let AddressPickViaSearch = "geocode/name"
         static let Booking = "/booking"
+        static let GetBookMark = "/bookmarks/personal"
     }
     
     struct TrackTaxiParams {

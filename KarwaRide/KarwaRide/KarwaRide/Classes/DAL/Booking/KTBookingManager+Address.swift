@@ -87,12 +87,12 @@ extension KTBookingManager
     
     private func saveGeoLocation(location: [AnyHashable:Any],context localContext: NSManagedObjectContext) -> KTGeoLocation{
         
-        let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.AddressPickResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
+        let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.GeoLocationResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
         
-                loc.latitude = location[Constants.AddressPickResponseAPIKey.Latitude] as! Double
-                loc.longitude = location[Constants.AddressPickResponseAPIKey.Longitude] as! Double
-                loc.area = location[Constants.AddressPickResponseAPIKey.Area] as? String
-                loc.name = location[Constants.AddressPickResponseAPIKey.Name] as? String
+                loc.latitude = location[Constants.GeoLocationResponseAPIKey.Latitude] as! Double
+                loc.longitude = location[Constants.GeoLocationResponseAPIKey.Longitude] as! Double
+                loc.area = location[Constants.GeoLocationResponseAPIKey.Area] as? String
+                loc.name = location[Constants.GeoLocationResponseAPIKey.Name] as? String
                 // TODO: Add parser for type
         return loc
     }

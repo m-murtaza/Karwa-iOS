@@ -32,15 +32,23 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         lblVersion.text = (viewModel as! KTSettingsViewModel).appVersion()
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "segueSettingsToSetHome" {
+            let destination : KTSetHomeWorkViewController = segue.destination as! KTSetHomeWorkViewController
+            destination.bookmarkType = BookmarkType.home
+        }
+        else if segue.identifier == "segueSettingsToSetWork" {
+            let destination : KTSetHomeWorkViewController = segue.destination as! KTSetHomeWorkViewController
+            destination.bookmarkType = BookmarkType.work
+        }
     }
-    */
+    
     
     func reloadTable()  {
         self.tableView.reloadData()
@@ -199,6 +207,15 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             if indexPath.row == 0 {
                 self.performSegue(name: "segueSettingToChangePassword")
             }
+        }
+        else if indexPath.section == 2 {
+            if indexPath.row == 0 {
+                self.performSegue(name: "segueSettingsToSetHome")
+            }
+            else if indexPath.row == 1 {
+                self.performSegue(name: "segueSettingsToSetWork")
+            }
+            
         }
         else if indexPath.section == 4 {
             if indexPath.row == 0 {
