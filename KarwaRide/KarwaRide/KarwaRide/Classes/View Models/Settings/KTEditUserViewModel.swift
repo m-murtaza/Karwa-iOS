@@ -25,7 +25,7 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func userName() -> String {
         var name :String = ""
-        if user != nil {
+        if user != nil && user!.name != nil{
             
             name = (user?.name)!
         }

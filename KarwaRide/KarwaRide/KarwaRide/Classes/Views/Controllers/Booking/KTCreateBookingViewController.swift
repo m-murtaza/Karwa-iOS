@@ -254,7 +254,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     }
     
     var gmsMarker : Array<GMSMarker> = Array()
-    func addMarkerOnMap(vTrack: [VehicleTrack]) {
+    @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
         gmsMarker.removeAll()
         clearMap()
         vTrack.forEach { track in

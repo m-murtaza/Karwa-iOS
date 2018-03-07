@@ -40,8 +40,8 @@ class KTLeftMenuModel: KTBaseViewModel {
     @objc func userLogin(notification: Notification) {
         let user:KTUser? = KTUserManager().loginUserInfo()
         if user != nil {
-            (delegate as! KTLeftMenuDelegate).updateUserName(name: (user?.name!)!)  
-            (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user?.phone!)!)
+            (delegate as! KTLeftMenuDelegate).updateUserName(name: (user?.name != nil) ? (user?.name!)! : "No Name")
+            (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user?.phone != nil) ? (user?.phone!)! : "No Phone")
             
         }
     }

@@ -482,7 +482,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     self.nearByVehicle.append(self.userCurrentLocaitonMarker())
                 }
                 
-                (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle)
+                
+                if (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle)
+                }
             }
         })
     }

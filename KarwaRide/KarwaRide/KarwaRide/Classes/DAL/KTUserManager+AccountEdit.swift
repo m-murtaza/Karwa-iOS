@@ -20,6 +20,8 @@ extension KTUserManager {
                 user.name = param[Constants.EditAccountInfoParam.Name] as? String
                 user.email = param[Constants.EditAccountInfoParam.Email] as? String
                 NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+            
+            completionBlock(Constants.APIResponseStatus.SUCCESS,response)
             })
     }
     
