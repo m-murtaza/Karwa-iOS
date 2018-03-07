@@ -1613,7 +1613,7 @@
         <!--Change Password-->
         <scene sceneID="Hgc-mM-N8i">
             <objects>
-                <viewController id="H7q-4G-kKr" sceneMemberID="viewController">
+                <viewController id="H7q-4G-kKr" customClass="KTChangePasswordViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cwv-L5-prh"/>
                         <viewControllerLayoutGuide type="bottom" id="HzH-8O-Yez"/>
@@ -1622,43 +1622,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cRH-af-ndf" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="40" y="73" width="295" height="150"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRH-af-ndf" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="40" y="114" width="295" height="150"/>
                                 <subviews>
-                                    <textField opaque="NO" tag="101" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zAV-OZ-iHi">
+                                    <textField opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Old Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zAV-OZ-iHi">
                                         <rect key="frame" x="20" y="10" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="vKj-Jf-DTp"/>
                                         </constraints>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
                                         <connections>
-                                            <outlet property="delegate" destination="EQh-Tc-xlS" id="m0a-3D-ShY"/>
+                                            <outlet property="delegate" destination="H7q-4G-kKr" id="jwK-E7-iWU"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jn7-o0-t4N">
+                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jn7-o0-t4N">
                                         <rect key="frame" x="20" y="60" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="5D6-iH-CKz"/>
                                         </constraints>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
-                                            <outlet property="delegate" destination="EQh-Tc-xlS" id="LjO-Am-nTa"/>
+                                            <outlet property="delegate" destination="H7q-4G-kKr" id="XSc-tB-Cax"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-XL-Xyw">
+                                    <textField opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Re enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-XL-Xyw">
                                         <rect key="frame" x="20" y="110" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="xlh-ze-2sE"/>
                                         </constraints>
-                                        <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="H7q-4G-kKr" id="hiG-Vj-gx7"/>
+                                        </connections>
                                     </textField>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-4n-F8t">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIa-4n-F8t">
                                         <rect key="frame" x="0.0" y="99.5" width="295" height="1"/>
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81568627449999997" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1666,7 +1669,7 @@
                                             <constraint firstAttribute="height" constant="1" id="VhI-PQ-Ujc"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BZf-WS-8KA">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZf-WS-8KA">
                                         <rect key="frame" x="0.0" y="49.5" width="295" height="1"/>
                                         <color key="backgroundColor" red="0.81176470590000005" green="0.81568627449999997" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1706,25 +1709,37 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKI-lM-zdp" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="39" y="298" width="295" height="51"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKI-lM-zdp" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="40" y="284" width="295" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="ejX-My-JAB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                <state key="normal" title="SAVE" backgroundImage="SummitButton">
+                                <state key="normal" title="CHANGE" backgroundImage="SummitButton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="btnSaveTapped:" destination="EQh-Tc-xlS" eventType="touchUpInside" id="y4F-OJ-fp9"/>
+                                    <action selector="btnChangeTapped:" destination="H7q-4G-kKr" eventType="touchUpInside" id="pHG-NY-GBJ"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eKI-lM-zdp" firstAttribute="width" secondItem="cRH-af-ndf" secondAttribute="width" id="64v-cH-Gbt"/>
+                            <constraint firstItem="cRH-af-ndf" firstAttribute="centerX" secondItem="vLi-5u-6DP" secondAttribute="centerX" id="Bh6-ah-pmf"/>
+                            <constraint firstItem="eKI-lM-zdp" firstAttribute="top" secondItem="cRH-af-ndf" secondAttribute="bottom" constant="20" id="DDR-IF-grO"/>
+                            <constraint firstItem="cRH-af-ndf" firstAttribute="top" secondItem="cwv-L5-prh" secondAttribute="bottom" constant="50" id="lhv-F1-o2l"/>
+                            <constraint firstItem="eKI-lM-zdp" firstAttribute="centerX" secondItem="vLi-5u-6DP" secondAttribute="centerX" id="qff-KH-OtA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Change Password" id="1no-rJ-5mt">
                         <barButtonItem key="backBarButtonItem" title="  " id="n8y-ud-Kt0"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="txtNewPassword" destination="jn7-o0-t4N" id="0S8-m6-agc"/>
+                        <outlet property="txtOldPassword" destination="zAV-OZ-iHi" id="Kci-CR-vMH"/>
+                        <outlet property="txtReNewPassword" destination="JxN-XL-Xyw" id="7aq-dz-340"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vg3-YG-uRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

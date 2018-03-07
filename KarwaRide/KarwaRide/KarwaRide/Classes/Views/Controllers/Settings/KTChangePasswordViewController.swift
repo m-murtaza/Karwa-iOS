@@ -8,12 +8,17 @@
 
 import UIKit
 
-class KTChangePasswordViewController: KTBaseViewController {
+class KTChangePasswordViewController: KTBaseViewController,KTChangePasswordViewModelDelegate, UITextFieldDelegate {
 
+    @IBOutlet weak var txtOldPassword: UITextField!
+    @IBOutlet weak var txtNewPassword: UITextField!
+    @IBOutlet weak var txtReNewPassword: UITextField!
     override func viewDidLoad() {
+        viewModel = KTChangePasswordViewModel(del: self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        txtOldPassword.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,5 +36,34 @@ class KTChangePasswordViewController: KTBaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func btnChangeTapped(_ sender: Any) {
+        (viewModel as! KTChangePasswordViewModel).btnChangePasswordTapped(oldPassword: txtOldPassword.text, password: txtNewPassword.text, rePassword: txtReNewPassword.text)
+    }
+    
+    func showSuccessAltAndMoveBack() {
+        let alertController = UIAlertController(title: "Password Updated", message: "Your Password is updated", preferredStyle: .alert)
+        
+        //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        //alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        // Try to find next responder
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard.
+            textField.resignFirstResponder()
+        }
+        // Do not add a line break
+        return false
+    }
+    
 }

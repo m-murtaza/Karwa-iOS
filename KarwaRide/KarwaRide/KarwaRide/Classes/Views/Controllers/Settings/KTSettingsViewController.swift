@@ -195,6 +195,11 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 self.performSegue(name: "segueSettingToEditAccount")
             }
         }
+        else if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                self.performSegue(name: "segueSettingToChangePassword")
+            }
+        }
         else if indexPath.section == 4 {
             if indexPath.row == 0 {
                 (viewModel as! KTSettingsViewModel).startLogoutProcess()

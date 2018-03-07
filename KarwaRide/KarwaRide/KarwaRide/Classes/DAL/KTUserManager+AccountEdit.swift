@@ -14,6 +14,19 @@ extension KTUserManager {
         let param : NSMutableDictionary = [Constants.EditAccountInfoParam.Name : name,
                                            Constants.EditAccountInfoParam.Email : email]
         
+        updateUserInfo(param: param as! [String : Any], completion: { (status, response) in
+            
+                let user : KTUser = self.loginUserInfo()!
+                user.name = param[Constants.EditAccountInfoParam.Name] as? String
+                user.email = param[Constants.EditAccountInfoParam.Email] as? String
+                NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+            })
+    }
+    
+    func updatePassword(oldPassword: String, password: String, completion completionBlock:@escaping KTDALCompletionBlock) {
+        let param : NSMutableDictionary = [Constants.EditAccountInfoParam.OldPassword : oldPassword,
+                                           Constants.EditAccountInfoParam.NewPassword : password]
+        
         updateUserInfo(param: param as! [String : Any], completion: completionBlock)
     }
     
@@ -22,10 +35,10 @@ extension KTUserManager {
             (responseData,cBlock) in
             
             //do {
-                let user : KTUser = self.loginUserInfo()!
+                /*let user : KTUser = self.loginUserInfo()!
                 user.name = param[Constants.EditAccountInfoParam.Name] as? String
                 user.email = param[Constants.EditAccountInfoParam.Email] as? String
-                NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+                NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()*/
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
             //}
             //catch _{

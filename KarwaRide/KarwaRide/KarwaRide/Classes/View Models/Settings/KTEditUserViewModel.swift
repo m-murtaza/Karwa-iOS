@@ -55,7 +55,7 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func btnSaveTapped(userName : String?, userEmail : String?) {
         let error = validate(userName: userName, userEmail: userEmail)
-        if  error == nil {
+        if  error.isEmpty {
             //No error
             delegate?.showProgressHud(show: true, status: "Updating Account Info")
             KTUserManager().updateUserInfo(name: userName!, email: (userEmail != nil) ? userEmail! : "", completion: { (status, response) in
@@ -70,12 +70,12 @@ class KTEditUserViewModel: KTBaseViewModel {
             })
         }
         else {
-            self.delegate?.showError!(title: "Error" , message: error!)
+            self.delegate?.showError!(title: "Error" , message: error)
         }
     }
     
-    func validate(userName : String?, userEmail : String?) -> String? {
-        var errorString :String?
+    func validate(userName : String?, userEmail : String?) -> String {
+        var errorString :String = ""
         if userName == nil || userName == "" {
             errorString = "Please enter your name"
         }
