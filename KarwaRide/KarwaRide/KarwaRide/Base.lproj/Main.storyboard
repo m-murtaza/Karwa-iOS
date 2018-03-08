@@ -1646,6 +1646,9 @@
                                         <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="sUc-OZ-u40" id="j3s-Cd-wq4"/>
+                                        </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APICHome" translatesAutoresizingMaskIntoConstraints="NO" id="SMq-BC-vnY">
                                         <rect key="frame" x="20" y="23.5" width="20" height="20"/>

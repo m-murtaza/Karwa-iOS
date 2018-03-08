@@ -127,6 +127,27 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
         }
     }
     
+    func fetchLocations(forSearch query:String) {
+        
+        //delegate?.userIntraction(enable: false)
+        delegate?.showProgressHud(show: true, status: "Searching Location")
+        KTBookingManager().address(forSearch: query) { (status, response) in
+            
+            if status == Constants.APIResponseStatus.SUCCESS {
+                self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
+                (self.delegate as! KTSetHomeWorkViewModelDelegate).loadData()
+                //self.delegate?.userIntraction(enable: true)
+                self.delegate?.hideProgressHud()
+            }
+                
+            else {
+                
+                self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                self.delegate?.hideProgressHud()
+            }
+        }
+    }
+    
     func currentLocation() -> CLLocationCoordinate2D {
         return KTLocationManager.sharedInstance.currentLocation.coordinate
     }

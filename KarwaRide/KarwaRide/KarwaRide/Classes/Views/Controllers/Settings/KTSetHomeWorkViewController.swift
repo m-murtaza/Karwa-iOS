@@ -15,11 +15,15 @@ enum BookmarkType : Int{
     case work = 2
 }
 
-class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource,GMSMapViewDelegate {
+class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource,GMSMapViewDelegate,UITextFieldDelegate {
 
     public var bookmarkType : BookmarkType = BookmarkType.home
     public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     public var previousView : KTSettingsViewController?
+    
+    private var removeTxtFromTextBox : Bool = true
+    private var searchTimer: Timer = Timer()
+    private var searchText : String = ""
     
     @IBOutlet weak var txtBookmarkType: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
@@ -175,6 +179,44 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         (viewModel as! KTSetHomeWorkViewModel).saveBookmark(location: mapView.camera.target)
     }
     
+    // MARK: - Textfield Delegate
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        
+        removeTxtFromTextBox = true
+    }
+    
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//
+//        return true
+//    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        //print("---textFieldDidEndEditing---")
+//
+//    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if removeTxtFromTextBox == true {
+            removeTxtFromTextBox = false
+            textField.text = ""
+        }
+        searchText = textField.text!;
+        if searchTimer.isValid {
+            
+            searchTimer.invalidate()
+        }
+        if let txt = textField.text, txt.count >= MIN_ALLOWED_TEXT_COUNT_SEARCH {
+            searchTimer = Timer.scheduledTimer(timeInterval: SEC_WAIT_START_SEARCH, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: false)
+        }
+        
+        return true;
+    }
+    
+    @objc func updateTimer() {
+        print("OK Start searching now")
+        
+        (viewModel as! KTSetHomeWorkViewModel).fetchLocations(forSearch: searchText)
+    }
     // MARK: - TableView Delegates
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (viewModel as! KTSetHomeWorkViewModel).numberOfRow()
