@@ -44,7 +44,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     private var searchText : String = ""
     
     public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
-    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
+    private var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     
     ///This bool will be use to check if selected text box should be clear when user type a charecter.
     ///http://redmine.karwatechnologies.com/issues/2430 Point D.

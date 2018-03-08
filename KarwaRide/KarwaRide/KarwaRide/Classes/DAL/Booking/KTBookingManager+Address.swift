@@ -85,7 +85,7 @@ extension KTBookingManager
         }
     }
     
-    private func saveGeoLocation(location: [AnyHashable:Any],context localContext: NSManagedObjectContext) -> KTGeoLocation{
+    public func saveGeoLocation(location: [AnyHashable:Any],context localContext: NSManagedObjectContext) -> KTGeoLocation{
         
         let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.GeoLocationResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
         

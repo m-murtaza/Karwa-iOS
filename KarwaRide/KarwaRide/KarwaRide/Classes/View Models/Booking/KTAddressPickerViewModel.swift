@@ -26,8 +26,6 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     public var pickUpAddress : KTGeoLocation?
     public var dropOffAddress : KTGeoLocation?
-//    public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
-//    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     private var locations : [KTGeoLocation] = []
     
     //MARK: - View Lifecycle

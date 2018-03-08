@@ -13,15 +13,16 @@ enum BookmarkType : Int{
     case work = 2
 }
 
-class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate {
+class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource {
 
     public var bookmarkType : BookmarkType = BookmarkType.home
+    public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     
     @IBOutlet weak var txtBookmarkType: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var imgBookmarkTypeIcon: UIImageView!
     @IBOutlet weak var imgBookmarkAddressIcon: UIImageView!
-    
+    @IBOutlet weak var tblView: UITableView!
     
     override func viewDidLoad() {
         viewModel = KTSetHomeWorkViewModel(del: self)
@@ -55,5 +56,32 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "Set Home address" : "Set Work address"
         imgBookmarkTypeIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "APICHome" : "APICWork")
         imgBookmarkAddressIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "SHWIconHome" : "SHWIconWork")
+    }
+    
+    
+    // MARK: - TableView Delegates
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (viewModel as! KTSetHomeWorkViewModel).numberOfRow()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 76.0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : AddressPickCell = tableView.dequeueReusableCell(withIdentifier: "AddPickCellIdentifier", for: indexPath) as! AddressPickCell
+        
+        cell.addressTitle.text = (viewModel as! KTSetHomeWorkViewModel).addressTitle(forRow: indexPath.row)
+        cell.addressArea.text = (viewModel as! KTSetHomeWorkViewModel).addressArea(forRow: indexPath.row)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //(viewModel as! KTSetHomeWorkViewModel).didSelectRow(at:indexPath.row, type:selectedTxtField)
+    }
+    
+    func loadData() {
+        tblView.reloadData()
     }
 }

@@ -94,6 +94,7 @@ struct Constants {
         static let Address = "Address"
         static let Latitude = "Lat"
         static let Longitude = "Lon"
+        static let Place =  "Place"
     }
     
     struct BookmarkName {

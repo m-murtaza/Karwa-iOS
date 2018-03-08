@@ -41,6 +41,13 @@ class KTBookmarkManager: KTDALManager {
             bmark?.address = bookmark[Constants.BookmarkResponseAPIKey.Address] as? String
             bmark?.latitude = (bookmark[Constants.BookmarkResponseAPIKey.Latitude] as? Double)!
             bmark?.longitude = (bookmark[Constants.BookmarkResponseAPIKey.Longitude] as? Double)!
+            
+            guard var _ = (bookmark[Constants.BookmarkResponseAPIKey.Place]! as AnyObject).count  else {
+                return
+            }
+            
+            let geoLocation: KTGeoLocation = KTBookingManager().saveGeoLocation(location: bookmark[Constants.BookmarkResponseAPIKey.Place] as! [AnyHashable : Any], context: NSManagedObjectContext.mr_default())
+            bmark?.bookmarkToGeoLocation = geoLocation
         }
     }
     
