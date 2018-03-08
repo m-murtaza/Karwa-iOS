@@ -152,8 +152,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: (dropOffAddress?.latitude)!,longitude: (dropOffAddress?.longitude)!) , image: UIImage(named: "BookingMapDirectionDropOff")!)
             }
         }
-        
-        
     }
     
     func drawPath(){

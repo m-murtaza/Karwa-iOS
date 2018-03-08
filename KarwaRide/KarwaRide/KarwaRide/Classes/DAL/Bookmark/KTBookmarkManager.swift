@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class KTBookmarkManager: KTDALManager {
 
@@ -92,6 +93,36 @@ class KTBookmarkManager: KTDALManager {
         }
     }
     
+    func updateHome(withCoordinate loc: CLLocationCoordinate2D, completion completionBlock:@escaping KTDALCompletionBlock) {
+        
+        let url: String = Constants.APIURL.SetHomeBookmark
+        let param : [String:Any] = [Constants.UpdateBookmarkParam.Latitude:loc.latitude,
+                                    Constants.UpdateBookmarkParam.Longitude:loc.longitude]
+        updateBookmark(url: url, param: param) { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS {
+                
+                self.saveHome(withCoordinate: loc)
+                
+            }
+            completionBlock(status,response)
+        }
+    }
+    
+    func updateWork(withCoordinate loc: CLLocationCoordinate2D, completion completionBlock:@escaping KTDALCompletionBlock) {
+        
+        let url: String = Constants.APIURL.SetWorkBookmark
+        let param : [String:Any] = [Constants.UpdateBookmarkParam.Latitude:loc.latitude,
+                                    Constants.UpdateBookmarkParam.Longitude:loc.longitude]
+        updateBookmark(url: url, param: param) { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS {
+                
+                self.saveHome(withCoordinate: loc)
+                
+            }
+            completionBlock(status,response)
+        }
+    }
+    
     func updateWork(withLocation loc:KTGeoLocation, completion completionBlock:@escaping KTDALCompletionBlock) {
         let url: String = Constants.APIURL.SetWorkBookmark
         let param : [String:Any] = [Constants.UpdateBookmarkParam.LocationID:loc.locationId]
@@ -113,6 +144,30 @@ class KTBookmarkManager: KTDALManager {
         }
     }
     
+    private func saveHome(withCoordinate loc: CLLocationCoordinate2D) {
+        
+        saveBookmark(withCoordinate: loc, name: Constants.BookmarkName.Home)
+    }
+    
+    private func saveWork(withCoordinate loc: CLLocationCoordinate2D) {
+        
+        saveBookmark(withCoordinate: loc, name: Constants.BookmarkName.Work)
+    }
+    
+    private func saveBookmark(withCoordinate loc: CLLocationCoordinate2D, name: String) {
+        
+        var bmark : KTBookmark? = getBookmark(with: name)
+        if bmark == nil {
+            
+            bmark = KTBookmark.mr_createEntity(in: NSManagedObjectContext.mr_default())
+        }
+        bmark?.name = name
+        bmark?.address = "Unknown"
+        bmark?.latitude = loc.latitude
+        bmark?.longitude = loc.longitude
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        
+    }
     private func saveHome(withLocation loc:KTGeoLocation) {
         
         saveBookmark(withLocaiton: loc, name: Constants.BookmarkName.Home)

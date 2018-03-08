@@ -19,9 +19,6 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func inFocusTextField() -> SelectedTextField 
 }
 
-
-
-
 class KTAddressPickerViewModel: KTBaseViewModel {
     
     public var pickUpAddress : KTGeoLocation?

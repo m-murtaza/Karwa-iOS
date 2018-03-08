@@ -120,9 +120,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
     }
-    
 
-    
     //MARK: - User Actions
     
     @IBAction func btnConfirmTapped(_ sender: Any) {

@@ -8,12 +8,14 @@
 
 import UIKit
 import CoreLocation
+import GoogleMaps
+
 enum BookmarkType : Int{
     case home = 1
     case work = 2
 }
 
-class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource {
+class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource,GMSMapViewDelegate {
 
     public var bookmarkType : BookmarkType = BookmarkType.home
     public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
@@ -25,11 +27,21 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
     @IBOutlet weak var imgBookmarkAddressIcon: UIImageView!
     @IBOutlet weak var tblView: UITableView!
     
+    @IBOutlet weak var imgListSelected : UIImageView!
+    @IBOutlet weak var imgMapSelected : UIImageView!
+    @IBOutlet weak var mapView : GMSMapView!
+    @IBOutlet weak var mapSuperView : UIView!
+    @IBOutlet weak var imgMapMarker : UIImageView!
+    
     override func viewDidLoad() {
         viewModel = KTSetHomeWorkViewModel(del: self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        initializeMap()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,6 +69,12 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "Set Home address" : "Set Work address"
         imgBookmarkTypeIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "APICHome" : "APICWork")
         imgBookmarkAddressIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "SHWIconHome" : "SHWIconWork")
+        
+        imgMapMarker.image = UIImage(named: ((bookmarkType == BookmarkType.home) ? "APPickUpMarker":"APDropOffMarker"))
+        
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
+            
+        }
     }
     
     func UpdateAddressText(address add:String) {
@@ -75,6 +93,86 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         //alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - Toggle
+    @IBAction func btnListViewTapped(_ sender: Any) {
+        
+        imgListSelected.isHidden = false
+        imgMapSelected.isHidden = true
+        //self.txtDropAddress.becomeFirstResponder()
+        self.tblView.isHidden = false
+        self.mapSuperView.isHidden = true
+    
+        selectedInputMechanism = SelectedInputMechanism.ListView
+    }
+    
+    @IBAction func btnMapViewTapped(_ sender: Any) {
+        selectedInputMechanism = SelectedInputMechanism.MapView
+        
+        updateMap()
+        
+        imgListSelected.isHidden = true
+        imgMapSelected.isHidden = false
+        
+        
+        self.tblView.isHidden = true
+        self.mapSuperView.isHidden = false
+    }
+    
+    private func initializeMap () {
+        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTSetHomeWorkViewModel).currentLocation()
+        
+        if (viewModel as! KTSetHomeWorkViewModel).bookmark != nil {
+            
+            focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTSetHomeWorkViewModel).bookmark?.latitude)!, longitude: ((viewModel as! KTSetHomeWorkViewModel).bookmark?.longitude)!)
+        }
+        
+        let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
+        
+        
+        
+        self.mapView.camera = camera;
+        self.mapView.delegate = self
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+    
+    }
+    
+    private func updateMap() {
+        
+        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTSetHomeWorkViewModel).currentLocation()
+        
+        if (viewModel as! KTSetHomeWorkViewModel).bookmark != nil {
+            
+            focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTSetHomeWorkViewModel).bookmark?.latitude)!, longitude: ((viewModel as! KTSetHomeWorkViewModel).bookmark?.longitude)!)
+        }
+        
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        mapView.animate(with: update)
+
+    }
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
+            (viewModel as! KTSetHomeWorkViewModel).MapStopMoving(location: mapView.camera.target)
+        }
+    }
+    
+    //Mark:- IBAction
+    @IBAction func btnSaveTapped(_ sender: Any) {
+        
+        (viewModel as! KTSetHomeWorkViewModel).saveBookmark(location: mapView.camera.target)
     }
     
     // MARK: - TableView Delegates
