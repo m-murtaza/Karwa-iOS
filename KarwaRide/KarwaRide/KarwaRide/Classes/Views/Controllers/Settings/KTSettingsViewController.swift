@@ -42,10 +42,12 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         if segue.identifier == "segueSettingsToSetHome" {
             let destination : KTSetHomeWorkViewController = segue.destination as! KTSetHomeWorkViewController
             destination.bookmarkType = BookmarkType.home
+            destination.previousView = self
         }
         else if segue.identifier == "segueSettingsToSetWork" {
             let destination : KTSetHomeWorkViewController = segue.destination as! KTSetHomeWorkViewController
             destination.bookmarkType = BookmarkType.work
+            destination.previousView = self
         }
     }
     

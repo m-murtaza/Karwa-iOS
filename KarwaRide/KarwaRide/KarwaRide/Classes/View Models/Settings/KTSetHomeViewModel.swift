@@ -11,8 +11,10 @@ import CoreLocation
 protocol KTSetHomeWorkViewModelDelegate {
     func typeOfBookmark() -> BookmarkType
     func UpdateUI(name bookmarkName:String, location: CLLocationCoordinate2D)
-    
+    func UpdateAddressText(address add:String)
     func loadData()
+    //func bmarkType() -> BookmarkType
+    func showSuccessAltAndMoveBack()
 }
 
 class KTSetHomeWorkViewModel: KTBaseViewModel {
@@ -91,7 +93,22 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
         return area
     }
     
-    func didSelectRow(at idx:Int, type:SelectedTextField) {
+    func didSelectRow(at idx:Int) {
+        let location : KTGeoLocation  = locations[idx]
+        
+        (delegate as! KTSetHomeWorkViewModelDelegate).UpdateAddressText(address: (location.name)!)
+        
+        if (delegate as! KTSetHomeWorkViewModelDelegate).typeOfBookmark() == BookmarkType.home {
+            KTBookmarkManager().updateHome(withLocation: location) { (status, response) in
+                self.handleUpdateResponse(status: status,response: response)
+            }
+        }
+        else {
+            KTBookmarkManager().updateWork(withLocation: location) { (status, response) in
+                self.handleUpdateResponse(status: status,response: response)
+            }
+        }
+        
 //        if type == SelectedTextField.PickupAddress {
 //            
 //            pickUpAddress = locations[idx]
@@ -104,5 +121,14 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
 //        }
 //        
 //        moveBackIfNeeded(skipDestination: false)
+    }
+    
+    func handleUpdateResponse(status : String, response:[AnyHashable:Any]) {
+        if status == Constants.APIResponseStatus.SUCCESS {
+            (delegate as! KTSetHomeWorkViewModelDelegate).showSuccessAltAndMoveBack()
+        }
+        else {
+            self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+        }
     }
 }

@@ -160,7 +160,9 @@ struct Constants {
         static let AddressPickViaGeoCode = "geocode"
         static let AddressPickViaSearch = "geocode/name"
         static let Booking = "/booking"
-        static let GetBookMark = "/bookmarks/personal"
+        static let GetBookmark = "bookmarks/personal"
+        static let SetHomeBookmark = "bookmark/personal/home"
+        static let SetWorkBookmark = "bookmark/personal/work"
     }
     
     struct TrackTaxiParams {
@@ -196,5 +198,11 @@ struct Constants {
         static let OldPassword = "Password"
         static let NewPassword = "NewPassword"
         static let DeviceToken = "DeviceToken"
+    }
+    
+    struct UpdateBookmarkParam {
+        static let LocationID = "LocationID"
+        static let Latitude = "Lat"
+        static let Longitude = "Lon"
     }
 }

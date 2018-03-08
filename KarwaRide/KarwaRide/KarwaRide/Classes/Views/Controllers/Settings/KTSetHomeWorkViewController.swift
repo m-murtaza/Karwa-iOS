@@ -17,6 +17,7 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
 
     public var bookmarkType : BookmarkType = BookmarkType.home
     public var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
+    public var previousView : KTSettingsViewController?
     
     @IBOutlet weak var txtBookmarkType: UITextField!
     @IBOutlet weak var txtAddress: UITextField!
@@ -58,6 +59,23 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         imgBookmarkAddressIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "SHWIconHome" : "SHWIconWork")
     }
     
+    func UpdateAddressText(address add:String) {
+        
+        txtAddress.text = add
+    }
+    
+    func showSuccessAltAndMoveBack() {
+        let alertController = UIAlertController(title: "\((bookmarkType == BookmarkType.home) ? "Home" : "Work") Updated", message: "Your \((bookmarkType == BookmarkType.home) ? "Home" : "Work") address is updated", preferredStyle: .alert)
+        
+        //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            self.previousView?.dismiss()
+        }
+        
+        //alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     // MARK: - TableView Delegates
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,7 +96,7 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //(viewModel as! KTSetHomeWorkViewModel).didSelectRow(at:indexPath.row, type:selectedTxtField)
+        (viewModel as! KTSetHomeWorkViewModel).didSelectRow(at:indexPath.row)
     }
     
     func loadData() {
