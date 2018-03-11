@@ -64,6 +64,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         super.viewDidLoad()
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -73,10 +74,72 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         else {
             self.txtPickAddress.becomeFirstResponder()
         }
+        
+        initializeMap()
     }
     
     //MARK: - Map related functions.
-    private func addMap() {
+    private func initializeMap () {
+        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
+        
+        if selectedTxtField == SelectedTextField.PickupAddress {
+            
+            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
+                
+                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
+            }
+        }
+        else {
+            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
+                
+                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
+            }
+        }
+        
+        let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
+        
+        
+        
+        self.mapView.camera = camera;
+        self.mapView.delegate = self
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+        
+    }
+    
+    private func updateMap() {
+        
+        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
+        
+        if selectedTxtField == SelectedTextField.PickupAddress {
+        
+            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
+                
+                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
+            }
+        }
+        else {
+            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
+                
+                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
+            }
+        }
+        
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        mapView.animate(with: update)
+        
+    }
+    
+    //TODO: - Delete this function 
+    /*private func addMap() {
         
         var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
         
@@ -114,11 +177,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
-    }
+    }*/
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        
-        (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
+            (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
+        }
     }
 
     //MARK: - User Actions
@@ -158,7 +222,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBAction func btnMapViewTapped(_ sender: Any) {
         selectedInputMechanism = SelectedInputMechanism.MapView
         
-        addMap()
+        updateMap()
         
         imgListSelected.isHidden = true
         imgMapSelected.isHidden = false
@@ -268,6 +332,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         if selectedInputMechanism == SelectedInputMechanism.MapView {
             
             updateSelectedField(txt:textField)
+            
         }
         
         if textField.isEqual(txtDropAddress) {
@@ -282,6 +347,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         //print("+++textFieldDidBeginEditing+++")
         removeTxtFromTextBox = true
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
+            
+            updateMap()
+            
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
