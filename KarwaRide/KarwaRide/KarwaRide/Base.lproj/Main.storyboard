@@ -854,10 +854,10 @@
             </objects>
             <point key="canvasLocation" x="673" y="1499"/>
         </scene>
-        <!--Create Booking View Controller-->
+        <!--Delegate-->
         <scene sceneID="pKq-i1-mEE">
             <objects>
-                <viewController id="L23-ue-kpU" customClass="KTCreateBookingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookingStep1" id="L23-ue-kpU" customClass="KTCreateBookingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ERe-3M-HzO"/>
                         <viewControllerLayoutGuide type="bottom" id="nEz-mS-fjP"/>
@@ -869,6 +869,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYM-p6-0VQ" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="517"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="L23-ue-kpU" id="ghA-ge-apF"/>
+                                </connections>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingBottomBack" translatesAutoresizingMaskIntoConstraints="NO" id="pfV-HZ-0xI">
                                 <rect key="frame" x="0.0" y="407" width="375" height="260"/>
@@ -1070,7 +1073,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dxv-8E-RNU">
-                                        <rect key="frame" x="179" y="85" width="161" height="45"/>
+                                        <rect key="frame" x="192" y="85" width="161" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="H3d-Yo-1GG"/>
                                             <constraint firstAttribute="width" constant="161" id="JOl-SV-gNE"/>
@@ -1086,7 +1089,6 @@
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8y-S6-yyP">
                                         <rect key="frame" x="44" y="99" width="144" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="9Qk-3J-fjD"/>
                                             <constraint firstAttribute="width" constant="138" id="CSp-a0-Xdv"/>
                                             <constraint firstAttribute="height" constant="45" id="lX7-YW-Aq7"/>
                                         </constraints>
@@ -1101,6 +1103,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="e8y-S6-yyP" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" constant="44" id="0bb-CD-TkH"/>
                                     <constraint firstItem="mBc-3t-46I" firstAttribute="leading" secondItem="QCN-32-Vxz" secondAttribute="leading" priority="998" constant="44" id="29c-uo-MaM"/>
                                     <constraint firstItem="mBc-3t-46I" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" constant="30" id="9hC-LL-gWn"/>
                                     <constraint firstAttribute="bottom" secondItem="Dxv-8E-RNU" secondAttribute="bottom" id="AhN-xn-HZq"/>
@@ -1109,14 +1112,13 @@
                                     <constraint firstItem="fg2-1w-EdU" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" id="Mde-gX-m7d"/>
                                     <constraint firstAttribute="height" constant="130" id="OmZ-Ai-RAX"/>
                                     <constraint firstItem="tqc-sp-fcf" firstAttribute="top" secondItem="bcL-JI-p0b" secondAttribute="bottom" constant="15" id="RLz-jR-vK1"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dxv-8E-RNU" secondAttribute="trailing" constant="35" id="RYv-pj-6Yd"/>
                                     <constraint firstItem="tqc-sp-fcf" firstAttribute="leading" secondItem="bcL-JI-p0b" secondAttribute="leading" id="Spk-nJ-n9K"/>
-                                    <constraint firstItem="Dxv-8E-RNU" firstAttribute="leading" secondItem="e8y-S6-yyP" secondAttribute="trailing" constant="5" id="UMH-0D-d7V"/>
                                     <constraint firstItem="bcL-JI-p0b" firstAttribute="trailing" secondItem="fg2-1w-EdU" secondAttribute="trailing" constant="-18" id="W4A-Gi-3PE"/>
                                     <constraint firstItem="fg2-1w-EdU" firstAttribute="centerX" secondItem="QCN-32-Vxz" secondAttribute="centerX" id="Xlu-c8-36N"/>
                                     <constraint firstAttribute="trailing" secondItem="fg2-1w-EdU" secondAttribute="trailing" constant="15" id="iaf-3J-tu1"/>
                                     <constraint firstItem="bcL-JI-p0b" firstAttribute="leading" secondItem="mBc-3t-46I" secondAttribute="trailing" constant="25" id="lgp-KO-7et"/>
                                     <constraint firstItem="e8y-S6-yyP" firstAttribute="centerY" secondItem="Dxv-8E-RNU" secondAttribute="centerY" id="moW-2y-iKG"/>
+                                    <constraint firstItem="Dxv-8E-RNU" firstAttribute="centerX" secondItem="QCN-32-Vxz" secondAttribute="centerX" constant="85" id="nPE-qN-LvH"/>
                                     <constraint firstItem="bcL-JI-p0b" firstAttribute="top" secondItem="mBc-3t-46I" secondAttribute="top" constant="-8" id="tFm-qd-ewc"/>
                                 </constraints>
                             </view>
@@ -2639,7 +2641,7 @@
         <image name="UnderConstruction" width="750" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4lO-1G-0fb"/>
+        <segue reference="FaI-op-NCo"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="bsC-QL-uBN"/>
         <segue reference="uRk-Bz-EyY"/>

@@ -63,9 +63,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             
             numRows = 2
         }
-        else if section == 3 {
+        /*else if section == 3 {
             numRows = 2
-        }
+        }*/
         return numRows
     }
     
@@ -156,7 +156,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconWork")
         }
         else if indexPath.section == 3  {
-            if indexPath.row == 0 {
+            /*if indexPath.row == 0 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "CalendarShortcutCellIdentifier")
                 guard let _ = cell else {
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
@@ -166,7 +166,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingCalendarTableViewCell).lblText.text = "Calendar Shortcut"
                 (cell as! KTSettingCalendarTableViewCell).imgIcon.image = UIImage(named: "SettingIconCalendar")
             }
-            else if indexPath.row == 1 {
+            else */if indexPath.row == 0 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
                 guard let _ = cell else {
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
@@ -219,7 +219,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             }
         }
         else if indexPath.section == 3 {
-            if indexPath.row == 1{
+            if indexPath.row == 0{
                 (viewModel as! KTSettingsViewModel).rateApplication()
             }
         }

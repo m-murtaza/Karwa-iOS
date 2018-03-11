@@ -42,6 +42,7 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        txtAddress.becomeFirstResponder()
     }
 
     override func viewWillAppear(_ animated: Bool) {

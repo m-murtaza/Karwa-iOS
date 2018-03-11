@@ -19,7 +19,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         viewModel = KTLoginViewModel(del:self)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        txtPhoneNumber.becomeFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {

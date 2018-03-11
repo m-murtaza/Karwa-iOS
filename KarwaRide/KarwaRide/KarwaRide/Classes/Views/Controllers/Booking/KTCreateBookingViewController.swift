@@ -28,7 +28,7 @@ class KTCreateBookingConstants {
     static let DEFAULT_MAP_PADDING : Float = 100
     
 }
-class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate {
+class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate,GMSMapViewDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
@@ -207,6 +207,11 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         alertController.addAction(settingsAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    //MARK:- Google Map delegate
+    //func mapViewDidFinishTileRendering(_ mapView: GMSMapView) {
+    //    print("++++++++ Map loaded +++++++++")
+    //}
     
     //MARK: - Location & Maps
     
