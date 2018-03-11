@@ -83,8 +83,9 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         {
             error = SignUpValidationError.init().WrongPhone
         }
-        else if  !(email?.isEmail)!
+        else if  !(email?.isEmpty)! &&  !(email?.isEmail)!
         {
+            //email is option field
             error = SignUpValidationError.init().WrongEmail
         }
         else if !KTUtils.isObjectNotNil(object: password as AnyObject) || password?.count == 0
