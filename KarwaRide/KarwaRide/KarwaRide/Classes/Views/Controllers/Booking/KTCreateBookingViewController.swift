@@ -297,13 +297,13 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
         
         var update : GMSCameraUpdate?
-        if bounds.northEast.distance(from: bounds.southWest) > KTCreateBookingConstants.BOUNDS_MARKER_DISTANCE_THRESHOULD {
+        //if bounds.northEast.distance(from: bounds.southWest) > KTCreateBookingConstants.BOUNDS_MARKER_DISTANCE_THRESHOULD {
             
             update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
-        }
-        else {
-            update = GMSCameraUpdate.zoom(to: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-        }
+        //}
+        //else {
+        //    update = GMSCameraUpdate.zoom(to: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+       // }
         
         mapView.animate(with: update!)
     
