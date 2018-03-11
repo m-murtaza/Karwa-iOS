@@ -217,8 +217,13 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             else if indexPath.row == 1 {
                 self.performSegue(name: "segueSettingsToSetWork")
             }
-            
         }
+        else if indexPath.section == 3 {
+            if indexPath.row == 1{
+                (viewModel as! KTSettingsViewModel).rateApplication()
+            }
+        }
+        
         else if indexPath.section == 4 {
             if indexPath.row == 0 {
                 (viewModel as! KTSettingsViewModel).startLogoutProcess()

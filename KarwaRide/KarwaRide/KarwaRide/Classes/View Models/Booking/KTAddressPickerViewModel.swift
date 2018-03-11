@@ -168,15 +168,23 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     private func moveBackIfNeeded(skipDestination : Bool) {
-        if pickUpAddress != nil && (skipDestination || dropOffAddress != nil) {
+        if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty){
+            if  (skipDestination || dropOffAddress != nil) {
             
-            if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()) {
-                if skipDestination {
-                    dropOffAddress = nil
+                if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()) {
+                    if skipDestination {
+                        dropOffAddress = nil
+                    }
+                    (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+                    
                 }
-                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
-                
             }
+            else {
+                self.delegate?.showError!(title: "Error", message: "Dropoff address cann't be empty")
+            }
+        }
+        else {
+            self.delegate?.showError!(title: "Error", message: "Pickup address cann't be empty")
         }
     }
     

@@ -110,6 +110,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
         let confirmationPopup = storyboard?.instantiateViewController(withIdentifier: "ConfermationPopupVC") as! BookingConfermationPopupVC
         confirmationPopup.previousView = self
+        confirmationPopup.view.frame = self.view.bounds
         view.addSubview(confirmationPopup.view)
         addChildViewController(confirmationPopup)
     }

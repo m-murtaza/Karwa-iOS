@@ -62,21 +62,23 @@ class KTSettingsViewModel: KTBaseViewModel {
     func showLogin()  {
         
         (UIApplication.shared.delegate as! AppDelegate).showLogin()
-        /*var window : UIWindow = (UIApplication.shared.delegate as! AppDelegate).window!
-        window = UIWindow(frame: UIScreen.main.bounds)
-        
-        
-        let sBoard = UIStoryboard(name: "Main", bundle: nil)
-        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: "FirstViewController")
-        let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: "LeftMenuViewController")
-        
-        let sideMeun : SSASideMenu = SSASideMenu(contentViewController: contentView, leftMenuViewController: leftView)
-        
-        
-        
-        
-        
-        window.rootViewController = sideMeun
-        window.makeKeyAndVisible()*/
     }
+    
+    //MARK:- Rate Applicaiton
+    func rateApplication() {
+        
+        // App Store URL.
+        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+        
+        /* First create a URL, then check whether there is an installed app that can
+         open it on the device. */
+        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+            // Attempt to open the URL.
+            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+                if success {
+                    print("Launching \(url) was successful")
+                }})
+        }
+    }
+    
 }
