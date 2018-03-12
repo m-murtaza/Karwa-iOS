@@ -8,6 +8,8 @@
 
 import UIKit
 
+let BOOKING_SYNC_TIME = "bookingSyncTime"
+
 class KTBookingManager: KTDALManager {
     
     func booking(pickUp: KTGeoLocation?, dropOff:KTGeoLocation?) -> KTBooking {
@@ -43,4 +45,44 @@ class KTBookingManager: KTDALManager {
             
         })
     }
+    
+    func syncBookings(completion completionBlock: @escaping KTDALCompletionBlock) {
+        
+        let param : [String: Any] = [Constants.BookingSyncParam.SyncTime: bookingSyncTime()]
+        
+        self.get(url: Constants.APIURL.Booking, param: param, completion: completionBlock) { (response, cBlock) in
+            print(response)
+        }
+    }
+    
+    
+    //MARK: - Booking Sync Time
+    //  Converted to Swift 4 by Swiftify v4.1.6640 - https://objectivec2swift.com/
+    func bookingSyncTime() -> String {
+        var syncDate = UserDefaults.standard.object(forKey: BOOKING_SYNC_TIME) as? Date
+        if syncDate == nil {
+            syncDate = self.defaultSyncDate()
+        }
+        let syncTimeInterval: TimeInterval = (syncDate?.timeIntervalSince1970)!
+        let strSyncTimeInterval = "\(syncTimeInterval)"
+        return strSyncTimeInterval
+    }
+    
+    func updateBookingSyncTime() {
+        let defaults: UserDefaults? = UserDefaults.standard
+        defaults?.set(Date(), forKey: BOOKING_SYNC_TIME)
+        defaults?.synchronize()
+    }
+    
+    func removeSyncTime() {
+        let defaults: UserDefaults? = UserDefaults.standard
+        defaults?.removeObject(forKey: BOOKING_SYNC_TIME)
+        defaults?.synchronize()
+    }
+    
+    func defaultSyncDate() -> Date? {
+        return Date(timeIntervalSince1970: 0)
+        //Default date of 1970
+    }
+
 }

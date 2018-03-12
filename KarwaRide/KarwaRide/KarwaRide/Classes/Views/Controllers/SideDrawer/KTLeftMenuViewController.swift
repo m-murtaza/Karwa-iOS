@@ -88,7 +88,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             break
             
         default:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
             sideMenuViewController?.hideMenuViewController()
             break
         }

@@ -205,4 +205,8 @@ struct Constants {
         static let Latitude = "Lat"
         static let Longitude = "Lon"
     }
+    
+    struct BookingSyncParam {
+        static let SyncTime = "synctime"
+    }
 }

@@ -25,6 +25,8 @@
 		1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4D9204FB34600C3C47F /* KTSetHomeWorkViewController.swift */; };
 		1811E4E0204FD22300C3C47F /* KTBookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4DF204FD22300C3C47F /* KTBookmarkManager.swift */; };
 		1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E1204FD76A00C3C47F /* KTSetHomeViewModel.swift */; };
+		1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E420564A6E00C3C47F /* KTMyTripsViewModel.swift */; };
+		1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E620564C4D00C3C47F /* KTShadowView.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -124,6 +126,8 @@
 		1811E4D9204FB34600C3C47F /* KTSetHomeWorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSetHomeWorkViewController.swift; path = Classes/Views/Controllers/Settings/KTSetHomeWorkViewController.swift; sourceTree = "<group>"; };
 		1811E4DF204FD22300C3C47F /* KTBookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookmarkManager.swift; path = Classes/DAL/Bookmark/KTBookmarkManager.swift; sourceTree = "<group>"; };
 		1811E4E1204FD76A00C3C47F /* KTSetHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSetHomeViewModel.swift; path = "Classes/View Models/Settings/KTSetHomeViewModel.swift"; sourceTree = "<group>"; };
+		1811E4E420564A6E00C3C47F /* KTMyTripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsViewModel.swift; path = "Classes/View Models/My Trips/KTMyTripsViewModel.swift"; sourceTree = "<group>"; };
+		1811E4E620564C4D00C3C47F /* KTShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTShadowView.swift; path = Classes/Views/Controllers/MyTrips/KTShadowView.swift; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +311,14 @@
 				1811E4DF204FD22300C3C47F /* KTBookmarkManager.swift */,
 			);
 			name = Bookmark;
+			sourceTree = "<group>";
+		};
+		1811E4E320564A4400C3C47F /* My Trips */ = {
+			isa = PBXGroup;
+			children = (
+				1811E4E420564A6E00C3C47F /* KTMyTripsViewModel.swift */,
+			);
+			name = "My Trips";
 			sourceTree = "<group>";
 		};
 		1813448D1EF68671006E734A = {
@@ -500,6 +512,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				1811E4E320564A4400C3C47F /* My Trips */,
 				1839110E204517C0002EDE1A /* Settings */,
 				1833CA80200DC81800AD885B /* Booking */,
 				18C24ACC2003674D002D4B88 /* SignUp */,
@@ -696,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				18F2B2752044135200600966 /* KTMyTripsViewController.swift */,
+				1811E4E620564C4D00C3C47F /* KTShadowView.swift */,
 			);
 			name = MyTrips;
 			sourceTree = "<group>";
@@ -938,6 +952,8 @@
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
+				1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */,
+				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
 				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,

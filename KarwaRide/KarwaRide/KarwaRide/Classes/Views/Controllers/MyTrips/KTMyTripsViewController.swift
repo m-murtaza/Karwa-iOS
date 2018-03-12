@@ -8,9 +8,10 @@
 
 import UIKit
 
-class KTMyTripsViewController: KTBaseDrawerRootViewController {
+class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModelDelegate {
 
     override func viewDidLoad() {
+        self.viewModel = KTMyTripsViewModel(del: self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
