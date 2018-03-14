@@ -27,6 +27,8 @@
 		1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E1204FD76A00C3C47F /* KTSetHomeViewModel.swift */; };
 		1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E420564A6E00C3C47F /* KTMyTripsViewModel.swift */; };
 		1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E620564C4D00C3C47F /* KTShadowView.swift */; };
+		1811E4E920569A5100C3C47F /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E820569A5100C3C47F /* Date+Utils.swift */; };
+		1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -128,6 +130,8 @@
 		1811E4E1204FD76A00C3C47F /* KTSetHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSetHomeViewModel.swift; path = "Classes/View Models/Settings/KTSetHomeViewModel.swift"; sourceTree = "<group>"; };
 		1811E4E420564A6E00C3C47F /* KTMyTripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsViewModel.swift; path = "Classes/View Models/My Trips/KTMyTripsViewModel.swift"; sourceTree = "<group>"; };
 		1811E4E620564C4D00C3C47F /* KTShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTShadowView.swift; path = Classes/Views/Controllers/MyTrips/KTShadowView.swift; sourceTree = "<group>"; };
+		1811E4E820569A5100C3C47F /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Date+Utils.swift"; path = "Classes/Common/Extensions/Date+Utils.swift"; sourceTree = "<group>"; };
+		1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsTableViewCell.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsTableViewCell.swift; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -640,6 +644,7 @@
 				18C24ACF2004913F002D4B88 /* String+Utils.swift */,
 				18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */,
 				18B9076B2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift */,
+				1811E4E820569A5100C3C47F /* Date+Utils.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -710,6 +715,7 @@
 			children = (
 				18F2B2752044135200600966 /* KTMyTripsViewController.swift */,
 				1811E4E620564C4D00C3C47F /* KTShadowView.swift */,
+				1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */,
 			);
 			name = MyTrips;
 			sourceTree = "<group>";
@@ -926,6 +932,7 @@
 				18A3949320187C2F000FCE92 /* NSManageObject+KTExtended.swift in Sources */,
 				181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */,
 				18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */,
+				1811E4E920569A5100C3C47F /* Date+Utils.swift in Sources */,
 				1811E4D4204E7B3D00C3C47F /* KTUserManager+AccountEdit.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
@@ -942,6 +949,7 @@
 				18A3949720199FC9000FCE92 /* KTGeoLocation+CoreDataProperties.swift in Sources */,
 				1814238E2029A20000992151 /* VehicleMarker.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
+				1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,

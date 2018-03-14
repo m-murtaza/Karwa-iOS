@@ -59,4 +59,16 @@ class KTDALManager: KTBase {
     /*func handleAPISuccess(status: Bool,response: [AnyHashable: Any],completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         
     }*/
+    
+    func isNsnullOrNil(object : AnyObject?) -> Bool
+    {
+        if (object is NSNull) || (object == nil)
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
 }

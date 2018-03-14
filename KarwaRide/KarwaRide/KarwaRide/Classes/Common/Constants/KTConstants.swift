@@ -17,7 +17,9 @@ typealias KTResponseCompletionBlock = (_ success: Bool, _ response: [AnyHashable
 typealias KTDALCompletionBlock = (_ success: String, _ response: [AnyHashable: Any]) -> Void
 typealias KTDALSuccessBlock = (_ response: [AnyHashable: Any],_ success: KTDALCompletionBlock) -> Void
 
-enum VehicleType: Int {
+
+enum VehicleType: Int16 {
+    case Unknown = -1
     case KTCityTaxi = 1
     case KTAiport7Seater = 3
     case KTAirportSpare = 5
@@ -29,9 +31,37 @@ enum VehicleType: Int {
     case KTLuxuryLimo = 70
 }
 
+enum BookingStatus : Int32 {
+    
+    case PENDING = 1
+    case DISPATCHING = 2
+    case CONFIRMED = 4
+    
+    /// <summary>
+    /// To be sent to customer if even after Manual dispatch a taxi is not made available for customer.
+    /// </summary>
+    case TAXI_UNAVAIALBE = 10
+    
+    /// <summary>
+    /// To be used if dipatch engine fails to find a taxi. Meant to be Manually dipatched.
+    /// </summary>
+    case TAXI_NOT_FOUND = 11
+    
+    /// <summary>
+    /// Bidding was done for this booking but no taxi accepted it. Meant to be manually dispatched.
+    /// </summary>
+    case NO_TAXI_ACCEPTED = 12
+    case CANCELLED = 20
+    case ARRIVED = 24
+    case PICKUP = 25
+    case COMPLETED = 30
+    
+    case EXCEPTION = 33
+}
 
 struct Constants {
     static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
+    static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
     struct Notification {
         static let MinuteChanged = "MinuteChangedNotification"
@@ -54,10 +84,10 @@ struct Constants {
     
     struct APIResponseStatus {
         static let SUCCESS = "SUCCESS"
-        static let UNKNOWN = "UNKNOWN";
+        static let UNKNOWN = "UNKNOWN"
         static let FAILED = "FAILED"
-        static let FAILED_DB = "FAILED_DB";
-        static let FAILED_API = "FAILED_API";
+        static let FAILED_DB = "FAILED_DB"
+        static let FAILED_API = "FAILED_API"
         static let FAILED_NETWORK = "FAILED_NETWORK"
         static let ALREADY_EXIST = "ALREADY_EXIST"
         static let NOT_FOUND = "NOT_FOUND"
@@ -95,6 +125,41 @@ struct Constants {
         static let Latitude = "Lat"
         static let Longitude = "Lon"
         static let Place =  "Place"
+    }
+    
+    struct BookingResponseAPIKey {
+        static let BookingID = "BookingID"
+        static let BookingStatus = "BookingStatus"
+        static let CancelReason = "CancelReason"
+        static let CreationTime = "CreationTime"
+        static let CallerID = "CallerID"
+        
+        static let DriverID = "DriverID"
+        static let DriverName = "DriverName"
+        static let DriverPhone = "DriverPhone"
+        static let DriverRating = "DriverRating"
+        
+        static let DropAddress = "DropAddress"
+        static let DropLat = "DropLat"
+        static let DropLon = "DropLon"
+        static let DropTime = "DropTime"
+        
+        static let EstimatedFare = "EstimatedFare"
+        static let Eta = "Eta"
+        static let Fare = "Fare"
+        
+        static let PickupAddress = "PickupAddress"
+        static let PickupLat = "PickupLat"
+        static let PickupLon = "PickupLon"
+        static let PickupMessage = "PickupMessage"
+        static let PickupTime = "PickupTime"
+        
+        static let ServiceType = "ServiceType"
+        static let TotalDistance = "TotalDistance"
+        static let Track = "Track"
+        
+        static let VehicleNo = "VehicleNo"
+        static let VehicleType = "VehicleType"
     }
     
     struct BookmarkName {
@@ -159,7 +224,7 @@ struct Constants {
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
         static let AddressPickViaSearch = "geocode/name"
-        static let Booking = "/booking"
+        static let Booking = "booking"
         static let GetBookmark = "bookmarks/personal"
         static let SetHomeBookmark = "bookmark/personal/home"
         static let SetWorkBookmark = "bookmark/personal/work"

@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="KTBooking" representedClassName="KTBooking" syncable="YES" codeGenerationType="class">
-        <attribute name="bookingType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookingStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="callerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cancelReason" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="creationTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="driverId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverRating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dropOffLat" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffLocationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffLon" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dropOffTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="estimatedFare" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eta" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="jobId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="pickupHint" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fare" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupLocationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupLon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupMessage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pickupTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="serviceType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalDistance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tripTrack" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vehicleNo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="dropoffLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTGeoLocation" syncable="YES"/>
         <relationship name="pickupLocation" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KTGeoLocation" syncable="YES"/>
@@ -43,10 +61,10 @@
         <attribute name="typeSortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="KTBooking" positionX="-36" positionY="-63" width="128" height="223"/>
+        <element name="KTBooking" positionX="-36" positionY="-63" width="128" height="495"/>
+        <element name="KTBookmark" positionX="-36" positionY="-135" width="128" height="120"/>
         <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="135"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
         <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
-        <element name="KTBookmark" positionX="-36" positionY="-135" width="128" height="120"/>
     </elements>
 </model>

@@ -351,7 +351,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         let booking : KTBooking = bookManager.booking(pickUp: pickUpAddress, dropOff: dropOffAddress)
         booking.pickupTime = selectedPickupDateTime
         booking.creationTime = Date()
-        booking.pickupHint = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
+        booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
         booking.vehicleType = Int16(selectedVehicleType.rawValue)
         booking.callerId = KTAppSessionInfo.currentSession.phone
         
@@ -370,9 +370,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func vTypeViewScroll(currentIdx:Int?)  {
         
-        if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!{
+        if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!{
             
-            selectedVehicleType = VehicleType(rawValue: Int(vehicleTypes![currentIdx!].typeId))!
+            selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
             
             if currentBookingStep == BookingStep.step1 {
                 
@@ -481,7 +481,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 }
                 
                 
-                if (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
+                if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
                     (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle)
                 }
             }

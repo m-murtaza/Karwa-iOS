@@ -8,8 +8,11 @@
 
 import UIKit
 
-class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModelDelegate {
+class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModelDelegate,UITableViewDataSource, UITableViewDelegate  {
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noBookingView: UIView!
+    
     override func viewDidLoad() {
         self.viewModel = KTMyTripsViewModel(del: self)
         super.viewDidLoad()
@@ -22,7 +25,49 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         // Dispose of any resources that can be recreated.
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 148.0
+    }
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view : UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 1))
+        view.backgroundColor = UIColor.clear
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return (viewModel as! KTMyTripsViewModel).numberOfRows()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //MyTripsReuseIdentifier
+        let cell : KTMyTripsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyTripsReuseIdentifier") as! KTMyTripsTableViewCell
+        
+        cell.lblPickAddress.text = (viewModel as! KTMyTripsViewModel).pickAddress(forIdx: indexPath.row)
+        cell.lblDropoffAddress.text = (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row)
+        
+        cell.lblDayOfMonth.text = (viewModel as! KTMyTripsViewModel).pickupDateOfMonth(forIdx: indexPath.row)
+        
+        cell.lblMonth.text = (viewModel as! KTMyTripsViewModel).pickupMonth(forIdx: indexPath.row)
+        cell.lblYear.text = (viewModel as! KTMyTripsViewModel).pickupYear(forIdx: indexPath.row)
+        
+        cell.lblDayAndTime.text = (viewModel as! KTMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
+        
+        cell.lblServiceType.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+        
+        let img : UIImage? = (viewModel as! KTMyTripsViewModel).bookingStatusImage(forIdx: indexPath.row)
+        if img != nil {
+            cell.imgBookingStatus.image = img
+        }
+        
+        cell.viewCard.backgroundColor = (viewModel as! KTMyTripsViewModel).cellBGColor(forIdx: indexPath.row)
+        
+        cell.viewCard.borderColor = (viewModel as! KTMyTripsViewModel).cellBorderColor(forIdx: indexPath.row)
+        
+        
+        return cell
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -32,5 +77,21 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func reloadTable() {
+        tableView.reloadData()
+    }
+    
+    //MARK:- Book Now
+    func showNoBooking() {
+        
+        tableView.isHidden = true
+        noBookingView.isHidden = false
+    }
+    @IBAction func bookNowTapped(){
+        
+        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuViewController?.hideMenuViewController()
+    }
 
 }
