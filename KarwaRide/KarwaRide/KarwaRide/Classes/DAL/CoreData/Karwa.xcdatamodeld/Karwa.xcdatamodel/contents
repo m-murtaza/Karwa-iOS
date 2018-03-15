@@ -29,8 +29,6 @@
         <attribute name="tripTrack" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vehicleNo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="dropoffLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTGeoLocation" syncable="YES"/>
-        <relationship name="pickupLocation" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KTGeoLocation" syncable="YES"/>
     </entity>
     <entity name="KTBookmark" representedClassName="KTBookmark" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -61,7 +59,7 @@
         <attribute name="typeSortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="KTBooking" positionX="-36" positionY="-63" width="128" height="495"/>
+        <element name="KTBooking" positionX="-36" positionY="-63" width="128" height="465"/>
         <element name="KTBookmark" positionX="-36" positionY="-135" width="128" height="120"/>
         <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="135"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>

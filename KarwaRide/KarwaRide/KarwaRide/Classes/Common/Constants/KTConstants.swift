@@ -228,6 +228,7 @@ struct Constants {
         static let GetBookmark = "bookmarks/personal"
         static let SetHomeBookmark = "bookmark/personal/home"
         static let SetWorkBookmark = "bookmark/personal/work"
+        static let trackVechicle = "track/job"
     }
     
     struct TrackTaxiParams {

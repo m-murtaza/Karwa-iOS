@@ -71,4 +71,11 @@ extension String {
         
         return hexString
     }
+    
+    func urlEncodeString() -> String? {
+        let unreserved = "-._~/?"
+        let allowed = NSMutableCharacterSet.alphanumeric()
+        allowed.addCharacters(in: unreserved)
+        return addingPercentEncoding(withAllowedCharacters: allowed as CharacterSet)
+    }
 }

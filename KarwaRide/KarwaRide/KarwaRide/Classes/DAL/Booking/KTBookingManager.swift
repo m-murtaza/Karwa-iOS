@@ -12,26 +12,34 @@ let BOOKING_SYNC_TIME = "bookingSyncTime"
 
 class KTBookingManager: KTDALManager {
     
-    func booking(pickUp: KTGeoLocation?, dropOff:KTGeoLocation?) -> KTBooking {
+//    func booking(pickUp: KTGeoLocation?, dropOff:KTGeoLocation?) -> KTBooking {
+//        
+//        let book : KTBooking = KTBooking.mr_createEntity(in: NSManagedObjectContext.mr_default())!
+//        book.pickupLocation = pickUp
+//        if dropOff != nil {
+//            book.dropoffLocation = dropOff
+//        }
+//        
+//        return book
+//    }
+    func booking() -> KTBooking {
         
         let book : KTBooking = KTBooking.mr_createEntity(in: NSManagedObjectContext.mr_default())!
-        book.pickupLocation = pickUp
-        if dropOff != nil {
-            book.dropoffLocation = dropOff
-        }
+        
+        
         
         return book
     }
     
     func bookTaxi(job: KTBooking, completion completionBlock: @escaping KTDALCompletionBlock)  {
         
-        let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupLocation!.name!,
-                                    Constants.BookingParams.PickLat: job.pickupLocation!.latitude,
-                                    Constants.BookingParams.PickLon: job.pickupLocation!.longitude,
+        let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
+                                    Constants.BookingParams.PickLat: job.pickupLat,
+                                    Constants.BookingParams.PickLon: job.pickupLon,
                                     Constants.BookingParams.PickTime: job.pickupTime!,
-                                    Constants.BookingParams.DropLocation: (job.dropoffLocation != nil) ? job.dropoffLocation!.name! : "",
-                                    Constants.BookingParams.DropLat : (job.dropoffLocation != nil) ? job.dropoffLocation!.latitude : 0.0,
-                                    Constants.BookingParams.DropLon : (job.dropoffLocation != nil) ? job.dropoffLocation!.longitude : 0.0,
+                                    Constants.BookingParams.DropLocation: (job.dropOffAddress != nil) ? job.dropOffAddress as Any : "",
+                                    Constants.BookingParams.DropLat : job.dropOffLat,
+                                    Constants.BookingParams.DropLon : job.dropOffLon,
                                     Constants.BookingParams.CreationTime : job.creationTime!,
                                     Constants.BookingParams.PickHint : job.pickupMessage!,
                                     Constants.BookingParams.VehicleType : job.vehicleType,

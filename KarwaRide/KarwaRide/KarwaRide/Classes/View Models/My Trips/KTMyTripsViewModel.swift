@@ -10,11 +10,13 @@ import UIKit
 protocol KTMyTripsViewModelDelegate {
     func reloadTable()
     func showNoBooking()
+    func moveToDetails()
 }
 
 class KTMyTripsViewModel: KTBaseViewModel {
     
     private var bookings : [KTBooking]?
+    var selectedBooking : KTBooking?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,16 @@ class KTMyTripsViewModel: KTBaseViewModel {
     }
     
     
-    //MARK:- Cell Data
+    //MARK:- Table Data
+    
+    func rowSelected(forIdx idx:Int) {
+        
+        if bookings != nil && idx < (bookings?.count)! {
+            
+            selectedBooking = bookings![idx] as KTBooking
+        }
+        (self.delegate as! KTMyTripsViewModelDelegate).moveToDetails()
+    }
     
     func pickAddress(forIdx idx: Int) -> String{
         var pickAdd : String = ""

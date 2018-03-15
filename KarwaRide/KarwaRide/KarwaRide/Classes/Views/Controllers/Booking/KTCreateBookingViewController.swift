@@ -71,7 +71,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //TODO: If no pick
+        //TODO: If no pick uplocation
         if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
             self.carousel!.scrollToItem(at: IndexPath(row: (viewModel as! KTCreateBookingViewModel).maxCarouselIdx(), section: 0), at: UICollectionViewScrollPosition.right, animated: false)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){

@@ -68,15 +68,30 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         return cell
     }
     
-    /*
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        (viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "segueMyTripsToDetails" {
+            
+            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
+            if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
+                details.setBooking(booking: booking)
+            }
+        }
     }
-    */
+    
+    func moveToDetails() {
+        self.performSegue(name: "segueMyTripsToDetails")
+    }
+    
     
     func reloadTable() {
         tableView.reloadData()

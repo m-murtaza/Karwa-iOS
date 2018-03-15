@@ -347,24 +347,39 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func bookRide() {
-        let bookManager : KTBookingManager = KTBookingManager()
-        let booking : KTBooking = bookManager.booking(pickUp: pickUpAddress, dropOff: dropOffAddress)
-        booking.pickupTime = selectedPickupDateTime
-        booking.creationTime = Date()
-        booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
-        booking.vehicleType = Int16(selectedVehicleType.rawValue)
-        booking.callerId = KTAppSessionInfo.currentSession.phone
-        
-        delegate?.showProgressHud(show: true, status: "Booking a ride")
-        bookManager.bookTaxi(job: booking) { (status, response) in
-            self.delegate?.showProgressHud(show: false)
-            if status == Constants.APIResponseStatus.SUCCESS {
-                (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
+        if pickUpAddress != nil {
+            let bookManager : KTBookingManager = KTBookingManager()
+            let booking : KTBooking = bookManager.booking()
+            booking.pickupTime = selectedPickupDateTime
+            booking.creationTime = Date()
+            booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
+            booking.vehicleType = Int16(selectedVehicleType.rawValue)
+            booking.callerId = KTAppSessionInfo.currentSession.phone
+            
+            booking.pickupAddress = pickUpAddress?.name
+            booking.pickupLat = (pickUpAddress?.latitude)!
+            booking.pickupLon = (pickUpAddress?.longitude)!
+            
+            if(dropOffAddress != nil) {
+                booking.dropOffAddress = dropOffAddress?.name
+                booking.dropOffLat = (dropOffAddress?.latitude)!
+                booking.dropOffLon = (dropOffAddress?.longitude)!
             }
-            else {
-                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
-                
+            
+            delegate?.showProgressHud(show: true, status: "Booking a ride")
+            bookManager.bookTaxi(job: booking) { (status, response) in
+                self.delegate?.showProgressHud(show: false)
+                if status == Constants.APIResponseStatus.SUCCESS {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
+                }
+                else {
+                    self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                    
+                }
             }
+        }
+        else {
+           self.delegate?.showError!(title: "Error", message:"Please provide pickup location")
         }
     }
     
@@ -521,7 +536,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 self.pickUpAddress = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                 DispatchQueue.main.async {
                     //self.delegate?.userIntraction(enable: true)
-                    (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
+                    if self.delegate != nil {
+                        (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
+                    }
                 }
             }
         }

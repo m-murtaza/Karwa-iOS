@@ -29,6 +29,8 @@
 		1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E620564C4D00C3C47F /* KTShadowView.swift */; };
 		1811E4E920569A5100C3C47F /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4E820569A5100C3C47F /* Date+Utils.swift */; };
 		1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */; };
+		1811E4EF205A2FFE00C3C47F /* KTBookingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */; };
+		1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -132,6 +134,8 @@
 		1811E4E620564C4D00C3C47F /* KTShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTShadowView.swift; path = Classes/Views/Controllers/MyTrips/KTShadowView.swift; sourceTree = "<group>"; };
 		1811E4E820569A5100C3C47F /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Date+Utils.swift"; path = "Classes/Common/Extensions/Date+Utils.swift"; sourceTree = "<group>"; };
 		1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsTableViewCell.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsTableViewCell.swift; sourceTree = "<group>"; };
+		1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingDetailsViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTBookingDetailsViewController.swift; sourceTree = "<group>"; };
+		1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingDetailsViewModel.swift; path = "Classes/View Models/BookingDetails/KTBookingDetailsViewModel.swift"; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -325,6 +329,22 @@
 			name = "My Trips";
 			sourceTree = "<group>";
 		};
+		1811E4EC205A2FAC00C3C47F /* BookingDetails */ = {
+			isa = PBXGroup;
+			children = (
+				1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */,
+			);
+			name = BookingDetails;
+			sourceTree = "<group>";
+		};
+		1811E4ED205A2FBA00C3C47F /* BookingDetails */ = {
+			isa = PBXGroup;
+			children = (
+				1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */,
+			);
+			name = BookingDetails;
+			sourceTree = "<group>";
+		};
 		1813448D1EF68671006E734A = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +518,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1811E4ED205A2FBA00C3C47F /* BookingDetails */,
 				18F2B277204420FC00600966 /* Settings */,
 				18F2B274204412FC00600966 /* MyTrips */,
 				1833CA7D200DB86E00AD885B /* Booking */,
@@ -516,6 +537,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				1811E4EC205A2FAC00C3C47F /* BookingDetails */,
 				1811E4E320564A4400C3C47F /* My Trips */,
 				1839110E204517C0002EDE1A /* Settings */,
 				1833CA80200DC81800AD885B /* Booking */,
@@ -966,6 +988,7 @@
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */,
+				1811E4EF205A2FFE00C3C47F /* KTBookingDetailsViewController.swift in Sources */,
 				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
@@ -994,6 +1017,7 @@
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
+				1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
