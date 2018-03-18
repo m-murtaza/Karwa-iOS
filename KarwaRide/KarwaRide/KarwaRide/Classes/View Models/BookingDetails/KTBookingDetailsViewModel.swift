@@ -9,11 +9,14 @@
 import UIKit
 import CoreLocation
 
-protocol KTBookingDetailsViewModelDelegate {
+protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func initializeMap(location : CLLocationCoordinate2D)
     func showCurrentLocationDot(show: Bool)
     func showVTrackMarker(vTrack: VehicleTrack)
     func updateBookingCard()
+    //func estimatedFare()
+    
+    func updateAssignmentInfo()
 }
 
 class KTBookingDetailsViewModel: KTBaseViewModel {
@@ -34,9 +37,72 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         updateMap()
         updateBookingCard()
+        updateAssignmentInfo()
     }
     
+    //MARK:- Driver Info
+    func callDriver() {
+        guard let phone : String = booking?.driverPhone else {
+            del?.showError!(title: "Error", message: "Driver phone number is not available")
+            return
+        }
+        if !phone.isEmpty {
+            UIApplication.shared.open(URL(string: "TEL://\(phone)")!)
+        }
+        else {
+            del?.showError!(title: "Error", message: "Driver phone number is not available")
+        }
+        
+    }
     
+    func updateAssignmentInfo() {
+        if booking?.driverName != nil && !(booking?.driverName?.isEmpty)! {
+            del?.updateAssignmentInfo()
+        }
+        
+    }
+    
+    func driverName() -> String {
+        
+        guard let name = booking?.driverName else {
+            return ""
+        }
+        
+        return name
+    }
+    
+    func vehicleNumber() -> String {
+        guard var vNum = booking?.vehicleNo else {
+            return ""
+        }
+        
+        let vNumArr = vNum.components(separatedBy: " ")
+        if vNumArr.count >= 2 {
+            
+            vNum = vNumArr[1]
+        }
+        
+        return vNum
+    }
+    
+    func imgForPlate() -> UIImage {
+        
+        guard let vehicleType = booking?.vehicleType else {
+            return UIImage(named:"taxiplate")!
+        }
+        if KTVehicleTypeManager.isTaxi(vType: VehicleType(rawValue: vehicleType)!) {
+            return UIImage(named:"taxiplate")!
+        }
+        return UIImage(named:"limo_number_plate")!
+    }
+    
+    func driverRating() -> Double {
+        
+        guard let rating = booking?.driverRating else {
+            return 0.0
+        }
+        return rating
+    }
     //MARK:- BookingCard
     func updateBookingCard() {
         del?.updateBookingCard()
@@ -181,6 +247,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return img
     }
     
+    func estimatedFare() -> String {
+        return booking!.estimatedFare!
+    }
     
     
     //MARK:- Map
@@ -203,9 +272,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func fetchTaxiForTracking() {
         KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, completion: {
             (status, response) in
-            
-            let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
-            self.del?.showVTrackMarker(vTrack: vtrack)
+            if status == Constants.APIResponseStatus.SUCCESS {
+                let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
+                self.del?.showVTrackMarker(vTrack: vtrack)
+            }
         })
     }
     

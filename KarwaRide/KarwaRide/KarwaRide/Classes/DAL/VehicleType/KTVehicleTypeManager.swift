@@ -82,5 +82,26 @@ class KTVehicleTypeManager: KTDALManager {
             this.typeSortOrder < that.typeSortOrder
         })
     }
+    /*
+    case Unknown = -1
+    case KTCityTaxi = 1
+    case KTAiport7Seater = 3
+    case KTAirportSpare = 5
+    case KTSpecialNeedTaxi = 10
+    case KTAiportTaxi = 11
+    case KTCompactLimo = 20
+    case KTStandardLimo = 30
+    case KTBusinessLimo = 50
+    case KTLuxuryLimo = 70*/
+    
+    static func isTaxi(vType: VehicleType) -> Bool {
+        
+        switch vType {
+        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo:
+            return false
+        default:
+            return true
+        }
+    }
     
 }

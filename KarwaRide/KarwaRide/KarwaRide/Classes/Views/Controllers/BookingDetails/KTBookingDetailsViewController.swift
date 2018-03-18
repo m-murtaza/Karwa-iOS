@@ -9,9 +9,10 @@
 import UIKit
 import CoreLocation
 import GoogleMaps
+import Cosmos
 
 class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate {
-    
+
     //
     
     @IBOutlet weak var mapView : GMSMapView!
@@ -26,8 +27,12 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
     @IBOutlet weak var imgBookingStatus: UIImageView!
+    @IBOutlet weak var lblEstimatedFare : UILabel!
+    @IBOutlet weak var starView : CosmosView!
     
-    
+    @IBOutlet weak var lblDriverName : UILabel!
+    @IBOutlet weak var lblVehicleNumber :UILabel!
+    @IBOutlet weak var imgNumberPlate : UIImageView!
     
     private var vModel : KTBookingDetailsViewModel?
     override func viewDidLoad() {
@@ -67,6 +72,9 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     }
     
 
+    
+    
+    
     /*
     // MARK: - Navigation
 
@@ -76,7 +84,10 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func btnCallTapped(_ sender: Any) {
+      vModel?.callDriver()
+        
+    }
     
     @IBAction func btnBackTapped(_ sender: Any) {
         
@@ -84,6 +95,17 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
             navController.popViewController(animated: true)
         }
     }
+    //MARK:- Assignment Info
+    
+    func updateAssignmentInfo() {
+        
+        lblDriverName.text = vModel?.driverName()
+        lblVehicleNumber.text = vModel?.vehicleNumber()
+        starView.rating = (vModel?.driverRating())!
+        imgNumberPlate.image = vModel?.imgForPlate()
+        
+    }
+    
     //MARK:- Booking Card
     func updateBookingCard() {
         
@@ -98,6 +120,8 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         lblDayAndTime.text = vModel?.pickupDayAndTime()
         
         lblServiceType.text = vModel?.vehicleType()
+        lblEstimatedFare.text = vModel?.estimatedFare()
+        
         
         let img : UIImage? = vModel?.bookingStatusImage()
         if img != nil {
