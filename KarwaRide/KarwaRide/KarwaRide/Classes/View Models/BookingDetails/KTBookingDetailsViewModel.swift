@@ -13,6 +13,7 @@ protocol KTBookingDetailsViewModelDelegate {
     func initializeMap(location : CLLocationCoordinate2D)
     func showCurrentLocationDot(show: Bool)
     func showVTrackMarker(vTrack: VehicleTrack)
+    func updateBookingCard()
 }
 
 class KTBookingDetailsViewModel: KTBaseViewModel {
@@ -32,9 +33,153 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         
         updateMap()
+        updateBookingCard()
+    }
+    
+    
+    //MARK:- BookingCard
+    func updateBookingCard() {
+        del?.updateBookingCard()
         
     }
     
+    func pickMessage () -> String {
+        return  "(\((booking?.pickupMessage!)!))"
+    }
+    
+    func pickAddress() -> String{
+    
+        return  (booking?.pickupAddress!)!
+    }
+    
+    func dropAddress() -> String{
+        var dropAdd : String?
+        
+            
+        dropAdd = booking?.dropOffAddress
+        if dropAdd == nil || (dropAdd?.isEmpty)! {
+            
+            dropAdd = ""
+        }
+        
+        return dropAdd!
+    }
+    
+    func cellBGColor() -> UIColor{
+        var color : UIColor = UIColor.white
+            
+        switch booking?.bookingStatus {
+        case BookingStatus.CONFIRMED.rawValue?,  BookingStatus.ARRIVED.rawValue?,BookingStatus.PICKUP.rawValue?:
+                color = UIColor(hexString:"#F9FDFC")
+                
+        case BookingStatus.PENDING.rawValue?, BookingStatus.DISPATCHING.rawValue? :
+                color = UIColor(hexString:"#E5F5F2")
+                
+        case BookingStatus.COMPLETED.rawValue?:
+                color = UIColor(hexString:"#D7E6E3")
+                
+            case BookingStatus.CANCELLED.rawValue?, BookingStatus.TAXI_NOT_FOUND.rawValue? ,BookingStatus.TAXI_UNAVAIALBE.rawValue? ,BookingStatus.NO_TAXI_ACCEPTED.rawValue?, BookingStatus.EXCEPTION.rawValue?:
+                color = UIColor(hexString:"#FEE5E5")
+                
+            default:
+                color = UIColor(hexString:"#F9FDFC")
+            }
+        
+        return color
+    }
+    
+    func cellBorderColor() -> UIColor{
+        var color : UIColor = UIColor.white
+            switch booking?.bookingStatus {
+            case BookingStatus.CONFIRMED.rawValue?,  BookingStatus.ARRIVED.rawValue?,BookingStatus.PICKUP.rawValue?,BookingStatus.PENDING.rawValue?, BookingStatus.DISPATCHING.rawValue?, BookingStatus.COMPLETED.rawValue? :
+                color = UIColor(hexString:"#CFD0D1")
+                
+            case BookingStatus.CANCELLED.rawValue?, BookingStatus.TAXI_NOT_FOUND.rawValue? ,BookingStatus.TAXI_UNAVAIALBE.rawValue? ,BookingStatus.NO_TAXI_ACCEPTED.rawValue?, BookingStatus.EXCEPTION.rawValue?:
+                color = UIColor(hexString:"#EBC0C6")
+                
+            default:
+                color = UIColor(hexString:"#CFD0D1")
+            }
+    
+        return color
+    }
+    
+    func pickupDateOfMonth() -> String{
+        
+            return (booking!.pickupTime! as NSDate).dayOfMonth()
+    }
+    
+    func pickupMonth() -> String{
+        
+        return (booking!.pickupTime! as NSDate).threeLetterMonth()
+        
+    }
+    
+    func pickupYear() -> String{
+        
+        return (booking!.pickupTime! as NSDate).year()
+        
+    }
+    
+    func pickupDayAndTime() -> String{
+        
+        let day = (booking!.pickupTime! as NSDate).dayOfWeek()
+        let time = (booking!.pickupTime! as NSDate).timeWithAMPM()
+        
+        let dayAndTime = "\(day), \(time)"
+        
+        return dayAndTime
+    }
+    
+    func vehicleType() -> String {
+        
+        var type : String = ""
+        switch booking!.vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAiportTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "TAXI"
+            
+        case VehicleType.KTStandardLimo.rawValue:
+            type = "STANDARD"
+            
+        case VehicleType.KTBusinessLimo.rawValue:
+            type = "Business"
+            
+        case VehicleType.KTLuxuryLimo.rawValue:
+            type = "Luxury"
+        default:
+            type = ""
+        }
+        return type
+    }
+    
+    func bookingStatusImage() -> UIImage? {
+        
+        var imgName : String?
+        var img : UIImage?
+        switch booking!.bookingStatus {
+            
+        case BookingStatus.COMPLETED.rawValue:
+            imgName = "MyTripsCompleted"
+        case BookingStatus.ARRIVED.rawValue:
+            imgName = "MyTripsArrived"
+        case BookingStatus.CONFIRMED.rawValue:
+            imgName = "MyTripsAssigned"
+        case BookingStatus.CANCELLED.rawValue:
+            imgName = "MyTripsCancelled"
+        case BookingStatus.PENDING.rawValue, BookingStatus.DISPATCHING.rawValue:
+            imgName = "MyTripsScheduled"
+        case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
+            imgName = "MyTripNoRideFound"
+        default:
+            print("Do nothing")
+            
+        }
+        if imgName != nil && !(imgName?.isEmpty)! {
+            img = UIImage(named:imgName!)
+        }
+        
+        return img
+    }
     
     
     

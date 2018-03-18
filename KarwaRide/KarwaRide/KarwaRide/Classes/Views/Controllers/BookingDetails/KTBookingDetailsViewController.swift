@@ -16,10 +16,26 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     
     @IBOutlet weak var mapView : GMSMapView!
     
+    @IBOutlet weak var lblPickAddress : UILabel!
+    @IBOutlet weak var lblPickMessage : UILabel!
+    @IBOutlet weak var viewCard : KTShadowView!
+    @IBOutlet weak var lblDayOfMonth: UILabel!
+    @IBOutlet weak var lblMonth: UILabel!
+    @IBOutlet weak var lblYear: UILabel!
+    @IBOutlet weak var lblDropoffAddress: UILabel!
+    @IBOutlet weak var lblDayAndTime: UILabel!
+    @IBOutlet weak var lblServiceType: UILabel!
+    @IBOutlet weak var imgBookingStatus: UIImageView!
+    
+    
+    
+    private var vModel : KTBookingDetailsViewModel?
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
         }
+        
+        vModel = viewModel as? KTBookingDetailsViewModel
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -61,6 +77,38 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     }
     */
 
+    
+    @IBAction func btnBackTapped(_ sender: Any) {
+        
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
+    }
+    //MARK:- Booking Card
+    func updateBookingCard() {
+        
+        lblPickAddress.text = vModel?.pickAddress()
+        lblDropoffAddress.text = vModel?.dropAddress()
+        lblPickMessage.text = vModel?.pickMessage()
+        lblDayOfMonth.text = vModel?.pickupDateOfMonth()
+        
+        lblMonth.text = vModel?.pickupMonth()
+        lblYear.text = vModel?.pickupYear()
+        
+        lblDayAndTime.text = vModel?.pickupDayAndTime()
+        
+        lblServiceType.text = vModel?.vehicleType()
+        
+        let img : UIImage? = vModel?.bookingStatusImage()
+        if img != nil {
+            imgBookingStatus.image = img
+        }
+        
+        viewCard.backgroundColor = vModel?.cellBGColor()
+        
+        viewCard.borderColor = vModel?.cellBorderColor()
+    }
+    
     
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {

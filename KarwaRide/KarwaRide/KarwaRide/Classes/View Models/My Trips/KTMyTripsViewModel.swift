@@ -231,29 +231,5 @@ class KTMyTripsViewModel: KTBaseViewModel {
         return img
     }
     
-    /*case PENDING = 1
-    case DISPATCHING = 2
-    case CONFIRMED = 4
     
-    /// <summary>
-    /// To be sent to customer if even after Manual dispatch a taxi is not made available for customer.
-    /// </summary>
-    case TAXI_UNAVAIALBE = 10
-    
-    /// <summary>
-    /// To be used if dipatch engine fails to find a taxi. Meant to be Manually dipatched.
-    /// </summary>
-    case TAXI_NOT_FOUND = 11
-    
-    /// <summary>
-    /// Bidding was done for this booking but no taxi accepted it. Meant to be manually dispatched.
-    /// </summary>
-    case NO_TAXI_ACCEPTED = 12
-    case CANCELLED = 20
-    case ARRIVED = 24
-    case PICKUP = 25
-    case COMPLETED = 30
-    
-    case EXCEPTION = 33
-}*/
 }
