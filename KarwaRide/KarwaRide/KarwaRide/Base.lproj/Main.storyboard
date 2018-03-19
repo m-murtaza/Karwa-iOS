@@ -2170,14 +2170,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6a-f0-McA" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="433.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="l39-Ix-xs1" id="1uV-2e-GCJ"/>
                                 </connections>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white_back" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-m4-fPO">
+                                <rect key="frame" x="0.0" y="280" width="375" height="386.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxC-Vw-A6E">
+                                <rect key="frame" x="16" y="72" width="16" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="930-fr-Vnl"/>
+                                    <constraint firstAttribute="height" constant="22" id="Hlv-Ah-f8s"/>
+                                </constraints>
+                                <state key="normal" image="BackButton"/>
+                                <connections>
+                                    <action selector="btnBackTapped:" destination="l39-Ix-xs1" eventType="touchUpInside" id="fEu-NJ-Ua2"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2n-Zk-ght">
-                                <rect key="frame" x="0.0" y="201.5" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="273" width="375" height="32"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eta_box" translatesAutoresizingMaskIntoConstraints="NO" id="QK6-qX-E3X">
                                         <rect key="frame" x="123" y="0.0" width="130" height="32"/>
@@ -2204,23 +2219,8 @@
                                     <constraint firstItem="QK6-qX-E3X" firstAttribute="centerY" secondItem="q2n-Zk-ght" secondAttribute="centerY" id="biR-LB-uox"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingBottomBack" translatesAutoresizingMaskIntoConstraints="NO" id="3fz-m4-fPO">
-                                <rect key="frame" x="0.0" y="233.5" width="375" height="433.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxC-Vw-A6E">
-                                <rect key="frame" x="16" y="72" width="16" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="930-fr-Vnl"/>
-                                    <constraint firstAttribute="height" constant="22" id="Hlv-Ah-f8s"/>
-                                </constraints>
-                                <state key="normal" image="BackButton"/>
-                                <connections>
-                                    <action selector="btnBackTapped:" destination="l39-Ix-xs1" eventType="touchUpInside" id="fEu-NJ-Ua2"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VsK-vU-v8o" customClass="KTShadowView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="247" width="335" height="173"/>
+                                <rect key="frame" x="20" y="310" width="335" height="173"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lti-zb-UaV">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="101"/>
@@ -2440,7 +2440,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Igg-z1-2G6">
-                                <rect key="frame" x="16" y="435" width="343" height="98"/>
+                                <rect key="frame" x="16" y="498" width="343" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YOX-qP-Yoj" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
@@ -2590,25 +2590,25 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="3fz-m4-fPO" secondAttribute="trailing" id="3e7-QX-24l"/>
                             <constraint firstItem="3fz-m4-fPO" firstAttribute="bottom" secondItem="f6R-9b-2EB" secondAttribute="top" id="8G7-fA-nz8"/>
+                            <constraint firstItem="vlg-vT-ise" firstAttribute="top" secondItem="Igg-z1-2G6" secondAttribute="bottom" constant="15" id="8X8-VL-gl2"/>
+                            <constraint firstItem="h6a-f0-McA" firstAttribute="bottom" secondItem="VsK-vU-v8o" secondAttribute="top" constant="50" id="8eu-dr-eAj"/>
                             <constraint firstItem="Igg-z1-2G6" firstAttribute="trailing" secondItem="EUR-qS-DtN" secondAttribute="trailingMargin" id="9AU-n0-K7Y"/>
-                            <constraint firstItem="3fz-m4-fPO" firstAttribute="height" secondItem="EUR-qS-DtN" secondAttribute="height" multiplier="0.65" id="9eE-08-BiC"/>
                             <constraint firstItem="h6a-f0-McA" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leading" id="BjC-FS-UsQ"/>
                             <constraint firstItem="q2n-Zk-ght" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leading" id="Bzi-Gg-ewJ"/>
                             <constraint firstItem="XxC-Vw-A6E" firstAttribute="top" secondItem="Gll-cf-FWm" secondAttribute="bottom" constant="8" id="DIe-Gd-46Z"/>
                             <constraint firstItem="Igg-z1-2G6" firstAttribute="top" secondItem="VsK-vU-v8o" secondAttribute="bottom" constant="15" id="FuW-6d-3Uv"/>
                             <constraint firstAttribute="trailing" secondItem="q2n-Zk-ght" secondAttribute="trailing" id="Hgf-9Y-swe"/>
                             <constraint firstItem="3fz-m4-fPO" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leading" id="J4f-gq-mOm"/>
+                            <constraint firstItem="VsK-vU-v8o" firstAttribute="top" secondItem="q2n-Zk-ght" secondAttribute="bottom" constant="5" id="J8e-lr-Asu"/>
                             <constraint firstItem="Igg-z1-2G6" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leadingMargin" id="Kvt-GH-j24"/>
                             <constraint firstAttribute="trailing" secondItem="h6a-f0-McA" secondAttribute="trailing" id="Lrm-eo-k8A"/>
                             <constraint firstItem="vlg-vT-ise" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leading" id="ZqZ-bg-BFH"/>
-                            <constraint firstItem="3fz-m4-fPO" firstAttribute="top" secondItem="q2n-Zk-ght" secondAttribute="bottom" id="aeI-fO-S55"/>
-                            <constraint firstItem="VsK-vU-v8o" firstAttribute="centerY" secondItem="EUR-qS-DtN" secondAttribute="centerY" id="iXx-qq-2aJ"/>
                             <constraint firstItem="XxC-Vw-A6E" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leadingMargin" id="kWe-R9-0Yu"/>
                             <constraint firstItem="VsK-vU-v8o" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leadingMargin" constant="4" id="oWY-xw-M42"/>
                             <constraint firstItem="f6R-9b-2EB" firstAttribute="top" secondItem="vlg-vT-ise" secondAttribute="bottom" id="pYN-BF-pUq"/>
                             <constraint firstAttribute="trailing" secondItem="vlg-vT-ise" secondAttribute="trailing" id="qMB-1z-rSD"/>
-                            <constraint firstItem="h6a-f0-McA" firstAttribute="height" secondItem="EUR-qS-DtN" secondAttribute="height" multiplier="0.65" id="sv7-hL-gDZ"/>
                             <constraint firstItem="h6a-f0-McA" firstAttribute="top" secondItem="EUR-qS-DtN" secondAttribute="top" id="xHK-qd-h5T"/>
+                            <constraint firstItem="3fz-m4-fPO" firstAttribute="top" secondItem="VsK-vU-v8o" secondAttribute="top" constant="-30" id="xJ1-Xi-CiJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VsK-vU-v8o" secondAttribute="trailing" constant="4" id="y0w-jd-dkP"/>
                         </constraints>
                     </view>
@@ -3374,6 +3374,7 @@
         <image name="ico_call" width="60" height="60"/>
         <image name="ico_moreinfo" width="12" height="12"/>
         <image name="taxiplate" width="87" height="32"/>
+        <image name="white_back" width="375" height="396"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FaI-op-NCo"/>
