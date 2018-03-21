@@ -57,6 +57,10 @@
 		1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */; };
 		1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */; };
 		1852093F205F978D00BD5FCD /* ARCarMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852093E205F978D00BD5FCD /* ARCarMovement.swift */; };
+		1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852094120623BF200BD5FCD /* iOSDevCenters+GIF.swift */; };
+		185209472062411C00BD5FCD /* MyTripHired@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209442062411C00BD5FCD /* MyTripHired@2x.gif */; };
+		185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209452062411C00BD5FCD /* MyTripHired@3x.gif */; };
+		185209492062411C00BD5FCD /* MyTripHired.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209462062411C00BD5FCD /* MyTripHired.gif */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -165,6 +169,10 @@
 		1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+Logout.swift"; path = "Classes/DAL/KTUserManager+Logout.swift"; sourceTree = "<group>"; };
 		1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseLoginSignUpViewController.swift; path = Classes/Views/Controllers/Login/KTBaseLoginSignUpViewController.swift; sourceTree = "<group>"; };
 		1852093E205F978D00BD5FCD /* ARCarMovement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARCarMovement.swift; path = Classes/ThirdParty/ARCarMovement/ARCarMovement.swift; sourceTree = "<group>"; };
+		1852094120623BF200BD5FCD /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "iOSDevCenters+GIF.swift"; path = "Classes/ThirdParty/GifImage/iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
+		185209442062411C00BD5FCD /* MyTripHired@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "MyTripHired@2x.gif"; path = "Resources/Images/MyTripHired@2x.gif"; sourceTree = "<group>"; };
+		185209452062411C00BD5FCD /* MyTripHired@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "MyTripHired@3x.gif"; path = "Resources/Images/MyTripHired@3x.gif"; sourceTree = "<group>"; };
+		185209462062411C00BD5FCD /* MyTripHired.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = MyTripHired.gif; path = Resources/Images/MyTripHired.gif; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -242,6 +250,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1852094020623BDF00BD5FCD /* GifImage */,
 				1852093D205F96DE00BD5FCD /* ARCarMovement */,
 				18F2B26D2042932300600966 /* SSASideMenu */,
 				18B907662022F630000F45FE /* PopUp */,
@@ -518,6 +527,24 @@
 			name = ARCarMovement;
 			sourceTree = "<group>";
 		};
+		1852094020623BDF00BD5FCD /* GifImage */ = {
+			isa = PBXGroup;
+			children = (
+				1852094120623BF200BD5FCD /* iOSDevCenters+GIF.swift */,
+			);
+			name = GifImage;
+			sourceTree = "<group>";
+		};
+		18520943206240A900BD5FCD /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				185209462062411C00BD5FCD /* MyTripHired.gif */,
+				185209442062411C00BD5FCD /* MyTripHired@2x.gif */,
+				185209452062411C00BD5FCD /* MyTripHired@3x.gif */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		1864871E1F0A357C00DDB003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -694,6 +721,7 @@
 		18C24AE02004E201002D4B88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18520943206240A900BD5FCD /* Images */,
 				18B9076D20271183000F45FE /* map_style_karwa.json */,
 				18C24AE12004E222002D4B88 /* Fonts */,
 			);
@@ -859,7 +887,9 @@
 			files = (
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
+				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
 				18C24B022004E269002D4B88 /* MuseoSans-100.otf in Resources */,
+				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
 				18C24B042004E269002D4B88 /* MuseoSans-300.otf in Resources */,
 				18C24B052004E269002D4B88 /* MuseoSans-300Italic.otf in Resources */,
 				18C24B072004E269002D4B88 /* MuseoSans-500Italic.otf in Resources */,
@@ -871,6 +901,7 @@
 				18B9076E20271184000F45FE /* map_style_karwa.json in Resources */,
 				18C24B082004E269002D4B88 /* MuseoSans-700.otf in Resources */,
 				1813449F1EF68671006E734A /* Main.storyboard in Resources */,
+				185209472062411C00BD5FCD /* MyTripHired@2x.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,6 +1062,7 @@
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
+				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,

@@ -31,6 +31,7 @@ enum BottomBarBtnTag : Int {
     case Cancel = 101
     case FareBreakdown = 102
     case Rebook = 103
+    case EBill = 104
 }
 
 class KTBookingDetailsViewModel: KTBaseViewModel {
@@ -146,7 +147,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func pickMessage () -> String {
-        return  "(\((booking?.pickupMessage!)!))"
+        var msg : String = ""
+        if booking?.pickupMessage != nil && booking?.pickupMessage?.isEmpty == false {
+            msg = "(\((booking?.pickupMessage!)!))"
+        }
+        return msg
     }
     
     func pickAddress() -> String{
@@ -161,7 +166,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         dropAdd = booking?.dropOffAddress
         if dropAdd == nil || (dropAdd?.isEmpty)! {
             
-            dropAdd = ""
+            dropAdd = "No Destination Set"
         }
         
         return dropAdd!
@@ -256,30 +261,28 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func bookingStatusImage() -> UIImage? {
         
-        var imgName : String?
         var img : UIImage?
         switch booking!.bookingStatus {
             
         case BookingStatus.COMPLETED.rawValue:
-            imgName = "MyTripsCompleted"
+            img = UIImage(named:"MyTripsCompleted")
         case BookingStatus.ARRIVED.rawValue:
-            imgName = "MyTripsArrived"
+            img = UIImage(named:"MyTripsArrived")
         case BookingStatus.CONFIRMED.rawValue:
-            imgName = "MyTripsAssigned"
+            img = UIImage(named:"MyTripsAssigned")
         case BookingStatus.CANCELLED.rawValue:
-            imgName = "MyTripsCancelled"
+            img = UIImage(named:"MyTripsCancelled")
         case BookingStatus.PENDING.rawValue, BookingStatus.DISPATCHING.rawValue:
-            imgName = "MyTripsScheduled"
+            img = UIImage(named:"MyTripsScheduled")
         case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
-            imgName = "MyTripNoRideFound"
+            img = UIImage(named:"MyTripNoRideFound")
+        case BookingStatus.PICKUP.rawValue:
+            img = UIImage.gifImageWithName("MyTripHired")
         default:
             print("Do nothing")
             
         }
-        if imgName != nil && !(imgName?.isEmpty)! {
-            img = UIImage(named:imgName!)
-        }
-        
+    
         return img
     }
     
@@ -373,6 +376,18 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
             
             del?.updateRightBottomBarButtom(title: "CANCEL BOOKING", color: UIColor(hexString:"#E74C3C"), tag: BottomBarBtnTag.Cancel.rawValue)
+        }
+        else if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
+            del?.updateLeftBottomBarButtom(title: "TRIP E-BILL", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            
+            del?.updateRightBottomBarButtom(title: "BOOK AGAIN", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
+        }
+        else if booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue {
+            
+            del?.updateLeftBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            
+            del?.updateRightBottomBarButtom(title: "BOOK AGAIN", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
+            
         }
     }
     

@@ -19,6 +19,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     
     @IBOutlet weak var lblPickAddress : UILabel!
     @IBOutlet weak var lblPickMessage : UILabel!
+    @IBOutlet weak var imgPickMsgImage :UIImageView!
     @IBOutlet weak var viewCard : KTShadowView!
     @IBOutlet weak var lblDayOfMonth: UILabel!
     @IBOutlet weak var lblMonth: UILabel!
@@ -137,7 +138,14 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         
         lblPickAddress.text = vModel?.pickAddress()
         lblDropoffAddress.text = vModel?.dropAddress()
-        lblPickMessage.text = vModel?.pickMessage()
+        let msg = vModel?.pickMessage()
+        if (msg?.isEmpty)! {
+            lblPickMessage.isHidden = true
+            imgPickMsgImage.isHidden = true
+        }
+        else {
+            lblPickMessage.text = vModel?.pickMessage()
+        }
         lblDayOfMonth.text = vModel?.pickupDateOfMonth()
         
         lblMonth.text = vModel?.pickupMonth()
@@ -224,15 +232,26 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     
     //MARK: - Bottom Bar Buttons
     func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int ) {
-        leftBottomBarButton.titleLabel?.text = title
-        leftBottomBarButton.setTitleColor(color, for: .normal)
-        leftBottomBarButton.tag = tag
+        if !title.isEmpty {
+            
+            leftBottomBarButton.setTitle(title, for: .normal)
+            leftBottomBarButton.setTitleColor(color, for: .normal)
+            leftBottomBarButton.tag = tag
+        }
+        else {
+            leftBottomBarButton.isHidden = true
+        }
     }
     func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int ) {
+        if !title.isEmpty {
+            rightBottomBarButton.setTitle(title, for: .normal)
+            rightBottomBarButton.setTitleColor(color, for: .normal)
+            rightBottomBarButton.tag = tag
+        }
+        else {
+            rightBottomBarButton.isHidden = true
+        }
         
-        rightBottomBarButton.titleLabel?.text = title
-        rightBottomBarButton.setTitleColor(color, for: .normal)
-        rightBottomBarButton.tag = tag
     }
     
     
