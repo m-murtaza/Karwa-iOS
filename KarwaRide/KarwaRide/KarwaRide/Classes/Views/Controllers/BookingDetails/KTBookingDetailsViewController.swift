@@ -29,10 +29,21 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var imgBookingStatus: UIImageView!
     @IBOutlet weak var lblEstimatedFare : UILabel!
     @IBOutlet weak var starView : CosmosView!
+    @IBOutlet weak var lblEta : UILabel!
     
     @IBOutlet weak var lblDriverName : UILabel!
     @IBOutlet weak var lblVehicleNumber :UILabel!
     @IBOutlet weak var imgNumberPlate : UIImageView!
+    
+    @IBOutlet weak var leftBottomBarButton : UIButton!
+    @IBOutlet weak var rightBottomBarButton : UIButton!
+    
+    @IBOutlet weak var btnPhone: UIButton!
+    @IBOutlet weak var driverInfoBox : UIView!
+    @IBOutlet weak var etaView : UIView!
+    
+    @IBOutlet weak var constraintDriverInfoHeightConstraint : NSLayoutConstraint!
+    @IBOutlet weak var constraintGapDriverInfoToBookingDetails : NSLayoutConstraint!
     
     private var vModel : KTBookingDetailsViewModel?
     override func viewDidLoad() {
@@ -70,8 +81,23 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
+    //MARK:- ETA
+    func updateEta(eta: String) {
+        lblEta.text = eta
+    }
+    
+    func hideEtaView() {
+            etaView.isHidden = true
+    }
+    
+    //MARK: - UI update
+    func hideDriverInfoBox() {
+        
+        constraintDriverInfoHeightConstraint.constant = 0
+        constraintGapDriverInfoToBookingDetails.constant = 0
+        driverInfoBox.isHidden = true
+    }
     
     
     
@@ -141,6 +167,10 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         
         self.mapView.camera = camera;
         self.mapView.delegate = self
+        
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        mapView.padding = padding
+        
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
@@ -158,13 +188,79 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         //self.mapView!.settings.myLocationButton = show
     }
     
-    func showVTrackMarker(vTrack: VehicleTrack) {
-            let marker = GMSMarker()
-            marker.position = vTrack.position
+    var  marker : GMSMarker?
+    let markerMovement : ARCarMovement = ARCarMovement()
+    func showUpdateVTrackMarker(vTrack: VehicleTrack) {
         
-       
-            marker.rotation = CLLocationDegrees(vTrack.bearing)
-            marker.icon = (viewModel as! KTBookingDetailsViewModel).imgForTrackMarker()
-            marker.map = self.mapView
+        if marker == nil {
+            //Create new
+            marker = GMSMarker()
+            marker?.position = vTrack.position
+            marker?.rotation = CLLocationDegrees(vTrack.bearing)
+            marker?.icon = (viewModel as! KTBookingDetailsViewModel).imgForTrackMarker()
+            marker?.map = self.mapView
+            
+        }
+        else {
+            //Animate
+            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
+        }
+        
+        updateMapCamera()
+    }
+    
+    func updateMapCamera() {
+        
+        
+        var bounds = GMSCoordinateBounds()
+        bounds = bounds.includingCoordinate((marker?.position)!)
+        bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
+        
+        var update : GMSCameraUpdate?
+        update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+        
+        mapView.animate(with: update!)
+    }
+    
+    //MARK: - Bottom Bar Buttons
+    func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int ) {
+        leftBottomBarButton.titleLabel?.text = title
+        leftBottomBarButton.setTitleColor(color, for: .normal)
+        leftBottomBarButton.tag = tag
+    }
+    func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int ) {
+        
+        rightBottomBarButton.titleLabel?.text = title
+        rightBottomBarButton.setTitleColor(color, for: .normal)
+        rightBottomBarButton.tag = tag
+    }
+    
+    
+    @IBAction func leftBottomBarButtonTapped(btnSender: UIButton) {
+        
+        vModel?.buttonTapped(withTag: btnSender.tag)
+    }
+    
+    @IBAction func rightBottomBarButtonTapped(btnSender: UIButton) {
+        
+        vModel?.buttonTapped(withTag: btnSender.tag)
+    }
+    
+    func showAlertForCancelBooking() {
+        let alertController = UIAlertController(title: nil, message: "Are you sure you want to cancel your booking?", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            self.vModel?.cancelBooking()
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func popViewController() {
+        
+        self.navigationController?.popViewController(animated: true)
     }
 }

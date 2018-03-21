@@ -169,4 +169,14 @@ class KTBookingManager: KTDALManager {
         //Default date of 1970
     }
 
+    func cancelBooking(bookingId: String, completeion completionBlock: @escaping KTDALCompletionBlock) {
+        
+        let url = Constants.APIURL.Booking + "/" + bookingId
+        self.delete(url: url, param: nil, completion: completionBlock, success: {
+            (response, cBlock) in
+            
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+            
+        })
+    }
 }

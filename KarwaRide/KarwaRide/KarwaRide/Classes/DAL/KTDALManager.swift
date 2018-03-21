@@ -11,6 +11,13 @@ import MagicalRecord
 
 class KTDALManager: KTBase {
 
+    func delete(url: String, param: [String:Any]?,completion completionBlock: @escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
+        KTWebClient.sharedInstance.delete(uri: url, param: param) { (status, response) in
+            
+            self.handleAPIResponse(status: status, response: response, completion: completionBlock,success: successBlock)
+        }
+    }
+    
     func get(url: String, param: [String:Any]?,completion completionBlock: @escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
         KTWebClient.sharedInstance.get(uri: url, param: param) { (status, response) in
             

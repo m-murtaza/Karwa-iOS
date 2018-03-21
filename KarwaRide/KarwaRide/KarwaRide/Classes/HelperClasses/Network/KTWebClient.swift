@@ -59,6 +59,11 @@ class KTWebClient: NSObject {
         sendRequest(httpMethod: .get, uri: uri, param: param,completion: completionBlock)
     }
     
+    func  delete(uri: String, param: [String : Any]?, completion completionBlock:@escaping KTResponseCompletionBlock)
+    {
+        sendRequest(httpMethod: .delete, uri: uri, param: param,completion: completionBlock)
+    }
+    
     private func sendRequest(httpMethod: HTTPMethod, uri: String, param: Parameters?, completion  completionBlock:@escaping  KTResponseCompletionBlock)
     {
         guard Connectivity.isConnectedToInternet else {

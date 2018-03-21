@@ -2305,7 +2305,7 @@
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="qId-oT-hg9"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsCompleted" translatesAutoresizingMaskIntoConstraints="NO" id="FVa-Sf-zvY">
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsCompleted" translatesAutoresizingMaskIntoConstraints="NO" id="FVa-Sf-zvY">
                                                 <rect key="frame" x="237" y="0.0" width="90" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="90" id="CzH-ST-m2e"/>
@@ -2575,14 +2575,42 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_action_bar" translatesAutoresizingMaskIntoConstraints="NO" id="yrL-xd-8ro">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTg-qC-AB5">
+                                        <rect key="frame" x="240" y="13" width="123" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="123" id="Mb7-7D-KD5"/>
+                                            <constraint firstAttribute="height" constant="30" id="zoY-6Y-vFV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                        <state key="normal" title="CANCEL BOOKING"/>
+                                        <connections>
+                                            <action selector="rightBottomBarButtonTappedWithBtnSender:" destination="l39-Ix-xs1" eventType="touchUpInside" id="hdg-Hd-hQY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKb-Oc-X5K">
+                                        <rect key="frame" x="12" y="13" width="130" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Vsi-pg-Omy"/>
+                                            <constraint firstAttribute="width" constant="130" id="ucb-mA-OvV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                        <state key="normal" title="FARE DETAILS"/>
+                                        <connections>
+                                            <action selector="leftBottomBarButtonTappedWithBtnSender:" destination="l39-Ix-xs1" eventType="touchUpInside" id="FdB-07-D72"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="yrL-xd-8ro" firstAttribute="top" secondItem="vlg-vT-ise" secondAttribute="top" id="G9i-Qp-apC"/>
                                     <constraint firstItem="yrL-xd-8ro" firstAttribute="leading" secondItem="vlg-vT-ise" secondAttribute="leading" id="Izo-4c-lk6"/>
+                                    <constraint firstItem="LTg-qC-AB5" firstAttribute="centerY" secondItem="vlg-vT-ise" secondAttribute="centerY" id="J19-Cc-lq4"/>
                                     <constraint firstAttribute="bottom" secondItem="yrL-xd-8ro" secondAttribute="bottom" id="KJL-Dt-ytX"/>
                                     <constraint firstAttribute="trailing" secondItem="yrL-xd-8ro" secondAttribute="trailing" id="fcV-ct-MYC"/>
+                                    <constraint firstItem="aKb-Oc-X5K" firstAttribute="leading" secondItem="vlg-vT-ise" secondAttribute="leading" constant="12" id="kuj-f9-bsS"/>
                                     <constraint firstAttribute="height" constant="56" id="l0l-0X-gTL"/>
+                                    <constraint firstItem="aKb-Oc-X5K" firstAttribute="centerY" secondItem="vlg-vT-ise" secondAttribute="centerY" id="uup-hc-KUp"/>
+                                    <constraint firstAttribute="trailing" secondItem="LTg-qC-AB5" secondAttribute="trailing" constant="12" id="w55-Ld-7nY"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2613,6 +2641,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnPhone" destination="mFm-Wl-LRA" id="894-sV-Sb2"/>
+                        <outlet property="constraintDriverInfoHeightConstraint" destination="bnz-xL-TRO" id="eau-ab-cgF"/>
+                        <outlet property="constraintGapDriverInfoToBookingDetails" destination="FuW-6d-3Uv" id="e7R-NZ-Qb2"/>
+                        <outlet property="driverInfoBox" destination="Igg-z1-2G6" id="FeV-Ud-8tb"/>
+                        <outlet property="etaView" destination="q2n-Zk-ght" id="yAS-iC-rKZ"/>
                         <outlet property="imgBookingStatus" destination="FVa-Sf-zvY" id="hNF-Pb-DWI"/>
                         <outlet property="imgNumberPlate" destination="2ZV-cL-Dyj" id="HoF-R7-5ka"/>
                         <outlet property="lblDayAndTime" destination="clH-DM-VZk" id="J2p-JK-7vG"/>
@@ -2620,13 +2653,16 @@
                         <outlet property="lblDriverName" destination="5ap-wU-Jkq" id="Rrj-wc-flk"/>
                         <outlet property="lblDropoffAddress" destination="475-RW-oVk" id="gks-RF-xv2"/>
                         <outlet property="lblEstimatedFare" destination="d8A-5Q-1ai" id="ToM-Nw-3vy"/>
+                        <outlet property="lblEta" destination="Qzp-22-8Om" id="eaX-Sr-ZlE"/>
                         <outlet property="lblMonth" destination="SGN-Pg-SpG" id="XmR-FZ-sil"/>
                         <outlet property="lblPickAddress" destination="zN6-a4-hca" id="pMD-Hm-A7h"/>
                         <outlet property="lblPickMessage" destination="5Nf-3Q-2ej" id="VP2-cA-6BN"/>
                         <outlet property="lblServiceType" destination="Njd-D0-ndn" id="C5x-ht-Qzl"/>
                         <outlet property="lblVehicleNumber" destination="7aa-fF-woR" id="gxz-gV-cVx"/>
                         <outlet property="lblYear" destination="G8f-ys-KMl" id="znY-Cx-E7W"/>
+                        <outlet property="leftBottomBarButton" destination="aKb-Oc-X5K" id="TOT-20-Sr8"/>
                         <outlet property="mapView" destination="h6a-f0-McA" id="rau-lw-5zc"/>
+                        <outlet property="rightBottomBarButton" destination="LTg-qC-AB5" id="qIk-yn-bZX"/>
                         <outlet property="starView" destination="mEA-ox-eSf" id="2kc-Ny-pMt"/>
                         <outlet property="viewCard" destination="VsK-vU-v8o" id="Cg1-YI-rC9"/>
                     </connections>

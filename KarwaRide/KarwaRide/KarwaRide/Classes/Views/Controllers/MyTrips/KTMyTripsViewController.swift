@@ -69,6 +69,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         (viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
     }
     

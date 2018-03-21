@@ -56,6 +56,7 @@
 		1839111A20457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111920457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift */; };
 		1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */; };
 		1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */; };
+		1852093F205F978D00BD5FCD /* ARCarMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852093E205F978D00BD5FCD /* ARCarMovement.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -163,6 +164,7 @@
 		1839111920457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSettingsProfileTableViewCell.swift; path = Classes/Views/Controllers/Settings/KTSettingsProfileTableViewCell.swift; sourceTree = "<group>"; };
 		1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+Logout.swift"; path = "Classes/DAL/KTUserManager+Logout.swift"; sourceTree = "<group>"; };
 		1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseLoginSignUpViewController.swift; path = Classes/Views/Controllers/Login/KTBaseLoginSignUpViewController.swift; sourceTree = "<group>"; };
+		1852093E205F978D00BD5FCD /* ARCarMovement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ARCarMovement.swift; path = Classes/ThirdParty/ARCarMovement/ARCarMovement.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1852093D205F96DE00BD5FCD /* ARCarMovement */,
 				18F2B26D2042932300600966 /* SSASideMenu */,
 				18B907662022F630000F45FE /* PopUp */,
 				18B907632021C73B000F45FE /* DatePickerDialog */,
@@ -505,6 +508,14 @@
 				1811E4E1204FD76A00C3C47F /* KTSetHomeViewModel.swift */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		1852093D205F96DE00BD5FCD /* ARCarMovement */ = {
+			isa = PBXGroup;
+			children = (
+				1852093E205F978D00BD5FCD /* ARCarMovement.swift */,
+			);
+			name = ARCarMovement;
 			sourceTree = "<group>";
 		};
 		1864871E1F0A357C00DDB003 /* Views */ = {
@@ -957,6 +968,7 @@
 				181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */,
 				18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */,
 				1811E4E920569A5100C3C47F /* Date+Utils.swift in Sources */,
+				1852093F205F978D00BD5FCD /* ARCarMovement.swift in Sources */,
 				1811E4D4204E7B3D00C3C47F /* KTUserManager+AccountEdit.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
