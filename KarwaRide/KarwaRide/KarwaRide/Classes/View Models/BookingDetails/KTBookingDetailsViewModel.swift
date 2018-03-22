@@ -95,8 +95,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func updateAssignmentInfo() {
         if booking?.driverName != nil && !(booking?.driverName?.isEmpty)! {
-            del?.hideDriverInfoBox()
-            //del?.updateAssignmentInfo()
+            //del?.hideDriverInfoBox()
+            del?.updateAssignmentInfo()
         }
         else {
             del?.hideDriverInfoBox()
