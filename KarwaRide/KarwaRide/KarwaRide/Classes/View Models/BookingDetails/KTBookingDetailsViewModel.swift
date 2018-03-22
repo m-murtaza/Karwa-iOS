@@ -8,11 +8,16 @@
 
 import UIKit
 import CoreLocation
+import Alamofire
+import SwiftyJSON
+import GoogleMaps
+
 
 protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func initializeMap(location : CLLocationCoordinate2D)
     func showCurrentLocationDot(show: Bool)
     func showUpdateVTrackMarker(vTrack: VehicleTrack)
+    func showPathOnMap(path: GMSPath)
     func updateBookingCard()
     func showAlertForCancelBooking()
     func popViewController()
@@ -300,13 +305,19 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func updateMap() {
         
-        del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-        del?.showCurrentLocationDot(show: true)
+        
         
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
-            
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            del?.showCurrentLocationDot(show: true)
             startVechicleTrackTimer()
+        }
+        else if bStatus == BookingStatus.COMPLETED {
+            if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
+                del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+                snapTrackToRoad(track: (booking?.tripTrack)!)
+            }
         }
     }
     
@@ -366,6 +377,55 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 img = UIImage(named:"BookingMapTaxiIco")
         }
         return img!
+    }
+    
+    
+    func snapTrackToRoad(track : String) {
+        let url = "https://roads.googleapis.com/v1/snapToRoads?path=\(track)&interpolate=true&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
+        //let url = "https://maps.googleapis.com/maps/api/directions/json?origin=25.269500,51.533400&destination=25.269900,51.532800&mode=driving&key=AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
+        
+        //let url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907|-35.28099,149.12929|-35.28144,149.12984|-35.28194,149.13003|-35.28282,149.12956|-35.28302,149.12881|-35.28473,149.12836&interpolate=true&key=AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
+        
+        
+        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        Alamofire.request(encodedUrl!, method: .get, parameters: nil, headers: nil).responseJSON { (response:DataResponse<Any>) in
+            print(response)
+            
+            switch(response.result) {
+            case .success(_):
+                if response.result.value != nil{
+                    do {
+                        let json = try JSON(data: response.data!)
+                        let path = GMSMutablePath()
+                        for p in json["snappedPoints"].object as! [ Dictionary<String,Any>] {
+                            path.add(CLLocationCoordinate2D(latitude: (p["location"] as! [AnyHashable: Any])["latitude"] as! CLLocationDegrees, longitude: (p["location"] as! [AnyHashable: Any])["longitude"] as! CLLocationDegrees))
+                        }
+                        
+                        self.del?.showPathOnMap(path: path)
+                        //print(json)
+                        /*let routes = json["routes"].arrayValue
+                        
+                        for route in routes
+                        {
+                            let routeOverviewPolyline = route["overview_polyline"].dictionary
+                            let points = routeOverviewPolyline?["points"]?.stringValue
+                            
+                            (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: points!)
+                        }*/
+                    }
+                    catch _ {
+                        
+                        print("Error: Unalbe to draw polyline. ")
+                    }
+                }
+                break
+                
+            case .failure(_):
+                print(response.result.error as Any)
+                break
+            }
+        }
     }
     
     //MARK:- Bottom Bar buttons

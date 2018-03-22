@@ -161,10 +161,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         let destination = String(format:"%f", (dropOffAddress?.latitude)!) + "," + String(format:"%f", (dropOffAddress?.longitude)!)
         //"\(String(describing: dropOffAddress?.latitude)),\(String(describing: dropOffAddress?.longitude))"
         
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
-        
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
+        print(url)
         Alamofire.request(url, method: .get, parameters: nil, headers: nil).responseJSON { (response:DataResponse<Any>) in
-            print(response)
+            //print(response)
             
             switch(response.result) {
             case .success(_):

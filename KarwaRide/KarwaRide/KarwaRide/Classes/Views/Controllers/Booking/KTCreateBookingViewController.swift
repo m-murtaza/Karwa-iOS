@@ -344,23 +344,11 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
         polyline.map = self.mapView
         
-        /*let lat1 = (path.coordinate(at:0)).latitude
-        let lon1 = (path.coordinate(at:0)).longitude
         
-        let lat2 = (path.coordinate(at:path.count()-1)).latitude
-        let lon2 = (path.coordinate(at:path.count()-1)).longitude
-        
-        let str : String = "Start \(lat1) - \(lon1)  ---- End  \(lat2) - \(lon2)"
-        
-        print (str)*/
-        
-        //addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-        //addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
         
         var bounds = GMSCoordinateBounds()
         for index in 1 ... (path.count().toInt) {
             bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
-            //addMarkerOnMap(location: path.coordinate(at:UInt(index)), image: UIImage(named: "BookingMapDirectionPickup")!)
         }
         
         mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))

@@ -135,7 +135,7 @@ class KTBookingManager: KTDALManager {
         var bookings : [KTBooking] = []
         let predicate : NSPredicate = NSPredicate(format:"bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d",BookingStatus.PENDING.rawValue,BookingStatus.DISPATCHING.rawValue,BookingStatus.CONFIRMED.rawValue, BookingStatus.ARRIVED.rawValue,BookingStatus.PICKUP.rawValue)
         
-        bookings = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: true, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking]
+        bookings = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking]
         
         return bookings
     }

@@ -230,6 +230,34 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         mapView.animate(with: update!)
     }
     
+    func showPathOnMap(path: GMSPath) {
+        var polyline = GMSPolyline()
+        polyline = GMSPolyline.init(path: path)
+        polyline.strokeWidth = 3
+        polyline.strokeColor =    UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+        polyline.map = self.mapView
+        
+        
+        var bounds = GMSCoordinateBounds()
+        for index in 1 ... (path.count().toInt) {
+            bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
+        }
+        
+        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+        
+        addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
+        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
+    }
+    
+    func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+    }
+    
     //MARK: - Bottom Bar Buttons
     func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int ) {
         if !title.isEmpty {
