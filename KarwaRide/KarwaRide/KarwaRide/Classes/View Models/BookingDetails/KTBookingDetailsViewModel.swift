@@ -24,6 +24,10 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func updateBookingCardForCompletedBooking()
     func updateBookingCardForUnCompletedBooking()
     
+    func addPickupMarker(location : CLLocationCoordinate2D)
+    func addDropOffMarker(location : CLLocationCoordinate2D)
+    func setMapCamera(bound : GMSCoordinateBounds)
+    
     func updateAssignmentInfo()
     func hideDriverInfoBox()
     
@@ -346,8 +350,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func updateMap() {
         
-        
-        
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
@@ -360,10 +362,41 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 snapTrackToRoad(track: (booking?.tripTrack)!)
             }
         }
+        else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE {
+            
+            showPickDropMarker()
+        }
     }
     
     func startVechicleTrackTimer() {
         timerVechicleTrack = Timer.scheduledTimer(timeInterval: 3, target: self,   selector: (#selector(self.fetchTaxiForTracking)), userInfo: nil, repeats: true)
+        
+    }
+    
+    func showPickDropMarker() {
+        
+        let bounds : GMSCoordinateBounds = GMSCoordinateBounds()
+        
+        if booking?.pickupLat != nil && booking?.pickupLon != nil && !(booking?.pickupLat.isZero)! && !(booking?.pickupLon.isZero)! {
+            
+            let location : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!)
+            del?.addPickupMarker(location: location)
+            bounds.includingCoordinate(location)
+        }
+        
+        if booking?.dropOffLat != nil && booking?.dropOffLon != nil && !(booking?.dropOffLat.isZero)! && !(booking?.dropOffLon.isZero)! {
+            
+            let location : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.dropOffLat)!,longitude: (booking?.dropOffLon)!)
+            del?.addDropOffMarker(location: location)
+            bounds.includingCoordinate(location)
+        }
+        
+        if bounds.isValid {
+            del?.setMapCamera(bound: bounds)
+        }
+        else {
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+        }
         
     }
     

@@ -12,7 +12,7 @@ import GoogleMaps
 import Cosmos
 
 class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate {
-
+    
     //
     
     @IBOutlet weak var mapView : GMSMapView!
@@ -157,6 +157,8 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         if (msg?.isEmpty)! {
             lblPickMessage.isHidden = true
             imgPickMsgImage.isHidden = true
+            constraintHeighBookingInfoBox.constant -= 10
+            constraintHeighBookingInfoLargeBox.constant -= 10
         }
         else {
             lblPickMessage.text = vModel?.pickMessage()
@@ -187,10 +189,10 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     
     func updateBookingCardForCompletedBooking() {
         
-        constraintHeighBookingInfoBox.constant -= 10
+        /*constraintHeighBookingInfoBox.constant -= 10
         constraintHeighBookingInfoLargeBox.constant -= 10
         imgPickMsgImage.isHidden = true
-        lblPickMessage.isHidden = true
+        lblPickMessage.isHidden = true*/
     }
     
     func updateBookingCardForUnCompletedBooking() {
@@ -300,6 +302,19 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
+    }
+    
+    func addPickupMarker(location : CLLocationCoordinate2D) {
+        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+    }
+    
+    func addDropOffMarker(location: CLLocationCoordinate2D) {
+        addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
+    }
+    
+    func setMapCamera(bound : GMSCoordinateBounds) {
+        
+        mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 50.0))
     }
     
     //MARK: - Bottom Bar Buttons
