@@ -31,6 +31,8 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var lblEstimatedFare : UILabel!
     @IBOutlet weak var starView : CosmosView!
     @IBOutlet weak var lblEta : UILabel!
+    @IBOutlet weak var lblPickTime : RoundedLable!
+    @IBOutlet weak var lblDropTime : RoundedLable!
     
     @IBOutlet weak var lblDriverName : UILabel!
     @IBOutlet weak var lblVehicleNumber :UILabel!
@@ -43,8 +45,21 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var driverInfoBox : UIView!
     @IBOutlet weak var etaView : UIView!
     
+    @IBOutlet weak var imgBookingBar : UIImageView!
+    
     @IBOutlet weak var constraintDriverInfoHeightConstraint : NSLayoutConstraint!
     @IBOutlet weak var constraintGapDriverInfoToBookingDetails : NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintHeighBookingInfoBox : NSLayoutConstraint!
+    @IBOutlet weak var constraintHeighBookingInfoLargeBox : NSLayoutConstraint!
+    @IBOutlet weak var constraintHeightPickTime : NSLayoutConstraint!
+    @IBOutlet weak var constraintHeightDropTime : NSLayoutConstraint!
+    @IBOutlet weak var constraintSpacePickTimeNPickAddress : NSLayoutConstraint!
+    @IBOutlet weak var constraintSpaceDropTimeNDropAddress : NSLayoutConstraint!
+    @IBOutlet weak var constraintPickDropBarHeight : NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintSpaceSapratorToPickupLable : NSLayoutConstraint!
+    @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
     
     private var vModel : KTBookingDetailsViewModel?
     override func viewDidLoad() {
@@ -162,11 +177,40 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
             imgBookingStatus.image = img
         }
         
+        lblPickTime.text = vModel?.pickupTime()
+        lblDropTime.text = vModel?.dropoffTime()
+        
         viewCard.backgroundColor = vModel?.cellBGColor()
         
         viewCard.borderColor = vModel?.cellBorderColor()
     }
     
+    func updateBookingCardForCompletedBooking() {
+        
+        constraintHeighBookingInfoBox.constant -= 10
+        constraintHeighBookingInfoLargeBox.constant -= 10
+        imgPickMsgImage.isHidden = true
+        lblPickMessage.isHidden = true
+    }
+    
+    func updateBookingCardForUnCompletedBooking() {
+        
+        imgBookingBar.image = UIImage(named:"BookingPickDropBar")
+        constraintPickDropBarHeight.constant -= 10
+        
+        constraintHeighBookingInfoBox.constant -= 10
+        constraintHeighBookingInfoLargeBox.constant -= 10
+        lblPickTime.isHidden = true
+        lblDropTime.isHidden = true
+        
+        constraintHeightPickTime.constant = 0
+        constraintHeightDropTime.constant = 0
+        constraintSpacePickTimeNPickAddress.constant = 0
+        constraintSpaceDropTimeNDropAddress.constant = -16
+        
+        constraintSapratorCenterAlign.priority = UILayoutPriority.defaultHigh
+        constraintSpaceSapratorToPickupLable.priority = UILayoutPriority.defaultLow
+    }
     
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {

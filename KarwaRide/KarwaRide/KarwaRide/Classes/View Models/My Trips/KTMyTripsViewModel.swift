@@ -223,6 +223,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
         case BookingStatus.PICKUP.rawValue:
             img = UIImage.gifImageWithName("MyTripHired")
         default:
+            img = UIImage()
             print("Do nothing")
             
         }

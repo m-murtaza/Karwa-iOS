@@ -82,3 +82,15 @@ extension NSDate {
         return str.uppercased()
     }
 }
+
+extension Date {
+    
+    func timeWithAMPM() -> String {
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        //formatter.dateStyle = .medium
+        let str = formatter.string(from: self as Date)
+        
+        return str
+    }
+}

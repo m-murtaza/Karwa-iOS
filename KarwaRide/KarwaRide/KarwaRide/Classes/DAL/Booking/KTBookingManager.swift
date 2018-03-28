@@ -8,20 +8,10 @@
 
 import UIKit
 
-let BOOKING_SYNC_TIME = "bookingSyncTime"
+let BOOKING_SYNC_TIME = "synctime"
 
 class KTBookingManager: KTDALManager {
     
-//    func booking(pickUp: KTGeoLocation?, dropOff:KTGeoLocation?) -> KTBooking {
-//        
-//        let book : KTBooking = KTBooking.mr_createEntity(in: NSManagedObjectContext.mr_default())!
-//        book.pickupLocation = pickUp
-//        if dropOff != nil {
-//            book.dropoffLocation = dropOff
-//        }
-//        
-//        return book
-//    }
     func booking() -> KTBooking {
         
         let book : KTBooking = KTBooking.mr_createEntity(in: NSManagedObjectContext.mr_default())!
@@ -148,7 +138,7 @@ class KTBookingManager: KTDALManager {
             syncDate = self.defaultSyncDate()
         }
         let syncTimeInterval: TimeInterval = (syncDate?.timeIntervalSince1970)!
-        let strSyncTimeInterval = "\(syncTimeInterval)"
+        let strSyncTimeInterval = String(format: "%.0f", syncTimeInterval)
         return strSyncTimeInterval
     }
     

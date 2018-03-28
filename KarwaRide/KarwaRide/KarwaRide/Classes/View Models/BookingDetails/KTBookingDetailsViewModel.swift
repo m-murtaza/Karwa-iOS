@@ -21,6 +21,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func updateBookingCard()
     func showAlertForCancelBooking()
     func popViewController()
+    func updateBookingCardForCompletedBooking()
+    func updateBookingCardForUnCompletedBooking()
     
     func updateAssignmentInfo()
     func hideDriverInfoBox()
@@ -148,6 +150,15 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     //MARK:- BookingCard
     func updateBookingCard() {
         del?.updateBookingCard()
+        
+        if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
+            
+            del?.updateBookingCardForCompletedBooking()
+        }
+        else {
+            del?.updateBookingCardForUnCompletedBooking()
+        }
+        
         
     }
     
@@ -284,6 +295,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         case BookingStatus.PICKUP.rawValue:
             img = UIImage.gifImageWithName("MyTripHired")
         default:
+            img = UIImage()
             print("Do nothing")
             
         }
@@ -291,8 +303,37 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return img
     }
     
+    func pickupTime() -> String {
+        
+        var time : String = ""
+        if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
+            if booking?.pickupTime != nil {
+                time = (booking?.pickupTime?.timeWithAMPM())!
+            }
+            
+        }
+        return time
+    }
+    
+    func dropoffTime() -> String {
+        var time : String = ""
+        if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
+            if booking?.dropOffTime != nil {
+                time = (booking?.pickupTime?.timeWithAMPM())!
+            }
+            
+        }
+        return time
+    }
+    
+    
     func estimatedFare() -> String {
-        return booking!.estimatedFare!
+        var estimate : String = ""
+        if booking!.estimatedFare != nil {
+          estimate = booking!.estimatedFare!
+        
+        }
+        return estimate
     }
     
     
