@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+//        let vTypeManager :KTVehicleTypeManager = KTVehicleTypeManager()
+//        vTypeManager.fetchBasicTariffFromServer { (status, response) in
+//            print(response)
+//        }
+        
         if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
             let aps = notification["aps"] as! [String: AnyObject]
             print(aps)
@@ -43,8 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyBWEik2kFj1hYESIhS2GgUblo_amSfjqT0")
         
-        let vTypeManager :KTVehicleTypeManager = KTVehicleTypeManager()
-        vTypeManager.addDefaultVechicletypes()
+        
         
         return true
     }

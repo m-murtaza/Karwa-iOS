@@ -8,7 +8,7 @@
 
 import UIKit
 
-let BOOKING_SYNC_TIME = "synctime"
+let BOOKING_SYNC_TIME = "BookingSyncTime"
 
 class KTBookingManager: KTDALManager {
     
@@ -46,12 +46,12 @@ class KTBookingManager: KTDALManager {
     
     func syncBookings(completion completionBlock: @escaping KTDALCompletionBlock) {
         
-        let param : [String: Any] = [Constants.BookingSyncParam.SyncTime: bookingSyncTime()]
+        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:BOOKING_SYNC_TIME)]
         
         self.get(url: Constants.APIURL.Booking, param: param, completion: completionBlock) { (response, cBlock) in
             
             let bookings = self.saveBookingsInDB(bookings: response[Constants.ResponseAPIKey.Data] as! [Any])
-            self.updateBookingSyncTime()
+            self.updateSyncTime(forKey: BOOKING_SYNC_TIME)
             
             
             cBlock(Constants.APIResponseStatus.SUCCESS,[Constants.ResponseAPIKey.Data:bookings])
@@ -75,7 +75,7 @@ class KTBookingManager: KTDALManager {
         b.bookingStatus = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.BookingStatus] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.BookingStatus] as! Int32 : 0
         b.cancelReason = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CancelReason] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.CancelReason] as! Int32 : 0
         b.bookingStatus = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.BookingStatus] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.BookingStatus] as! Int32 : 0
-        b.creationTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CreationTime] as AnyObject)) ? NSDate.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.CreationTime] as? String) as! Date : NSDate.defaultDate() as Date
+        b.creationTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CreationTime] as AnyObject)) ? NSDate.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.CreationTime] as? String) as Date : NSDate.defaultDate() as Date
         
         b.callerId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CallerID] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.CallerID] as? String : ""
         b.eta = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Eta] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Eta] as! Int64 : 0
@@ -132,32 +132,32 @@ class KTBookingManager: KTDALManager {
     
     //MARK: - Booking Sync Time
     //  Converted to Swift 4 by Swiftify v4.1.6640 - https://objectivec2swift.com/
-    func bookingSyncTime() -> String {
-        var syncDate = UserDefaults.standard.object(forKey: BOOKING_SYNC_TIME) as? Date
-        if syncDate == nil {
-            syncDate = self.defaultSyncDate()
-        }
-        let syncTimeInterval: TimeInterval = (syncDate?.timeIntervalSince1970)!
-        let strSyncTimeInterval = String(format: "%.0f", syncTimeInterval)
-        return strSyncTimeInterval
-    }
-    
-    func updateBookingSyncTime() {
-        let defaults: UserDefaults? = UserDefaults.standard
-        defaults?.set(Date(), forKey: BOOKING_SYNC_TIME)
-        defaults?.synchronize()
-    }
-    
-    func removeSyncTime() {
-        let defaults: UserDefaults? = UserDefaults.standard
-        defaults?.removeObject(forKey: BOOKING_SYNC_TIME)
-        defaults?.synchronize()
-    }
-    
-    func defaultSyncDate() -> Date? {
-        return Date(timeIntervalSince1970: 0)
-        //Default date of 1970
-    }
+//    func bookingSyncTime() -> String {
+//        var syncDate = UserDefaults.standard.object(forKey: BOOKING_SYNC_TIME) as? Date
+//        if syncDate == nil {
+//            syncDate = self.defaultSyncDate()
+//        }
+//        let syncTimeInterval: TimeInterval = (syncDate?.timeIntervalSince1970)!
+//        let strSyncTimeInterval = String(format: "%.0f", syncTimeInterval)
+//        return strSyncTimeInterval
+//    }
+//
+//    func updateBookingSyncTime() {
+//        let defaults: UserDefaults? = UserDefaults.standard
+//        defaults?.set(Date(), forKey: BOOKING_SYNC_TIME)
+//        defaults?.synchronize()
+//    }
+//
+//    func removeSyncTime() {
+//        let defaults: UserDefaults? = UserDefaults.standard
+//        defaults?.removeObject(forKey: BOOKING_SYNC_TIME)
+//        defaults?.synchronize()
+//    }
+//
+//    func defaultSyncDate() -> Date? {
+//        return Date(timeIntervalSince1970: 0)
+//        //Default date of 1970
+//    }
 
     func cancelBooking(bookingId: String, completeion completionBlock: @escaping KTDALCompletionBlock) {
         

@@ -366,6 +366,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             
             showPickDropMarker()
         }
+        else {
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+        }
     }
     
     func startVechicleTrackTimer() {

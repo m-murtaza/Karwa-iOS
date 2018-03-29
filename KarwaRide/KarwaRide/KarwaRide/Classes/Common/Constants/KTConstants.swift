@@ -234,6 +234,7 @@ struct Constants {
         static let SetHomeBookmark = "bookmark/personal/home"
         static let SetWorkBookmark = "bookmark/personal/work"
         static let trackVechicle = "track/job"
+        static let initTariff = "tariff/init"
     }
     
     struct TrackTaxiParams {
@@ -277,7 +278,8 @@ struct Constants {
         static let Longitude = "Lon"
     }
     
-    struct BookingSyncParam {
-        static let SyncTime = "synctime"
+    struct SyncParam {
+        static let BookingList = "synctime"
+        static let VehicleTariff = "syncTime"
     }
 }

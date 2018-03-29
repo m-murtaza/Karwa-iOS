@@ -441,7 +441,7 @@ extension CarouselDatasource: UICollectionViewDataSource {
         if let sTypeCell = cell as? KTServiceCardCell {
             sTypeCell.lblServiceType.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
             
-            sTypeCell.lblBaseFare.text = (viewModel as! KTCreateBookingViewModel).sTypeBaseFare(forIndex: indexPath.row) + "QR"
+            sTypeCell.lblBaseFare.text = (viewModel as! KTCreateBookingViewModel).sTypeBaseFare(forIndex: indexPath.row) 
             sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
             sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
         }

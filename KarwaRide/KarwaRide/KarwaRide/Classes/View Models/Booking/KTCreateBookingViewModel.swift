@@ -283,7 +283,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     private func fetchVechicleTypes() {
-        let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
+        let vTypeManager :KTVehicleTypeManager = KTVehicleTypeManager()
+        vTypeManager.fetchBasicTariffFromServer { (status, response) in
+            print(response)
+        }
+        
+        //let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
         vehicleTypes = vTypeManager.VehicleTypes()
     }
     
@@ -300,7 +305,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func sTypeBaseFare(forIndex idx: Int) -> String {
         let vType : KTVehicleType = vehicleTypes![idx]
-        return String(vType.typeBaseFare)
+        return vType.typeBaseFare!
     }
     
     func sTypeBackgroundImage(forIndex idx: Int) -> UIImage {

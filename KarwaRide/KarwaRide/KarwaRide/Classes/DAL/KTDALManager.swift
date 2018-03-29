@@ -78,4 +78,32 @@ class KTDALManager: KTBase {
             return false
         }
     }
+    
+    func syncTime(forKey key: String) -> String {
+        return "0"
+        var syncDate = UserDefaults.standard.object(forKey: key) as? Date
+        if syncDate == nil {
+            syncDate = self.defaultSyncDate()
+        }
+        let syncTimeInterval: TimeInterval = (syncDate?.timeIntervalSince1970)!
+        let strSyncTimeInterval = String(format: "%.0f", syncTimeInterval)
+        return strSyncTimeInterval
+    }
+    
+    func updateSyncTime(forKey key: String) {
+        let defaults: UserDefaults? = UserDefaults.standard
+        defaults?.set(Date(), forKey: key)
+        defaults?.synchronize()
+    }
+    
+    func removeSyncTime(forKey key:String) {
+        let defaults: UserDefaults? = UserDefaults.standard
+        defaults?.removeObject(forKey: key)
+        defaults?.synchronize()
+    }
+    
+    func defaultSyncDate() -> Date? {
+        return Date(timeIntervalSince1970: 0)
+        //Default date of 1970
+    }
 }
