@@ -23,7 +23,10 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func setPickDate(date: String)
     func showBookingConfirmation()
     func showRequestBookingBtn()
-    func updatePickDropBox()
+    func hideRequestBookingBtn()
+    func pickDropBoxStep2()
+    func pickDropBoxStep1()
+    //func updatePickDropBox()
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage)
     func addPointsOnMap(points : String)
     func clearMap()
@@ -53,11 +56,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var dropOffBtnText = "Set Destination, Start your booking"
     var timerFetchNearbyVehicle : Timer = Timer()
     
+    var del : KTCreateBookingViewModelDelegate?
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.fetchVechicleTypes()
+        del = self.delegate as? KTCreateBookingViewModelDelegate
         
+        self.fetchVechicleTypes()
+        del?.hideRequestBookingBtn()
+        del?.pickDropBoxStep1()
     }
     
     override func viewWillAppear() {
@@ -126,7 +134,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func updateUI() {
         (delegate as! KTCreateBookingViewModelDelegate).showRequestBookingBtn()
-        (delegate as! KTCreateBookingViewModelDelegate).updatePickDropBox()
+        (delegate as! KTCreateBookingViewModelDelegate).pickDropBoxStep2()
     }
     
     //MARK: - Direction / Polyline on Map

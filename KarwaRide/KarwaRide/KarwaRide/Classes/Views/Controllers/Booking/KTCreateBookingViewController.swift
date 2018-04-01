@@ -139,6 +139,16 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     }
     
     // MARK : - UI Update
+    func hideRequestBookingBtn() {
+        
+        constraintBtnRequestBookingHeight.constant = 0
+        constraintBtnRequestBookingBottomSpace.constant = 0
+        btnRequestBooking.isHidden = true
+        
+        self.btnRequestBooking.setNeedsDisplay()
+        self.view.layoutIfNeeded()
+    }
+    
     func showRequestBookingBtn()  {
         constraintBtnRequestBookingHeight.constant = 60
         constraintBtnRequestBookingBottomSpace.constant = 20
@@ -148,13 +158,22 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         self.view.layoutIfNeeded()
     }
     
-    func updatePickDropBox() {
+    func pickDropBoxStep2() {
         constraintBoxHeight.constant = 144
         constraintBoxBGImageHeight.constant = 144
         constraintBoxItemsTopSpace.constant = 24
         imgPickDestBoxBG.image = UIImage(named: "BookingPickDropTimeBox")
         btnCash.isHidden = false
         btnPickDate.isHidden = false
+    }
+    
+    func pickDropBoxStep1() {
+        constraintBoxHeight.constant = 130
+        constraintBoxBGImageHeight.constant = 130
+        constraintBoxItemsTopSpace.constant = 30
+        imgPickDestBoxBG.image = UIImage(named: "BookingPickDropBox")
+        btnCash.isHidden = true
+        btnPickDate.isHidden = true
     }
     //MARK: - Detail
     func moveToDetailView() {
