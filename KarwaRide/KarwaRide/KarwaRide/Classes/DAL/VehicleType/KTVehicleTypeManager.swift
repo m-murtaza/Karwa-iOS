@@ -40,10 +40,10 @@ class KTVehicleTypeManager: KTDALManager {
         vType.typeName = typeName(forId: vType.typeId)
         vType.typeSortOrder = typeSortOrder(forId: vType.typeId)
         
+
         for keyvalue in vType.tariffToKeyValue! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
-        
         saveKeyValue(keyValue: tariff["Body"] as! [AnyHashable : Any], tariff: vType as KTBaseTrariff)
     }
     
@@ -54,7 +54,7 @@ class KTVehicleTypeManager: KTDALManager {
             let keyValue : KTKeyValue = KTKeyValue.mr_createEntity()!
             keyValue.key = key as? String
             keyValue.value = kv[key] as? String
-            tariff.tariffToKeyValue?.adding(keyValue)
+            tariff.tariffToKeyValue = tariff.tariffToKeyValue?.adding(keyValue) as! NSSet
         }
         
     }

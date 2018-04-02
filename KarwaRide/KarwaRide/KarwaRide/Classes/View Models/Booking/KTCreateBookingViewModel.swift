@@ -33,6 +33,9 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func showCurrentLocationDot(show : Bool)
     func moveToDetailView()
     func showAlertForLocationServerOn()
+    func showFareBreakdown(animated: Bool,kvPair : [String: String],title:String )
+    func updateFareBreakdown(kvPair : [String: String] )
+    func fareDetailVisible() -> Bool
 }
 
 let CHECK_DELAY = 90.0
@@ -97,6 +100,38 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         super.viewWillDisappear()
         NotificationCenter.default.removeObserver(self)
         timerFetchNearbyVehicle.invalidate()
+    }
+    
+    //MARK: - FareBreakdown
+    
+    func vehicleTypeTapped(idx: Int) {
+        
+        if currentBookingStep == BookingStep.step3 {
+            let vType : KTVehicleType = vehicleTypes![idx]
+            if(dropOffAddress == nil) {
+                showFareBreakDown(vehicleType: vType)
+            }
+            
+        }
+    }
+    
+    func showFareBreakDown(vehicleType vtype: KTVehicleType) {
+        let title = "Fare Breakdown"
+        var kvDictionary : [String:String] = [:]
+        for kv : KTKeyValue in vtype.tariffToKeyValue?.allObjects as! [KTKeyValue] {
+            kvDictionary[kv.key!] = kv.value!
+        }
+        
+        del?.showFareBreakdown(animated: true, kvPair: kvDictionary, title: title)
+    }
+    
+    func updateFareDetails(vehicleType vtype: KTVehicleType ) {
+        
+        var kvDictionary : [String:String] = [:]
+        for kv : KTKeyValue in vtype.tariffToKeyValue?.allObjects as! [KTKeyValue] {
+            kvDictionary[kv.key!] = kv.value!
+        }
+        del?.updateFareBreakdown(kvPair: kvDictionary)
     }
     
     //MARK: - Navigation to Address Picker
@@ -405,6 +440,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             if currentBookingStep == BookingStep.step1 {
                 
                 fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
+            }
+            else if currentBookingStep == BookingStep.step3 {
+                
+                if (del?.fareDetailVisible())! {
+                    
+                    updateFareDetails(vehicleType: vehicleTypes![currentIdx!])
+                }
             }
             
         }

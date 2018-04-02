@@ -106,6 +106,7 @@
 		18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */; };
 		18F2B2762044135200600966 /* KTMyTripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2752044135200600966 /* KTMyTripsViewController.swift */; };
 		18F2B2792044214000600966 /* KTSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2782044214000600966 /* KTSettingsViewController.swift */; };
+		18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45B42070B965000487C1 /* KTFareViewController.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +214,7 @@
 		18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuTableViewCell.swift; path = Classes/Views/Controllers/SideDrawer/LeftMenuTableViewCell.swift; sourceTree = "<group>"; };
 		18F2B2752044135200600966 /* KTMyTripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsViewController.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsViewController.swift; sourceTree = "<group>"; };
 		18F2B2782044214000600966 /* KTSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSettingsViewController.swift; path = Classes/Views/Controllers/Settings/KTSettingsViewController.swift; sourceTree = "<group>"; };
+		18FA45B42070B965000487C1 /* KTFareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFareViewController.swift; path = Classes/Views/Controllers/Booking/KTFareViewController.swift; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -471,6 +473,7 @@
 				18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */,
 				18B907692022F89C000F45FE /* BookingConfermationPopupVC.swift */,
 				1814238D2029A20000992151 /* VehicleMarker.swift */,
+				18FA45B42070B965000487C1 /* KTFareViewController.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -1037,6 +1040,7 @@
 				18F2B2792044214000600966 /* KTSettingsViewController.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
+				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,

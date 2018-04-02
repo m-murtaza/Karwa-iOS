@@ -28,7 +28,7 @@ class KTCreateBookingConstants {
     static let DEFAULT_MAP_PADDING : Float = 100
     
 }
-class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate,GMSMapViewDelegate {
+class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate,GMSMapViewDelegate,KTFareViewDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
@@ -39,12 +39,17 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     @IBOutlet weak var imgPickDestBoxBG :UIImageView!
     @IBOutlet weak var btnPickDate: UIButton!
     @IBOutlet weak var btnCash :UIButton!
+    var fareBreakdown : KTFareViewController!
+    @IBOutlet weak var viewFareBreakdown : UIView!
     
     @IBOutlet weak var constraintBoxHeight : NSLayoutConstraint!
     @IBOutlet weak var constraintBoxBGImageHeight : NSLayoutConstraint!
     @IBOutlet weak var constraintBoxItemsTopSpace : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
+    
+    //This is top align constraint for farebreakdown and box. 
+    @IBOutlet weak var constraintFareToBox : NSLayoutConstraint!
     
     public var pickupHint : String = ""
     
@@ -58,6 +63,8 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         self.navigationItem.hidesBackButton = true;
         
         self.btnRevealBtn.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
+        
+        hideFareBreakdown(animated: false)
         
     }
     
@@ -207,6 +214,10 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
                 destination.selectedTxtField = SelectedTextField.PickupAddress
             }
             
+        }
+        else if segue.identifier == "segueBookingToBreakdown" {
+            
+            fareBreakdown = segue.destination as! KTFareViewController
         }
     }
     
@@ -408,21 +419,70 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         }
     }
     
+    //MARK: - show fare or estimate
     
+    func hideFareBreakdown(animated : Bool) {
+        
+        if animated {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.1,
+                           options: UIViewAnimationOptions.curveEaseIn,
+                           animations: { () -> Void in
+                            self.constraintFareToBox.constant = self.viewFareBreakdown.frame.size.height
+                            self.viewFareBreakdown.alpha = 0.0
+                            
+                            self.view.layoutIfNeeded()
+                            
+            }, completion: { (finished) -> Void in
+                self.viewFareBreakdown.isHidden = true
+            })
+        }
+        else {
+        
+            constraintFareToBox.constant = viewFareBreakdown.frame.size.height
+            viewFareBreakdown.alpha = 0.0
+            self.viewFareBreakdown.isHidden = true
+        }
+    }
+    
+    func showFareBreakdown(animated : Bool,kvPair : [String: String],title:String ) {
+        fareBreakdown.updateView(KeyValue: kvPair, title: title)
+        fareBreakdown.delegate = self
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.1,
+                       options: UIViewAnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.viewFareBreakdown.isHidden = false
+                        self.constraintFareToBox.constant = 0
+                        
+                        self.viewFareBreakdown.alpha = 1.0
+                        self.view.layoutIfNeeded()
+                        
+        })
+    }
+    
+    func updateFareBreakdown(kvPair : [String: String] ) {
+        
+        fareBreakdown.updateView(KeyValue: kvPair, title: "")
+        fareBreakdown.delegate = self
+        self.viewFareBreakdown.isHidden = false
+        
+    }
+    
+    func fareDetailVisible() -> Bool {
+        
+        return !viewFareBreakdown.isHidden
+    }
+    
+    func btnBackTapped() {
+        self.hideFareBreakdown(animated: true)
+    }
     
     // MARK: - View Model Delegate
     func hintForPickup() -> String {
         return pickupHint
     }
-//    func pickUpAdd() -> KTGeoLocation? {
-//
-//        return pickupAddress
-//    }
-//
-//    func dropOffAdd() -> KTGeoLocation? {
-//
-//        return droffAddress
-//    }
+
     
     func setPickUp(pick: String?) {
         
@@ -471,6 +531,11 @@ extension CarouselDatasource: UICollectionViewDataSource {
 
 typealias CarouselDelegate = KTCreateBookingViewController
 extension CarouselDelegate: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: indexPath.row)
+        //self.veiwFareBreakdown.isHidden = false
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         carousel.didScroll()
