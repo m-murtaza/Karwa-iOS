@@ -19,11 +19,9 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         addMap()
         
         self.navigationItem.hidesBackButton = true;
-        
         self.btnRevealBtn.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
         
         hideFareBreakdown(animated: false)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +48,6 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
     
     //MARK:- User Actions
     @IBAction func btnPickupAddTapped(_ sender: Any) {
@@ -89,7 +86,6 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
                             }
         }
     }
-    
     
     //MARK: - Book Ride
     func bookRide()  {
@@ -144,7 +140,6 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         btnCash.isHidden = true
         btnPickDate.isHidden = true
     }
-    //MARK: - Detail
     
     //MARK: - Navigation
 
