@@ -940,14 +940,14 @@
                                                                     <color key="textColor" red="0.89803921568627454" green="0.96078431372549022" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingVehiclePad" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-dE-XWy">
+                                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingVehiclePad" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-dE-XWy">
                                                                     <rect key="frame" x="244" y="8.5" width="50" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="AgU-Os-lmc"/>
                                                                         <constraint firstAttribute="width" constant="50" id="Edf-Bx-su8"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardTaxiIco" translatesAutoresizingMaskIntoConstraints="NO" id="VKc-6T-VSF">
+                                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardTaxiIco" translatesAutoresizingMaskIntoConstraints="NO" id="VKc-6T-VSF">
                                                                     <rect key="frame" x="250" y="3" width="38" height="71"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="71" id="G0l-b7-uUx"/>
@@ -1019,7 +1019,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyk-Uq-bby">
-                                <rect key="frame" x="26" y="40" width="40" height="34"/>
+                                <rect key="frame" x="16" y="40" width="40" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="4ib-8e-tmx"/>
                                     <constraint firstAttribute="width" constant="40" id="TYH-vQ-Lz4"/>
@@ -1131,7 +1131,7 @@
                                     <constraint firstAttribute="height" constant="60" id="LQh-VH-vnG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                <state key="normal" title="Request Book" backgroundImage="SummitButton">
+                                <state key="normal" title="REQUEST BOOKING" backgroundImage="SummitButton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -1153,7 +1153,7 @@
                             <constraint firstItem="nEz-mS-fjP" firstAttribute="top" secondItem="aZy-Mf-CFk" secondAttribute="bottom" id="Cer-XM-NWO"/>
                             <constraint firstAttribute="trailing" secondItem="aZy-Mf-CFk" secondAttribute="trailing" id="DMf-K0-XjL"/>
                             <constraint firstAttribute="trailing" secondItem="bwK-YS-F1J" secondAttribute="trailing" id="J6S-0F-P8t"/>
-                            <constraint firstItem="eyk-Uq-bby" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leadingMargin" constant="10" id="M9g-fz-qpt"/>
+                            <constraint firstItem="eyk-Uq-bby" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leadingMargin" id="M9g-fz-qpt"/>
                             <constraint firstItem="bwK-YS-F1J" firstAttribute="bottom" secondItem="uYM-p6-0VQ" secondAttribute="bottom" id="O1Q-va-Wtk"/>
                             <constraint firstItem="pfV-HZ-0xI" firstAttribute="leading" secondItem="7Cw-K8-q7x" secondAttribute="leading" id="QyW-a2-lff"/>
                             <constraint firstAttribute="trailing" secondItem="uYM-p6-0VQ" secondAttribute="trailing" id="TTv-WV-nBn"/>
@@ -1185,6 +1185,7 @@
                         <outlet property="btnRevealBtn" destination="eyk-Uq-bby" id="bN6-3u-F19"/>
                         <outlet property="carousel" destination="bwK-YS-F1J" id="H9w-bK-ds2"/>
                         <outlet property="constraintBoxBGImageHeight" destination="GUS-Gw-LDE" id="bfc-Y1-RIw"/>
+                        <outlet property="constraintBoxBtnRequestBookingSpace" destination="zCZ-GV-ECc" id="5UM-Hn-OkM"/>
                         <outlet property="constraintBoxHeight" destination="OmZ-Ai-RAX" id="kO2-Pl-G3g"/>
                         <outlet property="constraintBoxItemsTopSpace" destination="9hC-LL-gWn" id="Afv-dS-wq3"/>
                         <outlet property="constraintBtnRequestBookingBottomSpace" destination="tJE-rC-JMb" id="IuW-5Y-SqZ"/>
@@ -3005,7 +3006,7 @@
                                                     <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APICHome" translatesAutoresizingMaskIntoConstraints="NO" id="RPS-T1-Vwc">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APICHome" translatesAutoresizingMaskIntoConstraints="NO" id="RPS-T1-Vwc">
                                                     <rect key="frame" x="25" y="17" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Lzd-KR-2bY"/>
@@ -3013,10 +3014,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ycR-BP-zY2">
-                                                    <rect key="frame" x="62" y="68" width="313" height="2"/>
+                                                    <rect key="frame" x="62" y="69" width="313" height="1"/>
                                                     <color key="backgroundColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="WvJ-aB-CFC"/>
+                                                        <constraint firstAttribute="height" constant="1" id="WvJ-aB-CFC"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tS9-L8-srM">

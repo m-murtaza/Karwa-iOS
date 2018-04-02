@@ -108,18 +108,20 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         
         constraintBtnRequestBookingHeight.constant = 0
         constraintBtnRequestBookingBottomSpace.constant = 0
+        constraintBoxBtnRequestBookingSpace.constant = 0
         btnRequestBooking.isHidden = true
         
-        self.btnRequestBooking.setNeedsDisplay()
+        //self.btnRequestBooking.setNeedsDisplay()
         self.view.layoutIfNeeded()
     }
     
     func showRequestBookingBtn()  {
         constraintBtnRequestBookingHeight.constant = 60
         constraintBtnRequestBookingBottomSpace.constant = 20
+        constraintBoxBtnRequestBookingSpace.constant = 20
         btnRequestBooking.isHidden = false
         
-        self.btnRequestBooking.setNeedsDisplay()
+        //self.btnRequestBooking.setNeedsDisplay()
         self.view.layoutIfNeeded()
     }
     
@@ -221,7 +223,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
         
         self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
-        self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#006170"), for: UIControlState.normal)
+        self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
     }
     
     func setPickDate(date: String) {

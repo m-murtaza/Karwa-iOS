@@ -55,6 +55,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var constraintBoxBGImageHeight : NSLayoutConstraint!
     @IBOutlet weak var constraintBoxItemsTopSpace : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
+    @IBOutlet weak var constraintBoxBtnRequestBookingSpace : NSLayoutConstraint!
     @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
     //This is top align constraint for farebreakdown and box.
     @IBOutlet weak var constraintFareToBox : NSLayoutConstraint!

@@ -67,8 +67,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del = self.delegate as? KTCreateBookingViewModelDelegate
         
         self.fetchVechicleTypes()
-        del?.hideRequestBookingBtn()
+        
         del?.pickDropBoxStep1()
+        del?.hideRequestBookingBtn()
+        
     }
     
     override func viewWillAppear() {
