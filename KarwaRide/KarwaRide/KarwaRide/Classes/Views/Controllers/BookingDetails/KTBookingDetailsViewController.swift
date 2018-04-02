@@ -370,3 +370,9 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         self.navigationController?.popViewController(animated: true)
     }
 }
+
+extension UInt {
+    /// SwiftExtensionKit
+    var toInt: Int { return Int(self) }
+}
+

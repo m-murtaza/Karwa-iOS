@@ -7,52 +7,10 @@
 //
 
 import UIKit
-import GoogleMaps
-import ScalingCarousel
-import Alamofire
-import SwiftyJSON
 
-class KTServiceCardCell: ScalingCarouselCell {
+class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
-    @IBOutlet weak var lblServiceType : UILabel!
-    @IBOutlet weak var lblBaseFare : UILabel!
-    @IBOutlet weak var imgBg : UIImageView!
-    @IBOutlet weak var imgVehicleType : UIImageView!
-}
-class KTCreateBookingConstants {
-    
-    // MARK: List of Constants
-    
-    static let DEFAULT_MAP_ZOOM : Float = 15.0
-    static let BOUNDS_MARKER_DISTANCE_THRESHOULD : Double = 2000
-    static let DEFAULT_MAP_PADDING : Float = 100
-    
-}
-class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBookingViewModelDelegate,GMSMapViewDelegate,KTFareViewDelegate {
-    
-    @IBOutlet weak var mapView : GMSMapView!
-    @IBOutlet weak var carousel: ScalingCarouselView!
-    @IBOutlet weak var btnPickupAddress: UIButton!
-    @IBOutlet weak var btnDropoffAddress: UIButton!
-    @IBOutlet weak var btnRevealBtn : UIButton!
-    @IBOutlet weak var btnRequestBooking :UIButton!
-    @IBOutlet weak var imgPickDestBoxBG :UIImageView!
-    @IBOutlet weak var btnPickDate: UIButton!
-    @IBOutlet weak var btnCash :UIButton!
-    var fareBreakdown : KTFareViewController!
-    @IBOutlet weak var viewFareBreakdown : UIView!
-    
-    @IBOutlet weak var constraintBoxHeight : NSLayoutConstraint!
-    @IBOutlet weak var constraintBoxBGImageHeight : NSLayoutConstraint!
-    @IBOutlet weak var constraintBoxItemsTopSpace : NSLayoutConstraint!
-    @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
-    @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
-    
-    //This is top align constraint for farebreakdown and box. 
-    @IBOutlet weak var constraintFareToBox : NSLayoutConstraint!
-    
-    public var pickupHint : String = ""
-    
+    //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
         super.viewDidLoad()
@@ -71,8 +29,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,31 +51,20 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         navigationController?.isNavigationBarHidden = false
     }
     
+    
+    //MARK:- User Actions
     @IBAction func btnPickupAddTapped(_ sender: Any) {
+        
         (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
     }
     @IBAction func btnDropAddTapped(_ sender: Any) {
-        (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
         
+        (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
     }
     
     @IBAction func btnRequestBooking(_ sender: Any) {
         
         (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
-    }
-    func bookRide()  {
-        (viewModel as! KTCreateBookingViewModel).bookRide()
-    }
-    
-    //MARK: - ViewModel Delegate
-    
-    func showBookingConfirmation() {
-        
-        let confirmationPopup = storyboard?.instantiateViewController(withIdentifier: "ConfermationPopupVC") as! BookingConfermationPopupVC
-        confirmationPopup.previousView = self
-        confirmationPopup.view.frame = self.view.bounds
-        view.addSubview(confirmationPopup.view)
-        addChildViewController(confirmationPopup)
     }
     
     @IBAction func btnPickDateTapped(_ sender: Any) {
@@ -144,6 +89,23 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
                             }
         }
     }
+    
+    
+    //MARK: - Book Ride
+    func bookRide()  {
+        (viewModel as! KTCreateBookingViewModel).bookRide()
+    }
+    
+    func showBookingConfirmation() {
+        
+        let confirmationPopup = storyboard?.instantiateViewController(withIdentifier: "ConfermationPopupVC") as! BookingConfermationPopupVC
+        confirmationPopup.previousView = self
+        confirmationPopup.view.frame = self.view.bounds
+        view.addSubview(confirmationPopup.view)
+        addChildViewController(confirmationPopup)
+    }
+    
+    
     
     // MARK : - UI Update
     func hideRequestBookingBtn() {
@@ -183,9 +145,7 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         btnPickDate.isHidden = true
     }
     //MARK: - Detail
-    func moveToDetailView() {
-        self.performSegue(withIdentifier: "segueBookToDetail", sender: self)
-    }
+    
     //MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -220,6 +180,10 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
             fareBreakdown = segue.destination as! KTFareViewController
         }
     }
+    func moveToDetailView() {
+     
+        self.performSegue(withIdentifier: "segueBookToDetail", sender: self)
+    }
     
     //MARK:- Locations
     func showAlertForLocationServerOn() {
@@ -228,7 +192,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
         let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: ""), style: .default) { (UIAlertAction) in
-            //UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
             
             UIApplication.shared.open(NSURL(string: UIApplicationOpenSettingsURLString)! as URL, options: [:], completionHandler: nil)
         }
@@ -238,244 +201,9 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         self.present(alertController, animated: true, completion: nil)
     }
     
-    //MARK:- Google Map delegate
-    //func mapViewDidFinishTileRendering(_ mapView: GMSMapView) {
-    //    print("++++++++ Map loaded +++++++++")
-    //}
-    
-    //MARK: - Location & Maps
-    
-    func showCurrentLocationDot(show: Bool) {
-        self.mapView!.isMyLocationEnabled = show
-        self.mapView!.settings.myLocationButton = show
-    }
-    
-    private func addMap() {
-
-        let camera = GMSCameraPosition.camera(withLatitude: 25.343899, longitude: 51.511294, zoom: 14.0)
-        
-        
-        showCurrentLocationDot(show: true)
-        
-        self.mapView.camera = camera;
-        
-        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
-        mapView.padding = padding
-        
-        do {
-            // Set the map style by passing the URL of the local file.
-            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                NSLog("Unable to find style.json")
-            }
-        } catch {
-            NSLog("One or more of the map styles failed to load. \(error)")
-        }
-    }
-    
     func updateCurrentAddress(addressName: String) {
         
         btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
-    }
-    
-    func updateLocationInMap(location: CLLocation) {
-        
-        //Update map
-        if !(viewModel as! KTCreateBookingViewModel).isVehicleNearBy() {
-            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-         
-            self.mapView?.animate(to: camera)
-        }
-    }
-    
-    var gmsMarker : Array<GMSMarker> = Array()
-    @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
-        gmsMarker.removeAll()
-        clearMap()
-        vTrack.forEach { track in
-            if !track.position.isZeroCoordinate   {
-                let marker = GMSMarker()
-                marker.position = track.position
-                
-                if track.trackType == VehicleTrackType.vehicle {
-                    marker.rotation = CLLocationDegrees(track.bearing)
-                    marker.icon = UIImage(named: "BookingMapTaxiIco")
-                    marker.map = self.mapView
-                }
-                
-                gmsMarker.append(marker)
-            }
-        }
-        if gmsMarker.count > 0 {
-            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-        }
-        else {
-            
-            self.focusMapToCurrentLocation()
-        }
-    }
-    
-    func focusMapToCurrentLocation() {
-        if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false) {
-            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-            mapView.animate(with: update)
-        }
-    }
-    
-    func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
-
-            var bounds = GMSCoordinateBounds()
-            for marker: GMSMarker in gmsMarker {
-                bounds = bounds.includingCoordinate(marker.position)
-            }
-        
-        
-        var update : GMSCameraUpdate?
-        //if bounds.northEast.distance(from: bounds.southWest) > KTCreateBookingConstants.BOUNDS_MARKER_DISTANCE_THRESHOULD {
-            
-            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
-        //}
-        //else {
-        //    update = GMSCameraUpdate.zoom(to: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-       // }
-        
-        mapView.animate(with: update!)
-    
-    }
-    
-    func clearMap()
-    {
-        mapView.clear()
-    }
-    func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
-        let marker = GMSMarker()
-        marker.position = location
-        
-        marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
-        marker.map = self.mapView
-    }
-    
-    
-    //Animated Polyline
-    var polyline = GMSPolyline()
-    var animationPolyline = GMSPolyline()
-    var path = GMSPath()
-    var animationPath = GMSMutablePath()
-    var i: UInt = 0
-    var timer: Timer!
-    var bgPolylineColor : UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
-    
-    func addPointsOnMap(points: String) {
-        path = GMSPath.init(fromEncodedPath: points)!
-        polyline = GMSPolyline.init(path: path)
-        polyline.strokeWidth = 3
-        polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-        polyline.map = self.mapView
-        
-        
-        
-        var bounds = GMSCoordinateBounds()
-        for index in 1 ... (path.count().toInt) {
-            bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
-        }
-        
-        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
-        
-        bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
-        self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-        
-        addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
-    }
-    
-    @objc func animatePolylinePath() {
-        if (self.i < self.path.count()) {
-            
-            self.animationPath.add(self.path.coordinate(at: self.i))
-            self.animationPolyline.path = self.animationPath
-            self.animationPolyline.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-            self.animationPolyline.strokeWidth = 4
-            self.animationPolyline.map = self.mapView
-            self.i += 1
-        }
-        else if self.i == self.path.count() {
-            timer.invalidate()
-            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-            self.i += 1
-            
-            //self.i = 0
-            self.animationPath = GMSMutablePath()
-            self.animationPolyline.map = nil
-            polyline.strokeColor = bgPolylineColor
-        }
-        else {
-            
-                self.i = 0
-
-            timer.invalidate()
-            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-        }
-    }
-    
-    //MARK: - show fare or estimate
-    
-    func hideFareBreakdown(animated : Bool) {
-        
-        if animated {
-            UIView.animate(withDuration: 0.5,
-                           delay: 0.1,
-                           options: UIViewAnimationOptions.curveEaseIn,
-                           animations: { () -> Void in
-                            self.constraintFareToBox.constant = self.viewFareBreakdown.frame.size.height
-                            self.viewFareBreakdown.alpha = 0.0
-                            
-                            self.view.layoutIfNeeded()
-                            
-            }, completion: { (finished) -> Void in
-                self.viewFareBreakdown.isHidden = true
-            })
-        }
-        else {
-        
-            constraintFareToBox.constant = viewFareBreakdown.frame.size.height
-            viewFareBreakdown.alpha = 0.0
-            self.viewFareBreakdown.isHidden = true
-        }
-    }
-    
-    func showFareBreakdown(animated : Bool,kvPair : [String: String],title:String ) {
-        fareBreakdown.updateView(KeyValue: kvPair, title: title)
-        fareBreakdown.delegate = self
-        UIView.animate(withDuration: 0.5,
-                       delay: 0.1,
-                       options: UIViewAnimationOptions.curveEaseIn,
-                       animations: { () -> Void in
-                        self.viewFareBreakdown.isHidden = false
-                        self.constraintFareToBox.constant = 0
-                        
-                        self.viewFareBreakdown.alpha = 1.0
-                        self.view.layoutIfNeeded()
-                        
-        })
-    }
-    
-    func updateFareBreakdown(kvPair : [String: String] ) {
-        
-        fareBreakdown.updateView(KeyValue: kvPair, title: "")
-        fareBreakdown.delegate = self
-        self.viewFareBreakdown.isHidden = false
-        
-    }
-    
-    func fareDetailVisible() -> Bool {
-        
-        return !viewFareBreakdown.isHidden
-    }
-    
-    func btnBackTapped() {
-        self.hideFareBreakdown(animated: true)
     }
     
     // MARK: - View Model Delegate
@@ -483,7 +211,6 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
         return pickupHint
     }
 
-    
     func setPickUp(pick: String?) {
         
         guard pick != nil else {
@@ -505,47 +232,4 @@ class KTCreateBookingViewController: KTBaseDrawerRootViewController, KTCreateBoo
     func setPickDate(date: String) {
         btnPickDate.setTitle(date, for: UIControlState.normal)
     }
-}
-
-typealias CarouselDatasource = KTCreateBookingViewController
-extension CarouselDatasource: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (viewModel as! KTCreateBookingViewModel).numberOfRowsVType()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        
-        if let sTypeCell = cell as? KTServiceCardCell {
-            sTypeCell.lblServiceType.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
-            
-            sTypeCell.lblBaseFare.text = (viewModel as! KTCreateBookingViewModel).sTypeBaseFare(forIndex: indexPath.row) 
-            sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
-            sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
-        }
-        
-        return cell
-    }
-}
-
-typealias CarouselDelegate = KTCreateBookingViewController
-extension CarouselDelegate: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: indexPath.row)
-        //self.veiwFareBreakdown.isHidden = false
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        carousel.didScroll()
-        
-        guard (carousel.currentCenterCellIndex?.row) != nil else { return }
-        (viewModel as! KTCreateBookingViewModel).vTypeViewScroll(currentIdx: carousel.currentCenterCellIndex!.row)
-    }
-}
-
-extension UInt {
-    /// SwiftExtensionKit
-    var toInt: Int { return Int(self) }
 }
