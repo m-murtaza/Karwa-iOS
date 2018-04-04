@@ -38,9 +38,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             else {
                 (self.delegate as! KTMyTripsViewModelDelegate).showNoBooking()
             }
-            
         }
-        
     }
     private func fetchBookingsFromDB() {
         

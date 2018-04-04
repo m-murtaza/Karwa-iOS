@@ -12,9 +12,18 @@ import ScalingCarousel
 class KTServiceCardCell: ScalingCarouselCell {
     
     @IBOutlet weak var lblServiceType : UILabel!
-    @IBOutlet weak var lblBaseFare : UILabel!
+    @IBOutlet weak var lblBaseFareOrEstimate : UILabel!
     @IBOutlet weak var imgBg : UIImageView!
     @IBOutlet weak var imgVehicleType : UIImageView!
+    @IBOutlet weak var lblFareEstimateTitle : UILabel!
+}
+
+extension KTCreateBookingViewController {
+    
+    func updateVehicleTypeList () {
+        
+        self.carousel.reloadData()
+    }
 }
 
 typealias CarouselDatasource = KTCreateBookingViewController
@@ -30,7 +39,8 @@ extension CarouselDatasource: UICollectionViewDataSource {
         if let sTypeCell = cell as? KTServiceCardCell {
             sTypeCell.lblServiceType.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
             
-            sTypeCell.lblBaseFare.text = (viewModel as! KTCreateBookingViewModel).sTypeBaseFare(forIndex: indexPath.row)
+            sTypeCell.lblBaseFareOrEstimate.text = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
+            sTypeCell.lblFareEstimateTitle.text = (viewModel as! KTCreateBookingViewModel).FareEstimateTitle()
             sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
             sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
         }

@@ -167,6 +167,12 @@ struct Constants {
         static let VehicleType = "VehicleType"
     }
     
+    struct GetEstimateResponseAPIKey {
+        static let EstimateId = "EstimateId"
+        static let VehicleType = "VehicleType"
+        static let EstimatedFare = "EstimatedFare"
+    }
+    
     struct BookmarkName {
         static let Home = "home"
         static let Work = "work"
@@ -215,6 +221,7 @@ struct Constants {
         static let CallerID = "CallerID"
         static let Status = "BookingStatus"
         static let BookingType = "BookingType"
+        static let EstimateId = "EstimateId"
     }
     
     struct APIURL {
@@ -235,6 +242,7 @@ struct Constants {
         static let SetWorkBookmark = "bookmark/personal/work"
         static let trackVechicle = "track/job"
         static let initTariff = "tariff/init"
+        static let GetEstimate = "tariff/estimate"
     }
     
     struct TrackTaxiParams {
@@ -251,6 +259,14 @@ struct Constants {
         static let Lon = "lon"
         static let Address = "address"
         static let Limit = "limit"
+    }
+    
+    struct GetEstimateParam {
+        static let PickLatitude = "pickupLat"
+        static let PickLongitude = "pickupLon"
+        static let DropLatitude = "dropLat"
+        static let DropLongitude = "dropLon"
+        static let PickTime = "pickupTime"
     }
     
     struct DeviceTypes {

@@ -40,6 +40,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var btnCash :UIButton!
     @IBOutlet weak var viewFareBreakdown : UIView!
     
+    
     //MARK: - Map related variables
     var gmsMarker : Array<GMSMarker> = Array()
     var polyline = GMSPolyline()

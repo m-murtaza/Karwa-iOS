@@ -11,7 +11,7 @@ import MagicalRecord
 
 let INIT_TARIFF_SYNC_TIME = "InitTariffSyncTime"
 
-class KTVehicleTypeManager: KTDALManager {
+class KTVehicleTypeManager: KTBaseFareEstimateManager {
 
     func fetchBasicTariffFromServer(completion completionBlock: @escaping KTDALCompletionBlock) {
         let param : [String: Any] = [Constants.SyncParam.VehicleTariff: syncTime(forKey: INIT_TARIFF_SYNC_TIME)]
@@ -47,19 +47,16 @@ class KTVehicleTypeManager: KTDALManager {
         saveKeyValue(keyValue: tariff["Body"] as! [AnyHashable : Any], tariff: vType as KTBaseTrariff)
     }
     
-    func saveKeyValue(keyValue kv: [AnyHashable:Any],  tariff: KTBaseTrariff) {
-        let keys =  Array(kv.keys)
-        for key in keys {
-            
-            let keyValue : KTKeyValue = KTKeyValue.mr_createEntity()!
-            keyValue.key = key as? String
-            keyValue.value = kv[key] as? String
-            tariff.tariffToKeyValue = tariff.tariffToKeyValue?.adding(keyValue) as! NSSet
-        }
-        
-    }
-    
-    
+//    func saveKeyValue(keyValue kv: [AnyHashable:Any],  tariff: KTBaseTrariff) {
+//        let keys =  Array(kv.keys)
+//        for key in keys {
+//            
+//            let keyValue : KTKeyValue = KTKeyValue.mr_createEntity()!
+//            keyValue.key = key as? String
+//            keyValue.value = kv[key] as? String
+//            tariff.tariffToKeyValue = tariff.tariffToKeyValue?.adding(keyValue) as! NSSet
+//        }
+//    }
     
     func typeSortOrder(forId typeId: Int16) -> Int16 {
         var order: Int16 = 999

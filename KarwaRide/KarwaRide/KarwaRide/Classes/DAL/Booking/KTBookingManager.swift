@@ -10,7 +10,7 @@ import UIKit
 
 let BOOKING_SYNC_TIME = "BookingSyncTime"
 
-class KTBookingManager: KTDALManager {
+class KTBookingManager: KTBaseFareEstimateManager {
     
     func booking() -> KTBooking {
         
@@ -21,7 +21,7 @@ class KTBookingManager: KTDALManager {
         return book
     }
     
-    func bookTaxi(job: KTBooking, completion completionBlock: @escaping KTDALCompletionBlock)  {
+    func bookTaxi(job: KTBooking,estimateId: String, completion completionBlock: @escaping KTDALCompletionBlock)  {
         
         let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
                                     Constants.BookingParams.PickLat: job.pickupLat,
@@ -33,7 +33,8 @@ class KTBookingManager: KTDALManager {
                                     Constants.BookingParams.CreationTime : job.creationTime!,
                                     Constants.BookingParams.PickHint : job.pickupMessage!,
                                     Constants.BookingParams.VehicleType : job.vehicleType,
-                                    Constants.BookingParams.CallerID : job.callerId!]
+                                    Constants.BookingParams.CallerID : job.callerId!,
+                                    Constants.BookingParams.EstimateId : estimateId]
         
         
         self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
