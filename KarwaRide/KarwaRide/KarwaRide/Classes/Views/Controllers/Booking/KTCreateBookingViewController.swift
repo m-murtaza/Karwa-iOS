@@ -9,7 +9,7 @@
 import UIKit
 
 class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
-    
+
     //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
@@ -82,7 +82,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
                         maximumDate: threeMonth,
                         datePickerMode: .dateAndTime) { (date) in
                             if let dt = date {
-                                (self.viewModel as! KTCreateBookingViewModel).setPickupDate(date: dt)
+                                (self.viewModel as! KTCreateBookingViewModel).setPickupDateForAdvJob(date: dt)
                             }
         }
     }

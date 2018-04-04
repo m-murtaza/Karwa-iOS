@@ -35,6 +35,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func showAlertForLocationServerOn()
     func showFareBreakdown(animated: Bool,kvPair : [String: String],title:String )
     func updateFareBreakdown(kvPair : [String: String] )
+    func hideFareBreakdown(animated : Bool)
     func fareDetailVisible() -> Bool
     func updateVehicleTypeList()
 }
@@ -54,6 +55,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     public var dropOffAddress : KTGeoLocation?
     
     public var estimates : [KTFareEstimate]?
+    public var isEstimeting : Bool = false
     
     private var nearByVehicle: [VehicleTrack] = []
     
@@ -86,6 +88,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
        
         if currentBookingStep == BookingStep.step1 {
+            
             timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
             if pickUpAddress == nil {
                 
@@ -113,15 +116,21 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func vehicleTypeTapped(idx: Int) {
         
         if currentBookingStep == BookingStep.step3 {
-            let vType : KTVehicleType = vehicleTypes![idx]
-            if(dropOffAddress == nil) {
-                showFareBreakDown(vehicleType: vType)
+            if(!(del?.fareDetailVisible())!) {
+                //estimated fare view is not on screen right now
+                let vType : KTVehicleType = vehicleTypes![idx]
+                if(dropOffAddress == nil) {
+                    showFareBreakDown(vehicleType: vType)
+                }
+                else {
+                    
+                    showEstimate(vehicleType: vType)
+                }
             }
             else {
-                
-                showEstimate(vehicleType: vType)
+                //Means view is on screen
+                del?.hideFareBreakdown(animated: true)
             }
-            
         }
     }
     
@@ -204,9 +213,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //MARK: - Estimates
     private func fetchEstimates() {
         if pickUpAddress != nil && dropOffAddress != nil {
+            isEstimeting = true
+            del?.updateVehicleTypeList()
             
-            KTBookingManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: (pickUpAddress?.latitude)!, longitude: (pickUpAddress?.longitude)!), dropoff: CLLocationCoordinate2D(latitude: (dropOffAddress?.latitude)!,longitude: (dropOffAddress?.longitude)!), time: 0, complition: { (status, response) in
-                
+            KTBookingManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: (pickUpAddress?.latitude)!, longitude: (pickUpAddress?.longitude)!), dropoff: CLLocationCoordinate2D(latitude: (dropOffAddress?.latitude)!,longitude: (dropOffAddress?.longitude)!), time: selectedPickupDateTime.timeIntervalSince1970, complition: { (status, response) in
+                self.isEstimeting = false
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.estimates = KTBookingManager().estimates()
                     self.del?.updateVehicleTypeList()
@@ -236,28 +247,33 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String {
-        var fareOrEstimate : String = "Not available"
+        var fareOrEstimate : String = ""
         let vType : KTVehicleType = vehicleTypes![idx]
-        if estimates == nil || estimates?.count == 0 {
-            fareOrEstimate =  vType.typeBaseFare!
-        }
-        else {
-            
-            let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
-            if estimate != nil {
-                fareOrEstimate = (estimate?.estimatedFare!)!
+        if isEstimeting == false {
+            if estimates == nil || estimates?.count == 0 {
+                fareOrEstimate =  vType.typeBaseFare!
+            }
+            else {
+                
+                let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
+                if estimate != nil {
+                    fareOrEstimate = (estimate?.estimatedFare!)!
+                }
             }
         }
-        
         return fareOrEstimate
     }
     
     func FareEstimateTitle() -> String {
         
         var title: String = "Estimated Fare"
-        if estimates == nil || estimates?.count == 0 {
+        if isEstimeting == true {
+            title = "Estimating..."
+        }
+        else if estimates == nil || estimates?.count == 0 {
             title = "Starting Fare"
         }
+        
         return title
     }
     //MARK: - Direction / Polyline on Map
@@ -359,13 +375,19 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
+    func setPickupDateForAdvJob(date: Date)  {
+        
+        setPickupDate(date: date)
+        fetchEstimates()
+        
+    }
     func setPickupDate(date: Date)  {
         selectedPickupDateTime = date
         updateUI(forDate: selectedPickupDateTime)
     }
     
     func updateUI(forDate date: Date) {
-    
+        
         let formatedDate : String = formatedDateForUI(date: date)
         (delegate as! KTCreateBookingViewModelDelegate).setPickDate(date: formatedDate)
     }
