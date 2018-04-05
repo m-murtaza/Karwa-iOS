@@ -13,7 +13,7 @@ import MagicalRecord
 let INIT_TARIFF_SYNC_TIME = "InitTariffSyncTime"
 
 class KTVehicleTypeManager: KTBaseFareEstimateManager {
-
+    
     func tariffAvalible() -> Bool {
         guard let vTypes = VehicleTypes(), vTypes.count > 0 else {
             print("Tariff Not Available")
@@ -26,32 +26,22 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         if !tariffAvalible(){
             //Tariff not available
             do {
-            
+                
                 if let file = Bundle.main.url(forResource: "InitTariff", withExtension: "JSON") {
-                let data = try Data(contentsOf: file)
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    let data = try Data(contentsOf: file)
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
                     if let object = json as? [String: Any] {
                         // json is a dictionary
                         self.saveInitTariff(response: object[Constants.ResponseAPIKey.Data] as! [Any])
                     }
-                    
-                    //print(json["D"])
-                    
-//                    guard let arr : [Any] = json["D"] else {
-//                        print("Error ")
-//                    }
-                    
-                   // self.saveInitTariff(response: json[Constants.ResponseAPIKey.Data].array as! [Any])
                 }
             }
             catch {
-                    print("error.localizedDescription")
+                print("error.localizedDescription")
             }
         }
         
     }
-    
-    
     
     func fetchBasicTariffFromServer(completion completionBlock: @escaping KTDALCompletionBlock) {
         let param : [String: Any] = [Constants.SyncParam.VehicleTariff: syncTime(forKey: INIT_TARIFF_SYNC_TIME)]
@@ -80,23 +70,12 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         vType.typeName = typeName(forId: vType.typeId)
         vType.typeSortOrder = typeSortOrder(forId: vType.typeId)
         
-
+        
         for keyvalue in vType.tariffToKeyValue! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
         saveKeyValue(keyValue: tariff["Body"] as! [AnyHashable : Any], tariff: vType as KTBaseTrariff)
     }
-    
-//    func saveKeyValue(keyValue kv: [AnyHashable:Any],  tariff: KTBaseTrariff) {
-//        let keys =  Array(kv.keys)
-//        for key in keys {
-//            
-//            let keyValue : KTKeyValue = KTKeyValue.mr_createEntity()!
-//            keyValue.key = key as? String
-//            keyValue.value = kv[key] as? String
-//            tariff.tariffToKeyValue = tariff.tariffToKeyValue?.adding(keyValue) as! NSSet
-//        }
-//    }
     
     func typeSortOrder(forId typeId: Int16) -> Int16 {
         var order: Int16 = 999
@@ -149,46 +128,14 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         return name
     }
     
-    
-//    func syncDefaultVechicletypes() {
-//
-//        if (UserDefaults.standard.value(forKey: "VehicleTypeSaved") == nil)
-//        {
-//            MagicalRecord.save( { (_ localContext: NSManagedObjectContext) in
-//                _ = KTVehicleType.mr_truncateAll(in: localContext)
-//
-//                self.addTaxiType(localContext: localContext)
-//                self.addStandardLmioType(localContext: localContext)
-//                self.addBusinessLimoType(localContext: localContext)
-//                self.addLuxuryLimoType(localContext: localContext)
-//            })
-//
-//            UserDefaults.standard.set(true, forKey: "VehicleTypeSaved")
-//        }
-//    }
-    
-    /*
-     MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
-     _ = KTUser.mr_truncateAll(in: localContext)
-     let user : KTUser = KTUser.mr_createEntity(in: localContext)! //KTUser.mr_createEntity()!
-     user.customerType = response[Constants.LoginResponseAPIKey.CustomerType] as! Int32
-     user.name = response[Constants.LoginResponseAPIKey.Name] as? String
-     user.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
-     user.email = response[Constants.LoginResponseAPIKey.Email] as? String
-     user.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
-     }
-     */
-    
     private func addTaxiType(localContext: NSManagedObjectContext) {
-        //MagicalRecord.save( { (_ localContext: NSManagedObjectContext) in
-        //    _ = KTVehicleType.mr_truncateAll(in: localContext)
+        
         let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
         vTypeTaxi.typeBaseFare = "10"
         vTypeTaxi.typeName = "Karwa Taxi"
         vTypeTaxi.typeId = Int16(VehicleType.KTCityTaxi.rawValue)
         vTypeTaxi.typeSortOrder = 1
         
-        //})
     }
     private func addStandardLmioType(localContext: NSManagedObjectContext) {
         let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
@@ -220,17 +167,6 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             this.typeSortOrder < that.typeSortOrder
         })
     }
-    /*
-    case Unknown = -1
-    case KTCityTaxi = 1
-    case KTAiport7Seater = 3
-    case KTAirportSpare = 5
-    case KTSpecialNeedTaxi = 10
-    case KTAiportTaxi = 11
-    case KTCompactLimo = 20
-    case KTStandardLimo = 30
-    case KTBusinessLimo = 50
-    case KTLuxuryLimo = 70*/
     
     static func isTaxi(vType: VehicleType) -> Bool {
         

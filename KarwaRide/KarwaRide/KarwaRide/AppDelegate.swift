@@ -58,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func fetchInitialApplicationDataIfNeeded() {
         KTVehicleTypeManager().fetchInitialTariffLocal()
+        
     }
     
     func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {

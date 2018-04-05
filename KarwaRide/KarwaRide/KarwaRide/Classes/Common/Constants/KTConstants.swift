@@ -173,6 +173,13 @@ struct Constants {
         static let EstimatedFare = "EstimatedFare"
     }
     
+    struct CancelReasonAPIKey {
+        static let BookingStatii = "BookingStatii"
+        static let Desc = "Desc"
+        static let EN = "EN"
+        static let ReasonCode = "ReasonCode"
+    }
+    
     struct BookmarkName {
         static let Home = "home"
         static let Work = "work"

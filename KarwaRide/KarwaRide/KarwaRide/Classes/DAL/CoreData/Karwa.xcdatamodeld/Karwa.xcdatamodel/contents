@@ -40,6 +40,12 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTGeoLocation" syncable="YES"/>
     </entity>
+    <entity name="KTCancelReason" representedClassName="KTCancelReason" syncable="YES" codeGenerationType="class">
+        <attribute name="bookingStatii" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reasonCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="KTFareEstimate" representedClassName="KTFareEstimate" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
         <attribute name="estimatedFare" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="estimateId" optional="YES" attributeType="String" syncable="YES"/>
@@ -74,10 +80,11 @@
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="60"/>
         <element name="KTBooking" positionX="-36" positionY="-63" width="128" height="465"/>
         <element name="KTBookmark" positionX="-36" positionY="-135" width="128" height="120"/>
+        <element name="KTFareEstimate" positionX="-36" positionY="-135" width="128" height="90"/>
         <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="135"/>
         <element name="KTKeyValue" positionX="-36" positionY="-135" width="128" height="75"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
         <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
-        <element name="KTFareEstimate" positionX="-36" positionY="-135" width="128" height="90"/>
+        <element name="KTCancelReason" positionX="-36" positionY="-135" width="128" height="105"/>
     </elements>
 </model>
