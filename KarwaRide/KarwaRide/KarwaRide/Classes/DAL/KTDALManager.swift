@@ -80,7 +80,7 @@ class KTDALManager: KTBase {
     }
     
     func syncTime(forKey key: String) -> String {
-        //return "0"
+        return "0"
         var syncDate = UserDefaults.standard.object(forKey: key) as? Date
         if syncDate == nil {
             syncDate = self.defaultSyncDate()

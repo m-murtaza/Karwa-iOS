@@ -243,6 +243,7 @@ struct Constants {
         static let trackVechicle = "track/job"
         static let initTariff = "tariff/init"
         static let GetEstimate = "tariff/estimate"
+        static let CancelReason = "booking/cancelreasons"
     }
     
     struct TrackTaxiParams {
@@ -297,5 +298,6 @@ struct Constants {
     struct SyncParam {
         static let BookingList = "synctime"
         static let VehicleTariff = "syncTime"
+        static let CancelReason = "syncTime"
     }
 }

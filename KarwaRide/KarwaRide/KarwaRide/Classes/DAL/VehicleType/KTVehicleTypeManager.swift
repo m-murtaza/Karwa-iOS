@@ -8,11 +8,51 @@
 
 import UIKit
 import MagicalRecord
+//import SwiftyJSON
 
 let INIT_TARIFF_SYNC_TIME = "InitTariffSyncTime"
 
 class KTVehicleTypeManager: KTBaseFareEstimateManager {
 
+    func tariffAvalible() -> Bool {
+        guard let vTypes = VehicleTypes(), vTypes.count > 0 else {
+            print("Tariff Not Available")
+            return false
+        }
+        return true
+    }
+    
+    func fetchInitialTariffLocal() {
+        if !tariffAvalible(){
+            //Tariff not available
+            do {
+            
+                if let file = Bundle.main.url(forResource: "InitTariff", withExtension: "JSON") {
+                let data = try Data(contentsOf: file)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    if let object = json as? [String: Any] {
+                        // json is a dictionary
+                        self.saveInitTariff(response: object[Constants.ResponseAPIKey.Data] as! [Any])
+                    }
+                    
+                    //print(json["D"])
+                    
+//                    guard let arr : [Any] = json["D"] else {
+//                        print("Error ")
+//                    }
+                    
+                   // self.saveInitTariff(response: json[Constants.ResponseAPIKey.Data].array as! [Any])
+                }
+            }
+            catch {
+                    print("error.localizedDescription")
+            }
+        }
+        
+    }
+    
+    
+    
     func fetchBasicTariffFromServer(completion completionBlock: @escaping KTDALCompletionBlock) {
         let param : [String: Any] = [Constants.SyncParam.VehicleTariff: syncTime(forKey: INIT_TARIFF_SYNC_TIME)]
         
@@ -110,22 +150,22 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     }
     
     
-    func syncDefaultVechicletypes() {
-        
-        if (UserDefaults.standard.value(forKey: "VehicleTypeSaved") == nil)
-        {
-            MagicalRecord.save( { (_ localContext: NSManagedObjectContext) in
-                _ = KTVehicleType.mr_truncateAll(in: localContext)
-            
-                self.addTaxiType(localContext: localContext)
-                self.addStandardLmioType(localContext: localContext)
-                self.addBusinessLimoType(localContext: localContext)
-                self.addLuxuryLimoType(localContext: localContext)
-            })
-        
-            UserDefaults.standard.set(true, forKey: "VehicleTypeSaved")
-        }
-    }
+//    func syncDefaultVechicletypes() {
+//
+//        if (UserDefaults.standard.value(forKey: "VehicleTypeSaved") == nil)
+//        {
+//            MagicalRecord.save( { (_ localContext: NSManagedObjectContext) in
+//                _ = KTVehicleType.mr_truncateAll(in: localContext)
+//
+//                self.addTaxiType(localContext: localContext)
+//                self.addStandardLmioType(localContext: localContext)
+//                self.addBusinessLimoType(localContext: localContext)
+//                self.addLuxuryLimoType(localContext: localContext)
+//            })
+//
+//            UserDefaults.standard.set(true, forKey: "VehicleTypeSaved")
+//        }
+//    }
     
     /*
      MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in

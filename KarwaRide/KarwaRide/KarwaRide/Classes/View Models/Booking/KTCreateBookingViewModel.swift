@@ -71,8 +71,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         super.viewDidLoad()
         del = self.delegate as? KTCreateBookingViewModelDelegate
         
-        self.fetchVechicleTypes()
-        
+        self.syncApplicationData()
+        vehicleTypes = KTVehicleTypeManager().VehicleTypes()
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
         
@@ -109,6 +109,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         super.viewWillDisappear()
         NotificationCenter.default.removeObserver(self)
         timerFetchNearbyVehicle.invalidate()
+    }
+    
+    //MARK:- Sync Applicaiton Data
+    func syncApplicationData() {
+        KTAppDataSyncManager().syncApplicationData()
     }
     
     //MARK: - FareBreakdown
@@ -433,16 +438,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func maxCarouselIdx() -> Int {
         
         return (vehicleTypes?.count)! - 1
-    }
-    
-    private func fetchVechicleTypes() {
-        let vTypeManager :KTVehicleTypeManager = KTVehicleTypeManager()
-        vTypeManager.fetchBasicTariffFromServer { (status, response) in
-            print(response)
-        }
-        
-        //let vTypeManager: KTVehicleTypeManager = KTVehicleTypeManager()
-        vehicleTypes = vTypeManager.VehicleTypes()
     }
     
     func numberOfRowsVType() -> Int {

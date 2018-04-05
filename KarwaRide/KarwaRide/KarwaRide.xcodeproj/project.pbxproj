@@ -40,6 +40,9 @@
 		181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B11EF7BC94006E734A /* KTConfiguration.swift */; };
 		181344B91EF9171F006E734A /* KTAppSessionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344B81EF9171F006E734A /* KTAppSessionInfo.swift */; };
 		1814238E2029A20000992151 /* VehicleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1814238D2029A20000992151 /* VehicleMarker.swift */; };
+		181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */; };
+		181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */; };
+		181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 181AB8552075EDED0048D7AF /* InitTariff.JSON */; };
 		1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA692007467F00AD885B /* KTForgotPassViewController.swift */; };
 		1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */; };
 		1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */; };
@@ -154,6 +157,9 @@
 		181344B11EF7BC94006E734A /* KTConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTConfiguration.swift; path = Classes/HelperClasses/Configuration/KTConfiguration.swift; sourceTree = "<group>"; };
 		181344B81EF9171F006E734A /* KTAppSessionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTAppSessionInfo.swift; path = Classes/HelperClasses/ApplicationSession/KTAppSessionInfo.swift; sourceTree = "<group>"; };
 		1814238D2029A20000992151 /* VehicleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VehicleMarker.swift; path = Classes/Views/Controllers/Booking/VehicleMarker.swift; sourceTree = "<group>"; };
+		181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelBookingManager.swift; path = Classes/DAL/CancelBooking/KTCancelBookingManager.swift; sourceTree = "<group>"; };
+		181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAppDataSyncManager.swift; path = Classes/DAL/KTAppDataSyncManager.swift; sourceTree = "<group>"; };
+		181AB8552075EDED0048D7AF /* InitTariff.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitTariff.JSON; path = Resources/JSON/InitTariff.JSON; sourceTree = "<group>"; };
 		1833CA692007467F00AD885B /* KTForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewController.swift; path = Classes/Views/Controllers/Login/KTForgotPassViewController.swift; sourceTree = "<group>"; };
 		1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewModel.swift; path = "Classes/View Models/Login/KTForgotPassViewModel.swift"; sourceTree = "<group>"; };
 		1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+ForgotPass.swift"; path = "Classes/DAL/KTUserManager+ForgotPass.swift"; sourceTree = "<group>"; };
@@ -462,6 +468,22 @@
 			name = ApplicationSession;
 			sourceTree = "<group>";
 		};
+		181AB84F2074E6B50048D7AF /* CancelBooking */ = {
+			isa = PBXGroup;
+			children = (
+				181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */,
+			);
+			name = CancelBooking;
+			sourceTree = "<group>";
+		};
+		181AB8542075EDDE0048D7AF /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				181AB8552075EDED0048D7AF /* InitTariff.JSON */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		1833CA6F200B52C700AD885B /* WebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +638,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				181AB84F2074E6B50048D7AF /* CancelBooking */,
 				18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */,
 				1811E4DE204FD1E100C3C47F /* Bookmark */,
 				18B5EA5A201702F800D9B1D1 /* VehicleType */,
@@ -627,6 +650,7 @@
 				1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */,
 				1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */,
 				1811E4D3204E7B3D00C3C47F /* KTUserManager+AccountEdit.swift */,
+				181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */,
 			);
 			name = DAL;
 			sourceTree = "<group>";
@@ -729,6 +753,7 @@
 		18C24AE02004E201002D4B88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				181AB8542075EDDE0048D7AF /* JSON */,
 				18520943206240A900BD5FCD /* Images */,
 				18B9076D20271183000F45FE /* map_style_karwa.json */,
 				18C24AE12004E222002D4B88 /* Fonts */,
@@ -898,6 +923,7 @@
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
 				18C24B022004E269002D4B88 /* MuseoSans-100.otf in Resources */,
 				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
+				181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */,
 				18C24B042004E269002D4B88 /* MuseoSans-300.otf in Resources */,
 				18C24B052004E269002D4B88 /* MuseoSans-300Italic.otf in Resources */,
 				18C24B072004E269002D4B88 /* MuseoSans-500Italic.otf in Resources */,
@@ -1046,6 +1072,7 @@
 				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
+				181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */,
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
 				18FA45B720720C94000487C1 /* KTCreateBookingViewController+Map.swift in Sources */,
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
@@ -1068,6 +1095,7 @@
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
 				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
+				181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
