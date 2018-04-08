@@ -41,7 +41,7 @@
         <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTGeoLocation" syncable="YES"/>
     </entity>
     <entity name="KTCancelReason" representedClassName="KTCancelReason" syncable="YES" codeGenerationType="class">
-        <attribute name="bookingStatii" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bookingStatii" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reasonCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>

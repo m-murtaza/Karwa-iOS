@@ -19,7 +19,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showUpdateVTrackMarker(vTrack: VehicleTrack)
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
-    func showAlertForCancelBooking()
+    func showPopupForCancelBooking()
     func popViewController()
     func updateBookingCardForCompletedBooking()
     func updateBookingCardForUnCompletedBooking()
@@ -70,6 +70,16 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         updateAssignmentInfo()
         updateBottomBarButtons()
     }
+    
+    func bookingId() -> String {
+        
+        return (booking?.bookingId)!
+    }
+    
+    func bookingStatii() -> Int32 {
+        return (booking?.bookingStatus)!
+    }
+    
     
     //MARK:- ETA View
     func updateEta() {
@@ -529,9 +539,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func buttonTapped(withTag tag:Int) {
-        if tag == BottomBarBtnTag.Cancel.rawValue {
-           del?.showAlertForCancelBooking()
-        }
+        //if tag == BottomBarBtnTag.Cancel.rawValue {
+           del?.showPopupForCancelBooking()
+        //}
     }
     
     func cancelBooking() {

@@ -9,12 +9,12 @@
 import UIKit
 
 class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
-
+    
     //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         addMap()
         
@@ -40,7 +40,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             }
         }
     }
-        
+    
     override func viewWillDisappear(_ animated: Bool) {
         if timer != nil {
             timer.invalidate()
@@ -101,8 +101,6 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         addChildViewController(confirmationPopup)
     }
     
-    
-    
     // MARK : - UI Update
     func hideRequestBookingBtn() {
         
@@ -144,7 +142,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     }
     
     //MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueBookingToAddresspickerForDropoff"  || segue.identifier == "segueBookingToAddresspickerForPickup"{
@@ -160,7 +158,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
                 
                 destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
             }
-        
+            
             destination.previousView = (viewModel as! KTCreateBookingViewModel)
             
             if segue.identifier == "segueBookingToAddresspickerForDropoff" {
@@ -178,7 +176,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     func moveToDetailView() {
-     
+        
         self.performSegue(withIdentifier: "segueBookToDetail", sender: self)
     }
     
@@ -207,7 +205,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     func hintForPickup() -> String {
         return pickupHint
     }
-
+    
     func setPickUp(pick: String?) {
         
         guard pick != nil else {

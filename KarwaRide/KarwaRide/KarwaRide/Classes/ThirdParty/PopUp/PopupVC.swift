@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopupVC: UIViewController {
+class PopupVC: KTBaseViewController {
 
     @IBOutlet weak var viewPopupUI:UIView!
     @IBOutlet private weak var viewMain:UIView!

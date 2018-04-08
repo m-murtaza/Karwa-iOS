@@ -69,7 +69,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         
         vModel = viewModel as? KTBookingDetailsViewModel
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -77,7 +77,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
@@ -92,19 +92,18 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         
     }
     
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //MARK:- ETA
     func updateEta(eta: String) {
         lblEta.text = eta
     }
     
     func hideEtaView() {
-            etaView.isHidden = true
+        etaView.isHidden = true
     }
     
     //MARK: - UI update
@@ -118,16 +117,16 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     @IBAction func btnCallTapped(_ sender: Any) {
-      vModel?.callDriver()
+        vModel?.callDriver()
         
     }
     
@@ -190,9 +189,9 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     func updateBookingCardForCompletedBooking() {
         
         /*constraintHeighBookingInfoBox.constant -= 10
-        constraintHeighBookingInfoLargeBox.constant -= 10
-        imgPickMsgImage.isHidden = true
-        lblPickMessage.isHidden = true*/
+         constraintHeighBookingInfoLargeBox.constant -= 10
+         imgPickMsgImage.isHidden = true
+         lblPickMessage.isHidden = true*/
     }
     
     func updateBookingCardForUnCompletedBooking() {
@@ -341,7 +340,6 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         
     }
     
-    
     @IBAction func leftBottomBarButtonTapped(btnSender: UIButton) {
         
         vModel?.buttonTapped(withTag: btnSender.tag)
@@ -352,8 +350,17 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         vModel?.buttonTapped(withTag: btnSender.tag)
     }
     
-    func showAlertForCancelBooking() {
-        let alertController = UIAlertController(title: nil, message: "Are you sure you want to cancel your booking?", preferredStyle: .alert)
+    func showPopupForCancelBooking() {
+        let cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as! KTCancelViewController
+        
+        cancelPopup.bookingId = (vModel?.bookingId())!
+        cancelPopup.bookingStatii = (vModel?.bookingStatii())!
+        cancelPopup.previousView = self
+        cancelPopup.view.frame = self.view.bounds
+        view.addSubview(cancelPopup.view)
+        addChildViewController(cancelPopup)
+        
+        /*let alertController = UIAlertController(title: nil, message: "Are you sure you want to cancel your booking?", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
@@ -362,12 +369,25 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)*/
+        
     }
     
     func popViewController() {
         
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func showCancelView() {
+        
+        //func showBookingConfirmation() {
+            
+            /*let confirmationPopup = storyboard?.instantiateViewController(withIdentifier: "ConfermationPopupVC") as! BookingConfermationPopupVC
+            confirmationPopup.previousView = self
+            confirmationPopup.view.frame = self.view.bounds
+            view.addSubview(confirmationPopup.view)
+            addChildViewController(confirmationPopup)*/
+        //}
     }
 }
 
