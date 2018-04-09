@@ -20,6 +20,10 @@ class KTMyTripsViewModel: KTBaseViewModel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //fetchBookings()
+    }
+    override func viewWillAppear() {
+        super.viewWillAppear()
         fetchBookings()
     }
     

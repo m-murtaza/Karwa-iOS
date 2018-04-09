@@ -8,12 +8,19 @@
 
 import UIKit
 
-class KTCancelViewController: PopupVC,KTCancelViewModelDelegate {
+protocol KTCancelViewDelegate {
+    func closeCancel()
+    func cancelDoneSuccess()
+}
 
-    public weak var previousView : KTBookingDetailsViewController?
+class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCellDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var tblView : UITableView!
+    var delegate : KTCancelViewDelegate?
     
     var bookingStatii : Int32 = 0
     var bookingId : String = ""
+    var selectedOption : Int  = -1
     
     private var vModel : KTCancelViewModel?
     override func viewDidLoad() {
@@ -46,5 +53,53 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate {
     func getBookingStatii() -> Int32 {
         
         return bookingStatii
+    }
+    
+    func getBookingID() -> String {
+        
+        return bookingId
+    }
+    
+    func reloadTable() {
+        tblView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return vModel!.numberOfRows()
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : KTCancelReasonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reasonsCellIdentifier", for: indexPath) as! KTCancelReasonTableViewCell
+        
+        cell.delegate = self
+        cell.lblReason?.text = vModel?.reasonTitle(idx: indexPath.row)
+        cell.btnSelection?.tag = indexPath.row
+        if indexPath.row == selectedOption {
+            cell.btnSelection?.isHighlighted = true
+        }
+        else {
+            cell.btnSelection?.isHighlighted = false
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        return cell 
+    }
+    
+    func optionSelected(atIdx idx: Int) {
+        
+        selectedOption = idx
+        tblView.reloadData()
+    }
+    
+    
+    @IBAction func btnCloseTapped(_ sender: Any) {
+        delegate?.closeCancel()
+    }
+    @IBAction func btnSubmitTapped(_ sender: Any) {
+        vModel?.btnSubmitTapped(selectedIdx: selectedOption)
+    }
+    
+    func cancelSuccess() {
+        
+        delegate?.cancelDoneSuccess()
     }
 }

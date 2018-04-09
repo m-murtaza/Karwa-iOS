@@ -63,6 +63,10 @@ class KTDALManager: KTBase {
         }
     }
     
+    
+    func saveInDb() {
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+    }
     /*func handleAPISuccess(status: Bool,response: [AnyHashable: Any],completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         
     }*/

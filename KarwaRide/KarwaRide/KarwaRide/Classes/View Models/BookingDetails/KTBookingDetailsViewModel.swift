@@ -20,6 +20,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
     func showPopupForCancelBooking()
+    
     func popViewController()
     func updateBookingCardForCompletedBooking()
     func updateBookingCardForUnCompletedBooking()
@@ -539,16 +540,22 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func buttonTapped(withTag tag:Int) {
-        //if tag == BottomBarBtnTag.Cancel.rawValue {
+        if tag == BottomBarBtnTag.Cancel.rawValue {
            del?.showPopupForCancelBooking()
-        //}
-    }
-    
-    func cancelBooking() {
-    
-        KTBookingManager().cancelBooking(bookingId: (booking?.bookingId)!) { (status, response) in
-            self.del?.popViewController()
         }
     }
+    
+    func cancelDoneSuccess()  {
+        booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
+        KTBookingManager().saveInDb()
+        del?.popViewController()
+    }
+    
+//    func cancelBooking() {
+//    
+//        KTBookingManager().cancelBooking(bookingId: (booking?.bookingId)!) { (status, response) in
+//            self.del?.popViewController()
+//        }
+//    }
     
 }

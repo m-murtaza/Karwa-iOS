@@ -12,6 +12,35 @@ let CANCEL_REASON_SYNC_TIME = "CancelReasonSyncTime"
 
 class KTCancelBookingManager: KTDALManager {
     
+    func cancelReasonsAvalible() -> Bool {
+        guard let cReasons = cancelReasons(), cReasons.count > 0 else {
+            print("Cancel Reasons Not Available")
+            return false
+        }
+        return true
+    }
+    
+    func fetchInitialCancelReasonsLocal() {
+        if !cancelReasonsAvalible(){
+            //Cancel Reason not available
+            do {
+                
+                if let file = Bundle.main.url(forResource: "InitCancelReasons", withExtension: "JSON") {
+                    let data = try Data(contentsOf: file)
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    if let object = json as? [String: Any] {
+                        // json is a dictionary
+                        self.saveCancelReasons(response: object[Constants.ResponseAPIKey.Data] as! [Any])
+                    }
+                }
+            }
+            catch {
+                print("error.localizedDescription")
+            }
+        }
+        
+    }
+    
     func fetchCancelReasons() {
         fetchCancelReasons { (status, response) in
             print(response)
@@ -23,7 +52,7 @@ class KTCancelBookingManager: KTDALManager {
         self.get(url: Constants.APIURL.CancelReason, param: param, completion: completionBlock) { (response, cBlock) in
             
             //First remove all data from the table.
-        
+            
             
             self.saveCancelReasons(response: response[Constants.ResponseAPIKey.Data] as! [Any])
             self.updateSyncTime(forKey: CANCEL_REASON_SYNC_TIME)
@@ -62,11 +91,34 @@ class KTCancelBookingManager: KTDALManager {
         reason.reasonCode = reasonCode
     }
     
-    func cencelReasons(forBookingStatii statii:Int32) -> [KTCancelReason]{
+    func cancelReasons() -> [KTCancelReason]?{
+        
+        
+        let reasons : [KTCancelReason] = KTCancelReason.mr_findAll() as! [KTCancelReason]
+        
+        return reasons
+    }
+    
+    func cancelReasons(forBookingStatii statii:Int32) -> [KTCancelReason]{
         
         let perdicate = NSPredicate(format: "bookingStatii == %d AND language == %@",statii,"EN")
         let reasons : [KTCancelReason] = KTCancelReason.mr_findAll(with: perdicate) as! [KTCancelReason]
         //let reasons : [KTCancelReason] = KTCancelReason.mr_findAll() as! [KTCancelReason]
         return reasons
+    }
+    
+    func cancelBooking(bookingId: String, reasonId: Int, completeion completionBlock: @escaping KTDALCompletionBlock) {
+        
+        var url = Constants.APIURL.Booking + "/" + bookingId
+        if reasonId > 0 {
+            
+            url += "/" + String(reasonId)
+        }
+        self.delete(url: url, param: nil, completion: completionBlock, success: {
+            (response, cBlock) in
+            
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+            
+        })
     }
 }

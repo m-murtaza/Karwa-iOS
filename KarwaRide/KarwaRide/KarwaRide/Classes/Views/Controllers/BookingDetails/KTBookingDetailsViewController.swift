@@ -11,8 +11,7 @@ import CoreLocation
 import GoogleMaps
 import Cosmos
 
-class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate {
-    
+class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate {
     //
     
     @IBOutlet weak var mapView : GMSMapView!
@@ -62,6 +61,8 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
     
     private var vModel : KTBookingDetailsViewModel?
+    var cancelPopup : KTCancelViewController?
+    
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
@@ -351,14 +352,14 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     }
     
     func showPopupForCancelBooking() {
-        let cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as! KTCancelViewController
+         cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as! KTCancelViewController
         
-        cancelPopup.bookingId = (vModel?.bookingId())!
-        cancelPopup.bookingStatii = (vModel?.bookingStatii())!
-        cancelPopup.previousView = self
-        cancelPopup.view.frame = self.view.bounds
-        view.addSubview(cancelPopup.view)
-        addChildViewController(cancelPopup)
+        cancelPopup?.bookingId = (vModel?.bookingId())!
+        cancelPopup?.bookingStatii = (vModel?.bookingStatii())!
+        cancelPopup?.delegate = self
+        cancelPopup?.view.frame = self.view.bounds
+        view.addSubview((cancelPopup?.view)!)
+        addChildViewController(cancelPopup!)
         
         /*let alertController = UIAlertController(title: nil, message: "Are you sure you want to cancel your booking?", preferredStyle: .alert)
         
@@ -388,6 +389,15 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
             view.addSubview(confirmationPopup.view)
             addChildViewController(confirmationPopup)*/
         //}
+    }
+    
+    func closeCancel() {
+        cancelPopup?.view.removeFromSuperview()
+        cancelPopup = nil
+    }
+    
+    func cancelDoneSuccess() {
+        vModel?.cancelDoneSuccess()
     }
 }
 

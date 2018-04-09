@@ -72,6 +72,9 @@
 		186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KTDALManager.swift */; };
 		1886187420761B14000806D3 /* KTCancelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187320761B14000806D3 /* KTCancelViewController.swift */; };
 		1886187620763C3A000806D3 /* KTCancelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187520763C3A000806D3 /* KTCancelViewModel.swift */; };
+		188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */; };
+		1886187D207B47DF000806D3 /* InitCancelReasons.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 1886187B207B47DF000806D3 /* InitCancelReasons.JSON */; };
+		1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 1886187C207B47DF000806D3 /* InitRatingReasons.JSON */; };
 		18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */; };
 		18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */; };
 		18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949020185458000FCE92 /* KTBookingManager+Address.swift */; };
@@ -191,6 +194,9 @@
 		1864872F1F0BB06800DDB003 /* KTDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTDALManager.swift; path = Classes/DAL/KTDALManager.swift; sourceTree = "<group>"; };
 		1886187320761B14000806D3 /* KTCancelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTCancelViewController.swift; sourceTree = "<group>"; };
 		1886187520763C3A000806D3 /* KTCancelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelViewModel.swift; path = "Classes/View Models/BookingDetails/KTCancelViewModel.swift"; sourceTree = "<group>"; };
+		188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = cancelReasonTableViewCell.swift; path = Classes/Views/Controllers/BookingDetails/cancelReasonTableViewCell.swift; sourceTree = "<group>"; };
+		1886187B207B47DF000806D3 /* InitCancelReasons.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitCancelReasons.JSON; path = Resources/JSON/InitCancelReasons.JSON; sourceTree = "<group>"; };
+		1886187C207B47DF000806D3 /* InitRatingReasons.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitRatingReasons.JSON; path = Resources/JSON/InitRatingReasons.JSON; sourceTree = "<group>"; };
 		18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewController.swift; path = Classes/Views/Controllers/Booking/KTAddressPickerViewController.swift; sourceTree = "<group>"; };
 		18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewModel.swift; path = "Classes/View Models/Booking/KTAddressPickerViewModel.swift"; sourceTree = "<group>"; };
 		18A3949020185458000FCE92 /* KTBookingManager+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Address.swift"; path = "Classes/DAL/Booking/KTBookingManager+Address.swift"; sourceTree = "<group>"; };
@@ -365,6 +371,7 @@
 			children = (
 				1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */,
 				1886187320761B14000806D3 /* KTCancelViewController.swift */,
+				188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -485,6 +492,8 @@
 		181AB8542075EDDE0048D7AF /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				1886187B207B47DF000806D3 /* InitCancelReasons.JSON */,
+				1886187C207B47DF000806D3 /* InitRatingReasons.JSON */,
 				181AB8552075EDED0048D7AF /* InitTariff.JSON */,
 			);
 			name = JSON;
@@ -926,6 +935,7 @@
 			files = (
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
+				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
 				18C24B022004E269002D4B88 /* MuseoSans-100.otf in Resources */,
 				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
@@ -935,6 +945,7 @@
 				18C24B072004E269002D4B88 /* MuseoSans-500Italic.otf in Resources */,
 				18C24B0B2004E26A002D4B88 /* MuseoSans-900Italic.otf in Resources */,
 				18C24B092004E269002D4B88 /* MuseoSans-700Italic.otf in Resources */,
+				1886187D207B47DF000806D3 /* InitCancelReasons.JSON in Resources */,
 				181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */,
 				18C24B0A2004E26A002D4B88 /* MuseoSans-900.otf in Resources */,
 				181344A11EF68671006E734A /* Assets.xcassets in Resources */,
@@ -1115,6 +1126,7 @@
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
+				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
