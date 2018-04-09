@@ -1196,14 +1196,14 @@
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
                         <outlet property="viewFareBreakdown" destination="aZy-Mf-CFk" id="EfL-1P-lDQ"/>
-                        <segue destination="yYS-V6-JUX" kind="show" identifier="segueBookToDetail" id="WCt-jx-7Th"/>
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForPickup" id="FaI-op-NCo"/>
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForDropoff" id="4lO-1G-0fb"/>
+                        <segue destination="l39-Ix-xs1" kind="show" identifier="segueBookToDetail" id="CcG-57-rIe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1448.8" y="1529.6851574212894"/>
+            <point key="canvasLocation" x="1439" y="1577"/>
         </scene>
         <!--Booking Confermation PopupVC-->
         <scene sceneID="r6A-cr-Yv7">
@@ -2195,7 +2195,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxC-Vw-A6E">
-                                <rect key="frame" x="16" y="72" width="16" height="22"/>
+                                <rect key="frame" x="16" y="28" width="16" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="16" id="930-fr-Vnl"/>
                                     <constraint firstAttribute="height" constant="22" id="Hlv-Ah-f8s"/>
@@ -2776,7 +2776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bde-36-Orn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1509.5999999999999" y="3850.5247376311845"/>
+            <point key="canvasLocation" x="3866" y="2942"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="Hgc-mM-N8i">
@@ -3071,59 +3071,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mw6-j9-tBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4008.8000000000002" y="1946.176911544228"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="anX-fY-x5x">
-            <objects>
-                <viewController id="yYS-V6-JUX" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="I5v-6b-fHj"/>
-                        <viewControllerLayoutGuide type="bottom" id="3yP-2p-jtX"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="HVa-yi-bVX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Created" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMN-L7-BeM">
-                                <rect key="frame" x="16" y="28" width="343" height="57"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="57" id="YVW-KK-ajU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="32"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This will be detail view." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eiq-wH-OIx">
-                                <rect key="frame" x="16" y="93" width="343" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="PNI-jO-1nc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UnderConstruction" translatesAutoresizingMaskIntoConstraints="NO" id="FY4-QU-YOK">
-                                <rect key="frame" x="0.0" y="122" width="375" height="545"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="bMN-L7-BeM" firstAttribute="leading" secondItem="eiq-wH-OIx" secondAttribute="leading" id="1AL-E9-Ops"/>
-                            <constraint firstAttribute="trailing" secondItem="FY4-QU-YOK" secondAttribute="trailing" id="1B8-CE-wQY"/>
-                            <constraint firstItem="eiq-wH-OIx" firstAttribute="centerX" secondItem="FY4-QU-YOK" secondAttribute="centerX" id="84S-hj-1Ys"/>
-                            <constraint firstItem="FY4-QU-YOK" firstAttribute="bottom" secondItem="3yP-2p-jtX" secondAttribute="top" id="9Ia-AV-K1d"/>
-                            <constraint firstItem="eiq-wH-OIx" firstAttribute="top" secondItem="bMN-L7-BeM" secondAttribute="bottom" constant="8" symbolic="YES" id="L2c-H9-aPx"/>
-                            <constraint firstItem="bMN-L7-BeM" firstAttribute="leading" secondItem="HVa-yi-bVX" secondAttribute="leadingMargin" id="NJd-f7-XPJ"/>
-                            <constraint firstItem="bMN-L7-BeM" firstAttribute="top" secondItem="I5v-6b-fHj" secondAttribute="bottom" constant="8" symbolic="YES" id="SFe-Db-V0a"/>
-                            <constraint firstItem="bMN-L7-BeM" firstAttribute="trailing" secondItem="eiq-wH-OIx" secondAttribute="trailing" id="oO7-Pg-dED"/>
-                            <constraint firstItem="FY4-QU-YOK" firstAttribute="leading" secondItem="HVa-yi-bVX" secondAttribute="leading" id="xcG-iN-lRd"/>
-                            <constraint firstItem="FY4-QU-YOK" firstAttribute="top" secondItem="eiq-wH-OIx" secondAttribute="bottom" constant="8" symbolic="YES" id="y9d-ia-Tsw"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hOP-Oj-gHf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3194.4000000000001" y="2615.4422788605698"/>
         </scene>
         <!--Address Picker View Controller-->
         <scene sceneID="3YX-v2-1Ul">
@@ -3789,6 +3736,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FaI-op-NCo"/>
+        <segue reference="CcG-57-rIe"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="bsC-QL-uBN"/>
         <segue reference="uRk-Bz-EyY"/>

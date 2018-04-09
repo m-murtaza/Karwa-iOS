@@ -168,11 +168,16 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             else {
                 destination.selectedTxtField = SelectedTextField.PickupAddress
             }
-            
         }
         else if segue.identifier == "segueBookingToBreakdown" {
             
             fareBreakdown = segue.destination as! KTFareViewController
+        }
+        else if segue.identifier == "segueBookToDetail" {
+            let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
+            //if let booking : KTBooking = (viewModel as! KTCreateBookingViewModel).booking {
+                destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
+            //}
         }
     }
     func moveToDetailView() {

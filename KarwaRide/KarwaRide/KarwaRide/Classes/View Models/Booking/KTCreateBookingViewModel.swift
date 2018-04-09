@@ -66,6 +66,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var del : KTCreateBookingViewModelDelegate?
     
+    let booking : KTBooking = KTBookingManager().booking()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -510,7 +512,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if pickUpAddress != nil {
             var estimateId : String = ""
             let bookManager : KTBookingManager = KTBookingManager()
-            let booking : KTBooking = bookManager.booking()
+            //let booking : KTBooking = bookManager.booking()
             booking.pickupTime = selectedPickupDateTime
             booking.creationTime = Date()
             booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
@@ -520,11 +522,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             booking.pickupAddress = pickUpAddress?.name
             booking.pickupLat = (pickUpAddress?.latitude)!
             booking.pickupLon = (pickUpAddress?.longitude)!
+            booking.pickupLocationId = (pickUpAddress?.locationId)!
             
             if(dropOffAddress != nil) {
                 booking.dropOffAddress = dropOffAddress?.name
                 booking.dropOffLat = (dropOffAddress?.latitude)!
                 booking.dropOffLon = (dropOffAddress?.longitude)!
+                booking.dropOffLocationId = (dropOffAddress?.locationId)!
                 estimateId = fetchEstimateId(forVehicleType: selectedVehicleType)
             }
             
@@ -544,8 +548,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
            self.delegate?.showError!(title: "Error", message:"Please provide pickup location")
         }
     }
-    
-    
     
     func vTypeViewScroll(currentIdx:Int?)  {
         

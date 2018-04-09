@@ -26,10 +26,12 @@ class KTBookingManager: KTBaseFareEstimateManager {
         let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
                                     Constants.BookingParams.PickLat: job.pickupLat,
                                     Constants.BookingParams.PickLon: job.pickupLon,
+                                    Constants.BookingParams.PickLocationID : job.pickupLocationId,
                                     Constants.BookingParams.PickTime: job.pickupTime!,
                                     Constants.BookingParams.DropLocation: (job.dropOffAddress != nil) ? job.dropOffAddress as Any : "",
                                     Constants.BookingParams.DropLat : job.dropOffLat,
                                     Constants.BookingParams.DropLon : job.dropOffLon,
+                                    Constants.BookingParams.DropLocationId : job.dropOffLocationId,
                                     Constants.BookingParams.CreationTime : job.creationTime!,
                                     Constants.BookingParams.PickHint : job.pickupMessage!,
                                     Constants.BookingParams.VehicleType : job.vehicleType,
@@ -39,6 +41,11 @@ class KTBookingManager: KTBaseFareEstimateManager {
         
         self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
+            job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
+            job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
+            job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
+            self.saveInDb()
+            
             
             completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
             

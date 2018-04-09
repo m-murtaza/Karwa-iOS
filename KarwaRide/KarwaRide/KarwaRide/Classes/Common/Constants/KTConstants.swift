@@ -218,9 +218,11 @@ struct Constants {
         static let PickLocation = "PickupAddress"
         static let PickLat = "PickupLat"
         static let PickLon = "PickupLon"
+        static let PickLocationID = "PickupLocationID"
         static let PickTime = "PickupTime"
         static let DropLat = "DropLat"
         static let DropLon = "DropLon"
+        static let DropLocationId = "DropLocationID"
         static let DropLocation = "DropAddress"
         static let CreationTime = "CreationTime"
         static let PickHint = "PickupMessage"
@@ -229,6 +231,7 @@ struct Constants {
         static let Status = "BookingStatus"
         static let BookingType = "BookingType"
         static let EstimateId = "EstimateId"
+        static let EstimatedFare = "EstimatedFare"
     }
     
     struct APIURL {

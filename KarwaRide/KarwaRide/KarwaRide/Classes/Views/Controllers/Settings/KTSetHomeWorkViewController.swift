@@ -111,6 +111,7 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         self.mapSuperView.isHidden = true
     
         selectedInputMechanism = SelectedInputMechanism.ListView
+        txtAddress.becomeFirstResponder()
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
@@ -124,6 +125,8 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         
         self.tblView.isHidden = true
         self.mapSuperView.isHidden = false
+        
+        self.txtAddress.resignFirstResponder()
     }
     
     private func initializeMap () {
