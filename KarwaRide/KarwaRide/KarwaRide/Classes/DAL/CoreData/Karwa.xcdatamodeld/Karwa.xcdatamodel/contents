@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="KTBaseTrariff" representedClassName="KTBaseTrariff" isAbstract="YES" syncable="YES" codeGenerationType="class">
-        <relationship name="tariffToKeyValue" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KTKeyValue" syncable="YES"/>
+        <relationship name="toKeyValueBody" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KTKeyValue" syncable="YES"/>
+        <relationship name="toKeyValueHeader" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KTKeyValue" syncable="YES"/>
     </entity>
-    <entity name="KTBooking" representedClassName="KTBooking" syncable="YES" codeGenerationType="class">
+    <entity name="KTBooking" representedClassName="KTBooking" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
         <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bookingStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="callerId" optional="YES" attributeType="String" syncable="YES"/>
@@ -79,7 +80,7 @@
         <attribute name="typeSortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="60"/>
+        <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
         <element name="KTBooking" positionX="-38" positionY="18" width="128" height="478"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="120"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>

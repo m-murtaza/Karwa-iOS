@@ -165,6 +165,8 @@ struct Constants {
         
         static let VehicleNo = "VehicleNo"
         static let VehicleType = "VehicleType"
+        
+        static let TripSummary = "TripSummary"
     }
     
     struct GetEstimateResponseAPIKey {

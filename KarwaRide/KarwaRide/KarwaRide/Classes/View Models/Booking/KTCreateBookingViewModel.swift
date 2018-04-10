@@ -145,7 +145,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         let title = "Estimated Fare"
         var kvDictionary : [String:String] = [:]
-        for kv : KTKeyValue in  estimate(forVehicleType: vtype.typeId)?.tariffToKeyValue?.allObjects as! [KTKeyValue] {
+        for kv : KTKeyValue in  estimate(forVehicleType: vtype.typeId)?.toKeyValueBody?.allObjects as! [KTKeyValue] {
             kvDictionary[kv.key!] = kv.value
         }
         del?.showFareBreakdown(animated: true, kvPair: kvDictionary, title: title)
@@ -154,7 +154,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func updateEstimates(vehicleType vtype: KTVehicleType ) {
         
         var kvDictionary : [String:String] = [:]
-        for kv : KTKeyValue in  estimate(forVehicleType: vtype.typeId)?.tariffToKeyValue?.allObjects as! [KTKeyValue] {
+        for kv : KTKeyValue in  estimate(forVehicleType: vtype.typeId)?.toKeyValueBody?.allObjects as! [KTKeyValue] {
             kvDictionary[kv.key!] = kv.value
         }
         del?.updateFareBreakdown(kvPair: kvDictionary)
@@ -163,7 +163,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func showFareBreakDown(vehicleType vtype: KTVehicleType) {
         let title = "Fare Breakdown"
         var kvDictionary : [String:String] = [:]
-        for kv : KTKeyValue in vtype.tariffToKeyValue?.allObjects as! [KTKeyValue] {
+        for kv : KTKeyValue in vtype.toKeyValueBody?.allObjects as! [KTKeyValue] {
             kvDictionary[kv.key!] = kv.value!
         }
         
@@ -173,7 +173,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func updateFareDetails(vehicleType vtype: KTVehicleType ) {
         
         var kvDictionary : [String:String] = [:]
-        for kv : KTKeyValue in vtype.tariffToKeyValue?.allObjects as! [KTKeyValue] {
+        for kv : KTKeyValue in vtype.toKeyValueBody?.allObjects as! [KTKeyValue] {
             kvDictionary[kv.key!] = kv.value!
         }
         del?.updateFareBreakdown(kvPair: kvDictionary)

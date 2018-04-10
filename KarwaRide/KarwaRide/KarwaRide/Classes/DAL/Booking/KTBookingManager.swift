@@ -45,6 +45,8 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
             if estimate != nil {
+                let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
+                estimate?.toKeyValueHeader = (estimate?.toKeyValueHeader?.adding(kv) as! NSSet)
                 job.bookingToEstimate = estimate
                 estimate?.fareestimateToBooking = job
                 
@@ -130,8 +132,6 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.driverPhone = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverPhone] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DriverPhone] as? String : ""
         b.driverRating = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverRating] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DriverRating] as! Double : 0.0
         
-        
-        
         b.dropOffAddress = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropAddress] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropAddress] as? String : ""
         b.dropOffLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropLat] as! Double : 0.0
         b.dropOffLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropLon] as! Double : 0.0
@@ -150,7 +150,15 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.vehicleNo =  (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleNo] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleNo] as? String : ""
         b.vehicleType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleType] as! Int16 : 0
         
+        if(!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripSummary] as AnyObject)) {
+            self.saveTripSummey(data: booking[Constants.BookingResponseAPIKey.TripSummary] as! [AnyHashable:Any],booking: b )
+        }
         return b
+    }
+    
+    func saveTripSummey(data: [AnyHashable: Any], booking: KTBooking) {
+        KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["Body"] as! [AnyHashable : Any], tariff: booking as! KTBaseTrariff)
+        KTBaseFareEstimateManager().saveKeyValueHeader(keyValue: data["Header"] as! [AnyHashable : Any], tariff: booking as! KTBaseTrariff)
     }
     
     func pendingBookings() -> [KTBooking] {
