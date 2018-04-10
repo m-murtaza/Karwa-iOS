@@ -21,7 +21,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         return book
     }
     
-    func bookTaxi(job: KTBooking,estimateId: String, completion completionBlock: @escaping KTDALCompletionBlock)  {
+    func bookTaxi(job: KTBooking, estimate: KTFareEstimate?, completion completionBlock: @escaping KTDALCompletionBlock)  {
         
         let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
                                     Constants.BookingParams.PickLat: job.pickupLat,
@@ -36,7 +36,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
                                     Constants.BookingParams.PickHint : job.pickupMessage!,
                                     Constants.BookingParams.VehicleType : job.vehicleType,
                                     Constants.BookingParams.CallerID : job.callerId!,
-                                    Constants.BookingParams.EstimateId : estimateId]
+                                    Constants.BookingParams.EstimateId : (estimate != nil) ? (estimate!.estimateId)! : 0 ]
         
         
         self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
@@ -44,13 +44,47 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
             job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
+            if estimate != nil {
+                job.bookingToEstimate = estimate
+                estimate?.fareestimateToBooking = job
+                
+            }
             self.saveInDb()
             
-            
             completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
-            
         })
     }
+        
+//    func bookTaxi(job: KTBooking,estimateId: String, completion completionBlock: @escaping KTDALCompletionBlock)  {
+//
+//        let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
+//                                    Constants.BookingParams.PickLat: job.pickupLat,
+//                                    Constants.BookingParams.PickLon: job.pickupLon,
+//                                    Constants.BookingParams.PickLocationID : job.pickupLocationId,
+//                                    Constants.BookingParams.PickTime: job.pickupTime!,
+//                                    Constants.BookingParams.DropLocation: (job.dropOffAddress != nil) ? job.dropOffAddress as Any : "",
+//                                    Constants.BookingParams.DropLat : job.dropOffLat,
+//                                    Constants.BookingParams.DropLon : job.dropOffLon,
+//                                    Constants.BookingParams.DropLocationId : job.dropOffLocationId,
+//                                    Constants.BookingParams.CreationTime : job.creationTime!,
+//                                    Constants.BookingParams.PickHint : job.pickupMessage!,
+//                                    Constants.BookingParams.VehicleType : job.vehicleType,
+//                                    Constants.BookingParams.CallerID : job.callerId!,
+//                                    Constants.BookingParams.EstimateId : estimateId]
+//
+//
+//        self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
+//            (responseData,cBlock) in
+//            job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
+//            job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
+//            job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
+//            self.saveInDb()
+//
+//
+//            completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+//
+//        })
+//    }
     
     func syncBookings(completion completionBlock: @escaping KTDALCompletionBlock) {
         

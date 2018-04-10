@@ -27,8 +27,8 @@ extension KTBookingManager {
     }
     
     func saveEstimates(response : [Any]){
-        
-        KTFareEstimate.mr_truncateAll()
+        let predicate : NSPredicate = NSPredicate(format: "fareestimateToBooking == nil")
+        KTFareEstimate.mr_deleteAll(matching: predicate)
         for r in response {
             
             self.saveSingleVehicleEstimates(estimate: r as! [AnyHashable: Any])

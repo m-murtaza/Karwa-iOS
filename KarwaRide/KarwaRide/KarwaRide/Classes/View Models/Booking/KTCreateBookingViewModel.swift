@@ -244,13 +244,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
-    func fetchEstimateId(forVehicleType vType: VehicleType) -> String{
-        var estId : String = ""
-        let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.rawValue)
-        if estimate != nil {
-            estId = (estimate?.estimateId)!
-        }
-        return estId
+    func fetchEstimateId(forVehicleType vType: VehicleType) -> KTFareEstimate?{
+        //var estId : String = ""
+        let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: vType.rawValue)
+//        if estimate != nil {
+//            estId = (estimate?.estimateId)!
+//        }
+        return vEstimate
     }
     
     func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String {
@@ -510,7 +510,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func bookRide() {
         if pickUpAddress != nil {
-            var estimateId : String = ""
+            var vEstimate : KTFareEstimate?
             let bookManager : KTBookingManager = KTBookingManager()
             //let booking : KTBooking = bookManager.booking()
             booking.pickupTime = selectedPickupDateTime
@@ -529,11 +529,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 booking.dropOffLat = (dropOffAddress?.latitude)!
                 booking.dropOffLon = (dropOffAddress?.longitude)!
                 booking.dropOffLocationId = (dropOffAddress?.locationId)!
-                estimateId = fetchEstimateId(forVehicleType: selectedVehicleType)
+                vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)
             }
             
             delegate?.showProgressHud(show: true, status: "Booking a ride")
-            bookManager.bookTaxi(job: booking,estimateId: estimateId) { (status, response) in
+            bookManager.bookTaxi(job: booking,estimate: vEstimate) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
                     (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
