@@ -20,6 +20,9 @@ class KTFarePopupViewController: PopupVC, KTFarePopupViewModelDelegate, UITableV
     @IBOutlet weak var lblTotalTitle : UILabel!
     @IBOutlet weak var tblView : UITableView!
     
+    @IBOutlet weak var constraintViewHeight : NSLayoutConstraint!
+    @IBOutlet weak var constraintTableViewHeight: NSLayoutConstraint!
+    
     var delegate : KTFarePopViewDelegate?
     private var vModel : KTFarePopupViewModel?
     
@@ -41,6 +44,11 @@ class KTFarePopupViewController: PopupVC, KTFarePopupViewModelDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
+    func updateViewForSmallSize() {
+        
+        constraintViewHeight.constant -= 100
+        constraintTableViewHeight.constant -= 100
+    }
     
     /*
      // MARK: - Navigation
@@ -117,12 +125,6 @@ class KTFarePopupViewController: PopupVC, KTFarePopupViewModelDelegate, UITableV
             
             return UIView(frame:
                 CGRect(x: 0, y: 0, width: 0 , height: 0))
-            //            let header = tableView.dequeueReusableCellWithIdentifier("HeaderTableViewCell1")! as! HeaderTableViewCell1
-            //            header._lblGroupName.text = ""
-            //            header._btnExpand.addTarget(self, action: "hideSection:", forControlEvents: .TouchUpInside)
-            //
-            //            header._lblTotalCount.text = ""
-            //            return header.contentView
         }
         else{
             let header = tableView.dequeueReusableCell(withIdentifier: "FareSectionSapratorCellIdentifier")!

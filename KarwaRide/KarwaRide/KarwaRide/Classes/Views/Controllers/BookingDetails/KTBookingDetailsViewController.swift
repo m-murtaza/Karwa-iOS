@@ -358,7 +358,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         ebillPopup?.view.frame = self.view.bounds
         view.addSubview((ebillPopup?.view)!)
         addChildViewController(ebillPopup!)
-        ebillPopup?.set(header: vModel?.eBillHeader(), body: vModel?.eBillBody(), title: (vModel?.eBillTitle())!, total: (vModel?.eBillTotal())!,titleTotal: "Total Fare")
+        ebillPopup?.set(header: vModel?.eBillHeader(), body: vModel?.eBillBody(), title: (vModel?.eBillTitle())!, total: (vModel?.eBillTotal())!,titleTotal: (vModel?.ebillTitleTotal())!)
     }
     func closeFareEstimate() {
         ebillPopup?.view.removeFromSuperview()
@@ -373,35 +373,11 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         cancelPopup?.view.frame = self.view.bounds
         view.addSubview((cancelPopup?.view)!)
         addChildViewController(cancelPopup!)
-        
-        /*let alertController = UIAlertController(title: nil, message: "Are you sure you want to cancel your booking?", preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-            self.vModel?.cancelBooking()
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)*/
-        
     }
     
     func popViewController() {
         
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    func showCancelView() {
-        
-        //func showBookingConfirmation() {
-            
-            /*let confirmationPopup = storyboard?.instantiateViewController(withIdentifier: "ConfermationPopupVC") as! BookingConfermationPopupVC
-            confirmationPopup.previousView = self
-            confirmationPopup.view.frame = self.view.bounds
-            view.addSubview(confirmationPopup.view)
-            addChildViewController(confirmationPopup)*/
-        //}
     }
     
     func closeCancel() {
@@ -412,6 +388,19 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     func cancelDoneSuccess() {
         vModel?.cancelDoneSuccess()
     }
+    
+    func showFareBreakdown() {
+        ebillPopup = storyboard?.instantiateViewController(withIdentifier: "FarePopup") as? KTFarePopupViewController
+        
+        ebillPopup?.delegate = self
+        ebillPopup?.view.frame = self.view.bounds
+        view.addSubview((ebillPopup?.view)!)
+        addChildViewController(ebillPopup!)
+        ebillPopup?.set(header: vModel?.estimateHeader(), body: vModel?.estimateBody(), title: (vModel?.estimateTitle())!, total: (vModel?.estimateTotal())!,titleTotal: (vModel?.estimateTitleTotal())!)
+        
+        ebillPopup?.updateViewForSmallSize()
+    }
+    
 }
 
 extension UInt {

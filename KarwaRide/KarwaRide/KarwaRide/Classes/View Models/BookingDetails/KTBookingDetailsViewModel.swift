@@ -21,6 +21,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func updateBookingCard()
     func showPopupForCancelBooking()
     func showEbill()
+    func showFareBreakdown()
     
     func popViewController()
     func updateBookingCardForCompletedBooking()
@@ -88,12 +89,25 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue {
             
-            del?.updateEta(eta: "\(booking!.eta)")
+            
+            
+            del?.updateEta(eta: formatedETA(eta: booking!.eta))
         }
         else {
             del?.hideEtaView()
             
         }
+    }
+    
+    func formatedETA(eta: Int64) -> String {
+//        if eta/60 < 60 {
+//
+//            return "1 min"
+//        }
+        
+        let formatedEta : Double = Double(eta)/60
+        return "\(Int(ceil(Double(formatedEta)))) min"
+        
     }
     
     //MARK:- Driver Info
@@ -547,6 +561,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if tag == BottomBarBtnTag.EBill.rawValue {
             del?.showEbill()
         }
+        if tag == BottomBarBtnTag.FareBreakdown.rawValue {
+            del?.showFareBreakdown()
+        }
     }
     
     func cancelDoneSuccess()  {
@@ -564,6 +581,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return (booking?.fare)!
     }
     
+    func ebillTitleTotal() -> String {
+        return "Total Fare"
+    }
+    
     func eBillHeader() -> [KTKeyValue]?{
         
         return (booking?.toKeyValueHeader?.allObjects as! [KTKeyValue])
@@ -572,6 +593,42 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func eBillBody() -> [KTKeyValue]?{
         
         return (booking?.toKeyValueBody?.allObjects as! [KTKeyValue])
+    }
+    
+    
+    //MARK: - Estimates
+    func estimateTitle() -> String {
+        return "Trip E-Bill"
+    }
+    
+    func estimateTotal() -> String {
+        return (booking?.estimatedFare)!
+    }
+    
+    func estimateTitleTotal() -> String {
+        return "Total Fare"
+    }
+    func isEstimateAvailable() -> Bool {
+        guard let _ : KTFareEstimate = booking?.bookingToEstimate else {
+            return false
+        }
+        
+        return true
+    }
+    
+    func estimateHeader() -> [KTKeyValue]? {
+        
+        if isEstimateAvailable() {
+           return (booking?.bookingToEstimate?.toKeyValueHeader?.allObjects as! [KTKeyValue])
+        }
+        return nil
+    }
+    
+    func estimateBody() -> [KTKeyValue]? {
+        if isEstimateAvailable() {
+            return (booking?.bookingToEstimate?.toKeyValueBody?.allObjects as! [KTKeyValue])
+        }
+        return nil
     }
     
 //    func cancelBooking() {

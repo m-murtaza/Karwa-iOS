@@ -3251,7 +3251,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gy7-md-N7F" firstAttribute="top" secondItem="OIn-Qq-ry7" secondAttribute="top" id="00J-Qy-oNH"/>
                             <constraint firstItem="SdL-cE-l90" firstAttribute="top" secondItem="gy7-md-N7F" secondAttribute="bottom" id="XTv-xZ-hIE"/>
@@ -3260,6 +3260,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="constraintTableViewHeight" destination="kz5-ic-Hss" id="I5A-3m-6Mx"/>
+                        <outlet property="constraintViewHeight" destination="2XQ-Rs-m8t" id="7DX-kF-YgV"/>
                         <outlet property="lblTitle" destination="aGB-mP-mca" id="If3-Um-6kG"/>
                         <outlet property="lblTotal" destination="vBE-Cr-6se" id="c8R-6s-fXG"/>
                         <outlet property="lblTotalTitle" destination="yXz-ra-fOt" id="u09-xC-I0B"/>
