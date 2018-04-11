@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -142,7 +143,7 @@
                                 <rect key="frame" x="40" y="196" width="295" height="102"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vc5-gB-qdI">
-                                        <rect key="frame" x="20" y="61" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="60" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -158,7 +159,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-zq-thV">
-                                        <rect key="frame" x="20" y="20" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="20" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -292,7 +293,7 @@
                                 <rect key="frame" x="40" y="40" width="295" height="202"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Xl-Bt-XhR">
-                                        <rect key="frame" x="20" y="15" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="14.5" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -301,7 +302,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AQ3-T8-m79">
-                                        <rect key="frame" x="20" y="65.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="65" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -310,7 +311,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-cn-IYH">
-                                        <rect key="frame" x="20" y="116" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="115.5" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
@@ -319,7 +320,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mGX-vF-dNn">
-                                        <rect key="frame" x="20" y="166.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="166" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -515,7 +516,7 @@
                                 <rect key="frame" x="40" y="157" width="295" height="150"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih5-Tj-ObB">
-                                        <rect key="frame" x="20" y="14.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="14" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -538,7 +539,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYH-hK-gaq">
-                                        <rect key="frame" x="20" y="114.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="114" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -547,7 +548,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ce2-eZ-A8z">
-                                        <rect key="frame" x="20" y="64.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="64" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -646,20 +647,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="16" y="172.5" width="343" height="80"/>
+                                <rect key="frame" x="16" y="173.5" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8zJ-pj-Rtr"/>
                                     <constraint firstAttribute="width" constant="343" id="JUb-GW-Tvd"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification code has been sent to your mobile number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l">
-                                <rect key="frame" x="16" y="81" width="343" height="37.5"/>
+                                <rect key="frame" x="16" y="81" width="343" height="38.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="41" y="326.5" width="293" height="51"/>
+                                <rect key="frame" x="41" y="327.5" width="293" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
@@ -674,7 +675,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39w-hz-ala">
-                                <rect key="frame" x="57" y="260.5" width="240" height="46"/>
+                                <rect key="frame" x="57" y="261.5" width="240" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="didn't get?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-OC-hX7">
                                         <rect key="frame" x="8" y="13" width="127" height="21"/>
@@ -698,7 +699,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN">
-                                <rect key="frame" x="113" y="133.5" width="149" height="19"/>
+                                <rect key="frame" x="113" y="134.5" width="149" height="19"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2457,13 +2458,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evk-mQ-i72">
-                                                <rect key="frame" x="178" y="14" width="47.5" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="46.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 20-30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-5Q-1ai">
-                                                <rect key="frame" x="268.5" y="14" width="52.5" height="14"/>
+                                                <rect key="frame" x="265.5" y="14" width="55.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960784313724" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -3071,6 +3072,205 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mw6-j9-tBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4008.8000000000002" y="1946.176911544228"/>
+        </scene>
+        <!--Fare Popup View Controller-->
+        <scene sceneID="47b-n1-7LI">
+            <objects>
+                <viewController storyboardIdentifier="FarePopup" id="mqQ-zz-5wu" customClass="KTFarePopupViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GZE-Wz-UZm"/>
+                        <viewControllerLayoutGuide type="bottom" id="SdL-cE-l90"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OIn-Qq-ry7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gy7-md-N7F">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51K-cv-XQZ">
+                                        <rect key="frame" x="35" y="113" width="304" height="442"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip E-bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGB-mP-mca">
+                                                <rect key="frame" x="8" y="20" width="288" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="VY0-5v-We8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xvJ-Tz-rD4">
+                                                <rect key="frame" x="0.0" y="71" width="304" height="280"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="280" id="kz5-ic-Hss"/>
+                                                </constraints>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareCellReuseIdentifier" rowHeight="30" id="4fE-sY-2N3" customClass="KTFarePopupTableViewCell" customModule="KarwaRide" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="304" height="30"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4fE-sY-2N3" id="Uf3-e3-ccJ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwI-Me-ED7">
+                                                                    <rect key="frame" x="15" y="5" width="217" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                                                    <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hta-Wt-Xm1">
+                                                                    <rect key="frame" x="98" y="5" width="191" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="OwI-Me-ED7" secondAttribute="trailing" constant="56" id="BWm-ub-NYm"/>
+                                                                <constraint firstItem="OwI-Me-ED7" firstAttribute="baseline" secondItem="Hta-Wt-Xm1" secondAttribute="baseline" id="NS3-RR-r5V"/>
+                                                                <constraint firstItem="OwI-Me-ED7" firstAttribute="firstBaseline" secondItem="Hta-Wt-Xm1" secondAttribute="firstBaseline" id="QdW-du-foD"/>
+                                                                <constraint firstItem="OwI-Me-ED7" firstAttribute="centerY" secondItem="Uf3-e3-ccJ" secondAttribute="centerY" id="YVn-2s-CsL"/>
+                                                                <constraint firstItem="Hta-Wt-Xm1" firstAttribute="leading" secondItem="Uf3-e3-ccJ" secondAttribute="leadingMargin" constant="82" id="Zfy-4z-uKt"/>
+                                                                <constraint firstItem="OwI-Me-ED7" firstAttribute="top" secondItem="Uf3-e3-ccJ" secondAttribute="topMargin" constant="-26" id="cLP-Xf-OVu"/>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="Hta-Wt-Xm1" secondAttribute="trailing" constant="-1" id="oZ1-RN-ZfA"/>
+                                                                <constraint firstItem="OwI-Me-ED7" firstAttribute="leading" secondItem="Uf3-e3-ccJ" secondAttribute="leadingMargin" constant="-1" id="wGv-xn-EjF"/>
+                                                            </constraints>
+                                                        </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="key" destination="OwI-Me-ED7" id="m8H-0n-iqg"/>
+                                                            <outlet property="value" destination="Hta-Wt-Xm1" id="ZA8-nI-aTy"/>
+                                                        </connections>
+                                                    </tableViewCell>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareSectionSapratorCellIdentifier" id="rkT-hi-eGe">
+                                                        <rect key="frame" x="0.0" y="58" width="304" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rkT-hi-eGe" id="ZUQ-aF-qte">
+                                                            <rect key="frame" x="0.0" y="0.0" width="304" height="44"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="------------------------------------" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjB-hZ-Ojg">
+                                                                    <rect key="frame" x="15" y="12" width="274" height="21"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="RjB-hZ-Ojg" firstAttribute="leading" secondItem="ZUQ-aF-qte" secondAttribute="leadingMargin" constant="-1" id="NGn-iB-ntM"/>
+                                                                <constraint firstItem="RjB-hZ-Ojg" firstAttribute="bottom" secondItem="ZUQ-aF-qte" secondAttribute="bottomMargin" id="fzc-J5-xx6"/>
+                                                                <constraint firstItem="RjB-hZ-Ojg" firstAttribute="centerX" secondItem="ZUQ-aF-qte" secondAttribute="centerX" id="wDp-tu-NXx"/>
+                                                            </constraints>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="mqQ-zz-5wu" id="pOp-Vu-ld4"/>
+                                                    <outlet property="delegate" destination="mqQ-zz-5wu" id="5oo-f1-nco"/>
+                                                </connections>
+                                            </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBE-Cr-6se">
+                                                <rect key="frame" x="196" y="361" width="98" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="21" id="0AI-ll-Bgo"/>
+                                                    <constraint firstAttribute="width" constant="98" id="1iB-WA-XbW"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FlR-wn-rT3">
+                                                <rect key="frame" x="0.0" y="392" width="304" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="uWI-fB-gCk"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="17"/>
+                                                <state key="normal" title="Close">
+                                                    <color key="titleColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="btnCloseTapped:" destination="mqQ-zz-5wu" eventType="touchUpInside" id="NbR-AS-Koi"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3b-X1-BnO">
+                                                <rect key="frame" x="0.0" y="60" width="304" height="1"/>
+                                                <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="JfN-8w-fDo"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbV-aI-JJa">
+                                                <rect key="frame" x="0.0" y="391" width="304" height="1"/>
+                                                <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="Gec-jj-I2u"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXz-ra-fOt">
+                                                <rect key="frame" x="10" y="361" width="114" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="114" id="JSM-cd-9PH"/>
+                                                    <constraint firstAttribute="height" constant="21" id="h73-JP-bRP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="442" id="2XQ-Rs-m8t"/>
+                                            <constraint firstItem="aGB-mP-mca" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" constant="8" id="3wX-1k-bRw"/>
+                                            <constraint firstAttribute="width" constant="304" id="5js-Qj-H22"/>
+                                            <constraint firstAttribute="bottom" secondItem="FlR-wn-rT3" secondAttribute="bottom" id="FUV-dy-YWM"/>
+                                            <constraint firstItem="G3b-X1-BnO" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" id="I0S-kG-A6k"/>
+                                            <constraint firstItem="lbV-aI-JJa" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" id="L9L-Ju-6Cq"/>
+                                            <constraint firstItem="FlR-wn-rT3" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" id="NHy-rd-bbY"/>
+                                            <constraint firstAttribute="trailing" secondItem="aGB-mP-mca" secondAttribute="trailing" constant="8" id="Nct-sL-Gg4"/>
+                                            <constraint firstItem="vBE-Cr-6se" firstAttribute="top" secondItem="xvJ-Tz-rD4" secondAttribute="bottom" constant="10" id="QLC-Vh-Xcf"/>
+                                            <constraint firstItem="yXz-ra-fOt" firstAttribute="top" secondItem="xvJ-Tz-rD4" secondAttribute="bottom" constant="10" id="R1Y-Rc-OPw"/>
+                                            <constraint firstItem="yXz-ra-fOt" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" constant="10" id="RRP-5y-K8f"/>
+                                            <constraint firstItem="aGB-mP-mca" firstAttribute="top" secondItem="51K-cv-XQZ" secondAttribute="top" constant="20" id="Sdm-mh-hdj"/>
+                                            <constraint firstItem="G3b-X1-BnO" firstAttribute="top" secondItem="aGB-mP-mca" secondAttribute="bottom" constant="10" id="TEH-wn-ueO"/>
+                                            <constraint firstItem="FlR-wn-rT3" firstAttribute="top" secondItem="lbV-aI-JJa" secondAttribute="bottom" id="Z0M-Wt-1zc"/>
+                                            <constraint firstAttribute="trailing" secondItem="lbV-aI-JJa" secondAttribute="trailing" id="ZyQ-Ub-uAj"/>
+                                            <constraint firstAttribute="trailing" secondItem="FlR-wn-rT3" secondAttribute="trailing" id="bZ1-wo-XYU"/>
+                                            <constraint firstItem="xvJ-Tz-rD4" firstAttribute="top" secondItem="G3b-X1-BnO" secondAttribute="bottom" constant="10" id="cxN-s7-mbw"/>
+                                            <constraint firstAttribute="trailing" secondItem="xvJ-Tz-rD4" secondAttribute="trailing" id="h42-9R-hSE"/>
+                                            <constraint firstAttribute="trailing" secondItem="G3b-X1-BnO" secondAttribute="trailing" id="ofG-YA-j5J"/>
+                                            <constraint firstItem="xvJ-Tz-rD4" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" id="ubw-hp-FxP"/>
+                                            <constraint firstAttribute="trailing" secondItem="vBE-Cr-6se" secondAttribute="trailing" constant="10" id="ySy-kn-HMw"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="51K-cv-XQZ" firstAttribute="centerY" secondItem="gy7-md-N7F" secondAttribute="centerY" id="66e-eV-rkM"/>
+                                    <constraint firstItem="51K-cv-XQZ" firstAttribute="centerX" secondItem="gy7-md-N7F" secondAttribute="centerX" id="A1s-qb-3M7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gy7-md-N7F" firstAttribute="top" secondItem="OIn-Qq-ry7" secondAttribute="top" id="00J-Qy-oNH"/>
+                            <constraint firstItem="SdL-cE-l90" firstAttribute="top" secondItem="gy7-md-N7F" secondAttribute="bottom" id="XTv-xZ-hIE"/>
+                            <constraint firstItem="gy7-md-N7F" firstAttribute="leading" secondItem="OIn-Qq-ry7" secondAttribute="leading" id="pxP-QH-Eog"/>
+                            <constraint firstAttribute="trailing" secondItem="gy7-md-N7F" secondAttribute="trailing" id="wQR-4a-c7C"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblTitle" destination="aGB-mP-mca" id="If3-Um-6kG"/>
+                        <outlet property="lblTotal" destination="vBE-Cr-6se" id="c8R-6s-fXG"/>
+                        <outlet property="lblTotalTitle" destination="yXz-ra-fOt" id="u09-xC-I0B"/>
+                        <outlet property="tblView" destination="xvJ-Tz-rD4" id="roe-pS-y60"/>
+                        <outlet property="viewMain" destination="gy7-md-N7F" id="x7a-u2-R1w"/>
+                        <outlet property="viewPopupUI" destination="51K-cv-XQZ" id="RL3-YM-ViE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVM-O7-xC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4764" y="1951.5742128935533"/>
         </scene>
         <!--Address Picker View Controller-->
         <scene sceneID="3YX-v2-1Ul">

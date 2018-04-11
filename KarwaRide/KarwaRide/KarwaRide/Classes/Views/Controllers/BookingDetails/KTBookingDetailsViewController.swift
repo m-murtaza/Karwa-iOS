@@ -11,8 +11,7 @@ import CoreLocation
 import GoogleMaps
 import Cosmos
 
-class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate {
-    //
+class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
     
@@ -61,7 +60,8 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
     
     private var vModel : KTBookingDetailsViewModel?
-    var cancelPopup : KTCancelViewController?
+    private var cancelPopup : KTCancelViewController?
+    private var ebillPopup : KTFarePopupViewController?
     
     override func viewDidLoad() {
         if viewModel == nil {
@@ -351,8 +351,21 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         vModel?.buttonTapped(withTag: btnSender.tag)
     }
     
+    func showEbill() {
+        ebillPopup = storyboard?.instantiateViewController(withIdentifier: "FarePopup") as? KTFarePopupViewController
+        
+        ebillPopup?.delegate = self
+        ebillPopup?.view.frame = self.view.bounds
+        view.addSubview((ebillPopup?.view)!)
+        addChildViewController(ebillPopup!)
+        ebillPopup?.set(header: vModel?.eBillHeader(), body: vModel?.eBillBody(), title: (vModel?.eBillTitle())!, total: (vModel?.eBillTotal())!,titleTotal: "Total Fare")
+    }
+    func closeFareEstimate() {
+        ebillPopup?.view.removeFromSuperview()
+        ebillPopup = nil
+    }
     func showPopupForCancelBooking() {
-         cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as! KTCancelViewController
+        cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as? KTCancelViewController
         
         cancelPopup?.bookingId = (vModel?.bookingId())!
         cancelPopup?.bookingStatii = (vModel?.bookingStatii())!

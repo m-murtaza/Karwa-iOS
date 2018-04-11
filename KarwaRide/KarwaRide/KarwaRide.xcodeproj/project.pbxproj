@@ -75,6 +75,9 @@
 		188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */; };
 		1886187D207B47DF000806D3 /* InitCancelReasons.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 1886187B207B47DF000806D3 /* InitCancelReasons.JSON */; };
 		1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 1886187C207B47DF000806D3 /* InitRatingReasons.JSON */; };
+		18861880207CA3EA000806D3 /* KTFarePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187F207CA3EA000806D3 /* KTFarePopupViewController.swift */; };
+		18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18861881207CBC71000806D3 /* KTFarePopupTableViewCell.swift */; };
+		18861884207CC977000806D3 /* KTFarePopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18861883207CC977000806D3 /* KTFarePopupViewModel.swift */; };
 		18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */; };
 		18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */; };
 		18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949020185458000FCE92 /* KTBookingManager+Address.swift */; };
@@ -197,6 +200,9 @@
 		188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = cancelReasonTableViewCell.swift; path = Classes/Views/Controllers/BookingDetails/cancelReasonTableViewCell.swift; sourceTree = "<group>"; };
 		1886187B207B47DF000806D3 /* InitCancelReasons.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitCancelReasons.JSON; path = Resources/JSON/InitCancelReasons.JSON; sourceTree = "<group>"; };
 		1886187C207B47DF000806D3 /* InitRatingReasons.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitRatingReasons.JSON; path = Resources/JSON/InitRatingReasons.JSON; sourceTree = "<group>"; };
+		1886187F207CA3EA000806D3 /* KTFarePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTFarePopupViewController.swift; sourceTree = "<group>"; };
+		18861881207CBC71000806D3 /* KTFarePopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupTableViewCell.swift; path = Classes/Views/Controllers/BookingDetails/KTFarePopupTableViewCell.swift; sourceTree = "<group>"; };
+		18861883207CC977000806D3 /* KTFarePopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupViewModel.swift; path = "Classes/View Models/BookingDetails/KTFarePopupViewModel.swift"; sourceTree = "<group>"; };
 		18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewController.swift; path = Classes/Views/Controllers/Booking/KTAddressPickerViewController.swift; sourceTree = "<group>"; };
 		18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewModel.swift; path = "Classes/View Models/Booking/KTAddressPickerViewModel.swift"; sourceTree = "<group>"; };
 		18A3949020185458000FCE92 /* KTBookingManager+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Address.swift"; path = "Classes/DAL/Booking/KTBookingManager+Address.swift"; sourceTree = "<group>"; };
@@ -362,6 +368,7 @@
 			children = (
 				1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */,
 				1886187520763C3A000806D3 /* KTCancelViewModel.swift */,
+				18861883207CC977000806D3 /* KTFarePopupViewModel.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -372,6 +379,8 @@
 				1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */,
 				1886187320761B14000806D3 /* KTCancelViewController.swift */,
 				188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */,
+				1886187F207CA3EA000806D3 /* KTFarePopupViewController.swift */,
+				18861881207CBC71000806D3 /* KTFarePopupTableViewCell.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -1061,6 +1070,7 @@
 				18B9076A2022F89C000F45FE /* BookingConfermationPopupVC.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				1886187420761B14000806D3 /* KTCancelViewController.swift in Sources */,
+				18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
 				1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */,
@@ -1089,11 +1099,13 @@
 				18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */,
 				1811E4EF205A2FFE00C3C47F /* KTBookingDetailsViewController.swift in Sources */,
 				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,
+				18861884207CC977000806D3 /* KTFarePopupViewModel.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
 				181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */,
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
 				18FA45B720720C94000487C1 /* KTCreateBookingViewController+Map.swift in Sources */,
+				18861880207CA3EA000806D3 /* KTFarePopupViewController.swift in Sources */,
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */,
 				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,

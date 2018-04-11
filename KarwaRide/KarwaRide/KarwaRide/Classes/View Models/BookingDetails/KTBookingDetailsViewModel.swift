@@ -20,6 +20,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
     func showPopupForCancelBooking()
+    func showEbill()
     
     func popViewController()
     func updateBookingCardForCompletedBooking()
@@ -526,7 +527,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             del?.updateRightBottomBarButtom(title: "CANCEL BOOKING", color: UIColor(hexString:"#E74C3C"), tag: BottomBarBtnTag.Cancel.rawValue)
         }
         else if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
-            del?.updateLeftBottomBarButtom(title: "TRIP E-BILL", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            del?.updateLeftBottomBarButtom(title: "TRIP E-BILL", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.EBill.rawValue)
             
             del?.updateRightBottomBarButtom(title: "BOOK AGAIN", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
         }
@@ -543,12 +544,34 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if tag == BottomBarBtnTag.Cancel.rawValue {
            del?.showPopupForCancelBooking()
         }
+        if tag == BottomBarBtnTag.EBill.rawValue {
+            del?.showEbill()
+        }
     }
     
     func cancelDoneSuccess()  {
         booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
         KTBookingManager().saveInDb()
         del?.popViewController()
+    }
+    
+    //MARK:- Ebill
+    func eBillTitle() -> String {
+        return "Trip E-Bill"
+    }
+    
+    func eBillTotal() -> String {
+        return (booking?.fare)!
+    }
+    
+    func eBillHeader() -> [KTKeyValue]?{
+        
+        return (booking?.toKeyValueHeader?.allObjects as! [KTKeyValue])
+    }
+    
+    func eBillBody() -> [KTKeyValue]?{
+        
+        return (booking?.toKeyValueBody?.allObjects as! [KTKeyValue])
     }
     
 //    func cancelBooking() {

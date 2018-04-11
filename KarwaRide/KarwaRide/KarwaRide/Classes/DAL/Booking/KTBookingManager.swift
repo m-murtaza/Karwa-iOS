@@ -157,7 +157,15 @@ class KTBookingManager: KTBaseFareEstimateManager {
     }
     
     func saveTripSummey(data: [AnyHashable: Any], booking: KTBooking) {
+        for keyvalue in booking.toKeyValueBody! {
+            (keyvalue as! KTKeyValue).mr_deleteEntity()
+        }
         KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["Body"] as! [AnyHashable : Any], tariff: booking as! KTBaseTrariff)
+            
+        
+        for keyvalue in booking.toKeyValueHeader! {
+            (keyvalue as! KTKeyValue).mr_deleteEntity()
+        }
         KTBaseFareEstimateManager().saveKeyValueHeader(keyValue: data["Header"] as! [AnyHashable : Any], tariff: booking as! KTBaseTrariff)
     }
     
