@@ -10,9 +10,15 @@ import UIKit
 
 class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
+    var vModel : KTCreateBookingViewModel?
+    
     //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
+        vModel = viewModel as? KTCreateBookingViewModel
+        if booking != nil {
+            vModel?.booking = booking!
+        }
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -150,15 +156,8 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
             (viewModel as! KTCreateBookingViewModel).prepareToMoveAddressPicker()
             
-            if (viewModel as! KTCreateBookingViewModel).pickUpAddress != nil {
-                
-                destination.pickupAddress = (viewModel as! KTCreateBookingViewModel).pickUpAddress
-            }
-            if (viewModel as! KTCreateBookingViewModel).dropOffAddress != nil {
-                
-                destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress
-            }
-            
+            destination.pickupAddress = (viewModel as! KTCreateBookingViewModel).pickUpAddress()
+            destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress()
             destination.previousView = (viewModel as! KTCreateBookingViewModel)
             
             if segue.identifier == "segueBookingToAddresspickerForDropoff" {

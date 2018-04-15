@@ -272,14 +272,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     func navigateToPreviousView(pickup: KTGeoLocation?, dropOff: KTGeoLocation?) {
-        //if pickup != nil {
+        if pickup != nil {
             
-            previousView?.pickUpAddress = pickup
-        //}
-        //if dropOff != nil {
+            previousView?.setPickAddress(pAddress: pickup!)
+        }
+        if dropOff != nil {
             
-            previousView?.dropOffAddress = dropOff
-        //}
+            previousView?.setDropAddress(dAddress: dropOff!)
+        }
         
         previousView?.dismiss()
     }

@@ -61,5 +61,6 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     //This is top align constraint for farebreakdown and box.
     @IBOutlet weak var constraintFareToBox : NSLayoutConstraint!
     
-
+    //MARK:- REBook
+    var booking : KTBooking?
 }

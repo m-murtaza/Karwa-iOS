@@ -11,15 +11,39 @@ import MagicalRecord
 
 extension KTBookingManager
 {
-    func goeLocation(forLocation location:CLLocationCoordinate2D ) -> KTGeoLocation {
-        let loc : KTGeoLocation = KTGeoLocation.mr_createEntity()!
+    func geoLocation(forLocation location:CLLocationCoordinate2D ) -> KTGeoLocation {
+        let loc : KTGeoLocation = KTGeoLocation.obj(withValue: -1, forAttrib: "locationId", inContext: NSManagedObjectContext.mr_default()) as! KTGeoLocation
         loc.name = "Unknown"//String(format: "%f-%f",location.latitude,location.longitude )
         loc.area = "Unknown"//String(format: "%f-%f",location.latitude,location.longitude )
-        loc.locationId = -1
+        //loc.locationId = -1
         loc.latitude = location.latitude
         loc.longitude = location.longitude
         return loc
     }
+    
+    func geoLocation(forLocationId locationId: Int32) -> KTGeoLocation? {
+        guard locationId > 0 else {
+            return nil
+        }
+        let predicate : NSPredicate = NSPredicate(format: "locationId == %d", locationId)
+        let geoLocation = KTGeoLocation.mr_findFirst(with: predicate)
+        return geoLocation
+        
+    }
+    
+    func geoLocaiton(forLocationId locationId: Int32, latitude: Double, longitude: Double, name: String) -> KTGeoLocation {
+        var location : KTGeoLocation? = geoLocation(forLocationId: locationId)
+        if location == nil {
+            location = KTGeoLocation.obj(withValue: locationId, forAttrib: "locationId", inContext: NSManagedObjectContext.mr_default()) as? KTGeoLocation
+            location?.name = name
+            location?.area = name
+            location?.latitude = latitude
+            location?.longitude = longitude
+        }
+        return location!
+    }
+    
+    
     func address(forLocation location: CLLocationCoordinate2D,Limit limit: Int ,completion completionBlock: @escaping KTDALCompletionBlock ) {
     
         let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,

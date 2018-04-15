@@ -72,6 +72,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,15 +118,20 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     
     
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
+        if segue.identifier == "segueDetailToReBook" {
+            let createBooking : KTCreateBookingViewController = segue.destination as! KTCreateBookingViewController
+            createBooking.booking = vModel?.booking
+            //self.navigationController?.viewControllers = [createBooking]
+        }
      }
-     */
+    
     @IBAction func btnCallTapped(_ sender: Any) {
         vModel?.callDriver()
         
@@ -349,6 +355,11 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBAction func rightBottomBarButtonTapped(btnSender: UIButton) {
         
         vModel?.buttonTapped(withTag: btnSender.tag)
+    }
+    
+    func moveToBooking() {
+        
+        self.performSegue(name: "segueDetailToReBook")
     }
     
     func showEbill() {

@@ -23,6 +23,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showEbill()
     func showFareBreakdown()
     
+    func moveToBooking()
+    
     func popViewController()
     func updateBookingCardForCompletedBooking()
     func updateBookingCardForUnCompletedBooking()
@@ -558,11 +560,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if tag == BottomBarBtnTag.Cancel.rawValue {
            del?.showPopupForCancelBooking()
         }
-        if tag == BottomBarBtnTag.EBill.rawValue {
+        else if tag == BottomBarBtnTag.EBill.rawValue {
             del?.showEbill()
         }
-        if tag == BottomBarBtnTag.FareBreakdown.rawValue {
+        else if tag == BottomBarBtnTag.FareBreakdown.rawValue {
             del?.showFareBreakdown()
+        }
+        else if tag == BottomBarBtnTag.Rebook.rawValue {
+            del?.moveToBooking()
         }
     }
     
