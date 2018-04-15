@@ -16,7 +16,6 @@ import GoogleMaps
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
-    func updateCurrentAddress(addressName:String)
     func hintForPickup() -> String
     func setPickUp(pick: String?)
     func setDropOff(drop: String?)
@@ -24,9 +23,10 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func showBookingConfirmation()
     func showRequestBookingBtn()
     func hideRequestBookingBtn()
-    func pickDropBoxStep2()
+    func pickDropBoxStep3()
     func pickDropBoxStep1()
     //func updatePickDropBox()
+    func setVehicleType(idx: Int)
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage)
     func addPointsOnMap(points : String)
     func clearMap()
@@ -66,6 +66,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var dropOffBtnText = "Set Destination, Start your booking"
     var timerFetchNearbyVehicle : Timer = Timer()
     
+    var rebook: Bool = false
+    
     var del : KTCreateBookingViewModelDelegate?
     
     var booking : KTBooking = KTBookingManager().booking()
@@ -81,6 +83,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del?.hideRequestBookingBtn()
         
         if booking.bookingId != nil && booking.bookingId != "" {
+            rebook = true
             updateForRebook()
         }
     }
@@ -93,7 +96,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
         
-       
+        
         if currentBookingStep == BookingStep.step1 {
             
             timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
@@ -105,6 +108,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             drawDirectionOnMap()
             showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
         }
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        rebook = false
     }
     
     override func viewWillDisappear() {
@@ -129,11 +137,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         booking.dropOffLon = dAddress.longitude
     }
     
-    
     //MARK:-
-    
     private func locationAvailable(locationName: String?) -> Bool {
-        guard locationName != nil, locationName != "" , locationName != UNKNOWN else {
+        guard locationName != nil, locationName != ""  else {
             return false
         }
         return true
@@ -164,18 +170,20 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func updateForRebook() {
-//        currentBookingStep = BookingStep.step3
-//        if booking.pickupLocationId > 0  {
-//            pickUpAddress = KTBookingManager().goeLocation(forLocationId: booking.pickupLocationId)
-//        }
-//        else {
-//            pickUpAddress = KTBookingManager().goeLocation(forLocation: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon))
-//        }
-//
-//        //pickUpAddress = KTBookingManager().goeLocation(forLocation: location.coordinate)
-//        (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: (self.pickUpAddress?.name!)!)
-//        updateUI()
+        currentBookingStep = BookingStep.step3
+        if isPickAvailable() {
+            (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
+        }
         
+        if isDropAvailable() {
+            (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress!)
+        }
+        
+        selectedVehicleType = VehicleType(rawValue: booking.vehicleType)!
+        
+        (self.delegate as! KTCreateBookingViewModelDelegate).setVehicleType(idx: idxToSelectVehicleType())
+        
+        updateUI()
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -190,7 +198,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             if(!(del?.fareDetailVisible())!) {
                 //estimated fare view is not on screen right now
                 let vType : KTVehicleType = vehicleTypes![idx]
-                if(dropOffAddress == nil) {
+                if(isDropAvailable()) {
                     showFareBreakDown(vehicleType: vType)
                 }
                 else {
@@ -214,7 +222,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         del?.showFareBreakdown(animated: true, kvPair: kvDictionary, title: title)
     }
-   
+    
     func updateEstimates(vehicleType vtype: KTVehicleType ) {
         
         var kvDictionary : [String:String] = [:]
@@ -278,7 +286,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func updateUI() {
         (delegate as! KTCreateBookingViewModelDelegate).showRequestBookingBtn()
-        (delegate as! KTCreateBookingViewModelDelegate).pickDropBoxStep2()
+        (delegate as! KTCreateBookingViewModelDelegate).pickDropBoxStep3()
     }
     
     //MARK: - Estimates
@@ -311,9 +319,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func fetchEstimateId(forVehicleType vType: VehicleType) -> KTFareEstimate?{
         //var estId : String = ""
         let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: vType.rawValue)
-//        if estimate != nil {
-//            estId = (estimate?.estimateId)!
-//        }
+        //        if estimate != nil {
+        //            estId = (estimate?.estimateId)!
+        //        }
         return vEstimate
     }
     
@@ -358,12 +366,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         else {
             //else draw point what ever is available
             if isPickAvailable() {
-            //Setting Pick marker
+                //Setting Pick marker
                 (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking.pickupLat,longitude: booking.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
             }
             
             if isDropAvailable() {
-            //Setting drop
+                //Setting drop
                 //dropOffAddress?.latitude = 25.275636
                 //dropOffAddress?.longitude = 51.489212
                 
@@ -467,7 +475,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         var datePart : String = ""
         if date.isToday {
-        
+            
             datePart = "Today"
         }
         else {
@@ -533,16 +541,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         let sType : KTVehicleType = vehicleTypes![idx]
         var imgBg : UIImage = UIImage()
         switch sType.typeId {
-            case Int16(VehicleType.KTCityTaxi.rawValue):
-                imgBg = UIImage(named: "BookingCardTaxiBox")!
-            case Int16(VehicleType.KTStandardLimo.rawValue):
-                imgBg = UIImage(named: "BookingCardStandardBox")!
-            case Int16(VehicleType.KTBusinessLimo.rawValue):
-                imgBg = UIImage(named: "BookingCardBusinessBox")!
-            case Int16(VehicleType.KTLuxuryLimo.rawValue):
-                imgBg = UIImage(named: "BookingCardLuxuryBox")!
-            default:
-                imgBg = UIImage(named: "BookingCardTaxiBox")!
+        case Int16(VehicleType.KTCityTaxi.rawValue):
+            imgBg = UIImage(named: "BookingCardTaxiBox")!
+        case Int16(VehicleType.KTStandardLimo.rawValue):
+            imgBg = UIImage(named: "BookingCardStandardBox")!
+        case Int16(VehicleType.KTBusinessLimo.rawValue):
+            imgBg = UIImage(named: "BookingCardBusinessBox")!
+        case Int16(VehicleType.KTLuxuryLimo.rawValue):
+            imgBg = UIImage(named: "BookingCardLuxuryBox")!
+        default:
+            imgBg = UIImage(named: "BookingCardTaxiBox")!
         }
         
         return imgBg
@@ -566,58 +574,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         return imgSType
     }
-    //MARK:- Create Booking
-    func btnRequestBookingTapped() {
-        
-        (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
-    }
-    
-    func bookRide() {
-        if isPickAvailable() {
-            var vEstimate : KTFareEstimate?
-            let bookManager : KTBookingManager = KTBookingManager()
-            //let booking : KTBooking = bookManager.booking()
-            booking.pickupTime = selectedPickupDateTime
-            booking.creationTime = Date()
-            booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
-            booking.vehicleType = Int16(selectedVehicleType.rawValue)
-            booking.callerId = KTAppSessionInfo.currentSession.phone
-            
-//            booking.pickupAddress = pickUpAddress?.name
-//            booking.pickupLat = (pickUpAddress?.latitude)!
-//            booking.pickupLon = (pickUpAddress?.longitude)!
-//            booking.pickupLocationId = (pickUpAddress?.locationId)!
-            
-            if(isDropAvailable()) {
-//                booking.dropOffAddress = dropOffAddress?.name
-//                booking.dropOffLat = (dropOffAddress?.latitude)!
-//                booking.dropOffLon = (dropOffAddress?.longitude)!
-//                booking.dropOffLocationId = (dropOffAddress?.locationId)!
-                vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)
-            }
-            
-            delegate?.showProgressHud(show: true, status: "Booking a ride")
-            bookManager.bookTaxi(job: booking,estimate: vEstimate) { (status, response) in
-                self.delegate?.showProgressHud(show: false)
-                if status == Constants.APIResponseStatus.SUCCESS {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
-                }
-                else {
-                    self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
-                    
-                }
-            }
-        }
-        else {
-           self.delegate?.showError!(title: "Error", message:"Please provide pickup location")
-        }
-    }
     
     func vTypeViewScroll(currentIdx:Int?)  {
         
         if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!{
             
-            selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
+            if rebook == false {
+                selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
+            }
+            /*else {
+             rebook = false
+             }*/
+            
             
             if currentBookingStep == BookingStep.step1 {
                 
@@ -626,7 +594,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             else if currentBookingStep == BookingStep.step3 {
                 
                 if (del?.fareDetailVisible())! {
-                    if(self.dropOffAddress == nil) {
+                    if(isDropAvailable()) {
                         updateFareDetails(vehicleType: vehicleTypes![currentIdx!])
                     }
                     else {
@@ -649,9 +617,50 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return animate
     }
     
+    //MARK:- Create Booking
+    func btnRequestBookingTapped() {
+        
+        (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+    }
+    
+    func bookRide() {
+        if isPickAvailable() {
+            var vEstimate : KTFareEstimate?
+            let bookManager : KTBookingManager = KTBookingManager()
+            //let booking : KTBooking = bookManager.booking()
+            booking.pickupTime = selectedPickupDateTime
+            booking.creationTime = Date()
+            booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
+            booking.vehicleType = Int16(selectedVehicleType.rawValue)
+            booking.callerId = KTAppSessionInfo.currentSession.phone
+            
+            if(isDropAvailable()) {
+                vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)
+            }
+            
+            delegate?.showProgressHud(show: true, status: "Booking a ride")
+            bookManager.bookTaxi(job: booking,estimate: vEstimate) { (status, response) in
+                self.delegate?.showProgressHud(show: false)
+                if status == Constants.APIResponseStatus.SUCCESS {
+                    
+                    (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
+                }
+                else {
+                    
+                    self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                }
+            }
+        }
+        else {
+            self.delegate?.showError!(title: "Error", message:"Please provide pickup location")
+        }
+    }
+    
+    
+    
     //MARK: - Fetch near by vehicle
     @objc func FetchNearByVehicle() {
-    
+        
         self.fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
     }
     
@@ -705,7 +714,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 booking.pickupAddress = UNKNOWN
                 booking.pickupLat = location.coordinate.latitude
                 booking.pickupLon = location.coordinate.longitude
-                (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: booking.pickupAddress!)
+                (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
             }
             
             //Fetch location name (from Server) for current location.
@@ -731,7 +740,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     private func fetchVehiclesNearCordinates(location:CLLocation) {
         
         KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
-        (status,response) in
+            (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 self.nearByVehicle = self.parseVehicleTrack(response)
                 
@@ -787,7 +796,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 DispatchQueue.main.async {
                     //self.delegate?.userIntraction(enable: true)
                     if self.delegate != nil {
-                        (self.delegate as! KTCreateBookingViewModelDelegate).updateCurrentAddress(addressName: self.booking.pickupAddress!)
+                        (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
+                        
                     }
                 }
             }

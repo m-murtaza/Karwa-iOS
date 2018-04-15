@@ -24,6 +24,11 @@ extension KTCreateBookingViewController {
         
         self.carousel.reloadData()
     }
+    
+    func setVehicleType(idx: Int) {
+        
+        carousel.scrollToItem(at:IndexPath(item: idx, section: 0), at: .right, animated: false)
+    }
 }
 
 typealias CarouselDatasource = KTCreateBookingViewController

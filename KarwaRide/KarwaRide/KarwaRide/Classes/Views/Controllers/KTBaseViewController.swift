@@ -24,6 +24,12 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         super.viewWillAppear(animated)
         viewModel?.viewWillAppear()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel?.viewDidAppear()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)

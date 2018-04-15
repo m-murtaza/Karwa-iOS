@@ -129,7 +129,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         self.view.layoutIfNeeded()
     }
     
-    func pickDropBoxStep2() {
+    func pickDropBoxStep3() {
         constraintBoxHeight.constant = 144
         constraintBoxBGImageHeight.constant = 144
         constraintBoxItemsTopSpace.constant = 24
@@ -174,9 +174,8 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
         else if segue.identifier == "segueBookToDetail" {
             let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
-            //if let booking : KTBooking = (viewModel as! KTCreateBookingViewModel).booking {
-                destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
-            //}
+            destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
+            
         }
     }
     func moveToDetailView() {
@@ -200,10 +199,10 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func updateCurrentAddress(addressName: String) {
+/*func updateCurrentAddress(addressName: String) {
         
         btnPickupAddress.setTitle(addressName, for: UIControlState.normal)
-    }
+    }*/
     
     // MARK: - View Model Delegate
     func hintForPickup() -> String {
