@@ -34,6 +34,7 @@
         <attribute name="vehicleNo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="bookingToEstimate" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KTFareEstimate" inverseName="fareestimateToBooking" inverseEntity="KTFareEstimate" syncable="YES"/>
+        <relationship name="bookingToRatings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KTRatingReasons" syncable="YES"/>
     </entity>
     <entity name="KTBookmark" representedClassName="KTBookmark" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -66,6 +67,12 @@
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="KTRatingReasons" representedClassName="KTRatingReasons" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reasonCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="KTUser" representedClassName="KTUser" syncable="YES" codeGenerationType="class">
         <attribute name="customerType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
@@ -81,7 +88,7 @@
     </entity>
     <elements>
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
-        <element name="KTBooking" positionX="-38" positionY="18" width="128" height="478"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="493"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="120"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTFareEstimate" positionX="187" positionY="-63" width="128" height="103"/>
@@ -89,5 +96,6 @@
         <element name="KTKeyValue" positionX="160" positionY="-207" width="128" height="75"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
         <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
+        <element name="KTRatingReasons" positionX="54" positionY="252" width="128" height="105"/>
     </elements>
 </model>

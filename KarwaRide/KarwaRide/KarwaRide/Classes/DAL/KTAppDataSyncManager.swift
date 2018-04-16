@@ -13,6 +13,7 @@ class KTAppDataSyncManager: KTDALManager {
     func syncApplicationData()  {
         self.syncVechicleTypes()
         self.syncCancelReasons()
+        self.syncRatingReason()
     }
     
     private func syncVechicleTypes() {
@@ -25,6 +26,12 @@ class KTAppDataSyncManager: KTDALManager {
     private func syncCancelReasons() {
     
         KTCancelBookingManager().fetchCancelReasons { (status, response) in
+            print(response)
+        }
+    }
+    
+    private func syncRatingReason() {
+        KTRatingManager().fetchRatingReasons { (status, response) in
             print(response)
         }
     }

@@ -182,6 +182,13 @@ struct Constants {
         static let ReasonCode = "ReasonCode"
     }
     
+    struct RatingReasonAPIKey {
+        static let Ratings = "Ratings"
+        static let Desc = "Desc"
+        static let EN = "EN"
+        static let ReasonCode = "ReasonCode"
+    }
+    
     struct BookmarkName {
         static let Home = "home"
         static let Work = "work"
@@ -256,6 +263,7 @@ struct Constants {
         static let initTariff = "tariff/init"
         static let GetEstimate = "tariff/estimate"
         static let CancelReason = "booking/cancelreasons"
+        static let RatingReason = "booking/ratingreasons"
     }
     
     struct TrackTaxiParams {
@@ -311,5 +319,6 @@ struct Constants {
         static let BookingList = "synctime"
         static let VehicleTariff = "syncTime"
         static let CancelReason = "syncTime"
+        static let RatingReason = "syncTime"
     }
 }
