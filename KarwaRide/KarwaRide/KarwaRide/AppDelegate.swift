@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func fetchInitialApplicationDataIfNeeded() {
         KTVehicleTypeManager().fetchInitialTariffLocal()
         KTCancelBookingManager().fetchInitialCancelReasonsLocal()
+        KTRatingManager().fetchInitialRatingReasonsLocal()
     }
     
     func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {

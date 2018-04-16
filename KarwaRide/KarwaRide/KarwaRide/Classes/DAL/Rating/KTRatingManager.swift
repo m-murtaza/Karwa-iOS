@@ -12,6 +12,36 @@ let RATING_REASON_SYNC_TIME = "RatingReasonSyncTime"
 
 class KTRatingManager: KTDALManager {
 
+    func ratingReasonsAvalible() -> Bool {
+        guard let rReasons = ratingReasons(), rReasons.count > 0 else {
+            print("Rating Reasons Not Available")
+            return false
+        }
+        return true
+    }
+    
+    func fetchInitialRatingReasonsLocal() {
+        if !ratingReasonsAvalible(){
+            //Rating Reason not available
+            do {
+                
+                if let file = Bundle.main.url(forResource: "InitRatingReasons", withExtension: "JSON") {
+                    let data = try Data(contentsOf: file)
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    if let object = json as? [String: Any] {
+                        // json is a dictionary
+                        self.saveRatingReasons(response: object[Constants.ResponseAPIKey.Data] as! [Any])
+                    }
+                }
+            }
+            catch {
+                print("error.localizedDescription")
+            }
+        }
+        
+    }
+    
+    
     func fetchRatingReasons() {
         fetchRatingReasons { (status, response) in
             print(response)
@@ -62,5 +92,10 @@ class KTRatingManager: KTDALManager {
         reason.reasonCode = reasonCode
     }
     
-    
+    func ratingReasons() -> [KTRatingReasons]?{
+        
+        let reasons : [KTRatingReasons] = KTRatingReasons.mr_findAll() as! [KTRatingReasons]
+        
+        return reasons
+    }
 }
