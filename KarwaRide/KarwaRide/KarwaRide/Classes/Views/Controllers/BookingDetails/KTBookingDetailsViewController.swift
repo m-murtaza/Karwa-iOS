@@ -11,7 +11,7 @@ import CoreLocation
 import GoogleMaps
 import Cosmos
 
-class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate {
+class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
     
@@ -62,6 +62,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     private var vModel : KTBookingDetailsViewModel?
     private var cancelPopup : KTCancelViewController?
     private var ebillPopup : KTFarePopupViewController?
+    private var ratingPopup : KTRatingViewController?
     
     override func viewDidLoad() {
         if viewModel == nil {
@@ -375,7 +376,23 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         ebillPopup?.view.removeFromSuperview()
         ebillPopup = nil
     }
-    func showPopupForCancelBooking() {
+    
+    func showRatingScreen() {
+        ratingPopup = storyboard?.instantiateViewController(withIdentifier: "RatingReasonPopup") as? KTRatingViewController
+        
+        ratingPopup?.view.frame = self.view.bounds
+        view.addSubview((ratingPopup?.view)!)
+        addChildViewController(ratingPopup!)
+        ratingPopup?.booking((vModel?.booking)!)
+        //self.performSegue(name: "detailToRating")
+    }
+    
+    func closeRating() {
+        ratingPopup?.view.removeFromSuperview()
+        ratingPopup = nil
+    }
+    
+    func showCancelBooking() {
         cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as? KTCancelViewController
         
         cancelPopup?.bookingId = (vModel?.bookingId())!

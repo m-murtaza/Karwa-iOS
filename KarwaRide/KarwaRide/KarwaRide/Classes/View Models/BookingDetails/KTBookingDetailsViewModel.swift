@@ -19,7 +19,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showUpdateVTrackMarker(vTrack: VehicleTrack)
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
-    func showPopupForCancelBooking()
+    func showCancelBooking()
     func showEbill()
     func showFareBreakdown()
     
@@ -41,6 +41,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     
     func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int)
     func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int)
+    
+    func showRatingScreen()
 }
 
 enum BottomBarBtnTag : Int {
@@ -51,19 +53,25 @@ enum BottomBarBtnTag : Int {
 }
 
 class KTBookingDetailsViewModel: KTBaseViewModel {
-
+    
     var booking : KTBooking?
     var del : KTBookingDetailsViewModelDelegate?
     
     private var timerVechicleTrack : Timer = Timer()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         del = self.delegate as? KTBookingDetailsViewModelDelegate
         initializeViewWRTBookingStatus()
     }
     
-    func initializeViewWRTBookingStatus() {
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        checkForRating()
+    }
     
+    func initializeViewWRTBookingStatus() {
+        
         //Check for booking == nil
         guard let _ = booking else {
             return
@@ -102,10 +110,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func formatedETA(eta: Int64) -> String {
-//        if eta/60 < 60 {
-//
-//            return "1 min"
-//        }
+        //        if eta/60 < 60 {
+        //
+        //            return "1 min"
+        //        }
         
         let formatedEta : Double = Double(eta)/60
         return "\(Int(ceil(Double(formatedEta)))) min"
@@ -203,14 +211,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func pickAddress() -> String{
-    
+        
         return  (booking?.pickupAddress!)!
     }
     
     func dropAddress() -> String{
         var dropAdd : String?
         
-            
+        
         dropAdd = booking?.dropOffAddress
         if dropAdd == nil || (dropAdd?.isEmpty)! {
             
@@ -222,46 +230,46 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func cellBGColor() -> UIColor{
         var color : UIColor = UIColor.white
-            
+        
         switch booking?.bookingStatus {
         case BookingStatus.CONFIRMED.rawValue?,  BookingStatus.ARRIVED.rawValue?,BookingStatus.PICKUP.rawValue?:
-                color = UIColor(hexString:"#F9FDFC")
-                
+            color = UIColor(hexString:"#F9FDFC")
+            
         case BookingStatus.PENDING.rawValue?, BookingStatus.DISPATCHING.rawValue? :
-                color = UIColor(hexString:"#E5F5F2")
-                
+            color = UIColor(hexString:"#E5F5F2")
+            
         case BookingStatus.COMPLETED.rawValue?:
-                color = UIColor(hexString:"#D7E6E3")
-                
-            case BookingStatus.CANCELLED.rawValue?, BookingStatus.TAXI_NOT_FOUND.rawValue? ,BookingStatus.TAXI_UNAVAIALBE.rawValue? ,BookingStatus.NO_TAXI_ACCEPTED.rawValue?, BookingStatus.EXCEPTION.rawValue?:
-                color = UIColor(hexString:"#FEE5E5")
-                
-            default:
-                color = UIColor(hexString:"#F9FDFC")
-            }
+            color = UIColor(hexString:"#D7E6E3")
+            
+        case BookingStatus.CANCELLED.rawValue?, BookingStatus.TAXI_NOT_FOUND.rawValue? ,BookingStatus.TAXI_UNAVAIALBE.rawValue? ,BookingStatus.NO_TAXI_ACCEPTED.rawValue?, BookingStatus.EXCEPTION.rawValue?:
+            color = UIColor(hexString:"#FEE5E5")
+            
+        default:
+            color = UIColor(hexString:"#F9FDFC")
+        }
         
         return color
     }
     
     func cellBorderColor() -> UIColor{
         var color : UIColor = UIColor.white
-            switch booking?.bookingStatus {
-            case BookingStatus.CONFIRMED.rawValue?,  BookingStatus.ARRIVED.rawValue?,BookingStatus.PICKUP.rawValue?,BookingStatus.PENDING.rawValue?, BookingStatus.DISPATCHING.rawValue?, BookingStatus.COMPLETED.rawValue? :
-                color = UIColor(hexString:"#CFD0D1")
-                
-            case BookingStatus.CANCELLED.rawValue?, BookingStatus.TAXI_NOT_FOUND.rawValue? ,BookingStatus.TAXI_UNAVAIALBE.rawValue? ,BookingStatus.NO_TAXI_ACCEPTED.rawValue?, BookingStatus.EXCEPTION.rawValue?:
-                color = UIColor(hexString:"#EBC0C6")
-                
-            default:
-                color = UIColor(hexString:"#CFD0D1")
-            }
-    
+        switch booking?.bookingStatus {
+        case BookingStatus.CONFIRMED.rawValue?,  BookingStatus.ARRIVED.rawValue?,BookingStatus.PICKUP.rawValue?,BookingStatus.PENDING.rawValue?, BookingStatus.DISPATCHING.rawValue?, BookingStatus.COMPLETED.rawValue? :
+            color = UIColor(hexString:"#CFD0D1")
+            
+        case BookingStatus.CANCELLED.rawValue?, BookingStatus.TAXI_NOT_FOUND.rawValue? ,BookingStatus.TAXI_UNAVAIALBE.rawValue? ,BookingStatus.NO_TAXI_ACCEPTED.rawValue?, BookingStatus.EXCEPTION.rawValue?:
+            color = UIColor(hexString:"#EBC0C6")
+            
+        default:
+            color = UIColor(hexString:"#CFD0D1")
+        }
+        
         return color
     }
     
     func pickupDateOfMonth() -> String{
         
-            return (booking!.pickupTime! as NSDate).dayOfMonth()
+        return (booking!.pickupTime! as NSDate).dayOfMonth()
     }
     
     func pickupMonth() -> String{
@@ -331,7 +339,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             print("Do nothing")
             
         }
-    
+        
         return img
     }
     
@@ -362,8 +370,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func estimatedFare() -> String {
         var estimate : String = ""
         if booking!.estimatedFare != nil {
-          estimate = booking!.estimatedFare!
-        
+            estimate = booking!.estimatedFare!
+            
         }
         return estimate
     }
@@ -468,18 +476,18 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var img : UIImage?
         switch booking?.vehicleType  {
-            case VehicleType.KTAiportTaxi.rawValue?, VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?,VehicleType.KTAiport7Seater.rawValue? :
-                img = UIImage(named:"BookingMapTaxiIco")
-        
-            case VehicleType.KTStandardLimo.rawValue?:
-                    img = UIImage(named: "BookingMapStandardIco")
-            case VehicleType.KTBusinessLimo.rawValue?:
-                img = UIImage(named: "BookingMapBusinessIco")
+        case VehicleType.KTAiportTaxi.rawValue?, VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?,VehicleType.KTAiport7Seater.rawValue? :
+            img = UIImage(named:"BookingMapTaxiIco")
             
-            case VehicleType.KTLuxuryLimo.rawValue?:
-                img = UIImage(named: "BookingMapLuxuryIco")
-            default:
-                img = UIImage(named:"BookingMapTaxiIco")
+        case VehicleType.KTStandardLimo.rawValue?:
+            img = UIImage(named: "BookingMapStandardIco")
+        case VehicleType.KTBusinessLimo.rawValue?:
+            img = UIImage(named: "BookingMapBusinessIco")
+            
+        case VehicleType.KTLuxuryLimo.rawValue?:
+            img = UIImage(named: "BookingMapLuxuryIco")
+        default:
+            img = UIImage(named:"BookingMapTaxiIco")
         }
         return img!
     }
@@ -510,14 +518,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                         self.del?.showPathOnMap(path: path)
                         //print(json)
                         /*let routes = json["routes"].arrayValue
-                        
-                        for route in routes
-                        {
-                            let routeOverviewPolyline = route["overview_polyline"].dictionary
-                            let points = routeOverviewPolyline?["points"]?.stringValue
-                            
-                            (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: points!)
-                        }*/
+                         
+                         for route in routes
+                         {
+                         let routeOverviewPolyline = route["overview_polyline"].dictionary
+                         let points = routeOverviewPolyline?["points"]?.stringValue
+                         
+                         (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: points!)
+                         }*/
                     }
                     catch _ {
                         
@@ -558,7 +566,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func buttonTapped(withTag tag:Int) {
         if tag == BottomBarBtnTag.Cancel.rawValue {
-           del?.showPopupForCancelBooking()
+            del?.showCancelBooking()
         }
         else if tag == BottomBarBtnTag.EBill.rawValue {
             del?.showEbill()
@@ -624,7 +632,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func estimateHeader() -> [KTKeyValue]? {
         
         if isEstimateAvailable() {
-           return (booking?.bookingToEstimate?.toKeyValueHeader?.allObjects as! [KTKeyValue])
+            return (booking?.bookingToEstimate?.toKeyValueHeader?.allObjects as! [KTKeyValue])
         }
         return nil
     }
@@ -636,11 +644,29 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return nil
     }
     
-//    func cancelBooking() {
-//    
-//        KTBookingManager().cancelBooking(bookingId: (booking?.bookingId)!) { (status, response) in
-//            self.del?.popViewController()
-//        }
-//    }
+    //    func cancelBooking() {
+    //
+    //        KTBookingManager().cancelBooking(bookingId: (booking?.bookingId)!) { (status, response) in
+    //            self.del?.popViewController()
+    //        }
+    //    }
+    
+    
+    //MARK:- Check for rating
+    func checkForRating(){
+        guard booking != nil, booking?.isRated == false else {
+            return
+        }
+        del?.showRatingScreen()
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

@@ -154,6 +154,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
         if(!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripSummary] as AnyObject)) {
             self.saveTripSummey(data: booking[Constants.BookingResponseAPIKey.TripSummary] as! [AnyHashable:Any],booking: b )
         }
+        
+        b.isRated = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsRated] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsRated] as! Bool : false
+        
         return b
     }
     

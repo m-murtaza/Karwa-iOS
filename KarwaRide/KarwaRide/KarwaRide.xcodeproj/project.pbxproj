@@ -71,6 +71,8 @@
 		1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872D1F0BB04500DDB003 /* KTBase.swift */; };
 		186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KTDALManager.swift */; };
 		187E71112083790300E66A55 /* KTRatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71102083790300E66A55 /* KTRatingManager.swift */; };
+		187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71122084935100E66A55 /* KTRatingViewController.swift */; };
+		187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71142084B53400E66A55 /* KTRatingViewModel.swift */; };
 		1886187420761B14000806D3 /* KTCancelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187320761B14000806D3 /* KTCancelViewController.swift */; };
 		1886187620763C3A000806D3 /* KTCancelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187520763C3A000806D3 /* KTCancelViewModel.swift */; };
 		188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */; };
@@ -197,6 +199,8 @@
 		1864872D1F0BB04500DDB003 /* KTBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBase.swift; path = Classes/Common/CommonBase/KTBase.swift; sourceTree = "<group>"; };
 		1864872F1F0BB06800DDB003 /* KTDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTDALManager.swift; path = Classes/DAL/KTDALManager.swift; sourceTree = "<group>"; };
 		187E71102083790300E66A55 /* KTRatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingManager.swift; path = Classes/DAL/Rating/KTRatingManager.swift; sourceTree = "<group>"; };
+		187E71122084935100E66A55 /* KTRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTRatingViewController.swift; sourceTree = "<group>"; };
+		187E71142084B53400E66A55 /* KTRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewModel.swift; path = "Classes/View Models/BookingDetails/KTRatingViewModel.swift"; sourceTree = "<group>"; };
 		1886187320761B14000806D3 /* KTCancelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTCancelViewController.swift; sourceTree = "<group>"; };
 		1886187520763C3A000806D3 /* KTCancelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelViewModel.swift; path = "Classes/View Models/BookingDetails/KTCancelViewModel.swift"; sourceTree = "<group>"; };
 		188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = cancelReasonTableViewCell.swift; path = Classes/Views/Controllers/BookingDetails/cancelReasonTableViewCell.swift; sourceTree = "<group>"; };
@@ -371,6 +375,7 @@
 				1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */,
 				1886187520763C3A000806D3 /* KTCancelViewModel.swift */,
 				18861883207CC977000806D3 /* KTFarePopupViewModel.swift */,
+				187E71142084B53400E66A55 /* KTRatingViewModel.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */,
 				1886187F207CA3EA000806D3 /* KTFarePopupViewController.swift */,
 				18861881207CBC71000806D3 /* KTFarePopupTableViewCell.swift */,
+				187E71122084935100E66A55 /* KTRatingViewController.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -1150,8 +1156,10 @@
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
+				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
+				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,

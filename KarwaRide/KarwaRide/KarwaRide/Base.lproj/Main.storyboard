@@ -2778,7 +2778,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bde-36-Orn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3866" y="2942"/>
+            <point key="canvasLocation" x="3324" y="2769"/>
+        </scene>
+        <!--Rating View Controller-->
+        <scene sceneID="zz6-1g-oCg">
+            <objects>
+                <viewController storyboardIdentifier="RatingReasonPopup" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TgS-jM-Q1B" customClass="KTRatingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qAv-xo-TTX"/>
+                        <viewControllerLayoutGuide type="bottom" id="kgc-Zo-yRy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UkH-Rl-klT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ALU-WZ-aMa">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rx3-Uc-Xtn">
+                                <rect key="frame" x="33" y="107" width="309" height="452"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEU-zf-xhn">
+                                        <rect key="frame" x="8" y="378" width="293" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="btnRateBookingTapped:" destination="TgS-jM-Q1B" eventType="touchUpInside" id="xnS-ex-V1m"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="viewMain" destination="ALU-WZ-aMa" id="1uu-Li-1E2"/>
+                        <outlet property="viewPopupUI" destination="rx3-Uc-Xtn" id="V9q-If-C0G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lct-yU-795" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4413.6000000000004" y="2805.2473763118442"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="Hgc-mM-N8i">

@@ -11,7 +11,7 @@ import UIKit
 let RATING_REASON_SYNC_TIME = "RatingReasonSyncTime"
 
 class KTRatingManager: KTDALManager {
-
+    
     func ratingReasonsAvalible() -> Bool {
         guard let rReasons = ratingReasons(), rReasons.count > 0 else {
             print("Rating Reasons Not Available")
@@ -97,5 +97,23 @@ class KTRatingManager: KTDALManager {
         let reasons : [KTRatingReasons] = KTRatingReasons.mr_findAll() as! [KTRatingReasons]
         
         return reasons
+    }
+    
+    func ratingsReason(forRating rating: Int32, language: String) -> [KTRatingReasons]? {
+        
+        let predicate : NSPredicate = NSPredicate(format: "rating == %d && language = %@", rating,language)
+        let reasons : [KTRatingReasons] = KTRatingReasons.mr_findAll(with: predicate) as! [KTRatingReasons] 
+        return reasons
+    }
+    
+    func rateBooking(forId bookingId:String,rating: Int32 ,reasons: [Int16], completion completionBlock:@escaping KTDALCompletionBlock)  {
+        let param : [String: Any] = [Constants.RatingParams.Rating: rating,
+                                     Constants.RatingParams.Reasons: reasons]
+        let url : String = Constants.APIURL.RateBooking + "/" + bookingId
+        
+        self.post(url: url, param: param, completion: completionBlock) {
+            (response, cBlock) in
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
     }
 }

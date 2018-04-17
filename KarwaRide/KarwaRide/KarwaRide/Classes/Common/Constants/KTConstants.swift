@@ -167,6 +167,8 @@ struct Constants {
         static let VehicleType = "VehicleType"
         
         static let TripSummary = "TripSummary"
+        
+        static let IsRated = "IsRated"
     }
     
     struct GetEstimateResponseAPIKey {
@@ -243,6 +245,12 @@ struct Constants {
         static let EstimatedFare = "EstimatedFare"
     }
     
+    struct RatingParams {
+        static let Rating = "Rating"
+        static let Reasons = "Reasons"
+    
+    }
+    
     struct APIURL {
         static let Login = "user/login"
         static let Logout = "user/logout"
@@ -264,6 +272,7 @@ struct Constants {
         static let GetEstimate = "tariff/estimate"
         static let CancelReason = "booking/cancelreasons"
         static let RatingReason = "booking/ratingreasons"
+        static let RateBooking = "booking/rate"
     }
     
     struct TrackTaxiParams {

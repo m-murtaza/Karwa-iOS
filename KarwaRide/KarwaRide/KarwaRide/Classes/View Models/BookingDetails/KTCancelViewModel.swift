@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol KTCancelViewModelDelegate {
+protocol KTCancelViewModelDelegate : KTViewModelDelegate {
     func getBookingStatii() -> Int32
     func getBookingID() -> String
     func reloadTable()
@@ -22,6 +22,7 @@ class KTCancelViewModel: KTBaseViewModel {
     
     override func viewDidLoad() {
         del = self.delegate as? KTCancelViewModelDelegate
+        super.viewDidLoad()
         fetchCancelReasons()
     }
     
