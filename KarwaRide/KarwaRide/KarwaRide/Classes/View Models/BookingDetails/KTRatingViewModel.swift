@@ -11,6 +11,12 @@ import UIKit
 protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     
     func closeScreen()
+    func updateDriverImage(url: URL)
+    func updateDriver(name: String)
+    func updateDriver(rating: Double)
+    func hideSystemRating()
+    func updateTrip(fare: String)
+    func updatePickup(date: String)
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -21,10 +27,22 @@ class KTRatingViewModel: KTBaseViewModel {
     override func viewDidLoad() {
         del = self.delegate as? KTRatingViewModelDelegate
         super.viewDidLoad()
-        fetchReason(forRating: 3)
+        //fetchReason(forRating: 3)
+        
+        //updateDriverImage()
     }
     
-    func fetchReason(forRating rating: Int32) {
+    func setBookingForRating(booking b : KTBooking)  {
+        booking = b
+        updateView()
+        //updateDriverImage()
+    }
+    
+    func ratingUpdate(rating: Double) {
+        fetchReason(forRating: Int32(rating))
+    }
+    
+    private func fetchReason(forRating rating: Int32) {
         let reasons : [KTRatingReasons] = KTRatingManager().ratingsReason(forRating: rating, language: "EN")!
         
         for reason in reasons {
@@ -51,6 +69,35 @@ class KTRatingViewModel: KTBaseViewModel {
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
             }
         }
+    }
+    
+    func updateView(){
+        updateDriverImage()
+        del?.updateDriver(name: (booking?.driverName)!)
+        if booking?.driverRating == 0.0 {
+            del?.hideSystemRating()
+        }
+        else {
+            del?.updateDriver(rating: (booking?.driverRating)!)
+        }
+        del?.updateTrip(fare: (booking?.fare)!)
+        del?.updatePickup(date: formatedDateForRating(date: (booking?.pickupTime)!))
+        //let formatedDate = formatedDateForRating(date: (booking?.pickupTime)!)
+    }
+    func formatedDateForRating(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, dd MMM, YYYY 'at' HH:mm a"
+         return dateFormatter.string(from: date)
+    
+    }
+    //MARK:- Driver Image
+    func updateDriverImage() {
+        guard (booking != nil), ((booking?.driverId) != nil) else {
+            return
+        }
         
+        let baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
+        let url = URL(string: baseURL + Constants.APIURL.DriverImage + "/" + (booking?.driverId)!)!
+        del?.updateDriverImage(url: url)
     }
 }

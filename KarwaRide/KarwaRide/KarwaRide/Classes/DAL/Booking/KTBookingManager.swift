@@ -127,7 +127,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.fare = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Fare] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Fare] as? String : ""
         
         
-        b.driverId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverID] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DriverID] as? String : ""
+        b.driverId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverID] as AnyObject)) ? String("\(booking[Constants.BookingResponseAPIKey.DriverID] ?? "")") : ""
+       
+        
         b.driverName = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverName] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DriverName] as? String : ""
         b.driverPhone = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverPhone] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DriverPhone] as? String : ""
         b.driverRating = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverRating] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DriverRating] as! Double : 0.0

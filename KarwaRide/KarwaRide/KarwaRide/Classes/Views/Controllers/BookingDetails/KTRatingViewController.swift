@@ -7,15 +7,27 @@
 //
 
 import UIKit
+import Kingfisher
+import Cosmos
 
 protocol KTRatingViewDelegate {
     
     func closeRating()
 }
-class KTRatingViewController: PopupVC {
-
+class KTRatingViewController: PopupVC, KTRatingViewModelDelegate {
+    
     var delegate : KTRatingViewDelegate?
     private var vModel : KTRatingViewModel?
+    
+    @IBOutlet weak var driverImgView : UIImageView!
+    @IBOutlet weak var lblDriverName: UILabel!
+    @IBOutlet weak var ratingDriverSystem: CosmosView!
+    @IBOutlet weak var btnSubmit: UIButton!
+    @IBOutlet weak var lblTripFare: UILabel!
+    @IBOutlet weak var lblPickDateTime: UILabel!
+    @IBOutlet weak var userRating: CosmosView!
+    @IBOutlet weak var lblConsolationText: UILabel!
+    
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTRatingViewModel(del: self)
@@ -25,15 +37,30 @@ class KTRatingViewController: PopupVC {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        updateUIForImageView()
+        
+        viewPopupUI.layer.cornerRadius = 16
+        btnSubmit.layer.addBorder(edge: UIRectEdge.top, color: UIColor(hexString:"#DEDEDE"), thickness: 1.0)
+        
+        userRating.didFinishTouchingCosmos = {rating in
+            
+            self.vModel?.ratingUpdate(rating: rating)
+            
+        }
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func btnSubmitTapped(_ sender: Any) {
+        
+    }
     func booking(_ b: KTBooking) {
-        vModel?.booking = b
+        vModel?.setBookingForRating(booking: b) 
     }
     
     /*
@@ -46,6 +73,38 @@ class KTRatingViewController: PopupVC {
     }
     */
     
+    func updateUIForImageView() {
+        
+        driverImgView.layer.cornerRadius = driverImgView.frame.size.width / 2
+        driverImgView.clipsToBounds = true
+        driverImgView.layer.borderWidth = 3.0
+        driverImgView.layer.borderColor = UIColor.white.cgColor
+    }
+    
+    func updateDriver(name: String) {
+        lblDriverName.text = name
+    }
+    
+    func updateDriver(rating: Double) {
+        ratingDriverSystem.rating = rating
+    }
+    
+    func updateTrip(fare: String) {
+        lblTripFare.text = fare
+    }
+    
+    func updateDriverImage(url: URL) {
+        driverImgView.kf.setImage(with: url)
+    }
+    
+    func hideSystemRating() {
+        ratingDriverSystem.isHidden = true
+    }
+    
+    func updatePickup(date: String) {
+        lblPickDateTime.text = date
+    }
+    
     @IBAction func btnRateBookingTapped(_ sender: Any) {
         vModel?.rateBooking()
     }
@@ -56,7 +115,6 @@ class KTRatingViewController: PopupVC {
     }
     override func showError(title:String, message:String)
     {
-        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

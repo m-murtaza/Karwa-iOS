@@ -139,7 +139,7 @@ struct Constants {
         static let CreationTime = "CreationTime"
         static let CallerID = "CallerID"
         
-        static let DriverID = "DriverID"
+        static let DriverID = "DriverID" 
         static let DriverName = "DriverName"
         static let DriverPhone = "DriverPhone"
         static let DriverRating = "DriverRating"
@@ -273,6 +273,7 @@ struct Constants {
         static let CancelReason = "booking/cancelreasons"
         static let RatingReason = "booking/ratingreasons"
         static let RateBooking = "booking/rate"
+        static let DriverImage = "driver/image"
     }
     
     struct TrackTaxiParams {
