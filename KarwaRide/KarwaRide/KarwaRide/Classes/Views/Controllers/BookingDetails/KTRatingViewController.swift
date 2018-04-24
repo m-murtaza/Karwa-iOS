@@ -9,12 +9,13 @@
 import UIKit
 import Kingfisher
 import Cosmos
+import RKTagsView
 
 protocol KTRatingViewDelegate {
     
     func closeRating()
 }
-class KTRatingViewController: PopupVC, KTRatingViewModelDelegate {
+class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDelegate {
     
     var delegate : KTRatingViewDelegate?
     private var vModel : KTRatingViewModel?
@@ -27,7 +28,11 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate {
     @IBOutlet weak var lblPickDateTime: UILabel!
     @IBOutlet weak var userRating: CosmosView!
     @IBOutlet weak var lblConsolationText: UILabel!
+    @IBOutlet weak var tagView: RKTagsView!
     
+    @IBAction func testbtnTapped(_ sender: Any) {
+        (sender as! UIButton).backgroundColor = UIColor.blue
+    }
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTRatingViewModel(del: self)
@@ -42,23 +47,24 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate {
         viewPopupUI.layer.cornerRadius = 16
         btnSubmit.layer.addBorder(edge: UIRectEdge.top, color: UIColor(hexString:"#DEDEDE"), thickness: 1.0)
         
+        tagView.textField.textAlignment = NSTextAlignment.center
+        
         userRating.didFinishTouchingCosmos = {rating in
             
             self.vModel?.ratingUpdate(rating: rating)
-            
         }
+        
+        tagView.textFieldAlign = .center
     }
 
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func btnSubmitTapped(_ sender: Any) {
-        
-    }
+    /*@IBAction func btnSubmitTapped(_ sender: Any) {
+        vModel?.rateBooking()
+    }*/
     func booking(_ b: KTBooking) {
         vModel?.setBookingForRating(booking: b) 
     }
@@ -131,4 +137,38 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate {
         altError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil ))
         self.present(altError,animated: true, completion: nil)*/
     }
+    
+    func userFinalRating() -> Int32 {
+        return Int32(userRating.rating)
+    }
+    
+    //MARK:- Rating view
+    
+    func removeAllTags() {
+        tagView.removeAllTags()
+    }
+    
+    func addTag(tag: String) {
+        tagView.addTag(tag)
+    }
+    
+    func tagsView(_ tagsView: RKTagsView, buttonForTagAt index: Int) -> UIButton {
+        let btn: KTTagButton = KTTagButton(type:UIButtonType.custom)
+        btn.setTitle(vModel?.reason(atIndex: index), for: UIControlState.normal)
+        btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
+        btn.setTitleColor(UIColor.white, for: UIControlState.selected)
+        
+        btn.adjustsImageWhenHighlighted = false
+        //btn.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return btn
+    }
+    
+    func selectedIdx() ->[NSNumber] {
+        return tagView.selectedTagIndexes
+    }
+    
+//    @objc func buttonAction(sender: UIButton!) {
+//        //print("Button Clicked")
+//        //sender.backgroundColor = UIColor.red
+//    }
 }

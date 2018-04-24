@@ -17,12 +17,17 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func hideSystemRating()
     func updateTrip(fare: String)
     func updatePickup(date: String)
+    func removeAllTags()
+    func addTag(tag: String)
+    func selectedIdx() -> [NSNumber]
+    func userFinalRating() -> Int32
 }
 
 class KTRatingViewModel: KTBaseViewModel {
 
     var del : KTRatingViewModelDelegate?
     var booking : KTBooking?
+    var reasons : [KTRatingReasons]?
     
     override func viewDidLoad() {
         del = self.delegate as? KTRatingViewModelDelegate
@@ -43,23 +48,40 @@ class KTRatingViewModel: KTBaseViewModel {
     }
     
     private func fetchReason(forRating rating: Int32) {
-        let reasons : [KTRatingReasons] = KTRatingManager().ratingsReason(forRating: rating, language: "EN")!
+        reasons = KTRatingManager().ratingsReason(forRating: rating, language: "EN")!
         
-        for reason in reasons {
-            
-            print(reason.desc ?? "")
+        del?.removeAllTags()
+        for reason in reasons! {
+            del?.addTag(tag: reason.desc!)
+            //print(reason.desc ?? "")
         }
     }
     
+    func reason(atIndex idx: Int) -> String {
+        var r : String = ""
+        if idx < (reasons?.count)! {
+            r = reasons![idx].desc!
+        }
+        return r
+    }
+    
+    func selectedReasonIds() -> [Int16] {
+        var rreasonsIdx : [Int16] = []
+        for r in (del?.selectedIdx())! {
+            rreasonsIdx.append(reasons![r.intValue].reasonCode)
+        }
+        return rreasonsIdx
+    }
+    
     func rateBooking() {
-        let reasonIds : [Int16] = [1,3,4]
-        let rating : Int32 = 3
+        let reasonIds : [Int16] = selectedReasonIds()
+        let rating : Int32 = (del?.userFinalRating())!
         let bookingId : String = (booking?.bookingId)!
         
         
         KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds) { (status, response) in
             
-            if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS {
+            if status == Constants.APIResponseStatus.SUCCESS {
                 
                 self.booking?.isRated = true
                 KTDALManager().saveInDb()

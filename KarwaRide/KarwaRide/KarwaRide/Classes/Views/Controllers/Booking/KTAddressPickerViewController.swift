@@ -300,8 +300,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     // MARK: - TableView Delegates
+    /*func numberOfSections(in tableView: UITableView) -> Int {
+        return (viewModel as! KTAddressPickerViewModel).numberOfSections()
+    }*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (viewModel as! KTAddressPickerViewModel).numberOfRow()
+        return (viewModel as! KTAddressPickerViewModel).numberOfRow(section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -312,9 +315,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         let cell : AddressPickCell = tableView.dequeueReusableCell(withIdentifier: "AddPickCellIdentifier", for: indexPath) as! AddressPickCell
             /*AddressPickCell(style: UITableViewCellStyle.default, reuseIdentifier: "AddPickCellIdentifier")*/
         
-        cell.addressTitle.text = (viewModel as! KTAddressPickerViewModel).addressTitle(forRow: indexPath.row)
-        cell.addressArea.text = (viewModel as! KTAddressPickerViewModel).addressArea(forRow: indexPath.row)
+        cell.addressTitle.text = (viewModel as! KTAddressPickerViewModel).addressTitle(forIndex: indexPath)
+        cell.addressArea.text = (viewModel as! KTAddressPickerViewModel).addressArea(forIndex: indexPath)
         
+        cell.ImgTypeIcon.image = (viewModel as! KTAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
         return cell
     }
     

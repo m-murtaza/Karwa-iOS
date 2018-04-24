@@ -42,7 +42,7 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTGeoLocation" syncable="YES"/>
+        <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTGeoLocation" inverseName="geolocationToBookmark" inverseEntity="KTGeoLocation" syncable="YES"/>
     </entity>
     <entity name="KTCancelReason" representedClassName="KTCancelReason" syncable="YES" codeGenerationType="class">
         <attribute name="bookingStatii" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -63,6 +63,7 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="geolocationToBookmark" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTBookmark" inverseName="bookmarkToGeoLocation" inverseEntity="KTBookmark" syncable="YES"/>
     </entity>
     <entity name="KTKeyValue" representedClassName="KTKeyValue" syncable="YES" codeGenerationType="class">
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
@@ -93,10 +94,10 @@
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="120"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTFareEstimate" positionX="187" positionY="-63" width="128" height="103"/>
-        <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="135"/>
+        <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="150"/>
         <element name="KTKeyValue" positionX="160" positionY="-207" width="128" height="75"/>
+        <element name="KTRatingReasons" positionX="54" positionY="252" width="128" height="105"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
         <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
-        <element name="KTRatingReasons" positionX="54" positionY="252" width="128" height="105"/>
     </elements>
 </model>

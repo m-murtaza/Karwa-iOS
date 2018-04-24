@@ -31,6 +31,14 @@ enum VehicleType: Int16 {
     case KTLuxuryLimo = 70
 }
 
+enum geoLocationType : Int32 {
+    case Home = 5
+    case Work = 6
+    case Recent = 10
+    case Nearby = 11
+    case Popular = 12
+}
+
 enum BookingStatus : Int32 {
     
     case PENDING = 1
@@ -122,6 +130,7 @@ struct Constants {
         static let Longitude = "Lon"
         static let Name = "Name"
         static let Area = "Area"
+        static let LocationType = "Type"
     }
     
     struct BookmarkResponseAPIKey {
@@ -263,6 +272,7 @@ struct Constants {
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
         static let AddressPickViaSearch = "geocode/name"
+        static let getAllAddress = "geocode/all"
         static let Booking = "booking"
         static let GetBookmark = "bookmarks/personal"
         static let SetHomeBookmark = "bookmark/personal/home"
@@ -274,6 +284,7 @@ struct Constants {
         static let RatingReason = "booking/ratingreasons"
         static let RateBooking = "booking/rate"
         static let DriverImage = "driver/image"
+        
     }
     
     struct TrackTaxiParams {

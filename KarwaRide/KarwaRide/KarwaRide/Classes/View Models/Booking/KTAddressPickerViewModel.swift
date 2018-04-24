@@ -9,6 +9,12 @@
 import UIKit
 import CoreLocation
 
+struct KTAddress {
+    var name : String
+    var address : String
+    var location : CLLocationCoordinate2D
+}
+
 protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func loadData()
     func pickUpTxt() -> String
@@ -24,12 +30,23 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     public var pickUpAddress : KTGeoLocation?
     public var dropOffAddress : KTGeoLocation?
     private var locations : [KTGeoLocation] = []
+    //private var home: KTBookmark?
+    //private var work : KTBookmark?
+    private var bookmarks : [KTGeoLocation] = []
+    private var nearBy : [KTGeoLocation] = []
+    private var recent : [KTGeoLocation] = []
+    private var popular : [KTGeoLocation] = []
+    
+    private var del : KTAddressPickerViewModelDelegate?
+    
     
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        del = (delegate as! KTAddressPickerViewModelDelegate)
         
         fetchLocations()
     }
@@ -70,7 +87,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success
-                self.getAllLocations()
+                //self.getAllLocations()
+                //self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
+                //(self.delegate as! KTAddressPickerViewModelDelegate).loadData()
+                self.sortDataForDisplay(serverResponse: response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])
+                self.loadDataInView()
             }
             else {
                 
@@ -81,30 +102,75 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
     }
     
+    //MARK:-  Sort and Manage data for Dispaly
+    func sortDataForDisplay(serverResponse locs: [KTGeoLocation]){
+        updateHomeAndWorkIfAvailable()
+        nearBy = filterArray(ForLocationType: geoLocationType.Nearby , serverResponse: locs)
+        recent = filterArray(ForLocationType: geoLocationType.Recent , serverResponse: locs)
+        popular = filterArray(ForLocationType: geoLocationType.Popular , serverResponse: locs)
+    }
+    
+    func updateHomeAndWorkIfAvailable() {
+        let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
+        let home : KTBookmark? = bookmarkManager.getHome()
+        let work : KTBookmark?  = bookmarkManager.getWork()
+        
+        if home != nil {
+            bookmarks.append(home!.bookmarkToGeoLocation!)
+        }
+        if work != nil {
+            bookmarks.append(work!.bookmarkToGeoLocation!)
+        }
+    }
+    
+    func filterArray(ForLocationType type : geoLocationType , serverResponse locs: [KTGeoLocation]) -> [KTGeoLocation]{
+        
+        let n : [KTGeoLocation]? = locs.filter  { (loc) -> Bool in
+            return loc.type == type.rawValue
+        }
+        
+        guard n != nil else {
+            return []
+        }
+        return n!
+    }
+    
+    func loadDataInView() {
+        if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+            locations = bookmarks + nearBy + recent + popular
+            del?.loadData()
+        }
+        else {
+            locations = bookmarks + nearBy + recent + popular
+            del?.loadData()
+        }
+    }
+    
+    
     //Fetch single location
     private func fetchLocation(forGeoCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping (_ location:KTGeoLocation) -> Void) {
         
         KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
                 
-                   completion((response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0])
+                completion((response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0])
             }
         }
     }
     
     func fetchLocations(forSearch query:String) {
-       
+        
         //delegate?.userIntraction(enable: false)
         delegate?.showProgressHud(show: true, status: "Searching Location")
         KTBookingManager().address(forSearch: query) { (status, response) in
-        
+            
             if status == Constants.APIResponseStatus.SUCCESS {
                 self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
                 (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
                 //self.delegate?.userIntraction(enable: true)
                 self.delegate?.hideProgressHud()
             }
-        
+                
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
@@ -131,25 +197,99 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     //MARK: - TableView Related
-    func numberOfRow() -> Int {
-        print(locations.count)
+    func numberOfSections() -> Int {
+        if bookmarks.count > 0 {
+            return 2
+        }
+        
+        return 1
+    }
+    
+    func numberOfRow(section : Int) -> Int {
+        //print(locations.count)
+//        if section == 0 && bookmarks.count > 0 {
+//            return bookmarks.count
+//        }
+        
         return locations.count
     }
-    func addressTitle(forRow row: Int) -> String {
+    
+    func addressTitle(forIndex idx: IndexPath) -> String {
+        
         var title : String = ""
-        if row < locations.count-1 && locations[row].name != nil {
-            title = locations[row].name!
+//        if idx.section == 0 && bookmarks.count > 0 {
+//            if bookmarks[idx.row].bookmarkToGeoLocation != nil {
+//                title = (bookmarks[idx.row].bookmarkToGeoLocation?.name!)!
+//            }
+//            else {
+//                title = bookmarks[idx.row].name!
+//            }
+//        }
+//
+//        else {
+        
+            if idx.row < locations.count-1 && locations[idx.row].name != nil {
+                title = locations[idx.row].name!
+//            }
         }
         return title
     }
     
-    func addressArea(forRow row: Int) -> String {
+    func addressArea(forIndex idx: IndexPath) -> String {
         
         var area : String = ""
-        if row < locations.count-1 && locations[row].area != nil {
-            area = locations[row].area!
-        }
+//        if idx.section == 0 && bookmarks.count > 0 {
+//            if bookmarks[idx.row].bookmarkToGeoLocation != nil {
+//                area = (bookmarks[idx.row].bookmarkToGeoLocation?.area!)!
+//            }
+//            else {
+//                area = bookmarks[idx.row].address!
+//            }
+//        }
+//
+//        else {
+            if idx.row < locations.count-1 && locations[idx.row].area != nil {
+                area = locations[idx.row].area!
+            }
+//        }
         return area
+    }
+    
+    func addressTypeIcon(forIndex idx: IndexPath) -> UIImage {
+        var img : UIImage?
+//        if idx.section == 0 && bookmarks.count > 0 {
+//
+//            if bookmarks[idx.row].name == Constants.BookmarkName.Home {
+//                img = UIImage(named: "APICHome")
+//            }
+//            else {
+//                img = UIImage(named: "APICWork")
+//            }
+//        }
+//        else {
+            if idx.row < locations.count-1  {
+                switch locations[idx.row].type {
+                case geoLocationType.Home.rawValue:
+                    img = UIImage(named: "APICHome")
+                    break
+                case geoLocationType.Work.rawValue:
+                    img = UIImage(named: "APICWork")
+                    break
+                case geoLocationType.Nearby.rawValue:
+                    img = UIImage(named: "ic_landmark")
+                    break
+                case geoLocationType.Popular.rawValue:
+                    img = UIImage(named: "ic_landmark")
+                    break
+                case geoLocationType.Recent.rawValue:
+                    img = UIImage(named: "ic_recent")
+                    break
+                default:
+                    img = UIImage(named: "ic_landmark")
+                }
+            }
+//        }
+        return img!
     }
     
     func didSelectRow(at idx:Int, type:SelectedTextField) {
@@ -170,13 +310,12 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     private func moveBackIfNeeded(skipDestination : Bool) {
         if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty){
             if  (skipDestination || dropOffAddress != nil) {
-            
+                
                 if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()) {
                     if skipDestination {
                         dropOffAddress = nil
                     }
                     (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
-                    
                 }
             }
             else {

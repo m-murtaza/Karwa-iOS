@@ -41,7 +41,12 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
                     self.bookmark = KTBookmarkManager().getWork()
                 }
                 
-                (self.delegate as! KTSetHomeWorkViewModelDelegate).UpdateUI(name: (self.bookmark?.address)!, location: CLLocationCoordinate2D(latitude: (self.bookmark?.latitude)!,longitude: (self.bookmark?.longitude)!))
+                if self.bookmark != nil {
+                    (self.delegate as! KTSetHomeWorkViewModelDelegate).UpdateUI(name: (self.bookmark?.address)!, location: CLLocationCoordinate2D(latitude: (self.bookmark?.latitude)!,longitude: (self.bookmark?.longitude)!))
+                }
+                else {
+                    (self.delegate as! KTSetHomeWorkViewModelDelegate).UpdateUI(name: "Select Address", location: KTLocationManager.sharedInstance.currentLocation.coordinate)
+                }
             }
             else {
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)

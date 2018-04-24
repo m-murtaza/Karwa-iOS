@@ -657,7 +657,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         guard booking != nil, booking?.isRated == false else {
             return
         }
-        del?.showRatingScreen()
+        
+        if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
+            del?.showRatingScreen()
+        }
+        
         
     }
     

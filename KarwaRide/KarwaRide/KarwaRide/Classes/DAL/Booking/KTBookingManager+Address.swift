@@ -56,7 +56,7 @@ extension KTBookingManager
         
         let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,
                                     Constants.AddressPickParams.Lon: location.longitude]
-        address(fromUrl: Constants.APIURL.AddressPickViaGeoCode, forParam: param, completion: completionBlock)
+        address(fromUrl: Constants.APIURL.getAllAddress, forParam: param, completion: completionBlock)
         
     }
     
@@ -113,11 +113,12 @@ extension KTBookingManager
         
         let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.GeoLocationResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
         
-                loc.latitude = location[Constants.GeoLocationResponseAPIKey.Latitude] as! Double
-                loc.longitude = location[Constants.GeoLocationResponseAPIKey.Longitude] as! Double
-                loc.area = location[Constants.GeoLocationResponseAPIKey.Area] as? String
-                loc.name = location[Constants.GeoLocationResponseAPIKey.Name] as? String
-                // TODO: Add parser for type
+            loc.latitude = location[Constants.GeoLocationResponseAPIKey.Latitude] as! Double
+            loc.longitude = location[Constants.GeoLocationResponseAPIKey.Longitude] as! Double
+            loc.area = location[Constants.GeoLocationResponseAPIKey.Area] as? String
+            loc.name = location[Constants.GeoLocationResponseAPIKey.Name] as? String
+            loc.type = location[Constants.GeoLocationResponseAPIKey.LocationType] as! Int32
+            // TODO: Add parser for type
         return loc
     }
     
