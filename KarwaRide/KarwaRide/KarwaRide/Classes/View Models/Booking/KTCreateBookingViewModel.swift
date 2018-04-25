@@ -33,8 +33,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func showCurrentLocationDot(show : Bool)
     func moveToDetailView()
     func showAlertForLocationServerOn()
-    func showFareBreakdown(animated: Bool,kvPair : [String: String],title:String )
-    func updateFareBreakdown(kvPair : [String: String] )
+    func showFareBreakdown(animated: Bool,kvPair : [[String: String]],title:String )
+    func updateFareBreakdown(kvPair : [[String: String]] )
     func hideFareBreakdown(animated : Bool)
     func fareDetailVisible() -> Bool
     func updateVehicleTypeList()
@@ -216,39 +216,53 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func showEstimate(vehicleType vtype: KTVehicleType){
         
         let title = "Estimated Fare"
-        var kvDictionary : [String:String] = [:]
+        var orderedKV : [[String:String]] = []
+        
         for kv : KTKeyValue in  estimate(forVehicleType: vtype.typeId)?.toKeyValueBody?.array as! [KTKeyValue] {
+            
+            var kvDictionary : [String:String] = [:]
             kvDictionary[kv.key!] = kv.value
+            orderedKV.append(kvDictionary)
         }
-        del?.showFareBreakdown(animated: true, kvPair: kvDictionary, title: title)
+        del?.showFareBreakdown(animated: true, kvPair: orderedKV, title: title)
     }
     
     func updateEstimates(vehicleType vtype: KTVehicleType ) {
         
-        var kvDictionary : [String:String] = [:]
+        var orderedKV : [[String:String]] = []
+        
         for kv : KTKeyValue in  estimate(forVehicleType: vtype.typeId)?.toKeyValueBody?.array as! [KTKeyValue] {
+            var kvDictionary : [String:String] = [:]
             kvDictionary[kv.key!] = kv.value
+            orderedKV.append(kvDictionary)
         }
-        del?.updateFareBreakdown(kvPair: kvDictionary)
+        del?.updateFareBreakdown(kvPair: orderedKV)
     }
     
     func showFareBreakDown(vehicleType vtype: KTVehicleType) {
         let title = "Fare Breakdown"
-        var kvDictionary : [String:String] = [:]
+        var orderedKV : [[String:String]] = []
+        
         for kv : KTKeyValue in vtype.toKeyValueBody?.array as! [KTKeyValue] {
-            kvDictionary[kv.key!] = kv.value!
+            
+            var kvDictionary : [String:String] = [:]
+            kvDictionary[kv.key!] = kv.value
+            orderedKV.append(kvDictionary)
         }
         
-        del?.showFareBreakdown(animated: true, kvPair: kvDictionary, title: title)
+        del?.showFareBreakdown(animated: true, kvPair: orderedKV, title: title)
     }
     
     func updateFareDetails(vehicleType vtype: KTVehicleType ) {
         
-        var kvDictionary : [String:String] = [:]
+        var orderedKV : [[String:String]] = []
+        
         for kv : KTKeyValue in vtype.toKeyValueBody?.array as! [KTKeyValue] {
-            kvDictionary[kv.key!] = kv.value!
+            var kvDictionary : [String:String] = [:]
+            kvDictionary[kv.key!] = kv.value
+            orderedKV.append(kvDictionary)
         }
-        del?.updateFareBreakdown(kvPair: kvDictionary)
+        del?.updateFareBreakdown(kvPair: orderedKV)
     }
     
     //MARK: - Navigation to Address Picker
@@ -594,7 +608,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             else if currentBookingStep == BookingStep.step3 {
                 
                 if (del?.fareDetailVisible())! {
-                    if(isDropAvailable()) {
+                    if(!isDropAvailable()) {
                         updateFareDetails(vehicleType: vehicleTypes![currentIdx!])
                     }
                     else {
@@ -627,7 +641,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if isPickAvailable() {
             var vEstimate : KTFareEstimate?
             let bookManager : KTBookingManager = KTBookingManager()
-            //let booking : KTBooking = bookManager.booking()
             booking.pickupTime = selectedPickupDateTime
             booking.creationTime = Date()
             booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()

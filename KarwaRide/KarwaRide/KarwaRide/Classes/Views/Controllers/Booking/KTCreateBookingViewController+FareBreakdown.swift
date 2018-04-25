@@ -33,7 +33,7 @@ extension KTCreateBookingViewController {
         }
     }
     
-    func showFareBreakdown(animated : Bool,kvPair : [String: String],title:String ) {
+    func showFareBreakdown(animated : Bool,kvPair : [[String: String]],title:String ) {
         fareBreakdown.updateView(KeyValue: kvPair, title: title)
         fareBreakdown.delegate = self
         UIView.animate(withDuration: 0.5,
@@ -49,7 +49,7 @@ extension KTCreateBookingViewController {
         })
     }
     
-    func updateFareBreakdown(kvPair : [String: String] ) {
+    func updateFareBreakdown(kvPair : [[String: String]] ) {
         
         fareBreakdown.updateView(KeyValue: kvPair, title: "")
         fareBreakdown.delegate = self

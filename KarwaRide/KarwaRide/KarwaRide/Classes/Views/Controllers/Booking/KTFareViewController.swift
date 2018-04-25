@@ -17,9 +17,8 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     @IBOutlet weak var tblView : UITableView!
     var delegate : KTFareViewDelegate?
     
-    var breakdown : [String : String] = ["" : ""]
-    var keys : [String]?
-    //var headingTitle: String?
+    var breakdown : [String : String] = [:]
+    var keys : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +32,23 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     }
     
     
-    func updateView(KeyValue b: [String:String], title : String ) {
+    func updateView(KeyValue b: [[String:String]], title : String ) {
         if title != "" {
             lblTitle.text = title
         }
-        breakdown = b
-        keys = Array(breakdown.keys)
+        
+        for brkDown in b {
+            
+            breakdown[Array(brkDown.keys)[0]] = brkDown[Array(brkDown.keys)[0]]
+            keys.append(Array(brkDown.keys)[0])
+        }
+
         tblView.reloadData()
     }
     
     @IBAction func btnBackTapped(_ sender: Any) {
+        breakdown = [:]
+        keys = []
         delegate?.btnBackTapped()
     }
     /*
@@ -60,19 +66,15 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numRow = 0
-        if keys != nil {
-            numRow =  (keys?.count)!
-        }
-        return numRow
+
+        return keys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KTFareTableViewCell = tableView.dequeueReusableCell(withIdentifier: "FareCellIdentifier") as! KTFareTableViewCell
-        cell.updateCell(key: keys![indexPath.row], value: breakdown[keys![indexPath.row]]!)
+        cell.updateCell(key: keys[indexPath.row], value: breakdown[keys[indexPath.row]]!)
         return cell
     }
-
 }
 
 class KTFareTableViewCell : UITableViewCell {
