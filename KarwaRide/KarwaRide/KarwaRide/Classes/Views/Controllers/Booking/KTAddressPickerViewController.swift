@@ -35,6 +35,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBOutlet weak var mapSuperView : UIView!
     @IBOutlet weak var imgMapMarker : UIImageView!
     
+    @IBOutlet weak var constraintTableViewBottom : NSLayoutConstraint!
+    
     public var pickupAddress : KTGeoLocation?
     public var dropoffAddress : KTGeoLocation?
     
@@ -45,6 +47,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
+    
+    
     
     ///This bool will be use to check if selected text box should be clear when user type a charecter.
     ///http://redmine.karwatechnologies.com/issues/2430 Point D.
@@ -64,6 +68,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -77,6 +92,28 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         initializeMap()
     }
+    
+    //MARK: - Notification
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
+            
+            constraintTableViewBottom.constant = keyboardSize.height
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y -= keyboardSize.height/2
+//            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            constraintTableViewBottom.constant = 0
+//            if self.view.frame.origin.y != 0{
+//                self.view.frame.origin.y += keyboardSize.height/2
+//            }
+        }
+    }
+
     
     //MARK: - Map related functions.
     private func initializeMap () {
@@ -300,9 +337,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     // MARK: - TableView Delegates
-    /*func numberOfSections(in tableView: UITableView) -> Int {
-        return (viewModel as! KTAddressPickerViewModel).numberOfSections()
-    }*/
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (viewModel as! KTAddressPickerViewModel).numberOfRow(section: section)
     }
@@ -328,10 +363,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     // MARK: - UItextField Delegates
     
-    /*func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return false
-    }*/
-    
     func textFieldDidBeginEditing(_ textField: UITextField){
         if selectedInputMechanism == SelectedInputMechanism.MapView {
             
@@ -348,8 +379,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             selectedTxtField = SelectedTextField.PickupAddress
         }
         
+        (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
         
-        //print("+++textFieldDidBeginEditing+++")
+        
         removeTxtFromTextBox = true
         if selectedInputMechanism == SelectedInputMechanism.MapView {
             

@@ -236,6 +236,8 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         cell.addressTitle.text = (viewModel as! KTSetHomeWorkViewModel).addressTitle(forRow: indexPath.row)
         cell.addressArea.text = (viewModel as! KTSetHomeWorkViewModel).addressArea(forRow: indexPath.row)
         
+        cell.ImgTypeIcon.image = (viewModel as! KTSetHomeWorkViewModel).addressTypeIcon(forIndex: indexPath)
+        
         return cell
     }
     

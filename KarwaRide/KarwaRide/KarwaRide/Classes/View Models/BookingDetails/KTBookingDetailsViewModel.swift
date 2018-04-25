@@ -600,12 +600,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func eBillHeader() -> [KTKeyValue]?{
         
-        return (booking?.toKeyValueHeader?.allObjects as! [KTKeyValue])
+        return (booking?.toKeyValueHeader?.array as! [KTKeyValue])
     }
     
     func eBillBody() -> [KTKeyValue]?{
         
-        return (booking?.toKeyValueBody?.allObjects as! [KTKeyValue])
+        return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
     
     
@@ -632,25 +632,17 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func estimateHeader() -> [KTKeyValue]? {
         
         if isEstimateAvailable() {
-            return (booking?.bookingToEstimate?.toKeyValueHeader?.allObjects as! [KTKeyValue])
+            return (booking?.bookingToEstimate?.toKeyValueHeader?.array as! [KTKeyValue])
         }
         return nil
     }
     
     func estimateBody() -> [KTKeyValue]? {
         if isEstimateAvailable() {
-            return (booking?.bookingToEstimate?.toKeyValueBody?.allObjects as! [KTKeyValue])
+            return (booking?.bookingToEstimate?.toKeyValueBody?.array as! [KTKeyValue])
         }
         return nil
     }
-    
-    //    func cancelBooking() {
-    //
-    //        KTBookingManager().cancelBooking(bookingId: (booking?.bookingId)!) { (status, response) in
-    //            self.del?.popViewController()
-    //        }
-    //    }
-    
     
     //MARK:- Check for rating
     func checkForRating(){
@@ -661,16 +653,5 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
             del?.showRatingScreen()
         }
-        
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

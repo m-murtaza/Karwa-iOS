@@ -175,7 +175,7 @@ struct Constants {
         static let VehicleNo = "VehicleNo"
         static let VehicleType = "VehicleType"
         
-        static let TripSummary = "TripSummary"
+        static let TripSummary = "OrderedTripSummary"
         
         static let IsRated = "IsRated"
     }

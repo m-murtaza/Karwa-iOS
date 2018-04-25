@@ -74,7 +74,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         for keyvalue in vType.toKeyValueBody! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
-        saveKeyValueBody(keyValue: tariff["Body"] as! [AnyHashable : Any], tariff: vType as KTBaseTrariff)
+        saveKeyValueBody(keyValue: tariff["OrderedBody"] as! [[AnyHashable : Any]], tariff: vType as KTBaseTrariff)
     }
     
     func typeSortOrder(forId typeId: Int16) -> Int16 {

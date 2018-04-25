@@ -56,6 +56,13 @@ class KTBookmarkManager: KTDALManager {
             var geoLocation: KTGeoLocation?
             if let _ = (bookmark[Constants.BookmarkResponseAPIKey.Place]! as AnyObject).count {
                 geoLocation = KTBookingManager().saveGeoLocation(location: bookmark[Constants.BookmarkResponseAPIKey.Place] as! [AnyHashable : Any], context: NSManagedObjectContext.mr_default())
+                
+                if bmark?.name == Constants.BookmarkName.Home {
+                    geoLocation?.type = geoLocationType.Home.rawValue
+                }
+                else {
+                    geoLocation?.type = geoLocationType.Work.rawValue
+                }
             }
             else {
                 geoLocation = createGeoLocationFromBookmark(bookmark: bmark!)

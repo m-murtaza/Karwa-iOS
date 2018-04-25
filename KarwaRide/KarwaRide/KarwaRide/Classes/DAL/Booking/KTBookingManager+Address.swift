@@ -45,7 +45,7 @@ extension KTBookingManager
     
     
     func address(forLocation location: CLLocationCoordinate2D,Limit limit: Int ,completion completionBlock: @escaping KTDALCompletionBlock ) {
-    
+        
         let param : NSDictionary = [Constants.AddressPickParams.Lat: location.latitude,
                                     Constants.AddressPickParams.Lon: location.longitude,
                                     Constants.AddressPickParams.Limit: limit]
@@ -71,17 +71,17 @@ extension KTBookingManager
         self.get(url: url, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
             
-                self.removeUnnecessaryLocations()
-                self.saveGeoLocations(locations: responseData[Constants.ResponseAPIKey.Data] as! [Any],completion:{(success:Bool,geoLocations:[KTGeoLocation] ) -> Void in
-                    if success {
-                        completionBlock(Constants.APIResponseStatus.SUCCESS, [Constants.ResponseAPIKey.Data:geoLocations])  //No need to send data, UI need to fetch data as per requirnment.
-                    }
-                    else {
-                        let error : NSDictionary = [Constants.ResponseAPIKey.Title : "Ops!" as Any,
-                                                    Constants.ResponseAPIKey.Message : "Something went wrong" as Any]
-                        completionBlock(Constants.APIResponseStatus.FAILED_DB,error as! [AnyHashable : Any])
-                    }
-                })
+            self.removeUnnecessaryLocations()
+            self.saveGeoLocations(locations: responseData[Constants.ResponseAPIKey.Data] as! [Any],completion:{(success:Bool,geoLocations:[KTGeoLocation] ) -> Void in
+                if success {
+                    completionBlock(Constants.APIResponseStatus.SUCCESS, [Constants.ResponseAPIKey.Data:geoLocations])  //No need to send data, UI need to fetch data as per requirnment.
+                }
+                else {
+                    let error : NSDictionary = [Constants.ResponseAPIKey.Title : "Ops!" as Any,
+                                                Constants.ResponseAPIKey.Message : "Something went wrong" as Any]
+                    completionBlock(Constants.APIResponseStatus.FAILED_DB,error as! [AnyHashable : Any])
+                }
+            })
         })
     }
     
@@ -92,11 +92,11 @@ extension KTBookingManager
     private func saveGeoLocations(locations:[Any],completion: @escaping (Bool,[KTGeoLocation]) -> Void) {
         
         do {
-        
+            
             var geolocations : [KTGeoLocation] = []
             let localContext : NSManagedObjectContext = NSManagedObjectContext.mr_default()
             for location in locations {
-            
+                
                 geolocations.append(self.saveGeoLocation(location:location as! [AnyHashable : Any],context: localContext))
             }
             
@@ -113,12 +113,14 @@ extension KTBookingManager
         
         let loc : KTGeoLocation = KTGeoLocation.obj(withValue: location[Constants.GeoLocationResponseAPIKey.LocationId] as! Int32, forAttrib: "locationId", inContext: localContext) as! KTGeoLocation
         
-            loc.latitude = location[Constants.GeoLocationResponseAPIKey.Latitude] as! Double
-            loc.longitude = location[Constants.GeoLocationResponseAPIKey.Longitude] as! Double
-            loc.area = location[Constants.GeoLocationResponseAPIKey.Area] as? String
-            loc.name = location[Constants.GeoLocationResponseAPIKey.Name] as? String
+        loc.latitude = location[Constants.GeoLocationResponseAPIKey.Latitude] as! Double
+        loc.longitude = location[Constants.GeoLocationResponseAPIKey.Longitude] as! Double
+        loc.area = location[Constants.GeoLocationResponseAPIKey.Area] as? String
+        loc.name = location[Constants.GeoLocationResponseAPIKey.Name] as? String
+        if(loc.type != geoLocationType.Home.rawValue && loc.type != geoLocationType.Work.rawValue) {
             loc.type = location[Constants.GeoLocationResponseAPIKey.LocationType] as! Int32
-            // TODO: Add parser for type
+        }
+        // TODO: Add parser for type
         return loc
     }
     

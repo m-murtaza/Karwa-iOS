@@ -46,7 +46,13 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
             if estimate != nil {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
-                estimate?.toKeyValueHeader = (estimate?.toKeyValueHeader?.adding(kv) as! NSSet)
+                
+                
+//                let mutableItems = estimate?.toKeyValueHeader?.mutableCopy() as! NSMutableOrderedSet
+//                mutableItems.add(kv)
+//                estimate?.toKeyValueHeader = mutableItems.copy() as? NSOrderedSet
+                
+                estimate?.toKeyValueHeader = estimate?.toKeyValueHeader!.adding(kv)
                 job.bookingToEstimate = estimate
                 estimate?.fareestimateToBooking = job
                 
@@ -166,13 +172,15 @@ class KTBookingManager: KTBaseFareEstimateManager {
         for keyvalue in booking.toKeyValueBody! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
-        KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["Body"] as! [AnyHashable : Any], tariff: booking as! KTBaseTrariff)
+        booking.toKeyValueBody = NSOrderedSet()
+        KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["Body"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
             
         
         for keyvalue in booking.toKeyValueHeader! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
-        KTBaseFareEstimateManager().saveKeyValueHeader(keyValue: data["Header"] as! [AnyHashable : Any], tariff: booking as! KTBaseTrariff)
+        booking.toKeyValueBody = NSOrderedSet()
+        KTBaseFareEstimateManager().saveKeyValueHeader(keyValue: data["Header"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
     }
     
     func pendingBookings() -> [KTBooking] {

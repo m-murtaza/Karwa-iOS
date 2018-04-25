@@ -30,8 +30,6 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     public var pickUpAddress : KTGeoLocation?
     public var dropOffAddress : KTGeoLocation?
     private var locations : [KTGeoLocation] = []
-    //private var home: KTBookmark?
-    //private var work : KTBookmark?
     private var bookmarks : [KTGeoLocation] = []
     private var nearBy : [KTGeoLocation] = []
     private var recent : [KTGeoLocation] = []
@@ -87,9 +85,6 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success
-                //self.getAllLocations()
-                //self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
-                //(self.delegate as! KTAddressPickerViewModelDelegate).loadData()
                 self.sortDataForDisplay(serverResponse: response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])
                 self.loadDataInView()
             }
@@ -137,15 +132,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     func loadDataInView() {
         if del?.inFocusTextField() == SelectedTextField.PickupAddress {
-            locations = bookmarks + nearBy + recent + popular
+            locations = bookmarks + nearBy
             del?.loadData()
         }
         else {
-            locations = bookmarks + nearBy + recent + popular
+            locations = bookmarks + recent + popular
             del?.loadData()
         }
     }
     
+    func txtFieldSelectionChanged()  {
+        loadDataInView()
+    }
     
     //Fetch single location
     private func fetchLocation(forGeoCoordinate coordinate: CLLocationCoordinate2D, completion: @escaping (_ location:KTGeoLocation) -> Void) {
@@ -179,7 +177,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
     }
     
-    //MARK: - Map realted
+    //MARK: - Map
     
     func MapStopMoving(location : CLLocationCoordinate2D) {
         fetchLocation(forGeoCoordinate: location , completion: {
@@ -196,20 +194,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         })
     }
     
-    //MARK: - TableView Related
-    func numberOfSections() -> Int {
-        if bookmarks.count > 0 {
-            return 2
-        }
-        
-        return 1
-    }
+    //MARK: - TableView
     
     func numberOfRow(section : Int) -> Int {
-        //print(locations.count)
-//        if section == 0 && bookmarks.count > 0 {
-//            return bookmarks.count
-//        }
         
         return locations.count
     }
@@ -217,20 +204,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     func addressTitle(forIndex idx: IndexPath) -> String {
         
         var title : String = ""
-//        if idx.section == 0 && bookmarks.count > 0 {
-//            if bookmarks[idx.row].bookmarkToGeoLocation != nil {
-//                title = (bookmarks[idx.row].bookmarkToGeoLocation?.name!)!
-//            }
-//            else {
-//                title = bookmarks[idx.row].name!
-//            }
-//        }
-//
-//        else {
-        
-            if idx.row < locations.count-1 && locations[idx.row].name != nil {
-                title = locations[idx.row].name!
-//            }
+        if idx.row < locations.count && locations[idx.row].name != nil {
+            title = locations[idx.row].name!
         }
         return title
     }
@@ -238,57 +213,48 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     func addressArea(forIndex idx: IndexPath) -> String {
         
         var area : String = ""
-//        if idx.section == 0 && bookmarks.count > 0 {
-//            if bookmarks[idx.row].bookmarkToGeoLocation != nil {
-//                area = (bookmarks[idx.row].bookmarkToGeoLocation?.area!)!
-//            }
-//            else {
-//                area = bookmarks[idx.row].address!
-//            }
-//        }
-//
-//        else {
-            if idx.row < locations.count-1 && locations[idx.row].area != nil {
-                area = locations[idx.row].area!
-            }
-//        }
+        //        if idx.section == 0 && bookmarks.count > 0 {
+        //            if bookmarks[idx.row].bookmarkToGeoLocation != nil {
+        //                area = (bookmarks[idx.row].bookmarkToGeoLocation?.area!)!
+        //            }
+        //            else {
+        //                area = bookmarks[idx.row].address!
+        //            }
+        //        }
+        //
+        //        else {
+        if idx.row < locations.count && locations[idx.row].area != nil {
+            area = locations[idx.row].area!
+        }
+        //        }
         return area
     }
     
     func addressTypeIcon(forIndex idx: IndexPath) -> UIImage {
         var img : UIImage?
-//        if idx.section == 0 && bookmarks.count > 0 {
-//
-//            if bookmarks[idx.row].name == Constants.BookmarkName.Home {
-//                img = UIImage(named: "APICHome")
-//            }
-//            else {
-//                img = UIImage(named: "APICWork")
-//            }
-//        }
-//        else {
-            if idx.row < locations.count-1  {
-                switch locations[idx.row].type {
-                case geoLocationType.Home.rawValue:
-                    img = UIImage(named: "APICHome")
-                    break
-                case geoLocationType.Work.rawValue:
-                    img = UIImage(named: "APICWork")
-                    break
-                case geoLocationType.Nearby.rawValue:
-                    img = UIImage(named: "ic_landmark")
-                    break
-                case geoLocationType.Popular.rawValue:
-                    img = UIImage(named: "ic_landmark")
-                    break
-                case geoLocationType.Recent.rawValue:
-                    img = UIImage(named: "ic_recent")
-                    break
-                default:
-                    img = UIImage(named: "ic_landmark")
-                }
+        
+        if idx.row < locations.count  {
+            switch locations[idx.row].type {
+            case geoLocationType.Home.rawValue:
+                img = UIImage(named: "APICHome")
+                break
+            case geoLocationType.Work.rawValue:
+                img = UIImage(named: "APICWork")
+                break
+            case geoLocationType.Nearby.rawValue:
+                img = UIImage(named: "ic_landmark")
+                break
+            case geoLocationType.Popular.rawValue:
+                img = UIImage(named: "ic_landmark")
+                break
+            case geoLocationType.Recent.rawValue:
+                img = UIImage(named: "ic_recent")
+                break
+            default:
+                img = UIImage(named: "ic_landmark")
             }
-//        }
+        }
+
         return img!
     }
     

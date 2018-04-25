@@ -44,7 +44,7 @@ extension KTBookingManager {
         e.vehicleType = estimate[Constants.GetEstimateResponseAPIKey.VehicleType] as! Int16
         e.estimatedFare = estimate[Constants.GetEstimateResponseAPIKey.EstimatedFare] as? String
         
-        saveKeyValueBody(keyValue: estimate["Body"] as! [AnyHashable : Any], tariff: e as KTBaseTrariff)
+        saveKeyValueBody(keyValue: estimate["OrderedBody"] as! [[AnyHashable : Any]], tariff: e as KTBaseTrariff)
     }
     
     

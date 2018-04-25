@@ -22,9 +22,17 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
     var bookmark : KTBookmark?
     private var locations : [KTGeoLocation] = []
     private var location : KTGeoLocation?
+    private var nearBy : [KTGeoLocation] = []
+    private var recent : [KTGeoLocation] = []
+    private var popular : [KTGeoLocation] = []
     
+    private var del : KTSetHomeWorkViewModelDelegate?
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        del = (delegate as! KTSetHomeWorkViewModelDelegate)
+        
+        
         fetchBookmark()
         fetchLocations()
     }
@@ -168,7 +176,8 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
         KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success
-                self.getAllLocations()
+                self.sortDataForDisplay(serverResponse: response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])
+                self.loadDataInView()
             }
             else {
                 
@@ -177,6 +186,32 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
             }
             self.delegate?.hideProgressHud()
         }
+    }
+    
+    func sortDataForDisplay(serverResponse locs: [KTGeoLocation]){
+        
+        nearBy = filterArray(ForLocationType: geoLocationType.Nearby , serverResponse: locs)
+        recent = filterArray(ForLocationType: geoLocationType.Recent , serverResponse: locs)
+        popular = filterArray(ForLocationType: geoLocationType.Popular , serverResponse: locs)
+    }
+    
+    func filterArray(ForLocationType type : geoLocationType , serverResponse locs: [KTGeoLocation]) -> [KTGeoLocation]{
+        
+        let n : [KTGeoLocation]? = locs.filter  { (loc) -> Bool in
+            return loc.type == type.rawValue
+        }
+        
+        guard n != nil else {
+            return []
+        }
+        return n!
+    }
+    
+    func loadDataInView() {
+        
+            locations =  nearBy + recent + popular
+            del?.loadData()
+        
     }
     
     //MARK: - TableView Related
@@ -199,6 +234,34 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
             area = locations[row].area!
         }
         return area
+    }
+    
+    func addressTypeIcon(forIndex idx: IndexPath) -> UIImage {
+        var img : UIImage?
+        
+        if idx.row < locations.count  {
+            switch locations[idx.row].type {
+            case geoLocationType.Home.rawValue:
+                img = UIImage(named: "APICHome")
+                break
+            case geoLocationType.Work.rawValue:
+                img = UIImage(named: "APICWork")
+                break
+            case geoLocationType.Nearby.rawValue:
+                img = UIImage(named: "ic_landmark")
+                break
+            case geoLocationType.Popular.rawValue:
+                img = UIImage(named: "ic_landmark")
+                break
+            case geoLocationType.Recent.rawValue:
+                img = UIImage(named: "ic_recent")
+                break
+            default:
+                img = UIImage(named: "ic_landmark")
+            }
+        }
+        
+        return img!
     }
     
     func didSelectRow(at idx:Int) {

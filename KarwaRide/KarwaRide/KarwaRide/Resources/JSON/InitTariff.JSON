@@ -9,39 +9,141 @@
           "VehicleType": 1,
           "Fare": "QR 16",
           "Body": {
+          "Base Fare": "QR 4",
           "Minimum Fare": "QR 10",
           "Fare/km": "QR 1.6 - 1.9",
           "Waiting/min (free 10 min)": "QR 0.533",
           "Booking Fare": "QR 5",
           "Technology": "QR 1"
-          }
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Base Fare",
+                          "Value": "QR 4",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 10",
+                          "Order": 2
+                          },
+                          {
+                          "Key": "Fare/km",
+                          "Value": "QR 1.6 - 1.9",
+                          "Order": 3
+                          },
+                          {
+                          "Key": "Waiting/min (free 10 min)",
+                          "Value": "QR 0.533",
+                          "Order": 4
+                          },
+                          {
+                          "Key": "Booking Fare",
+                          "Value": "QR 5",
+                          "Order": 5
+                          },
+                          {
+                          "Key": "Technology",
+                          "Value": "QR 1",
+                          "Order": 6
+                          }
+                          ]
           },
           {
           "VehicleType": 30,
           "Fare": "QR 40",
           "Body": {
+          "Base Fare": "QR 40",
           "Minimum Fare": "QR 40",
           "Fare/km (applicable after 20 km)": "QR 2",
           "Fare/min": "QR 0.5"
-          }
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Base Fare",
+                          "Value": "QR 40",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 40",
+                          "Order": 2
+                          },
+                          {
+                          "Key": "Fare/km (applicable after 20 km)",
+                          "Value": "QR 2",
+                          "Order": 3
+                          },
+                          {
+                          "Key": "Fare/min",
+                          "Value": "QR 0.5",
+                          "Order": 4
+                          }
+                          ]
           },
           {
           "VehicleType": 50,
           "Fare": "QR 50",
           "Body": {
+          "Base Fare": "QR 50",
           "Minimum Fare": "QR 50",
           "Fare/km (applicable after 20 km)": "QR 2.5",
           "Fare/min": "QR 0.5"
-          }
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Base Fare",
+                          "Value": "QR 50",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 50",
+                          "Order": 2
+                          },
+                          {
+                          "Key": "Fare/km (applicable after 20 km)",
+                          "Value": "QR 2.5",
+                          "Order": 3
+                          },
+                          {
+                          "Key": "Fare/min",
+                          "Value": "QR 0.5",
+                          "Order": 4
+                          }
+                          ]
           },
           {
           "VehicleType": 70,
           "Fare": "QR 70",
           "Body": {
+          "Base Fare": "QR 70",
           "Minimum Fare": "QR 70",
           "Fare/km (applicable after 20 km)": "QR 3.5",
           "Fare/min": "QR 0.5"
-          }
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Base Fare",
+                          "Value": "QR 70",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 70",
+                          "Order": 2
+                          },
+                          {
+                          "Key": "Fare/km (applicable after 20 km)",
+                          "Value": "QR 3.5",
+                          "Order": 3
+                          },
+                          {
+                          "Key": "Fare/min",
+                          "Value": "QR 0.5",
+                          "Order": 4
+                          }
+                          ]
           }
           ]
 }

@@ -2095,7 +2095,7 @@
                                                     <color key="textColor" red="0.45882352939999999" green="0.45882352939999999" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APICHome" translatesAutoresizingMaskIntoConstraints="NO" id="tue-85-M7u">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APICHome" translatesAutoresizingMaskIntoConstraints="NO" id="tue-85-M7u">
                                                     <rect key="frame" x="25" y="17" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="N8B-i7-IOy"/>
@@ -3848,6 +3848,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="constraintTableViewBottom" destination="703-vY-3bM" id="0lr-so-pLm"/>
                         <outlet property="imgListSelected" destination="dDe-Fh-cc3" id="8Xk-vW-Nbz"/>
                         <outlet property="imgMapMarker" destination="2bR-Se-fLd" id="Lfk-gy-G2c"/>
                         <outlet property="imgMapSelected" destination="YQh-6D-ekg" id="ii5-FH-b7j"/>
