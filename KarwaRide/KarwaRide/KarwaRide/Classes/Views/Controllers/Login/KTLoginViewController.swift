@@ -8,7 +8,9 @@
 
 import UIKit
 
-class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDelegate {
+let ALLOWED_NUM_PHONE_CHAR : Int = 8
+
+class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDelegate,UITextFieldDelegate {
     
     //MARK: - Properties
     @IBOutlet weak var txtPhoneNumber: UITextField!
@@ -89,7 +91,16 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
     }
     
+    //MARK:- TextField Delegate
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        
+        let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        return changedText.count <= ALLOWED_NUM_PHONE_CHAR
+    }
     
-    
-    
+   
 }

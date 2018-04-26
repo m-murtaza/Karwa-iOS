@@ -239,7 +239,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         imgListSelected.isHidden = false
         imgMapSelected.isHidden = true
-        //self.txtDropAddress.becomeFirstResponder()
+        
         self.tblView.isHidden = false
         self.mapSuperView.isHidden = true
         
@@ -253,7 +253,13 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         txtDropAddress.tintColor = UIColor(hexString:"#006170")
         txtDropAddress.backgroundColor = UIColor.white
         
-        //006170
+        if selectedTxtField == SelectedTextField.PickupAddress {
+            txtPickAddress.becomeFirstResponder()
+        }
+        else {
+            
+            txtDropAddress.becomeFirstResponder()
+        }
     }
     
     @IBAction func btnMapViewTapped(_ sender: Any) {
@@ -299,6 +305,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
     }
     // MARK: - View Model Delegate
+    func moveFocusToDestination() {
+        txtDropAddress.becomeFirstResponder()
+    }
+    
     func inFocusTextField() -> SelectedTextField {
         
         return selectedTxtField

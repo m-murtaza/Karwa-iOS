@@ -22,7 +22,8 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func setPickUp(pick: String)
     func setDropOff(drop: String)
     func navigateToPreviousView(pickup: KTGeoLocation?, dropOff:KTGeoLocation?)
-    func inFocusTextField() -> SelectedTextField 
+    func inFocusTextField() -> SelectedTextField
+    func moveFocusToDestination()
 }
 
 class KTAddressPickerViewModel: KTBaseViewModel {
@@ -285,7 +286,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
                 }
             }
             else {
-                self.delegate?.showError!(title: "Error", message: "Dropoff address cann't be empty")
+                //self.delegate?.showError!(title: "Error", message: "Dropoff address cann't be empty")
+                self.del?.moveFocusToDestination()
             }
         }
         else {
