@@ -91,7 +91,9 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
     }
     
+    
     //MARK:- TextField Delegate
+    //Bug 2567 Fixed.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let currentText = textField.text ?? ""
