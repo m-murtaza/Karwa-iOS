@@ -76,6 +76,12 @@ struct Constants {
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
     
+    struct StoryBoardId {
+        static let LeftMenu = "LeftMenuViewController"
+        static let LoginView = "FirstViewController"
+        static let DetailView = "BookingDetailNavController"
+    }
+    
     struct Notification {
         static let MinuteChanged = "MinuteChangedNotification"
         static let LocationManager = "LocationManagerNotificationIdentifier"

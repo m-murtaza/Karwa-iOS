@@ -27,7 +27,7 @@ class KTAppSessionInfo: NSObject {
         sessionId = nil
         phone = nil
         customerType = 0
-        pushToken = nil
+        //pushToken = nil
     }
 }
 

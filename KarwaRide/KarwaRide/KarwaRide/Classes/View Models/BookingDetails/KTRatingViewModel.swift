@@ -90,6 +90,7 @@ class KTRatingViewModel: KTBaseViewModel {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
             }
+            self.del?.closeScreen()
         }
     }
     

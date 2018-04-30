@@ -62,20 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KTRatingManager().fetchInitialRatingReasonsLocal()
     }
     
-    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {
-        
-        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
-            let aps = notification["aps"] as! [String: AnyObject]
-            print(aps)
-            apnsManager.receiveNotification(userInfo: aps)
-        }
-        else
-        {
-            //register For APNS if needed
-            registerForPushNotifications()
-        }
-    }
-    
     func setupDatabase()  {
         
         MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
@@ -140,29 +126,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Failed to register: \(error)")
     }
     
+    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {
+        
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+            let aps = notification["aps"] as! [String: AnyObject]
+            print(aps)
+            apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
+        }
+        else
+        {
+            //register For APNS if needed
+            registerForPushNotifications()
+        }
+    }
+    
     //Notifiacation receive when application is in background
     func application(
         _ application: UIApplication,
         didReceiveRemoteNotification userInfo: [AnyHashable : Any],
         fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        apnsManager.receiveNotification(userInfo: userInfo)
+        apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
+        
+    }
+    
+    func moveToDetailView(withBooking booking: KTBooking) {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.DetailView) as! UINavigationController
+        
+        let detailView : KTBookingDetailsViewController = (contentView.viewControllers)[0] as! KTBookingDetailsViewController
+        detailView.setBooking(booking: booking)
+        self.showView(view: detailView)
         
     }
     
     func showLogin()  {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
-        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: "FirstViewController")
-        let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: "LeftMenuViewController")
+        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LoginView)
+        self.showView(view: contentView)
+    }
+    
+    func showView(view: UIViewController) {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        //let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
+        let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
         
-        let sideMeun : SSASideMenu = SSASideMenu(contentViewController: contentView, leftMenuViewController: leftView)
-        
-        
+        let sideMeun : SSASideMenu = SSASideMenu(contentViewController: view, leftMenuViewController: leftView)
         
         window? = UIWindow(frame: UIScreen.main.bounds)
         
         window?.rootViewController = sideMeun
         window?.makeKeyAndVisible()
+    }
+    
+    
+    //MARK: - Alert
+    func showAlter(alertController : UIAlertController) {
+        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
 }

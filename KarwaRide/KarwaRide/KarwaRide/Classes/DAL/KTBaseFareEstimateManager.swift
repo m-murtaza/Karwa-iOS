@@ -33,7 +33,7 @@ class KTBaseFareEstimateManager: KTDALManager {
         let sortedArray = kv.sorted {($0["Order"] as! Int) < ($1["Order"] as! Int)}
         
         for obj in sortedArray  {
-            print(obj["Key"] as? String)
+            //print(obj["Key"] as? String)
             let keyValue : KTKeyValue = KTKeyValue.mr_createEntity()!
             keyValue.key = obj["Key"] as? String
             keyValue.value = obj["Value"] as? String

@@ -92,10 +92,10 @@ class KTUserManager: KTDALManager {
         {
             params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
         }
-        else
-        {
-            params[Constants.LoginParams.DeviceToken] = ""
-        }
+//        else
+//        {
+//            params[Constants.LoginParams.DeviceToken] = ""
+//        }
         //params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
         
         KTWebClient.sharedInstance.post(uri: url!, param: params as? [String : Any], completion: { (status, response) in

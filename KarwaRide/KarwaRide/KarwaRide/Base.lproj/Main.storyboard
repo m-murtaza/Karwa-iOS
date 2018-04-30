@@ -2732,6 +2732,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="VsK-vU-v8o" secondAttribute="trailing" constant="4" id="y0w-jd-dkP"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="caJ-OL-qD5"/>
                     <connections>
                         <outlet property="btnPhone" destination="mFm-Wl-LRA" id="894-sV-Sb2"/>
                         <outlet property="constraintDriverInfoHeightConstraint" destination="bnz-xL-TRO" id="eau-ab-cgF"/>
@@ -2775,7 +2776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bde-36-Orn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3324" y="2769"/>
+            <point key="canvasLocation" x="3518" y="2743"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="zz6-1g-oCg">
@@ -3039,6 +3040,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lct-yU-795" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4413.6000000000004" y="2805.2473763118442"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="R3m-2i-5Kg">
+            <objects>
+                <navigationController storyboardIdentifier="BookingDetailNavController" id="4GU-24-KIN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rnw-Ab-iyc">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="l39-Ix-xs1" kind="relationship" relationship="rootViewController" id="UaL-kR-7Gj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pMk-5u-XPW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3769" y="3442"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="Hgc-mM-N8i">
@@ -4205,8 +4222,8 @@
         <segue reference="FaI-op-NCo"/>
         <segue reference="CcG-57-rIe"/>
         <segue reference="ArU-ag-8ou"/>
-        <segue reference="bJb-3g-Kix"/>
-        <segue reference="UM1-sb-1vB"/>
+        <segue reference="izn-m5-Pdm"/>
+        <segue reference="uRk-Bz-EyY"/>
         <segue reference="67X-ka-fJY"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>

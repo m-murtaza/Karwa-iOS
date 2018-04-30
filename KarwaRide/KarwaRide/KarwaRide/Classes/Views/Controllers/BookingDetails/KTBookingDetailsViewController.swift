@@ -384,6 +384,7 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
         view.addSubview((ratingPopup?.view)!)
         addChildViewController(ratingPopup!)
         ratingPopup?.booking((vModel?.booking)!)
+        ratingPopup?.delegate = self
         //self.performSegue(name: "detailToRating")
     }
     
