@@ -11,7 +11,7 @@ import CoreLocation
 import GoogleMaps
 import Cosmos
 
-class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
+class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
     
@@ -39,6 +39,9 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     @IBOutlet weak var leftBottomBarButton : UIButton!
     @IBOutlet weak var rightBottomBarButton : UIButton!
     
+    @IBOutlet weak var btnBack : UIButton!
+    @IBOutlet weak var btnReveal : UIButton!
+    
     @IBOutlet weak var btnPhone: UIButton!
     @IBOutlet weak var driverInfoBox : UIView!
     @IBOutlet weak var etaView : UIView!
@@ -64,6 +67,8 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
     
+    var isOpenFromNotification : Bool = false
+    
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
@@ -79,6 +84,9 @@ class KTBookingDetailsViewController: KTBaseViewController, GMSMapViewDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        
+        btnBack.isHidden = isOpenFromNotification
+        btnReveal.isHidden = !isOpenFromNotification
     }
     
     override func viewWillDisappear(_ animated: Bool) {

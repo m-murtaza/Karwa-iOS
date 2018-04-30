@@ -156,6 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let detailView : KTBookingDetailsViewController = (contentView.viewControllers)[0] as! KTBookingDetailsViewController
         detailView.setBooking(booking: booking)
+        detailView.isOpenFromNotification = true
         self.showView(view: detailView)
         
     }
