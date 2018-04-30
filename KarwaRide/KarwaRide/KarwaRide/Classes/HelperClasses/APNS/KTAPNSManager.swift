@@ -55,7 +55,7 @@ class KTAPNSManager: NSObject {
     func receiveNotification(userInfo: [AnyHashable : Any] , appStateForeGround: Bool)
     {
         print("Recived: \(userInfo)")
-        guard let bookingId = userInfo["BookingID"] else {
+        guard let bookingId = userInfo[Constants.NotificationKey.BookingId] else {
             return
         }
         
@@ -63,7 +63,11 @@ class KTAPNSManager: NSObject {
         KTBookingManager().booking(forBookingID: bookingId as! String) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 
+                
+                
                 let booking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
+                
+                KTNotificationManager().saveNotificaiton(serverNotification: userInfo, booking: booking)
                 
                 //TODO: - show alert if application is in foreground.
                 if appStateForeGround {
@@ -84,7 +88,7 @@ class KTAPNSManager: NSObject {
     
     private func showAlert(forBooking booking : KTBooking, userInfo: [AnyHashable : Any]) {
         
-        let alertController = UIAlertController(title: alertTitle(forBooking: booking), message: (userInfo["aps"] as! [AnyHashable : Any])["alert"] as? String, preferredStyle: .alert)
+        let alertController = UIAlertController(title: alertTitle(forBooking: booking), message: (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable : Any])[Constants.NotificationKey.Message] as? String, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in

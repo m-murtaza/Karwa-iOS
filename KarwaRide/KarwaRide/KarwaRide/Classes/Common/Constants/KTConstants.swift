@@ -206,6 +206,13 @@ struct Constants {
         static let ReasonCode = "ReasonCode"
     }
     
+    struct NotificationKey {
+        static let BookingId = "BookingID"
+        static let BookingStatus = "BookingStatus"
+        static let RootNotificationKey = "aps"
+        static let Message = "alert"
+    }
+    
     struct BookmarkName {
         static let Home = "home"
         static let Work = "work"
@@ -348,4 +355,6 @@ struct Constants {
         static let CancelReason = "syncTime"
         static let RatingReason = "syncTime"
     }
+    
+    
 }
