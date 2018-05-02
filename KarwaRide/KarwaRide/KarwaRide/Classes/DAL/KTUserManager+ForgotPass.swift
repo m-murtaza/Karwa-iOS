@@ -10,25 +10,11 @@ extension KTUserManager
 {
     func sendForgotPassRequest(phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
     {
-        let param : NSMutableDictionary = [Constants.UpdatePassParam.Phone : phone,
+        let param : [String : Any] = [Constants.UpdatePassParam.Phone : phone,
                                            Constants.UpdatePassParam.Password: password]
         
-        KTWebClient.sharedInstance.post(uri: Constants.APIURL.ForgotPass, param: param as? [String : Any]) { (status, response) in
-            if status != true
-            {
-                completionBlock(Constants.APIResponseStatus.FAILED_API,response)
-            }
-            else
-            {
-                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
-                {
-                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response )
-                }
-                else
-                {
-                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
-                }
-            }
+        self.post(url: Constants.APIURL.ForgotPass, param: param, completion: completionBlock) { (response, cBlock) in
+            cBlock(Constants.APIResponseStatus.SUCCESS, response)
         }
         
     }

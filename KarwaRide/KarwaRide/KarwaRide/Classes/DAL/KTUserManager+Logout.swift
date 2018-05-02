@@ -32,13 +32,9 @@ extension KTUserManager
     
     func logout(completion completionBlock:@escaping KTDALCompletionBlock)
     {
-        /*self.get(url: Constants.APIURL.Logout, param: nil ) { (status, response) in
-            
-            completionBlock(Constants.APIResponseStatus.SUCCESS, response)  //No need to send
-            
-        }*/
         
-        KTWebClient.sharedInstance.post(uri: Constants.APIURL.ForgotPass, param: nil) { (status, response) in
+        //Do not call self.post as we don't need to handle error and self.post will handle error
+        KTWebClient.sharedInstance.post(uri: Constants.APIURL.Logout, param: nil) { (status, response) in
             
             completionBlock(Constants.APIResponseStatus.SUCCESS, response)  //No need to send
         }

@@ -101,30 +101,6 @@ class KTUserManager: KTDALManager {
                 completionBlock(Constants.APIResponseStatus.SUCCESS, response)
             })
         }
-        
-        
-        /*KTWebClient.sharedInstance.post(uri: url!, param: params as? [String : Any], completion: { (status, response) in
-            if status != true
-            {
-                
-                completionBlock(Constants.APIResponseStatus.FAILED_API,response)
-            }
-            else
-            {
-                if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
-                {
-                    self.saveUserInSessionInfo(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
-                    
-                    self.saveUserInfoInDB(response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any],completion: {(success:Bool) -> Void in
-                        completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response[Constants.ResponseAPIKey.Data] as! [AnyHashable : Any])
-                    })
-                }
-                else
-                {
-                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
-                }
-            }
-        })*/
     }
     
     func login(phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
