@@ -71,6 +71,7 @@
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="KTNotification" representedClassName="KTNotification" syncable="YES" codeGenerationType="class">
+        <attribute name="bookingStatusWhenReceive" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="receiveDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="notificationToBooking" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTBooking" inverseName="bookingToNotification" inverseEntity="KTBooking" syncable="YES"/>
@@ -105,6 +106,6 @@
         <element name="KTRatingReasons" positionX="196" positionY="255" width="128" height="105"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
         <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
-        <element name="KTNotification" positionX="9" positionY="-45" width="128" height="88"/>
+        <element name="KTNotification" positionX="9" positionY="-45" width="128" height="103"/>
     </elements>
 </model>

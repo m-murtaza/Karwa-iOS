@@ -14,6 +14,8 @@ class KTNotificationManager: KTDALManager {
         
         let notificaiton : KTNotification = KTNotification.mr_createEntity()!
         notificaiton.message = (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable: Any])[Constants.NotificationKey.Message] as! String
+        
+        notificaiton.bookingStatusWhenReceive =  userInfo[Constants.NotificationKey.BookingStatus] as! Int32
         notificaiton.receiveDate = Date()
         
         notificaiton.notificationToBooking = booking
@@ -28,5 +30,10 @@ class KTNotificationManager: KTDALManager {
             print("Unable to save notification")
             //completion(false,[])
         }
+    }
+    
+    func allNotifications() -> [KTNotification] {
+        
+        return KTNotification.mr_findAllSorted(by: "receiveDate", ascending: true) as! [KTNotification]
     }
 }

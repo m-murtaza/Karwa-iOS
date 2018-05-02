@@ -47,6 +47,9 @@
 		182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CC20876A0B0025B6C7 /* KTTagButton.swift */; };
 		182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */; };
 		182A74D42097093F0025B6C7 /* KTNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74D32097093F0025B6C7 /* KTNotificationManager.swift */; };
+		182A74D720972EB10025B6C7 /* KTNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74D620972EB10025B6C7 /* KTNotificationViewController.swift */; };
+		182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74D92097306E0025B6C7 /* KTNotificationViewModel.swift */; };
+		182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74DB209836900025B6C7 /* KTNotificationTableViewCell.swift */; };
 		1833CA6A2007467F00AD885B /* KTForgotPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA692007467F00AD885B /* KTForgotPassViewController.swift */; };
 		1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */; };
 		1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */; };
@@ -179,6 +182,9 @@
 		182A74CC20876A0B0025B6C7 /* KTTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTTagButton.swift; path = Classes/Views/Controllers/BookingDetails/KTTagButton.swift; sourceTree = "<group>"; };
 		182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSOrderedSet+Utils.swift"; path = "Classes/Common/Extensions/NSOrderedSet+Utils.swift"; sourceTree = "<group>"; };
 		182A74D32097093F0025B6C7 /* KTNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTNotificationManager.swift; path = Classes/DAL/Notification/KTNotificationManager.swift; sourceTree = "<group>"; };
+		182A74D620972EB10025B6C7 /* KTNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTNotificationViewController.swift; path = Classes/Views/Controllers/Notifications/KTNotificationViewController.swift; sourceTree = "<group>"; };
+		182A74D92097306E0025B6C7 /* KTNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTNotificationViewModel.swift; path = "Classes/View Models/Notification/KTNotificationViewModel.swift"; sourceTree = "<group>"; };
+		182A74DB209836900025B6C7 /* KTNotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTNotificationTableViewCell.swift; path = Classes/Views/Controllers/Notifications/KTNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		1833CA692007467F00AD885B /* KTForgotPassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewController.swift; path = Classes/Views/Controllers/Login/KTForgotPassViewController.swift; sourceTree = "<group>"; };
 		1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTForgotPassViewModel.swift; path = "Classes/View Models/Login/KTForgotPassViewModel.swift"; sourceTree = "<group>"; };
 		1833CA6D200779C200AD885B /* KTUserManager+ForgotPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+ForgotPass.swift"; path = "Classes/DAL/KTUserManager+ForgotPass.swift"; sourceTree = "<group>"; };
@@ -533,6 +539,23 @@
 			name = Notification;
 			sourceTree = "<group>";
 		};
+		182A74D520972E620025B6C7 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				182A74D620972EB10025B6C7 /* KTNotificationViewController.swift */,
+				182A74DB209836900025B6C7 /* KTNotificationTableViewCell.swift */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
+		182A74D8209730380025B6C7 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				182A74D92097306E0025B6C7 /* KTNotificationViewModel.swift */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
 		1833CA6F200B52C700AD885B /* WebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +656,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				182A74D520972E620025B6C7 /* Notification */,
 				1811E4ED205A2FBA00C3C47F /* BookingDetails */,
 				18F2B277204420FC00600966 /* Settings */,
 				18F2B274204412FC00600966 /* MyTrips */,
@@ -652,6 +676,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				182A74D8209730380025B6C7 /* Notification */,
 				1811E4EC205A2FAC00C3C47F /* BookingDetails */,
 				1811E4E320564A4400C3C47F /* My Trips */,
 				1839110E204517C0002EDE1A /* Settings */,
@@ -1123,6 +1148,7 @@
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
+				182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */,
 				18FA45BB20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
@@ -1180,6 +1206,7 @@
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */,
+				182A74D720972EB10025B6C7 /* KTNotificationViewController.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
@@ -1189,6 +1216,7 @@
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
+				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,
 				1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */,

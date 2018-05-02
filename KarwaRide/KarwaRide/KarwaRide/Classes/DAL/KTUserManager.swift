@@ -92,13 +92,18 @@ class KTUserManager: KTDALManager {
         {
             params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
         }
-//        else
-//        {
-//            params[Constants.LoginParams.DeviceToken] = ""
-//        }
-        //params[Constants.LoginParams.DeviceToken] = "1234567891234567891234567891234567891234"
+
+        self.post(url: url!, param: params as! [String : Any], completion: completionBlock) { (response,  cBlock) in
+            
+            self.saveUserInSessionInfo(response)
+            
+            self.saveUserInfoInDB(response,completion: {(success:Bool) -> Void in
+                completionBlock(Constants.APIResponseStatus.SUCCESS, response)
+            })
+        }
         
-        KTWebClient.sharedInstance.post(uri: url!, param: params as? [String : Any], completion: { (status, response) in
+        
+        /*KTWebClient.sharedInstance.post(uri: url!, param: params as? [String : Any], completion: { (status, response) in
             if status != true
             {
                 
@@ -119,7 +124,7 @@ class KTUserManager: KTDALManager {
                     completionBlock(response[Constants.ResponseAPIKey.Status] as! String,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
                 }
             }
-        })
+        })*/
     }
     
     func login(phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)

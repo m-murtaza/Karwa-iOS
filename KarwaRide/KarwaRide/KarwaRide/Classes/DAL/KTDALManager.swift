@@ -35,8 +35,18 @@ class KTDALManager: KTBase {
     func handleAPIResponse(status: Bool,response: [AnyHashable: Any],completion completionBlock:@escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
         if !status
         {
-            //In Case of Network Fail.
-            completionBlock(Constants.APIResponseStatus.FAILED_NETWORK, response)
+            guard response["ErrorCode"] != nil else {
+                //In Case of Network Fail.
+                completionBlock(Constants.APIResponseStatus.FAILED_NETWORK, response)
+                return
+            }
+            if response["ErrorCode"] as! Int == 401 {
+                KTUserManager().logout()
+            }
+            else {
+                completionBlock(Constants.APIResponseStatus.FAILED_NETWORK, response)
+            }
+            
         }
         else
         {

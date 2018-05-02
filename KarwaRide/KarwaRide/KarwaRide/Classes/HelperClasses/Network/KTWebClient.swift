@@ -103,8 +103,17 @@ class KTWebClient: NSObject {
                                 print("ErrorCode: \(String(describing:  response.response?.statusCode))")
                                 print("Message: \(String(describing: response.result.error?.localizedDescription))")
 
-                                let error : NSDictionary = [Constants.ResponseAPIKey.Title : "Ops!",
+                                var error : NSDictionary = [:]
+                                
+                                if response.response?.statusCode == 401 {
+                                    //Handle 401 UnAuthorize
+                                    
+                                    error = ["ErrorCode" : 401]
+                                }
+                                else {
+                                    error = [Constants.ResponseAPIKey.Title : "Ops!",
                                     Constants.ResponseAPIKey.Message: "Something went wrong"]
+                                }
                                 
                                 completionBlock(false,error as! [AnyHashable : Any])
                                 return

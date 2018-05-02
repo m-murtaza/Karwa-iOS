@@ -10,6 +10,26 @@ import Foundation
 extension KTUserManager
 {
     
+    func logout() {
+        
+        let alertController = UIAlertController(title: "Session Expired", message: "Please login again", preferredStyle: .alert)
+        
+        //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            
+            self.logout { (status, response) in
+                print("Logout on server " + status)
+                self.removeUserData()
+                (UIApplication.shared.delegate as! AppDelegate).showLogin()
+                
+            }
+        }
+        alertController.addAction(okAction)
+        
+        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.showAlter(alertController: alertController)
+    }
+    
     func logout(completion completionBlock:@escaping KTDALCompletionBlock)
     {
         /*self.get(url: Constants.APIURL.Logout, param: nil ) { (status, response) in
