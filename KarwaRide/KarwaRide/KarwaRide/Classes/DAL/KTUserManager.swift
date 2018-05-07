@@ -43,6 +43,10 @@ class KTUserManager: KTDALManager {
     }
     
     func loginUserInfo() -> KTUser? {
+        guard NSManagedObjectContext.mr_default() != nil else {
+            return nil
+        }
+        
         var user : KTUser? = nil
         var users: [NSManagedObject]!
         users = KTUser.mr_findAll(in: NSManagedObjectContext.mr_default())

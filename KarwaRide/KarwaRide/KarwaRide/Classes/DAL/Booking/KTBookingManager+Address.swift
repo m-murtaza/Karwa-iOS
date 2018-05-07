@@ -124,6 +124,22 @@ extension KTBookingManager
         return loc
     }
     
+    func removeType(forType type: geoLocationType){
+        
+        let predicate : NSPredicate = NSPredicate(format: "type == %d", type.rawValue)
+        for loc in (KTGeoLocation.mr_findAll(with: predicate) as? [KTGeoLocation])! {
+            loc.type = geoLocationType.Unknown.rawValue
+        }
+        do {
+            
+            try NSManagedObjectContext.mr_default().save()
+        }
+        catch _{
+            
+            print("Unable to save")
+        }
+    }
+    
     func allGeoLocations() -> [KTGeoLocation]? {
         
         let predicate : NSPredicate = NSPredicate(format: "locationId != -1")

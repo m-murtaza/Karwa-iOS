@@ -21,6 +21,15 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
         // Do any additional setup after loading the view.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueNotificationToDetail" {
+            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
+            if let booking : KTBooking = vModel?.selectedBooking {
+                details.setBooking(booking: booking)
+            }
+        }
+    }
+    
     //MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (vModel?.numberOfRows())!
@@ -47,18 +56,17 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
         
     }
     
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//
-//        return 50
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return UIView(frame:
-//            CGRect(x: 0, y: 0, width: 10 , height: 50))
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vModel?.rowSelected(atIndex: indexPath.row)
+    }
     
     func reloadTableData()  {
         tblView.reloadData()
+    }
+    
+    func showDetail() {
+        
+        self.performSegue(name: "segueNotificationToDetail")
     }
 }
 

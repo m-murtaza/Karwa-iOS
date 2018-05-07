@@ -37,13 +37,23 @@ class KTLeftMenuModel: KTBaseViewModel {
         setMenuItems()
     }
     
+    override func viewWillAppear() {
+        updateUserInfo()
+    }
+    
     @objc func userLogin(notification: Notification) {
-        let user:KTUser? = KTUserManager().loginUserInfo()
-        if user != nil {
-            (delegate as! KTLeftMenuDelegate).updateUserName(name: (user?.name != nil) ? (user?.name!)! : "No Name")
-            (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user?.phone != nil) ? (user?.phone!)! : "No Phone")
-            
+        
+        updateUserInfo()
+    }
+    
+    func updateUserInfo() {
+        
+        guard let user:KTUser = KTUserManager().loginUserInfo() else {
+            return
         }
+        (delegate as! KTLeftMenuDelegate).updateUserName(name: (user.name != nil) ? (user.name!) : "No Name")
+        (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user.phone != nil) ? (user.phone!) : "No Phone")
+    
     }
     
     func setMenuItems() {

@@ -10,12 +10,14 @@ import UIKit
 
 protocol KTNotificationViewModelDelegate: KTViewModelDelegate {
     func reloadTableData()
+    func showDetail()
 }
 
 class KTNotificationViewModel: KTBaseViewModel {
 
     var notifications : [KTNotification] = []
     var del : KTNotificationViewModelDelegate?
+    var selectedBooking :KTBooking?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,5 +83,14 @@ class KTNotificationViewModel: KTBaseViewModel {
             break
         }
         return img
+    }
+    
+    func rowSelected(atIndex idx: Int) {
+        
+        guard let notification : KTNotification = notifications[idx], let booking = notification.notificationToBooking else {
+            return
+        }
+        selectedBooking = booking
+        del?.showDetail()
     }
 }

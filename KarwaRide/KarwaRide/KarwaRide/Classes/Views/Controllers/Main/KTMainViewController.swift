@@ -9,7 +9,7 @@
 import UIKit
 import MagicalRecord
 
-class KTMainViewController: KTBaseViewController {
+class KTMainViewController: KTBaseViewController, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var btnCreatAccount : UIButton!
     @IBOutlet weak var btnAlreadyHaveAccount : UIButton!
@@ -49,15 +49,29 @@ class KTMainViewController: KTBaseViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "popOverSegue" {
+            let popoverViewController = segue.destination
+            popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+            popoverViewController.popoverPresentationController!.delegate = self
+            popoverViewController.preferredContentSize = CGSize(width: 150, height: 54)
+        }
     }
-    */
+    
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
     /*@IBAction func Fetch(_ sender: Any) {
         
         var users: [NSManagedObject]!

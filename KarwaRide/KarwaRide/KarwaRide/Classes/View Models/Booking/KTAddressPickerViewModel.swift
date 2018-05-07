@@ -107,10 +107,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     func updateHomeAndWorkIfAvailable() {
+        bookmarks = []
         let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
         let home : KTBookmark? = bookmarkManager.getHome()
         let work : KTBookmark?  = bookmarkManager.getWork()
-        
+    
         if home != nil {
             bookmarks.append(home!.bookmarkToGeoLocation!)
         }
@@ -154,7 +155,16 @@ class KTAddressPickerViewModel: KTBaseViewModel {
                 
                 completion((response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0])
             }
+            else {
+                let loc : KTGeoLocation = KTGeoLocation.mr_createEntity()!
+                loc.locationId = -1
+                loc.name = "Unknown"
+                loc.latitude = Double(coordinate.latitude)
+                loc.longitude = Double(coordinate.longitude)
+                completion(loc)
+            }
         }
+        
     }
     
     func fetchLocations(forSearch query:String) {
@@ -205,30 +215,31 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     func addressTitle(forIndex idx: IndexPath) -> String {
         
         var title : String = ""
-        if idx.row < locations.count && locations[idx.row].name != nil {
-            title = locations[idx.row].name!
+        if idx.row < locations.count  {
+            if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].geolocationToBookmark?.name != nil {
+                title = (locations[idx.row].geolocationToBookmark?.name)!
+            }
+            else if locations[idx.row].name != nil {
+                title = locations[idx.row].name!
+            }
+            
+            //title = locations[idx.row].name!
         }
-        return title
+        return title.capitalizingFirstLetter()
     }
     
     func addressArea(forIndex idx: IndexPath) -> String {
         
         var area : String = ""
-        //        if idx.section == 0 && bookmarks.count > 0 {
-        //            if bookmarks[idx.row].bookmarkToGeoLocation != nil {
-        //                area = (bookmarks[idx.row].bookmarkToGeoLocation?.area!)!
-        //            }
-        //            else {
-        //                area = bookmarks[idx.row].address!
-        //            }
-        //        }
-        //
-        //        else {
-        if idx.row < locations.count && locations[idx.row].area != nil {
+        
+        if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
+            area = locations[idx.row].name!
+        }
+        else if locations[idx.row].area != nil {
             area = locations[idx.row].area!
         }
-        //        }
-        return area
+        
+        return area.capitalizingFirstLetter()
     }
     
     func addressTypeIcon(forIndex idx: IndexPath) -> UIImage {
@@ -302,5 +313,100 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     public func confimMapSelection() {
         
         moveBackIfNeeded(skipDestination:false)
+    }
+    
+    
+    //MARK: - Save/Update Bookmark
+    func setHome(forIndex idx: Int) {
+        let location : KTGeoLocation = locations[idx]
+        saveBookmark(bookmarkType: BookmarkType.home, location: location)
+        
+    }
+    
+    func setWork(forIndex idx: Int) {
+        let location : KTGeoLocation = locations[idx]
+        saveBookmark(bookmarkType: BookmarkType.work, location: location)
+        
+    }
+    
+    func btnSetHomeTapped() {
+        var location : KTGeoLocation? = dropOffAddress
+        if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+            location = pickUpAddress
+        }
+        
+        saveBookmark(bookmarkType: BookmarkType.home, location: location!)
+    }
+    
+    func btnSetWorkTapped() {
+        var location : KTGeoLocation? = dropOffAddress
+        if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+            location = pickUpAddress
+        }
+        
+        
+        saveBookmark(bookmarkType: BookmarkType.work, location: location!)
+    }
+    
+    func saveBookmark(bookmarkType: BookmarkType, location: KTGeoLocation) {
+        
+        if location.locationId != -1 {
+            
+            
+            if bookmarkType == BookmarkType.home {
+                delegate?.showProgressHud(show: true, status: "Setting Home address")
+                KTBookmarkManager().updateHome(withLocation: location) { (status, response) in
+                    
+                    self.handleUpdateResponse(status: status,response: response)
+                }
+            }
+            else {
+                delegate?.showProgressHud(show: true, status: "Setting Work address")
+                KTBookmarkManager().updateWork(withLocation: location) { (status, response) in
+                    
+                    self.handleUpdateResponse(status: status,response: response)
+                }
+            }
+        }
+        else {
+            if bookmarkType == BookmarkType.home {
+                delegate?.showProgressHud(show: true, status: "Setting Home address")
+                KTBookmarkManager().updateHome(withCoordinate: CLLocationCoordinate2D(latitude: location.longitude,longitude: location.longitude), completion: { (status, response) in
+                    self.handleUpdateResponse(status: status,response: response)
+                    
+                })
+            }
+            else {
+                delegate?.showProgressHud(show: true, status: "Setting Work address")
+                KTBookmarkManager().updateWork(withCoordinate: CLLocationCoordinate2D(latitude: location.longitude,longitude: location.longitude), completion: { (status, response) in
+                    self.handleUpdateResponse(status: status,response: response)
+                    
+                })
+            }
+        }
+    }
+    
+    func removeHomeWorkFromRestOfTheList()  {
+        //a.filter { $0 != "three" }
+        nearBy = nearBy.filter {$0.type != geoLocationType.Home.rawValue && $0.type != geoLocationType.Work.rawValue }
+    
+        recent = recent.filter {$0.type != geoLocationType.Home.rawValue && $0.type != geoLocationType.Work.rawValue }
+        popular = popular.filter {$0.type != geoLocationType.Home.rawValue && $0.type != geoLocationType.Work.rawValue }
+    }
+    
+    func handleUpdateResponse(status : String, response:[AnyHashable:Any]) {
+        self.delegate?.hideProgressHud()
+        
+        print(status)
+        print(response)
+        if status == Constants.APIResponseStatus.SUCCESS {
+            delegate?.showTaskCompleted(withMessage: "Address saved successfully")
+            updateHomeAndWorkIfAvailable()
+            removeHomeWorkFromRestOfTheList()
+            loadDataInView()
+        }
+        else {
+            self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+        }
     }
 }

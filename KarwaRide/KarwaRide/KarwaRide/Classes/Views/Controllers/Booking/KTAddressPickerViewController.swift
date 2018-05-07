@@ -24,7 +24,7 @@ let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 3
 let SEC_WAIT_START_SEARCH = 1.5
 let SELECTED_TEXT_FIELD_COLOR : UIColor = UIColor(hexString: "#F5F5F5")
 
-class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate {
+class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate, AddressPickerCellDelegate {
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var txtPickAddress: UITextField!
@@ -105,7 +105,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             
             constraintTableViewBottom.constant = 0
 //            if self.view.frame.origin.y != 0{
@@ -233,6 +233,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         (viewModel as! KTAddressPickerViewModel).skipDestination()
     }
+    
+    @IBAction func btnSetWorkTapped(_ sender: Any) {
+        
+        (viewModel as! KTAddressPickerViewModel).btnSetWorkTapped()
+    }
+    
+    @IBAction func btnSetHomeTapped(_ sender: Any) {
+        
+        (viewModel as! KTAddressPickerViewModel).btnSetHomeTapped()
+    }
+    
     //MARK: - MAP/ LIST Selected
     
     @IBAction func btnListViewTapped(_ sender: Any) {
@@ -364,6 +375,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         cell.addressArea.text = (viewModel as! KTAddressPickerViewModel).addressArea(forIndex: indexPath)
         
         cell.ImgTypeIcon.image = (viewModel as! KTAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
+        
+        cell.btnMore.tag = indexPath.row
+        cell.delegate = self
         return cell
     }
     
@@ -454,17 +468,25 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             imgMapMarker.image = UIImage(named: "APPickUpMarker")
         }
     }
-}
-
-class AddressPickCell: UITableViewCell {
-    @IBOutlet weak var addressTitle : UILabel!
-    @IBOutlet weak var addressArea : UILabel!
-    @IBOutlet weak var ImgTypeIcon : UIImageView!
     
-    
-    @IBAction func btnMoreTapped(_ sender: Any) {
+    //MARK: - Address Picker cell delegate
+    func btnMoreTapped(withTag idx: Int) {
         
-        //TODO: Show action sheet. As discussed with Danish bahi 
+        
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let homeAction = UIAlertAction(title: "Set Home", style: .default) { (UIAlertAction) in
+            (self.viewModel as! KTAddressPickerViewModel).setHome(forIndex: idx)
+        }
+        let workAction = UIAlertAction(title: "Set Work", style: .default) { (UIAlertAction) in
+            (self.viewModel as! KTAddressPickerViewModel).setWork(forIndex: idx)
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(homeAction)
+        alertController.addAction(workAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
-

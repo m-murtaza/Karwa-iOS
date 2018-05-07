@@ -74,14 +74,14 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
     }
     func updateBookmark(forCoordinate loc:CLLocationCoordinate2D) {
         if (delegate as! KTSetHomeWorkViewModelDelegate).typeOfBookmark() == BookmarkType.home {
-            delegate?.showProgressHud(show: true, status: "Updating Home address")
+            delegate?.showProgressHud(show: true, status: "Setting Home address")
             KTBookmarkManager().updateHome(withCoordinate: loc) { (status, response) in
                 self.delegate?.hideProgressHud()
                 self.handleUpdateResponse(status: status,response: response)
             }
         }
         else {
-            delegate?.showProgressHud(show: true, status: "Updating Work address")
+            delegate?.showProgressHud(show: true, status: "Setting Work address")
             KTBookmarkManager().updateWork(withCoordinate: loc) { (status, response) in
                 self.delegate?.hideProgressHud()
                 self.handleUpdateResponse(status: status,response: response)
@@ -92,14 +92,14 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
     func updateBookmark(forLocation  loc: KTGeoLocation) {
         
         if (delegate as! KTSetHomeWorkViewModelDelegate).typeOfBookmark() == BookmarkType.home {
-            delegate?.showProgressHud(show: true, status: "Updating Home address")
+            delegate?.showProgressHud(show: true, status: "Setting Home address")
             KTBookmarkManager().updateHome(withLocation: loc) { (status, response) in
                 self.delegate?.hideProgressHud()
                 self.handleUpdateResponse(status: status,response: response)
             }
         }
         else {
-            delegate?.showProgressHud(show: true, status: "Updating Home address")
+            delegate?.showProgressHud(show: true, status: "Setting Work address")
             KTBookmarkManager().updateWork(withLocation: loc) { (status, response) in
                 self.delegate?.hideProgressHud()
                 self.handleUpdateResponse(status: status,response: response)

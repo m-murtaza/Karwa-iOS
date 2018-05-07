@@ -107,12 +107,12 @@ extension Date {
         } else if let day = interval.day, day > 0 {
             return day == 1 ? "\(day)" + " " + "day ago" :
                 "\(day)" + " " + "days ago"
-        } else if let hr = interval.hour, hour > 1{
+        } else if let hr = interval.hour,hr > 0, hour > 0{
             return hr == 1 ? "\(hr)" + " " + "hour ago" :
                 "\(hr)" + " " + "hours ago"
-        } else if let min = interval.minute, minute > 1{
-            return min == 1 ? "\(min)" + " " + "minute ago" :
-                "\(min)" + " " + "minutes ago"
+        } else if let min = interval.minute, min > 0, minute > 0{
+            return min == 1 ? "\(min)" + " " + "min ago" :
+                "\(min)" + " " + "mins ago"
         } else {
             return "a moment ago"
             

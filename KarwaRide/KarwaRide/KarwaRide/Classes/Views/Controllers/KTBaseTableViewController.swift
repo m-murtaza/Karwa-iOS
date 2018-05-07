@@ -119,6 +119,12 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
             userIntraction(enable: true)
         }
     }
+    
+    func showTaskCompleted(withMessage msg: String) {
+        SVProgressHUD.show(UIImage(named: "light-check-mark")!, status: msg)
+        SVProgressHUD.dismiss(withDelay: 1.0)
+    }
+    
     func userIntraction(enable: Bool) {
         if enable {
             

@@ -13,9 +13,9 @@ let HOME_GEOLOCATION_ID : Int32 = -101
 let WORK_GEOLOCATION_ID : Int32 = -102
 
 class KTBookmarkManager: KTDALManager {
-
-    func fetchHomeWork(completion completionBlock:@escaping KTDALCompletionBlock) {
     
+    func fetchHomeWork(completion completionBlock:@escaping KTDALCompletionBlock) {
+        
         self.get(url: Constants.APIURL.GetBookmark, param: nil, completion: completionBlock) { (responseData,cBlock) in
             print(responseData)
             
@@ -36,11 +36,17 @@ class KTBookmarkManager: KTDALManager {
     
     func addupdate(bookmark : [AnyHashable: Any]) {
         if bookmark[Constants.BookmarkResponseAPIKey.Name] != nil {
+            
             var bmark : KTBookmark? = getBookmark(with: bookmark[Constants.BookmarkResponseAPIKey.Name] as! String)
             if bmark == nil {
                 
                 bmark = KTBookmark.mr_createEntity(in: NSManagedObjectContext.mr_default())
             }
+            if bmark?.bookmarkToGeoLocation != nil {
+                bmark?.bookmarkToGeoLocation?.geolocationToBookmark = nil
+                bmark?.bookmarkToGeoLocation?.type = geoLocationType.Unknown.rawValue
+            }
+            
             bmark?.name = bookmark[Constants.BookmarkResponseAPIKey.Name] as? String
             bmark?.address = bookmark[Constants.BookmarkResponseAPIKey.Address] as? String
             if bmark?.address == nil || bmark?.address == "" {
@@ -51,8 +57,8 @@ class KTBookmarkManager: KTDALManager {
             
             //Old implementation.
             /*guard var _ = (bookmark[Constants.BookmarkResponseAPIKey.Place]! as AnyObject).count  else {
-                return
-            }*/
+             return
+             }*/
             var geoLocation: KTGeoLocation?
             if let _ = (bookmark[Constants.BookmarkResponseAPIKey.Place]! as AnyObject).count {
                 geoLocation = KTBookingManager().saveGeoLocation(location: bookmark[Constants.BookmarkResponseAPIKey.Place] as! [AnyHashable : Any], context: NSManagedObjectContext.mr_default())
@@ -112,12 +118,11 @@ class KTBookmarkManager: KTDALManager {
     }
     
     func fetchBookmark(with predicate: NSPredicate) -> KTBookmark? {
-    
+        
         let bookmark = KTBookmark.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default())
         
         return bookmark
     }
-    
     
     //Mark: - Set home work
     func updateHome(withLocation loc:KTGeoLocation, completion completionBlock:@escaping KTDALCompletionBlock) {
@@ -202,12 +207,32 @@ class KTBookmarkManager: KTDALManager {
             
             bmark = KTBookmark.mr_createEntity(in: NSManagedObjectContext.mr_default())
         }
+        
+        if bmark?.bookmarkToGeoLocation != nil {
+            bmark?.bookmarkToGeoLocation?.geolocationToBookmark = nil
+            bmark?.bookmarkToGeoLocation?.type = geoLocationType.Unknown.rawValue
+        }
+        
         bmark?.name = name
         bmark?.address = "Unknown"
         bmark?.latitude = loc.latitude
         bmark?.longitude = loc.longitude
-        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
         
+        let location : KTGeoLocation = KTGeoLocation.obj(withValue: -2, forAttrib: "locationId", inContext: NSManagedObjectContext.mr_default()) as! KTGeoLocation
+        location.name = name
+        location.area = "Unknown"
+        location.latitude = loc.latitude
+        location.longitude = loc.longitude
+        if name == Constants.BookmarkName.Home {
+            location.type = Int32(geoLocationType.Home.rawValue)
+        }
+        else {
+            location.type = Int32(geoLocationType.Work.rawValue)
+        }
+        bmark?.bookmarkToGeoLocation = location
+        location.geolocationToBookmark = bmark
+        
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
     private func saveHome(withLocation loc:KTGeoLocation) {
         
@@ -220,11 +245,29 @@ class KTBookmarkManager: KTDALManager {
     }
     
     private func saveBookmark(withLocaiton loc:KTGeoLocation, name: String) {
+        
+        var geoType : geoLocationType = .Nearby
+        
+        if name == Constants.BookmarkName.Home {
+            
+            geoType = geoLocationType.Home
+        }
+        else {
+            geoType = geoLocationType.Work
+        }
+        
+        KTBookingManager().removeType(forType: geoType)
+        
         var bmark : KTBookmark? = getBookmark(with: name)
         if bmark == nil {
             
             bmark = KTBookmark.mr_createEntity(in: NSManagedObjectContext.mr_default())
         }
+        if bmark?.bookmarkToGeoLocation != nil {
+            bmark?.bookmarkToGeoLocation?.geolocationToBookmark = nil
+            bmark?.bookmarkToGeoLocation?.type = geoLocationType.Unknown.rawValue
+        }
+        
         bmark?.name = name
         bmark?.address = loc.name
         if bmark?.address == nil || bmark?.address == "" {
@@ -233,8 +276,9 @@ class KTBookmarkManager: KTDALManager {
         bmark?.latitude = loc.latitude
         bmark?.longitude = loc.longitude
         bmark?.bookmarkToGeoLocation = loc
+        loc.type = Int32(geoType.rawValue)
+        
         loc.geolocationToBookmark = bmark
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
-    
 }

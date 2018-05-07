@@ -21,6 +21,7 @@ import UIKit
     func showProgressHud(show : Bool)
     func showProgressHud(show : Bool, status:String)
     func hideProgressHud()
+    func showTaskCompleted(withMessage: String)
     func viewStoryboard() -> UIStoryboard
     func performSegue(name:String)
     

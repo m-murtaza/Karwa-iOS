@@ -12,10 +12,10 @@ class KTNotificationManager: KTDALManager {
 
     func saveNotificaiton(serverNotification userInfo: [AnyHashable: Any], booking: KTBooking) {
         
-        let notificaiton : KTNotification = KTNotification.mr_createEntity()!
+        let notificaiton : KTNotification = KTNotification.mr_createEntity(in: NSManagedObjectContext.mr_default())!
         notificaiton.message = (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable: Any])[Constants.NotificationKey.Message] as! String
         
-        notificaiton.bookingStatusWhenReceive =  userInfo[Constants.NotificationKey.BookingStatus] as! Int32
+        notificaiton.bookingStatusWhenReceive =  Int32(userInfo[Constants.NotificationKey.BookingStatus] as! String)!
         notificaiton.receiveDate = Date()
         
         notificaiton.notificationToBooking = booking

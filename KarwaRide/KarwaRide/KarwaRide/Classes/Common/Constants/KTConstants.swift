@@ -32,6 +32,7 @@ enum VehicleType: Int16 {
 }
 
 enum geoLocationType : Int32 {
+    case Unknown = 0
     case Home = 5
     case Work = 6
     case Recent = 10

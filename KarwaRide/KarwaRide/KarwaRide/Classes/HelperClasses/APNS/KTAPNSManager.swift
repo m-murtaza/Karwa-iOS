@@ -54,7 +54,7 @@ class KTAPNSManager: NSObject {
     
     func receiveNotification(userInfo: [AnyHashable : Any] , appStateForeGround: Bool)
     {
-        print("Recived: \(userInfo)")
+        print("Notification Recived: \(userInfo)")
         guard let bookingId = userInfo[Constants.NotificationKey.BookingId] else {
             return
         }
