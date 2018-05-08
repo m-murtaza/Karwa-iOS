@@ -544,7 +544,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         let fareEstimates = estimates?.filter( { (e: KTFareEstimate) -> Bool in
             return e.vehicleType == vTypeId
         })
-        if fareEstimates != nil || fareEstimates?.count != 0 {
+        if fareEstimates != nil && fareEstimates?.count != 0 {
             return fareEstimates![0]
             
         }

@@ -15,6 +15,7 @@ class KTAppDataSyncManager: KTDALManager {
         self.fetchBookmarks()
         self.syncCancelReasons()
         self.syncRatingReason()
+        self.removeNotificaiton()
         
     }
     
@@ -47,5 +48,9 @@ class KTAppDataSyncManager: KTDALManager {
             print("Sync Rating Reasons - " + status )
             print(response)
         }
+    }
+    
+    private func removeNotificaiton() {
+        KTNotificationManager().deleteOldNotifications()
     }
 }

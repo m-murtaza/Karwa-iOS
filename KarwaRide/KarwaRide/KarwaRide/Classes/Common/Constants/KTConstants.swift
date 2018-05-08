@@ -210,6 +210,7 @@ struct Constants {
     struct NotificationKey {
         static let BookingId = "BookingID"
         static let BookingStatus = "BookingStatus"
+        static let NotificationTime = "Time"
         static let RootNotificationKey = "aps"
         static let Message = "alert"
     }

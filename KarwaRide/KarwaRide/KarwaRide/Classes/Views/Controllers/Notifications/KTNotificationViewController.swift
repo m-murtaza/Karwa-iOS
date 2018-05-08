@@ -41,6 +41,7 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
         cell.lbldateTime.text = vModel?.dateTime(forCellIdx: indexPath.row)
         cell.lblAgoTime.text = vModel?.agoTime(forCellIdx: indexPath.row)
         cell.imgIcon.image = vModel?.notificationIcon(forCellIdx: indexPath.row)
+        cell.selectionStyle = .none
         return cell
     }
     

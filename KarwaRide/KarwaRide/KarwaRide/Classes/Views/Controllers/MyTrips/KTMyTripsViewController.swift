@@ -64,6 +64,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
         cell.viewCard.borderColor = (viewModel as! KTMyTripsViewModel).cellBorderColor(forIdx: indexPath.row)
         
+        cell.selectionStyle = .none
         
         return cell
     }

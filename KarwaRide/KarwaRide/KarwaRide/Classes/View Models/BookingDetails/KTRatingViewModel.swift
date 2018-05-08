@@ -84,6 +84,7 @@ class KTRatingViewModel: KTBaseViewModel {
             if status == Constants.APIResponseStatus.SUCCESS {
                 
                 self.booking?.isRated = true
+                KTNotificationManager().deleteNotification(forBooking: self.booking!)
                 KTDALManager().saveInDb()
             }
             else {
