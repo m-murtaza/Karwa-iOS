@@ -11,6 +11,8 @@ import UserNotifications
 import MagicalRecord
 import GoogleMaps
 import FacebookCore
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Fabric.with([Crashlytics.self])
         setupDatabase()
         fetchInitialApplicationDataIfNeeded()
         handleNotification(launchOptions: launchOptions)
@@ -27,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         updateUIAppreance()
         setupLocation()
         setupGoogleMaps()
+        
         return true
     }
     
