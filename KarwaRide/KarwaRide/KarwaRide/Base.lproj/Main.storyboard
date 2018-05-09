@@ -25,6 +25,305 @@
         </array>
     </customFonts>
     <scenes>
+        <!--On Boarding Root View Controller-->
+        <scene sceneID="ypD-bk-NUh">
+            <objects>
+                <viewController id="UMU-Cy-YBn" customClass="KTOnBoardingRootViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eH5-f1-w1W"/>
+                        <viewControllerLayoutGuide type="bottom" id="jUO-mT-XjO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7UW-oW-gnd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xye-C4-5v6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                                <connections>
+                                    <segue destination="NcV-21-3HU" kind="embed" identifier="segueRootToOnBoarding" id="PKp-6P-nH2"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qat-Xr-E3u">
+                                <rect key="frame" x="0.0" y="597" width="375" height="70"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="step1" translatesAutoresizingMaskIntoConstraints="NO" id="dAz-cL-9yE">
+                                        <rect key="frame" x="100" y="33" width="176" height="4"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="176" id="6Kw-08-IiY"/>
+                                            <constraint firstAttribute="height" constant="4" id="O5g-RZ-7Ze"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3t-2q-vTx">
+                                        <rect key="frame" x="284" y="20" width="75" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Nei-zp-UF5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
+                                        <state key="normal" title="SKIP">
+                                            <color key="titleColor" red="0.84313725490196079" green="0.90196078431372551" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="ksB-Hr-p8O" kind="show" id="nfG-yr-EC7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="dAz-cL-9yE" firstAttribute="centerY" secondItem="Qat-Xr-E3u" secondAttribute="centerY" id="0vI-u7-F4A"/>
+                                    <constraint firstAttribute="trailing" secondItem="C3t-2q-vTx" secondAttribute="trailing" constant="16" id="1D9-GE-f0X"/>
+                                    <constraint firstItem="C3t-2q-vTx" firstAttribute="centerY" secondItem="Qat-Xr-E3u" secondAttribute="centerY" id="DZ8-jR-yYm"/>
+                                    <constraint firstItem="C3t-2q-vTx" firstAttribute="leading" secondItem="dAz-cL-9yE" secondAttribute="trailing" constant="8" id="FSR-WD-bd5"/>
+                                    <constraint firstAttribute="height" constant="70" id="ZWK-ef-RNK"/>
+                                    <constraint firstItem="dAz-cL-9yE" firstAttribute="centerX" secondItem="Qat-Xr-E3u" secondAttribute="centerX" id="aZv-1S-3Ep"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Qat-Xr-E3u" firstAttribute="leading" secondItem="7UW-oW-gnd" secondAttribute="leading" id="7fG-gS-26Y"/>
+                            <constraint firstAttribute="trailing" secondItem="xye-C4-5v6" secondAttribute="trailing" id="FCf-nF-Y8V"/>
+                            <constraint firstItem="xye-C4-5v6" firstAttribute="leading" secondItem="7UW-oW-gnd" secondAttribute="leading" id="Ldo-1W-3Dm"/>
+                            <constraint firstAttribute="trailing" secondItem="Qat-Xr-E3u" secondAttribute="trailing" id="buf-fA-GwE"/>
+                            <constraint firstAttribute="bottom" secondItem="Qat-Xr-E3u" secondAttribute="bottom" id="gzi-cA-xmX"/>
+                            <constraint firstItem="xye-C4-5v6" firstAttribute="top" secondItem="7UW-oW-gnd" secondAttribute="top" id="iym-E1-TVw"/>
+                            <constraint firstItem="Qat-Xr-E3u" firstAttribute="top" secondItem="xye-C4-5v6" secondAttribute="bottom" id="r7G-bP-ebr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="jJA-hb-pvR"/>
+                    <connections>
+                        <outlet property="btnSkipFinish" destination="C3t-2q-vTx" id="siq-ay-EZ1"/>
+                        <outlet property="imgSteps" destination="dAz-cL-9yE" id="TE4-ie-bce"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q4k-XZ-E4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-927.20000000000005" y="-93.103448275862078"/>
+        </scene>
+        <!--On Boarding View Controller-->
+        <scene sceneID="3hM-K1-ujP">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="NcV-21-3HU" customClass="KTOnBoardingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="KgQ-2v-pis"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0SY-Tz-EW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="231" y="-350"/>
+        </scene>
+        <!--Onboarding Step1 View Controller-->
+        <scene sceneID="ItI-5P-vIN">
+            <objects>
+                <viewController storyboardIdentifier="OnBoardingStep1" id="szO-DW-a8R" customClass="KTOnboardingStep1ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hCj-xS-Kes"/>
+                        <viewControllerLayoutGuide type="bottom" id="gDX-BO-U8M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EwA-kZ-tmJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step - 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENp-pe-dlb">
+                                <rect key="frame" x="16" y="210" width="343" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Track nearby taxis and limousines around pickup location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAK-r5-URD">
+                                <rect key="frame" x="43" y="523" width="289" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
+                                <color key="textColor" red="0.8666666666666667" green="0.92549019607843142" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Find Nearby Taxis and Limos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5g-lx-yhD">
+                                <rect key="frame" x="16" y="487" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="597"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hCj-38-FcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860" y="-350.37481259370315"/>
+        </scene>
+        <!--Onboarding Step2 View Controller-->
+        <scene sceneID="5iq-TJ-TRM">
+            <objects>
+                <viewController storyboardIdentifier="OnBoardingStep2" id="6bm-T6-pGL" customClass="KTOnboardingStep2ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IDE-v4-bB3"/>
+                        <viewControllerLayoutGuide type="bottom" id="doh-Mp-qb8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oy0-3h-Z2x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step - 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zsu-XF-3ud">
+                                <rect key="frame" x="16" y="206" width="343" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By pressing set destination, start your booking will let you start your booking instantly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTF-yJ-glx">
+                                <rect key="frame" x="43" y="523" width="289" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
+                                <color key="textColor" red="0.86666666670000003" green="0.92549019610000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Your Booking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqO-sv-RFx">
+                                <rect key="frame" x="16" y="487" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="597"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="43g-AT-S7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1463" y="-350"/>
+        </scene>
+        <!--Onboarding Step3 View Controller-->
+        <scene sceneID="YRW-2M-BHU">
+            <objects>
+                <viewController storyboardIdentifier="OnBoardingStep3" id="af3-aQ-xyX" customClass="KTOnboardingStep3ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u0D-R8-cnc"/>
+                        <viewControllerLayoutGuide type="bottom" id="BGJ-BU-ikt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GbN-BO-qMb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step - 3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JkQ-0b-Elm">
+                                <rect key="frame" x="16" y="208" width="343" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select destination from recent trips, popular places or drop a pin on map" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIb-2L-tcm">
+                                <rect key="frame" x="43" y="523" width="289" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
+                                <color key="textColor" red="0.86666666670000003" green="0.92549019610000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set Your Destination" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="be0-7I-04i">
+                                <rect key="frame" x="16" y="487" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="597"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IxD-eG-zBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2065" y="-350"/>
+        </scene>
+        <!--Onboarding Step4 View Controller-->
+        <scene sceneID="Dlg-VE-Fpx">
+            <objects>
+                <viewController storyboardIdentifier="OnBoardingStep4" id="tU0-J4-Xb8" customClass="KTOnboardingStep4ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CR0-jB-PMk"/>
+                        <viewControllerLayoutGuide type="bottom" id="aSA-yT-aih"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rBL-v0-ek5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step - 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfA-kG-cmW">
+                                <rect key="frame" x="16" y="209" width="343" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Get estimated fare for the best possible route details" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZB-jU-D1A">
+                                <rect key="frame" x="43" y="522" width="289" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
+                                <color key="textColor" red="0.86666666670000003" green="0.92549019610000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Best Possible Route" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKO-ZI-eMk">
+                                <rect key="frame" x="16" y="486" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="597"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IeS-ht-maB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2670" y="-350"/>
+        </scene>
+        <!--Onboarding Step5 View Controller-->
+        <scene sceneID="lU9-aZ-nuK">
+            <objects>
+                <viewController storyboardIdentifier="OnBoardingStep5" id="Ng4-RA-ngC" customClass="KTOnboardingStep5ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nYI-Hm-Sbb"/>
+                        <viewControllerLayoutGuide type="bottom" id="lBC-2w-rsd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yQx-ho-8BW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step - 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adJ-19-x7I">
+                                <rect key="frame" x="16" y="208" width="343" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
+                                <rect key="frame" x="43" y="524" width="289" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
+                                <color key="textColor" red="0.86666666670000003" green="0.92549019610000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Taxi or Limo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHx-97-mCO">
+                                <rect key="frame" x="16" y="488" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="597"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UcA-dE-5yF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3273" y="-350"/>
+        </scene>
         <!--Main View Controller-->
         <scene sceneID="tAO-pV-ngh">
             <objects>
@@ -105,7 +404,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdg-nP-IJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="604" y="483.50824587706148"/>
+            <point key="canvasLocation" x="-12" y="301"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -469,7 +768,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIu-NZ-sYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="46"/>
+            <point key="canvasLocation" x="2974" y="368"/>
         </scene>
         <!--Forgot Your Password-->
         <scene sceneID="HEs-ut-tSI">
@@ -796,14 +1095,14 @@
         <!--Navigation Controller-->
         <scene sceneID="JFs-6F-Nvu">
             <objects>
-                <navigationController storyboardIdentifier="FirstViewController" id="GiH-tG-C4s" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FirstViewController" navigationBarHidden="YES" id="GiH-tG-C4s" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R6E-Gl-Kab">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ksB-Hr-p8O" kind="relationship" relationship="rootViewController" id="ueT-LD-kz8"/>
+                        <segue destination="UMU-Cy-YBn" kind="relationship" relationship="rootViewController" id="lck-RW-fDP"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJb-UX-pbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2372,7 +2671,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxC-Vw-A6E">
-                                <rect key="frame" x="16" y="64" width="40" height="40"/>
+                                <rect key="frame" x="16" y="20" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="930-fr-Vnl"/>
                                     <constraint firstAttribute="height" constant="40" id="Hlv-Ah-f8s"/>
@@ -2383,7 +2682,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fe2-d4-qJR">
-                                <rect key="frame" x="16" y="64" width="40" height="40"/>
+                                <rect key="frame" x="16" y="20" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LJr-eC-oxB"/>
                                     <constraint firstAttribute="width" constant="40" id="b94-0J-RPv"/>
@@ -2753,7 +3052,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -4416,12 +4715,13 @@
         <image name="ico_call" width="60" height="60"/>
         <image name="ico_moreinfo" width="12" height="12"/>
         <image name="pickdrop_lrg" width="10" height="69"/>
+        <image name="step1" width="176" height="4"/>
         <image name="taxiplate" width="87" height="32"/>
         <image name="white_back" width="375" height="396"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FaI-op-NCo"/>
-        <segue reference="N6S-jP-c4x"/>
+        <segue reference="CcG-57-rIe"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="A9o-xm-kbF"/>
         <segue reference="uRk-Bz-EyY"/>

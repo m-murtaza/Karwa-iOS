@@ -78,6 +78,14 @@
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
 		1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872D1F0BB04500DDB003 /* KTBase.swift */; };
 		186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864872F1F0BB06800DDB003 /* KTDALManager.swift */; };
+		186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFBA20A199BF002CF81E /* KTOnBoardingViewController.swift */; };
+		186ECFBD20A1A419002CF81E /* KTBaseOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFBC20A1A419002CF81E /* KTBaseOnBoardingViewController.swift */; };
+		186ECFBF20A1A466002CF81E /* KTOnboardingStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFBE20A1A466002CF81E /* KTOnboardingStep1ViewController.swift */; };
+		186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFC020A1A481002CF81E /* KTOnboardingStep2ViewController.swift */; };
+		186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFC220A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift */; };
+		186ECFC520A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFC420A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift */; };
+		186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFC620A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift */; };
+		186ECFC920A2B827002CF81E /* KTOnBoardingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFC820A2B827002CF81E /* KTOnBoardingRootViewController.swift */; };
 		187E71112083790300E66A55 /* KTRatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71102083790300E66A55 /* KTRatingManager.swift */; };
 		187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71122084935100E66A55 /* KTRatingViewController.swift */; };
 		187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71142084B53400E66A55 /* KTRatingViewModel.swift */; };
@@ -214,6 +222,14 @@
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
 		1864872D1F0BB04500DDB003 /* KTBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBase.swift; path = Classes/Common/CommonBase/KTBase.swift; sourceTree = "<group>"; };
 		1864872F1F0BB06800DDB003 /* KTDALManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTDALManager.swift; path = Classes/DAL/KTDALManager.swift; sourceTree = "<group>"; };
+		186ECFBA20A199BF002CF81E /* KTOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnBoardingViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnBoardingViewController.swift; sourceTree = "<group>"; };
+		186ECFBC20A1A419002CF81E /* KTBaseOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseOnBoardingViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTBaseOnBoardingViewController.swift; sourceTree = "<group>"; };
+		186ECFBE20A1A466002CF81E /* KTOnboardingStep1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnboardingStep1ViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnboardingStep1ViewController.swift; sourceTree = "<group>"; };
+		186ECFC020A1A481002CF81E /* KTOnboardingStep2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnboardingStep2ViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnboardingStep2ViewController.swift; sourceTree = "<group>"; };
+		186ECFC220A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnboardingStep3ViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnboardingStep3ViewController.swift; sourceTree = "<group>"; };
+		186ECFC420A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnboardingStep4ViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnboardingStep4ViewController.swift; sourceTree = "<group>"; };
+		186ECFC620A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnboardingStep5ViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnboardingStep5ViewController.swift; sourceTree = "<group>"; };
+		186ECFC820A2B827002CF81E /* KTOnBoardingRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTOnBoardingRootViewController.swift; path = Classes/Views/Controllers/OnBoarding/KTOnBoardingRootViewController.swift; sourceTree = "<group>"; };
 		187E71102083790300E66A55 /* KTRatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingManager.swift; path = Classes/DAL/Rating/KTRatingManager.swift; sourceTree = "<group>"; };
 		187E71122084935100E66A55 /* KTRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTRatingViewController.swift; sourceTree = "<group>"; };
 		187E71142084B53400E66A55 /* KTRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewModel.swift; path = "Classes/View Models/BookingDetails/KTRatingViewModel.swift"; sourceTree = "<group>"; };
@@ -659,6 +675,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				186ECFB920A1998E002CF81E /* OnBoarding */,
 				182A74D520972E620025B6C7 /* Notification */,
 				1811E4ED205A2FBA00C3C47F /* BookingDetails */,
 				18F2B277204420FC00600966 /* Settings */,
@@ -740,6 +757,21 @@
 				1864872D1F0BB04500DDB003 /* KTBase.swift */,
 			);
 			name = CommonBase;
+			sourceTree = "<group>";
+		};
+		186ECFB920A1998E002CF81E /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				186ECFC820A2B827002CF81E /* KTOnBoardingRootViewController.swift */,
+				186ECFBA20A199BF002CF81E /* KTOnBoardingViewController.swift */,
+				186ECFBC20A1A419002CF81E /* KTBaseOnBoardingViewController.swift */,
+				186ECFBE20A1A466002CF81E /* KTOnboardingStep1ViewController.swift */,
+				186ECFC020A1A481002CF81E /* KTOnboardingStep2ViewController.swift */,
+				186ECFC220A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift */,
+				186ECFC420A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift */,
+				186ECFC620A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift */,
+			);
+			name = OnBoarding;
 			sourceTree = "<group>";
 		};
 		187E710D2083787D00E66A55 /* Rating */ = {
@@ -1135,6 +1167,7 @@
 				18C24ADD2004AC19002D4B88 /* KTOTPViewController.swift in Sources */,
 				1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */,
 				1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */,
+				186ECFBD20A1A419002CF81E /* KTBaseOnBoardingViewController.swift in Sources */,
 				1886187620763C3A000806D3 /* KTCancelViewModel.swift in Sources */,
 				1810C13B1FCD7FB7008E8D91 /* KTUserManager.swift in Sources */,
 				18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */,
@@ -1159,11 +1192,13 @@
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
 				187E71112083790300E66A55 /* KTRatingManager.swift in Sources */,
+				186ECFBF20A1A466002CF81E /* KTOnboardingStep1ViewController.swift in Sources */,
 				1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */,
 				18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */,
 				1814238E2029A20000992151 /* VehicleMarker.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */,
+				186ECFC520A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
 				182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */,
 				18FA45BB20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift in Sources */,
@@ -1178,6 +1213,7 @@
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
+				186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */,
 				1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */,
 				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,
@@ -1212,6 +1248,7 @@
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
+				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
@@ -1228,6 +1265,8 @@
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
+				186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */,
+				186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
@@ -1237,6 +1276,7 @@
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,
+				186ECFC920A2B827002CF81E /* KTOnBoardingRootViewController.swift in Sources */,
 				1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */,
 				1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */,
 			);
