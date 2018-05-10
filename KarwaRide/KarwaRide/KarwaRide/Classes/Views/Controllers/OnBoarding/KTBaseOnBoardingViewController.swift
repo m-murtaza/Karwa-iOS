@@ -17,11 +17,15 @@ class KTBaseOnBoardingViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("ViewDidAppear Called. It should Animate. ")
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         animateView()
     }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        print("ViewDidAppear Called. It should Animate. ")
+//        animateView()
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

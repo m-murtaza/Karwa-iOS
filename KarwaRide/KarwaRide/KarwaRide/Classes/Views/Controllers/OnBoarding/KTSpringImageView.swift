@@ -11,7 +11,7 @@ import Spring
 
 class KTSpringImageView: SpringImageView {
 
-    
+    private var initialAnimation : String = ""
     private var initialDuration : CGFloat = 0.0
     private var initialDelay : CGFloat = 0.0
     private var initialScaleX : CGFloat = 0.0
@@ -26,6 +26,7 @@ class KTSpringImageView: SpringImageView {
 
     override open func awakeFromNib() {
         super.awakeFromNib()
+        initialAnimation = animation
         initialDuration = duration
         initialDelay = delay
         initialScaleX = scaleX
@@ -33,6 +34,7 @@ class KTSpringImageView: SpringImageView {
     }
     
     open func ktAnimate() {
+        animation = initialAnimation
         duration = initialDuration
         delay = initialDelay
         scaleX = initialScaleX
