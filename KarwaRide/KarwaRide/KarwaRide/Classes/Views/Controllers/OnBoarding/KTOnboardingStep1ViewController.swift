@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 class KTOnboardingStep1ViewController: KTBaseOnBoardingViewController {
 
@@ -21,7 +22,6 @@ class KTOnboardingStep1ViewController: KTBaseOnBoardingViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 
@@ -31,5 +31,4 @@ class KTOnboardingStep1ViewController: KTBaseOnBoardingViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

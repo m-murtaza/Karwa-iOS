@@ -7,17 +7,22 @@
 //
 
 import UIKit
+import Spring
 
 class KTBaseOnBoardingViewController: UIViewController {
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("ViewDidAppear Called. It should Animate. ")
+        animateView()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,5 +38,17 @@ class KTBaseOnBoardingViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func animateView() {
+        
+        for view in self.view.subviews {
+            if view.tag == 101 {
+                for v in view.subviews {
+                    
+                    (v as! KTSpringImageView).ktAnimate()
+                    
+                }
+            }
+        }
+    }
 }
