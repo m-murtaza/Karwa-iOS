@@ -90,11 +90,11 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         }
         else if !KTUtils.isObjectNotNil(object: password as AnyObject) || password?.count == 0
         {
-            error = SignUpValidationError.init().NoPassword
+            error = SignUpValidationError().NoPassword
         }
         else if (password?.count)! < 6
         {
-            error = SignUpValidationError.init().PasswordSixChar
+            error = SignUpValidationError().PasswordSixChar
         }
         return error
     }

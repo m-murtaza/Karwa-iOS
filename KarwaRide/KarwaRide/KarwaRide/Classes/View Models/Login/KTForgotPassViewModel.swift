@@ -28,6 +28,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
         let PasswordNotMatch = "Password & confirm password don't match"
         let NoPhone = "Mobile number is mandatory"
         let WrongPhone = "Please enter valid mobile number"
+        let PasswordSixChar = "Password should be more than six charecter"
     }
     
 //    init(del: Any) {
@@ -69,24 +70,28 @@ class KTForgotPassViewModel: KTBaseViewModel {
         var error : String = ""
         if !KTUtils.isObjectNotNil(object: phone! as AnyObject) || phone!.count == 0
         {
-            error = ForgotPassValidationError.init().NoPhone
+            error = ForgotPassValidationError().NoPhone
         }
         else if !(phone?.isPhoneNumber)!
         {
-            error = ForgotPassValidationError.init().WrongPhone
+            error = ForgotPassValidationError().WrongPhone
         }
         
         else if !KTUtils.isObjectNotNil(object: password as AnyObject) || password?.count == 0
         {
-            error = ForgotPassValidationError.init().NoPassword
+            error = ForgotPassValidationError().NoPassword
         }
         else if !KTUtils.isObjectNotNil(object: rePassword as AnyObject) || rePassword?.count == 0
         {
-            error = ForgotPassValidationError.init().NoRePassword
+            error = ForgotPassValidationError().NoRePassword
         }
         else if (password != rePassword)
         {
-            error = ForgotPassValidationError.init().PasswordNotMatch
+            error = ForgotPassValidationError().PasswordNotMatch
+        }
+        else if (password?.count)! < 6
+        {
+            error = ForgotPassValidationError().PasswordSixChar
         }
         return error
     }
