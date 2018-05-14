@@ -10,6 +10,8 @@ import UIKit
 
 class KTOnboardingStep2ViewController: KTBaseOnBoardingViewController {
 
+    @IBOutlet weak var fingerPointer : KTSpringImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +23,50 @@ class KTOnboardingStep2ViewController: KTBaseOnBoardingViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func animateFinger() {
+        fingerPointer.animateNext {
+            self.animateFingerLeft()
+        }
+    }
 
+    func animateFingerLeft() {
+        UIView.animate(withDuration: 0.4,
+                       delay: 0.0,
+                       options: UIViewAnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.fingerPointer.frame.origin.x -= 70
+                        self.fingerPointer.layoutIfNeeded()
+        }, completion: { (finished) -> Void in
+            self.animateFingerRight()
+        })
+    }
+    
+    func animateFingerRight() {
+        UIView.animate(withDuration: 0.4,
+                       delay: 0.0,
+                       options: UIViewAnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.fingerPointer.frame.origin.x += 100
+                        self.fingerPointer.layoutIfNeeded()
+        }, completion: { (finished) -> Void in
+            self.animateFingerBackToPosition()
+        })
+    }
+    
+    func animateFingerBackToPosition() {
+        UIView.animate(withDuration: 0.4,
+                       delay: 0.0,
+                       options: UIViewAnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        self.fingerPointer.frame.origin.x -= 30
+                        self.fingerPointer.layoutIfNeeded()
+        }, completion: { (finished) -> Void in
+            
+        })
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 

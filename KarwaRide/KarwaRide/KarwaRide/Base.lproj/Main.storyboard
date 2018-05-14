@@ -507,6 +507,12 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                                 <real key="value" value="0.5"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
@@ -725,7 +731,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get estimated fare for the best possible route details" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZB-jU-D1A">
-                                <rect key="frame" x="43" y="532" width="289" height="38.5"/>
+                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="5ly-ge-PHR"/>
                                 </constraints>
@@ -734,7 +740,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Possible Route" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKO-ZI-eMk">
-                                <rect key="frame" x="16" y="480.5" width="343" height="26.5"/>
+                                <rect key="frame" x="16" y="482.5" width="343" height="26.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="343" id="qj0-Ex-cEj"/>
                                 </constraints>
@@ -743,7 +749,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xs6-LC-20Q">
-                                <rect key="frame" x="16" y="71.5" width="343" height="384"/>
+                                <rect key="frame" x="16" y="73.5" width="343" height="384"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="step2_circle_back" translatesAutoresizingMaskIntoConstraints="NO" id="pvp-Pc-ZIx" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="26.5" y="20" width="290" height="290"/>
@@ -881,7 +887,7 @@
                             <constraint firstItem="Xs6-LC-20Q" firstAttribute="centerX" secondItem="rBL-v0-ek5" secondAttribute="centerX" id="Z2O-i5-VyT"/>
                             <constraint firstItem="ZZB-jU-D1A" firstAttribute="centerX" secondItem="rBL-v0-ek5" secondAttribute="centerX" id="bLd-5T-Ri6"/>
                             <constraint firstItem="ZZB-jU-D1A" firstAttribute="top" secondItem="rKO-ZI-eMk" secondAttribute="bottom" constant="25" id="dhF-r5-lx5"/>
-                            <constraint firstItem="aSA-yT-aih" firstAttribute="top" secondItem="rKO-ZI-eMk" secondAttribute="bottom" constant="90" id="v4h-ZH-vkw"/>
+                            <constraint firstItem="aSA-yT-aih" firstAttribute="top" secondItem="rKO-ZI-eMk" secondAttribute="bottom" constant="88" id="v4h-ZH-vkw"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -903,36 +909,300 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step - 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adJ-19-x7I">
-                                <rect key="frame" x="16" y="208" width="343" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
-                                <rect key="frame" x="43" y="524" width="289" height="59"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
+                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="289" id="hO4-x0-oIG"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.86666666670000003" green="0.92549019610000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Taxi or Limo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHx-97-mCO">
-                                <rect key="frame" x="16" y="488" width="343" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Taxi or Limo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHx-97-mCO">
+                                <rect key="frame" x="16" y="482.5" width="343" height="26.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="sO8-9z-r5C"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0V-IT-ohZ">
+                                <rect key="frame" x="16" y="73.5" width="343" height="384"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_lfrt_back" translatesAutoresizingMaskIntoConstraints="NO" id="vT3-WR-Pkq" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="-14" y="175" width="40" height="86"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="86" id="JAl-bk-Hzb"/>
+                                            <constraint firstAttribute="width" constant="40" id="K9g-w5-9IY"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="card_lfrt_back" translatesAutoresizingMaskIntoConstraints="NO" id="Ta5-ku-YZ5" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="320" y="175" width="40" height="86"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="PVe-Tz-YSm"/>
+                                            <constraint firstAttribute="height" constant="86" id="qEg-tz-C0N"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="step2_circle_back" translatesAutoresizingMaskIntoConstraints="NO" id="cyB-Z6-jqJ" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="26.5" y="20" width="290" height="290"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="290" id="SOH-FW-ATq"/>
+                                            <constraint firstAttribute="height" constant="290" id="dMf-Hd-i2K"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="curve" value="easeIn"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="repeatCount">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="0.20000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone_details" translatesAutoresizingMaskIntoConstraints="NO" id="0ks-Fi-UKo" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="81" y="0.0" width="180" height="325"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="325" id="Xkr-kK-FTH"/>
+                                            <constraint firstAttribute="width" constant="180" id="wDL-ao-HAW"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="111" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cards" translatesAutoresizingMaskIntoConstraints="NO" id="kXQ-6A-baw" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="-14" y="175" width="375" height="86"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="86" id="IKu-ga-f1o"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="light_tree" translatesAutoresizingMaskIntoConstraints="NO" id="n6F-oD-blX" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="14" y="272" width="104" height="71"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="104" id="9oH-Uh-IED"/>
+                                            <constraint firstAttribute="height" constant="71" id="iA8-OM-8Sb"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="0.69999999999999996"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="111" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swipe_hand" translatesAutoresizingMaskIntoConstraints="NO" id="Fcf-SU-7Qg" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="161.5" y="274" width="60" height="91"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="91" id="0Xs-6M-dRN"/>
+                                            <constraint firstAttribute="width" constant="60" id="EkJ-x1-Kxw"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Wrf-v7-y2W"/>
+                                            <constraint firstAttribute="height" constant="91" id="z39-7a-cFf"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="1.2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows" translatesAutoresizingMaskIntoConstraints="NO" id="Rn2-52-XZQ" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="73" y="260" width="196" height="14"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="196" id="Eln-Mj-nMK"/>
+                                            <constraint firstAttribute="height" constant="14" id="kyZ-oF-QmY"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="1.1000000000000001"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="0.29999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleX">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="scaleY">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="384" id="04J-FS-ApQ"/>
+                                    <constraint firstItem="0ks-Fi-UKo" firstAttribute="centerX" secondItem="l0V-IT-ohZ" secondAttribute="centerX" id="1fP-lL-c5m"/>
+                                    <constraint firstItem="cyB-Z6-jqJ" firstAttribute="top" secondItem="l0V-IT-ohZ" secondAttribute="top" constant="20" id="AEq-fo-HmM"/>
+                                    <constraint firstAttribute="width" constant="343" id="CAe-ve-rE9"/>
+                                    <constraint firstItem="vT3-WR-Pkq" firstAttribute="leading" secondItem="l0V-IT-ohZ" secondAttribute="leading" constant="-14" id="Fs5-r5-T7f"/>
+                                    <constraint firstAttribute="trailing" secondItem="kXQ-6A-baw" secondAttribute="trailing" constant="-18" id="JPI-RD-SyP"/>
+                                    <constraint firstItem="Ta5-ku-YZ5" firstAttribute="centerY" secondItem="kXQ-6A-baw" secondAttribute="centerY" id="Ke1-AI-Ocz"/>
+                                    <constraint firstItem="Fcf-SU-7Qg" firstAttribute="centerX" secondItem="l0V-IT-ohZ" secondAttribute="centerX" constant="20" id="SxE-77-yep"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ta5-ku-YZ5" secondAttribute="trailing" constant="-18" id="UWL-u1-pKl"/>
+                                    <constraint firstItem="Rn2-52-XZQ" firstAttribute="top" secondItem="kXQ-6A-baw" secondAttribute="bottom" constant="-1" id="W1S-jm-YWp"/>
+                                    <constraint firstItem="kXQ-6A-baw" firstAttribute="leading" secondItem="l0V-IT-ohZ" secondAttribute="leading" constant="-14" id="W7c-hc-BRb"/>
+                                    <constraint firstItem="kXQ-6A-baw" firstAttribute="top" secondItem="0ks-Fi-UKo" secondAttribute="bottom" constant="-150" id="XQM-Em-kon"/>
+                                    <constraint firstItem="n6F-oD-blX" firstAttribute="leading" secondItem="l0V-IT-ohZ" secondAttribute="leading" constant="14" id="aRa-Io-aUA"/>
+                                    <constraint firstItem="Fcf-SU-7Qg" firstAttribute="top" secondItem="Rn2-52-XZQ" secondAttribute="bottom" id="hun-nw-m2f"/>
+                                    <constraint firstItem="0ks-Fi-UKo" firstAttribute="top" secondItem="l0V-IT-ohZ" secondAttribute="top" id="rgs-R3-30f"/>
+                                    <constraint firstItem="vT3-WR-Pkq" firstAttribute="centerY" secondItem="kXQ-6A-baw" secondAttribute="centerY" id="tEh-v6-ICV"/>
+                                    <constraint firstItem="cyB-Z6-jqJ" firstAttribute="centerX" secondItem="l0V-IT-ohZ" secondAttribute="centerX" id="wRa-0P-hwx"/>
+                                    <constraint firstAttribute="bottom" secondItem="n6F-oD-blX" secondAttribute="bottom" constant="41" id="ycx-kh-u7q"/>
+                                    <constraint firstItem="Rn2-52-XZQ" firstAttribute="centerX" secondItem="l0V-IT-ohZ" secondAttribute="centerX" id="ynQ-wN-dle"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.66666666666666663" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="l0V-IT-ohZ" firstAttribute="centerX" secondItem="yQx-ho-8BW" secondAttribute="centerX" id="49w-r6-x4d"/>
+                            <constraint firstItem="gr2-Vq-9E0" firstAttribute="centerX" secondItem="yQx-ho-8BW" secondAttribute="centerX" id="98c-Zk-qFc"/>
+                            <constraint firstItem="ZHx-97-mCO" firstAttribute="centerX" secondItem="yQx-ho-8BW" secondAttribute="centerX" id="G7a-8I-eBx"/>
+                            <constraint firstItem="lBC-2w-rsd" firstAttribute="top" secondItem="ZHx-97-mCO" secondAttribute="bottom" constant="88" id="QSe-3z-zvk"/>
+                            <constraint firstItem="ZHx-97-mCO" firstAttribute="top" secondItem="l0V-IT-ohZ" secondAttribute="bottom" constant="25" id="gQh-Ue-cdx"/>
+                            <constraint firstItem="gr2-Vq-9E0" firstAttribute="top" secondItem="ZHx-97-mCO" secondAttribute="bottom" constant="25" id="m3e-P1-j5M"/>
+                        </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="597"/>
+                    <connections>
+                        <outlet property="card" destination="kXQ-6A-baw" id="alz-v1-EfA"/>
+                        <outlet property="finger" destination="Fcf-SU-7Qg" id="AQK-Dd-I0V"/>
+                        <outlet property="leftPad" destination="vT3-WR-Pkq" id="Uaf-89-uvH"/>
+                        <outlet property="rightPad" destination="Ta5-ku-YZ5" id="fZX-g5-yJn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcA-dE-5yF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3273" y="-350"/>
+            <point key="canvasLocation" x="3272.8000000000002" y="-350.37481259370315"/>
+        </scene>
+        <!--First View Controller-->
+        <scene sceneID="HYl-71-sTb">
+            <objects>
+                <viewController id="d1F-O5-DkP" customClass="KTFirstViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8ZW-0W-Vkd"/>
+                        <viewControllerLayoutGuide type="bottom" id="hXp-fW-QY4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dwg-st-5AG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuBG" translatesAutoresizingMaskIntoConstraints="NO" id="Ul2-sg-HEO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="Xwg-T7-lI4">
+                                <rect key="frame" x="135" y="58" width="105" height="108"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="108" id="AIT-e6-A3v"/>
+                                    <constraint firstAttribute="width" constant="105" id="Jdn-38-qzE"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="hCX-St-shG">
+                                <rect key="frame" x="108" y="174" width="160" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="6yW-CM-EIB"/>
+                                    <constraint firstAttribute="height" constant="45" id="st6-pd-T3c"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ul2-sg-HEO" firstAttribute="leading" secondItem="dwg-st-5AG" secondAttribute="leading" id="2UY-9j-Gux"/>
+                            <constraint firstItem="Xwg-T7-lI4" firstAttribute="centerX" secondItem="hCX-St-shG" secondAttribute="centerX" id="5gg-gQ-dcZ"/>
+                            <constraint firstItem="Ul2-sg-HEO" firstAttribute="top" secondItem="dwg-st-5AG" secondAttribute="top" id="6Ff-RM-kD7"/>
+                            <constraint firstItem="Xwg-T7-lI4" firstAttribute="top" secondItem="8ZW-0W-Vkd" secondAttribute="bottom" constant="38" id="HLU-GV-dMI"/>
+                            <constraint firstAttribute="trailing" secondItem="Ul2-sg-HEO" secondAttribute="trailing" id="K0C-t0-TvY"/>
+                            <constraint firstAttribute="bottom" secondItem="Ul2-sg-HEO" secondAttribute="bottom" id="kUz-10-ohG"/>
+                            <constraint firstItem="hCX-St-shG" firstAttribute="top" secondItem="Xwg-T7-lI4" secondAttribute="bottom" constant="8" id="oct-MP-4bA"/>
+                            <constraint firstItem="Xwg-T7-lI4" firstAttribute="centerX" secondItem="dwg-st-5AG" secondAttribute="centerX" id="ojk-O5-wva"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="iHS-RY-KcG"/>
+                    <connections>
+                        <segue destination="UMU-Cy-YBn" kind="show" identifier="segueFirstToOnBoarding" id="vHa-Qk-iPJ"/>
+                        <segue destination="L23-ue-kpU" kind="show" identifier="segueOnboardingToBooking" id="d0m-9D-DJW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Pd-d2-Rnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1092" y="643"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="tAO-pV-ngh">
@@ -1712,12 +1982,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="UMU-Cy-YBn" kind="relationship" relationship="rootViewController" id="lck-RW-fDP"/>
+                        <segue destination="d1F-O5-DkP" kind="relationship" relationship="rootViewController" id="hBY-Yr-F7J"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJb-UX-pbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-217" y="813"/>
+            <point key="canvasLocation" x="-2244" y="755"/>
         </scene>
         <!--Side Menu-->
         <scene sceneID="Ju1-0F-rpa">
@@ -1749,7 +2019,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttt-Ie-j9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1071" y="1430"/>
+            <point key="canvasLocation" x="-1623" y="1391"/>
         </scene>
         <!--Booking Navigation Controller-->
         <scene sceneID="DuT-Gg-z1c">
@@ -4998,9 +5268,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="LMBgImage" translatesAutoresizingMaskIntoConstraints="NO" id="1kV-13-ct6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LMBgImage" translatesAutoresizingMaskIntoConstraints="NO" id="1kV-13-ct6">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Danish Ur Rehman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uql-U0-u82">
@@ -5093,11 +5362,15 @@
                             <constraint firstAttribute="trailing" secondItem="8hf-CG-sZ7" secondAttribute="trailing" constant="40" id="E02-Ve-9AY"/>
                             <constraint firstItem="qvL-d4-ESh" firstAttribute="top" secondItem="8hf-CG-sZ7" secondAttribute="bottom" id="EG2-Eb-sBN"/>
                             <constraint firstItem="5oN-4f-GzP" firstAttribute="top" secondItem="uql-U0-u82" secondAttribute="bottom" constant="5" id="NIu-7s-IuD"/>
+                            <constraint firstItem="1kV-13-ct6" firstAttribute="leading" secondItem="jw9-Rl-04G" secondAttribute="leading" id="UFb-CO-Ox6"/>
                             <constraint firstItem="uql-U0-u82" firstAttribute="leading" secondItem="jw9-Rl-04G" secondAttribute="leadingMargin" constant="18" id="USs-qI-d2t"/>
+                            <constraint firstItem="qvL-d4-ESh" firstAttribute="top" secondItem="1kV-13-ct6" secondAttribute="bottom" id="Y1D-qW-PKD"/>
                             <constraint firstItem="8hf-CG-sZ7" firstAttribute="leading" secondItem="jw9-Rl-04G" secondAttribute="leading" id="hpJ-P2-L58"/>
                             <constraint firstItem="uql-U0-u82" firstAttribute="top" secondItem="DkK-VD-eM3" secondAttribute="bottom" constant="31" id="oeK-lt-MoH"/>
+                            <constraint firstItem="1kV-13-ct6" firstAttribute="top" secondItem="jw9-Rl-04G" secondAttribute="top" id="qfC-AJ-WCt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5oN-4f-GzP" secondAttribute="trailing" constant="58" id="rY8-Aa-agn"/>
                             <constraint firstItem="8hf-CG-sZ7" firstAttribute="top" secondItem="5oN-4f-GzP" secondAttribute="bottom" constant="69" id="rbJ-3V-e92"/>
+                            <constraint firstAttribute="trailing" secondItem="1kV-13-ct6" secondAttribute="trailing" id="wku-9E-UXJ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -5311,8 +5584,11 @@
         <image name="Signinbutton" width="345" height="80"/>
         <image name="SummitButton" width="293" height="51"/>
         <image name="UnderConstruction" width="750" height="512"/>
+        <image name="arrows" width="196" height="14"/>
         <image name="bottom_action_bar" width="375" height="56"/>
         <image name="business_sm_ico" width="44" height="44"/>
+        <image name="card_lfrt_back" width="40" height="86"/>
+        <image name="cards" width="375" height="86"/>
         <image name="empty" width="20" height="20"/>
         <image name="eta_box" width="130" height="32"/>
         <image name="filled" width="20" height="20"/>
@@ -5326,12 +5602,14 @@
         <image name="ico_call" width="60" height="60"/>
         <image name="ico_moreinfo" width="12" height="12"/>
         <image name="left_tree" width="64" height="62"/>
+        <image name="light_tree" width="104" height="71"/>
         <image name="list" width="165" height="117"/>
         <image name="location" width="43" height="43"/>
         <image name="luxury_sm_ico" width="44" height="44"/>
         <image name="map" width="298" height="304"/>
         <image name="map_route" width="218" height="224"/>
         <image name="phone_address" width="180" height="325"/>
+        <image name="phone_details" width="180" height="325"/>
         <image name="phone_landscape" width="320" height="115"/>
         <image name="pickdrop_lrg" width="10" height="69"/>
         <image name="right_tree" width="39" height="78"/>
@@ -5344,6 +5622,7 @@
         <image name="step2_pick&amp;drop" width="195" height="107"/>
         <image name="step2_tap" width="60" height="91"/>
         <image name="step4_right_tree" width="264" height="62"/>
+        <image name="swipe_hand" width="60" height="91"/>
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>
         <image name="white_back" width="375" height="396"/>
@@ -5352,7 +5631,7 @@
         <segue reference="FaI-op-NCo"/>
         <segue reference="CcG-57-rIe"/>
         <segue reference="ArU-ag-8ou"/>
-        <segue reference="A9o-xm-kbF"/>
+        <segue reference="d0m-9D-DJW"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="67X-ka-fJY"/>
         <segue reference="Otx-q2-Oud"/>

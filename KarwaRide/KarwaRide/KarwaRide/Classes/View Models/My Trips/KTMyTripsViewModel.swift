@@ -143,7 +143,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     func pickupDateOfMonth(forIdx idx: Int) -> String{
         
         var dateOfMonth : String = ""
-        if bookings != nil && idx < (bookings?.count)! {
+        if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
             dateOfMonth = ((bookings![idx] as KTBooking).pickupTime! as NSDate).dayOfMonth()
         }
@@ -153,7 +153,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     func pickupMonth(forIdx idx: Int) -> String{
         
         var month : String = ""
-        if bookings != nil && idx < (bookings?.count)! {
+        if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
             month = ((bookings![idx] as KTBooking).pickupTime! as NSDate).threeLetterMonth()
         }
@@ -163,7 +163,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     func pickupYear(forIdx idx: Int) -> String{
         
         var year : String = ""
-        if bookings != nil && idx < (bookings?.count)! {
+        if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
             year = ((bookings![idx] as KTBooking).pickupTime! as NSDate).year()
         }
@@ -173,7 +173,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     func pickupDayAndTime(forIdx idx: Int) -> String{
         
         var dayAndTime : String = ""
-        if bookings != nil && idx < (bookings?.count)! {
+        if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
             let day = ((bookings![idx] as KTBooking).pickupTime! as NSDate).dayOfWeek()
             let time = ((bookings![idx] as KTBooking).pickupTime! as NSDate).timeWithAMPM()

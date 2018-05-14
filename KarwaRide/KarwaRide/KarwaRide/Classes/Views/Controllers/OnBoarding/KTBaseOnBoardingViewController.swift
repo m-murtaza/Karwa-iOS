@@ -48,8 +48,9 @@ class KTBaseOnBoardingViewController: UIViewController {
         for view in self.view.subviews {
             if view.tag == 101 {
                 for v in view.subviews {
-                    
-                    (v as! KTSpringImageView).ktAnimate()
+                    if v.tag != 111 {  //111 taged view need to animate by class. As it will have two animations. 
+                        (v as! KTSpringImageView).ktAnimate()
+                    }
                     
                 }
             }

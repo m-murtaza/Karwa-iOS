@@ -41,4 +41,15 @@ class KTSpringImageView: SpringImageView {
         scaleY = initialScaleY
         animate()
     }
+    
+    public func ktAnimateNext(completion: @escaping () -> ()) {
+        animation = initialAnimation
+        duration = initialDuration
+        delay = initialDelay
+        scaleX = initialScaleX
+        scaleY = initialScaleY
+        animate()
+        animateNext(completion: completion)
+        
+    }
 }
