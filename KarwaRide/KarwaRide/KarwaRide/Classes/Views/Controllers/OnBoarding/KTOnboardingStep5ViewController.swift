@@ -88,7 +88,7 @@ class KTOnboardingStep5ViewController: KTBaseOnBoardingViewController {
                         self.card.frame.origin.x -= 40
                         self.finger.frame.origin.x -= 40
                         //self.leftPad.frame.origin.x -= 40
-                        //self.rightPad.frame.origin.x -= 40
+                        self.rightPad.frame.origin.x -= 40
         }, completion: { (finished) -> Void in
      
         })

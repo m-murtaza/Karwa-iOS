@@ -34,7 +34,7 @@ extension KTUserManager
     {
         
         //Do not call self.post as we don't need to handle error and self.post will handle error
-        KTWebClient.sharedInstance.post(uri: Constants.APIURL.Logout, param: nil) { (status, response) in
+        KTWebClient.sharedInstance.get(uri: Constants.APIURL.Logout, param: nil) { (status, response) in
             
             completionBlock(Constants.APIResponseStatus.SUCCESS, response)  //No need to send
         }

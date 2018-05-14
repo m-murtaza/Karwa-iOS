@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewModelDelegate {
+class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewModelDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtMobileNo: UITextField!
@@ -80,6 +80,24 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewMo
     func navigateToOTP() {
         self.performSegue(withIdentifier: "segueSignupToOtp", sender: self)
     }
+    
+    //MARK:- TextField Delegate
+    //Bug 2567 Fixed.
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == txtMobileNo {
+            
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            
+            let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            return changedText.count <= ALLOWED_NUM_PHONE_CHAR
+        }
+        return true
+    }
+    
+    
 //    override func navigateToBooking()
 //    {
 //        self.performSegue(withIdentifier: "segueSignUpToBooking", sender: self)

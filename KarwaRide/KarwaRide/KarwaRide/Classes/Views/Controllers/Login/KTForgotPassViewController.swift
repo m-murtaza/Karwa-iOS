@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDelegate {
+class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDelegate, UITextFieldDelegate  {
     
     @IBOutlet weak var txtPhoneNumber : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
@@ -67,6 +67,21 @@ class KTForgotPassViewController: KTBaseViewController,KTForgotPassViewModelDele
             
             previousView?.dismiss()
         }
+    }
     
+    //MARK:- TextField Delegate
+    //Bug 2567 Fixed.
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == txtPhoneNumber {
+            
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            
+            let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            return changedText.count <= ALLOWED_NUM_PHONE_CHAR
+        }
+        return true
     }
 }
