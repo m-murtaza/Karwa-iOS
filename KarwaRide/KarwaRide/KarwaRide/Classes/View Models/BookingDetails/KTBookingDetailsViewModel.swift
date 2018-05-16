@@ -562,6 +562,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             del?.updateRightBottomBarButtom(title: "BOOK AGAIN", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
             
         }
+        else if booking?.bookingStatus == BookingStatus.PICKUP.rawValue {
+            del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            
+        }
     }
     
     func buttonTapped(withTag tag:Int) {
