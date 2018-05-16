@@ -112,10 +112,10 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         let home : KTBookmark? = bookmarkManager.getHome()
         let work : KTBookmark?  = bookmarkManager.getWork()
     
-        if home != nil {
+        if home != nil && home!.bookmarkToGeoLocation != nil {
             bookmarks.append(home!.bookmarkToGeoLocation!)
         }
-        if work != nil {
+        if work != nil && work!.bookmarkToGeoLocation != nil{
             bookmarks.append(work!.bookmarkToGeoLocation!)
         }
     }
@@ -352,19 +352,26 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         if location.locationId != -1 {
             
-            
-            if bookmarkType == BookmarkType.home {
-                delegate?.showProgressHud(show: true, status: "Setting Home address")
-                KTBookmarkManager().updateHome(withLocation: location) { (status, response) in
-                    
-                    self.handleUpdateResponse(status: status,response: response)
-                }
+            let error : String? = checkLocationIfAlreadyBookmark(location : location)
+            if error != nil {
+                
+                delegate?.showError!(title: "Error", message: error!)
             }
-            else {
-                delegate?.showProgressHud(show: true, status: "Setting Work address")
-                KTBookmarkManager().updateWork(withLocation: location) { (status, response) in
-                    
-                    self.handleUpdateResponse(status: status,response: response)
+            else
+            {
+                if bookmarkType == BookmarkType.home {
+                    delegate?.showProgressHud(show: true, status: "Setting Home address")
+                    KTBookmarkManager().updateHome(withLocation: location) { (status, response) in
+                        
+                        self.handleUpdateResponse(status: status,response: response)
+                    }
+                }
+                else {
+                    delegate?.showProgressHud(show: true, status: "Setting Work address")
+                    KTBookmarkManager().updateWork(withLocation: location) { (status, response) in
+                        
+                        self.handleUpdateResponse(status: status,response: response)
+                    }
                 }
             }
         }
@@ -384,6 +391,15 @@ class KTAddressPickerViewModel: KTBaseViewModel {
                 })
             }
         }
+    }
+    
+    func checkLocationIfAlreadyBookmark(location : KTGeoLocation) -> String?{
+        var error : String? = nil
+        if location.geolocationToBookmark != nil {
+            error = "This location is already saved as \((location.geolocationToBookmark?.name)!)"
+            
+        }
+        return error
     }
     
     func removeHomeWorkFromRestOfTheList()  {

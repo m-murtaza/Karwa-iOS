@@ -66,6 +66,7 @@ enum BookingStatus : Int32 {
     case COMPLETED = 30
     
     case EXCEPTION = 33
+    case UNKNOWN = 0
 }
 
 struct Constants {
@@ -76,7 +77,7 @@ struct Constants {
     static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
-    
+    static let MIN_PASSWORD_LENGTH : Int = 6
     struct StoryBoardId {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"

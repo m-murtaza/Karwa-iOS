@@ -17,7 +17,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         let book : KTBooking = KTBooking.mr_createEntity(in: NSManagedObjectContext.mr_default())!
         
         
-        
+        book.bookingStatus = BookingStatus.UNKNOWN.rawValue
         return book
     }
     
@@ -102,7 +102,6 @@ class KTBookingManager: KTBaseFareEstimateManager {
             
             let bookings = self.saveBookingsInDB(bookings: response[Constants.ResponseAPIKey.Data] as! [Any])
             self.updateSyncTime(forKey: BOOKING_SYNC_TIME)
-            
             
             cBlock(Constants.APIResponseStatus.SUCCESS,[Constants.ResponseAPIKey.Data:bookings])
         }
@@ -195,7 +194,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
     
     func historyBookings() -> [KTBooking] {
         var bookings : [KTBooking] = []
-        let predicate : NSPredicate = NSPredicate(format:"bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d",BookingStatus.PENDING.rawValue,BookingStatus.DISPATCHING.rawValue,BookingStatus.CONFIRMED.rawValue, BookingStatus.ARRIVED.rawValue,BookingStatus.PICKUP.rawValue)
+        let predicate : NSPredicate = NSPredicate(format:"bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d" , BookingStatus.PENDING.rawValue,BookingStatus.DISPATCHING.rawValue,BookingStatus.CONFIRMED.rawValue, BookingStatus.ARRIVED.rawValue,BookingStatus.PICKUP.rawValue,BookingStatus.UNKNOWN.rawValue)
         
         bookings = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking]
         

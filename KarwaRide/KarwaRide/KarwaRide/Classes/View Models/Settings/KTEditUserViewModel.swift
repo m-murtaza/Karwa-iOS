@@ -79,6 +79,9 @@ class KTEditUserViewModel: KTBaseViewModel {
         if userName == nil || userName == "" {
             errorString = "Please enter your name"
         }
+        if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
+            errorString = "Please enter valid email address"
+        }
         return errorString
     }
 }

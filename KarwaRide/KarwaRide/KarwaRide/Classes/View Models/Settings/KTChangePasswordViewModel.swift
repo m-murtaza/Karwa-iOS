@@ -44,6 +44,9 @@ class KTChangePasswordViewModel: KTBaseViewModel {
         else if password == nil  || (password?.isEmpty)! {
             error = "Password is mandatory"
         }
+        else if (password?.count)! < Constants.MIN_PASSWORD_LENGTH {
+            error = "Password should be more than six charecter"
+        }
         else if password != rePassword {
             error = "Passwords do not match"
         }

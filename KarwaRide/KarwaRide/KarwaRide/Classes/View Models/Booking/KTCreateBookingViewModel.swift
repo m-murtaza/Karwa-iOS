@@ -71,6 +71,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var del : KTCreateBookingViewModelDelegate?
     
     var booking : KTBooking = KTBookingManager().booking()
+    var removeBooking = true
+    
     
     override func viewDidLoad() {
         
@@ -89,7 +91,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     override func viewWillAppear() {
-        
+        removeBooking = true
         setupCurrentLocaiton()
         
         super.viewWillAppear()
@@ -116,7 +118,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     override func viewWillDisappear() {
-        
+        if removeBooking {
+            booking.mr_deleteEntity()
+        }
         super.viewWillDisappear()
         NotificationCenter.default.removeObserver(self)
         timerFetchNearbyVehicle.invalidate()
@@ -267,12 +271,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Navigation to Address Picker
     func btnPickupAddTapped(){
-        
+        removeBooking = false
         delegate?.performSegue(name: "segueBookingToAddresspickerForPickup")
     }
     
     func btnDropAddTapped() {
-        
+        removeBooking = false
         delegate?.performSegue(name: "segueBookingToAddresspickerForDropoff")
     }
     //MARK: - Navigation view functions

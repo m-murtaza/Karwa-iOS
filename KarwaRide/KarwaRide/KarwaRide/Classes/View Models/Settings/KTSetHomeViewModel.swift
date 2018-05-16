@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-protocol KTSetHomeWorkViewModelDelegate {
+protocol KTSetHomeWorkViewModelDelegate : KTViewModelDelegate {
     func typeOfBookmark() -> BookmarkType
     func UpdateUI(name bookmarkName:String, location: CLLocationCoordinate2D)
     func UpdateAddressText(address add:String)
@@ -91,20 +91,37 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
     
     func updateBookmark(forLocation  loc: KTGeoLocation) {
         
-        if (delegate as! KTSetHomeWorkViewModelDelegate).typeOfBookmark() == BookmarkType.home {
-            delegate?.showProgressHud(show: true, status: "Setting Home address")
-            KTBookmarkManager().updateHome(withLocation: loc) { (status, response) in
-                self.delegate?.hideProgressHud()
-                self.handleUpdateResponse(status: status,response: response)
+        let error : String? = checkLocationIfAlreadyBookmark(location : loc)
+        if error != nil {
+            
+            delegate?.showError!(title: "Error", message: error!)
+        }
+        else
+        {
+            if (delegate as! KTSetHomeWorkViewModelDelegate).typeOfBookmark() == BookmarkType.home {
+                delegate?.showProgressHud(show: true, status: "Setting Home address")
+                KTBookmarkManager().updateHome(withLocation: loc) { (status, response) in
+                    self.delegate?.hideProgressHud()
+                    self.handleUpdateResponse(status: status,response: response)
+                }
+            }
+            else {
+                delegate?.showProgressHud(show: true, status: "Setting Work address")
+                KTBookmarkManager().updateWork(withLocation: loc) { (status, response) in
+                    self.delegate?.hideProgressHud()
+                    self.handleUpdateResponse(status: status,response: response)
+                }
             }
         }
-        else {
-            delegate?.showProgressHud(show: true, status: "Setting Work address")
-            KTBookmarkManager().updateWork(withLocation: loc) { (status, response) in
-                self.delegate?.hideProgressHud()
-                self.handleUpdateResponse(status: status,response: response)
-            }
+    }
+    
+    func checkLocationIfAlreadyBookmark(location : KTGeoLocation) -> String?{
+        var error : String? = nil
+        if location.geolocationToBookmark != nil {
+            error = "This location is already saved as \((location.geolocationToBookmark?.name)!)"
+            
         }
+        return error
     }
     
     //MARK: - Locaitons

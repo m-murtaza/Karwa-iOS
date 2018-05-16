@@ -10,6 +10,8 @@ import UIKit
 
 class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificationViewModelDelegate,UITableViewDelegate,UITableViewDataSource {
     
+    @IBOutlet weak var imgEmpty: UIImageView!
+    
     @IBOutlet weak var tblView : UITableView!
     
     private var vModel : KTNotificationViewModel?
@@ -68,6 +70,16 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
     func showDetail() {
         
         self.performSegue(name: "segueNotificationToDetail")
+    }
+    
+    func showEmptyScreen() {
+        imgEmpty.isHidden = false
+        tblView.isHidden = true
+    }
+    
+    func hideEmptyScreen() {
+        imgEmpty.isHidden = true
+        tblView.isHidden = false
     }
 }
 

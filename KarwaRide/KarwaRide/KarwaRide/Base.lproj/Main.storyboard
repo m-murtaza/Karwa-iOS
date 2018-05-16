@@ -2542,6 +2542,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notification_empty" translatesAutoresizingMaskIntoConstraints="NO" id="Q56-eQ-c6Q">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="108" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YmX-Ro-RRw">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2676,6 +2679,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Q56-eQ-c6Q" firstAttribute="leading" secondItem="1OL-Ba-QGp" secondAttribute="leading" id="1v9-lF-OCR"/>
+                            <constraint firstAttribute="bottom" secondItem="Q56-eQ-c6Q" secondAttribute="bottom" id="Qlg-aL-pkQ"/>
+                            <constraint firstAttribute="trailing" secondItem="Q56-eQ-c6Q" secondAttribute="trailing" id="n8B-rv-5ly"/>
+                            <constraint firstItem="Q56-eQ-c6Q" firstAttribute="top" secondItem="1OL-Ba-QGp" secondAttribute="top" id="xS5-Ex-2Ci"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Notifications" id="I1N-lc-DgX">
                         <barButtonItem key="leftBarButtonItem" image="RevealButton" id="jjm-O4-vmw">
@@ -2685,6 +2694,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="imgEmpty" destination="Q56-eQ-c6Q" id="BaM-mm-jtl"/>
                         <outlet property="tblView" destination="YmX-Ro-RRw" id="sxR-uS-sLT"/>
                         <segue destination="l39-Ix-xs1" kind="show" identifier="segueNotificationToDetail" id="N6S-jP-c4x"/>
                     </connections>
@@ -4457,7 +4467,7 @@
                                             <outlet property="delegate" destination="H7q-4G-kKr" id="jwK-E7-iWU"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jn7-o0-t4N">
+                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jn7-o0-t4N">
                                         <rect key="frame" x="20" y="60" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="5D6-iH-CKz"/>
@@ -4469,7 +4479,7 @@
                                             <outlet property="delegate" destination="H7q-4G-kKr" id="XSc-tB-Cax"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Re enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-XL-Xyw">
+                                    <textField opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-XL-Xyw">
                                         <rect key="frame" x="20" y="110" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="xlh-ze-2sE"/>
@@ -4535,7 +4545,7 @@
                                     <constraint firstAttribute="height" constant="51" id="ejX-My-JAB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                <state key="normal" title="CHANGE" backgroundImage="SummitButton">
+                                <state key="normal" title="SAVE" backgroundImage="SummitButton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -5608,6 +5618,7 @@
         <image name="luxury_sm_ico" width="44" height="44"/>
         <image name="map" width="298" height="304"/>
         <image name="map_route" width="218" height="224"/>
+        <image name="notification_empty" width="360" height="458"/>
         <image name="phone_address" width="180" height="325"/>
         <image name="phone_details" width="180" height="325"/>
         <image name="phone_landscape" width="320" height="115"/>
@@ -5628,8 +5639,8 @@
         <image name="white_back" width="375" height="396"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FaI-op-NCo"/>
-        <segue reference="gMG-uB-ITN"/>
+        <segue reference="4lO-1G-0fb"/>
+        <segue reference="N6S-jP-c4x"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="bJb-3g-Kix"/>
         <segue reference="UM1-sb-1vB"/>

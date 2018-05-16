@@ -92,7 +92,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         {
             error = SignUpValidationError().NoPassword
         }
-        else if (password?.count)! < 6
+        else if (password?.count)! < Constants.MIN_PASSWORD_LENGTH
         {
             error = SignUpValidationError().PasswordSixChar
         }

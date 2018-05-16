@@ -11,6 +11,8 @@ import UIKit
 protocol KTNotificationViewModelDelegate: KTViewModelDelegate {
     func reloadTableData()
     func showDetail()
+    func showEmptyScreen()
+    func hideEmptyScreen()
 }
 
 class KTNotificationViewModel: KTBaseViewModel {
@@ -27,10 +29,15 @@ class KTNotificationViewModel: KTBaseViewModel {
     
     func fetchnNotifications() {
         notifications = KTNotificationManager().allNotifications()
-        //for n in notifications {
-            
-            self.del?.reloadTableData()
-        //}
+        
+        if notifications.count == 0 {
+            self.del?.showEmptyScreen()
+        }
+        else {
+            self.del?.hideEmptyScreen()
+        }
+        self.del?.reloadTableData()
+        
     }
     
     func numberOfRows() -> Int {
