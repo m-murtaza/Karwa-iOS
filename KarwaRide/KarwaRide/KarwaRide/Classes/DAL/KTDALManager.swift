@@ -99,7 +99,10 @@ class KTDALManager: KTBase {
         if syncDate == nil {
             syncDate = self.defaultSyncDate()
         }
-        let syncTimeInterval: TimeInterval = (syncDate?.timeIntervalSince1970)!
+        
+        //MAHA CHOTIYAPA: Ask Abdullah for details. Server need Timestamp with +3 hr for qatar
+        let syncTimeInterval: TimeInterval = (syncDate?.serverTimeStamp())! - 120.0
+        //(syncDate?.timeIntervalSince1970)!
         let strSyncTimeInterval = String(format: "%.0f", syncTimeInterval)
         return strSyncTimeInterval
     }

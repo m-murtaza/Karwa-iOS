@@ -145,7 +145,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
         var dateOfMonth : String = ""
         if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
-            dateOfMonth = ((bookings![idx] as KTBooking).pickupTime! as NSDate).dayOfMonth()
+            dateOfMonth = (bookings![idx] as KTBooking).pickupTime!.dayOfMonth()
         }
         return dateOfMonth
     }
@@ -155,7 +155,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
         var month : String = ""
         if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
-            month = ((bookings![idx] as KTBooking).pickupTime! as NSDate).threeLetterMonth()
+            month = (bookings![idx] as KTBooking).pickupTime!.threeLetterMonth()
         }
         return month
     }
@@ -165,7 +165,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
         var year : String = ""
         if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
-            year = ((bookings![idx] as KTBooking).pickupTime! as NSDate).year()
+            year = (bookings![idx] as KTBooking).pickupTime!.year()
         }
         return year
     }
@@ -175,8 +175,8 @@ class KTMyTripsViewModel: KTBaseViewModel {
         var dayAndTime : String = ""
         if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil{
             
-            let day = ((bookings![idx] as KTBooking).pickupTime! as NSDate).dayOfWeek()
-            let time = ((bookings![idx] as KTBooking).pickupTime! as NSDate).timeWithAMPM()
+            let day = (bookings![idx] as KTBooking).pickupTime!.dayOfWeek()
+            let time = (bookings![idx] as KTBooking).pickupTime!.timeWithAMPM()
             
             dayAndTime = "\(day), \(time)"
         }

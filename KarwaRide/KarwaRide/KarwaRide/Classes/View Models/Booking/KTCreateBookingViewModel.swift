@@ -313,7 +313,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             isEstimeting = true
             del?.updateVehicleTypeList()
             
-            KTBookingManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.timeIntervalSince1970, complition: { (status, response) in
+            KTBookingManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), complition: { (status, response) in
                 self.isEstimeting = false
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.estimates = KTBookingManager().estimates()

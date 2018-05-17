@@ -124,7 +124,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.bookingStatus = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.BookingStatus] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.BookingStatus] as! Int32 : 0
         b.cancelReason = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CancelReason] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.CancelReason] as! Int32 : 0
         b.bookingStatus = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.BookingStatus] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.BookingStatus] as! Int32 : 0
-        b.creationTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CreationTime] as AnyObject)) ? NSDate.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.CreationTime] as? String) as Date : NSDate.defaultDate() as Date
+        b.creationTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CreationTime] as AnyObject)) ? Date.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.CreationTime] as? String)  : Date.defaultDate() 
         
         b.callerId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CallerID] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.CallerID] as? String : ""
         b.eta = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Eta] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Eta] as! Int64 : 0
@@ -142,14 +142,14 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.dropOffAddress = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropAddress] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropAddress] as? String : ""
         b.dropOffLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropLat] as! Double : 0.0
         b.dropOffLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropLon] as! Double : 0.0
-        b.dropOffTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropTime] as AnyObject)) ? NSDate.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.DropTime] as? String) as Date : NSDate.defaultDate() as Date
+        b.dropOffTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropTime] as AnyObject)) ? Date.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.DropTime] as? String) : Date.defaultDate()
         //b.dropOffLocationId = Constants.BookingParams.DropLocationId
         
         b.pickupAddress = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupAddress] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupAddress] as? String : ""
         b.pickupLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupLat] as! Double : 0.0
         b.pickupLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupLon] as! Double : 0.0
         b.pickupMessage = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupMessage] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupMessage] as? String : ""
-        b.pickupTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupTime] as AnyObject)) ? NSDate.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.PickupTime] as? String) as Date : NSDate.defaultDate() as Date
+        b.pickupTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupTime] as AnyObject)) ? Date.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.PickupTime] as? String): Date.defaultDate()
         
         b.serviceType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.ServiceType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.ServiceType] as! Int16 : 0
         b.totalDistance = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TotalDistance] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TotalDistance] as? String : ""

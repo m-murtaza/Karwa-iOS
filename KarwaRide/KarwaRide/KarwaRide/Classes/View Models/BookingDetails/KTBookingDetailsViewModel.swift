@@ -269,25 +269,25 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func pickupDateOfMonth() -> String{
         
-        return (booking!.pickupTime! as NSDate).dayOfMonth()
+        return booking!.pickupTime!.dayOfMonth()
     }
     
     func pickupMonth() -> String{
         
-        return (booking!.pickupTime! as NSDate).threeLetterMonth()
+        return booking!.pickupTime!.threeLetterMonth()
         
     }
     
     func pickupYear() -> String{
         
-        return (booking!.pickupTime! as NSDate).year()
+        return booking!.pickupTime!.year()
         
     }
     
     func pickupDayAndTime() -> String{
         
-        let day = (booking!.pickupTime! as NSDate).dayOfWeek()
-        let time = (booking!.pickupTime! as NSDate).timeWithAMPM()
+        let day = booking!.pickupTime!.dayOfWeek()
+        let time = booking!.pickupTime!.timeWithAMPM()
         
         let dayAndTime = "\(day), \(time)"
         

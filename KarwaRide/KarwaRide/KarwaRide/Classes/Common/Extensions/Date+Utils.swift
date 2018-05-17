@@ -9,78 +9,78 @@
 import Foundation
 extension NSDate {
     
-    static func dateFromServerString(date strDate:String?) ->NSDate {
-        var date : NSDate?
-        
-        if(strDate != nil && !(strDate?.isEmpty)!) {
-            let formatter : DateFormatter = DateFormatter()
-            formatter.dateFormat = Constants.SERVER_DATE_FORMAT
-            if formatter.date(from: strDate!) != nil {
-                date  = formatter.date(from: strDate!)! as NSDate
-            }
-            else {
-                date = defaultDate()
-            }
-        }
-        else {
-            date = defaultDate()
-        }
-        return date!
-    }
+//    static func dateFromServerString(date strDate:String?) ->NSDate {
+//        var date : NSDate?
+//        
+//        if(strDate != nil && !(strDate?.isEmpty)!) {
+//            let formatter : DateFormatter = DateFormatter()
+//            formatter.dateFormat = Constants.SERVER_DATE_FORMAT
+//            if formatter.date(from: strDate!) != nil {
+//                date  = formatter.date(from: strDate!)! as NSDate
+//            }
+//            else {
+//                date = defaultDate()
+//            }
+//        }
+//        else {
+//            date = defaultDate()
+//        }
+//        return date!
+//    }
+//    
+//    static func defaultDate() -> NSDate {
+//        return NSDate(timeIntervalSince1970: 0)
+//    }
     
-    static func defaultDate() -> NSDate {
-        return NSDate(timeIntervalSince1970: 0)
-    }
+//    func year() -> String {
+//        let formatter : DateFormatter = DateFormatter()
+//        formatter.dateFormat = "yyyy"
+//        //formatter.dateStyle = .medium
+//        let str = formatter.string(from: self as Date)
+//        
+//        return str.uppercased()
+//    }
     
-    func year() -> String {
-        let formatter : DateFormatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        //formatter.dateStyle = .medium
-        let str = formatter.string(from: self as Date)
-        
-        return str.uppercased()
-    }
-    
-    func dayOfMonth() -> String {
-        let formatter : DateFormatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        //formatter.dateStyle = .medium
-        let str = formatter.string(from: self as Date)
-        
-        return str.uppercased()
-    }
-    
-    func dayNumberOfWeek() -> Int? {
-        return Calendar.current.dateComponents([.weekday], from: self as Date).weekday
-    }
-    
-    func timeWithAMPM() -> String {
-        let formatter : DateFormatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        //formatter.dateStyle = .medium
-        let str = formatter.string(from: self as Date)
-        
-        return str
-    }
-    
-    func dayOfWeek() -> String {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        let fullDay = dateFormatter.string(from: self as Date).capitalized
-        let shortDay = fullDay.substring(to: fullDay.index(fullDay.startIndex, offsetBy: 3)).uppercased()
-        return shortDay
-    }
-    
-    func threeLetterMonth() ->String {
-        
-        let formatter : DateFormatter = DateFormatter()
-        formatter.dateFormat = "MMM"
-        //formatter.dateStyle = .medium
-        let str = formatter.string(from: self as Date)
-        
-        return str.uppercased()
-    }
+//    func dayOfMonth() -> String {
+//        let formatter : DateFormatter = DateFormatter()
+//        formatter.dateFormat = "dd"
+//        //formatter.dateStyle = .medium
+//        let str = formatter.string(from: self as Date)
+//        
+//        return str.uppercased()
+//    }
+//    
+//    func dayNumberOfWeek() -> Int? {
+//        return Calendar.current.dateComponents([.weekday], from: self as Date).weekday
+//    }
+//    
+//    func timeWithAMPM() -> String {
+//        let formatter : DateFormatter = DateFormatter()
+//        formatter.dateFormat = "h:mm a"
+//        //formatter.dateStyle = .medium
+//        let str = formatter.string(from: self as Date)
+//        
+//        return str
+//    }
+//    
+//    func dayOfWeek() -> String {
+//        
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "EEEE"
+//        let fullDay = dateFormatter.string(from: self as Date).capitalized
+//        let shortDay = fullDay.substring(to: fullDay.index(fullDay.startIndex, offsetBy: 3)).uppercased()
+//        return shortDay
+//    }
+//    
+//    func threeLetterMonth() ->String {
+//        
+//        let formatter : DateFormatter = DateFormatter()
+//        formatter.dateFormat = "MMM"
+//        //formatter.dateStyle = .medium
+//        let str = formatter.string(from: self as Date)
+//        
+//        return str.uppercased()
+//    }
 }
 
 extension Date {
@@ -92,6 +92,29 @@ extension Date {
         let str = formatter.string(from: self as Date)
         
         return str
+    }
+    
+    static func dateFromServerString(date strDate:String?) ->Date {
+        var date : Date?
+        
+        if(strDate != nil && !(strDate?.isEmpty)!) {
+            let formatter : DateFormatter = DateFormatter()
+            formatter.dateFormat = Constants.SERVER_DATE_FORMAT
+            if formatter.date(from: strDate!) != nil {
+                date  = formatter.date(from: strDate!)! 
+            }
+            else {
+                date = defaultDate()
+            }
+        }
+        else {
+            date = defaultDate()
+        }
+        return date!
+    }
+    
+    static func defaultDate() -> Date {
+        return Date(timeIntervalSince1970: 0)
     }
     
     func getElapsedInterval() -> String {
@@ -117,7 +140,61 @@ extension Date {
             return "a moment ago"
             
         }
+    }
+    
+    func serverTimeStamp() -> TimeInterval {
         
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: self))
+        return self.timeIntervalSince1970 + timeZoneOffset
+
     }
 
+    func year() -> String {
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        let str = formatter.string(from: self)
+        
+        return str.uppercased()
+    }
+    
+    func dayOfMonth() -> String {
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "dd"
+        //formatter.dateStyle = .medium
+        let str = formatter.string(from: self)
+        
+        return str.uppercased()
+    }
+    
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self as Date).weekday
+    }
+    
+//    func timeWithAMPM() -> String {
+//        let formatter : DateFormatter = DateFormatter()
+//        formatter.dateFormat = "h:mm a"
+//        //formatter.dateStyle = .medium
+//        let str = formatter.string(from: self as Date)
+//
+//        return str
+//    }
+    
+    func dayOfWeek() -> String {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        let fullDay = dateFormatter.string(from: self).capitalized
+        let shortDay = fullDay.substring(to: fullDay.index(fullDay.startIndex, offsetBy: 3)).uppercased()
+        return shortDay
+    }
+    
+    func threeLetterMonth() ->String {
+        
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        let str = formatter.string(from: self)
+        
+        return str.uppercased()
+    }
+    
 }
