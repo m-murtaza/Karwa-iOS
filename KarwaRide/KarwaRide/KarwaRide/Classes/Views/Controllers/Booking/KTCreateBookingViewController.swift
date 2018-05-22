@@ -107,6 +107,14 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         addChildViewController(confirmationPopup)
     }
     
+    func showCallerIdPopUp() {
+        let callerIDPopup = storyboard?.instantiateViewController(withIdentifier: "callerIDPopupVC") as! KTCallerIDPopup
+        callerIDPopup.previousView = self
+        callerIDPopup.view.frame = self.view.bounds
+        view.addSubview(callerIDPopup.view)
+        addChildViewController(callerIDPopup)
+    }
+    
     // MARK : - UI Update
     func hideRequestBookingBtn() {
         
@@ -207,6 +215,10 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     // MARK: - View Model Delegate
     func hintForPickup() -> String {
         return pickupHint
+    }
+    
+    func callerPhoneNumber() -> String? {
+        return callerId
     }
     
     func setPickUp(pick: String?) {

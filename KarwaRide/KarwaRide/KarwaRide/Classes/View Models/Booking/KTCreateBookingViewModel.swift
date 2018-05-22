@@ -17,10 +17,12 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
     func hintForPickup() -> String
+    func callerPhoneNumber() -> String?
     func setPickUp(pick: String?)
     func setDropOff(drop: String?)
     func setPickDate(date: String)
     func showBookingConfirmation()
+    func showCallerIdPopUp()
     func showRequestBookingBtn()
     func hideRequestBookingBtn()
     func pickDropBoxStep3()
@@ -604,7 +606,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
              rebook = false
              }*/
             
-            
             if currentBookingStep == BookingStep.step1 {
                 
                 fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
@@ -637,8 +638,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK:- Create Booking
     func btnRequestBookingTapped() {
-        
-        (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+        if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
+            //(delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+            (delegate as! KTCreateBookingViewModelDelegate).showCallerIdPopUp()
+        }
+        else {
+            (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+        }
     }
     
     func bookRide() {
@@ -649,7 +655,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             booking.creationTime = Date()
             booking.pickupMessage = (delegate as! KTCreateBookingViewModelDelegate).hintForPickup()
             booking.vehicleType = Int16(selectedVehicleType.rawValue)
-            booking.callerId = KTAppSessionInfo.currentSession.phone
+            booking.callerId =  (delegate as! KTCreateBookingViewModelDelegate).callerPhoneNumber()
+            if booking.callerId == nil || booking.callerId == "" {
+                    booking.callerId = KTAppSessionInfo.currentSession.phone
+            }
             
             if(isDropAvailable()) {
                 vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)

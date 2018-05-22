@@ -40,6 +40,18 @@ enum geoLocationType : Int32 {
     case Popular = 12
 }
 
+enum CustomerType : Int32 {
+    
+    case STANDARD = 1
+    case VVIP = 2
+    case VIP = 3
+    case MOWASALAT_EMPLOYEE = 4
+    case PRIORITY_CUSTOMER = 5
+    case SPECIAL_NEED = 6
+    case JINXED = 7
+    case CORPORATE = 100
+}
+
 enum BookingStatus : Int32 {
     
     case PENDING = 1
@@ -72,7 +84,7 @@ enum BookingStatus : Int32 {
 struct Constants {
     static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-
+    
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
     static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
@@ -273,7 +285,7 @@ struct Constants {
     struct RatingParams {
         static let Rating = "Rating"
         static let Reasons = "Reasons"
-    
+        
     }
     
     struct APIURL {

@@ -27,6 +27,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     //MARK:- Public and private variables
     var fareBreakdown : KTFareViewController!
     public var pickupHint : String = ""
+    public var callerId : String?
     
     //MARK:- Outlets
     @IBOutlet weak var mapView : GMSMapView!

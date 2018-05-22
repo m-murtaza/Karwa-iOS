@@ -21,12 +21,12 @@ class KTAppSessionInfo: NSObject {
     var sessionId : String?
     var phone : String?
     var pushToken : String?
-    var customerType : Int32?
+    var customerType : CustomerType?
  
     func removeCurrentSession()  {
         sessionId = nil
         phone = nil
-        customerType = 0
+        customerType = CustomerType.STANDARD
         //pushToken = nil
     }
 }

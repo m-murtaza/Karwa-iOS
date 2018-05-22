@@ -30,6 +30,11 @@ class BookingConfermationPopupVC: PopupVC {
         btnConfirm.layer.borderColor = UIColor.lightGray.cgColor
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
             if self.view.frame.origin.y == 0{

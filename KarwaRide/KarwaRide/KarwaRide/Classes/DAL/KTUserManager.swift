@@ -17,7 +17,7 @@ class KTUserManager: KTDALManager {
         MagicalRecord.save({(_ localContext: NSManagedObjectContext) -> Void in
             
             let user : KTUser = KTUser.mr_createEntity()!
-            user.customerType = KTAppSessionInfo.currentSession.customerType!
+            user.customerType = KTAppSessionInfo.currentSession.customerType!.rawValue
             //user.name = KTAppSessionInfo.currentSession.
             user.phone = KTAppSessionInfo.currentSession.phone
             //user.email = "ualeem@faad.com"
@@ -83,7 +83,7 @@ class KTUserManager: KTDALManager {
             completion(false)
             return
         }
-        KTAppSessionInfo.currentSession.customerType = loginUser?.customerType
+        KTAppSessionInfo.currentSession.customerType = CustomerType(rawValue: (loginUser?.customerType)!)
         KTAppSessionInfo.currentSession.phone = loginUser?.phone
         KTAppSessionInfo.currentSession.sessionId = loginUser?.sessionId
         completion(true)
@@ -118,7 +118,7 @@ class KTUserManager: KTDALManager {
     
     func saveUserInSessionInfo(_ response:[AnyHashable: Any]) {
         
-        KTAppSessionInfo.currentSession.customerType = response[Constants.LoginResponseAPIKey.CustomerType] as? Int32
+        KTAppSessionInfo.currentSession.customerType =  CustomerType(rawValue: (response[Constants.LoginResponseAPIKey.CustomerType] as! Int32))
         KTAppSessionInfo.currentSession.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
         KTAppSessionInfo.currentSession.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
     }
@@ -154,7 +154,7 @@ class KTUserManager: KTDALManager {
         {
             KTAppSessionInfo.currentSession.sessionId = sessionId
             KTAppSessionInfo.currentSession.phone = UserDefaults.standard.string(forKey: KTPhoneKey)!
-            KTAppSessionInfo.currentSession.customerType = Int32(UserDefaults.standard.integer(forKey: KTCustomerTypeKey))
+            KTAppSessionInfo.currentSession.customerType = CustomerType(rawValue: Int32(UserDefaults.standard.integer(forKey: KTCustomerTypeKey)))
             
             self.fetchUserInfoFromServer(completion: completion)
             
