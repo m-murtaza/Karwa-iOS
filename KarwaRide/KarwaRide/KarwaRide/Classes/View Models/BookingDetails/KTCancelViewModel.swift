@@ -42,15 +42,20 @@ class KTCancelViewModel: KTBaseViewModel {
     }
     
     func btnSubmitTapped(selectedIdx: Int) {
-        
-        let reason : KTCancelReason = reasons[selectedIdx]
-        KTCancelBookingManager().cancelBooking(bookingId: (del?.getBookingID())!, reasonId: Int(reason.reasonCode)) { (status, response) in
+        if selectedIdx < 0 {
+            self.delegate?.showError!(title: "No Reason Selected", message: "Please select reason for your cancelation")
+        }
+        else {
             
-            if status == Constants.APIResponseStatus.SUCCESS {
-                self.del?.cancelSuccess()
-            }
-            else {
-                self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+            let reason : KTCancelReason = reasons[selectedIdx]
+            KTCancelBookingManager().cancelBooking(bookingId: (del?.getBookingID())!, reasonId: Int(reason.reasonCode)) { (status, response) in
+                
+                if status == Constants.APIResponseStatus.SUCCESS {
+                    self.del?.cancelSuccess()
+                }
+                else {
+                    self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                }
             }
         }
     }

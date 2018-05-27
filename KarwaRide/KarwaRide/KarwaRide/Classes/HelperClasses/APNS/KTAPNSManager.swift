@@ -54,6 +54,13 @@ class KTAPNSManager: NSObject {
     
     func receiveNotification(userInfo: [AnyHashable : Any] , appStateForeGround: Bool)
     {
+        if KTAppSessionInfo.currentSession.sessionId == nil {
+            KTUserManager().loadAppSessionFromDB()
+            guard let _ = KTAppSessionInfo.currentSession.sessionId else {
+                //If no session then return. 
+                return
+            }
+        }
         print("Notification Recived: \(userInfo)")
         guard let bookingId = userInfo[Constants.NotificationKey.BookingId] else {
             return

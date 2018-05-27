@@ -109,6 +109,18 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         self.performSegue(withIdentifier: name, sender: self)
     }
     
+
+    func isLargeScreen() -> Bool {
+        var large : Bool = false
+        let horizontalClass : UIUserInterfaceSizeClass = self.traitCollection.horizontalSizeClass
+        let verticalCass : UIUserInterfaceSizeClass  = self.traitCollection.verticalSizeClass;
+        
+        if horizontalClass == .regular && verticalCass == .regular {
+            large = true
+        }
+        return large
+    }
+    
     /*
     // MARK: - Navigation
 

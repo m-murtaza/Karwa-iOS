@@ -49,7 +49,9 @@ class KTMyTripsViewModel: KTBaseViewModel {
         let pendingBooking : [KTBooking] = KTBookingManager().pendingBookings()
         let historyBooking : [KTBooking] = KTBookingManager().historyBookings()
         bookings = pendingBooking + historyBooking
-        
+//        for b in bookings! {
+//            print((b as KTBooking).callerId)
+//        }
     }
     
     
@@ -94,6 +96,18 @@ class KTMyTripsViewModel: KTBaseViewModel {
             }
         }
         return dropAdd!
+    }
+    
+    func callerId(forIdx idx: Int) -> String{
+        var cId : String = ""
+        if bookings != nil && idx < (bookings?.count)! {
+            
+            cId = (bookings![idx] as KTBooking).callerId!
+        }
+        return cId
+    }
+    func showCallerID() -> Bool {
+        return KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE
     }
     
     func cellBGColor(forIdx idx: Int) -> UIColor{

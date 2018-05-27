@@ -60,6 +60,12 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
             cell.imgBookingStatus.image = img
         }
         
+        if isLargeScreen()  && (viewModel as! KTMyTripsViewModel).showCallerID(){
+            cell.lblCallerId.isHidden = false
+            cell.lblCallerId.text = (viewModel as! KTMyTripsViewModel).callerId(forIdx: indexPath.row)
+        }
+        
+        
         cell.viewCard.backgroundColor = (viewModel as! KTMyTripsViewModel).cellBGColor(forIdx: indexPath.row)
         
         cell.viewCard.borderColor = (viewModel as! KTMyTripsViewModel).cellBorderColor(forIdx: indexPath.row)

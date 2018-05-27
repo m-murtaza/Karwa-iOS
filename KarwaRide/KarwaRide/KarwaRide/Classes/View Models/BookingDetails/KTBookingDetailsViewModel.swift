@@ -19,6 +19,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showUpdateVTrackMarker(vTrack: VehicleTrack)
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
+    func updateCallerId()
     func showCancelBooking()
     func showEbill()
     func showFareBreakdown()
@@ -79,6 +80,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         updateMap()
         updateEta()
+        updateCallerId()
         updateBookingCard()
         updateAssignmentInfo()
         updateBottomBarButtons()
@@ -187,6 +189,18 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         return rating
     }
+    //MARK:- CallerId
+    func updateCallerId() {
+        if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
+            del?.updateCallerId()
+        }
+        
+    }
+    
+    func idForCaller() -> String {
+        return (booking?.callerId)!
+    }
+    
     //MARK:- BookingCard
     func updateBookingCard() {
         del?.updateBookingCard()
@@ -509,8 +523,15 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             case .success(_):
                 if response.result.value != nil{
                     do {
+                        guard response.result.isSuccess else {
+                            return
+                        }
+                        guard response.response?.statusCode == 200 else {
+                            return
+                        }
                         let json = try JSON(data: response.data!)
                         let path = GMSMutablePath()
+                        
                         for p in json["snappedPoints"].object as! [ Dictionary<String,Any>] {
                             path.add(CLLocationCoordinate2D(latitude: (p["location"] as! [AnyHashable: Any])["latitude"] as! CLLocationDegrees, longitude: (p["location"] as! [AnyHashable: Any])["longitude"] as! CLLocationDegrees))
                         }

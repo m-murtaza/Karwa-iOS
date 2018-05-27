@@ -116,6 +116,18 @@ class KTUserManager: KTDALManager {
         
     }
     
+    
+    func loadAppSessionFromDB() {
+        
+        let user : KTUser? = loginUserInfo()
+        if user != nil {
+            KTAppSessionInfo.currentSession.sessionId = user?.sessionId
+            KTAppSessionInfo.currentSession.phone = user?.phone
+            KTAppSessionInfo.currentSession.customerType = CustomerType(rawValue:(user?.customerType)!)
+            
+        }
+    }
+    
     func saveUserInSessionInfo(_ response:[AnyHashable: Any]) {
         
         KTAppSessionInfo.currentSession.customerType =  CustomerType(rawValue: (response[Constants.LoginResponseAPIKey.CustomerType] as! Int32))

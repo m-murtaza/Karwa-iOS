@@ -19,6 +19,7 @@ class KTMyTripsTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
     @IBOutlet weak var imgBookingStatus: UIImageView!
+    @IBOutlet weak var lblCallerId: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

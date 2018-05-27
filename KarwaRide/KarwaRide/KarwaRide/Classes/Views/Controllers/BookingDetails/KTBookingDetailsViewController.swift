@@ -32,6 +32,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblPickTime : RoundedLable!
     @IBOutlet weak var lblDropTime : RoundedLable!
     
+    @IBOutlet weak var lblCallerId: UILabel!
+    @IBOutlet weak var viewCallerID : UIView!
+    
     @IBOutlet weak var lblDriverName : UILabel!
     @IBOutlet weak var lblVehicleNumber :UILabel!
     @IBOutlet weak var imgNumberPlate : UIImageView!
@@ -162,7 +165,14 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         imgNumberPlate.image = vModel?.imgForPlate()
         
     }
-    
+    //MARK:- CallerId
+    func updateCallerId() {
+        if isLargeScreen() {
+            viewCallerID.isHidden = false
+            lblCallerId.text = vModel?.idForCaller()
+        }
+        
+    }
     //MARK:- Booking Card
     func updateBookingCard() {
         
