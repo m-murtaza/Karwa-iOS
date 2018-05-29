@@ -13,7 +13,7 @@ protocol KTCancelViewDelegate {
     func cancelDoneSuccess()
 }
 
-class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCellDelegate, UITableViewDataSource {
+class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCellDelegate, UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var tblView : UITableView!
     var delegate : KTCancelViewDelegate?
