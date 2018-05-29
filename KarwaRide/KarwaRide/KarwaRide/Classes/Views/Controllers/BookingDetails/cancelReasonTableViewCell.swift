@@ -36,4 +36,7 @@ class KTCancelReasonTableViewCell: UITableViewCell {
         delegate?.optionSelected(atIdx: tag)
     }
     
+    func cancelOptionSelected(tag:Int) {
+        delegate?.optionSelected(atIdx: tag)
+    }
 }
