@@ -28,7 +28,7 @@ extension KTBookingManager {
     
     func saveEstimates(response : [Any]){
         let predicate : NSPredicate = NSPredicate(format: "fareestimateToBooking == nil")
-        KTFareEstimate.mr_deleteAll(matching: predicate)
+        KTFareEstimate.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default() )
         for r in response {
             
             self.saveSingleVehicleEstimates(estimate: r as! [AnyHashable: Any])
@@ -39,7 +39,7 @@ extension KTBookingManager {
     
     func saveSingleVehicleEstimates(estimate : [AnyHashable: Any]) {
         
-        let e : KTFareEstimate = KTFareEstimate.mr_createEntity()!
+        let e : KTFareEstimate = KTFareEstimate.mr_createEntity(in: NSManagedObjectContext.mr_default())!
         e.estimateId = estimate[Constants.GetEstimateResponseAPIKey.EstimateId] as? String
         e.vehicleType = estimate[Constants.GetEstimateResponseAPIKey.VehicleType] as! Int16
         e.estimatedFare = estimate[Constants.GetEstimateResponseAPIKey.EstimatedFare] as? String
@@ -50,6 +50,7 @@ extension KTBookingManager {
     
     func estimates() -> [KTFareEstimate] {
         
-        return KTFareEstimate.mr_findAll() as! [KTFareEstimate]
+        let predicate : NSPredicate = NSPredicate(format: "fareestimateToBooking == nil")
+        return KTFareEstimate.mr_findAll(with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTFareEstimate]
     }
 }

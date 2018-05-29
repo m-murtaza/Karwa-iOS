@@ -20,6 +20,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
     func updateCallerId()
+    func hidePhoneButton()
     func showCancelBooking()
     func showEbill()
     func showFareBreakdown()
@@ -206,14 +207,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         del?.updateBookingCard()
         
         if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
-            
+            del?.hidePhoneButton()
             del?.updateBookingCardForCompletedBooking()
         }
         else {
             del?.updateBookingCardForUnCompletedBooking()
         }
-        
-        
     }
     
     func pickMessage () -> String {
@@ -637,10 +636,13 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     //MARK: - Estimates
     func estimateTitle() -> String {
-        return "Trip E-Bill"
+        return "Fare Breakdown"
     }
     
     func estimateTotal() -> String {
+        guard let _ = booking?.estimatedFare  else {
+            return ""
+        }
         return (booking?.estimatedFare)!
     }
     

@@ -46,10 +46,11 @@ class KTCancelViewModel: KTBaseViewModel {
             self.delegate?.showError!(title: "No Reason Selected", message: "Please select reason for your cancelation")
         }
         else {
-            
+            delegate?.showProgressHud(show: true, status: "Cancelling Booking")
             let reason : KTCancelReason = reasons[selectedIdx]
             KTCancelBookingManager().cancelBooking(bookingId: (del?.getBookingID())!, reasonId: Int(reason.reasonCode)) { (status, response) in
                 
+                self.delegate?.hideProgressHud()
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.del?.cancelSuccess()
                 }

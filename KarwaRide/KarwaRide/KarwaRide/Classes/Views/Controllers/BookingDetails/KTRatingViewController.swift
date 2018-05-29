@@ -87,6 +87,30 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         driverImgView.layer.borderColor = UIColor.white.cgColor
     }
     
+    //MARK: - Delegates
+    func enableSubmitButton() {
+        self.btnSubmit.isEnabled = true
+    }
+    
+    func showConsolationText() {
+        lblConsolationText.isHidden = false
+    }
+    func hideConsolationText() {
+        lblConsolationText.isHidden = true
+    }
+    
+    func showAltForThanks() {
+        let alertController = UIAlertController(title: "Thanks", message: "For providing us your valuable feedback", preferredStyle: .alert)
+        
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            self.closeScreen()
+        }
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func updateDriver(name: String) {
         lblDriverName.text = name
     }
@@ -112,7 +136,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     @IBAction func btnRateBookingTapped(_ sender: Any) {
-        vModel?.rateBooking()
+        vModel?.btnRattingTapped()
     }
     
     func closeScreen() {

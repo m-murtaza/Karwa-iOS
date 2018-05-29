@@ -51,8 +51,10 @@ class KTNotificationViewModel: KTBaseViewModel {
     }
     
     func dateTime(forCellIdx idx: Int) -> String {
-        
-        return formatedDateForNotification(date: notifications[idx].receiveDate!)
+        if notifications[idx].notificationToBooking != nil {
+            return formatedDateForNotification(date:(notifications[idx].notificationToBooking?.pickupTime)!)
+        }
+        return ""
     }
     
     func formatedDateForNotification(date: Date) -> String {
