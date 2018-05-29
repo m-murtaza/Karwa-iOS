@@ -20,6 +20,7 @@ extension KTUserManager
             self.logout { (status, response) in
                 print("Logout on server " + status)
                 self.removeUserData()
+                self.removeNotification()
                 (UIApplication.shared.delegate as! AppDelegate).showLogin()
                 
             }
@@ -38,6 +39,10 @@ extension KTUserManager
             
             completionBlock(Constants.APIResponseStatus.SUCCESS, response)  //No need to send
         }
+    }
+    
+    func removeNotification() {
+        KTNotificationManager().deleteAllNotifications()
     }
     
     func removeUserData()  {

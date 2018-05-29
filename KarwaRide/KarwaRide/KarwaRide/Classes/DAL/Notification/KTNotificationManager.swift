@@ -16,7 +16,7 @@ class KTNotificationManager: KTDALManager {
         notificaiton.message = (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable: Any])[Constants.NotificationKey.Message] as! String
         
         notificaiton.bookingStatusWhenReceive =  Int32(userInfo[Constants.NotificationKey.BookingStatus] as! String)!
-        notificaiton.receiveDate = Date(timeIntervalSince1970: Double(userInfo[Constants.NotificationKey.NotificationTime] as! String)!)
+        notificaiton.receiveDate = Date(timeIntervalSince1970: Double(userInfo[Constants.NotificationKey.NotificationTime] as! String)!).deviceTimeZone()
         
         notificaiton.notificationToBooking = booking
         booking.bookingToNotification = (booking.bookingToNotification?.adding(notificaiton) as! NSSet)
@@ -34,7 +34,7 @@ class KTNotificationManager: KTDALManager {
     
     func allNotifications() -> [KTNotification] {
         
-        return KTNotification.mr_findAllSorted(by: "receiveDate", ascending: true) as! [KTNotification]
+        return KTNotification.mr_findAllSorted(by: "receiveDate", ascending: false) as! [KTNotification]
     }
     
     func deleteNotification(forBooking booking: KTBooking)  {
@@ -52,6 +52,15 @@ class KTNotificationManager: KTDALManager {
         let date :  Date = Date().addingTimeInterval(-3600*24)
         let predicate : NSPredicate = NSPredicate(format: "receiveDate < %@", date as CVarArg)
         let notifications : [KTNotification] = KTNotification.mr_findAll(with: predicate) as! [KTNotification]
+        
+        for notification in notifications {
+            notification.mr_deleteEntity()
+        }
+    }
+    
+    func deleteAllNotifications()  {
+        
+        let notifications : [KTNotification] = KTNotification.mr_findAll() as! [KTNotification]
         
         for notification in notifications {
             notification.mr_deleteEntity()

@@ -21,6 +21,10 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func addTag(tag: String)
     func selectedIdx() -> [NSNumber]
     func userFinalRating() -> Int32
+    func showAltForThanks()
+    func enableSubmitButton()
+    func showConsolationText()
+    func hideConsolationText()
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -44,6 +48,13 @@ class KTRatingViewModel: KTBaseViewModel {
     }
     
     func ratingUpdate(rating: Double) {
+        del?.enableSubmitButton()
+        if rating == 4 {
+            del?.showConsolationText()
+        }
+        else {
+            del?.hideConsolationText()
+        }
         fetchReason(forRating: Int32(rating))
     }
     
@@ -73,25 +84,37 @@ class KTRatingViewModel: KTBaseViewModel {
         return rreasonsIdx
     }
     
+    func btnRattingTapped()  {
+        if (del?.userFinalRating())! != 0 {
+            rateBooking()
+        }
+        else {
+            delegate?.showError!(title: "Error", message: "Please select rating for driver")
+        }
+    }
+    
     func rateBooking() {
         let reasonIds : [Int16] = selectedReasonIds()
         let rating : Int32 = (del?.userFinalRating())!
         let bookingId : String = (booking?.bookingId)!
         
-        
+        self.delegate?.showProgressHud(show: true, status: "Updating Driver Rating")
         KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds) { (status, response) in
-            
+            self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
                 
                 self.booking?.isRated = true
                 KTNotificationManager().deleteNotification(forBooking: self.booking!)
                 KTDALManager().saveInDb()
+                self.del?.showAltForThanks()
+                
             }
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                self.del?.closeScreen()
             }
-            self.del?.closeScreen()
+            
         }
     }
     

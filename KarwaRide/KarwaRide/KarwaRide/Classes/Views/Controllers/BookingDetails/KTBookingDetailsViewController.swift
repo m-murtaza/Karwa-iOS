@@ -102,6 +102,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
         }
+        vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
         
     }
@@ -446,6 +447,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         ebillPopup?.set(header: vModel?.estimateHeader(), body: vModel?.estimateBody(), title: (vModel?.estimateTitle())!, total: (vModel?.estimateTotal())!,titleTotal: (vModel?.estimateTitleTotal())!)
         
         ebillPopup?.updateViewForSmallSize()
+    }
+    
+    func hidePhoneButton() {
+        
+        btnPhone.isHidden = true
     }
     
 }

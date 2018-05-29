@@ -662,13 +662,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
             if(isDropAvailable()) {
                 vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)
+//                booking.bookingToEstimate = vEstimate
+//                vEstimate?.fareestimateToBooking = booking
+//                booking.estimatedFare = vEstimate?.estimatedFare
             }
             
             delegate?.showProgressHud(show: true, status: "Booking a ride")
             bookManager.bookTaxi(job: booking,estimate: vEstimate) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
-                    
+                    self.removeBooking = false
                     (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
                 }
                 else {

@@ -142,6 +142,13 @@ extension Date {
         }
     }
     
+    //DUe to server side chotiyapa.
+    func deviceTimeZone() -> Date {
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: self))
+        return Date(timeIntervalSinceReferenceDate: (self.timeIntervalSince1970 - timeZoneOffset))
+    }
+    
+    //DUe to server side chotiyapa.
     func serverTimeStamp() -> TimeInterval {
         
         let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: self))
