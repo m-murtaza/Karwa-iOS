@@ -92,7 +92,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             dropAdd = (bookings![idx] as KTBooking).dropOffAddress
             if dropAdd == nil || (dropAdd?.isEmpty)! {
                 
-                dropAdd = ""
+                dropAdd = "No Destination Set"
             }
         }
         return dropAdd!
