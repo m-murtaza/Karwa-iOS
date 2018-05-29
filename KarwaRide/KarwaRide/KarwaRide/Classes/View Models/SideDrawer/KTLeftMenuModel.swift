@@ -70,11 +70,11 @@ class KTLeftMenuModel: KTBaseViewModel {
         let menuItem4 : KTMenuItems = KTMenuItems(title: "Fare Breakdown", image: UIImage(named:"LMFareBreakdown")!, color: UIColor(hexString: "#1BB4B4"))
         drawerOptions.append(menuItem4)
         
-        let menuItem5 : KTMenuItems = KTMenuItems(title: "Payment Methods", image: UIImage(named:"LMPayment")!, color: UIColor(hexString: "#778F5F"))
-        drawerOptions.append(menuItem5)
+//        let menuItem5 : KTMenuItems = KTMenuItems(title: "Payment Methods", image: UIImage(named:"LMPayment")!, color: UIColor(hexString: "#778F5F"))
+//        drawerOptions.append(menuItem5)
         
-        let menuItem6 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"))
-        drawerOptions.append(menuItem6)
+        let menuItem5 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"))
+        drawerOptions.append(menuItem5)
     }
     
     func numberOfRowsInSection() -> Int
