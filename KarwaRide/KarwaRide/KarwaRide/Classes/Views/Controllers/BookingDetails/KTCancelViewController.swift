@@ -84,6 +84,11 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         return cell 
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell : KTCancelReasonTableViewCell = tableView.cellForRow(at: indexPath) as! KTCancelReasonTableViewCell
+        cell.cancelOptionSelected(tag: indexPath.row)
+    }
+    
     func optionSelected(atIdx idx: Int) {
         
         selectedOption = idx
