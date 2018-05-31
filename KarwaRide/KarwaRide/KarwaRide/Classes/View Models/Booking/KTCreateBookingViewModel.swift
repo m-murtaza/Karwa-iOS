@@ -40,6 +40,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func hideFareBreakdown(animated : Bool)
     func fareDetailVisible() -> Bool
     func updateVehicleTypeList()
+    func allowScrollVTypeCard(allow : Bool)
 }
 
 let CHECK_DELAY = 90.0
@@ -117,6 +118,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     override func viewDidAppear() {
         super.viewDidAppear()
         rebook = false
+        del?.allowScrollVTypeCard(allow: true)
     }
     
     override func viewWillDisappear() {
@@ -287,6 +289,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func btnDropAddTapped() {
         removeBooking = false
+        del?.allowScrollVTypeCard(allow: false)
         delegate?.performSegue(name: "segueBookingToAddresspickerForDropoff")
     }
     //MARK: - Navigation view functions

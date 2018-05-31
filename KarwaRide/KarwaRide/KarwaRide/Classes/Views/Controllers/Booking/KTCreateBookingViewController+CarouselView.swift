@@ -65,8 +65,15 @@ extension CarouselDelegate: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         carousel.didScroll()
         
-        guard (carousel.currentCenterCellIndex?.row) != nil else { return }
+        guard (carousel.currentCenterCellIndex?.row) != nil , allowScroll == true else {
+            return
+            
+        }
         (viewModel as! KTCreateBookingViewModel).vTypeViewScroll(currentIdx: carousel.currentCenterCellIndex!.row)
+    }
+    //Total Jugar: for some reason scrollViewDidScroll(above method) was getting called when view disappears and change index for standard limo. Why only standard limo? coz its very near from first index. others take time while standard limo didn't take time. 
+    func allowScrollVTypeCard(allow : Bool) {
+        allowScroll = allow
     }
 }
 

@@ -240,6 +240,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         constraintSpaceSapratorToPickupLable.priority = UILayoutPriority.defaultLow
     }
     
+    
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {
         

@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
-
+//MARK: - Protocols
 protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func initializeMap(location : CLLocationCoordinate2D)
     func showCurrentLocationDot(show: Bool)
@@ -46,7 +46,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     
     func showRatingScreen()
 }
-
+//MARK: -
 enum BottomBarBtnTag : Int {
     case Cancel = 101
     case FareBreakdown = 102
@@ -462,6 +462,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 if status == Constants.APIResponseStatus.SUCCESS {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
+                    self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
                 }
             })
         }
@@ -481,6 +482,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
         //track.vehicleType = rtrack["VehicleType"] as! Int
         track.bearing = rtrack["Bearing"] as! Float
+        track.eta = rtrack["CurrentETA"] as! Int64
         track.trackType = VehicleTrackType.vehicle
         return track
     }

@@ -64,4 +64,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     
     //MARK:- REBook
     var booking : KTBooking?
+    
+    //MARK:- AllowScroll
+    var allowScroll :Bool = true
 }
