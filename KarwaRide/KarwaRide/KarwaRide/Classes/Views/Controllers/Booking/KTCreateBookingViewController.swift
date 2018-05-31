@@ -133,7 +133,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         constraintBoxBtnRequestBookingSpace.constant = 20
         btnRequestBooking.isHidden = false
         
-        //self.btnRequestBooking.setNeedsDisplay()
+        self.btnRequestBooking.setNeedsDisplay()
         self.view.layoutIfNeeded()
     }
     

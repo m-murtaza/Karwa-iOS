@@ -65,7 +65,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
     var selectedPickupDateTime : Date = Date()
-    var dropOffBtnText = "Set Destination, Start your booking"
+    var dropOffBtnText = "No Destination set"
     var timerFetchNearbyVehicle : Timer = Timer()
     
     var rebook: Bool = false
@@ -120,7 +120,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     override func viewWillDisappear() {
-        if removeBooking {
+        if removeBooking  && booking.bookingStatus == BookingStatus.UNKNOWN.rawValue{
             booking.mr_deleteEntity()
         }
         super.viewWillDisappear()
@@ -141,6 +141,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         booking.dropOffAddress = dAddress.name
         booking.dropOffLat = dAddress.latitude
         booking.dropOffLon = dAddress.longitude
+    }
+    func setSkipDropOff() {
+        booking.dropOffLocationId = 0
+        booking.dropOffAddress = nil
+        booking.dropOffLat = 0
+        booking.dropOffLon = 0
+        booking.bookingToEstimate = nil
+        estimates = nil
     }
     
     //MARK:-
@@ -290,7 +298,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
         }
         
-        if(booking.dropOffAddress != nil || booking.dropOffAddress != "") {
+        if(booking.dropOffAddress != nil && booking.dropOffAddress != "") {
             
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress)
         }
@@ -311,9 +319,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Estimates
     private func fetchEstimates() {
+        del?.updateVehicleTypeList()
         if booking.pickupAddress != nil && booking.dropOffAddress != nil {
             isEstimeting = true
-            del?.updateVehicleTypeList()
+            
             
             KTBookingManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), complition: { (status, response) in
                 self.isEstimeting = false

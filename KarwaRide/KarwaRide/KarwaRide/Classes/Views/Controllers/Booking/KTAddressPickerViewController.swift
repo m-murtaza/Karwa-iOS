@@ -338,6 +338,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             
             previousView?.setDropAddress(dAddress: dropOff!)
         }
+        else {
+            previousView?.setSkipDropOff()
+        }
         
         previousView?.dismiss()
     }

@@ -20,7 +20,6 @@ open class ButtonWithShadow: UIButton {
         self.layer.shadowOffset = CGSize(width: 0, height: 10)
         self.layer.shadowOpacity = 0.4
         self.layer.shadowRadius = 10.0
-        //self.layer.sh
         self.layer.masksToBounds = false
         
         //Add spacing
