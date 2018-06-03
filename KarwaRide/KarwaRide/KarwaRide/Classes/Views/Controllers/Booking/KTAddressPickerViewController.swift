@@ -35,6 +35,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     @IBOutlet weak var mapSuperView : UIView!
     @IBOutlet weak var imgMapMarker : UIImageView!
     
+    @IBOutlet weak var btnHome : UIButton!
+    @IBOutlet weak var btnWork : UIButton!
+    @IBOutlet weak var btnConfirm : UIButton!
+    
     @IBOutlet weak var constraintTableViewBottom : NSLayoutConstraint!
     
     public var pickupAddress : KTGeoLocation?
@@ -217,11 +221,33 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     }*/
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        enableButtons()
         if selectedInputMechanism == SelectedInputMechanism.MapView {
             (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
         }
     }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if (gesture){
+            //print("dragged")
+            disableButtons()
+        }
+    }
 
+    //MARK:- Buttons and UserIntractions
+    func disableButtons() {
+        updateButtonsUserIntraction(enable: false)
+    }
+    
+    func enableButtons() {
+        updateButtonsUserIntraction(enable: true)
+    }
+
+    func updateButtonsUserIntraction(enable : Bool) {
+        btnHome.isUserInteractionEnabled = enable
+        btnWork.isUserInteractionEnabled = enable
+        btnConfirm.isUserInteractionEnabled = enable
+    }
     //MARK: - User Actions
     
     @IBAction func btnConfirmTapped(_ sender: Any) {
