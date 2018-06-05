@@ -4107,7 +4107,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -5651,7 +5651,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QXr-yN-CgH">
-                                <rect key="frame" x="16" y="44" width="343" height="100"/>
+                                <rect key="frame" x="16" y="52" width="343" height="110"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareCellIdentifier" rowHeight="25" id="e3O-5E-TE9" customClass="KTFareTableViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -5662,7 +5662,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3Z-lF-12c">
-                                                    <rect key="frame" x="19" y="2" width="221" height="21"/>
+                                                    <rect key="frame" x="12" y="2" width="228" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="oh7-5P-ghn"/>
                                                     </constraints>
@@ -5714,13 +5714,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QXr-yN-CgH" firstAttribute="top" secondItem="tZ5-j8-r15" secondAttribute="bottom" constant="8" id="2u6-2V-jfk"/>
+                            <constraint firstItem="QXr-yN-CgH" firstAttribute="top" secondItem="tZ5-j8-r15" secondAttribute="bottom" constant="16" id="2u6-2V-jfk"/>
                             <constraint firstItem="EXW-IS-Prj" firstAttribute="centerX" secondItem="QXr-yN-CgH" secondAttribute="centerX" id="9xd-Ux-rzM"/>
                             <constraint firstItem="QXr-yN-CgH" firstAttribute="trailing" secondItem="SZz-a8-0f0" secondAttribute="trailingMargin" id="K01-uL-X6Z"/>
                             <constraint firstItem="tZ5-j8-r15" firstAttribute="trailing" secondItem="SZz-a8-0f0" secondAttribute="trailingMargin" id="Pzt-A5-OhE"/>
                             <constraint firstAttribute="bottom" secondItem="EXW-IS-Prj" secondAttribute="bottom" id="Tog-hC-I9t"/>
                             <constraint firstItem="tZ5-j8-r15" firstAttribute="top" secondItem="SZz-a8-0f0" secondAttribute="topMargin" constant="20" id="X7x-cj-6sz"/>
-                            <constraint firstItem="EXW-IS-Prj" firstAttribute="top" secondItem="QXr-yN-CgH" secondAttribute="bottom" constant="20" id="ccD-jz-0u2"/>
+                            <constraint firstItem="EXW-IS-Prj" firstAttribute="top" secondItem="QXr-yN-CgH" secondAttribute="bottom" constant="2" id="ccD-jz-0u2"/>
                             <constraint firstItem="QXr-yN-CgH" firstAttribute="leading" secondItem="SZz-a8-0f0" secondAttribute="leadingMargin" id="hGM-6N-GNh"/>
                             <constraint firstItem="tZ5-j8-r15" firstAttribute="leading" secondItem="SZz-a8-0f0" secondAttribute="leadingMargin" constant="16" id="nrM-Nh-DIe"/>
                         </constraints>
