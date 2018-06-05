@@ -9,8 +9,10 @@
 import UIKit
 import QuartzCore
 
-class BookingConfermationPopupVC: PopupVC {
+let ALLOWED_EXTRA_INFO_CHAR : Int = 30
 
+class BookingConfermationPopupVC: PopupVC, UITextFieldDelegate {
+    
     @IBOutlet weak var txtPickupHint: UITextField!
     @IBOutlet weak var btnClose : UIButton!
     @IBOutlet weak var btnConfirm : UIButton!
@@ -24,6 +26,7 @@ class BookingConfermationPopupVC: PopupVC {
         
         viewPopupUI.layer.cornerRadius = 18;
         viewPopupUI.layer.masksToBounds = true;
+        //TODO: limit the input of hint
         btnClose.layer.borderWidth = 0.5
         btnClose.layer.borderColor = UIColor.lightGray.cgColor
         btnConfirm.layer.borderWidth = 0.5
@@ -76,5 +79,21 @@ class BookingConfermationPopupVC: PopupVC {
     }
     @IBAction func btnCancelTapped(_ sender: Any) {
         self.hideViewWithAnimation()
+    }
+    
+    //MARK:- TextField Delegate
+    //Bug 2567 Fixed.
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == txtPickupHint {
+            
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            
+            let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            return changedText.count <= ALLOWED_EXTRA_INFO_CHAR
+        }
+        return true
     }
 }
