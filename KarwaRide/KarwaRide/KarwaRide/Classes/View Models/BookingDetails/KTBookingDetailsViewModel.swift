@@ -403,6 +403,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
+            showPickDropMarker(showOnlyPickup: true)
             startVechicleTrackTimer()
         }
         else if bStatus == BookingStatus.COMPLETED {
@@ -426,6 +427,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func showPickDropMarker() {
+        showPickDropMarker(showOnlyPickup: false)
+    }
+    
+    func showPickDropMarker(showOnlyPickup : Bool) {
         
         let bounds : GMSCoordinateBounds = GMSCoordinateBounds()
         
@@ -436,11 +441,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             bounds.includingCoordinate(location)
         }
         
-        if booking?.dropOffLat != nil && booking?.dropOffLon != nil && !(booking?.dropOffLat.isZero)! && !(booking?.dropOffLon.isZero)! {
-            
-            let location : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.dropOffLat)!,longitude: (booking?.dropOffLon)!)
-            del?.addDropOffMarker(location: location)
-            bounds.includingCoordinate(location)
+        if(!showOnlyPickup)
+        {
+            if booking?.dropOffLat != nil && booking?.dropOffLon != nil && !(booking?.dropOffLat.isZero)! && !(booking?.dropOffLon.isZero)! {
+                
+                let location : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.dropOffLat)!,longitude: (booking?.dropOffLon)!)
+                del?.addDropOffMarker(location: location)
+                bounds.includingCoordinate(location)
+            }
         }
         
         if bounds.isValid {
@@ -481,7 +489,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         //track.vehicleNo = rtrack["VehicleNo"] as! String
         track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
         //track.vehicleType = rtrack["VehicleType"] as! Int
-        track.bearing = rtrack["Bearing"] as! Float
+        track.bearing = (rtrack["Bearing"] as! NSNumber).floatValue
         track.eta = rtrack["CurrentETA"] as! Int64
         track.trackType = VehicleTrackType.vehicle
         return track
