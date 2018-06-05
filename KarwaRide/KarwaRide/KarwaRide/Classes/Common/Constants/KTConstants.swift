@@ -254,6 +254,10 @@ struct Constants {
         static let OTP = "Otp"
     }
     
+    struct DeviceTokenParam {
+        static let DeviceToken = "DeviceToken"
+    }
+    
     struct SignUpParams {
         static let Name = "Name"
         static let Phone = "Phone"

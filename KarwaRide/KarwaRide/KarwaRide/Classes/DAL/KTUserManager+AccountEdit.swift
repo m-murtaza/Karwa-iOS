@@ -32,6 +32,11 @@ extension KTUserManager {
         updateUserInfo(param: param as! [String : Any], completion: completionBlock)
     }
     
+    func updateDeviceTokenOnServer(token : String, completion completionBlock: @escaping KTDALCompletionBlock)  {
+        let param : [String : Any] = [Constants.DeviceTokenParam.DeviceToken: token]
+        KTUserManager().updateUserInfo(param: param ,completion: completionBlock)
+    }
+    
     private func updateUserInfo(param : [String:Any], completion completionBlock:@escaping KTDALCompletionBlock) {
         self.post(url: Constants.APIURL.UpdateUserAccount, param: param, completion: completionBlock, success: {
             (responseData,cBlock) in
