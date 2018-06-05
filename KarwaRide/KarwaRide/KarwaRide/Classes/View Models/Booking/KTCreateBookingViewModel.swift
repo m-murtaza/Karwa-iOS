@@ -25,6 +25,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func showCallerIdPopUp()
     func showRequestBookingBtn()
     func hideRequestBookingBtn()
+    func showCancelBookingBtn()
+    func hideCancelBookingBtn()
     func pickDropBoxStep3()
     func pickDropBoxStep1()
     //func updatePickDropBox()
@@ -105,9 +107,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if currentBookingStep == BookingStep.step1 {
             
             timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+            (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
         }
         else if currentBookingStep == BookingStep.step3 {
-            
+            (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
             fetchEstimates()
             registerForMinuteChange()
             drawDirectionOnMap()
@@ -849,6 +852,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func prepareToMoveAddressPicker() {
         currentBookingStep = BookingStep.step2
         dropOffBtnText = "Destination not set"
+    }
+    
+    public func resetInProgressBooking() {
+        booking.mr_deleteEntity()
+        booking = KTBookingManager().booking()
+
+        (delegate as! KTCreateBookingViewModelDelegate).clearMap()
+        (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
+        
     }
 }
 

@@ -93,6 +93,11 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     
+    @IBAction func btnCancelBtnTapped(_ sender: Any)
+    {
+        (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
+    }
+    
     //MARK: - Book Ride
     func bookRide()  {
         (viewModel as! KTCreateBookingViewModel).bookRide()
@@ -116,6 +121,16 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     }
     
     // MARK : - UI Update
+    func showCancelBookingBtn() {
+        btnCancelBtn.isHidden = false
+        btnRevealBtn.isHidden = true
+    }
+    
+    func hideCancelBookingBtn()  {
+        btnCancelBtn.isHidden = true
+        btnRevealBtn.isHidden = false
+    }
+    
     func hideRequestBookingBtn() {
         
         constraintBtnRequestBookingHeight.constant = 0

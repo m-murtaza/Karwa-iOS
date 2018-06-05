@@ -35,6 +35,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var btnPickupAddress: UIButton!
     @IBOutlet weak var btnDropoffAddress: UIButton!
     @IBOutlet weak var btnRevealBtn : UIButton!
+    @IBOutlet weak var btnCancelBtn : UIButton!
     @IBOutlet weak var btnRequestBooking :UIButton!
     @IBOutlet weak var imgPickDestBoxBG :UIImageView!
     @IBOutlet weak var btnPickDate: UIButton!
