@@ -36,7 +36,8 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
         if title != "" {
             lblTitle.text = title
         }
-        
+        breakdown = [:]
+        keys = []
         for brkDown in b {
             
             breakdown[Array(brkDown.keys)[0]] = brkDown[Array(brkDown.keys)[0]]

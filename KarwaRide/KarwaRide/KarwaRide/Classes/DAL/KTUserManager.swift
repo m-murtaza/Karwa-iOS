@@ -92,7 +92,7 @@ class KTUserManager: KTDALManager {
     func login(params : NSMutableDictionary,url : String?,completion completionBlock: @escaping KTDALCompletionBlock)  {
         
         params[Constants.LoginParams.DeviceType] = Constants.DeviceTypes.iOS
-        if KTUtils.isObjectNotNil(object: KTAppSessionInfo.currentSession.pushToken as AnyObject)
+        if KTUtils.isObjectNotNil(object: KTAppSessionInfo.currentSession.pushToken as AnyObject) && (KTAppSessionInfo.currentSession.pushToken?.count)! > 40
         {
             params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
         }
