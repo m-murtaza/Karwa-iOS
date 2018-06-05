@@ -684,6 +684,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.removeBooking = false
+                    //TODO: Move to bookings list
                     (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
                 }
                 else {

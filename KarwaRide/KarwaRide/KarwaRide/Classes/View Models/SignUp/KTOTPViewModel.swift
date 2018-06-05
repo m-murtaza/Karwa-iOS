@@ -43,7 +43,7 @@ class KTOTPViewModel: KTBaseViewModel {
     func resendOTP() {
         
         let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
-        delegate?.showProgressHud(show: true, status: "Confirming Code")
+        delegate?.showProgressHud(show: true, status: "Resending OTP")
         KTUserManager().resendOTP(phone: phone) { (status, response) in
             
             self.delegate?.hideProgressHud()
