@@ -11,11 +11,15 @@ class KTUtils
 {
     static func isObjectNotNil(object:AnyObject!) -> Bool
     {
-        if let _:AnyObject = object
+        /*if let _:AnyObject = object
         {
             return true
         }
         
-        return false
+        return false*/
+        guard let _ = object else {
+            return false
+        }
+        return true
     }
 }

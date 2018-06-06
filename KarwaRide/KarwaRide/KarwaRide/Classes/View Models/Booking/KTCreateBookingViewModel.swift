@@ -285,6 +285,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del?.updateFareBreakdown(kvPair: orderedKV)
     }
     
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        if segue.identifier == "segueMyTripsToDetails" {
+//            
+//            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
+//            if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
+//                details.setBooking(booking: booking)
+//            }
+//        }
+//    }
+    
     //MARK: - Navigation to Address Picker
     func btnPickupAddTapped(){
         removeBooking = false

@@ -43,6 +43,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
             (responseData,cBlock) in
             job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
             job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
+            job.bookingType = (responseData[Constants.BookingParams.BookingType] as? Int16)!
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
             if estimate != nil {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)

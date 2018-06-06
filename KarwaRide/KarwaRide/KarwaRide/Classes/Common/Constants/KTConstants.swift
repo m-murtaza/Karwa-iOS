@@ -284,6 +284,7 @@ struct Constants {
         static let BookingType = "BookingType"
         static let EstimateId = "EstimateId"
         static let EstimatedFare = "EstimatedFare"
+        //static let BookingType = "BookingType"
     }
     
     struct RatingParams {
