@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1970,7 +1970,68 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJF-Iu-Ca2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3584.8000000000002" y="1282.3088455772115"/>
+            <point key="canvasLocation" x="4655" y="1066"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3jF-vZ-O5X">
+            <objects>
+                <navigationController storyboardIdentifier="KTFareNavigation" id="p4O-08-d4z" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lfY-a6-22W">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="0BM-Ze-1eP" kind="relationship" relationship="rootViewController" id="qDr-th-4vK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XUQ-sM-xYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4654" y="331"/>
+        </scene>
+        <!--Fare Details-->
+        <scene sceneID="uoB-wm-WMe">
+            <objects>
+                <viewController id="0BM-Ze-1eP" customClass="KTFareHTMLViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X2z-ct-oc3"/>
+                        <viewControllerLayoutGuide type="bottom" id="MB5-lj-zi1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6h0-FM-CM9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="smQ-pn-PkM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="smQ-pn-PkM" firstAttribute="leading" secondItem="6h0-FM-CM9" secondAttribute="leading" id="7jr-Pq-7D9"/>
+                            <constraint firstItem="MB5-lj-zi1" firstAttribute="top" secondItem="smQ-pn-PkM" secondAttribute="bottom" id="US6-WM-BSD"/>
+                            <constraint firstItem="smQ-pn-PkM" firstAttribute="top" secondItem="X2z-ct-oc3" secondAttribute="bottom" id="jnv-I7-4rd"/>
+                            <constraint firstAttribute="trailing" secondItem="smQ-pn-PkM" secondAttribute="trailing" id="kb7-Xc-B6Z"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Fare Details" id="wsL-DV-akw">
+                        <barButtonItem key="leftBarButtonItem" image="RevealButton" id="wcw-ef-eDr">
+                            <connections>
+                                <action selector="presentLeftMenuViewController" destination="0BM-Ze-1eP" id="mpg-rR-4Ac"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="revealBarButton" destination="wcw-ef-eDr" id="kKy-rN-hwV"/>
+                        <outlet property="webView" destination="smQ-pn-PkM" id="lVc-xA-opV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Zz-9D-kkE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5520.8000000000002" y="289.20539730134936"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JFs-6F-Nvu">
@@ -3740,7 +3801,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxC-Vw-A6E">
-                                <rect key="frame" x="16" y="20" width="40" height="40"/>
+                                <rect key="frame" x="16" y="64" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="930-fr-Vnl"/>
                                     <constraint firstAttribute="height" constant="40" id="Hlv-Ah-f8s"/>
@@ -3751,7 +3812,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fe2-d4-qJR">
-                                <rect key="frame" x="16" y="20" width="40" height="40"/>
+                                <rect key="frame" x="16" y="64" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LJr-eC-oxB"/>
                                     <constraint firstAttribute="width" constant="40" id="b94-0J-RPv"/>
@@ -5837,7 +5898,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4lO-1G-0fb"/>
-        <segue reference="CcG-57-rIe"/>
+        <segue reference="gMG-uB-ITN"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="XB0-DD-FoR"/>
         <segue reference="uRk-Bz-EyY"/>
