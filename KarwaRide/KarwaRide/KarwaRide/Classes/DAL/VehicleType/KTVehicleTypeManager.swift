@@ -74,6 +74,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         for keyvalue in vType.toKeyValueBody! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
+        vType.toKeyValueBody = NSOrderedSet()
         saveKeyValueBody(keyValue: tariff["OrderedBody"] as! [[AnyHashable : Any]], tariff: vType as KTBaseTrariff)
     }
     
@@ -166,6 +167,14 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         return vTypes.sorted(by: { (this, that) -> Bool in
             this.typeSortOrder < that.typeSortOrder
         })
+    }
+    
+    func vehicleType(typeId : Int16) -> KTVehicleType? {
+        var vType : KTVehicleType
+        let predicate : NSPredicate = NSPredicate(format: "typeId == %d",typeId)
+        vType  = (KTVehicleType.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()))!
+    
+        return vType
     }
     
     static func isTaxi(vType: VehicleType) -> Bool {

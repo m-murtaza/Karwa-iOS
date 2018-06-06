@@ -675,6 +675,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     booking.callerId = KTAppSessionInfo.currentSession.phone
             }
             
+            var filterBaseFare = vehicleTypes?.filter( { (vtype: KTVehicleType) -> Bool in
+                return vtype.typeId == booking.vehicleType
+            })
+            
+            if filterBaseFare != nil && (filterBaseFare?.count)! > 0 {
+                booking.toKeyValueBody = (filterBaseFare![0] as! KTVehicleType).toKeyValueBody
+            }
+            
             if(isDropAvailable()) {
                 vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)
 //                booking.bookingToEstimate = vEstimate

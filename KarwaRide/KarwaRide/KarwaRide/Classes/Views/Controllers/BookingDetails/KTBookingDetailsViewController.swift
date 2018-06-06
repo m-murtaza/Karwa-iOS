@@ -446,7 +446,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         ebillPopup?.view.frame = self.view.bounds
         view.addSubview((ebillPopup?.view)!)
         addChildViewController(ebillPopup!)
-        ebillPopup?.set(header: vModel?.estimateHeader(), body: vModel?.estimateBody(), title: (vModel?.estimateTitle())!, total: (vModel?.estimateTotal())!,titleTotal: (vModel?.estimateTitleTotal())!)
+        ebillPopup?.set(header: vModel?.fareDetailsHeader(), body: vModel?.fareDetailsBody(), title: (vModel?.estimateTitle())!, total: (vModel?.fareDetailTotal())!,titleTotal: (vModel?.fareDetailTitleTotal())!)
         
         ebillPopup?.updateViewForSmallSize()
     }

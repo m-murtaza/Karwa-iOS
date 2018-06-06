@@ -642,8 +642,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
-    
-    
+
     //MARK: - Estimates
     func estimateTitle() -> String {
         return "Fare Breakdown"
@@ -680,6 +679,34 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             return (booking?.bookingToEstimate?.toKeyValueBody?.array as! [KTKeyValue])
         }
         return nil
+    }
+    
+    //MARK: - Fare Details
+    
+    func fareDetailTitleTotal() -> String {
+        return "Starting Fare"
+    }
+    
+    func fareDetailTotal() -> String {
+        
+        let vType : KTVehicleType = KTVehicleTypeManager().vehicleType(typeId: (booking?.vehicleType)!)!
+        return vType.typeBaseFare!
+    }
+    
+    func fareDetailsHeader() -> [KTKeyValue]? {
+        
+        guard let _ = booking?.toKeyValueHeader else {
+            return nil
+        }
+        return (booking?.toKeyValueHeader?.array as! [KTKeyValue])
+        
+    }
+    
+    func fareDetailsBody() -> [KTKeyValue]? {
+        guard let _ = booking?.toKeyValueBody else {
+            return nil
+        }
+        return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
     
     //MARK:- Check for rating

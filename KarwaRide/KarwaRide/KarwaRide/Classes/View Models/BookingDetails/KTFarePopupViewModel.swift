@@ -53,7 +53,12 @@ class KTFarePopupViewModel: KTBaseViewModel {
         var numRow : Int = 0
         
         if section == 0 {
-            numRow = (headers != nil) ? (headers?.count)! : 0
+            if headers != nil && (headers?.count)! > 0 {
+                numRow = (headers != nil) ? (headers?.count)! : 0
+            }
+            else {
+                numRow = (body != nil) ? (body?.count)! : 0
+            }
         }
         else {
             numRow = (body != nil) ? (body?.count)! : 0
@@ -65,7 +70,12 @@ class KTFarePopupViewModel: KTBaseViewModel {
     func key(forIndex idx: Int, section : Int) -> String {
         var k : String = ""
         if section == 0 {
-            k = headers![idx].key!
+            if headers != nil && (headers?.count)! > 0 {
+                k = headers![idx].key!
+            }
+            else {
+                k = body![idx].key!
+            }
         }
         else {
             k = body![idx].key!
@@ -76,7 +86,12 @@ class KTFarePopupViewModel: KTBaseViewModel {
     func value(forIndex idx: Int, section : Int) -> String {
         var k : String = ""
         if section == 0 {
-            k = headers![idx].value!
+            if headers != nil && (headers?.count)! > 0 {
+                k = headers![idx].value!
+            }
+            else {
+                k = body![idx].value!
+            }
         }
         else {
             k = body![idx].value!
