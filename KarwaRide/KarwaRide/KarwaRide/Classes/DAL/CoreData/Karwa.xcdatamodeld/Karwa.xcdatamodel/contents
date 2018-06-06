@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="KTBaseTrariff" representedClassName="KTBaseTrariff" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <relationship name="toKeyValueBody" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="KTKeyValue" syncable="YES"/>
+        <relationship name="toKeyValueHeader" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="KTKeyValue" syncable="YES"/>
+    </entity>
+    <entity name="KTBooking" representedClassName="KTBooking" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
+        <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookingStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bookingType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="callerId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cancelReason" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="creationTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="driverId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverPhone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverRating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dropOffLat" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffLocationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffLon" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dropOffTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="estimatedFare" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eta" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fare" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isRated" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupLocationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupLon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pickupMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="serviceType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalDistance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tripTrack" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vehicleNo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="bookingToEstimate" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KTFareEstimate" inverseName="fareestimateToBooking" inverseEntity="KTFareEstimate" syncable="YES"/>
+        <relationship name="bookingToNotification" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="KTNotification" inverseName="notificationToBooking" inverseEntity="KTNotification" syncable="YES"/>
+        <relationship name="bookingToRatings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="KTRatingReasons" syncable="YES"/>
+    </entity>
+    <entity name="KTBookmark" representedClassName="KTBookmark" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bookmarkToGeoLocation" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KTGeoLocation" inverseName="geolocationToBookmark" inverseEntity="KTGeoLocation" syncable="YES"/>
+    </entity>
+    <entity name="KTCancelReason" representedClassName="KTCancelReason" syncable="YES" codeGenerationType="class">
+        <attribute name="bookingStatii" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reasonCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="KTFareEstimate" representedClassName="KTFareEstimate" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
+        <attribute name="estimatedFare" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="estimateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="fareestimateToBooking" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="KTBooking" inverseName="bookingToEstimate" inverseEntity="KTBooking" syncable="YES"/>
+    </entity>
+    <entity name="KTGeoLocation" representedClassName="KTGeoLocation" syncable="YES" codeGenerationType="class">
+        <attribute name="area" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="locationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="geolocationToBookmark" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTBookmark" inverseName="bookmarkToGeoLocation" inverseEntity="KTBookmark" syncable="YES"/>
+    </entity>
+    <entity name="KTKeyValue" representedClassName="KTKeyValue" syncable="YES" codeGenerationType="class">
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="KTNotification" representedClassName="KTNotification" syncable="YES" codeGenerationType="class">
+        <attribute name="bookingStatusWhenReceive" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="receiveDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="notificationToBooking" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KTBooking" inverseName="bookingToNotification" inverseEntity="KTBooking" syncable="YES"/>
+    </entity>
+    <entity name="KTRatingReasons" representedClassName="KTRatingReasons" syncable="YES" codeGenerationType="class">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="language" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="reasonCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="KTUser" representedClassName="KTUser" syncable="YES" codeGenerationType="class">
+        <attribute name="customerType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sessionId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="KTVehicleType" representedClassName="KTVehicleType" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
+        <attribute name="typeBaseFare" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="typeName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeSortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="538"/>
+        <element name="KTBookmark" positionX="286" positionY="51" width="128" height="118"/>
+        <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
+        <element name="KTFareEstimate" positionX="259" positionY="-117" width="128" height="103"/>
+        <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="148"/>
+        <element name="KTKeyValue" positionX="160" positionY="-207" width="128" height="75"/>
+        <element name="KTNotification" positionX="9" positionY="-45" width="128" height="103"/>
+        <element name="KTRatingReasons" positionX="196" positionY="255" width="128" height="105"/>
+        <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
+        <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
+    </elements>
+</model>

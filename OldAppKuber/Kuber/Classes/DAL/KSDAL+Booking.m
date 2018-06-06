@@ -172,7 +172,7 @@
 {
     KSWebClient *webClient = [KSWebClient instance];
     
-    [webClient GET:@"/booking" params:@{@"type":@"pending"} completion:^(BOOL success, NSDictionary *response) {
+    [webClient GET:@"/booking" :@{@"type":@"pending"} completion:^(BOOL success, NSDictionary *response) {
         KSAPIStatus status = [KSDAL statusFromResponse:response success:success];
         if(KSAPIStatusSuccess == status){
             

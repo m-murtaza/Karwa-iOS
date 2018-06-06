@@ -7,40 +7,190 @@
 //
 
 import UIKit
+import UserNotifications
+import MagicalRecord
+import GoogleMaps
+import FacebookCore
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
+    var location :KTLocationManager?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        setupDatabase()
+        fetchInitialApplicationDataIfNeeded()
+        handleNotification(launchOptions: launchOptions)
+        
+        updateUIAppreance()
+        setupLocation()
+        setupGoogleMaps()
+        
+        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self()])
+        
         return true
     }
-
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        AppEventsLogger.activate(application)
+        
+        //register For APNS if needed
+        registerForPushNotifications()
+        
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func fetchInitialApplicationDataIfNeeded() {
+        KTVehicleTypeManager().fetchInitialTariffLocal()
+        KTCancelBookingManager().fetchInitialCancelReasonsLocal()
+        KTRatingManager().fetchInitialRatingReasonsLocal()
+    }
+    
+    func setupDatabase()  {
+        
+        MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
+        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
+    }
+    
+    func setupLocation() {
+        location = KTLocationManager.sharedInstance
+        location?.setUp()
+        location?.start()
+    }
+    
+    func setupGoogleMaps() {
+        
+        GMSServices.provideAPIKey("AIzaSyBWEik2kFj1hYESIhS2GgUblo_amSfjqT0")
+    }
+    
+    
+    
+    // MARK: UI Appreance
+    private func updateUIAppreance ()
+    {
+        //printFonts()
+        let appearance : UINavigationBar = UINavigationBar.appearance()
+        
+        appearance.barTintColor = UIColor(hexString:"#E5F5F2")
+        UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
+        appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
+                                          NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
+        
+        let backImage = UIImage(named: "BackButton");
+        appearance.backIndicatorImage = backImage
+        appearance.backIndicatorTransitionMaskImage = backImage
+    }
+    
+    func printFonts() {
+        let fontFamilyNames = UIFont.familyNames
+        for familyName in fontFamilyNames {
+            print("------------------------------")
+            print("Font Family Name = [\(familyName)]")
+            let names = UIFont.fontNames(forFamilyName: familyName )
+            print("Font Names = [\(names)]")
+        }
+    }
+    
+    // MARK: APPLE PUSH NOTIFICATION
+    private let apnsManager : KTAPNSManager = KTAPNSManager.init()
+    
+    func registerForPushNotifications() {
+        apnsManager.registerForPushNotifications()
+    }
+    
+    //delegate device token success
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        apnsManager.deviceTokenReceived(deviceToken: deviceToken)
+    }
+    
+    //delegate device token fail
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
+    
+    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {
+        
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+            let aps = notification["aps"] as! [String: AnyObject]
+            print(aps)
+            apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
+        }
+        
+    }
+    
+    //Notifiacation receive when application is in background
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
+        
+    }
+    
+    func moveToDetailView(withBooking booking: KTBooking) {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.DetailView) as! UINavigationController
+        
+        let detailView : KTBookingDetailsViewController = (contentView.viewControllers)[0] as! KTBookingDetailsViewController
+        detailView.setBooking(booking: booking)
+        detailView.isOpenFromNotification = true
+        self.showView(view: detailView)
+        
+    }
+    
+    func showLogin()  {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LoginView)
+        self.showView(view: contentView)
+    }
+    
+    func showView(view: UIViewController) {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        //let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
+        let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
+        
+        let sideMeun : SSASideMenu = SSASideMenu(contentViewController: view, leftMenuViewController: leftView)
+        
+        window? = UIWindow(frame: UIScreen.main.bounds)
+        
+        window?.rootViewController = sideMeun
+        window?.makeKeyAndVisible()
+    }
+    
+    
+    //MARK: - Alert
+    func showAlter(alertController : UIAlertController) {
+        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
