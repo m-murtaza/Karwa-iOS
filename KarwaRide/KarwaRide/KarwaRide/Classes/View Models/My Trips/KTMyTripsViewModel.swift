@@ -16,7 +16,7 @@ protocol KTMyTripsViewModelDelegate {
 class KTMyTripsViewModel: KTBaseViewModel {
     
     private var bookings : [KTBooking]?
-    var selectedBooking : KTBooking?
+    public var selectedBooking : KTBooking?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,11 @@ class KTMyTripsViewModel: KTBaseViewModel {
     override func viewWillAppear() {
         super.viewWillAppear()
         fetchBookings()
+        if(selectedBooking != nil && selectedBooking?.bookingType == 1)
+        {
+            showBooking(selectedBooking!)
+            selectedBooking = nil;
+        }
     }
     
     func fetchBookings()  {
@@ -34,7 +39,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
                 
             self.fetchBookingsFromDB()
             self.delegate?.hideProgressHud()
-            
+
             if  self.bookings != nil && (self.bookings?.count)! > 0 {
             
                 (self.delegate as! KTMyTripsViewModelDelegate).reloadTable()
@@ -64,6 +69,11 @@ class KTMyTripsViewModel: KTBaseViewModel {
         return numRows
     }
     
+    func showBooking(_ booking:KTBooking) {
+        
+        selectedBooking = booking;
+        (self.delegate as! KTMyTripsViewModelDelegate).moveToDetails()
+    }
     
     //MARK:- Table Data
     

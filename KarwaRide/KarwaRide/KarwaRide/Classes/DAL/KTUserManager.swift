@@ -92,9 +92,13 @@ class KTUserManager: KTDALManager {
     func login(params : NSMutableDictionary,url : String?,completion completionBlock: @escaping KTDALCompletionBlock)  {
         
         params[Constants.LoginParams.DeviceType] = Constants.DeviceTypes.iOS
-        if KTUtils.isObjectNotNil(object: KTAppSessionInfo.currentSession.pushToken as AnyObject) && (KTAppSessionInfo.currentSession.pushToken?.count)! > 40
+        KTAppSessionInfo.currentSession.pushToken = nil
+        if (KTAppSessionInfo.currentSession.pushToken != nil)
         {
-            params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
+            if (KTAppSessionInfo.currentSession.pushToken?.count)! > 40
+            {
+                params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
+            }
         }
 
         self.post(url: url!, param: params as! [String : Any], completion: completionBlock) { (response,  cBlock) in

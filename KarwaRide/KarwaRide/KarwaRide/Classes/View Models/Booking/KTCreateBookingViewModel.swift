@@ -53,6 +53,7 @@ enum BookingStep {
 }
 
 let UNKNOWN : String = "Unknown"
+let TIMER_INTERVAL = 4;
 
 class KTCreateBookingViewModel: KTBaseViewModel {
     
@@ -106,7 +107,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         if currentBookingStep == BookingStep.step1 {
             
-            timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+            timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
             (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
         }
         else if currentBookingStep == BookingStep.step3 {
@@ -283,6 +284,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         del?.updateFareBreakdown(kvPair: orderedKV)
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        if segue.identifier == "segueMyTripsToDetails" {
+//            
+//            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
+//            if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
+//                details.setBooking(booking: booking)
+//            }
+//        }
+//    }
     
     //MARK: - Navigation to Address Picker
     func btnPickupAddTapped(){
@@ -865,9 +878,19 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     public func resetInProgressBooking() {
         booking.mr_deleteEntity()
         booking = KTBookingManager().booking()
-
+        currentBookingStep = BookingStep.step1  //Booking will strat with step 1
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
+        
+        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+        
+        (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
+        (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
         (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
+        del?.pickDropBoxStep1()
+        del?.hideRequestBookingBtn()
+        FetchNearByVehicle()
         
     }
 }

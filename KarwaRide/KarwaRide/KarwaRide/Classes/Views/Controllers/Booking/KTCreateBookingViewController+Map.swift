@@ -156,7 +156,7 @@ extension KTCreateBookingViewController
             self.i = 0
             
             timer.invalidate()
-            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+//            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
         }
     }
 }
