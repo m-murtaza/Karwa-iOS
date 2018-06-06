@@ -46,16 +46,14 @@ extension KTUserManager
     }
     
     func removeUserData()  {
+        KTDALManager().removeSyncTime(forKey: BOOKING_SYNC_TIME)
+        
         KTAppSessionInfo.currentSession.removeCurrentSession()
-        //do {
+        
             KTUser.mr_truncateAll(in: NSManagedObjectContext.mr_default())
             KTBooking.mr_truncateAll(in: NSManagedObjectContext.mr_default())
             NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        
 
-//        }
-//        catch _{
-//            
-//            print("Unable to logout")
-//        }
     }
 }
