@@ -435,6 +435,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func cancelDoneSuccess() {
+        self.closeCancel()
         vModel?.cancelDoneSuccess()
     }
     

@@ -47,11 +47,6 @@ class KTBookingManager: KTBaseFareEstimateManager {
             if estimate != nil {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
                 
-                
-//                let mutableItems = estimate?.toKeyValueHeader?.mutableCopy() as! NSMutableOrderedSet
-//                mutableItems.add(kv)
-//                estimate?.toKeyValueHeader = mutableItems.copy() as? NSOrderedSet
-                
                 estimate?.toKeyValueHeader = estimate?.toKeyValueHeader!.adding(kv)
                 job.bookingToEstimate = estimate
                 estimate?.fareestimateToBooking = job
@@ -62,37 +57,6 @@ class KTBookingManager: KTBaseFareEstimateManager {
             completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         })
     }
-        
-//    func bookTaxi(job: KTBooking,estimateId: String, completion completionBlock: @escaping KTDALCompletionBlock)  {
-//
-//        let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
-//                                    Constants.BookingParams.PickLat: job.pickupLat,
-//                                    Constants.BookingParams.PickLon: job.pickupLon,
-//                                    Constants.BookingParams.PickLocationID : job.pickupLocationId,
-//                                    Constants.BookingParams.PickTime: job.pickupTime!,
-//                                    Constants.BookingParams.DropLocation: (job.dropOffAddress != nil) ? job.dropOffAddress as Any : "",
-//                                    Constants.BookingParams.DropLat : job.dropOffLat,
-//                                    Constants.BookingParams.DropLon : job.dropOffLon,
-//                                    Constants.BookingParams.DropLocationId : job.dropOffLocationId,
-//                                    Constants.BookingParams.CreationTime : job.creationTime!,
-//                                    Constants.BookingParams.PickHint : job.pickupMessage!,
-//                                    Constants.BookingParams.VehicleType : job.vehicleType,
-//                                    Constants.BookingParams.CallerID : job.callerId!,
-//                                    Constants.BookingParams.EstimateId : estimateId]
-//
-//
-//        self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
-//            (responseData,cBlock) in
-//            job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
-//            job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
-//            job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
-//            self.saveInDb()
-//
-//
-//            completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
-//
-//        })
-//    }
     
     func syncBookings(completion completionBlock: @escaping KTDALCompletionBlock) {
         
@@ -143,7 +107,6 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.dropOffLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropLat] as! Double : 0.0
         b.dropOffLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.DropLon] as! Double : 0.0
         b.dropOffTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DropTime] as AnyObject)) ? Date.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.DropTime] as? String) : Date.defaultDate()
-        //b.dropOffLocationId = Constants.BookingParams.DropLocationId
         
         b.pickupAddress = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupAddress] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupAddress] as? String : ""
         b.pickupLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupLat] as! Double : 0.0
@@ -178,7 +141,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         for keyvalue in booking.toKeyValueHeader! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
-        booking.toKeyValueBody = NSOrderedSet()
+        booking.toKeyValueHeader = NSOrderedSet()
         KTBaseFareEstimateManager().saveKeyValueHeader(keyValue: data["Header"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
     }
     

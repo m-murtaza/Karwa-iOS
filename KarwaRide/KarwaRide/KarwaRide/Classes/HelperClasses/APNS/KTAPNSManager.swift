@@ -48,8 +48,15 @@ class KTAPNSManager: NSObject {
         UserDefaults.standard.set(apnsString, forKey: PUSH_TOKEN)
         UserDefaults.standard.synchronize()
         
-        KTAppSessionInfo.currentSession.pushToken = tokenString(deviceToken)
-        //let _ : String = tokenString(deviceToken)
+        KTAppSessionInfo.currentSession.pushToken = apnsString
+        updateDeviceTokenOnServer(token: apnsString)
+    }
+    
+    func updateDeviceTokenOnServer(token: String)  {
+        KTUserManager().updateDeviceTokenOnServer(token: token) { (status, response) in
+            print("APNS Token update on server Respnose Status  = \(status)")
+            print("APNS Token update on server Respnose = \(response)")
+        }
     }
     
     func receiveNotification(userInfo: [AnyHashable : Any] , appStateForeGround: Bool)

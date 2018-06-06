@@ -57,6 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppEventsLogger.activate(application)
         
+        //register For APNS if needed
+        registerForPushNotifications()
+        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -140,11 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(aps)
             apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
         }
-        else
-        {
-            //register For APNS if needed
-            registerForPushNotifications()
-        }
+        
     }
     
     //Notifiacation receive when application is in background
