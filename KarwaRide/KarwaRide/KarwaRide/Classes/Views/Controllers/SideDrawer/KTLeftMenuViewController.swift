@@ -87,6 +87,11 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
             sideMenuViewController?.hideMenuViewController()
             break
+        case 3:
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
+            sideMenuViewController?.hideMenuViewController()
+            
+            break
         case 4:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
             sideMenuViewController?.hideMenuViewController()
