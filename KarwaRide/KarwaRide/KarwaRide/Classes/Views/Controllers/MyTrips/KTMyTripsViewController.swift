@@ -14,7 +14,10 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBOutlet weak var noBookingView: UIView!
     
     override func viewDidLoad() {
-        self.viewModel = KTMyTripsViewModel(del: self)
+        if viewModel == nil {
+            viewModel = KTMyTripsViewModel(del: self)
+        }
+//        self.viewModel = KTMyTripsViewModel(del: self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -80,6 +83,12 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         (viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
     }
     
+    func setBooking(booking : KTBooking) {
+        if viewModel == nil {
+            viewModel = KTMyTripsViewModel(del: self)
+        }
+        (viewModel as! KTMyTripsViewModel).selectedBooking = booking
+    }
     
     // MARK: - Navigation
 

@@ -200,10 +200,19 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
             
         }
+        else if segue.identifier == "segueBookingListForDetails" {
+            
+            // Create a variable that you want to send
+//            var newProgramVar = ""
+            
+            // Create a new variable to store the instance of PlayerTableViewController
+            let destinationVC = segue.destination as! KTMyTripsViewController
+            destinationVC.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
+        }
     }
     func moveToDetailView() {
         
-        self.performSegue(withIdentifier: "segueBookToDetail", sender: self)
+        self.performSegue(withIdentifier: "segueBookingListForDetails", sender: self)
     }
     
     //MARK:- Locations

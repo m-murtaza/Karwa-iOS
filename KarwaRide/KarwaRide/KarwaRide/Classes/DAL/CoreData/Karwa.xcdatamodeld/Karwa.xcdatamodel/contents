@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="KTBaseTrariff" representedClassName="KTBaseTrariff" isAbstract="YES" syncable="YES" codeGenerationType="class">
         <relationship name="toKeyValueBody" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="KTKeyValue" syncable="YES"/>
         <relationship name="toKeyValueHeader" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="KTKeyValue" syncable="YES"/>
@@ -7,6 +7,7 @@
     <entity name="KTBooking" representedClassName="KTBooking" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
         <attribute name="bookingId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bookingStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="bookingType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="callerId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cancelReason" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="creationTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -97,15 +98,15 @@
     </entity>
     <elements>
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
-        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="523"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="538"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="118"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTFareEstimate" positionX="259" positionY="-117" width="128" height="103"/>
         <element name="KTGeoLocation" positionX="106" positionY="72" width="128" height="148"/>
         <element name="KTKeyValue" positionX="160" positionY="-207" width="128" height="75"/>
+        <element name="KTNotification" positionX="9" positionY="-45" width="128" height="103"/>
         <element name="KTRatingReasons" positionX="196" positionY="255" width="128" height="105"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="120"/>
         <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="105"/>
-        <element name="KTNotification" positionX="9" positionY="-45" width="128" height="103"/>
     </elements>
 </model>
