@@ -50,9 +50,10 @@ extension KTUserManager
         
         KTAppSessionInfo.currentSession.removeCurrentSession()
         
-            KTUser.mr_truncateAll(in: NSManagedObjectContext.mr_default())
-            KTBooking.mr_truncateAll(in: NSManagedObjectContext.mr_default())
-            NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        KTUser.mr_truncateAll(in: NSManagedObjectContext.mr_default())
+        KTBooking.mr_truncateAll(in: NSManagedObjectContext.mr_default())
+        KTNotification.mr_truncateAll(in: NSManagedObjectContext.mr_default())
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
         
 
     }
