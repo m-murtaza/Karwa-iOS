@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,9 +20,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MainMenuBG" translatesAutoresizingMaskIntoConstraints="NO" id="VDH-WB-K6b">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuBG" translatesAutoresizingMaskIntoConstraints="NO" id="VDH-WB-K6b">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="xN8-IQ-G9E">
                                 <rect key="frame" x="135" y="71" width="105" height="108"/>
@@ -42,18 +40,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="xN8-IQ-G9E" secondAttribute="trailing" constant="119" id="0Yk-2E-fX3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xN8-IQ-G9E" secondAttribute="trailing" constant="119" id="FG3-Ft-jIP"/>
-                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="centerX" secondItem="pnG-mX-njU" secondAttribute="centerX" id="Kq3-UI-XBc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pnG-mX-njU" secondAttribute="trailing" constant="92" id="Kw5-Z8-tJW"/>
-                            <constraint firstItem="pnG-mX-njU" firstAttribute="top" secondItem="xN8-IQ-G9E" secondAttribute="bottom" constant="8" id="LcX-3X-OVC"/>
-                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="119" id="Ohd-FV-cdA"/>
+                            <constraint firstItem="pnG-mX-njU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0y3-3g-C4M"/>
+                            <constraint firstItem="VDH-WB-K6b" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Cu8-rY-qS2"/>
+                            <constraint firstAttribute="trailing" secondItem="VDH-WB-K6b" secondAttribute="trailing" id="LbK-c1-7ve"/>
                             <constraint firstItem="xN8-IQ-G9E" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="51" id="Yxt-Ft-OKf"/>
-                            <constraint firstItem="pnG-mX-njU" firstAttribute="top" secondItem="xN8-IQ-G9E" secondAttribute="bottom" constant="8" id="emQ-wS-Ser"/>
-                            <constraint firstItem="pnG-mX-njU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="91" id="pSd-ta-X99"/>
-                            <constraint firstItem="pnG-mX-njU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="91" id="veW-O4-Tf8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pnG-mX-njU" secondAttribute="trailing" constant="92" id="weO-jv-imN"/>
-                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="119" id="xCu-Dl-Q9f"/>
+                            <constraint firstAttribute="bottom" secondItem="VDH-WB-K6b" secondAttribute="bottom" id="dNz-w1-c6k"/>
+                            <constraint firstItem="pnG-mX-njU" firstAttribute="top" secondItem="xN8-IQ-G9E" secondAttribute="bottom" constant="8" id="iN6-P0-rYB"/>
+                            <constraint firstItem="VDH-WB-K6b" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="kXY-2H-R6U"/>
+                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wnS-5q-dVL"/>
                         </constraints>
                     </view>
                 </viewController>
