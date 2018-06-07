@@ -381,7 +381,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     
     func estimatedFare() -> String {
-        var estimate : String = ""
+        var estimate : String = "N/A"
         if booking!.estimatedFare != nil {
             estimate = booking!.estimatedFare!
             
