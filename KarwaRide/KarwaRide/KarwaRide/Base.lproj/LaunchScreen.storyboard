@@ -25,15 +25,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="xN8-IQ-G9E">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="xN8-IQ-G9E">
                                 <rect key="frame" x="135" y="71" width="105" height="108"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="V9F-FZ-aoh"/>
                                     <constraint firstAttribute="height" constant="108" id="lvJ-ya-aUM"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="pnG-mX-njU">
-                                <rect key="frame" x="107" y="178" width="160" height="45"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="pnG-mX-njU">
+                                <rect key="frame" x="107" y="187" width="160" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="MSl-Sh-MEq"/>
                                     <constraint firstAttribute="width" constant="160" id="yAH-wU-Eac"/>
@@ -43,11 +43,17 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="xN8-IQ-G9E" secondAttribute="trailing" constant="119" id="0Yk-2E-fX3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xN8-IQ-G9E" secondAttribute="trailing" constant="119" id="FG3-Ft-jIP"/>
                             <constraint firstItem="xN8-IQ-G9E" firstAttribute="centerX" secondItem="pnG-mX-njU" secondAttribute="centerX" id="Kq3-UI-XBc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pnG-mX-njU" secondAttribute="trailing" constant="92" id="Kw5-Z8-tJW"/>
+                            <constraint firstItem="pnG-mX-njU" firstAttribute="top" secondItem="xN8-IQ-G9E" secondAttribute="bottom" constant="8" id="LcX-3X-OVC"/>
                             <constraint firstItem="xN8-IQ-G9E" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="119" id="Ohd-FV-cdA"/>
+                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="51" id="Yxt-Ft-OKf"/>
                             <constraint firstItem="pnG-mX-njU" firstAttribute="top" secondItem="xN8-IQ-G9E" secondAttribute="bottom" constant="8" id="emQ-wS-Ser"/>
                             <constraint firstItem="pnG-mX-njU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="91" id="pSd-ta-X99"/>
+                            <constraint firstItem="pnG-mX-njU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="91" id="veW-O4-Tf8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pnG-mX-njU" secondAttribute="trailing" constant="92" id="weO-jv-imN"/>
+                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="119" id="xCu-Dl-Q9f"/>
                         </constraints>
                     </view>
                 </viewController>
