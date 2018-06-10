@@ -204,6 +204,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         (self.delegate as! KTCreateBookingViewModelDelegate).setVehicleType(idx: idxToSelectVehicleType())
         
         updateUI()
+        
+        if booking.bookingToEstimate != nil {
+            booking.bookingToEstimate?.mr_deleteEntity()
+            booking.bookingToEstimate = nil
+        }
+        
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -339,7 +345,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //MARK: - Estimates
     private func fetchEstimates() {
         del?.updateVehicleTypeList()
-        if booking.pickupAddress != nil && booking.dropOffAddress != nil {
+        if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
             isEstimeting = true
             
             
