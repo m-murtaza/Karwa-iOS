@@ -84,17 +84,20 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         case Int16(VehicleType.KTCityTaxi.rawValue):
             order = 1
             break
-        case Int16(VehicleType.KTCompactLimo.rawValue):
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
             order = 2
             break
-        case Int16(VehicleType.KTStandardLimo.rawValue):
+        case Int16(VehicleType.KTCompactLimo.rawValue):
             order = 3
             break
-        case Int16(VehicleType.KTBusinessLimo.rawValue):
+        case Int16(VehicleType.KTStandardLimo.rawValue):
             order = 4
             break
-        case Int16(VehicleType.KTLuxuryLimo.rawValue):
+        case Int16(VehicleType.KTBusinessLimo.rawValue):
             order = 5
+            break
+        case Int16(VehicleType.KTLuxuryLimo.rawValue):
+            order = 6
             break
         default:
             order = 999
@@ -109,6 +112,9 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         switch typeId {
         case Int16(VehicleType.KTCityTaxi.rawValue):
             name = "Karwa Taxi"
+            break
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+            name = "Karwa Taxi Seven Seater"
             break
         case Int16(VehicleType.KTCompactLimo.rawValue):
             name = "Compact Limousine"
@@ -138,26 +144,35 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         vTypeTaxi.typeSortOrder = 1
         
     }
+    private func addTaxiSevenSeaterType(localContext: NSManagedObjectContext) {
+        
+        let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
+        vTypeTaxi.typeBaseFare = "10"
+        vTypeTaxi.typeName = "Karwa Taxi Seven Seater"
+        vTypeTaxi.typeId = Int16(VehicleType.KTCityTaxi7Seater.rawValue)
+        vTypeTaxi.typeSortOrder = 2
+        
+    }
     private func addStandardLmioType(localContext: NSManagedObjectContext) {
         let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
         vTypeTaxi.typeId = Int16(VehicleType.KTStandardLimo.rawValue)
         vTypeTaxi.typeName = "Standard Limousine"
         vTypeTaxi.typeBaseFare = "40"
-        vTypeTaxi.typeSortOrder = 2
+        vTypeTaxi.typeSortOrder = 3
     }
     private func addBusinessLimoType(localContext: NSManagedObjectContext) {
         let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
         vTypeTaxi.typeId = Int16(VehicleType.KTBusinessLimo.rawValue)
         vTypeTaxi.typeName = "Business Limousine"
         vTypeTaxi.typeBaseFare = "50"
-        vTypeTaxi.typeSortOrder = 3
+        vTypeTaxi.typeSortOrder = 4
     }
     private func addLuxuryLimoType(localContext: NSManagedObjectContext) {
         let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
         vTypeTaxi.typeId = Int16(VehicleType.KTLuxuryLimo.rawValue)
         vTypeTaxi.typeName = "Luxury Limousine"
         vTypeTaxi.typeBaseFare = "70"
-        vTypeTaxi.typeSortOrder = 4
+        vTypeTaxi.typeSortOrder = 5
     }
     
     func VehicleTypes() -> [KTVehicleType]? {

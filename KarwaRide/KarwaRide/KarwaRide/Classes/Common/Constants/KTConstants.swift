@@ -21,10 +21,11 @@ typealias KTDALSuccessBlock = (_ response: [AnyHashable: Any],_ success: KTDALCo
 enum VehicleType: Int16 {
     case Unknown = -1
     case KTCityTaxi = 1
+    case KTCityTaxi7Seater = 11
     case KTAiport7Seater = 3
     case KTAirportSpare = 5
     case KTSpecialNeedTaxi = 10
-    case KTAiportTaxi = 11
+//    case KTAiportTaxi = 11
     case KTCompactLimo = 20
     case KTStandardLimo = 30
     case KTBusinessLimo = 50
