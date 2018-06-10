@@ -311,8 +311,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var type : String = ""
         switch booking!.vehicleType {
-        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAiportTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
             type = "TAXI"
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            type = "Seven Seater"
             
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
@@ -499,8 +502,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var img : UIImage?
         switch booking?.vehicleType  {
-        case VehicleType.KTAiportTaxi.rawValue?, VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?,VehicleType.KTAiport7Seater.rawValue? :
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?,VehicleType.KTAiport7Seater.rawValue? :
             img = UIImage(named:"BookingMapTaxiIco")
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue?:
+            img = UIImage(named: "BookingMapTaxiIco")
             
         case VehicleType.KTStandardLimo.rawValue?:
             img = UIImage(named: "BookingMapStandardIco")

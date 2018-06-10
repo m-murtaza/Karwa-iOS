@@ -597,6 +597,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         switch sType.typeId {
         case Int16(VehicleType.KTCityTaxi.rawValue):
             imgBg = UIImage(named: "BookingCardTaxiBox")!
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+            imgBg = UIImage(named: "BookingCardTaxiBox")!
         case Int16(VehicleType.KTStandardLimo.rawValue):
             imgBg = UIImage(named: "BookingCardStandardBox")!
         case Int16(VehicleType.KTBusinessLimo.rawValue):
@@ -615,6 +617,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         var imgSType : UIImage = UIImage()
         switch sType.typeId {
         case Int16(VehicleType.KTCityTaxi.rawValue):
+            imgSType = UIImage(named: "BookingCardTaxiIco")!
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
             imgSType = UIImage(named: "BookingCardTaxiIco")!
         case Int16(VehicleType.KTStandardLimo.rawValue):
             imgSType = UIImage(named: "BookingCardStandardIco")!
