@@ -49,7 +49,10 @@ class KTAPNSManager: NSObject {
         UserDefaults.standard.synchronize()
         
         KTAppSessionInfo.currentSession.pushToken = apnsString
-        updateDeviceTokenOnServer(token: apnsString)
+        
+        if KTAppSessionInfo.currentSession.phone != nil && KTAppSessionInfo.currentSession.phone != "" {
+            updateDeviceTokenOnServer(token: apnsString)
+        }
     }
     
     func updateDeviceTokenOnServer(token: String)  {
