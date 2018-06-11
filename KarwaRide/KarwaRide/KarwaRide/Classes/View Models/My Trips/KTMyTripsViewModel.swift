@@ -215,7 +215,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             type = "TAXI"
         
         case VehicleType.KTCityTaxi7Seater.rawValue:
-            type = "TAXI SEVEN SEATER"
+            type = "SEVEN SEATER"
             
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"

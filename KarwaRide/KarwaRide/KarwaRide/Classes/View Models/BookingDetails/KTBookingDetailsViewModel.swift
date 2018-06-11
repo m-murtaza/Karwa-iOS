@@ -315,7 +315,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             type = "TAXI"
             
         case VehicleType.KTCityTaxi7Seater.rawValue:
-            type = "Seven Seater"
+            type = "SEVEN SEATER"
             
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
