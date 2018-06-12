@@ -16,6 +16,7 @@ import GoogleMaps
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
+    func addMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
     func hintForPickup() -> String
     func callerPhoneNumber() -> String?
     func setPickUp(pick: String?)
@@ -827,7 +828,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 
                 
                 if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle)
+                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
                 }
             }
         })

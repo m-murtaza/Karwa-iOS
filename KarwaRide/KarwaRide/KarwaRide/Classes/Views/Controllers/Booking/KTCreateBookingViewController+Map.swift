@@ -49,7 +49,34 @@ extension KTCreateBookingViewController
         }
     }
     
+    func imgForTrackMarker(_ vehicleType: Int16) -> UIImage {
+        
+        var img : UIImage?
+        switch vehicleType  {
+        case VehicleType.KTAirportSpare.rawValue, VehicleType.KTCityTaxi.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+            img = UIImage(named:"BookingMapTaxiIco")
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            img = UIImage(named: "BookingMap7Ico")
+            
+        case VehicleType.KTStandardLimo.rawValue:
+            img = UIImage(named: "BookingMapStandardIco")
+        case VehicleType.KTBusinessLimo.rawValue:
+            img = UIImage(named: "BookingMapBusinessIco")
+            
+        case VehicleType.KTLuxuryLimo.rawValue:
+            img = UIImage(named: "BookingMapLuxuryIco")
+        default:
+            img = UIImage(named:"BookingMapTaxiIco")
+        }
+        return img!
+    }
+    
     @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
+        addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
+    }
+    
+    @objc func addMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
         gmsMarker.removeAll()
         clearMap()
         vTrack.forEach { track in
@@ -59,7 +86,7 @@ extension KTCreateBookingViewController
                 
                 if track.trackType == VehicleTrackType.vehicle {
                     marker.rotation = CLLocationDegrees(track.bearing)
-                    marker.icon = UIImage(named: "BookingMapTaxiIco")
+                    marker.icon = imgForTrackMarker(vehicleType)
                     marker.map = self.mapView
                 }
                 
