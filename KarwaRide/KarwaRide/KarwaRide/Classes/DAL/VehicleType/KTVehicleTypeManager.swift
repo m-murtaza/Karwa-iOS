@@ -114,7 +114,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             name = "Karwa Taxi"
             break
         case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
-            name = "Karwa Seven Seater"
+            name = "Family Car (7 Seater)"
             break
         case Int16(VehicleType.KTCompactLimo.rawValue):
             name = "Compact Limousine"
@@ -148,7 +148,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         
         let vTypeTaxi = KTVehicleType.mr_createEntity(in: localContext)!
         vTypeTaxi.typeBaseFare = "10"
-        vTypeTaxi.typeName = "Karwa Seven Seater"
+        vTypeTaxi.typeName = "Family car (7 Seater)"
         vTypeTaxi.typeId = Int16(VehicleType.KTCityTaxi7Seater.rawValue)
         vTypeTaxi.typeSortOrder = 2
         

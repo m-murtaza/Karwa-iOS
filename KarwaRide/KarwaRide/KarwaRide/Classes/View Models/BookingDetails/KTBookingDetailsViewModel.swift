@@ -506,7 +506,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             img = UIImage(named:"BookingMapTaxiIco")
             
         case VehicleType.KTCityTaxi7Seater.rawValue?:
-            img = UIImage(named: "BookingMapTaxiIco")
+            img = UIImage(named: "BookingMap7Ico")
             
         case VehicleType.KTStandardLimo.rawValue?:
             img = UIImage(named: "BookingMapStandardIco")
