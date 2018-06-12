@@ -114,7 +114,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             name = "Karwa Taxi"
             break
         case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
-            name = "Family Car (7 Seater)"
+            name = "Family Taxi (7 Seater)"
             break
         case Int16(VehicleType.KTCompactLimo.rawValue):
             name = "Compact Limousine"
