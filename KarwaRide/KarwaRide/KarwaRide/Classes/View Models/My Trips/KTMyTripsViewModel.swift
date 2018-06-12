@@ -215,16 +215,16 @@ class KTMyTripsViewModel: KTBaseViewModel {
             type = "TAXI"
         
         case VehicleType.KTCityTaxi7Seater.rawValue:
-            type = "SEVEN SEATER"
+            type = "7 SEATER"
             
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
         
         case VehicleType.KTBusinessLimo.rawValue:
-            type = "Business"
+            type = "BUSINESS"
             
         case VehicleType.KTLuxuryLimo.rawValue:
-            type = "Luxury"
+            type = "LUXURY"
         default:
             type = ""
         }
