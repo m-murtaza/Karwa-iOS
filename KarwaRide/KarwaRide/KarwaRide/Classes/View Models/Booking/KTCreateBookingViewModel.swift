@@ -16,6 +16,7 @@ import GoogleMaps
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
+    func addMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
     func hintForPickup() -> String
     func callerPhoneNumber() -> String?
     func setPickUp(pick: String?)
@@ -204,6 +205,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         (self.delegate as! KTCreateBookingViewModelDelegate).setVehicleType(idx: idxToSelectVehicleType())
         
         updateUI()
+        
+        if booking.bookingToEstimate != nil {
+            booking.bookingToEstimate?.mr_deleteEntity()
+            booking.bookingToEstimate = nil
+        }
+        
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -339,7 +346,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //MARK: - Estimates
     private func fetchEstimates() {
         del?.updateVehicleTypeList()
-        if booking.pickupAddress != nil && booking.dropOffAddress != nil {
+        if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
             isEstimeting = true
             
             
@@ -591,6 +598,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         switch sType.typeId {
         case Int16(VehicleType.KTCityTaxi.rawValue):
             imgBg = UIImage(named: "BookingCardTaxiBox")!
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+            imgBg = UIImage(named: "BookingCard7SeaterBox")!
         case Int16(VehicleType.KTStandardLimo.rawValue):
             imgBg = UIImage(named: "BookingCardStandardBox")!
         case Int16(VehicleType.KTBusinessLimo.rawValue):
@@ -610,6 +619,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         switch sType.typeId {
         case Int16(VehicleType.KTCityTaxi.rawValue):
             imgSType = UIImage(named: "BookingCardTaxiIco")!
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+            imgSType = UIImage(named: "BookingCard7SeaterIco")!
         case Int16(VehicleType.KTStandardLimo.rawValue):
             imgSType = UIImage(named: "BookingCardStandardIco")!
         case Int16(VehicleType.KTBusinessLimo.rawValue):
@@ -817,7 +828,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 
                 
                 if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle)
+                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
                 }
             }
         })

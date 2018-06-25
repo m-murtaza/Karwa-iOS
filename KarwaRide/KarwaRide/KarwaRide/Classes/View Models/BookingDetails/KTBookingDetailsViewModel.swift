@@ -311,17 +311,20 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var type : String = ""
         switch booking!.vehicleType {
-        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAiportTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
             type = "TAXI"
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            type = "7 SEATER"
             
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
             
         case VehicleType.KTBusinessLimo.rawValue:
-            type = "Business"
+            type = "BUSINESS"
             
         case VehicleType.KTLuxuryLimo.rawValue:
-            type = "Luxury"
+            type = "LUXURY"
         default:
             type = ""
         }
@@ -381,7 +384,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     
     func estimatedFare() -> String {
-        var estimate : String = ""
+        var estimate : String = "N/A"
         if booking!.estimatedFare != nil {
             estimate = booking!.estimatedFare!
             
@@ -499,8 +502,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var img : UIImage?
         switch booking?.vehicleType  {
-        case VehicleType.KTAiportTaxi.rawValue?, VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?,VehicleType.KTAiport7Seater.rawValue? :
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?:
             img = UIImage(named:"BookingMapTaxiIco")
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue?:
+            img = UIImage(named: "BookingMap7Ico")
             
         case VehicleType.KTStandardLimo.rawValue?:
             img = UIImage(named: "BookingMapStandardIco")
