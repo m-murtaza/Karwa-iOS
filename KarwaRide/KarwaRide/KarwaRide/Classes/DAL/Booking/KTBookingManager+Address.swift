@@ -118,7 +118,12 @@ extension KTBookingManager
         loc.area = location[Constants.GeoLocationResponseAPIKey.Area] as? String
         loc.name = location[Constants.GeoLocationResponseAPIKey.Name] as? String
         if(loc.type != geoLocationType.Home.rawValue && loc.type != geoLocationType.Work.rawValue) {
-            loc.type = location[Constants.GeoLocationResponseAPIKey.LocationType] as! Int32
+            if(location[Constants.GeoLocationResponseAPIKey.LocationType] != nil){
+                loc.type = location[Constants.GeoLocationResponseAPIKey.LocationType] as! Int32
+            }
+            else{
+                loc.type = geoLocationType.Unknown.rawValue
+            }
         }
         // TODO: Add parser for type
         return loc
