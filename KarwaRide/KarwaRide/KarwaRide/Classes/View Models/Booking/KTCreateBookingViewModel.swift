@@ -893,6 +893,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
         
+        setupCurrentLocaiton()
+        
         timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
         
         (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
@@ -902,7 +904,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
         FetchNearByVehicle()
-        
+        fetchEstimates()
     }
 }
 
