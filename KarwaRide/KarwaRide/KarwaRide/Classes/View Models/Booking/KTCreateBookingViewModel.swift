@@ -704,7 +704,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             })
             
             if filterBaseFare != nil && (filterBaseFare?.count)! > 0 {
-                booking.toKeyValueBody = (filterBaseFare![0] as! KTVehicleType).toKeyValueBody
+                booking.toKeyValueBody = (filterBaseFare![0]).toKeyValueBody
             }
             
             if(isDropAvailable()) {
