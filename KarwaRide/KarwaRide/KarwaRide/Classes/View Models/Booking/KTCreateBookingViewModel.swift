@@ -211,6 +211,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             booking.bookingToEstimate = nil
         }
         
+        fetchEstimates()
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -901,10 +902,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
         (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
+        fetchEstimates()
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
         FetchNearByVehicle()
-        fetchEstimates()
     }
 }
 
