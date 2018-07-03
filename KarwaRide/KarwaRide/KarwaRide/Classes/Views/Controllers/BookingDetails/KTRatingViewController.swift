@@ -100,7 +100,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     func showAltForThanks() {
-        let alertController = UIAlertController(title: "Thanks", message: "For providing us your valuable feedback", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "", message: "Thanks for providing us your valuable feedback", preferredStyle: .alert)
         
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in

@@ -211,6 +211,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             booking.bookingToEstimate = nil
         }
         
+        fetchEstimates()
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -704,7 +705,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             })
             
             if filterBaseFare != nil && (filterBaseFare?.count)! > 0 {
-                booking.toKeyValueBody = (filterBaseFare![0] as! KTVehicleType).toKeyValueBody
+                booking.toKeyValueBody = (filterBaseFare![0]).toKeyValueBody
             }
             
             if(isDropAvailable()) {
@@ -893,16 +894,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
         
+        setupCurrentLocaiton()
+        
         timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
         
         (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
         (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
         (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
+        fetchEstimates()
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
         FetchNearByVehicle()
-        
     }
 }
 

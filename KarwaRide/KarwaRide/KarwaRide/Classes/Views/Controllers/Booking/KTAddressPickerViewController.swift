@@ -79,6 +79,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
+        txtPickAddress.resignFirstResponder()
+        txtDropAddress.resignFirstResponder()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)

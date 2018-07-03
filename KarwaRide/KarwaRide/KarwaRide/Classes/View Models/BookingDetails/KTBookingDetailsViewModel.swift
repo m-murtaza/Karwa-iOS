@@ -385,9 +385,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func estimatedFare() -> String {
         var estimate : String = "N/A"
-        if booking!.estimatedFare != nil {
+        if (booking!.estimatedFare != nil && (booking!.estimatedFare?.count)! > 0) {
             estimate = booking!.estimatedFare!
-            
         }
         return estimate
     }
@@ -403,7 +402,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func updateMap() {
         
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
+        if(bStatus == BookingStatus.PICKUP){
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            del?.showCurrentLocationDot(show: true)
+            startVechicleTrackTimer()
+        }
+        else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
             showPickDropMarker(showOnlyPickup: true)
