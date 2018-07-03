@@ -1206,12 +1206,23 @@
                                     <segue destination="cQY-xs-9LD" kind="show" id="Otx-q2-Oud"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-ay-ZX6">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-ay-ZX6" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
                                 <rect key="frame" x="154.66666666666666" y="58" width="104.99999999999997" height="108"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="108" id="TiV-lg-Obm"/>
                                     <constraint firstAttribute="width" constant="105" id="gwm-e7-LI7"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="curve" value="easeIn"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="XjH-Iy-HXy">
                                 <rect key="frame" x="127" y="174" width="160" height="45"/>
@@ -3003,7 +3014,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsDot" translatesAutoresizingMaskIntoConstraints="NO" id="UT3-Ak-jn1">
-                                                            <rect key="frame" x="132.33333333333334" y="99" width="5" height="21"/>
+                                                            <rect key="frame" x="132" y="99" width="5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="Dxt-0r-BLs"/>
                                                                 <constraint firstAttribute="height" constant="21" id="fVi-h0-3Ka"/>
@@ -5646,7 +5657,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3Z-lF-12c">
-                                                    <rect key="frame" x="24" y="2" width="247" height="21"/>
+                                                    <rect key="frame" x="12" y="2" width="259" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="oh7-5P-ghn"/>
                                                     </constraints>
@@ -5811,9 +5822,9 @@
         <segue reference="gMG-uB-ITN"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="d0m-9D-DJW"/>
+        <segue reference="A9o-xm-kbF"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
-        <segue reference="Pzn-gK-scz"/>
+        <segue reference="Otx-q2-Oud"/>
     </inferredMetricsTieBreakers>
 </document>
