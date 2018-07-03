@@ -33,6 +33,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        showCoachmarksIfRequired()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +45,14 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
                 self.carousel!.scrollToItem(at: IndexPath(row: (self.viewModel as! KTCreateBookingViewModel).idxToSelectVehicleType(), section: 0), at: UICollectionViewScrollPosition.right, animated: true)
             }
+        }
+    }
+    
+    func showCoachmarksIfRequired()
+    {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+        {
+            self.performSegue(name: "SagueCoachmark1")
         }
     }
     

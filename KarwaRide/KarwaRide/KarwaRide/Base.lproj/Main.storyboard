@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1453,7 +1454,7 @@
                                 <rect key="frame" x="59.666666666666657" y="40" width="295" height="202"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Xl-Bt-XhR">
-                                        <rect key="frame" x="20" y="14.666666666666664" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="15" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no" textContentType="name"/>
@@ -1462,7 +1463,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AQ3-T8-m79">
-                                        <rect key="frame" x="20" y="65.333333333333329" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="65.666666666666671" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" smartDashesType="no" smartInsertDeleteType="no"/>
@@ -1471,7 +1472,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-cn-IYH">
-                                        <rect key="frame" x="20" y="115.66666666666666" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="116" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" textContentType="email"/>
@@ -1480,7 +1481,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mGX-vF-dNn">
-                                        <rect key="frame" x="20" y="166.33333333333334" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="166.66666666666666" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
@@ -1673,7 +1674,7 @@
                                 <rect key="frame" x="59.666666666666657" y="156.66666666666666" width="295" height="149.99999999999997"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih5-Tj-ObB">
-                                        <rect key="frame" x="20" y="14.666666666666686" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="14" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -1696,7 +1697,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYH-hK-gaq">
-                                        <rect key="frame" x="20" y="114.33333333333334" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="114.66666666666666" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -1705,7 +1706,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ce2-eZ-A8z">
-                                        <rect key="frame" x="20" y="64.666666666666686" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="64" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -2048,6 +2049,114 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttt-Ie-j9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1623" y="1391"/>
+        </scene>
+        <!--Coachmark One View Controller-->
+        <scene sceneID="wbn-Eg-nGB">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="iR4-PC-91f" customClass="KTCoachmarkOneViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleAspectFit" id="cr7-jm-5Ny">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_background" translatesAutoresizingMaskIntoConstraints="NO" id="o8b-WK-1V9" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="o8b-WK-1V9" secondAttribute="height" multiplier="9:16" id="d5O-wf-WFC"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="uX5-JO-KLX"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Qx-LE-1va" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="190" y="456" width="35" height="169"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="169" id="5Qk-lT-hIu"/>
+                                    <constraint firstAttribute="width" constant="35" id="nOT-fY-MvL"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="curve" value="easeIn"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="coachmark1_set_destination" translatesAutoresizingMaskIntoConstraints="NO" id="yrB-gH-nyK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="649" width="414" height="79"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="0.10000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="curve" value="easeIn"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oHn-dd-4HT" firstAttribute="bottom" secondItem="yrB-gH-nyK" secondAttribute="bottom" constant="8" id="Dk7-49-1k3"/>
+                            <constraint firstItem="o8b-WK-1V9" firstAttribute="top" secondItem="cr7-jm-5Ny" secondAttribute="top" id="EB6-Ly-bdD"/>
+                            <constraint firstItem="o8b-WK-1V9" firstAttribute="trailing" secondItem="oHn-dd-4HT" secondAttribute="trailing" id="VPP-7y-JjG"/>
+                            <constraint firstItem="6Qx-LE-1va" firstAttribute="centerX" secondItem="cr7-jm-5Ny" secondAttribute="centerX" id="YCn-gt-TiS"/>
+                            <constraint firstItem="yrB-gH-nyK" firstAttribute="top" secondItem="6Qx-LE-1va" secondAttribute="bottom" constant="24" id="gmg-2d-0mr"/>
+                            <constraint firstItem="o8b-WK-1V9" firstAttribute="bottom" secondItem="oHn-dd-4HT" secondAttribute="bottom" id="hZl-He-SsJ"/>
+                            <constraint firstItem="yrB-gH-nyK" firstAttribute="centerX" secondItem="cr7-jm-5Ny" secondAttribute="centerX" id="pw7-s5-7Q1"/>
+                            <constraint firstItem="o8b-WK-1V9" firstAttribute="leading" secondItem="oHn-dd-4HT" secondAttribute="leading" id="zOM-ms-4yH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oHn-dd-4HT"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="o8b-WK-1V9" id="gto-NU-R67"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UJM-X4-w5G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-891.304347826087" y="1435.5978260869567"/>
+        </scene>
+        <!--Coachmark2 View Controller-->
+        <scene sceneID="dQ0-Ze-22W">
+            <objects>
+                <viewController id="9yX-87-tAm" customClass="KTCoachmark2ViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WuF-aE-JhM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="coachmark2_background" translatesAutoresizingMaskIntoConstraints="NO" id="HfI-FX-g8l">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_cards" translatesAutoresizingMaskIntoConstraints="NO" id="krf-ue-dDX">
+                                <rect key="frame" x="0.0" y="363" width="414" height="62"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="Yut-WK-7pO"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_swipe_hand" translatesAutoresizingMaskIntoConstraints="NO" id="RFP-sB-RWj">
+                                <rect key="frame" x="195" y="476" width="24" height="60"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="krf-ue-dDX" firstAttribute="leading" secondItem="HfI-FX-g8l" secondAttribute="leading" id="1o0-Ht-xDf"/>
+                            <constraint firstItem="krf-ue-dDX" firstAttribute="trailing" secondItem="HfI-FX-g8l" secondAttribute="trailing" id="Bng-pz-02F"/>
+                            <constraint firstItem="USs-BK-q2R" firstAttribute="bottom" secondItem="RFP-sB-RWj" secondAttribute="bottom" constant="200" id="KXc-BB-Yfz"/>
+                            <constraint firstItem="krf-ue-dDX" firstAttribute="top" secondItem="USs-BK-q2R" secondAttribute="top" constant="343" id="OeL-u6-HoJ"/>
+                            <constraint firstItem="krf-ue-dDX" firstAttribute="leading" secondItem="USs-BK-q2R" secondAttribute="leading" id="ZpW-X2-Ppx"/>
+                            <constraint firstItem="RFP-sB-RWj" firstAttribute="centerX" secondItem="WuF-aE-JhM" secondAttribute="centerX" id="amD-rM-oA4"/>
+                            <constraint firstItem="RFP-sB-RWj" firstAttribute="top" secondItem="krf-ue-dDX" secondAttribute="bottom" constant="51" id="yg7-0c-RYi"/>
+                            <constraint firstItem="krf-ue-dDX" firstAttribute="trailing" secondItem="USs-BK-q2R" secondAttribute="trailing" id="ypU-BY-WoI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="USs-BK-q2R"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="HfI-FX-g8l" id="IVr-8A-QeA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KaA-Ur-Guc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-168.11594202898553" y="1438.858695652174"/>
         </scene>
         <!--Booking Navigation Controller-->
         <scene sceneID="DuT-Gg-z1c">
@@ -2415,6 +2524,7 @@
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForPickup" id="FaI-op-NCo"/>
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForDropoff" id="4lO-1G-0fb"/>
                         <segue destination="Lyp-sm-LQ1" kind="show" identifier="segueBookingListForDetails" id="wE4-w3-3Ll"/>
+                        <segue destination="iR4-PC-91f" kind="presentation" identifier="SagueCoachmark1" id="z4I-Xz-Uan"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2549,13 +2659,13 @@
                                 <rect key="frame" x="72" y="244" width="270" height="248"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tco-BU-Y0d">
-                                        <rect key="frame" x="18" y="14" width="234" height="22"/>
+                                        <rect key="frame" x="18" y="14" width="234" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCTextBoxBG" translatesAutoresizingMaskIntoConstraints="NO" id="2xv-4S-tjl">
-                                        <rect key="frame" x="18" y="122.66666666666669" width="234" height="45"/>
+                                        <rect key="frame" x="18" y="121.66666666666669" width="234" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="YJj-Qt-nsW"/>
                                         </constraints>
@@ -2570,7 +2680,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="your booking will be made when you confirm this, you can add additional booking info below (if any)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px0-yJ-FYn">
-                                        <rect key="frame" x="18" y="57" width="234" height="39.666666666666657"/>
+                                        <rect key="frame" x="18" y="56" width="234" height="39.666666666666657"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3014,7 +3124,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsDot" translatesAutoresizingMaskIntoConstraints="NO" id="UT3-Ak-jn1">
-                                                            <rect key="frame" x="132" y="99" width="5" height="21"/>
+                                                            <rect key="frame" x="132.66666666666666" y="99" width="5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="5" id="Dxt-0r-BLs"/>
                                                                 <constraint firstAttribute="height" constant="21" id="fVi-h0-3Ka"/>
@@ -4402,7 +4512,7 @@
                                         </constraints>
                                     </imageView>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4S-Ie-zjk" customClass="CosmosView" customModule="Cosmos">
-                                        <rect key="frame" x="132.66666666666666" y="79" width="75" height="13"/>
+                                        <rect key="frame" x="131.66666666666666" y="79" width="75" height="13"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="4tY-La-HGF"/>
@@ -4496,7 +4606,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_cash_small" translatesAutoresizingMaskIntoConstraints="NO" id="BUc-HR-QA3">
-                                        <rect key="frame" x="191.66666666666666" y="111" width="16" height="9"/>
+                                        <rect key="frame" x="190.66666666666666" y="111" width="16" height="9"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="8Cv-Nm-J7k"/>
                                             <constraint firstAttribute="height" constant="9" id="OSZ-f0-PvO"/>
@@ -5657,7 +5767,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3Z-lF-12c">
-                                                    <rect key="frame" x="12" y="2" width="259" height="21"/>
+                                                    <rect key="frame" x="24" y="2" width="247" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="oh7-5P-ghn"/>
                                                     </constraints>
@@ -5778,6 +5888,12 @@
         <image name="business_sm_ico" width="44" height="44"/>
         <image name="card_lfrt_back" width="40" height="86"/>
         <image name="cards" width="375" height="86"/>
+        <image name="coachmark1_background" width="375" height="667"/>
+        <image name="coachmark1_down_arrow" width="14" height="153"/>
+        <image name="coachmark1_set_destination" width="345" height="79"/>
+        <image name="coachmark2_background" width="375" height="645"/>
+        <image name="coachmark2_cards" width="375" height="62"/>
+        <image name="coachmark2_swipe_hand" width="24" height="39"/>
         <image name="empty" width="20" height="20"/>
         <image name="eta_box" width="130" height="32"/>
         <image name="filled" width="20" height="20"/>
@@ -5822,7 +5938,7 @@
         <segue reference="gMG-uB-ITN"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="A9o-xm-kbF"/>
+        <segue reference="XB0-DD-FoR"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
         <segue reference="Otx-q2-Oud"/>
