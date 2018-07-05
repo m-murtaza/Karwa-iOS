@@ -21,7 +21,7 @@ class KTCoachmarkTwoViewController: UIViewController {
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-//        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_COACHMARKS_SHOWN, "true")
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_COACHMARKS_SHOWN, "true")
         dismiss(animated: true, completion: nil)
     }
 
