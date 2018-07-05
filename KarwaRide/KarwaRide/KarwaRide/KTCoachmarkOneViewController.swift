@@ -22,28 +22,6 @@ class KTCoachmarkOneViewController: KTBaseViewController {
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        self.performSegue(name: "SagueCoachmark2")
-        
         dismiss(animated: true)
-    }
-
-    override func viewWillAppear(_ animated: Bool)
-    {
-        print("-->View Will Appear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool)
-    {
-        print("-->View Did Appear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool)
-    {
-        print("-->View Will Disappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool)
-    {
-        print("-->View Did Disappear")
     }
 }

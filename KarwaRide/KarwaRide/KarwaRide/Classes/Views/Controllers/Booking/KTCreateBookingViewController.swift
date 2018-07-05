@@ -30,9 +30,23 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         hideFareBreakdown(animated: false)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    func showCoachmarkIfRequired()
+    {
+        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
+        
+        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        {
+            if(vModel?.isCoachmarkOneShown)!
+            {
+                showCoachmarkTwo()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,10 +63,12 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     func showCoachmarkOne()
     {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
-        {
-            self.performSegue(name: "SagueCoachmark1")
-        }
+        self.performSegue(name: "SagueCoachmark1")
+    }
+    
+    func showCoachmarkTwo()
+    {
+        self.performSegue(name: "SagueCoachmark2")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -207,6 +223,10 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
             destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
             
+        }
+        else if segue.identifier == "SagueCoachmark1"
+        {
+            //TODO: Make Delegate here
         }
         else if segue.identifier == "segueBookingListForDetails" {
             
