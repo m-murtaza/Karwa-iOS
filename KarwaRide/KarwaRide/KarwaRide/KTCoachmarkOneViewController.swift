@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KTCoachmarkOneViewController: UIViewController {
+class KTCoachmarkOneViewController: KTBaseViewController {
 
     @IBOutlet weak var imageView: KTSpringImageView!
     
@@ -22,7 +22,28 @@ class KTCoachmarkOneViewController: UIViewController {
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        dismiss(animated: true, completion: nil)
+        self.performSegue(name: "SagueCoachmark2")
+        
+        dismiss(animated: true)
     }
 
+    override func viewWillAppear(_ animated: Bool)
+    {
+        print("-->View Will Appear")
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        print("-->View Did Appear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        print("-->View Will Disappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool)
+    {
+        print("-->View Did Disappear")
+    }
 }

@@ -33,7 +33,6 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        showCoachmarksIfRequired()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,7 +47,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     
-    func showCoachmarksIfRequired()
+    func showCoachmarkOne()
     {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2)
         {

@@ -43,6 +43,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func hideFareBreakdown(animated : Bool)
     func fareDetailVisible() -> Bool
     func updateVehicleTypeList()
+    func showCoachmarkOne()
     func allowScrollVTypeCard(allow : Bool)
 }
 
@@ -94,6 +95,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if booking.bookingId != nil && booking.bookingId != "" {
             rebook = true
             updateForRebook()
+        }
+        
+        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
+        
+        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        {
+            (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkOne()
+        }
+        else
+        {
+            print("coachmarks have been already shown")
         }
     }
     
