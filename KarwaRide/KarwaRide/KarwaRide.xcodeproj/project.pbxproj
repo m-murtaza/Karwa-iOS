@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */; };
+		0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */; };
+		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
 		1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */; };
@@ -152,6 +155,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmarkOneViewController.swift; sourceTree = "<group>"; };
+		0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmark2ViewController.swift; sourceTree = "<group>"; };
+		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
 		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
 		1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KarwaRide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -315,6 +321,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D5EAA8020EB56780016E1F6 /* Coachmarks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coachmarks;
+			sourceTree = "<group>";
+		};
 		1810C0BA1FC4061E008E8D91 /* APNS */ = {
 			isa = PBXGroup;
 			children = (
@@ -614,6 +627,8 @@
 				18FA45BA20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift */,
 				182A74DD209EDCF20025B6C7 /* AddressPickCell.swift */,
 				182D670820B17C2E00A36365 /* KTCallerIDPopup.swift */,
+				0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */,
+				0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -717,6 +732,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				0D5EAA8020EB56780016E1F6 /* Coachmarks */,
 				186ECFCF20A80E75002CF81E /* FirstView */,
 				182A74D8209730380025B6C7 /* Notification */,
 				1811E4EC205A2FAC00C3C47F /* BookingDetails */,
@@ -865,6 +881,7 @@
 			isa = PBXGroup;
 			children = (
 				18C24AC5200340F3002D4B88 /* KTUtils.swift */,
+				0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1221,6 +1238,7 @@
 				1811E4D4204E7B3D00C3C47F /* KTUserManager+AccountEdit.swift in Sources */,
 				182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
+				0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
 				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
 				1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */,
@@ -1232,6 +1250,7 @@
 				18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				183B91E220C7C19500097FAF /* KTFareHTMLViewController.swift in Sources */,
+				0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */,
 				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
 				187E71112083790300E66A55 /* KTRatingManager.swift in Sources */,
 				186ECFBF20A1A466002CF81E /* KTOnboardingStep1ViewController.swift in Sources */,
@@ -1316,6 +1335,7 @@
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
+				0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,

@@ -43,6 +43,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func hideFareBreakdown(animated : Bool)
     func fareDetailVisible() -> Bool
     func updateVehicleTypeList()
+    func showCoachmarkOne()
+    func showCoachmarkTwo()
     func allowScrollVTypeCard(allow : Bool)
 }
 
@@ -65,6 +67,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     public var estimates : [KTFareEstimate]?
     public var isEstimeting : Bool = false
+    public var isCoachmarkOneShown: Bool = false
     
     private var nearByVehicle: [VehicleTrack] = []
     
@@ -95,6 +98,43 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             rebook = true
             updateForRebook()
         }
+        
+        showCoachmarkIfRequired()
+    }
+    
+    func showCoachmarkIfRequired()
+    {
+        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
+        
+        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+            {
+                self.isCoachmarkOneShown = true;
+                (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkOne()
+            }
+        }
+        else
+        {
+            print("coachmarks have been already shown")
+        }
+    }
+    
+    func showCoachmarkTwoIfRequired()
+    {
+        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
+        
+        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+            {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkTwo()
+            }
+        }
+        else
+        {
+            print("coachmarks have been already shown")
+        }
     }
     
     override func viewWillAppear() {
@@ -117,6 +157,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             registerForMinuteChange()
             drawDirectionOnMap()
             showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
+            showCoachmarkTwoIfRequired()
         }
     }
     
