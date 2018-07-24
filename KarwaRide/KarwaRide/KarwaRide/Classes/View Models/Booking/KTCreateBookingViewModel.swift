@@ -46,6 +46,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func showCoachmarkOne()
     func showCoachmarkTwo()
     func allowScrollVTypeCard(allow : Bool)
+    func setETAContainerBackground(background : String)
+    func setETAString(etaString : String)
 }
 
 let CHECK_DELAY = 90.0
@@ -519,6 +521,75 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
+    func fetchETA(vehicles: [VehicleTrack]){
+
+        let lat = String(format: "%f", KTLocationManager.sharedInstance.currentLocation.coordinate.latitude)
+        let lon = String(format: "%f", KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
+        let currentLocation = lat + "," + lon
+
+//        let url = "https://maps.googleapis.com/maps/api/directions/json?origins=\(KTUtils.getLocationParams(vehicles: vehicles))&destinations=\(currentLocation)&mode=driving&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
+        
+//        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(KTUtils.getLocationParams(vehicles: vehicles))&destinations=\(currentLocation)&mode=driving&sensor=false&units=metric&&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
+
+        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?"
+
+        let parameters: Parameters =
+            [
+                "origins": KTUtils.getLocationParams(vehicles: vehicles),
+                "destinations": currentLocation,
+                "mode": "driving",
+                "sensor": "false",
+                "units": "metric",
+                "key": Constants.GOOGLE_DIRECTION_API_KEY
+            ]
+        
+        
+
+        Alamofire.request(url, method: .get, parameters: parameters, headers: nil).responseJSON { (response:DataResponse<Any>) in
+
+            switch(response.result) {
+            case .success(_):
+                if response.result.value != nil{
+                    do
+                    {
+                        var sortedListForETA : [Int] = []
+                        let json = try JSON(data: response.data!)
+
+                        let rows = json["rows"].arrayValue
+
+                        for row in rows
+                        {
+                            let elements = row["elements"].arrayValue
+                            for element in elements
+                            {
+                                let duration = element["duration"].dictionary
+                                let seconds = duration!["value"]
+                                if(seconds != nil && seconds! > 0)
+                                {
+                                    sortedListForETA.append((seconds?.int)!)
+                                }
+                            }
+                        }
+                        sortedListForETA = sortedListForETA.sorted()
+                        if(sortedListForETA.count > 0)
+                        {
+                            (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: KTUtils.getETAString(etaInSeconds: sortedListForETA[0]))
+                        }
+                    }
+                    catch _
+                    {
+                        print("Error: Unalbe to fetch ETA")
+                    }
+                }
+                break
+
+            case .failure(_):
+                print(response.result.error as Any)
+                break
+            }
+        }
+    }
+    
     func directionBounds() -> GMSCoordinateBounds
     {
         
@@ -680,6 +751,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!{
             
+            (delegate as! KTCreateBookingViewModelDelegate).setETAContainerBackground(background: KTUtils.getEtaBackgroundName(index: currentIdx!))
+
             if rebook == false {
                 selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
             }
@@ -864,10 +937,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 self.nearByVehicle = self.parseVehicleTrack(response)
                 
                 //Add User current location.
-                if self.nearByVehicle.count > 0 {
+                if self.nearByVehicle.count > 0
+                {
                     self.nearByVehicle.append(self.userCurrentLocaitonMarker())
+                    self.fetchETA(vehicles: self.nearByVehicle)
                 }
-                
+                else
+                {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride available")
+                }
                 
                 if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
                     (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)

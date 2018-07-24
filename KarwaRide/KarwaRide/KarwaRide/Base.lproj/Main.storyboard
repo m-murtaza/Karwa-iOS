@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -2240,7 +2240,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingVehiclePad" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-dE-XWy">
-                                                                    <rect key="frame" x="244" y="8.5" width="50" height="50"/>
+                                                                    <rect key="frame" x="244" y="9" width="50" height="50"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="AgU-Os-lmc"/>
                                                                         <constraint firstAttribute="width" constant="50" id="Edf-Bx-su8"/>
@@ -2446,6 +2446,29 @@
                                 </constraints>
                                 <state key="normal" image="RevealButton"/>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHC-KS-ZZP">
+                                <rect key="frame" x="67" y="265" width="240" height="46"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EtaToCustomerBack1" translatesAutoresizingMaskIntoConstraints="NO" id="4zF-1q-LMi">
+                                        <rect key="frame" x="55" y="6" width="130" height="32"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- to reach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-MH-hKX">
+                                        <rect key="frame" x="87.5" y="10" width="65.5" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.93725490196078431" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="4zF-1q-LMi" secondAttribute="bottom" constant="8" id="85K-Wk-CDn"/>
+                                    <constraint firstItem="E9U-MH-hKX" firstAttribute="top" secondItem="SHC-KS-ZZP" secondAttribute="top" constant="10" id="EZd-87-saQ"/>
+                                    <constraint firstItem="4zF-1q-LMi" firstAttribute="centerX" secondItem="SHC-KS-ZZP" secondAttribute="centerX" id="NkR-Oy-dw3"/>
+                                    <constraint firstAttribute="bottom" secondItem="E9U-MH-hKX" secondAttribute="bottom" constant="11" id="bcb-nc-dqj"/>
+                                    <constraint firstItem="4zF-1q-LMi" firstAttribute="top" secondItem="SHC-KS-ZZP" secondAttribute="top" constant="6" id="dWQ-2Y-kUj"/>
+                                    <constraint firstItem="E9U-MH-hKX" firstAttribute="centerX" secondItem="SHC-KS-ZZP" secondAttribute="centerX" id="qVB-Pc-kr5"/>
+                                </constraints>
+                            </view>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZy-Mf-CFk">
                                 <rect key="frame" x="0.0" y="423" width="375" height="244"/>
                                 <connections>
@@ -2466,8 +2489,11 @@
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="bwK-YS-F1J" secondAttribute="trailing" id="J6S-0F-P8t"/>
                             <constraint firstItem="bwK-YS-F1J" firstAttribute="bottom" secondItem="uYM-p6-0VQ" secondAttribute="bottom" id="O1Q-va-Wtk"/>
                             <constraint firstItem="pfV-HZ-0xI" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" id="QyW-a2-lff"/>
+                            <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="SHC-KS-ZZP" secondAttribute="trailing" constant="68" id="TLg-cW-gss"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="uYM-p6-0VQ" secondAttribute="trailing" id="TTv-WV-nBn"/>
+                            <constraint firstItem="pfV-HZ-0xI" firstAttribute="top" secondItem="SHC-KS-ZZP" secondAttribute="bottom" constant="2" id="XOJ-rt-Ad4"/>
                             <constraint firstItem="QCN-32-Vxz" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" id="aAF-DT-U8u"/>
+                            <constraint firstItem="SHC-KS-ZZP" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" constant="67" id="d3I-R0-Zlm"/>
                             <constraint firstItem="bwK-YS-F1J" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" id="fv8-G1-I5g"/>
                             <constraint firstItem="pfV-HZ-0xI" firstAttribute="top" secondItem="bwK-YS-F1J" secondAttribute="top" id="gMM-4k-HsG"/>
                             <constraint firstItem="QCN-32-Vxz" firstAttribute="top" secondItem="bwK-YS-F1J" secondAttribute="bottom" id="gbc-bB-jHf"/>
@@ -2477,6 +2503,7 @@
                             <constraint firstItem="aZy-Mf-CFk" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="top" id="mqc-Qu-roH"/>
                             <constraint firstItem="uYM-p6-0VQ" firstAttribute="top" secondItem="7Cw-K8-q7x" secondAttribute="top" id="ryU-If-QsD"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="bottom" secondItem="3Hf-ht-uDd" secondAttribute="bottom" constant="20" id="tJE-rC-JMb"/>
+                            <constraint firstItem="SHC-KS-ZZP" firstAttribute="centerX" secondItem="7Cw-K8-q7x" secondAttribute="centerX" id="tgT-bl-Lkk"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="QCN-32-Vxz" secondAttribute="trailing" id="x6s-gE-CSF"/>
                             <constraint firstItem="3Hf-ht-uDd" firstAttribute="trailing" secondItem="7Cw-K8-q7x" secondAttribute="trailingMargin" constant="-10" id="yXa-an-VeY"/>
                             <constraint firstItem="3Hf-ht-uDd" firstAttribute="top" secondItem="QCN-32-Vxz" secondAttribute="bottom" constant="20" id="zCZ-GV-ECc"/>
@@ -2503,6 +2530,8 @@
                         <outlet property="constraintBtnRequestBookingBottomSpace" destination="tJE-rC-JMb" id="IuW-5Y-SqZ"/>
                         <outlet property="constraintBtnRequestBookingHeight" destination="LQh-VH-vnG" id="fxv-Qk-qJW"/>
                         <outlet property="constraintFareToBox" destination="mqc-Qu-roH" id="j8g-5d-hne"/>
+                        <outlet property="etaToCustomerContainer" destination="4zF-1q-LMi" id="f4d-f2-FQd"/>
+                        <outlet property="etaToCustomerLabel" destination="E9U-MH-hKX" id="5R8-6a-tHX"/>
                         <outlet property="imgPickDestBoxBG" destination="fg2-1w-EdU" id="tyb-oO-c5L"/>
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
@@ -2516,7 +2545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1422" y="1578"/>
+            <point key="canvasLocation" x="1421.5999999999999" y="1577.3613193403301"/>
         </scene>
         <!--CallerID Popup-->
         <scene sceneID="zs6-tc-bRr">
@@ -4223,7 +4252,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -5850,6 +5879,7 @@
         <image name="BookingWaves" width="315" height="39"/>
         <image name="CreateAnAccount" width="323" height="80"/>
         <image name="CrossBarButton" width="16" height="16"/>
+        <image name="EtaToCustomerBack1" width="130" height="32"/>
         <image name="KarwaLogoWithText" width="160" height="45"/>
         <image name="LMActiveback" width="320" height="50"/>
         <image name="LMBgImage" width="375" height="667"/>
