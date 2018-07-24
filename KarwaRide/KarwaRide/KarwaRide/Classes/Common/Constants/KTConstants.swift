@@ -86,8 +86,8 @@ struct Constants {
     static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS"
     
-    static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
-    static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
+    static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
+    static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
     static let MIN_PASSWORD_LENGTH : Int = 6

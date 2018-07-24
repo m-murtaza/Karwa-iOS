@@ -12,6 +12,10 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     var vModel : KTCreateBookingViewModel?
     
+    @IBOutlet weak var etaToCustomerLabel: UILabel!
+    
+    @IBOutlet weak var etaToCustomerContainer: UIImageView!
+    
     //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
@@ -192,6 +196,16 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         imgPickDestBoxBG.image = UIImage(named: "BookingPickDropBox")
         btnCash.isHidden = true
         btnPickDate.isHidden = true
+    }
+    
+    func setETAContainerBackground(background: String)
+    {
+        etaToCustomerContainer.image = UIImage(named: background)
+    }
+
+    func setETAString(etaString: String)
+    {
+        etaToCustomerLabel.text = etaString
     }
     
     //MARK: - Navigation
