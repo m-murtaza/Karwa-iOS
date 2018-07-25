@@ -70,11 +70,7 @@ class KTUtils
     static func getETAString(etaInSeconds: Int) -> String
     {
         var etaString = "1 min to reach"
-        if(etaInSeconds < 60)
-        {
-            etaString = "\(etaInSeconds) secs to reach"
-        }
-        else if(etaInSeconds > 119)
+        if(etaInSeconds > 119)
         {
             etaString = String(etaInSeconds / 60) + " mins to reach"
         }

@@ -41,7 +41,7 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
         let cell : KTNotificationTableViewCell = tableView.dequeueReusableCell(withIdentifier: "NotificationTableViewCellIdentifier") as! KTNotificationTableViewCell
         cell.lblMessage.text = vModel?.message(forCellIdx: indexPath.row)
         cell.lbldateTime.text = vModel?.dateTime(forCellIdx: indexPath.row)
-        cell.lblAgoTime.text = vModel?.agoTime(forCellIdx: indexPath.row)
+//        cell.lblAgoTime.text = vModel?.agoTime(forCellIdx: indexPath.row)
         cell.imgIcon.image = vModel?.notificationIcon(forCellIdx: indexPath.row)
         cell.selectionStyle = .none
         return cell

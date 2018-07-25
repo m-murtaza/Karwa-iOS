@@ -95,6 +95,10 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     func showConsolationText() {
         lblConsolationText.isHidden = false
     }
+    func showConsolationText(message: String) {
+        lblConsolationText.text = message
+        lblConsolationText.isHidden = false
+    }
     func hideConsolationText() {
         lblConsolationText.isHidden = true
     }

@@ -24,6 +24,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func showAltForThanks()
     func enableSubmitButton()
     func showConsolationText()
+    func showConsolationText(message: String)
     func hideConsolationText()
 }
 
@@ -49,12 +50,19 @@ class KTRatingViewModel: KTBaseViewModel {
     
     func ratingUpdate(rating: Double) {
         del?.enableSubmitButton()
-        if rating == 4 {
-            del?.showConsolationText()
+        if rating == 4
+        {
+            del?.showConsolationText(message: "Overall good experience, impress with service. But need some improvements")
         }
-        else {
-            del?.hideConsolationText()
+        else if rating == 5
+        {
+            del?.showConsolationText(message: "Overall good experience. Impress with service")
         }
+        else
+        {
+            del?.showConsolationText(message: "We're really sorry. Tell us what happened?")
+        }
+
         fetchReason(forRating: Int32(rating))
     }
     
