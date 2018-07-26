@@ -141,7 +141,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
         booking.toKeyValueBody = NSOrderedSet()
-        KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["Body"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
+        KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["OrderedBody"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
             
         
         for keyvalue in booking.toKeyValueHeader! {
