@@ -15,6 +15,7 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     
     @IBOutlet weak var lblTitle : UILabel!
     @IBOutlet weak var tblView : UITableView!
+    @IBOutlet weak var btnHideFareBreakdown: UIButton!
     var delegate : KTFareViewDelegate?
     
     var breakdown : [String : String] = [:]
@@ -50,6 +51,7 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     @IBAction func btnBackTapped(_ sender: Any) {
         breakdown = [:]
         keys = []
+        btnHideFareBreakdown.isHidden = true
         delegate?.btnBackTapped()
     }
     /*
