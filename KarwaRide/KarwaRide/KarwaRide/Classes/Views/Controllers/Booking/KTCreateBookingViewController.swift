@@ -309,14 +309,18 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         btnPickDate.setTitle(date, for: UIControlState.normal)
     }
     
-    func hideFareBreakdownBackBtn() {
+    func hideFareBreakdown() {
         
         //        btnRevealBtn.constant = 0
         //        btnRevealBtn.constant = 0
         //        btnRevealBtn.constant = 0
-        self.btnCancelBtn.isHidden = true
+
+        fareBreakdown.showHideBackFareDetailsBtn(hide: true)
+
+        constraintFareToBox.constant = 0
+        viewFareBreakdown.alpha = 0.0
+        self.viewFareBreakdown.isHidden = true
         
-        //self.btnRequestBooking.setNeedsDisplay()
         self.view.layoutIfNeeded()
     }
 }

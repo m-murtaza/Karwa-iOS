@@ -48,7 +48,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func allowScrollVTypeCard(allow : Bool)
     func setETAContainerBackground(background : String)
     func setETAString(etaString : String)
-    func hideFareBreakdownBackBtn()
+    func hideFareBreakdown()
 }
 
 let CHECK_DELAY = 90.0
@@ -1025,7 +1025,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         fetchEstimates()
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
-        del?.hideFareBreakdownBackBtn()
+        del?.hideFareBreakdown()
         FetchNearByVehicle()
     }
 }

@@ -23,10 +23,15 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        showHideBackFareDetailsBtn(hide: false)
         // Do any additional setup after loading the view.
     }
 
+    func showHideBackFareDetailsBtn(hide: Bool)
+    {
+        btnHideFareBreakdown.isHidden = hide
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,14 +49,14 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
             breakdown[Array(brkDown.keys)[0]] = brkDown[Array(brkDown.keys)[0]]
             keys.append(Array(brkDown.keys)[0])
         }
-
+        showHideBackFareDetailsBtn(hide: false)
         tblView.reloadData()
     }
     
     @IBAction func btnBackTapped(_ sender: Any) {
         breakdown = [:]
         keys = []
-        btnHideFareBreakdown.isHidden = true
+        showHideBackFareDetailsBtn(hide: false)
         delegate?.btnBackTapped()
     }
     /*
