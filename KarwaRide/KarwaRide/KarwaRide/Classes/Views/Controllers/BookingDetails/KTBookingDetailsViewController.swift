@@ -26,7 +26,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
     @IBOutlet weak var imgBookingStatus: UIImageView!
+
+    //TODO: change estimated fare into Fare for completed booking
     @IBOutlet weak var lblEstimatedFare : UILabel!
+    @IBOutlet weak var titleEstimatedFare: UILabel!
+    
     @IBOutlet weak var starView : CosmosView!
     @IBOutlet weak var lblEta : UILabel!
     @IBOutlet weak var lblPickTime : RoundedLable!
@@ -197,8 +201,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         lblDayAndTime.text = vModel?.pickupDayAndTime()
         
         lblServiceType.text = vModel?.vehicleType()
-        lblEstimatedFare.text = vModel?.estimatedFare()
         
+        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
+        {
+            lblEstimatedFare.text = vModel?.fareDetailTotal()
+            titleEstimatedFare.text = "Fare"
+        }
+        else
+        {
+            lblEstimatedFare.text = vModel?.estimatedFare()
+            titleEstimatedFare.text = "Est. Fare"
+        }
         
         let img : UIImage? = vModel?.bookingStatusImage()
         if img != nil {
