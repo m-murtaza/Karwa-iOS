@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import Cosmos
 import RKTagsView
+import SAConfettiView
 
 protocol KTRatingViewDelegate {
     
@@ -55,6 +56,15 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         }
         
         tagView.textFieldAlign = .center
+        
+        
+//        let confettiView = SAConfettiView(frame: self.view.bounds)
+//        confettiView.type = .Diamond
+//        confettiView.colors = [UIColor.yellow]
+//        confettiView.intensity = 0.75
+//        
+//        view.addSubview(confettiView)
+//        confettiView.startConfetti()
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,11 +113,29 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         lblConsolationText.isHidden = true
     }
     
-    func showAltForThanks() {
+    func showAltForThanks(rating: Int32) {
+        
+        let confettiView = SAConfettiView(frame: self.view.bounds)
+
+        if(rating > 3)
+        {
+            confettiView.type = .Diamond
+            confettiView.colors = [UIColor.yellow]
+            confettiView.intensity = 0.75
+
+            view.addSubview(confettiView)
+            confettiView.startConfetti()
+        }
+
         let alertController = UIAlertController(title: "", message: "Thanks for providing us your valuable feedback", preferredStyle: .alert)
         
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            if(rating > 3)
+            {
+                confettiView.stopConfetti()
+            }
+
             self.closeScreen()
         }
         

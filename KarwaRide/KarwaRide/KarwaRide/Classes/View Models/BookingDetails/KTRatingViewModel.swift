@@ -21,7 +21,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func addTag(tag: String)
     func selectedIdx() -> [NSNumber]
     func userFinalRating() -> Int32
-    func showAltForThanks()
+    func showAltForThanks(rating: Int32)
     func enableSubmitButton()
     func showConsolationText()
     func showConsolationText(message: String)
@@ -114,7 +114,7 @@ class KTRatingViewModel: KTBaseViewModel {
                 self.booking?.isRated = true
                 KTNotificationManager().deleteNotification(forBooking: self.booking!)
                 KTDALManager().saveInDb()
-                self.del?.showAltForThanks()
+                self.del?.showAltForThanks(rating: rating)
                 
             }
             else {

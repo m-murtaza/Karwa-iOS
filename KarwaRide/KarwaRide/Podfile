@@ -1,6 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 target 'KarwaRide' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -21,6 +21,7 @@ target 'KarwaRide' do
     pod 'RKTagsView'
     pod 'Fabric'
     pod 'Crashlytics'
+    pod 'SAConfettiView'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
 
 end
