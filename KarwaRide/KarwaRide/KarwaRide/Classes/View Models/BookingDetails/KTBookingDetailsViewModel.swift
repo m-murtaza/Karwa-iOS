@@ -34,6 +34,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func addPickupMarker(location : CLLocationCoordinate2D)
     func addDropOffMarker(location : CLLocationCoordinate2D)
     func setMapCamera(bound : GMSCoordinateBounds)
+    func clearMaps()
     
     func updateAssignmentInfo()
     func hideDriverInfoBox()
@@ -139,7 +140,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func updateAssignmentInfo() {
-        if booking?.driverName != nil && !(booking?.driverName?.isEmpty)! {
+        if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
+        {
+            del?.hideDriverInfoBox()
+        }
+        else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
+        {
             //del?.hideDriverInfoBox()
             del?.updateAssignmentInfo()
         }
@@ -402,28 +408,34 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func updateMap() {
         
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-        if(bStatus == BookingStatus.PICKUP){
+        
+        if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
+        {
+            del?.clearMaps()
+            showPickDropMarker()
+        }
+        else if(bStatus == BookingStatus.PICKUP)
+        {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
             startVechicleTrackTimer()
         }
-        else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED {
+        else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
+        {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
             showPickDropMarker(showOnlyPickup: true)
             startVechicleTrackTimer()
         }
-        else if bStatus == BookingStatus.COMPLETED {
+        else if bStatus == BookingStatus.COMPLETED
+        {
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
                 snapTrackToRoad(track: (booking?.tripTrack)!)
             }
         }
-        else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE {
-            
-            showPickDropMarker()
-        }
-        else {
+        else
+        {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
     }
@@ -481,9 +493,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 }
             })
         }
-        else {
-            
-            if timerVechicleTrack.isValid {
+        else
+        {
+            if timerVechicleTrack.isValid
+            {
                 timerVechicleTrack.invalidate()
                 //TODO: Update UI.
             }
@@ -627,7 +640,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func cancelDoneSuccess()  {
         booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
         KTBookingManager().saveInDb()
-        del?.popViewController()
+        initializeViewWRTBookingStatus()
+//        del?.popViewController()
     }
     
     //MARK:- Ebill

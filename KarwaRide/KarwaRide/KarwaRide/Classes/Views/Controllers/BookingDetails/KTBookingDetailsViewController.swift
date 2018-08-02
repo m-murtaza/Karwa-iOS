@@ -357,6 +357,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 50.0))
     }
     
+    func clearMaps()
+    {
+        mapView.clear()
+    }
+    
     //MARK: - Bottom Bar Buttons
     func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int ) {
         if !title.isEmpty {
