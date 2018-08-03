@@ -11,8 +11,7 @@ import UserNotifications
 import MagicalRecord
 import GoogleMaps
 import FacebookCore
-import Fabric
-import Crashlytics
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,8 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupLocation()
         setupGoogleMaps()
         
-        Fabric.sharedSDK().debug = true
-        Fabric.with([Crashlytics.self()])
+        FirebaseApp.configure()
+//        Fabric.sharedSDK().debug = true
+//        Fabric.with([Crashlytics.self()])
         
         return true
     }
