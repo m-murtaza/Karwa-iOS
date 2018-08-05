@@ -85,6 +85,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var booking : KTBooking = KTBookingManager().booking()
     var removeBooking = true
+    var removeBookingOnReset = true
     
     
     override func viewDidLoad() {
@@ -1007,9 +1008,20 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         dropOffBtnText = "Destination not set"
     }
     
-    public func resetInProgressBooking() {
-        booking.mr_deleteEntity()
+    func setRemoveBookingOnReset(removeBookingOnReset : Bool) {
+        self.removeBookingOnReset = removeBookingOnReset
+    }
+    
+    public func resetInProgressBooking()
+    {
+        if(removeBookingOnReset)
+        {
+            self.removeBookingOnReset = true
+            booking.mr_deleteEntity()
+        }
+
         booking = KTBookingManager().booking()
+        
         currentBookingStep = BookingStep.step1  //Booking will strat with step 1
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)

@@ -16,12 +16,15 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     @IBOutlet weak var etaToCustomerContainer: UIImageView!
     
+    var removeBookingOnReset : Bool = true
+    
     //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
         vModel = viewModel as? KTCreateBookingViewModel
         if booking != nil {
             vModel?.booking = booking!
+            (viewModel as! KTCreateBookingViewModel).setRemoveBookingOnReset(removeBookingOnReset: removeBookingOnReset)
         }
         super.viewDidLoad()
         
@@ -178,6 +181,11 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         
         self.btnRequestBooking.setNeedsDisplay()
         self.view.layoutIfNeeded()
+    }
+    
+    func setRemoveBookingOnReset(removeBookingOnReset : Bool)
+    {
+        self.removeBookingOnReset = removeBookingOnReset
     }
     
     func pickDropBoxStep3() {

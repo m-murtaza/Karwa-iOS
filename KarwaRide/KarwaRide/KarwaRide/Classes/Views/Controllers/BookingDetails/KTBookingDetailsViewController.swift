@@ -142,9 +142,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-        if segue.identifier == "segueDetailToReBook" {
+        if segue.identifier == "segueDetailToReBook"
+        {
             let createBooking : KTCreateBookingViewController = segue.destination as! KTCreateBookingViewController
             createBooking.booking = vModel?.booking
+            createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
         }
      }
