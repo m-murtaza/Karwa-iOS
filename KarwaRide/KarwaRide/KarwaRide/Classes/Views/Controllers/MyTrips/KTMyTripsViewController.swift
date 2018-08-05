@@ -14,6 +14,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBOutlet weak var noBookingView: UIView!
     
     override func viewDidLoad() {
+        KTMyTripsViewController.delay = 0.1
         if viewModel == nil {
             viewModel = KTMyTripsViewModel(del: self)
         }
@@ -41,6 +42,26 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (viewModel as! KTMyTripsViewModel).numberOfRows()
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+//    {
+        // These values depends on the positioning of your element
+//        let left = CGAffineTransform(translationX: -300, y: 0)
+//        let right = CGAffineTransform(translationX: 300, y: 0)
+//        let top = CGAffineTransform(translationX: 0, y: -300)
+//
+//        UIView.animate(withDuration: 0.4, delay: 0.0, options: [], animations: {
+//            // Add the transformation in this block
+//            // self.container is your view that you want to animate
+//            cell.transform = top
+//        }, completion: nil)
+//
+//        cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+//        UIView.animate(withDuration: 0.7)
+//        {
+//            cell.transform = CGAffineTransform.identity
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //MyTripsReuseIdentifier
@@ -75,7 +96,24 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
         cell.selectionStyle = .none
         
+        animateCell(cell)
+        
         return cell
+    }
+    
+    static var delay : Double = 0.1
+    
+    func animateCell(_ cell: KTMyTripsTableViewCell)
+    {
+        let top = CGAffineTransform(translationX: 0, y: -1500)
+        
+        UIView.animate(withDuration: 0.7, delay: KTMyTripsViewController.delay, options: [], animations: {
+            // Add the transformation in this block
+            // self.container is your view that you want to animate
+            cell.transform = top
+        }, completion: nil)
+        
+        KTMyTripsViewController.delay = KTMyTripsViewController.delay + 0.1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
