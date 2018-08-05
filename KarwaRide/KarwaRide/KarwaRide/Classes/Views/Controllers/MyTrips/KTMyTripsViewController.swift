@@ -14,7 +14,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBOutlet weak var noBookingView: UIView!
     
     override func viewDidLoad() {
-        KTMyTripsViewController.delay = 0.1
+        KTMyTripsViewController.delay = 0
         if viewModel == nil {
             viewModel = KTMyTripsViewModel(del: self)
         }
