@@ -143,7 +143,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(aps)
             apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
         }
-        
     }
     
     //Notifiacation receive when application is in background
