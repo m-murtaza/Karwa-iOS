@@ -44,6 +44,29 @@ class KTUtils
         return param;
     }
     
+    static func getEtaBackgroundNameByVT(vehicleType: Int16) -> String
+    {
+        var backgroundName = "EtaToCustomerBack1"
+
+        switch vehicleType
+        {
+        case VehicleType.KTCityTaxi.rawValue:
+            backgroundName = "EtaToCustomerBack1"
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            backgroundName = "EtaToCustomerBack5"
+        case VehicleType.KTStandardLimo.rawValue:
+            backgroundName = "EtaToCustomerBack2"
+        case VehicleType.KTBusinessLimo.rawValue:
+            backgroundName = "EtaToCustomerBack3"
+        case VehicleType.KTLuxuryLimo.rawValue:
+            backgroundName = "EtaToCustomerBack4"
+        default:
+            backgroundName = "EtaToCustomerBack1"
+        }
+        
+        return backgroundName
+    }
+    
     static func getEtaBackgroundName(index: Int) -> String
     {
         var backgroundName = "EtaToCustomerBack1"

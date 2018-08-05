@@ -256,6 +256,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             booking.bookingToEstimate = nil
         }
         
+        (delegate as! KTCreateBookingViewModelDelegate).setETAContainerBackground(background: KTUtils.getEtaBackgroundNameByVT(vehicleType: selectedVehicleType.rawValue))
+        
         fetchEstimates()
     }
     //MARK:- Sync Applicaiton Data
@@ -751,11 +753,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func vTypeViewScroll(currentIdx:Int?)  {
         
-        if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!{
-            
+        if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
+        {
             (delegate as! KTCreateBookingViewModelDelegate).setETAContainerBackground(background: KTUtils.getEtaBackgroundName(index: currentIdx!))
 
-            if rebook == false {
+            if rebook == false
+            {
                 selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
             }
             /*else {
