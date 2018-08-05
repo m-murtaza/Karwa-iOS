@@ -89,7 +89,10 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     //MARK:- User Actions
     @IBAction func btnPickupAddTapped(_ sender: Any) {
         
-        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
+//        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
+        btnDropoffAddress.animation = "pop"
+        btnDropoffAddress.duration = 1.5
+        btnDropoffAddress.animate()
     }
     @IBAction func btnDropAddTapped(_ sender: Any) {
         

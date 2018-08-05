@@ -34,7 +34,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
     @IBOutlet weak var btnPickupAddress: UIButton!
-    @IBOutlet weak var btnDropoffAddress: UIButton!
+    @IBOutlet weak var btnDropoffAddress: SpringButton!
     @IBOutlet weak var btnRevealBtn : UIButton!
     @IBOutlet weak var btnCancelBtn : UIButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
