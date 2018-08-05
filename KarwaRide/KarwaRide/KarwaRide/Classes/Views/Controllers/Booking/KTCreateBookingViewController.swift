@@ -163,24 +163,44 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     }
     
     func hideRequestBookingBtn() {
-        
-        constraintBtnRequestBookingHeight.constant = 0
-        constraintBtnRequestBookingBottomSpace.constant = 0
-        constraintBoxBtnRequestBookingSpace.constant = 0
-        btnRequestBooking.isHidden = true
-        
         //self.btnRequestBooking.setNeedsDisplay()
-        self.view.layoutIfNeeded()
+        
+//        self.btnRequestBooking.animation = "slideDown"
+//        self.btnRequestBooking.curve = "easeOut"
+//        self.btnRequestBooking.duration = 1
+//        self.btnRequestBooking.animate()
+
+        UIView.animate(withDuration: 0.5, animations: {
+            self.constraintBtnRequestBookingHeight.constant = 0
+            self.constraintBtnRequestBookingBottomSpace.constant = 0
+            self.constraintBoxBtnRequestBookingSpace.constant = 0
+        
+            self.btnRequestBooking.isHidden = true
+            self.view.layoutIfNeeded()
+        })
     }
     
     func showRequestBookingBtn()  {
-        constraintBtnRequestBookingHeight.constant = 60
-        constraintBtnRequestBookingBottomSpace.constant = 20
-        constraintBoxBtnRequestBookingSpace.constant = 20
-        btnRequestBooking.isHidden = false
+
+        self.btnRequestBooking.animation = "slideUp"
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+        {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.constraintBtnRequestBookingHeight.constant = 60
+                self.constraintBtnRequestBookingBottomSpace.constant = 20
+                self.constraintBoxBtnRequestBookingSpace.constant = 20
+                
+                self.btnRequestBooking.setNeedsDisplay()
+                self.view.layoutIfNeeded()
+            })
+        }
         
-        self.btnRequestBooking.setNeedsDisplay()
-        self.view.layoutIfNeeded()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+        {
+            self.btnRequestBooking.isHidden = false
+            self.btnRequestBooking.animate()
+        }
     }
     
     func setRemoveBookingOnReset(removeBookingOnReset : Bool)

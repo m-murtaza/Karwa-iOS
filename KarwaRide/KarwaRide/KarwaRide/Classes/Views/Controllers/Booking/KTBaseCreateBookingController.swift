@@ -11,6 +11,7 @@ import GoogleMaps
 import ScalingCarousel
 import Alamofire
 import SwiftyJSON
+import Spring
 
 class KTCreateBookingConstants {
     
@@ -36,7 +37,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var btnDropoffAddress: UIButton!
     @IBOutlet weak var btnRevealBtn : UIButton!
     @IBOutlet weak var btnCancelBtn : UIButton!
-    @IBOutlet weak var btnRequestBooking :UIButton!
+    @IBOutlet weak var btnRequestBooking :SpringButton!
     @IBOutlet weak var imgPickDestBoxBG :UIImageView!
     @IBOutlet weak var btnPickDate: UIButton!
     @IBOutlet weak var btnCash :UIButton!
