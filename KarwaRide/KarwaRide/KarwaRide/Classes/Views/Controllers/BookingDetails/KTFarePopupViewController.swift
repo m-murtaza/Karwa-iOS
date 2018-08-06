@@ -107,7 +107,14 @@ class KTFarePopupViewController: PopupVC, KTFarePopupViewModelDelegate, UITableV
         cell.key.animate()
         cell.value.animate()
 
-        KTFarePopupViewController.delay = KTFarePopupViewController.delay + 0.2
+        if(KTFarePopupViewController.delay < 1.6)
+        {
+            KTFarePopupViewController.delay = KTFarePopupViewController.delay + 0.2
+        }
+        else
+        {
+            KTFarePopupViewController.delay = 0
+        }
 
         return cell
     }
