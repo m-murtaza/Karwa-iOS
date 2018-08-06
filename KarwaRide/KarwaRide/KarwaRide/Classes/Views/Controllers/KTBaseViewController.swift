@@ -8,7 +8,7 @@
 
 import UIKit
 import SVProgressHUD
-
+import Spring
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     var viewModel : KTBaseViewModel?
@@ -119,6 +119,21 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
             large = true
         }
         return large
+    }
+    
+    func springAnimateButtonTapIn(button btn : SpringButton)
+    {
+        UIView.animate(withDuration: 0.6,
+                       animations: {
+                        btn.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        })
+    }
+    
+    func springAnimateButtonTapOut(button btn : SpringButton)
+    {
+        UIView.animate(withDuration: 0.6) {
+            btn.transform = CGAffineTransform.identity
+        }
     }
     
     /*
