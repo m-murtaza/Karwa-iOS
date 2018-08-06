@@ -142,7 +142,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         }
         booking.toKeyValueBody = NSOrderedSet()
 
-        if let value = data["OrderedBody"]
+        if let value = data["Body"]
         {
             KTBaseFareEstimateManager().saveKeyValueBody(keyValue: value as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
         }
