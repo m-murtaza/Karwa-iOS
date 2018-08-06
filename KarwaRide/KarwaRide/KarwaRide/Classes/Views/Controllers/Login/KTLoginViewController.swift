@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 let ALLOWED_NUM_PHONE_CHAR : Int = 8
 
@@ -15,6 +16,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     //MARK: - Properties
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var loginButton: SpringButton!
     
     //MARK: -View LifeCycle
     override func viewDidLoad() {
@@ -79,8 +81,22 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     
     //MARK: UI Events
     
+    @IBAction func loginbtnTouchDown(_ sender: SpringButton)
+    {
+//        print("touch down")
+        springAnimateButtonTapIn(button: loginButton)
+    }
+    
+    @IBAction func loginbtnTouchUpOutside(_ sender: SpringButton)
+    {
+//        print("touch up outside")
+        springAnimateButtonTapOut(button: loginButton)
+    }
+    
     @IBAction func loginBtnTapped(_ sender: Any)
     {
+//        print("touch up inside")
+        springAnimateButtonTapOut(button: loginButton)
         (viewModel as! KTLoginViewModel).loginBtnTapped()
     }
     

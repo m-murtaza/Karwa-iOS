@@ -1317,7 +1317,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="Pew-8N-9s0"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                 <state key="normal" title="SIGN IN" backgroundImage="SummitButton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1333,6 +1332,8 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="loginBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e6j-se-gOK"/>
+                                    <action selector="loginbtnTouchDown:" destination="BYZ-38-t0r" eventType="touchDown" id="BSQ-yR-eyC"/>
+                                    <action selector="loginbtnTouchUpOutside:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="gTt-HK-iLv"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginKarwaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="O4j-4h-4WK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
@@ -1511,6 +1512,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="tBR-bT-sAc"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="loginButton" destination="yor-Xf-cZL" id="EaC-aS-1Zh"/>
                         <outlet property="txtPassword" destination="vc5-gB-qdI" id="1mU-LH-RE0"/>
                         <outlet property="txtPhoneNumber" destination="lAT-zq-thV" id="71K-2G-4X7"/>
                         <segue destination="L23-ue-kpU" kind="show" identifier="segueToBooking" id="bsC-QL-uBN"/>
@@ -2614,6 +2616,8 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnRequestBooking:" destination="L23-ue-kpU" eventType="touchUpInside" id="0B4-Yg-Om8"/>
+                                    <action selector="btnRequestBookingTouchDown:" destination="L23-ue-kpU" eventType="touchDown" id="thI-xR-w58"/>
+                                    <action selector="btnRequestBookingTouchUpOutside:" destination="L23-ue-kpU" eventType="touchUpOutside" id="rwO-Z6-I43"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbM-Eg-s80">
@@ -2729,7 +2733,7 @@
                         <outlet property="btnDropoffAddress" destination="tqc-sp-fcf" id="xxb-xB-WBH"/>
                         <outlet property="btnPickDate" destination="Dxv-8E-RNU" id="Eth-5e-GOS"/>
                         <outlet property="btnPickupAddress" destination="bcL-JI-p0b" id="Z4R-yI-70b"/>
-                        <outlet property="btnRequestBooking" destination="3Hf-ht-uDd" id="f3j-dc-lKt"/>
+                        <outlet property="btnRequestBooking" destination="3Hf-ht-uDd" id="8pw-Aw-VbL"/>
                         <outlet property="btnRevealBtn" destination="eyk-Uq-bby" id="bN6-3u-F19"/>
                         <outlet property="carousel" destination="bwK-YS-F1J" id="H9w-bK-ds2"/>
                         <outlet property="constraintBoxBGImageHeight" destination="GUS-Gw-LDE" id="bfc-Y1-RIw"/>
@@ -6223,11 +6227,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4lO-1G-0fb"/>
-        <segue reference="N6S-jP-c4x"/>
+        <segue reference="gMG-uB-ITN"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="bsC-QL-uBN"/>
-        <segue reference="uRk-Bz-EyY"/>
+        <segue reference="bJb-3g-Kix"/>
+        <segue reference="UM1-sb-1vB"/>
         <segue reference="67X-ka-fJY"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>

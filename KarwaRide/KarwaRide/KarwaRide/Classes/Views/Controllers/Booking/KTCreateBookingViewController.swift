@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Spring
 
 class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
     var vModel : KTCreateBookingViewModel?
-    
+
     @IBOutlet weak var etaToCustomerLabel: UILabel!
     
     @IBOutlet weak var etaToCustomerContainer: UIImageView!
@@ -99,8 +100,21 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
     }
     
-    @IBAction func btnRequestBooking(_ sender: Any) {
-        
+    
+    @IBAction func btnRequestBookingTouchDown(_ sender: SpringButton)
+    {
+        springAnimateButtonTapIn(button: btnRequestBooking)
+    }
+    
+    @IBAction func btnRequestBookingTouchUpOutside(_ sender: SpringButton)
+    {
+        springAnimateButtonTapOut(button: btnRequestBooking)
+    }
+    
+    
+    @IBAction func btnRequestBooking(_ sender: Any)
+    {
+        springAnimateButtonTapOut(button: btnRequestBooking)
         (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
     }
     
