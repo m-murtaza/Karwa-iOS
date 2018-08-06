@@ -37,6 +37,7 @@ class KTFarePopupViewController: PopupVC, KTFarePopupViewModelDelegate, UITableV
         
         // Do any additional setup after loading the view.
         viewPopupUI.layer.cornerRadius = 16
+        KTFarePopupViewController.delay = 0.2
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,12 +89,26 @@ class KTFarePopupViewController: PopupVC, KTFarePopupViewModelDelegate, UITableV
         return (vModel?.numberOfRowsInSection(section: section))!
     }
     
+    static var delay : CGFloat = 0.2
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KTFarePopupTableViewCell = tblView.dequeueReusableCell(withIdentifier: "FareCellReuseIdentifier") as! KTFarePopupTableViewCell
         
         cell.key.text = vModel?.key(forIndex: indexPath.row, section: indexPath.section)
         cell.value.text = vModel?.value(forIndex: indexPath.row, section: indexPath.section)
         cell.selectionStyle = .none
+        
+        cell.key.animation = "zoomIn"
+        cell.value.animation = "zoomIn"
+
+        cell.key.delay = KTFarePopupViewController.delay
+        cell.value.delay = KTFarePopupViewController.delay
+        
+        cell.key.animate()
+        cell.value.animate()
+
+        KTFarePopupViewController.delay = KTFarePopupViewController.delay + 0.2
+
         return cell
     }
     

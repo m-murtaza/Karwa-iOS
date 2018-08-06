@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Spring
 
 class KTFarePopupTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var key : UILabel!
-    @IBOutlet weak var value : UILabel!
+    @IBOutlet weak var key : SpringLabel!
+    @IBOutlet weak var value : SpringLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
