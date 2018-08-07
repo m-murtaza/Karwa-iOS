@@ -80,7 +80,12 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KTFareTableViewCell = tableView.dequeueReusableCell(withIdentifier: "FareCellIdentifier") as! KTFareTableViewCell
-        cell.updateCell(key: keys[indexPath.row], value: breakdown[keys[indexPath.row]]!)
+
+        if(keys.count > indexPath.row)
+        {
+            cell.updateCell(key: keys[indexPath.row], value: breakdown[keys[indexPath.row]]!)
+        }
+
         return cell
     }
 }

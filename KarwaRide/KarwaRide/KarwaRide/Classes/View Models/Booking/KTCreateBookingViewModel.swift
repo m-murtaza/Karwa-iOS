@@ -939,7 +939,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
-                self.nearByVehicle = self.parseVehicleTrack(response)
+                
+                self.nearByVehicle.removeAll()
+                self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
                 
                 //Add User current location.
                 if self.nearByVehicle.count > 0

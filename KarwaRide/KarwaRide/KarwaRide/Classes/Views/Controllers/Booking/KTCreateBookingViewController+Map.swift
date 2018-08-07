@@ -149,7 +149,7 @@ extension KTCreateBookingViewController
             bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
         }
         
-        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
         
         bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
         self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
@@ -159,13 +159,15 @@ extension KTCreateBookingViewController
     }
     
     @objc func animatePolylinePath() {
+        
         if (self.i < self.path.count()) {
             
             self.animationPath.add(self.path.coordinate(at: self.i))
-            self.animationPolyline.path = self.animationPath
-            self.animationPolyline.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-            self.animationPolyline.strokeWidth = 4
-            self.animationPolyline.map = self.mapView
+            self.animationPolyline?.path = self.animationPath
+            self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+            self.animationPolyline?.strokeWidth = 4
+            self.animationPolyline?.map = nil
+            self.animationPolyline?.map = self.mapView
             self.i += 1
         }
         else if self.i == self.path.count() {
@@ -175,7 +177,7 @@ extension KTCreateBookingViewController
             
             //self.i = 0
             self.animationPath = GMSMutablePath()
-            self.animationPolyline.map = nil
+            self.animationPolyline?.map = nil
             polyline.strokeColor = bgPolylineColor
         }
         else {

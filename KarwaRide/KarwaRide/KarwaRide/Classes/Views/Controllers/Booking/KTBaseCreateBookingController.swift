@@ -47,7 +47,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     //MARK: - Map related variables
     var gmsMarker : Array<GMSMarker> = Array()
     var polyline = GMSPolyline()
-    var animationPolyline = GMSPolyline()
+    weak var animationPolyline = GMSPolyline()
     var path = GMSPath()
     var animationPath = GMSMutablePath()
     var i: UInt = 0
