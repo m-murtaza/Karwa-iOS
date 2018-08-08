@@ -84,8 +84,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
-        txtPickAddress.resignFirstResponder()
-        txtDropAddress.resignFirstResponder()
+//        txtPickAddress.resignFirstResponder()
+//        txtDropAddress.resignFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -130,6 +130,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     //MARK: - Map related functions.
     private func initializeMap () {
+        
+        self.mapView.isMyLocationEnabled = true
+
         var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
         
         if selectedTxtField == SelectedTextField.PickupAddress {
@@ -163,6 +166,13 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             NSLog("One or more of the map styles failed to load. \(error)")
         }
         
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.mapView.settings.myLocationButton = true
+            self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 85, right: 0)
+        
+            self.imgMapMarker.frame = CGRect(x: self.imgMapMarker.frame.origin.x, y: self.imgMapMarker.frame.origin.y - 45, width: self.imgMapMarker.frame.size.width, height: self.imgMapMarker.frame.size.height)
+//            self.imgMapMarker.frame = CGRect(x: 0, y: 75, width: self.imgMapMarker.frame.height, height: self.imgMapMarker.frame.width)
+//        }
     }
     
     private func updateMap() {
@@ -231,7 +241,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         enableButtons()
-        if selectedInputMechanism == SelectedInputMechanism.MapView {
+
+        if selectedInputMechanism == SelectedInputMechanism.MapView
+        {
             (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
         }
     }
