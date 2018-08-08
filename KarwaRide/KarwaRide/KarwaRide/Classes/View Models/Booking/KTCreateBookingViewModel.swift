@@ -102,7 +102,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             rebook = true
             updateForRebook()
         }
-        
+
         showCoachmarkIfRequired()
     }
     
@@ -148,11 +148,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         super.viewWillAppear()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
-        
+
+
+        // Resuming timer even if booking in progress
+        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
         
         if currentBookingStep == BookingStep.step1 {
-            
-            timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
             (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
         }
         else if currentBookingStep == BookingStep.step3 {
@@ -771,6 +772,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
             else if currentBookingStep == BookingStep.step3 {
                 
+                (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "-- mins to reach")
+                
                 if (del?.fareDetailVisible())! {
                     if(!isDropAvailable()) {
                         updateFareDetails(vehicleType: vehicleTypes![currentIdx!])
@@ -857,7 +860,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Fetch near by vehicle
     @objc func FetchNearByVehicle() {
-        
         self.fetchVehiclesNearCordinates(location: KTLocationManager.sharedInstance.currentLocation)
     }
     
@@ -935,7 +937,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     private func fetchVehiclesNearCordinates(location:CLLocation) {
-        
         KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
@@ -954,8 +955,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride available")
                 }
                 
-                if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
+                if(self.currentBookingStep != BookingStep.step3)
+                {
+                    if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
+                        (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
+                    }
                 }
             }
         })
@@ -1033,7 +1037,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         setupCurrentLocaiton()
         
-        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+//        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
         
         (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
         (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
