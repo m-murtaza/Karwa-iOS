@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 //        Fabric.sharedSDK().debug = true
 //        Fabric.with([Crashlytics.self()])
+
+        //register For APNS if needed
+        registerForPushNotifications()
         
         return true
     }
@@ -56,9 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         AppEventsLogger.activate(application)
-        
-        //register For APNS if needed
-        registerForPushNotifications()
         
     }
     
