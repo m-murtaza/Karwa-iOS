@@ -56,15 +56,6 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         }
         
         tagView.textFieldAlign = .center
-        
-        
-//        let confettiView = SAConfettiView(frame: self.view.bounds)
-//        confettiView.type = .Diamond
-//        confettiView.colors = [UIColor.yellow]
-//        confettiView.intensity = 0.75
-//        
-//        view.addSubview(confettiView)
-//        confettiView.startConfetti()
     }
 
     override func didReceiveMemoryWarning() {
@@ -209,6 +200,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     func tagsView(_ tagsView: RKTagsView, buttonForTagAt index: Int) -> UIButton {
+        tagView.scrollView.flashScrollIndicators()
         let btn: KTTagButton = KTTagButton(type:UIButtonType.custom)
         btn.setTitle(vModel?.reason(atIndex: index), for: UIControlState.normal)
         btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
