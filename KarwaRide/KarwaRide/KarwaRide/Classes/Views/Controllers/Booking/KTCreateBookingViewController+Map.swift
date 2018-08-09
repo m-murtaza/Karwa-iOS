@@ -137,6 +137,13 @@ extension KTCreateBookingViewController
         marker.map = self.mapView
     }
     
+    func focusOnLocation(lat: Double, lon: Double)
+    {
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        mapView.animate(with: update)
+    }
+    
     public func addPointsOnMap(points: String) {
         path = GMSPath.init(fromEncodedPath: points)!
         polyline = GMSPolyline.init(path: path)

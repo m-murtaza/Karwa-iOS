@@ -33,6 +33,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     //func updatePickDropBox()
     func setVehicleType(idx: Int)
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage)
+    func focusOnLocation(lat: Double, lon: Double)
     func addPointsOnMap(points : String)
     func clearMap()
     func showCurrentLocationDot(show : Bool)
@@ -245,9 +246,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if isDropAvailable() {
             (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress!)
         }
-        
+
         selectedVehicleType = VehicleType(rawValue: booking.vehicleType)!
-        
+
         (self.delegate as! KTCreateBookingViewModelDelegate).setVehicleType(idx: idxToSelectVehicleType())
         
         updateUI()
@@ -468,18 +469,27 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             drawPath()
         }
         else {
-            //else draw point what ever is available
-            if isPickAvailable() {
-                //Setting Pick marker
-                (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking.pickupLat,longitude: booking.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
-            }
             
-            if isDropAvailable() {
-                //Setting drop
-                //dropOffAddress?.latitude = 25.275636
-                //dropOffAddress?.longitude = 51.489212
+            if(isPickAvailable() && !isDropAvailable())
+            {
+                (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking.pickupLat,longitude: booking.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+                (delegate as! KTCreateBookingViewModelDelegate).focusOnLocation(lat: booking.pickupLat, lon: booking.pickupLon)
+            }
+            else
+            {
+                //else draw point what ever is available
+                if isPickAvailable() {
+                    //Setting Pick marker
+                    (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking.pickupLat,longitude: booking.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+                }
                 
-                (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+                if isDropAvailable() {
+                    //Setting drop
+                    //dropOffAddress?.latitude = 25.275636
+                    //dropOffAddress?.longitude = 51.489212
+                    
+                    (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+                }
             }
         }
     }
