@@ -5698,18 +5698,17 @@
                                             <action selector="btnSetWorkTapped:" destination="2HM-Qh-ieS" eventType="touchUpInside" id="3ch-7r-em0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTB-r8-ctO" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTB-r8-ctO" customClass="Custom">
                                         <rect key="frame" x="40" y="414" width="295" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="pzs-by-hp1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <state key="normal" title="CONFIRM" backgroundImage="SummitButton">
+                                        <state key="normal" title="Confirm Destination" backgroundImage="SummitButton">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="btnConfirmTapped:" destination="2HM-Qh-ieS" eventType="touchUpInside" id="Sby-8e-AT2"/>
-                                            <action selector="loginBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q3p-9k-r0x"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APPickUpMarker" translatesAutoresizingMaskIntoConstraints="NO" id="2bR-Se-fLd">

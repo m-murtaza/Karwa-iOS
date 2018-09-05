@@ -53,7 +53,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     private var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     
     public var isConfirmPickupFlowDone : Bool = false
-    public var isConfirmPickupDone : Bool = false
+
     
     private var zoomForPickupRequired : Bool = false
     
@@ -374,9 +374,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     {
 //        btnConfirm.setTitle("CONFIRM PICKUP",for: .normal)
         
-        btnConfirm.isUserInteractionEnabled = false
-        btnConfirm.setTitle("button text", for: UIControlState.normal)
-        btnConfirm.isUserInteractionEnabled = true
+        btnConfirm.setTitle("Confirm Pickup", for: .normal)
         
         selectedTxtField = SelectedTextField.PickupAddress
         toggleToMapView(forPickup: true)
@@ -409,19 +407,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         return self.isConfirmPickupFlowDone
     }
     
-    func getConfirmPickupDone() -> Bool
-    {
-        return self.isConfirmPickupDone
-    }
-    
     func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
     {
         self.isConfirmPickupFlowDone = isConfirmPickupFlowDone
-    }
-    
-    func setConfirmPickupDone(isConfirmPickupDone : Bool)
-    {
-        self.isConfirmPickupDone = isConfirmPickupDone
     }
     
     func pickUpTxt() -> String {
@@ -432,6 +420,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         return self.txtDropAddress.text!
     }
     func setPickUp(pick: String) {
+        if(selectedInputMechanism == SelectedInputMechanism.MapView)
+        {
+            setConfirmPickupFlowDone(isConfirmPickupFlowDone: true)
+        }
+
         txtPickAddress.text = pick
     }
     
@@ -567,12 +560,16 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             txtPickAddress.backgroundColor = UIColor.white
             imgMapMarker.image = UIImage(named: "APDropOffMarker")
+            
+            btnConfirm.setTitle("Confirm Destination", for: .normal)
         }
         else {
             searchText = txtPickAddress.text!
             txtDropAddress.backgroundColor = UIColor.white
             txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             imgMapMarker.image = UIImage(named: "APPickUpMarker")
+            
+            btnConfirm.setTitle("Confirm Pickup", for: .normal)
         }
     }
     

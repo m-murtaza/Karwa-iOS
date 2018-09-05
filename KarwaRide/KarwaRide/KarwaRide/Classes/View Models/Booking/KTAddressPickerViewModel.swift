@@ -25,9 +25,7 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func inFocusTextField() -> SelectedTextField
     func moveFocusToDestination()
     func getConfirmPickupFlowDone() -> Bool
-    func getConfirmPickupDone() -> Bool
     func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
-    func setConfirmPickupDone(isConfirmPickupDone : Bool)
     func startConfirmPickupFlow()
 }
 
