@@ -24,6 +24,11 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func navigateToPreviousView(pickup: KTGeoLocation?, dropOff:KTGeoLocation?)
     func inFocusTextField() -> SelectedTextField
     func moveFocusToDestination()
+    func getConfirmPickupFlowDone() -> Bool
+    func getConfirmPickupDone() -> Bool
+    func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
+    func setConfirmPickupDone(isConfirmPickupDone : Bool)
+    func startConfirmPickupFlow()
 }
 
 class KTAddressPickerViewModel: KTBaseViewModel {
@@ -285,23 +290,44 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         moveBackIfNeeded(skipDestination: false)
     }
     
-    private func moveBackIfNeeded(skipDestination : Bool) {
-        if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty){
-            if  (skipDestination || dropOffAddress != nil) {
+    //TODO:
+    private func moveBackIfNeeded(skipDestination : Bool)
+    {
+        if((delegate as! KTAddressPickerViewModelDelegate).getConfirmPickupFlowDone())
+        {
+            moveBackScreen(skipDestination: skipDestination)
+        }
+        else
+        {
+            // start pickup confirmation from map flow
+            (self.delegate as! KTAddressPickerViewModelDelegate).startConfirmPickupFlow()
+        }
+    }
+    
+    private func moveBackScreen(skipDestination : Bool)
+    {
+        if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty)
+        {
+            if  (skipDestination || dropOffAddress != nil)
+            {
                 
-                if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()) {
-                    if skipDestination {
+                if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt())
+                {
+                    if skipDestination
+                    {
                         dropOffAddress = nil
                     }
                     (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
                 }
             }
-            else {
+            else
+            {
                 //self.delegate?.showError!(title: "Error", message: "Dropoff address cann't be empty")
                 self.del?.moveFocusToDestination()
             }
         }
-        else {
+        else
+        {
             self.delegate?.showError!(title: "Error", message: "Pickup address cann't be empty")
         }
     }

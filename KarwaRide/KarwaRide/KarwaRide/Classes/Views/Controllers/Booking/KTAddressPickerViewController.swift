@@ -52,7 +52,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     
+    public var isConfirmPickupFlowDone : Bool = false
+    public var isConfirmPickupDone : Bool = false
     
+    private var zoomForPickupRequired : Bool = false
     
     ///This bool will be use to check if selected text box should be clear when user type a charecter.
     ///http://redmine.karwatechnologies.com/issues/2430 Point D.
@@ -138,7 +141,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         if selectedTxtField == SelectedTextField.PickupAddress {
             
             if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
-                
                 focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
             }
         }
@@ -150,8 +152,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
         
         let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
-        
-        
         
         self.mapView.camera = camera;
         self.mapView.delegate = self
@@ -174,9 +174,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
 //            self.imgMapMarker.frame = CGRect(x: 0, y: 75, width: self.imgMapMarker.frame.height, height: self.imgMapMarker.frame.width)
 //        }
     }
+
+    private func updateMap()
+    {
+        updateMap(zoomLevel : KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+    }
     
-    private func updateMap() {
-        
+    private func updateMap(zoomLevel : Float)
+    {
         var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
         
         if selectedTxtField == SelectedTextField.PickupAddress {
@@ -193,51 +198,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             }
         }
         
-        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        print("zoom level: \(zoomLevel)")
+        
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: zoomLevel)
         mapView.animate(with: update)
         
     }
-    
-    //TODO: - Delete this function 
-    /*private func addMap() {
-        
-        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
-        
-        if selectedTxtField == SelectedTextField.DropoffAddress {
-            //If focus is on Dropoff Address.
-            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil  {
-                //If dropoff is not empty.
-                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
-            }
-            
-        }
-        else {
-            //If focus is on Pickup
-            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil  {
-                //If dropoff is not empty.
-                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
-            }
-            
-        }
-        
-        
-        let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
-        
-        //showCurrentLocationDot(show: true)
-        
-        self.mapView.camera = camera;
-        self.mapView.delegate = self
-        do {
-            // Set the map style by passing the URL of the local file.
-            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                NSLog("Unable to find style.json")
-            }
-        } catch {
-            NSLog("One or more of the map styles failed to load. \(error)")
-        }
-    }*/
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         enableButtons()
@@ -320,10 +286,21 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
     }
     
-    @IBAction func btnMapViewTapped(_ sender: Any) {
+    @IBAction func btnMapViewTapped(_ sender: Any)
+    {
+        toggleToMapView()
+    }
+    
+    func toggleToMapView()
+    {
+        toggleToMapView(forPickup : false)
+    }
+    
+    func toggleToMapView(forPickup : Bool)
+    {
         selectedInputMechanism = SelectedInputMechanism.MapView
         
-        updateMap()
+        self.zoomForPickupRequired = forPickup
         
         imgListSelected.isHidden = true
         imgMapSelected.isHidden = false
@@ -355,13 +332,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         if selectedTxtField == SelectedTextField.PickupAddress {
             
-           txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+            txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
         }
         else {
             
-           txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+            txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
         }
     }
+    
     // MARK: - View Model Delegate
     func moveFocusToDestination() {
         txtDropAddress.becomeFirstResponder()
@@ -390,6 +368,60 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
         
         previousView?.dismiss()
+    }
+    
+    func startConfirmPickupFlow()
+    {
+//        btnConfirm.setTitle("CONFIRM PICKUP",for: .normal)
+        
+        btnConfirm.isUserInteractionEnabled = false
+        btnConfirm.setTitle("button text", for: UIControlState.normal)
+        btnConfirm.isUserInteractionEnabled = true
+        
+        selectedTxtField = SelectedTextField.PickupAddress
+        toggleToMapView(forPickup: true)
+        refineDropOff()
+        
+        /*
+         TODO:
+         - Change name of set destination to set pickup
+         - Change List to Map
+         - Focus on Pickup field
+        */
+    }
+    
+    func refineDropOff()
+    {
+        // refine the drop-off which is disturbed.
+        
+        if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil
+        {
+            setDropOff(drop: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.name)!)
+        }
+        else
+        {
+            setDropOff(drop: "")
+        }
+    }
+    
+    func getConfirmPickupFlowDone() -> Bool
+    {
+        return self.isConfirmPickupFlowDone
+    }
+    
+    func getConfirmPickupDone() -> Bool
+    {
+        return self.isConfirmPickupDone
+    }
+    
+    func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
+    {
+        self.isConfirmPickupFlowDone = isConfirmPickupFlowDone
+    }
+    
+    func setConfirmPickupDone(isConfirmPickupDone : Bool)
+    {
+        self.isConfirmPickupDone = isConfirmPickupDone
     }
     
     func pickUpTxt() -> String {
@@ -477,8 +509,15 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         removeTxtFromTextBox = true
         if selectedInputMechanism == SelectedInputMechanism.MapView {
             
-            updateMap()
-            
+            if(zoomForPickupRequired)
+            {
+                zoomForPickupRequired = false
+                updateMap(zoomLevel: KTCreateBookingConstants.PICKUP_MAP_ZOOM)
+            }
+            else
+            {
+                updateMap()
+            }
         }
     }
     
