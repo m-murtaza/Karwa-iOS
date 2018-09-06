@@ -39,6 +39,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     private var recent : [KTGeoLocation] = []
     private var popular : [KTGeoLocation] = []
     
+    private var isSkippedPressed : Bool = false
+    
     private var del : KTAddressPickerViewModelDelegate?
     
     
@@ -306,12 +308,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     {
         if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty)
         {
-            if  (skipDestination || dropOffAddress != nil)
+            if  (skipDestination || dropOffAddress != nil || isSkippedPressed)
             {
-                
-                if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (skipDestination || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt())
+                if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (isSkippedPressed || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt())
                 {
-                    if skipDestination
+                    if isSkippedPressed
                     {
                         dropOffAddress = nil
                     }
@@ -331,7 +332,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     public func skipDestination() {
-        
+        isSkippedPressed = true
         moveBackIfNeeded(skipDestination:true)
     }
     public func confimMapSelection() {
