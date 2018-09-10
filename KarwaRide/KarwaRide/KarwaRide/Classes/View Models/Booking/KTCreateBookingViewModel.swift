@@ -87,7 +87,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var booking : KTBooking = KTBookingManager().booking()
     var removeBooking = true
     var removeBookingOnReset = true
-    
+    var isAdvanceBooking = false
     
     override func viewDidLoad() {
         
@@ -617,9 +617,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Minute Change
     private func registerForMinuteChange() {
-        
-        setPickupDate(date: Date())
-        KTTimer.sharedInstance.startMinTimer()
+
+        if(!isAdvanceBooking)
+        {
+            setPickupDate(date: Date())
+            KTTimer.sharedInstance.startMinTimer()
+        }
+        else
+        {
+            KTTimer.sharedInstance.stoprMinTimer()
+        }
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.MinuteChanged(notification:)), name: Notification.Name(Constants.Notification.MinuteChanged), object: nil)
     }
     
@@ -638,7 +646,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func setPickupDateForAdvJob(date: Date)  {
-        
+        isAdvanceBooking = true
         setPickupDate(date: date)
         fetchEstimates()
         
@@ -1033,6 +1041,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     public func resetInProgressBooking()
     {
+        isAdvanceBooking = false
         if(removeBookingOnReset)
         {
             self.removeBookingOnReset = true
