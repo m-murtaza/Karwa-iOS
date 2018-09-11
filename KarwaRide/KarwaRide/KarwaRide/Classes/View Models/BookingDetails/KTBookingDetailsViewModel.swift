@@ -717,6 +717,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return vType.typeBaseFare!
     }
     
+    func totalFareOfTrip() -> String {
+        
+        return (booking?.fare)!
+    }
+    
     func fareDetailsHeader() -> [KTKeyValue]? {
         
         guard let _ = booking?.toKeyValueHeader else {

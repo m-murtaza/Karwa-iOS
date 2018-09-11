@@ -206,7 +206,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
         {
-            lblEstimatedFare.text = vModel?.fareDetailTotal()
+            lblEstimatedFare.text = vModel?.totalFareOfTrip()
             titleEstimatedFare.text = "Fare"
         }
         else
