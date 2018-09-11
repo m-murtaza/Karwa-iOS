@@ -33,7 +33,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     }
     
     func fetchBookings()  {
-        delegate?.showProgressHud(show: true, status: "Fetching your trips")
+        delegate?.showProgressHud(show: true)
         KTBookingManager().syncBookings { (status, response) in
             //if status == Constants.APIResponseStatus.SUCCESS {
                 

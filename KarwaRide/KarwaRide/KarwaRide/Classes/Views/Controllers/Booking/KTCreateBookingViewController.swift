@@ -141,6 +141,12 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     
+    @IBAction func btnCashTapped(_ sender: Any)
+    {
+        print("Tapped")
+        showError(title: "Payment Methods", message: "More payment options will be available soon")
+    }
+
     @IBAction func btnCancelBtnTapped(_ sender: Any)
     {
         (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()

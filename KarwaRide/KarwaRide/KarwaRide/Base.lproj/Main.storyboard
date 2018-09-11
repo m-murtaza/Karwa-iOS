@@ -1962,7 +1962,7 @@
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                <state key="normal" title="CONFIRM CODE" backgroundImage="SummitButton"/>
+                                <state key="normal" title="CONFIRM" backgroundImage="SummitButton"/>
                                 <state key="disabled" backgroundImage="SummitButton">
                                     <color key="titleColor" red="0.7843137255" green="0.78823529410000004" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -2546,6 +2546,7 @@
                                             <color key="titleColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
+                                            <action selector="btnCashTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="BRf-XP-R1i"/>
                                             <action selector="btnPickupAddTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="vCf-fe-tnr"/>
                                         </connections>
                                     </button>
@@ -2579,6 +2580,9 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="btnCashTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="7YH-bw-9F1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -6427,8 +6431,8 @@
         <segue reference="gMG-uB-ITN"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="izn-m5-Pdm"/>
-        <segue reference="UM1-sb-1vB"/>
+        <segue reference="bsC-QL-uBN"/>
+        <segue reference="uRk-Bz-EyY"/>
         <segue reference="67X-ka-fJY"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>

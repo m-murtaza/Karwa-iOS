@@ -123,9 +123,9 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     func springAnimateButtonTapIn(button btn : SpringButton)
     {
-        UIView.animate(withDuration: 0.35,
+        UIView.animate(withDuration: 0.30,
                        animations: {
-                        btn.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+                        btn.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         })
     }
     
