@@ -143,7 +143,6 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     @IBAction func btnCashTapped(_ sender: Any)
     {
-        print("Tapped")
         showError(title: "Payment Methods", message: "More payment options will be available soon")
     }
 
