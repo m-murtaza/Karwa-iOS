@@ -2625,10 +2625,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbM-Eg-s80">
-                                <rect key="frame" x="12" y="45" width="40" height="22"/>
+                                <rect key="frame" x="12" y="35" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="HRU-Mw-Dgw"/>
-                                    <constraint firstAttribute="height" constant="22" id="zL7-gq-3d1"/>
+                                    <constraint firstAttribute="height" constant="40" id="zL7-gq-3d1"/>
                                 </constraints>
                                 <state key="normal" image="BackButton"/>
                                 <connections>
@@ -2700,7 +2700,7 @@
                             <constraint firstItem="aZy-Mf-CFk" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" id="1gF-J4-fWf"/>
                             <constraint firstAttribute="bottom" secondItem="pfV-HZ-0xI" secondAttribute="bottom" id="9rj-cD-gFK"/>
                             <constraint firstItem="bbM-Eg-s80" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" constant="12" id="B5a-RP-dGT"/>
-                            <constraint firstItem="bbM-Eg-s80" firstAttribute="top" secondItem="t8Z-H3-W4a" secondAttribute="top" constant="25" id="BNt-nr-c0O"/>
+                            <constraint firstItem="bbM-Eg-s80" firstAttribute="top" secondItem="t8Z-H3-W4a" secondAttribute="top" constant="15" id="BNt-nr-c0O"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="bottom" secondItem="aZy-Mf-CFk" secondAttribute="bottom" id="Cer-XM-NWO"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="aZy-Mf-CFk" secondAttribute="trailing" id="DMf-K0-XjL"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="bwK-YS-F1J" secondAttribute="trailing" id="J6S-0F-P8t"/>
@@ -5028,7 +5028,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQE-wc-3g4">
-                                        <rect key="frame" x="125" y="105" width="64" height="21"/>
+                                        <rect key="frame" x="132.5" y="105" width="75" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="0wL-2w-4rU"/>
                                             <constraint firstAttribute="height" constant="21" id="asD-af-Xu0"/>
@@ -6258,7 +6258,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3Z-lF-12c">
-                                                    <rect key="frame" x="19" y="2" width="221" height="21"/>
+                                                    <rect key="frame" x="12" y="2" width="228" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="oh7-5P-ghn"/>
                                                     </constraints>
