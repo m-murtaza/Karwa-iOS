@@ -20,8 +20,8 @@ enum SelectedInputMechanism : Int {
     case MapView = 2
 }
 
-let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 3
-let SEC_WAIT_START_SEARCH = 1.5
+let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 2
+let SEC_WAIT_START_SEARCH = 1.0
 let SELECTED_TEXT_FIELD_COLOR : UIColor = UIColor(hexString: "#F5F5F5")
 
 class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate, AddressPickerCellDelegate {

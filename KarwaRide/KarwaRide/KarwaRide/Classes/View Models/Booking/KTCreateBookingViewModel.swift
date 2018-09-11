@@ -959,6 +959,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 
+                var newVehicles = self.parseVehicleTrack(response);
+                
+                //TODO: persist vehicles which are not changed and move their locations
+                // remove old vehicles
+                // add new vehicles
+                
+                
+                
+                
+                self.moveVehiclesIfRequired(nearbyVehiclesOld: self.nearByVehicle, nearbyVehiclesNew: newVehicles)
+                
                 self.nearByVehicle.removeAll()
                 self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
                 
@@ -981,6 +992,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 }
             }
         })
+    }
+    
+    private func moveVehiclesIfRequired(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack])
+    {
+        //TODO: persist vehicles which are not changed and move their locations
     }
     
     private func userCurrentLocaitonMarker() -> VehicleTrack {
