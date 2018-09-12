@@ -16,6 +16,7 @@ import GoogleMaps
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
+    func addOrRemoveOrMoveMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
     func addMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
     func hintForPickup() -> String
     func callerPhoneNumber() -> String?
@@ -959,16 +960,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 
-                var newVehicles = self.parseVehicleTrack(response);
+//                var newVehicles = self.parseVehicleTrack(response);
                 
                 //TODO: persist vehicles which are not changed and move their locations
                 // remove old vehicles
                 // add new vehicles
                 
-                
-                
-                
-                self.moveVehiclesIfRequired(nearbyVehiclesOld: self.nearByVehicle, nearbyVehiclesNew: newVehicles)
+//              self.moveVehiclesIfRequired(nearbyVehiclesOld: self.nearByVehicle, nearbyVehiclesNew: newVehicles)
                 
                 self.nearByVehicle.removeAll()
                 self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
@@ -987,17 +985,82 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 if(self.currentBookingStep != BookingStep.step3)
                 {
                     if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
-                        (self.delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
+                        (self.delegate as! KTCreateBookingViewModelDelegate).addOrRemoveOrMoveMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
                     }
                 }
             }
         })
     }
     
-    private func moveVehiclesIfRequired(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        //TODO: persist vehicles which are not changed and move their locations
-    }
+//    private func moveVehiclesIfRequired(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack])
+//    {
+//        let vehiclesNeedsToMove = getVehicleNumbersNeedsToMove(nearbyVehiclesOld: oldVehicles, nearbyVehiclesNew: newVehicles)
+//
+//        for vehicleNeedsToMove in vehiclesNeedsToMove
+//        {
+//            var oldVehicleTrack = VehicleTrack()
+//            var newVehicleTrack = VehicleTrack()
+//
+//            for oldVehicle in oldVehicles
+//            {
+//                if(oldVehicle.vehicleNo == vehicleNeedsToMove)
+//                {
+//                    oldVehicleTrack = oldVehicle
+//                    break
+//                }
+//            }
+//
+//            for newVehicle in newVehicles
+//            {
+//                if(newVehicle.vehicleNo == vehicleNeedsToMove)
+//                {
+//                    newVehicleTrack = newVehicle
+//                    break
+//                }
+//            }
+//
+//
+//        }
+//
+//    }
+//
+//    func updateMarker(coordinates: CLLocationCoordinate2D, degrees: CLLocationDegrees, duration: Double) {
+//        // Keep Rotation Short
+//        CATransaction.begin()
+//        CATransaction.setAnimationDuration(0.5)
+//        marker.rotation = degrees
+//        CATransaction.commit()
+//
+//        // Movement
+//        CATransaction.begin()
+//        CATransaction.setAnimationDuration(duration)
+//        marker.position = coordinates
+//
+//        // Center Map View
+//        let camera = GMSCameraUpdate.setTarget(coordinates)
+//        mapView.animateWithCameraUpdate(camera)
+//
+//        CATransaction.commit()
+//    }
+//
+//    private func getVehicleNumbersNeedsToMove(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack]) -> [String]
+//    {
+//        var updatedVehicles : [String] = []
+//
+//        for oldVehicle in oldVehicles
+//        {
+//            for newVehicle in newVehicles
+//            {
+//                if(oldVehicle.vehicleNo == newVehicle.vehicleNo)
+//                {
+//                    updatedVehicles.append(oldVehicle.vehicleNo)
+//                    break
+//                }
+//            }
+//        }
+//
+//        return updatedVehicles
+//    }
     
     private func userCurrentLocaitonMarker() -> VehicleTrack {
         

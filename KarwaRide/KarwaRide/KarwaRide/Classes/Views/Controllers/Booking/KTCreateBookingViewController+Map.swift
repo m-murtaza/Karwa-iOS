@@ -76,6 +76,183 @@ extension KTCreateBookingViewController
         addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
     }
     
+    
+    
+    @objc func addOrRemoveOrMoveMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
+        
+        removeUnRetainedMarkers(nearbyVehiclesNew: vTrack)
+        addNewMarkers(nearbyVehiclesNew: vTrack)
+        moveVehiclesIfRequired(nearbyVehiclesNew: vTrack)
+
+//        gmsMarker.removeAll()
+//        clearMap()
+//        vTrack.forEach
+//        { track in
+//            if !track.position.isZeroCoordinate
+//            {
+//                let marker = GMSMarker()
+//                marker.snippet = track.vehicleNo
+//                marker.position = track.position
+//
+//                if track.trackType == VehicleTrackType.vehicle
+//                {
+//                    marker.rotation = CLLocationDegrees(track.bearing)
+//                    marker.icon = imgForTrackMarker(vehicleType)
+//                    marker.map = self.mapView
+//                }
+//
+//                gmsMarker.append(marker)
+//            }
+//        }
+        if gmsMarker.count > 0
+        {
+            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+        }
+        else
+        {
+            self.focusMapToCurrentLocation()
+        }
+    }
+    
+    private func moveVehiclesIfRequired(nearbyVehiclesNew newVehicles:[VehicleTrack])
+    {
+        let markersNeedsToMove = getMarkersNeedsToMove(nearbyVehiclesNew: newVehicles)
+
+        for markerNeedsToMove in markersNeedsToMove
+        {
+            for newTrack in newVehicles
+            {
+                if(markerNeedsToMove.snippet == newTrack.vehicleNo)
+                {
+                    moveMarker(marker: markerNeedsToMove, from: markerNeedsToMove.position, to: newTrack.position, degree: newTrack.bearing)
+                    break
+                }
+            }
+        }
+    }
+    
+    private func moveMarker(marker markerNeedsToMove: GMSMarker, from fromCoordinate : CLLocationCoordinate2D, to toCoordinate : CLLocationCoordinate2D, degree rotation : Float)
+    {
+        // Keep Rotation Short
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(1.5)
+        markerNeedsToMove.rotation = CLLocationDegrees(rotation)
+        CATransaction.commit()
+        
+        // Movement
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(3)
+        markerNeedsToMove.position = toCoordinate
+        
+        // Center Map View
+//        let camera = GMSCameraUpdate.setTarget(coordinates)
+//        mapView.animateWithCameraUpdate(camera)
+        
+        CATransaction.commit()
+    }
+    
+    private func getMarkersNeedsToMove(nearbyVehiclesNew newVehicles:[VehicleTrack]) -> [GMSMarker]
+    {
+        var updatedVehicleMarkers : [GMSMarker] = []
+        
+        for oldVehicleMarker in gmsMarker
+        {
+            for newVehicle in newVehicles
+            {
+                if(oldVehicleMarker.snippet == newVehicle.vehicleNo)
+                {
+                    updatedVehicleMarkers.append(oldVehicleMarker)
+                    break
+                }
+            }
+        }
+        return updatedVehicleMarkers
+    }
+    
+    private func removeUnRetainedMarkers(nearbyVehiclesNew newVehicles:[VehicleTrack])
+    {
+        if(newVehicles.count == 0)
+        {
+            for oldMarker in gmsMarker
+            {
+                oldMarker.map = nil
+            }
+        }
+        else
+        {
+            for oldMarker in gmsMarker
+            {
+                var indexCount = 0
+                
+                for newVehicle in newVehicles
+                {
+                    if(oldMarker.snippet! == newVehicle.vehicleNo)
+                    {
+                        break
+                    }
+                    indexCount = indexCount + 1
+                }
+                
+                if(indexCount == newVehicles.count)
+                {
+                    removeMarkerFromMap(markerToBeRemoved: oldMarker)
+                }
+            }
+        }
+    }
+    
+    private func removeMarkerFromMap(markerToBeRemoved marker:GMSMarker)
+    {
+        gmsMarker.remove(at: gmsMarker.index(of: marker)!)
+        marker.map = nil
+    }
+    
+    private func addNewMarkers(nearbyVehiclesNew newVehicles:[VehicleTrack])
+    {
+        if(gmsMarker.count == 0)
+        {
+            for newVehicle in newVehicles
+            {
+                addOneMarkerOnMap(vTrack: newVehicle)
+            }
+        }
+        else
+        {
+            for newVehicle in newVehicles
+            {
+                var indexCount = 0
+                for i in 0 ... gmsMarker.count - 1
+                {
+                    indexCount = indexCount + 1
+                    if(newVehicle.vehicleNo == gmsMarker[i].snippet)
+                    {
+                        break;
+                    }
+                }
+                if(indexCount == gmsMarker.count)
+                {
+                    addOneMarkerOnMap(vTrack: newVehicle)
+                }
+            }
+        }
+    }
+    
+    private func addOneMarkerOnMap(vTrack: VehicleTrack)
+    {
+        let marker = GMSMarker()
+        marker.position = vTrack.position
+        marker.snippet = vTrack.vehicleNo
+
+        if vTrack.trackType == VehicleTrackType.vehicle
+        {
+            marker.rotation = CLLocationDegrees(vTrack.bearing)
+            marker.icon = imgForTrackMarker(Int16(vTrack.vehicleType))
+            marker.map = self.mapView
+        }
+
+        gmsMarker.append(marker)
+    }
+    
     @objc func addMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
         gmsMarker.removeAll()
         clearMap()
@@ -93,11 +270,12 @@ extension KTCreateBookingViewController
                 gmsMarker.append(marker)
             }
         }
-        if gmsMarker.count > 0 {
+        if gmsMarker.count > 0
+        {
             self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
         }
-        else {
-            
+        else
+        {
             self.focusMapToCurrentLocation()
         }
     }
@@ -119,8 +297,10 @@ extension KTCreateBookingViewController
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
         
+        CATransaction.begin()
+        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
         mapView.animate(with: update!)
-        
+        CATransaction.commit()
     }
     
     func clearMap()
