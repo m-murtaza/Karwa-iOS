@@ -46,6 +46,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int)
     
     func showRatingScreen()
+    
+    func showRouteOnMap(points pointsStr: String)
 }
 //MARK: -
 enum BottomBarBtnTag : Int {
@@ -479,17 +481,23 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
     }
     
-    @objc func fetchTaxiForTracking() {
-        
-        //TODO: Fetch booking data again may be after 10 sec
+    @objc func fetchTaxiForTracking()
+    {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
+        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
+        {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, completion: {
                 (status, response) in
-                if status == Constants.APIResponseStatus.SUCCESS {
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
                     self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
+
+                    if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
+                    {
+                        self.fetchRouteToPickup(vTrack: vtrack, pickUpLat: (self.booking?.pickupLat)!, pickUpLong: (self.booking?.pickupLon)!)
+                    }
                 }
             })
         }
@@ -498,7 +506,36 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             if timerVechicleTrack.isValid
             {
                 timerVechicleTrack.invalidate()
-                //TODO: Update UI.
+            }
+        }
+    }
+    
+    private func fetchRouteToPickup(vTrack ride: VehicleTrack, pickUpLat lat: Double, pickUpLong long: Double)
+    {
+        //TODO
+        let origin = "\(ride.position.latitude),\(ride.position.longitude)"
+        let destination = "\(lat),\(long)"
+        
+        
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
+        
+        Alamofire.request(url).responseJSON { response in
+            
+            do
+            {
+                let json = try JSON(data: response.data!)
+                let routes = json["routes"].arrayValue
+                
+                for route in routes
+                {
+                    let routeOverviewPolyline = route["overview_polyline"].dictionary
+                    let points = routeOverviewPolyline?["points"]?.stringValue
+
+                    self.del?.showRouteOnMap(points: points!)
+                }
+            } catch
+            {
+                
             }
         }
     }

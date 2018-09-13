@@ -324,8 +324,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         polyline.strokeWidth = 3
         polyline.strokeColor =    UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
         polyline.map = self.mapView
-        
-        
+
         var bounds = GMSCoordinateBounds()
         for index in 1 ... (path.count().toInt) {
             bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
@@ -335,6 +334,19 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
         addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
+    }
+    
+    var polyline = GMSPolyline()
+    
+    func showRouteOnMap(points pointsStr: String)
+    {
+        polyline.map = nil
+
+        let path = GMSPath.init(fromEncodedPath: pointsStr)
+        polyline = GMSPolyline.init(path: path)
+        polyline.strokeWidth = 3
+        polyline.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+        polyline.map = mapView
     }
     
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
