@@ -141,7 +141,7 @@ extension KTCreateBookingViewController
         
         // Movement
         CATransaction.begin()
-        CATransaction.setAnimationDuration(3)
+        CATransaction.setAnimationDuration(4)
         markerNeedsToMove.position = toCoordinate
         
         // Center Map View
@@ -242,6 +242,7 @@ extension KTCreateBookingViewController
         let marker = GMSMarker()
         marker.position = vTrack.position
         marker.snippet = vTrack.vehicleNo
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         marker.appearAnimation = GMSMarkerAnimation.pop
 
         if vTrack.trackType == VehicleTrackType.vehicle
