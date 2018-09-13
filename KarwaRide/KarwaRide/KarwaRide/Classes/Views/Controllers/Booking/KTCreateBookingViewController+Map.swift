@@ -242,6 +242,7 @@ extension KTCreateBookingViewController
         let marker = GMSMarker()
         marker.position = vTrack.position
         marker.snippet = vTrack.vehicleNo
+        marker.appearAnimation = GMSMarkerAnimation.pop
 
         if vTrack.trackType == VehicleTrackType.vehicle
         {

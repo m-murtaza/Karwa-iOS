@@ -186,22 +186,23 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         if selectedTxtField == SelectedTextField.PickupAddress {
         
-            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
-                
+            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil
+            {
                 focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
             }
         }
         else {
-            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
-                
+            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil
+            {
                 focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
             }
         }
         
-        print("zoom level: \(zoomLevel)")
-        
         let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: zoomLevel)
+        CATransaction.begin()
+        CATransaction.setValue(0.75, forKey: kCATransactionAnimationDuration)
         mapView.animate(with: update)
+        CATransaction.commit()
         
     }
     
