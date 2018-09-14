@@ -512,7 +512,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     private func fetchRouteToPickup(vTrack ride: VehicleTrack, pickUpLat lat: Double, pickUpLong long: Double)
     {
-        //TODO
         let origin = "\(ride.position.latitude),\(ride.position.longitude)"
         let destination = "\(lat),\(long)"
         

@@ -27,7 +27,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblServiceType: UILabel!
     @IBOutlet weak var imgBookingStatus: UIImageView!
 
-    //TODO: change estimated fare into Fare for completed booking
     @IBOutlet weak var lblEstimatedFare : UILabel!
     @IBOutlet weak var titleEstimatedFare: UILabel!
     
