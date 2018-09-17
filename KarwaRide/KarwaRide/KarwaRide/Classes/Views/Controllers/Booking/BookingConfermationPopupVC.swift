@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-let ALLOWED_EXTRA_INFO_CHAR : Int = 30
+let ALLOWED_EXTRA_INFO_CHAR : Int = 40
 
 class BookingConfermationPopupVC: PopupVC, UITextFieldDelegate {
     
