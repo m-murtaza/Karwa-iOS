@@ -42,6 +42,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblVehicleNumber :UILabel!
     @IBOutlet weak var imgNumberPlate : UIImageView!
     
+    @IBOutlet weak var driverPhoneBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftBottomBarButton : UIButton!
     @IBOutlet weak var rightBottomBarButton : UIButton!
     
@@ -74,6 +75,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ratingPopup : KTRatingViewController?
     
     var isOpenFromNotification : Bool = false
+    let MAX_ZOOM_LEVEL = 16
     
     override func viewDidLoad() {
         if viewModel == nil {
@@ -133,11 +135,15 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     //MARK: - UI update
-    func showDriverInfoBox() {
-        
-        constraintDriverInfoHeightConstraint.constant = 70
-        constraintGapDriverInfoToBookingDetails.constant = 30
-        driverInfoBox.isHidden = false
+    func showDriverInfoBox()
+    {
+        self.driverInfoBox.isHidden = false
+        self.constraintDriverInfoHeightConstraint.constant = 95
+        self.constraintGapDriverInfoToBookingDetails.constant = 30
+
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
     
     
@@ -297,6 +303,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             //Create new
             marker = GMSMarker()
             marker?.position = vTrack.position
+            marker?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
             marker?.rotation = CLLocationDegrees(vTrack.bearing)
             marker?.icon = (viewModel as! KTBookingDetailsViewModel).imgForTrackMarker()
             marker?.map = self.mapView
@@ -304,22 +311,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         else {
             //Animate
-            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
+//            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
+            markerMovement.moveMarker(marker: marker!, from: (marker?.position)!, to: vTrack.position, degree: vTrack.bearing)
         }
         
         updateMapCamera()
     }
     
-    func updateMapCamera() {
-        
-        
+    func updateMapCamera()
+    {
         var bounds = GMSCoordinateBounds()
         bounds = bounds.includingCoordinate((marker?.position)!)
         bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
         
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
-        
         mapView.animate(with: update!)
     }
     

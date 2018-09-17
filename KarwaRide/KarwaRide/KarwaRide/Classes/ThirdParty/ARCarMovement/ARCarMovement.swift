@@ -61,6 +61,23 @@ public class ARCarMovement: NSObject {
         
     }
     
+    public func moveMarker(marker markerNeedsToMove: GMSMarker, from fromCoordinate : CLLocationCoordinate2D, to toCoordinate : CLLocationCoordinate2D, degree rotation : Float)
+    {
+        // Keep Rotation Short
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(1.5)
+        markerNeedsToMove.rotation = CLLocationDegrees(rotation)
+        CATransaction.commit()
+        
+        // Movement
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(4)
+        markerNeedsToMove.position = toCoordinate
+
+        
+        CATransaction.commit()
+    }
+    
     private func getHeadingForDirection(fromCoordinate fromLoc: CLLocationCoordinate2D, toCoordinate toLoc: CLLocationCoordinate2D) -> Float {
         
         let fLat: Float = Float((fromLoc.latitude).degreesToRadians)
