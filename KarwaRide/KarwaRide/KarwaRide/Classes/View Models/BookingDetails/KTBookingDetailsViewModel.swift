@@ -38,6 +38,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     
     func updateAssignmentInfo()
     func hideDriverInfoBox()
+    func showDriverInfoBox()
     
     func updateEta(eta: String)
     func hideEtaView()
@@ -63,6 +64,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     var del : KTBookingDetailsViewModelDelegate?
     
     private var timerVechicleTrack : Timer = Timer()
+    private var timerBookingFreshness : Timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -411,7 +413,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
         
-        if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
+        if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
+        {
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            del?.showCurrentLocationDot(show: true)
+            showPickDropMarker(showOnlyPickup: true)
+            startPollingForBooking()
+        }
+        else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
             del?.clearMaps()
             showPickDropMarker()
@@ -442,9 +451,48 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
     }
     
-    func startVechicleTrackTimer() {
-        timerVechicleTrack = Timer.scheduledTimer(timeInterval: 3, target: self,   selector: (#selector(self.fetchTaxiForTracking)), userInfo: nil, repeats: true)
-        
+    func startPollingForBooking()
+    {
+        timerBookingFreshness = Timer.scheduledTimer(timeInterval: 4, target: self,   selector: (#selector(self.fetchUpdatedBookings)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func fetchUpdatedBookings()
+    {
+        KTBookingManager().syncBookings { (status, response) in
+            
+            let deltaBookings: [KTBooking] = response[Constants.ResponseAPIKey.Data] as! [Any] as! [KTBooking]
+            
+            if  deltaBookings.count > 0
+            {
+                for updatedBooking in deltaBookings
+                {
+                    if(self.booking?.bookingId == updatedBooking.bookingId)
+                    {
+                        let bStatus = updatedBooking.bookingStatus
+                        if(bStatus == BookingStatus.PICKUP.rawValue || bStatus == BookingStatus.ARRIVED.rawValue || bStatus == BookingStatus.CONFIRMED.rawValue)
+                        {
+                            self.booking = updatedBooking
+                            self.stopBookingUpdateTimer()
+                            self.del?.showDriverInfoBox()
+                            self.initializeViewWRTBookingStatus()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func stopBookingUpdateTimer()
+    {
+        if timerBookingFreshness.isValid
+        {
+            timerBookingFreshness.invalidate()
+        }
+    }
+    
+    func startVechicleTrackTimer()
+    {
+        timerVechicleTrack = Timer.scheduledTimer(timeInterval: 4, target: self,   selector: (#selector(self.fetchTaxiForTracking)), userInfo: nil, repeats: true)
     }
     
     func showPickDropMarker() {

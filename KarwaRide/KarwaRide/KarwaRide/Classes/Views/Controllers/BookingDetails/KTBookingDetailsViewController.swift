@@ -132,7 +132,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         driverInfoBox.isHidden = true
     }
     
-    
+    //MARK: - UI update
+    func showDriverInfoBox() {
+        
+        constraintDriverInfoHeightConstraint.constant = 70
+        constraintGapDriverInfoToBookingDetails.constant = 30
+        driverInfoBox.isHidden = false
+    }
     
     
      // MARK: - Navigation

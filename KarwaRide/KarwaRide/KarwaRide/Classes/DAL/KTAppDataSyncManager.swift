@@ -13,10 +13,18 @@ class KTAppDataSyncManager: KTDALManager {
     func syncApplicationData()  {
         self.syncVechicleTypes()
         self.fetchBookmarks()
+        self.syncBookings()
         self.syncCancelReasons()
         self.syncRatingReason()
         self.removeNotificaiton()
         
+    }
+    
+    private func syncBookings()
+    {
+        KTBookingManager().syncBookings {(status, response) in
+            print("All Bookings synced")
+        }
     }
     
     private func syncVechicleTypes() {

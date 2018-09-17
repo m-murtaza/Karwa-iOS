@@ -32,7 +32,7 @@ public class ARCarMovement: NSObject {
 
     // MARK: Public properties
     public weak var delegate: ARCarMovementDelegate?
-    public var duration: Float = 2.0
+    public var duration: Float = 4.0
     
     public func ARCarMovement(marker: GMSMarker, oldCoordinate: CLLocationCoordinate2D, newCoordinate:CLLocationCoordinate2D, mapView: GMSMapView, bearing: Float) {
     
