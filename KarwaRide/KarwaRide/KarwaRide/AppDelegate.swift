@@ -30,12 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupLocation()
         setupGoogleMaps()
         
-        FirebaseApp.configure()
-//        Fabric.sharedSDK().debug = true
-//        Fabric.with([Crashlytics.self()])
-
         //register For APNS if needed
         registerForPushNotifications()
+        
+        FirebaseApp.configure()
+        Fabric.sharedSDK().debug = true
+        //        Fabric.with([Crashlytics.self()])
         
         return true
     }

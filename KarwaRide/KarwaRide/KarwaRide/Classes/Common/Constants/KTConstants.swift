@@ -83,7 +83,7 @@ enum BookingStatus : Int32 {
 }
 
 struct Constants {
-    static let TOSUrl:String = "http://www.karwatechnologies.com/tos.htm"
+    static let TOSUrl:String = "http://www.karwatechnologies.com/fare.htm"
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
