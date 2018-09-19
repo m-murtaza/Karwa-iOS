@@ -245,8 +245,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
         }
         
-        if isDropAvailable() {
+        if isDropAvailable()
+        {
             (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress!)
+        }
+        else
+        {
+            (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Destination not set")
         }
 
         selectedVehicleType = VehicleType(rawValue: booking.vehicleType)!
