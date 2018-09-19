@@ -11,6 +11,7 @@ protocol KTMyTripsViewModelDelegate {
     func reloadTable()
     func showNoBooking()
     func moveToDetails()
+    func endRefreshing()
 }
 
 class KTMyTripsViewModel: KTBaseViewModel {
@@ -47,6 +48,8 @@ class KTMyTripsViewModel: KTBaseViewModel {
             else {
                 (self.delegate as! KTMyTripsViewModelDelegate).showNoBooking()
             }
+            
+            (self.delegate as! KTMyTripsViewModelDelegate).endRefreshing()
         }
     }
     private func fetchBookingsFromDB() {

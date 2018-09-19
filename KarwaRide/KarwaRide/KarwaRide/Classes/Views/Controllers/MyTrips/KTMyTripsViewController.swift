@@ -13,6 +13,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noBookingView: UIView!
     
+    private let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         KTMyTripsViewController.delay = 0
         if viewModel == nil {
@@ -22,6 +24,20 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl) // not required when using UITableViewController
+    }
+
+    @objc func refresh(sender:AnyObject)
+    {
+        (viewModel as! KTMyTripsViewModel).fetchBookings()
+    }
+    
+    func endRefreshing()
+    {
+        refreshControl.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,26 +58,6 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (viewModel as! KTMyTripsViewModel).numberOfRows()
     }
-    
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-//    {
-        // These values depends on the positioning of your element
-//        let left = CGAffineTransform(translationX: -300, y: 0)
-//        let right = CGAffineTransform(translationX: 300, y: 0)
-//        let top = CGAffineTransform(translationX: 0, y: -300)
-//
-//        UIView.animate(withDuration: 0.4, delay: 0.0, options: [], animations: {
-//            // Add the transformation in this block
-//            // self.container is your view that you want to animate
-//            cell.transform = top
-//        }, completion: nil)
-//
-//        cell.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-//        UIView.animate(withDuration: 0.7)
-//        {
-//            cell.transform = CGAffineTransform.identity
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //MyTripsReuseIdentifier

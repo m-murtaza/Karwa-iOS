@@ -482,16 +482,24 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel?.cancelDoneSuccess()
     }
     
-    func showFareBreakdown() {
-        ebillPopup = storyboard?.instantiateViewController(withIdentifier: "FarePopup") as? KTFarePopupViewController
-        
-        ebillPopup?.delegate = self
-        ebillPopup?.view.frame = self.view.bounds
-        view.addSubview((ebillPopup?.view)!)
-        addChildViewController(ebillPopup!)
-        ebillPopup?.set(header: vModel?.fareDetailsHeader(), body: vModel?.fareDetailsBody(), title: (vModel?.estimateTitle())!, total: (vModel?.fareDetailTotal())!,titleTotal: (vModel?.fareDetailTitleTotal())!)
-        
-        ebillPopup?.updateViewForSmallSize()
+    func showFareBreakdown()
+    {
+        if(vModel?.fareDetailsBody() != nil && (vModel?.fareDetailsBody()?.count)! > 0)
+        {
+            ebillPopup = storyboard?.instantiateViewController(withIdentifier: "FarePopup") as? KTFarePopupViewController
+            
+            ebillPopup?.delegate = self
+            ebillPopup?.view.frame = self.view.bounds
+            view.addSubview((ebillPopup?.view)!)
+            addChildViewController(ebillPopup!)
+            ebillPopup?.set(header: vModel?.fareDetailsHeader(), body: vModel?.fareDetailsBody(), title: (vModel?.estimateTitle())!, total: (vModel?.fareDetailTotal())!,titleTotal: (vModel?.fareDetailTitleTotal())!)
+            
+            ebillPopup?.updateViewForSmallSize()
+        }
+        else
+        {
+            showError(title: "", message: "Estimated Fare not available at the moment")
+        }
     }
     
     func hidePhoneButton() {
