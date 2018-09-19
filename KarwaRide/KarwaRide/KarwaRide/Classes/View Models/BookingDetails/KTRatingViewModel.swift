@@ -93,11 +93,13 @@ class KTRatingViewModel: KTBaseViewModel {
     }
     
     func btnRattingTapped()  {
-        if (del?.userFinalRating())! != 0 {
+        if (del?.userFinalRating())! != 0 && selectedReasonIds().count != 0
+        {
             rateBooking()
         }
         else {
-            delegate?.showError!(title: "Error", message: "Please select rating for driver")
+            delegate?.showToast(message: "Please select rating for driver")
+//            delegate?.showError!(title: "Error", message: "Please select rating for driver")
         }
     }
     
@@ -154,5 +156,23 @@ class KTRatingViewModel: KTBaseViewModel {
         let baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         let url = URL(string: baseURL + Constants.APIURL.DriverImage + "/" + (booking?.driverId)!)!
         del?.updateDriverImage(url: url)
+    }
+    
+    //MARK:- Rate Applicaiton
+    func rateApplication() {
+        
+        // App Store URL.
+        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+        
+        /* First create a URL, then check whether there is an installed app that can
+         open it on the device. */
+        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+            // Attempt to open the URL.
+            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+                if success {
+                    print("Launching \(url) was successful")
+                    AnalyticsUtil.trackBehavior(event: "Rate-App")
+                }})
+        }
     }
 }

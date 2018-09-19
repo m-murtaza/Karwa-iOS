@@ -9,6 +9,8 @@
 import UIKit
 import SVProgressHUD
 import Spring
+import Toast_Swift
+
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     var viewModel : KTBaseViewModel?
@@ -138,31 +140,13 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     func showToast(message : String)
     {
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
-        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
-        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
-    }
-    
-    /*
-    // MARK: - Navigation
+        // create a new style
+        var style = ToastStyle()
+        style.backgroundColor = .white
+        style.messageFont = .systemFont(ofSize: 13)
+        style.messageColor = .black
+        
+        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
-
 }
