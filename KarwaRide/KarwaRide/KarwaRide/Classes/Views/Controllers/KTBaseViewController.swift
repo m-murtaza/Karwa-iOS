@@ -10,7 +10,6 @@ import UIKit
 import SVProgressHUD
 import Spring
 import Toast_Swift
-
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     var viewModel : KTBaseViewModel?
@@ -27,7 +26,8 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         viewModel?.viewWillAppear()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         super.viewDidAppear(animated)
         viewModel?.viewDidAppear()
     }

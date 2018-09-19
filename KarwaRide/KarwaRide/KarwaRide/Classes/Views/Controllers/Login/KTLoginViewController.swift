@@ -26,7 +26,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         txtPhoneNumber.becomeFirstResponder()
         
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(KTLoginViewController.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(KTLoginViewController.dismissKeyboardOld))
         
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         tap.cancelsTouchesInView = false
@@ -50,7 +50,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     }
     
     //Calls this function when the tap is recognized.
-    @objc func dismissKeyboard() {
+    @objc func dismissKeyboardOld() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
