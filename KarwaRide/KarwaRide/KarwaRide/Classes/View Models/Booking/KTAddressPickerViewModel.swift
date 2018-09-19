@@ -27,6 +27,7 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func getConfirmPickupFlowDone() -> Bool
     func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
     func startConfirmPickupFlow()
+    func toggleConfirmBtn(enableBtn enable : Bool)
 }
 
 class KTAddressPickerViewModel: KTBaseViewModel {
@@ -40,6 +41,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     private var popular : [KTGeoLocation] = []
     
     private var isSkippedPressed : Bool = false
+    private var isLoadingAddress : Bool = false
     
     private var del : KTAddressPickerViewModelDelegate?
     
@@ -195,19 +197,40 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     //MARK: - Map
     
-    func MapStopMoving(location : CLLocationCoordinate2D) {
+    func MapStopMoving(location : CLLocationCoordinate2D)
+    {
+        isLoadingAddress = true
+        (self.delegate as! KTAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: false)
+        setNameToSelectedField(name: "Loading...")
+
         fetchLocation(forGeoCoordinate: location , completion: {
             (reverseLocation) -> Void in
-            
-            if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress {
+
+            if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
+            {
                 self.dropOffAddress  = reverseLocation
-                (self.delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: reverseLocation.name!)
+                self.setNameToSelectedField(name: reverseLocation.name!)
             }
-            else {
+            else
+            {
                 self.pickUpAddress = reverseLocation
-                (self.delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: reverseLocation.name!)
+                self.setNameToSelectedField(name: reverseLocation.name!)
             }
+            
+            (self.delegate as! KTAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: true)
         })
+    }
+    
+    func setNameToSelectedField(name nameStr: String)
+    {
+        if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
+        {
+            (self.delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: nameStr)
+        }
+        else
+        {
+            (self.delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: nameStr)
+        }
     }
     
     //MARK: - TableView
@@ -289,8 +312,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         moveBackIfNeeded(skipDestination: false)
     }
-    
-    //TODO:
+
     private func moveBackIfNeeded(skipDestination : Bool)
     {
         if((delegate as! KTAddressPickerViewModelDelegate).getConfirmPickupFlowDone())
@@ -335,8 +357,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         isSkippedPressed = true
         moveBackIfNeeded(skipDestination:true)
     }
-    public func confimMapSelection() {
-        
+    public func confimMapSelection()
+    {
         moveBackIfNeeded(skipDestination:false)
     }
     

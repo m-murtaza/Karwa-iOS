@@ -16,7 +16,7 @@ import UIKit
     @objc optional func modelFailedToLoadWithError(_ error: Error?)
     
     @objc optional func showError(title:String, message:String)
-    
+
     func userIntraction(enable: Bool)
     func showProgressHud(show : Bool)
     func showProgressHud(show : Bool, status:String)
@@ -24,7 +24,8 @@ import UIKit
     func showTaskCompleted(withMessage: String)
     func viewStoryboard() -> UIStoryboard
     func performSegue(name:String)
-    
+    func showToast(message : String)
+
     @objc func dismiss()
 }
 

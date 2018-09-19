@@ -287,6 +287,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
     }
     
+    func toggleConfirmBtn(enableBtn enable : Bool)
+    {
+        btnConfirm.isEnabled = enable
+    }
+    
     @IBAction func btnMapViewTapped(_ sender: Any)
     {
         toggleToMapView()
