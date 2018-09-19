@@ -92,14 +92,16 @@ class KTRatingViewModel: KTBaseViewModel {
         return rreasonsIdx
     }
     
-    func btnRattingTapped()  {
-        if (del?.userFinalRating())! != 0 && selectedReasonIds().count != 0
+    func btnRattingTapped()
+    {
+        let rating = (del?.userFinalRating())!
+        if (rating > 3) || (rating != 0 && selectedReasonIds().count != 0)
         {
             rateBooking()
         }
-        else {
+        else
+        {
             delegate?.showToast(message: "Please select rating for driver")
-//            delegate?.showError!(title: "Error", message: "Please select rating for driver")
         }
     }
     
