@@ -33,14 +33,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //register For APNS if needed
         registerForPushNotifications()
         
+        setupFirebase()
+
+        return true
+    }
+    
+    func setupFirebase()
+    {
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self()])
         Fabric.sharedSDK().debug = true
         
-        
-        return true
+        setFirebaseAnalyticsUserPref()
     }
     
+    func setFirebaseAnalyticsUserPref()
+    {
+        guard let user:KTUser = KTUserManager().loginUserInfo() else
+        {
+            return
+        }
+
+        Analytics.setUserID((user.name != nil) ? (user.phone!) : "No Phone")
+        Analytics.setUserProperty((user.name != nil) ? (user.phone!) : "No Phone", forName: "Phone")
+        Analytics.setUserProperty((user.name != nil) ? (user.name!) : "No Name", forName: "Name")
+        Analytics.setUserProperty((user.email != nil) ? (user.email!) : "No Email", forName: "Email")
+        Analytics.setUserProperty(String(user.customerType), forName: "Customer-Type")
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

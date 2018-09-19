@@ -47,13 +47,13 @@ class KTLeftMenuModel: KTBaseViewModel {
     }
     
     func updateUserInfo() {
-        
+
         guard let user:KTUser = KTUserManager().loginUserInfo() else {
             return
         }
         (delegate as! KTLeftMenuDelegate).updateUserName(name: (user.name != nil) ? (user.name!) : "No Name")
         (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user.phone != nil) ? (user.phone!) : "No Phone")
-    
+
     }
     
     func setMenuItems() {

@@ -106,6 +106,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func showAltForThanks(rating: Int32) {
         
+        //TODO: If rating > 3 ask for app store rating
+
         let confettiView = SAConfettiView(frame: self.view.bounds)
 
         if(rating > 3)

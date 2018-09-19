@@ -240,6 +240,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func updateForRebook() {
+        AnalyticsUtil.trackBehavior(event: "rebook")
         currentBookingStep = BookingStep.step3
         if isPickAvailable() {
             (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)

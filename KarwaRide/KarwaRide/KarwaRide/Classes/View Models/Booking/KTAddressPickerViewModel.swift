@@ -354,6 +354,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     
     public func skipDestination() {
+        AnalyticsUtil.trackBehavior(event: "Drop-Off-Skipped")
         isSkippedPressed = true
         moveBackIfNeeded(skipDestination:true)
     }
