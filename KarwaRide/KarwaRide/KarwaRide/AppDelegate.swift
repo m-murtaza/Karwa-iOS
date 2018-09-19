@@ -34,8 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         
         FirebaseApp.configure()
+        Fabric.with([Crashlytics.self()])
         Fabric.sharedSDK().debug = true
-        //        Fabric.with([Crashlytics.self()])
+        
         
         return true
     }
