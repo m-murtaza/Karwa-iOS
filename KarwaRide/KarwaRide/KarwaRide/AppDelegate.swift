@@ -11,8 +11,7 @@ import UserNotifications
 import MagicalRecord
 import GoogleMaps
 import FacebookCore
-import Fabric
-import Crashlytics
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,12 +30,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupLocation()
         setupGoogleMaps()
         
-        Fabric.sharedSDK().debug = true
-        Fabric.with([Crashlytics.self()])
+        //register For APNS if needed
+        registerForPushNotifications()
         
+        setupFirebase()
+
         return true
     }
     
+    func setupFirebase()
+    {
+        FirebaseApp.configure()
+        Fabric.with([Crashlytics.self()])
+        Fabric.sharedSDK().debug = true
+        
+        setFirebaseAnalyticsUserPref()
+    }
+    
+    func setFirebaseAnalyticsUserPref()
+    {
+        guard let user:KTUser = KTUserManager().loginUserInfo() else
+        {
+            return
+        }
+
+        Analytics.setUserID((user.name != nil) ? (user.phone!) : "No Phone")
+        Analytics.setUserProperty((user.name != nil) ? (user.phone!) : "No Phone", forName: "Phone")
+        Analytics.setUserProperty((user.name != nil) ? (user.name!) : "No Name", forName: "Name")
+        Analytics.setUserProperty((user.email != nil) ? (user.email!) : "No Email", forName: "Email")
+        Analytics.setUserProperty(String(user.customerType), forName: "Customer-Type")
+    }
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -56,9 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         AppEventsLogger.activate(application)
-        
-        //register For APNS if needed
-        registerForPushNotifications()
         
     }
     
@@ -86,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupGoogleMaps() {
         
-        GMSServices.provideAPIKey("AIzaSyBWEik2kFj1hYESIhS2GgUblo_amSfjqT0")
+        GMSServices.provideAPIKey(Constants.GOOGLE_DIRECTION_API_KEY)
     }
     
     
@@ -143,7 +163,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(aps)
             apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
         }
-        
     }
     
     //Notifiacation receive when application is in background

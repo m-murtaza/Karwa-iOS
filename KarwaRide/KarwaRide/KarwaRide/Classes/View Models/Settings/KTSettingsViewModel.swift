@@ -77,6 +77,7 @@ class KTSettingsViewModel: KTBaseViewModel {
             UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
                 if success {
                     print("Launching \(url) was successful")
+                    AnalyticsUtil.trackBehavior(event: "Rate-App")
                 }})
         }
     }

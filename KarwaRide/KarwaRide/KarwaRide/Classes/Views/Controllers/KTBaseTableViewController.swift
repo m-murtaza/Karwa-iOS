@@ -8,8 +8,10 @@
 
 import UIKit
 import SVProgressHUD
-class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
-    
+import Toast_Swift
+
+class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
+{
     var viewModel : KTBaseViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,4 +152,15 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate {
         
     }
     
+    func showToast(message : String)
+    {
+        // create a new style
+        var style = ToastStyle()
+        style.backgroundColor = .white
+        style.messageFont = .systemFont(ofSize: 13)
+        style.messageColor = .black
+        
+        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
+        
+    }
 }

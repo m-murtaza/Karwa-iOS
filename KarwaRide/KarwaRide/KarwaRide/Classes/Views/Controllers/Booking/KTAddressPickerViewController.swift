@@ -20,8 +20,8 @@ enum SelectedInputMechanism : Int {
     case MapView = 2
 }
 
-let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 3
-let SEC_WAIT_START_SEARCH = 1.5
+let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 2
+let SEC_WAIT_START_SEARCH = 1.0
 let SELECTED_TEXT_FIELD_COLOR : UIColor = UIColor(hexString: "#F5F5F5")
 
 class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate, AddressPickerCellDelegate {
@@ -52,7 +52,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
     private var selectedInputMechanism : SelectedInputMechanism = SelectedInputMechanism.ListView
     
+    public var isConfirmPickupFlowDone : Bool = false
+
     
+    private var zoomForPickupRequired : Bool = false
     
     ///This bool will be use to check if selected text box should be clear when user type a charecter.
     ///http://redmine.karwatechnologies.com/issues/2430 Point D.
@@ -68,6 +71,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
             (viewModel as! KTAddressPickerViewModel).dropOffAddress = dropoffAddress
         }
+        
+        KTMyTripsViewController.delay = 0
+        
         //Do not move these line after super.viewDidLoad
         super.viewDidLoad()
     }
@@ -77,6 +83,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("Table view scroll detected at offset: %f", scrollView.contentOffset.y)
+//        txtPickAddress.resignFirstResponder()
+//        txtDropAddress.resignFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -121,12 +133,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     //MARK: - Map related functions.
     private func initializeMap () {
+        
+        self.mapView.isMyLocationEnabled = true
+
         var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
         
         if selectedTxtField == SelectedTextField.PickupAddress {
             
             if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
-                
                 focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
             }
         }
@@ -138,8 +152,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
         
         let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
-        
-        
         
         self.mapView.camera = camera;
         self.mapView.delegate = self
@@ -154,75 +166,51 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             NSLog("One or more of the map styles failed to load. \(error)")
         }
         
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.mapView.settings.myLocationButton = true
+            self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 85, right: 0)
+        
+            self.imgMapMarker.frame = CGRect(x: self.imgMapMarker.frame.origin.x, y: self.imgMapMarker.frame.origin.y - 45, width: self.imgMapMarker.frame.size.width, height: self.imgMapMarker.frame.size.height)
+//            self.imgMapMarker.frame = CGRect(x: 0, y: 75, width: self.imgMapMarker.frame.height, height: self.imgMapMarker.frame.width)
+//        }
+    }
+
+    private func updateMap()
+    {
+        updateMap(zoomLevel : KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
     }
     
-    private func updateMap() {
-        
+    private func updateMap(zoomLevel : Float)
+    {
         var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
         
         if selectedTxtField == SelectedTextField.PickupAddress {
         
-            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
-                
+            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil
+            {
                 focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
             }
         }
         else {
-            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
-                
+            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil
+            {
                 focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
             }
         }
         
-        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(focusLocation, zoom: zoomLevel)
+        CATransaction.begin()
+        CATransaction.setValue(0.75, forKey: kCATransactionAnimationDuration)
         mapView.animate(with: update)
+        CATransaction.commit()
         
     }
-    
-    //TODO: - Delete this function 
-    /*private func addMap() {
-        
-        var focusLocation : CLLocationCoordinate2D  = (viewModel as! KTAddressPickerViewModel).currentLocation()
-        
-        if selectedTxtField == SelectedTextField.DropoffAddress {
-            //If focus is on Dropoff Address.
-            if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil  {
-                //If dropoff is not empty.
-                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.longitude)!)
-            }
-            
-        }
-        else {
-            //If focus is on Pickup
-            if (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil  {
-                //If dropoff is not empty.
-                focusLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.latitude)!, longitude: ((viewModel as! KTAddressPickerViewModel).pickUpAddress?.longitude)!)
-            }
-            
-        }
-        
-        
-        let camera = GMSCameraPosition.camera(withLatitude: focusLocation.latitude, longitude: focusLocation.longitude, zoom: 14.0)
-        
-        //showCurrentLocationDot(show: true)
-        
-        self.mapView.camera = camera;
-        self.mapView.delegate = self
-        do {
-            // Set the map style by passing the URL of the local file.
-            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                NSLog("Unable to find style.json")
-            }
-        } catch {
-            NSLog("One or more of the map styles failed to load. \(error)")
-        }
-    }*/
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         enableButtons()
-        if selectedInputMechanism == SelectedInputMechanism.MapView {
+
+        if selectedInputMechanism == SelectedInputMechanism.MapView
+        {
             (viewModel as! KTAddressPickerViewModel).MapStopMoving(location: mapView.camera.target)
         }
     }
@@ -299,10 +287,26 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         }
     }
     
-    @IBAction func btnMapViewTapped(_ sender: Any) {
+    func toggleConfirmBtn(enableBtn enable : Bool)
+    {
+        btnConfirm.isEnabled = enable
+    }
+    
+    @IBAction func btnMapViewTapped(_ sender: Any)
+    {
+        toggleToMapView()
+    }
+    
+    func toggleToMapView()
+    {
+        toggleToMapView(forPickup : false)
+    }
+    
+    func toggleToMapView(forPickup : Bool)
+    {
         selectedInputMechanism = SelectedInputMechanism.MapView
         
-        updateMap()
+        self.zoomForPickupRequired = forPickup
         
         imgListSelected.isHidden = true
         imgMapSelected.isHidden = false
@@ -334,13 +338,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         if selectedTxtField == SelectedTextField.PickupAddress {
             
-           txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+            txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
         }
         else {
             
-           txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+            txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
         }
     }
+    
     // MARK: - View Model Delegate
     func moveFocusToDestination() {
         txtDropAddress.becomeFirstResponder()
@@ -371,6 +376,48 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         previousView?.dismiss()
     }
     
+    func startConfirmPickupFlow()
+    {
+//        btnConfirm.setTitle("CONFIRM PICKUP",for: .normal)
+        
+        btnConfirm.setTitle("Confirm Pickup", for: .normal)
+        
+        selectedTxtField = SelectedTextField.PickupAddress
+        toggleToMapView(forPickup: true)
+        refineDropOff()
+        
+        /*
+         TODO:
+         - Change name of set destination to set pickup
+         - Change List to Map
+         - Focus on Pickup field
+        */
+    }
+    
+    func refineDropOff()
+    {
+        // refine the drop-off which is disturbed.
+        
+        if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil
+        {
+            setDropOff(drop: ((viewModel as! KTAddressPickerViewModel).dropOffAddress?.name)!)
+        }
+        else
+        {
+            setDropOff(drop: "")
+        }
+    }
+    
+    func getConfirmPickupFlowDone() -> Bool
+    {
+        return self.isConfirmPickupFlowDone
+    }
+    
+    func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
+    {
+        self.isConfirmPickupFlowDone = isConfirmPickupFlowDone
+    }
+    
     func pickUpTxt() -> String {
         return self.txtPickAddress.text!
     }
@@ -379,6 +426,11 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         return self.txtDropAddress.text!
     }
     func setPickUp(pick: String) {
+        if(selectedInputMechanism == SelectedInputMechanism.MapView)
+        {
+            setConfirmPickupFlowDone(isConfirmPickupFlowDone: true)
+        }
+
         txtPickAddress.text = pick
     }
     
@@ -407,7 +459,25 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         
         cell.btnMore.tag = indexPath.row
         cell.delegate = self
+        
+        animateCell(cell)
+        
         return cell
+    }
+    
+    static var delay : Double = 0
+    
+    func animateCell(_ cell: AddressPickCell)
+    {
+        let top = CGAffineTransform(translationX: 0, y: -1500)
+        
+        UIView.animate(withDuration: 0.7, delay: KTMyTripsViewController.delay, options: [], animations: {
+            // Add the transformation in this block
+            // self.container is your view that you want to animate
+            cell.transform = top
+        }, completion: nil)
+        
+        KTMyTripsViewController.delay = KTMyTripsViewController.delay + 0.1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -438,8 +508,15 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         removeTxtFromTextBox = true
         if selectedInputMechanism == SelectedInputMechanism.MapView {
             
-            updateMap()
-            
+            if(zoomForPickupRequired)
+            {
+                zoomForPickupRequired = false
+                updateMap(zoomLevel: KTCreateBookingConstants.PICKUP_MAP_ZOOM)
+            }
+            else
+            {
+                updateMap()
+            }
         }
     }
     
@@ -489,12 +566,16 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             txtPickAddress.backgroundColor = UIColor.white
             imgMapMarker.image = UIImage(named: "APDropOffMarker")
+            
+            btnConfirm.setTitle("Confirm Destination", for: .normal)
         }
         else {
             searchText = txtPickAddress.text!
             txtDropAddress.backgroundColor = UIColor.white
             txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
             imgMapMarker.image = UIImage(named: "APPickUpMarker")
+            
+            btnConfirm.setTitle("Confirm Pickup", for: .normal)
         }
     }
     

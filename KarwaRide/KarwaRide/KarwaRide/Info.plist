@@ -5,14 +5,16 @@
 	<key>BaseAPIURL</key>
 	<dict>
 		<key>DEV</key>
-		<string>http://stagemursaalapi.karwasolutions.com:9000/apiv2/</string>
-		<key>PROD</key>
-		<string>https://services.karwasolutions.com/api/</string>
-		<key>STAGE</key>
 		<string>http://devservices.karwasolutions.com:70/apiv2/</string>
+		<key>PROD</key>
+		<string>https://consumer.karwasolutions.com/apiv2/</string>
+		<key>STAGE</key>
+		<string>http://stagemursaalapi.karwasolutions.com:9000/apiv2/</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Karwa Taxi</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,7 +26,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.9.0</string>
+	<string>2.0.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -35,9 +37,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>9</string>
+	<string>37</string>
 	<key>Development Environment</key>
-	<string>DEV</string>
+	<string>PROD</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -55,7 +57,7 @@
 	<key>FacebookAppID</key>
 	<string>1050410517</string>
 	<key>FacebookDisplayName</key>
-	<string>Karwa</string>
+	<string>Karwa Taxi</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -66,7 +68,7 @@
 	<key>NSLocationUsageDescription</key>
 	<string>Use for finding user current location </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Hey! We want to know your current location.</string>
+	<string>Karwa will use your location to determine your pickup location. This will enable drivers to reach exact pickup location in shortest possible time.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MuseoSans-100.otf</string>

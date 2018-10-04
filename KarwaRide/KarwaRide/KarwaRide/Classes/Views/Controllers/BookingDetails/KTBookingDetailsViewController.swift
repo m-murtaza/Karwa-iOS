@@ -26,7 +26,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
     @IBOutlet weak var imgBookingStatus: UIImageView!
+
     @IBOutlet weak var lblEstimatedFare : UILabel!
+    @IBOutlet weak var titleEstimatedFare: UILabel!
+    
     @IBOutlet weak var starView : CosmosView!
     @IBOutlet weak var lblEta : UILabel!
     @IBOutlet weak var lblPickTime : RoundedLable!
@@ -39,6 +42,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblVehicleNumber :UILabel!
     @IBOutlet weak var imgNumberPlate : UIImageView!
     
+    @IBOutlet weak var driverPhoneBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftBottomBarButton : UIButton!
     @IBOutlet weak var rightBottomBarButton : UIButton!
     
@@ -71,6 +75,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ratingPopup : KTRatingViewController?
     
     var isOpenFromNotification : Bool = false
+    let MAX_ZOOM_LEVEL = 16
     
     override func viewDidLoad() {
         if viewModel == nil {
@@ -129,7 +134,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         driverInfoBox.isHidden = true
     }
     
-    
+    //MARK: - UI update
+    func showDriverInfoBox()
+    {
+        self.driverInfoBox.isHidden = false
+        self.constraintDriverInfoHeightConstraint.constant = 95
+        self.constraintGapDriverInfoToBookingDetails.constant = 30
+
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
     
     
      // MARK: - Navigation
@@ -138,9 +153,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-        if segue.identifier == "segueDetailToReBook" {
+        if segue.identifier == "segueDetailToReBook"
+        {
             let createBooking : KTCreateBookingViewController = segue.destination as! KTCreateBookingViewController
             createBooking.booking = vModel?.booking
+            createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
         }
      }
@@ -197,8 +214,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         lblDayAndTime.text = vModel?.pickupDayAndTime()
         
         lblServiceType.text = vModel?.vehicleType()
-        lblEstimatedFare.text = vModel?.estimatedFare()
         
+        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
+        {
+            lblEstimatedFare.text = vModel?.totalFareOfTrip()
+            titleEstimatedFare.text = "Fare"
+        }
+        else
+        {
+            lblEstimatedFare.text = vModel?.estimatedFare()
+            titleEstimatedFare.text = "Est. Fare"
+        }
         
         let img : UIImage? = vModel?.bookingStatusImage()
         if img != nil {
@@ -277,6 +303,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             //Create new
             marker = GMSMarker()
             marker?.position = vTrack.position
+            marker?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
             marker?.rotation = CLLocationDegrees(vTrack.bearing)
             marker?.icon = (viewModel as! KTBookingDetailsViewModel).imgForTrackMarker()
             marker?.map = self.mapView
@@ -284,22 +311,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         else {
             //Animate
-            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
+//            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
+            markerMovement.moveMarker(marker: marker!, from: (marker?.position)!, to: vTrack.position, degree: vTrack.bearing)
         }
         
         updateMapCamera()
     }
     
-    func updateMapCamera() {
-        
-        
+    func updateMapCamera()
+    {
         var bounds = GMSCoordinateBounds()
         bounds = bounds.includingCoordinate((marker?.position)!)
         bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
         
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
-        
         mapView.animate(with: update!)
     }
     
@@ -309,8 +335,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         polyline.strokeWidth = 3
         polyline.strokeColor =    UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
         polyline.map = self.mapView
-        
-        
+
         var bounds = GMSCoordinateBounds()
         for index in 1 ... (path.count().toInt) {
             bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
@@ -320,6 +345,19 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
         addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
+    }
+    
+    var polyline = GMSPolyline()
+    
+    func showRouteOnMap(points pointsStr: String)
+    {
+        polyline.map = nil
+
+        let path = GMSPath.init(fromEncodedPath: pointsStr)
+        polyline = GMSPolyline.init(path: path)
+        polyline.strokeWidth = 3
+        polyline.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+        polyline.map = mapView
     }
     
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
@@ -342,6 +380,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     func setMapCamera(bound : GMSCoordinateBounds) {
         
         mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 50.0))
+    }
+    
+    func clearMaps()
+    {
+        mapView.clear()
     }
     
     //MARK: - Bottom Bar Buttons
@@ -439,16 +482,24 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel?.cancelDoneSuccess()
     }
     
-    func showFareBreakdown() {
-        ebillPopup = storyboard?.instantiateViewController(withIdentifier: "FarePopup") as? KTFarePopupViewController
-        
-        ebillPopup?.delegate = self
-        ebillPopup?.view.frame = self.view.bounds
-        view.addSubview((ebillPopup?.view)!)
-        addChildViewController(ebillPopup!)
-        ebillPopup?.set(header: vModel?.estimateHeader(), body: vModel?.estimateBody(), title: (vModel?.estimateTitle())!, total: (vModel?.estimateTotal())!,titleTotal: (vModel?.estimateTitleTotal())!)
-        
-        ebillPopup?.updateViewForSmallSize()
+    func showFareBreakdown()
+    {
+        if(vModel?.fareDetailsBody() != nil && (vModel?.fareDetailsBody()?.count)! > 0)
+        {
+            ebillPopup = storyboard?.instantiateViewController(withIdentifier: "FarePopup") as? KTFarePopupViewController
+            
+            ebillPopup?.delegate = self
+            ebillPopup?.view.frame = self.view.bounds
+            view.addSubview((ebillPopup?.view)!)
+            addChildViewController(ebillPopup!)
+            ebillPopup?.set(header: vModel?.fareDetailsHeader(), body: vModel?.fareDetailsBody(), title: (vModel?.estimateTitle())!, total: (vModel?.fareDetailTotal())!,titleTotal: (vModel?.fareDetailTitleTotal())!)
+            
+            ebillPopup?.updateViewForSmallSize()
+        }
+        else
+        {
+            showError(title: "", message: "Estimated Fare not available at the moment")
+        }
     }
     
     func hidePhoneButton() {

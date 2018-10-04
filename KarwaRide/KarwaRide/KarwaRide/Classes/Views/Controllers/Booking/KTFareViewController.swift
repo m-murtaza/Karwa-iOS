@@ -15,6 +15,7 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     
     @IBOutlet weak var lblTitle : UILabel!
     @IBOutlet weak var tblView : UITableView!
+    @IBOutlet weak var btnHideFareBreakdown: UIButton!
     var delegate : KTFareViewDelegate?
     
     var breakdown : [String : String] = [:]
@@ -22,10 +23,15 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        showHideBackFareDetailsBtn(hide: false)
         // Do any additional setup after loading the view.
     }
 
+    func showHideBackFareDetailsBtn(hide: Bool)
+    {
+        btnHideFareBreakdown.isHidden = hide
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,13 +49,14 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
             breakdown[Array(brkDown.keys)[0]] = brkDown[Array(brkDown.keys)[0]]
             keys.append(Array(brkDown.keys)[0])
         }
-
+        showHideBackFareDetailsBtn(hide: false)
         tblView.reloadData()
     }
     
     @IBAction func btnBackTapped(_ sender: Any) {
         breakdown = [:]
         keys = []
+        showHideBackFareDetailsBtn(hide: false)
         delegate?.btnBackTapped()
     }
     /*
@@ -73,7 +80,12 @@ class KTFareViewController: KTBaseViewController, UITableViewDataSource,UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KTFareTableViewCell = tableView.dequeueReusableCell(withIdentifier: "FareCellIdentifier") as! KTFareTableViewCell
-        cell.updateCell(key: keys[indexPath.row], value: breakdown[keys[indexPath.row]]!)
+
+        if(keys.count > indexPath.row)
+        {
+            cell.updateCell(key: keys[indexPath.row], value: breakdown[keys[indexPath.row]]!)
+        }
+
         return cell
     }
 }

@@ -11,12 +11,14 @@ import GoogleMaps
 import ScalingCarousel
 import Alamofire
 import SwiftyJSON
+import Spring
 
 class KTCreateBookingConstants {
     
     // MARK: List of Constants
     
     static let DEFAULT_MAP_ZOOM : Float = 15.0
+    static let PICKUP_MAP_ZOOM : Float = 17.0
     static let BOUNDS_MARKER_DISTANCE_THRESHOULD : Double = 2000
     static let DEFAULT_MAP_PADDING : Float = 100
     
@@ -33,10 +35,10 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
     @IBOutlet weak var btnPickupAddress: UIButton!
-    @IBOutlet weak var btnDropoffAddress: UIButton!
+    @IBOutlet weak var btnDropoffAddress: SpringButton!
     @IBOutlet weak var btnRevealBtn : UIButton!
     @IBOutlet weak var btnCancelBtn : UIButton!
-    @IBOutlet weak var btnRequestBooking :UIButton!
+    @IBOutlet weak var btnRequestBooking :SpringButton!
     @IBOutlet weak var imgPickDestBoxBG :UIImageView!
     @IBOutlet weak var btnPickDate: UIButton!
     @IBOutlet weak var btnCash :UIButton!
@@ -46,7 +48,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     //MARK: - Map related variables
     var gmsMarker : Array<GMSMarker> = Array()
     var polyline = GMSPolyline()
-    var animationPolyline = GMSPolyline()
+    weak var animationPolyline = GMSPolyline()
     var path = GMSPath()
     var animationPath = GMSMutablePath()
     var i: UInt = 0

@@ -16,7 +16,8 @@ extension KTCreateBookingViewController {
                            delay: 0.1,
                            options: UIViewAnimationOptions.curveEaseIn,
                            animations: { () -> Void in
-                            self.constraintFareToBox.constant = self.viewFareBreakdown.frame.size.height
+//                            self.constraintFareToBox.constant = self.viewFareBreakdown.frame.size.height
+                            self.constraintFareToBox.constant = 0
                             self.viewFareBreakdown.alpha = 0.0
                             
                             self.view.layoutIfNeeded()
@@ -27,7 +28,8 @@ extension KTCreateBookingViewController {
         }
         else {
             
-            constraintFareToBox.constant = viewFareBreakdown.frame.size.height
+//            constraintFareToBox.constant = viewFareBreakdown.frame.size.height
+            constraintFareToBox.constant = 0
             viewFareBreakdown.alpha = 0.0
             self.viewFareBreakdown.isHidden = true
         }

@@ -13,7 +13,10 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noBookingView: UIView!
     
+    private let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
+        KTMyTripsViewController.delay = 0
         if viewModel == nil {
             viewModel = KTMyTripsViewModel(del: self)
         }
@@ -21,6 +24,20 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl) // not required when using UITableViewController
+    }
+
+    @objc func refresh(sender:AnyObject)
+    {
+        (viewModel as! KTMyTripsViewModel).fetchBookings()
+    }
+    
+    func endRefreshing()
+    {
+        refreshControl.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +92,24 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
         cell.selectionStyle = .none
         
+        animateCell(cell)
+        
         return cell
+    }
+    
+    static var delay : Double = 0.1
+    
+    func animateCell(_ cell: KTMyTripsTableViewCell)
+    {
+        let top = CGAffineTransform(translationX: 0, y: -1500)
+        
+        UIView.animate(withDuration: 0.7, delay: KTMyTripsViewController.delay, options: [], animations: {
+            // Add the transformation in this block
+            // self.container is your view that you want to animate
+            cell.transform = top
+        }, completion: nil)
+        
+        KTMyTripsViewController.delay = KTMyTripsViewController.delay + 0.1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

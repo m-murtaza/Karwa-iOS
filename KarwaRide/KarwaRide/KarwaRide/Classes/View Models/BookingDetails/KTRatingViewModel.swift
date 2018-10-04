@@ -21,9 +21,10 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func addTag(tag: String)
     func selectedIdx() -> [NSNumber]
     func userFinalRating() -> Int32
-    func showAltForThanks()
+    func showAltForThanks(rating: Int32)
     func enableSubmitButton()
     func showConsolationText()
+    func showConsolationText(message: String)
     func hideConsolationText()
 }
 
@@ -49,12 +50,19 @@ class KTRatingViewModel: KTBaseViewModel {
     
     func ratingUpdate(rating: Double) {
         del?.enableSubmitButton()
-        if rating == 4 {
-            del?.showConsolationText()
+        if rating == 4
+        {
+            del?.showConsolationText(message: "Overall good experience, impress with service. But need some improvements")
         }
-        else {
-            del?.hideConsolationText()
+        else if rating == 5
+        {
+            del?.showConsolationText(message: "Overall good experience. Impress with service")
         }
+        else
+        {
+            del?.showConsolationText(message: "We're really sorry. Tell us what happened?")
+        }
+
         fetchReason(forRating: Int32(rating))
     }
     
@@ -84,12 +92,16 @@ class KTRatingViewModel: KTBaseViewModel {
         return rreasonsIdx
     }
     
-    func btnRattingTapped()  {
-        if (del?.userFinalRating())! != 0 {
+    func btnRattingTapped()
+    {
+        let rating = (del?.userFinalRating())!
+        if (rating > 3) || (rating != 0 && selectedReasonIds().count != 0)
+        {
             rateBooking()
         }
-        else {
-            delegate?.showError!(title: "Error", message: "Please select rating for driver")
+        else
+        {
+            delegate?.showToast(message: "Please select rating for driver")
         }
     }
     
@@ -106,7 +118,7 @@ class KTRatingViewModel: KTBaseViewModel {
                 self.booking?.isRated = true
                 KTNotificationManager().deleteNotification(forBooking: self.booking!)
                 KTDALManager().saveInDb()
-                self.del?.showAltForThanks()
+                self.del?.showAltForThanks(rating: rating)
                 
             }
             else {
@@ -146,5 +158,23 @@ class KTRatingViewModel: KTBaseViewModel {
         let baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         let url = URL(string: baseURL + Constants.APIURL.DriverImage + "/" + (booking?.driverId)!)!
         del?.updateDriverImage(url: url)
+    }
+    
+    //MARK:- Rate Applicaiton
+    func rateApplication() {
+        
+        // App Store URL.
+        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+        
+        /* First create a URL, then check whether there is an installed app that can
+         open it on the device. */
+        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+            // Attempt to open the URL.
+            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+                if success {
+                    print("Launching \(url) was successful")
+                    AnalyticsUtil.trackBehavior(event: "Rate-App")
+                }})
+        }
     }
 }

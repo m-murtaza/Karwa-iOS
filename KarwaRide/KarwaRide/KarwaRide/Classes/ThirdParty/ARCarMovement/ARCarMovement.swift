@@ -32,7 +32,7 @@ public class ARCarMovement: NSObject {
 
     // MARK: Public properties
     public weak var delegate: ARCarMovementDelegate?
-    public var duration: Float = 2.0
+    public var duration: Float = 4.0
     
     public func ARCarMovement(marker: GMSMarker, oldCoordinate: CLLocationCoordinate2D, newCoordinate:CLLocationCoordinate2D, mapView: GMSMapView, bearing: Float) {
     
@@ -59,6 +59,23 @@ public class ARCarMovement: NSObject {
         marker.rotation = CLLocationDegrees(calBearing);
         CATransaction.commit()
         
+    }
+    
+    public func moveMarker(marker markerNeedsToMove: GMSMarker, from fromCoordinate : CLLocationCoordinate2D, to toCoordinate : CLLocationCoordinate2D, degree rotation : Float)
+    {
+        // Keep Rotation Short
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(1.5)
+        markerNeedsToMove.rotation = CLLocationDegrees(rotation)
+        CATransaction.commit()
+        
+        // Movement
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(4)
+        markerNeedsToMove.position = toCoordinate
+
+        
+        CATransaction.commit()
     }
     
     private func getHeadingForDirection(fromCoordinate fromLoc: CLLocationCoordinate2D, toCoordinate toLoc: CLLocationCoordinate2D) -> Float {

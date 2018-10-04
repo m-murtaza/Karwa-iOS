@@ -34,9 +34,11 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func addPickupMarker(location : CLLocationCoordinate2D)
     func addDropOffMarker(location : CLLocationCoordinate2D)
     func setMapCamera(bound : GMSCoordinateBounds)
+    func clearMaps()
     
     func updateAssignmentInfo()
     func hideDriverInfoBox()
+    func showDriverInfoBox()
     
     func updateEta(eta: String)
     func hideEtaView()
@@ -45,6 +47,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int)
     
     func showRatingScreen()
+    
+    func showRouteOnMap(points pointsStr: String)
 }
 //MARK: -
 enum BottomBarBtnTag : Int {
@@ -60,6 +64,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     var del : KTBookingDetailsViewModelDelegate?
     
     private var timerVechicleTrack : Timer = Timer()
+    private var timerBookingFreshness : Timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +144,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func updateAssignmentInfo() {
-        if booking?.driverName != nil && !(booking?.driverName?.isEmpty)! {
+        if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
+        {
+            del?.hideDriverInfoBox()
+        }
+        else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
+        {
             //del?.hideDriverInfoBox()
             del?.updateAssignmentInfo()
         }
@@ -311,17 +321,20 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var type : String = ""
         switch booking!.vehicleType {
-        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAiportTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
             type = "TAXI"
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            type = "7 SEATER"
             
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
             
         case VehicleType.KTBusinessLimo.rawValue:
-            type = "Business"
+            type = "BUSINESS"
             
         case VehicleType.KTLuxuryLimo.rawValue:
-            type = "Luxury"
+            type = "LUXURY"
         default:
             type = ""
         }
@@ -381,10 +394,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     
     func estimatedFare() -> String {
-        var estimate : String = ""
-        if booking!.estimatedFare != nil {
+        var estimate : String = "N/A"
+        if (booking!.estimatedFare != nil && (booking!.estimatedFare?.count)! > 0) {
             estimate = booking!.estimatedFare!
-            
         }
         return estimate
     }
@@ -400,30 +412,87 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func updateMap() {
         
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
+        
+        if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
+        {
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            del?.showCurrentLocationDot(show: true)
+            showPickDropMarker(showOnlyPickup: true)
+            startPollingForBooking()
+        }
+        else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
+        {
+            del?.clearMaps()
+            showPickDropMarker()
+        }
+        else if(bStatus == BookingStatus.PICKUP)
+        {
+            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            del?.showCurrentLocationDot(show: true)
+            startVechicleTrackTimer()
+        }
+        else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
+        {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
             showPickDropMarker(showOnlyPickup: true)
             startVechicleTrackTimer()
         }
-        else if bStatus == BookingStatus.COMPLETED {
+        else if bStatus == BookingStatus.COMPLETED
+        {
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
                 snapTrackToRoad(track: (booking?.tripTrack)!)
             }
         }
-        else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE {
-            
-            showPickDropMarker()
-        }
-        else {
+        else
+        {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
     }
     
-    func startVechicleTrackTimer() {
-        timerVechicleTrack = Timer.scheduledTimer(timeInterval: 3, target: self,   selector: (#selector(self.fetchTaxiForTracking)), userInfo: nil, repeats: true)
-        
+    func startPollingForBooking()
+    {
+        timerBookingFreshness = Timer.scheduledTimer(timeInterval: 4, target: self,   selector: (#selector(self.fetchUpdatedBookings)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func fetchUpdatedBookings()
+    {
+        KTBookingManager().syncBookings { (status, response) in
+            
+            let deltaBookings: [KTBooking] = response[Constants.ResponseAPIKey.Data] as! [Any] as! [KTBooking]
+            
+            if  deltaBookings.count > 0
+            {
+                for updatedBooking in deltaBookings
+                {
+                    if(self.booking?.bookingId == updatedBooking.bookingId)
+                    {
+                        let bStatus = updatedBooking.bookingStatus
+                        if(bStatus == BookingStatus.PICKUP.rawValue || bStatus == BookingStatus.ARRIVED.rawValue || bStatus == BookingStatus.CONFIRMED.rawValue)
+                        {
+                            self.booking = updatedBooking
+                            self.stopBookingUpdateTimer()
+                            self.del?.showDriverInfoBox()
+                            self.initializeViewWRTBookingStatus()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func stopBookingUpdateTimer()
+    {
+        if timerBookingFreshness.isValid
+        {
+            timerBookingFreshness.invalidate()
+        }
+    }
+    
+    func startVechicleTrackTimer()
+    {
+        timerVechicleTrack = Timer.scheduledTimer(timeInterval: 4, target: self,   selector: (#selector(self.fetchTaxiForTracking)), userInfo: nil, repeats: true)
     }
     
     func showPickDropMarker() {
@@ -460,25 +529,60 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
     }
     
-    @objc func fetchTaxiForTracking() {
-        
-        //TODO: Fetch booking data again may be after 10 sec
+    @objc func fetchTaxiForTracking()
+    {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP {
+        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
+        {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, completion: {
                 (status, response) in
-                if status == Constants.APIResponseStatus.SUCCESS {
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
                     self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
+
+                    if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
+                    {
+                        self.fetchRouteToPickup(vTrack: vtrack, pickUpLat: (self.booking?.pickupLat)!, pickUpLong: (self.booking?.pickupLon)!)
+                    }
                 }
             })
         }
-        else {
-            
-            if timerVechicleTrack.isValid {
+        else
+        {
+            if timerVechicleTrack.isValid
+            {
                 timerVechicleTrack.invalidate()
-                //TODO: Update UI.
+            }
+        }
+    }
+    
+    private func fetchRouteToPickup(vTrack ride: VehicleTrack, pickUpLat lat: Double, pickUpLong long: Double)
+    {
+        let origin = "\(ride.position.latitude),\(ride.position.longitude)"
+        let destination = "\(lat),\(long)"
+        
+        
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
+        
+        Alamofire.request(url).responseJSON { response in
+            
+            do
+            {
+                let json = try JSON(data: response.data!)
+                let routes = json["routes"].arrayValue
+                
+                for route in routes
+                {
+                    let routeOverviewPolyline = route["overview_polyline"].dictionary
+                    let points = routeOverviewPolyline?["points"]?.stringValue
+
+                    self.del?.showRouteOnMap(points: points!)
+                }
+            } catch
+            {
+                
             }
         }
     }
@@ -499,8 +603,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var img : UIImage?
         switch booking?.vehicleType  {
-        case VehicleType.KTAiportTaxi.rawValue?, VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?,VehicleType.KTAiport7Seater.rawValue? :
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?:
             img = UIImage(named:"BookingMapTaxiIco")
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue?:
+            img = UIImage(named: "BookingMap7Ico")
             
         case VehicleType.KTStandardLimo.rawValue?:
             img = UIImage(named: "BookingMapStandardIco")
@@ -617,7 +724,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func cancelDoneSuccess()  {
         booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
         KTBookingManager().saveInDb()
-        del?.popViewController()
+        initializeViewWRTBookingStatus()
+//        del?.popViewController()
     }
     
     //MARK:- Ebill
@@ -642,8 +750,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
-    
-    
+
     //MARK: - Estimates
     func estimateTitle() -> String {
         return "Fare Breakdown"
@@ -680,6 +787,39 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             return (booking?.bookingToEstimate?.toKeyValueBody?.array as! [KTKeyValue])
         }
         return nil
+    }
+    
+    //MARK: - Fare Details
+    
+    func fareDetailTitleTotal() -> String {
+        return "Starting Fare"
+    }
+    
+    func fareDetailTotal() -> String {
+        
+        let vType : KTVehicleType = KTVehicleTypeManager().vehicleType(typeId: (booking?.vehicleType)!)!
+        return vType.typeBaseFare!
+    }
+    
+    func totalFareOfTrip() -> String {
+        
+        return (booking?.fare)!
+    }
+    
+    func fareDetailsHeader() -> [KTKeyValue]? {
+        
+        guard let _ = booking?.toKeyValueHeader else {
+            return nil
+        }
+        return (booking?.toKeyValueHeader?.array as! [KTKeyValue])
+        
+    }
+    
+    func fareDetailsBody() -> [KTKeyValue]? {
+        guard let _ = booking?.toKeyValueBody else {
+            return nil
+        }
+        return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
     
     //MARK:- Check for rating

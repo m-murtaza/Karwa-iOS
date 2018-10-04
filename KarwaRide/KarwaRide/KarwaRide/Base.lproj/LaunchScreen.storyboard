@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,16 +20,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="6lD-ID-tKA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuBG" translatesAutoresizingMaskIntoConstraints="NO" id="VDH-WB-K6b">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="xN8-IQ-G9E">
+                                <rect key="frame" x="135" y="58" width="105" height="108"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="V9F-FZ-aoh"/>
+                                    <constraint firstAttribute="height" constant="108" id="lvJ-ya-aUM"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="pnG-mX-njU">
+                                <rect key="frame" x="107" y="174" width="160" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="MSl-Sh-MEq"/>
+                                    <constraint firstAttribute="width" constant="160" id="yAH-wU-Eac"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="6lD-ID-tKA" secondAttribute="bottom" id="JvM-1k-JFs"/>
-                            <constraint firstAttribute="trailing" secondItem="6lD-ID-tKA" secondAttribute="trailing" id="Kkb-i8-uRM"/>
-                            <constraint firstItem="6lD-ID-tKA" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="bls-ZN-4sU"/>
-                            <constraint firstItem="6lD-ID-tKA" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="cLu-kC-cWd"/>
+                            <constraint firstItem="pnG-mX-njU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0y3-3g-C4M"/>
+                            <constraint firstItem="VDH-WB-K6b" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Cu8-rY-qS2"/>
+                            <constraint firstAttribute="trailing" secondItem="VDH-WB-K6b" secondAttribute="trailing" id="LbK-c1-7ve"/>
+                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="38" id="Yxt-Ft-OKf"/>
+                            <constraint firstAttribute="bottom" secondItem="VDH-WB-K6b" secondAttribute="bottom" id="dNz-w1-c6k"/>
+                            <constraint firstItem="pnG-mX-njU" firstAttribute="top" secondItem="xN8-IQ-G9E" secondAttribute="bottom" constant="8" id="iN6-P0-rYB"/>
+                            <constraint firstItem="VDH-WB-K6b" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="kXY-2H-R6U"/>
+                            <constraint firstItem="xN8-IQ-G9E" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wnS-5q-dVL"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,6 +57,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="SplashScreen" width="375" height="667"/>
+        <image name="KarwaLogoWithText" width="160" height="45"/>
+        <image name="MainMenuBG" width="375" height="667"/>
+        <image name="MainMenuKarwalogo" width="105" height="108"/>
     </resources>
 </document>

@@ -21,10 +21,11 @@ typealias KTDALSuccessBlock = (_ response: [AnyHashable: Any],_ success: KTDALCo
 enum VehicleType: Int16 {
     case Unknown = -1
     case KTCityTaxi = 1
+    case KTCityTaxi7Seater = 11
     case KTAiport7Seater = 3
     case KTAirportSpare = 5
     case KTSpecialNeedTaxi = 10
-    case KTAiportTaxi = 11
+//    case KTAiportTaxi = 11
     case KTCompactLimo = 20
     case KTStandardLimo = 30
     case KTBusinessLimo = 50
@@ -82,11 +83,11 @@ enum BookingStatus : Int32 {
 }
 
 struct Constants {
-    static let TOSUrl:String = "http://www.karwasolutions.com/tos.htm"
-    static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+    static let TOSUrl:String = "http://www.karwatechnologies.com/fare.htm"
+    static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
-    static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
-    static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
+    static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
+    static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
     static let MIN_PASSWORD_LENGTH : Int = 6

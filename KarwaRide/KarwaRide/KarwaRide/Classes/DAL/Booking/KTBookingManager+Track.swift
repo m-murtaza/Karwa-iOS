@@ -8,7 +8,7 @@
 import CoreLocation
 
 let TrackTaxiStatus = "0,1"
-let TrackTaxiMaxFectchCount = 10
+let TrackTaxiMaxFectchCount = 5
 let TrackTaxiDefaultRadius = 100000.0
 
 extension KTBookingManager

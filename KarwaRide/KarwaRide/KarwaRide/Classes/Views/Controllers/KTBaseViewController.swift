@@ -8,7 +8,8 @@
 
 import UIKit
 import SVProgressHUD
-
+import Spring
+import Toast_Swift
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     var viewModel : KTBaseViewModel?
@@ -25,7 +26,8 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         viewModel?.viewWillAppear()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         super.viewDidAppear(animated)
         viewModel?.viewDidAppear()
     }
@@ -121,14 +123,30 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         return large
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func springAnimateButtonTapIn(button btn : SpringButton)
+    {
+        UIView.animate(withDuration: 0.30,
+                       animations: {
+                        btn.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        })
     }
-    */
+    
+    func springAnimateButtonTapOut(button btn : SpringButton)
+    {
+        UIView.animate(withDuration: 0.35) {
+            btn.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func showToast(message : String)
+    {
+        // create a new style
+        var style = ToastStyle()
+        style.backgroundColor = .white
+        style.messageFont = .systemFont(ofSize: 13)
+        style.messageColor = .black
+        
+        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 
+    }
 }

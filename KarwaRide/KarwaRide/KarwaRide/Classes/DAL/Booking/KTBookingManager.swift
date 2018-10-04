@@ -45,6 +45,11 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
             job.bookingType = (responseData[Constants.BookingParams.BookingType] as? Int16)!
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
+            
+            let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
+            job.toKeyValueHeader = vType.toKeyValueHeader
+            job.toKeyValueBody = vType.toKeyValueBody
+            
             if estimate != nil {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
                 
@@ -136,9 +141,12 @@ class KTBookingManager: KTBaseFareEstimateManager {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }
         booking.toKeyValueBody = NSOrderedSet()
-        KTBaseFareEstimateManager().saveKeyValueBody(keyValue: data["Body"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
-            
-        
+
+        if let value = data["Body"]
+        {
+            KTBaseFareEstimateManager().saveKeyValueBody(keyValue: value as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
+        }
+
         for keyvalue in booking.toKeyValueHeader! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
         }

@@ -7,7 +7,7 @@
     "D": [
           {
           "VehicleType": 1,
-          "Fare": "QR 16",
+          "Fare": "QR 10",
           "Body": {
           "Base Fare": "QR 4",
           "Minimum Fare": "QR 10",
@@ -41,6 +41,35 @@
                           "Key": "Booking Fare",
                           "Value": "QR 5",
                           "Order": 5
+                          },
+                          {
+                          "Key": "Technology",
+                          "Value": "QR 1",
+                          "Order": 6
+                          }
+                          ]
+          },
+          {
+          "VehicleType": 11,
+          "Fare": "QR 10",
+          "Body": {
+          "Base Fare": "QR 4",
+          "Minimum Fare": "QR 10",
+          "Fare/km": "QR 1.6 - 1.9",
+          "Waiting/min (free 10 min)": "QR 0.533",
+          "Booking Fare": "QR 5",
+          "Technology": "QR 1"
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 10",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Booking Fare",
+                          "Value": "QR 5",
+                          "Order": 2
                           },
                           {
                           "Key": "Technology",

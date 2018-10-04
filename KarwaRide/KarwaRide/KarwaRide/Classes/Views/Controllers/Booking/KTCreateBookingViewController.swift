@@ -7,10 +7,17 @@
 //
 
 import UIKit
-
+import Spring
+import Crashlytics
 class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
     var vModel : KTCreateBookingViewModel?
+
+    @IBOutlet weak var etaToCustomerLabel: UILabel!
+    
+    @IBOutlet weak var etaToCustomerContainer: UIImageView!
+    
+    var removeBookingOnReset : Bool = true
     
     //MARK:- View lifecycle
     override func viewDidLoad() {
@@ -18,6 +25,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         vModel = viewModel as? KTCreateBookingViewModel
         if booking != nil {
             vModel?.booking = booking!
+            (viewModel as! KTCreateBookingViewModel).setRemoveBookingOnReset(removeBookingOnReset: removeBookingOnReset)
         }
         super.viewDidLoad()
         
@@ -30,9 +38,23 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         hideFareBreakdown(animated: false)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    func showCoachmarkIfRequired()
+    {
+        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
+        
+        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        {
+            if(vModel?.isCoachmarkOneShown)!
+            {
+                showCoachmarkTwo()
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,6 +69,16 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     
+    func showCoachmarkOne()
+    {
+        self.performSegue(name: "SagueCoachmark1")
+    }
+    
+    func showCoachmarkTwo()
+    {
+        self.performSegue(name: "SagueCoachmark2")
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         if timer != nil {
             timer.invalidate()
@@ -58,15 +90,31 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     //MARK:- User Actions
     @IBAction func btnPickupAddTapped(_ sender: Any) {
         
-        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
+//        (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
+        btnDropoffAddress.animation = "pop"
+        btnDropoffAddress.duration = 1.5
+        btnDropoffAddress.animate()
     }
     @IBAction func btnDropAddTapped(_ sender: Any) {
         
         (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
     }
     
-    @IBAction func btnRequestBooking(_ sender: Any) {
-        
+    
+    @IBAction func btnRequestBookingTouchDown(_ sender: SpringButton)
+    {
+        springAnimateButtonTapIn(button: btnRequestBooking)
+    }
+    
+    @IBAction func btnRequestBookingTouchUpOutside(_ sender: SpringButton)
+    {
+        springAnimateButtonTapOut(button: btnRequestBooking)
+    }
+    
+    
+    @IBAction func btnRequestBooking(_ sender: Any)
+    {
+        springAnimateButtonTapOut(button: btnRequestBooking)
         (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
     }
     
@@ -93,6 +141,11 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     
+    @IBAction func btnCashTapped(_ sender: Any)
+    {
+        showError(title: "Payment Methods", message: "More payment options will be available soon")
+    }
+
     @IBAction func btnCancelBtnTapped(_ sender: Any)
     {
         (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
@@ -132,24 +185,49 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     }
     
     func hideRequestBookingBtn() {
-        
-        constraintBtnRequestBookingHeight.constant = 0
-        constraintBtnRequestBookingBottomSpace.constant = 0
-        constraintBoxBtnRequestBookingSpace.constant = 0
-        btnRequestBooking.isHidden = true
-        
         //self.btnRequestBooking.setNeedsDisplay()
-        self.view.layoutIfNeeded()
+        
+//        self.btnRequestBooking.animation = "slideDown"
+//        self.btnRequestBooking.curve = "easeOut"
+//        self.btnRequestBooking.duration = 1
+//        self.btnRequestBooking.animate()
+
+        UIView.animate(withDuration: 0.5, animations: {
+            self.constraintBtnRequestBookingHeight.constant = 0
+            self.constraintBtnRequestBookingBottomSpace.constant = 0
+            self.constraintBoxBtnRequestBookingSpace.constant = 0
+        
+            self.btnRequestBooking.isHidden = true
+            self.view.layoutIfNeeded()
+        })
     }
     
     func showRequestBookingBtn()  {
-        constraintBtnRequestBookingHeight.constant = 60
-        constraintBtnRequestBookingBottomSpace.constant = 20
-        constraintBoxBtnRequestBookingSpace.constant = 20
-        btnRequestBooking.isHidden = false
+
+        self.btnRequestBooking.animation = "slideUp"
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+        {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.constraintBtnRequestBookingHeight.constant = 60
+                self.constraintBtnRequestBookingBottomSpace.constant = 20
+                self.constraintBoxBtnRequestBookingSpace.constant = 20
+                
+                self.btnRequestBooking.setNeedsDisplay()
+                self.view.layoutIfNeeded()
+            })
+        }
         
-        self.btnRequestBooking.setNeedsDisplay()
-        self.view.layoutIfNeeded()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+        {
+            self.btnRequestBooking.isHidden = false
+            self.btnRequestBooking.animate()
+        }
+    }
+    
+    func setRemoveBookingOnReset(removeBookingOnReset : Bool)
+    {
+        self.removeBookingOnReset = removeBookingOnReset
     }
     
     func pickDropBoxStep3() {
@@ -168,6 +246,16 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         imgPickDestBoxBG.image = UIImage(named: "BookingPickDropBox")
         btnCash.isHidden = true
         btnPickDate.isHidden = true
+    }
+    
+    func setETAContainerBackground(background: String)
+    {
+        etaToCustomerContainer.image = UIImage(named: background)
+    }
+
+    func setETAString(etaString: String)
+    {
+        etaToCustomerLabel.text = etaString
     }
     
     //MARK: - Navigation
@@ -199,6 +287,10 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
             destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
             
+        }
+        else if segue.identifier == "SagueCoachmark1"
+        {
+            //TODO: Make Delegate here
         }
         else if segue.identifier == "segueBookingListForDetails" {
             
@@ -265,5 +357,20 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     func setPickDate(date: String) {
         btnPickDate.setTitle(date, for: UIControlState.normal)
+    }
+    
+    func hideFareBreakdown() {
+        
+        //        btnRevealBtn.constant = 0
+        //        btnRevealBtn.constant = 0
+        //        btnRevealBtn.constant = 0
+
+        fareBreakdown.showHideBackFareDetailsBtn(hide: true)
+
+        constraintFareToBox.constant = 0
+        viewFareBreakdown.alpha = 0.0
+        self.viewFareBreakdown.isHidden = true
+        
+        self.view.layoutIfNeeded()
     }
 }
