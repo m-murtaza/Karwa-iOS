@@ -13,8 +13,8 @@ let COMPLAINTS_SYNC_TIME = "ComplaintsSyncTime"
 
 class KTComplaintsManager: KTDALManager {
     
-    func fetchComplaints(completion completionBlock:@escaping KTDALCompletionBlock) {
-
+    func fetchComplaints(completion completionBlock:@escaping KTDALCompletionBlock)
+    {
         let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:COMPLAINTS_SYNC_TIME)]
 
         self.get(url: Constants.APIURL.GetComplaints, param: param, completion: completionBlock) { (responseData,cBlock) in
@@ -66,12 +66,12 @@ class KTComplaintsManager: KTDALManager {
         return complaints
     }
     
-    func createComplaint(complaint: KTComplaint, completion completionBlock: @escaping KTDALCompletionBlock)  {
-        
+    func createComplaintAtServer(complaint: KTComplaint, completion completionBlock: @escaping KTDALCompletionBlock)
+    {
         let param : NSDictionary = [Constants.ComplaintParams.IssueID: complaint.issueId,
                                     Constants.ComplaintParams.CategoryID: complaint.categoryId,
                                     Constants.ComplaintParams.ComplaintType: complaint.complaintType,
-                                    Constants.ComplaintParams.Name : complaint.name!,
+//                                    Constants.ComplaintParams.Name : complaint.name!,
                                     Constants.ComplaintParams.Order: complaint.order,
                                     Constants.ComplaintParams.bookingId: complaint.bookingId!,
                                     Constants.ComplaintParams.remarks : complaint.remarks!]
