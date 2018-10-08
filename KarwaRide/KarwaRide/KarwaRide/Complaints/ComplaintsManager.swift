@@ -13,7 +13,7 @@ let COMPLAINTS_SYNC_TIME = "ComplaintsSyncTime"
 
 class KTComplaintsManager: KTDALManager {
     
-    func fetchComplaints(completion completionBlock:@escaping KTDALCompletionBlock)
+    func fetchComplaintsFromServer(completion completionBlock:@escaping KTDALCompletionBlock)
     {
         let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:COMPLAINTS_SYNC_TIME)]
 
@@ -24,7 +24,7 @@ class KTComplaintsManager: KTDALManager {
             {
                 if(responseData[Constants.ResponseAPIKey.Data] != nil)
                 {
-                    self.addComplaints(responseData: responseData[Constants.ResponseAPIKey.Data] as! [Any])
+                    self.addComplaintsToDB(responseData: responseData[Constants.ResponseAPIKey.Data] as! [Any])
                     
                     self.updateSyncTime(forKey: COMPLAINTS_SYNC_TIME)
                 }
@@ -34,16 +34,16 @@ class KTComplaintsManager: KTDALManager {
         }
     }
     
-    func addComplaints(responseData : [Any])
+    func addComplaintsToDB(responseData : [Any])
     {
         for  case let newComplaint as [AnyHashable: Any] in responseData
         {
-            addComplaint(complaint: newComplaint)
+            addComplaintToDB(complaint: newComplaint)
         }
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
 
-    func addComplaint(complaint : [AnyHashable: Any])
+    func addComplaintToDB(complaint : [AnyHashable: Any])
     {
         if complaint[Constants.ComplaintsResponseAPIKey.CategoryId] != nil
         {
