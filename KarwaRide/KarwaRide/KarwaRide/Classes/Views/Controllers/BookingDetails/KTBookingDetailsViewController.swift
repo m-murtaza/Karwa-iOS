@@ -10,6 +10,8 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 import Cosmos
+import Spring
+import DDViewSwitcher
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
@@ -41,10 +43,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblDriverName : UILabel!
     @IBOutlet weak var lblVehicleNumber :UILabel!
     @IBOutlet weak var imgNumberPlate : UIImageView!
+    @IBOutlet weak var hintText: UILabel!
     
     @IBOutlet weak var driverPhoneBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftBottomBarButton : UIButton!
     @IBOutlet weak var rightBottomBarButton : UIButton!
+    @IBOutlet weak var btnMoreOptions: SpringButton!
+    @IBOutlet weak var rightArrow: SpringImageView!
     
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
@@ -162,11 +167,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
      }
     
-    @IBAction func btnCallTapped(_ sender: Any) {
+    @IBAction func btnCallTapped(_ sender: Any)
+    {
         vModel?.callDriver()
         
     }
     
+    @IBAction func moreOptionsTapped(_ sender: Any)
+    {
+        //TODO: show action sheet here
+    }
+
     @IBAction func btnBackTapped(_ sender: Any) {
         
         if let navController = self.navigationController {
@@ -480,6 +491,30 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     func cancelDoneSuccess() {
         self.closeCancel()
         vModel?.cancelDoneSuccess()
+    }
+    
+    func hideMoreOptions()
+    {
+        btnMoreOptions.isHidden = true
+        rightArrow.isHidden = true
+        hintText.isHidden = true
+    }
+    
+    func showMoreOptions()
+    {
+        let textSwitcher = DDTextSwitcher(frame:  hintText.bounds, data: ["Complaint or Lost Item", "Re-book This Ride"], scrollDirection: .vertical)
+        textSwitcher.setTextSize(size: 11)
+        textSwitcher.setTextColor(color: UIColor.gray)
+        textSwitcher.setTextAlignment(align: NSTextAlignment.right)
+        textSwitcher.duration = 0.5
+        hintText.addSubview(textSwitcher)
+
+        btnMoreOptions.isHidden = false
+        rightArrow.isHidden = false
+        hintText.isHidden = false
+
+        textSwitcher.start()
+
     }
     
     func showFareBreakdown()
