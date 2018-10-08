@@ -18,9 +18,18 @@ class KTComplaintsManager: KTDALManager {
         let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:COMPLAINTS_SYNC_TIME)]
 
         self.get(url: Constants.APIURL.GetComplaints, param: param, completion: completionBlock) { (responseData,cBlock) in
-            print(responseData)
 
-            self.addComplaints(responseData: responseData[Constants.ResponseAPIKey.Data] as! [Any])
+            print(responseData)
+            if(responseData.count > 0)
+            {
+                if(responseData[Constants.ResponseAPIKey.Data] != nil)
+                {
+                    self.addComplaints(responseData: responseData[Constants.ResponseAPIKey.Data] as! [Any])
+                    
+                    self.updateSyncTime(forKey: COMPLAINTS_SYNC_TIME)
+                }
+            }
+
             cBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         }
     }
@@ -69,8 +78,6 @@ class KTComplaintsManager: KTDALManager {
 
         self.post(url: Constants.APIURL.CreateComplaint, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in
-
-                    self.updateSyncTime(forKey: COMPLAINTS_SYNC_TIME)
                     completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
             }
         )
