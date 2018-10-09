@@ -61,7 +61,7 @@ class KTAppDataSyncManager: KTDALManager {
     
     private func syncComplaints()
     {
-        KTComplaintsManager().fetchComplaints{(status, response) in
+        KTComplaintsManager().fetchComplaintsFromServer{(status, response) in
             print("All Complaints synced")
         }
     }

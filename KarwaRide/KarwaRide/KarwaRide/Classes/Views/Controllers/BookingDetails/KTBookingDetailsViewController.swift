@@ -12,6 +12,7 @@ import GoogleMaps
 import Cosmos
 import Spring
 import DDViewSwitcher
+import XLActionController
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
@@ -175,7 +176,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func moreOptionsTapped(_ sender: Any)
     {
-        //TODO: show action sheet here
+        let actionController = YoutubeActionController()
+        
+        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
+            { action in
+                self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
+            }
+        ))
+        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
+            { action in
+                //TODO
+            }
+        ))
+        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
+        
+        present(actionController, animated: true, completion: nil)
     }
 
     @IBAction func btnBackTapped(_ sender: Any) {
