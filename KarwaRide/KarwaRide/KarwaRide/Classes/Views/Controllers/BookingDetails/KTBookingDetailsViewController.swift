@@ -185,7 +185,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         ))
         actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
             { action in
-                //TODO
+                self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
             }
         ))
         actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
