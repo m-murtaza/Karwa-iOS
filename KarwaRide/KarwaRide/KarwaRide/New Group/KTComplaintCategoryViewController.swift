@@ -42,12 +42,16 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
 
     @IBAction func complaintTapped(_ sender: Any)
     {
+        animationDelay = 0
         vModel?.complaintTapped()
     }
     @IBAction func lostItemsTapped(_ sender: Any)
     {
+        animationDelay = 0
         vModel?.lostItemTapped()
     }
+    
+    var animationDelay = 1.0
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -56,12 +60,15 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         cell.labelDesc.text = vModel?.description(forCellIdx: indexPath.row)
         cell.imageIcon.image = vModel?.notificationIcon(forCellIdx: indexPath.row)
         cell.selectionStyle = .none
+        
+        animateCell(cell, delay: animationDelay)
+
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 30
+        return 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?

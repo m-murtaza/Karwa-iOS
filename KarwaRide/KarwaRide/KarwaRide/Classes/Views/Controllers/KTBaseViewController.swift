@@ -15,6 +15,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     var viewModel : KTBaseViewModel?
     
     override func viewDidLoad() {
+        delay = 0
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewModel?.viewDidLoad()
@@ -148,5 +149,29 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         
         self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 
+    }
+    
+    var delay : Double = 0.1
+    
+    func animateCell(_ cell: UITableViewCell, delay animDelay: Double)
+    {
+        if(animDelay == 0)
+        {
+            delay = animDelay
+        }
+        animateCell(cell)
+    }
+    
+    func animateCell(_ cell: UITableViewCell)
+    {
+        let top = CGAffineTransform(translationX: 0, y: -1500)
+        
+        UIView.animate(withDuration: 0.7, delay: delay, options: [], animations: {
+            // Add the transformation in this block
+            // self.container is your view that you want to animate
+            cell.transform = top
+        }, completion: nil)
+        
+        delay = delay + 0.1
     }
 }

@@ -72,8 +72,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
             (viewModel as! KTAddressPickerViewModel).dropOffAddress = dropoffAddress
         }
         
-        KTMyTripsViewController.delay = 0
-        
         //Do not move these line after super.viewDidLoad
         super.viewDidLoad()
     }
@@ -463,21 +461,6 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         animateCell(cell)
         
         return cell
-    }
-    
-    static var delay : Double = 0
-    
-    func animateCell(_ cell: AddressPickCell)
-    {
-        let top = CGAffineTransform(translationX: 0, y: -1500)
-        
-        UIView.animate(withDuration: 0.7, delay: KTMyTripsViewController.delay, options: [], animations: {
-            // Add the transformation in this block
-            // self.container is your view that you want to animate
-            cell.transform = top
-        }, completion: nil)
-        
-        KTMyTripsViewController.delay = KTMyTripsViewController.delay + 0.1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
