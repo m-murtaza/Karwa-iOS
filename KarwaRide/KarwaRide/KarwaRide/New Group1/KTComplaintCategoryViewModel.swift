@@ -87,7 +87,7 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
         categories.append(ComplaintCategoryModel(14, "ico_driver", "DRIVER ISSUES", "Mis-behaved, Speaking negatively, Smoking, etc"))
         categories.append(ComplaintCategoryModel(15, "ico_fare", "FARE ISSUES", "Tampering, Long route, Meter not working, etc"))
         categories.append(ComplaintCategoryModel(13, "ico_safety", "SAFETY ISSUES", "Lane discipline, Over speeding, Poor driving, etc"))
-        categories.append(ComplaintCategoryModel(-1, "ico_other", "I HAVE DIFFERENT ISSUES", "Some feedback, quality improvements, etc"))
+        categories.append(ComplaintCategoryModel(-1, "ico_other_complaints", "I HAVE DIFFERENT ISSUES", "Some feedback, quality improvements, etc"))
     }
     
     func getLostAndFoundCategories()
