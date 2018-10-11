@@ -29,6 +29,9 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         vModel = viewModel as? KTComplaintCategoryViewModel
         vModel?.bookingId = bookingId
         tblView.dataSource = self
+        
+        print("Booking ID " + bookingId)
+        
         super.viewDidLoad()
     }
     
@@ -101,7 +104,9 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     {
         if(segue.identifier == "segueNotificationToDetail")
         {
-            let destination : KTIssueSelectionViewController = segue.destination as! KTIssueSelectionViewController
+            let navVC = segue.destination as? UINavigationController
+            let destination = navVC?.viewControllers.first as! KTIssueSelectionViewController
+
             destination.complaint.bookingId = vModel?.bookingId
             destination.complaint.categoryId = (vModel?.selectedCategory.id)!
             destination.complaint.name = vModel?.selectedCategory.title

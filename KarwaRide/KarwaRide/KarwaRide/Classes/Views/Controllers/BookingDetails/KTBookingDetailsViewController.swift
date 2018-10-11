@@ -168,8 +168,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         else if(segue.identifier == "segueComplaintCategorySelection")
         {
-//            let destination = segue.destination as! KTComplaintCategoryViewController
-//            destination.bookingId = (vModel?.booking?.bookingId)!
+            let navVC = segue.destination as? UINavigationController
+            let destination = navVC?.viewControllers.first as! KTComplaintCategoryViewController
+            destination.bookingId = (vModel?.booking?.bookingId)!
         }
      }
     
