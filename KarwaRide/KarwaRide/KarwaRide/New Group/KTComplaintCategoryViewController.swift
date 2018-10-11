@@ -34,6 +34,7 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         print("Booking ID " + bookingId)
         
         super.viewDidLoad()
+        self.tblView.rowHeight = 80
     }
     
     //MARK: - UITableViewDelegate
