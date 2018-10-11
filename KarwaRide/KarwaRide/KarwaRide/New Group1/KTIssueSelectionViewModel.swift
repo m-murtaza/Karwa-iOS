@@ -34,7 +34,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     {
         if(categoryId == -1)
         {
-            //TODO: show direct input for remarks
+            showRemarksLayout()
         }
         else
         {
@@ -54,7 +54,12 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func issueTapped()
     {
-        
+        //TODO: show direct input for remarks
+    }
+    
+    func showRemarksLayout()
+    {
+        //TODO
     }
     
     func fetchnComplaintsCategories()

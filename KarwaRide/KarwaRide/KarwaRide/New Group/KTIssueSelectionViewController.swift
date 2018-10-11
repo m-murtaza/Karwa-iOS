@@ -32,6 +32,7 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         super.viewDidLoad()
         self.title = name
         self.tbleView.rowHeight = 65
+        self.tbleView.tableFooterView = UIView()
     }
     
     @IBAction func btnBackTapped(_ sender: Any)

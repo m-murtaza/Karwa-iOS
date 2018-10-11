@@ -20,6 +20,7 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     
     @IBOutlet weak var btnLostItems: SpringButton!
     @IBOutlet weak var lostItemsSelector: UIImageView!
+    @IBOutlet weak var footer: UIView!
     
     var bookingId = String()
     
@@ -35,6 +36,11 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         
         super.viewDidLoad()
         self.tblView.rowHeight = 80
+        self.tblView.tableFooterView = UIView()
+
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.setBackgroundImage(#imageLiteral(resourceName: "BookingCard7SeaterBox"), for: .default)
+//        navigationBar.shadowImage = UIImage()
     }
     
     //MARK: - UITableViewDelegate
