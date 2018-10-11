@@ -13,7 +13,7 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
 {
 
     @IBOutlet weak var tblView: UITableView!
-    private var vModel : KTComplaintCategoryViewModel?
+    public var vModel : KTComplaintCategoryViewModel?
 
     @IBOutlet weak var btnComplaints: SpringButton!
     @IBOutlet weak var complaintSelector: UIImageView!
@@ -21,10 +21,13 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     @IBOutlet weak var btnLostItems: SpringButton!
     @IBOutlet weak var lostItemsSelector: UIImageView!
     
+    var bookingId = String()
+    
     override func viewDidLoad()
     {
         self.viewModel = KTComplaintCategoryViewModel(del: self)
         vModel = viewModel as? KTComplaintCategoryViewModel
+        vModel?.bookingId = bookingId
         tblView.dataSource = self
         super.viewDidLoad()
     }
@@ -96,15 +99,16 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        //        if segue.identifier == "segueNotificationToDetail" {
-        //            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
-        //            if let booking : KTBooking = vModel?.selectedBooking {
-        //                details.setBooking(booking: booking)
-        //            }
-        //        }
+        if(segue.identifier == "segueNotificationToDetail")
+        {
+            let destination : KTIssueSelectionViewController = segue.destination as! KTIssueSelectionViewController
+            destination.complaint.bookingId = vModel?.bookingId
+            destination.complaint.categoryId = (vModel?.selectedCategory.id)!
+            destination.complaint.name = vModel?.selectedCategory.title
+        }
     }
 
-    func showDetail()
+    func showIssueSelectionScene()
     {
         self.performSegue(name: "segueNotificationToDetail")
     }

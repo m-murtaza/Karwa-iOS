@@ -11,7 +11,7 @@ import Foundation
 protocol KTComplaintCategoryViewModelDelegate: KTViewModelDelegate
 {
     func reloadTableData()
-    func showDetail()
+    func showIssueSelectionScene()
     func toggleTab(showSecondTab isComplaintsVisible : Bool)
 }
 
@@ -19,8 +19,10 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
 {
     var categories : [ComplaintCategoryModel] = []
     var del : KTComplaintCategoryViewModelDelegate?
-    var selectedBooking :KTBooking?
     var isComplaintsShowing = true
+
+    var bookingId = String()
+    var selectedCategory = ComplaintCategoryModel()
 
     override func viewDidLoad()
     {
@@ -102,10 +104,7 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
 
     func rowSelected(atIndex idx: Int)
     {
-//        guard let notification : KTNotification = complaintsCategory[idx], let booking = notification.notificationToBooking else {
-//            return
-//        }
-//        selectedBooking = booking
-//        del?.showDetail()
+        selectedCategory = categories[idx]
+        del?.showIssueSelectionScene()
     }
 }

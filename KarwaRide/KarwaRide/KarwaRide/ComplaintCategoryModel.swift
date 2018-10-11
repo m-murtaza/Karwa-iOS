@@ -10,7 +10,7 @@ import Foundation
 
 class ComplaintCategoryModel: NSObject
 {
-    var id : Int
+    var id : Int32
     var image: String
     var title: String
     var desc : String
@@ -24,7 +24,7 @@ class ComplaintCategoryModel: NSObject
         super.init()
     }
     
-    init(_ id : Int, _ image : String, _ title : String, _ desc : String)
+    init(_ id : Int32, _ image : String, _ title : String, _ desc : String)
     {
         self.id = id;
         self.image = image

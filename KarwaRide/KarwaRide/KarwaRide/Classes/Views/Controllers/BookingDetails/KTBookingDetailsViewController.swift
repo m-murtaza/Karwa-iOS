@@ -166,6 +166,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
         }
+        else if(segue.identifier == "segueComplaintCategorySelection")
+        {
+//            let destination = segue.destination as! KTComplaintCategoryViewController
+//            destination.bookingId = (vModel?.booking?.bookingId)!
+        }
      }
     
     @IBAction func btnCallTapped(_ sender: Any)
