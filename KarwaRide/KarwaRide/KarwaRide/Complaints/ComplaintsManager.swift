@@ -59,9 +59,16 @@ class KTComplaintsManager: KTDALManager {
     
     func getAllComplaints() -> [KTComplaint]
     {
+        return getAllComplaints(categoryId: 0)
+    }
+    
+    func getAllComplaints(categoryId id : Int) -> [KTComplaint]
+    {
         var complaints : [KTComplaint] = []
         
-        complaints = KTComplaint.mr_findAllSorted(by: "order", ascending: true, in: NSManagedObjectContext.mr_default()) as! [KTComplaint]
+        let predicate : NSPredicate = NSPredicate(format:"categoryId = %d" , id)
+
+        complaints = KTComplaint.mr_findAllSorted(by: "order", ascending: true, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTComplaint]
         
         return complaints
     }

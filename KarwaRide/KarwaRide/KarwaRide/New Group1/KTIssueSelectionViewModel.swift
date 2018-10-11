@@ -17,7 +17,10 @@ class KTIssueSelectionViewModel: KTBaseViewModel
 {
     var issues : [KTComplaint] = []
     var del : KTIssueSelectionViewModelDelegate?
-    var selectedBooking :KTBooking?
+
+    var bookingId = String()
+    var categoryId = -1
+
     var isComplaintsShowing = true
     
     override func viewDidLoad()
@@ -29,7 +32,14 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func modifyUIIfRequired()
     {
-        //TODO
+        if(categoryId == -1)
+        {
+            //TODO: show direct input for remarks
+        }
+        else
+        {
+            fetchnComplaintsCategories()
+        }
     }
     
     func numberOfRows() -> Int
@@ -49,7 +59,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func fetchnComplaintsCategories()
     {
-        issues = KTComplaintsManager().getAllComplaints()
+        issues = KTComplaintsManager().getAllComplaints(categoryId: categoryId)
         self.del?.reloadTableData()
     }
     

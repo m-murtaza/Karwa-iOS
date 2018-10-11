@@ -29,7 +29,8 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         vModel = viewModel as? KTComplaintCategoryViewModel
         vModel?.bookingId = bookingId
         tblView.dataSource = self
-        
+        tblView.delegate = self;
+
         print("Booking ID " + bookingId)
         
         super.viewDidLoad()
@@ -102,20 +103,19 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if(segue.identifier == "segueNotificationToDetail")
+        if(segue.identifier == "segueCategoryToIssueSelection")
         {
             let navVC = segue.destination as? UINavigationController
             let destination = navVC?.viewControllers.first as! KTIssueSelectionViewController
-
-            destination.complaint.bookingId = vModel?.bookingId
-            destination.complaint.categoryId = (vModel?.selectedCategory.id)!
-            destination.complaint.name = vModel?.selectedCategory.title
+            destination.bookingId = (vModel?.bookingId)!
+            destination.categoryId = (vModel?.selectedCategory.id)!
+            destination.name = (vModel?.selectedCategory.title)!
         }
     }
 
     func showIssueSelectionScene()
     {
-        self.performSegue(name: "segueNotificationToDetail")
+        self.performSegue(name: "segueCategoryToIssueSelection")
     }
 }
 

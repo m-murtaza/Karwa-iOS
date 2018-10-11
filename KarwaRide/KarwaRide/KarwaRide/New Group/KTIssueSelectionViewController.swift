@@ -16,16 +16,29 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
     
     private var vModel : KTIssueSelectionViewModel?
     
-    var complaint = KTComplaint()
+    var bookingId = String()
+    var categoryId = -1
+    var name = String()
     
     override func viewDidLoad()
     {
         self.viewModel = KTIssueSelectionViewModel(del: self)
         vModel = viewModel as? KTIssueSelectionViewModel
         tbleView.dataSource = self
+
+        vModel?.bookingId = bookingId
+        vModel?.categoryId = categoryId
+
         super.viewDidLoad()
+        self.title = name
+        self.tbleView.rowHeight = 65
     }
     
+    @IBAction func btnBackTapped(_ sender: Any)
+    {
+        self.dismiss()
+    }
+
     //MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -42,6 +55,16 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         animateCell(cell, delay: animationDelay)
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+//    {
+//        return 80.0
+//    }
+//
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+//    {
+//        return 80.0
+//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
