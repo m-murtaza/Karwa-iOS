@@ -73,15 +73,15 @@ class KTComplaintsManager: KTDALManager {
         return complaints
     }
     
-    func createComplaintAtServer(complaint: KTComplaint, completion completionBlock: @escaping KTDALCompletionBlock)
+    func createComplaintAtServer(complaint: ComplaintBeanForServer, completion completionBlock: @escaping KTDALCompletionBlock)
     {
         let param : NSDictionary = [Constants.ComplaintParams.IssueID: complaint.issueId,
                                     Constants.ComplaintParams.CategoryID: complaint.categoryId,
                                     Constants.ComplaintParams.ComplaintType: complaint.complaintType,
 //                                    Constants.ComplaintParams.Name : complaint.name!,
-                                    Constants.ComplaintParams.Order: complaint.order,
-                                    Constants.ComplaintParams.bookingId: complaint.bookingId!,
-                                    Constants.ComplaintParams.remarks : complaint.remarks!]
+//                                    Constants.ComplaintParams.Order: complaint.order,
+                                    Constants.ComplaintParams.bookingId: complaint.bookingId,
+                                    Constants.ComplaintParams.remarks : complaint.remarks]
 
         self.post(url: Constants.APIURL.CreateComplaint, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in

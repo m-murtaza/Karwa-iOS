@@ -12,15 +12,17 @@ import Spring
 class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSelectionViewModelDelegate,UITableViewDelegate,UITableViewDataSource, UITextViewDelegate
 {
     @IBOutlet weak var tbleView: UITableView!
-    @IBOutlet weak var titleText: UILabel!
-    
-    @IBOutlet weak var commentsLabel: UITextView!
+    @IBOutlet weak var titleText: SpringLabel!
+    @IBOutlet weak var commentsLabel: SpringTextView!
     @IBOutlet weak var btnSubmit: SpringButton!
+    
+//    var previousControllerLifeCycle: KTLifeCycle
     
     private var vModel : KTIssueSelectionViewModel?
     
     var bookingId = String()
     var categoryId = -1
+    var complaintType = 1
     var name = String()
     
     override func viewDidLoad()
@@ -30,6 +32,7 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         
         vModel?.bookingId = bookingId
         vModel?.categoryId = categoryId
+        vModel?.complaintType = complaintType
 
         super.viewDidLoad()
         self.title = name
@@ -45,8 +48,7 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         self.tbleView.delegate = self
         tbleView.dataSource = self
     }
-    
-    /* Updated for Swift 4 */
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n")
         {
@@ -74,6 +76,8 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
     {
         springAnimateButtonTapOut(button: btnSubmit)
 
+        commentsLabel.resignFirstResponder()
+        
         let input: String = commentsLabel.text!
         vModel?.submitBtnTapped(remarksString: input)
     }
@@ -115,15 +119,45 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         tbleView.reloadData()
     }
     
+    func showMessage(_ title: String, _ message: String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            self.dismiss()
+        }
+        
+        //alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func showInputRemarksLayout()
     {
-        tbleView.isHidden = true
+        UIView.animate(withDuration: 0.75, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+            if self.tbleView?.alpha == 1.0
+                { self.tbleView?.alpha = 0.0 }
+            else
+                { self.tbleView?.alpha = 1.0 }
+        }, completion: { (finished:Bool) -> Void in self.tbleView.isHidden = true })
+
         titleText.isHidden = false
         commentsLabel.isHidden = false
         btnSubmit.isHidden = false
 
+        titleText.animation = "squeezeLeft"
+        commentsLabel.animation = "squeezeLeft"
+        btnSubmit.animation = "squeezeLeft"
+        titleText.delay = 0.2
+        commentsLabel.delay = 0.2
+        btnSubmit.delay = 0.2
+
+        titleText.animate()
+        commentsLabel.animate()
+        btnSubmit.animate()
+        
         commentsLabel.becomeFirstResponder()
-        super.viewDidAppear(true)
     }
     
     func hideInputRemarksLayout()
@@ -132,6 +166,11 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         titleText.isHidden = true
         commentsLabel.isHidden = true
         btnSubmit.isHidden = true
+    }
+    
+    func dismissWithResult()
+    {
+//        previousControllerLifeCycle.needsToDismiss(shouldDismiss: true)
     }
 }
 

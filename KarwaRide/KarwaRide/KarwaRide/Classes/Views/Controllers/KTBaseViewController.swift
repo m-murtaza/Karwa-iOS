@@ -106,7 +106,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     func dismiss()  {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     func performSegue(name:String) {
         
         self.performSegue(withIdentifier: name, sender: self)
@@ -141,13 +141,14 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     func showToast(message : String)
     {
-        // create a new style
-        var style = ToastStyle()
-        style.backgroundColor = .white
-        style.messageFont = .systemFont(ofSize: 13)
-        style.messageColor = .black
-        
-        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
+        self.view.makeToast(message)
+//        // create a new style
+//        var style = ToastStyle()
+//        style.backgroundColor = .white
+//        style.messageFont = .systemFont(ofSize: 13)
+//        style.messageColor = .black
+//        
+//        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 
     }
     

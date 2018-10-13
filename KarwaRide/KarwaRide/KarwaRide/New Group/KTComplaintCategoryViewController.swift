@@ -9,7 +9,7 @@
 import Foundation
 import Spring
 
-class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTComplaintCategoryViewModelDelegate,UITableViewDelegate,UITableViewDataSource
+class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTComplaintCategoryViewModelDelegate,UITableViewDelegate,UITableViewDataSource, KTLifeCycle
 {
 
     @IBOutlet weak var tblView: UITableView!
@@ -21,9 +21,10 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     @IBOutlet weak var btnLostItems: SpringButton!
     @IBOutlet weak var lostItemsSelector: UIImageView!
     @IBOutlet weak var footer: UIView!
-    
+
     var bookingId = String()
-    
+    var shouldDismissOnLoad = false
+
     override func viewDidLoad()
     {
         self.viewModel = KTComplaintCategoryViewModel(del: self)
@@ -38,6 +39,10 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         self.tblView.rowHeight = 80
         self.tblView.tableFooterView = UIView()
 
+        if(shouldDismissOnLoad)
+        {
+            self.dismiss()
+        }
 //        let navigationBar = navigationController!.navigationBar
 //        navigationBar.setBackgroundImage(#imageLiteral(resourceName: "BookingCard7SeaterBox"), for: .default)
 //        navigationBar.shadowImage = UIImage()
@@ -63,6 +68,11 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
     {
         animationDelay = 0
         vModel?.lostItemTapped()
+    }
+    
+    func needsToDismiss(shouldDismiss: Bool)
+    {
+        shouldDismissOnLoad = shouldDismiss
     }
     
     var animationDelay = 1.0
@@ -114,8 +124,10 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         {
             let navVC = segue.destination as? UINavigationController
             let destination = navVC?.viewControllers.first as! KTIssueSelectionViewController
+//            destination.previousControllerLifeCycle = self
             destination.bookingId = (vModel?.bookingId)!
             destination.categoryId = (vModel?.selectedCategory.id)!
+            destination.complaintType = (vModel?.isComplaintsShowing)! ? 1 : 2
             destination.name = (vModel?.selectedCategory.title)!
         }
     }
