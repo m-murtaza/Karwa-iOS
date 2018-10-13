@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Spring
 
-class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSelectionViewModelDelegate,UITableViewDelegate,UITableViewDataSource
+class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSelectionViewModelDelegate,UITableViewDelegate,UITableViewDataSource, UITextViewDelegate
 {
     @IBOutlet weak var tbleView: UITableView!
     @IBOutlet weak var titleText: UILabel!
-    @IBOutlet weak var commentsInput: UITextField!
+    
+    @IBOutlet weak var commentsLabel: UITextView!
+    @IBOutlet weak var btnSubmit: SpringButton!
     
     private var vModel : KTIssueSelectionViewModel?
     
@@ -24,20 +27,55 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
     {
         self.viewModel = KTIssueSelectionViewModel(del: self)
         vModel = viewModel as? KTIssueSelectionViewModel
-        tbleView.dataSource = self
-
+        
         vModel?.bookingId = bookingId
         vModel?.categoryId = categoryId
 
         super.viewDidLoad()
         self.title = name
+        commentsLabel.delegate = self
+        initTableView()
+    }
+    
+    func initTableView()
+    {
         self.tbleView.rowHeight = 65
         self.tbleView.tableFooterView = UIView()
+        self.tbleView.allowsSelection = true
+        self.tbleView.delegate = self
+        tbleView.dataSource = self
+    }
+    
+    /* Updated for Swift 4 */
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n")
+        {
+            commentsLabel.resignFirstResponder()
+            
+            let input: String = commentsLabel.text!
+            vModel?.submitBtnTapped(remarksString: input)
+            
+            return false
+        }
+        return true
+    }
+    
+    @IBAction func submutTouchDown(_ sender: Any)
+    {
+        springAnimateButtonTapIn(button: btnSubmit)
     }
     
     @IBAction func btnBackTapped(_ sender: Any)
     {
         self.dismiss()
+    }
+
+    @IBAction func btnSubmitTapped(_ sender: Any)
+    {
+        springAnimateButtonTapOut(button: btnSubmit)
+
+        let input: String = commentsLabel.text!
+        vModel?.submitBtnTapped(remarksString: input)
     }
 
     //MARK: - UITableViewDelegate
@@ -57,16 +95,6 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-//    {
-//        return 80.0
-//    }
-//
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-//    {
-//        return 80.0
-//    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
         return 0
@@ -85,6 +113,25 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
     func reloadTableData()
     {
         tbleView.reloadData()
+    }
+    
+    func showInputRemarksLayout()
+    {
+        tbleView.isHidden = true
+        titleText.isHidden = false
+        commentsLabel.isHidden = false
+        btnSubmit.isHidden = false
+
+        commentsLabel.becomeFirstResponder()
+        super.viewDidAppear(true)
+    }
+    
+    func hideInputRemarksLayout()
+    {
+        tbleView.isHidden = false
+        titleText.isHidden = true
+        commentsLabel.isHidden = true
+        btnSubmit.isHidden = true
     }
 }
 

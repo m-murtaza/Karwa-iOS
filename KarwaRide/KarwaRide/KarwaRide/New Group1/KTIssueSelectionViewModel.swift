@@ -11,6 +11,7 @@ import UIKit
 protocol KTIssueSelectionViewModelDelegate: KTViewModelDelegate
 {
     func reloadTableData()
+    func showInputRemarksLayout()
 }
 
 class KTIssueSelectionViewModel: KTBaseViewModel
@@ -20,6 +21,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
 
     var bookingId = String()
     var categoryId = -1
+    var issueId : Int32 = -1
 
     var isComplaintsShowing = true
     
@@ -54,12 +56,29 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func issueTapped()
     {
-        //TODO: show direct input for remarks
+        showRemarksLayout()
     }
     
     func showRemarksLayout()
     {
-        //TODO
+        del?.showInputRemarksLayout()
+    }
+    
+    func submitBtnTapped(remarksString remarks : String)
+    {
+        if(categoryId == -1 && remarks.count == 0)
+        {
+            del?.showToast(message: "Please Enter Remarks")
+        }
+        else
+        {
+            sendComplaintToServer(remarks)
+        }
+    }
+
+    func sendComplaintToServer(_ remarks: String)
+    {
+        print("Remarks are: " + remarks)
     }
     
     func fetchnComplaintsCategories()
@@ -70,10 +89,8 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func rowSelected(atIndex idx: Int)
     {
-        //        guard let notification : KTNotification = complaintsCategory[idx], let booking = notification.notificationToBooking else {
-        //            return
-        //        }
-        //        selectedBooking = booking
-        //        del?.showDetail()
+        print("issue ID: \(issueId) selected")
+        issueId = issues[idx].issueId
+        issueTapped()
     }
 }
