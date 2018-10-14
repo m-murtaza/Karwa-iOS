@@ -16,7 +16,7 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
     @IBOutlet weak var commentsLabel: SpringTextView!
     @IBOutlet weak var btnSubmit: SpringButton!
     
-//    var previousControllerLifeCycle: KTLifeCycle
+    var previousControllerLifeCycle : KTLifeCycle!
     
     private var vModel : KTIssueSelectionViewModel?
     
@@ -125,7 +125,7 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-            self.dismiss()
+            self.dismissWithResult()
         }
         
         //alertController.addAction(cancelAction)
@@ -170,7 +170,8 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
     
     func dismissWithResult()
     {
-//        previousControllerLifeCycle.needsToDismiss(shouldDismiss: true)
+        previousControllerLifeCycle.needsToDismiss(shouldDismiss: true)
+        self.dismiss()
     }
 }
 

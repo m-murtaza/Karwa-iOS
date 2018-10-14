@@ -38,14 +38,14 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         super.viewDidLoad()
         self.tblView.rowHeight = 80
         self.tblView.tableFooterView = UIView()
+    }
 
+    override func viewDidAppear(_ animated: Bool)
+    {
         if(shouldDismissOnLoad)
         {
             self.dismiss()
         }
-//        let navigationBar = navigationController!.navigationBar
-//        navigationBar.setBackgroundImage(#imageLiteral(resourceName: "BookingCard7SeaterBox"), for: .default)
-//        navigationBar.shadowImage = UIImage()
     }
     
     //MARK: - UITableViewDelegate
@@ -124,7 +124,7 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         {
             let navVC = segue.destination as? UINavigationController
             let destination = navVC?.viewControllers.first as! KTIssueSelectionViewController
-//            destination.previousControllerLifeCycle = self
+            destination.previousControllerLifeCycle = self
             destination.bookingId = (vModel?.bookingId)!
             destination.categoryId = (vModel?.selectedCategory.id)!
             destination.complaintType = (vModel?.isComplaintsShowing)! ? 1 : 2
