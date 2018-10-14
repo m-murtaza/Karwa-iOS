@@ -93,9 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func setupDatabase()  {
-        
-        MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
-        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
+//        MagicalRecord.setupCoreDataStack(withStoreNamed: "KarwaV2")
+        MagicalRecord.setupAutoMigratingCoreDataStack()
+        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.verbose)
     }
     
     func setupLocation() {
