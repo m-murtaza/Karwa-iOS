@@ -181,6 +181,7 @@
 		0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTLifeCycle.swift; sourceTree = "<group>"; };
 		0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsUtil.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
+		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
 		0DEA1F502166055D00649F8B /* ComplaintsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsManager.swift; sourceTree = "<group>"; };
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
 		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
@@ -1647,9 +1648,10 @@
 		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */,
 				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
 			);
-			currentVersion = 1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */;
+			currentVersion = 0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */;
 			name = Karwa.xcdatamodeld;
 			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
 			sourceTree = "<group>";
