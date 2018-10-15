@@ -72,6 +72,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var constraintSpaceDropTimeNDropAddress : NSLayoutConstraint!
     @IBOutlet weak var constraintPickDropBarHeight : NSLayoutConstraint!
     
+    @IBOutlet weak var arrowRight: SpringImageView!
     @IBOutlet weak var constraintSpaceSapratorToPickupLable : NSLayoutConstraint!
     @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
     
@@ -91,6 +92,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
         super.viewDidLoad()
         
+        startArrowAnimation()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -106,6 +109,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    func startArrowAnimation()
+    {
+        let midX = arrowRight.center.x
+        let midY = arrowRight.center.y
+        
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.60
+        animation.repeatCount = 100
+        animation.autoreverses = true
+        animation.fromValue = CGPoint(x: midX + 3, y: midY)
+        animation.toValue = CGPoint(x: midX + 8, y: midY)
+
+        rightArrow.layer.add(animation, forKey: "position")
     }
     
     func setBooking(booking : KTBooking) {

@@ -160,6 +160,11 @@ class KTIssueSelectionViewController: KTBaseDrawerRootViewController,KTIssueSele
         commentsLabel.becomeFirstResponder()
     }
     
+    func setSubTitle(_ issueName: String)
+    {
+        self.titleText.text = issueName
+    }
+    
     func hideInputRemarksLayout()
     {
         tbleView.isHidden = false

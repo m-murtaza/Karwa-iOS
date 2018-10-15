@@ -95,7 +95,7 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
         categories.append(ComplaintCategoryModel(1, "ico_personal_items", "PERSONAL ITEMS", "Handbag, Keys, Luggage, Clothes, etc"))
         categories.append(ComplaintCategoryModel(2, "ico_appliances", "APPLIANCES", "LED TV, Heater, Microwave, Speakers, etc"))
         categories.append(ComplaintCategoryModel(3, "ico_electronics", "ELECTRONICS", "Mobile, Camera, Tablet, Laptop, etc"))
-        categories.append(ComplaintCategoryModel(4, "ico_documents", "DOCUMENTS", "ertificates, Books, Passport, etc"))
+        categories.append(ComplaintCategoryModel(4, "ico_documents", "DOCUMENTS", "Certificates, Books, Passport, etc"))
         categories.append(ComplaintCategoryModel(10, "ico_valuables", "VALUABLES", "Gold, Cash, Silver Jewelry, etc"))
         categories.append(ComplaintCategoryModel(18, "ico_cards", "CARDS", "QID, Driving license, ATM, Credit Card, etc"))
         categories.append(ComplaintCategoryModel(20, "ico_sports", "SPORTS ITEMS", "Football, Cricket, Tennis, Badminton, etc"))

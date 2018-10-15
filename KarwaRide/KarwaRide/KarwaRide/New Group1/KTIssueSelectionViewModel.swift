@@ -13,6 +13,7 @@ protocol KTIssueSelectionViewModelDelegate: KTViewModelDelegate
     func reloadTableData()
     func showInputRemarksLayout()
     func showMessage(_ title: String, _ message: String)
+    func setSubTitle(_ issueName: String)
 }
 
 class KTIssueSelectionViewModel: KTBaseViewModel
@@ -88,6 +89,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     {
         print("issue ID: \(issueId) selected")
         issueId = Int(issues[idx].issueId)
+        del?.setSubTitle((issues[idx].issue)!)
         issueTapped()
     }
     
