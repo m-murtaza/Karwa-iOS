@@ -37,7 +37,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func modifyUIIfRequired()
     {
-        if(categoryId == -1)
+        if(categoryId == 17 || categoryId == 11)
         {
             showRemarksLayout()
         }
@@ -69,7 +69,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     
     func submitBtnTapped(remarksString remarks : String)
     {
-        if(categoryId == -1 && remarks.count == 0)
+        if((categoryId == 17 || categoryId == 11) && remarks.count == 0)
         {
             del?.showToast(message: "Please enter the comments")
         }

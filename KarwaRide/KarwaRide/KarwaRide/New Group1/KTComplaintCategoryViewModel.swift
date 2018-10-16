@@ -87,7 +87,7 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
         categories.append(ComplaintCategoryModel(14, "ico_driver", "DRIVER ISSUES", "Mis-behaved, Speaking negatively, Smoking, etc"))
         categories.append(ComplaintCategoryModel(15, "ico_fare", "FARE ISSUES", "Tampering, Long route, Meter not working, etc"))
         categories.append(ComplaintCategoryModel(13, "ico_safety", "SAFETY ISSUES", "Lane discipline, Over speeding, Poor driving, etc"))
-        categories.append(ComplaintCategoryModel(-1, "ico_other_complaints", "I HAVE DIFFERENT ISSUES", "Some feedback, quality improvements, etc"))
+        categories.append(ComplaintCategoryModel(17, "ico_other_complaints", "I HAVE DIFFERENT ISSUES", "Some feedback, quality improvements, etc"))
     }
     
     func getLostAndFoundCategories()
@@ -99,7 +99,7 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
         categories.append(ComplaintCategoryModel(10, "ico_valuables", "VALUABLES", "Gold, Cash, Silver Jewelry, etc"))
         categories.append(ComplaintCategoryModel(18, "ico_cards", "CARDS", "QID, Driving license, ATM, Credit Card, etc"))
         categories.append(ComplaintCategoryModel(20, "ico_sports", "SPORTS ITEMS", "Football, Cricket, Tennis, Badminton, etc"))
-        categories.append(ComplaintCategoryModel(-1, "ico_other", "OTHERS", "I have lost something else"))
+        categories.append(ComplaintCategoryModel(11, "ico_other", "OTHERS", "I have lost something else"))
     }
 
     func rowSelected(atIndex idx: Int)
