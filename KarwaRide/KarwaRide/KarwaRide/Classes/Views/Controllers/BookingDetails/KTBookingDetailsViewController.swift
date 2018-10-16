@@ -92,7 +92,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
         super.viewDidLoad()
         
-        startArrowAnimation()
+//        startArrowAnimation()
         
         // Do any additional setup after loading the view.
     }
@@ -120,8 +120,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         animation.duration = 0.60
         animation.repeatCount = 100
         animation.autoreverses = true
-        animation.fromValue = CGPoint(x: midX + 3, y: midY)
-        animation.toValue = CGPoint(x: midX + 8, y: midY)
+        animation.fromValue = CGPoint(x: midX, y: midY)
+        animation.toValue = CGPoint(x: midX + 3, y: midY)
 
         rightArrow.layer.add(animation, forKey: "position")
     }
