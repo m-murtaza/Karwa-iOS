@@ -172,6 +172,33 @@ struct Constants {
         static let BookingId =  "bookingId"
         static let Remarks =  "remarks"
     }
+
+    struct PaymentResponseAPIKey {
+        static let Id = "Id"
+        static let PaymentType = "Type"
+        static let LastFourDigits = "LastFourDigits"
+        static let ExpiryMonth = "ExpiryMonth"
+        static let ExpiryYear = "ExpiryYear"
+        static let Brand =  "Brand"
+        static let Balance =  "Balance"
+        static let IsRemovable =  "IsRemovable"
+    }
+    
+    struct PayTripAPIKey {
+        static let DriverId = "DriverId"
+        static let PaymentMethodId = "PaymentMethodId"
+        static let TotalFare = "TotalFare"
+        static let TripId = "TripId"
+        static let TripType = "TripType"
+        static let U =  "U"
+        static let S =  "S"
+        static let E =  "E"
+    }
+    
+    struct MPGSSessionAPIKey {
+        static let SessionId = "SessionId"
+        static let ApiVersion = "ApiVersion"
+    }
     
     struct BookingResponseAPIKey {
         static let BookingID = "BookingID"
@@ -341,6 +368,11 @@ struct Constants {
         static let DriverImage = "driver/image"
         static let GetComplaints = "complaint/sync"
         static let CreateComplaint = "complaint/add"
+        static let GetPayments = "payment/methods"
+        static let PayTrip = "trip/pay"
+        static let MPGSSuccessToServer = "mpgs/tokenize"
+        static let MPGSCreateSession = "mpgs/session"
+        static let DeletePaymentMethod = "payment/"
     }
     
     struct TrackTaxiParams {

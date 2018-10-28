@@ -32,6 +32,13 @@ class KTDALManager: KTBase {
         }
     }
     
+    func put(url: String, param: [String:Any]?,completion completionBlock: @escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
+        KTWebClient.sharedInstance.put(uri: url, param: param) { (status, response) in
+            
+            self.handleAPIResponse(status: status, response: response, completion: completionBlock,success: successBlock)
+        }
+    }
+    
     func handleAPIResponse(status: Bool,response: [AnyHashable: Any],completion completionBlock:@escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
         if !status
         {
