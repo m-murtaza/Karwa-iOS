@@ -7,11 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */; };
+		0D045C8B216F248500D3904B /* KTIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */; };
 		0D18C6BD215116750001FD4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D18C6BC215116750001FD4C /* GoogleService-Info.plist */; };
+		0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */; };
+		0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */; };
+		0D1A4B5A216CA87600279AA6 /* KTComplaintCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B59216CA87600279AA6 /* KTComplaintCategoryViewModel.swift */; };
+		0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B5B216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift */; };
+		0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */; };
 		0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */; };
 		0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */; };
+		0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D63FC5C21721BC700DF7ED6 /* ComplaintBeanForServer.swift */; };
+		0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */; };
 		0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
+		0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEA1F502166055D00649F8B /* ComplaintsManager.swift */; };
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
 		1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */; };
@@ -157,11 +167,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewModel.swift; sourceTree = "<group>"; };
+		0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueTableViewCell.swift; sourceTree = "<group>"; };
 		0D18C6BC215116750001FD4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintCategoryModel.swift; sourceTree = "<group>"; };
+		0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTComplaintCategoryViewController.swift; sourceTree = "<group>"; };
+		0D1A4B59216CA87600279AA6 /* KTComplaintCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTComplaintCategoryViewModel.swift; sourceTree = "<group>"; };
+		0D1A4B5B216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTComplaintsCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewController.swift; sourceTree = "<group>"; };
 		0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmarkOneViewController.swift; sourceTree = "<group>"; };
 		0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmark2ViewController.swift; sourceTree = "<group>"; };
+		0D63FC5C21721BC700DF7ED6 /* ComplaintBeanForServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintBeanForServer.swift; sourceTree = "<group>"; };
+		0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTLifeCycle.swift; sourceTree = "<group>"; };
 		0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsUtil.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
+		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
+		0DEA1F502166055D00649F8B /* ComplaintsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsManager.swift; sourceTree = "<group>"; };
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
 		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
 		1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KarwaRide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -325,6 +346,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D1A4B53216CA24A00279AA6 /* ComplaintsController */ = {
+			isa = PBXGroup;
+			children = (
+				0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */,
+				0D1A4B5B216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift */,
+				0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */,
+				0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */,
+			);
+			name = ComplaintsController;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		0D1A4B58216CA85B00279AA6 /* ComplaintsVM */ = {
+			isa = PBXGroup;
+			children = (
+				0D1A4B59216CA87600279AA6 /* KTComplaintCategoryViewModel.swift */,
+				0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */,
+			);
+			name = ComplaintsVM;
+			path = "New Group1";
+			sourceTree = "<group>";
+		};
 		0D5EAA8020EB56780016E1F6 /* Coachmarks */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +381,16 @@
 				0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		0DEA1F4F2166051A00649F8B /* Complaints */ = {
+			isa = PBXGroup;
+			children = (
+				0DEA1F502166055D00649F8B /* ComplaintsManager.swift */,
+				0D63FC5C21721BC700DF7ED6 /* ComplaintBeanForServer.swift */,
+				0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */,
+			);
+			path = Complaints;
 			sourceTree = "<group>";
 		};
 		1810C0BA1FC4061E008E8D91 /* APNS */ = {
@@ -723,6 +776,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0D1A4B53216CA24A00279AA6 /* ComplaintsController */,
 				183B91E020C7C15700097FAF /* Fare */,
 				186ECFCC20A80DF0002CF81E /* FirstViewController */,
 				186ECFB920A1998E002CF81E /* OnBoarding */,
@@ -746,6 +800,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				0D1A4B58216CA85B00279AA6 /* ComplaintsVM */,
 				0D5EAA8020EB56780016E1F6 /* Coachmarks */,
 				186ECFCF20A80E75002CF81E /* FirstView */,
 				182A74D8209730380025B6C7 /* Notification */,
@@ -784,6 +839,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				0DEA1F4F2166051A00649F8B /* Complaints */,
 				182A74D0209708A60025B6C7 /* Notification */,
 				187E710D2083787D00E66A55 /* Rating */,
 				181AB84F2074E6B50048D7AF /* CancelBooking */,
@@ -855,6 +911,7 @@
 			isa = PBXGroup;
 			children = (
 				18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */,
+				0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1160,6 +1217,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+				"${BUILT_PRODUCTS_DIR}/DDViewSwitcher/DDViewSwitcher.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -1174,6 +1232,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/XLActionController/XLActionController.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1181,6 +1240,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DDViewSwitcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -1195,6 +1255,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XLActionController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1292,9 +1353,11 @@
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
 				18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */,
+				0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */,
 				182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */,
 				1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */,
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
+				0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
 				186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */,
@@ -1306,9 +1369,12 @@
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				18FA45B9207216F2000487C1 /* KTCreateBookingViewController+CarouselView.swift in Sources */,
 				18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */,
+				0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */,
+				0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */,
 				1811E4EF205A2FFE00C3C47F /* KTBookingDetailsViewController.swift in Sources */,
 				18C24AD02004913F002D4B88 /* String+Utils.swift in Sources */,
 				18861884207CC977000806D3 /* KTFarePopupViewModel.swift in Sources */,
+				0D1A4B5A216CA87600279AA6 /* KTComplaintCategoryViewModel.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
 				181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */,
@@ -1333,12 +1399,14 @@
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
+				0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */,
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
 				186ECFCB20A410CE002CF81E /* KTSpringImageView.swift in Sources */,
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
 				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
 				181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */,
+				0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
 				186ECFD120A80EDB002CF81E /* KTFirstViewModel.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
@@ -1348,14 +1416,17 @@
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */,
 				186ECFCE20A80E2B002CF81E /* KTFirstViewController.swift in Sources */,
+				0D045C8B216F248500D3904B /* KTIssueTableViewCell.swift in Sources */,
 				1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */,
 				182D670920B17C2E00A36365 /* KTCallerIDPopup.swift in Sources */,
+				0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */,
 				182A74D720972EB10025B6C7 /* KTNotificationViewController.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */,
 				186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */,
+				0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
@@ -1577,9 +1648,10 @@
 		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */,
 				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
 			);
-			currentVersion = 1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */;
+			currentVersion = 0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */;
 			name = Karwa.xcdatamodeld;
 			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
 			sourceTree = "<group>";

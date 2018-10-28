@@ -10,6 +10,9 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 import Cosmos
+import Spring
+import DDViewSwitcher
+import XLActionController
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
@@ -41,10 +44,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblDriverName : UILabel!
     @IBOutlet weak var lblVehicleNumber :UILabel!
     @IBOutlet weak var imgNumberPlate : UIImageView!
+    @IBOutlet weak var hintText: UILabel!
     
     @IBOutlet weak var driverPhoneBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var leftBottomBarButton : UIButton!
     @IBOutlet weak var rightBottomBarButton : UIButton!
+    @IBOutlet weak var btnMoreOptions: SpringButton!
+    @IBOutlet weak var rightArrow: SpringImageView!
     
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
@@ -66,6 +72,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var constraintSpaceDropTimeNDropAddress : NSLayoutConstraint!
     @IBOutlet weak var constraintPickDropBarHeight : NSLayoutConstraint!
     
+    @IBOutlet weak var arrowRight: SpringImageView!
     @IBOutlet weak var constraintSpaceSapratorToPickupLable : NSLayoutConstraint!
     @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
     
@@ -85,8 +92,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+//        startArrowAnimation()
         
+        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +109,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    func startArrowAnimation()
+    {
+        let midX = arrowRight.center.x
+        let midY = arrowRight.center.y
+        
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.60
+        animation.repeatCount = 100
+        animation.autoreverses = true
+        animation.fromValue = CGPoint(x: midX, y: midY)
+        animation.toValue = CGPoint(x: midX + 3, y: midY)
+
+        rightArrow.layer.add(animation, forKey: "position")
     }
     
     func setBooking(booking : KTBooking) {
@@ -160,13 +183,39 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
         }
+        else if(segue.identifier == "segueComplaintCategorySelection")
+        {
+            let navVC = segue.destination as? UINavigationController
+            let destination = navVC?.viewControllers.first as! KTComplaintCategoryViewController
+            destination.bookingId = (vModel?.booking?.bookingId)!
+        }
      }
     
-    @IBAction func btnCallTapped(_ sender: Any) {
+    @IBAction func btnCallTapped(_ sender: Any)
+    {
         vModel?.callDriver()
         
     }
     
+    @IBAction func moreOptionsTapped(_ sender: Any)
+    {
+        let actionController = YoutubeActionController()
+        
+        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
+            { action in
+                self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
+            }
+        ))
+        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
+            { action in
+                self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
+            }
+        ))
+        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
+        
+        present(actionController, animated: true, completion: nil)
+    }
+
     @IBAction func btnBackTapped(_ sender: Any) {
         
         if let navController = self.navigationController {
@@ -480,6 +529,30 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     func cancelDoneSuccess() {
         self.closeCancel()
         vModel?.cancelDoneSuccess()
+    }
+    
+    func hideMoreOptions()
+    {
+        btnMoreOptions.isHidden = true
+        rightArrow.isHidden = true
+        hintText.isHidden = true
+    }
+    
+    func showMoreOptions()
+    {
+        let textSwitcher = DDTextSwitcher(frame:  hintText.bounds, data: ["Complaint or Lost Item", "Re-book This Ride"], scrollDirection: .vertical)
+        textSwitcher.setTextSize(size: 11)
+        textSwitcher.setTextColor(color: UIColor.gray)
+        textSwitcher.setTextAlignment(align: NSTextAlignment.right)
+        textSwitcher.duration = 0.5
+        hintText.addSubview(textSwitcher)
+
+        btnMoreOptions.isHidden = false
+        rightArrow.isHidden = false
+        hintText.isHidden = false
+
+        textSwitcher.start()
+
     }
     
     func showFareBreakdown()

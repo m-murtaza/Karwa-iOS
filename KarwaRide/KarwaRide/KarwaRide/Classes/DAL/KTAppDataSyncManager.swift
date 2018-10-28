@@ -16,6 +16,7 @@ class KTAppDataSyncManager: KTDALManager {
         self.syncBookings()
         self.syncCancelReasons()
         self.syncRatingReason()
+        self.syncComplaints()
         self.removeNotificaiton()
         
     }
@@ -55,6 +56,13 @@ class KTAppDataSyncManager: KTDALManager {
         KTRatingManager().fetchRatingReasons { (status, response) in
             print("Sync Rating Reasons - " + status )
             print(response)
+        }
+    }
+    
+    private func syncComplaints()
+    {
+        KTComplaintsManager().fetchComplaintsFromServer{(status, response) in
+            print("All Complaints synced")
         }
     }
     

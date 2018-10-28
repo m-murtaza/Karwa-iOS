@@ -162,6 +162,17 @@ struct Constants {
         static let Place =  "Place"
     }
     
+    struct ComplaintsResponseAPIKey {
+        static let IssueId = "IssueID"
+        static let Issue = "Issue"
+        static let CategoryId = "CategoryID"
+        static let ComplaintType = "ComplaintType"
+        static let Name = "Name"
+        static let Order =  "Order"
+        static let BookingId =  "bookingId"
+        static let Remarks =  "remarks"
+    }
+    
     struct BookingResponseAPIKey {
         static let BookingID = "BookingID"
         static let BookingStatus = "BookingStatus"
@@ -294,6 +305,16 @@ struct Constants {
         
     }
     
+    struct ComplaintParams {
+        static let IssueID = "IssueID"
+        static let CategoryID = "CategoryID"
+        static let ComplaintType = "ComplaintType"
+        static let Name = "Name"
+        static let Order = "Order"
+        static let bookingId = "bookingId"
+        static let remarks = "remarks"
+    }
+    
     struct APIURL {
         static let Login = "user/login"
         static let Logout = "user/logout"
@@ -318,7 +339,8 @@ struct Constants {
         static let RatingReason = "booking/ratingreasons"
         static let RateBooking = "booking/rate"
         static let DriverImage = "driver/image"
-        
+        static let GetComplaints = "complaint/sync"
+        static let CreateComplaint = "complaint/add"
     }
     
     struct TrackTaxiParams {
@@ -375,6 +397,7 @@ struct Constants {
         static let VehicleTariff = "syncTime"
         static let CancelReason = "syncTime"
         static let RatingReason = "syncTime"
+        static let Complaints = "syncTime"
     }
     
     

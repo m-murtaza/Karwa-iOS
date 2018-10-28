@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupDatabase()  {
         
-        MagicalRecord.setupCoreDataStack(withStoreNamed: "Karwa")
+        MagicalRecord.setupCoreDataStack(withAutoMigratingSqliteStoreNamed: "Karwa")
         MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
     }
     

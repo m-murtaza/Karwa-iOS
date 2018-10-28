@@ -12,6 +12,8 @@ class SharedPrefUtil
 {
     static let IS_COACHMARKS_SHOWN = "IS_COACHMARKS_SHOWN";
     static let IS_APP_STORE_RATING_DONE = "IS_APP_STORE_RATING_DONE";
+    
+    static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS";
 
     static func setSharedPref(_ key:String, _ value: String)
     {

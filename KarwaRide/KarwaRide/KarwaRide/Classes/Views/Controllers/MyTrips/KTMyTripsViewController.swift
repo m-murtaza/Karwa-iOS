@@ -16,7 +16,6 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
-        KTMyTripsViewController.delay = 0
         if viewModel == nil {
             viewModel = KTMyTripsViewModel(del: self)
         }
@@ -95,21 +94,6 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         animateCell(cell)
         
         return cell
-    }
-    
-    static var delay : Double = 0.1
-    
-    func animateCell(_ cell: KTMyTripsTableViewCell)
-    {
-        let top = CGAffineTransform(translationX: 0, y: -1500)
-        
-        UIView.animate(withDuration: 0.7, delay: KTMyTripsViewController.delay, options: [], animations: {
-            // Add the transformation in this block
-            // self.container is your view that you want to animate
-            cell.transform = top
-        }, completion: nil)
-        
-        KTMyTripsViewController.delay = KTMyTripsViewController.delay + 0.1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

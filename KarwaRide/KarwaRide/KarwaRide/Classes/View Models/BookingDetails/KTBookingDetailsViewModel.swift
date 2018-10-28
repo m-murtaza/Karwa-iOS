@@ -43,6 +43,9 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func updateEta(eta: String)
     func hideEtaView()
     
+    func hideMoreOptions()
+    func showMoreOptions()
+    
     func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int)
     func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int)
     
@@ -681,6 +684,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     //MARK:- Bottom Bar buttons
     func updateBottomBarButtons() {
         
+        var isDoneBooking = false
+
         if booking?.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.DISPATCHING.rawValue || booking?.bookingStatus == BookingStatus.PENDING.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue {
             
             del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
@@ -690,19 +695,32 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         else if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
             del?.updateLeftBottomBarButtom(title: "TRIP E-BILL", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.EBill.rawValue)
             
-            del?.updateRightBottomBarButtom(title: "BOOK AGAIN", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
+            del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
+            
+            isDoneBooking = true
         }
         else if booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue {
             
             del?.updateLeftBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+
+            del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
             
-            del?.updateRightBottomBarButtom(title: "BOOK AGAIN", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
+            isDoneBooking = true
             
         }
         else if booking?.bookingStatus == BookingStatus.PICKUP.rawValue {
             del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
             del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
             
+        }
+        
+        if(isDoneBooking)
+        {
+            del?.showMoreOptions()
+        }
+        else
+        {
+            del?.hideMoreOptions()
         }
     }
     
