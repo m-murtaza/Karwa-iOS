@@ -10,11 +10,11 @@ import Foundation
 
 let PAYMENTS_SYNC_TIME = "PaymentsSyncTime"
 
-class PaymentManager: KTDALManager
+class KTPaymentManager: KTDALManager
 {
     func fetchPaymentsFromServer(completion completionBlock:@escaping KTDALCompletionBlock)
     {
-        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:COMPLAINTS_SYNC_TIME)]
+        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:PAYMENTS_SYNC_TIME)]
         
         self.get(url: Constants.APIURL.GetPayments, param: param, completion: completionBlock) { (responseData,cBlock) in
             
@@ -57,10 +57,10 @@ class PaymentManager: KTDALManager
             newPayment?.id = (payment[Constants.PaymentResponseAPIKey.Id] as? Int16)!
             newPayment?.payment_type = (payment[Constants.PaymentResponseAPIKey.PaymentType] as? String)!
             newPayment?.last_four_digits = (payment[Constants.PaymentResponseAPIKey.LastFourDigits] as? String)!
-            newPayment?.expiry_month = payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String
+            newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String)!
             newPayment?.expiry_year = (payment[Constants.PaymentResponseAPIKey.ExpiryYear] as? String)!
             newPayment?.brand = (payment[Constants.PaymentResponseAPIKey.Brand] as? String)!
-            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String)!
+//            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String)!
             newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool)!
         }
     }
