@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BarcodeScanner
 
 class KTScanAndPayViewController: KTBaseDrawerRootViewController,KTScanAndPayViewModelDelegate
 {
@@ -18,6 +19,22 @@ class KTScanAndPayViewController: KTBaseDrawerRootViewController,KTScanAndPayVie
         vModel = viewModel as? KTScanAndPayViewModel
         
         super.viewDidLoad()
+        
+        handleScanPresent()
+    }
+    
+    private func handleScanPresent()
+    {
+        let viewController = makeBarcodeScannerViewController()
+        viewController.title = "Barcode Scanner"
+        present(viewController, animated: true, completion: nil)
+    }
+    
+    private func handlePushScan()
+    {
+        let viewController = makeBarcodeScannerViewController()
+        viewController.title = "Barcode Scanner"
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
@@ -39,6 +56,15 @@ class KTScanAndPayViewController: KTBaseDrawerRootViewController,KTScanAndPayVie
 //        self.performSegue(name: "segueCategoryToIssueSelection")
 //    }
     
+    private func makeBarcodeScannerViewController() -> BarcodeScannerViewController
+    {
+        let viewController = BarcodeScannerViewController()
+        viewController.codeDelegate = self
+        viewController.errorDelegate = self
+        viewController.dismissalDelegate = self
+        return viewController
+    }
+    
     func reloadTableData()
     {
     }
@@ -49,6 +75,33 @@ class KTScanAndPayViewController: KTBaseDrawerRootViewController,KTScanAndPayVie
     
     func toggleTab(showSecondTab isComplaintsVisible: Bool)
     {
+    }
+}
+
+    // MARK: - BarcodeScannerCodeDelegate
+    extension KTScanAndPayViewController: BarcodeScannerCodeDelegate {
+        func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
+            print("Barcode Data: \(code)")
+            print("Symbology Type: \(type)")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                controller.resetWithError()
+            }
+        }
+    }
+
+    // MARK: - BarcodeScannerErrorDelegate
+    extension KTScanAndPayViewController: BarcodeScannerErrorDelegate {
+        func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+            print(error)
+        }
+    }
+
+    // MARK: - BarcodeScannerDismissalDelegate
+    extension KTScanAndPayViewController: BarcodeScannerDismissalDelegate
+    {
+        func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
+            controller.dismiss(animated: true, completion: nil)
     }
 }
 

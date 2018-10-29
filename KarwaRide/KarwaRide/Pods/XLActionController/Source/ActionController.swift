@@ -363,7 +363,7 @@ open class ActionController<ActionViewType: UICollectionViewCell, ActionDataType
 
         let cancelButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: settings.cancelView.height))
         cancelButton.addTarget(self, action: #selector(ActionController.cancelButtonDidTouch(_:)), for: .touchUpInside)
-        cancelButton.setTitle(settings.cancelView.title, for: UIControlState())
+        cancelButton.setTitle(settings.cancelView.title, for: UIControl.State())
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
 
         cancelView.addSubview(cancelButton)

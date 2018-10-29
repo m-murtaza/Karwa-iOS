@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BarcodeScanner
 
 class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITableViewDataSource,KTLeftMenuDelegate {
     
@@ -55,22 +56,23 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         return cell
      }
     
-    func tableView(_ tableView: UITableView,
-                   shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
-        if lastSelectedCell != nil {
+        if(indexPath.row != 4)
+        {
+            if lastSelectedCell != nil {
+                
+                lastSelectedCell?.sideView.isHidden = true
+                lastSelectedCell?.imgSelected.isHidden = true
+            }
             
-            lastSelectedCell?.sideView.isHidden = true
-            lastSelectedCell?.imgSelected.isHidden = true
+            let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
+            cell.sideView.isHidden = false
+            cell.imgSelected.isHidden = false
+            
+            lastSelectedCell = cell
         }
-        
-        let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-                cell.sideView.isHidden = false
-                cell.imgSelected.isHidden = false
-        
-        lastSelectedCell = cell
-        
-        //
+
         switch indexPath.row {
         case 0:
             
@@ -92,8 +94,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.hideMenuViewController()
             break
         case 4:
-            //TODO: start Scan And Pay as new Controller here
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTScanAndPayViewControllerIdentifier")
+            presentBarcodeScanner()
             sideMenuViewController?.hideMenuViewController()
             break
         case 5:
@@ -110,52 +111,56 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         return false
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        tableView.deselectRow(at: indexPath, animated: true)
-//
-//        switch indexPath.row {
-//        case 0:
-//            print("Case - 1")
-//           // sideMenuViewController?.contentViewController = UINavigationController(rootViewController: FirstViewController())
-//            //sideMenuViewController?.hideMenuViewController()
-//            break
-//        case 1:
-//            print("Case - 2")
-//            //sideMenuViewController?.contentViewController = UINavigationController(rootViewController: SecondViewController())
-//            //sideMenuViewController?.hideMenuViewController()
-//            break
-//        default:
-//            print("Case - Default")
-//            break
-//        }
-//
-//
-//    }
-    
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//       // self.performSegue(withIdentifier: (viewModel as! KTLeftMenuModel).segueIdentifireForIdxPath(idx: indexPath.row), sender: self)
-//        let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-//        cell.sideView.isHidden = false
-//        cell.imgSelected.isHidden = false
-//    }
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-//                cell.sideView.isHidden = true
-//                cell.imgSelected.isHidden = true
-//    }
-//    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-//        cell.sideView.isHidden = false
-//        cell.imgSelected.isHidden = false
-//        return indexPath
-//    }
-//
-//    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
-//        let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-//        cell.sideView.isHidden = true
-//        cell.imgSelected.isHidden = true
-//        return indexPath
-//    }
+    private func presentBarcodeScanner()
+    {
+        present(makeBarcodeScannerViewController(), animated: true, completion: nil)
+    }
+
+    private func makeBarcodeScannerViewController() -> BarcodeScannerViewController
+    {
+        let viewController = BarcodeScannerViewController()
+        viewController.codeDelegate = self
+        viewController.errorDelegate = self
+        viewController.dismissalDelegate = self
+
+        viewController.headerViewController.titleLabel.text = "Scan N Pay"
+//        viewController.headerViewController.titleLabel.textColor = UIColor(hexString: "#C6C6C6")
+//        viewController.headerViewController.navigationBar.backgroundColor = UIColor(hexString: "#C6C6C6")
+        viewController.messageViewController.textLabel.text = "Scan your trip QR code from Meter for credit card payment"
+        
+        // Change focus view style
+        viewController.cameraViewController.barCodeFocusViewType = .animated
+
+        viewController.headerViewController.closeButton.setBackgroundImage(UIImage(named:"CrossBarButton")!, for: .normal)
+        viewController.headerViewController.closeButton.setTitle("", for: .normal)
+        
+        return viewController
+    }
+}
+
+// MARK: - BarcodeScannerCodeDelegate
+extension KTLeftMenuViewController: BarcodeScannerCodeDelegate {
+    func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
+        print("Barcode Data: \(code)")
+        print("Symbology Type: \(type)")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            controller.resetWithError()
+        }
+    }
+}
+
+// MARK: - BarcodeScannerErrorDelegate
+extension KTLeftMenuViewController: BarcodeScannerErrorDelegate {
+    func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+        print(error)
+    }
+}
+
+// MARK: - BarcodeScannerDismissalDelegate
+extension KTLeftMenuViewController: BarcodeScannerDismissalDelegate
+{
+    func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
