@@ -21,6 +21,8 @@
 		0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */; };
 		0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
+		0DE90AF42186E8A6005FC934 /* KTScanAndPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE90AF32186E8A6005FC934 /* KTScanAndPayViewController.swift */; };
+		0DE90AF72186E9FB005FC934 /* KTScanAndPayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE90AF62186E9FB005FC934 /* KTScanAndPayViewModel.swift */; };
 		0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEA1F502166055D00649F8B /* ComplaintsManager.swift */; };
 		0DF3A22F2185B5440000503B /* PayTripBeanForServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22C2185B5430000503B /* PayTripBeanForServer.swift */; };
 		0DF3A2302185B5440000503B /* MPGSSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22D2185B5430000503B /* MPGSSession.swift */; };
@@ -186,6 +188,8 @@
 		0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsUtil.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
+		0DE90AF32186E8A6005FC934 /* KTScanAndPayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTScanAndPayViewController.swift; sourceTree = "<group>"; };
+		0DE90AF62186E9FB005FC934 /* KTScanAndPayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTScanAndPayViewModel.swift; sourceTree = "<group>"; };
 		0DEA1F502166055D00649F8B /* ComplaintsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsManager.swift; sourceTree = "<group>"; };
 		0DF3A22C2185B5430000503B /* PayTripBeanForServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PayTripBeanForServer.swift; path = Payment/PayTripBeanForServer.swift; sourceTree = "<group>"; };
 		0DF3A22D2185B5430000503B /* MPGSSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MPGSSession.swift; path = Payment/MPGSSession.swift; sourceTree = "<group>"; };
@@ -388,6 +392,22 @@
 				0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		0DE90AF22186E805005FC934 /* ScanAndPay */ = {
+			isa = PBXGroup;
+			children = (
+				0DE90AF32186E8A6005FC934 /* KTScanAndPayViewController.swift */,
+			);
+			name = ScanAndPay;
+			sourceTree = "<group>";
+		};
+		0DE90AF52186E9D1005FC934 /* ScanAndPayViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0DE90AF62186E9FB005FC934 /* KTScanAndPayViewModel.swift */,
+			);
+			name = ScanAndPayViewModel;
 			sourceTree = "<group>";
 		};
 		0DEA1F4F2166051A00649F8B /* Complaints */ = {
@@ -793,6 +813,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0DE90AF22186E805005FC934 /* ScanAndPay */,
 				0D1A4B53216CA24A00279AA6 /* ComplaintsController */,
 				183B91E020C7C15700097FAF /* Fare */,
 				186ECFCC20A80DF0002CF81E /* FirstViewController */,
@@ -817,6 +838,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				0DE90AF52186E9D1005FC934 /* ScanAndPayViewModel */,
 				0D1A4B58216CA85B00279AA6 /* ComplaintsVM */,
 				0D5EAA8020EB56780016E1F6 /* Coachmarks */,
 				186ECFCF20A80E75002CF81E /* FirstView */,
@@ -1377,6 +1399,7 @@
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
+				0DE90AF72186E9FB005FC934 /* KTScanAndPayViewModel.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
 				186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */,
 				1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */,
@@ -1456,6 +1479,7 @@
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,
+				0DE90AF42186E8A6005FC934 /* KTScanAndPayViewController.swift in Sources */,
 				0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */,
 				186ECFC920A2B827002CF81E /* KTOnBoardingRootViewController.swift in Sources */,
 				0DF3A22F2185B5440000503B /* PayTripBeanForServer.swift in Sources */,

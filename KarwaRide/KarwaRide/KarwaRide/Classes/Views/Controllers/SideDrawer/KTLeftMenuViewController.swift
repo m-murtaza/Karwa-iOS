@@ -90,9 +90,13 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         case 3:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
             sideMenuViewController?.hideMenuViewController()
-            
             break
         case 4:
+            //TODO: start Scan And Pay as new Controller here
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTScanAndPayViewController")
+            sideMenuViewController?.hideMenuViewController()
+            break
+        case 5:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
             sideMenuViewController?.hideMenuViewController()
             break
