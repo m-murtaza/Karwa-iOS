@@ -29,9 +29,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
         cardIOVC?.modalPresentationStyle = .formSheet
         cardIOVC?.collectCardholderName = true
-        
-        
-        
+
         present(cardIOVC!, animated: true, completion: nil)
     }
 
@@ -52,4 +50,3 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         paymentViewController?.dismiss(animated: true, completion: nil)
     }
 }
-
