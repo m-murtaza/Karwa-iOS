@@ -10,100 +10,112 @@ import Foundation
 
 protocol KTPaymentViewModelDelegate : KTViewModelDelegate
 {
-    
+    func reloadTableData()
 }
 
 class KTPaymentViewModel: KTBaseViewModel
 {
-    var categories : [ComplaintCategoryModel] = []
-    var del : KTComplaintCategoryViewModelDelegate?
-    var isComplaintsShowing = true
-    
-    var bookingId = String()
-    var selectedCategory = ComplaintCategoryModel()
+    var del : KTPaymentViewModelDelegate?
+
+    var paymentMethods : [KTPaymentMethod] = []
+    var selectedPaymentMethod = KTPaymentMethod()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        del = self.delegate as? KTComplaintCategoryViewModelDelegate
-        fetchnComplaintsCategories()
+        del = self.delegate as? KTPaymentViewModelDelegate
+        fetchnPaymentMethods()
     }
     
     func numberOfRows() -> Int
     {
-        return categories.count
+        return paymentMethods.count
     }
     
-    func categoryName(forCellIdx idx: Int) -> String
+    func paymentMethodName(forCellIdx idx: Int) -> String
     {
-        return categories[idx].title
+        return "**** **** **** " + paymentMethods[idx].last_four_digits!
     }
     
-    func description(forCellIdx idx: Int) -> String
+    func expiry(forCellIdx idx: Int) -> String
     {
-        return categories[idx].desc
+        return "EXP. " + paymentMethods[idx].expiry_month! + "/" + paymentMethods[idx].expiry_year!
     }
     
-    func notificationIcon(forCellIdx idx: Int) -> UIImage
+    func cardIcon(forCellIdx idx: Int) -> UIImage
     {
-        return UIImage(named: categories[idx].image)!
+        return UIImage(named: getImage(paymentMethods[idx].brand!))!
     }
     
-    func complaintTapped()
+    func paymentTapped()
     {
-        if(!isComplaintsShowing)
-        {
-            categories.removeAll()
-            getComplaintsCategories()
-            self.del?.reloadTableData()
-            self.del?.toggleTab(showSecondTab: isComplaintsShowing)
-            isComplaintsShowing = !isComplaintsShowing
-        }
-    }
-    
-    func lostItemTapped()
-    {
-        if(isComplaintsShowing)
-        {
-            categories.removeAll()
-            getLostAndFoundCategories()
-            self.del?.reloadTableData()
-            self.del?.toggleTab(showSecondTab: isComplaintsShowing)
-            isComplaintsShowing = !isComplaintsShowing
-        }
-    }
-    
-    func fetchnComplaintsCategories()
-    {
-        getComplaintsCategories()
         self.del?.reloadTableData()
     }
     
-    func getComplaintsCategories()
+    func fetchnPaymentMethods()
     {
-        categories.append(ComplaintCategoryModel(12, "ico_vehicle", "VEHICLE ISSUES", "Cleanliness, A/C, Printer not working, etc"))
-        categories.append(ComplaintCategoryModel(14, "ico_driver", "DRIVER ISSUES", "Mis-behaved, Speaking negatively, Smoking, etc"))
-        categories.append(ComplaintCategoryModel(15, "ico_fare", "FARE ISSUES", "Tampering, Long route, Meter not working, etc"))
-        categories.append(ComplaintCategoryModel(13, "ico_safety", "SAFETY ISSUES", "Lane discipline, Over speeding, Poor driving, etc"))
-        categories.append(ComplaintCategoryModel(17, "ico_other_complaints", "I HAVE DIFFERENT ISSUES", "Some feedback, quality improvements, etc"))
-    }
-    
-    func getLostAndFoundCategories()
-    {
-        categories.append(ComplaintCategoryModel(1, "ico_personal_items", "PERSONAL ITEMS", "Handbag, Keys, Luggage, Clothes, etc"))
-        categories.append(ComplaintCategoryModel(2, "ico_appliances", "APPLIANCES", "LED TV, Heater, Microwave, Speakers, etc"))
-        categories.append(ComplaintCategoryModel(3, "ico_electronics", "ELECTRONICS", "Mobile, Camera, Tablet, Laptop, etc"))
-        categories.append(ComplaintCategoryModel(4, "ico_documents", "DOCUMENTS", "Certificates, Books, Passport, etc"))
-        categories.append(ComplaintCategoryModel(10, "ico_valuables", "VALUABLES", "Gold, Cash, Silver Jewelry, etc"))
-        categories.append(ComplaintCategoryModel(18, "ico_cards", "CARDS", "QID, Driving license, ATM, Credit Card, etc"))
-        categories.append(ComplaintCategoryModel(20, "ico_sports", "SPORTS ITEMS", "Football, Cricket, Tennis, Badminton, etc"))
-        categories.append(ComplaintCategoryModel(11, "ico_other", "OTHERS", "I have lost something else"))
+        self.del?.reloadTableData()
     }
     
     func rowSelected(atIndex idx: Int)
     {
-        selectedCategory = categories[idx]
-        del?.showIssueSelectionScene()
+        selectedPaymentMethod = paymentMethods[idx]
+//        del?.showIssueSelectionScene()
+    }
+    
+    func getImage(_ brand: String) -> String
+    {
+        var brandImage = "ico_wallet"
+        
+        switch brand
+        {
+        case "MASTERCARD":
+            brandImage = "ico_mc"
+            break;
+        case "MASTER":
+            brandImage = "ico_mc"
+            break;
+        case "VISACARD":
+            brandImage = "ico_visa"
+            break;
+        case "VISA":
+            brandImage = "ico_visa"
+            break;
+        case "AMEXCARD":
+            brandImage = "ico_amex"
+            break;
+        case "AMEX":
+            brandImage = "ico_amex"
+            break;
+        case "DINERSCLUBCARD":
+            brandImage = "ico_dinersclub"
+            break;
+        case "DINERS_CLUB":
+            brandImage = "ico_dinersclub"
+            break;
+        case "DISCOVERCARD":
+            brandImage = "ico_discover"
+            break;
+        case "DISCOVER":
+            brandImage = "ico_discover"
+            break;
+        case "JCBCARD":
+            brandImage = "ico_jcb"
+            break;
+        case "JCB":
+            brandImage = "ico_jcb"
+            break;
+        case "MAESTROCARD":
+            brandImage = "ico_maestro"
+            break;
+        case "MAESTRO":
+            brandImage = "ico_maestro"
+            break;
+        default:
+            brandImage = "ico_wallet"
+            break;
+        }
+        return brandImage
     }
 }
 
