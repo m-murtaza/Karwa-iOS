@@ -123,17 +123,9 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         viewController.errorDelegate = self
         viewController.dismissalDelegate = self
 
-        viewController.headerViewController.titleLabel.text = "Scan N Pay"
-//        viewController.headerViewController.titleLabel.textColor = UIColor(hexString: "#C6C6C6")
-//        viewController.headerViewController.navigationBar.backgroundColor = UIColor(hexString: "#C6C6C6")
-        viewController.messageViewController.textLabel.text = "Scan your trip QR code from Meter for credit card payment"
-        
         // Change focus view style
         viewController.cameraViewController.barCodeFocusViewType = .animated
 
-        viewController.headerViewController.closeButton.setBackgroundImage(UIImage(named:"CrossBarButton")!, for: .normal)
-        viewController.headerViewController.closeButton.setTitle("", for: .normal)
-        
         return viewController
     }
 }

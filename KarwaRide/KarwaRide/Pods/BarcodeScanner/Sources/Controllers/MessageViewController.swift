@@ -103,8 +103,8 @@ public final class MessageViewController: UIViewController {
   private func handleStatusUpdate() {
     borderView.isHidden = true
     borderView.layer.removeAllAnimations()
-    textLabel.text = status.text ?? messages.makeText(for: status.state)
-
+//    textLabel.text = status.text ?? messages.makeText(for: status.state)
+    textLabel.text = "Scan your trip QR code from Meter for credit card payment"
     switch status.state {
     case .scanning, .unauthorized:
       textLabel.numberOfLines = 3

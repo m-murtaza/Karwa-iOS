@@ -22,6 +22,10 @@ public protocol BarcodeScannerDismissalDelegate: class {
   func scannerDidDismiss(_ controller: BarcodeScannerViewController)
 }
 
+public protocol BarcodeScannerManageDelegate: class {
+    func scannerDidManage(_ controller: BarcodeScannerViewController)
+}
+
 // MARK: - Controller
 
 /**
@@ -42,6 +46,8 @@ open class BarcodeScannerViewController: UIViewController {
   public weak var errorDelegate: BarcodeScannerErrorDelegate?
   /// Delegate to dismiss barcode scanner when the close button has been pressed.
   public weak var dismissalDelegate: BarcodeScannerDismissalDelegate?
+
+    public weak var manageDelegate: BarcodeScannerManageDelegate?
 
   /// When the flag is set to `true` controller returns a captured code
   /// and waits for the next reset action.
@@ -281,6 +287,10 @@ private extension BarcodeScannerViewController {
 // MARK: - HeaderViewControllerDelegate
 
 extension BarcodeScannerViewController: HeaderViewControllerDelegate {
+    func headerViewControllerDidTapManageButton(_ controller: HeaderViewController) {
+        manageDelegate?.scannerDidManage(self)
+    }
+    
   func headerViewControllerDidTapCloseButton(_ controller: HeaderViewController) {
     dismissalDelegate?.scannerDidDismiss(self)
   }
