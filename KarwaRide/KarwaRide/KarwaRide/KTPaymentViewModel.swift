@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol KTScanAndPayViewModelDelegate : KTViewModelDelegate
+protocol KTPaymentViewModelDelegate : KTViewModelDelegate
 {
     func reloadTableData()
     func showIssueSelectionScene()
     func toggleTab(showSecondTab isComplaintsVisible : Bool)
 }
 
-class KTScanAndPayViewModel: KTBaseViewModel
+class KTPaymentViewModel: KTBaseViewModel
 {
     var categories : [ComplaintCategoryModel] = []
     var del : KTComplaintCategoryViewModelDelegate?
