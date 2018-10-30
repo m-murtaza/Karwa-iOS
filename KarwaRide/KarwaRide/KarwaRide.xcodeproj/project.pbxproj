@@ -20,6 +20,7 @@
 		0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D63FC5C21721BC700DF7ED6 /* ComplaintBeanForServer.swift */; };
 		0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */; };
 		0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */; };
+		0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
 		0DE90AF42186E8A6005FC934 /* KTPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE90AF32186E8A6005FC934 /* KTPaymentViewController.swift */; };
 		0DE90AF72186E9FB005FC934 /* KTPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE90AF62186E9FB005FC934 /* KTPaymentViewModel.swift */; };
@@ -186,6 +187,7 @@
 		0D63FC5C21721BC700DF7ED6 /* ComplaintBeanForServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintBeanForServer.swift; sourceTree = "<group>"; };
 		0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTLifeCycle.swift; sourceTree = "<group>"; };
 		0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsUtil.swift; sourceTree = "<group>"; };
+		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
 		0DE90AF32186E8A6005FC934 /* KTPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewController.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				0DE90AF32186E8A6005FC934 /* KTPaymentViewController.swift */,
+				0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */,
 			);
 			name = ScanAndPay;
 			sourceTree = "<group>";
@@ -1354,6 +1357,7 @@
 				186ECFBD20A1A419002CF81E /* KTBaseOnBoardingViewController.swift in Sources */,
 				1886187620763C3A000806D3 /* KTCancelViewModel.swift in Sources */,
 				1810C13B1FCD7FB7008E8D91 /* KTUserManager.swift in Sources */,
+				0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */,
 				18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */,
 				18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */,
 				18A3949320187C2F000FCE92 /* NSManageObject+KTExtended.swift in Sources */,
