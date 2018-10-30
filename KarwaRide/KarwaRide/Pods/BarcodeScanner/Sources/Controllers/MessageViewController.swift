@@ -105,6 +105,8 @@ public final class MessageViewController: UIViewController {
     borderView.layer.removeAllAnimations()
 //    textLabel.text = status.text ?? messages.makeText(for: status.state)
     textLabel.text = "Scan your trip QR code from Meter for credit card payment"
+    textLabel.textAlignment = .center
+
     switch status.state {
     case .scanning, .unauthorized:
       textLabel.numberOfLines = 3
