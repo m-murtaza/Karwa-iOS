@@ -10,9 +10,7 @@ import Foundation
 
 protocol KTPaymentViewModelDelegate : KTViewModelDelegate
 {
-    func reloadTableData()
-    func showIssueSelectionScene()
-    func toggleTab(showSecondTab isComplaintsVisible : Bool)
+    
 }
 
 class KTPaymentViewModel: KTBaseViewModel

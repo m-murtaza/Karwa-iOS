@@ -9,7 +9,7 @@
 import UIKit
 import BarcodeScanner
 
-class KTPaymentViewController: KTBaseDrawerRootViewController,KTPaymentViewModelDelegate
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate
 {
     public var vModel : KTPaymentViewModel?
     
@@ -19,32 +19,37 @@ class KTPaymentViewController: KTBaseDrawerRootViewController,KTPaymentViewModel
         vModel = viewModel as? KTPaymentViewModel
         
         super.viewDidLoad()
+        
+        CardIOUtilities.preload()
+
     }
     
     @IBAction func btnAddCardTapped(_ sender: Any)
     {
-        //TODO: Add Card Screen
+        let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
+        cardIOVC?.modalPresentationStyle = .formSheet
+        cardIOVC?.collectCardholderName = true
+        
+        
+        
+        present(cardIOVC!, animated: true, completion: nil)
     }
 
     @IBAction func btnBackTapped(_ sender: Any)
     {
         dismiss()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
+
+    func userDidCancel(_ paymentViewController: CardIOPaymentViewController!) {
+        paymentViewController?.dismiss(animated: true, completion: nil)
     }
     
-    func reloadTableData()
-    {
-    }
-    
-    func showIssueSelectionScene()
-    {
-    }
-    
-    func toggleTab(showSecondTab isComplaintsVisible: Bool)
-    {
+    func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!) {
+        if let info = cardInfo {
+            let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
+            print(str)
+        }
+        paymentViewController?.dismiss(animated: true, completion: nil)
     }
 }
 

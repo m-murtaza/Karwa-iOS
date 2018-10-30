@@ -6,6 +6,7 @@
 #define MR_SHORTHAND 0
 #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
 #import <MagicalRecord/MagicalRecord.h>
+#import <CardIO.h>
 #import <CommonCrypto/CommonCrypto.h>
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <JTMaterialSwitch/JTMaterialSwitch.h>
