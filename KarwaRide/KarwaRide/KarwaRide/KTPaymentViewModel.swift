@@ -54,6 +54,16 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func fetchnPaymentMethods()
     {
+        paymentMethods = KTPaymentManager().getAllPayments()
+        
+//        if notifications.count == 0
+//        {
+//            self.del?.showEmptyScreen()
+//        }
+//        else
+//        {
+//            self.del?.hideEmptyScreen()
+//        }
         self.del?.reloadTableData()
     }
     

@@ -20,7 +20,13 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         self.viewModel = KTPaymentViewModel(del: self)
         vModel = viewModel as? KTPaymentViewModel
         
+        self.tableView.dataSource = self
+        self.tableView.delegate = self;
+
         super.viewDidLoad()
+        
+        self.tableView.rowHeight = 80
+        self.tableView.tableFooterView = UIView()
         
         CardIOUtilities.preload()
     }
@@ -42,6 +48,32 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        return UIView(frame:
+            CGRect(x: 0, y: 0, width: 10 , height: 30))
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vModel?.rowSelected(atIndex: indexPath.row)
+    }
+    
+//    func showEmptyScreen() {
+//        imgEmpty.isHidden = false
+//        tblView.isHidden = true
+//    }
+//
+//    func hideEmptyScreen() {
+//        imgEmpty.isHidden = true
+//        tblView.isHidden = false
+//    }
     
     func reloadTableData()
     {
