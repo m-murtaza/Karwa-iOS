@@ -94,8 +94,9 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.hideMenuViewController()
             break
         case 4:
-            presentBarcodeScanner()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
             sideMenuViewController?.hideMenuViewController()
+//          presentBarcodeScanner()
             break
         case 5:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
@@ -111,29 +112,10 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         return false
     }
     
-    private func presentBarcodeScanner()
-    {
-        present(makeBarcodeScannerViewController(), animated: true, completion: nil)
-    }
-
     private func presentPaymentViewController()
     {
 //        present(makePaymentViewController(), animated: true, completion: nil)
         UIApplication.topViewController()?.present(makePaymentViewController(), animated: true, completion: nil)
-    }
-    
-    private func makeBarcodeScannerViewController() -> BarcodeScannerViewController
-    {
-        let viewController = BarcodeScannerViewController()
-        viewController.codeDelegate = self
-        viewController.errorDelegate = self
-        viewController.dismissalDelegate = self
-        viewController.manageDelegate = self
-        
-        // Change focus view style
-        viewController.cameraViewController.barCodeFocusViewType = .animated
-
-        return viewController
     }
     
     private func makePaymentViewController() -> KTPaymentViewController
@@ -144,43 +126,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         return viewController
     }
 }
-
-// MARK: - BarcodeScannerCodeDelegate
-extension KTLeftMenuViewController: BarcodeScannerCodeDelegate {
-    func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-        print("Barcode Data: \(code)")
-        print("Symbology Type: \(type)")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-            controller.resetWithError()
-        }
-    }
-}
-
-// MARK: - BarcodeScannerErrorDelegate
-extension KTLeftMenuViewController: BarcodeScannerErrorDelegate {
-    func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
-        print(error)
-    }
-}
-
-// MARK: - BarcodeScannerDismissalDelegate
-extension KTLeftMenuViewController: BarcodeScannerDismissalDelegate
-{
-    func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - BarcodeScannerDismissalDelegate
-extension KTLeftMenuViewController: BarcodeScannerManageDelegate
-{
-    func scannerDidManage(_ controller: BarcodeScannerViewController)
-    {
-        presentPaymentViewController()
-    }
-}
-
 
 extension UIApplication {
     class func topViewController(viewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {

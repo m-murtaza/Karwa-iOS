@@ -47,6 +47,18 @@ class KTPaymentViewModel: KTBaseViewModel
         return UIImage(named: getImage(paymentMethods[idx].brand!))!
     }
     
+    func cardSelection(forCellIdx idx: Int) -> UIImage
+    {
+        if(paymentMethods[idx].is_selected)
+        {
+            return UIImage(named: "paymentoption_active_back")!
+        }
+        else
+        {
+            return UIImage(named: "paymentoption_inactive_back")!
+        }
+    }
+    
     func paymentTapped()
     {
         self.del?.reloadTableData()

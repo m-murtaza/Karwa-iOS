@@ -27,6 +27,8 @@ class KTPaymentManager: KTDALManager
 
                     self.addPaymentsToDB(responseData: responseData[Constants.ResponseAPIKey.Data] as! [Any])
                     
+                    self.makeOnePaymentMethodDefault()
+                    
                     self.updateSyncTime(forKey: PAYMENTS_SYNC_TIME)
                 }
             }
@@ -63,6 +65,18 @@ class KTPaymentManager: KTDALManager
 //            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String)!
             newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool)!
         }
+    }
+    
+    
+    func makeOnePaymentMethodDefault()
+    {
+        let payments = getAllPayments()
+        if(payments.count > 0)
+        {
+           payments[0].is_selected = true
+        }
+
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
     
     func getAllPayments() -> [KTPaymentMethod]

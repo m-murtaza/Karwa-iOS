@@ -13,7 +13,8 @@ class KTPaymentViewCell: UITableViewCell {
     @IBOutlet weak var cardImage: UIImageView!
     @IBOutlet weak var cardNumber: UILabel!
     @IBOutlet weak var cardExpiry: UILabel!
-
+    @IBOutlet weak var cellBackground: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
