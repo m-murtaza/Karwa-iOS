@@ -16,6 +16,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     public var vModel : KTPaymentViewModel?
     public var isManageButtonPressed = false
     public var isCrossButtonPressed = false
+    @IBOutlet weak var emptyView: UIImageView!
     
     
     override func viewDidLoad()
@@ -79,15 +80,17 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         vModel?.rowSelected(atIndex: indexPath.row)
     }
     
-//    func showEmptyScreen() {
-//        imgEmpty.isHidden = false
-//        tblView.isHidden = true
-//    }
-//
-//    func hideEmptyScreen() {
-//        imgEmpty.isHidden = true
-//        tblView.isHidden = false
-//    }
+    func showEmptyScreen()
+    {
+        emptyView.isHidden = false
+        tableView.isHidden = true
+    }
+
+    func hideEmptyScreen()
+    {
+        emptyView.isHidden = true
+        tableView.isHidden = false
+    }
     
     func reloadTableData()
     {

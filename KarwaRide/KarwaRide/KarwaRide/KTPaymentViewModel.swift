@@ -11,6 +11,8 @@ import Foundation
 protocol KTPaymentViewModelDelegate : KTViewModelDelegate
 {
     func reloadTableData()
+    func showEmptyScreen()
+    func hideEmptyScreen()
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -68,14 +70,14 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         paymentMethods = KTPaymentManager().getAllPayments()
         
-//        if notifications.count == 0
-//        {
-//            self.del?.showEmptyScreen()
-//        }
-//        else
-//        {
-//            self.del?.hideEmptyScreen()
-//        }
+        if paymentMethods.count == 0
+        {
+            self.del?.showEmptyScreen()
+        }
+        else
+        {
+            self.del?.hideEmptyScreen()
+        }
         self.del?.reloadTableData()
     }
     
