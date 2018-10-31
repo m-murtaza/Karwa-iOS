@@ -6082,6 +6082,31 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_n_pay_empty" translatesAutoresizingMaskIntoConstraints="NO" id="GAF-BZ-qpj">
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_container" translatesAutoresizingMaskIntoConstraints="NO" id="pU0-Jv-aIk">
+                                <rect key="frame" x="0.0" y="447" width="375" height="170"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL FARE - 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sde-wL-Aoe">
+                                <rect key="frame" x="16" y="469" width="343" height="18"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP ID: 3A3HCC6334SU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK2-ls-Suy">
+                                <rect key="frame" x="16" y="492" width="343" height="12"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street Pickup - Karwa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOj-qR-yry">
+                                <rect key="frame" x="16" y="512" width="343" height="12"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqs-qL-i8x">
+                                <rect key="frame" x="30" y="559" width="315" height="50"/>
+                                <state key="normal" image="successfully_paid"/>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-R2-2r9">
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6152,16 +6177,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="KK2-ls-Suy" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="2SX-tB-51f"/>
+                            <constraint firstItem="vOj-qR-yry" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="4CT-jg-JnV"/>
+                            <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="pU0-Jv-aIk" secondAttribute="bottom" id="4Co-gn-yLh"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6EM-0u-HFl"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" id="7DA-fw-hKc"/>
+                            <constraint firstItem="pU0-Jv-aIk" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="7aL-ln-9ip"/>
+                            <constraint firstItem="KK2-ls-Suy" firstAttribute="top" secondItem="Sde-wL-Aoe" secondAttribute="bottom" constant="5" id="9Du-uo-fdo"/>
+                            <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="lqs-qL-i8x" secondAttribute="bottom" constant="8" id="Cgj-2c-AT4"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="Ed2-b4-0Av"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="lqs-qL-i8x" secondAttribute="trailing" constant="30" id="Hq9-HF-V73"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="Sde-wL-Aoe" secondAttribute="trailing" constant="16" id="ILn-wN-gT8"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="MiL-pX-nSt"/>
+                            <constraint firstItem="Sde-wL-Aoe" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="N3u-AU-A9V"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="vOj-qR-yry" secondAttribute="trailing" constant="16" id="NTs-8S-za5"/>
+                            <constraint firstItem="vOj-qR-yry" firstAttribute="top" secondItem="KK2-ls-Suy" secondAttribute="bottom" constant="8" id="Qm4-YC-JBH"/>
+                            <constraint firstItem="pU0-Jv-aIk" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="Wyn-4y-gS8"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="bottom" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="50" id="ZeW-fT-RIl"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="a6G-b5-5xv"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" constant="-50" id="aUT-l9-XyY"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="cNn-ip-kWW"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="edP-Ox-WNn"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="ilL-AH-X55"/>
+                            <constraint firstItem="lqs-qL-i8x" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="30" id="nfl-c6-pjg"/>
+                            <constraint firstItem="lqs-qL-i8x" firstAttribute="top" secondItem="vOj-qR-yry" secondAttribute="bottom" constant="35" id="ply-6h-s1a"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="KK2-ls-Suy" secondAttribute="trailing" constant="16" id="vie-Xl-kuI"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="wWe-BM-sIU"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="xzo-L6-u9J"/>
                         </constraints>
@@ -6180,7 +6220,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomContainer" destination="pU0-Jv-aIk" id="xu9-KY-Gvh"/>
+                        <outlet property="btnPay" destination="lqs-qL-i8x" id="vtR-Uj-eCl"/>
                         <outlet property="emptyView" destination="GAF-BZ-qpj" id="scc-y7-hbs"/>
+                        <outlet property="labelPickupType" destination="vOj-qR-yry" id="tXW-kA-uOj"/>
+                        <outlet property="labelTotalFare" destination="Sde-wL-Aoe" id="lyM-Ek-hGK"/>
+                        <outlet property="labelTripId" destination="KK2-ls-Suy" id="n0M-3x-Koe"/>
                         <outlet property="tableView" destination="Iua-R2-2r9" id="W0h-FR-8Tb"/>
                     </connections>
                 </viewController>
@@ -6955,6 +7000,7 @@
         <image name="UnderConstruction" width="360" height="245.75999450683594"/>
         <image name="arrows" width="196" height="14"/>
         <image name="bottom_action_bar" width="375" height="56"/>
+        <image name="bottom_container" width="375" height="170"/>
         <image name="business_sm_ico" width="44" height="44"/>
         <image name="card_lfrt_back" width="40" height="86"/>
         <image name="cards" width="375" height="86"/>
@@ -7005,6 +7051,7 @@
         <image name="step2_pick&amp;drop" width="195" height="107"/>
         <image name="step2_tap" width="60" height="91"/>
         <image name="step4_right_tree" width="264" height="62"/>
+        <image name="successfully_paid" width="315" height="50"/>
         <image name="swipe_hand" width="60" height="91"/>
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>

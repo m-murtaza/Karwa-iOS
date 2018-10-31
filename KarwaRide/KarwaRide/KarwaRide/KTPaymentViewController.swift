@@ -18,7 +18,12 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     public var isCrossButtonPressed = false
     @IBOutlet weak var emptyView: UIImageView!
     
-    
+    @IBOutlet weak var bottomContainer: UIImageView!
+    @IBOutlet weak var labelTotalFare: UILabel!
+    @IBOutlet weak var labelTripId: UILabel!
+    @IBOutlet weak var labelPickupType: UILabel!
+    @IBOutlet weak var btnPay: UIButton!
+
     override func viewDidLoad()
     {
         self.viewModel = KTPaymentViewModel(del: self)
