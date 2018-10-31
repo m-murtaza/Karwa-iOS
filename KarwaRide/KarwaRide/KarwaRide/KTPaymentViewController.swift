@@ -28,7 +28,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         super.viewDidLoad()
         
-        self.tableView.rowHeight = 80
+        self.tableView.rowHeight = 100
         self.tableView.tableFooterView = UIView()
         
         CardIOUtilities.preload()
@@ -68,15 +68,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 30
+        return 20
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        return UIView(frame:
-            CGRect(x: 0, y: 0, width: 10 , height: 30))
-        
+        return UIView(frame: CGRect(x: 0, y: 0, width: 10 , height: 20))
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

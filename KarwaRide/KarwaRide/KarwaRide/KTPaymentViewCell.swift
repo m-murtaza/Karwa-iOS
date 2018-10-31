@@ -18,6 +18,12 @@ class KTPaymentViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+//        let mScreenSize = UIScreen.main.bounds
+//        let mSeparatorHeight = CGFloat(10.0) // Change height of speatator as you want
+//        let mAddSeparator = UIView.init(frame: CGRect(x: 0, y: self.frame.size.height - mSeparatorHeight, width: mScreenSize.width, height: mSeparatorHeight))
+//        mAddSeparator.backgroundColor = UIColor.white // Change backgroundColor of separator
+//        self.addSubview(mAddSeparator)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
