@@ -67,6 +67,14 @@ class KTPaymentManager: KTDALManager
         }
     }
     
+    func makeDefaultPaymentMethod(defaultPaymentMethod paymentMethod : KTPaymentMethod)
+    {
+        for item in getAllPayments()
+        {
+            item.is_selected = (item.id == paymentMethod.id)
+        }
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+    }
     
     func makeOnePaymentMethodDefault()
     {
@@ -75,7 +83,6 @@ class KTPaymentManager: KTDALManager
         {
            payments[0].is_selected = true
         }
-
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
     

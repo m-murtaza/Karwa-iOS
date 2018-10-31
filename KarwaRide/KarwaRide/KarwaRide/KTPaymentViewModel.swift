@@ -84,7 +84,8 @@ class KTPaymentViewModel: KTBaseViewModel
     func rowSelected(atIndex idx: Int)
     {
         selectedPaymentMethod = paymentMethods[idx]
-//        del?.showIssueSelectionScene()
+        KTPaymentManager().makeDefaultPaymentMethod(defaultPaymentMethod: selectedPaymentMethod)
+        self.del?.reloadTableData()
     }
     
     func getImage(_ brand: String) -> String
