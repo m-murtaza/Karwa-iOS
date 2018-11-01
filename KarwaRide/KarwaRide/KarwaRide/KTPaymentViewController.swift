@@ -8,22 +8,28 @@
 
 import UIKit
 import BarcodeScanner
+import Spring
 
 class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
 {
     @IBOutlet weak var tableView: UITableView!
 
     public var vModel : KTPaymentViewModel?
+    public var payTripBean : PayTripBeanForServer?
+    
     public var isManageButtonPressed = false
     public var isCrossButtonPressed = false
     @IBOutlet weak var emptyView: UIImageView!
     
-    @IBOutlet weak var bottomContainer: UIImageView!
-    @IBOutlet weak var labelTotalFare: UILabel!
-    @IBOutlet weak var labelTripId: UILabel!
-    @IBOutlet weak var labelPickupType: UILabel!
-    @IBOutlet weak var btnPay: UIButton!
-
+    @IBOutlet weak var bottomContainer: SpringImageView!
+    @IBOutlet weak var labelTotalFare: SpringLabel!
+    @IBOutlet weak var labelTripId: SpringLabel!
+    @IBOutlet weak var labelPickupType: SpringLabel!
+    @IBOutlet weak var btnPay: SpringButton!
+    
+    @IBOutlet weak var btnAdd: SpringButton!
+    
+    
     override func viewDidLoad()
     {
         self.viewModel = KTPaymentViewModel(del: self)
@@ -39,7 +45,17 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         CardIOUtilities.preload()
         
+        payTripBean = nil
         presentBarcodeScanner()
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        if(payTripBean == nil)
+        {
+            hideBottomContainer()
+        }
+        btnAdd.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -50,8 +66,73 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             sideMenuViewController?.hideMenuViewController()
             isCrossButtonPressed = !isCrossButtonPressed
         }
+        
+        if(payTripBean != nil)
+        {
+            showBottomContainer()
+            populatePayTripData()
+            btnAdd.duration = 1
+            btnAdd.delay = 1
+        }
+        else
+        {
+            btnAdd.duration = 1
+            btnAdd.delay = 0.15
+        }
+        btnAdd.isHidden = false
+        btnAdd.animation = "slideUp"
+        btnAdd.animate()
     }
 
+    func populatePayTripData()
+    {
+        showBottomContainer()
+    }
+
+    func showBottomContainer()
+    {
+        bottomContainer.isHidden = false
+        labelTotalFare.isHidden = false
+        labelTripId.isHidden = false
+        labelPickupType.isHidden = false
+        btnPay.isHidden = false
+        
+        bottomContainer.animation = "slideUp"
+        labelTotalFare.animation = "slideUp"
+        labelTripId.animation = "slideUp"
+        labelPickupType.animation = "slideUp"
+        btnPay.animation = "slideUp"
+        
+        bottomContainer.duration = 1
+        labelTotalFare.duration = 1
+        labelTripId.duration = 1
+        labelPickupType.duration = 1
+        btnPay.duration = 1
+        
+        bottomContainer.delay = 0.15
+        labelTotalFare.delay = 0.25
+        labelTripId.delay = 0.35
+        labelPickupType.delay = 0.45
+        btnPay.delay = 0.55
+
+        
+        
+        bottomContainer.animate()
+        labelTotalFare.animate()
+        labelTripId.animate()
+        labelPickupType.animate()
+        btnPay.animate()
+    }
+    
+    func hideBottomContainer()
+    {
+        bottomContainer.isHidden = true
+        labelTotalFare.isHidden = true
+        labelTripId.isHidden = true
+        labelPickupType.isHidden = true
+        btnPay.isHidden = true
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return (vModel?.numberOfRows())!
@@ -164,6 +245,12 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         return viewController
     }
+    
+    private func isValidQRCode(_ code: String) -> Bool
+    {
+        //TODO: Validate QR Code Data
+        return true
+    }
 }
 
 // MARK: - BarcodeScannerCodeDelegate
@@ -171,10 +258,15 @@ extension KTPaymentViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
         print("Barcode Data: \(code)")
         print("Symbology Type: \(type)")
-        
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+
+        if(isValidQRCode(code))
+        {
+            payTripBean = PayTripBeanForServer("1001387", "", "10", "12", 1, "", "", "")
+            self.isManageButtonPressed = true
+            controller.dismiss(animated: false, completion: nil)
+        }
+        else
+        {
             controller.resetWithError()
         }
     }
@@ -183,7 +275,7 @@ extension KTPaymentViewController: BarcodeScannerCodeDelegate {
 // MARK: - BarcodeScannerErrorDelegate
 extension KTPaymentViewController: BarcodeScannerErrorDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
-        print(error)
+        controller.resetWithError()
     }
 }
 
@@ -203,6 +295,7 @@ extension KTPaymentViewController: BarcodeScannerManageDelegate
     func scannerDidManage(_ controller: BarcodeScannerViewController)
     {
         self.isManageButtonPressed = true
+        payTripBean = nil
         controller.dismiss(animated: true, completion: nil)
     }
 }
