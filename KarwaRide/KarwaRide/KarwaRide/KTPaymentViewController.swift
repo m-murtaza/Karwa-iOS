@@ -228,7 +228,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             print(str)
 
             showProgressHud(show: true, status: "Verifying card information")
-            vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, String(info.expiryMonth), String(info.expiryYear))
+            vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, info.expiryMonth, info.expiryYear)
         }
 
         self.paymentViewController = paymentViewController
@@ -271,7 +271,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         {
             message = explination
         }
-        
         showProgressHud(show: false, status: message)
     }
 }

@@ -100,7 +100,7 @@ class KTPaymentViewModel: KTBaseViewModel
     }
 
     // Call the gateway to update the session.
-    func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:String, _ year:String)
+    func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:UInt, _ year:UInt)
     {
         if(sessionId.count == 0 || apiVersion.count == 0)
         {
@@ -116,8 +116,8 @@ class KTPaymentViewModel: KTBaseViewModel
             request[at: "sourceOfFunds.provided.card.nameOnCard"] = cardHolderName
             request[at: "sourceOfFunds.provided.card.number"] = cardNo
             request[at: "sourceOfFunds.provided.card.securityCode"] = ccv
-            request[at: "sourceOfFunds.provided.card.expiry.month"] = month
-            request[at: "sourceOfFunds.provided.card.expiry.year"] = year
+            request[at: "sourceOfFunds.provided.card.expiry.month"] = getRefinedMonth(month)
+            request[at: "sourceOfFunds.provided.card.expiry.year"] = getRefinedYear(year)
             
             gateway.updateSession(sessionId, apiVersion: self.apiVersion, payload: request, completion: updateSessionHandler(_:))
         }
@@ -135,7 +135,14 @@ class KTPaymentViewModel: KTBaseViewModel
                 break;
 
             case .error(let error):
-                //TODO: Handle MPGS Error on CardIO View Controller
+
+                self.del?.showMPGSError(error)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+                {
+                    self.del?.hideCardInputController()
+                }
+
                 break;
         }
     }
@@ -162,6 +169,26 @@ class KTPaymentViewModel: KTBaseViewModel
         selectedPaymentMethod = paymentMethods[idx]
         KTPaymentManager().makeDefaultPaymentMethod(defaultPaymentMethod: selectedPaymentMethod)
         self.del?.reloadTableData()
+    }
+    
+    func getRefinedYear(_ year:UInt) ->String
+    {
+        var refinedYear = String(year)
+        if(refinedYear.count > 2)
+        {
+            refinedYear = String(refinedYear.suffix(2))
+        }
+        return refinedYear
+    }
+    
+    func getRefinedMonth(_ month:UInt) ->String
+    {
+        var refinedMonth = String(month)
+        if(refinedMonth.count < 2)
+        {
+            refinedMonth = "0" + refinedMonth
+        }
+        return refinedMonth
     }
     
     func getImage(_ brand: String) -> String
