@@ -27,6 +27,7 @@ class KTPaymentViewModel: KTBaseViewModel
         super.viewDidLoad()
         del = self.delegate as? KTPaymentViewModelDelegate
         fetchnPaymentMethods()
+
     }
     
     func numberOfRows() -> Int

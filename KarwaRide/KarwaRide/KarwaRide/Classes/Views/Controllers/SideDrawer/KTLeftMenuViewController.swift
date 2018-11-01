@@ -96,7 +96,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         case 4:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
             sideMenuViewController?.hideMenuViewController()
-//          presentBarcodeScanner()
             break
         case 5:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")

@@ -172,6 +172,8 @@ extension KTPaymentViewController: BarcodeScannerCodeDelegate {
         print("Barcode Data: \(code)")
         print("Symbology Type: \(type)")
         
+        
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
             controller.resetWithError()
         }
