@@ -741,7 +741,7 @@ public class ToastManager {
      Default is `ToastPosition.Bottom`.
      
      */
-    public var position: ToastPosition = .bottom
+    public var position: ToastPosition = .center
     
 }
 

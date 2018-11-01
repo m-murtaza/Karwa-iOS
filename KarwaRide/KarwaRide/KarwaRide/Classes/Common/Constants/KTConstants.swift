@@ -182,6 +182,8 @@ struct Constants {
         static let Brand =  "Brand"
         static let Balance =  "Balance"
         static let IsRemovable =  "IsRemovable"
+        static let SessionId = "SessionId"
+        static let ApiVersion = "ApiVersion"
     }
     
     struct PayTripAPIKey {

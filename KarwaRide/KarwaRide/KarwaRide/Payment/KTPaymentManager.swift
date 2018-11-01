@@ -113,10 +113,10 @@ class KTPaymentManager: KTDALManager
         )
     }
     
-    func updateMPGSSuccessAtServer(mpgsSession: MPGSSession, completion completionBlock: @escaping KTDALCompletionBlock)
+    func updateMPGSSuccessAtServer(_ sessionId:String, _ apiVersion:String, completion completionBlock: @escaping KTDALCompletionBlock)
     {
-        let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: mpgsSession.sessionId,
-                                    Constants.MPGSSessionAPIKey.ApiVersion: mpgsSession.apiVersion]
+        let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: sessionId,
+                                    Constants.MPGSSessionAPIKey.ApiVersion: apiVersion]
         
         self.post(url: Constants.APIURL.MPGSSuccessToServer, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in

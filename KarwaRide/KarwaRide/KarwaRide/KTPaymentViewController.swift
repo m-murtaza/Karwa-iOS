@@ -218,13 +218,26 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         paymentViewController?.dismiss(animated: true, completion: nil)
     }
     
+    var paymentViewController: CardIOPaymentViewController = CardIOPaymentViewController()
+
     func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!)
     {
-        if let info = cardInfo {
+        if let info = cardInfo
+        {
             let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
             print(str)
+
+            showProgressHud(show: true, status: "Verifying card information")
+            vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, String(info.expiryMonth), String(info.expiryYear))
         }
-        paymentViewController?.dismiss(animated: true, completion: nil)
+
+        self.paymentViewController = paymentViewController
+    }
+
+    func hideCardInputController()
+    {
+        paymentViewController.dismiss(animated: true, completion: nil)
+        reloadTableData()
     }
     
     private func presentBarcodeScanner()
@@ -239,8 +252,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         viewController.errorDelegate = self
         viewController.dismissalDelegate = self
         viewController.manageDelegate = self
-        
-        // Change focus view style
+
         viewController.cameraViewController.barCodeFocusViewType = .animated
         
         return viewController
@@ -250,6 +262,17 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         //TODO: Validate QR Code Data
         return true
+    }
+
+    func showMPGSError(_ error: Error)
+    {
+        var message = "Unable to update session."
+        if case GatewayError.failedRequest( _, let explination) = error
+        {
+            message = explination
+        }
+        
+        showProgressHud(show: false, status: message)
     }
 }
 

@@ -13,6 +13,8 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func reloadTableData()
     func showEmptyScreen()
     func hideEmptyScreen()
+    func hideCardInputController()
+    func showMPGSError(_ error: Error)
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -21,13 +23,16 @@ class KTPaymentViewModel: KTBaseViewModel
 
     var paymentMethods : [KTPaymentMethod] = []
     var selectedPaymentMethod = KTPaymentMethod()
+
+    var sessionId = ""
+    var apiVersion = ""
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         del = self.delegate as? KTPaymentViewModelDelegate
         fetchnPaymentMethods()
-
+        fetchSessionInfo()
     }
     
     func numberOfRows() -> Int
@@ -80,6 +85,76 @@ class KTPaymentViewModel: KTBaseViewModel
             self.del?.hideEmptyScreen()
         }
         self.del?.reloadTableData()
+    }
+    
+    func fetchSessionInfo()
+    {
+        KTPaymentManager().createSessionForPaymentAtServer { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                self.sessionId = (response[Constants.PaymentResponseAPIKey.SessionId] as? String)!
+                let apiVersionInt : Int = ((response[Constants.PaymentResponseAPIKey.ApiVersion] as? Int)!)
+                self.apiVersion = String(apiVersionInt)
+            }
+        }
+    }
+
+    // Call the gateway to update the session.
+    func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:String, _ year:String)
+    {
+        if(sessionId.count == 0 || apiVersion.count == 0)
+        {
+            self.del?.showError!(title: "Error", message: "Payment Verification is not available, please try again later")
+            fetchSessionInfo()
+        }
+        else
+        {
+            // MARK: - Gateway Setup
+            let gateway: Gateway = Gateway(region: GatewayRegion.mtf, merchantId: "TESTMOWKAREVL01")
+            
+            var request = GatewayMap()
+            request[at: "sourceOfFunds.provided.card.nameOnCard"] = cardHolderName
+            request[at: "sourceOfFunds.provided.card.number"] = cardNo
+            request[at: "sourceOfFunds.provided.card.securityCode"] = ccv
+            request[at: "sourceOfFunds.provided.card.expiry.month"] = month
+            request[at: "sourceOfFunds.provided.card.expiry.year"] = year
+            
+            gateway.updateSession(sessionId, apiVersion: self.apiVersion, payload: request, completion: updateSessionHandler(_:))
+        }
+    }
+    
+    // MARK: - Handle the Update Response
+    // Call the gateway to update the session.
+    fileprivate func updateSessionHandler(_ result: GatewayResult<GatewayMap>)
+    {
+        switch result
+        {
+            case .success(_):
+                self.del?.showProgressHud(show: true, status: "Adding card payment to your account")
+                updateCardToServer()
+                break;
+
+            case .error(let error):
+                //TODO: Handle MPGS Error on CardIO View Controller
+                break;
+        }
+    }
+    
+    func updateCardToServer()
+    {
+        KTPaymentManager().updateMPGSSuccessAtServer(sessionId, apiVersion, completion: { (status, response) in
+
+            self.del?.hideProgressHud()
+
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                self.del?.hideCardInputController()
+            }
+            else
+            {
+                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
+        })
     }
     
     func rowSelected(atIndex idx: Int)

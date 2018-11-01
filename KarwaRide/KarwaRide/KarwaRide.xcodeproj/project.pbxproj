@@ -22,6 +22,16 @@
 		0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */; };
 		0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
+		0DE6A73F218B141200125507 /* GatewayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A734218B140F00125507 /* GatewayError.swift */; };
+		0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A735218B141000125507 /* GatewayRegion.swift */; };
+		0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */; };
+		0DE6A742218B141200125507 /* MPGSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A737218B141000125507 /* MPGSDK.swift */; };
+		0DE6A743218B141200125507 /* Gateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A738218B141000125507 /* Gateway.swift */; };
+		0DE6A745218B141200125507 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A73A218B141100125507 /* Coding.swift */; };
+		0DE6A746218B141200125507 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A73B218B141100125507 /* BuildConfig.swift */; };
+		0DE6A747218B141200125507 /* GatewayMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A73C218B141100125507 /* GatewayMap.swift */; };
+		0DE6A748218B141200125507 /* Gateway3DSecureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A73D218B141100125507 /* Gateway3DSecureViewController.swift */; };
+		0DE6A749218B141200125507 /* GatewayResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A73E218B141200125507 /* GatewayResult.swift */; };
 		0DE90AF42186E8A6005FC934 /* KTPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE90AF32186E8A6005FC934 /* KTPaymentViewController.swift */; };
 		0DE90AF72186E9FB005FC934 /* KTPaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE90AF62186E9FB005FC934 /* KTPaymentViewModel.swift */; };
 		0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEA1F502166055D00649F8B /* ComplaintsManager.swift */; };
@@ -190,6 +200,16 @@
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
+		0DE6A734218B140F00125507 /* GatewayError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayError.swift; sourceTree = "<group>"; };
+		0DE6A735218B141000125507 /* GatewayRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayRegion.swift; sourceTree = "<group>"; };
+		0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gateway+URLSessionDelegate.swift"; sourceTree = "<group>"; };
+		0DE6A737218B141000125507 /* MPGSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPGSDK.swift; sourceTree = "<group>"; };
+		0DE6A738218B141000125507 /* Gateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gateway.swift; sourceTree = "<group>"; };
+		0DE6A73A218B141100125507 /* Coding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
+		0DE6A73B218B141100125507 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
+		0DE6A73C218B141100125507 /* GatewayMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayMap.swift; sourceTree = "<group>"; };
+		0DE6A73D218B141100125507 /* Gateway3DSecureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gateway3DSecureViewController.swift; sourceTree = "<group>"; };
+		0DE6A73E218B141200125507 /* GatewayResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayResult.swift; sourceTree = "<group>"; };
 		0DE90AF32186E8A6005FC934 /* KTPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewController.swift; sourceTree = "<group>"; };
 		0DE90AF62186E9FB005FC934 /* KTPaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewModel.swift; sourceTree = "<group>"; };
 		0DEA1F502166055D00649F8B /* ComplaintsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsManager.swift; sourceTree = "<group>"; };
@@ -396,6 +416,23 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		0DE6A733218B140200125507 /* MPGS */ = {
+			isa = PBXGroup;
+			children = (
+				0DE6A73B218B141100125507 /* BuildConfig.swift */,
+				0DE6A73A218B141100125507 /* Coding.swift */,
+				0DE6A738218B141000125507 /* Gateway.swift */,
+				0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */,
+				0DE6A73D218B141100125507 /* Gateway3DSecureViewController.swift */,
+				0DE6A734218B140F00125507 /* GatewayError.swift */,
+				0DE6A73C218B141100125507 /* GatewayMap.swift */,
+				0DE6A735218B141000125507 /* GatewayRegion.swift */,
+				0DE6A73E218B141200125507 /* GatewayResult.swift */,
+				0DE6A737218B141000125507 /* MPGSDK.swift */,
+			);
+			name = MPGS;
+			sourceTree = "<group>";
+		};
 		0DE90AF22186E805005FC934 /* ScanAndPay */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +481,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				0DE6A733218B140200125507 /* MPGS */,
 				1852094020623BDF00BD5FCD /* GifImage */,
 				1852093D205F96DE00BD5FCD /* ARCarMovement */,
 				18F2B26D2042932300600966 /* SSASideMenu */,
@@ -1369,6 +1407,7 @@
 				182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
 				0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */,
+				0DE6A746218B141200125507 /* BuildConfig.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
 				1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */,
 				1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */,
@@ -1390,17 +1429,20 @@
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */,
 				186ECFC520A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift in Sources */,
+				0DE6A747218B141200125507 /* GatewayMap.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
 				182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */,
 				18FA45BB20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
+				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
 				18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */,
 				0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */,
 				182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */,
+				0DE6A73F218B141200125507 /* GatewayError.swift in Sources */,
 				1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */,
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */,
@@ -1410,7 +1452,9 @@
 				186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */,
 				1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */,
 				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
+				0DE6A742218B141200125507 /* MPGSDK.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,
+				0DE6A748218B141200125507 /* Gateway3DSecureViewController.swift in Sources */,
 				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
@@ -1442,6 +1486,7 @@
 				1811E4E0204FD22300C3C47F /* KTBookmarkManager.swift in Sources */,
 				18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */,
 				18F2B2792044214000600966 /* KTSettingsViewController.swift in Sources */,
+				0DE6A743218B141200125507 /* Gateway.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
@@ -1463,6 +1508,7 @@
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */,
+				0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */,
 				186ECFCE20A80E2B002CF81E /* KTFirstViewController.swift in Sources */,
 				0D045C8B216F248500D3904B /* KTIssueTableViewCell.swift in Sources */,
 				1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */,
@@ -1480,6 +1526,8 @@
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
 				0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
+				0DE6A745218B141200125507 /* Coding.swift in Sources */,
+				0DE6A749218B141200125507 /* GatewayResult.swift in Sources */,
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,

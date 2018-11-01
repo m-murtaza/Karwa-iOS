@@ -160,7 +160,7 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
         style.messageFont = .systemFont(ofSize: 13)
         style.messageColor = .black
         
-        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
+        self.view.makeToast(message, duration: 3.0, position: .center, style: style)
         
     }
 }
