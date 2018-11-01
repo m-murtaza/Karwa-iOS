@@ -13,8 +13,7 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func reloadTableData()
     func showEmptyScreen()
     func hideEmptyScreen()
-    func hideCardInputController()
-    func showMPGSError(_ error: Error)
+    func hideCardIOPaymentController()
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -102,9 +101,12 @@ class KTPaymentViewModel: KTBaseViewModel
     // Call the gateway to update the session.
     func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:UInt, _ year:UInt)
     {
+        self.del?.showProgressHud(show: true, status: "Verifying card information")
+
         if(sessionId.count == 0 || apiVersion.count == 0)
         {
-            self.del?.showError!(title: "Error", message: "Payment Verification is not available, please try again later")
+            self.del?.hideProgressHud()
+            self.del?.showErrorBanner("", "Payment Verification is not available, please try again later")
             fetchSessionInfo()
         }
         else
@@ -127,6 +129,8 @@ class KTPaymentViewModel: KTBaseViewModel
     // Call the gateway to update the session.
     fileprivate func updateSessionHandler(_ result: GatewayResult<GatewayMap>)
     {
+        self.del?.hideProgressHud()
+
         switch result
         {
             case .success(_):
@@ -136,12 +140,13 @@ class KTPaymentViewModel: KTBaseViewModel
 
             case .error(let error):
 
-                self.del?.showMPGSError(error)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+                var message = "Unable to update session."
+                if case GatewayError.failedRequest( _, let explination) = error
                 {
-                    self.del?.hideCardInputController()
+                    message = explination
                 }
+                
+                self.del?.showErrorBanner("Error", message)
 
                 break;
         }
@@ -150,16 +155,25 @@ class KTPaymentViewModel: KTBaseViewModel
     func updateCardToServer()
     {
         KTPaymentManager().updateMPGSSuccessAtServer(sessionId, apiVersion, completion: { (status, response) in
-
+            
             self.del?.hideProgressHud()
-
+            self.del?.showProgressHud(show: true, status: "Syncing payment methods")
+            
             if status == Constants.APIResponseStatus.SUCCESS
             {
-                self.del?.hideCardInputController()
+                self.del?.hideCardIOPaymentController()
+
+                self.del?.showSuccessBanner("Payment Method Added", "Payment method has been added successfully")
+                
+                KTPaymentManager().fetchPaymentsFromServer{(status, response) in
+            
+                    self.del?.hideProgressHud()
+                    self.fetchnPaymentMethods()
+                }
             }
             else
             {
-                self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
             }
         })
     }

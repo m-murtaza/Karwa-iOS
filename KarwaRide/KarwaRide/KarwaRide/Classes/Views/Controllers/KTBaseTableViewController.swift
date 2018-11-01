@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 import Toast_Swift
-
+import NotificationBannerSwift
 class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
 {
     var viewModel : KTBaseViewModel?
@@ -162,5 +162,40 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
         
         self.view.makeToast(message, duration: 3.0, position: .center, style: style)
         
+    }
+    
+    func showSuccessBanner(_ title: String, _ message: String)
+    {
+        showBanner(title, message, BannerStyle.success)
+    }
+    
+    func showInfoBanner(_ title: String, _ message: String)
+    {
+        showBanner(title, message, BannerStyle.info)
+    }
+    
+    func showErrorBanner(_ title: String, _ message: String)
+    {
+        showBanner(title, message, BannerStyle.danger)
+    }
+    
+    func showNonBanner(_ title: String, _ message: String)
+    {
+        showBanner(title, message, BannerStyle.none)
+    }
+    
+    func showWarningBanner(_ title: String, _ message: String)
+    {
+        showBanner(title, message, BannerStyle.warning)
+    }
+    
+    func showBanner(_ title: String, _ message: String, _ bannerStyle: BannerStyle)
+    {
+        let banner = NotificationBanner(title: title, subtitle: message, style: bannerStyle)
+        banner.show()
+        DispatchQueue.main.asyncAfter(deadline: (.now() + 4))
+        {
+            banner.dismiss()
+        }
     }
 }
