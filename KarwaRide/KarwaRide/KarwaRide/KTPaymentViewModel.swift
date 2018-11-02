@@ -91,7 +91,7 @@ class KTPaymentViewModel: KTBaseViewModel
                     self.del?.showEmptyScreen()
                 }
                 
-                self.del?.showSuccessBanner("", "Payment method Removed successfully")
+                self.del?.showSuccessBanner("  ", "Payment method removed successfully")
             }
             else
             {
@@ -135,7 +135,7 @@ class KTPaymentViewModel: KTBaseViewModel
         if(sessionId.count == 0 || apiVersion.count == 0)
         {
             self.del?.hideProgressHud()
-            self.del?.showErrorBanner("", "Payment Verification is not available, please try again later")
+            self.del?.showErrorBanner("Sorry", "Payment verification is not available, try again later")
             fetchSessionInfo()
         }
         else
@@ -186,13 +186,13 @@ class KTPaymentViewModel: KTBaseViewModel
         KTPaymentManager().updateMPGSSuccessAtServer(sessionId, apiVersion, completion: { (status, response) in
             
             self.del?.hideProgressHud()
-            self.del?.showProgressHud(show: true, status: "Syncing payment methods")
+            self.del?.showProgressHud(show: true, status: "Updating payment methods")
             
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 self.del?.hideCardIOPaymentController()
 
-                self.del?.showSuccessBanner("Payment Method Added", "Payment method has been added successfully")
+                self.del?.showSuccessBanner("  ", "Payment method added successfully")
                 
                 KTPaymentManager().fetchPaymentsFromServer{(status, response) in
             
