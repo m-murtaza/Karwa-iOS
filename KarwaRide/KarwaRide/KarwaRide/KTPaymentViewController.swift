@@ -9,6 +9,7 @@
 import UIKit
 import BarcodeScanner
 import Spring
+import CDAlertView
 
 class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
 {
@@ -19,7 +20,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     public var isManageButtonPressed = false
     public var isCrossButtonPressed = false
-    @IBOutlet weak var emptyView: UIImageView!
+    @IBOutlet weak var emptyView: SpringImageView!
     
     @IBOutlet weak var bottomContainer: SpringImageView!
     @IBOutlet weak var labelTotalFare: SpringLabel!
@@ -28,6 +29,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var btnPay: SpringButton!
     
     @IBOutlet weak var btnAdd: SpringButton!
+    @IBOutlet weak var btnEdit: UIBarButtonItem!
     
     
     override func viewDidLoad()
@@ -133,9 +135,95 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnPay.isHidden = true
     }
     
+    @IBAction func editBtnTapped(_ sender: Any)
+    {
+        toggleEditButton()
+    }
+    
+    func toggleEditButton()
+    {
+        if btnEdit.title! == "Edit"
+        {
+            self.tableView.setEditing(true, animated: true)
+            btnEdit.title = "Done"
+        }
+        else
+        {
+            self.tableView.setEditing(false, animated: true)
+            btnEdit.title = "Edit"
+        }
+    }
+    
+    func toggleDoneToEdit()
+    {
+        self.tableView.setEditing(false, animated: true)
+        if btnEdit.title! == "Done"
+        {
+            btnEdit.title = "Edit"
+        }
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return (vModel?.numberOfRows())!
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle
+    {
+        if self.tableView.isEditing
+        {
+            return UITableViewCellEditingStyle.delete
+        }
+        else
+        {
+            return UITableViewCellEditingStyle.none
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if(editingStyle == .delete)
+        {
+            self.showPopupDeleteConfirmation(indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
+
+        let deleteAction = UITableViewRowAction(style: .normal, title: "Remove"){ (rowAction, indexPath) in
+//            self.showPopupDeleteConfirmation(indexPath)
+        }
+
+        deleteAction.backgroundColor = .red
+
+        self.showPopupDeleteConfirmation(indexPath)
+        
+        return [deleteAction]
+
+    }
+    
+    func showPopupDeleteConfirmation(_ indexPath: IndexPath)
+    {
+        let alert = CDAlertView(title: "Confrimation", message: "Are you sure you want to remove payment method", type: .warning)
+
+        let removeAction = CDAlertViewAction(title: "Remove", textColor: .red,
+                                           handler:{(alert: CDAlertViewAction) -> Bool in
+                                                self.vModel?.deletePaymentMethod(indexPath)
+                                                self.toggleDoneToEdit()
+                                                return true})
+
+        alert.add(action: removeAction)
+
+        let keepAction = CDAlertViewAction(title: "Keep", handler:{(alert: CDAlertViewAction) -> Bool in
+                                                self.toggleDoneToEdit()
+                                                return true})
+        alert.add(action: keepAction)
+        alert.show()
+    }
+    
+    func deleteRowWithAnimation(_ indexPath: IndexPath)
+    {
+        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
     }
     
     var animationDelay = 1.0
@@ -170,12 +258,21 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         emptyView.isHidden = false
         tableView.isHidden = true
+        btnEdit.title = ""
+
+        emptyView.animation = "squeezeDown"
+        emptyView.duration = 1
+        emptyView.delay = 0.15
+        
+        emptyView.animate()
+        
     }
 
     func hideEmptyScreen()
     {
         emptyView.isHidden = true
         tableView.isHidden = false
+        btnEdit.title = "Edit"
     }
     
     func reloadTableData()

@@ -14,6 +14,7 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func showEmptyScreen()
     func hideEmptyScreen()
     func hideCardIOPaymentController()
+    func deleteRowWithAnimation(_ index: IndexPath)
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -69,6 +70,34 @@ class KTPaymentViewModel: KTBaseViewModel
     func paymentTapped()
     {
         self.del?.reloadTableData()
+    }
+    
+    func deletePaymentMethod(_ indexPath: IndexPath)
+    {
+        self.del?.showProgressHud(show: true, status: "Removing Payment Method")
+
+        KTPaymentManager().deletePaymentAtServer(paymentMethod: paymentMethods[indexPath.row]) { (status, response) in
+            
+            self.del?.hideProgressHud()
+
+            if(status == Constants.APIResponseStatus.SUCCESS)
+            {
+                self.paymentMethods.remove(at: indexPath.row)
+                
+                self.del?.deleteRowWithAnimation(indexPath)
+                
+                if(self.paymentMethods.count == 0)
+                {
+                    self.del?.showEmptyScreen()
+                }
+                
+                self.del?.showSuccessBanner("", "Payment method Removed successfully")
+            }
+            else
+            {
+                self.del?.showErrorBanner(response["T"] as! String, response["M"] as! String)
+            }
+        }
     }
     
     func fetchnPaymentMethods()
