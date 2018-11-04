@@ -106,14 +106,16 @@ class KTPaymentViewModel: KTBaseViewModel
     func fetchnPaymentMethods()
     {
         paymentMethods = KTPaymentManager().getAllPayments()
-        selectedPaymentMethod = KTPaymentManager().getDefaultPayment()
+        
+        let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
 
-        if(selectedPaymentMethod.balance == nil)
+        if(selectedPaymentFromDB == nil)
         {
             self.del?.showPayNonTappableBtn()
         }
         else
         {
+            selectedPaymentMethod = selectedPaymentFromDB!
             self.del?.showPayBtn()
         }
 
