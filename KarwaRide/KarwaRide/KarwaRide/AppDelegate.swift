@@ -165,6 +165,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
+    {
+        //TODO
+        print("CATCHED FINALLY !!!")
+
+        if(userActivity.activityType == NSUserActivityTypeBrowsingWeb)
+        {
+            let incomingURL = userActivity.webpageURL
+            let components = NSURLComponents(url: incomingURL!, resolvingAgainstBaseURL: true)
+            guard let path = components!.path
+            else
+            {
+                return false
+            }
+            
+            print("path = \(path)")
+        }
+        return false    
+    }
+    
+    /* Present Pay Trip View Controller */
+//    func presentDetailViewController(_ computer: Computer)
+//    {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        guard
+//            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailController") as? ComputerDetailController,
+//            let navigationVC = storyboard.instantiateViewController(withIdentifier: "NavigationController") as? UINavigationController
+//            else { return }
+//
+//        detailVC.item = computer
+//        navigationVC.modalPresentationStyle = .formSheet
+//        navigationVC.pushViewController(detailVC, animated: true)
+//    }
+    
     //Notifiacation receive when application is in background
     func application(
         _ application: UIApplication,

@@ -77,6 +77,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         if(payTripBean != nil)
         {
+            vModel?.showingTripPayment()
             showBottomContainer()
             populatePayTripData()
             btnAdd.duration = 1
@@ -147,6 +148,12 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnPay.image = UIImage(named: "pay_button")
     }
     
+    func showPayNonTappableBtn()
+    {
+        btnPay.isUserInteractionEnabled = false
+        btnPay.image = UIImage(named: "pay_button_inactive")
+    }
+    
     func showPaidSuccessBtn()
     {
         btnPay.isUserInteractionEnabled = false
@@ -164,12 +171,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.delay = 0.15
 
         tripPaidSuccessImageView.isHidden = false
-    }
-    
-    func showPayNonTappableBtn()
-    {
-        btnPay.isUserInteractionEnabled = false
-        btnPay.image = UIImage(named: "pay_button")
     }
     
     @IBAction func editBtnTapped(_ sender: Any)

@@ -92,6 +92,7 @@ class KTPaymentViewModel: KTBaseViewModel
                 if(self.paymentMethods.count == 0)
                 {
                     self.del?.showEmptyScreen()
+                    self.del?.showPayNonTappableBtn()
                 }
                 
                 self.del?.showSuccessBanner("  ", "Payment method removed successfully")
@@ -101,6 +102,22 @@ class KTPaymentViewModel: KTBaseViewModel
                 self.del?.showErrorBanner(response["T"] as! String, response["M"] as! String)
             }
         }
+    }
+    
+    func showingTripPayment()
+    {
+        let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
+
+        if(selectedPaymentFromDB == nil)
+        {
+            self.del?.showPayNonTappableBtn()
+        }
+        else
+        {
+            selectedPaymentMethod = selectedPaymentFromDB!
+            self.del?.showPayBtn()
+        }
+        
     }
     
     func fetchnPaymentMethods()
@@ -122,6 +139,7 @@ class KTPaymentViewModel: KTBaseViewModel
         if paymentMethods.count == 0
         {
             self.del?.showEmptyScreen()
+            self.del?.showPayNonTappableBtn()
         }
         else
         {
