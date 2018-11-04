@@ -1793,7 +1793,7 @@
                                 <rect key="frame" x="40" y="157" width="295" height="150"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih5-Tj-ObB">
-                                        <rect key="frame" x="20" y="14.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="14" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -1816,7 +1816,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYH-hK-gaq">
-                                        <rect key="frame" x="20" y="114.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="114" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -1825,7 +1825,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ce2-eZ-A8z">
-                                        <rect key="frame" x="20" y="64.5" width="255" height="21"/>
+                                        <rect key="frame" x="20" y="64" width="255" height="22"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -6082,6 +6082,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_n_pay_empty" translatesAutoresizingMaskIntoConstraints="NO" id="GAF-BZ-qpj" customClass="SpringImageView" customModule="Spring">
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paid_graphics" translatesAutoresizingMaskIntoConstraints="NO" id="X4J-GD-7EC" customClass="SpringImageView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="64" width="375" height="282"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-R2-2r9">
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6160,7 +6163,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL FARE - 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sde-wL-Aoe" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="466.5" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="469.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6176,7 +6179,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP ID: 3A3HCC6334SU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK2-ls-Suy" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="492" width="343" height="12"/>
+                                <rect key="frame" x="16" y="495" width="343" height="12"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6192,7 +6195,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street Pickup - Karwa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOj-qR-yry" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="512" width="343" height="12"/>
+                                <rect key="frame" x="16" y="515" width="343" height="12"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -6207,20 +6210,9 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqs-qL-i8x" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="30" y="559" width="315" height="50"/>
-                                <state key="normal" image="successfully_paid"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.45000000000000001"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pay_button" translatesAutoresizingMaskIntoConstraints="NO" id="nZR-ob-FP9" customClass="SpringImageView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="537" width="375" height="80"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -6228,26 +6220,29 @@
                             <constraint firstItem="vOj-qR-yry" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="4CT-jg-JnV"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="pU0-Jv-aIk" secondAttribute="bottom" id="4Co-gn-yLh"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6EM-0u-HFl"/>
+                            <constraint firstItem="X4J-GD-7EC" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6TF-h0-IXI"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" id="7DA-fw-hKc"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="7aL-ln-9ip"/>
                             <constraint firstItem="KK2-ls-Suy" firstAttribute="top" secondItem="Sde-wL-Aoe" secondAttribute="bottom" constant="5" id="9Du-uo-fdo"/>
-                            <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="lqs-qL-i8x" secondAttribute="bottom" constant="8" id="Cgj-2c-AT4"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="Ed2-b4-0Av"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="lqs-qL-i8x" secondAttribute="trailing" constant="30" id="Hq9-HF-V73"/>
+                            <constraint firstItem="nZR-ob-FP9" firstAttribute="top" secondItem="vOj-qR-yry" secondAttribute="bottom" constant="10" id="G26-bS-HMF"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="Sde-wL-Aoe" secondAttribute="trailing" constant="16" id="ILn-wN-gT8"/>
+                            <constraint firstItem="X4J-GD-7EC" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="L4y-Fv-n6O"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="MiL-pX-nSt"/>
                             <constraint firstItem="Sde-wL-Aoe" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="N3u-AU-A9V"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="vOj-qR-yry" secondAttribute="trailing" constant="16" id="NTs-8S-za5"/>
                             <constraint firstItem="vOj-qR-yry" firstAttribute="top" secondItem="KK2-ls-Suy" secondAttribute="bottom" constant="8" id="Qm4-YC-JBH"/>
+                            <constraint firstItem="X4J-GD-7EC" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="SYu-Qx-WI5"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="Wyn-4y-gS8"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="bottom" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="50" id="ZeW-fT-RIl"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="a6G-b5-5xv"/>
+                            <constraint firstItem="nZR-ob-FP9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="aF2-ur-Fqb"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" constant="-50" id="aUT-l9-XyY"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="cNn-ip-kWW"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="nZR-ob-FP9" secondAttribute="trailing" id="dfI-Te-vAT"/>
                             <constraint firstItem="GAF-BZ-qpj" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="edP-Ox-WNn"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="ilL-AH-X55"/>
-                            <constraint firstItem="lqs-qL-i8x" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="30" id="nfl-c6-pjg"/>
-                            <constraint firstItem="lqs-qL-i8x" firstAttribute="top" secondItem="vOj-qR-yry" secondAttribute="bottom" constant="35" id="ply-6h-s1a"/>
+                            <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="nZR-ob-FP9" secondAttribute="bottom" id="srU-u2-tbE"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="KK2-ls-Suy" secondAttribute="trailing" constant="16" id="vie-Xl-kuI"/>
                             <constraint firstItem="LCu-cz-wg7" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="wWe-BM-sIU"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="xzo-L6-u9J"/>
@@ -6275,12 +6270,13 @@
                         <outlet property="bottomContainer" destination="pU0-Jv-aIk" id="xu9-KY-Gvh"/>
                         <outlet property="btnAdd" destination="LCu-cz-wg7" id="eZa-K9-PlD"/>
                         <outlet property="btnEdit" destination="vTe-W1-q4F" id="cSu-dx-27h"/>
-                        <outlet property="btnPay" destination="lqs-qL-i8x" id="vtR-Uj-eCl"/>
+                        <outlet property="btnPay" destination="nZR-ob-FP9" id="YgQ-VH-4eP"/>
                         <outlet property="emptyView" destination="GAF-BZ-qpj" id="scc-y7-hbs"/>
                         <outlet property="labelPickupType" destination="vOj-qR-yry" id="tXW-kA-uOj"/>
                         <outlet property="labelTotalFare" destination="Sde-wL-Aoe" id="lyM-Ek-hGK"/>
                         <outlet property="labelTripId" destination="KK2-ls-Suy" id="n0M-3x-Koe"/>
                         <outlet property="tableView" destination="Iua-R2-2r9" id="W0h-FR-8Tb"/>
+                        <outlet property="tripPaidSuccessImageView" destination="X4J-GD-7EC" id="mQz-eo-6ye"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Skp-xo-Wrp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -7089,6 +7085,8 @@
         <image name="map" width="298" height="304"/>
         <image name="map_route" width="218" height="224"/>
         <image name="notification_empty" width="360" height="458"/>
+        <image name="paid_graphics" width="375" height="282"/>
+        <image name="pay_button" width="345" height="80"/>
         <image name="paymentoption_inactive_back" width="346" height="71"/>
         <image name="phone_address" width="180" height="325"/>
         <image name="phone_details" width="180" height="325"/>
@@ -7105,7 +7103,6 @@
         <image name="step2_pick&amp;drop" width="195" height="107"/>
         <image name="step2_tap" width="60" height="91"/>
         <image name="step4_right_tree" width="264" height="62"/>
-        <image name="successfully_paid" width="315" height="50"/>
         <image name="swipe_hand" width="60" height="91"/>
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>

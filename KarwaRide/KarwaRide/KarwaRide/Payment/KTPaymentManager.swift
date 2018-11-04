@@ -95,6 +95,13 @@ class KTPaymentManager: KTDALManager
         return paymentMethods
     }
     
+    func getDefaultPayment() -> KTPaymentMethod
+    {
+        let predicate : NSPredicate = NSPredicate(format:"is_selected = %d" , true)
+        
+        return KTPaymentMethod.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default())!
+    }
+    
     func deleteAllPaymentMethods()
     {
         let predicate : NSPredicate = NSPredicate(format:"is_removable = %d" , true)

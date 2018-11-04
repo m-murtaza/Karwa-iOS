@@ -15,6 +15,9 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func hideEmptyScreen()
     func hideCardIOPaymentController()
     func deleteRowWithAnimation(_ index: IndexPath)
+    func showPayBtn()
+    func showTripPaidScene()
+    func showPayNonTappableBtn()
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -103,7 +106,17 @@ class KTPaymentViewModel: KTBaseViewModel
     func fetchnPaymentMethods()
     {
         paymentMethods = KTPaymentManager().getAllPayments()
-        
+        selectedPaymentMethod = KTPaymentManager().getDefaultPayment()
+
+        if(selectedPaymentMethod.balance == nil)
+        {
+            self.del?.showPayNonTappableBtn()
+        }
+        else
+        {
+            self.del?.showPayBtn()
+        }
+
         if paymentMethods.count == 0
         {
             self.del?.showEmptyScreen()
@@ -127,6 +140,29 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
 
+    func payTripButtonTapped(payTripBean : PayTripBeanForServer)
+    {
+        self.del?.showProgressHud(show: true, status: "We are paying your amount")
+        
+        payTripBean.paymentMethodId = String(selectedPaymentMethod.id)
+        
+        KTPaymentManager().payTripAtServer(payTrip: payTripBean) { (success, response) in
+
+            self.del?.hideProgressHud()
+
+            if success == Constants.APIResponseStatus.SUCCESS
+            {
+                self.del?.showTripPaidScene()
+
+                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
+            }
+            else
+            {
+                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
+        }
+    }
+    
     // Call the gateway to update the session.
     func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:UInt, _ year:UInt)
     {

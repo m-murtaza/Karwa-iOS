@@ -26,8 +26,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var labelTotalFare: SpringLabel!
     @IBOutlet weak var labelTripId: SpringLabel!
     @IBOutlet weak var labelPickupType: SpringLabel!
-    @IBOutlet weak var btnPay: SpringButton!
+    @IBOutlet weak var btnPay: SpringImageView!
     
+    @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
     @IBOutlet weak var btnAdd: SpringButton!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
@@ -49,6 +50,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         payTripBean = nil
         presentBarcodeScanner()
+        
+        tripPaidSuccessImageView.isHidden = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
+        btnPay.isUserInteractionEnabled = true
+        btnPay.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -133,6 +139,37 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.isHidden = true
         labelPickupType.isHidden = true
         btnPay.isHidden = true
+    }
+    
+    func showPayBtn()
+    {
+        btnPay.isUserInteractionEnabled = true
+        btnPay.image = UIImage(named: "pay_button")
+    }
+    
+    func showPaidSuccessBtn()
+    {
+        btnPay.isUserInteractionEnabled = false
+        btnPay.image = UIImage(named: "successfully_paid")
+    }
+    
+    func showTripPaidScene()
+    {
+        //TODO
+        showPaidSuccessBtn()
+        tableView.isHidden = true
+        
+        tripPaidSuccessImageView.animation = "pop"
+        tripPaidSuccessImageView.duration = 1
+        tripPaidSuccessImageView.delay = 0.15
+
+        tripPaidSuccessImageView.isHidden = false
+    }
+    
+    func showPayNonTappableBtn()
+    {
+        btnPay.isUserInteractionEnabled = false
+        btnPay.image = UIImage(named: "pay_button")
     }
     
     @IBAction func editBtnTapped(_ sender: Any)
@@ -279,6 +316,13 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         tableView.reloadData()
     }
+    
+    @objc func payBtnTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+//        let tappedImage = tapGestureRecognizer.view as! SpringImageView
+        vModel!.payTripButtonTapped(payTripBean: payTripBean!)
+    }
+
     
     @IBAction func btnAddCardTapped(_ sender: Any)
     {
