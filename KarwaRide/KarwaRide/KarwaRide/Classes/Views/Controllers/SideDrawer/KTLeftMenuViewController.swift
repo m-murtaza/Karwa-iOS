@@ -110,35 +110,35 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         
         return false
     }
-    
-    private func presentPaymentViewController()
-    {
-//        present(makePaymentViewController(), animated: true, completion: nil)
-        UIApplication.topViewController()?.present(makePaymentViewController(), animated: true, completion: nil)
-    }
-    
-    private func makePaymentViewController() -> KTPaymentViewController
-    {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "KTPaymentViewControllerIdentifier") as! KTPaymentViewController
-        
-        return viewController
-    }
 }
-
-extension UIApplication {
-    class func topViewController(viewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-        if let nav = viewController as? UINavigationController {
-            return topViewController(viewController: nav.visibleViewController)
-        }
-        if let tab = viewController as? UITabBarController {
-            if let selected = tab.selectedViewController {
-                return topViewController(viewController: selected)
-            }
-        }
-        if let presented = viewController?.presentedViewController {
-            return topViewController(viewController: presented)
-        }
-        return viewController
-    }
-}
+//    private func presentPaymentViewController()
+//    {
+////        present(makePaymentViewController(), animated: true, completion: nil)
+//        UIApplication.topViewController()?.present(makePaymentViewController(), animated: true, completion: nil)
+//    }
+//
+//    private func makePaymentViewController() -> KTPaymentViewController
+//    {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let viewController = storyboard.instantiateViewController(withIdentifier: "KTPaymentViewControllerIdentifier") as! KTPaymentViewController
+//
+//        return viewController
+//    }
+//}
+//
+//extension UIApplication {
+//    class func topViewController(viewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+//        if let nav = viewController as? UINavigationController {
+//            return topViewController(viewController: nav.visibleViewController)
+//        }
+//        if let tab = viewController as? UITabBarController {
+//            if let selected = tab.selectedViewController {
+//                return topViewController(viewController: selected)
+//            }
+//        }
+//        if let presented = viewController?.presentedViewController {
+//            return topViewController(viewController: presented)
+//        }
+//        return viewController
+//    }
+//}

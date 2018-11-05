@@ -95,6 +95,7 @@ struct Constants {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"
         static let DetailView = "BookingDetailNavController"
+        static let PaymentMethodsView = "KTPaymentViewControllerIdentifier"
     }
     
     struct Notification {

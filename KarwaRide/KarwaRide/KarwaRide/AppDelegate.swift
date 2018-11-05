@@ -167,37 +167,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
     {
-        //TODO
         print("CATCHED FINALLY !!!")
-
-        if(userActivity.activityType == NSUserActivityTypeBrowsingWeb)
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL, let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        else
         {
-            let incomingURL = userActivity.webpageURL
-            let components = NSURLComponents(url: incomingURL!, resolvingAgainstBaseURL: true)
-            guard let path = components!.path
-            else
-            {
-                return false
-            }
-            
-            print("path = \(path)")
+            return false
         }
-        return false    
+        
+        let pathsComing = components.path
+        
+        print("path = \(pathsComing)")
+
+        presentTripPayViewController(PayTripBeanForServer("1001387", "", "10", "12", 1, "", "", ""))
+        return true
     }
     
+    
+    
     /* Present Pay Trip View Controller */
-//    func presentDetailViewController(_ computer: Computer)
-//    {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        guard
-//            let detailVC = storyboard.instantiateViewController(withIdentifier: "DetailController") as? ComputerDetailController,
-//            let navigationVC = storyboard.instantiateViewController(withIdentifier: "NavigationController") as? UINavigationController
-//            else { return }
-//
-//        detailVC.item = computer
-//        navigationVC.modalPresentationStyle = .formSheet
-//        navigationVC.pushViewController(detailVC, animated: true)
-//    }
+    func presentTripPayViewController(_ payTrip: PayTripBeanForServer)
+    {
+        //TODO: Show Pay View Controller
+//        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+//        let detailView : KTPaymentViewController = sBoard.instantiateViewController(withIdentifier: "KTPaymentViewControllerIdentifier") as! KTPaymentViewController
+//        detailView.isManageButtonPressed = true
+//        self.showView(view: detailView)
+        
+//                let sBoard = UIStoryboard(name: "Main", bundle: nil)
+//                let detailView : KTCreateBookingViewController = sBoard.instantiateViewController(withIdentifier: "BookingStep1") as! KTCreateBookingViewController
+//                detailView.showPayment()
+        
+    }
     
     //Notifiacation receive when application is in background
     func application(

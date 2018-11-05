@@ -39,6 +39,7 @@
 		0DF3A22F2185B5440000503B /* PayTripBeanForServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22C2185B5430000503B /* PayTripBeanForServer.swift */; };
 		0DF3A2302185B5440000503B /* MPGSSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22D2185B5430000503B /* MPGSSession.swift */; };
 		0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22E2185B5430000503B /* KTPaymentManager.swift */; };
+		0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFFA828218F5F8D00F9EFE2 /* MAKHashGenerator.swift */; };
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
 		1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */; };
@@ -218,6 +219,7 @@
 		0DF3A22C2185B5430000503B /* PayTripBeanForServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PayTripBeanForServer.swift; path = Payment/PayTripBeanForServer.swift; sourceTree = "<group>"; };
 		0DF3A22D2185B5430000503B /* MPGSSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MPGSSession.swift; path = Payment/MPGSSession.swift; sourceTree = "<group>"; };
 		0DF3A22E2185B5430000503B /* KTPaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTPaymentManager.swift; path = Payment/KTPaymentManager.swift; sourceTree = "<group>"; };
+		0DFFA828218F5F8D00F9EFE2 /* MAKHashGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAKHashGenerator.swift; sourceTree = "<group>"; };
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
 		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
 		1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KarwaRide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 		0D685A84218CB1D800DB2CDB /* Encryption */ = {
 			isa = PBXGroup;
 			children = (
+				0DFFA828218F5F8D00F9EFE2 /* MAKHashGenerator.swift */,
 				0D685A85218CB1F200DB2CDB /* MAKHash.swift */,
 			);
 			name = Encryption;
@@ -1552,6 +1555,7 @@
 				0DE6A745218B141200125507 /* Coding.swift in Sources */,
 				0DE6A749218B141200125507 /* GatewayResult.swift in Sources */,
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
+				0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
