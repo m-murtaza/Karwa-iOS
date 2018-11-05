@@ -32,8 +32,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var btnAdd: SpringButton!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
-    var isPaidSuccessfullShowed = false
-    
+    var isTriggeredFromUniversalLink = false
+    private var isPaidSuccessfullShowed = false
+
     override func viewDidLoad()
     {
         self.viewModel = KTPaymentViewModel(del: self)
@@ -48,8 +49,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         self.tableView.tableFooterView = UIView()
         
         CardIOUtilities.preload()
-        
-        payTripBean = nil
+
         presentBarcodeScanner()
         
         tripPaidSuccessImageView.isHidden = true
@@ -393,8 +393,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         {
             cardIOPaymentController = paymentViewController
             
-            let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
-            print(str)
+//            let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
+//            print(str)
 
             vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, info.expiryMonth, info.expiryYear)
         }
@@ -419,32 +419,18 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         viewController.manageDelegate = self
 
         viewController.cameraViewController.barCodeFocusViewType = .animated
-        
+
         return viewController
     }
-    
-    private func isValidQRCode(_ code: String) -> PayTripBeanForServer?
-    {
-        let makCode = code.replacingOccurrences(of: "http://www.karwatechnologies.com/download/", with: "", options: .literal, range: nil)
-        let decryptedStringCSV = MAKHashGenerator().decrypt(text: makCode)
-        let piecesOfPayBean = decryptedStringCSV.split(separator: ",")
-        if(piecesOfPayBean.count == 7)
-        {
-            return PayTripBeanForServer(String(piecesOfPayBean[0]), "", String(piecesOfPayBean[1]), String(piecesOfPayBean[2]), Int(piecesOfPayBean[3])!, String(piecesOfPayBean[4]), String(piecesOfPayBean[5]), String(piecesOfPayBean[6]))
-        }
-        else
-        {
-            return nil
-        }
-    }
+
 }
 
 // MARK: - BarcodeScannerCodeDelegate
 extension KTPaymentViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-        print("Barcode Data: \(code)")
-        print("Symbology Type: \(type)")
-        let tripServerBean = isValidQRCode(code)
+//        print("Barcode Data: \(code)")
+//        print("Symbology Type: \(type)")
+        let tripServerBean = KTUtils.isValidQRCode(code)
         if(tripServerBean != nil)
         {
             payTripBean = tripServerBean

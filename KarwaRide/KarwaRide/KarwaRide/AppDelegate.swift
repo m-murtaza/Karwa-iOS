@@ -167,18 +167,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
     {
-        print("CATCHED FINALLY !!!")
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL, let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         else
         {
             return false
         }
-        
-        let pathsComing = components.path
-        
-        print("path = \(pathsComing)")
 
-        presentTripPayViewController(PayTripBeanForServer("1001387", "", "10", "12", 1, "", "", ""))
+        let pathsComing = components.path
+
+        let tripServerBean = KTUtils.isValidQRCode(pathsComing)
+
+        moveToPaymentView(tripServerBean)
+
         return true
     }
     
@@ -208,7 +208,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
         
     }
-    
+
     func moveToDetailView(withBooking booking: KTBooking) {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
         let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.DetailView) as! UINavigationController
@@ -218,6 +218,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         detailView.isOpenFromNotification = true
         self.showView(view: detailView)
         
+    }
+    
+    func moveToPaymentView(_ payTripBean: PayTripBeanForServer?)
+    {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
+        
+        let destinationView : KTPaymentViewController = (contentView.viewControllers)[0] as! KTPaymentViewController
+
+        if(payTripBean != nil)
+        {
+            destinationView.payTripBean = payTripBean
+            destinationView.isManageButtonPressed = true
+            destinationView.isTriggeredFromUniversalLink = true
+            self.showView(view: destinationView)
+        }
+        else
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
+            {
+                destinationView.showErrorBanner("  ", "Invalid QR Code ")
+            }
+        }
     }
     
     func showLogin()  {
