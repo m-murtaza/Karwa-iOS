@@ -2,7 +2,8 @@
 //  MAKHash.swift
 //  KarwaRide
 //
-//  Created by Sam Ash on 11/2/18.
+//  Created by Asif Kamboh in C#
+//  Converted by Sam on 11/2/18
 //  Copyright © 2018 Karwa. All rights reserved.
 //
 

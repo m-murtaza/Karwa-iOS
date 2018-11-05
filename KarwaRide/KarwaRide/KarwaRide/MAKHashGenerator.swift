@@ -1,3 +1,12 @@
+//
+//  MAKHash.swift
+//  KarwaRide
+//
+//  Created by Asif Kamboh in C#
+//  Converted by Sam on 11/2/18
+//  Copyright © 2018 Karwa. All rights reserved.
+//
+
 class MAKHashGenerator {
 	static let VERSION_INFO = "MAK1"
 
@@ -30,15 +39,15 @@ class MAKHashGenerator {
 
 	func getKeyFromString(text:String) -> UInt64
     {
-		let keyLength = 16
-        let headerLength = MAKHashGenerator.VERSION_INFO.count
+//        let keyLength = 16
+//        let headerLength = MAKHashGenerator.VERSION_INFO.count
         
         let index2 = text.index(text.startIndex, offsetBy: 20)
         
         let keyText = text[text.index(text.startIndex, offsetBy: 4)..<index2]
         
-        let data = Data(keyText.utf8)
-        let hexString = data.map{ String(format:"%02x", $0) }.joined()
+//        let data = Data(keyText.utf8)
+//        let hexString = data.map{ String(format:"%02x", $0) }.joined()
 
         let number = UInt(keyText, radix: 16)!
         print(number)
@@ -82,8 +91,7 @@ class MAKHashGenerator {
 		let low : UInt64 = (seconds & 0x007f)
 	
 		let decodedData = Data(base64Encoded: data)!
-		
-//        let bytes: [UInt8]  = Array(decodedData.utf8) //No need to convert to UTF 8 it initialize with UTF 8 by default
+
         let bytes: [UInt8]  = Array(decodedData) // bytes should be utf8 data
 		let max = bytes.count / 2
         var outBytes = [UInt8]()
@@ -114,11 +122,6 @@ class MAKHashGenerator {
 		let divider = 1000.0 * 10.0
 		let seconds = UInt64(Double(Int(millis) % day)/divider)
 		return seconds
-        
-//        const ulong day = 3600L * 24 * 1000;
-//        const double divider = 1000.0 * 10.0;
-//        ulong seconds = Convert.ToUInt64(Math.Floor((double)(milliseconds % day) / divider));
-//        return seconds;
 	}
 
 }

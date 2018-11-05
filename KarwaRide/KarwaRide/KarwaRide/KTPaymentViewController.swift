@@ -77,6 +77,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         if(payTripBean != nil)
         {
+            fillPayTripData(payTripBean)
             vModel?.showingTripPayment()
             showBottomContainer()
             populatePayTripData()
@@ -93,6 +94,16 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnAdd.animate()
     }
 
+    func fillPayTripData(_ payTripBean: PayTripBeanForServer?)
+    {
+        if(payTripBean != nil)
+        {
+            labelTotalFare.text = "TOTAL FARE - QR " + (payTripBean?.totalFare)!
+            labelTripId.text = "TRIP ID: " + (payTripBean?.tripId)!
+            labelPickupType.text = payTripBean?.tripType == 1 ? "Street Pickup - Karwa" : "Booking - Karwa"
+        }
+    }
+    
     func populatePayTripData()
     {
         showBottomContainer()
@@ -398,10 +409,19 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         return viewController
     }
     
-    private func isValidQRCode(_ code: String) -> Bool
+    private func isValidQRCode(_ code: String) -> PayTripBeanForServer?
     {
-        //TODO: Validate QR Code Data
-        return true
+        let makCode = code.replacingOccurrences(of: "http://www.karwatechnologies.com/download/", with: "", options: .literal, range: nil)
+        let decryptedStringCSV = MAKHashGenerator().decrypt(text: makCode)
+        let piecesOfPayBean = decryptedStringCSV.split(separator: ",")
+        if(piecesOfPayBean.count == 7)
+        {
+            return PayTripBeanForServer(String(piecesOfPayBean[0]), "", String(piecesOfPayBean[1]), String(piecesOfPayBean[2]), Int(piecesOfPayBean[3])!, String(piecesOfPayBean[4]), String(piecesOfPayBean[5]), String(piecesOfPayBean[6]))
+        }
+        else
+        {
+            return nil
+        }
     }
 }
 
@@ -410,10 +430,10 @@ extension KTPaymentViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
         print("Barcode Data: \(code)")
         print("Symbology Type: \(type)")
-
-        if(isValidQRCode(code))
+        let tripServerBean = isValidQRCode(code)
+        if(tripServerBean != nil)
         {
-            payTripBean = PayTripBeanForServer("1001387", "", "10", "12", 1, "", "", "")
+            payTripBean = tripServerBean
             self.isManageButtonPressed = true
             controller.dismiss(animated: false, completion: nil)
         }
