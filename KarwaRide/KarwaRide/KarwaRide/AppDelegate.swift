@@ -223,22 +223,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func moveToPaymentView(_ payTripBean: PayTripBeanForServer?)
     {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
-        let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
+        let paymentNavigationController : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
+        let ktPaymentViewController : KTPaymentViewController = (paymentNavigationController.viewControllers)[0] as! KTPaymentViewController
         
-        let destinationView : KTPaymentViewController = (contentView.viewControllers)[0] as! KTPaymentViewController
-
         if(payTripBean != nil)
         {
-            destinationView.payTripBean = payTripBean
-            destinationView.isManageButtonPressed = true
-            destinationView.isTriggeredFromUniversalLink = true
-            self.showView(view: destinationView)
+            ktPaymentViewController.payTripBean = payTripBean
+            ktPaymentViewController.isManageButtonPressed = true
+            ktPaymentViewController.isTriggeredFromUniversalLink = true
+            
+            let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
+            let sideMeun : SSASideMenu = SSASideMenu(contentViewController: paymentNavigationController, leftMenuViewController: leftView)
+
+            window? = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = sideMeun
+            window?.makeKeyAndVisible()
+
         }
         else
         {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
             {
-                destinationView.showErrorBanner("  ", "Invalid QR Code ")
+                ktPaymentViewController.showErrorBanner("  ", "Invalid QR Code ")
             }
         }
     }
@@ -251,13 +257,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func showView(view: UIViewController) {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
-        //let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
+//        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
         let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
-        
         let sideMeun : SSASideMenu = SSASideMenu(contentViewController: view, leftMenuViewController: leftView)
         
         window? = UIWindow(frame: UIScreen.main.bounds)
-        
         window?.rootViewController = sideMeun
         window?.makeKeyAndVisible()
     }

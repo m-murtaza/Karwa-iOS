@@ -50,7 +50,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         CardIOUtilities.preload()
 
-        presentBarcodeScanner()
+        if(!isTriggeredFromUniversalLink)
+        {
+            presentBarcodeScanner()
+            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
+        }
         
         tripPaidSuccessImageView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
