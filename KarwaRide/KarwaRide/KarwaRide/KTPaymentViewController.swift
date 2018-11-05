@@ -85,7 +85,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             showBottomContainer()
             populatePayTripData()
             btnAdd.duration = 1
-            btnAdd.delay = 1
+            btnAdd.delay = 2.5
         }
         else
         {
@@ -121,10 +121,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnPay.isHidden = false
         
         bottomContainer.animation = "slideUp"
-        labelTotalFare.animation = "slideUp"
-        labelTripId.animation = "slideUp"
-        labelPickupType.animation = "slideUp"
-        btnPay.animation = "slideUp"
+        labelTotalFare.animation = "zoomIn"
+        labelTripId.animation = "zoomIn"
+        labelPickupType.animation = "zoomIn"
+        btnPay.animation = "fadeIn"
         
         bottomContainer.duration = 1
         labelTotalFare.duration = 1
@@ -133,10 +133,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnPay.duration = 1
         
         bottomContainer.delay = 0.15
-        labelTotalFare.delay = 0.25
-        labelTripId.delay = 0.35
-        labelPickupType.delay = 0.45
-        btnPay.delay = 0.55
+        labelTotalFare.delay = 1
+        labelTripId.delay = 1.15
+        labelPickupType.delay = 1.30
+        btnPay.delay = 2
 
         
         
