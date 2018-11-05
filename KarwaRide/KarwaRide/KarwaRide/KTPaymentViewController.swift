@@ -32,6 +32,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var btnAdd: SpringButton!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
+    var isPaidSuccessfullShowed = false
     
     override func viewDidLoad()
     {
@@ -73,6 +74,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
             sideMenuViewController?.hideMenuViewController()
             isCrossButtonPressed = !isCrossButtonPressed
+            
+            return
         }
         
         if(payTripBean != nil)
@@ -176,12 +179,18 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         //TODO
         showPaidSuccessBtn()
         tableView.isHidden = true
-        
-        tripPaidSuccessImageView.animation = "pop"
+
+        tripPaidSuccessImageView.animation = "zoomIn"
+        tripPaidSuccessImageView.curve = "easeIn"
         tripPaidSuccessImageView.duration = 1
-        tripPaidSuccessImageView.delay = 0.15
+        tripPaidSuccessImageView.delay = 0.3
 
         tripPaidSuccessImageView.isHidden = false
+        tripPaidSuccessImageView.animate()
+        
+        btnEdit.title = ""
+        btnAdd.isHidden = true
+        isPaidSuccessfullShowed = true
     }
     
     @IBAction func editBtnTapped(_ sender: Any)
@@ -343,7 +352,12 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
     @IBAction func btnBackTapped(_ sender: Any)
     {
-        if(isManageButtonPressed)
+        if(isPaidSuccessfullShowed)
+        {
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuViewController?.hideMenuViewController()
+        }
+        else if(isManageButtonPressed)
         {
             presentBarcodeScanner()
             isManageButtonPressed = !isManageButtonPressed

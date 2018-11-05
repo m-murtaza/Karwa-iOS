@@ -193,9 +193,9 @@ struct Constants {
         static let TotalFare = "TotalFare"
         static let TripId = "TripId"
         static let TripType = "TripType"
-        static let U =  "U"
-        static let S =  "S"
-        static let E =  "E"
+        static let U =  "UnitNo"
+        static let S =  "TripStartTime"
+        static let E =  "TripEndTime"
     }
     
     struct MPGSSessionAPIKey {
