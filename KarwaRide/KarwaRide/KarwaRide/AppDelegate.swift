@@ -34,17 +34,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         
         setupFirebase()
-
+        
         return true
     }
     
     func setupFirebase()
     {
-        FirebaseApp.configure()
-        Fabric.with([Crashlytics.self()])
-        Fabric.sharedSDK().debug = true
-        
-        setFirebaseAnalyticsUserPref()
+        #if RELEASE
+            FirebaseApp.configure()
+            Fabric.with([Crashlytics.self()])
+            Fabric.sharedSDK().debug = true
+            setFirebaseAnalyticsUserPref()
+        #else
+            print("Skipping Firebase because of debug build")
+        #endif
     }
     
     func setFirebaseAnalyticsUserPref()

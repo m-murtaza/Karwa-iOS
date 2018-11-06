@@ -88,6 +88,8 @@ class KTPaymentViewModel: KTBaseViewModel
 
             if(status == Constants.APIResponseStatus.SUCCESS)
             {
+                AnalyticsUtil.trackRemovePaymentMethod(deletionMethod.brand ?? "")
+
                 paymentManager.deletePaymentMethods(deletionMethod)
 
                 self.paymentMethods.remove(at: indexPath.row)
@@ -184,6 +186,8 @@ class KTPaymentViewModel: KTBaseViewModel
 
             if success == Constants.APIResponseStatus.SUCCESS
             {
+                AnalyticsUtil.trackCardPayment(payTripBean.totalFare)
+
                 self.del?.showTripPaidScene()
 
                 self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
@@ -258,6 +262,8 @@ class KTPaymentViewModel: KTBaseViewModel
 
             if status == Constants.APIResponseStatus.SUCCESS
             {
+                AnalyticsUtil.trackAddPaymentMethod("")
+                
                 self.del?.showSuccessBanner("  ", "Payment method added successfully")
                 
                 self.del?.showProgressHud(show: true, status: "Updating payment methods")
