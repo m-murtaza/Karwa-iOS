@@ -32,6 +32,8 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         tap.cancelsTouchesInView = false
         
         view.addGestureRecognizer(tap)
+        
+        txtPassword.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +56,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -145,6 +147,15 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         }
         return true
     }
-    
+   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        if textField == txtPassword
+        {
+            textField.resignFirstResponder()
+            (viewModel as! KTLoginViewModel).loginBtnTapped()
+        }
+        return true
+    }
    
 }
