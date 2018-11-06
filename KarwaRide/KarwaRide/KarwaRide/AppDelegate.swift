@@ -40,13 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupFirebase()
     {
-        #if RELEASE
-            FirebaseApp.configure()
-            Fabric.with([Crashlytics.self()])
-            Fabric.sharedSDK().debug = true
-            setFirebaseAnalyticsUserPref()
+        #if DEBUG || ADHOC
+        print("Skipping Firebase because of debug build")
         #else
-            print("Skipping Firebase because of debug build")
+        print("Initializing K-Firebase")
+        FirebaseApp.configure()
+        Fabric.with([Crashlytics.self()])
+        Fabric.sharedSDK().debug = true
+        setFirebaseAnalyticsUserPref()
         #endif
     }
     

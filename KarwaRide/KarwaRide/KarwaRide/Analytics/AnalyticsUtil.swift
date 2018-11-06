@@ -15,52 +15,53 @@ class AnalyticsUtil
 
     static func trackBehavior(event name: String)
     {
-        #if RELEASE
-            Analytics.logEvent("karwa_user_behaviour", parameters: [
-                "item_name": name as String
-                ])
+        #if DEBUG || ADHOC
+        print("Skipping Analytics because of debug build")
         #else
-            print("Skipping Analytics because of debug build")
+        Analytics.logEvent("karwa_user_behaviour", parameters: [
+            "item_name": name as String
+            ])
         #endif
     }
     
     static func trackAddPaymentMethod(_ cardType: String)
     {
-        #if RELEASE
+        #if DEBUG || ADHOC
+        print("Skipping Analytics because of debug build")
+        #else
         Analytics.logEvent(FirebaseAnalytics.AnalyticsEventAddPaymentInfo,
-            parameters:
+                           parameters:
             [
                 FirebaseAnalytics.AnalyticsParameterItemBrand: cardType as String
             ])
-        #else
-            print("Skipping Analytics because of debug build")
         #endif
     }
     
     static func trackRemovePaymentMethod(_ cardType: String)
     {
-        #if RELEASE
+        #if DEBUG || ADHOC
+        print("Skipping Analytics because of debug build")
+        #else
         Analytics.logEvent(REMOVE_PAYMENT_INFO,
-            parameters:
+                           parameters:
             [
                 FirebaseAnalytics.AnalyticsParameterItemBrand: cardType as String
             ])
-        #else
-        print("Skipping Analytics because of debug build")
+
         #endif
     }
     
     static func trackCardPayment(_ amount: String)
     {
-        #if RELEASE
+        #if DEBUG || ADHOC
+        print("Skipping Analytics because of debug build")
+        #else
         Analytics.logEvent(FirebaseAnalytics.AnalyticsEventEcommercePurchase,
-            parameters:
+                           parameters:
             [
                 FirebaseAnalytics.AnalyticsParameterCurrency : "QAR" as String,
                 FirebaseAnalytics.AnalyticsParameterPrice : Double(amount) as Double
             ])
-        #else
-        print("Skipping Analytics because of debug build")
         #endif
     }
 }
