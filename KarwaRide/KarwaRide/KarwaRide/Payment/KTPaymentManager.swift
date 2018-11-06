@@ -85,6 +85,18 @@ class KTPaymentManager: KTDALManager
         }
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
+
+    func makeOnePaymentMethodDefaultAndReturn() -> [KTPaymentMethod]
+    {
+        let payments = getAllPayments()
+        if(payments.count > 0)
+        {
+            payments[0].is_selected = true
+        }
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        
+        return payments
+    }
     
     func getAllPayments() -> [KTPaymentMethod]
     {
@@ -111,6 +123,13 @@ class KTPaymentManager: KTDALManager
     func deleteAllPaymentMethods()
     {
         let predicate : NSPredicate = NSPredicate(format:"is_removable = %d" , true)
+        
+        KTPaymentMethod.mr_deleteAll(matching: predicate)
+    }
+    
+    func deletePaymentMethods(_ paymentMethod : KTPaymentMethod)
+    {
+        let predicate : NSPredicate = NSPredicate(format:"id = %d" , paymentMethod.id)
         
         KTPaymentMethod.mr_deleteAll(matching: predicate)
     }
@@ -167,5 +186,11 @@ class KTPaymentManager: KTDALManager
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         }
         )
+    }
+    
+    func removeAllPaymentData()
+    {
+        deleteAllPaymentMethods()
+        KTDALManager().removeSyncTime(forKey: PAYMENTS_SYNC_TIME)
     }
 }

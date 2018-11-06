@@ -78,17 +78,21 @@ class KTPaymentViewModel: KTBaseViewModel
     func deletePaymentMethod(_ indexPath: IndexPath)
     {
         self.del?.showProgressHud(show: true, status: "Removing Payment Method")
+        let paymentManager = KTPaymentManager()
 
-        KTPaymentManager().deletePaymentAtServer(paymentMethod: paymentMethods[indexPath.row]) { (status, response) in
-            
+        let deletionMethod = paymentMethods[indexPath.row]
+
+        paymentManager.deletePaymentAtServer(paymentMethod: deletionMethod) { (status, response) in
+
             self.del?.hideProgressHud()
 
             if(status == Constants.APIResponseStatus.SUCCESS)
             {
+                paymentManager.deletePaymentMethods(deletionMethod)
+
                 self.paymentMethods.remove(at: indexPath.row)
-                
                 self.del?.deleteRowWithAnimation(indexPath)
-                
+
                 if(self.paymentMethods.count == 0)
                 {
                     self.del?.showEmptyScreen()
@@ -96,6 +100,14 @@ class KTPaymentViewModel: KTBaseViewModel
                 }
                 
                 self.del?.showSuccessBanner("  ", "Payment method removed successfully")
+                
+                if(self.paymentMethods.count > 0 && paymentManager.getDefaultPayment() == nil)
+                {
+                    let newListWithDefaultSelection = paymentManager.makeOnePaymentMethodDefaultAndReturn()
+                    self.paymentMethods.removeAll()
+                    self.paymentMethods = newListWithDefaultSelection
+                    self.del?.reloadTableData()
+                }
             }
             else
             {
@@ -210,8 +222,7 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
     
-    // MARK: - Handle the Update Response
-    // Call the gateway to update the session.
+    // MARK: - Handle the Update Response call the gateway to update the session
     fileprivate func updateSessionHandler(_ result: GatewayResult<GatewayMap>)
     {
         self.del?.hideProgressHud()
@@ -224,6 +235,7 @@ class KTPaymentViewModel: KTBaseViewModel
                 break;
 
             case .error(let error):
+                self.del?.hideCardIOPaymentController()
 
                 var message = "Unable to update session."
                 if case GatewayError.failedRequest( _, let explination) = error
@@ -231,7 +243,7 @@ class KTPaymentViewModel: KTBaseViewModel
                     message = explination
                 }
                 
-                self.del?.showErrorBanner("Error", message)
+                self.del?.showErrorBanner("   ", message)
 
                 break;
         }
@@ -242,23 +254,21 @@ class KTPaymentViewModel: KTBaseViewModel
         KTPaymentManager().updateMPGSSuccessAtServer(sessionId, apiVersion, completion: { (status, response) in
             
             self.del?.hideProgressHud()
-            self.del?.showProgressHud(show: true, status: "Updating payment methods")
-            
+            self.del?.hideCardIOPaymentController()
+
             if status == Constants.APIResponseStatus.SUCCESS
             {
-                self.del?.hideCardIOPaymentController()
-
                 self.del?.showSuccessBanner("  ", "Payment method added successfully")
                 
+                self.del?.showProgressHud(show: true, status: "Updating payment methods")
                 KTPaymentManager().fetchPaymentsFromServer{(status, response) in
-            
                     self.del?.hideProgressHud()
                     self.fetchnPaymentMethods()
                 }
             }
             else
             {
-                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                self.del?.showErrorBanner("   ", response["M"] as! String)
             }
         })
     }

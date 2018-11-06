@@ -55,10 +55,12 @@ class KTSettingsViewModel: KTBaseViewModel {
         KTUserManager().logout { (status, response) in
             print("Logout on server " + status)
             KTUserManager().removeUserData()
+            KTPaymentManager().removeAllPaymentData()
             self.showLogin()
             
         }
     }
+
     func showLogin()  {
         
         (UIApplication.shared.delegate as! AppDelegate).showLogin()
