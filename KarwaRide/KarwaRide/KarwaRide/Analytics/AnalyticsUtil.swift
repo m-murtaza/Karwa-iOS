@@ -60,7 +60,7 @@ class AnalyticsUtil
                            parameters:
             [
                 FirebaseAnalytics.AnalyticsParameterCurrency : "QAR" as String,
-                FirebaseAnalytics.AnalyticsParameterPrice : Double(amount) as Double
+                FirebaseAnalytics.AnalyticsParameterPrice : (Double(amount) as Double) ?? 0
             ])
         #endif
     }
