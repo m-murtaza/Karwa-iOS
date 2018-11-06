@@ -32,7 +32,7 @@ class AnalyticsUtil
         Analytics.logEvent(FirebaseAnalytics.AnalyticsEventAddPaymentInfo,
                            parameters:
             [
-                FirebaseAnalytics.AnalyticsParameterItemBrand: cardType as String
+                FirebaseAnalytics.AnalyticsParameterValue: cardType as String
             ])
         #endif
     }
@@ -45,7 +45,7 @@ class AnalyticsUtil
         Analytics.logEvent(REMOVE_PAYMENT_INFO,
                            parameters:
             [
-                FirebaseAnalytics.AnalyticsParameterItemBrand: cardType as String
+                FirebaseAnalytics.AnalyticsParameterValue: cardType as String
             ])
 
         #endif
@@ -60,7 +60,7 @@ class AnalyticsUtil
                            parameters:
             [
                 FirebaseAnalytics.AnalyticsParameterCurrency : "QAR" as String,
-                FirebaseAnalytics.AnalyticsParameterPrice : Double(amount) ?? 0
+                FirebaseAnalytics.AnalyticsParameterValue : Double(amount) ?? 0
             ])
         #endif
     }
