@@ -99,7 +99,6 @@ class KTAPNSManager: NSObject {
                 }
             }
         }
-        
     }
 
     private func showBanner(forBooking booking : KTBooking, userInfo: [AnyHashable : Any])
