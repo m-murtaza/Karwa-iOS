@@ -28,7 +28,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblDropoffAddress: UILabel!
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
-    @IBOutlet weak var imgBookingStatus: UIImageView!
+    @IBOutlet weak var imgBookingStatus: SpringImageView!
 
     @IBOutlet weak var lblEstimatedFare : UILabel!
     @IBOutlet weak var titleEstimatedFare: UILabel!
@@ -109,6 +109,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func updateForBooking(_ booking: KTBooking)
+    {
+        vModel?.bookingUpdateTriggered(booking)
     }
     
     func startArrowAnimation()
@@ -275,10 +280,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             titleEstimatedFare.text = "Est. Fare"
         }
         
-        let img : UIImage? = vModel?.bookingStatusImage()
-        if img != nil {
-            imgBookingStatus.image = img
-        }
+        updateBookingStatusOnCard()
         
         lblPickTime.text = vModel?.pickupTime()
         lblDropTime.text = vModel?.dropoffTime()
@@ -286,6 +288,42 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         viewCard.backgroundColor = vModel?.cellBGColor()
         
         viewCard.borderColor = vModel?.cellBorderColor()
+    }
+    
+    func updateBookingStatusOnCard(_ withAnimation: Bool)
+    {
+        if(withAnimation)
+        {
+            imgBookingStatus.duration = 1
+            imgBookingStatus.animation = "zoomOut"
+            imgBookingStatus.animate()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+            {
+                let img : UIImage? = self.vModel?.bookingStatusImage()
+                if img != nil
+                {
+                    self.imgBookingStatus.image = img
+                }
+
+                self.imgBookingStatus.duration = 1
+                self.imgBookingStatus.animation = "zoomIn"
+                self.imgBookingStatus.animate()
+            }
+        }
+        else
+        {
+            let img : UIImage? = vModel?.bookingStatusImage()
+            if img != nil
+            {
+                imgBookingStatus.image = img
+            }
+        }
+    }
+    
+    func updateBookingStatusOnCard()
+    {
+        updateBookingStatusOnCard(false)
     }
     
     func updateBookingCardForCompletedBooking() {
@@ -363,8 +401,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
             markerMovement.moveMarker(marker: marker!, from: (marker?.position)!, to: vTrack.position, degree: vTrack.bearing)
         }
-        
-        updateMapCamera()
     }
     
     func updateMapCamera()

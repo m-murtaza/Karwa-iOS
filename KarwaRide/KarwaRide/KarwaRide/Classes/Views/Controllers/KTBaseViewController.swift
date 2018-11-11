@@ -15,7 +15,7 @@ import NotificationBannerSwift
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
     var viewModel : KTBaseViewModel?
-    
+
     override func viewDidLoad() {
         delay = 0
         super.viewDidLoad()
@@ -33,12 +33,14 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     {
         super.viewDidAppear(animated)
         viewModel?.viewDidAppear()
+        (UIApplication.shared.delegate as! AppDelegate).setCurrentViewController(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
         viewModel?.viewWillDisappear()
+        (UIApplication.shared.delegate as! AppDelegate).setCurrentViewController(nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -202,7 +204,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     {
         showBanner(title, message, BannerStyle.warning)
     }
-    
+
     func showBanner(_ title: String, _ message: String, _ bannerStyle: BannerStyle)
     {
         let banner = NotificationBanner(title: title, subtitle: message, style: bannerStyle)
@@ -211,5 +213,11 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         {
             banner.dismiss()
         }
+    }
+    
+    func updateForBooking(_ booking: KTBooking)
+    {
+        //Over-ridden in KTBookingDetailsViewController
+        print("Over-ridden in KTBookingDetailsViewController")
     }
 }

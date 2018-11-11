@@ -52,6 +52,10 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showRatingScreen()
     
     func showRouteOnMap(points pointsStr: String)
+    
+    func updateMapCamera()
+    func updateBookingStatusOnCard(_ withAnimation: Bool)
+
 }
 //MARK: -
 enum BottomBarBtnTag : Int {
@@ -463,21 +467,24 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     {
         KTBookingManager().syncBookings { (status, response) in
             
-            let deltaBookings: [KTBooking] = response[Constants.ResponseAPIKey.Data] as! [Any] as! [KTBooking]
-            
-            if  deltaBookings.count > 0
+            if(response[Constants.ResponseAPIKey.Data] != nil)
             {
-                for updatedBooking in deltaBookings
+                let deltaBookings: [KTBooking] = response[Constants.ResponseAPIKey.Data] as! [Any] as! [KTBooking]
+                
+                if  deltaBookings.count > 0
                 {
-                    if(self.booking?.bookingId == updatedBooking.bookingId)
+                    for updatedBooking in deltaBookings
                     {
-                        let bStatus = updatedBooking.bookingStatus
-                        if(bStatus == BookingStatus.PICKUP.rawValue || bStatus == BookingStatus.ARRIVED.rawValue || bStatus == BookingStatus.CONFIRMED.rawValue)
+                        if(self.booking?.bookingId == updatedBooking.bookingId)
                         {
-                            self.booking = updatedBooking
-                            self.stopBookingUpdateTimer()
-                            self.del?.showDriverInfoBox()
-                            self.initializeViewWRTBookingStatus()
+                            let bStatus = updatedBooking.bookingStatus
+                            if(bStatus == BookingStatus.PICKUP.rawValue || bStatus == BookingStatus.ARRIVED.rawValue || bStatus == BookingStatus.CONFIRMED.rawValue)
+                            {
+                                self.booking = updatedBooking
+                                self.stopBookingUpdateTimer()
+                                self.del?.showDriverInfoBox()
+                                self.initializeViewWRTBookingStatus()
+                            }
                         }
                     }
                 }
@@ -529,7 +536,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         else {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
-        
     }
     
     @objc func fetchTaxiForTracking()
@@ -543,11 +549,21 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
+
+                    if(bStatus != BookingStatus.PICKUP)
+                    {
+                        self.del?.updateMapCamera()
+                    }
+                    
                     self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
 
                     if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
                     {
-                        self.fetchRouteToPickup(vTrack: vtrack, pickUpLat: (self.booking?.pickupLat)!, pickUpLong: (self.booking?.pickupLon)!)
+                        self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
+                    }
+                    else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
+                    {
+                        self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
                     }
                 }
             })
@@ -561,7 +577,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
     }
     
-    private func fetchRouteToPickup(vTrack ride: VehicleTrack, pickUpLat lat: Double, pickUpLong long: Double)
+    private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
         let origin = "\(ride.position.latitude),\(ride.position.longitude)"
         let destination = "\(lat),\(long)"
@@ -848,6 +864,32 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
             del?.showRatingScreen()
+        }
+    }
+    
+    // Triggered only when BookingDetails Controller is in focus
+    func bookingUpdateTriggered(_ updatedBooking: KTBooking)
+    {
+        let bStatus = BookingStatus(rawValue: (updatedBooking.bookingStatus))
+        if(bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED)
+        {
+            print("Skipping instant update because of polling")
+        }
+        else
+        {
+            self.booking = updatedBooking
+            if booking!.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.PICKUP.rawValue
+            {
+                del?.updateBookingStatusOnCard(true)
+                updateMap()
+                updateBottomBarButtons()
+            }
+            else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
+            {
+                del?.clearMaps()
+                checkForRating()
+                initializeViewWRTBookingStatus()
+            }
         }
     }
 }

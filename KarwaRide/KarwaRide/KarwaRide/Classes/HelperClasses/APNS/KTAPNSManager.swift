@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import NotificationBannerSwift
 
 let PUSH_TOKEN = "APNSToken"
 
@@ -79,32 +80,48 @@ class KTAPNSManager: NSObject {
         //TODO: -Save notification in DB
         KTBookingManager().booking(forBookingID: bookingId as! String) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
-                
-                
-                
+
                 let booking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
                 
                 KTNotificationManager().saveNotificaiton(serverNotification: userInfo, booking: booking)
-                
+
                 //TODO: - show alert if application is in foreground.
-                if appStateForeGround {
-                    
-                    self.showAlert(forBooking: booking, userInfo: userInfo)
-                    
-                    
-                    
-                    //self.present(alertController, animated: true, completion: nil)
+                if appStateForeGround
+                {
+//                    self.showAlert(forBooking: booking, userInfo: userInfo)
+                    /* Showing banner instead of pop-up */
+                    self.showBanner(forBooking: booking, userInfo: userInfo)
+                    (UIApplication.shared.delegate as! AppDelegate).updateViewControllerIfRequired(forBooking: booking)
                 }
-                else {
-                (UIApplication.shared.delegate as! AppDelegate).moveToDetailView(withBooking: response[Constants.ResponseAPIKey.Data] as! KTBooking)
+                else
+                {
+                    (UIApplication.shared.delegate as! AppDelegate).moveToDetailView(withBooking: response[Constants.ResponseAPIKey.Data] as! KTBooking)
                 }
             }
         }
         
     }
+
+    private func showBanner(forBooking booking : KTBooking, userInfo: [AnyHashable : Any])
+    {
+        let title = alertTitle(forBooking: booking)
+        let message = (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable : Any])[Constants.NotificationKey.Message] as? String
+     
+        self.showBanner(title ?? "  ", message!, BannerStyle.success)
+    }
     
-    private func showAlert(forBooking booking : KTBooking, userInfo: [AnyHashable : Any]) {
-        
+    private func showBanner(_ title: String, _ message: String, _ bannerStyle: BannerStyle)
+    {
+        let banner = NotificationBanner(title: title, subtitle: message, style: bannerStyle)
+        banner.show()
+        DispatchQueue.main.asyncAfter(deadline: (.now() + 4))
+        {
+            banner.dismiss()
+        }
+    }
+    
+    private func showAlert(forBooking booking : KTBooking, userInfo: [AnyHashable : Any])
+    {
         let alertController = UIAlertController(title: alertTitle(forBooking: booking), message: (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable : Any])[Constants.NotificationKey.Message] as? String, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

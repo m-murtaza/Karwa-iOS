@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var location :KTLocationManager?
+    var currentViewControllerName: KTBaseViewController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -99,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupDatabase()  {
         
         MagicalRecord.setupCoreDataStack(withAutoMigratingSqliteStoreNamed: "Karwa")
-        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
+//        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
     }
     
     func setupLocation() {
@@ -160,15 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Failed to register: \(error)")
     }
     
-    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {
-        
-        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
-            let aps = notification["aps"] as! [String: AnyObject]
-            print(aps)
-            apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
-        }
-    }
-    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
     {
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL, let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
@@ -204,15 +196,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //Notifiacation receive when application is in background
-    func application(
-        _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
+        if (application.applicationState == .active)
+        {
+            // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
+            print("==================================================")
+            print("Notification Arrived in Active State")
+            print("==================================================")
+        }
+        else
+        {
+            print("==================================================")
+            print("Notification Arrived in In-Active State")
+            print("==================================================")
+        }
+
         apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
-        
     }
 
+    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
+    {
+        print("==================================================")
+        print("Notification Arrived in Handle Notification")
+        print("==================================================")
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject]
+        {
+            let aps = notification["aps"] as! [String: AnyObject]
+            print(aps)
+            apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
+        }
+    }
+    
     func moveToDetailView(withBooking booking: KTBooking) {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
         let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.DetailView) as! UINavigationController
@@ -276,5 +291,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
+    func getCurrentViewControllerName() -> String
+    {
+        if(currentViewControllerName != nil)
+        {
+            return NSStringFromClass(currentViewControllerName!.classForCoder)
+        }
+        else
+        {
+            return ""
+        }
+    }
+    
+    func setCurrentViewController(_ controller: KTBaseViewController?)
+    {
+        if(controller == nil)
+        {
+            currentViewControllerName = nil
+        }
+        else
+        {
+            currentViewControllerName = controller
+        }
+    }
+    
+    func updateViewControllerIfRequired(forBooking booking : KTBooking)
+    {
+        if(getCurrentViewControllerName() == "KarwaRide.KTBookingDetailsViewController" || getCurrentViewControllerName() == "KarwaRide.KTMyTripsViewController")
+        {
+            currentViewControllerName?.updateForBooking(booking)
+        }
+    }
 }
 
