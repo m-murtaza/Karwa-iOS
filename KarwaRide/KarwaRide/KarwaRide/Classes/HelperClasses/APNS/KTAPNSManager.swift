@@ -9,6 +9,7 @@
 import UIKit
 import UserNotifications
 import NotificationBannerSwift
+import AVFoundation
 
 let PUSH_TOKEN = "APNSToken"
 
@@ -107,6 +108,7 @@ class KTAPNSManager: NSObject {
         let title = alertTitle(forBooking: booking)
         let message = (userInfo[Constants.NotificationKey.RootNotificationKey] as! [AnyHashable : Any])[Constants.NotificationKey.Message] as? String
      
+        AudioServicesPlaySystemSound(1307)
         self.showBanner(title ?? "  ", message!, BannerStyle.success)
     }
     

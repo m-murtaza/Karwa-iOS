@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         
         setupFirebase()
-        
+
         return true
     }
     
