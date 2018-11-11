@@ -86,7 +86,6 @@ class KTAPNSManager: NSObject {
                 
                 KTNotificationManager().saveNotificaiton(serverNotification: userInfo, booking: booking)
 
-                //TODO: - show alert if application is in foreground.
                 if appStateForeGround
                 {
 //                    self.showAlert(forBooking: booking, userInfo: userInfo)
