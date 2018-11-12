@@ -328,7 +328,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     {
         var paymentMethod = "Cash"
 
-        if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH"))
+        if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
         {
             paymentMethod = "**** " +  booking!.lastFourDigits!
         }
