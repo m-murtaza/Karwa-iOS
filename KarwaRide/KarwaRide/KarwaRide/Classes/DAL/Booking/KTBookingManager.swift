@@ -126,13 +126,16 @@ class KTBookingManager: KTBaseFareEstimateManager {
         
         b.vehicleNo =  (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleNo] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleNo] as? String : ""
         b.vehicleType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleType] as! Int16 : 0
-        
+
         if(!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripSummary] as AnyObject)) {
             self.saveTripSummey(data: booking[Constants.BookingResponseAPIKey.TripSummary] as! [AnyHashable:Any],booking: b )
         }
         
         b.isRated = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsRated] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsRated] as! Bool : false
         
+        b.paymentMethod = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PaymentMethod] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PaymentMethod] as? String : ""
+        b.lastFourDigits = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.LastFourDigits] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.LastFourDigits] as? String : ""
+
         return b
     }
     
