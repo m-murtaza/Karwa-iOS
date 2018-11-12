@@ -59,6 +59,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var driverInfoBox : UIView!
     @IBOutlet weak var etaView : UIView!
     
+    @IBOutlet weak var lblPaymentMethod: SpringLabel!
+    @IBOutlet weak var imgPaymentMethod: SpringImageView!
+    
+    
     @IBOutlet weak var imgBookingBar : UIImageView!
     
     @IBOutlet weak var constraintDriverInfoHeightConstraint : NSLayoutConstraint!
@@ -288,6 +292,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         viewCard.backgroundColor = vModel?.cellBGColor()
         
         viewCard.borderColor = vModel?.cellBorderColor()
+        
+        lblPaymentMethod.text = vModel?.paymentMethod()
+        imgPaymentMethod.image = UIImage(named: ImageUtil.getImage((vModel?.paymentMethodIcon())!))
+
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)

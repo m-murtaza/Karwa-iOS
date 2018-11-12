@@ -55,7 +55,7 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func cardIcon(forCellIdx idx: Int) -> UIImage
     {
-        return UIImage(named: getImage(paymentMethods[idx].brand!))!
+        return UIImage(named: ImageUtil.getImage(paymentMethods[idx].brand!))!
     }
     
     func cardSelection(forCellIdx idx: Int) -> UIImage
@@ -305,60 +305,4 @@ class KTPaymentViewModel: KTBaseViewModel
         }
         return refinedMonth
     }
-    
-    func getImage(_ brand: String) -> String
-    {
-        var brandImage = "ico_wallet"
-        
-        switch brand
-        {
-        case "MASTERCARD":
-            brandImage = "ico_mc"
-            break;
-        case "MASTER":
-            brandImage = "ico_mc"
-            break;
-        case "VISACARD":
-            brandImage = "ico_visa"
-            break;
-        case "VISA":
-            brandImage = "ico_visa"
-            break;
-        case "AMEXCARD":
-            brandImage = "ico_amex"
-            break;
-        case "AMEX":
-            brandImage = "ico_amex"
-            break;
-        case "DINERSCLUBCARD":
-            brandImage = "ico_dinersclub"
-            break;
-        case "DINERS_CLUB":
-            brandImage = "ico_dinersclub"
-            break;
-        case "DISCOVERCARD":
-            brandImage = "ico_discover"
-            break;
-        case "DISCOVER":
-            brandImage = "ico_discover"
-            break;
-        case "JCBCARD":
-            brandImage = "ico_jcb"
-            break;
-        case "JCB":
-            brandImage = "ico_jcb"
-            break;
-        case "MAESTROCARD":
-            brandImage = "ico_maestro"
-            break;
-        case "MAESTRO":
-            brandImage = "ico_maestro"
-            break;
-        default:
-            brandImage = "ico_wallet"
-            break;
-        }
-        return brandImage
-    }
 }
-

@@ -4927,6 +4927,7 @@
                         <outlet property="imgBookingBar" destination="MJE-8R-bXL" id="7MG-7i-TFC"/>
                         <outlet property="imgBookingStatus" destination="FVa-Sf-zvY" id="hNF-Pb-DWI"/>
                         <outlet property="imgNumberPlate" destination="2ZV-cL-Dyj" id="HoF-R7-5ka"/>
+                        <outlet property="imgPaymentMethod" destination="bUK-Lm-65i" id="kn1-qz-09i"/>
                         <outlet property="imgPickMsgImage" destination="Nkj-Fd-1rd" id="GyK-Vc-fut"/>
                         <outlet property="lblCallerId" destination="Wjw-Eq-Bgm" id="IMG-2e-5uC"/>
                         <outlet property="lblDayAndTime" destination="clH-DM-VZk" id="J2p-JK-7vG"/>
@@ -4937,6 +4938,7 @@
                         <outlet property="lblEstimatedFare" destination="d8A-5Q-1ai" id="ToM-Nw-3vy"/>
                         <outlet property="lblEta" destination="Qzp-22-8Om" id="eaX-Sr-ZlE"/>
                         <outlet property="lblMonth" destination="SGN-Pg-SpG" id="XmR-FZ-sil"/>
+                        <outlet property="lblPaymentMethod" destination="2ng-46-3Wn" id="a7g-kl-JC9"/>
                         <outlet property="lblPickAddress" destination="zN6-a4-hca" id="pMD-Hm-A7h"/>
                         <outlet property="lblPickMessage" destination="5Nf-3Q-2ej" id="VP2-cA-6BN"/>
                         <outlet property="lblPickTime" destination="agt-hu-0G8" id="KOP-x1-eIB"/>
@@ -7045,7 +7047,7 @@
         <image name="MyTripsDot" width="5" height="5"/>
         <image name="MyTripsNoTrip" width="360" height="458"/>
         <image name="MyTripsPickDrop" width="30" height="78"/>
-        <image name="RevealButton" width="20" height="17"/>
+        <image name="RevealButton" width="30" height="30"/>
         <image name="SHWIconHome" width="12" height="20"/>
         <image name="SHWSetAddressBox" width="362" height="112"/>
         <image name="SettingIconCalendar" width="16" height="17"/>
@@ -7120,7 +7122,7 @@
         <segue reference="UaL-kR-7Gj"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="bsC-QL-uBN"/>
+        <segue reference="izn-m5-Pdm"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
         <segue reference="Pzn-gK-scz"/>

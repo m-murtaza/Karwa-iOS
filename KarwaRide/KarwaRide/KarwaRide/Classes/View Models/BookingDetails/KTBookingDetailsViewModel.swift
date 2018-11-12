@@ -324,6 +324,23 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return dayAndTime
     }
     
+    func paymentMethod() -> String
+    {
+        var paymentMethod = "Cash"
+
+        if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH"))
+        {
+            paymentMethod = "**** " +  booking!.lastFourDigits!
+        }
+
+        return paymentMethod
+    }
+    
+    func paymentMethodIcon() -> String
+    {
+        return booking!.paymentMethod ?? ""
+    }
+    
     func vehicleType() -> String {
         
         var type : String = ""
