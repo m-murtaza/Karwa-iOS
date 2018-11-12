@@ -106,6 +106,7 @@ class KTPaymentViewModel: KTBaseViewModel
                 if(self.paymentMethods.count > 0 && paymentManager.getDefaultPayment() == nil)
                 {
                     let newListWithDefaultSelection = paymentManager.makeOnePaymentMethodDefaultAndReturn()
+                    self.selectedPaymentMethod = newListWithDefaultSelection[0]
                     self.paymentMethods.removeAll()
                     self.paymentMethods = newListWithDefaultSelection
                     self.del?.reloadTableData()
