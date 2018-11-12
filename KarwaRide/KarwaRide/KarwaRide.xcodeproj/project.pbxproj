@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */; };
 		0D045C8B216F248500D3904B /* KTIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */; };
+		0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */; };
 		0D18C6BD215116750001FD4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D18C6BC215116750001FD4C /* GoogleService-Info.plist */; };
 		0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */; };
 		0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */; };
@@ -187,6 +188,7 @@
 /* Begin PBXFileReference section */
 		0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewModel.swift; sourceTree = "<group>"; };
 		0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueTableViewCell.swift; sourceTree = "<group>"; };
+		0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDownGestureRecognizer.swift; sourceTree = "<group>"; };
 		0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV3.xcdatamodel; sourceTree = "<group>"; };
 		0D18C6BC215116750001FD4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintCategoryModel.swift; sourceTree = "<group>"; };
@@ -383,6 +385,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D0948E521995A2800ECC8E1 /* Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */,
+			);
+			path = Gestures;
+			sourceTree = "<group>";
+		};
 		0D1A4B53216CA24A00279AA6 /* ComplaintsController */ = {
 			isa = PBXGroup;
 			children = (
@@ -859,6 +869,7 @@
 		1864871E1F0A357C00DDB003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0D0948E521995A2800ECC8E1 /* Gestures */,
 				1864871F1F0A358600DDB003 /* Controllers */,
 			);
 			name = Views;
@@ -1476,6 +1487,7 @@
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
 				186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */,
 				1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */,
+				0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */,
 				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
 				0DE6A742218B141200125507 /* MPGSDK.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,

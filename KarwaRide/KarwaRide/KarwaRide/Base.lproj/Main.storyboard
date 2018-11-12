@@ -6717,7 +6717,7 @@
                                                         <constraint firstAttribute="height" constant="24" id="MQW-BM-740"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNb-G9-76N">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan N Pay" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNb-G9-76N">
                                                     <rect key="frame" x="68" y="19.5" width="252" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="A8h-ND-TG3"/>
@@ -6736,6 +6736,9 @@
                                                         <constraint firstAttribute="width" constant="8" id="VYn-CF-Ndv"/>
                                                     </constraints>
                                                 </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newtag" translatesAutoresizingMaskIntoConstraints="NO" id="Zfh-Wz-iEj">
+                                                    <rect key="frame" x="160" y="23" width="30" height="14"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -6745,11 +6748,13 @@
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="trailing" secondItem="cMI-mr-Lcx" secondAttribute="trailingMargin" id="GLD-0b-nyT"/>
                                                 <constraint firstAttribute="trailing" secondItem="tkl-WH-A0i" secondAttribute="trailing" id="H00-BF-chD"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="centerY" secondItem="cMI-mr-Lcx" secondAttribute="centerY" id="Pf7-c3-nml"/>
+                                                <constraint firstItem="Zfh-Wz-iEj" firstAttribute="centerY" secondItem="cMI-mr-Lcx" secondAttribute="centerY" id="Pv1-bC-91w"/>
                                                 <constraint firstItem="EIg-fR-Bi0" firstAttribute="leading" secondItem="2Dc-2I-wME" secondAttribute="trailing" constant="24" id="ayG-0U-Z9Q"/>
                                                 <constraint firstAttribute="bottom" secondItem="2Dc-2I-wME" secondAttribute="bottom" id="ehb-IQ-WPE"/>
                                                 <constraint firstAttribute="bottom" secondItem="tkl-WH-A0i" secondAttribute="bottom" id="fU6-ej-gI3"/>
                                                 <constraint firstItem="2Dc-2I-wME" firstAttribute="leading" secondItem="cMI-mr-Lcx" secondAttribute="leading" id="gi5-VA-itq"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="18" id="glR-H6-XSg"/>
+                                                <constraint firstItem="Zfh-Wz-iEj" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="110" id="vyo-UZ-LTt"/>
                                                 <constraint firstItem="2Dc-2I-wME" firstAttribute="top" secondItem="cMI-mr-Lcx" secondAttribute="top" id="xna-n0-QjZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -6757,6 +6762,7 @@
                                         <connections>
                                             <outlet property="imgSelected" destination="tkl-WH-A0i" id="Zcs-s9-8cq"/>
                                             <outlet property="imgTypeIcon" destination="EIg-fR-Bi0" id="7HC-VU-MAN"/>
+                                            <outlet property="lblNew" destination="Zfh-Wz-iEj" id="nCb-8Q-oVg"/>
                                             <outlet property="lblTitle" destination="lNb-G9-76N" id="PqH-0T-gug"/>
                                             <outlet property="sideView" destination="2Dc-2I-wME" id="Vdo-fa-Bqs"/>
                                         </connections>
@@ -7084,6 +7090,7 @@
         <image name="luxury_sm_ico" width="44" height="44"/>
         <image name="map" width="298" height="304"/>
         <image name="map_route" width="218" height="224"/>
+        <image name="newtag" width="30" height="14"/>
         <image name="notification_empty" width="360" height="458"/>
         <image name="paid_graphics" width="375" height="350"/>
         <image name="pay_button" width="345" height="80"/>

@@ -136,10 +136,25 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         })
     }
     
+    func springAnimateButtonTapIn(imageView image : SpringImageView)
+    {
+        UIView.animate(withDuration: 0.30,
+                       animations: {
+                        image.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        })
+    }
+    
     func springAnimateButtonTapOut(button btn : SpringButton)
     {
         UIView.animate(withDuration: 0.35) {
             btn.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func springAnimateButtonTapOut(imageView image : SpringImageView)
+    {
+        UIView.animate(withDuration: 0.35) {
+            image.transform = CGAffineTransform.identity
         }
     }
     

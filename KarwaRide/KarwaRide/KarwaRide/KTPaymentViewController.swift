@@ -344,7 +344,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     @objc func payBtnTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-//        let tappedImage = tapGestureRecognizer.view as! SpringImageView
+        springAnimateButtonTapIn(imageView: btnPay)
+        springAnimateButtonTapOut(imageView: btnPay)
         vModel!.payTripButtonTapped(payTripBean: payTripBean!)
     }
 

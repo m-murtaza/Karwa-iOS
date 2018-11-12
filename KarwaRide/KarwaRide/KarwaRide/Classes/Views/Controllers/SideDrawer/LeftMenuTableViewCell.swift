@@ -14,6 +14,7 @@ class LeftMenuTableViewCell: UITableViewCell {
     @IBOutlet weak var imgTypeIcon: UIImageView!
     @IBOutlet weak var imgSelected: UIImageView!
     @IBOutlet weak var sideView: UIView!
+    @IBOutlet weak var lblNew: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
