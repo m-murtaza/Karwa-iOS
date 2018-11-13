@@ -294,7 +294,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         viewCard.borderColor = vModel?.cellBorderColor()
         
         lblPaymentMethod.text = vModel?.paymentMethod()
-        imgPaymentMethod.image = UIImage(named: ImageUtil.getImage((vModel?.paymentMethodIcon())!))
+        imgPaymentMethod.image = UIImage(named: ImageUtil.getSmallImage((vModel?.paymentMethodIcon())!))
 
     }
     

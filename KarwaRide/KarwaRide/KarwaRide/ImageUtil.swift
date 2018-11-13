@@ -70,4 +70,65 @@ class ImageUtil
         }
         return brandImage
     }
+    
+    static func getSmallImage(_ brand: String) -> String
+    {
+        var brandImage = "wallet_ico_sm"
+        
+        switch brand
+        {
+        case "MASTERCARD":
+            brandImage = "mastercard_ico_sm"
+            break;
+        case "MASTER":
+            brandImage = "mastercard_ico_sm"
+            break;
+        case "VISACARD":
+            brandImage = "visa_ico_sm"
+            break;
+        case "VISA":
+            brandImage = "visa_ico_sm"
+            break;
+        case "AMEXCARD":
+            brandImage = "amex_ico_sm"
+            break;
+        case "AMEX":
+            brandImage = "amex_ico_sm"
+            break;
+        case "DINERSCLUBCARD":
+            brandImage = "dinersclub_ico_sm"
+            break;
+        case "DINERS_CLUB":
+            brandImage = "dinersclub_ico_sm"
+            break;
+        case "DISCOVERCARD":
+            brandImage = "discover_ico_sm"
+            break;
+        case "DISCOVER":
+            brandImage = "discover_ico_sm"
+            break;
+        case "JCBCARD":
+            brandImage = "jcb_ico_sm"
+            break;
+        case "JCB":
+            brandImage = "jcb_ico_sm"
+            break;
+        case "MAESTROCARD":
+            brandImage = "maestro_ico_sm"
+            break;
+        case "MAESTRO":
+            brandImage = "maestro_ico_sm"
+            break;
+        case "Cash":
+            brandImage = "BDIconCash"
+            break;
+        case "":
+            brandImage = "BDIconCash"
+            break;
+        default:
+            brandImage = "wallet_ico_sm"
+            break;
+        }
+        return brandImage
+    }
 }
