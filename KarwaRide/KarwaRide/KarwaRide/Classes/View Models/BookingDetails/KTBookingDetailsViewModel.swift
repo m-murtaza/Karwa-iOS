@@ -70,8 +70,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     var booking : KTBooking?
     var del : KTBookingDetailsViewModelDelegate?
     
-    private var timerVechicleTrack : Timer = Timer()
-    private var timerBookingFreshness : Timer = Timer()
+    private var timerVechicleTrack : Timer? = Timer()
+    private var timerBookingFreshness : Timer? = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,6 +133,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         let formatedEta : Double = Double(eta)/60
         return "\(Int(ceil(Double(formatedEta)))) min"
         
+    }
+    
+    override func viewWillDisappear()
+    {
+        stopBookingUpdateTimer()
+        stopVehicleUpdateTimer()
     }
     
     //MARK:- Driver Info
@@ -327,8 +333,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func paymentMethod() -> String
     {
         var paymentMethod = "Cash"
-
-        if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
+        let bookingStatus = bookingStatii()
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+        {
+            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
         {
             paymentMethod = "**** " +  booking!.lastFourDigits!
         }
@@ -338,7 +348,17 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func paymentMethodIcon() -> String
     {
-        return booking!.paymentMethod ?? ""
+        var paymentMethodIcon = ""
+        let bookingStatus = bookingStatii()
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+        {
+            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else
+        {
+            paymentMethodIcon = booking!.paymentMethod ?? ""
+        }
+        return paymentMethodIcon
     }
     
     func vehicleType() -> String {
@@ -508,12 +528,22 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             }
         }
     }
-    
+
     func stopBookingUpdateTimer()
     {
-        if timerBookingFreshness.isValid
+        if (timerBookingFreshness != nil && timerBookingFreshness!.isValid)
         {
-            timerBookingFreshness.invalidate()
+            timerBookingFreshness?.invalidate()
+            timerBookingFreshness = nil
+        }
+    }
+    
+    func stopVehicleUpdateTimer()
+    {
+        if (timerVechicleTrack != nil && timerVechicleTrack!.isValid)
+        {
+            timerVechicleTrack?.invalidate()
+            timerVechicleTrack = nil
         }
     }
     
@@ -587,9 +617,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else
         {
-            if timerVechicleTrack.isValid
+            if (timerVechicleTrack != nil && timerVechicleTrack!.isValid)
             {
-                timerVechicleTrack.invalidate()
+                timerVechicleTrack!.invalidate()
             }
         }
     }

@@ -115,6 +115,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         navigationController?.isNavigationBarHidden = false
     }
     
+    override func viewDidDisappear(_ animated: Bool)
+    {
+        vModel?.viewWillDisappear()
+    }
+    
     override func updateForBooking(_ booking: KTBooking)
     {
         vModel?.bookingUpdateTriggered(booking)
