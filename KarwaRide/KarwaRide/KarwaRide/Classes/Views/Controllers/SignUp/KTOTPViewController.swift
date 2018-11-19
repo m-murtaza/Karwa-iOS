@@ -26,6 +26,9 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
         // Create the UI
         otpView.initalizeUI()
         otpView.delegate = self
+        
+        btnConfirmCode.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(confrimCodeTapped))
     }
 
 //    override func viewWillAppear(_ animated: Bool) {
@@ -50,9 +53,12 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     */
 
     @IBAction func btnConfirmCode(_ sender: Any) {
-       (viewModel as! KTOTPViewModel).confirmCode()
-        
-        //navigateToBooking()
+        confrimCodeTapped()
+    }
+    
+    @objc func confrimCodeTapped()
+    {
+        (viewModel as! KTOTPViewModel).confirmCode()
     }
     
     @IBAction func btnCloseTapped(_ sender: Any) {

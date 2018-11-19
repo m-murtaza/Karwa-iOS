@@ -103,7 +103,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0SY-Tz-EW2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="231" y="-350"/>
+            <point key="canvasLocation" x="228" y="-907"/>
         </scene>
         <!--Onboarding Step1 View Controller-->
         <scene sceneID="ItI-5P-vIN">
@@ -368,7 +368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hCj-38-FcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="-350.37481259370315"/>
+            <point key="canvasLocation" x="858" y="-907"/>
         </scene>
         <!--Onboarding Step2 View Controller-->
         <scene sceneID="5iq-TJ-TRM">
@@ -538,7 +538,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="43g-AT-S7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1463" y="-350"/>
+            <point key="canvasLocation" x="1460" y="-907"/>
         </scene>
         <!--Onboarding Step3 View Controller-->
         <scene sceneID="YRW-2M-BHU">
@@ -703,7 +703,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IxD-eG-zBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2065" y="-350"/>
+            <point key="canvasLocation" x="2063" y="-907"/>
         </scene>
         <!--Onboarding Step4 View Controller-->
         <scene sceneID="Dlg-VE-Fpx">
@@ -879,7 +879,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IeS-ht-maB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2670" y="-350"/>
+            <point key="canvasLocation" x="2668" y="-907"/>
         </scene>
         <!--Onboarding Step5 View Controller-->
         <scene sceneID="lU9-aZ-nuK">
@@ -1131,7 +1131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcA-dE-5yF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3272.8000000000002" y="-350.37481259370315"/>
+            <point key="canvasLocation" x="3271" y="-907"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="HYl-71-sTb">
@@ -1500,7 +1500,7 @@
                             <constraint firstItem="jw5-Sy-Exe" firstAttribute="trailing" secondItem="yor-Xf-cZL" secondAttribute="trailing" id="TAS-sd-uir"/>
                             <constraint firstItem="orN-4c-7Mp" firstAttribute="top" secondItem="yYd-bL-VaR" secondAttribute="top" constant="20" id="f2g-2R-Sfd"/>
                             <constraint firstItem="4NX-QD-l06" firstAttribute="top" secondItem="O4j-4h-4WK" secondAttribute="bottom" constant="33" id="kvu-cl-R9z"/>
-                            <constraint firstItem="yor-Xf-cZL" firstAttribute="top" secondItem="yR2-3e-uTJ" secondAttribute="bottom" constant="54" id="l02-RB-3og"/>
+                            <constraint firstItem="yor-Xf-cZL" firstAttribute="top" secondItem="yR2-3e-uTJ" secondAttribute="bottom" constant="10" id="l02-RB-3og"/>
                             <constraint firstItem="O4j-4h-4WK" firstAttribute="centerX" secondItem="yYd-bL-VaR" secondAttribute="centerX" id="nHd-fB-Gsb"/>
                             <constraint firstItem="jw5-Sy-Exe" firstAttribute="leading" secondItem="yor-Xf-cZL" secondAttribute="leading" id="rl1-B5-pUq"/>
                         </constraints>
@@ -1519,7 +1519,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1472.8" y="791.15442278860576"/>
+            <point key="canvasLocation" x="770" y="727"/>
         </scene>
         <!--Create New Account-->
         <scene sceneID="hHE-x6-x2a">
@@ -1693,6 +1693,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="btnSignUpBottom:" destination="fMd-MX-Ace" eventType="touchUpInside" id="cpV-ao-Ki4"/>
                                     <action selector="btnSubmitTapped:" destination="cQY-xs-9LD" eventType="touchUpInside" id="IiL-fn-SiJ"/>
                                 </connections>
                             </button>
@@ -1714,6 +1715,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="iA4-2C-EOo"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="signUpBtn" destination="zcc-f8-WEv" id="SFA-Kb-2i6"/>
                         <outlet property="txtEmail" destination="vxf-cn-IYH" id="yRV-PJ-ceT"/>
                         <outlet property="txtMobileNo" destination="AQ3-T8-m79" id="Zf9-uL-goz"/>
                         <outlet property="txtName" destination="0Xl-Bt-XhR" id="MDy-T1-atY"/>
@@ -1723,8 +1725,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P6q-tp-29f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="fMd-MX-Ace" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2183" y="331"/>
+            <point key="canvasLocation" x="1750" y="100"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uDV-tU-Hpj">
@@ -1740,7 +1743,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIu-NZ-sYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2974" y="368"/>
+            <point key="canvasLocation" x="3012" y="276"/>
         </scene>
         <!--Forgot Your Password-->
         <scene sceneID="HEs-ut-tSI">
@@ -1909,6 +1912,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="btnSubmitt" destination="pD4-TJ-DZh" id="bIC-1Z-izG"/>
                         <outlet property="txtConfirmPass" destination="wYH-hK-gaq" id="3nA-yE-xTt"/>
                         <outlet property="txtPassword" destination="ce2-eZ-A8z" id="aSz-6T-LAh"/>
                         <outlet property="txtPhoneNumber" destination="ih5-Tj-ObB" id="gQG-sZ-UNd"/>
@@ -2073,7 +2077,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWc-R7-K4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2958" y="1066"/>
+            <point key="canvasLocation" x="2996" y="974"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z7Q-pd-bNm">
@@ -2123,7 +2127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJF-Iu-Ca2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4655" y="1066"/>
+            <point key="canvasLocation" x="3934" y="1053"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3jF-vZ-O5X">
@@ -3747,6 +3751,7 @@
                         <barButtonItem key="backBarButtonItem" title="  " id="po4-dA-K4w"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnSave" destination="35f-4q-rNk" id="kfK-Ez-9mi"/>
                         <outlet property="txtEmail" destination="0Rf-9T-xID" id="IFj-IZ-QXb"/>
                         <outlet property="txtName" destination="Hd8-Kn-OOr" id="9bW-R3-3iG"/>
                         <outlet property="txtPhone" destination="BLS-Or-PrP" id="5cS-7s-2cI"/>
@@ -5709,6 +5714,7 @@
                         <barButtonItem key="backBarButtonItem" title="  " id="n8y-ud-Kt0"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnSave" destination="eKI-lM-zdp" id="6U0-Je-G9Q"/>
                         <outlet property="txtNewPassword" destination="jn7-o0-t4N" id="0S8-m6-agc"/>
                         <outlet property="txtOldPassword" destination="zAV-OZ-iHi" id="Kci-CR-vMH"/>
                         <outlet property="txtReNewPassword" destination="JxN-XL-Xyw" id="7aq-dz-340"/>
@@ -7122,7 +7128,7 @@
         <segue reference="UaL-kR-7Gj"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="izn-m5-Pdm"/>
+        <segue reference="bsC-QL-uBN"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
         <segue reference="Pzn-gK-scz"/>
