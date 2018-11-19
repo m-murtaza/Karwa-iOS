@@ -7,18 +7,26 @@
 //
 
 import UIKit
+import Spring
 
 class KTChangePasswordViewController: KTBaseViewController,KTChangePasswordViewModelDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var txtOldPassword: UITextField!
     @IBOutlet weak var txtNewPassword: UITextField!
     @IBOutlet weak var txtReNewPassword: UITextField!
+    @IBOutlet weak var btnSave: ButtonWithShadow!
+    
+
     override func viewDidLoad() {
         viewModel = KTChangePasswordViewModel(del: self)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         txtOldPassword.becomeFirstResponder()
+
+        btnSave.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(btnChangeTapped))
+        
     }
 
     override func didReceiveMemoryWarning() {

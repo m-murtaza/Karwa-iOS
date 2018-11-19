@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewModelDelegate, UITextFieldDelegate {
     
@@ -14,11 +15,16 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewMo
     @IBOutlet weak var txtMobileNo: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-
+    @IBOutlet weak var signUpBtn: SpringButton!
+    
     override func viewDidLoad() {
         viewModel = KTSignUpFormViewModel(del:self)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
+        signUpBtn.isHidden = true
+        navigationItem.title = "New Account"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
     }
 
     override func didReceiveMemoryWarning() {

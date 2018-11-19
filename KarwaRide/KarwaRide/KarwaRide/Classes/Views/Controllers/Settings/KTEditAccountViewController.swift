@@ -7,18 +7,24 @@
 //
 
 import UIKit
+import Spring
 
 class KTEditAccountViewController: KTBaseViewController, KTEditUserViewModelDelegate,UITextFieldDelegate {
 
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPhone: UITextField!
+    @IBOutlet weak var btnSave: ButtonWithShadow!
+
     override func viewDidLoad() {
         viewModel = KTEditUserViewModel(del: self)
         
         super.viewDidLoad()
         txtName.becomeFirstResponder()
         // Do any additional setup after loading the view.
+        
+        btnSave.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(btnSaveTapped))
     }
     
     override func viewWillAppear(_ animated: Bool) {
