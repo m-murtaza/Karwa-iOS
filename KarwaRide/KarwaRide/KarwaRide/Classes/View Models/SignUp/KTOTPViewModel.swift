@@ -18,25 +18,31 @@ protocol KTOTPViewModelDelegate: KTViewModelDelegate {
 class KTOTPViewModel: KTBaseViewModel {
     
     func confirmCode() {
-        
-        let otp : String? = ((self.delegate as! KTOTPViewModelDelegate).OTPCode())!
-        let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
-        if KTUtils.isObjectNotNil(object: otp as AnyObject)
+        if(((self.delegate as! KTOTPViewModelDelegate).OTPCode()) != nil)
         {
-            delegate?.showProgressHud(show: true, status: "Confirming Code")
-            KTUserManager().varifyOTP(phone: phone, code: otp!
-                , completion: { (status, response) in
-                    self.delegate?.showProgressHud(show: false)
-                    if status == Constants.APIResponseStatus.SUCCESS
-                    {
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
-                        (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
-                    }
-                    else
-                    {
-                        self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
-                    }
-            })
+            let otp : String? = ((self.delegate as! KTOTPViewModelDelegate).OTPCode())!
+            let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
+            if KTUtils.isObjectNotNil(object: otp as AnyObject)
+            {
+                delegate?.showProgressHud(show: true, status: "Confirming Code")
+                KTUserManager().varifyOTP(phone: phone, code: otp!
+                    , completion: { (status, response) in
+                        self.delegate?.showProgressHud(show: false)
+                        if status == Constants.APIResponseStatus.SUCCESS
+                        {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
+                            (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
+                        }
+                        else
+                        {
+                            self.delegate?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+                        }
+                })
+            }
+        }
+        else
+        {
+            self.delegate?.showError!(title: "", message: "Please Enter Code first")
         }
     }
     

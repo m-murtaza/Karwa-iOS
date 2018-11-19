@@ -13,6 +13,8 @@ class KTMainViewController: KTBaseViewController, UIPopoverPresentationControlle
 
     @IBOutlet weak var btnCreatAccount : UIButton!
     @IBOutlet weak var btnAlreadyHaveAccount : UIButton!
+    @IBAction func btnSignUpBottom(_ sender: Any) {
+    }
     
     override func viewDidLoad() {
         viewModel = KTMainViewModel(del:self)

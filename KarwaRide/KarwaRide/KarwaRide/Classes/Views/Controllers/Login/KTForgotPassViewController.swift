@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Spring
 
 class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDelegate, UITextFieldDelegate  {
     
     @IBOutlet weak var txtPhoneNumber : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
     @IBOutlet weak var txtConfirmPass : UITextField!
+    @IBOutlet weak var btnSubmitt: SpringButton!
     
     var previousView : KTBaseLoginSignUpViewController?
     
@@ -22,6 +24,9 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        btnSubmitt.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
         
     }
     // MARK: - Navigation
