@@ -1311,7 +1311,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yor-Xf-cZL" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="40" y="387" width="295" height="51"/>
+                                <rect key="frame" x="40" y="343" width="295" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="Pew-8N-9s0"/>
                                 </constraints>
@@ -1442,7 +1442,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jw5-Sy-Exe">
-                                <rect key="frame" x="40" y="453" width="295" height="31"/>
+                                <rect key="frame" x="40" y="409" width="295" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="don't have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLo-0q-kCc" customClass="SpringLabel" customModule="Spring">
                                         <rect key="frame" x="8" y="5" width="170" height="21"/>
@@ -1500,7 +1500,7 @@
                             <constraint firstItem="jw5-Sy-Exe" firstAttribute="trailing" secondItem="yor-Xf-cZL" secondAttribute="trailing" id="TAS-sd-uir"/>
                             <constraint firstItem="orN-4c-7Mp" firstAttribute="top" secondItem="yYd-bL-VaR" secondAttribute="top" constant="20" id="f2g-2R-Sfd"/>
                             <constraint firstItem="4NX-QD-l06" firstAttribute="top" secondItem="O4j-4h-4WK" secondAttribute="bottom" constant="33" id="kvu-cl-R9z"/>
-                            <constraint firstItem="yor-Xf-cZL" firstAttribute="top" secondItem="yR2-3e-uTJ" secondAttribute="bottom" constant="54" id="l02-RB-3og"/>
+                            <constraint firstItem="yor-Xf-cZL" firstAttribute="top" secondItem="yR2-3e-uTJ" secondAttribute="bottom" constant="10" id="l02-RB-3og"/>
                             <constraint firstItem="O4j-4h-4WK" firstAttribute="centerX" secondItem="yYd-bL-VaR" secondAttribute="centerX" id="nHd-fB-Gsb"/>
                             <constraint firstItem="jw5-Sy-Exe" firstAttribute="leading" secondItem="yor-Xf-cZL" secondAttribute="leading" id="rl1-B5-pUq"/>
                         </constraints>
@@ -6883,9 +6883,9 @@
         <segue reference="N6S-jP-c4x"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="A9o-xm-kbF"/>
-        <segue reference="UM1-sb-1vB"/>
+        <segue reference="bsC-QL-uBN"/>
+        <segue reference="uRk-Bz-EyY"/>
         <segue reference="67X-ka-fJY"/>
-        <segue reference="Otx-q2-Oud"/>
+        <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>
