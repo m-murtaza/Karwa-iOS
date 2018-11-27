@@ -225,7 +225,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func shareBtnTapped(_ sender: Any)
     {
-        let URLstring =  String(format:"https://itunes.apple.com/in/app/facebook/id284882215?mt=8")
+        let URLstring =  String(format: Constants.ShareTripUrl + (vModel?.booking?.trackId ?? "unknown"))
         let urlToShare = URL(string:URLstring)
         let title = "Follow the link to track my ride: \n"
         let activityViewController = UIActivityViewController(activityItems: [title,urlToShare!], applicationActivities: nil)

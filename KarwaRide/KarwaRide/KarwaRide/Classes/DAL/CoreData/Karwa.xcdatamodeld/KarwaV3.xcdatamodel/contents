@@ -34,6 +34,7 @@
         <attribute name="pickupTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="serviceType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="totalDistance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tripTrack" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vehicleNo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="vehicleType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -121,7 +122,7 @@
     </entity>
     <elements>
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
-        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="570"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="585"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="118"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTComplaint" positionX="45" positionY="-126" width="128" height="165"/>
