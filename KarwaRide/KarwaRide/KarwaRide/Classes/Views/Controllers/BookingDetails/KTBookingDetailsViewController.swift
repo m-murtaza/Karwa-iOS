@@ -118,7 +118,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
+
     override func viewDidDisappear(_ animated: Bool)
     {
         vModel?.viewWillDisappear()
@@ -187,6 +187,15 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         })
     }
     
+    func showHideShareButton(_ show : Bool)
+    {
+        btnShare.isHidden = !show
+    }
+    
+    func showHideToolTipShareButton(_ show : Bool)
+    {
+        toolTipBtnShare.isHidden = !show
+    }
     
      // MARK: - Navigation
      
@@ -216,7 +225,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func shareBtnTapped(_ sender: Any)
     {
-        
+        let URLstring =  String(format:"https://itunes.apple.com/in/app/facebook/id284882215?mt=8")
+        let urlToShare = URL(string:URLstring)
+        let title = "Follow the link to track my ride: \n"
+        let activityViewController = UIActivityViewController(activityItems: [title,urlToShare!], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        //so that ipads won't crash
+        present(activityViewController,animated: true,completion: nil)
     }
     
     
