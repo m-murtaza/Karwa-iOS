@@ -85,6 +85,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
     
+    @IBOutlet weak var btnShare: SpringButton!
+    @IBOutlet weak var toolTipBtnShare: SpringImageView!
+    
+    
     var isOpenFromNotification : Bool = false
     let MAX_ZOOM_LEVEL = 16
     
@@ -208,8 +212,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBAction func btnCallTapped(_ sender: Any)
     {
         vModel?.callDriver()
+    }
+    
+    @IBAction func shareBtnTapped(_ sender: Any)
+    {
         
     }
+    
     
     @IBAction func moreOptionsTapped(_ sender: Any)
     {

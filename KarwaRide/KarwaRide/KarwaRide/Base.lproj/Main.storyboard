@@ -1311,7 +1311,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yor-Xf-cZL" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="40" y="339" width="295" height="51"/>
+                                <rect key="frame" x="40" y="295" width="295" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="Pew-8N-9s0"/>
                                 </constraints>
@@ -1442,7 +1442,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jw5-Sy-Exe">
-                                <rect key="frame" x="40" y="405" width="295" height="31"/>
+                                <rect key="frame" x="40" y="361" width="295" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="don't have an account?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLo-0q-kCc" customClass="SpringLabel" customModule="Spring">
                                         <rect key="frame" x="8" y="5" width="170" height="21"/>
@@ -4111,6 +4111,20 @@
                                     <action selector="presentLeftMenuViewController" destination="l39-Ix-xs1" eventType="touchUpInside" id="gMV-oE-6A0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKL-my-Cdo" customClass="SpringButton" customModule="Spring">
+                                <rect key="frame" x="279" y="66" width="80" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="eKM-I7-rgu"/>
+                                    <constraint firstAttribute="width" constant="80" id="za7-XK-CwX"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="share_btn"/>
+                                <connections>
+                                    <action selector="shareBtnTapped:" destination="l39-Ix-xs1" eventType="touchUpInside" id="0qB-i3-mDZ"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tooltip_share" translatesAutoresizingMaskIntoConstraints="NO" id="Rgn-Eu-1K0" customClass="SpringImageView" customModule="Spring">
+                                <rect key="frame" x="123" y="101" width="222" height="36"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2n-Zk-ght">
                                 <rect key="frame" x="0.0" y="244" width="375" height="32"/>
                                 <subviews>
@@ -4878,11 +4892,15 @@
                             <constraint firstItem="q2n-Zk-ght" firstAttribute="leading" secondItem="tsh-Wg-DfT" secondAttribute="leading" id="Bzi-Gg-ewJ"/>
                             <constraint firstItem="XxC-Vw-A6E" firstAttribute="top" secondItem="tsh-Wg-DfT" secondAttribute="top" id="DIe-Gd-46Z"/>
                             <constraint firstItem="Igg-z1-2G6" firstAttribute="top" secondItem="VsK-vU-v8o" secondAttribute="bottom" constant="15" id="FuW-6d-3Uv"/>
+                            <constraint firstItem="Rgn-Eu-1K0" firstAttribute="top" secondItem="tsh-Wg-DfT" secondAttribute="top" constant="37" id="HVy-Bf-mMw"/>
                             <constraint firstItem="tsh-Wg-DfT" firstAttribute="trailing" secondItem="q2n-Zk-ght" secondAttribute="trailing" id="Hgf-9Y-swe"/>
                             <constraint firstItem="3fz-m4-fPO" firstAttribute="leading" secondItem="tsh-Wg-DfT" secondAttribute="leading" id="J4f-gq-mOm"/>
                             <constraint firstItem="VsK-vU-v8o" firstAttribute="top" secondItem="q2n-Zk-ght" secondAttribute="bottom" constant="5" id="J8e-lr-Asu"/>
                             <constraint firstItem="Igg-z1-2G6" firstAttribute="leading" secondItem="EUR-qS-DtN" secondAttribute="leadingMargin" id="Kvt-GH-j24"/>
                             <constraint firstItem="tsh-Wg-DfT" firstAttribute="trailing" secondItem="h6a-f0-McA" secondAttribute="trailing" id="Lrm-eo-k8A"/>
+                            <constraint firstItem="AKL-my-Cdo" firstAttribute="centerY" secondItem="fe2-d4-qJR" secondAttribute="centerY" id="P4k-8g-RS5"/>
+                            <constraint firstItem="tsh-Wg-DfT" firstAttribute="trailing" secondItem="AKL-my-Cdo" secondAttribute="trailing" constant="16" id="PU8-3j-pXE"/>
+                            <constraint firstItem="tsh-Wg-DfT" firstAttribute="trailing" secondItem="Rgn-Eu-1K0" secondAttribute="trailing" constant="30" id="Rls-mB-CmA"/>
                             <constraint firstItem="tsh-Wg-DfT" firstAttribute="trailing" secondItem="fTc-oq-0ZF" secondAttribute="trailing" constant="20" id="Woi-nG-u1w"/>
                             <constraint firstItem="vlg-vT-ise" firstAttribute="leading" secondItem="tsh-Wg-DfT" secondAttribute="leading" id="ZqZ-bg-BFH"/>
                             <constraint firstItem="fe2-d4-qJR" firstAttribute="centerX" secondItem="XxC-Vw-A6E" secondAttribute="centerX" id="aQb-N2-i48"/>
@@ -4915,6 +4933,7 @@
                         <outlet property="btnMoreOptions" destination="yUH-H8-r3r" id="18l-h3-pho"/>
                         <outlet property="btnPhone" destination="mFm-Wl-LRA" id="894-sV-Sb2"/>
                         <outlet property="btnReveal" destination="fe2-d4-qJR" id="ech-hD-hrp"/>
+                        <outlet property="btnShare" destination="AKL-my-Cdo" id="mvL-Bc-Ubz"/>
                         <outlet property="constraintDriverInfoHeightConstraint" destination="bnz-xL-TRO" id="eau-ab-cgF"/>
                         <outlet property="constraintGapDriverInfoToBookingDetails" destination="FuW-6d-3Uv" id="e7R-NZ-Qb2"/>
                         <outlet property="constraintHeighBookingInfoBox" destination="Elz-hE-zy0" id="qAE-La-hdO"/>
@@ -4956,6 +4975,7 @@
                         <outlet property="rightBottomBarButton" destination="LTg-qC-AB5" id="qIk-yn-bZX"/>
                         <outlet property="starView" destination="mEA-ox-eSf" id="2kc-Ny-pMt"/>
                         <outlet property="titleEstimatedFare" destination="evk-mQ-i72" id="Vg5-qm-OIU"/>
+                        <outlet property="toolTipBtnShare" destination="Rgn-Eu-1K0" id="Ing-LX-1lz"/>
                         <outlet property="viewCallerID" destination="fTc-oq-0ZF" id="zx6-QB-tPl"/>
                         <outlet property="viewCard" destination="VsK-vU-v8o" id="Cg1-YI-rC9"/>
                         <segue destination="L23-ue-kpU" kind="show" identifier="segueDetailToReBook" id="izn-m5-Pdm"/>
@@ -7110,6 +7130,7 @@
         <image name="right_tree" width="39" height="78"/>
         <image name="route" width="126" height="262"/>
         <image name="scan_n_pay_empty" width="375" height="320"/>
+        <image name="share_btn" width="80" height="36"/>
         <image name="sq_map" width="169" height="131"/>
         <image name="standard_sm_ico" width="44" height="44"/>
         <image name="step1" width="176" height="4"/>
@@ -7121,6 +7142,7 @@
         <image name="swipe_hand" width="60" height="91"/>
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>
+        <image name="tooltip_share" width="222" height="36"/>
         <image name="white_back" width="375" height="396"/>
     </resources>
     <inferredMetricsTieBreakers>
@@ -7128,7 +7150,7 @@
         <segue reference="UaL-kR-7Gj"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="bsC-QL-uBN"/>
+        <segue reference="izn-m5-Pdm"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
         <segue reference="Pzn-gK-scz"/>
