@@ -18,6 +18,14 @@ class MAKHashGenerator {
     		return UInt64(since1970 * 1000)
 	}
 
+    //Date to milliseconds
+    func currentTimeInSeconds(date: Date) -> UInt64
+    {
+        let currentDate = date
+        let since1970 = currentDate.timeIntervalSince1970
+        return UInt64(since1970)
+    }
+    
 	public func generateKey(date: Date) -> UInt64
     {
 		var dateComponents = DateComponents()
@@ -65,7 +73,7 @@ class MAKHashGenerator {
 		return data
 	}
 
-	public func decrypt(text: String) -> String
+    public func decrypt(text: String) -> String
     {
         let key = getKeyFromString(text: text)
         let value = getHashFromString(text: text)

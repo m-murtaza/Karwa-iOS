@@ -230,7 +230,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         let title = "Follow the link to track my ride: \n"
         let activityViewController = UIActivityViewController(activityItems: [title,urlToShare!], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
-        //so that ipads won't crash
         present(activityViewController,animated: true,completion: nil)
     }
     
