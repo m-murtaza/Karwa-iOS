@@ -1,5 +1,5 @@
 //
-//  KTTrackTripViewController.swift
+//  KTBookingDetailsViewController.swift
 //  KarwaRide
 //
 //  Created by Muhammad Usman on 3/15/18.
@@ -15,7 +15,7 @@ import DDViewSwitcher
 import XLActionController
 
 class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTTrackTripViewModelDelegate {
-    
+
     @IBOutlet weak var mapView : GMSMapView!
     
     @IBOutlet weak var lblPickAddress : UILabel!
@@ -29,9 +29,6 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
     @IBOutlet weak var imgBookingStatus: SpringImageView!
-    
-    @IBOutlet weak var lblEstimatedFare : UILabel!
-    @IBOutlet weak var titleEstimatedFare: UILabel!
     
     @IBOutlet weak var starView : CosmosView!
     @IBOutlet weak var lblEta : UILabel!
@@ -47,7 +44,10 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     @IBOutlet weak var hintText: UILabel!
     
     @IBOutlet weak var driverPhoneBottomConstraint: NSLayoutConstraint!
-
+    
+    @IBOutlet weak var btnBack : UIButton!
+    @IBOutlet weak var btnReveal : UIButton!
+    
     @IBOutlet weak var btnPhone: UIButton!
     @IBOutlet weak var driverInfoBox : UIView!
     @IBOutlet weak var etaView : UIView!
@@ -72,11 +72,12 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     @IBOutlet weak var arrowRight: SpringImageView!
     @IBOutlet weak var constraintSpaceSapratorToPickupLable : NSLayoutConstraint!
     @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
+
+    @IBOutlet weak var fareInfoContainer: UIView!
     
     var trackTripId : String = ""
-    
     private var vModel : KTTrackTripViewModel?
-    
+
     var isOpenFromNotification : Bool = false
     let MAX_ZOOM_LEVEL = 16
     
@@ -96,6 +97,11 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        fareInfoContainer.isHidden = true
+
+        constraintHeighBookingInfoLargeBox.constant -= 45
+//        btnBack.isHidden = isOpenFromNotification
+//        btnReveal.isHidden = !isOpenFromNotification
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,28 +118,6 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     override func updateForBooking(_ booking: KTBooking)
     {
         vModel?.bookingUpdateTriggered(booking)
-    }
-    
-    func startArrowAnimation()
-    {
-        let midX = arrowRight.center.x
-        let midY = arrowRight.center.y
-        
-        let animation = CABasicAnimation(keyPath: "position")
-        animation.duration = 0.60
-        animation.repeatCount = 100
-        animation.autoreverses = true
-        animation.fromValue = CGPoint(x: midX, y: midY)
-        animation.toValue = CGPoint(x: midX + 3, y: midY)
-    }
-    
-    func setBooking(booking : KTBooking) {
-        if viewModel == nil {
-            viewModel = KTTrackTripViewModel(del: self)
-        }
-        vModel = viewModel as? KTTrackTripViewModel
-        (viewModel as! KTTrackTripViewModel).booking = booking
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -163,14 +147,12 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     {
         self.driverInfoBox.isHidden = false
         self.constraintDriverInfoHeightConstraint.constant = 95
-        self.constraintGapDriverInfoToBookingDetails.constant = 30
+        self.constraintGapDriverInfoToBookingDetails.constant = 10
         
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         })
     }
-    
-    // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -196,42 +178,12 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         vModel?.callDriver()
     }
     
-    @IBAction func shareBtnTapped(_ sender: Any)
-    {
-        let URLstring =  String(format: Constants.ShareTripUrl + (vModel?.booking?.trackId ?? "unknown"))
-        let urlToShare = URL(string:URLstring)
-        let title = "Follow the link to track my ride: \n"
-        let activityViewController = UIActivityViewController(activityItems: [title,urlToShare!], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        present(activityViewController,animated: true,completion: nil)
-    }
-    
-    
-    @IBAction func moreOptionsTapped(_ sender: Any)
-    {
-        let actionController = YoutubeActionController()
+    @IBAction func btnBackTapped(_ sender: Any) {
         
-        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
-            { action in
-                self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
         }
-        ))
-        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
-            { action in
-                self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
-        }
-        ))
-        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
-        
-        present(actionController, animated: true, completion: nil)
     }
-    
-//    @IBAction func btnBackTapped(_ sender: Any) {
-//        
-//        if let navController = self.navigationController {
-//            navController.popViewController(animated: true)
-//        }
-//    }
     //MARK:- Assignment Info
     
     func updateAssignmentInfo() {
@@ -271,19 +223,7 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         lblYear.text = vModel?.pickupYear()
         
         lblDayAndTime.text = vModel?.pickupDayAndTime()
-        
         lblServiceType.text = vModel?.vehicleType()
-        
-        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
-        {
-            lblEstimatedFare.text = vModel?.totalFareOfTrip()
-            titleEstimatedFare.text = "Fare"
-        }
-        else
-        {
-            lblEstimatedFare.text = vModel?.estimatedFare()
-            titleEstimatedFare.text = "Est. Fare"
-        }
         
         updateBookingStatusOnCard()
         
@@ -293,10 +233,11 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         viewCard.backgroundColor = vModel?.cellBGColor()
         
         viewCard.borderColor = vModel?.cellBorderColor()
-        
-        lblPaymentMethod.text = vModel?.paymentMethod()
-        imgPaymentMethod.image = UIImage(named: ImageUtil.getSmallImage((vModel?.paymentMethodIcon())!))
-        
+    }
+    
+    func getTrackTripId() -> String
+    {
+        return self.trackTripId
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
@@ -345,21 +286,20 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     
     func updateBookingCardForUnCompletedBooking() {
         
-        imgBookingBar.image = UIImage(named:"BookingPickDropBar")
-        constraintPickDropBarHeight.constant -= 10
-        
-        constraintHeighBookingInfoBox.constant -= 10
-        constraintHeighBookingInfoLargeBox.constant -= 10
-        lblPickTime.isHidden = true
-        lblDropTime.isHidden = true
-        
-        constraintHeightPickTime.constant = 0
-        constraintHeightDropTime.constant = 0
-        constraintSpacePickTimeNPickAddress.constant = 0
-        constraintSpaceDropTimeNDropAddress.constant = -16
-        
-        constraintSapratorCenterAlign.priority = UILayoutPriority.defaultHigh
-        constraintSpaceSapratorToPickupLable.priority = UILayoutPriority.defaultLow
+//        imgBookingBar.image = UIImage(named:"BookingPickDropBar")
+          constraintPickDropBarHeight.constant -= 10
+          constraintHeighBookingInfoBox.constant -= 10
+          constraintHeighBookingInfoLargeBox.constant -= 10
+          lblPickTime.isHidden = true
+          lblDropTime.isHidden = true
+
+          constraintHeightPickTime.constant = 0
+          constraintHeightDropTime.constant = 0
+          constraintSpacePickTimeNPickAddress.constant = 0
+          constraintSpaceDropTimeNDropAddress.constant = -16
+
+          constraintSapratorCenterAlign.priority = UILayoutPriority.defaultHigh
+//          constraintSpaceSapratorToPickupLable.priority = UILayoutPriority.defaultLow
     }
     
     
@@ -481,18 +421,9 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         mapView.clear()
     }
     
-    func moveToBooking() {
-        
-        self.performSegue(name: "segueDetailToReBook")
-    }
-    
     func popViewController() {
         
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    func cancelDoneSuccess() {
-        vModel?.cancelDoneSuccess()
     }
     
     func hidePhoneButton() {
@@ -501,4 +432,3 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     }
     
 }
-

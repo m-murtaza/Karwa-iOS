@@ -23,8 +23,6 @@ protocol KTTrackTripViewModelDelegate: KTViewModelDelegate {
     func updateCallerId()
     func hidePhoneButton()
     
-    func moveToBooking()
-    
     func popViewController()
     func updateBookingCardForCompletedBooking()
     func updateBookingCardForUnCompletedBooking()
@@ -44,6 +42,7 @@ protocol KTTrackTripViewModelDelegate: KTViewModelDelegate {
     func showRouteOnMap(points pointsStr: String)
     
     func updateMapCamera()
+    func getTrackTripId() -> String
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     
 }
@@ -51,15 +50,18 @@ protocol KTTrackTripViewModelDelegate: KTViewModelDelegate {
 class KTTrackTripViewModel: KTBaseViewModel {
     
     var booking : KTBooking?
-    var del : KTBookingDetailsViewModelDelegate?
+    var del : KTTrackTripViewModelDelegate?
+    
+    final let VEHICLE_STATUS_HIRED : Int = 4
+    var isHiredShown = false
     
     private var timerVechicleTrack : Timer? = Timer()
-    private var timerBookingFreshness : Timer? = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        del = self.delegate as? KTBookingDetailsViewModelDelegate
-        initializeViewWRTBookingStatus()
+        del = self.delegate as? KTTrackTripViewModelDelegate
+        
+        fetchBooking((del?.getTrackTripId())!)
     }
     
     override func viewDidAppear() {
@@ -78,7 +80,6 @@ class KTTrackTripViewModel: KTBaseViewModel {
         updateCallerId()
         updateBookingCard()
         updateAssignmentInfo()
-        updateBottomBarButtons()
     }
     
     func bookingId() -> String {
@@ -119,7 +120,6 @@ class KTTrackTripViewModel: KTBaseViewModel {
     
     override func viewWillDisappear()
     {
-        stopBookingUpdateTimer()
         stopVehicleUpdateTimer()
     }
     
@@ -442,9 +442,8 @@ class KTTrackTripViewModel: KTBaseViewModel {
         if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            del?.showCurrentLocationDot(show: false)
             showPickDropMarker(showOnlyPickup: true)
-            startPollingForBooking()
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
@@ -454,13 +453,13 @@ class KTTrackTripViewModel: KTBaseViewModel {
         else if(bStatus == BookingStatus.PICKUP)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            del?.showCurrentLocationDot(show: false)
             startVechicleTrackTimer()
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            del?.showCurrentLocationDot(show: false)
             showPickDropMarker(showOnlyPickup: true)
             startVechicleTrackTimer()
         }
@@ -477,46 +476,20 @@ class KTTrackTripViewModel: KTBaseViewModel {
         }
     }
     
-    func startPollingForBooking()
+    @objc func fetchBooking(_ bookingId : String)
     {
-        timerBookingFreshness = Timer.scheduledTimer(timeInterval: 4, target: self,   selector: (#selector(self.fetchUpdatedBookings)), userInfo: nil, repeats: true)
-    }
-    
-    @objc func fetchUpdatedBookings()
-    {
-        KTBookingManager().syncBookings { (status, response) in
+        self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
+
+        KTBookingManager().booking(forBookingID: bookingId as String) { (status, response) in
             
-            if(response[Constants.ResponseAPIKey.Data] != nil)
-            {
-                let deltaBookings: [KTBooking] = response[Constants.ResponseAPIKey.Data] as! [Any] as! [KTBooking]
-                
-                if  deltaBookings.count > 0
+                self.del?.hideProgressHud()
+
+                if status == Constants.APIResponseStatus.SUCCESS
                 {
-                    for updatedBooking in deltaBookings
-                    {
-                        if(self.booking?.bookingId == updatedBooking.bookingId)
-                        {
-                            let bStatus = updatedBooking.bookingStatus
-                            if(bStatus == BookingStatus.PICKUP.rawValue || bStatus == BookingStatus.ARRIVED.rawValue || bStatus == BookingStatus.CONFIRMED.rawValue)
-                            {
-                                self.booking = updatedBooking
-                                self.stopBookingUpdateTimer()
-                                self.del?.showDriverInfoBox()
-                                self.initializeViewWRTBookingStatus()
-                            }
-                        }
-                    }
+                    let updatedBooking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
+                    self.bookingUpdateTriggered(updatedBooking)
+                    self.del?.showDriverInfoBox()
                 }
-            }
-        }
-    }
-    
-    func stopBookingUpdateTimer()
-    {
-        if (timerBookingFreshness != nil && timerBookingFreshness!.isValid)
-        {
-            timerBookingFreshness?.invalidate()
-            timerBookingFreshness = nil
         }
     }
     
@@ -572,12 +545,18 @@ class KTTrackTripViewModel: KTBaseViewModel {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
         {
-            KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, completion: {
+            KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
                 (status, response) in
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
+                    
+                    if(vtrack.status == self.VEHICLE_STATUS_HIRED && !self.isHiredShown)
+                    {
+                        self.booking?.bookingStatus = BookingStatus.PICKUP.rawValue
+                        self.isHiredShown = true
+                    }
                     
                     if(bStatus != BookingStatus.PICKUP)
                     {
@@ -643,6 +622,7 @@ class KTTrackTripViewModel: KTBaseViewModel {
         //track.vehicleType = rtrack["VehicleType"] as! Int
         track.bearing = (rtrack["Bearing"] as! NSNumber).floatValue
         track.eta = rtrack["CurrentETA"] as! Int64
+        track.status = rtrack["Status"] as! Int
         track.trackType = VehicleTrackType.vehicle
         return track
     }
@@ -723,64 +703,6 @@ class KTTrackTripViewModel: KTBaseViewModel {
                 print(response.result.error as Any)
                 break
             }
-        }
-    }
-    
-    //MARK:- Bottom Bar buttons
-    func updateBottomBarButtons() {
-        
-        var isDoneBooking = false
-        
-        if booking?.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.DISPATCHING.rawValue || booking?.bookingStatus == BookingStatus.PENDING.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue {
-            
-            del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
-            
-            del?.updateRightBottomBarButtom(title: "CANCEL BOOKING", color: UIColor(hexString:"#E74C3C"), tag: BottomBarBtnTag.Cancel.rawValue)
-        }
-        else if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
-            del?.updateLeftBottomBarButtom(title: "TRIP E-BILL", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.EBill.rawValue)
-            
-            del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
-            
-            isDoneBooking = true
-        }
-        else if booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue {
-            
-            del?.updateLeftBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
-            
-            del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
-            
-            isDoneBooking = true
-            
-        }
-        else if booking?.bookingStatus == BookingStatus.PICKUP.rawValue {
-            del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
-            del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
-            
-        }
-        
-        if(isDoneBooking)
-        {
-            del?.showMoreOptions()
-        }
-        else
-        {
-            del?.hideMoreOptions()
-        }
-    }
-    
-    func buttonTapped(withTag tag:Int) {
-        if tag == BottomBarBtnTag.Cancel.rawValue {
-            del?.showCancelBooking()
-        }
-        else if tag == BottomBarBtnTag.EBill.rawValue {
-            del?.showEbill()
-        }
-        else if tag == BottomBarBtnTag.FareBreakdown.rawValue {
-            del?.showFareBreakdown()
-        }
-        else if tag == BottomBarBtnTag.Rebook.rawValue {
-            del?.moveToBooking()
         }
     }
     
@@ -888,25 +810,18 @@ class KTTrackTripViewModel: KTBaseViewModel {
     // Triggered only when BookingDetails Controller is in focus
     func bookingUpdateTriggered(_ updatedBooking: KTBooking)
     {
-        let bStatus = BookingStatus(rawValue: (updatedBooking.bookingStatus))
-        if(bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED)
+        self.booking = updatedBooking
+
+        initializeViewWRTBookingStatus()
+    
+        if booking!.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.PICKUP.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue
         {
-            print("Skipping instant update because of polling")
+            del?.updateBookingStatusOnCard(true)
         }
-        else
+        else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
         {
-            self.booking = updatedBooking
-            if booking!.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.PICKUP.rawValue
-            {
-                del?.updateBookingStatusOnCard(true)
-                updateMap()
-                updateBottomBarButtons()
-            }
-            else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
-            {
-                del?.clearMaps()
-                initializeViewWRTBookingStatus()
-            }
+            del?.clearMaps()
+            del?.hideEtaView()
         }
     }
 }

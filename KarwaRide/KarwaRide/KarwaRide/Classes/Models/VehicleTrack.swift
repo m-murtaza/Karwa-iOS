@@ -20,6 +20,7 @@ class VehicleTrack: NSObject {
     var vehicleType: Int
     var bearing : Float
     var eta : Int64
+    var status : Int
     var trackType : VehicleTrackType
     
      override init() {
@@ -29,6 +30,7 @@ class VehicleTrack: NSObject {
         vehicleType = 1
         bearing = 0.0
         eta = 0
+        status = 1
         trackType = VehicleTrackType.vehicle
         super.init()
     }
