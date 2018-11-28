@@ -172,8 +172,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let pathsComing = components.path
 
         let tripServerBean = KTUtils.isValidQRCode(pathsComing)
+        let trackTripId = KTUtils.isValidTrackTripCode(pathsComing)
 
-        moveToPaymentView(tripServerBean)
+        if(trackTripId != nil)
+        {
+            moveToTrackTripViewIfRequired(trackTripId)
+        }
+        else
+        {
+            moveToPaymentViewIfRequired(tripServerBean)
+        }
 
         return true
     }
@@ -201,15 +209,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (application.applicationState == .active)
         {
             // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
-            print("==================================================")
-            print("Notification Arrived in Active State")
-            print("==================================================")
+//            print("==================================================")
+//            print("Notification Arrived in Active State")
+//            print("==================================================")
         }
         else
         {
-            print("==================================================")
-            print("Notification Arrived in In-Active State")
-            print("==================================================")
+//            print("==================================================")
+//            print("Notification Arrived in In-Active State")
+//            print("==================================================")
         }
 
         apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
@@ -217,9 +225,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
     {
-        print("==================================================")
-        print("Notification Arrived in Handle Notification")
-        print("==================================================")
+//        print("==================================================")
+//        print("Notification Arrived in Handle Notification")
+//        print("==================================================")
         if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject]
         {
             let aps = notification["aps"] as! [String: AnyObject]
@@ -239,7 +247,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    func moveToPaymentView(_ payTripBean: PayTripBeanForServer?)
+    func moveToTrackTripViewIfRequired(_ trackTripId: String?)
+    {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.TrackTripNavController) as! UINavigationController
+        
+        let ktPaymentViewController : KTTrackTripViewController = (contentView.viewControllers)[0] as! KTTrackTripViewController
+
+        if(trackTripId != nil)
+        {
+            ktPaymentViewController.trackTripId = trackTripId!
+            self.showView(view: ktPaymentViewController)
+        }
+        else
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
+            {
+                ktPaymentViewController.showErrorBanner("  ", "Invalid Track Trip Code ")
+            }
+        }
+    }
+    
+    func moveToPaymentViewIfRequired(_ payTripBean: PayTripBeanForServer?)
     {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
         let paymentNavigationController : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
@@ -253,11 +282,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
             let sideMeun : SSASideMenu = SSASideMenu(contentViewController: paymentNavigationController, leftMenuViewController: leftView)
-
+            
             window? = UIWindow(frame: UIScreen.main.bounds)
             window?.rootViewController = sideMeun
             window?.makeKeyAndVisible()
-
+            
         }
         else
         {

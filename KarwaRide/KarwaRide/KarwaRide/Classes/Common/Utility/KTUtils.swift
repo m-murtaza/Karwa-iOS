@@ -122,5 +122,19 @@ class KTUtils
             return nil
         }
     }
+    
+    static func isValidTrackTripCode(_ code: String) -> String?
+    {
+        let trackCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/track/", with: "", options: .literal, range: nil)
+        
+        if(trackCode.count > 3)
+        {
+            return trackCode
+        }
+        else
+        {
+            return nil
+        }
+    }
 }
     

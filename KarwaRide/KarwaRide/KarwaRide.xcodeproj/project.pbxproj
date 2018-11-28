@@ -22,6 +22,8 @@
 		0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */; };
 		0D685A86218CB1F200DB2CDB /* MAKHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D685A85218CB1F200DB2CDB /* MAKHash.swift */; };
 		0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */; };
+		0D80810A21AE60FA0055E473 /* KTTrackTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */; };
+		0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */; };
 		0D826ECD21997309006FF11B /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D826ECC21997309006FF11B /* ImageUtil.swift */; };
 		0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
@@ -203,6 +205,8 @@
 		0D63FC5E21722B1200DF7ED6 /* KTLifeCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTLifeCycle.swift; sourceTree = "<group>"; };
 		0D685A85218CB1F200DB2CDB /* MAKHash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAKHash.swift; sourceTree = "<group>"; };
 		0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsUtil.swift; sourceTree = "<group>"; };
+		0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewModel.swift; sourceTree = "<group>"; };
+		0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewController.swift; sourceTree = "<group>"; };
 		0D826ECC21997309006FF11B /* ImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
@@ -439,6 +443,22 @@
 				0D79DB3F215246BC00316D2F /* AnalyticsUtil.swift */,
 			);
 			path = Analytics;
+			sourceTree = "<group>";
+		};
+		0D80810821AE60B40055E473 /* TripTrack */ = {
+			isa = PBXGroup;
+			children = (
+				0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */,
+			);
+			name = TripTrack;
+			sourceTree = "<group>";
+		};
+		0D80810B21AE614F0055E473 /* TripTrack */ = {
+			isa = PBXGroup;
+			children = (
+				0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */,
+			);
+			name = TripTrack;
 			sourceTree = "<group>";
 		};
 		0DE6A733218B140200125507 /* MPGS */ = {
@@ -880,6 +900,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0D80810B21AE614F0055E473 /* TripTrack */,
 				0DE90AF22186E805005FC934 /* ScanAndPay */,
 				0D1A4B53216CA24A00279AA6 /* ComplaintsController */,
 				183B91E020C7C15700097FAF /* Fare */,
@@ -905,6 +926,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				0D80810821AE60B40055E473 /* TripTrack */,
 				0DE90AF52186E9D1005FC934 /* ScanAndPayViewModel */,
 				0D1A4B58216CA85B00279AA6 /* ComplaintsVM */,
 				0D5EAA8020EB56780016E1F6 /* Coachmarks */,
@@ -1473,6 +1495,7 @@
 				182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */,
 				18FA45BB20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
+				0D80810A21AE60FA0055E473 /* KTTrackTripViewModel.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
@@ -1563,6 +1586,7 @@
 				186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */,
 				186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */,
 				0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */,
+				0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,

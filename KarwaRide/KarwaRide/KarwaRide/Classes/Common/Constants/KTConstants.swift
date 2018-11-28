@@ -98,6 +98,7 @@ struct Constants {
         static let DetailView = "BookingDetailNavController"
         static let PaymentMethodsView = "KTPaymentViewControllerIdentifier"
         static let PaymentNavigationController = "PaymentNavigationController"
+        static let TrackTripNavController = "TrackTripNavController"
     }
     
     struct Notification {
