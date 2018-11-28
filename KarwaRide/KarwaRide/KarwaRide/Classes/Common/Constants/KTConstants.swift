@@ -366,6 +366,7 @@ struct Constants {
         static let AddressPickViaSearch = "geocode/name"
         static let getAllAddress = "geocode/all"
         static let Booking = "booking"
+        static let Track = "booking/track"
         static let GetBookmark = "bookmarks/personal"
         static let SetHomeBookmark = "bookmark/personal/home"
         static let SetWorkBookmark = "bookmark/personal/work"

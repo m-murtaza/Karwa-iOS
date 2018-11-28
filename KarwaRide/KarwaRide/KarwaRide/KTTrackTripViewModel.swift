@@ -61,7 +61,7 @@ class KTTrackTripViewModel: KTBaseViewModel {
         super.viewDidLoad()
         del = self.delegate as? KTTrackTripViewModelDelegate
         
-        fetchBooking((del?.getTrackTripId())!)
+        fetchBooking((del?.getTrackTripId())!, true)
     }
     
     override func viewDidAppear() {
@@ -465,7 +465,11 @@ class KTTrackTripViewModel: KTBaseViewModel {
         }
         else if bStatus == BookingStatus.COMPLETED
         {
-            if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
+            del?.clearMaps()
+            showPickDropMarker(showOnlyPickup: false)
+
+            if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false
+            {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
                 snapTrackToRoad(track: (booking?.tripTrack)!)
             }
@@ -476,11 +480,11 @@ class KTTrackTripViewModel: KTBaseViewModel {
         }
     }
     
-    @objc func fetchBooking(_ bookingId : String)
+    @objc func fetchBooking(_ bookingId : String, _ isFromBookingId : Bool)
     {
         self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
 
-        KTBookingManager().booking(forBookingID: bookingId as String) { (status, response) in
+        KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
             
                 self.del?.hideProgressHud()
 
@@ -573,6 +577,11 @@ class KTTrackTripViewModel: KTBaseViewModel {
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
                     }
+                }
+                else
+                {
+                    self.stopVehicleUpdateTimer()
+                    self.fetchBooking((self.booking?.bookingId)!, false)
                 }
             })
         }
@@ -812,16 +821,16 @@ class KTTrackTripViewModel: KTBaseViewModel {
     {
         self.booking = updatedBooking
 
-        initializeViewWRTBookingStatus()
-    
         if booking!.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.PICKUP.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue
         {
+            initializeViewWRTBookingStatus()
             del?.updateBookingStatusOnCard(true)
         }
         else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
         {
-            del?.clearMaps()
-            del?.hideEtaView()
+//            del?.clearMaps()
+//            del?.hideEtaView()
+            initializeViewWRTBookingStatus()
         }
     }
 }

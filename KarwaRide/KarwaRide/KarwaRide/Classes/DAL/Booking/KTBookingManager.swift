@@ -207,9 +207,13 @@ class KTBookingManager: KTBaseFareEstimateManager {
 //    }
 
     func booking(forBookingID bookingId: String, completion completionBlock:@escaping KTDALCompletionBlock) {
-        let url = Constants.APIURL.Booking + "/" + bookingId
+        booking(bookingId, false, completion: completionBlock)
+    }
+    
+    func booking(_ id: String, _ isBookingId: Bool, completion completionBlock:@escaping KTDALCompletionBlock) {
+        let url = (isBookingId ? Constants.APIURL.Booking : Constants.APIURL.Track) + "/" + id
         self.get(url: url, param: nil, completion: completionBlock) { (response, cBlock) in
-            let booking : KTBooking = self.saveBookingInDB(booking: response as! [AnyHashable : Any])
+            let booking : KTBooking = self.saveBookingInDB(booking: response as [AnyHashable : Any])
             
             cBlock(Constants.APIResponseStatus.SUCCESS, [Constants.ResponseAPIKey.Data: booking])
         }

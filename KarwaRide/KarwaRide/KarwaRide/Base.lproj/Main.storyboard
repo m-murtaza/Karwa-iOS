@@ -7047,7 +7047,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbh-Zk-CTR" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="351"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="r1o-YG-hXJ" id="fDb-Te-Tta"/>
@@ -7100,7 +7100,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nm2-KF-eOH">
-                                <rect key="frame" x="0.0" y="264" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="334" width="375" height="32"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eta_box" translatesAutoresizingMaskIntoConstraints="NO" id="hzb-Un-e3V" customClass="SpringImageView" customModule="Spring">
                                         <rect key="frame" x="122.5" y="0.0" width="130" height="32"/>
@@ -7128,7 +7128,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCB-nh-3a9" customClass="KTShadowView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="301" width="335" height="202"/>
+                                <rect key="frame" x="20" y="371" width="335" height="202"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGX-77-812">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="130"/>
@@ -7561,7 +7561,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOD-lv-5xr">
-                                <rect key="frame" x="16" y="518" width="343" height="98"/>
+                                <rect key="frame" x="16" y="588" width="343" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0D-xs-hGt" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
@@ -7626,7 +7626,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.5" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -7751,7 +7751,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="jCB-nh-3a9" secondAttribute="trailing" constant="4" id="cjl-gU-Ng7"/>
                             <constraint firstItem="dkc-9Y-0Bh" firstAttribute="trailing" secondItem="MfP-Wc-CPU" secondAttribute="trailing" constant="20" id="eZ5-8K-IHp"/>
                             <constraint firstItem="dkc-9Y-0Bh" firstAttribute="trailing" secondItem="wbf-Rd-LbO" secondAttribute="trailing" id="hT4-V8-fxT"/>
-                            <constraint firstItem="wbf-Rd-LbO" firstAttribute="top" secondItem="jCB-nh-3a9" secondAttribute="top" constant="-30" id="imE-JQ-dPZ"/>
+                            <constraint firstItem="wbf-Rd-LbO" firstAttribute="top" secondItem="jCB-nh-3a9" secondAttribute="top" constant="-100" id="imE-JQ-dPZ"/>
                             <constraint firstItem="uOD-lv-5xr" firstAttribute="top" secondItem="jCB-nh-3a9" secondAttribute="bottom" constant="15" id="jUm-yB-d67"/>
                             <constraint firstItem="wbf-Rd-LbO" firstAttribute="bottom" secondItem="AfO-fO-OuM" secondAttribute="bottom" id="kUQ-3l-0V9"/>
                             <constraint firstItem="KH4-Rv-MIQ" firstAttribute="leading" secondItem="AfO-fO-OuM" secondAttribute="leadingMargin" id="sIJ-OG-auv"/>
