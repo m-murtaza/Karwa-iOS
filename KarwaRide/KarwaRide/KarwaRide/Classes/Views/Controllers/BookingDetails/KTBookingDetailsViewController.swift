@@ -378,6 +378,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         constraintHeighBookingInfoBox.constant -= 10
         constraintHeighBookingInfoLargeBox.constant -= 10
         lblPickTime.isHidden = true
+
         lblDropTime.isHidden = true
         
         constraintHeightPickTime.constant = 0

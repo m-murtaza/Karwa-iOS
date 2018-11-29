@@ -68,11 +68,11 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     @IBOutlet weak var constraintSpacePickTimeNPickAddress : NSLayoutConstraint!
     @IBOutlet weak var constraintSpaceDropTimeNDropAddress : NSLayoutConstraint!
     @IBOutlet weak var constraintPickDropBarHeight : NSLayoutConstraint!
-    
-    @IBOutlet weak var arrowRight: SpringImageView!
+
     @IBOutlet weak var constraintSpaceSapratorToPickupLable : NSLayoutConstraint!
     @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
-
+    
+    
     @IBOutlet weak var fareInfoContainer: UIView!
     
     var trackTripId : String = ""
@@ -100,8 +100,6 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         fareInfoContainer.isHidden = true
 
         constraintHeighBookingInfoLargeBox.constant -= 45
-//        btnBack.isHidden = isOpenFromNotification
-//        btnReveal.isHidden = !isOpenFromNotification
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,39 +200,7 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         }
         
     }
-    //MARK:- Booking Card
-    func updateBookingCard() {
-        
-        lblPickAddress.text = vModel?.pickAddress()
-        lblDropoffAddress.text = vModel?.dropAddress()
-        let msg = vModel?.pickMessage()
-        if (msg?.isEmpty)! {
-            lblPickMessage.isHidden = true
-            imgPickMsgImage.isHidden = true
-            constraintHeighBookingInfoBox.constant -= 10
-            constraintHeighBookingInfoLargeBox.constant -= 10
-        }
-        else {
-            lblPickMessage.text = vModel?.pickMessage()
-        }
-        lblDayOfMonth.text = vModel?.pickupDateOfMonth()
-        
-        lblMonth.text = vModel?.pickupMonth()
-        lblYear.text = vModel?.pickupYear()
-        
-        lblDayAndTime.text = vModel?.pickupDayAndTime()
-        lblServiceType.text = vModel?.vehicleType()
-        
-        updateBookingStatusOnCard()
-        
-        lblPickTime.text = vModel?.pickupTime()
-        lblDropTime.text = vModel?.dropoffTime()
-        
-        viewCard.backgroundColor = vModel?.cellBGColor()
-        
-        viewCard.borderColor = vModel?.cellBorderColor()
-    }
-    
+
     func getTrackTripId() -> String
     {
         return self.trackTripId
@@ -276,20 +242,87 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         updateBookingStatusOnCard(false)
     }
     
-    func updateBookingCardForCompletedBooking() {
+    //MARK:- Booking Card
+    func updateBookingCard() {
         
-        /*constraintHeighBookingInfoBox.constant -= 10
-         constraintHeighBookingInfoLargeBox.constant -= 10
-         imgPickMsgImage.isHidden = true
-         lblPickMessage.isHidden = true*/
+        lblPickAddress.text = vModel?.pickAddress()
+        lblDropoffAddress.text = vModel?.dropAddress()
+        let msg = vModel?.pickMessage()
+        if (msg?.isEmpty)! {
+            lblPickMessage.isHidden = true
+            imgPickMsgImage.isHidden = true
+            constraintHeighBookingInfoBox.constant -= 10
+            constraintHeighBookingInfoLargeBox.constant -= 10
+        }
+        else {
+            lblPickMessage.text = vModel?.pickMessage()
+        }
+        lblDayOfMonth.text = vModel?.pickupDateOfMonth()
+        
+        lblMonth.text = vModel?.pickupMonth()
+        lblYear.text = vModel?.pickupYear()
+        
+        lblDayAndTime.text = vModel?.pickupDayAndTime()
+        lblServiceType.text = vModel?.vehicleType()
+        
+        updateBookingStatusOnCard()
+        
+        lblPickTime.text = vModel?.pickupTime()
+        lblDropTime.text = vModel?.dropoffTime()
+        
+        viewCard.backgroundColor = vModel?.cellBGColor()
+        
+        viewCard.borderColor = vModel?.cellBorderColor()
     }
     
-    func updateBookingCardForUnCompletedBooking() {
+    
+    func updateBookingCardForCompletedBooking() {
+
+        lblPickAddress.text = vModel?.pickAddress()
+        lblDropoffAddress.text = vModel?.dropAddress()
+        let msg = vModel?.pickMessage()
+        if (msg?.isEmpty)! {
+            lblPickMessage.isHidden = true
+            imgPickMsgImage.isHidden = true
+            constraintHeighBookingInfoBox.constant -= 10
+            constraintHeighBookingInfoLargeBox.constant -= 10
+        }
+        else {
+            lblPickMessage.text = vModel?.pickMessage()
+        }
+        lblDayOfMonth.text = vModel?.pickupDateOfMonth()
         
-//        imgBookingBar.image = UIImage(named:"BookingPickDropBar")
+        lblMonth.text = vModel?.pickupMonth()
+        lblYear.text = vModel?.pickupYear()
+        
+        lblDayAndTime.text = vModel?.pickupDayAndTime()
+        lblServiceType.text = vModel?.vehicleType()
+        
+        updateBookingStatusOnCard()
+        
+        lblPickTime.text = vModel?.pickupTime()
+        lblDropTime.text = vModel?.dropoffTime()
+
+        constraintHeightPickTime.constant = 13
+        constraintHeightDropTime.constant = 13
+        constraintSpacePickTimeNPickAddress.constant = 0
+        constraintSpaceDropTimeNDropAddress.constant = 0
+
+        lblPickTime.isHidden = false
+        lblDropTime.isHidden = false
+        
+        viewCard.backgroundColor = vModel?.cellBGColor()
+        
+        viewCard.borderColor = vModel?.cellBorderColor()
+        
+    }
+    
+    func updateBookingCardForUnCompletedBooking()
+    {
           constraintPickDropBarHeight.constant -= 10
           constraintHeighBookingInfoBox.constant -= 10
           constraintHeighBookingInfoLargeBox.constant -= 10
+        
           lblPickTime.isHidden = true
           lblDropTime.isHidden = true
 
@@ -299,7 +332,6 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
           constraintSpaceDropTimeNDropAddress.constant = -16
 
           constraintSapratorCenterAlign.priority = UILayoutPriority.defaultHigh
-//          constraintSpaceSapratorToPickupLable.priority = UILayoutPriority.defaultLow
     }
     
     

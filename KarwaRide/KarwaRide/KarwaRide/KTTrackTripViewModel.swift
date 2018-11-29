@@ -12,6 +12,7 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 import GoogleMaps
+import AVFoundation
 
 //MARK: - Protocols
 protocol KTTrackTripViewModelDelegate: KTViewModelDelegate {
@@ -560,6 +561,8 @@ class KTTrackTripViewModel: KTBaseViewModel {
                     {
                         self.booking?.bookingStatus = BookingStatus.PICKUP.rawValue
                         self.isHiredShown = true
+                        self.del?.updateBookingStatusOnCard(true)
+                        self.del?.showSuccessBanner("  ", "Trip has been started")
                     }
                     
                     if(bStatus != BookingStatus.PICKUP)
@@ -581,6 +584,7 @@ class KTTrackTripViewModel: KTBaseViewModel {
                 else
                 {
                     self.stopVehicleUpdateTimer()
+                    self.del?.showSuccessBanner("  ", "This Trip has been completed")
                     self.fetchBooking((self.booking?.bookingId)!, false)
                 }
             })
@@ -824,13 +828,14 @@ class KTTrackTripViewModel: KTBaseViewModel {
         if booking!.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.PICKUP.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue
         {
             initializeViewWRTBookingStatus()
-            del?.updateBookingStatusOnCard(true)
+            del?.updateBookingStatusOnCard(false)
         }
         else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
         {
 //            del?.clearMaps()
 //            del?.hideEtaView()
             initializeViewWRTBookingStatus()
+            del?.updateBookingStatusOnCard(false)
         }
     }
 }
