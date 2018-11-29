@@ -62,7 +62,16 @@ class KTTrackTripViewModel: KTBaseViewModel {
         super.viewDidLoad()
         del = self.delegate as? KTTrackTripViewModelDelegate
         
-        fetchBooking((del?.getTrackTripId())!, true)
+        KTUserManager.init().isUserLogin { (login:Bool) in
+            if login == true
+            {
+                self.fetchBooking((self.del?.getTrackTripId())!, true)
+            }
+            else
+            {
+                (UIApplication.shared.delegate as! AppDelegate).showLogin()
+            }
+        }
     }
     
     override func viewDidAppear() {

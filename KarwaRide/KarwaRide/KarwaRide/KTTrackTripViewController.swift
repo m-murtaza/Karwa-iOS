@@ -100,6 +100,9 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         fareInfoContainer.isHidden = true
 
         constraintHeighBookingInfoLargeBox.constant -= 45
+        
+//        btnBack.isHidden = false
+//        btnReveal.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -178,6 +181,7 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
     
     @IBAction func btnBackTapped(_ sender: Any) {
         
+//        exit(0)
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
