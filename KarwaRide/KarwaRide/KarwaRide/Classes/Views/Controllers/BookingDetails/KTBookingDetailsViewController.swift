@@ -108,9 +108,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        
+
         btnBack.isHidden = isOpenFromNotification
         btnReveal.isHidden = !isOpenFromNotification
+        
+        showHideToolTipShareButton(false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -190,11 +192,47 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     func showHideShareButton(_ show : Bool)
     {
         btnShare.isHidden = !show
+        if(show)
+        {
+            let isShareTripToolTipShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN)
+            showHideToolTipShareButton((isShareTripToolTipShown.isEmpty || isShareTripToolTipShown.count == 0))
+        }
     }
-    
+
+    var isTooltipVisible : Bool = false
+
     func showHideToolTipShareButton(_ show : Bool)
     {
         toolTipBtnShare.isHidden = !show
+        if(show)
+        {
+            Timer.scheduledTimer(withTimeInterval: 8, repeats: true){_ in
+
+                if(self.isTooltipVisible)
+                {
+                    self.toolTipBtnShare.duration = 1
+                    self.toolTipBtnShare.animation = "fadeOut"
+                    self.toolTipBtnShare.animate()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        self.toolTipBtnShare.isHidden = true
+                    })
+                }
+                else
+                {
+                    self.toolTipBtnShare.isHidden = false
+                    self.toolTipBtnShare.duration = 1
+                    self.toolTipBtnShare.animation = "fadeInDown"
+                    self.toolTipBtnShare.animate()
+                }
+                self.isTooltipVisible = !self.isTooltipVisible
+            }
+
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
+        }
+        else
+        {
+            toolTipBtnShare.isHidden = true
+        }
     }
     
      // MARK: - Navigation

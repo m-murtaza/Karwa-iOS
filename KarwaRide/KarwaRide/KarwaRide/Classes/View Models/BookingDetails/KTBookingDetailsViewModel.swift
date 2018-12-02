@@ -55,6 +55,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     
     func updateMapCamera()
     func updateBookingStatusOnCard(_ withAnimation: Bool)
+    
+    func showHideShareButton(_ show : Bool)
 
 }
 //MARK: -
@@ -461,29 +463,34 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
-            showPickDropMarker(showOnlyPickup: true)
+            showPickDropMarker(showOnlyPickup: false)
             startPollingForBooking()
+            del?.showHideShareButton(false)
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
             del?.clearMaps()
             showPickDropMarker()
+            del?.showHideShareButton(false)
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
             startVechicleTrackTimer()
+            del?.showHideShareButton(true)
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             del?.showCurrentLocationDot(show: true)
             showPickDropMarker(showOnlyPickup: true)
+            del?.showHideShareButton(true)
             startVechicleTrackTimer()
         }
         else if bStatus == BookingStatus.COMPLETED
         {
+            del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
                 snapTrackToRoad(track: (booking?.tripTrack)!)
@@ -491,6 +498,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else
         {
+            del?.showHideShareButton(false)
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
     }
@@ -517,6 +525,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                             let bStatus = updatedBooking.bookingStatus
                             if(bStatus == BookingStatus.PICKUP.rawValue || bStatus == BookingStatus.ARRIVED.rawValue || bStatus == BookingStatus.CONFIRMED.rawValue)
                             {
+                                self.del?.showHideShareButton(true)
                                 self.booking = updatedBooking
                                 self.stopBookingUpdateTimer()
                                 self.del?.showDriverInfoBox()
@@ -921,6 +930,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if(bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED)
         {
             print("Skipping instant update because of polling")
+            del?.showHideShareButton(true)
         }
         else
         {
@@ -930,12 +940,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 del?.updateBookingStatusOnCard(true)
                 updateMap()
                 updateBottomBarButtons()
+                del?.showHideShareButton(true)
             }
             else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
             {
                 del?.clearMaps()
                 checkForRating()
                 initializeViewWRTBookingStatus()
+                del?.showHideShareButton(false)
             }
         }
     }
