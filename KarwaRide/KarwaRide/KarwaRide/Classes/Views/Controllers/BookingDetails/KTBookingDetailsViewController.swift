@@ -119,7 +119,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
-        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
     }
 
     override func viewDidDisappear(_ animated: Bool)
@@ -207,6 +206,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         toolTipBtnShare.isHidden = !show
         if(show)
         {
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
             Timer.scheduledTimer(withTimeInterval: 8, repeats: true){_ in
 
                 if(self.isTooltipVisible)
