@@ -119,6 +119,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
     }
 
     override func viewDidDisappear(_ animated: Bool)
@@ -226,8 +227,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
                 }
                 self.isTooltipVisible = !self.isTooltipVisible
             }
-
-            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
         }
         else
         {
@@ -263,6 +262,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func shareBtnTapped(_ sender: Any)
     {
+        AnalyticsUtil.trackShareRide()
         let URLstring =  String(format: Constants.ShareTripUrl + (vModel?.booking?.trackId ?? "unknown"))
         let urlToShare = URL(string:URLstring)
         let title = "Follow the link to track my ride: \n"

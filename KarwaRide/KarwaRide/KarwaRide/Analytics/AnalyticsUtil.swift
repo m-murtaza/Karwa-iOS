@@ -11,6 +11,7 @@ import FirebaseAnalytics
 
 class AnalyticsUtil
 {
+    static let SHARE_RIDE = "share_ride"
     static let REMOVE_PAYMENT_INFO = "remove_payment_info"
 
     static func trackBehavior(event name: String)
@@ -50,7 +51,7 @@ class AnalyticsUtil
 
         #endif
     }
-    
+
     static func trackCardPayment(_ amount: String)
     {
         #if DEBUG || ADHOC
@@ -62,6 +63,15 @@ class AnalyticsUtil
                 FirebaseAnalytics.AnalyticsParameterCurrency : "QAR" as String,
                 FirebaseAnalytics.AnalyticsParameterValue : Double(amount) ?? 0
             ])
+        #endif
+    }
+    
+    static func trackShareRide()
+    {
+        #if DEBUG || ADHOC
+        print("Skipping Analytics because of debug build")
+        #else
+        Analytics.logEvent(SHARE_RIDE, parameters:[:])
         #endif
     }
 }
