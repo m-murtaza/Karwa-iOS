@@ -169,6 +169,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         etaView.isHidden = true
     }
     
+    func showEtaView() {
+        etaView.isHidden = false
+    }
+    
     //MARK: - UI update
     func hideDriverInfoBox() {
         

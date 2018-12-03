@@ -105,10 +105,8 @@ class KTTrackTripViewModel: KTBaseViewModel {
     //MARK:- ETA View
     func updateEta() {
         
-        if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue {
-            
-            
-            
+        if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue
+        {
             del?.updateEta(eta: formatedETA(eta: booking!.eta))
         }
         else {
@@ -577,6 +575,7 @@ class KTTrackTripViewModel: KTBaseViewModel {
                         self.booking?.bookingStatus = BookingStatus.PICKUP.rawValue
                         self.isHiredShown = true
                         self.del?.updateBookingStatusOnCard(true)
+                        self.del?.hideEtaView()
                         self.del?.showSuccessBanner("  ", "Trip has been started")
                     }
                     
@@ -732,107 +731,6 @@ class KTTrackTripViewModel: KTBaseViewModel {
                 break
             }
         }
-    }
-    
-    func cancelDoneSuccess()  {
-        booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
-        KTBookingManager().saveInDb()
-        initializeViewWRTBookingStatus()
-        //        del?.popViewController()
-    }
-    
-    //MARK:- Ebill
-    func eBillTitle() -> String {
-        return "Trip E-Bill"
-    }
-    
-    func eBillTotal() -> String {
-        return (booking?.fare)!
-    }
-    
-    func ebillTitleTotal() -> String {
-        return "Total Fare"
-    }
-    
-    func eBillHeader() -> [KTKeyValue]?{
-        
-        return (booking?.toKeyValueHeader?.array as! [KTKeyValue])
-    }
-    
-    func eBillBody() -> [KTKeyValue]?{
-        
-        return (booking?.toKeyValueBody?.array as! [KTKeyValue])
-    }
-    
-    //MARK: - Estimates
-    func estimateTitle() -> String {
-        return "Fare Breakdown"
-    }
-    
-    func estimateTotal() -> String {
-        guard let _ = booking?.estimatedFare  else {
-            return ""
-        }
-        return (booking?.estimatedFare)!
-    }
-    
-    func estimateTitleTotal() -> String {
-        return "Total Fare"
-    }
-    func isEstimateAvailable() -> Bool {
-        guard let _ : KTFareEstimate = booking?.bookingToEstimate else {
-            return false
-        }
-        
-        return true
-    }
-    
-    func estimateHeader() -> [KTKeyValue]? {
-        
-        if isEstimateAvailable() {
-            return (booking?.bookingToEstimate?.toKeyValueHeader?.array as! [KTKeyValue])
-        }
-        return nil
-    }
-    
-    func estimateBody() -> [KTKeyValue]? {
-        if isEstimateAvailable() {
-            return (booking?.bookingToEstimate?.toKeyValueBody?.array as! [KTKeyValue])
-        }
-        return nil
-    }
-    
-    //MARK: - Fare Details
-    
-    func fareDetailTitleTotal() -> String {
-        return "Starting Fare"
-    }
-    
-    func fareDetailTotal() -> String {
-        
-        let vType : KTVehicleType = KTVehicleTypeManager().vehicleType(typeId: (booking?.vehicleType)!)!
-        return vType.typeBaseFare!
-    }
-    
-    func totalFareOfTrip() -> String {
-        
-        return (booking?.fare)!
-    }
-    
-    func fareDetailsHeader() -> [KTKeyValue]? {
-        
-        guard let _ = booking?.toKeyValueHeader else {
-            return nil
-        }
-        return (booking?.toKeyValueHeader?.array as! [KTKeyValue])
-        
-    }
-    
-    func fareDetailsBody() -> [KTKeyValue]? {
-        guard let _ = booking?.toKeyValueBody else {
-            return nil
-        }
-        return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
     
     // Triggered only when BookingDetails Controller is in focus

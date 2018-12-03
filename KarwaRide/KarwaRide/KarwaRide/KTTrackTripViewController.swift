@@ -131,8 +131,13 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         lblEta.text = eta
     }
     
-    func hideEtaView() {
-        etaView.isHidden = true
+    func hideEtaView()
+    {
+        UIView.animate(withDuration: 1, animations:
+        {
+            self.etaView.isHidden = true
+            self.view.layoutIfNeeded()
+        })
     }
     
     //MARK: - UI update

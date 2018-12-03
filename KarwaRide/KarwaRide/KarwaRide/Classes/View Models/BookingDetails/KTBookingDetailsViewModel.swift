@@ -42,6 +42,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     
     func updateEta(eta: String)
     func hideEtaView()
+    func showEtaView()
     
     func hideMoreOptions()
     func showMoreOptions()
@@ -114,15 +115,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     //MARK:- ETA View
     func updateEta() {
         
-        if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue {
-            
-            
-            
+        if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue
+        {
+            del?.showEtaView()
             del?.updateEta(eta: formatedETA(eta: booking!.eta))
         }
-        else {
+        else
+        {
             del?.hideEtaView()
-            
         }
     }
     
