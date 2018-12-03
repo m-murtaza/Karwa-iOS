@@ -131,6 +131,12 @@ class KTTrackTripViewModel: KTBaseViewModel {
     override func viewWillDisappear()
     {
         stopVehicleUpdateTimer()
+        deleteTemporaryBooking()
+    }
+    
+    func deleteTemporaryBooking()
+    {
+        booking!.mr_deleteEntity()
     }
     
     //MARK:- Driver Info
