@@ -137,6 +137,8 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.paymentMethod = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PaymentMethod] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PaymentMethod] as? String : ""
         b.lastFourDigits = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.LastFourDigits] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.LastFourDigits] as? String : ""
 
+        b.trackId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TrackId] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TrackId] as! String : ""
+        
         return b
     }
     
