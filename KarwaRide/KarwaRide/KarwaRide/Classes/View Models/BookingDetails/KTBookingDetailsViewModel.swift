@@ -76,6 +76,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     private var timerVechicleTrack : Timer? = Timer()
     private var timerBookingFreshness : Timer? = Timer()
     
+    final let VEHICLE_STATUS_HIRED : Int = 4
+    var isHiredShown = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         del = self.delegate as? KTBookingDetailsViewModelDelegate
@@ -561,6 +564,77 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         timerVechicleTrack = Timer.scheduledTimer(timeInterval: 4, target: self,   selector: (#selector(self.fetchTaxiForTracking)), userInfo: nil, repeats: true)
     }
     
+    @objc func fetchTaxiForTracking()
+    {
+        let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
+        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
+        {
+            KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
+                (status, response) in
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
+                    let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
+                    
+                    if(vtrack.status == self.VEHICLE_STATUS_HIRED && !self.isHiredShown)
+                    {
+                        self.booking?.bookingStatus = BookingStatus.PICKUP.rawValue
+                        self.isHiredShown = true
+                        self.del?.updateBookingStatusOnCard(true)
+                        self.del?.hideEtaView()
+                    }
+                    
+                    self.del?.showUpdateVTrackMarker(vTrack: vtrack)
+                    
+                    if(bStatus != BookingStatus.PICKUP)
+                    {
+                        self.del?.updateMapCamera()
+                    }
+                    
+                    self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
+                    
+                    if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
+                    {
+                        self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
+                    }
+                    else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
+                    {
+                        self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
+                    }
+                }
+                else
+                {
+                    self.fetchBooking((self.booking?.bookingId)!, false)
+                    self.del?.showSuccessBanner("  ", "Trip status has been updated")
+                    self.stopVehicleUpdateTimer()
+                }
+            })
+        }
+        else
+        {
+            if (timerVechicleTrack != nil && timerVechicleTrack!.isValid)
+            {
+                timerVechicleTrack!.invalidate()
+            }
+        }
+    }
+    
+    @objc func fetchBooking(_ bookingId : String, _ isFromBookingId : Bool)
+    {
+        self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
+        
+        KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
+            
+            self.del?.hideProgressHud()
+            
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                let updatedBooking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
+                self.bookingUpdateTriggered(updatedBooking)
+                self.del?.showDriverInfoBox()
+            }
+        }
+    }
+    
     func showPickDropMarker() {
         showPickDropMarker(showOnlyPickup: false)
     }
@@ -594,45 +668,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
     }
     
-    @objc func fetchTaxiForTracking()
-    {
-        let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-        if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
-        {
-            KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, completion: {
-                (status, response) in
-                if status == Constants.APIResponseStatus.SUCCESS
-                {
-                    let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
-                    self.del?.showUpdateVTrackMarker(vTrack: vtrack)
-
-                    if(bStatus != BookingStatus.PICKUP)
-                    {
-                        self.del?.updateMapCamera()
-                    }
-                    
-                    self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
-
-                    if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
-                    {
-                        self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
-                    }
-                    else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
-                    {
-                        self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
-                    }
-                }
-            })
-        }
-        else
-        {
-            if (timerVechicleTrack != nil && timerVechicleTrack!.isValid)
-            {
-                timerVechicleTrack!.invalidate()
-            }
-        }
-    }
-    
     private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
         let origin = "\(ride.position.latitude),\(ride.position.longitude)"
@@ -662,14 +697,15 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
     }
     
-    func parseVehicleTrack(track rtrack : [AnyHashable:Any]) -> VehicleTrack {
-        
+    func parseVehicleTrack(track rtrack : [AnyHashable:Any]) -> VehicleTrack
+    {
         let track : VehicleTrack = VehicleTrack()
         //track.vehicleNo = rtrack["VehicleNo"] as! String
         track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
         //track.vehicleType = rtrack["VehicleType"] as! Int
         track.bearing = (rtrack["Bearing"] as! NSNumber).floatValue
         track.eta = rtrack["CurrentETA"] as! Int64
+        track.status = rtrack["Status"] as! Int
         track.trackType = VehicleTrackType.vehicle
         return track
     }
