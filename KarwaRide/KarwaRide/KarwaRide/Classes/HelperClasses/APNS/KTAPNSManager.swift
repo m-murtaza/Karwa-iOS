@@ -83,8 +83,7 @@ class KTAPNSManager: NSObject {
             if status == Constants.APIResponseStatus.SUCCESS {
 
                 let booking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
-                booking.trackId = response[Constants.BookingParams.TrackId] as? String
-                
+
                 KTNotificationManager().saveNotificaiton(serverNotification: userInfo, booking: booking)
 
                 if appStateForeGround
