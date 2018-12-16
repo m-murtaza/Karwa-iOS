@@ -213,10 +213,15 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         vModel?.btnRattingTapped()
     }
     
+    func setTitleBtnSubmit(label: String)
+    {
+        btnSubmit.setTitle(label, for: .normal)
+    }
+    
     func closeScreen() {
         delegate?.closeRating()
-        
     }
+
     override func showError(title:String, message:String)
     {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -265,8 +270,15 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         btn.setTitleColor(UIColor.white, for: UIControlState.selected)
         
         btn.adjustsImageWhenHighlighted = false
-        //btn.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(KTRatingViewController.tagViewTapped), for: .touchUpInside)
         return btn
+    }
+    
+    @objc func tagViewTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
+        {
+            self.vModel?.tagViewTapped()
+        }
     }
     
     func selectedIdx() ->[NSNumber] {

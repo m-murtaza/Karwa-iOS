@@ -26,6 +26,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func showConsolationText()
     func showConsolationText(message: String)
     func hideConsolationText()
+    func setTitleBtnSubmit(label: String)
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -99,6 +100,28 @@ class KTRatingViewModel: KTBaseViewModel {
             rreasonsIdx.append(reasons![r.intValue].reasonCode)
         }
         return rreasonsIdx
+    }
+    
+    func selectedReasonIsComplainable() -> Bool
+    {
+        var isComplainableReasonSelected : Bool = false
+
+        for r in (del?.selectedIdx())!
+        {
+            if(reasons![r.intValue].isComplainable)
+            {
+                isComplainableReasonSelected = true
+//                break
+            }
+            print(reasons![r.intValue].desc)
+        }
+
+        return isComplainableReasonSelected
+    }
+    
+    func tagViewTapped()
+    {
+        del?.setTitleBtnSubmit(label: selectedReasonIsComplainable() ? "SUBMIT COMPLAIN" : "SUBMIT")
     }
     
     func btnRattingTapped()
