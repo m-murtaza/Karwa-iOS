@@ -46,6 +46,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.bookingType = (responseData[Constants.BookingParams.BookingType] as? Int16)!
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
             job.trackId = responseData[Constants.BookingParams.TrackId] as? String
+            job.tripType = responseData[Constants.BookingParams.TripType] as? Int16 ?? 1
 
             let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
             job.toKeyValueHeader = vType.toKeyValueHeader
@@ -138,7 +139,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.lastFourDigits = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.LastFourDigits] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.LastFourDigits] as? String : ""
 
         b.trackId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TrackId] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TrackId] as! String : ""
-        
+
+        b.tripType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TripType] as! Int16 : 1
+
         return b
     }
     

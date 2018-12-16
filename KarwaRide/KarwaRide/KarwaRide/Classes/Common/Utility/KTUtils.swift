@@ -102,7 +102,7 @@ class KTUtils
     
     static func isValidQRCode(_ code: String) -> PayTripBeanForServer?
     {
-        let makCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/download/", with: "", options: .literal, range: nil)
+        let makCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.app.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/download/", with: "", options: .literal, range: nil)
 
         if(makCode.starts(with: MAKHashGenerator.VERSION_INFO))
         {
@@ -125,7 +125,7 @@ class KTUtils
     
     static func isValidTrackTripCode(_ code: String) -> String?
     {
-        let trackCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/track/", with: "", options: .literal, range: nil)
+        let trackCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.app.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/track/", with: "", options: .literal, range: nil)
         
         if(trackCode.count > 3)
         {

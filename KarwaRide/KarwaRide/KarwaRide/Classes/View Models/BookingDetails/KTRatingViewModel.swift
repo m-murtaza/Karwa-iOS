@@ -84,6 +84,15 @@ class KTRatingViewModel: KTBaseViewModel {
         return r
     }
     
+    func isComplainable(atIndex idx: Int) -> Bool {
+        var isComplainable : Bool = false
+        if idx < (reasons?.count)!
+        {
+            isComplainable = reasons![idx].isComplainable
+        }
+        return isComplainable
+    }
+    
     func selectedReasonIds() -> [Int16] {
         var rreasonsIdx : [Int16] = []
         for r in (del?.selectedIdx())! {
@@ -109,9 +118,10 @@ class KTRatingViewModel: KTBaseViewModel {
         let reasonIds : [Int16] = selectedReasonIds()
         let rating : Int32 = (del?.userFinalRating())!
         let bookingId : String = (booking?.bookingId)!
+        let tripType : Int16 = (booking?.tripType)!
         
         self.delegate?.showProgressHud(show: true, status: "Updating Driver Rating")
-        KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds) { (status, response) in
+        KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds, tripType: tripType) { (status, response) in
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
                 

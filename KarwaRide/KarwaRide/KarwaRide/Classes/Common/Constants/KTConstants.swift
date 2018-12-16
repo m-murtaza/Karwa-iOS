@@ -84,7 +84,7 @@ enum BookingStatus : Int32 {
 
 struct Constants {
     static let TOSUrl:String = "http://www.karwatechnologies.com/fare.htm"
-    static let ShareTripUrl:String = "https://www.karwatechnologies.com/track/"
+    static let ShareTripUrl:String = "https://www.app.karwatechnologies.com/track/"
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
@@ -248,6 +248,7 @@ struct Constants {
         static let LastFourDigits = "LastFourDigits"
         
         static let TrackId = "TrackID"
+        static let TripType = "TripType"
     }
     
     struct GetEstimateResponseAPIKey {
@@ -268,6 +269,8 @@ struct Constants {
         static let Desc = "Desc"
         static let EN = "EN"
         static let ReasonCode = "ReasonCode"
+        static let ComplainableRating = "ComplainableRating"
+        static let IsComplainable = "isComplainable"
     }
     
     struct NotificationKey {
@@ -335,13 +338,14 @@ struct Constants {
         static let EstimateId = "EstimateId"
         static let EstimatedFare = "EstimatedFare"
         static let TrackId = "TrackID"
+        static let TripType = "TripType"
         //static let BookingType = "BookingType"
     }
     
     struct RatingParams {
         static let Rating = "Rating"
         static let Reasons = "Reasons"
-        
+        static let TripType = "TripType"
     }
     
     struct ComplaintParams {

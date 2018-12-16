@@ -254,7 +254,14 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         tagView.scrollView.flashScrollIndicators()
         let btn: KTTagButton = KTTagButton(type:UIButtonType.custom)
         btn.setTitle(vModel?.reason(atIndex: index), for: UIControlState.normal)
+
+        if(vModel?.isComplainable(atIndex: index) ?? false)
+        {
+            btn.setComplainable(true)
+        }
+        
         btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
+
         btn.setTitleColor(UIColor.white, for: UIControlState.selected)
         
         btn.adjustsImageWhenHighlighted = false
