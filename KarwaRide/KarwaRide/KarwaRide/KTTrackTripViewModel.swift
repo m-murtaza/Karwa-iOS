@@ -65,7 +65,7 @@ class KTTrackTripViewModel: KTBaseViewModel {
         KTUserManager.init().isUserLogin { (login:Bool) in
             if login == true
             {
-                self.fetchBooking((self.del?.getTrackTripId())!, true)
+                self.fetchBooking((self.del?.getTrackTripId())!, false)
             }
             else
             {

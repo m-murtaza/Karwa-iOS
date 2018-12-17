@@ -84,7 +84,8 @@ enum BookingStatus : Int32 {
 
 struct Constants {
     static let TOSUrl:String = "http://www.karwatechnologies.com/fare.htm"
-    static let ShareTripUrl:String = "https://www.app.karwatechnologies.com/track/"
+    static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
+    static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
