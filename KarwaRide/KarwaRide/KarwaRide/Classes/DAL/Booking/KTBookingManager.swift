@@ -182,6 +182,17 @@ class KTBookingManager: KTBaseFareEstimateManager {
         return bookings
     }
     
+    func getBooking(bookingId id : String) -> KTBooking
+    {
+        var booking : KTBooking
+        let predicate : NSPredicate = NSPredicate(format:"bookingId != %d" , id)
+        
+//        booking = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! KTBooking
+        booking = KTBooking.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default())!
+        
+        return booking
+    }
+    
     //MARK: - Booking Sync Time
     //  Converted to Swift 4 by Swiftify v4.1.6640 - https://objectivec2swift.com/
 //    func bookingSyncTime() -> String {

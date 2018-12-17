@@ -356,6 +356,7 @@ struct Constants {
         static let Order = "Order"
         static let bookingId = "bookingId"
         static let remarks = "remarks"
+        static let TripType = "TripType"
     }
     
     struct APIURL {

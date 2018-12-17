@@ -111,9 +111,8 @@ class KTRatingViewModel: KTBaseViewModel {
             if(reasons![r.intValue].isComplainable)
             {
                 isComplainableReasonSelected = true
-//                break
+                break
             }
-            print(reasons![r.intValue].desc)
         }
 
         return isComplainableReasonSelected

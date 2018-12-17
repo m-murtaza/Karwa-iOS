@@ -81,7 +81,8 @@ class KTComplaintsManager: KTDALManager {
 //                                    Constants.ComplaintParams.Name : complaint.name!,
 //                                    Constants.ComplaintParams.Order: complaint.order,
                                     Constants.ComplaintParams.bookingId: complaint.bookingId,
-                                    Constants.ComplaintParams.remarks : complaint.remarks]
+                                    Constants.ComplaintParams.remarks : complaint.remarks,
+                                    Constants.ComplaintParams.TripType : complaint.tripType]
 
         self.post(url: Constants.APIURL.CreateComplaint, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in

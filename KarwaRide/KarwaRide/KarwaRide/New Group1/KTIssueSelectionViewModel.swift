@@ -96,8 +96,10 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     func sendComplaintToServer(_ remarks: String)
     {
         delegate?.showProgressHud(show: true)
-        
-        let complaint = ComplaintBeanForServer(bookingId, complaintType, categoryId, issueId, remarks)
+
+        let booking = KTBookingManager().getBooking(bookingId: bookingId)
+
+        let complaint = ComplaintBeanForServer(bookingId, complaintType, categoryId, issueId, remarks, booking.tripType)
         
         KTComplaintsManager().createComplaintAtServer(complaint: complaint) { (status, response) in
             self.delegate?.hideProgressHud()
