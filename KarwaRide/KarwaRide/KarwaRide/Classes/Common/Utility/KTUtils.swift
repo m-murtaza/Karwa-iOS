@@ -99,4 +99,42 @@ class KTUtils
         }
         return etaString
     }
+    
+    static func isValidQRCode(_ code: String) -> PayTripBeanForServer?
+    {
+        let makCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.app.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/download/", with: "", options: .literal, range: nil)
+
+        if(makCode.starts(with: MAKHashGenerator.VERSION_INFO))
+        {
+            let decryptedStringCSV = MAKHashGenerator().decrypt(text: makCode)
+            let piecesOfPayBean = decryptedStringCSV.split(separator: ",")
+            if(piecesOfPayBean.count == 7)
+            {
+                return PayTripBeanForServer(String(piecesOfPayBean[0]), "", String(piecesOfPayBean[1]), String(piecesOfPayBean[2]), Int(piecesOfPayBean[3])!, String(piecesOfPayBean[4]), String(piecesOfPayBean[5]), String(piecesOfPayBean[6]))
+            }
+            else
+            {
+                return nil
+            }
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    static func isValidTrackTripCode(_ code: String) -> String?
+    {
+        let trackCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.app.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/track/", with: "", options: .literal, range: nil)
+        
+        if(trackCode.count > 3)
+        {
+            return trackCode
+        }
+        else
+        {
+            return nil
+        }
+    }
 }
+    

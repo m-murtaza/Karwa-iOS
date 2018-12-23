@@ -45,7 +45,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
             job.bookingType = (responseData[Constants.BookingParams.BookingType] as? Int16)!
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
-            
+            job.trackId = responseData[Constants.BookingParams.TrackId] as? String
+            job.tripType = responseData[Constants.BookingParams.TripType] as? Int16 ?? 1
+
             let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
             job.toKeyValueHeader = vType.toKeyValueHeader
             job.toKeyValueBody = vType.toKeyValueBody
@@ -126,13 +128,20 @@ class KTBookingManager: KTBaseFareEstimateManager {
         
         b.vehicleNo =  (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleNo] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleNo] as? String : ""
         b.vehicleType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleType] as! Int16 : 0
-        
+
         if(!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripSummary] as AnyObject)) {
             self.saveTripSummey(data: booking[Constants.BookingResponseAPIKey.TripSummary] as! [AnyHashable:Any],booking: b )
         }
         
         b.isRated = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsRated] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsRated] as! Bool : false
         
+        b.paymentMethod = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PaymentMethod] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PaymentMethod] as? String : ""
+        b.lastFourDigits = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.LastFourDigits] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.LastFourDigits] as? String : ""
+
+        b.trackId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TrackId] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TrackId] as! String : ""
+
+        b.tripType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TripType] as! Int16 : 1
+
         return b
     }
     
@@ -173,6 +182,17 @@ class KTBookingManager: KTBaseFareEstimateManager {
         return bookings
     }
     
+    func getBooking(bookingId id : String) -> KTBooking
+    {
+        var booking : KTBooking
+        let predicate : NSPredicate = NSPredicate(format:"bookingId != %d" , id)
+        
+//        booking = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! KTBooking
+        booking = KTBooking.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default())!
+        
+        return booking
+    }
+    
     //MARK: - Booking Sync Time
     //  Converted to Swift 4 by Swiftify v4.1.6640 - https://objectivec2swift.com/
 //    func bookingSyncTime() -> String {
@@ -203,9 +223,13 @@ class KTBookingManager: KTBaseFareEstimateManager {
 //    }
 
     func booking(forBookingID bookingId: String, completion completionBlock:@escaping KTDALCompletionBlock) {
-        let url = Constants.APIURL.Booking + "/" + bookingId
+        booking(bookingId, false, completion: completionBlock)
+    }
+    
+    func booking(_ id: String, _ isBookingId: Bool, completion completionBlock:@escaping KTDALCompletionBlock) {
+        let url = (isBookingId ? Constants.APIURL.Booking : Constants.APIURL.Track) + "/" + id
         self.get(url: url, param: nil, completion: completionBlock) { (response, cBlock) in
-            let booking : KTBooking = self.saveBookingInDB(booking: response as! [AnyHashable : Any])
+            let booking : KTBooking = self.saveBookingInDB(booking: response as [AnyHashable : Any])
             
             cBlock(Constants.APIResponseStatus.SUCCESS, [Constants.ResponseAPIKey.Data: booking])
         }

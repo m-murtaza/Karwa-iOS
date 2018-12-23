@@ -213,10 +213,15 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         vModel?.btnRattingTapped()
     }
     
+    func setTitleBtnSubmit(label: String)
+    {
+        btnSubmit.setTitle(label, for: .normal)
+    }
+    
     func closeScreen() {
         delegate?.closeRating()
-        
     }
+
     override func showError(title:String, message:String)
     {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -254,12 +259,26 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         tagView.scrollView.flashScrollIndicators()
         let btn: KTTagButton = KTTagButton(type:UIButtonType.custom)
         btn.setTitle(vModel?.reason(atIndex: index), for: UIControlState.normal)
+
+        if(vModel?.isComplainable(atIndex: index) ?? false)
+        {
+            btn.setComplainable(true)
+        }
+        
         btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
+
         btn.setTitleColor(UIColor.white, for: UIControlState.selected)
         
         btn.adjustsImageWhenHighlighted = false
-        //btn.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(KTRatingViewController.tagViewTapped), for: .touchUpInside)
         return btn
+    }
+    
+    @objc func tagViewTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
+        {
+            self.vModel?.tagViewTapped()
+        }
     }
     
     func selectedIdx() ->[NSNumber] {

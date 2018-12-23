@@ -54,6 +54,11 @@ class KTWebClient: NSObject {
         sendRequest(httpMethod: .post, uri: uri, param: param, completion: completionBlock)
     }
     
+    func put(uri: String, param: [String : Any]?, completion completionBlock:@escaping  KTResponseCompletionBlock)
+    {
+        sendRequest(httpMethod: .put, uri: uri, param: param, completion: completionBlock)
+    }
+    
     func  get(uri: String, param: [String : Any]?, completion completionBlock:@escaping KTResponseCompletionBlock)
     {
         sendRequest(httpMethod: .get, uri: uri, param: param,completion: completionBlock)

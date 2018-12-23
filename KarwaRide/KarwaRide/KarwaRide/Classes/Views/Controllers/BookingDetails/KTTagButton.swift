@@ -18,20 +18,49 @@ class KTTagButton: UIButton {
          //Drawing code
         self.layer.cornerRadius = 14
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(hexString:"#5B5A5A").cgColor
         self.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 9.0)!
         var bgColor : UIColor = UIColor(hexString:"#5B5A5A")
-        if isSelected {
-            bgColor = UIColor(hexString:"#5B5A5A")
+        if isSelected
+        {
+            if(isComplainable)
+            {
+                bgColor = UIColor(hexString:"#25AAF1")
+            }
+            else
+            {
+                bgColor = UIColor(hexString:"#5B5A5A")
+            }
         }
-        else {
+        else
+        {
             bgColor = UIColor(hexString:"#FFFFFF")
+        }
+        
+        if(isComplainable)
+        {
+            self.layer.borderColor = UIColor(hexString:"#25AAF1").cgColor
+        }
+        else
+        {
+            self.layer.borderColor = UIColor(hexString:"#5B5A5A").cgColor
         }
         
         self.layer.backgroundColor = bgColor.cgColor
         bgColor.setFill()
     }
  
+    func setStrokeColor(hexColor color : String)
+    {
+        self.layer.borderColor = UIColor(hexString:color).cgColor
+    }
+    
+    var isComplainable = false
+    
+    func setComplainable(_ isComplainable: Bool)
+    {
+        self.isComplainable = isComplainable
+    }
+    
     override var isSelected: Bool {
         didSet {
 

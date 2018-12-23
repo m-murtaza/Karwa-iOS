@@ -265,6 +265,10 @@ class KTMyTripsViewModel: KTBaseViewModel {
         
         return img
     }
-    
-    
+ 
+    // Triggered only when BookingDetails Controller is in focus
+    func bookingUpdateTriggered(_ updatedBooking: KTBooking)
+    {
+        fetchBookings()
+    }
 }

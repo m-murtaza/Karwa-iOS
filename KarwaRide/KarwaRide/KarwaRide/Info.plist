@@ -9,7 +9,7 @@
 		<key>PROD</key>
 		<string>https://consumer.karwatechnologies.com/apiv2/</string>
 		<key>STAGE</key>
-		<string>http://stagemursaalapi.karwasolutions.com:9000/apiv2/</string>
+		<string>http://stagemursaalapi.karwasolutions.com:9001/apiv2/</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -26,7 +26,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.9</string>
+	<string>2.3.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -37,7 +37,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>48</string>
+	<string>70</string>
 	<key>Development Environment</key>
 	<string>PROD</string>
 	<key>Fabric</key>
@@ -69,6 +69,8 @@
 	<string>Use for finding user current location </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Karwa will use your location to determine your pickup location. This will enable drivers to reach exact pickup location in shortest possible time.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Karwa will use your Camera to detect barcode of your trip (from meter) for instant Card payment, without any hassle</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MuseoSans-100.otf</string>

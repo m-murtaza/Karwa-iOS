@@ -28,7 +28,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var lblDropoffAddress: UILabel!
     @IBOutlet weak var lblDayAndTime: UILabel!
     @IBOutlet weak var lblServiceType: UILabel!
-    @IBOutlet weak var imgBookingStatus: UIImageView!
+    @IBOutlet weak var imgBookingStatus: SpringImageView!
 
     @IBOutlet weak var lblEstimatedFare : UILabel!
     @IBOutlet weak var titleEstimatedFare: UILabel!
@@ -59,6 +59,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var driverInfoBox : UIView!
     @IBOutlet weak var etaView : UIView!
     
+    @IBOutlet weak var lblPaymentMethod: SpringLabel!
+    @IBOutlet weak var imgPaymentMethod: SpringImageView!
+    
+    
     @IBOutlet weak var imgBookingBar : UIImageView!
     
     @IBOutlet weak var constraintDriverInfoHeightConstraint : NSLayoutConstraint!
@@ -81,6 +85,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
     
+    @IBOutlet weak var btnShare: SpringButton!
+    @IBOutlet weak var toolTipBtnShare: SpringImageView!
+    
+    
     var isOpenFromNotification : Bool = false
     let MAX_ZOOM_LEVEL = 16
     
@@ -100,15 +108,27 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
-        
+
         btnBack.isHidden = isOpenFromNotification
         btnReveal.isHidden = !isOpenFromNotification
+        
+        showHideToolTipShareButton(false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool)
+    {
+        vModel?.viewWillDisappear()
+    }
+    
+    override func updateForBooking(_ booking: KTBooking)
+    {
+        vModel?.bookingUpdateTriggered(booking)
     }
     
     func startArrowAnimation()
@@ -149,6 +169,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         etaView.isHidden = true
     }
     
+    func showEtaView() {
+        etaView.isHidden = false
+    }
+    
     //MARK: - UI update
     func hideDriverInfoBox() {
         
@@ -169,6 +193,50 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         })
     }
     
+    func showHideShareButton(_ show : Bool)
+    {
+        btnShare.isHidden = !show
+        if(show)
+        {
+            let isShareTripToolTipShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN)
+            showHideToolTipShareButton((isShareTripToolTipShown.isEmpty || isShareTripToolTipShown.count == 0))
+        }
+    }
+
+    var isTooltipVisible : Bool = false
+
+    func showHideToolTipShareButton(_ show : Bool)
+    {
+        toolTipBtnShare.isHidden = !show
+        if(show)
+        {
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
+            Timer.scheduledTimer(withTimeInterval: 8, repeats: true){_ in
+
+                if(self.isTooltipVisible)
+                {
+                    self.toolTipBtnShare.duration = 1
+                    self.toolTipBtnShare.animation = "fadeOut"
+                    self.toolTipBtnShare.animate()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                        self.toolTipBtnShare.isHidden = true
+                    })
+                }
+                else
+                {
+                    self.toolTipBtnShare.isHidden = false
+                    self.toolTipBtnShare.duration = 1
+                    self.toolTipBtnShare.animation = "fadeInDown"
+                    self.toolTipBtnShare.animate()
+                }
+                self.isTooltipVisible = !self.isTooltipVisible
+            }
+        }
+        else
+        {
+            toolTipBtnShare.isHidden = true
+        }
+    }
     
      // MARK: - Navigation
      
@@ -194,8 +262,19 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBAction func btnCallTapped(_ sender: Any)
     {
         vModel?.callDriver()
-        
     }
+    
+    @IBAction func shareBtnTapped(_ sender: Any)
+    {
+        AnalyticsUtil.trackShareRide()
+        let URLstring =  String(format: Constants.ShareTripUrl + (vModel?.booking?.trackId ?? "unknown"))
+        let urlToShare = URL(string:URLstring)
+        let title = "Follow the link to track my ride: \n"
+        let activityViewController = UIActivityViewController(activityItems: [title,urlToShare!], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        present(activityViewController,animated: true,completion: nil)
+    }
+    
     
     @IBAction func moreOptionsTapped(_ sender: Any)
     {
@@ -275,10 +354,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             titleEstimatedFare.text = "Est. Fare"
         }
         
-        let img : UIImage? = vModel?.bookingStatusImage()
-        if img != nil {
-            imgBookingStatus.image = img
-        }
+        updateBookingStatusOnCard()
         
         lblPickTime.text = vModel?.pickupTime()
         lblDropTime.text = vModel?.dropoffTime()
@@ -286,6 +362,46 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         viewCard.backgroundColor = vModel?.cellBGColor()
         
         viewCard.borderColor = vModel?.cellBorderColor()
+        
+        lblPaymentMethod.text = vModel?.paymentMethod()
+        imgPaymentMethod.image = UIImage(named: ImageUtil.getSmallImage((vModel?.paymentMethodIcon())!))
+
+    }
+    
+    func updateBookingStatusOnCard(_ withAnimation: Bool)
+    {
+        if(withAnimation)
+        {
+            imgBookingStatus.duration = 1
+            imgBookingStatus.animation = "zoomOut"
+            imgBookingStatus.animate()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+            {
+                let img : UIImage? = self.vModel?.bookingStatusImage()
+                if img != nil
+                {
+                    self.imgBookingStatus.image = img
+                }
+
+                self.imgBookingStatus.duration = 1
+                self.imgBookingStatus.animation = "zoomIn"
+                self.imgBookingStatus.animate()
+            }
+        }
+        else
+        {
+            let img : UIImage? = vModel?.bookingStatusImage()
+            if img != nil
+            {
+                imgBookingStatus.image = img
+            }
+        }
+    }
+    
+    func updateBookingStatusOnCard()
+    {
+        updateBookingStatusOnCard(false)
     }
     
     func updateBookingCardForCompletedBooking() {
@@ -304,6 +420,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         constraintHeighBookingInfoBox.constant -= 10
         constraintHeighBookingInfoLargeBox.constant -= 10
         lblPickTime.isHidden = true
+
         lblDropTime.isHidden = true
         
         constraintHeightPickTime.constant = 0
@@ -363,8 +480,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //            markerMovement.ARCarMovement(marker: marker!, oldCoordinate: (marker?.position)!, newCoordinate: vTrack.position, mapView: self.mapView, bearing: vTrack.bearing)
             markerMovement.moveMarker(marker: marker!, from: (marker?.position)!, to: vTrack.position, degree: vTrack.bearing)
         }
-        
-        updateMapCamera()
     }
     
     func updateMapCamera()

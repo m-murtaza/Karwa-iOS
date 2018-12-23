@@ -26,6 +26,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func showConsolationText()
     func showConsolationText(message: String)
     func hideConsolationText()
+    func setTitleBtnSubmit(label: String)
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -84,12 +85,42 @@ class KTRatingViewModel: KTBaseViewModel {
         return r
     }
     
+    func isComplainable(atIndex idx: Int) -> Bool {
+        var isComplainable : Bool = false
+        if idx < (reasons?.count)!
+        {
+            isComplainable = reasons![idx].isComplainable
+        }
+        return isComplainable
+    }
+    
     func selectedReasonIds() -> [Int16] {
         var rreasonsIdx : [Int16] = []
         for r in (del?.selectedIdx())! {
             rreasonsIdx.append(reasons![r.intValue].reasonCode)
         }
         return rreasonsIdx
+    }
+    
+    func selectedReasonIsComplainable() -> Bool
+    {
+        var isComplainableReasonSelected : Bool = false
+
+        for r in (del?.selectedIdx())!
+        {
+            if(reasons![r.intValue].isComplainable)
+            {
+                isComplainableReasonSelected = true
+                break
+            }
+        }
+
+        return isComplainableReasonSelected
+    }
+    
+    func tagViewTapped()
+    {
+        del?.setTitleBtnSubmit(label: selectedReasonIsComplainable() ? "SUBMIT COMPLAIN" : "SUBMIT")
     }
     
     func btnRattingTapped()
@@ -109,9 +140,10 @@ class KTRatingViewModel: KTBaseViewModel {
         let reasonIds : [Int16] = selectedReasonIds()
         let rating : Int32 = (del?.userFinalRating())!
         let bookingId : String = (booking?.bookingId)!
+        let tripType : Int16 = (booking?.tripType)!
         
         self.delegate?.showProgressHud(show: true, status: "Updating Driver Rating")
-        KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds) { (status, response) in
+        KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds, tripType: tripType) { (status, response) in
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
                 

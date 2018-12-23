@@ -17,6 +17,7 @@ class KTAppDataSyncManager: KTDALManager {
         self.syncCancelReasons()
         self.syncRatingReason()
         self.syncComplaints()
+//        self.syncPaymentMethods()
         self.removeNotificaiton()
         
     }
@@ -63,6 +64,13 @@ class KTAppDataSyncManager: KTDALManager {
     {
         KTComplaintsManager().fetchComplaintsFromServer{(status, response) in
             print("All Complaints synced")
+        }
+    }
+    
+    private func syncPaymentMethods()
+    {
+        KTPaymentManager().fetchPaymentsFromServer{(status, response) in
+            print("All Payments synced")
         }
     }
     

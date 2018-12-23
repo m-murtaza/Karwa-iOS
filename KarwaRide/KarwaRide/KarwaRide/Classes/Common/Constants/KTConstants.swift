@@ -84,6 +84,8 @@ enum BookingStatus : Int32 {
 
 struct Constants {
     static let TOSUrl:String = "http://www.karwatechnologies.com/fare.htm"
+    static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
+    static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
@@ -95,6 +97,9 @@ struct Constants {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"
         static let DetailView = "BookingDetailNavController"
+        static let PaymentMethodsView = "KTPaymentViewControllerIdentifier"
+        static let PaymentNavigationController = "PaymentNavigationController"
+        static let TrackTripNavController = "TrackTripNavController"
     }
     
     struct Notification {
@@ -172,6 +177,35 @@ struct Constants {
         static let BookingId =  "bookingId"
         static let Remarks =  "remarks"
     }
+
+    struct PaymentResponseAPIKey {
+        static let Id = "Id"
+        static let PaymentType = "Type"
+        static let LastFourDigits = "LastFourDigits"
+        static let ExpiryMonth = "ExpiryMonth"
+        static let ExpiryYear = "ExpiryYear"
+        static let Brand =  "Brand"
+        static let Balance =  "Balance"
+        static let IsRemovable =  "IsRemovable"
+        static let SessionId = "SessionId"
+        static let ApiVersion = "ApiVersion"
+    }
+    
+    struct PayTripAPIKey {
+        static let DriverId = "DriverId"
+        static let PaymentMethodId = "PaymentMethodId"
+        static let TotalFare = "TotalFare"
+        static let TripId = "TripId"
+        static let TripType = "TripType"
+        static let U =  "UnitNo"
+        static let S =  "TripStartTime"
+        static let E =  "TripEndTime"
+    }
+    
+    struct MPGSSessionAPIKey {
+        static let SessionId = "SessionId"
+        static let ApiVersion = "ApiVersion"
+    }
     
     struct BookingResponseAPIKey {
         static let BookingID = "BookingID"
@@ -210,6 +244,12 @@ struct Constants {
         static let TripSummary = "OrderedTripSummary"
         
         static let IsRated = "IsRated"
+        
+        static let PaymentMethod = "PaymentMethod"
+        static let LastFourDigits = "LastFourDigits"
+        
+        static let TrackId = "TrackID"
+        static let TripType = "TripType"
     }
     
     struct GetEstimateResponseAPIKey {
@@ -230,6 +270,8 @@ struct Constants {
         static let Desc = "Desc"
         static let EN = "EN"
         static let ReasonCode = "ReasonCode"
+        static let ComplainableRating = "ComplainableRating"
+        static let IsComplainable = "isComplainable"
     }
     
     struct NotificationKey {
@@ -296,13 +338,15 @@ struct Constants {
         static let BookingType = "BookingType"
         static let EstimateId = "EstimateId"
         static let EstimatedFare = "EstimatedFare"
+        static let TrackId = "TrackID"
+        static let TripType = "TripType"
         //static let BookingType = "BookingType"
     }
     
     struct RatingParams {
         static let Rating = "Rating"
         static let Reasons = "Reasons"
-        
+        static let TripType = "TripType"
     }
     
     struct ComplaintParams {
@@ -313,6 +357,7 @@ struct Constants {
         static let Order = "Order"
         static let bookingId = "bookingId"
         static let remarks = "remarks"
+        static let TripType = "TripType"
     }
     
     struct APIURL {
@@ -329,6 +374,7 @@ struct Constants {
         static let AddressPickViaSearch = "geocode/name"
         static let getAllAddress = "geocode/all"
         static let Booking = "booking"
+        static let Track = "booking/track"
         static let GetBookmark = "bookmarks/personal"
         static let SetHomeBookmark = "bookmark/personal/home"
         static let SetWorkBookmark = "bookmark/personal/work"
@@ -341,6 +387,11 @@ struct Constants {
         static let DriverImage = "driver/image"
         static let GetComplaints = "complaint/sync"
         static let CreateComplaint = "complaint/add"
+        static let GetPayments = "payment/methods"
+        static let PayTrip = "trip/pay"
+        static let MPGSSuccessToServer = "mpgs/tokenize"
+        static let MPGSCreateSession = "mpgs/session"
+        static let DeletePaymentMethod = "payment/"
     }
     
     struct TrackTaxiParams {

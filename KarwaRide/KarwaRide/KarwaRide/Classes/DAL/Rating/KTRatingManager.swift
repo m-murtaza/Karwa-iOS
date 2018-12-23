@@ -75,20 +75,40 @@ class KTRatingManager: KTDALManager {
     }
     
     private func saveSingleReason(reason : [AnyHashable: Any]) {
-        
-        //let comaSapratedBookingStatii : String = reason[Constants.CancelReasonAPIKey.BookingStatii] as! String
-        for rating in reason[Constants.RatingReasonAPIKey.Ratings] as! [Int]{
-            for descKey in (reason[Constants.RatingReasonAPIKey.Desc] as! [String: String]).keys {
-                saveReason(rating: Int32(rating), language: descKey, desc: (reason[Constants.RatingReasonAPIKey.Desc] as! [AnyHashable: String])[descKey]!, reasonCode: reason[Constants.RatingReasonAPIKey.ReasonCode] as! Int16)
+        for rating in reason[Constants.RatingReasonAPIKey.Ratings] as! [Int]
+        {
+            for descKey in (reason[Constants.RatingReasonAPIKey.Desc] as! [String: String]).keys
+            {
+                var isComplainableRating = false
+                if(reason[Constants.RatingReasonAPIKey.ComplainableRating] != nil)
+                {
+                    for complainableRating in reason[Constants.RatingReasonAPIKey.ComplainableRating] as! [Int]
+                    {
+                        if(complainableRating == Int32(rating))
+                        {
+                            isComplainableRating = true
+                            break
+                        }
+                    }
+                }
+
+                saveReason(
+                    rating: Int32(rating),
+                    language: descKey,
+                    desc: (reason[Constants.RatingReasonAPIKey.Desc] as! [AnyHashable: String])[descKey]!,
+                    reasonCode: reason[Constants.RatingReasonAPIKey.ReasonCode] as! Int16,
+                    isComplainableRating: isComplainableRating
+                )
             }
         }
     }
     
-    private func saveReason(rating: Int32, language: String, desc: String, reasonCode: Int16) {
+    private func saveReason(rating: Int32, language: String, desc: String, reasonCode: Int16, isComplainableRating: Bool) {
         let reason : KTRatingReasons = KTRatingReasons.mr_createEntity()!
         reason.rating = rating
         reason.language = language
         reason.desc = desc
+        reason.isComplainable = isComplainableRating
         reason.reasonCode = reasonCode
     }
     
@@ -101,14 +121,15 @@ class KTRatingManager: KTDALManager {
     
     func ratingsReason(forRating rating: Int32, language: String) -> [KTRatingReasons]? {
         
-        let predicate : NSPredicate = NSPredicate(format: "rating == %d && language = %@", rating,language)
+        let predicate : NSPredicate = NSPredicate(format: "rating == %d && language = %@", rating , language)
         let reasons : [KTRatingReasons] = KTRatingReasons.mr_findAll(with: predicate) as! [KTRatingReasons] 
         return reasons
     }
     
-    func rateBooking(forId bookingId:String,rating: Int32 ,reasons: [Int16], completion completionBlock:@escaping KTDALCompletionBlock)  {
+    func rateBooking(forId bookingId:String,rating: Int32 ,reasons: [Int16], tripType: Int16, completion completionBlock:@escaping KTDALCompletionBlock)  {
         let param : [String: Any] = [Constants.RatingParams.Rating: rating,
-                                     Constants.RatingParams.Reasons: reasons]
+                                     Constants.RatingParams.Reasons: reasons,
+                                     Constants.RatingParams.TripType: tripType]
         let url : String = Constants.APIURL.RateBooking + "/" + bookingId
         
         self.post(url: url, param: param, completion: completionBlock) {

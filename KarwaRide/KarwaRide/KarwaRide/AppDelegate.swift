@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var location :KTLocationManager?
+    var currentViewControllerName: KTBaseViewController?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -40,11 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupFirebase()
     {
+        #if DEBUG || ADHOC
+        print("Skipping Firebase because of debug build")
+        #else
+        print("Initializing K-Firebase")
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self()])
         Fabric.sharedSDK().debug = true
-        
         setFirebaseAnalyticsUserPref()
+        #endif
     }
     
     func setFirebaseAnalyticsUserPref()
@@ -95,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupDatabase()  {
         
         MagicalRecord.setupCoreDataStack(withAutoMigratingSqliteStoreNamed: "Karwa")
-        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
+//        MagicalRecord.setLoggingLevel(MagicalRecordLoggingLevel.error)
     }
     
     func setupLocation() {
@@ -156,23 +161,79 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Failed to register: \(error)")
     }
     
-    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)  {
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
+    {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL, let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        else
+        {
+            return false
+        }
+
+        let pathsComing = components.path
+
+        let tripServerBean = KTUtils.isValidQRCode(pathsComing)
+        let trackTripId = KTUtils.isValidTrackTripCode(pathsComing)
+
+        if(trackTripId != nil)
+        {
+            moveToTrackTripViewIfRequired(trackTripId)
+        }
+        else
+        {
+            moveToPaymentViewIfRequired(tripServerBean)
+        }
+
+        return true
+    }
+    
+    
+    
+    /* Present Pay Trip View Controller */
+    func presentTripPayViewController(_ payTrip: PayTripBeanForServer)
+    {
+        //TODO: Show Pay View Controller
+//        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+//        let detailView : KTPaymentViewController = sBoard.instantiateViewController(withIdentifier: "KTPaymentViewControllerIdentifier") as! KTPaymentViewController
+//        detailView.isManageButtonPressed = true
+//        self.showView(view: detailView)
         
-        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
+//                let sBoard = UIStoryboard(name: "Main", bundle: nil)
+//                let detailView : KTCreateBookingViewController = sBoard.instantiateViewController(withIdentifier: "BookingStep1") as! KTCreateBookingViewController
+//                detailView.showPayment()
+        
+    }
+    
+    //Notifiacation receive when application is in background
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
+        if (application.applicationState == .active)
+        {
+            // Nothing to do if applicationState is Inactive, the iOS already displayed an alert view.
+//            print("==================================================")
+//            print("Notification Arrived in Active State")
+//            print("==================================================")
+        }
+        else
+        {
+//            print("==================================================")
+//            print("Notification Arrived in In-Active State")
+//            print("==================================================")
+        }
+
+        apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
+    }
+
+    func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
+    {
+//        print("==================================================")
+//        print("Notification Arrived in Handle Notification")
+//        print("==================================================")
+        if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject]
+        {
             let aps = notification["aps"] as! [String: AnyObject]
             print(aps)
             apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
         }
-    }
-    
-    //Notifiacation receive when application is in background
-    func application(
-        _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable : Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
-        
     }
     
     func moveToDetailView(withBooking booking: KTBooking) {
@@ -186,6 +247,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    func moveToTrackTripViewIfRequired(_ trackTripId: String?)
+    {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let contentView : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.TrackTripNavController) as! UINavigationController
+        
+        let ktPaymentViewController : KTTrackTripViewController = (contentView.viewControllers)[0] as! KTTrackTripViewController
+
+        if(trackTripId != nil)
+        {
+            ktPaymentViewController.trackTripId = trackTripId!
+            self.showView(view: ktPaymentViewController)
+        }
+        else
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
+            {
+                ktPaymentViewController.showErrorBanner("  ", "Invalid Track Trip Code ")
+            }
+        }
+    }
+    
+    func moveToPaymentViewIfRequired(_ payTripBean: PayTripBeanForServer?)
+    {
+        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+        let paymentNavigationController : UINavigationController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
+        let ktPaymentViewController : KTPaymentViewController = (paymentNavigationController.viewControllers)[0] as! KTPaymentViewController
+        
+        if(payTripBean != nil)
+        {
+            ktPaymentViewController.payTripBean = payTripBean
+            ktPaymentViewController.isManageButtonPressed = true
+            ktPaymentViewController.isTriggeredFromUniversalLink = true
+            
+            let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
+            let sideMeun : SSASideMenu = SSASideMenu(contentViewController: paymentNavigationController, leftMenuViewController: leftView)
+            
+            window? = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = sideMeun
+            window?.makeKeyAndVisible()
+            
+        }
+        else
+        {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
+            {
+                ktPaymentViewController.showErrorBanner("  ", "Invalid QR Code ")
+            }
+        }
+    }
+    
     func showLogin()  {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
         let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LoginView)
@@ -194,13 +305,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func showView(view: UIViewController) {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
-        //let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
+//        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
         let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
-        
         let sideMeun : SSASideMenu = SSASideMenu(contentViewController: view, leftMenuViewController: leftView)
         
         window? = UIWindow(frame: UIScreen.main.bounds)
-        
         window?.rootViewController = sideMeun
         window?.makeKeyAndVisible()
     }
@@ -211,5 +320,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
+    func getCurrentViewControllerName() -> String
+    {
+        if(currentViewControllerName != nil)
+        {
+            return NSStringFromClass(currentViewControllerName!.classForCoder)
+        }
+        else
+        {
+            return ""
+        }
+    }
+    
+    func setCurrentViewController(_ controller: KTBaseViewController?)
+    {
+        if(controller == nil)
+        {
+            currentViewControllerName = nil
+        }
+        else
+        {
+            currentViewControllerName = controller
+        }
+    }
+    
+    func updateViewControllerIfRequired(forBooking booking : KTBooking)
+    {
+        if(getCurrentViewControllerName() == "KarwaRide.KTBookingDetailsViewController" || getCurrentViewControllerName() == "KarwaRide.KTMyTripsViewController")
+        {
+            currentViewControllerName?.updateForBooking(booking)
+        }
+    }
 }
 

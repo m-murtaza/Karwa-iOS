@@ -30,19 +30,20 @@ extension KTBookingManager
     
     func trackVechicle(jobId:String,vehicleNumber:String, completion completionBlock: @escaping KTDALCompletionBlock) {
         
+        trackVechicle(jobId: jobId, vehicleNumber: vehicleNumber, false, completion: completionBlock)
+    }
+    
+    func trackVechicle(jobId:String,vehicleNumber:String, _ withStatus: Bool, completion completionBlock: @escaping KTDALCompletionBlock) {
+        
         let vNumber : String = vehicleNumber.urlEncodeString()!
         let jId : String = jobId.urlEncodeString()!
-        
-        let url : String = "\(Constants.APIURL.trackVechicle)/\(jId)/\(vNumber)"
+        let url : String = withStatus ? "\(Constants.APIURL.trackVechicle)/\(jId)/\(vNumber)?includeStatus=1" : "\(Constants.APIURL.trackVechicle)/\(jId)/\(vNumber)"
         
         self.get(url: url,param: nil,completion: completionBlock,success: {
             (responseData,cBlock) in
-                cBlock(Constants.APIResponseStatus.SUCCESS, responseData)
+            cBlock(Constants.APIResponseStatus.SUCCESS, responseData)
         })
-        
     }
-    
-    
 }
 
 

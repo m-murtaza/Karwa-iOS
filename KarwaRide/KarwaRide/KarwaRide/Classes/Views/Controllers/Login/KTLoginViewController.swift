@@ -45,7 +45,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         super.viewWillDisappear(animated)
         navigationController?.isNavigationBarHidden = false
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -56,9 +56,9 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
+
     // MARK: - Navigation
-    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -77,7 +77,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
             
             otpView.phone = txtPhoneNumber.text!
         }
-        
+
         
     }
     
@@ -85,19 +85,19 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     
     @IBAction func loginbtnTouchDown(_ sender: SpringButton)
     {
-        //        print("touch down")
+//        print("touch down")
         springAnimateButtonTapIn(button: loginButton)
     }
     
     @IBAction func loginbtnTouchUpOutside(_ sender: SpringButton)
     {
-        //        print("touch up outside")
+//        print("touch up outside")
         springAnimateButtonTapOut(button: loginButton)
     }
     
     @IBAction func loginBtnTapped(_ sender: Any)
     {
-        //        print("touch up inside")
+//        print("touch up inside")
         springAnimateButtonTapOut(button: loginButton)
         (viewModel as! KTLoginViewModel).loginBtnTapped()
     }
@@ -137,7 +137,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField == txtPhoneNumber {
-            
+        
             let currentText = textField.text ?? ""
             guard let stringRange = Range(range, in: currentText) else { return false }
             
@@ -147,7 +147,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         }
         return true
     }
-    
+   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         if textField == txtPassword
@@ -157,5 +157,5 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         }
         return true
     }
-    
+   
 }

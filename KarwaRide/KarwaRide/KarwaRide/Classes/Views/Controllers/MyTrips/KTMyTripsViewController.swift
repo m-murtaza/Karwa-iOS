@@ -13,13 +13,16 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noBookingView: UIView!
     
+    private var vModel : KTMyTripsViewModel?
+
     private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
-        if viewModel == nil {
+        if viewModel == nil
+        {
             viewModel = KTMyTripsViewModel(del: self)
         }
-//        self.viewModel = KTMyTripsViewModel(del: self)
+        vModel = viewModel as? KTMyTripsViewModel
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -29,6 +32,11 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         tableView.addSubview(refreshControl) // not required when using UITableViewController
     }
 
+    override func updateForBooking(_ booking: KTBooking)
+    {
+        vModel?.bookingUpdateTriggered(booking)
+    }
+    
     @objc func refresh(sender:AnyObject)
     {
         (viewModel as! KTMyTripsViewModel).fetchBookings()

@@ -26,6 +26,12 @@ import UIKit
     func performSegue(name:String)
     func showToast(message : String)
 
+    func showSuccessBanner(_ title: String, _ message: String)
+    func showInfoBanner(_ title: String, _ message: String)
+    func showErrorBanner(_ title: String, _ message: String)
+    func showNonBanner(_ title: String, _ message: String)
+    func showWarningBanner(_ title: String, _ message: String)
+    
     @objc func dismiss()
 }
 

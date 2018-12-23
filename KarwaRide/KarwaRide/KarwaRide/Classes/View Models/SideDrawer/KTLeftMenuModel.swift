@@ -12,11 +12,13 @@ struct KTMenuItems {
     var title : String = ""
     var image : UIImage = UIImage(named: "LMStartBooking")!
     var color : UIColor = UIColor.red
+    var isNew : Bool = false
     
-    init(title t: String, image i:UIImage, color c:UIColor) {
+    init(title t: String, image i:UIImage, color c:UIColor, isNew n: Bool) {
         title = t
         image = i
         color = c
+        isNew = n
     }
 }
 
@@ -58,23 +60,23 @@ class KTLeftMenuModel: KTBaseViewModel {
     
     func setMenuItems() {
         
-        let menuItem1 : KTMenuItems = KTMenuItems(title: "Start a Booking", image: UIImage(named:"LMStartBooking")!, color: UIColor(hexString: "#25AAF1"))
+        let menuItem1 : KTMenuItems = KTMenuItems(title: "Start a Booking", image: UIImage(named:"LMStartBooking")!, color: UIColor(hexString: "#25AAF1"), isNew: false)
         drawerOptions.append(menuItem1)
         
-        let menuItem2 : KTMenuItems = KTMenuItems(title: "My Trips", image: UIImage(named:"LMMyTrips")!, color: UIColor(hexString: "#9FB067"))
+        let menuItem2 : KTMenuItems = KTMenuItems(title: "My Trips", image: UIImage(named:"LMMyTrips")!, color: UIColor(hexString: "#9FB067"), isNew: false)
         drawerOptions.append(menuItem2)
         
-        let menuItem3 : KTMenuItems = KTMenuItems(title: "Notifications", image: UIImage(named:"LMNotification")!, color: UIColor(hexString: "#9B9B9B"))
+        let menuItem3 : KTMenuItems = KTMenuItems(title: "Notifications", image: UIImage(named:"LMNotification")!, color: UIColor(hexString: "#9B9B9B"), isNew: false)
         drawerOptions.append(menuItem3)
         
-        let menuItem4 : KTMenuItems = KTMenuItems(title: "Fare Details", image: UIImage(named:"LMFareBreakdown")!, color: UIColor(hexString: "#1BB4B4"))
+        let menuItem4 : KTMenuItems = KTMenuItems(title: "Fare Details", image: UIImage(named:"LMFareBreakdown")!, color: UIColor(hexString: "#1BB4B4"), isNew: false)
         drawerOptions.append(menuItem4)
         
-//        let menuItem5 : KTMenuItems = KTMenuItems(title: "Payment Methods", image: UIImage(named:"LMPayment")!, color: UIColor(hexString: "#778F5F"))
+//        let menuItem5 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: true)
 //        drawerOptions.append(menuItem5)
         
-        let menuItem5 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"))
-        drawerOptions.append(menuItem5)
+        let menuItem6 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
+        drawerOptions.append(menuItem6)
     }
     
     func numberOfRowsInSection() -> Int
@@ -93,6 +95,11 @@ class KTLeftMenuModel: KTBaseViewModel {
     func colorInCell(idx : Int) -> UIColor {
         
         return drawerOptions[idx].color
+    }
+    
+    func isNew(idx : Int) -> Bool {
+        
+        return drawerOptions[idx].isNew
     }
     
     func segueIdentifireForIdxPath(idx: Int) -> String

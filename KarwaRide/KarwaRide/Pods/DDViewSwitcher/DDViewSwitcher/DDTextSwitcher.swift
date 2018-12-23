@@ -46,9 +46,9 @@ open class DDTextSwitcher: UIView {
     }
     
     //Action when view is tapped
-    open var tapAction: ((Void) -> Void)?
-    open var finishScrollAction: ((Void) -> Void)?
-    open var didChangeItemAction: ((Void) -> Void)?
+    open var tapAction: (() -> Void)?
+    open var finishScrollAction: (() -> Void)?
+    open var didChangeItemAction: (() -> Void)?
     
     public init(frame: CGRect, data: [String], scrollDirection: ScrollDirection) {
         super.init(frame: frame)
@@ -84,10 +84,10 @@ open class DDTextSwitcher: UIView {
         
         backgroundColor = UIColor.clear
         
-        lbCenter.textColor = UIColor.darkGray
-        lbCenter.font = lbCenter.font.withSize(10)
+        lbCenter.textColor = UIColor.black
+        lbCenter.font = lbCenter.font.withSize(20)
         lbCenter.textAlignment = .center
-        lbCenter.numberOfLines = 1
+        lbCenter.numberOfLines = 0
         self.lbCenter.frame.size = self.frame.size
         self.lbCenter.frame.origin = pointNormal
         self.addSubview(lbCenter)
@@ -222,18 +222,18 @@ open class DDTextSwitcher: UIView {
     //Tap action handler
     @objc open func didTap(sender: UITapGestureRecognizer) {
         guard let action = self.tapAction else { return /*didn't set closure*/}
-//        action(<#Void#>)
+        action()
     }
     
     //scroll finish(Only isInfiniteScrolling is false) action handler
     open func finishScroll() {
         guard let action = self.finishScrollAction else { return /*didn't set closure*/}
-//        action(Void)
+        action()
     }
     
     //scroll finish(Only isInfiniteScrolling is false) action handler
     open func didChangeItem() {
         guard let action = self.didChangeItemAction else { return /*didn't set closure*/}
-//        action(Void)
+        action()
     }
 }
