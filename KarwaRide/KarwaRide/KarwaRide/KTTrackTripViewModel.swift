@@ -134,7 +134,10 @@ class KTTrackTripViewModel: KTBaseViewModel {
     
     func deleteTemporaryBooking()
     {
-        booking!.mr_deleteEntity()
+        if(booking != nil)
+        {
+            booking!.mr_deleteEntity()
+        }
     }
     
     //MARK:- Driver Info
