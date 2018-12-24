@@ -49,6 +49,15 @@ class KTRatingManager: KTDALManager {
     }
     
     func fetchRatingReasons(completion completionBlock: @escaping KTDALCompletionBlock) {
+        
+        /* Forcefully setting sync time to 0 on upgradation on app, because of database change */
+        let isRatingResetDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_RATING_REASONS_RESET_FORCEFULLY)
+        if(isRatingResetDone.isEmpty || isRatingResetDone.count == 0)
+        {
+            resetSyncTime(forKey: RATING_REASON_SYNC_TIME)
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_RATING_REASONS_RESET_FORCEFULLY, "true")
+        }
+
         let param : [String: Any] = [Constants.SyncParam.RatingReason: syncTime(forKey: RATING_REASON_SYNC_TIME)]
         self.get(url: Constants.APIURL.RatingReason, param: param, completion: completionBlock) { (response, cBlock) in
             
@@ -136,5 +145,11 @@ class KTRatingManager: KTDALManager {
             (response, cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
+    }
+    
+    func deleteAllRatingReasons()
+    {
+        KTRatingReasons.mr_truncateAll()
+        self.resetSyncTime(forKey: RATING_REASON_SYNC_TIME)
     }
 }

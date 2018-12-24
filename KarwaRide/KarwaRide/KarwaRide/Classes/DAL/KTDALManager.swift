@@ -114,6 +114,12 @@ class KTDALManager: KTBase {
         return strSyncTimeInterval
     }
     
+    func resetSyncTime(forKey key: String) {
+        let defaults: UserDefaults? = UserDefaults.standard
+        defaults?.set(0, forKey: key)
+        defaults?.synchronize()
+    }
+    
     func updateSyncTime(forKey key: String) {
         let defaults: UserDefaults? = UserDefaults.standard
         defaults?.set(Date(), forKey: key)
