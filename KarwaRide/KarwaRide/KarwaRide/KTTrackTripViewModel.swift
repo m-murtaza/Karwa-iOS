@@ -501,6 +501,8 @@ class KTTrackTripViewModel: KTBaseViewModel {
     {
         self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
 
+        //TODO: Show expired link here
+        
         KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
             
                 self.del?.hideProgressHud()
@@ -510,6 +512,18 @@ class KTTrackTripViewModel: KTBaseViewModel {
                     let updatedBooking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
                     self.bookingUpdateTriggered(updatedBooking)
                     self.del?.showDriverInfoBox()
+                }
+                else
+                {
+                    self.del?.showErrorBanner("   ", response["M"] as! String)
+//                    let expiredAlt = UIAlertController(title: response["T"] as! String, message: response["M"] as! String, preferredStyle: UIAlertControllerStyle.alert)
+//
+//                    expiredAlt.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.destructive, handler: { (action) in
+//
+//                        (self.viewModel as! KTSettingsViewModel).logout()
+//                    }))
+//
+//                    self.present(expiredAlt, animated: true, completion: nil)
                 }
         }
     }
