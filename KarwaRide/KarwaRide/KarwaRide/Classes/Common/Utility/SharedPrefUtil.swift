@@ -10,11 +10,12 @@ import Foundation
 
 class SharedPrefUtil
 {
-    static let IS_COACHMARKS_SHOWN = "IS_COACHMARKS_SHOWN";
-    static let IS_APP_STORE_RATING_DONE = "IS_APP_STORE_RATING_DONE";
-    static let IS_SHARE_TRIP_TOOL_TIP_SHOWN = "IS_SHARE_TRIP_TOOL_TIP_SHOWN";
-    
-    static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS";
+    static let IS_COACHMARKS_SHOWN = "IS_COACHMARKS_SHOWN"
+    static let IS_APP_STORE_RATING_DONE = "IS_APP_STORE_RATING_DONE"
+    static let IS_SHARE_TRIP_TOOL_TIP_SHOWN = "IS_SHARE_TRIP_TOOL_TIP_SHOWN"
+    static let IS_RATING_REASONS_RESET_FORCEFULLY = "IS_RATING_REASONS_RESET_FORCEFULLY"
+
+    static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS"
 
     static func setSharedPref(_ key:String, _ value: String)
     {
