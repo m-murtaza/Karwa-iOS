@@ -64,6 +64,8 @@ class KTRatingViewModel: KTBaseViewModel {
             del?.showConsolationText(message: "We're really sorry. Tell us what happened?")
         }
 
+        del?.setTitleBtnSubmit(label: "SUBMIT")
+
         fetchReason(forRating: Int32(rating))
     }
     
