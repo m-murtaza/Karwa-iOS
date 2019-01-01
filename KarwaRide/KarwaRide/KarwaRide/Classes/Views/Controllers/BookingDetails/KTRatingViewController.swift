@@ -11,6 +11,7 @@ import Kingfisher
 import Cosmos
 import RKTagsView
 import SAConfettiView
+import Spring
 
 protocol KTRatingViewDelegate {
     
@@ -30,6 +31,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     @IBOutlet weak var userRating: CosmosView!
     @IBOutlet weak var lblConsolationText: UILabel!
     @IBOutlet weak var tagView: RKTagsView!
+    @IBOutlet weak var complainComment: SpringLabel!
     
     @IBAction func testbtnTapped(_ sender: Any) {
         (sender as! UIButton).backgroundColor = UIColor.blue
@@ -56,6 +58,11 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         }
         
         tagView.textFieldAlign = .center
+        
+        let tap = UITapGestureRecognizer(target: self, action: Selector(("commentsTapped:")))
+        complainComment.addGestureRecognizer(tap)
+        
+        complainComment.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +86,11 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         // Pass the selected object to the new view controller.
     }
     */
+
+    func showHideComplainableLabel(show: Bool)
+    {
+        complainComment.isHidden = !show
+    }
     
     func updateUIForImageView() {
         
@@ -211,6 +223,11 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     @IBAction func btnRateBookingTapped(_ sender: Any) {
         vModel?.btnRattingTapped()
+    }
+    
+    func commentsTapped(sender: UITapGestureRecognizer)
+    {
+        print("Comments Tapped")
     }
     
     func setTitleBtnSubmit(label: String)
