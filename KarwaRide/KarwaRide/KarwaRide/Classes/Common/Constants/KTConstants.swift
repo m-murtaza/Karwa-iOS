@@ -197,6 +197,7 @@ struct Constants {
         static let TotalFare = "TotalFare"
         static let TripId = "TripId"
         static let TripType = "TripType"
+        static let Remarks = "Remarks"
         static let U =  "UnitNo"
         static let S =  "TripStartTime"
         static let E =  "TripEndTime"

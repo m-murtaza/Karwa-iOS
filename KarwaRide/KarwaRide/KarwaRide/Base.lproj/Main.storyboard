@@ -5027,7 +5027,7 @@
                                             <constraint firstAttribute="height" constant="90" id="j9j-Uz-puC"/>
                                         </constraints>
                                     </imageView>
-                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s4S-Ie-zjk" customClass="CosmosView" customModule="Cosmos">
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4S-Ie-zjk" customClass="CosmosView" customModule="Cosmos">
                                         <rect key="frame" x="8" y="72" width="75" height="13"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -5136,6 +5136,14 @@
                                             <constraint firstAttribute="height" constant="1" id="kDP-WY-e3X"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWo-Ty-8iM">
+                                        <rect key="frame" x="0.0" y="387.5" width="340" height="1"/>
+                                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="6Ey-eX-LH3"/>
+                                            <constraint firstAttribute="height" constant="1" id="ORh-Jh-KO4"/>
+                                        </constraints>
+                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RATE THIS TRIP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-Xk-LRn">
                                         <rect key="frame" x="8" y="112" width="324" height="17"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
@@ -5178,42 +5186,39 @@
                                             <outlet property="delegate" destination="TgS-jM-Q1B" id="Vnc-pa-FpH"/>
                                         </connections>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIE-iG-GGP">
-                                        <rect key="frame" x="8" y="406" width="324" height="27"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Owi-7o-dda" customClass="SpringButton" customModule="Spring">
+                                        <rect key="frame" x="8" y="392" width="324" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="41" id="Ihv-I6-Y6F"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title="Add complain comments here">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="complainCommentBtnTapped:" destination="TgS-jM-Q1B" eventType="touchUpInside" id="PKv-YO-hKL"/>
+                                        </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezf-ey-r0r">
-                                        <rect key="frame" x="0.0" y="406" width="340" height="1"/>
-                                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="Uwo-RM-oJG"/>
-                                            <constraint firstAttribute="height" constant="1" id="h0Z-kC-Y9G"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Owi-7o-dda" firstAttribute="top" secondItem="IWo-Ty-8iM" secondAttribute="bottom" constant="3.5" id="10a-Dl-TSZ"/>
                                     <constraint firstItem="rSp-BE-4C0" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" id="14j-sa-Cg7"/>
                                     <constraint firstAttribute="trailing" secondItem="8jG-6o-BFJ" secondAttribute="trailing" constant="31" id="1Jp-n0-nIE"/>
                                     <constraint firstItem="qXs-hM-ckE" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="8" id="4Zh-pW-44J"/>
-                                    <constraint firstItem="ezf-ey-r0r" firstAttribute="trailing" secondItem="GEU-zf-xhn" secondAttribute="trailing" id="5BU-pU-Cgc"/>
+                                    <constraint firstAttribute="trailing" secondItem="IWo-Ty-8iM" secondAttribute="trailing" id="5Gg-Z8-dnu"/>
                                     <constraint firstItem="rSp-BE-4C0" firstAttribute="top" secondItem="BUc-HR-QA3" secondAttribute="bottom" constant="24" id="6aW-oi-bcL"/>
                                     <constraint firstItem="s4S-Ie-zjk" firstAttribute="firstBaseline" secondItem="qXs-hM-ckE" secondAttribute="firstBaseline" constant="3" id="9Ub-Qc-HTp"/>
-                                    <constraint firstItem="GEU-zf-xhn" firstAttribute="top" secondItem="JIE-iG-GGP" secondAttribute="bottom" id="AFi-yb-5lz"/>
                                     <constraint firstItem="rgr-Xk-LRn" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="8" id="BKQ-KE-FZ7"/>
                                     <constraint firstItem="qXs-hM-ckE" firstAttribute="top" secondItem="aIj-Tw-x5Y" secondAttribute="bottom" constant="11" id="Bld-RE-Kg8"/>
                                     <constraint firstAttribute="width" constant="340" id="Cst-4k-mVK"/>
+                                    <constraint firstItem="Owi-7o-dda" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="8" id="G31-zH-HHb"/>
                                     <constraint firstAttribute="bottom" secondItem="GEU-zf-xhn" secondAttribute="bottom" id="MDU-Zb-nXw"/>
                                     <constraint firstAttribute="trailing" secondItem="rgr-Xk-LRn" secondAttribute="trailing" constant="8" id="NPP-Ch-Jc5"/>
                                     <constraint firstItem="XQE-wc-3g4" firstAttribute="firstBaseline" secondItem="qXs-hM-ckE" secondAttribute="firstBaseline" id="NfR-Fi-IMM"/>
                                     <constraint firstItem="qd1-CG-Utd" firstAttribute="centerX" secondItem="rx3-Uc-Xtn" secondAttribute="centerX" id="Qiu-zM-zeQ"/>
-                                    <constraint firstItem="ezf-ey-r0r" firstAttribute="leading" secondItem="GEU-zf-xhn" secondAttribute="leading" id="REe-s2-J2X"/>
                                     <constraint firstItem="s4S-Ie-zjk" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="8" id="XgL-YV-qLJ"/>
                                     <constraint firstItem="XQE-wc-3g4" firstAttribute="trailing" secondItem="rgr-Xk-LRn" secondAttribute="trailing" id="YnA-lZ-Rzi"/>
-                                    <constraint firstItem="ezf-ey-r0r" firstAttribute="top" secondItem="JIE-iG-GGP" secondAttribute="top" id="Zy2-2T-OhB"/>
                                     <constraint firstAttribute="height" constant="480" id="auv-pO-aEy"/>
                                     <constraint firstItem="aIj-Tw-x5Y" firstAttribute="top" secondItem="rx3-Uc-Xtn" secondAttribute="top" constant="-47" id="bYg-fH-e3B"/>
                                     <constraint firstItem="mlB-Bm-JwG" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="8" id="cML-Ff-V30"/>
@@ -5230,11 +5235,11 @@
                                     <constraint firstItem="8jG-6o-BFJ" firstAttribute="top" secondItem="qd1-CG-Utd" secondAttribute="bottom" constant="18" id="no4-hK-rcc"/>
                                     <constraint firstItem="rgr-Xk-LRn" firstAttribute="top" secondItem="rSp-BE-4C0" secondAttribute="bottom" constant="18" id="oeL-nb-hAw"/>
                                     <constraint firstAttribute="trailing" secondItem="rSp-BE-4C0" secondAttribute="trailing" id="pSU-oh-vX2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Owi-7o-dda" secondAttribute="trailing" constant="8" id="rJY-BM-rd6"/>
                                     <constraint firstItem="8jG-6o-BFJ" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="31" id="sVu-Hr-IS6"/>
-                                    <constraint firstItem="JIE-iG-GGP" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" constant="8" id="vUW-nH-Ifz"/>
+                                    <constraint firstItem="IWo-Ty-8iM" firstAttribute="leading" secondItem="rx3-Uc-Xtn" secondAttribute="leading" id="sgC-V2-xsp"/>
                                     <constraint firstItem="2Qb-FJ-t16" firstAttribute="top" secondItem="rgr-Xk-LRn" secondAttribute="bottom" constant="12" id="xAF-3h-gP8"/>
-                                    <constraint firstAttribute="trailing" secondItem="JIE-iG-GGP" secondAttribute="trailing" constant="8" id="yKB-XF-j9I"/>
-                                    <constraint firstItem="JIE-iG-GGP" firstAttribute="centerX" secondItem="rx3-Uc-Xtn" secondAttribute="centerX" id="zsb-ov-zpQ"/>
+                                    <constraint firstItem="GEU-zf-xhn" firstAttribute="top" secondItem="Owi-7o-dda" secondAttribute="bottom" id="yu3-6w-LbT"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -5251,6 +5256,8 @@
                     </view>
                     <connections>
                         <outlet property="btnSubmit" destination="GEU-zf-xhn" id="qM1-ay-OTc"/>
+                        <outlet property="complainComment" destination="Owi-7o-dda" id="cOl-6z-MI7"/>
+                        <outlet property="complainCommentHeader" destination="IWo-Ty-8iM" id="XGn-5z-BpU"/>
                         <outlet property="driverImgView" destination="aIj-Tw-x5Y" id="f4w-mZ-PQa"/>
                         <outlet property="lblConsolationText" destination="8jG-6o-BFJ" id="TkD-DJ-QRw"/>
                         <outlet property="lblDriverName" destination="qXs-hM-ckE" id="8d7-Fc-QZD"/>
@@ -5258,6 +5265,7 @@
                         <outlet property="lblTripFare" destination="XQE-wc-3g4" id="VNm-tk-p4O"/>
                         <outlet property="ratingDriverSystem" destination="s4S-Ie-zjk" id="ub3-hF-nXH"/>
                         <outlet property="tagView" destination="mlB-Bm-JwG" id="tiV-iU-tzF"/>
+                        <outlet property="tagViewHeightConstrain" destination="Zhh-jZ-m3t" id="iOq-e2-clj"/>
                         <outlet property="userRating" destination="qd1-CG-Utd" id="KL5-BS-OIn"/>
                         <outlet property="viewMain" destination="ALU-WZ-aMa" id="1uu-Li-1E2"/>
                         <outlet property="viewPopupUI" destination="rx3-Uc-Xtn" id="V9q-If-C0G"/>

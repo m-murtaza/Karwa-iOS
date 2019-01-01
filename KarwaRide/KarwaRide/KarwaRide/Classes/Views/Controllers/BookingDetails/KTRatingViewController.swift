@@ -31,8 +31,10 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     @IBOutlet weak var userRating: CosmosView!
     @IBOutlet weak var lblConsolationText: UILabel!
     @IBOutlet weak var tagView: RKTagsView!
-    @IBOutlet weak var complainComment: SpringLabel!
-    
+    @IBOutlet weak var complainComment: SpringButton!
+    @IBOutlet weak var complainCommentHeader: UIView!
+    @IBOutlet weak var tagViewHeightConstrain: NSLayoutConstraint!
+
     @IBAction func testbtnTapped(_ sender: Any) {
         (sender as! UIButton).backgroundColor = UIColor.blue
     }
@@ -59,10 +61,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         
         tagView.textFieldAlign = .center
         
-        let tap = UITapGestureRecognizer(target: self, action: Selector(("commentsTapped:")))
-        complainComment.addGestureRecognizer(tap)
-        
-        complainComment.isHidden = true
+        showHideComplainableLabel(show: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,7 +88,21 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
 
     func showHideComplainableLabel(show: Bool)
     {
-        complainComment.isHidden = !show
+        if(complainComment.isHidden)
+        {
+            self.complainComment.animation = "slideUp"
+            self.complainComment.animate()
+        }
+
+        UIView.animate(withDuration: 0.5, animations:
+        {
+            self.complainComment.isHidden = !show
+            self.complainCommentHeader.isHidden = !show
+            self.tagViewHeightConstrain.constant = show ? 130 : 160
+            
+            self.complainComment.setNeedsDisplay()
+            self.view.layoutIfNeeded()
+        })
     }
     
     func updateUIForImageView() {
@@ -225,11 +238,6 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         vModel?.btnRattingTapped()
     }
     
-    func commentsTapped(sender: UITapGestureRecognizer)
-    {
-        print("Comments Tapped")
-    }
-    
     func setTitleBtnSubmit(label: String)
     {
         btnSubmit.setTitle(label, for: .normal)
@@ -289,6 +297,10 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         btn.adjustsImageWhenHighlighted = false
         btn.addTarget(self, action: #selector(KTRatingViewController.tagViewTapped), for: .touchUpInside)
         return btn
+    }
+    @IBAction func complainCommentBtnTapped(_ sender: Any)
+    {
+        print("Complain Comment Button Tapped")
     }
     
     @objc func tagViewTapped() {
