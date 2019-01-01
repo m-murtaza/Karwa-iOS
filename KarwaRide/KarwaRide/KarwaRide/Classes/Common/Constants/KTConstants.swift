@@ -348,6 +348,7 @@ struct Constants {
         static let Rating = "Rating"
         static let Reasons = "Reasons"
         static let TripType = "TripType"
+        static let Remarks = "Remarks"
     }
     
     struct ComplaintParams {

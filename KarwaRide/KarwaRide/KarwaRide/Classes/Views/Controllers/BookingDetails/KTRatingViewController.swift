@@ -300,7 +300,38 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     @IBAction func complainCommentBtnTapped(_ sender: Any)
     {
-        print("Complain Comment Button Tapped")
+        showRatingCommentPopup()
+    }
+
+    func showRatingCommentPopup()
+    {
+        let ratingCommentPopup = storyboard?.instantiateViewController(withIdentifier: "RatingPopupVC") as! RatingCommentPopupVC
+        ratingCommentPopup.previousComments = vModel?.remarks ?? ""
+        ratingCommentPopup.previousView = self
+        ratingCommentPopup.view.frame = self.view.bounds
+        view.addSubview(ratingCommentPopup.view)
+        addChildViewController(ratingCommentPopup)
+    }
+
+    func saveComment(_ comment: String)
+    {
+        complainComment.setTitle(comment, for: .normal)
+        vModel?.remarks = comment
+        if(comment.length == 0)
+        {
+            resetComplainComment()
+        }
+    }
+    
+    func removeComment()
+    {
+        resetComplainComment()
+        vModel?.remarks = ""
+    }
+    
+    func resetComplainComment()
+    {
+        complainComment.setTitle("Add complain comments here", for: .normal)
     }
     
     @objc func tagViewTapped() {
