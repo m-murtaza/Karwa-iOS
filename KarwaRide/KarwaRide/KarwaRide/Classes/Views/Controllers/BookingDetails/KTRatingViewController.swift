@@ -11,6 +11,7 @@ import Kingfisher
 import Cosmos
 import RKTagsView
 import SAConfettiView
+import Spring
 
 protocol KTRatingViewDelegate {
     
@@ -30,7 +31,10 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     @IBOutlet weak var userRating: CosmosView!
     @IBOutlet weak var lblConsolationText: UILabel!
     @IBOutlet weak var tagView: RKTagsView!
-    
+    @IBOutlet weak var complainComment: SpringButton!
+    @IBOutlet weak var complainCommentHeader: UIView!
+    @IBOutlet weak var tagViewHeightConstrain: NSLayoutConstraint!
+
     @IBAction func testbtnTapped(_ sender: Any) {
         (sender as! UIButton).backgroundColor = UIColor.blue
     }
@@ -56,6 +60,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         }
         
         tagView.textFieldAlign = .center
+        
+        showHideComplainableLabel(show: false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,6 +85,25 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         // Pass the selected object to the new view controller.
     }
     */
+
+    func showHideComplainableLabel(show: Bool)
+    {
+        if(complainComment.isHidden)
+        {
+            self.complainComment.animation = "slideUp"
+            self.complainComment.animate()
+        }
+
+        UIView.animate(withDuration: 0.5, animations:
+        {
+            self.complainComment.isHidden = !show
+            self.complainCommentHeader.isHidden = !show
+            self.tagViewHeightConstrain.constant = show ? 130 : 160
+            
+            self.complainComment.setNeedsDisplay()
+            self.view.layoutIfNeeded()
+        })
+    }
     
     func updateUIForImageView() {
         
@@ -272,6 +297,41 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         btn.adjustsImageWhenHighlighted = false
         btn.addTarget(self, action: #selector(KTRatingViewController.tagViewTapped), for: .touchUpInside)
         return btn
+    }
+    @IBAction func complainCommentBtnTapped(_ sender: Any)
+    {
+        showRatingCommentPopup()
+    }
+
+    func showRatingCommentPopup()
+    {
+        let ratingCommentPopup = storyboard?.instantiateViewController(withIdentifier: "RatingPopupVC") as! RatingCommentPopupVC
+        ratingCommentPopup.previousComments = vModel?.remarks ?? ""
+        ratingCommentPopup.previousView = self
+        ratingCommentPopup.view.frame = self.view.bounds
+        view.addSubview(ratingCommentPopup.view)
+        addChildViewController(ratingCommentPopup)
+    }
+
+    func saveComment(_ comment: String)
+    {
+        complainComment.setTitle(comment, for: .normal)
+        vModel?.remarks = comment
+        if(comment.length == 0)
+        {
+            resetComplainComment()
+        }
+    }
+    
+    func removeComment()
+    {
+        resetComplainComment()
+        vModel?.remarks = ""
+    }
+    
+    func resetComplainComment()
+    {
+        complainComment.setTitle("Add complain comments here", for: .normal)
     }
     
     @objc func tagViewTapped() {

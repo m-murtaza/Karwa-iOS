@@ -135,10 +135,11 @@ class KTRatingManager: KTDALManager {
         return reasons
     }
     
-    func rateBooking(forId bookingId:String,rating: Int32 ,reasons: [Int16], tripType: Int16, completion completionBlock:@escaping KTDALCompletionBlock)  {
+    func rateBooking(forId bookingId:String,rating: Int32 ,reasons: [Int16], tripType: Int16, remarks: String, completion completionBlock:@escaping KTDALCompletionBlock)  {
         let param : [String: Any] = [Constants.RatingParams.Rating: rating,
                                      Constants.RatingParams.Reasons: reasons,
-                                     Constants.RatingParams.TripType: tripType]
+                                     Constants.RatingParams.TripType: tripType,
+                                     Constants.RatingParams.Remarks: remarks]
         let url : String = Constants.APIURL.RateBooking + "/" + bookingId
         
         self.post(url: url, param: param, completion: completionBlock) {

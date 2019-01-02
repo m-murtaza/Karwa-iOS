@@ -27,6 +27,8 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func showConsolationText(message: String)
     func hideConsolationText()
     func setTitleBtnSubmit(label: String)
+    func showHideComplainableLabel(show: Bool)
+    func resetComplainComment()
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -34,7 +36,8 @@ class KTRatingViewModel: KTBaseViewModel {
     var del : KTRatingViewModelDelegate?
     var booking : KTBooking?
     var reasons : [KTRatingReasons]?
-    
+    var remarks = ""
+
     override func viewDidLoad() {
         del = self.delegate as? KTRatingViewModelDelegate
         super.viewDidLoad()
@@ -65,8 +68,21 @@ class KTRatingViewModel: KTBaseViewModel {
         }
 
         del?.setTitleBtnSubmit(label: "SUBMIT")
+        del?.showHideComplainableLabel(show: false)
+        del?.resetComplainComment()
+        remarks = ""
 
         fetchReason(forRating: Int32(rating))
+    }
+    
+    func saveComment(_ comment: String)
+    {
+        remarks = comment
+    }
+    
+    func removeComment()
+    {
+        remarks = ""
     }
     
     private func fetchReason(forRating rating: Int32) {
@@ -122,19 +138,33 @@ class KTRatingViewModel: KTBaseViewModel {
     
     func tagViewTapped()
     {
-        del?.setTitleBtnSubmit(label: selectedReasonIsComplainable() ? "SUBMIT COMPLAIN" : "SUBMIT")
+        let complainableRating = selectedReasonIsComplainable()
+        del?.setTitleBtnSubmit(label: complainableRating ? "SUBMIT COMPLAIN" : "SUBMIT")
+        del?.showHideComplainableLabel(show: complainableRating)
     }
     
     func btnRattingTapped()
     {
         let rating = (del?.userFinalRating())!
-        if (rating > 3) || (rating != 0 && selectedReasonIds().count != 0)
+
+        if(rating < 3 && selectedReasonIsComplainable())
+        {
+            if(remarks == "")
+            {
+                delegate?.showErrorBanner("", "Please add complain comments first")
+            }
+            else
+            {
+                rateBooking()
+            }
+        }
+        else if (rating > 3) || (rating != 0 && selectedReasonIds().count != 0)
         {
             rateBooking()
         }
         else
         {
-            delegate?.showToast(message: "Please select rating for driver")
+            delegate?.showErrorBanner("", "Please select rating for driver")
         }
     }
     
@@ -145,7 +175,7 @@ class KTRatingViewModel: KTBaseViewModel {
         let tripType : Int16 = (booking?.tripType)!
         
         self.delegate?.showProgressHud(show: true, status: "Updating Driver Rating")
-        KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds, tripType: tripType) { (status, response) in
+        KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds, tripType: tripType, remarks: remarks) { (status, response) in
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
                 
