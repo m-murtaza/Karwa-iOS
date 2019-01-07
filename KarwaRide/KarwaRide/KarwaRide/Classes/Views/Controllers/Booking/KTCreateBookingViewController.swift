@@ -16,6 +16,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     @IBOutlet weak var etaToCustomerLabel: UILabel!
     
     @IBOutlet weak var etaToCustomerContainer: UIImageView!
+    @IBOutlet weak var btnPromo: UIButton!
     
     var removeBookingOnReset : Bool = true
     
@@ -141,6 +142,11 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
     }
     
+    @IBAction func btnPromoTapped(_ sender: Any)
+    {
+        //TODO: Promo Tapped
+    }
+    
     @IBAction func btnCashTapped(_ sender: Any)
     {
         showError(title: "Payment Methods", message: "More payment options will be available soon")
@@ -236,6 +242,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         constraintBoxItemsTopSpace.constant = 24
         imgPickDestBoxBG.image = UIImage(named: "BookingPickDropTimeBox")
         btnCash.isHidden = false
+        btnPromo.isHidden = false
         btnPickDate.isHidden = false
     }
     
@@ -245,6 +252,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         constraintBoxItemsTopSpace.constant = 30
         imgPickDestBoxBG.image = UIImage(named: "BookingPickDropBox")
         btnCash.isHidden = true
+        btnPromo.isHidden = true
         btnPickDate.isHidden = true
     }
     
