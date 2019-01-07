@@ -2145,7 +2145,7 @@
             </objects>
             <point key="canvasLocation" x="4654" y="331"/>
         </scene>
-        <!--Fare Details-->
+        <!--Help-->
         <scene sceneID="uoB-wm-WMe">
             <objects>
                 <viewController id="0BM-Ze-1eP" customClass="KTFareHTMLViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
@@ -2171,7 +2171,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f4g-KA-X8v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Fare Details" id="wsL-DV-akw">
+                    <navigationItem key="navigationItem" title="Help" id="wsL-DV-akw">
                         <barButtonItem key="leftBarButtonItem" image="RevealButton" id="wcw-ef-eDr">
                             <connections>
                                 <action selector="presentLeftMenuViewController" destination="0BM-Ze-1eP" id="mpg-rR-4Ac"/>
@@ -4668,7 +4668,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.5" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -7682,7 +7682,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.5" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
