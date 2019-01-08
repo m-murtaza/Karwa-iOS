@@ -923,7 +923,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
             
             delegate?.showProgressHud(show: true, status: "Booking a ride")
-            bookManager.bookTaxi(job: booking,estimate: vEstimate) { (status, response) in
+            bookManager.bookTaxi(job: booking,estimate: vEstimate, promo: promo) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.removeBooking = false

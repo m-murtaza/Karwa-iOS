@@ -341,6 +341,7 @@ struct Constants {
         static let EstimatedFare = "EstimatedFare"
         static let TrackId = "TrackID"
         static let TripType = "TripType"
+        static let PromoCode = "promoCode"
         //static let BookingType = "BookingType"
     }
     
