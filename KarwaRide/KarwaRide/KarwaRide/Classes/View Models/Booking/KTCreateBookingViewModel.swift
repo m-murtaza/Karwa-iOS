@@ -120,10 +120,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkOne()
             }
         }
-        else
-        {
-            print("coachmarks have been already shown")
-        }
     }
     
     func showCoachmarkTwoIfRequired()
@@ -136,10 +132,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             {
                     (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkTwo()
             }
-        }
-        else
-        {
-            print("coachmarks have been already shown")
         }
     }
     
