@@ -440,9 +440,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 {
                     self.promo = promoEntered
                     (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                    self.del?.setPromoButtonLabel(validPromo: promoEntered)
                     self.estimates = KTBookingManager().estimates()
                     self.del?.updateVehicleTypeList()
-                    self.del?.setPromoButtonLabel(validPromo: promoEntered)
                 }
                 else
                 {
@@ -868,8 +868,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func remoevPromoTapped()
     {
+        if(promo.length > 3)
+        {
+            resetPromo()
+            fetchEstimates()
+        }
+    }
+    
+    func resetPromo()
+    {
         promo = ""
-        //TODO: Reset the price of Fare
+        (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promo)
+        self.del?.setPromoButtonLabel(validPromo: promo)
     }
     // ----------------------------------------------------
 
@@ -1118,6 +1128,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
         (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
+        
+        resetPromo()
+
         fetchEstimates()
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
