@@ -51,6 +51,9 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func setETAContainerBackground(background : String)
     func setETAString(etaString : String)
     func hideFareBreakdown()
+    func showPromoInputDialog(currentPromo : String)
+    func setPromoButtonLabel(validPromo : String)
+    func setPromotionCode(promo: String)
 }
 
 let CHECK_DELAY = 90.0
@@ -81,6 +84,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var dropOffBtnText = "No Destination set"
     var timerFetchNearbyVehicle : Timer = Timer()
     
+    var promo = ""
+
     var rebook: Bool = false
     
     var del : KTCreateBookingViewModelDelegate?
@@ -412,6 +417,39 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         self.estimates?.removeAll()
                         self.estimates = nil
                     }
+                }
+            })
+        }
+        else if estimates != nil{
+            estimates?.removeAll()
+            estimates = nil
+        }
+    }
+    
+    //TODO: Promo Impl
+    private func fetchEstimateForPromo(_ promoEntered: String)
+    {
+        del?.updateVehicleTypeList()
+        if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
+            isEstimeting = true
+
+            KTBookingManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+                self.isEstimeting = false
+                
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
+                    self.promo = promoEntered
+                    (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                    self.estimates = KTBookingManager().estimates()
+                    self.del?.updateVehicleTypeList()
+                    self.del?.setPromoButtonLabel(validPromo: promoEntered)
+                }
+                else
+                {
+                    (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                        { (UIAlertAction) in
+                            (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                        })
                 }
             })
         }
@@ -816,6 +854,25 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return animate
     }
     
+    //TODO: Promo Impl
+    // ----------------------------------------------------
+    func btnPromoTapped()
+    {
+        (delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promo)
+    }
+    
+    func applyPromoTapped(_ newPromoCode: String)
+    {
+        fetchEstimateForPromo(newPromoCode)
+    }
+    
+    func remoevPromoTapped()
+    {
+        promo = ""
+        //TODO: Reset the price of Fare
+    }
+    // ----------------------------------------------------
+
     //MARK:- Create Booking
     func btnRequestBookingTapped() {
         if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
@@ -958,15 +1015,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
-                
-//                var newVehicles = self.parseVehicleTrack(response);
-                
-                //TODO: persist vehicles which are not changed and move their locations
-                // remove old vehicles
-                // add new vehicles
-                
-//              self.moveVehiclesIfRequired(nearbyVehiclesOld: self.nearByVehicle, nearbyVehiclesNew: newVehicles)
-                
                 self.nearByVehicle.removeAll()
                 self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
                 
@@ -990,76 +1038,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
         })
     }
-    
-//    private func moveVehiclesIfRequired(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack])
-//    {
-//        let vehiclesNeedsToMove = getVehicleNumbersNeedsToMove(nearbyVehiclesOld: oldVehicles, nearbyVehiclesNew: newVehicles)
-//
-//        for vehicleNeedsToMove in vehiclesNeedsToMove
-//        {
-//            var oldVehicleTrack = VehicleTrack()
-//            var newVehicleTrack = VehicleTrack()
-//
-//            for oldVehicle in oldVehicles
-//            {
-//                if(oldVehicle.vehicleNo == vehicleNeedsToMove)
-//                {
-//                    oldVehicleTrack = oldVehicle
-//                    break
-//                }
-//            }
-//
-//            for newVehicle in newVehicles
-//            {
-//                if(newVehicle.vehicleNo == vehicleNeedsToMove)
-//                {
-//                    newVehicleTrack = newVehicle
-//                    break
-//                }
-//            }
-//
-//
-//        }
-//
-//    }
-//
-//    func updateMarker(coordinates: CLLocationCoordinate2D, degrees: CLLocationDegrees, duration: Double) {
-//        // Keep Rotation Short
-//        CATransaction.begin()
-//        CATransaction.setAnimationDuration(0.5)
-//        marker.rotation = degrees
-//        CATransaction.commit()
-//
-//        // Movement
-//        CATransaction.begin()
-//        CATransaction.setAnimationDuration(duration)
-//        marker.position = coordinates
-//
-//        // Center Map View
-//        let camera = GMSCameraUpdate.setTarget(coordinates)
-//        mapView.animateWithCameraUpdate(camera)
-//
-//        CATransaction.commit()
-//    }
-//
-//    private func getVehicleNumbersNeedsToMove(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack]) -> [String]
-//    {
-//        var updatedVehicles : [String] = []
-//
-//        for oldVehicle in oldVehicles
-//        {
-//            for newVehicle in newVehicles
-//            {
-//                if(oldVehicle.vehicleNo == newVehicle.vehicleNo)
-//                {
-//                    updatedVehicles.append(oldVehicle.vehicleNo)
-//                    break
-//                }
-//            }
-//        }
-//
-//        return updatedVehicles
-//    }
     
     private func userCurrentLocaitonMarker() -> VehicleTrack {
         

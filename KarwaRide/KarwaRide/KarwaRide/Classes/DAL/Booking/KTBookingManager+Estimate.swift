@@ -26,6 +26,22 @@ extension KTBookingManager {
         }
     }
     
+    func fetchEstimateForPromo(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, promo: String, complition complitionBlock:@escaping KTDALCompletionBlock ) {
+        
+        let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
+                                      Constants.GetEstimateParam.PickLongitude : pickup.longitude,
+                                      Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
+                                      Constants.GetEstimateParam.DropLongitude : dropoff.longitude,
+                                      Constants.GetEstimateParam.PickTime : time,
+                                      Constants.GetEstimateParam.PromoCode : promo]
+        
+        self.get(url: Constants.APIURL.GetPromoEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
+            
+            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+    
     func saveEstimates(response : [Any]){
         let predicate : NSPredicate = NSPredicate(format: "fareestimateToBooking == nil")
         KTFareEstimate.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default() )

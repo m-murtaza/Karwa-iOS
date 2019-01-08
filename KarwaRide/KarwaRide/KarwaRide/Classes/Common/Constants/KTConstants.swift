@@ -383,6 +383,7 @@ struct Constants {
         static let trackVechicle = "track/job"
         static let initTariff = "tariff/init"
         static let GetEstimate = "tariff/estimate"
+        static let GetPromoEstimate = "tariff/estimate"
         static let CancelReason = "booking/cancelreasons"
         static let RatingReason = "booking/ratingreasons"
         static let RateBooking = "booking/rate"
@@ -418,6 +419,7 @@ struct Constants {
         static let DropLatitude = "dropLat"
         static let DropLongitude = "dropLon"
         static let PickTime = "pickupTime"
+        static let PromoCode = "promoCode"
     }
     
     struct DeviceTypes {

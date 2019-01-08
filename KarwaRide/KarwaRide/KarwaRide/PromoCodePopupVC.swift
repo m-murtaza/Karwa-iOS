@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-let ALLOWED_PROMO_LENGTH : Int = 40
+let ALLOWED_PROMO_LENGTH : Int = 10
 
 class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
     
@@ -20,6 +20,14 @@ class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
     @IBOutlet weak var btnConfirm : UIButton!
 
     public weak var previousView : KTCreateBookingViewController?
+    public var previousPromo : String?
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        txtPickupHint.text = previousPromo
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,15 +81,38 @@ class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
      }
      */
     
-    @IBAction func btnBookedTapped(_ sender: Any) {
-        if txtPickupHint.text != nil && txtPickupHint.text != "" {
-            previousView?.pickupHint = txtPickupHint.text!
+    @IBAction func btnBookedTapped(_ sender: Any)
+    {
+        if txtPickupHint.text != nil
+        {
+            if((txtPickupHint.text?.length)! > 3)
+            {
+                previousView?.applyPromoTapped(txtPickupHint.text!)
+                hidePromoCodeDialog()
+            }
+            else
+            {
+                showLengthError()
+            }
         }
-        previousView?.bookRide()
+    }
+    @IBAction func btnCancelTapped(_ sender: Any)
+    {
+        previousView?.removePromoTapped()
+        hidePromoCodeDialog()
+    }
+    
+    func hidePromoCodeDialog()
+    {
         self.hideViewWithAnimation()
     }
-    @IBAction func btnCancelTapped(_ sender: Any) {
-        self.hideViewWithAnimation()
+    
+    func showLengthError()
+    {
+        let alertController = UIAlertController(title: "Error", message: "Promo length should be atleast 4 characters", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     //MARK:- TextField Delegate

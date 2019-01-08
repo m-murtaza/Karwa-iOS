@@ -8034,7 +8034,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.74535968959999999" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9F-N3-vHP">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R9F-N3-vHP">
                                 <rect key="frame" x="52.5" y="209.5" width="270" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vY4-I6-5fd">
@@ -8053,7 +8053,7 @@
                                         <rect key="frame" x="25.5" y="75" width="220.5" height="30"/>
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                         <connections>
                                             <outlet property="delegate" destination="VsZ-gS-52E" id="7Sm-Zc-19a"/>
                                         </connections>
@@ -8064,7 +8064,7 @@
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILp-PD-Clq">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILp-PD-Clq">
                                         <rect key="frame" x="25.5" y="125" width="226.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="WaE-lh-tcp"/>
@@ -8073,8 +8073,8 @@
                                         <color key="textColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGI-cf-msf">
-                                        <rect key="frame" x="135" y="149" width="134.5" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YGI-cf-msf">
+                                        <rect key="frame" x="135" y="149" width="135" height="50"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.70349203019999995" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Book">
                                             <color key="titleColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -8083,8 +8083,8 @@
                                             <action selector="btnBookedTapped:" destination="VsZ-gS-52E" eventType="touchUpInside" id="Nvm-w0-Gzp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efC-ko-7kP">
-                                        <rect key="frame" x="-1" y="149" width="135.5" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efC-ko-7kP">
+                                        <rect key="frame" x="-1" y="149" width="136" height="50"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.70349203019999995" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="vo3-NN-tPT"/>
@@ -8106,7 +8106,7 @@
                                     <constraint firstAttribute="trailing" secondItem="YGI-cf-msf" secondAttribute="trailing" id="HLG-1v-nVf"/>
                                     <constraint firstItem="ckk-bb-Dvi" firstAttribute="trailing" secondItem="jIf-Lq-DGB" secondAttribute="trailing" constant="-6" id="HYV-RJ-dFf"/>
                                     <constraint firstItem="jIf-Lq-DGB" firstAttribute="trailing" secondItem="IhA-oA-UjO" secondAttribute="trailing" id="HdM-gU-4qU"/>
-                                    <constraint firstAttribute="height" constant="248" id="LpV-RC-HzU"/>
+                                    <constraint firstAttribute="height" constant="200" id="LpV-RC-HzU"/>
                                     <constraint firstItem="ILp-PD-Clq" firstAttribute="leading" secondItem="ckk-bb-Dvi" secondAttribute="leading" id="N2t-6I-ZlU"/>
                                     <constraint firstItem="efC-ko-7kP" firstAttribute="leading" secondItem="R9F-N3-vHP" secondAttribute="leading" constant="-1" id="NL2-6X-Xut"/>
                                     <constraint firstItem="vY4-I6-5fd" firstAttribute="leading" secondItem="R9F-N3-vHP" secondAttribute="leading" constant="18" id="TOw-dv-UFQ"/>
@@ -8130,7 +8130,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uMD-jM-UCY" firstAttribute="top" secondItem="VOq-la-Ex4" secondAttribute="top" id="CR6-cR-94n"/>
-                            <constraint firstItem="R9F-N3-vHP" firstAttribute="centerY" secondItem="VOq-la-Ex4" secondAttribute="centerY" id="PHM-j8-NmH"/>
+                            <constraint firstItem="R9F-N3-vHP" firstAttribute="centerY" secondItem="VOq-la-Ex4" secondAttribute="centerY" constant="-24" id="PHM-j8-NmH"/>
                             <constraint firstItem="uMD-jM-UCY" firstAttribute="leading" secondItem="84n-8R-nuV" secondAttribute="leading" id="dIp-cI-xMS"/>
                             <constraint firstItem="R9F-N3-vHP" firstAttribute="centerX" secondItem="84n-8R-nuV" secondAttribute="centerX" id="gLA-ev-s60"/>
                             <constraint firstAttribute="bottom" secondItem="uMD-jM-UCY" secondAttribute="bottom" id="hKf-c0-ZeY"/>
@@ -8139,9 +8139,9 @@
                         <viewLayoutGuide key="safeArea" id="84n-8R-nuV"/>
                     </view>
                     <connections>
-                        <outlet property="btnClose" destination="efC-ko-7kP" id="J51-Ik-mvo"/>
-                        <outlet property="btnConfirm" destination="YGI-cf-msf" id="i4Y-ZY-fl8"/>
-                        <outlet property="txtPickupHint" destination="ckk-bb-Dvi" id="OD3-d8-VqL"/>
+                        <outlet property="btnClose" destination="efC-ko-7kP" id="f75-e3-iLY"/>
+                        <outlet property="btnConfirm" destination="YGI-cf-msf" id="xg5-gl-SXe"/>
+                        <outlet property="txtPickupHint" destination="ckk-bb-Dvi" id="1lx-k7-kdr"/>
                         <outlet property="viewMain" destination="uMD-jM-UCY" id="Py8-bg-hta"/>
                         <outlet property="viewPopupUI" destination="R9F-N3-vHP" id="rm7-QP-uwa"/>
                     </connections>

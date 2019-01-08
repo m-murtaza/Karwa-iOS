@@ -17,7 +17,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     @IBOutlet weak var etaToCustomerContainer: UIImageView!
     @IBOutlet weak var btnPromo: UIButton!
-    
+
     var removeBookingOnReset : Bool = true
     
     //MARK:- View lifecycle
@@ -144,7 +144,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     @IBAction func btnPromoTapped(_ sender: Any)
     {
-        //TODO: Promo Tapped
+        (viewModel as! KTCreateBookingViewModel).btnPromoTapped()
     }
     
     @IBAction func btnCashTapped(_ sender: Any)
@@ -171,6 +171,44 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         addChildViewController(confirmationPopup)
     }
     
+    // TODO: Promo Impl
+    // ----------------------------------------------------
+    func showPromoInputDialog(currentPromo : String)
+    {
+        let promoPopup = storyboard?.instantiateViewController(withIdentifier: "PromoCodePopupVC") as! PromoCodePopupVC
+        promoPopup.previousView = self
+        promoPopup.previousPromo = currentPromo
+        promoPopup.view.frame = self.view.bounds
+        view.addSubview(promoPopup.view)
+        addChildViewController(promoPopup)
+    }
+
+    func applyPromoTapped(_ enteredPromo: String)
+    {
+        (viewModel as! KTCreateBookingViewModel).applyPromoTapped(enteredPromo)
+    }
+    
+    func removePromoTapped()
+    {
+        if(promoCode.length > 0)
+        {
+            promoCode = ""
+            setPromoButtonLabel(validPromo: promoCode)
+            (viewModel as! KTCreateBookingViewModel).remoevPromoTapped()
+        }
+    }
+    
+    func setPromoButtonLabel(validPromo promo : String)
+    {
+        btnPromo.setTitle(promo.length > 0 ? promo : "+ Promo", for: .normal)
+    }
+    
+    func setPromotionCode(promo promoEntered: String)
+    {
+        promoCode = promoEntered
+    }
+    // ----------------------------------------------------
+
     func showCallerIdPopUp() {
         let callerIDPopup = storyboard?.instantiateViewController(withIdentifier: "callerIDPopupVC") as! KTCallerIDPopup
         callerIDPopup.previousView = self
