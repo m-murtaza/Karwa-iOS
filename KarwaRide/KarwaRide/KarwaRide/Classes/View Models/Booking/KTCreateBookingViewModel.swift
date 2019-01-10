@@ -13,7 +13,8 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
-protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
+protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
+{
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
     func addOrRemoveOrMoveMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
@@ -70,31 +71,29 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var vehicleTypes : [KTVehicleType]?
-    //public var pickUpAddress : KTGeoLocation?
-    //public var dropOffAddress : KTGeoLocation?
-    
     public var estimates : [KTFareEstimate]?
-    public var isEstimeting : Bool = false
-    public var isCoachmarkOneShown: Bool = false
     
     private var nearByVehicle: [VehicleTrack] = []
-    
-    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
-    var selectedPickupDateTime : Date = Date()
-    var dropOffBtnText = "No Destination set"
-    var timerFetchNearbyVehicle : Timer = Timer()
-    
-    var promo = ""
 
-    var rebook: Bool = false
-    
+    var selectedPickupDateTime : Date = Date()
+    var timerFetchNearbyVehicle : Timer = Timer()
+
     var del : KTCreateBookingViewModelDelegate?
     
     var booking : KTBooking = KTBookingManager().booking()
+
+    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+
+    var dropOffBtnText = "No Destination set"
+    var promo = ""
+
+    var rebook: Bool = false
+    public var isEstimeting : Bool = false
+    public var isCoachmarkOneShown: Bool = false
     var removeBooking = true
     var removeBookingOnReset = true
     var isAdvanceBooking = false
-    
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -425,14 +424,39 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             estimates = nil
         }
     }
-    
-    //TODO: Promo Impl
+
     private func fetchEstimateForPromo(_ promoEntered: String)
     {
         del?.updateVehicleTypeList()
-        if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
+        
+        // Drop-off has been skipped and asking for promo :/
+        if(booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress == nil)
+        {
             isEstimeting = true
+            KTBookingManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+                self.isEstimeting = false
 
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
+                    self.promo = promoEntered
+                    (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                    self.del?.setPromoButtonLabel(validPromo: promoEntered)
+                    self.estimates = KTBookingManager().estimates()
+                    self.del?.updateVehicleTypeList()
+                }
+                else
+                {
+                    (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                        { (UIAlertAction) in
+                            (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                    })
+                }
+            })
+        }
+        // Pickup and Drop-off both are present and asking for promo, good customer :)
+        else if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != ""
+        {
+            isEstimeting = true
             KTBookingManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
                 self.isEstimeting = false
                 
@@ -453,7 +477,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 }
             })
         }
-        else if estimates != nil{
+        else if estimates != nil
+        {
             estimates?.removeAll()
             estimates = nil
         }
@@ -468,17 +493,22 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return vEstimate
     }
     
-    func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String {
+    //TODO: Mofidy this for Promotion starting fare and you are good to go
+    func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String
+    {
         var fareOrEstimate : String = ""
         let vType : KTVehicleType = vehicleTypes![idx]
-        if isEstimeting == false {
-            if estimates == nil || estimates?.count == 0 {
+        if isEstimeting == false
+        {
+            if estimates == nil || estimates?.count == 0
+            {
                 fareOrEstimate =  vType.typeBaseFare!
             }
-            else {
-                
+            else
+            {
                 let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
-                if estimate != nil {
+                if estimate != nil
+                {
                     fareOrEstimate = (estimate?.estimatedFare!)!
                 }
             }
@@ -486,8 +516,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return fareOrEstimate
     }
     
-    func FareEstimateTitle() -> String {
-        
+    func FareEstimateTitle() -> String
+    {
         var title: String = "Estimated Fare"
         if isEstimeting == true {
             title = "Estimating..."
@@ -669,11 +699,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(self.MinuteChanged(notification:)), name: Notification.Name(Constants.Notification.MinuteChanged), object: nil)
     }
     
-    private func unregisterForMinuteChange() {
+    private func unregisterForMinuteChange()
+    {
         KTTimer.sharedInstance.stoprMinTimer()
     }
     
-    @objc func MinuteChanged(notification: Notification) {
+    @objc func MinuteChanged(notification: Notification)
+    {
         
         if selectedPickupDateTime.timeIntervalSinceNow < CHECK_DELAY {
             //Update UI as its current time.
@@ -683,24 +715,28 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
-    func setPickupDateForAdvJob(date: Date)  {
+    func setPickupDateForAdvJob(date: Date)
+    {
         isAdvanceBooking = true
         setPickupDate(date: date)
         fetchEstimates()
         
     }
-    func setPickupDate(date: Date)  {
+    func setPickupDate(date: Date)
+    {
         selectedPickupDateTime = date
         updateUI(forDate: selectedPickupDateTime)
     }
     
-    func updateUI(forDate date: Date) {
+    func updateUI(forDate date: Date)
+    {
         
         let formatedDate : String = formatedDateForUI(date: date)
         (delegate as! KTCreateBookingViewModelDelegate).setPickDate(date: formatedDate)
     }
     
-    func formatedDateForUI(date: Date) -> String {
+    func formatedDateForUI(date: Date) -> String
+    {
         
         var datePart : String = ""
         if date.isToday {
@@ -766,7 +802,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return nil
     }
     
-    func sTypeBackgroundImage(forIndex idx: Int) -> UIImage {
+    func sTypeBackgroundImage(forIndex idx: Int) -> UIImage
+    {
         let sType : KTVehicleType = vehicleTypes![idx]
         var imgBg : UIImage = UIImage()
         switch sType.typeId {
@@ -787,7 +824,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return imgBg
     }
     
-    func sTypeVehicleImage(forIndex idx: Int) -> UIImage {
+    func sTypeVehicleImage(forIndex idx: Int) -> UIImage
+    {
         let sType : KTVehicleType = vehicleTypes![idx]
         var imgSType : UIImage = UIImage()
         switch sType.typeId {
