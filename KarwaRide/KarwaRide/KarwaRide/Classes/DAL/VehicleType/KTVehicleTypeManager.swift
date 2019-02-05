@@ -273,30 +273,6 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             }
 
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
-            
-//            let responseArr = response[Constants.ResponseAPIKey.Data] as! [Any]
-//
-//            for r in responseArr
-//            {
-//                let tariff = r as! [AnyHashable: Any]
-//
-//                let vType = tariff["VehicleType"] as? Int
-//                let fare = tariff["Fare"] as? String
-//                let keyValue = tariff["OrderedBody"] as! [[AnyHashable : Any]]
-            
-                //                let vType : KTVehicleType = KTVehicleType.obj(withValue: tariff["VehicleType"]!, forAttrib: "typeId", inContext: NSManagedObjectContext.mr_default() ) as! KTVehicleType
-                //
-                //                vType.typeBaseFare = tariff["Fare"] as? String
-                //                vType.typeName = self.typeName(forId: vType.typeId)
-                //                vType.typeSortOrder = self.typeSortOrder(forId: vType.typeId)
-                //
-                //                for keyvalue in vType.toKeyValueBody!
-                //                {
-                //                    (keyvalue as! KTKeyValue).mr_deleteEntity()
-                //                }
-                //                vType.toKeyValueBody = NSOrderedSet()
-                //                self.saveKeyValueBody(keyValue: tariff["OrderedBody"] as! [[AnyHashable : Any]], tariff: vType as KTBaseTrariff)
-//            }
         }
     }
     //------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1068,31 +1068,31 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     private func fetchVehiclesNearCordinates(location:CLLocation) {
-//        KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
-//            (status,response) in
-//            if status == Constants.APIResponseStatus.SUCCESS {
-//                self.nearByVehicle.removeAll()
-//                self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
-//
-//                //Add User current location.
-//                if self.nearByVehicle.count > 0
-//                {
-//                    self.nearByVehicle.append(self.userCurrentLocaitonMarker())
-//                    self.fetchETA(vehicles: self.nearByVehicle)
-//                }
-//                else
-//                {
-//                    (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride available")
-//                }
-//
-//                if(self.currentBookingStep != BookingStep.step3)
-//                {
-//                    if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
-//                        (self.delegate as! KTCreateBookingViewModelDelegate).addOrRemoveOrMoveMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
-//                    }
-//                }
-//            }
-//        })
+        KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
+            (status,response) in
+            if status == Constants.APIResponseStatus.SUCCESS {
+                self.nearByVehicle.removeAll()
+                self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
+
+                //Add User current location.
+                if self.nearByVehicle.count > 0
+                {
+                    self.nearByVehicle.append(self.userCurrentLocaitonMarker())
+                    self.fetchETA(vehicles: self.nearByVehicle)
+                }
+                else
+                {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride available")
+                }
+
+                if(self.currentBookingStep != BookingStep.step3)
+                {
+                    if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
+                        (self.delegate as! KTCreateBookingViewModelDelegate).addOrRemoveOrMoveMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
+                    }
+                }
+            }
+        })
     }
     
     private func userCurrentLocaitonMarker() -> VehicleTrack {
