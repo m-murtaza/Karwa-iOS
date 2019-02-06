@@ -797,6 +797,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         let vType : KTVehicleType = vehicleTypes![idx]
         return vType.typeName ?? ""
     }
+    //TODO: In Progress Promo Fare
+    func isPromoFare(forIndex idx: Int) -> Bool {
+        let vType : KTVehicleType = vehicleTypes![idx]
+//        return vType.typeName ?? ""
+        return false
+    }
     
     func estimate(forVehicleType vTypeId:Int16) -> KTFareEstimate? {
         

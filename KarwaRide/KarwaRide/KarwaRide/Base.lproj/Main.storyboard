@@ -2443,10 +2443,17 @@
                                                                         <constraint firstAttribute="height" constant="39" id="wuy-jh-AlC"/>
                                                                     </constraints>
                                                                 </imageView>
+                                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promo" translatesAutoresizingMaskIntoConstraints="NO" id="FND-Y7-CUL" customClass="SpringImageView" customModule="Spring">
+                                                                    <rect key="frame" x="95" y="70" width="48" height="14"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="48" id="JZ5-dF-esy"/>
+                                                                    </constraints>
+                                                                </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstItem="VKc-6T-VSF" firstAttribute="centerX" secondItem="dNr-dE-XWy" secondAttribute="centerX" id="1np-UR-rCY"/>
+                                                                <constraint firstItem="FND-Y7-CUL" firstAttribute="top" secondItem="UYw-Jx-VxU" secondAttribute="top" id="B1F-cv-Rfv"/>
                                                                 <constraint firstItem="MEh-c6-fAE" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" constant="15" id="DeT-La-e33"/>
                                                                 <constraint firstItem="UYw-Jx-VxU" firstAttribute="top" secondItem="dOQ-H6-cAa" secondAttribute="bottom" constant="1" id="DfG-BS-o5M"/>
                                                                 <constraint firstAttribute="trailing" secondItem="dNr-dE-XWy" secondAttribute="trailing" constant="20" id="EsJ-Ly-o0K"/>
@@ -2455,8 +2462,10 @@
                                                                 <constraint firstItem="dOQ-H6-cAa" firstAttribute="leading" secondItem="MEh-c6-fAE" secondAttribute="leading" id="e6z-Zs-jY7"/>
                                                                 <constraint firstAttribute="trailing" secondItem="gwA-Ab-D7u" secondAttribute="trailing" id="fQL-Mj-P2Z"/>
                                                                 <constraint firstItem="VKc-6T-VSF" firstAttribute="centerY" secondItem="dNr-dE-XWy" secondAttribute="centerY" constant="5" id="hyH-kZ-eyB"/>
+                                                                <constraint firstItem="FND-Y7-CUL" firstAttribute="bottom" secondItem="UYw-Jx-VxU" secondAttribute="bottom" id="iJf-9r-TIL"/>
                                                                 <constraint firstItem="MEh-c6-fAE" firstAttribute="top" secondItem="MGU-aE-fm8" secondAttribute="top" constant="10" id="iSP-UD-7KL"/>
                                                                 <constraint firstItem="UYw-Jx-VxU" firstAttribute="leading" secondItem="dOQ-H6-cAa" secondAttribute="leading" id="n0p-OA-ZNt"/>
+                                                                <constraint firstItem="FND-Y7-CUL" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" constant="95" id="rh7-2l-Mv2"/>
                                                                 <constraint firstItem="dNr-dE-XWy" firstAttribute="centerY" secondItem="MGU-aE-fm8" secondAttribute="centerY" constant="-5.5" id="sAu-MF-6nX"/>
                                                                 <constraint firstItem="gwA-Ab-D7u" firstAttribute="leading" secondItem="MGU-aE-fm8" secondAttribute="leading" id="yDd-Io-iTP"/>
                                                             </constraints>
@@ -2489,6 +2498,7 @@
                                             <outlet property="lblFareEstimateTitle" destination="UYw-Jx-VxU" id="Isv-9T-59I"/>
                                             <outlet property="lblServiceType" destination="MEh-c6-fAE" id="HUb-8y-TtD"/>
                                             <outlet property="mainView" destination="NdI-he-Kmi" id="Uao-w9-69d"/>
+                                            <outlet property="promoBadge" destination="FND-Y7-CUL" id="fGB-bZ-zDg"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -8239,6 +8249,7 @@
         <image name="phone_details" width="180" height="325"/>
         <image name="phone_landscape" width="320" height="115"/>
         <image name="pickdrop_lrg" width="10" height="69"/>
+        <image name="promo" width="35" height="12"/>
         <image name="right_tree" width="39" height="78"/>
         <image name="route" width="126" height="262"/>
         <image name="scan_n_pay_empty" width="375" height="320"/>
