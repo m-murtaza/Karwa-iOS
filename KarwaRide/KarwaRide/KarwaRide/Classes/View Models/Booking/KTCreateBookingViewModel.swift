@@ -431,17 +431,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if(booking.pickupAddress != nil && booking.pickupAddress != "")
         {
             // Drop-off has been skipped and asking for promo :/
-            if(booking.dropOffAddress == nil)
+            if(booking.dropOffAddress == nil || booking.dropOffAddress == "")
             {
 //                isEstimeting = true
-                
-                //TODO: Make a clone object from Booking
+                let cloneBooking = BookingBean.init(bookingEntity: booking)
 
                 KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                      
-                     //TODO: Refil booking obj from clone object
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+
+                        self.booking = BookingBean.getBookingEntityFromBooking(bookingBean: cloneBooking)
 
                      // self.isEstimeting = false
                         if status == Constants.APIResponseStatus.SUCCESS
