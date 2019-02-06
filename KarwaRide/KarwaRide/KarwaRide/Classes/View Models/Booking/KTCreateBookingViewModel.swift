@@ -444,7 +444,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         
                         self.vehicleTypes = nil
                         self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
-                        
                         self.promo = promoEntered
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
                         self.del?.setPromoButtonLabel(validPromo: promoEntered)
@@ -522,6 +521,27 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
         }
         return fareOrEstimate
+    }
+    
+    func isPromoFare(forIndex idx: Int) -> Bool
+    {
+        var isPromoApplied = false
+        let vType : KTVehicleType = vehicleTypes![idx]
+
+        if estimates == nil || estimates?.count == 0
+        {
+            let vType : KTVehicleType = vehicleTypes![idx]
+            isPromoApplied = vType.isPromoApplied
+        }
+        else
+        {
+            let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
+            if estimate != nil
+            {
+                isPromoApplied = estimate?.isPromoApplied ?? false
+            }
+        }
+        return isPromoApplied
     }
     
     func FareEstimateTitle() -> String
@@ -796,12 +816,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func sTypeTitle(forIndex idx: Int) -> String {
         let vType : KTVehicleType = vehicleTypes![idx]
         return vType.typeName ?? ""
-    }
-    //TODO: In Progress Promo Fare
-    func isPromoFare(forIndex idx: Int) -> Bool {
-        let vType : KTVehicleType = vehicleTypes![idx]
-//        return vType.typeName ?? ""
-        return false
     }
     
     func estimate(forVehicleType vTypeId:Int16) -> KTFareEstimate? {

@@ -257,6 +257,7 @@ struct Constants {
         static let EstimateId = "EstimateId"
         static let VehicleType = "VehicleType"
         static let EstimatedFare = "EstimatedFare"
+        static let IsPromoApplied = "IsPromoApplied"
     }
     
     struct CancelReasonAPIKey {

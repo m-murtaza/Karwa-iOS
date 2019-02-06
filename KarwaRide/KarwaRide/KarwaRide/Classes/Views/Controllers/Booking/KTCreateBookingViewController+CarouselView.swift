@@ -50,7 +50,7 @@ extension CarouselDatasource: UICollectionViewDataSource {
             sTypeCell.lblFareEstimateTitle.text = (viewModel as! KTCreateBookingViewModel).FareEstimateTitle()
             sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
             sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
-            sTypeCell.promoBadge.isHidden = (viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row)
+            sTypeCell.promoBadge.isHidden = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
         }
         
         return cell

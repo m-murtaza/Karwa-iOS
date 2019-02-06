@@ -72,7 +72,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         vType.typeBaseFare = tariff["Fare"] as? String
         vType.typeName = typeName(forId: vType.typeId)
         vType.typeSortOrder = typeSortOrder(forId: vType.typeId)
-        
+        vType.isPromoApplied = tariff["IsPromoApplied"] as? Bool ?? false
         
         for keyvalue in vType.toKeyValueBody! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
@@ -294,6 +294,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         e.estimateId = estimate[Constants.GetEstimateResponseAPIKey.EstimateId] as? String
         e.vehicleType = estimate[Constants.GetEstimateResponseAPIKey.VehicleType] as! Int16
         e.estimatedFare = estimate[Constants.GetEstimateResponseAPIKey.EstimatedFare] as? String
+        e.isPromoApplied = estimate[Constants.GetEstimateResponseAPIKey.IsPromoApplied] as? Bool ?? false
         
         saveKeyValueBody(keyValue: estimate["OrderedBody"] as! [[AnyHashable : Any]], tariff: e as KTBaseTrariff)
     }
