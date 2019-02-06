@@ -219,7 +219,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
-    
+
     func fetchEstimateForPromo(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, promo: String, complition complitionBlock:@escaping KTDALCompletionBlock ) {
         
         let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
@@ -250,8 +250,8 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             let responseData = response[Constants.ResponseAPIKey.Data] as! [Any]
             
             if(responseData.count > 0)
-            {
-                MagicalRecord.save({ (context) in
+            {   
+                 MagicalRecord.save({ (context) in
                     KTBaseTrariff.mr_truncateAll(in: context)
                     KTKeyValue.mr_truncateAll(in: context)
                 }, completion: { (changed, error) in
@@ -265,7 +265,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
                         print("Truncate BaseTaruff successful: \(changed)")
                         print(KTBaseTrariff.mr_countOfEntities())
                         print("------------------------------------------")
-                        
+
                         self.saveInitTariff(response: responseData)
                         self.resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
                     }

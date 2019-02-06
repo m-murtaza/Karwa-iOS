@@ -427,23 +427,56 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     private func fetchEstimateForPromo(_ promoEntered: String)
     {
         del?.updateVehicleTypeList()
-        //TODO: work in progress
-        // Drop-off has been skipped and asking for promo :/
-        if(booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress == nil)
+
+        if(booking.pickupAddress != nil && booking.pickupAddress != "")
         {
-//            isEstimeting = true
-            KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+            // Drop-off has been skipped and asking for promo :/
+            if(booking.dropOffAddress == nil)
+            {
+//                isEstimeting = true
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0)
-                {
-                    self.isEstimeting = false
+                //TODO: Make a clone object from Booking
+
+                KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                      
+                     //TODO: Refil booking obj from clone object
+
+                     // self.isEstimeting = false
+                        if status == Constants.APIResponseStatus.SUCCESS
+                        {
+                            isBaseFareChangedForPromo = true
+                            
+                            self.vehicleTypes = nil
+                            self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                            self.promo = promoEntered
+                            (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                            self.del?.setPromoButtonLabel(validPromo: promoEntered)
+                            self.estimates = KTVehicleTypeManager().estimates()
+                            self.del?.updateVehicleTypeList()
+                        }
+                        else
+                        {
+                            (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                                { (UIAlertAction) in
+                                    self.removeBooking = false
+                                    (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                            })
+                        }
+
+                    })
+                })
+            }
+                // Pickup and Drop-off both are present and asking for promo, good customer :)
+            else if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != ""
+            {
+                //            isEstimeting = true
+                KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+                    //            self.isEstimeting = false
                     
                     if status == Constants.APIResponseStatus.SUCCESS
                     {
-                        isBaseFareChangedForPromo = true
-                        
-                        self.vehicleTypes = nil
-                        self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
                         self.promo = promoEntered
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
                         self.del?.setPromoButtonLabel(validPromo: promoEntered)
@@ -454,43 +487,24 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     {
                         (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
                             { (UIAlertAction) in
+                                self.removeBooking = false
                                 (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
                         })
                     }
-                }
-            })
+                })
+            }
+            else if estimates != nil
+            {
+                estimates?.removeAll()
+                estimates = nil
+            }
         }
-        // Pickup and Drop-off both are present and asking for promo, good customer :)
-        else if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != ""
+        else
         {
-//            isEstimeting = true
-            KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
-//            self.isEstimeting = false
-  
-                if status == Constants.APIResponseStatus.SUCCESS
-                {
-                    self.promo = promoEntered
-                    (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
-                    self.del?.setPromoButtonLabel(validPromo: promoEntered)
-                    self.estimates = KTVehicleTypeManager().estimates()
-                    self.del?.updateVehicleTypeList()
-                }
-                else
-                {
-                    (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
-                        { (UIAlertAction) in
-                            (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
-                        })
-                }
-            })
-        }
-        else if estimates != nil
-        {
-            estimates?.removeAll()
-            estimates = nil
+            self.delegate?.showError!(title: "Error", message:"Pickup location is not confirmed for this promo")
         }
     }
-    
+
     func fetchEstimateId(forVehicleType vType: VehicleType) -> KTFareEstimate?{
         //var estId : String = ""
         let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: vType.rawValue)
@@ -499,8 +513,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         //        }
         return vEstimate
     }
-    
-    //TODO: Mofidy this for Promotion starting fare and you are good to go
+
     func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String
     {
         var fareOrEstimate : String = ""
@@ -920,10 +933,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return animate
     }
     
-    //TODO: Promo Impl
-    // ----------------------------------------------------
     func btnPromoTapped()
     {
+        removeBooking = false
         (delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promo)
     }
     
@@ -932,12 +944,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         fetchEstimateForPromo(newPromoCode)
     }
     
-    func remoevPromoTapped()
+    func removePromoTapped()
     {
         if(promo.length > 3)
         {
             resetPromo()
-            fetchEstimates()
+            resetPromoOrBaseFare()
         }
     }
     
@@ -947,16 +959,19 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promo)
         self.del?.setPromoButtonLabel(validPromo: promo)
     }
-    // ----------------------------------------------------
 
     //MARK:- Create Booking
     func btnRequestBookingTapped() {
-        if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
-            //(delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
-            (delegate as! KTCreateBookingViewModelDelegate).showCallerIdPopUp()
-        }
-        else {
-            (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+        if isPickAvailable() {
+            if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
+                //(delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+                (delegate as! KTCreateBookingViewModelDelegate).showCallerIdPopUp()
+            }
+            else {
+                (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+            }
+        } else {
+            self.delegate?.showError!(title: "Error", message:"Please provide pickup location")
         }
     }
     
@@ -993,7 +1008,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.removeBooking = false
-                    //TODO: Move to bookings list
+
                     (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
                 }
                 else {
@@ -1201,6 +1216,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del?.hideRequestBookingBtn()
         del?.hideFareBreakdown()
         FetchNearByVehicle()
+        resetPromoOrBaseFare()
+    }
+    
+    func resetPromoOrBaseFare()
+    {
         if(isBaseFareChangedForPromo)
         {
             MagicalRecord.save({ (context) in
@@ -1214,7 +1234,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 {
                     isBaseFareChangedForPromo = false
                     KTVehicleTypeManager().fetchBasicTariffFromServer
-                    { (status, response) in
+                        { (status, response) in
                             self.vehicleTypes = nil
                             self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
                             self.estimates = KTVehicleTypeManager().estimates()

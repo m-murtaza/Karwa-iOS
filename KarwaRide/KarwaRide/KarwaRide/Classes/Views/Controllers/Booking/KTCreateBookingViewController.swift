@@ -194,7 +194,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         {
             promoCode = ""
             setPromoButtonLabel(validPromo: promoCode)
-            (viewModel as! KTCreateBookingViewModel).remoevPromoTapped()
+            (viewModel as! KTCreateBookingViewModel).removePromoTapped()
         }
     }
     
