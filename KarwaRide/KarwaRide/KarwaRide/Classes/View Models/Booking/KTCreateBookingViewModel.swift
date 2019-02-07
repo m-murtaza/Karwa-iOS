@@ -158,6 +158,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         else if currentBookingStep == BookingStep.step3 {
             (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
+
+            resetPromo()
+            resetPromoOrBaseFare()
+            
             fetchEstimates()
             registerForMinuteChange()
             drawDirectionOnMap()
@@ -437,7 +441,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 let cloneBooking = BookingBean.init(bookingEntity: booking)
 
                 KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
-                    
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
 
                         self.booking = BookingBean.getBookingEntityFromBooking(bookingBean: cloneBooking)
@@ -761,6 +765,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         setPickupDate(date: date)
         fetchEstimates()
         
+        resetPromo()
+        resetPromoOrBaseFare()
     }
     func setPickupDate(date: Date)
     {
