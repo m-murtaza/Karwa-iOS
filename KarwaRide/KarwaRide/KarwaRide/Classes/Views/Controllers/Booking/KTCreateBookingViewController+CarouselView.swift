@@ -54,7 +54,7 @@ extension CarouselDatasource: UICollectionViewDataSource {
             let shouldHidePromoFare = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
             if(!shouldHidePromoFare)
             {
-                sTypeCell.promoBadge.animation = "slideDown"
+                sTypeCell.promoBadge.animation = "slideUp"
                 sTypeCell.promoBadge.animate()
             }
 

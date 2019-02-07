@@ -1231,6 +1231,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             MagicalRecord.save({ (context) in
                 KTBaseTrariff.mr_truncateAll(in: context)
                 KTKeyValue.mr_truncateAll(in: context)
+                KTDALManager().resetSyncTime(forKey: BOOKING_SYNC_TIME)
             }, completion: { (changed, error) in
                 if let _ = error
                 {
