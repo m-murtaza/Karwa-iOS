@@ -8,6 +8,7 @@
 
 import Foundation
 import ScalingCarousel
+import Spring
 
 class KTServiceCardCell: ScalingCarouselCell {
     
@@ -16,6 +17,7 @@ class KTServiceCardCell: ScalingCarouselCell {
     @IBOutlet weak var imgBg : UIImageView!
     @IBOutlet weak var imgVehicleType : UIImageView!
     @IBOutlet weak var lblFareEstimateTitle : UILabel!
+    @IBOutlet weak var promoBadge: SpringImageView!
 }
 
 extension KTCreateBookingViewController {
@@ -48,8 +50,16 @@ extension CarouselDatasource: UICollectionViewDataSource {
             sTypeCell.lblFareEstimateTitle.text = (viewModel as! KTCreateBookingViewModel).FareEstimateTitle()
             sTypeCell.imgBg.image = (viewModel as! KTCreateBookingViewModel).sTypeBackgroundImage(forIndex: indexPath.row)
             sTypeCell.imgVehicleType.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
+
+            let shouldHidePromoFare = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
+            if(!shouldHidePromoFare)
+            {
+                sTypeCell.promoBadge.animation = "slideUp"
+                sTypeCell.promoBadge.animate()
+            }
+
+            sTypeCell.promoBadge.isHidden = shouldHidePromoFare
         }
-        
         return cell
     }
 }

@@ -13,7 +13,8 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
-protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
+protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
+{
     func updateLocationInMap(location:CLLocation)
     func addMarkerOnMap(vTrack:[VehicleTrack])
     func addOrRemoveOrMoveMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
@@ -51,6 +52,9 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate {
     func setETAContainerBackground(background : String)
     func setETAString(etaString : String)
     func hideFareBreakdown()
+    func showPromoInputDialog(currentPromo : String)
+    func setPromoButtonLabel(validPromo : String)
+    func setPromotionCode(promo: String)
 }
 
 let CHECK_DELAY = 90.0
@@ -62,34 +66,35 @@ enum BookingStep {
 
 let UNKNOWN : String = "Unknown"
 let TIMER_INTERVAL = 4;
+var isBaseFareChangedForPromo = false
 
 class KTCreateBookingViewModel: KTBaseViewModel {
     
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var vehicleTypes : [KTVehicleType]?
-    //public var pickUpAddress : KTGeoLocation?
-    //public var dropOffAddress : KTGeoLocation?
-    
     public var estimates : [KTFareEstimate]?
-    public var isEstimeting : Bool = false
-    public var isCoachmarkOneShown: Bool = false
     
     private var nearByVehicle: [VehicleTrack] = []
-    
-    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+
     var selectedPickupDateTime : Date = Date()
-    var dropOffBtnText = "No Destination set"
     var timerFetchNearbyVehicle : Timer = Timer()
-    
-    var rebook: Bool = false
-    
+
     var del : KTCreateBookingViewModelDelegate?
     
     var booking : KTBooking = KTBookingManager().booking()
+    var cloneBooking : BookingBean = BookingBean()
+
+    var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+    var dropOffBtnText = "No Destination set"
+    var promo = ""
+
+    var rebook: Bool = false
+    public var isEstimeting : Bool = false
+    public var isCoachmarkOneShown: Bool = false
     var removeBooking = true
     var removeBookingOnReset = true
     var isAdvanceBooking = false
-    
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -120,10 +125,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkOne()
             }
         }
-        else
-        {
-            print("coachmarks have been already shown")
-        }
     }
     
     func showCoachmarkTwoIfRequired()
@@ -136,10 +137,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             {
                     (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkTwo()
             }
-        }
-        else
-        {
-            print("coachmarks have been already shown")
         }
     }
     
@@ -161,6 +158,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         else if currentBookingStep == BookingStep.step3 {
             (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
+
+            resetPromo()
+            resetPromoOrBaseFare()
+            
             fetchEstimates()
             registerForMinuteChange()
             drawDirectionOnMap()
@@ -216,6 +217,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
     }
     func isPickAvailable() -> Bool {
+        if(booking.pickupAddress == nil || booking.pickupAddress == "")
+        {
+            booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
+        }
+
         return locationAvailable(locationName: booking.pickupAddress)
     }
     
@@ -406,14 +412,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del?.updateVehicleTypeList()
         if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
             isEstimeting = true
-            
-            
-            KTBookingManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), complition: { (status, response) in
+
+            KTVehicleTypeManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), complition: { (status, response) in
                 self.isEstimeting = false
                 if status == Constants.APIResponseStatus.SUCCESS {
-                    self.estimates = KTBookingManager().estimates()
+                    self.estimates = KTVehicleTypeManager().estimates()
                     self.del?.updateVehicleTypeList()
-                    
                 }
                 else {
                     if self.estimates != nil{
@@ -428,7 +432,88 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             estimates = nil
         }
     }
-    
+
+    private func fetchEstimateForPromo(_ promoEntered: String)
+    {
+        del?.updateVehicleTypeList()
+
+        if(booking.pickupAddress != nil && booking.pickupAddress != "")
+        {
+            // Drop-off has been skipped and asking for promo :/
+            if(booking.dropOffAddress == nil || booking.dropOffAddress == "")
+            {
+//                isEstimeting = true
+                cloneBooking = BookingBean.init(bookingEntity: booking)
+
+                KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+
+                        self.booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
+
+                     // self.isEstimeting = false
+                        if status == Constants.APIResponseStatus.SUCCESS
+                        {
+                            isBaseFareChangedForPromo = true
+                            
+                            self.vehicleTypes = nil
+                            self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                            self.promo = promoEntered
+                            (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                            self.del?.setPromoButtonLabel(validPromo: promoEntered)
+                            self.estimates = KTVehicleTypeManager().estimates()
+                            self.del?.updateVehicleTypeList()
+                        }
+                        else
+                        {
+                            (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                                { (UIAlertAction) in
+                                    self.removeBooking = false
+                                    (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                            })
+                        }
+
+                    })
+                })
+            }
+                // Pickup and Drop-off both are present and asking for promo, good customer :)
+            else if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != ""
+            {
+//                isEstimeting = true
+
+                KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
+                    //            self.isEstimeting = false
+                    
+                    if status == Constants.APIResponseStatus.SUCCESS
+                    {
+                        self.promo = promoEntered
+                        (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                        self.del?.setPromoButtonLabel(validPromo: promoEntered)
+                        self.estimates = KTVehicleTypeManager().estimates()
+                        self.del?.updateVehicleTypeList()
+                    }
+                    else
+                    {
+                        (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                            { (UIAlertAction) in
+                                self.removeBooking = false
+                                (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                        })
+                    }
+                })
+            }
+            else if estimates != nil
+            {
+                estimates?.removeAll()
+                estimates = nil
+            }
+        }
+        else
+        {
+            self.delegate?.showError!(title: "Error", message:"Pickup location is not confirmed for this promo")
+        }
+    }
+
     func fetchEstimateId(forVehicleType vType: VehicleType) -> KTFareEstimate?{
         //var estId : String = ""
         let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: vType.rawValue)
@@ -437,18 +522,22 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         //        }
         return vEstimate
     }
-    
-    func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String {
+
+    func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String
+    {
         var fareOrEstimate : String = ""
         let vType : KTVehicleType = vehicleTypes![idx]
-        if isEstimeting == false {
-            if estimates == nil || estimates?.count == 0 {
-                fareOrEstimate =  vType.typeBaseFare!
+        if isEstimeting == false
+        {
+            if estimates == nil || estimates?.count == 0
+            {
+                fareOrEstimate =  vType.typeBaseFare ?? ""
             }
-            else {
-                
+            else
+            {
                 let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
-                if estimate != nil {
+                if estimate != nil
+                {
                     fareOrEstimate = (estimate?.estimatedFare!)!
                 }
             }
@@ -456,8 +545,29 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return fareOrEstimate
     }
     
-    func FareEstimateTitle() -> String {
-        
+    func isPromoFare(forIndex idx: Int) -> Bool
+    {
+        var isPromoApplied = false
+        let vType : KTVehicleType = vehicleTypes![idx]
+
+        if estimates == nil || estimates?.count == 0
+        {
+            let vType : KTVehicleType = vehicleTypes![idx]
+            isPromoApplied = vType.isPromoApplied
+        }
+        else
+        {
+            let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
+            if estimate != nil
+            {
+                isPromoApplied = estimate?.isPromoApplied ?? false
+            }
+        }
+        return isPromoApplied
+    }
+    
+    func FareEstimateTitle() -> String
+    {
         var title: String = "Estimated Fare"
         if isEstimeting == true {
             title = "Estimating..."
@@ -639,11 +749,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(self.MinuteChanged(notification:)), name: Notification.Name(Constants.Notification.MinuteChanged), object: nil)
     }
     
-    private func unregisterForMinuteChange() {
+    private func unregisterForMinuteChange()
+    {
         KTTimer.sharedInstance.stoprMinTimer()
     }
     
-    @objc func MinuteChanged(notification: Notification) {
+    @objc func MinuteChanged(notification: Notification)
+    {
         
         if selectedPickupDateTime.timeIntervalSinceNow < CHECK_DELAY {
             //Update UI as its current time.
@@ -653,24 +765,30 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
-    func setPickupDateForAdvJob(date: Date)  {
+    func setPickupDateForAdvJob(date: Date)
+    {
         isAdvanceBooking = true
         setPickupDate(date: date)
         fetchEstimates()
         
+        resetPromo()
+        resetPromoOrBaseFare()
     }
-    func setPickupDate(date: Date)  {
+    func setPickupDate(date: Date)
+    {
         selectedPickupDateTime = date
         updateUI(forDate: selectedPickupDateTime)
     }
     
-    func updateUI(forDate date: Date) {
+    func updateUI(forDate date: Date)
+    {
         
         let formatedDate : String = formatedDateForUI(date: date)
         (delegate as! KTCreateBookingViewModelDelegate).setPickDate(date: formatedDate)
     }
     
-    func formatedDateForUI(date: Date) -> String {
+    func formatedDateForUI(date: Date) -> String
+    {
         
         var datePart : String = ""
         if date.isToday {
@@ -680,7 +798,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         else {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
+//            dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateFormatter.dateFormat = "MM/dd"
             datePart = dateFormatter.string(from: date)
         }
         
@@ -721,7 +840,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     func sTypeTitle(forIndex idx: Int) -> String {
         let vType : KTVehicleType = vehicleTypes![idx]
-        return vType.typeName!
+        return vType.typeName ?? ""
     }
     
     func estimate(forVehicleType vTypeId:Int16) -> KTFareEstimate? {
@@ -736,7 +855,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return nil
     }
     
-    func sTypeBackgroundImage(forIndex idx: Int) -> UIImage {
+    func sTypeBackgroundImage(forIndex idx: Int) -> UIImage
+    {
         let sType : KTVehicleType = vehicleTypes![idx]
         var imgBg : UIImage = UIImage()
         switch sType.typeId {
@@ -757,7 +877,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return imgBg
     }
     
-    func sTypeVehicleImage(forIndex idx: Int) -> UIImage {
+    func sTypeVehicleImage(forIndex idx: Int) -> UIImage
+    {
         let sType : KTVehicleType = vehicleTypes![idx]
         var imgSType : UIImage = UIImage()
         switch sType.typeId {
@@ -824,14 +945,49 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return animate
     }
     
+    func btnPromoTapped()
+    {
+        removeBooking = false
+        (delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promo)
+    }
+    
+    func applyPromoTapped(_ newPromoCode: String)
+    {
+        if(booking.pickupAddress == nil || booking.pickupAddress == "")
+        {
+            booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
+        }
+        fetchEstimateForPromo(newPromoCode)
+    }
+    
+    func removePromoTapped()
+    {
+        if(promo.length > 3)
+        {
+            resetPromo()
+            resetPromoOrBaseFare()
+        }
+    }
+    
+    func resetPromo()
+    {
+        promo = ""
+        (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promo)
+        self.del?.setPromoButtonLabel(validPromo: promo)
+    }
+
     //MARK:- Create Booking
     func btnRequestBookingTapped() {
-        if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
-            //(delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
-            (delegate as! KTCreateBookingViewModelDelegate).showCallerIdPopUp()
-        }
-        else {
-            (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+        if isPickAvailable() {
+            if KTAppSessionInfo.currentSession.customerType == CustomerType.CORPORATE {
+                //(delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+                (delegate as! KTCreateBookingViewModelDelegate).showCallerIdPopUp()
+            }
+            else {
+                (delegate as! KTCreateBookingViewModelDelegate).showBookingConfirmation()
+            }
+        } else {
+            self.delegate?.showError!(title: "Error", message:"Please provide pickup location")
         }
     }
     
@@ -864,11 +1020,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
             
             delegate?.showProgressHud(show: true, status: "Booking a ride")
-            bookManager.bookTaxi(job: booking,estimate: vEstimate) { (status, response) in
+            bookManager.bookTaxi(job: booking,estimate: vEstimate, promo: promo) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.removeBooking = false
-                    //TODO: Move to bookings list
+
                     (self.delegate as! KTCreateBookingViewModelDelegate).moveToDetailView()
                 }
                 else {
@@ -966,18 +1122,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         KTBookingManager.init().vehiclesNearCordinate(coordinate: location.coordinate, vehicleType: selectedVehicleType, completion:{
             (status,response) in
             if status == Constants.APIResponseStatus.SUCCESS {
-                
-//                var newVehicles = self.parseVehicleTrack(response);
-                
-                //TODO: persist vehicles which are not changed and move their locations
-                // remove old vehicles
-                // add new vehicles
-                
-//              self.moveVehiclesIfRequired(nearbyVehiclesOld: self.nearByVehicle, nearbyVehiclesNew: newVehicles)
-                
                 self.nearByVehicle.removeAll()
                 self.nearByVehicle.append(contentsOf: self.parseVehicleTrack(response))
-                
+
                 //Add User current location.
                 if self.nearByVehicle.count > 0
                 {
@@ -988,7 +1135,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 {
                     (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride available")
                 }
-                
+
                 if(self.currentBookingStep != BookingStep.step3)
                 {
                     if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
@@ -998,76 +1145,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
         })
     }
-    
-//    private func moveVehiclesIfRequired(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack])
-//    {
-//        let vehiclesNeedsToMove = getVehicleNumbersNeedsToMove(nearbyVehiclesOld: oldVehicles, nearbyVehiclesNew: newVehicles)
-//
-//        for vehicleNeedsToMove in vehiclesNeedsToMove
-//        {
-//            var oldVehicleTrack = VehicleTrack()
-//            var newVehicleTrack = VehicleTrack()
-//
-//            for oldVehicle in oldVehicles
-//            {
-//                if(oldVehicle.vehicleNo == vehicleNeedsToMove)
-//                {
-//                    oldVehicleTrack = oldVehicle
-//                    break
-//                }
-//            }
-//
-//            for newVehicle in newVehicles
-//            {
-//                if(newVehicle.vehicleNo == vehicleNeedsToMove)
-//                {
-//                    newVehicleTrack = newVehicle
-//                    break
-//                }
-//            }
-//
-//
-//        }
-//
-//    }
-//
-//    func updateMarker(coordinates: CLLocationCoordinate2D, degrees: CLLocationDegrees, duration: Double) {
-//        // Keep Rotation Short
-//        CATransaction.begin()
-//        CATransaction.setAnimationDuration(0.5)
-//        marker.rotation = degrees
-//        CATransaction.commit()
-//
-//        // Movement
-//        CATransaction.begin()
-//        CATransaction.setAnimationDuration(duration)
-//        marker.position = coordinates
-//
-//        // Center Map View
-//        let camera = GMSCameraUpdate.setTarget(coordinates)
-//        mapView.animateWithCameraUpdate(camera)
-//
-//        CATransaction.commit()
-//    }
-//
-//    private func getVehicleNumbersNeedsToMove(nearbyVehiclesOld oldVehicles:[VehicleTrack], nearbyVehiclesNew newVehicles:[VehicleTrack]) -> [String]
-//    {
-//        var updatedVehicles : [String] = []
-//
-//        for oldVehicle in oldVehicles
-//        {
-//            for newVehicle in newVehicles
-//            {
-//                if(oldVehicle.vehicleNo == newVehicle.vehicleNo)
-//                {
-//                    updatedVehicles.append(oldVehicle.vehicleNo)
-//                    break
-//                }
-//            }
-//        }
-//
-//        return updatedVehicles
-//    }
     
     private func userCurrentLocaitonMarker() -> VehicleTrack {
         
@@ -1148,11 +1225,46 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
         (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
-        fetchEstimates()
+        
+        resetPromo()
+
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
         del?.hideFareBreakdown()
         FetchNearByVehicle()
+        resetPromoOrBaseFare()
+    }
+    
+    func resetPromoOrBaseFare()
+    {
+        if(isBaseFareChangedForPromo)
+        {
+            MagicalRecord.save({ (context) in
+                KTBaseTrariff.mr_truncateAll(in: context)
+                KTKeyValue.mr_truncateAll(in: context)
+                KTDALManager().resetSyncTime(forKey: BOOKING_SYNC_TIME)
+            }, completion: { (changed, error) in
+                if let _ = error
+                {
+                    print("Error truncating BaseTariff: \(String(describing: error?.localizedDescription))")
+                } else
+                {
+                    isBaseFareChangedForPromo = false
+                    KTVehicleTypeManager().fetchBasicTariffFromServer
+                        { (status, response) in
+                            self.vehicleTypes = nil
+                            self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                            self.estimates = KTVehicleTypeManager().estimates()
+                            self.del?.updateVehicleTypeList()
+                            self.fetchEstimates()
+                    }
+                }
+            })
+        }
+        else
+        {
+            fetchEstimates()
+        }
     }
 }
 

@@ -235,4 +235,18 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         //Over-ridden in KTBookingDetailsViewController
         print("Over-ridden in KTBookingDetailsViewController")
     }
+    
+    func showOkDialog(titleMessage title: String, descMessage desc: String)
+    {
+        showOkDialog(titleMessage: title, descMessage: desc)
+        { (UIAlertAction) in }
+    }
+    
+    func showOkDialog(titleMessage title: String, descMessage desc: String, completion: ((UIAlertAction) -> Void)? = nil)
+    {
+        let alertController = UIAlertController(title: title, message: desc, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: completion)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

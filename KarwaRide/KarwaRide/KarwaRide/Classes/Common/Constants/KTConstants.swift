@@ -257,6 +257,7 @@ struct Constants {
         static let EstimateId = "EstimateId"
         static let VehicleType = "VehicleType"
         static let EstimatedFare = "EstimatedFare"
+        static let IsPromoApplied = "IsPromoApplied"
     }
     
     struct CancelReasonAPIKey {
@@ -341,6 +342,7 @@ struct Constants {
         static let EstimatedFare = "EstimatedFare"
         static let TrackId = "TrackID"
         static let TripType = "TripType"
+        static let PromoCode = "promoCode"
         //static let BookingType = "BookingType"
     }
     
@@ -383,6 +385,7 @@ struct Constants {
         static let trackVechicle = "track/job"
         static let initTariff = "tariff/init"
         static let GetEstimate = "tariff/estimate"
+        static let GetPromoEstimate = "tariff/estimate"
         static let CancelReason = "booking/cancelreasons"
         static let RatingReason = "booking/ratingreasons"
         static let RateBooking = "booking/rate"
@@ -394,6 +397,7 @@ struct Constants {
         static let MPGSSuccessToServer = "mpgs/tokenize"
         static let MPGSCreateSession = "mpgs/session"
         static let DeletePaymentMethod = "payment/"
+        static let GetInitialFareForPromo = "tariff/promo/"
     }
     
     struct TrackTaxiParams {
@@ -418,6 +422,7 @@ struct Constants {
         static let DropLatitude = "dropLat"
         static let DropLongitude = "dropLon"
         static let PickTime = "pickupTime"
+        static let PromoCode = "promoCode"
     }
     
     struct DeviceTypes {

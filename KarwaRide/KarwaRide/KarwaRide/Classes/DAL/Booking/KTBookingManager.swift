@@ -21,7 +21,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         return book
     }
     
-    func bookTaxi(job: KTBooking, estimate: KTFareEstimate?, completion completionBlock: @escaping KTDALCompletionBlock)  {
+    func bookTaxi(job: KTBooking, estimate: KTFareEstimate?, promo: String, completion completionBlock: @escaping KTDALCompletionBlock)  {
         
         let param : NSDictionary = [Constants.BookingParams.PickLocation: job.pickupAddress!,
                                     Constants.BookingParams.PickLat: job.pickupLat,
@@ -36,9 +36,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
                                     Constants.BookingParams.PickHint : job.pickupMessage!,
                                     Constants.BookingParams.VehicleType : job.vehicleType,
                                     Constants.BookingParams.CallerID : job.callerId!,
-                                    Constants.BookingParams.EstimateId : (estimate != nil) ? (estimate!.estimateId)! : 0 ]
-        
-        
+                                    Constants.BookingParams.EstimateId : (estimate != nil) ? (estimate!.estimateId)! : 0,
+                                    Constants.BookingParams.PromoCode : promo]
+
         self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
             job.bookingId = responseData[Constants.BookingParams.BookingId] as? String

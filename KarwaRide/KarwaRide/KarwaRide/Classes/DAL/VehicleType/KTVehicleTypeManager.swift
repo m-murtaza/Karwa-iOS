@@ -8,6 +8,8 @@
 
 import UIKit
 import MagicalRecord
+import CoreLocation
+
 //import SwiftyJSON
 
 let INIT_TARIFF_SYNC_TIME = "InitTariffSyncTime"
@@ -50,6 +52,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             
             self.saveInitTariff(response: response[Constants.ResponseAPIKey.Data] as! [Any])
             self.updateSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
     
@@ -69,7 +72,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         vType.typeBaseFare = tariff["Fare"] as? String
         vType.typeName = typeName(forId: vType.typeId)
         vType.typeSortOrder = typeSortOrder(forId: vType.typeId)
-        
+        vType.isPromoApplied = tariff["IsPromoApplied"] as? Bool ?? false
         
         for keyvalue in vType.toKeyValueBody! {
             (keyvalue as! KTKeyValue).mr_deleteEntity()
@@ -200,6 +203,108 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         default:
             return true
         }
+    }
+
+    func fetchEstimate(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, complition complitionBlock:@escaping KTDALCompletionBlock ) {
+        
+        let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
+                                      Constants.GetEstimateParam.PickLongitude : pickup.longitude,
+                                      Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
+                                      Constants.GetEstimateParam.DropLongitude : dropoff.longitude,
+                                      Constants.GetEstimateParam.PickTime : time]
+        
+        self.get(url: Constants.APIURL.GetEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
+            
+            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+
+    func fetchEstimateForPromo(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, promo: String, complition complitionBlock:@escaping KTDALCompletionBlock ) {
+        
+        let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
+                                      Constants.GetEstimateParam.PickLongitude : pickup.longitude,
+                                      Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
+                                      Constants.GetEstimateParam.DropLongitude : dropoff.longitude,
+                                      Constants.GetEstimateParam.PickTime : time,
+                                      Constants.GetEstimateParam.PromoCode : promo]
+        
+        self.get(url: Constants.APIURL.GetPromoEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
+            
+            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+    
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    func fetchEstimateForPromo(pickup : CLLocationCoordinate2D, time: TimeInterval, promo: String, complition complitionBlock:@escaping KTDALCompletionBlock ) {
+        
+        let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
+                                      Constants.GetEstimateParam.PickLongitude : pickup.longitude,
+                                      Constants.GetEstimateParam.PickTime : time,
+                                      Constants.GetEstimateParam.PromoCode : promo]
+        
+        self.get(url: Constants.APIURL.GetInitialFareForPromo, param: param, completion: complitionBlock)
+        {(response, cBlock) in
+            
+            let responseData = response[Constants.ResponseAPIKey.Data] as! [Any]
+            
+            if(responseData.count > 0)
+            {   
+                 MagicalRecord.save({ (context) in
+                    KTBaseTrariff.mr_truncateAll(in: context)
+                    KTKeyValue.mr_truncateAll(in: context)
+                    KTDALManager().resetSyncTime(forKey: BOOKING_SYNC_TIME)
+                }, completion: { (changed, error) in
+                    if let _ = error
+                    {
+                        print("Error truncating BaseTariff: \(String(describing: error?.localizedDescription))")
+                    }
+                    else
+                    {
+                        print("------------------------------------------")
+                        print("Truncate BaseTaruff successful: \(changed)")
+                        print(KTBaseTrariff.mr_countOfEntities())
+                        print("------------------------------------------")
+
+                        self.saveInitTariff(response: responseData)
+                        self.resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+                    }
+                })
+            }
+
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    func saveEstimates(response : [Any]){
+        let predicate : NSPredicate = NSPredicate(format: "fareestimateToBooking == nil")
+        KTFareEstimate.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default() )
+        for r in response {
+            
+            self.saveSingleVehicleEstimates(estimate: r as! [AnyHashable: Any])
+        }
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        
+    }
+    
+    func saveSingleVehicleEstimates(estimate : [AnyHashable: Any]) {
+        
+        let e : KTFareEstimate = KTFareEstimate.mr_createEntity(in: NSManagedObjectContext.mr_default())!
+        e.estimateId = estimate[Constants.GetEstimateResponseAPIKey.EstimateId] as? String
+        e.vehicleType = estimate[Constants.GetEstimateResponseAPIKey.VehicleType] as! Int16
+        e.estimatedFare = estimate[Constants.GetEstimateResponseAPIKey.EstimatedFare] as? String
+        e.isPromoApplied = estimate[Constants.GetEstimateResponseAPIKey.IsPromoApplied] as? Bool ?? false
+        
+        saveKeyValueBody(keyValue: estimate["OrderedBody"] as! [[AnyHashable : Any]], tariff: e as KTBaseTrariff)
+    }
+    
+    
+    func estimates() -> [KTFareEstimate] {
+        
+        let predicate : NSPredicate = NSPredicate(format: "fareestimateToBooking == nil")
+        return KTFareEstimate.mr_findAll(with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTFareEstimate]
     }
     
 }

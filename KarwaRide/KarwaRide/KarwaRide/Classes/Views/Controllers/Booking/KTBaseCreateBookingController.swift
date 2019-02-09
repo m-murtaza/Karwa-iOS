@@ -30,7 +30,8 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     var fareBreakdown : KTFareViewController!
     public var pickupHint : String = ""
     public var callerId : String?
-    
+    public var promoCode : String = ""
+
     //MARK:- Outlets
     @IBOutlet weak var mapView : GMSMapView!
     @IBOutlet weak var carousel: ScalingCarouselView!
