@@ -45,6 +45,44 @@ class BookingBean
     var vehicleNo: String
     var vehicleType: Int16
     
+    init()
+    {
+        self.bookingId = ""
+        self.bookingStatus = 0
+        self.bookingType = 0
+        self.callerId = ""
+        self.cancelReason = 0
+        self.creationTime = Date()
+        self.driverId = ""
+        self.driverName = ""
+        self.driverPhone = ""
+        self.driverRating = 0
+        self.dropOffAddress = ""
+        self.dropOffLat = 0
+        self.dropOffLocationId = 0
+        self.dropOffLon = 0
+        self.dropOffTime = Date()
+        self.estimatedFare = ""
+        self.eta = 0
+        self.fare = ""
+        self.isRated = false
+        self.lastFourDigits = ""
+        self.paymentMethod = ""
+        self.pickupAddress = ""
+        self.pickupLat = 0
+        self.pickupLocationId = 0
+        self.pickupLon = 0
+        self.pickupMessage = ""
+        self.pickupTime = Date()
+        self.serviceType = 0
+        self.totalDistance = ""
+        self.trackId = ""
+        self.tripTrack = ""
+        self.tripType = 0
+        self.vehicleNo = ""
+        self.vehicleType = 0
+    }
+
     init(bookingEntity booking: KTBooking) {
         self.bookingId = booking.bookingId ?? ""
         self.bookingStatus = booking.bookingStatus

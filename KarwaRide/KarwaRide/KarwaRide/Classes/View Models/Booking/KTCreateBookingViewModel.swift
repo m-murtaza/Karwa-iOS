@@ -82,9 +82,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var del : KTCreateBookingViewModelDelegate?
     
     var booking : KTBooking = KTBookingManager().booking()
+    var cloneBooking : BookingBean = BookingBean()
 
     var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
-
     var dropOffBtnText = "No Destination set"
     var promo = ""
 
@@ -217,6 +217,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
     }
     func isPickAvailable() -> Bool {
+        if(booking.pickupAddress == nil || booking.pickupAddress == "")
+        {
+            booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
+        }
+
         return locationAvailable(locationName: booking.pickupAddress)
     }
     
@@ -438,13 +443,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             if(booking.dropOffAddress == nil || booking.dropOffAddress == "")
             {
 //                isEstimeting = true
-                let cloneBooking = BookingBean.init(bookingEntity: booking)
+                cloneBooking = BookingBean.init(bookingEntity: booking)
 
                 KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
 
-                        self.booking = BookingBean.getBookingEntityFromBooking(bookingBean: cloneBooking)
+                        self.booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
 
                      // self.isEstimeting = false
                         if status == Constants.APIResponseStatus.SUCCESS
@@ -474,7 +479,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 // Pickup and Drop-off both are present and asking for promo, good customer :)
             else if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != ""
             {
-                //            isEstimeting = true
+//                isEstimeting = true
+
                 KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
                     //            self.isEstimeting = false
                     
@@ -792,7 +798,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         else {
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
+//            dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateFormatter.dateFormat = "MM/dd"
             datePart = dateFormatter.string(from: date)
         }
         
@@ -946,6 +953,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func applyPromoTapped(_ newPromoCode: String)
     {
+        if(booking.pickupAddress == nil || booking.pickupAddress == "")
+        {
+            booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
+        }
         fetchEstimateForPromo(newPromoCode)
     }
     
