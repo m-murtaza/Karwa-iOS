@@ -12,7 +12,7 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate {
 
     let fareURL = "http://www.karwatechnologies.com/fare.htm"
-    let helpURL = "http://stagemursaalapi.karwasolutions.com:9002/"
+//    let helpURL = "http://stagemursaalapi.karwasolutions.com:9002/"
     
     @IBOutlet weak var webView : WKWebView?
 
@@ -21,7 +21,7 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
 
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
-        let request = URLRequest(url: URL(string: helpURL)!)
+        let request = URLRequest(url: URL(string: fareURL)!)
         webView?.load(request)
     }
 
