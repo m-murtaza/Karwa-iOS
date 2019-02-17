@@ -102,7 +102,10 @@ class KTUtils
     
     static func isValidQRCode(_ code: String) -> PayTripBeanForServer?
     {
-        let makCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil).replacingOccurrences(of: "http://", with: "", options: .literal, range: nil).replacingOccurrences(of: "www.app.karwatechnologies.com", with: "", options: .literal, range: nil).replacingOccurrences(of: "/download/", with: "", options: .literal, range: nil)
+        let makCode = code.replacingOccurrences(of: "https://", with: "", options: .literal, range: nil)
+            .replacingOccurrences(of: "http://", with: "", options: .literal, range: nil)
+            .replacingOccurrences(of: "app.karwatechnologies.com", with: "", options: .literal, range: nil)
+            .replacingOccurrences(of: "/download/", with: "", options: .literal, range: nil)
 
         if(makCode.starts(with: MAKHashGenerator.VERSION_INFO))
         {
@@ -110,7 +113,15 @@ class KTUtils
             let piecesOfPayBean = decryptedStringCSV.split(separator: ",")
             if(piecesOfPayBean.count == 7)
             {
-                return PayTripBeanForServer(String(piecesOfPayBean[0]), "", String(piecesOfPayBean[1]), String(piecesOfPayBean[2]), Int(piecesOfPayBean[3])!, String(piecesOfPayBean[4]), String(piecesOfPayBean[5]), String(piecesOfPayBean[6]))
+                return PayTripBeanForServer(
+                    String(piecesOfPayBean[0]),
+                    "",
+                    String(piecesOfPayBean[1]),
+                    String(piecesOfPayBean[2]),
+                    Int(piecesOfPayBean[3])!,
+                    String(piecesOfPayBean[4]),
+                    String(piecesOfPayBean[5]),
+                    String(piecesOfPayBean[6]))
             }
             else
             {
@@ -137,4 +148,3 @@ class KTUtils
         }
     }
 }
-    

@@ -17,7 +17,7 @@ class KTAppDataSyncManager: KTDALManager {
         self.syncCancelReasons()
         self.syncRatingReason()
         self.syncComplaints()
-//        self.syncPaymentMethods()
+        self.syncPaymentMethods()
         self.removeNotificaiton()
         
     }
