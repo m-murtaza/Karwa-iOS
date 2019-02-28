@@ -172,14 +172,8 @@ class KTPaymentManager: KTDALManager
     
     func payTripAtServer(payTrip: PayTripBeanForServer, completion completionBlock: @escaping KTDALCompletionBlock)
     {
-        let param : NSDictionary = [Constants.PayTripAPIKey.DriverId: payTrip.driverId,
-                                    Constants.PayTripAPIKey.PaymentMethodId: payTrip.paymentMethodId,
-                                    Constants.PayTripAPIKey.TotalFare: payTrip.totalFare,
-                                    Constants.PayTripAPIKey.TripId: payTrip.tripId,
-                                    Constants.PayTripAPIKey.TripType: payTrip.tripType,
-                                    Constants.PayTripAPIKey.U: payTrip.u,
-                                    Constants.PayTripAPIKey.S: payTrip.s,
-                                    Constants.PayTripAPIKey.E: payTrip.e]
+        let param : NSDictionary = [Constants.PayTripAPIKey.Source: payTrip.paymentMethodId,
+                                    Constants.PayTripAPIKey.Data: payTrip.data]
         
         self.put(url: Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in

@@ -179,7 +179,21 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         self.del?.showProgressHud(show: true, status: "We are paying your amount")
         
-        payTripBean.paymentMethodId = String(selectedPaymentMethod.id)
+        let clearData = "clearData0123456".data(using:String.Encoding.utf8)!
+        let keyData   = "keyData890123456".data(using:String.Encoding.utf8)!
+        print("clearData:   \(clearData as NSData)")
+        print("keyData:     \(keyData as NSData)")
+
+        var cryptData :Data?
+        do {
+            cryptData = try AESEncryption().aesCBCEncrypt(data:clearData, keyData:keyData)
+            print("cryptData:   \(cryptData! as NSData)")
+        }
+        catch (let status) {
+            print("Error aesCBCEncrypt: \(status)")
+        }
+
+        payTripBean.data = String(selectedPaymentMethod.id)
         
         KTPaymentManager().payTripAtServer(payTrip: payTripBean) { (success, response) in
 

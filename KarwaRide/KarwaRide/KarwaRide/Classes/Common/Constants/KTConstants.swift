@@ -192,6 +192,8 @@ struct Constants {
     }
     
     struct PayTripAPIKey {
+        static let Data = "Data"
+        static let Source = "Source"
         static let DriverId = "DriverId"
         static let PaymentMethodId = "PaymentMethodId"
         static let TotalFare = "TotalFare"

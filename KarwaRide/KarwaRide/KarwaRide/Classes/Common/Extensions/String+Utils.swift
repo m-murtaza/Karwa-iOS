@@ -72,6 +72,14 @@ extension String {
         return hexString
     }
     
+    func hexadecimal() -> String
+    {
+        let str = self
+        let data = Data(str.utf8)
+        let returnValue = data.map{ String(format:"%02x", $0) }.joined()
+        return returnValue
+    }
+    
     func urlEncodeString() -> String? {
         let unreserved = "-._~/?"
         let allowed = NSMutableCharacterSet.alphanumeric()
