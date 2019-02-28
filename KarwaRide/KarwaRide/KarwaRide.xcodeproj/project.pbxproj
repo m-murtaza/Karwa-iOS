@@ -215,6 +215,7 @@
 		0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewModel.swift; sourceTree = "<group>"; };
 		0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewController.swift; sourceTree = "<group>"; };
 		0D826ECC21997309006FF11B /* ImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
+		0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV5.xcdatamodel; sourceTree = "<group>"; };
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
@@ -1833,12 +1834,13 @@
 		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */,
 				0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */,
 				0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */,
 				0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */,
 				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
 			);
-			currentVersion = 0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */;
+			currentVersion = 0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */;
 			name = Karwa.xcdatamodeld;
 			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
 			sourceTree = "<group>";

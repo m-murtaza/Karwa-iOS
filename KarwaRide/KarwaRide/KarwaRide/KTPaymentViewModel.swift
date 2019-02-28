@@ -179,23 +179,16 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         self.del?.showProgressHud(show: true, status: "We are paying your amount")
         
-        let clearData = "clearData0123456".data(using:String.Encoding.utf8)!
-        let keyData   = "keyData890123456".data(using:String.Encoding.utf8)!
-        print("clearData:   \(clearData as NSData)")
-        print("keyData:     \(keyData as NSData)")
+        let IV = "p@ym3nt8"
+        let PASSWORD = "k@rw@s0lp@ym3nt8k@rw@s0l"
+        let message = selectedPaymentMethod.source!
 
-        var cryptData :Data?
-        do {
-            cryptData = try AESEncryption().aesCBCEncrypt(data:clearData, keyData:keyData)
-            print("cryptData:   \(cryptData! as NSData)")
-        }
-        catch (let status) {
-            print("Error aesCBCEncrypt: \(status)")
-        }
+        let data: NSData! = message.data(using: .utf8)! as NSData
+        let keyData: NSData! = PASSWORD.data(using: .utf8)! as NSData
+        let ivData: NSData! = IV.data(using: .utf8)! as NSData
+        let base64cryptString = self.crypt(data: data, keyData: keyData, ivData: ivData)
 
-        payTripBean.data = String(selectedPaymentMethod.id)
-        
-        KTPaymentManager().payTripAtServer(payTrip: payTripBean) { (success, response) in
+        KTPaymentManager().payTripAtServer(base64cryptString, payTripBean.data) { (success, response) in
 
             self.del?.hideProgressHud()
 
@@ -212,6 +205,32 @@ class KTPaymentViewModel: KTBaseViewModel
                 self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
             }
         }
+    }
+    
+    func crypt(data:NSData, keyData:NSData, ivData:NSData) -> String {
+        
+        var base64cryptString = String()
+        let cryptData    = NSMutableData(length: Int(data.length) + kCCBlockSize3DES)!
+        let keyLength              = size_t(keyData.length)
+        let operation: CCOperation = UInt32(kCCEncrypt)
+        let algoritm:  CCAlgorithm = UInt32(kCCAlgorithm3DES)
+        let options:   CCOptions   = UInt32(kCCOptionPKCS7Padding)
+        
+        var numBytesEncrypted :size_t = 0
+        let cryptStatus = CCCrypt(operation,
+                                  algoritm,
+                                  options,
+                                  keyData.bytes, keyLength,
+                                  ivData.bytes,
+                                  data.bytes, data.length,
+                                  cryptData.mutableBytes, cryptData.length,
+                                  &numBytesEncrypted)
+        
+        if UInt32(cryptStatus) == UInt32(kCCSuccess) {
+            cryptData.length = Int(numBytesEncrypted)
+            base64cryptString = cryptData.base64EncodedString(options: .endLineWithLineFeed)
+        }
+        return base64cryptString
     }
     
     // Call the gateway to update the session.

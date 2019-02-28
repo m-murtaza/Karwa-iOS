@@ -52,11 +52,10 @@ class KTPaymentManager: KTDALManager
     
     func addPaymentToDB(payment : [AnyHashable: Any])
     {
-        if payment[Constants.PaymentResponseAPIKey.Id] != nil
+        if payment[Constants.PaymentResponseAPIKey.Source] != nil
         {
             let newPayment = KTPaymentMethod.mr_createEntity(in: NSManagedObjectContext.mr_default())
-            
-            newPayment?.id = (payment[Constants.PaymentResponseAPIKey.Id] as? Int16)!
+            newPayment?.source = (payment[Constants.PaymentResponseAPIKey.Source] as? String)!
             newPayment?.payment_type = (payment[Constants.PaymentResponseAPIKey.PaymentType] as? String)!
             newPayment?.last_four_digits = (payment[Constants.PaymentResponseAPIKey.LastFourDigits] as? String)!
             newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String)!
@@ -71,7 +70,7 @@ class KTPaymentManager: KTDALManager
     {
         for item in getAllPayments()
         {
-            item.is_selected = (item.id == paymentMethod.id)
+            item.is_selected = (item.source == paymentMethod.source)
         }
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
@@ -129,7 +128,7 @@ class KTPaymentManager: KTDALManager
     
     func deletePaymentMethods(_ paymentMethod : KTPaymentMethod)
     {
-        let predicate : NSPredicate = NSPredicate(format:"id = %d" , paymentMethod.id)
+        let predicate : NSPredicate = NSPredicate(format:"source = %d" , paymentMethod.source!)
         
         KTPaymentMethod.mr_deleteAll(matching: predicate)
     }
@@ -161,7 +160,7 @@ class KTPaymentManager: KTDALManager
     {
         let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: ""]
 
-        let url = Constants.APIURL.DeletePaymentMethod + String(paymentMethod.id)
+        let url = Constants.APIURL.DeletePaymentMethod + paymentMethod.source!
         
         self.delete(url: url, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in
@@ -170,10 +169,10 @@ class KTPaymentManager: KTDALManager
         )
     }
     
-    func payTripAtServer(payTrip: PayTripBeanForServer, completion completionBlock: @escaping KTDALCompletionBlock)
+    func payTripAtServer(_ source: String, _ data : String, completion completionBlock: @escaping KTDALCompletionBlock)
     {
-        let param : NSDictionary = [Constants.PayTripAPIKey.Source: payTrip.paymentMethodId,
-                                    Constants.PayTripAPIKey.Data: payTrip.data]
+        let param : NSDictionary = [Constants.PayTripAPIKey.Source: source,
+                                    Constants.PayTripAPIKey.Data: data]
         
         self.put(url: Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in
