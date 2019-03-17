@@ -156,13 +156,13 @@ class KTPaymentManager: KTDALManager
         )
     }
     
-    func deletePaymentAtServer(paymentMethod: KTPaymentMethod, completion completionBlock: @escaping KTDALCompletionBlock)
+    func deletePaymentAtServer(paymentMethod: String, completion completionBlock: @escaping KTDALCompletionBlock)
     {
-        let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: ""]
+        let param : NSDictionary = [Constants.PaymentResponseAPIKey.Source: paymentMethod]
 
-        let url = Constants.APIURL.DeletePaymentMethod + paymentMethod.source!
+        let url = Constants.APIURL.DeletePaymentMethod
         
-        self.delete(url: url, param: param as? [String : Any], completion: completionBlock, success:
+        self.post(url: url, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
             }

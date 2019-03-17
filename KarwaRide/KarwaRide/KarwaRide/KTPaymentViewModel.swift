@@ -18,6 +18,7 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func showPayBtn()
     func showTripPaidScene()
     func showPayNonTappableBtn()
+    func show3dSecureController(_ html: String)
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -81,8 +82,9 @@ class KTPaymentViewModel: KTBaseViewModel
         let paymentManager = KTPaymentManager()
 
         let deletionMethod = paymentMethods[indexPath.row]
+        let source = AESEncryption.init().encrypt(deletionMethod.source!)
 
-        paymentManager.deletePaymentAtServer(paymentMethod: deletionMethod) { (status, response) in
+        paymentManager.deletePaymentAtServer(paymentMethod: source) { (status, response) in
 
             self.del?.hideProgressHud()
 
@@ -179,16 +181,9 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         self.del?.showProgressHud(show: true, status: "We are paying your amount")
         
-        let IV = "p@ym3nt8"
-        let PASSWORD = "k@rw@s0lp@ym3nt8k@rw@s0l"
         let message = selectedPaymentMethod.source!
 
-        let data: NSData! = message.data(using: .utf8)! as NSData
-        let keyData: NSData! = PASSWORD.data(using: .utf8)! as NSData
-        let ivData: NSData! = IV.data(using: .utf8)! as NSData
-        let base64cryptString = self.crypt(data: data, keyData: keyData, ivData: ivData)
-
-        KTPaymentManager().payTripAtServer(base64cryptString, payTripBean.data) { (success, response) in
+        KTPaymentManager().payTripAtServer(AESEncryption.init().encrypt(message), payTripBean.data) { (success, response) in
 
             self.del?.hideProgressHud()
 
@@ -207,32 +202,6 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
     
-    func crypt(data:NSData, keyData:NSData, ivData:NSData) -> String {
-        
-        var base64cryptString = String()
-        let cryptData    = NSMutableData(length: Int(data.length) + kCCBlockSize3DES)!
-        let keyLength              = size_t(keyData.length)
-        let operation: CCOperation = UInt32(kCCEncrypt)
-        let algoritm:  CCAlgorithm = UInt32(kCCAlgorithm3DES)
-        let options:   CCOptions   = UInt32(kCCOptionPKCS7Padding)
-        
-        var numBytesEncrypted :size_t = 0
-        let cryptStatus = CCCrypt(operation,
-                                  algoritm,
-                                  options,
-                                  keyData.bytes, keyLength,
-                                  ivData.bytes,
-                                  data.bytes, data.length,
-                                  cryptData.mutableBytes, cryptData.length,
-                                  &numBytesEncrypted)
-        
-        if UInt32(cryptStatus) == UInt32(kCCSuccess) {
-            cryptData.length = Int(numBytesEncrypted)
-            base64cryptString = cryptData.base64EncodedString(options: .endLineWithLineFeed)
-        }
-        return base64cryptString
-    }
-    
     // Call the gateway to update the session.
     func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:UInt, _ year:UInt)
     {
@@ -247,8 +216,9 @@ class KTPaymentViewModel: KTBaseViewModel
         else
         {
             // MARK: - Gateway Setup
-            let gateway: Gateway = Gateway(region: GatewayRegion.mtf, merchantId: "TESTMOWKAREVL01")
-            
+
+            let gateway: Gateway = Gateway(region: GatewayRegion.mtf, merchantId: Constants.MERCHANT_ID)
+
             var request = GatewayMap()
             request[at: "sourceOfFunds.provided.card.nameOnCard"] = cardHolderName
             request[at: "sourceOfFunds.provided.card.number"] = cardNo
@@ -281,7 +251,9 @@ class KTPaymentViewModel: KTBaseViewModel
                     message = explination
                 }
                 
-                self.del?.showErrorBanner("   ", message)
+                DispatchQueue.main.async {
+                    self.del?.showErrorBanner("   ", message)
+                }
 
                 break;
         }
@@ -296,14 +268,14 @@ class KTPaymentViewModel: KTBaseViewModel
 
             if status == Constants.APIResponseStatus.SUCCESS
             {
-                AnalyticsUtil.trackAddPaymentMethod("")
-                
-                self.del?.showSuccessBanner("  ", "Payment method added successfully")
-                
-                self.del?.showProgressHud(show: true, status: "Updating payment methods")
-                KTPaymentManager().fetchPaymentsFromServer{(status, response) in
-                    self.del?.hideProgressHud()
-                    self.fetchnPaymentMethods()
+                let html = response["Html"] as? String
+                if(html != nil)
+                {
+                    self.del?.show3dSecureController(html!)
+                }
+                else
+                {
+                    self.updatePaymentMethod()
                 }
             }
             else
@@ -311,6 +283,17 @@ class KTPaymentViewModel: KTBaseViewModel
                 self.del?.showErrorBanner("   ", response["M"] as! String)
             }
         })
+    }
+    
+    func updatePaymentMethod()
+    {
+        AnalyticsUtil.trackAddPaymentMethod("")
+        self.del?.showProgressHud(show: true, status: "Updating payment methods")
+        KTPaymentManager().fetchPaymentsFromServer{(status, response) in
+            self.del?.hideProgressHud()
+            self.del?.showSuccessBanner("  ", "Payment method added successfully")
+            self.fetchnPaymentMethods()
+        }
     }
     
     func rowSelected(atIndex idx: Int)

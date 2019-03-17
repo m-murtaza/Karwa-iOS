@@ -427,6 +427,40 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         return viewController
     }
+    
+    internal func show3dSecureController(_ html:String)
+    {
+        // create the Gateway3DSecureViewController
+        let threeDSecureView = Gateway3DSecureViewController(nibName: nil, bundle: nil)
+        
+        // Optionally, customize the presentation
+        threeDSecureView.title = "3D Secure for Karwa Payment"
+        threeDSecureView.navBar.tintColor = UIColor(red: 1, green: 0.357, blue: 0.365, alpha: 1)
+        // present the 3DSecureViewController
+        present(threeDSecureView, animated: true)
+
+        // provide the html content and a handler
+        threeDSecureView.authenticatePayer(htmlBodyContent: html) { (threeDSView, result) in
+            // dismiss the 3-D Secure view controller
+            threeDSView.dismiss(animated: true)
+
+            // handle the result case
+            switch result
+            {
+                case .completed(summaryStatus: "<FAILED STATUS>", threeDSecureId: _):
+                    // failed authentication
+                    break;
+                case .completed(summaryStatus: _, threeDSecureId: let id):
+                    // continue with the payment for all other statuses
+                    self.vModel!.updatePaymentMethod()
+                    break;
+                default:
+                    // authentication was cancelled
+                    break;
+                
+            }
+        }
+    }
 
 }
 

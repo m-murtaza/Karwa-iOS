@@ -86,6 +86,10 @@ struct Constants {
     static let TOSUrl:String = "http://www.karwatechnologies.com/fare.htm"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
+
+    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
+//    public static final String MERCHANT_ID = "KTQNB01"
+    
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
@@ -397,9 +401,9 @@ struct Constants {
         static let CreateComplaint = "complaint/add"
         static let GetPayments = "payment/methods"
         static let PayTrip = "trip/pay"
-        static let MPGSSuccessToServer = "mpgs/tokenize"
+        static let MPGSSuccessToServer = "mpgs/3ds"
         static let MPGSCreateSession = "mpgs/session"
-        static let DeletePaymentMethod = "payment/"
+        static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
     }
     
