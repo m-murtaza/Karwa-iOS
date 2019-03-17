@@ -449,6 +449,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             {
                 case .completed(summaryStatus: "<FAILED STATUS>", threeDSecureId: _):
                     // failed authentication
+                    self.vModel!.mpgs3dSecureFailure("3D Secure Failed")
                     break;
                 case .completed(summaryStatus: _, threeDSecureId: let id):
                     // continue with the payment for all other statuses
@@ -456,6 +457,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
                     break;
                 default:
                     // authentication was cancelled
+                    self.vModel!.mpgs3dSecureFailure("3D Secure Failed")
                     break;
                 
             }
