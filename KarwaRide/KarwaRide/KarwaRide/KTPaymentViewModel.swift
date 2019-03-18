@@ -285,7 +285,7 @@ class KTPaymentViewModel: KTBaseViewModel
         })
     }
     
-    func mpgs3dSecureFailure(_ result: String)
+    func kmpgs3dSecureFailure(_ result: String)
     {
         self.del?.showErrorBanner("   ", result)
     }
