@@ -12,7 +12,7 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate {
 
 //    let url = "http://www.karwatechnologies.com/fare.htm"
-    let url = "http://consumerhelp.karwatechnologies.com/?t="
+    let url = "http://consumerhelp.karwatechnologies.com/?sid="
     
     @IBOutlet weak var webView : WKWebView?
 
@@ -22,7 +22,7 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
 
-        let urlWithTime = url + String(currentTimeInMilliSeconds())
+        let urlWithTime = url + KTAppSessionInfo.currentSession.sessionId!
         
         let request = URLRequest(url: URL(string: urlWithTime)!)
         webView?.load(request)
@@ -47,10 +47,10 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
     }
     */
     
-    func currentTimeInMilliSeconds() -> Int
+    /*func currentTimeInMilliSeconds() -> Int
     {
         let currentDate = Date()
         let since1970 = currentDate.timeIntervalSince1970
         return Int(since1970 * 1000)
-    }
+    }*/
 }
