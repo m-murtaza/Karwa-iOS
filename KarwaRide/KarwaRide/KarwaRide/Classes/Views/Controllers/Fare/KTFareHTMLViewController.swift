@@ -12,7 +12,7 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate {
 
 //    let url = "http://www.karwatechnologies.com/fare.htm"
-    let url = "http://consumerhelp.karwatechnologies.com/?sid="
+    let url = "https://consumerhelp.karwatechnologies.com/?sid="
     
     @IBOutlet weak var webView : WKWebView?
 
