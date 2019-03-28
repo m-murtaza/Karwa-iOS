@@ -11,8 +11,8 @@ import WebKit
 
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate {
 
-    let fareURL = "http://www.karwatechnologies.com/fare.htm"
-//    let helpURL = "http://stagemursaalapi.karwasolutions.com:9002/"
+//    let url = "http://www.karwatechnologies.com/fare.htm"
+    let url = "http://consumerhelp.karwatechnologies.com/?t="
     
     @IBOutlet weak var webView : WKWebView?
 
@@ -21,7 +21,10 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
 
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
-        let request = URLRequest(url: URL(string: fareURL)!)
+
+        let urlWithTime = url + String(currentTimeInMilliSeconds())
+        
+        let request = URLRequest(url: URL(string: urlWithTime)!)
         webView?.load(request)
     }
 
@@ -43,5 +46,11 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func currentTimeInMilliSeconds() -> Int
+    {
+        let currentDate = Date()
+        let since1970 = currentDate.timeIntervalSince1970
+        return Int(since1970 * 1000)
+    }
 }

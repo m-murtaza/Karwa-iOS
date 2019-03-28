@@ -379,7 +379,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By pressing set destination, start your booking will let you start your booking instantly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTF-yJ-glx">
-                                <rect key="frame" x="43" y="534" width="289" height="58"/>
+                                <rect key="frame" x="43" y="534" width="289" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="SoI-Yg-DsK"/>
                                 </constraints>
@@ -2145,7 +2145,7 @@
             </objects>
             <point key="canvasLocation" x="4654" y="331"/>
         </scene>
-        <!--Fare Details-->
+        <!--Help-->
         <scene sceneID="uoB-wm-WMe">
             <objects>
                 <viewController id="0BM-Ze-1eP" customClass="KTFareHTMLViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
@@ -2171,7 +2171,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f4g-KA-X8v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Fare Details" id="wsL-DV-akw">
+                    <navigationItem key="navigationItem" title="Help" id="wsL-DV-akw">
                         <barButtonItem key="leftBarButtonItem" image="RevealButton" id="wcw-ef-eDr">
                             <connections>
                                 <action selector="presentLeftMenuViewController" destination="0BM-Ze-1eP" id="mpg-rR-4Ac"/>
@@ -8274,7 +8274,7 @@
         <segue reference="N6S-jP-c4x"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="izn-m5-Pdm"/>
+        <segue reference="bsC-QL-uBN"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
         <segue reference="Pzn-gK-scz"/>
