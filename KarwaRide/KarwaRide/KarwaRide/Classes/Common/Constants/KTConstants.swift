@@ -87,8 +87,8 @@ struct Constants {
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
-    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
-//    public static final String MERCHANT_ID = "KTQNB01"
+//    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
+    static let MERCHANT_ID:String = "KTQNB01"
     
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     
