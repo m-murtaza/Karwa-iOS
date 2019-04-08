@@ -12,7 +12,8 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate {
 
 //    let url = "http://www.karwatechnologies.com/fare.htm"
-    let url = "https://consumerhelp.karwatechnologies.com/?sid="
+//    let url = "https://consumerhelp.karwatechnologies.com/"    //live
+    let url = "http://stagemursaalapi.karwasolutions.com:9001/" // stage
     
     @IBOutlet weak var webView : WKWebView?
 
@@ -22,12 +23,17 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
 
-        let urlWithTime = url + KTAppSessionInfo.currentSession.sessionId!
+        let urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)&t=\(currentTimeInMilliSeconds())"
         
-        let request = URLRequest(url: URL(string: urlWithTime)!)
+        let request = URLRequest(url: URL(string: urlWithTimeAndSessionId)!)
         webView?.load(request)
     }
 
+    @IBAction func backPressed(_ sender: Any) {
+        
+        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuViewController?.hideMenuViewController()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,10 +53,10 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
     }
     */
     
-    /*func currentTimeInMilliSeconds() -> Int
+    func currentTimeInMilliSeconds() -> Int
     {
         let currentDate = Date()
         let since1970 = currentDate.timeIntervalSince1970
         return Int(since1970 * 1000)
-    }*/
+    }
 }
