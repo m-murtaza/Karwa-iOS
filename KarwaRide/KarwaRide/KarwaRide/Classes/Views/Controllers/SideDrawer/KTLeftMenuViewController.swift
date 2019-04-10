@@ -58,20 +58,20 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
-        if(indexPath.row != 4)
-        {
+//        if(indexPath.row != 4)
+//        {
             if lastSelectedCell != nil {
-                
+
                 lastSelectedCell?.sideView.isHidden = true
                 lastSelectedCell?.imgSelected.isHidden = true
             }
-            
+
             let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
             cell.sideView.isHidden = false
             cell.imgSelected.isHidden = false
-            
+
             lastSelectedCell = cell
-        }
+//        }
 
         switch indexPath.row {
         case 0:
@@ -93,11 +93,11 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
             sideMenuViewController?.hideMenuViewController()
             break
+//        case 4:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
         case 4:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-            sideMenuViewController?.hideMenuViewController()
-            break
-        case 5:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
             sideMenuViewController?.hideMenuViewController()
             break
