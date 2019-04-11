@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -890,7 +890,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
-                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
+                                <rect key="frame" x="43" y="534" width="289" height="37.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="hO4-x0-oIG"/>
                                 </constraints>
@@ -2172,9 +2172,9 @@
                         <viewLayoutGuide key="safeArea" id="f4g-KA-X8v"/>
                     </view>
                     <navigationItem key="navigationItem" title="Help" id="wsL-DV-akw">
-                        <barButtonItem key="leftBarButtonItem" image="RevealButton" id="wcw-ef-eDr">
+                        <barButtonItem key="leftBarButtonItem" image="CrossBarButton" id="wcw-ef-eDr">
                             <connections>
-                                <action selector="presentLeftMenuViewController" destination="0BM-Ze-1eP" id="mpg-rR-4Ac"/>
+                                <action selector="backPressed:" destination="0BM-Ze-1eP" id="09c-U6-AXA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -5028,7 +5028,7 @@
                                 <rect key="frame" x="17.5" y="93.5" width="340" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A BC Driver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXs-hM-ckE">
-                                        <rect key="frame" x="8" y="54" width="85" height="19"/>
+                                        <rect key="frame" x="8" y="54" width="84" height="19"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -5183,13 +5183,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall good experience, impressed with the service, but needs some improvements" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-6o-BFJ">
-                                        <rect key="frame" x="31" y="225" width="278" height="24"/>
+                                        <rect key="frame" x="31" y="225" width="278" height="23.5"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlB-Bm-JwG" customClass="RKTagsView">
-                                        <rect key="frame" x="8" y="264" width="324" height="120"/>
+                                        <rect key="frame" x="8" y="263.5" width="324" height="120"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="Zhh-jZ-m3t"/>
@@ -5592,7 +5592,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_arrow_right_lrg" translatesAutoresizingMaskIntoConstraints="NO" id="ysq-Q0-eGW">
-                                                    <rect key="frame" x="346" y="31.5" width="14" height="7"/>
+                                                    <rect key="frame" x="344" y="27" width="16" height="16"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -6667,7 +6667,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NgZ-4b-9oe" customClass="SpringButton" customModule="Spring">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="40"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
-                                        <state key="normal" title="LIST VIEW">
+                                        <state key="normal" title="ADDRESSES">
                                             <color key="titleColor" red="0.070588235294117646" green="0.59215686274509804" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -6687,7 +6687,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNq-qv-GJ6" customClass="SpringButton" customModule="Spring">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="40"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
-                                        <state key="normal" title="MAP VIEW">
+                                        <state key="normal" title="MAP">
                                             <color key="titleColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -8203,7 +8203,7 @@
         <image name="SettingsInitialsHolder" width="55" height="55"/>
         <image name="Signinbutton" width="345" height="80"/>
         <image name="SummitButton" width="293" height="51"/>
-        <image name="UnderConstruction" width="360" height="245.75999450683594"/>
+        <image name="UnderConstruction" width="750" height="512"/>
         <image name="arrows" width="196" height="14"/>
         <image name="bottom_action_bar" width="375" height="56"/>
         <image name="bottom_container" width="375" height="170"/>

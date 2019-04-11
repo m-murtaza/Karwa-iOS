@@ -58,18 +58,19 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
-        if(indexPath.row != 4)
+        // Don't highlight the Help Left Menu when tapped, because it open up in different VC
+        if(indexPath.row != 3)
         {
             if lastSelectedCell != nil {
-                
+
                 lastSelectedCell?.sideView.isHidden = true
                 lastSelectedCell?.imgSelected.isHidden = true
             }
-            
+
             let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
             cell.sideView.isHidden = false
             cell.imgSelected.isHidden = false
-            
+
             lastSelectedCell = cell
         }
 
@@ -93,11 +94,11 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
             sideMenuViewController?.hideMenuViewController()
             break
+//        case 4:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
         case 4:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-            sideMenuViewController?.hideMenuViewController()
-            break
-        case 5:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
             sideMenuViewController?.hideMenuViewController()
             break
