@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate {
+class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate,WKUIDelegate {
 
 //    let url = "http://www.karwatechnologies.com/fare.htm"
 //    let url = "https://consumerhelp.karwatechnologies.com/"    //live
@@ -26,6 +26,9 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         let urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)&t=\(currentTimeInMilliSeconds())"
         
         let request = URLRequest(url: URL(string: urlWithTimeAndSessionId)!)
+        
+        showProgressHud(show: true)
+        
         webView?.load(request)
     }
 
@@ -41,8 +44,9 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("Finished navigating to url \(String(describing: webView.url))")
+        hideProgressHud()
     }
-
+    
     /*
     // MARK: - Navigation
 

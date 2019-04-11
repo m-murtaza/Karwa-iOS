@@ -58,8 +58,9 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
-//        if(indexPath.row != 4)
-//        {
+        // Don't highlight the Help Left Menu when tapped, because it open up in different VC
+        if(indexPath.row != 3)
+        {
             if lastSelectedCell != nil {
 
                 lastSelectedCell?.sideView.isHidden = true
@@ -71,7 +72,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             cell.imgSelected.isHidden = false
 
             lastSelectedCell = cell
-//        }
+        }
 
         switch indexPath.row {
         case 0:
