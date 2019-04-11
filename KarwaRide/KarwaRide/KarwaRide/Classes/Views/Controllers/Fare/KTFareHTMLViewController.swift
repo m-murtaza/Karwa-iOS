@@ -12,8 +12,8 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate,WKUIDelegate {
 
 //    let url = "http://www.karwatechnologies.com/fare.htm"
-//    let url = "https://consumerhelp.karwatechnologies.com/"    //live
-    let url = "http://stagemursaalapi.karwasolutions.com:9001/" // stage
+    let url = "https://consumerhelp.karwatechnologies.com/"    //live
+//    let url = "http://stagemursaalapi.karwasolutions.com:9001/" // stage
     
     @IBOutlet weak var webView : WKWebView?
 
