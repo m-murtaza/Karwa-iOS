@@ -23,7 +23,7 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
 
-        let urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)&t=\(currentTimeInMilliSeconds())"
+        let urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
         
         let request = URLRequest(url: URL(string: urlWithTimeAndSessionId)!)
         
