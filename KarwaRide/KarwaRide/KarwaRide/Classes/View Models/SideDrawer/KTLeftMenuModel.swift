@@ -69,7 +69,7 @@ class KTLeftMenuModel: KTBaseViewModel {
         let menuItem3 : KTMenuItems = KTMenuItems(title: "Notifications", image: UIImage(named:"LMNotification")!, color: UIColor(hexString: "#9B9B9B"), isNew: false)
         drawerOptions.append(menuItem3)
         
-        let menuItem4 : KTMenuItems = KTMenuItems(title: "Help", image: UIImage(named:"help")!, color: UIColor(hexString: "#1BB4B4"), isNew: false)
+        let menuItem4 : KTMenuItems = KTMenuItems(title: "Help", image: UIImage(named:"help")!, color: UIColor(hexString: "#1BB4B4"), isNew: true)
         drawerOptions.append(menuItem4)
         
 //        let menuItem5 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: true)
