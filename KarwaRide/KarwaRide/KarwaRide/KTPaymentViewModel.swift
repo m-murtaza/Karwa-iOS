@@ -19,6 +19,8 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func showTripPaidScene()
     func showPayNonTappableBtn()
     func show3dSecureController(_ html: String)
+    func showbarcodeScanner(show: Bool)
+    func gotoDashboardRequired(required: Bool)
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -157,9 +159,13 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             self.del?.showEmptyScreen()
             self.del?.showPayNonTappableBtn()
+            self.del?.showbarcodeScanner(show: false)
+            self.del?.gotoDashboardRequired(required: true)
         }
         else
         {
+            self.del?.gotoDashboardRequired(required: false)
+            self.del?.showbarcodeScanner(show: true)
             self.del?.hideEmptyScreen()
         }
         self.del?.reloadTableData()

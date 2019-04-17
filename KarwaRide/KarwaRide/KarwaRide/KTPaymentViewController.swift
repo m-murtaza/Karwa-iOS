@@ -33,6 +33,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
     var isTriggeredFromUniversalLink = false
+    var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
 
     override func viewDidLoad()
@@ -50,11 +51,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         CardIOUtilities.preload()
 
-        if(!isTriggeredFromUniversalLink)
-        {
-            presentBarcodeScanner()
-            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
-        }
+//        showbarcodeScanner(show: true)
         
         tripPaidSuccessImageView.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
@@ -101,6 +98,18 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnAdd.animate()
     }
 
+    func showbarcodeScanner(show: Bool)
+    {
+        if(!isTriggeredFromUniversalLink)
+        {
+            if(show)
+            {
+                presentBarcodeScanner()
+            }
+            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
+        }
+    }
+    
     func fillPayTripData(_ payTripBean: PayTripBeanForServer?)
     {
         if(payTripBean != nil)
@@ -180,7 +189,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showTripPaidScene()
     {
-        //TODO
         showPaidSuccessBtn()
         tableView.isHidden = true
 
@@ -337,6 +345,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnEdit.title = "Edit"
     }
     
+    func gotoDashboardRequired(required: Bool)
+    {
+        gotoDashboardRequired = required
+    }
+
     func reloadTableData()
     {
         tableView.reloadData()
@@ -357,12 +370,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
     @IBAction func btnBackTapped(_ sender: Any)
     {
-        if(isPaidSuccessfullShowed)
+        if(isPaidSuccessfullShowed || gotoDashboardRequired)
         {
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuViewController?.hideMenuViewController()
+            gotoDashboard()
         }
-        else if(isManageButtonPressed)
+        else if(isManageButtonPressed || !gotoDashboardRequired)
         {
             presentBarcodeScanner()
             isManageButtonPressed = !isManageButtonPressed
@@ -372,6 +384,13 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             dismiss()
         }
     }
+    
+    func gotoDashboard()
+    {
+        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuViewController?.hideMenuViewController()
+    }
+    
     func presentAddCardViewController()
     {
         let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
