@@ -72,6 +72,7 @@
 		1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */; };
 		1811E4EF205A2FFE00C3C47F /* KTBookingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */; };
 		1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */; };
+		1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812D8942280470E00A424CD /* KTProfileCellViewController.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -264,6 +265,7 @@
 		1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsTableViewCell.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsTableViewCell.swift; sourceTree = "<group>"; };
 		1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingDetailsViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTBookingDetailsViewController.swift; sourceTree = "<group>"; };
 		1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingDetailsViewModel.swift; path = "Classes/View Models/BookingDetails/KTBookingDetailsViewModel.swift"; sourceTree = "<group>"; };
+		1812D8942280470E00A424CD /* KTProfileCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTProfileCellViewController.swift; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -931,7 +933,6 @@
 				186487231F0A362E00DDB003 /* Login */,
 				186487211F0A361B00DDB003 /* KTBaseViewController.swift */,
 				1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */,
-				1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1215,8 +1216,10 @@
 				1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */,
 				1839111920457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift */,
 				1811E4CF204E723C00C3C47F /* KTEditAccountViewController.swift */,
+				1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */,
 				1811E4D7204EB09D00C3C47F /* KTChangePasswordViewController.swift */,
 				1811E4D9204FB34600C3C47F /* KTSetHomeWorkViewController.swift */,
+				1812D8942280470E00A424CD /* KTProfileCellViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1522,6 +1525,7 @@
 				0D80810A21AE60FA0055E473 /* KTTrackTripViewModel.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
+				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
