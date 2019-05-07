@@ -52,6 +52,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     }
     
     
+    
     func reloadTable()  {
         self.tableView.reloadData()
     }

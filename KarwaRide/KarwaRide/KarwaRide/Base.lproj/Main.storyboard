@@ -3665,9 +3665,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UbI-Rt-8eO">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UbI-Rt-8eO">
+                                <rect key="frame" x="0.0" y="64" width="375" height="583"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="identifierProfileCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifierProfileCell" id="eRV-dJ-jL5" customClass="KTProfileCellViewController" customModule="KarwaRide" customModuleProvider="target">
@@ -3677,10 +3676,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OOSAMA MUHAMMAD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYF-UH-lgC">
-                                                    <rect key="frame" x="153" y="0.0" width="222" height="43.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OOSAMA MUHAMMAD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYF-UH-lgC">
+                                                    <rect key="frame" x="129" y="0.0" width="228" height="44"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="222" id="gIJ-G9-GOx"/>
+                                                        <constraint firstAttribute="width" constant="228" id="gIJ-G9-GOx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3696,10 +3695,10 @@
                                             <constraints>
                                                 <constraint firstItem="gYF-UH-lgC" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="top" id="01y-eU-Bzk"/>
                                                 <constraint firstAttribute="bottom" secondItem="gYF-UH-lgC" secondAttribute="bottom" id="2F5-ON-DZE"/>
-                                                <constraint firstAttribute="trailing" secondItem="gYF-UH-lgC" secondAttribute="trailing" id="USM-3L-gAB"/>
+                                                <constraint firstAttribute="trailing" secondItem="gYF-UH-lgC" secondAttribute="trailing" constant="18" id="USM-3L-gAB"/>
                                                 <constraint firstItem="a8p-D5-41C" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="topMargin" id="UcX-55-tS4"/>
                                                 <constraint firstItem="a8p-D5-41C" firstAttribute="leading" secondItem="3Yx-IE-VjC" secondAttribute="leadingMargin" constant="10" id="W0z-aR-vwU"/>
-                                                <constraint firstItem="gYF-UH-lgC" firstAttribute="leading" secondItem="a8p-D5-41C" secondAttribute="trailing" constant="25" id="iq3-wf-R1Q"/>
+                                                <constraint firstItem="gYF-UH-lgC" firstAttribute="leading" secondItem="a8p-D5-41C" secondAttribute="trailing" constant="1" id="iq3-wf-R1Q"/>
                                                 <constraint firstItem="a8p-D5-41C" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="topMargin" id="iqM-OQ-iPn"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="a8p-D5-41C" secondAttribute="bottom" id="jTf-Ul-jMh"/>
                                             </constraints>
@@ -3712,7 +3711,13 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91639560461044312" green="0.96850448846817017" blue="0.96036726236343384" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="top" secondItem="tPr-bl-WGY" secondAttribute="top" id="5ur-MA-EZ2"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="bottom" secondItem="tPr-bl-WGY" secondAttribute="bottom" constant="-20" id="O2V-9y-Xqf"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="trailing" secondItem="tPr-bl-WGY" secondAttribute="trailing" id="Xd7-pb-DQ3"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="leading" secondItem="tPr-bl-WGY" secondAttribute="leading" id="h6y-QP-4E7"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="tPr-bl-WGY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Account Info" id="wYs-h4-8sP">
@@ -3724,7 +3729,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ccz-6g-xpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2520.8000000000002" y="2842.1289355322342"/>
+            <point key="canvasLocation" x="2404" y="3125.4872563718145"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="S3V-ST-3aZ">

@@ -24,10 +24,12 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         
         self.tableView.rowHeight = 70
         self.tableView.tableFooterView = UIView()
-        tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        UITableView_Auto_Height()
+    }
 
     func showSuccessAltAndMoveBack()
     {
@@ -65,14 +67,17 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
             lblSectionHeader.text = "Basic Info"
             lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
             lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+            view.backgroundColor = UIColor(hexString: "#EFFAF8")
             view.addSubview(lblSectionHeader)
         }
         if section == 1
         {
+            
             let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
             lblSectionHeader.text = "Other"
             lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
             lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+            view.backgroundColor = UIColor(hexString: "#EFFAF8")
             view.addSubview(lblSectionHeader)
         }
         
@@ -142,6 +147,15 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
             if indexPath.row == 0 {
                 (viewModel as! KTSettingsViewModel).startLogoutProcess()
             }
+        }
+    }
+    
+    func UITableView_Auto_Height()
+    {
+        if(self.tableView.contentSize.height < self.tableView.frame.height){
+            var frame: CGRect = self.tableView.frame;
+            frame.size.height = self.tableView.contentSize.height;
+            self.tableView.frame = frame;
         }
     }
 }
