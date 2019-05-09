@@ -446,6 +446,9 @@ struct Constants {
     struct EditAccountInfoParam {
         static let Name = "Name"
         static let Email = "Email"
+        static let dob = "Dob"
+        static let gender = "Gender"
+        static let isEmailVerified = "IsEmailVerified"
         static let OldPassword = "Password"
         static let NewPassword = "NewPassword"
         static let DeviceToken = "DeviceToken"

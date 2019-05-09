@@ -12,7 +12,7 @@ import Spring
 class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDelegate,UITableViewDelegate,UITableViewDataSource
 {
     @IBOutlet weak var tableView: UITableView!
-
+    
     override func viewDidLoad()
     {
         viewModel = KTEditUserViewModel(del: self)
@@ -24,6 +24,7 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         
         self.tableView.rowHeight = 70
         self.tableView.tableFooterView = UIView()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -94,60 +95,85 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
 
         if indexPath.section == 0 && indexPath.row == 0 {
             cell.label.text = "Name"
-            cell.value.text = "OOSAMA ASHRAF"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userName()
         }
         else if indexPath.section == 0 && indexPath.row == 1 {
             cell.label.text = "Phone"
-            cell.value.text = "99999999"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userPhone()
         }
         else if indexPath.section == 0 && indexPath.row == 2 {
             cell.label.text = "Email"
-            cell.value.text = "osama.ashraf2005@gmail.com"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userEmail()
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
             cell.label.text = "Gender"
-            cell.value.text = "Male"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userGender()
         }
         else if indexPath.section == 1 && indexPath.row == 1 {
             cell.label.text = "Date of birth"
-            cell.value.text = "31 Mar 1987"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userDOB()
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == 0
+        {
             if indexPath.row == 0
             {
-                self.performSegue(name: "segueSettingToEditAccount")
+                showInputDialog(header: "Name", currentText: (viewModel as! KTEditUserViewModel).userName(), inputType: "name")
+            }
+            else if(indexPath.row == 2)
+            {
+                showInputDialog(header: "Email", currentText: (viewModel as! KTEditUserViewModel).userEmail(), inputType: "email")
             }
         }
-        else if indexPath.section == 1 {
+        else if indexPath.section == 1
+        {
             if indexPath.row == 0
             {
-                self.performSegue(name: "segueSettingToChangePassword")
+                //TODO: show Gender spinner
             }
-        }
-        else if indexPath.section == 2 {
-            if indexPath.row == 0
+            else if indexPath.row == 1
             {
-                self.performSegue(name: "segueSettingsToSetHome")
-            }
-            else if indexPath.row == 1 {
-                self.performSegue(name: "segueSettingsToSetWork")
+                //TODO: show DOB Spinner
             }
         }
-        else if indexPath.section == 3 {
-            if indexPath.row == 0{
-                (viewModel as! KTSettingsViewModel).rateApplication()
-            }
-        }
-            
-        else if indexPath.section == 4 {
-            if indexPath.row == 0 {
-                (viewModel as! KTSettingsViewModel).startLogoutProcess()
-            }
-        }
+    }
+    
+    func saveName(inputText: String)
+    {
+        //TODO:
+    }
+
+    func saveEmail(inputText: String)
+    {
+        //TODO:
+    }
+    
+    func saveGender(inputText: String)
+    {
+        //TODO:
+    }
+
+    func saveDob(inputText: String)
+    {
+        //TODO:
+    }
+    
+    
+    
+    func showInputDialog(header: String, currentText : String, inputType: String)
+    {
+        let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
+        inputPopup.previousView = self
+//        inputPopup.view.frame = self.view.bounds
+        view.addSubview(inputPopup.view)
+        addChildViewController(inputPopup)
+        
+        inputPopup.inputType = inputType
+        inputPopup.header.text = header
+        inputPopup.txtPickupHint.text = currentText
     }
     
     func UITableView_Auto_Height()

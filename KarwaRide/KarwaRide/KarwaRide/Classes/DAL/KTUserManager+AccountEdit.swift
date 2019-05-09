@@ -10,15 +10,27 @@ import Foundation
 import MagicalRecord
 extension KTUserManager {
     
-    func updateUserInfo(name: String, email: String, completion completionBlock:@escaping KTDALCompletionBlock) {
+    func updateUserInfo(
+        name: String,
+        email: String,
+        dob: String,
+        gender: Int16,
+        completion completionBlock:@escaping KTDALCompletionBlock) {
         let param : NSMutableDictionary = [Constants.EditAccountInfoParam.Name : name,
-                                           Constants.EditAccountInfoParam.Email : email]
+                                           Constants.EditAccountInfoParam.Email : email,
+                                           Constants.EditAccountInfoParam.dob : dob,
+                                           Constants.EditAccountInfoParam.gender : gender
+                                          ]
         
         updateUserInfo(param: param as! [String : Any], completion: { (status, response) in
             
                 let user : KTUser = self.loginUserInfo()!
                 user.name = param[Constants.EditAccountInfoParam.Name] as? String
                 user.email = param[Constants.EditAccountInfoParam.Email] as? String
+                user.dob = param[Constants.EditAccountInfoParam.dob] as? String
+                user.gender = param[Constants.EditAccountInfoParam.gender] as? Int16 ?? 0
+                user.isEmailVerified = param[Constants.EditAccountInfoParam.isEmailVerified] as? Bool ?? false
+
                 NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
             
             completionBlock(Constants.APIResponseStatus.SUCCESS,response)

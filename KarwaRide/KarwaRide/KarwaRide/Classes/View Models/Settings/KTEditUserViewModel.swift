@@ -53,12 +53,46 @@ class KTEditUserViewModel: KTBaseViewModel {
         return phone
     }
     
-    func btnSaveTapped(userName : String?, userEmail : String?) {
+    func userDOB() -> String {
+        var dob :String = "dd mmm yyyy"
+        if user != nil {
+            
+            dob = (user?.dob) ?? "dd mm yyyy"
+        }
+        return dob
+    }
+    
+    func userGender() -> String {
+        var gender :String = "Preder not to mention"
+        if user != nil {
+            switch user?.gender
+            {
+            case 1:
+                gender = "Male"
+                break
+            case 2:
+                gender = "Female"
+                break
+            default:
+                gender = "Preder not to mention"
+                break
+            }
+        }
+        return gender
+    }
+    
+    func btnSaveTapped(userName : String?, userEmail : String?, dob: String, gen: Int16) {
         let error = validate(userName: userName, userEmail: userEmail)
-        if  error.isEmpty {
-            //No error
+        if  error.isEmpty
+        {
             delegate?.showProgressHud(show: true, status: "Updating Account Info")
-            KTUserManager().updateUserInfo(name: userName!, email: (userEmail != nil) ? userEmail! : "", completion: { (status, response) in
+            
+            KTUserManager().updateUserInfo(
+                name: userName!,
+                email: (userEmail != nil) ? userEmail! : "",
+                dob: dob,
+                gender: gen,
+                completion: { (status, response) in
                 self.delegate?.hideProgressHud()
                 if status == Constants.APIResponseStatus.SUCCESS {
                     (self.delegate as! KTEditUserViewModelDelegate).showSuccessAltAndMoveBack()
