@@ -35,7 +35,7 @@ extension KTUserManager {
                 }
 //                user.dob = param[Constants.EditAccountInfoParam.dob] as? Date
                 user.gender = param[Constants.EditAccountInfoParam.gender] as? Int16 ?? 0
-                user.isEmailVerified = param[Constants.EditAccountInfoParam.isEmailVerified] as? Bool ?? false
+            user.isEmailVerified = (param[Constants.EditAccountInfoParam.isEmailVerified] as? Int) == 0 ? false: true
 
                 NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
             
