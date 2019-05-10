@@ -12,7 +12,8 @@ import Spring
 class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDelegate,UITableViewDelegate,UITableViewDataSource
 {
     @IBOutlet weak var tableView: UITableView!
-    
+    private let refreshControl = UIRefreshControl()
+
     override func viewDidLoad()
     {
         viewModel = KTEditUserViewModel(del: self)
@@ -24,10 +25,27 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         
         self.tableView.rowHeight = 70
         self.tableView.tableFooterView = UIView()
-        
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
 
+    @objc func refresh(sender:AnyObject)
+    {
+//        (viewModel as! KTMyTripsViewModel).fetchBookings()
+    }
+    
+    func showProgress()
+    {
+        refreshControl.beginRefreshing()
+    }
+    
+    func hideProgress()
+    {
+        refreshControl.endRefreshing()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         UITableView_Auto_Height()
     }
@@ -132,33 +150,35 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         {
             if indexPath.row == 0
             {
-                //TODO: show Gender spinner
+                showGenderPicker()
             }
             else if indexPath.row == 1
             {
-                //TODO: show DOB Spinner
+                showDateOfBirthPicker()
             }
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func saveName(inputText: String)
     {
-        //TODO:
+        (viewModel as! KTEditUserViewModel).updateName(userName: inputText)
     }
 
     func saveEmail(inputText: String)
     {
-        //TODO:
+        (viewModel as! KTEditUserViewModel).updateEmail(email: inputText)
     }
     
-    func saveGender(inputText: String)
+    func saveGender(gender: Int16)
     {
-        //TODO:
+        (viewModel as! KTEditUserViewModel).updateGender(gender: gender)
     }
 
-    func saveDob(inputText: String)
+    func saveDob(date: Date)
     {
-        //TODO:
+        (viewModel as! KTEditUserViewModel).updateDOB(dob: date)
     }
     
     
@@ -167,13 +187,57 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
         inputPopup.previousView = self
-//        inputPopup.view.frame = self.view.bounds
         view.addSubview(inputPopup.view)
         addChildViewController(inputPopup)
         
         inputPopup.inputType = inputType
         inputPopup.header.text = header
         inputPopup.txtPickupHint.text = currentText
+    }
+    
+    func showGenderPicker()
+    {
+        let alert = UIAlertController(title: "Select Gender", message: "", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Prefer not to mention", style: .default, handler: { (_) in
+            self.saveGender(gender: 0)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Male", style: .default, handler: { (_) in
+            self.saveGender(gender: 1)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Female", style: .default, handler: { (_) in
+            self.saveGender(gender: 2)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
+    }
+    
+    func showDateOfBirthPicker()
+    {
+        let minDate = Date(timeIntervalSinceReferenceDate: -1262327168000)
+        let currentDate = Date()
+        
+        let datePicker = DatePickerDialog(textColor: UIColor(hexString: "4A4A4A"),
+                                          buttonColor: UIColor(hexString: "129793"),
+                                          font: UIFont(name: "MuseoSans-500", size: 18.0)!,
+                                          showCancelButton: true)
+        datePicker.show("Select Date of birth",
+                        doneButtonTitle: "Save",
+                        cancelButtonTitle: "Cancel", defaultDate: (viewModel as! KTEditUserViewModel).userDOBObject(),
+                        minimumDate: minDate,
+                        maximumDate: currentDate,
+                        datePickerMode: .date) { (date) in
+                            if let dt = date
+                            {
+                                self.saveDob(date: dt)
+                            }
+        }
     }
     
     func UITableView_Auto_Height()

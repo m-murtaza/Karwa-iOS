@@ -8,6 +8,9 @@
 
 import UIKit
 protocol KTEditUserViewModelDelegate {
+    func reloadTable()
+    func showProgress()
+    func hideProgress()
     func showSuccessAltAndMoveBack()
 }
 
@@ -55,9 +58,17 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func userDOB() -> String {
         var dob :String = "dd mmm yyyy"
-        if user != nil {
+        if user != nil && user?.dob != nil{
             
-            dob = (user?.dob) ?? "dd mm yyyy"
+            dob = user?.dob?.getUIFormatDate() ?? "dd mmm yyyy"
+        }
+        return dob
+    }
+    
+    func userDOBObject() -> Date {
+        var dob : Date = Date(timeIntervalSinceReferenceDate: 0)
+        if user != nil && user?.dob != nil{
+            dob = user?.dob! ?? Date(timeIntervalSinceReferenceDate: 0)
         }
         return dob
     }
@@ -81,7 +92,29 @@ class KTEditUserViewModel: KTBaseViewModel {
         return gender
     }
     
-    func btnSaveTapped(userName : String?, userEmail : String?, dob: String, gen: Int16) {
+    func updateName(userName: String)
+    {
+        updateProfile(userName: userName, userEmail: user?.email, dob: user?.dob, gen: user!.gender)
+    }
+    
+    func updateEmail(email: String)
+    {
+        updateProfile(userName: user?.name, userEmail: email, dob: user?.dob, gen: user!.gender)
+    }
+    
+    func updateGender(gender: Int16)
+    {
+        updateProfile(userName: user?.name, userEmail: user?.email, dob: user?.dob, gen: gender)
+    }
+
+    func updateDOB(dob: Date)
+    {
+        updateProfile(userName: user?.name, userEmail: user?.email, dob: dob, gen: user!.gender)
+    }
+
+    func updateProfile(userName : String?, userEmail : String?, dob: Date?, gen: Int16)
+    {
+        
         let error = validate(userName: userName, userEmail: userEmail)
         if  error.isEmpty
         {
@@ -90,22 +123,29 @@ class KTEditUserViewModel: KTBaseViewModel {
             KTUserManager().updateUserInfo(
                 name: userName!,
                 email: (userEmail != nil) ? userEmail! : "",
-                dob: dob,
+                dob: dob?.getServerFormatDate() ?? "",
                 gender: gen,
                 completion: { (status, response) in
-                self.delegate?.hideProgressHud()
-                if status == Constants.APIResponseStatus.SUCCESS {
-                    (self.delegate as! KTEditUserViewModelDelegate).showSuccessAltAndMoveBack()
-                }
-                else {
-                    
-                    self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
-                }
+                    self.delegate?.hideProgressHud()
+                    self.reloadData()
+                    if status == Constants.APIResponseStatus.SUCCESS {
+                        (self.delegate as! KTEditUserViewModelDelegate).showSuccessAltAndMoveBack()
+                    }
+                    else {
+                        
+                        self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                    }
             })
         }
         else {
             self.delegate?.showError!(title: "Error" , message: error)
         }
+    }
+    
+    func reloadData()
+    {
+        user = loginUserInfo()
+        (self.delegate as! KTEditUserViewModelDelegate).reloadTable()
     }
     
     func validate(userName : String?, userEmail : String?) -> String {

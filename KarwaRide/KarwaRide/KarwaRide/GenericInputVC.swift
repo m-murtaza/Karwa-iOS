@@ -100,7 +100,7 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
     
     func saveDataWithType(inputText: String)
     {
-        switch inputText {
+        switch inputType {
         case "name":
             previousView?.saveName(inputText: inputText)
             break

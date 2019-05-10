@@ -27,7 +27,13 @@ extension KTUserManager {
                 let user : KTUser = self.loginUserInfo()!
                 user.name = param[Constants.EditAccountInfoParam.Name] as? String
                 user.email = param[Constants.EditAccountInfoParam.Email] as? String
-                user.dob = param[Constants.EditAccountInfoParam.dob] as? String
+            //TODO: parse date nicely please
+            
+                if(!self.isNsnullOrNil(object: param[Constants.EditAccountInfoParam.dob] as AnyObject))
+                {
+                    user.dob = Date.dateFromServerString(date: param[Constants.EditAccountInfoParam.dob] as? String)
+                }
+//                user.dob = param[Constants.EditAccountInfoParam.dob] as? Date
                 user.gender = param[Constants.EditAccountInfoParam.gender] as? Int16 ?? 0
                 user.isEmailVerified = param[Constants.EditAccountInfoParam.isEmailVerified] as? Bool ?? false
 

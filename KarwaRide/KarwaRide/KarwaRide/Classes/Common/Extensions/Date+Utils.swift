@@ -99,7 +99,7 @@ extension Date {
         
         if(strDate != nil && !(strDate?.isEmpty)!) {
             let formatter : DateFormatter = DateFormatter()
-            formatter.dateFormat = Constants.SERVER_DATE_FORMAT
+            formatter.dateFormat = Constants.SERVER_DATE_ONLY_FORMAT
             if formatter.date(from: strDate!) != nil {
                 date  = formatter.date(from: strDate!)! 
             }
@@ -156,6 +156,24 @@ extension Date {
 
     }
 
+    //DUe to server side chotiyapa.
+    func getServerFormatDate() -> String {
+        return String(dayOfMonth()) + "-" + String(month) + "-" + year()
+    }
+    
+    func getUIFormatDate() -> String {
+        return String(dayOfMonth()) + " " + month() + " " + year()
+    }
+    
+    func month() -> String {
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        //formatter.dateStyle = .medium
+        let str = formatter.string(from: self)
+        
+        return str.uppercased()
+    }
+    
     func year() -> String {
         let formatter : DateFormatter = DateFormatter()
         formatter.dateFormat = "yyyy"

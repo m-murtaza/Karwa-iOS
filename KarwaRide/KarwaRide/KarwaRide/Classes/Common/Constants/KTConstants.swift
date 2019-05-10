@@ -91,6 +91,7 @@ struct Constants {
     static let MERCHANT_ID:String = "KTQNB01"
     
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
+    static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
     static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
