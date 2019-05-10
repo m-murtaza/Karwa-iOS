@@ -379,7 +379,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By pressing set destination, start your booking will let you start your booking instantly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTF-yJ-glx">
-                                <rect key="frame" x="43" y="534" width="289" height="56"/>
+                                <rect key="frame" x="43" y="534" width="289" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="SoI-Yg-DsK"/>
                                 </constraints>
@@ -467,7 +467,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="step2_pick&amp;drop" translatesAutoresizingMaskIntoConstraints="NO" id="Jrb-vb-kud" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="123.5" y="218" width="195" height="107"/>
+                                        <rect key="frame" x="123.5" y="218" width="195" height="107.00000000000003"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="195" id="HvI-Iw-Uuw"/>
                                             <constraint firstAttribute="height" constant="107" id="KX5-lU-ebe"/>
@@ -890,7 +890,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
-                                <rect key="frame" x="43" y="534" width="289" height="37.5"/>
+                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="hO4-x0-oIG"/>
                                 </constraints>
@@ -1064,7 +1064,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows" translatesAutoresizingMaskIntoConstraints="NO" id="Rn2-52-XZQ" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="89.5" y="260" width="196" height="14"/>
+                                        <rect key="frame" x="89.5" y="260" width="196.00000000000006" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="196" id="Eln-Mj-nMK"/>
                                             <constraint firstAttribute="height" constant="14" id="kyZ-oF-QmY"/>
@@ -3685,19 +3685,25 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8p-D5-41C">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8p-D5-41C">
                                                     <rect key="frame" x="25" y="11" width="103" height="22"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="yE1-6s-cZY">
+                                                    <rect key="frame" x="67" y="0.0" width="20" height="43.5"/>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="gYF-UH-lgC" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="top" id="01y-eU-Bzk"/>
                                                 <constraint firstAttribute="bottom" secondItem="gYF-UH-lgC" secondAttribute="bottom" id="2F5-ON-DZE"/>
+                                                <constraint firstItem="yE1-6s-cZY" firstAttribute="leading" secondItem="3Yx-IE-VjC" secondAttribute="leading" constant="67" id="5Ve-rX-WPj"/>
                                                 <constraint firstAttribute="trailing" secondItem="gYF-UH-lgC" secondAttribute="trailing" constant="18" id="USM-3L-gAB"/>
                                                 <constraint firstItem="a8p-D5-41C" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="topMargin" id="UcX-55-tS4"/>
                                                 <constraint firstItem="a8p-D5-41C" firstAttribute="leading" secondItem="3Yx-IE-VjC" secondAttribute="leadingMargin" constant="10" id="W0z-aR-vwU"/>
+                                                <constraint firstAttribute="bottom" secondItem="yE1-6s-cZY" secondAttribute="bottom" id="YK6-64-Ysq"/>
+                                                <constraint firstItem="yE1-6s-cZY" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="top" id="bfI-0g-deG"/>
                                                 <constraint firstItem="gYF-UH-lgC" firstAttribute="leading" secondItem="a8p-D5-41C" secondAttribute="trailing" constant="1" id="iq3-wf-R1Q"/>
                                                 <constraint firstItem="a8p-D5-41C" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="topMargin" id="iqM-OQ-iPn"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="a8p-D5-41C" secondAttribute="bottom" id="jTf-Ul-jMh"/>
@@ -3706,6 +3712,7 @@
                                         <connections>
                                             <outlet property="label" destination="a8p-D5-41C" id="MuG-5X-Ske"/>
                                             <outlet property="value" destination="gYF-UH-lgC" id="0hf-6O-RYL"/>
+                                            <outlet property="warning" destination="yE1-6s-cZY" id="v5x-Aw-rWv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -8340,6 +8347,7 @@
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>
         <image name="tooltip_share" width="222" height="36"/>
+        <image name="warning" width="20" height="18"/>
         <image name="white_back" width="375" height="396"/>
     </resources>
     <inferredMetricsTieBreakers>
