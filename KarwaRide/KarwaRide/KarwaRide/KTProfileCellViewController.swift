@@ -12,7 +12,7 @@ class KTProfileCellViewController: UITableViewCell {
     
     @IBOutlet weak var value: UILabel!
     @IBOutlet weak var label: UILabel!
-    
+    @IBOutlet weak var warning: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

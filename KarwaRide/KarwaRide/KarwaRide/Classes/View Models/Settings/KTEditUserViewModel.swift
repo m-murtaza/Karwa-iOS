@@ -56,6 +56,14 @@ class KTEditUserViewModel: KTBaseViewModel {
         return phone
     }
     
+    func emailVerified() -> Bool {
+        var verified = false
+        if user != nil {
+            verified = user!.isEmailVerified
+        }
+        return verified
+    }
+
     func userDOB() -> String {
         var dob :String = "dd mmm yyyy"
         if user != nil && user?.dob != nil{

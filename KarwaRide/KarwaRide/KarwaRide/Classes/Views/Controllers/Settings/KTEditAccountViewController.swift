@@ -122,6 +122,7 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         else if indexPath.section == 0 && indexPath.row == 2 {
             cell.label.text = "Email"
             cell.value.text = (viewModel as! KTEditUserViewModel).userEmail()
+            cell.warning.isHidden = (viewModel as! KTEditUserViewModel).emailVerified()
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
             cell.label.text = "Gender"
