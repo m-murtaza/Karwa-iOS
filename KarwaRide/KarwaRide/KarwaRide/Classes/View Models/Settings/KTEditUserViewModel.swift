@@ -9,8 +9,6 @@
 import UIKit
 protocol KTEditUserViewModelDelegate {
     func reloadTable()
-    func showProgress()
-    func hideProgress()
     func showSuccessAltAndMoveBack()
 }
 
@@ -64,10 +62,52 @@ class KTEditUserViewModel: KTBaseViewModel {
         return verified
     }
 
-    func userDOB() -> String {
+//    if(user.email == null || user.email.isEmpty())
+//    tv.setText(R.string.enter_email_msg);
+//    else if(!user.isEmailVerfied)
+//    tv.setText(R.string.send_email_msg);
+//    else if(user.isEmailVerfied)
+//    {
+//    tv.setTextColor(view.getContext().getResources().getColor(R.color.green));
+//    tv.setText(R.string.email_verified);
+//    }
+    func emailMessage() -> String
+    {
+        var message = "Please enter your email"
+
+        if user != nil && user!.email != nil && !(user!.email!.isEmpty)
+        {
+            if(user?.isEmailVerified ?? false)
+            {
+                message = "✓ Email Verified"
+            }
+            else
+            {
+                message = "Verification email has been sent to your account, if you haven't received, please resend by tapping below link"
+            }
+        }
+        return message
+    }
+    
+    func resendVisible() -> Bool
+    {
+        var shouldVisible = false
+        
+        if user != nil && user!.email != nil && !(user!.email!.isEmpty)
+        {
+            if(!(user?.isEmailVerified ?? false))
+            {
+                shouldVisible = true
+            }
+        }
+        return shouldVisible
+    }
+    
+    func userDOB() -> String
+    {
         var dob :String = "dd mmm yyyy"
-        if user != nil && user?.dob != nil{
-            
+        if user != nil && user?.dob != nil
+        {
             dob = user?.dob?.getUIFormatDate() ?? "dd mmm yyyy"
         }
         return dob
@@ -148,6 +188,25 @@ class KTEditUserViewModel: KTBaseViewModel {
         else {
             self.delegate?.showError!(title: "Error" , message: error)
         }
+    }
+    
+    func resendEmail()
+    {
+        delegate?.showProgressHud(show: true, status: "Resending Email")
+        
+        KTUserManager().resendEmail(completion: { (status, response) in
+            
+            self.delegate?.hideProgressHud()
+            
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                self.delegate?.showSuccessBanner("", "Verification Email has been sent")
+            }
+            else
+            {
+                self.delegate?.showErrorBanner(response["T"] as! String, response["M"] as! String)
+            }
+        })
     }
     
     func reloadData()

@@ -12,7 +12,6 @@ import Spring
 class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDelegate,UITableViewDelegate,UITableViewDataSource
 {
     @IBOutlet weak var tableView: UITableView!
-    private let refreshControl = UIRefreshControl()
 
     override func viewDidLoad()
     {
@@ -20,30 +19,13 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         super.viewDidLoad()
         
         self.tableView.rowHeight = 70
         self.tableView.tableFooterView = UIView()
-        refreshControl.attributedTitle = NSAttributedString(string: "")
-        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
-        tableView.addSubview(refreshControl)
-        // Do any additional setup after loading the view.
-    }
 
-    @objc func refresh(sender:AnyObject)
-    {
-//        (viewModel as! KTMyTripsViewModel).fetchBookings()
-    }
-    
-    func showProgress()
-    {
-        refreshControl.beginRefreshing()
-    }
-    
-    func hideProgress()
-    {
-        refreshControl.endRefreshing()
+        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,12 +37,15 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     }
     
     func reloadTable()  {
-        self.tableView.reloadData()
+        UIView.animate(withDuration: 0.5, animations: {
+            self.tableView.reloadData()
+        })
+        
     }
     
     // MARK: - UITableView DataSource & Delegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numRows = 3
+        var numRows = 4
 
         if section == 1
         {
@@ -104,35 +89,60 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70.0
+        
+        var cellHeight = 70
+
+        if(indexPath.row == 3)
+        {
+            cellHeight = (viewModel as! KTEditUserViewModel).resendVisible() ? 50 : 20
+        }
+
+        return CGFloat(cellHeight)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
-
         if indexPath.section == 0 && indexPath.row == 0 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
             cell.label.text = "Name"
             cell.value.text = (viewModel as! KTEditUserViewModel).userName()
+            return cell
         }
         else if indexPath.section == 0 && indexPath.row == 1 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
             cell.label.text = "Phone"
             cell.value.text = (viewModel as! KTEditUserViewModel).userPhone()
+            return cell
         }
         else if indexPath.section == 0 && indexPath.row == 2 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
             cell.label.text = "Email"
             cell.value.text = (viewModel as! KTEditUserViewModel).userEmail()
             cell.warning.isHidden = (viewModel as! KTEditUserViewModel).emailVerified()
+            return cell
+        }
+        else if indexPath.section == 0 && indexPath.row == 3 {
+            let cell : KTEmailCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierEmailCell") as! KTEmailCellViewController
+            cell.viewModel = (viewModel as! KTEditUserViewModel)
+            cell.message.text = (viewModel as! KTEditUserViewModel).emailMessage()
+            cell.resendButton.isHidden = (!(viewModel as! KTEditUserViewModel).resendVisible())
+            cell.backgroundColor = UIColor(hexString: "#EFFAF8")
+            return cell
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
             cell.label.text = "Gender"
             cell.value.text = (viewModel as! KTEditUserViewModel).userGender()
+            return cell
         }
         else if indexPath.section == 1 && indexPath.row == 1 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
             cell.label.text = "Date of birth"
             cell.value.text = (viewModel as! KTEditUserViewModel).userDOB()
+            return cell
         }
-        return cell
+
+        let cellEmpty : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+        return cellEmpty
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

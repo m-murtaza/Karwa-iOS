@@ -113,6 +113,20 @@ extension Date {
         return date!
     }
     
+    static func dateFromServerStringWithoutDefault(date strDate:String?) ->Date? {
+        var date : Date?
+        
+        if(strDate != nil && !(strDate?.isEmpty)!) {
+            let formatter : DateFormatter = DateFormatter()
+            formatter.dateFormat = Constants.SERVER_DATE_ONLY_FORMAT
+            if formatter.date(from: strDate!) != nil {
+                date  = formatter.date(from: strDate!)!
+            }
+        }
+
+        return date
+    }
+    
     static func defaultDate() -> Date {
         return Date(timeIntervalSince1970: 0)
     }

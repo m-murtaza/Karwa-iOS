@@ -85,6 +85,7 @@
 		181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */; };
 		181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */; };
 		181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 181AB8552075EDED0048D7AF /* InitTariff.JSON */; };
+		18203CC922888F2900B19B43 /* KTEmailCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */; };
 		182A74CB208714EB0025B6C7 /* CALayer+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */; };
 		182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CC20876A0B0025B6C7 /* KTTagButton.swift */; };
 		182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */; };
@@ -281,6 +282,7 @@
 		181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelBookingManager.swift; path = Classes/DAL/CancelBooking/KTCancelBookingManager.swift; sourceTree = "<group>"; };
 		181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAppDataSyncManager.swift; path = Classes/DAL/KTAppDataSyncManager.swift; sourceTree = "<group>"; };
 		181AB8552075EDED0048D7AF /* InitTariff.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitTariff.JSON; path = Resources/JSON/InitTariff.JSON; sourceTree = "<group>"; };
+		18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTEmailCellViewController.swift; sourceTree = "<group>"; };
 		182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CALayer+Utils.swift"; path = "Classes/Common/Extensions/CALayer+Utils.swift"; sourceTree = "<group>"; };
 		182A74CC20876A0B0025B6C7 /* KTTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTTagButton.swift; path = Classes/Views/Controllers/BookingDetails/KTTagButton.swift; sourceTree = "<group>"; };
 		182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSOrderedSet+Utils.swift"; path = "Classes/Common/Extensions/NSOrderedSet+Utils.swift"; sourceTree = "<group>"; };
@@ -1224,6 +1226,7 @@
 				1811E4D9204FB34600C3C47F /* KTSetHomeWorkViewController.swift */,
 				1812D8942280470E00A424CD /* KTProfileCellViewController.swift */,
 				18D3BC1322841DC3008096B2 /* GenericInputVC.swift */,
+				18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1615,6 +1618,7 @@
 				182D670920B17C2E00A36365 /* KTCallerIDPopup.swift in Sources */,
 				0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */,
 				0D826ECD21997309006FF11B /* ImageUtil.swift in Sources */,
+				18203CC922888F2900B19B43 /* KTEmailCellViewController.swift in Sources */,
 				182A74D720972EB10025B6C7 /* KTNotificationViewController.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
