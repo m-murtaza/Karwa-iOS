@@ -8,7 +8,32 @@
 
 import Foundation
 import MagicalRecord
+
+let USER_PREF_SYNC_TIME = "ProfileSyncTime"
+
 extension KTUserManager {
+    
+    fileprivate func saveUserData(_ response: [AnyHashable : Any])
+    {
+        let user : KTUser = self.loginUserInfo()!
+        
+        let responseDic = response as! [String : Any]
+        
+        user.name = responseDic[Constants.EditAccountInfoParam.Name] as? String
+        user.email = responseDic[Constants.EditAccountInfoParam.Email] as? String
+        user.isEmailVerified = responseDic[Constants.EditAccountInfoParam.isEmailVerified] as? Int == 1 ? true : false
+
+        if let gender = responseDic[Constants.EditAccountInfoParam.gender] as? String, let genderIntVal = Int16(gender) {
+            user.gender = genderIntVal
+        }
+        
+        if(!self.isNsnullOrNil(object: responseDic[Constants.EditAccountInfoParam.dob] as AnyObject))
+        {
+            user.dob = Date.dateFromServerStringWithoutDefault(date: responseDic[Constants.EditAccountInfoParam.dob] as? String)
+        }
+        
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+    }
     
     func updateUserInfo(
         name: String,
@@ -24,27 +49,7 @@ extension KTUserManager {
         
         updateUserInfo(param: param as! [String : Any], completion: { (status, response) in
             
-                let user : KTUser = self.loginUserInfo()!
-            
-                let responseDic = response as! [String : Any]
-            
-                user.name = responseDic[Constants.EditAccountInfoParam.Name] as? String
-                user.email = responseDic[Constants.EditAccountInfoParam.Email] as? String
-            
-                if let gender = responseDic[Constants.EditAccountInfoParam.gender] as? String, let genderIntVal = Int16(gender) {
-                    user.gender = genderIntVal
-                }
-
-                if let emailVerified = responseDic[Constants.EditAccountInfoParam.isEmailVerified] as? String, let emailVerifiedInt = Int16(emailVerified) {
-                    user.isEmailVerified = Bool(truncating: emailVerifiedInt as NSNumber)
-                }
-
-                if(!self.isNsnullOrNil(object: responseDic[Constants.EditAccountInfoParam.dob] as AnyObject))
-                {
-                    user.dob = Date.dateFromServerStringWithoutDefault(date: responseDic[Constants.EditAccountInfoParam.dob] as? String)
-                }
-            
-                NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+            self.saveUserData(response)
             
             completionBlock(Constants.APIResponseStatus.SUCCESS,response)
             })
@@ -88,6 +93,19 @@ extension KTUserManager {
               //  completionBlock(Constants.APIResponseStatus.FAILED_DB,[:])
             //}
         })
+    }
+
+    func syncUserProfile(completion completionBlock: @escaping KTDALCompletionBlock)
+    {
+        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:USER_PREF_SYNC_TIME)]
+        
+        self.get(url: Constants.APIURL.SignUp, param: param, completion: completionBlock) { (response, cBlock) in
+            
+            self.saveUserData(response)
+            self.updateSyncTime(forKey: USER_PREF_SYNC_TIME)
+
+            cBlock(Constants.APIResponseStatus.SUCCESS,[Constants.ResponseAPIKey.Data:response])
+        }
     }
 }
 
