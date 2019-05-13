@@ -64,7 +64,7 @@ class KTAPNSManager: NSObject {
         }
     }
     
-    func receiveNotification(userInfo: [AnyHashable : Any] , appStateForeGround: Bool)
+    func receiveNotification(data: [AnyHashable : Any] , appStateForeGround: Bool)
     {
         if KTAppSessionInfo.currentSession.sessionId == nil {
             KTUserManager().loadAppSessionFromDB()
@@ -73,31 +73,62 @@ class KTAPNSManager: NSObject {
                 return
             }
         }
-        print("Notification Recived: \(userInfo)")
-        guard let bookingId = userInfo[Constants.NotificationKey.BookingId] else {
-            return
-        }
+        print("Notification Recived: \(data)")
         
-        //TODO: -Save notification in DB
-        KTBookingManager().booking(forBookingID: bookingId as! String) { (status, response) in
-            if status == Constants.APIResponseStatus.SUCCESS {
-
-                let booking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
-
-                KTNotificationManager().saveNotificaiton(serverNotification: userInfo, booking: booking)
-
-                if appStateForeGround
-                {
-//                    self.showAlert(forBooking: booking, userInfo: userInfo)
-                    /* Showing banner instead of pop-up */
-                    self.showBanner(forBooking: booking, userInfo: userInfo)
-                    (UIApplication.shared.delegate as! AppDelegate).updateViewControllerIfRequired(forBooking: booking)
-                }
-                else
-                {
-                    (UIApplication.shared.delegate as! AppDelegate).moveToDetailView(withBooking: response[Constants.ResponseAPIKey.Data] as! KTBooking)
+        if(data[Constants.NotificationKey.BookingId] != nil)
+        {
+            let bookingId = data[Constants.NotificationKey.BookingId]
+            //TODO: -Save notification in DB
+            KTBookingManager().booking(forBookingID: bookingId as! String) { (status, response) in
+                if status == Constants.APIResponseStatus.SUCCESS {
+                    
+                    let booking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
+                    
+                    KTNotificationManager().saveNotificaiton(serverNotification: data, booking: booking)
+                    
+                    if appStateForeGround
+                    {
+                        //                    self.showAlert(forBooking: booking, userInfo: userInfo)
+                        /* Showing banner instead of pop-up */
+                        self.showBanner(forBooking: booking, userInfo: data)
+                        (UIApplication.shared.delegate as! AppDelegate).updateViewControllerIfRequired(forBooking: booking)
+                    }
+                    else
+                    {
+                        (UIApplication.shared.delegate as! AppDelegate).moveToDetailView(withBooking: response[Constants.ResponseAPIKey.Data] as! KTBooking)
+                    }
                 }
             }
+        }
+        
+        if(data[Constants.LoginResponseAPIKey.Phone] != nil)
+        {
+            let responseDic = data as! [String : Any]
+            
+            guard let phone = responseDic[Constants.LoginResponseAPIKey.Phone] as? String else {
+                return
+            }
+            
+//            let predicate : NSPredicate = NSPredicate(format:"phone = %d" , phone)
+//            KTUser.mr_deleteAll(matching: predicate)
+            
+            let user : KTUser = self.loginUserInfo()!
+            user.name = responseDic[Constants.EditAccountInfoParam.Name] as? String
+            user.email = responseDic[Constants.EditAccountInfoParam.Email] as? String
+            user.isEmailVerified = (responseDic[Constants.EditAccountInfoParam.isEmailVerified] as? String) == "True" ? true : false
+            
+            if let gender = responseDic[Constants.EditAccountInfoParam.gender] as? String, let genderIntVal = Int16(gender) {
+                user.gender = genderIntVal
+            }
+            
+            if(!self.isNsnullOrNil(object: responseDic[Constants.EditAccountInfoParam.dob] as AnyObject))
+            {
+                user.dob = Date.dateFromServerStringWithoutDefault(date: responseDic[Constants.EditAccountInfoParam.dob] as? String)
+            }
+            
+            NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
         }
     }
 
@@ -155,5 +186,31 @@ class KTAPNSManager: NSObject {
             token += String(format: "%02x",byte)
         }
         return token
+    }
+    
+    func isNsnullOrNil(object : AnyObject?) -> Bool
+    {
+        if (object is NSNull) || (object == nil)
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    func loginUserInfo() -> KTUser? {
+        guard NSManagedObjectContext.mr_default() != nil else {
+            return nil
+        }
+        
+        var user : KTUser? = nil
+        var users: [NSManagedObject]!
+        users = KTUser.mr_findAll(in: NSManagedObjectContext.mr_default())
+        if users.count > 0 {
+            user = users[0] as? KTUser
+        }
+        return user
     }
 }

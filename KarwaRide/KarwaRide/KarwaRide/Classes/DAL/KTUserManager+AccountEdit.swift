@@ -15,10 +15,16 @@ extension KTUserManager {
     
     fileprivate func saveUserData(_ response: [AnyHashable : Any])
     {
-        let user : KTUser = self.loginUserInfo()!
-        
         let responseDic = response as! [String : Any]
+
+        guard let phone = responseDic[Constants.LoginResponseAPIKey.Phone] as? String else {
+            return
+        }
         
+//        let predicate : NSPredicate = NSPredicate(format:"phone = %d" , phone)
+//        KTUser.mr_deleteAll(matching: predicate)
+        
+        let user : KTUser = self.loginUserInfo()!
         user.name = responseDic[Constants.EditAccountInfoParam.Name] as? String
         user.email = responseDic[Constants.EditAccountInfoParam.Email] as? String
         user.isEmailVerified = responseDic[Constants.EditAccountInfoParam.isEmailVerified] as? Int == 1 ? true : false

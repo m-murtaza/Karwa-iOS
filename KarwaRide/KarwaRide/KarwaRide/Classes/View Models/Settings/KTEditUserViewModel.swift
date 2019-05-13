@@ -204,7 +204,7 @@ class KTEditUserViewModel: KTBaseViewModel {
             }
             else
             {
-                self.delegate?.showErrorBanner(response["T"] as! String, response["M"] as! String)
+                self.delegate?.showPopupMessage(response["T"] as! String, response["M"] as! String)
             }
         })
     }

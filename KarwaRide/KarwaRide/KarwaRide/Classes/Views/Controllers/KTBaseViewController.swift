@@ -84,6 +84,14 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         }
     }
     
+    func showPopupMessage(_ title: String, _ message: String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func showTaskCompleted(withMessage msg: String) {
         SVProgressHUD.show(UIImage(named: "light-check-mark")!, status: msg)
         SVProgressHUD.dismiss(withDelay: 1.0)

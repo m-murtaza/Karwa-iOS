@@ -380,7 +380,7 @@ struct Constants {
         static let Otp = "user/otp"
         static let ResendOtp = "user/otp"
         static let UpdateUserAccount = "user/update"
-        static let ResendEmail = "verify/resend"
+        static let ResendEmail = "user/verify/resend"
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"

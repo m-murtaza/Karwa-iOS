@@ -25,7 +25,18 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         self.tableView.rowHeight = 70
         self.tableView.tableFooterView = UIView()
 
+        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
         // Do any additional setup after loading the view.
+    }
+    
+    func updateUI()
+    {
+        (viewModel as! KTEditUserViewModel).reloadData()
+        showSuccessBanner("", "Profile Updated")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {

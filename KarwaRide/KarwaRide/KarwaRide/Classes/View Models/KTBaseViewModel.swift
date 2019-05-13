@@ -32,6 +32,8 @@ import UIKit
     func showNonBanner(_ title: String, _ message: String)
     func showWarningBanner(_ title: String, _ message: String)
     
+    func showPopupMessage(_ title: String, _ message: String)
+    
     @objc func dismiss()
 }
 
