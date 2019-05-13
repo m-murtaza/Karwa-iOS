@@ -45,6 +45,39 @@ class KTSettingsViewModel: KTBaseViewModel {
         return phone
     }
     
+    func isEmailVerified() -> Bool
+    {
+        return userInfo?.isEmailVerified ?? false
+    }
+    
+    func percentageCompletion() -> Int {
+
+        var completeness: Int = 0
+
+        if userInfo != nil && userInfo?.name != nil
+        {
+            completeness += 20
+        }
+        if userInfo != nil && userInfo?.phone != nil
+        {
+            completeness += 20
+        }
+        if userInfo != nil && userInfo?.email != nil
+        {
+            completeness += 30
+        }
+        if userInfo != nil && userInfo?.dob != nil
+        {
+            completeness += 15
+        }
+        if userInfo != nil && userInfo?.gender != nil && userInfo?.gender != 0
+        {
+            completeness += 15
+        }
+        
+        return completeness
+    }
+    
     func appVersion() -> String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String

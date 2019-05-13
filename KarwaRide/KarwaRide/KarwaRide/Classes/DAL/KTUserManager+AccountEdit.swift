@@ -17,10 +17,10 @@ extension KTUserManager {
     {
         let responseDic = response as! [String : Any]
 
-        guard let phone = responseDic[Constants.LoginResponseAPIKey.Phone] as? String else {
-            return
-        }
-        
+//        guard let phone = responseDic[Constants.LoginResponseAPIKey.Phone] as? String else {
+//            return
+//        }
+//
 //        let predicate : NSPredicate = NSPredicate(format:"phone = %d" , phone)
 //        KTUser.mr_deleteAll(matching: predicate)
         

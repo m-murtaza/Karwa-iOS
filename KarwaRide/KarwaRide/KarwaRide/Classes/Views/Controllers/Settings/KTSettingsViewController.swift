@@ -130,8 +130,11 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             
             let name = (viewModel as! KTSettingsViewModel).userName()
             let phone = (viewModel as! KTSettingsViewModel).userPhone()
-            
-            (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone)
+            let perCompletion = (viewModel as! KTSettingsViewModel).percentageCompletion()
+            let isEmailVerified = (viewModel as! KTSettingsViewModel).isEmailVerified()
+
+            (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone, completeness: perCompletion, emailVerified: isEmailVerified)
+
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             
         }
