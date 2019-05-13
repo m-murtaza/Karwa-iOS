@@ -23,6 +23,12 @@ class KTSettingsViewModel: KTBaseViewModel {
         (delegate as! KTSettingsViewModelDelegate).reloadTable()
     }
     
+    func reloadData()
+    {
+        userInfo = KTUserManager().loginUserInfo()
+        (delegate as! KTSettingsViewModelDelegate).reloadTable()
+    }
+    
     func userName() -> String {
         var name = ""
         if userInfo != nil && userInfo?.name != nil {
