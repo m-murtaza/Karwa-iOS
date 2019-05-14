@@ -108,7 +108,7 @@ class KTAPNSManager: NSObject {
 //            guard let phone = responseDic[Constants.LoginResponseAPIKey.Phone] as? String else {
 //                return
 //            }
-//            
+//
 //            let predicate : NSPredicate = NSPredicate(format:"phone = %d" , phone)
 //            KTUser.mr_deleteAll(matching: predicate)
             
