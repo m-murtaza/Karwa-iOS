@@ -143,8 +143,10 @@ class CircularProgress : UIView {
 //        if Int(label.text!)! >= self.safePercent {
 //            self.foregroundLayer.strokeColor = UIColor.green.cgColor
 //        } else {
-            self.foregroundLayer.strokeColor = UIColor.green.cgColor
+            self.foregroundLayer.strokeColor = UIColor(rgb: 0x129793).cgColor
 //        }
+        
+        
     }
     
     private func setupView() {
