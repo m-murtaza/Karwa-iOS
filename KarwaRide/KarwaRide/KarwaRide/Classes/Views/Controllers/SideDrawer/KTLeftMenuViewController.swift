@@ -13,6 +13,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     @IBOutlet weak var lblName : UILabel!
     @IBOutlet weak var lblPhone : UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var DrawerOption = [String]()
     var lastSelectedCell:LeftMenuTableViewCell?
@@ -21,6 +22,24 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         //view.backgroundColor = UIColor.clear
         viewModel = KTLeftMenuModel(del:self)
         super.viewDidLoad()
+     
+        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+    }
+    
+    func updateUI()
+    {
+        (viewModel as! KTLeftMenuModel).reloadData()
+        showSuccessBanner("", "Profile Updated")
+    }
+    
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func reloadTable()
+    {
+        tableView.reloadData()
     }
     
     //MARK: - ViewModel Delegate
@@ -41,7 +60,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         return (viewModel as! KTLeftMenuModel).numberOfRowsInSection()
     }
 
-
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:LeftMenuTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SideDrawerCell", for: indexPath) as! LeftMenuTableViewCell
      
@@ -52,7 +70,9 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
         cell.lblNew.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
         cell.selectedBackgroundView = UIView()
-     
+
+        cell.lblWarning.isHidden = (viewModel as! KTLeftMenuModel).isEmailVerified(idx: indexPath.row)
+
         return cell
      }
     

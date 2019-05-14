@@ -26,6 +26,7 @@ protocol KTLeftMenuDelegate : KTViewModelDelegate {
     
     func updateUserName (name : String)
     func updatePhoneNumber(phone: String)
+    func reloadTable()
 }
 
 class KTLeftMenuModel: KTBaseViewModel {
@@ -55,7 +56,25 @@ class KTLeftMenuModel: KTBaseViewModel {
         }
         (delegate as! KTLeftMenuDelegate).updateUserName(name: (user.name != nil) ? (user.name!) : "No Name")
         (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user.phone != nil) ? (user.phone!) : "No Phone")
-
+    }
+    
+    func isEmailVerified(idx: Int) -> Bool
+    {
+        guard let user:KTUser = KTUserManager().loginUserInfo() else {
+            return true
+        }
+        if(drawerOptions[idx].title == "Settings")
+        {
+            return user.isEmailVerified
+        }
+        
+        return true
+    }
+    
+    func reloadData()
+    {
+        updateUserInfo()
+        (delegate as! KTLeftMenuDelegate).reloadTable()
     }
     
     func setMenuItems() {

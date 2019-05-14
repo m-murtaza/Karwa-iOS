@@ -6813,7 +6813,7 @@
                                                         <constraint firstAttribute="height" constant="24" id="MQW-BM-740"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNb-G9-76N">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNb-G9-76N">
                                                     <rect key="frame" x="68" y="19.5" width="252" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="A8h-ND-TG3"/>
@@ -6833,14 +6833,20 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newtag" translatesAutoresizingMaskIntoConstraints="NO" id="Zfh-Wz-iEj">
-                                                    <rect key="frame" x="160" y="22" width="16" height="16"/>
+                                                    <rect key="frame" x="160" y="23" width="30" height="14"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="5mk-7k-6dR">
+                                                    <rect key="frame" x="140" y="0.0" width="20" height="60"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="tkl-WH-A0i" firstAttribute="top" secondItem="cMI-mr-Lcx" secondAttribute="top" id="2Dn-RH-oAS"/>
                                                 <constraint firstItem="tkl-WH-A0i" firstAttribute="leading" secondItem="2Dc-2I-wME" secondAttribute="trailing" id="472-YU-Cis"/>
+                                                <constraint firstItem="5mk-7k-6dR" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="90" id="4et-de-4Bn"/>
+                                                <constraint firstAttribute="bottom" secondItem="5mk-7k-6dR" secondAttribute="bottom" id="6cb-lm-xV1"/>
                                                 <constraint firstItem="EIg-fR-Bi0" firstAttribute="centerY" secondItem="cMI-mr-Lcx" secondAttribute="centerY" id="BdU-cC-nfG"/>
+                                                <constraint firstItem="5mk-7k-6dR" firstAttribute="top" secondItem="cMI-mr-Lcx" secondAttribute="top" id="D2R-ab-XAO"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="trailing" secondItem="cMI-mr-Lcx" secondAttribute="trailingMargin" id="GLD-0b-nyT"/>
                                                 <constraint firstAttribute="trailing" secondItem="tkl-WH-A0i" secondAttribute="trailing" id="H00-BF-chD"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="centerY" secondItem="cMI-mr-Lcx" secondAttribute="centerY" id="Pf7-c3-nml"/>
@@ -6860,6 +6866,7 @@
                                             <outlet property="imgTypeIcon" destination="EIg-fR-Bi0" id="7HC-VU-MAN"/>
                                             <outlet property="lblNew" destination="Zfh-Wz-iEj" id="nCb-8Q-oVg"/>
                                             <outlet property="lblTitle" destination="lNb-G9-76N" id="PqH-0T-gug"/>
+                                            <outlet property="lblWarning" destination="5mk-7k-6dR" id="SEL-tS-xgs"/>
                                             <outlet property="sideView" destination="2Dc-2I-wME" id="Vdo-fa-Bqs"/>
                                         </connections>
                                     </tableViewCell>
@@ -6892,6 +6899,7 @@
                     <connections>
                         <outlet property="lblName" destination="uql-U0-u82" id="0uX-iH-r1S"/>
                         <outlet property="lblPhone" destination="5oN-4f-GzP" id="sjR-JH-33g"/>
+                        <outlet property="tableView" destination="8hf-CG-sZ7" id="7Go-Rp-cJs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYQ-zE-0fH" userLabel="First Responder" sceneMemberID="firstResponder"/>
