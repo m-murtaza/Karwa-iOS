@@ -142,7 +142,7 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func updateName(userName: String)
     {
-        updateProfile(userName: userName, userEmail: user?.email, dob: user?.dob, gen: user!.gender, shouldValidate: true)
+        updateProfile(userName: userName, userEmail: user?.email, dob: user?.dob, gen: user!.gender, shouldValidate: false)
     }
     
     func updateEmail(email: String)
@@ -222,7 +222,7 @@ class KTEditUserViewModel: KTBaseViewModel {
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
         if userName == nil || userName == "" {
-            errorString = "Please enter your name"
+            errorString = "Please enter your email"
         }
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
             errorString = "Please enter valid email address"
