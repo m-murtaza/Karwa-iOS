@@ -58,19 +58,19 @@ class CircularProgress : UIView {
             let animation = CABasicAnimation(keyPath: "strokeEnd")
             animation.fromValue = 0
             animation.toValue = progress
-            animation.duration = 2
+            animation.duration = 1
             foregroundLayer.add(animation, forKey: "foregroundAnimation")
             
         }
         
         var currentTime:Double = 0
         let timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-            if currentTime >= 2
+            if currentTime >= 1
             {
                 timer.invalidate()
             } else {
                 currentTime += 0.05
-                let percent = currentTime/2 * 100
+                let percent = currentTime * 100
                 self.label.text = "\(Int(progress * percent))%"
                 self.setForegroundLayerColorForSafePercent()
                 self.configLabel()
