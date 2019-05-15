@@ -142,28 +142,32 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func updateName(userName: String)
     {
-        updateProfile(userName: userName, userEmail: user?.email, dob: user?.dob, gen: user!.gender)
+        updateProfile(userName: userName, userEmail: user?.email, dob: user?.dob, gen: user!.gender, shouldValidate: true)
     }
     
     func updateEmail(email: String)
     {
-        updateProfile(userName: user?.name, userEmail: email, dob: user?.dob, gen: user!.gender)
+        updateProfile(userName: user?.name, userEmail: email, dob: user?.dob, gen: user!.gender, shouldValidate: true)
     }
     
     func updateGender(gender: Int16)
     {
-        updateProfile(userName: user?.name, userEmail: user?.email, dob: user?.dob, gen: gender)
+        updateProfile(userName: user?.name, userEmail: user?.email, dob: user?.dob, gen: gender, shouldValidate: false)
     }
 
     func updateDOB(dob: Date)
     {
-        updateProfile(userName: user?.name, userEmail: user?.email, dob: dob, gen: user!.gender)
+        updateProfile(userName: user?.name, userEmail: user?.email, dob: dob, gen: user!.gender, shouldValidate: false)
     }
 
-    func updateProfile(userName : String?, userEmail : String?, dob: Date?, gen: Int16)
+    func updateProfile(userName : String?, userEmail : String?, dob: Date?, gen: Int16, shouldValidate: Bool)
     {
-        
-        let error = validate(userName: userName, userEmail: userEmail)
+        var error = ""
+        if(shouldValidate)
+        {
+            error = validate(userName: userName, userEmail: userEmail)
+        }
+
         if  error.isEmpty
         {
             delegate?.showProgressHud(show: true, status: "Updating Account Info")

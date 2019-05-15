@@ -32,8 +32,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         showSuccessBanner("", "Profile Updated")
     }
     
-    deinit
-    {
+    override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
     

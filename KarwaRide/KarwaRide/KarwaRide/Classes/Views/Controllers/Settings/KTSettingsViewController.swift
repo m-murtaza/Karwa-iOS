@@ -28,10 +28,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     func updateUI()
     {
         (viewModel as! KTSettingsViewModel).reloadData()
-        showSuccessBanner("", "Profile Updated")
     }
 
-    deinit {
+    override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
 

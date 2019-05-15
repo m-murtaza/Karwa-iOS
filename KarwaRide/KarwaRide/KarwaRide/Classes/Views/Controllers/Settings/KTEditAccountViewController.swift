@@ -32,10 +32,9 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     func updateUI()
     {
         (viewModel as! KTEditUserViewModel).reloadData()
-        showSuccessBanner("", "Profile Updated")
     }
     
-    deinit {
+    override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
     }
     

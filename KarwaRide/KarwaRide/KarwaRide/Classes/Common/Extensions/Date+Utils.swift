@@ -172,7 +172,7 @@ extension Date {
 
     //DUe to server side chotiyapa.
     func getServerFormatDate() -> String {
-        return String(dayOfMonth()) + "-" + String(month) + "-" + year()
+        return year() + "-" + String(month) + "-" + String(dayOfMonth())
     }
     
     func getUIFormatDate() -> String {
