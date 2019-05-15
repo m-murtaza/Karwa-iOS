@@ -133,7 +133,7 @@ class KTEditUserViewModel: KTBaseViewModel {
                 gender = "Female"
                 break
             default:
-                gender = "Preder not to mention"
+                gender = "Prefer not to mention"
                 break
             }
         }
