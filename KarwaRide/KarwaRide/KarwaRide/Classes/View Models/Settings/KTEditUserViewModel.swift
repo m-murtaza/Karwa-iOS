@@ -122,7 +122,7 @@ class KTEditUserViewModel: KTBaseViewModel {
     }
     
     func userGender() -> String {
-        var gender :String = "Preder not to mention"
+        var gender :String = "Prefer not to mention"
         if user != nil {
             switch user?.gender
             {

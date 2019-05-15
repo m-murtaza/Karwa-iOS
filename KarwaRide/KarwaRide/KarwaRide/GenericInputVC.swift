@@ -31,8 +31,7 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+
         NotificationCenter.default.addObserver(self, selector: #selector(BookingConfermationPopupVC.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(BookingConfermationPopupVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -43,6 +42,8 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
         btnClose.layer.borderColor = UIColor.lightGray.cgColor
         btnConfirm.layer.borderWidth = 0.5
         btnConfirm.layer.borderColor = UIColor.lightGray.cgColor
+        
+        txtPickupHint.becomeFirstResponder()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -93,7 +94,7 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
             }
             else
             {
-                showMessage(header: "Error", message: "Name length should be atleast 2 characters")
+                showMessage(header: "Error", message: "Please enter valid Email")
             }
         }
     }
@@ -105,7 +106,8 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
             previousView?.saveName(inputText: inputText)
             break
         case "email":
-            previousView?.saveEmail(inputText: inputText)
+            let trimmedEmail = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+            previousView?.saveEmail(inputText: trimmedEmail)
             break
         default:
             break;

@@ -60,11 +60,11 @@ class KTLeftMenuModel: KTBaseViewModel {
     
     func isEmailVerified(idx: Int) -> Bool
     {
-        guard let user:KTUser = KTUserManager().loginUserInfo() else {
-            return true
-        }
         if(drawerOptions[idx].title == "Settings")
         {
+            guard let user:KTUser = KTUserManager().loginUserInfo() else {
+                return false
+            }
             return user.isEmailVerified
         }
         
