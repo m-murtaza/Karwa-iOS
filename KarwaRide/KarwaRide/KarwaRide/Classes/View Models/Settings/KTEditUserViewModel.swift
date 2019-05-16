@@ -142,22 +142,22 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func updateName(userName: String)
     {
-        updateProfile(userName: userName, userEmail: user?.email, dob: user?.dob, gen: user!.gender, shouldValidate: false)
+        updateProfile(userName: userName, userEmail: "", dob: nil, gen: user!.gender, shouldValidate: false)
     }
     
     func updateEmail(email: String)
     {
-        updateProfile(userName: user?.name, userEmail: email, dob: user?.dob, gen: user!.gender, shouldValidate: true)
+        updateProfile(userName: "", userEmail: email, dob: nil, gen: user!.gender, shouldValidate: true)
     }
     
     func updateGender(gender: Int16)
     {
-        updateProfile(userName: user?.name, userEmail: user?.email, dob: user?.dob, gen: gender, shouldValidate: false)
+        updateProfile(userName: "", userEmail: "", dob: nil, gen: gender, shouldValidate: false)
     }
 
     func updateDOB(dob: Date)
     {
-        updateProfile(userName: user?.name, userEmail: user?.email, dob: dob, gen: user!.gender, shouldValidate: false)
+        updateProfile(userName: "", userEmail: "", dob: dob, gen: user!.gender, shouldValidate: false)
     }
 
     func updateProfile(userName : String?, userEmail : String?, dob: Date?, gen: Int16, shouldValidate: Bool)
@@ -174,7 +174,7 @@ class KTEditUserViewModel: KTBaseViewModel {
             
             KTUserManager().updateUserInfo(
                 name: userName!,
-                email: (userEmail != nil) ? userEmail! : "",
+                email: (userEmail != nil && !userEmail!.isEmpty) ? userEmail! : "",
                 dob: dob?.getServerFormatDate() ?? "",
                 gender: gen,
                 completion: { (status, response) in
