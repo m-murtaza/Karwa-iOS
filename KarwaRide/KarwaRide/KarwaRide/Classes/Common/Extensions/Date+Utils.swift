@@ -99,7 +99,7 @@ extension Date {
         
         if(strDate != nil && !(strDate?.isEmpty)!) {
             let formatter : DateFormatter = DateFormatter()
-            formatter.dateFormat = Constants.SERVER_DATE_ONLY_FORMAT
+            formatter.dateFormat = Constants.SERVER_DATE_FORMAT
             if formatter.date(from: strDate!) != nil {
                 date  = formatter.date(from: strDate!)! 
             }

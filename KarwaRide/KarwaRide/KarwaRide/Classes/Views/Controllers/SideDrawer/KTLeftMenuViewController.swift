@@ -29,7 +29,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     func updateUI()
     {
         (viewModel as! KTLeftMenuModel).reloadData()
-        showSuccessBanner("", "Profile Updated")
+//        showSuccessBanner("", "Profile Updated")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
