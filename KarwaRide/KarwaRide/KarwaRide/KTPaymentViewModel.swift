@@ -14,7 +14,7 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func showEmptyScreen()
     func hideEmptyScreen()
     func showAddCardVC()
-    func showVerifyEmailPopup()
+    func showVerifyEmailPopup(email: String)
     func showEnterEmailPopup()
     func hideCardIOPaymentController()
     func deleteRowWithAnimation(_ index: IndexPath)
@@ -321,7 +321,7 @@ class KTPaymentViewModel: KTBaseViewModel
             }
             else
             {
-                self.del?.showVerifyEmailPopup()
+                self.del?.showVerifyEmailPopup(email: user.email ?? "")
             }
         }
         else
@@ -405,9 +405,6 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
-        if userName == nil || userName == "" {
-            errorString = "Please enter your email"
-        }
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
             errorString = "Please enter valid email address"
         }

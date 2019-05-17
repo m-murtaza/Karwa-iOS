@@ -373,9 +373,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         presentAddCardViewController()
     }
     
-    func showVerifyEmailPopup()
+    func showVerifyEmailPopup(email: String)
     {
-        showPopupMessage("Email Verification Required", "Please verify your email before adding the new payment method")
+        showPopupMessage("", "Please verify your email before adding the new payment method.\nEntered email: \(email)")
     }
     
     func showEnterEmailPopup()
