@@ -365,9 +365,41 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     @IBAction func btnAddCardTapped(_ sender: Any)
     {
-        presentAddCardViewController()
+        vModel?.addCardButtonTapped()
     }
 
+    func showAddCardVC()
+    {
+        presentAddCardViewController()
+    }
+    
+    func showVerifyEmailPopup()
+    {
+        showPopupMessage("Email Verification Required", "Please verify your email before adding the new payment method")
+    }
+    
+    func showEnterEmailPopup()
+    {
+        showEnterEmailPopup(header: "Email", currentText: "", inputType: "email")
+    }
+    
+    func showEnterEmailPopup(header: String, currentText : String, inputType: String)
+    {
+        let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
+        inputPopup.paymentVC = self
+        view.addSubview(inputPopup.view)
+        addChildViewController(inputPopup)
+        
+        inputPopup.inputType = inputType
+        inputPopup.header.text = header
+        inputPopup.txtPickupHint.text = currentText
+    }
+    
+    func saveEmail(inputText: String)
+    {
+        vModel?.updateEmail(email: inputText)
+    }
+    
     @IBAction func btnBackTapped(_ sender: Any)
     {
         if(isPaidSuccessfullShowed || gotoDashboardRequired)

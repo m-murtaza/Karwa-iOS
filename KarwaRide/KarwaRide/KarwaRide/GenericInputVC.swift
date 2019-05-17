@@ -23,6 +23,7 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
     public var inputType = ""
 
     public weak var previousView : KTEditAccountViewController?
+    public weak var paymentVC : KTPaymentViewController?
     
     override func viewWillAppear(_ animated: Bool)
     {
@@ -107,7 +108,14 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
             break
         case "email":
             let trimmedEmail = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
-            previousView?.saveEmail(inputText: trimmedEmail)
+            if(paymentVC != nil)
+            {
+                paymentVC?.saveEmail(inputText: trimmedEmail)
+            }
+            else if(previousView != nil)
+            {
+                previousView?.saveEmail(inputText: trimmedEmail)
+            }
             break
         default:
             break;
