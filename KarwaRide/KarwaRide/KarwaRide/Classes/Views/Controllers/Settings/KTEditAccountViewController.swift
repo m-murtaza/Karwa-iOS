@@ -208,13 +208,13 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
         inputPopup.previousView = self
-        inputPopup.lblSubHeader.text = subHeader
         view.addSubview(inputPopup.view)
         addChildViewController(inputPopup)
         
         inputPopup.inputType = inputType
         inputPopup.header.text = header
         inputPopup.txtPickupHint.text = currentText
+        inputPopup.lblSubHeader.text = subHeader
     }
     
     func showGenderPicker()

@@ -387,13 +387,13 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
         inputPopup.paymentVC = self
-        inputPopup.lblSubHeader.text = subHeader
         view.addSubview(inputPopup.view)
         addChildViewController(inputPopup)
         
         inputPopup.inputType = inputType
         inputPopup.header.text = header
         inputPopup.txtPickupHint.text = currentText
+        inputPopup.lblSubHeader.text = subHeader
     }
     
     func saveEmail(inputText: String)
