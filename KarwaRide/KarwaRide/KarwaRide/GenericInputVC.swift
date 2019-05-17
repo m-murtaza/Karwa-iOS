@@ -19,6 +19,7 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
     @IBOutlet weak var btnClose : UIButton!
     @IBOutlet weak var btnConfirm : UIButton!
     @IBOutlet weak var header: UILabel!
+    @IBOutlet weak var lblSubHeader: UILabel!
     
     public var inputType = ""
 

@@ -380,13 +380,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showEnterEmailPopup()
     {
-        showEnterEmailPopup(header: "Email", currentText: "", inputType: "email")
+        showEnterEmailPopup(header: "Email", subHeader: "Please enter valid email address before adding payment method", currentText: "", inputType: "email")
     }
     
-    func showEnterEmailPopup(header: String, currentText : String, inputType: String)
+    func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
         inputPopup.paymentVC = self
+        inputPopup.lblSubHeader.text = subHeader
         view.addSubview(inputPopup.view)
         addChildViewController(inputPopup)
         
