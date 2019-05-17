@@ -114,7 +114,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track nearby taxis and limousines around pickup location" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAK-r5-URD">
-                                <rect key="frame" x="43" y="533.5" width="289" height="38.5"/>
+                                <rect key="frame" x="43" y="534.5" width="289" height="37.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="Eqc-nX-I8t"/>
                                 </constraints>
@@ -160,7 +160,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="9Pf-bw-fYH" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="150" y="132" width="43" height="43"/>
+                                        <rect key="frame" x="163.5" y="132" width="16" height="16"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="NO"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="delay">
@@ -179,7 +179,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luxury_sm_ico" translatesAutoresizingMaskIntoConstraints="NO" id="aVP-Nb-6JO" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="126" y="68" width="44" height="44"/>
+                                        <rect key="frame" x="139.5" y="68" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="MVG-Fe-lTX"/>
                                             <constraint firstAttribute="width" constant="44" id="Msx-e5-JZg"/>
@@ -205,7 +205,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="business_sm_ico" translatesAutoresizingMaskIntoConstraints="NO" id="j0f-ei-5QB" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="220" y="103" width="44" height="44"/>
+                                        <rect key="frame" x="206.5" y="103" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="LCT-3z-cjY"/>
                                             <constraint firstAttribute="height" constant="44" id="RoS-Ei-IFq"/>
@@ -231,7 +231,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="standard_sm_ico" translatesAutoresizingMaskIntoConstraints="NO" id="kUS-Em-oYZ" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="186" y="190" width="44" height="44"/>
+                                        <rect key="frame" x="172.5" y="163" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="VRe-F8-LpJ"/>
                                             <constraint firstAttribute="height" constant="44" id="zNb-NE-2hx"/>
@@ -257,7 +257,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="taxi_sm_ico" translatesAutoresizingMaskIntoConstraints="NO" id="hzy-Mj-AcF" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="91" y="170" width="44" height="44"/>
+                                        <rect key="frame" x="104.5" y="143" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Wak-ac-naV"/>
                                             <constraint firstAttribute="height" constant="44" id="gNE-a5-7ai"/>
@@ -549,7 +549,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select destination from recent trips, popular places or drop a pin on map" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIb-2L-tcm">
-                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
+                                <rect key="frame" x="43" y="534" width="289" height="37.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="Tjp-vM-z0O"/>
                                 </constraints>
@@ -714,7 +714,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get estimated fare for the best possible route details" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZB-jU-D1A">
-                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
+                                <rect key="frame" x="43" y="534" width="289" height="37.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="5ly-ge-PHR"/>
                                 </constraints>
@@ -1355,7 +1355,7 @@
                                 <rect key="frame" x="40" y="148" width="295" height="102"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vc5-gB-qdI">
-                                        <rect key="frame" x="20" y="60" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="61" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="send" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
@@ -1371,7 +1371,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lAT-zq-thV">
-                                        <rect key="frame" x="20" y="20" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="20" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" smartInsertDeleteType="no" textContentType="tel"/>
@@ -1533,7 +1533,7 @@
                                 <rect key="frame" x="40" y="40" width="295" height="202"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Xl-Bt-XhR">
-                                        <rect key="frame" x="20" y="14.5" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="15" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no" textContentType="name"/>
@@ -1542,7 +1542,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AQ3-T8-m79">
-                                        <rect key="frame" x="20" y="65" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="65.5" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" smartDashesType="no" smartInsertDeleteType="no"/>
@@ -1551,7 +1551,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vxf-cn-IYH">
-                                        <rect key="frame" x="20" y="115.5" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="116" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" textContentType="email"/>
@@ -1560,7 +1560,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mGX-vF-dNn">
-                                        <rect key="frame" x="20" y="166" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="166.5" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" textContentType="password"/>
@@ -1677,7 +1677,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcc-f8-WEv" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="40" y="325" width="295" height="51"/>
+                                <rect key="frame" x="40" y="325" width="295" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                 <state key="normal" title="SUBMIT" backgroundImage="SummitButton">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1796,7 +1796,7 @@
                                 <rect key="frame" x="40" y="157" width="295" height="150"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ih5-Tj-ObB">
-                                        <rect key="frame" x="20" y="14" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="14.5" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -1819,7 +1819,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wYH-hK-gaq">
-                                        <rect key="frame" x="20" y="114" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="114.5" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -1828,7 +1828,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ce2-eZ-A8z">
-                                        <rect key="frame" x="20" y="64" width="255" height="22"/>
+                                        <rect key="frame" x="20" y="64.5" width="255" height="21"/>
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -1869,7 +1869,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pD4-TJ-DZh" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="40" y="361" width="295" height="51"/>
+                                <rect key="frame" x="40" y="361" width="295" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                 <state key="normal" title="SUBMIT" backgroundImage="SummitButton">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1935,14 +1935,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d91-ed-7cZ" customClass="VPMOTPView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="16" y="173.5" width="343" height="80"/>
+                                <rect key="frame" x="16" y="172.5" width="343" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8zJ-pj-Rtr"/>
                                     <constraint firstAttribute="width" constant="343" id="JUb-GW-Tvd"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="verification code has been sent to your mobile number" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="81" width="343" height="38.5"/>
+                                <rect key="frame" x="16" y="81" width="343" height="37.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1958,7 +1958,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ep-Vx-SD6" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="41" y="327.5" width="293" height="51"/>
+                                <rect key="frame" x="41" y="326.5" width="293" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="aTw-lE-5Gd"/>
                                     <constraint firstAttribute="height" constant="51" id="yFW-Fj-UgP"/>
@@ -1983,7 +1983,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39w-hz-ala">
-                                <rect key="frame" x="57" y="261.5" width="240" height="46"/>
+                                <rect key="frame" x="57" y="260.5" width="240" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="didn't get?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1Y-OC-hX7" customClass="SpringLabel" customModule="Spring">
                                         <rect key="frame" x="8" y="13" width="127" height="21"/>
@@ -2027,7 +2027,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="113" y="134.5" width="149" height="19"/>
+                                <rect key="frame" x="113" y="133.5" width="149" height="19"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2245,7 +2245,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_set_destination" translatesAutoresizingMaskIntoConstraints="NO" id="yrB-gH-nyK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="570" width="375" height="79"/>
+                                <rect key="frame" x="0.0" y="633" width="375" height="16"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
@@ -2256,7 +2256,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Qx-LE-1va" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="180.5" y="424" width="14" height="153"/>
+                                <rect key="frame" x="179.5" y="561" width="16" height="16"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
@@ -2301,10 +2301,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_cards" translatesAutoresizingMaskIntoConstraints="NO" id="hF5-Yn-Chi">
-                                <rect key="frame" x="0.0" y="302.5" width="375" height="62"/>
+                                <rect key="frame" x="179.5" y="325.5" width="16" height="16"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_swipe_hand" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-rY-Z7v">
-                                <rect key="frame" x="175.5" y="438" width="24" height="39"/>
+                                <rect key="frame" x="179.5" y="449.5" width="16" height="16"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2670,10 +2670,10 @@
                                 <state key="normal" image="RevealButton"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHC-KS-ZZP">
-                                <rect key="frame" x="67" y="265" width="240" height="46"/>
+                                <rect key="frame" x="67" y="274" width="240" height="37"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EtaToCustomerBack1" translatesAutoresizingMaskIntoConstraints="NO" id="4zF-1q-LMi" customClass="SpringImageView" customModule="Spring">
-                                        <rect key="frame" x="55" y="6" width="130" height="32"/>
+                                        <rect key="frame" x="112" y="6" width="16" height="23"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideLeft"/>
@@ -2686,7 +2686,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- to reach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-MH-hKX" customClass="SpringLabel" customModule="Spring">
-                                        <rect key="frame" x="87" y="10" width="66" height="25"/>
+                                        <rect key="frame" x="87" y="10" width="66" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.93725490196078431" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2919,13 +2919,13 @@
                                 <rect key="frame" x="52.5" y="209.5" width="270" height="248"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tco-BU-Y0d">
-                                        <rect key="frame" x="18" y="14" width="234" height="22"/>
+                                        <rect key="frame" x="18" y="14" width="234" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCTextBoxBG" translatesAutoresizingMaskIntoConstraints="NO" id="2xv-4S-tjl">
-                                        <rect key="frame" x="18" y="122.5" width="234" height="45"/>
+                                        <rect key="frame" x="18" y="120" width="234" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="YJj-Qt-nsW"/>
                                         </constraints>
@@ -2940,7 +2940,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="your booking will be made when you confirm this, you can add additional booking info below (if any)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px0-yJ-FYn">
-                                        <rect key="frame" x="18" y="57" width="234" height="40"/>
+                                        <rect key="frame" x="18" y="56" width="234" height="38.5"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3526,39 +3526,52 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingsInitialsHolder" translatesAutoresizingMaskIntoConstraints="NO" id="MKV-yX-U0n">
-                                                    <rect key="frame" x="27" y="12" width="55" height="55"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIm-rt-Kgn">
-                                                    <rect key="frame" x="33" y="18" width="42" height="41"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="22"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Muhammad Usman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0g-J1-x8L">
-                                                    <rect key="frame" x="90" y="18" width="249" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Muhammad Usman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0g-J1-x8L">
+                                                    <rect key="frame" x="98" y="19" width="181" height="24"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+974 50569963" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaH-my-MIh">
-                                                    <rect key="frame" x="90" y="39" width="249" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+974 50569963" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaH-my-MIh">
+                                                    <rect key="frame" x="98" y="43" width="88.5" height="15"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                     <color key="textColor" red="0.10196078431372549" green="0.73725490196078436" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sI-uk-lWX" customClass="CircularProgress" customModule="KarwaRide" customModuleProvider="target">
+                                                    <rect key="frame" x="25" y="11" width="58" height="58"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="58" id="4Fr-32-UVM"/>
+                                                        <constraint firstAttribute="width" constant="58" id="SLf-op-2Dy"/>
+                                                    </constraints>
+                                                </view>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="J1p-nJ-CxU">
+                                                    <rect key="frame" x="335" y="0.0" width="20" height="79.5"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="q0g-J1-x8L" firstAttribute="top" secondItem="UoP-KA-kY9" secondAttribute="topMargin" constant="8" id="591-4s-VFl"/>
+                                                <constraint firstItem="J1p-nJ-CxU" firstAttribute="top" secondItem="UoP-KA-kY9" secondAttribute="top" id="He4-9e-moO"/>
+                                                <constraint firstAttribute="bottom" secondItem="J1p-nJ-CxU" secondAttribute="bottom" id="Tdl-B1-sdl"/>
+                                                <constraint firstItem="NaH-my-MIh" firstAttribute="top" secondItem="q0g-J1-x8L" secondAttribute="bottom" id="VLs-JQ-UbS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NaH-my-MIh" secondAttribute="bottom" constant="11" id="cis-IY-7Oe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="J1p-nJ-CxU" secondAttribute="trailing" constant="5" id="f8H-k6-0Xp"/>
+                                                <constraint firstItem="3sI-uk-lWX" firstAttribute="bottom" secondItem="UoP-KA-kY9" secondAttribute="bottomMargin" id="fAv-B5-1in"/>
+                                                <constraint firstItem="q0g-J1-x8L" firstAttribute="leading" secondItem="3sI-uk-lWX" secondAttribute="trailing" constant="15" id="fZW-GQ-Y4S"/>
+                                                <constraint firstItem="NaH-my-MIh" firstAttribute="leading" secondItem="3sI-uk-lWX" secondAttribute="trailing" constant="15" id="fdL-1T-xkC"/>
+                                                <constraint firstItem="NaH-my-MIh" firstAttribute="top" secondItem="q0g-J1-x8L" secondAttribute="bottom" id="n2L-bk-5t5"/>
+                                                <constraint firstItem="3sI-uk-lWX" firstAttribute="leading" secondItem="UoP-KA-kY9" secondAttribute="leadingMargin" constant="10" id="sMD-0T-HPL"/>
+                                                <constraint firstItem="3sI-uk-lWX" firstAttribute="top" secondItem="UoP-KA-kY9" secondAttribute="topMargin" id="sps-Ft-EEh"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="circularProgress" destination="3sI-uk-lWX" id="lSm-Kl-EDm"/>
                                             <outlet property="lblName" destination="q0g-J1-x8L" id="aec-70-vsh"/>
                                             <outlet property="lblPhone" destination="NaH-my-MIh" id="tzs-ud-r9t"/>
-                                            <outlet property="lblShortName" destination="oIm-rt-Kgn" id="uMU-be-LmI"/>
+                                            <outlet property="warningImg" destination="J1p-nJ-CxU" id="fjO-8N-WbZ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImgTxtCellIdentifier" rowHeight="50" id="eWz-1F-iPj" customClass="KTSettingsImgTextTableViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -3665,111 +3678,103 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hLl-pu-jdR" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="40" y="114" width="295" height="150"/>
-                                <subviews>
-                                    <textField opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-Kn-OOr">
-                                        <rect key="frame" x="20" y="10" width="255" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="hhZ-kC-pWb"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UbI-Rt-8eO">
+                                <rect key="frame" x="0.0" y="64" width="375" height="583"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="identifierProfileCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifierProfileCell" id="eRV-dJ-jL5" customClass="KTProfileCellViewController" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eRV-dJ-jL5" id="3Yx-IE-VjC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OOSAMA MUHAMMAD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYF-UH-lgC">
+                                                    <rect key="frame" x="129" y="0.0" width="228" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="228" id="gIJ-G9-GOx"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8p-D5-41C">
+                                                    <rect key="frame" x="25" y="11" width="103" height="22"/>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="yE1-6s-cZY">
+                                                    <rect key="frame" x="75" y="0.0" width="16" height="43.5"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gYF-UH-lgC" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="top" id="01y-eU-Bzk"/>
+                                                <constraint firstAttribute="bottom" secondItem="gYF-UH-lgC" secondAttribute="bottom" id="2F5-ON-DZE"/>
+                                                <constraint firstItem="yE1-6s-cZY" firstAttribute="leading" secondItem="3Yx-IE-VjC" secondAttribute="leading" constant="75" id="5Ve-rX-WPj"/>
+                                                <constraint firstAttribute="trailing" secondItem="gYF-UH-lgC" secondAttribute="trailing" constant="18" id="USM-3L-gAB"/>
+                                                <constraint firstItem="a8p-D5-41C" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="topMargin" id="UcX-55-tS4"/>
+                                                <constraint firstItem="a8p-D5-41C" firstAttribute="leading" secondItem="3Yx-IE-VjC" secondAttribute="leadingMargin" constant="10" id="W0z-aR-vwU"/>
+                                                <constraint firstAttribute="bottom" secondItem="yE1-6s-cZY" secondAttribute="bottom" id="YK6-64-Ysq"/>
+                                                <constraint firstItem="yE1-6s-cZY" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="top" id="bfI-0g-deG"/>
+                                                <constraint firstItem="gYF-UH-lgC" firstAttribute="leading" secondItem="a8p-D5-41C" secondAttribute="trailing" constant="1" id="iq3-wf-R1Q"/>
+                                                <constraint firstItem="a8p-D5-41C" firstAttribute="top" secondItem="3Yx-IE-VjC" secondAttribute="topMargin" id="iqM-OQ-iPn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="a8p-D5-41C" secondAttribute="bottom" id="jTf-Ul-jMh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="delegate" destination="EQh-Tc-xlS" id="wJ3-6k-I1d"/>
+                                            <outlet property="label" destination="a8p-D5-41C" id="MuG-5X-Ske"/>
+                                            <outlet property="value" destination="gYF-UH-lgC" id="0hf-6O-RYL"/>
+                                            <outlet property="warning" destination="yE1-6s-cZY" id="v5x-Aw-rWv"/>
                                         </connections>
-                                    </textField>
-                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Rf-9T-xID">
-                                        <rect key="frame" x="20" y="60" width="255" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="76I-gC-ObO"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifierEmailCell" id="f8G-aW-2eX" customClass="KTEmailCellViewController" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f8G-aW-2eX" id="7aG-Gx-tUD">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-pN-BlG">
+                                                    <rect key="frame" x="28" y="29" width="58" height="20.5"/>
+                                                    <state key="normal" title="RESEND"/>
+                                                    <connections>
+                                                        <action selector="resendTapped:" destination="f8G-aW-2eX" eventType="touchUpInside" id="4Hd-e6-sku"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verification email has been sent to your account, if you haven't received, please resend by tapping below link" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SoR-e6-VZH">
+                                                    <rect key="frame" x="28" y="2" width="337" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="bb6-M9-ZCS"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="11"/>
+                                                    <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kBq-pN-BlG" firstAttribute="top" secondItem="7aG-Gx-tUD" secondAttribute="top" constant="29" id="SQk-zc-ut8"/>
+                                                <constraint firstAttribute="bottom" secondItem="kBq-pN-BlG" secondAttribute="bottom" constant="-6" id="Ssn-Vd-HbP"/>
+                                                <constraint firstItem="SoR-e6-VZH" firstAttribute="top" secondItem="7aG-Gx-tUD" secondAttribute="top" constant="2" id="jeH-8D-qIp"/>
+                                                <constraint firstAttribute="trailing" secondItem="SoR-e6-VZH" secondAttribute="trailing" constant="10" id="oYo-Nr-nVr"/>
+                                                <constraint firstItem="SoR-e6-VZH" firstAttribute="leading" secondItem="7aG-Gx-tUD" secondAttribute="leading" constant="28" id="q9F-Qp-ogS"/>
+                                                <constraint firstItem="kBq-pN-BlG" firstAttribute="leading" secondItem="7aG-Gx-tUD" secondAttribute="leading" constant="28" id="raH-5X-QGR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="delegate" destination="EQh-Tc-xlS" id="lfZ-Vw-IWn"/>
+                                            <outlet property="message" destination="SoR-e6-VZH" id="Jge-zj-N9n"/>
+                                            <outlet property="resendButton" destination="kBq-pN-BlG" id="FrX-Kt-CPA"/>
                                         </connections>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BLS-Or-PrP">
-                                        <rect key="frame" x="20" y="110" width="255" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="3Kf-mp-ec3"/>
-                                        </constraints>
-                                        <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drj-KG-7yt">
-                                        <rect key="frame" x="0.0" y="99.5" width="295" height="1"/>
-                                        <color key="backgroundColor" red="0.81176470590000005" green="0.81568627449999997" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="4RF-tE-vFs"/>
-                                            <constraint firstAttribute="height" constant="1" id="IAU-5m-eiM"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbQ-wf-eMw">
-                                        <rect key="frame" x="0.0" y="49.5" width="295" height="1"/>
-                                        <color key="backgroundColor" red="0.81176470590000005" green="0.81568627449999997" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="Mnz-NW-IUF"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="BLS-Or-PrP" firstAttribute="leading" secondItem="hLl-pu-jdR" secondAttribute="leading" constant="20" id="1SH-PV-Jak"/>
-                                    <constraint firstItem="drj-KG-7yt" firstAttribute="leading" secondItem="hLl-pu-jdR" secondAttribute="leading" id="4Mz-N1-872"/>
-                                    <constraint firstItem="Hd8-Kn-OOr" firstAttribute="leading" secondItem="hLl-pu-jdR" secondAttribute="leading" constant="20" id="7YC-Qk-Ayb"/>
-                                    <constraint firstItem="qbQ-wf-eMw" firstAttribute="leading" secondItem="hLl-pu-jdR" secondAttribute="leading" id="Al9-K4-uBk"/>
-                                    <constraint firstItem="BLS-Or-PrP" firstAttribute="centerY" secondItem="hLl-pu-jdR" secondAttribute="centerY" multiplier="1.66667" id="GXc-zC-HQF"/>
-                                    <constraint firstItem="drj-KG-7yt" firstAttribute="centerY" secondItem="hLl-pu-jdR" secondAttribute="centerY" multiplier="1.33333" id="NgP-Yj-Tue"/>
-                                    <constraint firstAttribute="trailing" secondItem="drj-KG-7yt" secondAttribute="trailing" id="Oqv-fw-imy"/>
-                                    <constraint firstAttribute="width" constant="295" id="Vok-e2-7Qj"/>
-                                    <constraint firstAttribute="trailing" secondItem="Hd8-Kn-OOr" secondAttribute="trailing" constant="20" id="YTT-C3-leH"/>
-                                    <constraint firstItem="Hd8-Kn-OOr" firstAttribute="centerY" secondItem="hLl-pu-jdR" secondAttribute="centerY" multiplier="0.33333" id="c5S-zj-9Fp"/>
-                                    <constraint firstAttribute="trailing" secondItem="0Rf-9T-xID" secondAttribute="trailing" constant="20" id="dTu-Ik-gXr"/>
-                                    <constraint firstAttribute="height" constant="150" id="esd-Dz-gdl"/>
-                                    <constraint firstAttribute="trailing" secondItem="BLS-Or-PrP" secondAttribute="trailing" constant="20" id="fsZ-IE-k3n"/>
-                                    <constraint firstItem="0Rf-9T-xID" firstAttribute="leading" secondItem="hLl-pu-jdR" secondAttribute="leading" constant="20" id="hPD-00-KO8"/>
-                                    <constraint firstAttribute="trailing" secondItem="qbQ-wf-eMw" secondAttribute="trailing" id="roj-df-DMq"/>
-                                    <constraint firstItem="qbQ-wf-eMw" firstAttribute="centerY" secondItem="hLl-pu-jdR" secondAttribute="centerY" multiplier="0.66666" id="u6l-Qo-qXL"/>
-                                    <constraint firstItem="0Rf-9T-xID" firstAttribute="centerY" secondItem="hLl-pu-jdR" secondAttribute="centerY" id="wXE-jC-uGN"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.81176470588235294" green="0.81568627450980391" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="12"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35f-4q-rNk" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="40" y="284" width="295" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="51" id="S9j-Oe-mID"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                <state key="normal" title="SAVE" backgroundImage="SummitButton">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnSaveTapped:" destination="EQh-Tc-xlS" eventType="touchUpInside" id="ajv-fT-lp6"/>
-                                </connections>
-                            </button>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91639560461044312" green="0.96850448846817017" blue="0.96036726236343384" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="hLl-pu-jdR" firstAttribute="centerX" secondItem="tPr-bl-WGY" secondAttribute="centerX" id="1Qw-8c-FRM"/>
-                            <constraint firstItem="35f-4q-rNk" firstAttribute="centerX" secondItem="tPr-bl-WGY" secondAttribute="centerX" id="LOm-5e-5He"/>
-                            <constraint firstItem="hLl-pu-jdR" firstAttribute="top" secondItem="tPr-bl-WGY" secondAttribute="top" constant="50" id="O3L-0R-Hxt"/>
-                            <constraint firstItem="35f-4q-rNk" firstAttribute="top" secondItem="hLl-pu-jdR" secondAttribute="bottom" constant="20" id="TGm-Na-eY5"/>
-                            <constraint firstItem="35f-4q-rNk" firstAttribute="width" secondItem="hLl-pu-jdR" secondAttribute="width" id="jVe-7G-67U"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="top" secondItem="tPr-bl-WGY" secondAttribute="top" id="5ur-MA-EZ2"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="bottom" secondItem="tPr-bl-WGY" secondAttribute="bottom" constant="-20" id="O2V-9y-Xqf"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="trailing" secondItem="tPr-bl-WGY" secondAttribute="trailing" id="Xd7-pb-DQ3"/>
+                            <constraint firstItem="UbI-Rt-8eO" firstAttribute="leading" secondItem="tPr-bl-WGY" secondAttribute="leading" id="h6y-QP-4E7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tPr-bl-WGY"/>
                     </view>
@@ -3777,15 +3782,12 @@
                         <barButtonItem key="backBarButtonItem" title="  " id="po4-dA-K4w"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="btnSave" destination="35f-4q-rNk" id="kfK-Ez-9mi"/>
-                        <outlet property="txtEmail" destination="0Rf-9T-xID" id="IFj-IZ-QXb"/>
-                        <outlet property="txtName" destination="Hd8-Kn-OOr" id="9bW-R3-3iG"/>
-                        <outlet property="txtPhone" destination="BLS-Or-PrP" id="5cS-7s-2cI"/>
+                        <outlet property="tableView" destination="UbI-Rt-8eO" id="0h5-UU-MAB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ccz-6g-xpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2521" y="2843"/>
+            <point key="canvasLocation" x="2404" y="3125.4872563718145"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="S3V-ST-3aZ">
@@ -4149,7 +4151,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tooltip_share" translatesAutoresizingMaskIntoConstraints="NO" id="Rgn-Eu-1K0" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="123" y="101" width="222" height="36"/>
+                                <rect key="frame" x="329" y="101" width="16" height="16"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2n-Zk-ght">
                                 <rect key="frame" x="0.0" y="244" width="375" height="32"/>
@@ -4515,7 +4517,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evk-mQ-i72" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="178" y="14" width="46.5" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="47.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4528,7 +4530,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 20-30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-5Q-1ai" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="265.5" y="14" width="55.5" height="14"/>
+                                                <rect key="frame" x="268.5" y="14" width="52.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960784313724" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -5028,7 +5030,7 @@
                                 <rect key="frame" x="17.5" y="93.5" width="340" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A BC Driver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXs-hM-ckE">
-                                        <rect key="frame" x="8" y="54" width="85" height="19"/>
+                                        <rect key="frame" x="8" y="54" width="84" height="19"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -5183,13 +5185,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall good experience, impressed with the service, but needs some improvements" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-6o-BFJ">
-                                        <rect key="frame" x="31" y="225" width="278" height="24"/>
+                                        <rect key="frame" x="31" y="225" width="278" height="23.5"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlB-Bm-JwG" customClass="RKTagsView">
-                                        <rect key="frame" x="8" y="264" width="324" height="120"/>
+                                        <rect key="frame" x="8" y="263.5" width="324" height="120"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="Zhh-jZ-m3t"/>
@@ -5408,19 +5410,19 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_driver" translatesAutoresizingMaskIntoConstraints="NO" id="vsr-do-1ak">
-                                                    <rect key="frame" x="15" y="25" width="26" height="30"/>
+                                                    <rect key="frame" x="15" y="32" width="16" height="16"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_arrow_right_lrg" translatesAutoresizingMaskIntoConstraints="NO" id="q1h-4a-Ux4">
-                                                    <rect key="frame" x="346" y="36.5" width="14" height="7"/>
+                                                    <rect key="frame" x="344" y="32" width="16" height="16"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VEHICLE ISSUES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOc-bs-j6c">
-                                                    <rect key="frame" x="57" y="26" width="106" height="17"/>
+                                                    <rect key="frame" x="47" y="26" width="111" height="17"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cleanliness, A/C, Printer not working, etc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpz-mS-UGX">
-                                                    <rect key="frame" x="57" y="42" width="187" height="12"/>
+                                                    <rect key="frame" x="47" y="42" width="184" height="12"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -5495,7 +5497,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please tell us about your complaint" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qI8-3c-kzv" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="10" y="104" width="355" height="18"/>
+                                <rect key="frame" x="10" y="104" width="355" height="17.5"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -5511,7 +5513,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itB-6J-uV8" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="162" width="335" height="150"/>
+                                <rect key="frame" x="20" y="161.5" width="335" height="150"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39e-w7-fVQ" customClass="SpringTextView" customModule="Spring">
                                         <rect key="frame" x="2" y="2" width="331" height="146"/>
@@ -5553,7 +5555,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-bz-O43" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="41" y="318" width="293" height="51"/>
+                                <rect key="frame" x="153.5" y="333" width="68" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                 <state key="normal" title="SUBMIT" backgroundImage="SummitButton">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -5586,13 +5588,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some text with the issue that should go till two lines" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MS-yI-amj">
-                                                    <rect key="frame" x="30" y="18" width="315" height="34"/>
+                                                    <rect key="frame" x="30" y="18.5" width="315" height="33"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_arrow_right_lrg" translatesAutoresizingMaskIntoConstraints="NO" id="ysq-Q0-eGW">
-                                                    <rect key="frame" x="346" y="31.5" width="14" height="7"/>
+                                                    <rect key="frame" x="344" y="27" width="16" height="16"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -6166,7 +6168,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paid_graphics" translatesAutoresizingMaskIntoConstraints="NO" id="X4J-GD-7EC" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="64" width="375" height="350"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="16"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-R2-2r9">
                                 <rect key="frame" x="0.0" y="64" width="375" height="553"/>
@@ -6186,10 +6188,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="ico_maestro" translatesAutoresizingMaskIntoConstraints="NO" id="XcG-6e-hos">
-                                                    <rect key="frame" x="27" y="39" width="45" height="25"/>
+                                                    <rect key="frame" x="27" y="39" width="16" height="16"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="**** **** **** 0008" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHH-is-R1e">
-                                                    <rect key="frame" x="88" y="44" width="124" height="17"/>
+                                                    <rect key="frame" x="59" y="44" width="102" height="17"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -6237,7 +6239,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_container" translatesAutoresizingMaskIntoConstraints="NO" id="pU0-Jv-aIk" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="418" width="375" height="170"/>
+                                <rect key="frame" x="0.0" y="572" width="375" height="16"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
@@ -6247,7 +6249,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL FARE - 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sde-wL-Aoe" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="440.5" width="343" height="20.5"/>
+                                <rect key="frame" x="16" y="504.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6263,7 +6265,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP ID: 3A3HCC6334SU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK2-ls-Suy" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="466" width="343" height="12"/>
+                                <rect key="frame" x="16" y="530" width="343" height="12"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6279,7 +6281,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street Pickup - Karwa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOj-qR-yry" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="486" width="343" height="12"/>
+                                <rect key="frame" x="16" y="550" width="343" height="12"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -6295,7 +6297,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pay_button" translatesAutoresizingMaskIntoConstraints="NO" id="nZR-ob-FP9" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="508" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="572" width="375" height="16"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure-1" translatesAutoresizingMaskIntoConstraints="NO" id="OMs-qc-rPY">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
@@ -6473,7 +6475,7 @@
                                                     <color key="highlightedColor" red="0.29803921568627451" green="0.29803921568627451" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al saad, ibn dinaar street, doha" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="261" translatesAutoresizingMaskIntoConstraints="NO" id="njO-NP-LfK">
-                                                    <rect key="frame" x="62" y="38" width="170" height="28"/>
+                                                    <rect key="frame" x="62" y="38" width="167" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="qQc-aC-jDX"/>
                                                     </constraints>
@@ -6811,7 +6813,7 @@
                                                         <constraint firstAttribute="height" constant="24" id="MQW-BM-740"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNb-G9-76N">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNb-G9-76N">
                                                     <rect key="frame" x="68" y="19.5" width="252" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="A8h-ND-TG3"/>
@@ -6833,12 +6835,18 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newtag" translatesAutoresizingMaskIntoConstraints="NO" id="Zfh-Wz-iEj">
                                                     <rect key="frame" x="160" y="23" width="30" height="14"/>
                                                 </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="5mk-7k-6dR">
+                                                    <rect key="frame" x="140" y="0.0" width="20" height="60"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="tkl-WH-A0i" firstAttribute="top" secondItem="cMI-mr-Lcx" secondAttribute="top" id="2Dn-RH-oAS"/>
                                                 <constraint firstItem="tkl-WH-A0i" firstAttribute="leading" secondItem="2Dc-2I-wME" secondAttribute="trailing" id="472-YU-Cis"/>
+                                                <constraint firstItem="5mk-7k-6dR" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="90" id="4et-de-4Bn"/>
+                                                <constraint firstAttribute="bottom" secondItem="5mk-7k-6dR" secondAttribute="bottom" id="6cb-lm-xV1"/>
                                                 <constraint firstItem="EIg-fR-Bi0" firstAttribute="centerY" secondItem="cMI-mr-Lcx" secondAttribute="centerY" id="BdU-cC-nfG"/>
+                                                <constraint firstItem="5mk-7k-6dR" firstAttribute="top" secondItem="cMI-mr-Lcx" secondAttribute="top" id="D2R-ab-XAO"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="trailing" secondItem="cMI-mr-Lcx" secondAttribute="trailingMargin" id="GLD-0b-nyT"/>
                                                 <constraint firstAttribute="trailing" secondItem="tkl-WH-A0i" secondAttribute="trailing" id="H00-BF-chD"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="centerY" secondItem="cMI-mr-Lcx" secondAttribute="centerY" id="Pf7-c3-nml"/>
@@ -6858,6 +6866,7 @@
                                             <outlet property="imgTypeIcon" destination="EIg-fR-Bi0" id="7HC-VU-MAN"/>
                                             <outlet property="lblNew" destination="Zfh-Wz-iEj" id="nCb-8Q-oVg"/>
                                             <outlet property="lblTitle" destination="lNb-G9-76N" id="PqH-0T-gug"/>
+                                            <outlet property="lblWarning" destination="5mk-7k-6dR" id="SEL-tS-xgs"/>
                                             <outlet property="sideView" destination="2Dc-2I-wME" id="Vdo-fa-Bqs"/>
                                         </connections>
                                     </tableViewCell>
@@ -6890,6 +6899,7 @@
                     <connections>
                         <outlet property="lblName" destination="uql-U0-u82" id="0uX-iH-r1S"/>
                         <outlet property="lblPhone" destination="5oN-4f-GzP" id="sjR-JH-33g"/>
+                        <outlet property="tableView" destination="8hf-CG-sZ7" id="7Go-Rp-cJs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYQ-zE-0fH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -6945,7 +6955,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBJ-qX-p11" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1540" y="2690"/>
+            <point key="canvasLocation" x="1460" y="2409"/>
         </scene>
         <!--Fare View Controller-->
         <scene sceneID="0DE-dd-V7S">
@@ -7113,7 +7123,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbh-Zk-CTR" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="801"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="r1o-YG-hXJ" id="fDb-Te-Tta"/>
@@ -7140,7 +7150,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white_back" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-Rd-LbO">
-                                <rect key="frame" x="0.0" y="271" width="375" height="396"/>
+                                <rect key="frame" x="0.0" y="651" width="375" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH4-Rv-MIQ" customClass="SpringButton" customModule="Spring">
@@ -7166,7 +7176,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nm2-KF-eOH">
-                                <rect key="frame" x="0.0" y="334" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="714" width="375" height="32"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eta_box" translatesAutoresizingMaskIntoConstraints="NO" id="hzb-Un-e3V" customClass="SpringImageView" customModule="Spring">
                                         <rect key="frame" x="122.5" y="0.0" width="130" height="32"/>
@@ -7194,7 +7204,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCB-nh-3a9" customClass="KTShadowView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="371" width="335" height="202"/>
+                                <rect key="frame" x="20" y="751" width="335" height="202"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGX-77-812">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="130"/>
@@ -7529,7 +7539,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FV-dH-dNS" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="178" y="14" width="46.5" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="47.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686270000001" green="0.59607843140000005" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -7542,7 +7552,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR -----" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k60-RF-XEQ" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="271.5" y="14" width="49.5" height="14"/>
+                                                <rect key="frame" x="276.5" y="14" width="44.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960780000002" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -7627,7 +7637,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOD-lv-5xr">
-                                <rect key="frame" x="16" y="588" width="343" height="98"/>
+                                <rect key="frame" x="16" y="968" width="343" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0D-xs-hGt" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
@@ -7919,13 +7929,13 @@
                                 <rect key="frame" x="52.5" y="209.5" width="270" height="248"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complain Comment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ely-Ta-55d">
-                                        <rect key="frame" x="18" y="14" width="234" height="22"/>
+                                        <rect key="frame" x="18" y="14" width="234" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCTextBoxBG" translatesAutoresizingMaskIntoConstraints="NO" id="SXO-OP-Yem">
-                                        <rect key="frame" x="18" y="122.5" width="234" height="45"/>
+                                        <rect key="frame" x="18" y="120" width="234" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="q8N-be-B09"/>
                                         </constraints>
@@ -7940,7 +7950,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please tell us more about the complain, it help us understand and take relevant actions for your complain" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSp-fo-3eL">
-                                        <rect key="frame" x="18" y="57" width="234" height="40"/>
+                                        <rect key="frame" x="18" y="56" width="234" height="38.5"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -8048,19 +8058,19 @@
                                 <rect key="frame" x="52.5" y="209.5" width="270" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vY4-I6-5fd">
-                                        <rect key="frame" x="18" y="14" width="234" height="22"/>
+                                        <rect key="frame" x="18" y="14" width="234" height="21"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCTextBoxBG" translatesAutoresizingMaskIntoConstraints="NO" id="jIf-Lq-DGB">
-                                        <rect key="frame" x="18" y="67.5" width="234" height="45"/>
+                                        <rect key="frame" x="18" y="66.5" width="234" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="BCz-iT-qqW"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="enter promo code here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ckk-bb-Dvi">
-                                        <rect key="frame" x="25.5" y="75" width="220.5" height="30"/>
+                                        <rect key="frame" x="25.5" y="74" width="220.5" height="30"/>
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -8069,7 +8079,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhA-oA-UjO">
-                                        <rect key="frame" x="18" y="57" width="234" height="0.0"/>
+                                        <rect key="frame" x="18" y="56" width="234" height="0.0"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -8160,6 +8170,135 @@
             </objects>
             <point key="canvasLocation" x="3658" y="1861"/>
         </scene>
+        <!--Generic InputVC-->
+        <scene sceneID="NrR-p6-SPL">
+            <objects>
+                <viewController restorationIdentifier="GenericInputVC" storyboardIdentifier="GenericInputVC" id="uiM-KR-081" customClass="GenericInputVC" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ca-6O-hK8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qo-Fe-cWy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.74535968959999999" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFn-x7-5NT">
+                                <rect key="frame" x="52.5" y="209.5" width="270" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please Enter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0d-po-pq1">
+                                        <rect key="frame" x="18" y="14" width="234" height="21"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCTextBoxBG" translatesAutoresizingMaskIntoConstraints="NO" id="Rgb-ar-rAY">
+                                        <rect key="frame" x="18" y="66.5" width="234" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="y8D-HD-rHU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please enter here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zns-3p-Htg">
+                                        <rect key="frame" x="25.5" y="74" width="220.5" height="30"/>
+                                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="uiM-KR-081" id="iSf-Hi-KBo"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3o-uL-GUv">
+                                        <rect key="frame" x="18" y="56" width="234" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
+                                        <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpL-Bc-w4a">
+                                        <rect key="frame" x="25.5" y="125" width="226.5" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="Xvx-XA-yJP"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
+                                        <color key="textColor" red="0.1019607843" green="0.73725490199999999" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3X-0m-rEC">
+                                        <rect key="frame" x="135" y="149" width="135" height="50"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.70349203019999995" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnBookedTapped:" destination="uiM-KR-081" eventType="touchUpInside" id="tgn-B4-MOZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gea-EU-yaD">
+                                        <rect key="frame" x="-1" y="149" width="136" height="50"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.70349203019999995" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="woV-xH-PCQ"/>
+                                        </constraints>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnCancelTapped:" destination="uiM-KR-081" eventType="touchUpInside" id="Iex-JV-muJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.9010591443" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="DpL-Bc-w4a" firstAttribute="leading" secondItem="zns-3p-Htg" secondAttribute="leading" id="3hv-kA-9hn"/>
+                                    <constraint firstAttribute="trailing" secondItem="l0d-po-pq1" secondAttribute="trailing" constant="18" id="7BU-zW-CYF"/>
+                                    <constraint firstItem="B3X-0m-rEC" firstAttribute="leading" secondItem="gea-EU-yaD" secondAttribute="trailing" id="7by-Rk-3Pg"/>
+                                    <constraint firstItem="zns-3p-Htg" firstAttribute="bottom" secondItem="Rgb-ar-rAY" secondAttribute="bottom" constant="-7.5" id="7k4-fd-Okw"/>
+                                    <constraint firstItem="Rgb-ar-rAY" firstAttribute="top" secondItem="c3o-uL-GUv" secondAttribute="bottom" constant="10.5" id="Fid-5K-leH"/>
+                                    <constraint firstItem="DpL-Bc-w4a" firstAttribute="trailing" secondItem="Rgb-ar-rAY" secondAttribute="trailing" id="GOg-TY-Xmg"/>
+                                    <constraint firstItem="Rgb-ar-rAY" firstAttribute="trailing" secondItem="c3o-uL-GUv" secondAttribute="trailing" id="HDi-qu-Xh5"/>
+                                    <constraint firstItem="c3o-uL-GUv" firstAttribute="trailing" secondItem="l0d-po-pq1" secondAttribute="trailing" id="K0S-Nb-gcf"/>
+                                    <constraint firstItem="gea-EU-yaD" firstAttribute="leading" secondItem="YFn-x7-5NT" secondAttribute="leading" constant="-1" id="Ljy-bS-XuL"/>
+                                    <constraint firstItem="zns-3p-Htg" firstAttribute="leading" secondItem="Rgb-ar-rAY" secondAttribute="leading" constant="7.5" id="Nzs-h6-eUD"/>
+                                    <constraint firstItem="gea-EU-yaD" firstAttribute="width" secondItem="B3X-0m-rEC" secondAttribute="width" constant="1" id="SOu-fY-xDJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="B3X-0m-rEC" secondAttribute="bottom" constant="1" id="SuT-PB-CwU"/>
+                                    <constraint firstAttribute="width" constant="270" id="VjH-Xy-I62"/>
+                                    <constraint firstItem="c3o-uL-GUv" firstAttribute="leading" secondItem="l0d-po-pq1" secondAttribute="leading" id="Von-ML-mf2"/>
+                                    <constraint firstAttribute="bottom" secondItem="gea-EU-yaD" secondAttribute="bottom" constant="1" id="XGg-C9-c2K"/>
+                                    <constraint firstItem="zns-3p-Htg" firstAttribute="trailing" secondItem="Rgb-ar-rAY" secondAttribute="trailing" constant="-6" id="cR9-uC-e5S"/>
+                                    <constraint firstItem="B3X-0m-rEC" firstAttribute="top" secondItem="DpL-Bc-w4a" secondAttribute="bottom" constant="3" id="fkR-Wm-Ge9"/>
+                                    <constraint firstItem="Rgb-ar-rAY" firstAttribute="leading" secondItem="c3o-uL-GUv" secondAttribute="leading" id="hS5-zb-GGv"/>
+                                    <constraint firstAttribute="height" constant="200" id="j5J-mq-WHn"/>
+                                    <constraint firstItem="zns-3p-Htg" firstAttribute="top" secondItem="Rgb-ar-rAY" secondAttribute="top" constant="7.5" id="n3h-t8-Pzc"/>
+                                    <constraint firstItem="gea-EU-yaD" firstAttribute="height" secondItem="B3X-0m-rEC" secondAttribute="height" id="pjs-W1-gHc"/>
+                                    <constraint firstItem="c3o-uL-GUv" firstAttribute="top" secondItem="l0d-po-pq1" secondAttribute="bottom" constant="21" id="swZ-Ul-LQN"/>
+                                    <constraint firstAttribute="trailing" secondItem="B3X-0m-rEC" secondAttribute="trailing" id="u8F-5e-Gs6"/>
+                                    <constraint firstItem="l0d-po-pq1" firstAttribute="leading" secondItem="YFn-x7-5NT" secondAttribute="leading" constant="18" id="xDW-gf-s0M"/>
+                                    <constraint firstItem="l0d-po-pq1" firstAttribute="top" secondItem="YFn-x7-5NT" secondAttribute="top" constant="14" id="z8N-Fb-WF2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YFn-x7-5NT" firstAttribute="centerY" secondItem="2ca-6O-hK8" secondAttribute="centerY" constant="-24" id="CVj-By-dqO"/>
+                            <constraint firstAttribute="bottom" secondItem="4qo-Fe-cWy" secondAttribute="bottom" id="MGP-bs-mSK"/>
+                            <constraint firstItem="PQn-RZ-rBr" firstAttribute="trailing" secondItem="4qo-Fe-cWy" secondAttribute="trailing" id="dAM-tA-VAC"/>
+                            <constraint firstItem="4qo-Fe-cWy" firstAttribute="top" secondItem="2ca-6O-hK8" secondAttribute="top" id="hEk-zA-KCa"/>
+                            <constraint firstItem="4qo-Fe-cWy" firstAttribute="leading" secondItem="PQn-RZ-rBr" secondAttribute="leading" id="uPN-Od-lfm"/>
+                            <constraint firstItem="YFn-x7-5NT" firstAttribute="centerX" secondItem="PQn-RZ-rBr" secondAttribute="centerX" id="xoM-Ov-X5q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PQn-RZ-rBr"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnClose" destination="gea-EU-yaD" id="HzV-46-6Vk"/>
+                        <outlet property="btnConfirm" destination="B3X-0m-rEC" id="56f-FX-ZHk"/>
+                        <outlet property="header" destination="l0d-po-pq1" id="VqB-wU-6cP"/>
+                        <outlet property="txtPickupHint" destination="zns-3p-Htg" id="Sxc-Wh-GWF"/>
+                        <outlet property="viewMain" destination="4qo-Fe-cWy" id="nsP-jz-rTj"/>
+                        <outlet property="viewPopupUI" destination="YFn-x7-5NT" id="6p1-FA-l5g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s8v-vt-Yb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4772" y="1053"/>
+        </scene>
     </scenes>
     <resources>
         <image name="APAddressBox" width="362" height="112"/>
@@ -8195,12 +8334,11 @@
         <image name="MyTripsDot" width="5" height="5"/>
         <image name="MyTripsNoTrip" width="360" height="458"/>
         <image name="MyTripsPickDrop" width="30" height="78"/>
-        <image name="RevealButton" width="20" height="17"/>
+        <image name="RevealButton" width="30" height="30"/>
         <image name="SHWIconHome" width="12" height="20"/>
         <image name="SHWSetAddressBox" width="362" height="112"/>
         <image name="SettingIconCalendar" width="16" height="17"/>
         <image name="SettingIconPassword" width="14" height="23"/>
-        <image name="SettingsInitialsHolder" width="55" height="55"/>
         <image name="Signinbutton" width="345" height="80"/>
         <image name="SummitButton" width="293" height="51"/>
         <image name="UnderConstruction" width="750" height="512"/>
@@ -8267,14 +8405,15 @@
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>
         <image name="tooltip_share" width="222" height="36"/>
+        <image name="warning" width="20" height="18"/>
         <image name="white_back" width="375" height="396"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4lO-1G-0fb"/>
-        <segue reference="N6S-jP-c4x"/>
+        <segue reference="UaL-kR-7Gj"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="bsC-QL-uBN"/>
+        <segue reference="izn-m5-Pdm"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="6WV-05-qhJ"/>
         <segue reference="Pzn-gK-scz"/>

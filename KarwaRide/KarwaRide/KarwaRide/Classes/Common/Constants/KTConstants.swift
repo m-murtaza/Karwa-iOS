@@ -91,6 +91,7 @@ struct Constants {
     static let MERCHANT_ID:String = "KTQNB01"
     
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
+    static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
     static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
@@ -379,6 +380,7 @@ struct Constants {
         static let Otp = "user/otp"
         static let ResendOtp = "user/otp"
         static let UpdateUserAccount = "user/update"
+        static let ResendEmail = "user/verify/resend"
         static let ForgotPass = "user/pwd"
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
@@ -446,6 +448,9 @@ struct Constants {
     struct EditAccountInfoParam {
         static let Name = "Name"
         static let Email = "Email"
+        static let dob = "Dob"
+        static let gender = "Gender"
+        static let isEmailVerified = "IsEmailVerified"
         static let OldPassword = "Password"
         static let NewPassword = "NewPassword"
         static let DeviceToken = "DeviceToken"

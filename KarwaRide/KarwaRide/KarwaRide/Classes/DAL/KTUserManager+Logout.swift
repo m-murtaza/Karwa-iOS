@@ -47,7 +47,8 @@ extension KTUserManager
     
     func removeUserData()  {
         KTDALManager().removeSyncTime(forKey: BOOKING_SYNC_TIME)
-        
+        KTDALManager().removeSyncTime(forKey: USER_PREF_SYNC_TIME)
+
         KTAppSessionInfo.currentSession.removeCurrentSession()
         
         KTUser.mr_truncateAll(in: NSManagedObjectContext.mr_default())

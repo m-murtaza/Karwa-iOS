@@ -8,6 +8,7 @@
 
 import UIKit
 protocol KTEditUserViewModelDelegate {
+    func reloadTable()
     func showSuccessAltAndMoveBack()
 }
 
@@ -53,20 +54,139 @@ class KTEditUserViewModel: KTBaseViewModel {
         return phone
     }
     
-    func btnSaveTapped(userName : String?, userEmail : String?) {
-        let error = validate(userName: userName, userEmail: userEmail)
-        if  error.isEmpty {
-            //No error
+    func emailVerified() -> Bool {
+        var verified = false
+        if user != nil {
+            verified = user!.isEmailVerified
+        }
+        return verified
+    }
+
+//    if(user.email == null || user.email.isEmpty())
+//    tv.setText(R.string.enter_email_msg);
+//    else if(!user.isEmailVerfied)
+//    tv.setText(R.string.send_email_msg);
+//    else if(user.isEmailVerfied)
+//    {
+//    tv.setTextColor(view.getContext().getResources().getColor(R.color.green));
+//    tv.setText(R.string.email_verified);
+//    }
+    func emailMessage() -> String
+    {
+        var message = "Please enter your email"
+
+        if user != nil && user!.email != nil && !(user!.email!.isEmpty)
+        {
+            if(user?.isEmailVerified ?? false)
+            {
+                message = "✓ Email Verified"
+            }
+            else
+            {
+                message = "Verification email has been sent to your account, if you haven't received, please resend by tapping below link"
+            }
+        }
+        return message
+    }
+    
+    func resendVisible() -> Bool
+    {
+        var shouldVisible = false
+        
+        if user != nil && user!.email != nil && !(user!.email!.isEmpty)
+        {
+            if(!(user?.isEmailVerified ?? false))
+            {
+                shouldVisible = true
+            }
+        }
+        return shouldVisible
+    }
+    
+    func userDOB() -> String
+    {
+        var dob :String = "dd mmm yyyy"
+        if user != nil && user?.dob != nil
+        {
+            dob = user?.dob?.getUIFormatDate() ?? "dd mmm yyyy"
+        }
+        return dob
+    }
+    
+    func userDOBObject() -> Date {
+        var dob : Date = Date(timeIntervalSinceReferenceDate: 0)
+        if user != nil && user?.dob != nil{
+            dob = user?.dob! ?? Date(timeIntervalSinceReferenceDate: 0)
+        }
+        return dob
+    }
+    
+    func userGender() -> String {
+        var gender :String = "Prefer not to mention"
+        if user != nil {
+            switch user?.gender
+            {
+            case 1:
+                gender = "Male"
+                break
+            case 2:
+                gender = "Female"
+                break
+            default:
+                gender = "Prefer not to mention"
+                break
+            }
+        }
+        return gender
+    }
+    
+    func updateName(userName: String)
+    {
+        updateProfile(userName: userName, userEmail: "", dob: nil, gen: user!.gender, shouldValidate: false)
+    }
+    
+    func updateEmail(email: String)
+    {
+        updateProfile(userName: "", userEmail: email, dob: nil, gen: user!.gender, shouldValidate: true)
+    }
+    
+    func updateGender(gender: Int16)
+    {
+        updateProfile(userName: "", userEmail: "", dob: nil, gen: gender, shouldValidate: false)
+    }
+
+    func updateDOB(dob: Date)
+    {
+        updateProfile(userName: "", userEmail: "", dob: dob, gen: user!.gender, shouldValidate: false)
+    }
+
+    func updateProfile(userName : String?, userEmail : String?, dob: Date?, gen: Int16, shouldValidate: Bool)
+    {
+        var error = ""
+        if(shouldValidate)
+        {
+            error = validate(userName: userName, userEmail: userEmail)
+        }
+
+        if  error.isEmpty
+        {
             delegate?.showProgressHud(show: true, status: "Updating Account Info")
-            KTUserManager().updateUserInfo(name: userName!, email: (userEmail != nil) ? userEmail! : "", completion: { (status, response) in
-                self.delegate?.hideProgressHud()
-                if status == Constants.APIResponseStatus.SUCCESS {
-                    (self.delegate as! KTEditUserViewModelDelegate).showSuccessAltAndMoveBack()
-                }
-                else {
-                    
-                    self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
-                }
+            
+            KTUserManager().updateUserInfo(
+                name: userName!,
+                email: (userEmail != nil && !userEmail!.isEmpty) ? userEmail! : "",
+                dob: dob?.getServerFormatDate() ?? "",
+                gender: gen,
+                completion: { (status, response) in
+                    self.delegate?.hideProgressHud()
+                    self.reloadData()
+                    if status == Constants.APIResponseStatus.SUCCESS {
+                        (self.delegate as! KTEditUserViewModelDelegate).showSuccessAltAndMoveBack()
+                    }
+                    else {
+                        
+                        self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                    }
             })
         }
         else {
@@ -74,10 +194,35 @@ class KTEditUserViewModel: KTBaseViewModel {
         }
     }
     
+    func resendEmail()
+    {
+        delegate?.showProgressHud(show: true, status: "Resending Email")
+        
+        KTUserManager().resendEmail(completion: { (status, response) in
+            
+            self.delegate?.hideProgressHud()
+            
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                self.delegate?.showSuccessBanner("", "Verification Email has been sent")
+            }
+            else
+            {
+                self.delegate?.showPopupMessage(response["T"] as! String, response["M"] as! String)
+            }
+        })
+    }
+    
+    func reloadData()
+    {
+        user = loginUserInfo()
+        (self.delegate as! KTEditUserViewModelDelegate).reloadTable()
+    }
+    
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
         if userName == nil || userName == "" {
-            errorString = "Please enter your name"
+            errorString = "Please enter your email"
         }
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
             errorString = "Please enter valid email address"

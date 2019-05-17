@@ -21,13 +21,19 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func updateUI()
+    {
+        (viewModel as! KTSettingsViewModel).reloadData()
     }
-    
+
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func setVersionLable()  {
         
         lblVersion.text = (viewModel as! KTSettingsViewModel).appVersion()
@@ -50,6 +56,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             destination.previousView = self
         }
     }
+    
     
     
     func reloadTable()  {
@@ -122,8 +129,11 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             
             let name = (viewModel as! KTSettingsViewModel).userName()
             let phone = (viewModel as! KTSettingsViewModel).userPhone()
-            
-            (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone)
+            let perCompletion = (viewModel as! KTSettingsViewModel).percentageCompletion()
+            let isEmailVerified = (viewModel as! KTSettingsViewModel).isEmailVerified()
+
+            (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone, completeness: perCompletion, emailVerified: isEmailVerified)
+
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             
         }

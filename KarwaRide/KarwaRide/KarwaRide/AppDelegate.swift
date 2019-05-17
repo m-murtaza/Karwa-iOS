@@ -223,7 +223,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            print("==================================================")
         }
 
-        apnsManager.receiveNotification(userInfo: userInfo, appStateForeGround: true)
+        apnsManager.receiveNotification(data: userInfo, appStateForeGround: true)
     }
 
     func handleNotification(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
@@ -235,7 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             let aps = notification["aps"] as! [String: AnyObject]
             print(aps)
-            apnsManager.receiveNotification(userInfo: aps, appStateForeGround: false)
+            apnsManager.receiveNotification(data: aps, appStateForeGround: false)
         }
     }
     

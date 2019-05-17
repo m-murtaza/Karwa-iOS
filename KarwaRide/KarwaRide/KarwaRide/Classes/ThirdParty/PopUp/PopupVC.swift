@@ -59,4 +59,12 @@ class PopupVC: KTBaseViewController {
         })
     }
 
+    
+    func showMessage(header: String, message: String)
+    {
+        let alertController = UIAlertController(title: header, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

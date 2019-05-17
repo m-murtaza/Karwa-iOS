@@ -113,6 +113,20 @@ extension Date {
         return date!
     }
     
+    static func dateFromServerStringWithoutDefault(date strDate:String?) ->Date? {
+        var date : Date?
+        
+        if(strDate != nil && !(strDate?.isEmpty)!) {
+            let formatter : DateFormatter = DateFormatter()
+            formatter.dateFormat = Constants.SERVER_DATE_FORMAT
+            if formatter.date(from: strDate!) != nil {
+                date  = formatter.date(from: strDate!)!
+            }
+        }
+
+        return date
+    }
+    
     static func defaultDate() -> Date {
         return Date(timeIntervalSince1970: 0)
     }
@@ -156,6 +170,24 @@ extension Date {
 
     }
 
+    //DUe to server side chotiyapa.
+    func getServerFormatDate() -> String {
+        return year() + "-" + String(month+1) + "-" + String(dayOfMonth())
+    }
+    
+    func getUIFormatDate() -> String {
+        return String(dayOfMonth()) + " " + month() + " " + year()
+    }
+    
+    func month() -> String {
+        let formatter : DateFormatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+        //formatter.dateStyle = .medium
+        let str = formatter.string(from: self)
+        
+        return str.uppercased()
+    }
+    
     func year() -> String {
         let formatter : DateFormatter = DateFormatter()
         formatter.dateFormat = "yyyy"

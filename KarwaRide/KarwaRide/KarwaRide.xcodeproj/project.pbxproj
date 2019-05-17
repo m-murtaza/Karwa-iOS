@@ -72,6 +72,7 @@
 		1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */; };
 		1811E4EF205A2FFE00C3C47F /* KTBookingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */; };
 		1811E4F1205A302D00C3C47F /* KTBookingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */; };
+		1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1812D8942280470E00A424CD /* KTProfileCellViewController.swift */; };
 		1813449A1EF68671006E734A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181344991EF68671006E734A /* AppDelegate.swift */; };
 		1813449C1EF68671006E734A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1813449B1EF68671006E734A /* ViewController.swift */; };
 		1813449F1EF68671006E734A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1813449D1EF68671006E734A /* Main.storyboard */; };
@@ -84,6 +85,7 @@
 		181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */; };
 		181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */; };
 		181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 181AB8552075EDED0048D7AF /* InitTariff.JSON */; };
+		18203CC922888F2900B19B43 /* KTEmailCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */; };
 		182A74CB208714EB0025B6C7 /* CALayer+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */; };
 		182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CC20876A0B0025B6C7 /* KTTagButton.swift */; };
 		182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */; };
@@ -177,6 +179,8 @@
 		18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */; };
 		18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1520061890002D4B88 /* ButtonWithShadow.swift */; };
 		18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */; };
+		18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3BC1322841DC3008096B2 /* GenericInputVC.swift */; };
+		18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC95B52289D33400EB000D /* CircularProgress.swift */; };
 		18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B26E204293F000600966 /* SSASideMenu.swift */; };
 		18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */; };
 		18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */; };
@@ -264,6 +268,7 @@
 		1811E4EA2057ACB100C3C47F /* KTMyTripsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsTableViewCell.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsTableViewCell.swift; sourceTree = "<group>"; };
 		1811E4EE205A2FFE00C3C47F /* KTBookingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingDetailsViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTBookingDetailsViewController.swift; sourceTree = "<group>"; };
 		1811E4F0205A302D00C3C47F /* KTBookingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBookingDetailsViewModel.swift; path = "Classes/View Models/BookingDetails/KTBookingDetailsViewModel.swift"; sourceTree = "<group>"; };
+		1812D8942280470E00A424CD /* KTProfileCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTProfileCellViewController.swift; sourceTree = "<group>"; };
 		181344961EF68671006E734A /* KarwaRide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KarwaRide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		181344991EF68671006E734A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1813449B1EF68671006E734A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -278,6 +283,7 @@
 		181AB8502074E6F80048D7AF /* KTCancelBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelBookingManager.swift; path = Classes/DAL/CancelBooking/KTCancelBookingManager.swift; sourceTree = "<group>"; };
 		181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAppDataSyncManager.swift; path = Classes/DAL/KTAppDataSyncManager.swift; sourceTree = "<group>"; };
 		181AB8552075EDED0048D7AF /* InitTariff.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitTariff.JSON; path = Resources/JSON/InitTariff.JSON; sourceTree = "<group>"; };
+		18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTEmailCellViewController.swift; sourceTree = "<group>"; };
 		182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CALayer+Utils.swift"; path = "Classes/Common/Extensions/CALayer+Utils.swift"; sourceTree = "<group>"; };
 		182A74CC20876A0B0025B6C7 /* KTTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTTagButton.swift; path = Classes/Views/Controllers/BookingDetails/KTTagButton.swift; sourceTree = "<group>"; };
 		182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSOrderedSet+Utils.swift"; path = "Classes/Common/Extensions/NSOrderedSet+Utils.swift"; sourceTree = "<group>"; };
@@ -371,6 +377,9 @@
 		18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Utils.swift"; path = "Classes/Common/Extensions/UIColor+Utils.swift"; sourceTree = "<group>"; };
 		18C24B1520061890002D4B88 /* ButtonWithShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonWithShadow.swift; path = Classes/ThirdParty/UIElements/ButtonWithShadow.swift; sourceTree = "<group>"; };
 		18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewWithRoundCorner.swift; path = Classes/ThirdParty/UIElements/ViewWithRoundCorner.swift; sourceTree = "<group>"; };
+		18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
+		18D3BC1322841DC3008096B2 /* GenericInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericInputVC.swift; sourceTree = "<group>"; };
+		18DC95B52289D33400EB000D /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		18F2B26E204293F000600966 /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSASideMenu.swift; path = Classes/ThirdParty/SSASideMenu/SSASideMenu.swift; sourceTree = "<group>"; };
 		18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLeftMenuModel.swift; path = "Classes/View Models/SideDrawer/KTLeftMenuModel.swift"; sourceTree = "<group>"; };
 		18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuTableViewCell.swift; path = Classes/Views/Controllers/SideDrawer/LeftMenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -931,7 +940,6 @@
 				186487231F0A362E00DDB003 /* Login */,
 				186487211F0A361B00DDB003 /* KTBaseViewController.swift */,
 				1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */,
-				1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1215,8 +1223,13 @@
 				1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */,
 				1839111920457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift */,
 				1811E4CF204E723C00C3C47F /* KTEditAccountViewController.swift */,
+				1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */,
 				1811E4D7204EB09D00C3C47F /* KTChangePasswordViewController.swift */,
 				1811E4D9204FB34600C3C47F /* KTSetHomeWorkViewController.swift */,
+				1812D8942280470E00A424CD /* KTProfileCellViewController.swift */,
+				18D3BC1322841DC3008096B2 /* GenericInputVC.swift */,
+				18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */,
+				18DC95B52289D33400EB000D /* CircularProgress.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1522,6 +1535,7 @@
 				0D80810A21AE60FA0055E473 /* KTTrackTripViewModel.swift in Sources */,
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
+				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
@@ -1577,6 +1591,7 @@
 				18F2B2792044214000600966 /* KTSettingsViewController.swift in Sources */,
 				0DE6A743218B141200125507 /* Gateway.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
+				18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
@@ -1598,6 +1613,7 @@
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
+				18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */,
 				0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */,
 				0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */,
 				186ECFCE20A80E2B002CF81E /* KTFirstViewController.swift in Sources */,
@@ -1606,6 +1622,7 @@
 				182D670920B17C2E00A36365 /* KTCallerIDPopup.swift in Sources */,
 				0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */,
 				0D826ECD21997309006FF11B /* ImageUtil.swift in Sources */,
+				18203CC922888F2900B19B43 /* KTEmailCellViewController.swift in Sources */,
 				182A74D720972EB10025B6C7 /* KTNotificationViewController.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
@@ -1843,13 +1860,14 @@
 		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */,
 				0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */,
 				0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */,
 				0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */,
 				0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */,
 				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
 			);
-			currentVersion = 0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */;
+			currentVersion = 18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */;
 			name = Karwa.xcdatamodeld;
 			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
 			sourceTree = "<group>";

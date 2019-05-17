@@ -9,83 +9,264 @@
 import UIKit
 import Spring
 
-class KTEditAccountViewController: KTBaseViewController, KTEditUserViewModelDelegate,UITextFieldDelegate {
+class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDelegate,UITableViewDelegate,UITableViewDataSource
+{
+    @IBOutlet weak var tableView: UITableView!
 
-    @IBOutlet weak var txtName: UITextField!
-    @IBOutlet weak var txtEmail: UITextField!
-    @IBOutlet weak var txtPhone: UITextField!
-    @IBOutlet weak var btnSave: ButtonWithShadow!
-
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         viewModel = KTEditUserViewModel(del: self)
         
+        tableView.dataSource = self
+        tableView.delegate = self
+
         super.viewDidLoad()
-        txtName.becomeFirstResponder()
+        
+        self.tableView.rowHeight = 70
+        self.tableView.tableFooterView = UIView()
+
+        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
         // Do any additional setup after loading the view.
-        
-        btnSave.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(btnSaveTapped))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        updateFormWithUserInfo()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    @IBAction func btnSaveTapped(_ sender: Any) {
-        
-        txtName.resignFirstResponder()
-        txtEmail.resignFirstResponder()
-        (viewModel as! KTEditUserViewModel).btnSaveTapped(userName: txtName.text, userEmail: txtEmail.text)
-    }
-    
-    private func updateFormWithUserInfo() {
-    
-        txtName.text = (viewModel as! KTEditUserViewModel).userName()
-        txtEmail.text = (viewModel as! KTEditUserViewModel).userEmail()
-        txtPhone.text = (viewModel as! KTEditUserViewModel).userPhone()
-        txtPhone.isEnabled = false
-    }
-    
-    func showSuccessAltAndMoveBack() {
-        let alertController = UIAlertController(title: "Account Updated", message: "Your account information is updated", preferredStyle: .alert)
-        
-        //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        //alertController.addAction(cancelAction)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    func updateUI()
     {
-        // Try to find next responder
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
-            nextField.becomeFirstResponder()
-        } else {
-            // Not found, so remove keyboard.
-            textField.resignFirstResponder()
-        }
-        // Do not add a line break
-        return false
+        (viewModel as! KTEditUserViewModel).reloadData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        UITableView_Auto_Height()
+    }
+
+    func showSuccessAltAndMoveBack()
+    {
+    }
+    
+    func reloadTable()  {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.tableView.reloadData()
+        })
+        
+    }
+    
+    // MARK: - UITableView DataSource & Delegate
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var numRows = 4
+
+        if section == 1
+        {
+            numRows = 2
+        }
+
+        return numRows
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view : UIView = UIView()
+        if section == 0
+        {
+            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
+            lblSectionHeader.text = "Basic Info"
+            lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
+            lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+            view.backgroundColor = UIColor(hexString: "#EFFAF8")
+            view.addSubview(lblSectionHeader)
+        }
+        if section == 1
+        {
+            
+            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
+            lblSectionHeader.text = "Other"
+            lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
+            lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+            view.backgroundColor = UIColor(hexString: "#EFFAF8")
+            view.addSubview(lblSectionHeader)
+        }
+        
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        var cellHeight = 70
+
+        if(indexPath.row == 3)
+        {
+            cellHeight = (viewModel as! KTEditUserViewModel).resendVisible() ? 50 : 20
+        }
+
+        return CGFloat(cellHeight)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+            cell.label.text = "Name"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userName()
+            return cell
+        }
+        else if indexPath.section == 0 && indexPath.row == 1 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+            cell.label.text = "Phone"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userPhone()
+            return cell
+        }
+        else if indexPath.section == 0 && indexPath.row == 2 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+            cell.label.text = "Email"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userEmail()
+            cell.warning.isHidden = (viewModel as! KTEditUserViewModel).emailVerified()
+            return cell
+        }
+        else if indexPath.section == 0 && indexPath.row == 3 {
+            let cell : KTEmailCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierEmailCell") as! KTEmailCellViewController
+            cell.viewModel = (viewModel as! KTEditUserViewModel)
+            cell.message.text = (viewModel as! KTEditUserViewModel).emailMessage()
+            cell.resendButton.isHidden = (!(viewModel as! KTEditUserViewModel).resendVisible())
+            cell.backgroundColor = UIColor(hexString: "#EFFAF8")
+            return cell
+        }
+        else if indexPath.section == 1 && indexPath.row == 0 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+            cell.label.text = "Gender"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userGender()
+            return cell
+        }
+        else if indexPath.section == 1 && indexPath.row == 1 {
+            let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+            cell.label.text = "Date of birth"
+            cell.value.text = (viewModel as! KTEditUserViewModel).userDOB()
+            return cell
+        }
+
+        let cellEmpty : UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
+        return cellEmpty
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0
+        {
+            if indexPath.row == 0
+            {
+                showInputDialog(header: "Name", currentText: (viewModel as! KTEditUserViewModel).userName(), inputType: "name")
+            }
+            else if(indexPath.row == 2)
+            {
+                showInputDialog(header: "Email", currentText: (viewModel as! KTEditUserViewModel).userEmail(), inputType: "email")
+            }
+        }
+        else if indexPath.section == 1
+        {
+            if indexPath.row == 0
+            {
+                showGenderPicker()
+            }
+            else if indexPath.row == 1
+            {
+                showDateOfBirthPicker()
+            }
+        }
+
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func saveName(inputText: String)
+    {
+        (viewModel as! KTEditUserViewModel).updateName(userName: inputText)
+    }
+
+    func saveEmail(inputText: String)
+    {
+        (viewModel as! KTEditUserViewModel).updateEmail(email: inputText)
+    }
+    
+    func saveGender(gender: Int16)
+    {
+        (viewModel as! KTEditUserViewModel).updateGender(gender: gender)
+    }
+
+    func saveDob(date: Date)
+    {
+        (viewModel as! KTEditUserViewModel).updateDOB(dob: date)
+    }
+    
+    
+    
+    func showInputDialog(header: String, currentText : String, inputType: String)
+    {
+        let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
+        inputPopup.previousView = self
+        view.addSubview(inputPopup.view)
+        addChildViewController(inputPopup)
+        
+        inputPopup.inputType = inputType
+        inputPopup.header.text = header
+        inputPopup.txtPickupHint.text = currentText
+    }
+    
+    func showGenderPicker()
+    {
+        let alert = UIAlertController(title: "Select Gender", message: "", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Prefer not to mention", style: .default, handler: { (_) in
+            self.saveGender(gender: 0)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Male", style: .default, handler: { (_) in
+            self.saveGender(gender: 1)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Female", style: .default, handler: { (_) in
+            self.saveGender(gender: 2)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { (_) in
+        }))
+        
+        self.present(alert, animated: true, completion: {
+        })
+    }
+    
+    func showDateOfBirthPicker()
+    {
+        let minDate = Date(timeIntervalSinceReferenceDate: -1262327168000)
+        let currentDate = Date()
+        
+        let datePicker = DatePickerDialog(textColor: UIColor(hexString: "4A4A4A"),
+                                          buttonColor: UIColor(hexString: "129793"),
+                                          font: UIFont(name: "MuseoSans-500", size: 18.0)!,
+                                          showCancelButton: true)
+        datePicker.show("Select Date of birth",
+                        doneButtonTitle: "Save",
+                        cancelButtonTitle: "Cancel", defaultDate: (viewModel as! KTEditUserViewModel).userDOBObject(),
+                        minimumDate: minDate,
+                        maximumDate: currentDate,
+                        datePickerMode: .date) { (date) in
+                            if let dt = date
+                            {
+                                self.saveDob(date: dt)
+                            }
+        }
+    }
+    
+    func UITableView_Auto_Height()
+    {
+        if(self.tableView.contentSize.height < self.tableView.frame.height){
+            var frame: CGRect = self.tableView.frame;
+            frame.size.height = self.tableView.contentSize.height;
+            self.tableView.frame = frame;
+        }
+    }
 }

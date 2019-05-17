@@ -107,6 +107,13 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
         }
         
     }
+    func showPopupMessage(_ title: String, _ message: String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     func hideProgressHud() {
         
         showProgressHud(show: false)

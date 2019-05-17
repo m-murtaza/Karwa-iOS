@@ -11,6 +11,7 @@ import UIKit
 class KTAppDataSyncManager: KTDALManager {
     
     func syncApplicationData()  {
+        self.syncProfile()
         self.syncVechicleTypes()
         self.fetchBookmarks()
         self.syncBookings()
@@ -20,6 +21,13 @@ class KTAppDataSyncManager: KTDALManager {
         self.syncPaymentMethods()
         self.removeNotificaiton()
         
+    }
+    
+    private func syncProfile()
+    {
+        KTUserManager().syncUserProfile {(status, response) in
+            print("Profile synced")
+        }
     }
     
     private func syncBookings()

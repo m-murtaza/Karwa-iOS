@@ -13,6 +13,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     @IBOutlet weak var lblName : UILabel!
     @IBOutlet weak var lblPhone : UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     var DrawerOption = [String]()
     var lastSelectedCell:LeftMenuTableViewCell?
@@ -21,6 +22,23 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         //view.backgroundColor = UIColor.clear
         viewModel = KTLeftMenuModel(del:self)
         super.viewDidLoad()
+     
+        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+    }
+    
+    func updateUI()
+    {
+        (viewModel as! KTLeftMenuModel).reloadData()
+//        showSuccessBanner("", "Profile Updated")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func reloadTable()
+    {
+        tableView.reloadData()
     }
     
     //MARK: - ViewModel Delegate
@@ -41,7 +59,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         return (viewModel as! KTLeftMenuModel).numberOfRowsInSection()
     }
 
-
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:LeftMenuTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SideDrawerCell", for: indexPath) as! LeftMenuTableViewCell
      
@@ -52,7 +69,9 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
         cell.lblNew.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
         cell.selectedBackgroundView = UIView()
-     
+
+        cell.lblWarning.isHidden = (viewModel as! KTLeftMenuModel).isEmailVerified(idx: indexPath.row)
+
         return cell
      }
     
@@ -74,6 +93,44 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
 //            lastSelectedCell = cell
 //        }
 
+        /* With scan N pay */
+//        switch indexPath.row {
+//        case 0:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//        case 1:
+//
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//        case 2:
+//
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//        case 3:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//        case 4:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//        case 5:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//
+//        default:
+//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
+//            sideMenuViewController?.hideMenuViewController()
+//            break
+//        }
+        
+        
+        
+        /* Without scan N pay */
         switch indexPath.row {
         case 0:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
@@ -94,10 +151,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.hideMenuViewController()
             break
         case 4:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-            sideMenuViewController?.hideMenuViewController()
-            break
-        case 5:
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
             sideMenuViewController?.hideMenuViewController()
             break
@@ -107,7 +160,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuViewController?.hideMenuViewController()
             break
         }
-        
         return false
     }
 }

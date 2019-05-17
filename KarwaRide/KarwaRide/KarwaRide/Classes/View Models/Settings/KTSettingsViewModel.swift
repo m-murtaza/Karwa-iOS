@@ -23,6 +23,12 @@ class KTSettingsViewModel: KTBaseViewModel {
         (delegate as! KTSettingsViewModelDelegate).reloadTable()
     }
     
+    func reloadData()
+    {
+        userInfo = KTUserManager().loginUserInfo()
+        (delegate as! KTSettingsViewModelDelegate).reloadTable()
+    }
+    
     func userName() -> String {
         var name = ""
         if userInfo != nil && userInfo?.name != nil {
@@ -37,6 +43,39 @@ class KTSettingsViewModel: KTBaseViewModel {
             phone = (userInfo?.phone)!
         }
         return phone
+    }
+    
+    func isEmailVerified() -> Bool
+    {
+        return userInfo?.isEmailVerified ?? false
+    }
+    
+    func percentageCompletion() -> Int {
+
+        var completeness: Int = 0
+
+        if userInfo != nil && userInfo?.name != nil
+        {
+            completeness += 20
+        }
+        if userInfo != nil && userInfo?.phone != nil
+        {
+            completeness += 20
+        }
+        if userInfo != nil && userInfo?.email != nil
+        {
+            completeness += 30
+        }
+        if userInfo != nil && userInfo?.dob != nil
+        {
+            completeness += 15
+        }
+        if userInfo != nil && userInfo?.gender != nil && userInfo?.gender != 0
+        {
+            completeness += 15
+        }
+        
+        return completeness
     }
     
     func appVersion() -> String {

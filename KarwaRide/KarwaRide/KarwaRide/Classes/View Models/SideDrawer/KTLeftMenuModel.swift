@@ -26,6 +26,7 @@ protocol KTLeftMenuDelegate : KTViewModelDelegate {
     
     func updateUserName (name : String)
     func updatePhoneNumber(phone: String)
+    func reloadTable()
 }
 
 class KTLeftMenuModel: KTBaseViewModel {
@@ -55,7 +56,25 @@ class KTLeftMenuModel: KTBaseViewModel {
         }
         (delegate as! KTLeftMenuDelegate).updateUserName(name: (user.name != nil) ? (user.name!) : "No Name")
         (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user.phone != nil) ? (user.phone!) : "No Phone")
-
+    }
+    
+    func isEmailVerified(idx: Int) -> Bool
+    {
+        if(drawerOptions[idx].title == "Settings")
+        {
+            guard let user:KTUser = KTUserManager().loginUserInfo() else {
+                return false
+            }
+            return user.isEmailVerified
+        }
+        
+        return true
+    }
+    
+    func reloadData()
+    {
+        updateUserInfo()
+        (delegate as! KTLeftMenuDelegate).reloadTable()
     }
     
     func setMenuItems() {
@@ -72,11 +91,17 @@ class KTLeftMenuModel: KTBaseViewModel {
         let menuItem4 : KTMenuItems = KTMenuItems(title: "Help", image: UIImage(named:"help")!, color: UIColor(hexString: "#1BB4B4"), isNew: false)
         drawerOptions.append(menuItem4)
         
-        let menuItem5 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: true)
-        drawerOptions.append(menuItem5)
+        /* With scan N pay */
+//        let menuItem5 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: true)
+//        drawerOptions.append(menuItem5)
+//
+//        let menuItem6 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
+//        drawerOptions.append(menuItem6)
         
-        let menuItem6 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
-        drawerOptions.append(menuItem6)
+        
+        /* Without scan N pay */
+        let menuItem5 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
+        drawerOptions.append(menuItem5)
     }
     
     func numberOfRowsInSection() -> Int

@@ -13,6 +13,9 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func reloadTableData()
     func showEmptyScreen()
     func hideEmptyScreen()
+    func showAddCardVC()
+    func showVerifyEmailPopup()
+    func showEnterEmailPopup()
     func hideCardIOPaymentController()
     func deleteRowWithAnimation(_ index: IndexPath)
     func showPayBtn()
@@ -307,6 +310,36 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
     
+    func addCardButtonTapped()
+    {
+        let user = loginUserInfo()
+        if user.email != nil && !(user.email!.isEmpty)
+        {
+            if(user.isEmailVerified)
+            {
+                self.del?.showAddCardVC()
+            }
+            else
+            {
+                self.del?.showVerifyEmailPopup()
+            }
+        }
+        else
+        {
+            self.del?.showEnterEmailPopup()
+        }
+    }
+    
+    func updateEmail(email: String)
+    {
+        let user = loginUserInfo()
+        updateProfile(userName: "", userEmail: email, dob: nil, gen: user.gender, shouldValidate: true)
+    }
+    
+    func loginUserInfo() -> KTUser {
+        return KTUserManager().loginUserInfo()!
+    }
+    
     func rowSelected(atIndex idx: Int)
     {
         selectedPaymentMethod = paymentMethods[idx]
@@ -332,5 +365,52 @@ class KTPaymentViewModel: KTBaseViewModel
             refinedMonth = "0" + refinedMonth
         }
         return refinedMonth
+    }
+    
+    func updateProfile(userName : String?, userEmail : String?, dob: Date?, gen: Int16, shouldValidate: Bool)
+    {
+        var error = ""
+        if(shouldValidate)
+        {
+            error = validate(userName: userName, userEmail: userEmail)
+        }
+        
+        if  error.isEmpty
+        {
+            delegate?.showProgressHud(show: true, status: "Updating Account Info")
+            
+            KTUserManager().updateUserInfo(
+                name: userName!,
+                email: (userEmail != nil && !userEmail!.isEmpty) ? userEmail! : "",
+                dob: dob?.getServerFormatDate() ?? "",
+                gender: gen,
+                completion: { (status, response) in
+
+                    self.delegate?.hideProgressHud()
+
+                    if status == Constants.APIResponseStatus.SUCCESS
+                    {
+                        self.delegate?.showPopupMessage("", "Email added successfully, Please verify")
+                    }
+                    else
+                    {
+                        self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                    }
+            })
+        }
+        else {
+            self.delegate?.showError!(title: "Error" , message: error)
+        }
+    }
+    
+    func validate(userName : String?, userEmail : String?) -> String {
+        var errorString :String = ""
+        if userName == nil || userName == "" {
+            errorString = "Please enter your email"
+        }
+        if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
+            errorString = "Please enter valid email address"
+        }
+        return errorString
     }
 }
