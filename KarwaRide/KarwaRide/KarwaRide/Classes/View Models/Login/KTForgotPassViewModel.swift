@@ -13,6 +13,7 @@ protocol KTForgotPassViewModelDelegate: KTViewModelDelegate {
     func rePassword() -> String?
 
     func navigateToOTP()
+    func navigateToEnterEmail()
 }
 
 class KTForgotPassViewModel: KTBaseViewModel {
@@ -52,6 +53,10 @@ class KTForgotPassViewModel: KTBaseViewModel {
                 {
                     
                     (self.delegate as! KTForgotPassViewModelDelegate).navigateToOTP()
+                }
+                else if(status == Constants.APIResponseStatus.VALIDATE_EMAIL)
+                {
+                    (self.delegate as! KTForgotPassViewModelDelegate).navigateToEnterEmail()
                 }
                 else
                 {

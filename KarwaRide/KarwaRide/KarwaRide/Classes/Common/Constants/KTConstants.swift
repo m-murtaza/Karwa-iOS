@@ -145,6 +145,7 @@ struct Constants {
         static let SUSPENDED = "SUSPENDED"
         static let NO_UPDATE = "NO_UPDATE"
         static let UNVERIFIED = "UNVERIFIED"
+        static let VALIDATE_EMAIL = "VALIDATE_EMAIL"
     }
     
     struct LoginResponseAPIKey {

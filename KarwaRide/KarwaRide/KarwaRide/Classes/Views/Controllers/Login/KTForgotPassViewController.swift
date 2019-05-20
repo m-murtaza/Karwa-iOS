@@ -66,6 +66,13 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
         self.performSegue(withIdentifier: "SegueForgotPassToOTP", sender: self)
     }
     
+    func navigateToEnterEmail()
+    {
+        //TODO:
+//        self.performSegue(withIdentifier: "SegueForgotPassToOTP", sender: self)
+        showOkDialog(titleMessage: "Navigating to Email", descMessage: "Navigating to Email")
+    }
+    
     @IBAction func btnCloseTapped(_ sender: Any) {
     
         if previousView != nil {
