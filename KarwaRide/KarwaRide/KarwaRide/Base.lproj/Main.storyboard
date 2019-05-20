@@ -1917,6 +1917,7 @@
                         <outlet property="txtPassword" destination="ce2-eZ-A8z" id="aSz-6T-LAh"/>
                         <outlet property="txtPhoneNumber" destination="ih5-Tj-ObB" id="gQG-sZ-UNd"/>
                         <segue destination="eo2-jb-kjP" kind="show" identifier="SegueForgotPassToOTP" id="67X-ka-fJY"/>
+                        <segue destination="E1j-Jm-PPl" kind="show" identifier="SegueForgotPassToMaskedEmailConfirmation" id="3IR-Sh-xH0"/>
                     </connections>
                 </viewController>
                 <navigationItem title="Forgot Your Password" id="yub-cY-VGE">
@@ -1924,7 +1925,133 @@
                 </navigationItem>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qpe-6C-J6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3822" y="178"/>
+            <point key="canvasLocation" x="3703" y="276"/>
+        </scene>
+        <!--Forgot Your Password-->
+        <scene sceneID="2oP-bB-jWi">
+            <objects>
+                <viewController title="Forgot Your Password" id="E1j-Jm-PPl" customClass="KTMaskedEmailConfirmationVC" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Led-Z2-uSs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Se-TN-LNZ" userLabel="No Worries! enter your details blow, and you will get your account back" customClass="SpringLabel" customModule="Spring">
+                                <rect key="frame" x="40" y="104" width="295" height="16.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="jL2-If-jA3"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Please enter the complete email address">
+                                        <attributes>
+                                            <color key="NSColor" red="0.38039215686274508" green="0.37647058823529411" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="14" name="MicrosoftSansSerif"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideLeft"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="0.29999999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hQ-wJ-7ow" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="40" y="211" width="295" height="57"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2QU-k7-Bv4" customClass="SpringTextField" customModule="Spring">
+                                        <rect key="frame" x="20" y="14" width="255" height="22"/>
+                                        <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                <real key="value" value="0.69999999999999996"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="E1j-Jm-PPl" id="fZ3-hX-C9N"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="2QU-k7-Bv4" firstAttribute="centerY" secondItem="7hQ-wJ-7ow" secondAttribute="centerY" multiplier="0.33333" constant="15.500095" id="4G3-nW-mjN"/>
+                                    <constraint firstAttribute="height" constant="57" id="5Zx-bJ-Cwq"/>
+                                    <constraint firstAttribute="trailing" secondItem="2QU-k7-Bv4" secondAttribute="trailing" constant="20" id="8aW-Jk-wRl"/>
+                                    <constraint firstItem="2QU-k7-Bv4" firstAttribute="leading" secondItem="7hQ-wJ-7ow" secondAttribute="leading" constant="20" id="uju-7w-oDC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.81176470590000005" green="0.81568627449999997" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*******@****.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xy0-rx-NVH" customClass="SpringLabel" customModule="Spring">
+                                <rect key="frame" x="40" y="152.5" width="295" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideLeft"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Se-TN-LNZ" firstAttribute="centerX" secondItem="bxp-p9-Au5" secondAttribute="centerX" id="BNk-YX-4u9"/>
+                            <constraint firstItem="xy0-rx-NVH" firstAttribute="leading" secondItem="bxp-p9-Au5" secondAttribute="leading" constant="40" id="C2V-dI-5uj"/>
+                            <constraint firstItem="9Se-TN-LNZ" firstAttribute="top" secondItem="bxp-p9-Au5" secondAttribute="top" constant="40" id="Fam-sY-JU1"/>
+                            <constraint firstItem="7hQ-wJ-7ow" firstAttribute="trailing" secondItem="9Se-TN-LNZ" secondAttribute="trailing" id="OFQ-Jx-ntP"/>
+                            <constraint firstItem="7hQ-wJ-7ow" firstAttribute="top" secondItem="9Se-TN-LNZ" secondAttribute="bottom" constant="90.5" id="jT9-gn-iT9"/>
+                            <constraint firstItem="7hQ-wJ-7ow" firstAttribute="leading" secondItem="9Se-TN-LNZ" secondAttribute="leading" id="tuX-MZ-pTO"/>
+                            <constraint firstItem="xy0-rx-NVH" firstAttribute="top" secondItem="9Se-TN-LNZ" secondAttribute="bottom" constant="32" id="vsN-Ky-HQk"/>
+                            <constraint firstItem="bxp-p9-Au5" firstAttribute="trailing" secondItem="xy0-rx-NVH" secondAttribute="trailing" constant="40" id="zxX-MT-s9q"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bxp-p9-Au5"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Forgot Your Password?" id="8kH-eY-Mm6">
+                        <barButtonItem key="leftBarButtonItem" image="CrossBarButton" id="wob-4i-dxa">
+                            <connections>
+                                <action selector="btnCloseTapped:" destination="E1j-Jm-PPl" id="hRF-WU-t35"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="lblEmail" destination="2QU-k7-Bv4" id="3Rq-lr-weN"/>
+                        <outlet property="lblMaskedEmail" destination="xy0-rx-NVH" id="GsT-Zx-XNP"/>
+                    </connections>
+                </viewController>
+                <navigationItem title="Forgot Your Password" id="wJZ-Yp-f3n">
+                    <barButtonItem key="backBarButtonItem" title="  " id="yBz-Uc-vd2"/>
+                </navigationItem>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dxe-c3-2YO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4687" y="276"/>
         </scene>
         <!--Verify Code-->
         <scene sceneID="1I3-Id-U4b">
@@ -2077,7 +2204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iWc-R7-K4K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2996" y="974"/>
+            <point key="canvasLocation" x="4486" y="-390"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z7Q-pd-bNm">
@@ -2143,7 +2270,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XUQ-sM-xYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4654" y="331"/>
+            <point key="canvasLocation" x="5500" y="1053"/>
         </scene>
         <!--Help-->
         <scene sceneID="uoB-wm-WMe">
@@ -2185,7 +2312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Zz-9D-kkE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5520.8000000000002" y="289.20539730134936"/>
+            <point key="canvasLocation" x="6262" y="1053"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JFs-6F-Nvu">
@@ -8416,7 +8543,7 @@
         <segue reference="wE4-w3-3Ll"/>
         <segue reference="izn-m5-Pdm"/>
         <segue reference="uRk-Bz-EyY"/>
-        <segue reference="6WV-05-qhJ"/>
+        <segue reference="67X-ka-fJY"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>

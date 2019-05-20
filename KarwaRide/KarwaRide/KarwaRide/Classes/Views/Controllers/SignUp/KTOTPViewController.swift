@@ -14,7 +14,9 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     @IBOutlet weak var otpView: VPMOTPView!
     var otpString : String?
     var phone : String = ""
-    
+    var password : String = ""
+    var email : String = ""
+
     var previousView : KTBaseLoginSignUpViewController?
     
     override func viewDidLoad() {

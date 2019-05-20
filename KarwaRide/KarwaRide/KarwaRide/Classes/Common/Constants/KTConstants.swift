@@ -154,6 +154,7 @@ struct Constants {
         static let Name = "Name"
         static let Phone = "Phone"
         static let SessionID = "SessionID"
+        static let MaskedEmail = "MaskedEmail"
     }
     
     struct GeoLocationResponseAPIKey {
@@ -382,7 +383,7 @@ struct Constants {
         static let ResendOtp = "user/otp"
         static let UpdateUserAccount = "user/update"
         static let ResendEmail = "user/verify/resend"
-        static let ForgotPass = "user/pwd"
+        static let ForgotPass = "user/recover"
         static let TrackTaxi = "track/"
         static let AddressPickViaGeoCode = "geocode"
         static let AddressPickViaSearch = "geocode/name"
