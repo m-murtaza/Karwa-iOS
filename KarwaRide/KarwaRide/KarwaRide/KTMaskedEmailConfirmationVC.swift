@@ -50,7 +50,6 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     @IBAction func btnSubmitTapped(_ sender: Any)
     {
         (viewModel as! KTMasedEmailConfirmationViewModel).btnSubmitTapped()
-        //navigateToOTP()
     }
     
     func phoneNumber() -> String? {
@@ -75,6 +74,16 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
             
             previousView?.dismiss()
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        if textField == lblEmail
+        {
+            textField.resignFirstResponder()
+            (viewModel as! KTMasedEmailConfirmationViewModel).btnSubmitTapped()
+        }
+        return true
     }
 }
 
