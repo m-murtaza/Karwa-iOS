@@ -37,12 +37,12 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "SegueForgotPassToOTP"
+        if segue.identifier == "SegueMaskedEmailToOTP"
         {
             
             let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
             otpView.previousView = previousView
-            otpView.phone = phone
+            otpView.phone = phoneNumber()!
             otpView.password = self.password
         }
     }
