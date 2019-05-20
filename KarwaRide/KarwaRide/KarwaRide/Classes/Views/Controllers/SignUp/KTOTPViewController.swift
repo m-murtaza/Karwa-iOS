@@ -93,5 +93,9 @@ extension KTOTPViewController: VPMOTPViewDelegate {
     
         otpString = otp
         
+        if(otp.count == 4)
+        {
+            confrimCodeTapped()
+        }
     }
 }
