@@ -87,8 +87,18 @@ struct Constants {
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
-//    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
-    static let MERCHANT_ID:String = "KTQNB01"
+
+    /*                Live Payment Credentials                            */
+    static let MERCHANT_ID:String = "KTRQNB01"
+    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    /* ------------------------------------------------------------------ */
+    
+    
+    /*                Test Payment Credentials                            */
+//    static let MERCHANT_ID:String = "KTQNB01"
+////    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
+//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
+    /* ------------------------------------------------------------------ */
     
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"

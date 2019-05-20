@@ -226,7 +226,7 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             // MARK: - Gateway Setup
 
-            let gateway: Gateway = Gateway(region: GatewayRegion.mtf, merchantId: Constants.MERCHANT_ID)
+            let gateway: Gateway = Gateway(region: Constants.GATEWAY_REGION, merchantId: Constants.MERCHANT_ID)
 
             var request = GatewayMap()
             request[at: "sourceOfFunds.provided.card.nameOnCard"] = cardHolderName
