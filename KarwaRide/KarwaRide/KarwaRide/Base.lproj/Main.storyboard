@@ -2044,6 +2044,7 @@
                     <connections>
                         <outlet property="lblEmail" destination="2QU-k7-Bv4" id="3Rq-lr-weN"/>
                         <outlet property="lblMaskedEmail" destination="xy0-rx-NVH" id="GsT-Zx-XNP"/>
+                        <segue destination="eo2-jb-kjP" kind="show" identifier="SegueMaskedEmailToOTP" id="wcf-kD-wML"/>
                     </connections>
                 </viewController>
                 <navigationItem title="Forgot Your Password" id="wJZ-Yp-f3n">
@@ -8543,7 +8544,7 @@
         <segue reference="wE4-w3-3Ll"/>
         <segue reference="bsC-QL-uBN"/>
         <segue reference="uRk-Bz-EyY"/>
-        <segue reference="67X-ka-fJY"/>
+        <segue reference="wcf-kD-wML"/>
         <segue reference="Pzn-gK-scz"/>
     </inferredMetricsTieBreakers>
 </document>

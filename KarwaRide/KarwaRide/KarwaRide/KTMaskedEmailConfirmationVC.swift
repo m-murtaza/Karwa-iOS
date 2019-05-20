@@ -65,7 +65,7 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     }
     
     func navigateToOTP() {
-        self.performSegue(withIdentifier: "SegueForgotPassToOTP", sender: self)
+        self.performSegue(withIdentifier: "SegueMaskedEmailToOTP", sender: self)
     }
     
     @IBAction func btnCloseTapped(_ sender: Any) {
