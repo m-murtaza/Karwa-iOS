@@ -179,6 +179,8 @@
 		18C24B0D2005CF10002D4B88 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */; };
 		18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1520061890002D4B88 /* ButtonWithShadow.swift */; };
 		18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */; };
+		18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */; };
+		18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */; };
 		18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3BC1322841DC3008096B2 /* GenericInputVC.swift */; };
 		18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC95B52289D33400EB000D /* CircularProgress.swift */; };
 		18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B26E204293F000600966 /* SSASideMenu.swift */; };
@@ -377,6 +379,8 @@
 		18C24B0C2005CF10002D4B88 /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Utils.swift"; path = "Classes/Common/Extensions/UIColor+Utils.swift"; sourceTree = "<group>"; };
 		18C24B1520061890002D4B88 /* ButtonWithShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonWithShadow.swift; path = Classes/ThirdParty/UIElements/ButtonWithShadow.swift; sourceTree = "<group>"; };
 		18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewWithRoundCorner.swift; path = Classes/ThirdParty/UIElements/ViewWithRoundCorner.swift; sourceTree = "<group>"; };
+		18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTMaskedEmailConfirmationVC.swift; sourceTree = "<group>"; };
+		18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTMasedEmailConfirmationViewModel.swift; sourceTree = "<group>"; };
 		18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
 		18D3BC1322841DC3008096B2 /* GenericInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericInputVC.swift; sourceTree = "<group>"; };
 		18DC95B52289D33400EB000D /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
@@ -972,6 +976,7 @@
 				186487241F0A368F00DDB003 /* KTLoginViewController.swift */,
 				1833CA692007467F00AD885B /* KTForgotPassViewController.swift */,
 				1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */,
+				18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -981,6 +986,7 @@
 			children = (
 				1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */,
 				1833CA6B2007474A00AD885B /* KTForgotPassViewModel.swift */,
+				18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1518,6 +1524,7 @@
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				183B91E220C7C19500097FAF /* KTFareHTMLViewController.swift in Sources */,
 				0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */,
+				18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */,
 				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
 				187E71112083790300E66A55 /* KTRatingManager.swift in Sources */,
 				186ECFBF20A1A466002CF81E /* KTOnboardingStep1ViewController.swift in Sources */,
@@ -1594,6 +1601,7 @@
 				18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
+				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
 				0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */,

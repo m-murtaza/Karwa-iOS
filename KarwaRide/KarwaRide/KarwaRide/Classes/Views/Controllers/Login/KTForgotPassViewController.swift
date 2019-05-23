@@ -18,6 +18,8 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     
     var previousView : KTBaseLoginSignUpViewController?
     
+    var maskedEmail: String = ""
+    
     //MARK: -View LifeCycle
     override func viewDidLoad() {
         viewModel = KTForgotPassViewModel(del:self)
@@ -42,12 +44,19 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
             otpView.previousView = previousView
             otpView.phone = phoneNumber()!
         }
+        else if segue.identifier == "SegueForgotPassToMaskedEmailConfirmation"
+        {
+            let maskedEmailVC : KTMaskedEmailConfirmationVC = segue.destination as! KTMaskedEmailConfirmationVC
+            maskedEmailVC.previousView = previousView
+            maskedEmailVC.phone = phoneNumber()!
+            maskedEmailVC.maskedEmail = maskedEmail
+            maskedEmailVC.password = password()!
+        }
     }
     
     @IBAction func btnSubmitTapped(_ sender: Any)
     {
         (viewModel as! KTForgotPassViewModel).btnSubmitTapped()
-        //navigateToOTP()
     }
     
     func phoneNumber() -> String? {
@@ -64,6 +73,12 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     
     func navigateToOTP() {
         self.performSegue(withIdentifier: "SegueForgotPassToOTP", sender: self)
+    }
+    
+    func navigateToEnterEmail(phone: String, password: String, maskedEmail: String)
+    {
+        self.maskedEmail = maskedEmail
+        self.performSegue(withIdentifier: "SegueForgotPassToMaskedEmailConfirmation", sender: self)
     }
     
     @IBAction func btnCloseTapped(_ sender: Any) {

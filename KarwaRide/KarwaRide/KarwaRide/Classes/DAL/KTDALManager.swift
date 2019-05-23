@@ -60,8 +60,17 @@ class KTDALManager: KTBase {
             //IF no error on network layer
             if response[Constants.ResponseAPIKey.Status] as! String != Constants.APIResponseStatus.SUCCESS
             {
-                //fail on API level
-                completionBlock(response[Constants.ResponseAPIKey.Status] as! String,response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                guard response[Constants.ResponseAPIKey.Data] != nil
+                else
+                {
+                    //fail on API level
+                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String,
+                                    response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                    return
+                }
+
+                let data = [Constants.ResponseAPIKey.Data:response[Constants.ResponseAPIKey.Data]!] as [AnyHashable:Any]
+                completionBlock(response[Constants.ResponseAPIKey.Status] as! String, data)
             }
             else
             {

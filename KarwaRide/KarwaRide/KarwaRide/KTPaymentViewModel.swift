@@ -14,7 +14,7 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func showEmptyScreen()
     func hideEmptyScreen()
     func showAddCardVC()
-    func showVerifyEmailPopup()
+    func showVerifyEmailPopup(email: String)
     func showEnterEmailPopup()
     func hideCardIOPaymentController()
     func deleteRowWithAnimation(_ index: IndexPath)
@@ -226,7 +226,7 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             // MARK: - Gateway Setup
 
-            let gateway: Gateway = Gateway(region: GatewayRegion.mtf, merchantId: Constants.MERCHANT_ID)
+            let gateway: Gateway = Gateway(region: Constants.GATEWAY_REGION, merchantId: Constants.MERCHANT_ID)
 
             var request = GatewayMap()
             request[at: "sourceOfFunds.provided.card.nameOnCard"] = cardHolderName
@@ -321,7 +321,7 @@ class KTPaymentViewModel: KTBaseViewModel
             }
             else
             {
-                self.del?.showVerifyEmailPopup()
+                self.del?.showVerifyEmailPopup(email: user.email ?? "")
             }
         }
         else
@@ -405,9 +405,6 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
-        if userName == nil || userName == "" {
-            errorString = "Please enter your email"
-        }
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
             errorString = "Please enter valid email address"
         }

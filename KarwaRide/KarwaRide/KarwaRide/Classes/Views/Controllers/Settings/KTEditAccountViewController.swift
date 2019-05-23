@@ -160,11 +160,11 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         {
             if indexPath.row == 0
             {
-                showInputDialog(header: "Name", currentText: (viewModel as! KTEditUserViewModel).userName(), inputType: "name")
+                showInputDialog(header: "Name", subHeader: "Please enter your name", currentText: (viewModel as! KTEditUserViewModel).userName(), inputType: "name")
             }
             else if(indexPath.row == 2)
             {
-                showInputDialog(header: "Email", currentText: (viewModel as! KTEditUserViewModel).userEmail(), inputType: "email")
+                showInputDialog(header: "Email", subHeader: "Please enter your valid email address", currentText: (viewModel as! KTEditUserViewModel).userEmail(), inputType: "email")
             }
         }
         else if indexPath.section == 1
@@ -204,7 +204,7 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     
     
     
-    func showInputDialog(header: String, currentText : String, inputType: String)
+    func showInputDialog(header: String, subHeader: String, currentText : String, inputType: String)
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
         inputPopup.previousView = self
@@ -214,6 +214,7 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         inputPopup.inputType = inputType
         inputPopup.header.text = header
         inputPopup.txtPickupHint.text = currentText
+        inputPopup.lblSubHeader.text = subHeader
     }
     
     func showGenderPicker()

@@ -172,13 +172,24 @@ extension Date {
 
     //DUe to server side chotiyapa.
     func getServerFormatDate() -> String {
-        return year() + "-" + String(month+1) + "-" + String(dayOfMonth())
+        return year() + "-" + String(monthNumber()) + "-" + dayOfMonth()
     }
     
     func getUIFormatDate() -> String {
         return String(dayOfMonth()) + " " + month() + " " + year()
     }
     
+    func monthNumber() -> Int {
+        if(dayOfMonth() == "1" || dayOfMonth() == "01")
+        {
+            return (month + 1)
+        }
+        else
+        {
+            return month
+        }
+    }
+
     func month() -> String {
         let formatter : DateFormatter = DateFormatter()
         formatter.dateFormat = "MMM"
@@ -201,7 +212,7 @@ extension Date {
         formatter.dateFormat = "dd"
         //formatter.dateStyle = .medium
         let str = formatter.string(from: self)
-        
+
         return str.uppercased()
     }
     

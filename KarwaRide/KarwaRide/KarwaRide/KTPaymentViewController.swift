@@ -373,17 +373,17 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         presentAddCardViewController()
     }
     
-    func showVerifyEmailPopup()
+    func showVerifyEmailPopup(email: String)
     {
-        showPopupMessage("Email Verification Required", "Please verify your email before adding the new payment method")
+        showPopupMessage("", "Please verify your email before adding the new payment method.\nEntered email: \(email)")
     }
     
     func showEnterEmailPopup()
     {
-        showEnterEmailPopup(header: "Email", currentText: "", inputType: "email")
+        showEnterEmailPopup(header: "Email", subHeader: "Please enter valid email address before adding payment method", currentText: "", inputType: "email")
     }
     
-    func showEnterEmailPopup(header: String, currentText : String, inputType: String)
+    func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
         inputPopup.paymentVC = self
@@ -393,6 +393,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         inputPopup.inputType = inputType
         inputPopup.header.text = header
         inputPopup.txtPickupHint.text = currentText
+        inputPopup.lblSubHeader.text = subHeader
     }
     
     func saveEmail(inputText: String)

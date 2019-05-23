@@ -221,9 +221,6 @@ class KTEditUserViewModel: KTBaseViewModel {
     
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
-        if userName == nil || userName == "" {
-            errorString = "Please enter your email"
-        }
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
             errorString = "Please enter valid email address"
         }
