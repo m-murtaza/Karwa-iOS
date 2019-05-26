@@ -486,7 +486,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         let threeDSecureView = Gateway3DSecureViewController(nibName: nil, bundle: nil)
         
         // Optionally, customize the presentation
-        threeDSecureView.title = "3D Secure for Karwa Payment"
+        threeDSecureView.title = "3-D Secure"
         threeDSecureView.navBar.tintColor = UIColor(red: 1, green: 0.357, blue: 0.365, alpha: 1)
         // present the 3DSecureViewController
         present(threeDSecureView, animated: true)
