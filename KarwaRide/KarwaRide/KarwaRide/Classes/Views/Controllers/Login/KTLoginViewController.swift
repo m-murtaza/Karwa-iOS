@@ -34,6 +34,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         view.addGestureRecognizer(tap)
         
         txtPassword.delegate = self
+        txtPhoneNumber.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,15 +137,16 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     //Bug 2567 Fixed.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if textField == txtPhoneNumber {
-        
-            let currentText = textField.text ?? ""
-            guard let stringRange = Range(range, in: currentText) else { return false }
-            
-            let changedText = currentText.replacingCharacters(in: stringRange, with: string)
-            
-            return changedText.count <= ALLOWED_NUM_PHONE_CHAR
-        }
+//        if textField == txtPhoneNumber {
+//
+//            let currentText = textField.text ?? ""
+//
+//            guard let stringRange = Range(range, in: currentText) else { return false }
+//
+//            let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+//
+//            return changedText.count <= ALLOWED_NUM_PHONE_CHAR
+//        }
         return true
     }
    
@@ -158,4 +160,15 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         return true
     }
    
+    @objc func textFieldDidChange(_ textField: UITextField)
+    {
+        txtPhoneNumber.text = textField.text?.replacingOccurrences(of: "+974", with: "")
+        txtPhoneNumber.text = textField.text?.replacingOccurrences(of: " ", with: "")
+        
+        if(txtPhoneNumber.text?.count == ALLOWED_NUM_PHONE_CHAR)
+        {
+            txtPhoneNumber.resignFirstResponder()
+            txtPassword.becomeFirstResponder()
+        }
+    }
 }
