@@ -89,14 +89,14 @@ struct Constants {
 
 
     /*                Live Payment Credentials                            */
-//    static let MERCHANT_ID:String = "KTRQNB01"
-//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    static let MERCHANT_ID:String = "KTRQNB01"
+    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
     /* ------------------------------------------------------------------ */
     
     
     /*                Test Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTQNB01A"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
+//    static let MERCHANT_ID:String = "KTQNB01A"
+//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
 ////    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
     /* ------------------------------------------------------------------ */
     
