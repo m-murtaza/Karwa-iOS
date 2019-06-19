@@ -46,7 +46,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     }
     
     func selectedCountry(country: Country) {
-        (viewModel as! KTLoginViewModel).setSelectedCountry(country: country)
+        (viewModel as! KTForgotPassViewModel).setSelectedCountry(country: country)
         setCountry(country: country)
     }
     
