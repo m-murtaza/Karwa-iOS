@@ -25,6 +25,11 @@ class KTLoginViewModel: KTBaseViewModel {
 //        delegate = del as? KTLoginViewModelDelegate
 //    }
     
+    var country = Country(countryCode: "QA", phoneExtension: "974")
+    func setSelectedCountry(country: Country) {
+        self.country = country
+    }
+
     func loginBtnTapped()
     {
         let phone : String = ((delegate as! KTLoginViewModelDelegate).phoneNumber())

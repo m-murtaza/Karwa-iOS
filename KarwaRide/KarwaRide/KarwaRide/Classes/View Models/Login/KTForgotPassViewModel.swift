@@ -37,6 +37,11 @@ class KTForgotPassViewModel: KTBaseViewModel {
 //        delegate = del as? KTForgotPassViewModelDelegate
 //    }
     
+    var country = Country(countryCode: "QA", phoneExtension: "974")
+    func setSelectedCountry(country: Country) {
+        self.country = country
+    }
+
     func btnSubmitTapped() ->Void
     {
         phone = (delegate as! KTForgotPassViewModelDelegate).phoneNumber()

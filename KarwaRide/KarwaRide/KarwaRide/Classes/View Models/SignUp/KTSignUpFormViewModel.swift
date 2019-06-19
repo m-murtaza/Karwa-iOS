@@ -40,6 +40,11 @@ class KTSignUpFormViewModel: KTBaseViewModel {
 //        delegate = del as? KTSignUpViewModelDelegate
 //    }
     
+    var country = Country(countryCode: "QA", phoneExtension: "974")
+    func setSelectedCountry(country: Country) {
+        self.country = country
+    }
+
     func SignUp() -> Void {
         name = (self.delegate as! KTSignUpViewModelDelegate).name()
         mobileNo = (self.delegate as! KTSignUpViewModelDelegate).mobileNo()

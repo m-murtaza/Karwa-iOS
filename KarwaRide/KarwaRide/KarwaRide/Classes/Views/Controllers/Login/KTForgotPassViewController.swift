@@ -9,13 +9,16 @@
 import UIKit
 import Spring
 
-class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDelegate, UITextFieldDelegate  {
+class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDelegate, UITextFieldDelegate, CountryListDelegate  {
     
     @IBOutlet weak var txtPhoneNumber : UITextField!
     @IBOutlet weak var txtPassword : UITextField!
     @IBOutlet weak var txtConfirmPass : UITextField!
     @IBOutlet weak var btnSubmitt: SpringButton!
+    @IBOutlet weak var lblCountryCode: UILabel!
     
+    var countryList = CountryList()
+
     var previousView : KTBaseLoginSignUpViewController?
     
     var maskedEmail: String = ""
@@ -30,6 +33,25 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
         btnSubmitt.isHidden = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
         
+        countryList.delegate = self
+        let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
+        lblCountryCode.addGestureRecognizer(countryTap)
+        setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
+    }
+    
+    @objc
+    func countrySelectorTapped(sender:UITapGestureRecognizer) {
+        let navController = UINavigationController(rootViewController: countryList)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+    func selectedCountry(country: Country) {
+        (viewModel as! KTLoginViewModel).setSelectedCountry(country: country)
+        setCountry(country: country)
+    }
+    
+    func setCountry(country: Country) {
+        lblCountryCode.text = country.flag! + " " + country.countryCode + " +" + country.phoneExtension
     }
     // MARK: - Navigation
     

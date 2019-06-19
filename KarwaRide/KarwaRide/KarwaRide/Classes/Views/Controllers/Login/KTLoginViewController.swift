@@ -40,7 +40,6 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         txtPhoneNumber.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 
         countryList.delegate = self
-
         let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
         lblCountryCode.addGestureRecognizer(countryTap)
         setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
@@ -48,10 +47,12 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   
     @objc
     func countrySelectorTapped(sender:UITapGestureRecognizer) {
-        showCountryPicker()
+        let navController = UINavigationController(rootViewController: countryList)
+        self.present(navController, animated: true, completion: nil)
     }
     
     func selectedCountry(country: Country) {
+        (viewModel as! KTLoginViewModel).setSelectedCountry(country: country)
         setCountry(country: country)
     }
 
@@ -180,12 +181,6 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
             (viewModel as! KTLoginViewModel).loginBtnTapped()
         }
         return true
-    }
-   
-    func showCountryPicker()
-    {
-        let navController = UINavigationController(rootViewController: countryList)
-        self.present(navController, animated: true, completion: nil)
     }
     
     @objc func textFieldDidChange(_ textField: UITextField)
