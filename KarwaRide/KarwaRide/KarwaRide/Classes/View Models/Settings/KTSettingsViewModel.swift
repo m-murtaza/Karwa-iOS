@@ -39,10 +39,17 @@ class KTSettingsViewModel: KTBaseViewModel {
     
     func userPhone() -> String {
         var phone = ""
+        var countryCode = "+974"
+
         if userInfo != nil && userInfo?.phone != nil {
             phone = (userInfo?.phone)!
         }
-        return phone
+        
+        if userInfo != nil && userInfo?.countryCode != nil {
+            countryCode = (userInfo?.countryCode)!
+        }
+
+        return countryCode + phone
     }
     
     func isEmailVerified() -> Bool

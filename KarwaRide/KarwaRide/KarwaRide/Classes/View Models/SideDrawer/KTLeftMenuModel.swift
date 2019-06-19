@@ -54,8 +54,12 @@ class KTLeftMenuModel: KTBaseViewModel {
         guard let user:KTUser = KTUserManager().loginUserInfo() else {
             return
         }
+        
+        let phone = (user.phone != nil) ? (user.phone!) : "No Phone"
+        let countryCode = (user.countryCode != nil) ? (user.countryCode!) : "+974"
+        
         (delegate as! KTLeftMenuDelegate).updateUserName(name: (user.name != nil) ? (user.name!) : "No Name")
-        (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: (user.phone != nil) ? (user.phone!) : "No Phone")
+        (delegate as! KTLeftMenuDelegate).updatePhoneNumber(phone: countryCode + phone)
     }
     
     func isEmailVerified(idx: Int) -> Bool

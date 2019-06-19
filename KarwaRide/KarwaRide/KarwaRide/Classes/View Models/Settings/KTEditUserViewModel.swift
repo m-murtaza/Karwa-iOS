@@ -46,12 +46,18 @@ class KTEditUserViewModel: KTBaseViewModel {
     }
     
     func userPhone() -> String {
-        var phone :String = ""
-        if user != nil {
-            
+        var phone = ""
+        var countryCode = "+974"
+        
+        if user != nil && user?.phone != nil {
             phone = (user?.phone)!
         }
-        return phone
+        
+        if user != nil && user?.countryCode != nil {
+            countryCode = (user?.countryCode)!
+        }
+        
+        return countryCode + phone
     }
     
     func emailVerified() -> Bool {
