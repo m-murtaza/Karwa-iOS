@@ -94,4 +94,14 @@ extension String {
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
+    
+    func flag() -> String {
+        let country:String = self
+        let base = 127397
+        var usv = String.UnicodeScalarView()
+        for i in country.utf16 {
+            usv.append(UnicodeScalar(base + Int(i))!)
+        }
+        return String(usv)
+    }
 }

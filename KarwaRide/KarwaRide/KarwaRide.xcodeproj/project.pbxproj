@@ -29,6 +29,10 @@
 		0D826ECD21997309006FF11B /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D826ECC21997309006FF11B /* ImageUtil.swift */; };
 		0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
+		0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224022BA30C900C41D00 /* CountryCell.swift */; };
+		0DB2224522BA30CA00C41D00 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224122BA30C900C41D00 /* Country.swift */; };
+		0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224222BA30C900C41D00 /* Countries.swift */; };
+		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
 		0DE6A73F218B141200125507 /* GatewayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A734218B140F00125507 /* GatewayError.swift */; };
 		0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A735218B141000125507 /* GatewayRegion.swift */; };
 		0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */; };
@@ -224,6 +228,10 @@
 		0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV5.xcdatamodel; sourceTree = "<group>"; };
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
+		0DB2224022BA30C900C41D00 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		0DB2224122BA30C900C41D00 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		0DB2224222BA30C900C41D00 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
 		0DE6A734218B140F00125507 /* GatewayError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayError.swift; sourceTree = "<group>"; };
 		0DE6A735218B141000125507 /* GatewayRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayRegion.swift; sourceTree = "<group>"; };
@@ -485,6 +493,17 @@
 			name = TripTrack;
 			sourceTree = "<group>";
 		};
+		0DB2223F22BA30B200C41D00 /* CountryPicker */ = {
+			isa = PBXGroup;
+			children = (
+				0DB2224222BA30C900C41D00 /* Countries.swift */,
+				0DB2224122BA30C900C41D00 /* Country.swift */,
+				0DB2224022BA30C900C41D00 /* CountryCell.swift */,
+				0DB2224322BA30C900C41D00 /* CountryList.swift */,
+			);
+			name = CountryPicker;
+			sourceTree = "<group>";
+		};
 		0DE6A733218B140200125507 /* MPGS */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +569,7 @@
 		1810C0C81FC59BA6008E8D91 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				0DB2223F22BA30B200C41D00 /* CountryPicker */,
 				0DE6A733218B140200125507 /* MPGS */,
 				1852094020623BDF00BD5FCD /* GifImage */,
 				1852093D205F96DE00BD5FCD /* ARCarMovement */,
@@ -1520,6 +1540,7 @@
 				182A74CB208714EB0025B6C7 /* CALayer+Utils.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
 				1886187420761B14000806D3 /* KTCancelViewController.swift in Sources */,
+				0DB2224522BA30CA00C41D00 /* Country.swift in Sources */,
 				18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				183B91E220C7C19500097FAF /* KTFareHTMLViewController.swift in Sources */,
@@ -1637,9 +1658,11 @@
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
 				186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */,
 				186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */,
+				0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */,
 				0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */,
 				0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
+				0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */,
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
 				0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */,
@@ -1651,6 +1674,7 @@
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
+				0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,
 				0DE90AF42186E8A6005FC934 /* KTPaymentViewController.swift in Sources */,
 				0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */,

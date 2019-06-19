@@ -9,15 +9,18 @@
 import UIKit
 import Spring
 
-let ALLOWED_NUM_PHONE_CHAR : Int = 8
+let ALLOWED_NUM_PHONE_CHAR : Int = 15
 
-class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDelegate,UITextFieldDelegate {
+class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDelegate, UITextFieldDelegate, CountryListDelegate {
     
     //MARK: - Properties
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var loginButton: SpringButton!
+    @IBOutlet weak var lblCountryCode: UILabel!
     
+    var countryList = CountryList()
+
     //MARK: -View LifeCycle
     override func viewDidLoad() {
         viewModel = KTLoginViewModel(del:self)
@@ -35,8 +38,27 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         
         txtPassword.delegate = self
         txtPhoneNumber.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
+        countryList.delegate = self
+
+        let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
+        lblCountryCode.addGestureRecognizer(countryTap)
+        setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
+    }
+  
+    @objc
+    func countrySelectorTapped(sender:UITapGestureRecognizer) {
+        showCountryPicker()
     }
     
+    func selectedCountry(country: Country) {
+        setCountry(country: country)
+    }
+
+    func setCountry(country: Country) {
+        lblCountryCode.text = country.flag! + " " + country.countryCode + " +" + country.phoneExtension
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
@@ -160,6 +182,12 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         return true
     }
    
+    func showCountryPicker()
+    {
+        let navController = UINavigationController(rootViewController: countryList)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField)
     {
         txtPhoneNumber.text = textField.text?.replacingOccurrences(of: "+974", with: "")
