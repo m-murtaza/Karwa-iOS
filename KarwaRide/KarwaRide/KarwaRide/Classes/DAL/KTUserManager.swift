@@ -19,6 +19,7 @@ class KTUserManager: KTDALManager {
             let user : KTUser = KTUser.mr_createEntity()!
             user.customerType = KTAppSessionInfo.currentSession.customerType!.rawValue
             //user.name = KTAppSessionInfo.currentSession.
+            user.countryCode = KTAppSessionInfo.currentSession.countryCode
             user.phone = KTAppSessionInfo.currentSession.phone
             //user.email = "ualeem@faad.com"
             
@@ -34,6 +35,7 @@ class KTUserManager: KTDALManager {
             let user : KTUser = KTUser.mr_createEntity(in: localContext)! //KTUser.mr_createEntity()!
             user.customerType = response[Constants.LoginResponseAPIKey.CustomerType] as! Int32
             user.name = response[Constants.LoginResponseAPIKey.Name] as? String
+            user.countryCode = response[Constants.LoginResponseAPIKey.CountryCode] as? String
             user.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
             user.email = response[Constants.LoginResponseAPIKey.Email] as? String
             user.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
@@ -110,9 +112,10 @@ class KTUserManager: KTDALManager {
         }
     }
     
-    func login(phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
+    func login(countryCodey: String, phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
     {
-        let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
+        let params : NSMutableDictionary = [Constants.LoginParams.CountryCode : countryCodey,
+                                            Constants.LoginParams.Phone : phone,
                                             Constants.LoginParams.Password: password]
         
         self.login(params: params,url: Constants.APIURL.Login, completion: completionBlock)
@@ -134,6 +137,7 @@ class KTUserManager: KTDALManager {
     func saveUserInSessionInfo(_ response:[AnyHashable: Any]) {
         
         KTAppSessionInfo.currentSession.customerType =  CustomerType(rawValue: (response[Constants.LoginResponseAPIKey.CustomerType] as! Int32))
+        KTAppSessionInfo.currentSession.countryCode = response[Constants.LoginResponseAPIKey.CountryCode] as? String
         KTAppSessionInfo.currentSession.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
         KTAppSessionInfo.currentSession.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
     }

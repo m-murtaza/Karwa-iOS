@@ -36,7 +36,7 @@ class KTLoginViewModel: KTBaseViewModel {
         let password: String = (delegate as! KTLoginViewModelDelegate).password().md5()
         
         delegate?.showProgressHud(show: true, status: "Logging In")
-        KTUserManager.init().login(phone: phone, password:password ) { (status, response) in
+        KTUserManager.init().login(countryCodey: country.phoneExtension, phone: phone, password:password ) { (status, response) in
             self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS
             {

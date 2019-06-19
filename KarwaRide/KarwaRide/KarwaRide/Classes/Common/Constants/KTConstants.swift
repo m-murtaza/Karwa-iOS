@@ -162,6 +162,7 @@ struct Constants {
         static let CustomerType = "CustomerType"
         static let Email = "Email"
         static let Name = "Name"
+        static let CountryCode = "CountryCode"
         static let Phone = "Phone"
         static let SessionID = "SessionID"
         static let MaskedEmail = "MaskedEmail"
@@ -323,6 +324,7 @@ struct Constants {
     }
     
     struct LoginParams {
+        static let CountryCode = "CountryCode"
         static let Phone = "Phone"
         static let Password = "Password"
         static let DeviceType = "DeviceType"
