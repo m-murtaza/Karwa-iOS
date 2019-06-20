@@ -41,7 +41,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
     func setSelectedCountry(country: Country) {
         self.country = country
     }
-
+    
     func btnSubmitTapped() ->Void
     {
         phone = (delegate as! KTForgotPassViewModelDelegate).phoneNumber()
@@ -51,7 +51,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
         if error.count == 0
         {
             delegate?.showProgressHud(show: true, status: "Retriving your password")
-            KTUserManager.init().sendForgotPassRequest(phone: phone!, password: (password?.md5())!, completion: { (status, response) in
+            KTUserManager.init().sendForgotPassRequest(countryCode: "+" + country.phoneExtension, phone: phone!, password: (password?.md5())!, completion: { (status, response) in
                 
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS

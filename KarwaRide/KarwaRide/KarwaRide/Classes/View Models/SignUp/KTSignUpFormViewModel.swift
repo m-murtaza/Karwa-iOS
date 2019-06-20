@@ -55,7 +55,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         if error.count == 0
         {
             delegate?.showProgressHud(show: true, status: "Signing Up")
-            KTUserManager.init().signUp(name: name!, mobileNo: mobileNo!, email: email!, password: password!.md5(), completion: { (status, response) in
+            KTUserManager.init().signUp(name: name!, countryCode: "+" + country.phoneExtension, mobileNo: mobileNo!, email: email!, password: password!.md5(), completion: { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS
                 {

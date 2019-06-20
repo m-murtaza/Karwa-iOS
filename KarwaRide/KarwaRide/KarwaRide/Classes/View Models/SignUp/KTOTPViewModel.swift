@@ -11,7 +11,7 @@ import UIKit
 protocol KTOTPViewModelDelegate: KTViewModelDelegate {
     func OTPCode() -> String?
     func phoneNum() -> String?
-    
+    func countryCallingCode() -> String?
     func navigateToBooking()
 }
 
@@ -21,11 +21,12 @@ class KTOTPViewModel: KTBaseViewModel {
         if(((self.delegate as! KTOTPViewModelDelegate).OTPCode()) != nil)
         {
             let otp : String? = ((self.delegate as! KTOTPViewModelDelegate).OTPCode())!
+            let countryCode : String = ((self.delegate as! KTOTPViewModelDelegate).countryCallingCode())!
             let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
             if KTUtils.isObjectNotNil(object: otp as AnyObject)
             {
                 delegate?.showProgressHud(show: true, status: "Confirming Code")
-                KTUserManager().varifyOTP(phone: phone, code: otp!
+                KTUserManager().varifyOTP(countryCode: countryCode, phone: phone, code: otp!
                     , completion: { (status, response) in
                         self.delegate?.showProgressHud(show: false)
                         if status == Constants.APIResponseStatus.SUCCESS

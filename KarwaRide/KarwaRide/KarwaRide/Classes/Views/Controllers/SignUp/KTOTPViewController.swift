@@ -13,6 +13,7 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     @IBOutlet weak var btnConfirmCode: ButtonWithShadow!
     @IBOutlet weak var otpView: VPMOTPView!
     var otpString : String?
+    var countryCode: String?
     var phone : String = ""
     var password : String = ""
     var email : String = ""
@@ -63,6 +64,9 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     
     func OTPCode() -> String? {
         return otpString
+    }
+    func countryCallingCode() -> String?  {
+        return countryCode
     }
     func phoneNum() -> String?  {
         return phone

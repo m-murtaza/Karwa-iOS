@@ -64,12 +64,14 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
             
             let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
             otpView.previousView = previousView
+            otpView.countryCode = countryCode()!
             otpView.phone = phoneNumber()!
         }
         else if segue.identifier == "SegueForgotPassToMaskedEmailConfirmation"
         {
             let maskedEmailVC : KTMaskedEmailConfirmationVC = segue.destination as! KTMaskedEmailConfirmationVC
             maskedEmailVC.previousView = previousView
+            maskedEmailVC.countryCode = countryCode()!
             maskedEmailVC.phone = phoneNumber()!
             maskedEmailVC.maskedEmail = maskedEmail
             maskedEmailVC.password = password()!
@@ -83,6 +85,10 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     
     func phoneNumber() -> String? {
         return txtPhoneNumber.text
+    }
+    
+    func countryCode() -> String? {
+        return "+" + (viewModel as! KTForgotPassViewModel).country.phoneExtension
     }
     
     func password() -> String? {

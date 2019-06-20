@@ -17,6 +17,7 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     var phone : String = ""
     var password: String = ""
     var maskedEmail: String = ""
+    var countryCode: String = ""
     var previousView : KTBaseLoginSignUpViewController?
     
     //MARK: -View LifeCycle
@@ -52,10 +53,14 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
         (viewModel as! KTMasedEmailConfirmationViewModel).btnSubmitTapped()
     }
     
+    func countryCallingCode() -> String? {
+        return countryCode
+    }
+
     func phoneNumber() -> String? {
         return phone
     }
-    
+
     func email() -> String? {
         return lblEmail.text
     }

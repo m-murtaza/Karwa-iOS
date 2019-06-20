@@ -8,9 +8,10 @@
 
 extension KTUserManager
 {
-    func sendForgotPassRequest(phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
+    func sendForgotPassRequest(countryCode: String, phone: String, password: String,completion completionBlock:@escaping KTDALCompletionBlock)
     {
         let param : [String : Any] = [Constants.UpdatePassParam.Phone : phone,
+                                      Constants.LoginParams.CountryCode : countryCode,
                                            Constants.UpdatePassParam.Password: password]
         
         self.post(url: Constants.APIURL.ForgotPass, param: param, completion: completionBlock) { (response, cBlock) in
@@ -19,9 +20,10 @@ extension KTUserManager
         
     }
     
-    func sendForgotPassRequest(phone: String, password: String, email: String, completion completionBlock:@escaping KTDALCompletionBlock)
+    func sendForgotPassRequest(countryCode: String, phone: String, password: String, email: String, completion completionBlock:@escaping KTDALCompletionBlock)
     {
         let param : [String : Any] = [Constants.UpdatePassParam.Phone : phone,
+                                      Constants.LoginParams.CountryCode : countryCode,
                                       Constants.UpdatePassParam.Password: password,
                                       Constants.EditAccountInfoParam.Email: email]
         
