@@ -22,6 +22,18 @@ extension String {
             return false
         }
     }
+
+//    var isPhoneNumber: Bool {
+//        let numberWithoutPlus = self.replacingOccurrences(of: "+", with: "", options: .literal, range: nil)
+//        let PHONE_REGEX = "^[0-9]{0, 14}$"
+//
+//        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+//        if phoneTest.evaluate(with: numberWithoutPlus)
+//        {
+//            return true
+//        }
+//        return false
+//    }
     
     var isEmail: Bool {
         
