@@ -86,7 +86,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
         {
             error = ForgotPassValidationError().NoPhone
         }
-        else if !(phone?.isPhoneNumber)!
+        else if !(phone?.isPhoneValid(region: country.countryCode))!
         {
             error = ForgotPassValidationError().WrongPhone
         }

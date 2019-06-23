@@ -84,7 +84,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         {
             error = SignUpValidationError.init().NoPhone
         }
-        else if !(mobileNo?.isPhoneNumber)!
+        else if !(mobileNo?.isPhoneValid(region: country.countryCode))!
         {
             error = SignUpValidationError.init().WrongPhone
         }

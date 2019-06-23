@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import libPhoneNumber_iOS
 
 extension String {
     var isPhoneNumber: Bool {
@@ -23,6 +24,24 @@ extension String {
         }
     }
 
+    func isPhoneValid(region: String) -> Bool
+    {
+        let phoneUtil = NBPhoneNumberUtil()
+        var isValidPhone = false
+
+        do {
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(self, defaultRegion: region)
+//            let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: .E164)
+            isValidPhone = phoneUtil.isValidNumber(phoneNumber)
+            print("Phone number is " + (isValidPhone ? "Valid" : "invalid"))
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        return isValidPhone
+    }
+    
 //    var isPhoneNumber: Bool {
 //        let numberWithoutPlus = self.replacingOccurrences(of: "+", with: "", options: .literal, range: nil)
 //        let PHONE_REGEX = "^[0-9]{0, 14}$"

@@ -25,6 +25,14 @@ class KTLoginViewModel: KTBaseViewModel {
 //        delegate = del as? KTLoginViewModelDelegate
 //    }
     
+    struct LoginValidationError {
+        let NoName = "Name is mandatory"
+        let NoPassword = "Password is mandatory"
+        let PasswordSixChar = "Password should be more than six charecter"
+        let NoPhone = "Mobile number is mandatory"
+        let WrongPhone = "Please enter valid mobile number"
+    }
+
     var country = Country(countryCode: "QA", phoneExtension: "974")
     func setSelectedCountry(country: Country) {
         self.country = country
@@ -35,22 +43,48 @@ class KTLoginViewModel: KTBaseViewModel {
         let phone : String = ((delegate as! KTLoginViewModelDelegate).phoneNumber())
         let password: String = (delegate as! KTLoginViewModelDelegate).password().md5()
         
-        delegate?.showProgressHud(show: true, status: "Logging In")
-        KTUserManager.init().login(countryCodey: "+" + country.phoneExtension, phone: phone, password:password ) { (status, response) in
-            self.delegate?.showProgressHud(show: false)
-            if status == Constants.APIResponseStatus.SUCCESS
-            {
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
-                (self.delegate as! KTLoginViewModelDelegate).navigateToBooking()
-            }
-            else if(status == Constants.APIResponseStatus.UNVERIFIED)
-            {
-                (self.delegate as! KTLoginViewModelDelegate).navigateToOTP()
-            }
-            else
-            {
-                (self.delegate as! KTLoginViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+        let error = validate(phoneNumber: phone, password: password)
+        
+        if error.count == 0
+        {
+            delegate?.showProgressHud(show: true, status: "Logging In")
+            KTUserManager.init().login(countryCodey: "+" + country.phoneExtension, phone: phone, password:password ) { (status, response) in
+                self.delegate?.showProgressHud(show: false)
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
+                    (self.delegate as! KTLoginViewModelDelegate).navigateToBooking()
+                }
+                else if(status == Constants.APIResponseStatus.UNVERIFIED)
+                {
+                    (self.delegate as! KTLoginViewModelDelegate).navigateToOTP()
+                }
+                else
+                {
+                    (self.delegate as! KTLoginViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+                }
             }
         }
+        else
+        {
+            (self.delegate as! KTLoginViewModelDelegate).showError!(title: "Error", message: error)
+        }
+    }
+    
+    func validate(phoneNumber: String, password: String) -> String {
+        var error : String = ""
+        if !(phoneNumber.isPhoneValid(region: country.countryCode))
+        {
+            error = LoginValidationError.init().WrongPhone
+        }
+        else if !KTUtils.isObjectNotNil(object: password as AnyObject) || password.count == 0
+        {
+            error = LoginValidationError().NoPassword
+        }
+        else if (password.count) < Constants.MIN_PASSWORD_LENGTH
+        {
+            error = LoginValidationError().PasswordSixChar
+        }
+        return error
     }
 }
