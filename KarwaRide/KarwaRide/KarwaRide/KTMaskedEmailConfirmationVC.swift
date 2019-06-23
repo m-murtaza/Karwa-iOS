@@ -43,6 +43,7 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
             
             let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
             otpView.previousView = previousView
+            otpView.countryCode = countryCode
             otpView.phone = phoneNumber()!
             otpView.password = self.password
         }

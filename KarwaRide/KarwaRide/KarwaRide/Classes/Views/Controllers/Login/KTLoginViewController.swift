@@ -98,7 +98,8 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
             let otpViewNav : UINavigationController  = segue.destination as! UINavigationController
             let otpView = otpViewNav.topViewController as! KTOTPViewController
             otpView.previousView = self
-            
+
+            otpView.countryCode = (viewModel as! KTLoginViewModel).country.phoneExtension
             otpView.phone = txtPhoneNumber.text!
         }
 

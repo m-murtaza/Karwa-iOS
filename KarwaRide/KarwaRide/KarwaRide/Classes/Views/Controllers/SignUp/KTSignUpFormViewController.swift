@@ -69,7 +69,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewMo
                 let otpView = otpViewNav.topViewController as! KTOTPViewController
                 otpView.previousView = self
             
-            
+            otpView.countryCode = (viewModel as! KTSignUpFormViewModel).country.phoneExtension
             otpView.phone = mobileNo()!
         }
         if segue.identifier == "segueRegisterToWebView"
