@@ -48,6 +48,10 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
         (viewModel as! KTOTPViewModel).confirmCode()
     }
     
+    func getCountryCode() -> String{
+        return countryCode
+    }
+    
     @IBAction func btnCloseTapped(_ sender: Any) {
         
         if previousView != nil {

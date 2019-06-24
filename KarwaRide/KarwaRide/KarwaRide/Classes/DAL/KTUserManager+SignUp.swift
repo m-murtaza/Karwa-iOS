@@ -31,11 +31,12 @@ extension KTUserManager
     }
     
     
-    func resendOTP(phone:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
+    func resendOTP(countryCode: String, phone:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
 
-        let url = Constants.APIURL.ResendOtp + "/" + phone
+        let param : [AnyHashable: Any] = [Constants.LoginParams.Phone : phone,
+                                          Constants.LoginParams.CountryCode : countryCode]
         
-        self.get(url: url, param: nil, completion: completionBlock) { (response, cBlock) in
+        self.post(url: Constants.APIURL.ResendOtp, param: param as! [String : Any], completion: completionBlock) { (response, cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
