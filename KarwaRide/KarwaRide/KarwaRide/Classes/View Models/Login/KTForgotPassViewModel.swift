@@ -69,7 +69,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
                 }
                 else
                 {
-                    (self.delegate as! KTForgotPassViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+                    (self.delegate as! KTForgotPassViewModelDelegate).showError!(title: response["T"] as? String ?? "Error", message: response["M"] as! String)
                 }
             })
         }
