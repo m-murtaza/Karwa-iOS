@@ -27,7 +27,7 @@ class KTOTPViewModel: KTBaseViewModel {
             if KTUtils.isObjectNotNil(object: otp as AnyObject)
             {
                 delegate?.showProgressHud(show: true, status: "Confirming Code")
-                KTUserManager().varifyOTP(countryCode: "+" + countryCode, phone: phone, code: otp!
+                KTUserManager().varifyOTP(countryCode: countryCode, phone: phone, code: otp!
                     , completion: { (status, response) in
                         self.delegate?.showProgressHud(show: false)
                         if status == Constants.APIResponseStatus.SUCCESS
