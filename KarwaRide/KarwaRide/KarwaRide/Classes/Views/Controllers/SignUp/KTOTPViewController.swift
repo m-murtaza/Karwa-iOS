@@ -49,7 +49,7 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
     }
     
     func getCountryCode() -> String{
-        return countryCode
+        return countryCode ?? "+974"
     }
     
     @IBAction func btnCloseTapped(_ sender: Any) {

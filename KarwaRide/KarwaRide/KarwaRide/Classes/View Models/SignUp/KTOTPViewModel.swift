@@ -52,7 +52,7 @@ class KTOTPViewModel: KTBaseViewModel {
         
         let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
         delegate?.showProgressHud(show: true, status: "Resending OTP")
-        KTUserManager().resendOTP(countryCode: "+" + (self.delegate as! KTOTPViewModelDelegate).countryCode(), phone: phone) { (status, response) in
+        KTUserManager().resendOTP(countryCode: (self.delegate as! KTOTPViewModelDelegate).getCountryCode(), phone: phone) { (status, response) in
             
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
