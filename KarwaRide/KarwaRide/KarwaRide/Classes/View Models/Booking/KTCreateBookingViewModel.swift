@@ -466,7 +466,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         }
                         else
                         {
-                            (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                            (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as? String ?? "Error", descMessage: response["M"] as! String, completion:
                                 { (UIAlertAction) in
                                     self.removeBooking = false
                                     (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
