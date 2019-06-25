@@ -172,12 +172,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let pathsComing = components.path
 
         let tripServerBean = KTUtils.isValidQRCode(pathsComing)
-        
+        let trackTripId = KTUtils.isValidTrackTripCode(pathsComing)
+
         if(tripServerBean != nil)
         {
             moveToPaymentViewIfRequired(tripServerBean)
         }
-        else
+        else if(trackTripId != nil && (trackTripId ?? "").length > 0)
         {
             let trackTripId = KTUtils.isValidTrackTripCode(pathsComing)
             if(trackTripId != nil)
@@ -185,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 moveToTrackTripViewIfRequired(trackTripId)
             }
         }
-
+        
         return true
     }
     
