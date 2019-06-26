@@ -400,7 +400,7 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 120.0)
         mapView.animate(with: update!)
     }
     

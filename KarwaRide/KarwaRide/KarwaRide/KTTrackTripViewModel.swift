@@ -631,30 +631,37 @@ class KTTrackTripViewModel: KTBaseViewModel {
     
     private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
-        let origin = "\(ride.position.latitude),\(ride.position.longitude)"
-        let destination = "\(lat),\(long)"
-        
-        
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
-        
-        Alamofire.request(url).responseJSON { response in
+        if(Constants.DIRECTIONS_API_ENABLE)
+        {
+            let origin = "\(ride.position.latitude),\(ride.position.longitude)"
+            let destination = "\(lat),\(long)"
             
-            do
-            {
-                let json = try JSON(data: response.data!)
-                let routes = json["routes"].arrayValue
+            
+            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
+            
+            Alamofire.request(url).responseJSON { response in
                 
-                for route in routes
+                do
                 {
-                    let routeOverviewPolyline = route["overview_polyline"].dictionary
-                    let points = routeOverviewPolyline?["points"]?.stringValue
+                    let json = try JSON(data: response.data!)
+                    let routes = json["routes"].arrayValue
                     
-                    self.del?.showRouteOnMap(points: points!)
+                    for route in routes
+                    {
+                        let routeOverviewPolyline = route["overview_polyline"].dictionary
+                        let points = routeOverviewPolyline?["points"]?.stringValue
+                        
+                        self.del?.showRouteOnMap(points: points!)
+                    }
+                } catch
+                {
+                    
                 }
-            } catch
-            {
-                
             }
+        }
+        else
+        {
+            print("Direction API is disabled, please enable it from Constants.DIRECTIONS_API_ENABLE to see the route on map")
         }
     }
     
