@@ -10,6 +10,7 @@ import UIKit
 import BarcodeScanner
 import Spring
 import CDAlertView
+import AVFoundation
 
 class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
 {
@@ -108,6 +109,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             }
             isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
         }
+    }
+    
+    func showCameraPermissionError()
+    {
+        showWarningBanner("", "Tap on Settings to Enable Camera")
     }
     
     func fillPayTripData(_ payTripBean: PayTripBeanForServer?)
@@ -467,8 +473,32 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         present(makeBarcodeScannerViewController(), animated: true, completion: nil)
     }
     
+    func isCameraPermissionGiven() -> Bool
+    {
+        var isPermissionGiven = false
+        
+        if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized
+        {
+            isPermissionGiven = true
+        } else
+        {
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                if granted
+                {
+                    isPermissionGiven = true
+                }
+            })
+        }
+        return isPermissionGiven
+    }
+
     private func makeBarcodeScannerViewController() -> BarcodeScannerViewController
     {
+        if(!isCameraPermissionGiven())
+        {
+            showCameraPermissionError()
+        }
+
         let viewController = BarcodeScannerViewController()
         viewController.codeDelegate = self
         viewController.errorDelegate = self

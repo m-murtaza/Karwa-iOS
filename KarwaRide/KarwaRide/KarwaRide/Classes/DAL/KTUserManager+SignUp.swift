@@ -9,8 +9,9 @@
 extension KTUserManager
 {
     
-    func signUp(name: String, mobileNo:String,email:String,password:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
+    func signUp(name: String, countryCode: String, mobileNo:String,email:String,password:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         let param : [AnyHashable: Any] = [Constants.SignUpParams.Name : name,
+                                           Constants.LoginParams.CountryCode : countryCode,
                                            Constants.SignUpParams.Phone : mobileNo,
                                            Constants.SignUpParams.Email : email,
                                            Constants.SignUpParams.Password: password]
@@ -21,19 +22,21 @@ extension KTUserManager
         }
     }
     
-    func varifyOTP(phone:String,code:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
+    func varifyOTP(countryCode: String, phone:String,code:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         let params : NSMutableDictionary = [Constants.LoginParams.Phone : phone,
+                                            Constants.LoginParams.CountryCode : countryCode,
                                             Constants.LoginParams.OTP:code ]
         self.login(params: params,url:Constants.APIURL.Otp, completion: completionBlock)
         
     }
     
     
-    func resendOTP(phone:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
+    func resendOTP(countryCode: String, phone:String,completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
 
-        let url = Constants.APIURL.ResendOtp + "/" + phone
+        let param : [AnyHashable: Any] = [Constants.LoginParams.Phone : phone,
+                                          Constants.LoginParams.CountryCode : countryCode]
         
-        self.get(url: url, param: nil, completion: completionBlock) { (response, cBlock) in
+        self.post(url: Constants.APIURL.ResendOtp, param: param as! [String : Any], completion: completionBlock) { (response, cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }

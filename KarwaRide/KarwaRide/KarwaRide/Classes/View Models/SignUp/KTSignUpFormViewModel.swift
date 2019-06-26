@@ -40,6 +40,11 @@ class KTSignUpFormViewModel: KTBaseViewModel {
 //        delegate = del as? KTSignUpViewModelDelegate
 //    }
     
+    var country = Country(countryCode: "QA", phoneExtension: "974")
+    func setSelectedCountry(country: Country) {
+        self.country = country
+    }
+
     func SignUp() -> Void {
         name = (self.delegate as! KTSignUpViewModelDelegate).name()
         mobileNo = (self.delegate as! KTSignUpViewModelDelegate).mobileNo()
@@ -50,7 +55,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         if error.count == 0
         {
             delegate?.showProgressHud(show: true, status: "Signing Up")
-            KTUserManager.init().signUp(name: name!, mobileNo: mobileNo!, email: email!, password: password!.md5(), completion: { (status, response) in
+            KTUserManager.init().signUp(name: name!, countryCode: "+" + country.phoneExtension, mobileNo: mobileNo!, email: email!, password: password!.md5(), completion: { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
@@ -79,7 +84,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         {
             error = SignUpValidationError.init().NoPhone
         }
-        else if !(mobileNo?.isPhoneNumber)!
+        else if !(mobileNo?.isPhoneValid(region: country.countryCode))!
         {
             error = SignUpValidationError.init().WrongPhone
         }

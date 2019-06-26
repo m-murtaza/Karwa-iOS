@@ -60,7 +60,7 @@ class KTDALManager: KTBase {
             //IF no error on network layer
             if response[Constants.ResponseAPIKey.Status] as! String != Constants.APIResponseStatus.SUCCESS
             {
-                guard response[Constants.ResponseAPIKey.Data] != nil && response[Constants.ResponseAPIKey.Status] as! String != "NOT_FOUND"
+                guard response[Constants.ResponseAPIKey.Data] != nil && response[Constants.ResponseAPIKey.Status] as! String != "NOT_FOUND" && response[Constants.ResponseAPIKey.Status] as! String != "MISSING" && response[Constants.ResponseAPIKey.Status] as! String != "INVALID"
                 else
                 {
                     //fail on API level

@@ -9,14 +9,17 @@
 import UIKit
 import Spring
 
-class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewModelDelegate, UITextFieldDelegate {
+class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewModelDelegate, UITextFieldDelegate, CountryListDelegate {
     
     @IBOutlet weak var txtName: UITextField!
     @IBOutlet weak var txtMobileNo: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var signUpBtn: SpringButton!
+    @IBOutlet weak var lblCountryCode: UILabel!
     
+    var countryList = CountryList()
+
     override func viewDidLoad() {
         viewModel = KTSignUpFormViewModel(del:self)
         super.viewDidLoad()
@@ -25,8 +28,29 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewMo
         signUpBtn.isHidden = true
         navigationItem.title = "New Account"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
+        
+        countryList.delegate = self
+        
+        let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
+        lblCountryCode.addGestureRecognizer(countryTap)
+        setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
     }
 
+    @objc
+    func countrySelectorTapped(sender:UITapGestureRecognizer) {
+        let navController = UINavigationController(rootViewController: countryList)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+    func selectedCountry(country: Country) {
+        (viewModel as! KTSignUpFormViewModel).setSelectedCountry(country: country)
+        setCountry(country: country)
+    }
+    
+    func setCountry(country: Country) {
+        lblCountryCode.text = country.flag! + " " + country.countryCode + " +" + country.phoneExtension
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,7 +69,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController,KTSignUpViewMo
                 let otpView = otpViewNav.topViewController as! KTOTPViewController
                 otpView.previousView = self
             
-            
+            otpView.countryCode = "+" + (viewModel as! KTSignUpFormViewModel).country.phoneExtension
             otpView.phone = mobileNo()!
         }
         if segue.identifier == "segueRegisterToWebView"

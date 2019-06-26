@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import libPhoneNumber_iOS
 
 extension String {
     var isPhoneNumber: Bool {
@@ -22,6 +23,36 @@ extension String {
             return false
         }
     }
+
+    func isPhoneValid(region: String) -> Bool
+    {
+        let phoneUtil = NBPhoneNumberUtil()
+        var isValidPhone = false
+
+        do {
+            let phoneNumber: NBPhoneNumber = try phoneUtil.parse(self, defaultRegion: region)
+//            let formattedString: String = try phoneUtil.format(phoneNumber, numberFormat: .E164)
+            isValidPhone = phoneUtil.isValidNumber(phoneNumber)
+            print("Phone number is " + (isValidPhone ? "Valid" : "invalid"))
+        }
+        catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        return isValidPhone
+    }
+    
+//    var isPhoneNumber: Bool {
+//        let numberWithoutPlus = self.replacingOccurrences(of: "+", with: "", options: .literal, range: nil)
+//        let PHONE_REGEX = "^[0-9]{0, 14}$"
+//
+//        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+//        if phoneTest.evaluate(with: numberWithoutPlus)
+//        {
+//            return true
+//        }
+//        return false
+//    }
     
     var isEmail: Bool {
         
@@ -93,5 +124,15 @@ extension String {
     
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
+    }
+    
+    func flag() -> String {
+        let country:String = self
+        let base = 127397
+        var usv = String.UnicodeScalarView()
+        for i in country.utf16 {
+            usv.append(UnicodeScalar(base + Int(i))!)
+        }
+        return String(usv)
     }
 }

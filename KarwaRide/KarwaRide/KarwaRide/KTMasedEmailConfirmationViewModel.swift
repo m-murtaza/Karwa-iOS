@@ -13,7 +13,7 @@ protocol KTMaskedEmailViewModelDelegate: KTViewModelDelegate {
     func phoneNumber() -> String?
     func email() -> String?
     func md5password() -> String?
-
+    func countryCallingCode() -> String?
     func navigateToOTP()
 }
 
@@ -24,6 +24,7 @@ class KTMasedEmailConfirmationViewModel: KTBaseViewModel {
     func btnSubmitTapped() ->Void
     {
         let phone = (delegate as! KTMaskedEmailViewModelDelegate).phoneNumber()
+        let countryCode = (delegate as! KTMaskedEmailViewModelDelegate).countryCallingCode()
         email = (delegate as! KTMaskedEmailViewModelDelegate).email()!
         let password = (delegate as! KTMaskedEmailViewModelDelegate).md5password()
 
@@ -31,7 +32,7 @@ class KTMasedEmailConfirmationViewModel: KTBaseViewModel {
         if error.count == 0
         {
             delegate?.showProgressHud(show: true, status: "Retriving your password")
-            KTUserManager.init().sendForgotPassRequest(phone: phone!, password: (password?.md5())!, email: email, completion: { (status, response) in
+            KTUserManager.init().sendForgotPassRequest(countryCode: countryCode!,phone: phone!, password: (password?.md5())!, email: email, completion: { (status, response) in
                 
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS

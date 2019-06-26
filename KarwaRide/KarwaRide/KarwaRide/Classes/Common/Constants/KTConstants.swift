@@ -162,6 +162,7 @@ struct Constants {
         static let CustomerType = "CustomerType"
         static let Email = "Email"
         static let Name = "Name"
+        static let CountryCode = "CountryCode"
         static let Phone = "Phone"
         static let SessionID = "SessionID"
         static let MaskedEmail = "MaskedEmail"
@@ -323,6 +324,7 @@ struct Constants {
     }
     
     struct LoginParams {
+        static let CountryCode = "CountryCode"
         static let Phone = "Phone"
         static let Password = "Password"
         static let DeviceType = "DeviceType"
@@ -390,7 +392,7 @@ struct Constants {
         static let GetUserInfo = "user/"
         static let SignUp = "user/"
         static let Otp = "user/otp"
-        static let ResendOtp = "user/otp"
+        static let ResendOtp = "user/resendotp"
         static let UpdateUserAccount = "user/update"
         static let ResendEmail = "user/verify/resend"
         static let ForgotPass = "user/recover"

@@ -19,6 +19,7 @@ class KTAppSessionInfo: NSObject {
     static let currentSession = KTAppSessionInfo()
  
     var sessionId : String?
+    var countryCode : String? = "+974"
     var phone : String?
     var pushToken : String?
     var customerType : CustomerType?
@@ -26,6 +27,7 @@ class KTAppSessionInfo: NSObject {
     func removeCurrentSession()  {
         sessionId = nil
         phone = nil
+        countryCode = nil
         customerType = CustomerType.STANDARD
         //pushToken = nil
     }
