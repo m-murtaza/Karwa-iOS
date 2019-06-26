@@ -96,16 +96,16 @@ class KTLeftMenuModel: KTBaseViewModel {
         drawerOptions.append(menuItem4)
         
         /* With scan N pay */
-        let menuItem5 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: true)
-        drawerOptions.append(menuItem5)
-
-        let menuItem6 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
-        drawerOptions.append(menuItem6)
+//        let menuItem5 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: true)
+//        drawerOptions.append(menuItem5)
+//
+//        let menuItem6 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
+//        drawerOptions.append(menuItem6)
         
         
         /* Without scan N pay */
-//        let menuItem5 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
-//        drawerOptions.append(menuItem5)
+        let menuItem5 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
+        drawerOptions.append(menuItem5)
     }
     
     func numberOfRowsInSection() -> Int
