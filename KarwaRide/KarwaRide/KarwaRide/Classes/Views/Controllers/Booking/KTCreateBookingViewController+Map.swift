@@ -310,6 +310,17 @@ extension KTCreateBookingViewController
         mapView.clear()
     }
     
+    func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+        
+        return marker
+    }
+    
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
         marker.position = location
