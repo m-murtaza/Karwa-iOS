@@ -92,6 +92,7 @@ struct Constants {
     static let MERCHANT_ID:String = "KTRQNB01"
     static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
     static let DIRECTIONS_API_ENABLE:Bool = false
+    static let SCAN_N_PAY_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
     
@@ -100,6 +101,7 @@ struct Constants {
 //    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
 //    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
 //    static let DIRECTIONS_API_ENABLE:Bool = false
+//    static let SCAN_N_PAY_ENABLE:Bool = true
     /* ------------------------------------------------------------------ */
     
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
