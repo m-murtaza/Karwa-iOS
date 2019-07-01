@@ -92,7 +92,7 @@ struct Constants {
     static let MERCHANT_ID:String = "KTRQNB01"
     static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
     static let DIRECTIONS_API_ENABLE:Bool = false
-    static let SCAN_N_PAY_ENABLE:Bool = true
+    static let SCAN_N_PAY_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
     
