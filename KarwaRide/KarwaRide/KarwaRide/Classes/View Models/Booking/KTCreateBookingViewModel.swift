@@ -1192,8 +1192,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
             track.vehicleType = rtrack["VehicleType"] as! Int
             track.bearing = (rtrack["Bearing"] as! NSNumber).floatValue
-            track.eta = rtrack["Eta"] as! Int64
-            track.etaText = rtrack["EtaText"] as! String
+            track.eta = rtrack["Eta"] as? Int64 ?? 0
+            track.etaText = rtrack["EtaText"] as? String ?? ""
             track.trackType = VehicleTrackType.vehicle
             vTrack.append(track)
         }
