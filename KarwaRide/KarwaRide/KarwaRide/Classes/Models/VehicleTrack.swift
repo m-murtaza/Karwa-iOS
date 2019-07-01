@@ -20,6 +20,7 @@ class VehicleTrack: NSObject {
     var vehicleType: Int
     var bearing : Float
     var eta : Int64
+    var etaText : String
     var status : Int
     var trackType : VehicleTrackType
     
@@ -30,6 +31,7 @@ class VehicleTrack: NSObject {
         vehicleType = 1
         bearing = 0.0
         eta = 0
+        etaText = ""
         status = 1
         trackType = VehicleTrackType.vehicle
         super.init()
