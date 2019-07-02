@@ -11,6 +11,7 @@ import BarcodeScanner
 import Spring
 import CDAlertView
 import AVFoundation
+import AlertOnboarding
 
 class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
 {
@@ -58,6 +59,40 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
         btnPay.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func showCardOnboarding()
+    {
+        //First, declare datas
+        let arrayOfImage = ["add_credit_card", "scan_qr_code", "pay_trip_fare"]
+        let arrayOfTitle = ["Add Credit Card", "Scan QR Code", "Pay Trip Fare"]
+        let arrayOfDescription = ["Getting started by adding a new credit card for scan n pay payment",
+                                  "Scan QR code from the taxi meter after ending the trip",
+                                  "Now, you can pay your trip by your credit card!"]
+        
+        //Simply call AlertOnboarding...
+        let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
+        
+        //        //Modify background color of AlertOnboarding
+        //        alertView.colorForAlertViewBackground = UIColor(red: 173/255, green: 206/255, blue: 183/255, alpha: 1.0)
+        
+        //Modify colors of AlertOnboarding's button
+        alertView.colorButtonText = UIColor.init(hex: "129793")
+        alertView.colorButtonBottomBackground = UIColor.white
+
+        //Modify colors of labels
+        alertView.colorTitleLabel = UIColor.black
+        alertView.colorDescriptionLabel = UIColor.init(hex: "A9A9B0")
+        
+        //Modify colors of page indicator
+//        alertView.colorPageIndicator = UIColor.whiteColor()
+//        alertView.colorCurrentPageIndicator = UIColor(red: 65/255, green: 165/255, blue: 115/255, alpha: 1.0)
+        
+        //Modify size of alertview (Purcentage of screen height and width)
+        alertView.percentageRatioWidth = 0.9
+        alertView.percentageRatioHeight = 0.57
+        
+        alertView.show()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -342,6 +377,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         emptyView.animate()
         
+        
+        showCardOnboarding()
     }
 
     func hideEmptyScreen()
