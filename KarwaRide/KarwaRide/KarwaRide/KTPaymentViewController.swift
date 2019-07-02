@@ -83,14 +83,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         //Modify colors of labels
         alertView.colorTitleLabel = UIColor.black
         alertView.colorDescriptionLabel = UIColor.init(hex: "A9A9B0")
-        
+
         //Modify colors of page indicator
-//        alertView.colorPageIndicator = UIColor.whiteColor()
-//        alertView.colorCurrentPageIndicator = UIColor(red: 65/255, green: 165/255, blue: 115/255, alpha: 1.0)
+//      alertView.colorPageIndicator = UIColor.whiteColor()
+//      alertView.colorCurrentPageIndicator = UIColor(red: 65/255, green: 165/255, blue: 115/255, alpha: 1.0)
         
         //Modify size of alertview (Purcentage of screen height and width)
         alertView.percentageRatioWidth = 0.9
-        alertView.percentageRatioHeight = 0.57
+        alertView.percentageRatioHeight = 0.65
         
         alertView.show()
     }
