@@ -666,73 +666,89 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func fetchETA(vehicles: [VehicleTrack]){
-
-        let lat = String(format: "%f", KTLocationManager.sharedInstance.currentLocation.coordinate.latitude)
-        let lon = String(format: "%f", KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
-        let currentLocation = lat + "," + lon
-
-//        let url = "https://maps.googleapis.com/maps/api/directions/json?origins=\(KTUtils.getLocationParams(vehicles: vehicles))&destinations=\(currentLocation)&mode=driving&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
-        
-//        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(KTUtils.getLocationParams(vehicles: vehicles))&destinations=\(currentLocation)&mode=driving&sensor=false&units=metric&&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
-
-        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?"
-
-        let parameters: Parameters =
-            [
-                "origins": KTUtils.getLocationParams(vehicles: vehicles),
-                "destinations": currentLocation,
-                "mode": "driving",
-                "sensor": "false",
-                "units": "metric",
-                "key": Constants.GOOGLE_DIRECTION_API_KEY
-            ]
-        
-        
-
-        Alamofire.request(url, method: .get, parameters: parameters, headers: nil).responseJSON { (response:DataResponse<Any>) in
-
-            switch(response.result) {
-            case .success(_):
-                if response.result.value != nil{
-                    do
-                    {
-                        var sortedListForETA : [Int] = []
-                        let json = try JSON(data: response.data!)
-
-                        let rows = json["rows"].arrayValue
-
-                        for row in rows
-                        {
-                            let elements = row["elements"].arrayValue
-                            for element in elements
-                            {
-                                let duration = element["duration"].dictionary
-                                let seconds = duration!["value"]
-                                if(seconds != nil && seconds! > 0)
-                                {
-                                    sortedListForETA.append((seconds?.int)!)
-                                }
-                            }
-                        }
-                        sortedListForETA = sortedListForETA.sorted()
-                        if(sortedListForETA.count > 0)
-                        {
-                            (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: KTUtils.getETAString(etaInSeconds: sortedListForETA[0]))
-                        }
-                    }
-                    catch _
-                    {
-                        print("Error: Unalbe to fetch ETA")
-                    }
-                }
-                break
-
-            case .failure(_):
-                print(response.result.error as Any)
-                break
+        var sortedListForETA : [Int] = []
+        for vehicle in vehicles
+        {
+            if(vehicle.eta > 0)
+            {
+                sortedListForETA.append(Int(vehicle.eta))
             }
         }
+        if(sortedListForETA.count > 0)
+        {
+            sortedListForETA = sortedListForETA.sorted()
+            (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: KTUtils.getETAString(etaInSeconds: sortedListForETA[0]))
+        }
     }
+    
+//    func fetchETA(vehicles: [VehicleTrack]){
+//
+//        let lat = String(format: "%f", KTLocationManager.sharedInstance.currentLocation.coordinate.latitude)
+//        let lon = String(format: "%f", KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
+//        let currentLocation = lat + "," + lon
+//
+////        let url = "https://maps.googleapis.com/maps/api/directions/json?origins=\(KTUtils.getLocationParams(vehicles: vehicles))&destinations=\(currentLocation)&mode=driving&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
+//
+////        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=\(KTUtils.getLocationParams(vehicles: vehicles))&destinations=\(currentLocation)&mode=driving&sensor=false&units=metric&&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
+//
+//        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?"
+//
+//        let parameters: Parameters =
+//            [
+//                "origins": KTUtils.getLocationParams(vehicles: vehicles),
+//                "destinations": currentLocation,
+//                "mode": "driving",
+//                "sensor": "false",
+//                "units": "metric",
+//                "key": Constants.GOOGLE_DIRECTION_API_KEY
+//            ]
+//
+//
+//
+//        Alamofire.request(url, method: .get, parameters: parameters, headers: nil).responseJSON { (response:DataResponse<Any>) in
+//
+//            switch(response.result) {
+//            case .success(_):
+//                if response.result.value != nil{
+//                    do
+//                    {
+//                        var sortedListForETA : [Int] = []
+//                        let json = try JSON(data: response.data!)
+//
+//                        let rows = json["rows"].arrayValue
+//
+//                        for row in rows
+//                        {
+//                            let elements = row["elements"].arrayValue
+//                            for element in elements
+//                            {
+//                                let duration = element["duration"].dictionary
+//                                let seconds = duration!["value"]
+//                                if(seconds != nil && seconds! > 0)
+//                                {
+//                                    sortedListForETA.append((seconds?.int)!)
+//                                }
+//                            }
+//                        }
+//                        sortedListForETA = sortedListForETA.sorted()
+//                        if(sortedListForETA.count > 0)
+//                        {
+//                            (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: KTUtils.getETAString(etaInSeconds: sortedListForETA[0]))
+//                        }
+//                    }
+//                    catch _
+//                    {
+//                        print("Error: Unalbe to fetch ETA")
+//                    }
+//                }
+//                break
+//
+//            case .failure(_):
+//                print(response.result.error as Any)
+//                break
+//            }
+//        }
+//    }
     
     func directionBounds() -> GMSCoordinateBounds
     {
@@ -1176,6 +1192,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             track.position = CLLocationCoordinate2D(latitude: (rtrack["Lat"] as? CLLocationDegrees)!, longitude: (rtrack["Lon"] as? CLLocationDegrees)!)
             track.vehicleType = rtrack["VehicleType"] as! Int
             track.bearing = (rtrack["Bearing"] as! NSNumber).floatValue
+            track.eta = rtrack["Eta"] as? Int64 ?? 0
+            track.etaText = rtrack["EtaText"] as? String ?? ""
             track.trackType = VehicleTrackType.vehicle
             vTrack.append(track)
         }
