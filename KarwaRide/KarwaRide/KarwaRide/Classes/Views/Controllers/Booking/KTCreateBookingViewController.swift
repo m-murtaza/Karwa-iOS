@@ -44,6 +44,8 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         scanPayBanner.isHidden = true
         scanPayBannerCross.isHidden = true
 
+        self.scanPayBanner.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
+        
         hideFareBreakdown(animated: false)
     }
     
@@ -84,12 +86,12 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     }
     
     @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
-//        SharedPrefUtil.setScanNPayCoachmarkShown()
+        SharedPrefUtil.setScanNPayCoachmarkShown()
         hideScanPayCoachMark()
     }
     
     @IBAction func scanPayBannerTapped(_ sender: Any) {
-//        SharedPrefUtil.setScanNPayCoachmarkShown()
+        SharedPrefUtil.setScanNPayCoachmarkShown()
         hideScanPayCoachMark()
     }
     
@@ -463,7 +465,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
 
         self.scanPayBannerCross.animate()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
         {
             self.scanPayBanner.animate()
         }
