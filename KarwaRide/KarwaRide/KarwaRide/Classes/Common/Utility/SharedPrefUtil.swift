@@ -15,6 +15,8 @@ class SharedPrefUtil
     static let IS_SHARE_TRIP_TOOL_TIP_SHOWN = "IS_SHARE_TRIP_TOOL_TIP_SHOWN"
     static let IS_RATING_REASONS_RESET_FORCEFULLY = "IS_RATING_REASONS_RESET_FORCEFULLY"
 
+    static let IS_SCAN_PAY_COACHMARK_SHOWN = "IS_SCAN_PAY_COACHMARK_SHOWN"
+    
     static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS"
 
     static func setSharedPref(_ key:String, _ value: String)
@@ -33,6 +35,40 @@ class SharedPrefUtil
         else
         {
             return ""
+        }
+    }
+    
+    static func setScanNPayCoachmarkShown()
+    {
+        let defaults = UserDefaults.standard
+        defaults.set("true", forKey: IS_SCAN_PAY_COACHMARK_SHOWN)
+    }
+    
+    public static func isScanNPayCoachmarkShown() -> Bool
+    {
+        let isShown = SharedPrefUtil.getSharePref(IS_SCAN_PAY_COACHMARK_SHOWN)
+        
+        if(isShown.isEmpty || isShown.count == 0)
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+    
+    public static func isBookingCoachmarkOneShown() -> Bool
+    {
+        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
+        
+        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        {
+            return false
+        }
+        else
+        {
+            return true
         }
     }
 }

@@ -57,6 +57,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     func showPromoInputDialog(currentPromo : String)
     func setPromoButtonLabel(validPromo : String)
     func setPromotionCode(promo: String)
+    func showScanPayCoachmark()
 }
 
 let CHECK_DELAY = 90.0
@@ -126,6 +127,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 self.isCoachmarkOneShown = true;
                 (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkOne()
             }
+        }
+        
+        if(!SharedPrefUtil.isScanNPayCoachmarkShown())
+        {
+            (self.delegate as! KTCreateBookingViewModelDelegate).showScanPayCoachmark()
         }
     }
     
