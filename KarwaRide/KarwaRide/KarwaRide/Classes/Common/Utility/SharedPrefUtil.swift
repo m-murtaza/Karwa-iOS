@@ -16,7 +16,7 @@ class SharedPrefUtil
     static let IS_RATING_REASONS_RESET_FORCEFULLY = "IS_RATING_REASONS_RESET_FORCEFULLY"
 
     static let IS_SCAN_PAY_COACHMARK_SHOWN = "IS_SCAN_PAY_COACHMARK_SHOWN"
-    
+    static let IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT = "IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT"
     static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS"
 
     static func setSharedPref(_ key:String, _ value: String)
@@ -47,6 +47,26 @@ class SharedPrefUtil
     public static func isScanNPayCoachmarkShown() -> Bool
     {
         let isShown = SharedPrefUtil.getSharePref(IS_SCAN_PAY_COACHMARK_SHOWN)
+        
+        if(isShown.isEmpty || isShown.count == 0)
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+    
+    static func setScanNPayCoachmarkShownInDetails()
+    {
+        let defaults = UserDefaults.standard
+        defaults.set("true", forKey: IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT)
+    }
+    
+    public static func isScanNPayCoachmarkShownInDetails() -> Bool
+    {
+        let isShown = SharedPrefUtil.getSharePref(IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT)
         
         if(isShown.isEmpty || isShown.count == 0)
         {

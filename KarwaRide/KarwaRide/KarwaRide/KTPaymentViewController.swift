@@ -377,8 +377,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         emptyView.animate()
         
-        
-        showCardOnboarding()
+        if(!SharedPrefUtil.isScanNPayCoachmarkShownInDetails())
+        {
+            showCardOnboarding()
+            SharedPrefUtil.setScanNPayCoachmarkShownInDetails()
+        }
     }
 
     func hideEmptyScreen()

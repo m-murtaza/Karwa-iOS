@@ -4373,7 +4373,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tooltip_share" translatesAutoresizingMaskIntoConstraints="NO" id="Rgn-Eu-1K0" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="329" y="125" width="16" height="16"/>
+                                <rect key="frame" x="123" y="125" width="222" height="36"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2n-Zk-ght">
                                 <rect key="frame" x="0.0" y="355" width="375" height="32"/>
@@ -4739,7 +4739,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evk-mQ-i72" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="178" y="14" width="47.666666666666657" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="46.333333333333343" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4752,7 +4752,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 20-30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-5Q-1ai" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="268.66666666666669" y="14" width="52.333333333333314" height="14"/>
+                                                <rect key="frame" x="265.66666666666669" y="14" width="55.333333333333314" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960784313724" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4902,7 +4902,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.666666666666629" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -7345,7 +7345,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbh-Zk-CTR" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="946"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="566"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="r1o-YG-hXJ" id="fDb-Te-Tta"/>
@@ -7372,7 +7372,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white_back" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-Rd-LbO">
-                                <rect key="frame" x="0.0" y="796" width="375" height="16"/>
+                                <rect key="frame" x="0.0" y="416" width="375" height="396"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH4-Rv-MIQ" customClass="SpringButton" customModule="Spring">
@@ -7398,7 +7398,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nm2-KF-eOH">
-                                <rect key="frame" x="0.0" y="859" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="479" width="375" height="32"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eta_box" translatesAutoresizingMaskIntoConstraints="NO" id="hzb-Un-e3V" customClass="SpringImageView" customModule="Spring">
                                         <rect key="frame" x="122.66666666666669" y="0.0" width="130" height="32"/>
@@ -7426,7 +7426,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCB-nh-3a9" customClass="KTShadowView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="896" width="335" height="202"/>
+                                <rect key="frame" x="20" y="516" width="335" height="202"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGX-77-812">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="130"/>
@@ -7761,7 +7761,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FV-dH-dNS" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="178" y="14" width="47.666666666666657" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="46.333333333333343" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686270000001" green="0.59607843140000005" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -7774,7 +7774,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR -----" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k60-RF-XEQ" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="276.66666666666669" y="14" width="44.333333333333314" height="14"/>
+                                                <rect key="frame" x="271.66666666666669" y="14" width="49.333333333333314" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960780000002" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -7859,13 +7859,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOD-lv-5xr">
-                                <rect key="frame" x="16" y="1113" width="343" height="98"/>
+                                <rect key="frame" x="16" y="733" width="343" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0D-xs-hGt" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_driver_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="0ZL-Nn-yOg" customClass="SpringImageView" customModule="Spring">
-                                                <rect key="frame" x="12" y="18.666666666666742" width="27" height="33"/>
+                                                <rect key="frame" x="12" y="18.666666666666629" width="27" height="33"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="27" id="5JK-qN-ZKf"/>
                                                     <constraint firstAttribute="height" constant="33" id="WVZ-eP-lVp"/>
@@ -7896,7 +7896,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="------ ------" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-wb-9Vu" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="49" y="18.666666666666742" width="170" height="17"/>
+                                                <rect key="frame" x="49" y="18.666666666666629" width="170" height="17"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -7924,7 +7924,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.666666666666629" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -8557,7 +8557,7 @@
         <image name="MyTripsDot" width="5" height="5"/>
         <image name="MyTripsNoTrip" width="360" height="458"/>
         <image name="MyTripsPickDrop" width="30" height="78"/>
-        <image name="RevealButton" width="20" height="17"/>
+        <image name="RevealButton" width="30" height="30"/>
         <image name="SHWIconHome" width="12" height="20"/>
         <image name="SHWSetAddressBox" width="362" height="112"/>
         <image name="SettingIconCalendar" width="16" height="17"/>
