@@ -365,7 +365,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
         else if segue.identifier == "segueBookingToBreakdown" {
             
-            fareBreakdown = segue.destination as! KTFareViewController
+            fareBreakdown = segue.destination as? KTFareViewController
         }
         else if segue.identifier == "segueBookToDetail" {
             let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
