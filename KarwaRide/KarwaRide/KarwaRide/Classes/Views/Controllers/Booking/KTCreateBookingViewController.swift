@@ -18,12 +18,17 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     @IBOutlet weak var etaToCustomerContainer: UIImageView!
     @IBOutlet weak var btnPromo: UIButton!
 
+    @IBOutlet weak var scanPayBanner: SpringButton!
+    @IBOutlet weak var scanPayBannerCross: SpringButton!
+    
+    
     var removeBookingOnReset : Bool = true
     
     //MARK:- View lifecycle
     override func viewDidLoad() {
         viewModel = KTCreateBookingViewModel(del:self)
         vModel = viewModel as? KTCreateBookingViewModel
+
         if booking != nil {
             vModel?.booking = booking!
             (viewModel as! KTCreateBookingViewModel).setRemoveBookingOnReset(removeBookingOnReset: removeBookingOnReset)
@@ -36,6 +41,11 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         self.navigationItem.hidesBackButton = true;
         self.btnRevealBtn.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
         
+        scanPayBanner.isHidden = true
+        scanPayBannerCross.isHidden = true
+
+        self.scanPayBanner.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
+        
         hideFareBreakdown(animated: false)
     }
     
@@ -47,9 +57,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
     
     func showCoachmarkIfRequired()
     {
-        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
-        
-        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
+        if(SharedPrefUtil.isBookingCoachmarkOneShown())
         {
             if(vModel?.isCoachmarkOneShown)!
             {
@@ -57,6 +65,36 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
             }
         }
     }
+    
+    func showScanPayCoachmark()
+    {
+        scanPayBanner.animation = "fadeInDown"
+        scanPayBannerCross.animation = "zoomIn"
+        scanPayBanner.setNeedsDisplay()
+        scanPayBannerCross.setNeedsDisplay()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+        {
+            self.scanPayBanner.isHidden = false
+            self.scanPayBanner.animate()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3)
+        {
+            self.scanPayBannerCross.isHidden = false
+            self.scanPayBannerCross.animate()
+        }
+    }
+    
+    @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
+        SharedPrefUtil.setScanNPayCoachmarkShown()
+        hideScanPayCoachMark()
+    }
+    
+    @IBAction func scanPayBannerTapped(_ sender: Any) {
+        SharedPrefUtil.setScanNPayCoachmarkShown()
+        hideScanPayCoachMark()
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -327,7 +365,7 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         }
         else if segue.identifier == "segueBookingToBreakdown" {
             
-            fareBreakdown = segue.destination as! KTFareViewController
+            fareBreakdown = segue.destination as? KTFareViewController
         }
         else if segue.identifier == "segueBookToDetail" {
             let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
@@ -418,5 +456,18 @@ class KTCreateBookingViewController: KTBaseCreateBookingController, KTCreateBook
         self.viewFareBreakdown.isHidden = true
         
         self.view.layoutIfNeeded()
+    }
+    
+    func hideScanPayCoachMark()
+    {
+        scanPayBanner.animation = "zoomOut"
+        scanPayBannerCross.animation = "zoomOut"
+
+        self.scanPayBannerCross.animate()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
+        {
+            self.scanPayBanner.animate()
+        }
     }
 }
