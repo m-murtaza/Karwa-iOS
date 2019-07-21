@@ -83,7 +83,7 @@ enum BookingStatus : Int32 {
 }
 
 struct Constants {
-    static let TOSUrl:String = "https://www.karwa.qa/tos.htm"
+    static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
