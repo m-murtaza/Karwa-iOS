@@ -13,8 +13,9 @@ import CDAlertView
 import AVFoundation
 import AlertOnboarding
 
-class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource
 {
+
     @IBOutlet weak var tableView: UITableView!
 
     public var vModel : KTPaymentViewModel?
@@ -31,7 +32,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var btnPay: SpringImageView!
     
     @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
-    @IBOutlet weak var btnAdd: SpringButton!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
     var isTriggeredFromUniversalLink = false
@@ -97,11 +97,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     override func viewWillAppear(_ animated: Bool)
     {
-        if(payTripBean == nil)
-        {
-            hideBottomContainer()
-        }
-        btnAdd.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -121,17 +116,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             vModel?.showingTripPayment()
             showBottomContainer()
             populatePayTripData()
-            btnAdd.duration = 1
-            btnAdd.delay = 2.5
         }
-        else
-        {
-            btnAdd.duration = 1
-            btnAdd.delay = 0.15
-        }
-        btnAdd.isHidden = false
-        btnAdd.animation = "slideUp"
-        btnAdd.animate()
     }
 
     func showbarcodeScanner(show: Bool)
@@ -201,15 +186,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         btnPay.animate()
     }
     
-    func hideBottomContainer()
-    {
-        bottomContainer.isHidden = true
-        labelTotalFare.isHidden = true
-        labelTripId.isHidden = true
-        labelPickupType.isHidden = true
-        btnPay.isHidden = true
-    }
-    
     func showPayBtn()
     {
         btnPay.isUserInteractionEnabled = true
@@ -242,7 +218,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.animate()
         
         btnEdit.title = ""
-        btnAdd.isHidden = true
         isPaidSuccessfullShowed = true
     }
     
@@ -293,65 +268,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
-        if(editingStyle == .delete)
-        {
-            self.showPopupDeleteConfirmation(indexPath)
-        }
     }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
 
-        let deleteAction = UITableViewRowAction(style: .normal, title: "Remove"){ (rowAction, indexPath) in
-//            self.showPopupDeleteConfirmation(indexPath)
-        }
-
-        deleteAction.backgroundColor = .red
-
-        self.showPopupDeleteConfirmation(indexPath)
-        
-        return [deleteAction]
-
-    }
-    
-    func showPopupDeleteConfirmation(_ indexPath: IndexPath)
-    {
-        let alert = CDAlertView(title: "Confrimation", message: "Are you sure you want to remove payment method", type: .warning)
-
-        let removeAction = CDAlertViewAction(title: "Remove", textColor: .red,
-                                           handler:{(alert: CDAlertViewAction) -> Bool in
-                                                self.vModel?.deletePaymentMethod(indexPath)
-                                                self.toggleDoneToEdit()
-                                                return true})
-
-        alert.add(action: removeAction)
-
-        let keepAction = CDAlertViewAction(title: "Keep", handler:{(alert: CDAlertViewAction) -> Bool in
-                                                self.toggleDoneToEdit()
-                                                return true})
-        alert.add(action: keepAction)
-        alert.show()
-    }
-    
-    func deleteRowWithAnimation(_ indexPath: IndexPath)
-    {
-        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-    }
-    
-    var animationDelay = 1.0
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell : KTPaymentViewCell = tableView.dequeueReusableCell(withIdentifier: "KTPaymentViewCellIdentifier") as! KTPaymentViewCell
-        cell.cardNumber.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
-        cell.cardExpiry.text = vModel?.expiry(forCellIdx: indexPath.row)
-        cell.cardImage.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
-        cell.cellBackground?.image = vModel?.cardSelection(forCellIdx: indexPath.row)
-        cell.selectionStyle = .none
-
-        animateCell(cell, delay: animationDelay)
-        
-        return cell
-    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
@@ -396,6 +314,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         gotoDashboardRequired = required
     }
 
+    func gotoManagePayments()
+    {
+        self.performSegue(name: "SagueToManagePayment")
+    }
+    
     func reloadTableData()
     {
         tableView.reloadData()
@@ -408,17 +331,21 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         vModel!.payTripButtonTapped(payTripBean: payTripBean!)
     }
 
-    
-    @IBAction func btnAddCardTapped(_ sender: Any)
+    var animationDelay = 1.0
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        vModel?.addCardButtonTapped()
+        let cell : KTPaymentViewCell = tableView.dequeueReusableCell(withIdentifier: "KTPaymentViewCellIdentifier") as! KTPaymentViewCell
+        cell.cardNumber.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
+        cell.cardExpiry.text = vModel?.expiry(forCellIdx: indexPath.row)
+        cell.cardImage.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
+        cell.cellBackground?.image = vModel?.cardSelection(forCellIdx: indexPath.row)
+        cell.selectionStyle = .none
+        
+        animateCell(cell, delay: animationDelay)
+        
+        return cell
     }
 
-    func showAddCardVC()
-    {
-        presentAddCardViewController()
-    }
-    
     @IBAction func btnBackTapped(_ sender: Any)
     {
         if(isPaidSuccessfullShowed || gotoDashboardRequired)
@@ -440,44 +367,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
         sideMenuViewController?.hideMenuViewController()
-    }
-    
-    func presentAddCardViewController()
-    {
-        let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
-        cardIOVC?.modalPresentationStyle = .formSheet
-        cardIOVC?.collectCardholderName = true
-        cardIOVC?.collectCVV = true
-        cardIOVC?.collectExpiry = true
-        cardIOVC?.hideCardIOLogo = true
-        cardIOVC?.keepStatusBarStyle = true
-        cardIOVC?.scanExpiry = true
-        present(cardIOVC!, animated: true, completion: nil)
-    }
-    
-    var cardIOPaymentController = CardIOPaymentViewController()
-    
-    func userDidCancel(_ paymentViewController: CardIOPaymentViewController!)
-    {
-        paymentViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!)
-    {
-        if let info = cardInfo
-        {
-            cardIOPaymentController = paymentViewController
-            
-//            let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
-//            print(str)
-
-            vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, info.expiryMonth, info.expiryYear)
-        }
-    }
-    
-    func hideCardIOPaymentController()
-    {
-        cardIOPaymentController.dismiss(animated: true, completion: nil)
     }
     
     private func presentBarcodeScanner()
@@ -521,43 +410,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         return viewController
     }
-    
-    internal func show3dSecureController(_ html:String)
-    {
-        // create the Gateway3DSecureViewController
-        let threeDSecureView = Gateway3DSecureViewController(nibName: nil, bundle: nil)
-        
-        // Optionally, customize the presentation
-        threeDSecureView.title = "3-D Secure"
-        threeDSecureView.navBar.tintColor = UIColor(red: 1, green: 0.357, blue: 0.365, alpha: 1)
-        // present the 3DSecureViewController
-        present(threeDSecureView, animated: true)
-
-        // provide the html content and a handler
-        threeDSecureView.authenticatePayer(htmlBodyContent: html) { (threeDSView, result) in
-            // dismiss the 3-D Secure view controller
-            threeDSView.dismiss(animated: true)
-
-            // handle the result case
-            switch result
-            {
-                case .completed(summaryStatus: "<FAILED STATUS>", threeDSecureId: _):
-                    // failed authentication
-                    self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
-                    break;
-                case .completed(summaryStatus: _, threeDSecureId: let id):
-                    // continue with the payment for all other statuses
-                    self.vModel!.updatePaymentMethod()
-                    break;
-                default:
-                    // authentication was cancelled
-                    self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
-                    break;
-                
-            }
-        }
-    }
-
 }
 
 // MARK: - BarcodeScannerCodeDelegate

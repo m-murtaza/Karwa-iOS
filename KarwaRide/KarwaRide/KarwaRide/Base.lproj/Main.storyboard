@@ -5252,7 +5252,7 @@
                                 <rect key="frame" x="17.666666666666657" y="166" width="340" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A BC Driver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXs-hM-ckE">
-                                        <rect key="frame" x="8" y="54" width="84" height="19"/>
+                                        <rect key="frame" x="8" y="54" width="85" height="19"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -5278,7 +5278,7 @@
                                         </constraints>
                                     </imageView>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4S-Ie-zjk" customClass="CosmosView" customModule="Cosmos">
-                                        <rect key="frame" x="8" y="72.333333333333343" width="75" height="13"/>
+                                        <rect key="frame" x="8" y="72" width="75" height="13"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="4tY-La-HGF"/>
@@ -5407,13 +5407,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall good experience, impressed with the service, but needs some improvements" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-6o-BFJ">
-                                        <rect key="frame" x="31" y="225" width="278" height="23.333333333333343"/>
+                                        <rect key="frame" x="31" y="225" width="278" height="24"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlB-Bm-JwG" customClass="RKTagsView">
-                                        <rect key="frame" x="8" y="263.33333333333331" width="324" height="120"/>
+                                        <rect key="frame" x="8" y="264" width="324" height="120"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="Zhh-jZ-m3t"/>
@@ -6569,6 +6569,7 @@
                         <outlet property="labelTripId" destination="KK2-ls-Suy" id="n0M-3x-Koe"/>
                         <outlet property="tableView" destination="Iua-R2-2r9" id="W0h-FR-8Tb"/>
                         <outlet property="tripPaidSuccessImageView" destination="X4J-GD-7EC" id="mQz-eo-6ye"/>
+                        <segue destination="Qch-Ep-Qpx" kind="presentation" identifier="SagueToManagePayment" id="T12-Gh-fAE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Skp-xo-Wrp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -8515,13 +8516,13 @@
         <!--Payment Methods-->
         <scene sceneID="xtd-WR-1w5">
             <objects>
-                <viewController storyboardIdentifier="KTPaymentViewControllerIdentifier" id="v8E-tg-drv" customClass="KTManagePaymentViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KTManagePaymentViewControllerIdentifier" id="v8E-tg-drv" customClass="KTManagePaymentViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RLM-hC-orF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paid_graphics" translatesAutoresizingMaskIntoConstraints="NO" id="waL-fj-CjC" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="88" width="375" height="350"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_n_pay_empty" translatesAutoresizingMaskIntoConstraints="NO" id="j20-fG-7kD" customClass="SpringImageView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="88" width="375" height="310"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L08-6l-gpU">
                                 <rect key="frame" x="0.0" y="88" width="375" height="724"/>
@@ -8584,14 +8585,14 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="6Ur-ME-oYV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="13"/>
                                 <state key="normal" title="+ ADD CARD"/>
                                 <connections>
-                                    <action selector="btnAddCardTapped:" destination="v8E-tg-drv" eventType="touchUpInside" id="bC0-TY-ui9"/>
+                                    <action selector="btnAddCardTapped:" destination="v8E-tg-drv" eventType="touchUpInside" id="e4t-cI-mbS"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure-1" translatesAutoresizingMaskIntoConstraints="NO" id="vLT-ON-V5S">
-                                <rect key="frame" x="0.0" y="728" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="746" width="375" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="FGM-Xm-bEv"/>
                                     <constraint firstAttribute="width" constant="375" id="pda-rB-PdT"/>
@@ -8601,17 +8602,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="L08-6l-gpU" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="2dz-C1-Vpo"/>
-                            <constraint firstItem="waL-fj-CjC" firstAttribute="top" secondItem="Hk6-Ta-fCk" secondAttribute="top" id="9XL-Xx-3qi"/>
+                            <constraint firstItem="j20-fG-7kD" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="3A0-2Q-fob"/>
                             <constraint firstItem="vLT-ON-V5S" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="A2O-CW-G5s"/>
                             <constraint firstItem="eLc-OD-XSt" firstAttribute="bottom" secondItem="Hk6-Ta-fCk" secondAttribute="bottom" constant="-44" id="Htr-xC-K8x"/>
                             <constraint firstItem="Hk6-Ta-fCk" firstAttribute="bottom" secondItem="L08-6l-gpU" secondAttribute="bottom" constant="-34" id="Imz-rS-NkO"/>
-                            <constraint firstItem="waL-fj-CjC" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="Kjb-D6-JcH"/>
-                            <constraint firstItem="vLT-ON-V5S" firstAttribute="bottom" secondItem="Hk6-Ta-fCk" secondAttribute="bottom" id="LD9-xU-mya"/>
+                            <constraint firstItem="vLT-ON-V5S" firstAttribute="bottom" secondItem="Hk6-Ta-fCk" secondAttribute="bottom" constant="18" id="LD9-xU-mya"/>
                             <constraint firstItem="vLT-ON-V5S" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="QTV-1j-ukh"/>
                             <constraint firstItem="L08-6l-gpU" firstAttribute="top" secondItem="Hk6-Ta-fCk" secondAttribute="top" id="SKj-Q9-pli"/>
+                            <constraint firstItem="j20-fG-7kD" firstAttribute="top" secondItem="Hk6-Ta-fCk" secondAttribute="top" id="UxG-hU-7vl"/>
                             <constraint firstItem="L08-6l-gpU" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="bUP-kc-9Ic"/>
-                            <constraint firstItem="waL-fj-CjC" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="f2Q-79-5Yx"/>
                             <constraint firstItem="eLc-OD-XSt" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="fMS-14-OIc"/>
+                            <constraint firstItem="j20-fG-7kD" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="h6Q-qv-qvM"/>
                             <constraint firstItem="L08-6l-gpU" firstAttribute="top" secondItem="Hk6-Ta-fCk" secondAttribute="top" id="i3C-GM-Y71"/>
                             <constraint firstItem="eLc-OD-XSt" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="ntL-kj-Bba"/>
                         </constraints>
@@ -8630,15 +8631,15 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="Zo9-2p-e7l">
                             <connections>
-                                <action selector="editBtnTapped:" destination="v8E-tg-drv" id="0GL-ZD-Klc"/>
+                                <action selector="btnEditTapped:" destination="v8E-tg-drv" id="ILy-8R-cdQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="btnAdd" destination="eLc-OD-XSt" id="ax2-Bc-yUq"/>
-                        <outlet property="btnEdit" destination="Zo9-2p-e7l" id="aGA-o1-0kd"/>
-                        <outlet property="tableView" destination="L08-6l-gpU" id="wrZ-R7-zqT"/>
-                        <outlet property="tripPaidSuccessImageView" destination="waL-fj-CjC" id="TWQ-Qh-iw1"/>
+                        <outlet property="btnAdd" destination="eLc-OD-XSt" id="ypa-kD-msD"/>
+                        <outlet property="btnEdit" destination="Zo9-2p-e7l" id="Xk7-f0-5PY"/>
+                        <outlet property="emptyView" destination="j20-fG-7kD" id="wSE-bx-wSm"/>
+                        <outlet property="tableView" destination="L08-6l-gpU" id="i4y-Io-Qi4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AFW-uB-ry5" userLabel="First Responder" sceneMemberID="firstResponder"/>

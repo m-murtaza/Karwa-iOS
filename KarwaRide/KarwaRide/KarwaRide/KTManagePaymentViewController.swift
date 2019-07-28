@@ -15,12 +15,11 @@ import CDAlertView
 import AVFoundation
 import AlertOnboarding
 
-class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
+class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
 {
-    @IBOutlet weak var tableView: UITableView!
-    
-    public var vModel : KTPaymentViewModel?
-    public var payTripBean : PayTripBeanForServer?
+     @IBOutlet weak var tableView: UITableView!
+
+    public var vModel : KTManagePaymentViewModel?
     
     public var isManageButtonPressed = false
     public var isCrossButtonPressed = false
@@ -34,8 +33,8 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTPaymentVi
     
     override func viewDidLoad()
     {
-        self.viewModel = KTPaymentViewModel(del: self)
-        vModel = viewModel as? KTPaymentViewModel
+        self.viewModel = KTManagePaymentViewModel(del: self)
+        vModel = viewModel as? KTManagePaymentViewModel
         
         self.tableView.dataSource = self
         self.tableView.delegate = self;
@@ -112,10 +111,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTPaymentVi
         showWarningBanner("", "Tap on Settings to Enable Camera")
     }
 
-    @IBAction func editBtnTapped(_ sender: Any)
-    {
+    @IBAction func btnEditTapped(_ sender: Any) {
         toggleEditButton()
     }
+    
     
     func toggleEditButton()
     {
@@ -267,10 +266,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTPaymentVi
         tableView.reloadData()
     }
     
-    @IBAction func btnAddCardTapped(_ sender: Any)
-    {
+    @IBAction func btnAddCardTapped(_ sender: Any) {
         vModel?.addCardButtonTapped()
     }
+    
     
     func showAddCardVC()
     {

@@ -17,6 +17,7 @@
 		0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B5B216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift */; };
 		0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */; };
 		0D1B4C6D22ED759C00CABE26 /* KTManagePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B4C6C22ED759C00CABE26 /* KTManagePaymentViewController.swift */; };
+		0D1B4C6F22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */; };
 		0D5C7094220AFA6D00541A21 /* BookingBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C7093220AFA6D00541A21 /* BookingBean.swift */; };
 		0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */; };
 		0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */; };
@@ -215,6 +216,7 @@
 		0D1A4B5B216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTComplaintsCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewController.swift; sourceTree = "<group>"; };
 		0D1B4C6C22ED759C00CABE26 /* KTManagePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewController.swift; sourceTree = "<group>"; };
+		0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewModel.swift; sourceTree = "<group>"; };
 		0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV4.xcdatamodel; sourceTree = "<group>"; };
 		0D5C7093220AFA6D00541A21 /* BookingBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingBean.swift; path = Classes/Common/Utility/BookingBean.swift; sourceTree = "<group>"; };
 		0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmarkOneViewController.swift; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				0DE90AF62186E9FB005FC934 /* KTPaymentViewModel.swift */,
+				0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */,
 			);
 			name = ScanAndPayViewModel;
 			sourceTree = "<group>";
@@ -1607,6 +1610,7 @@
 				0D1A4B5A216CA87600279AA6 /* KTComplaintCategoryViewModel.swift in Sources */,
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				0DE7B9AC2226B1F50098951C /* AESEncryption.swift in Sources */,
+				0D1B4C6F22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
 				181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */,
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
