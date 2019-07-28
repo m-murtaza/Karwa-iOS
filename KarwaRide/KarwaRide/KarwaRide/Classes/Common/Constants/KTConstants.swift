@@ -106,8 +106,8 @@ struct Constants {
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     
-    static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
-    static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyCn-vi4U1wXjhwqyV3WkjmJt78sHN0jSDo"
+    static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyBuQWTg0UryYGD0uPyUQI6RKk08kvZ0fgY"
+    static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyA5Hhmo5hrizljm-ypYDk4mLKT54sM_Y7A"
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
     static let MIN_PASSWORD_LENGTH : Int = 6
