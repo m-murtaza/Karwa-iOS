@@ -96,13 +96,14 @@ struct Constants {
     
     
     /*                Test Payment Credentials                            */
-//    static let MERCHANT_ID:String = "KTQNB01A"
-//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
+    static let MERCHANT_ID:String = "KTQNB01A"
+    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
 //    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
-//    static let DIRECTIONS_API_ENABLE:Bool = false
-//    static let SCAN_N_PAY_ENABLE:Bool = true
+    static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
+    
+    static let SCAN_N_PAY_ENABLE:Bool = true
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     

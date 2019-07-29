@@ -32,8 +32,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var btnPay: SpringImageView!
     
     @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
-    @IBOutlet weak var btnEdit: UIBarButtonItem!
-    
+
     var isTriggeredFromUniversalLink = false
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
@@ -116,6 +115,20 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             vModel?.showingTripPayment()
             showBottomContainer()
             populatePayTripData()
+        }
+        else
+        {
+            bottomContainer.isHidden = true
+            labelTotalFare.isHidden = true
+            labelTripId.isHidden = true
+            labelPickupType.isHidden = true
+            btnPay.isHidden = true
+        }
+
+        if(payTripBean == nil && isManageButtonPressed)
+        {
+            isManageButtonPressed = !isManageButtonPressed
+            gotoManagePayments()
         }
     }
 
@@ -216,39 +229,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         tripPaidSuccessImageView.isHidden = false
         tripPaidSuccessImageView.animate()
-        
-        btnEdit.title = ""
+
         isPaidSuccessfullShowed = true
     }
     
-    @IBAction func editBtnTapped(_ sender: Any)
-    {
-        toggleEditButton()
-    }
-    
-    func toggleEditButton()
-    {
-        if btnEdit.title! == "Edit"
-        {
-            self.tableView.setEditing(true, animated: true)
-            btnEdit.title = "Done"
-        }
-        else
-        {
-            self.tableView.setEditing(false, animated: true)
-            btnEdit.title = "Edit"
-        }
-    }
-    
-    func toggleDoneToEdit()
-    {
-        self.tableView.setEditing(false, animated: true)
-        if btnEdit.title! == "Done"
-        {
-            btnEdit.title = "Edit"
-        }
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return (vModel?.numberOfRows())!
@@ -287,7 +271,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         emptyView.isHidden = false
         tableView.isHidden = true
-        btnEdit.title = ""
 
         emptyView.animation = "squeezeDown"
         emptyView.duration = 1
@@ -306,7 +289,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         emptyView.isHidden = true
         tableView.isHidden = false
-        btnEdit.title = "Edit"
     }
     
     func gotoDashboardRequired(required: Bool)
@@ -316,7 +298,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
     func gotoManagePayments()
     {
-        self.performSegue(name: "SagueToManagePayment")
+        self.performSegue(withIdentifier: "segueToManagePayment", sender: self)
     }
     
     func reloadTableData()
@@ -415,8 +397,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 // MARK: - BarcodeScannerCodeDelegate
 extension KTPaymentViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-//        print("Barcode Data: \(code)")
-//        print("Symbology Type: \(type)")
+        //        print("Barcode Data: \(code)")
+        //        print("Symbology Type: \(type)")
         let tripServerBean = KTUtils.isValidQRCode(code)
         if(tripServerBean != nil)
         {
