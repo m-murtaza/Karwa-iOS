@@ -29,8 +29,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
     var isTriggeredFromUniversalLink = false
-    var gotoDashboardRequired = false
     
+    var finishDelegate:FinishProtocol?
+    var barcodeDelegate:BarcodeProtocol?
+
     override func viewDidLoad()
     {
         self.viewModel = KTManagePaymentViewModel(del: self)
@@ -256,11 +258,6 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         btnEdit.title = "Edit"
     }
     
-    func gotoDashboardRequired(required: Bool)
-    {
-        gotoDashboardRequired = required
-    }
-    
     func reloadTableData()
     {
         tableView.reloadData()
@@ -306,14 +303,16 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     @IBAction func btnBackTapped(_ sender: Any)
     {
-        if(gotoDashboardRequired)
+        if(vModel?.paymentMethods.count == 0)
         {
-            gotoDashboard()
+            finishDelegate?.setFinishRequired(valueSent: true)
         }
         else
         {
-            dismiss()
+            barcodeDelegate?.setShowBarcodeRequired(valueSent: true)
         }
+
+        dismiss()
     }
     
     func gotoDashboard()

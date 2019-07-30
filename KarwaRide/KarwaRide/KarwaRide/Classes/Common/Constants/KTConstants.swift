@@ -88,10 +88,9 @@ struct Constants {
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
     /*                Live Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTRQNB01"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
-    static let DIRECTIONS_API_ENABLE:Bool = false
-    static let SCAN_N_PAY_ENABLE:Bool = true
+//    static let MERCHANT_ID:String = "KTRQNB01"
+//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+//    static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
     
@@ -116,6 +115,7 @@ struct Constants {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"
         static let DetailView = "BookingDetailNavController"
+        static let PaymentMethodsNavId = "PaymentMethodsNavController"
         static let PaymentMethodsView = "KTPaymentViewControllerIdentifier"
         static let PaymentNavigationController = "PaymentNavigationController"
         static let TrackTripNavController = "TrackTripNavController"

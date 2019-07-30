@@ -11,8 +11,6 @@ import Foundation
 protocol KTPaymentViewModelDelegate : KTViewModelDelegate
 {
     func reloadTableData()
-    func showEmptyScreen()
-    func hideEmptyScreen()
     func showPayBtn()
     func showTripPaidScene()
     func showPayNonTappableBtn()
@@ -110,7 +108,6 @@ class KTPaymentViewModel: KTBaseViewModel
 
         if paymentMethods.count == 0
         {
-            self.del?.showEmptyScreen()
             self.del?.showPayNonTappableBtn()
             self.del?.showbarcodeScanner(show: false)
             self.del?.gotoDashboardRequired(required: true)
@@ -120,7 +117,6 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             self.del?.gotoDashboardRequired(required: false)
             self.del?.showbarcodeScanner(show: true)
-            self.del?.hideEmptyScreen()
         }
         self.del?.reloadTableData()
     }

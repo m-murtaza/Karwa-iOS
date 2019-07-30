@@ -13,9 +13,26 @@ import CDAlertView
 import AVFoundation
 import AlertOnboarding
 
-class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource
+protocol FinishProtocol
 {
+    func setFinishRequired(valueSent: Bool)
+}
 
+protocol BarcodeProtocol
+{
+    func setShowBarcodeRequired(valueSent: Bool)
+}
+
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol
+{
+    func setFinishRequired(valueSent: Bool) {
+        isCrossButtonPressed = valueSent
+    }
+    
+    func setShowBarcodeRequired(valueSent: Bool) {
+        isShowBarcodeRequired = valueSent
+    }
+    
     @IBOutlet weak var tableView: UITableView!
 
     public var vModel : KTPaymentViewModel?
@@ -23,6 +40,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     public var isManageButtonPressed = false
     public var isCrossButtonPressed = false
+    public var isShowBarcodeRequired = false
+
     @IBOutlet weak var emptyView: SpringImageView!
     
     @IBOutlet weak var bottomContainer: SpringImageView!
@@ -36,7 +55,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     var isTriggeredFromUniversalLink = false
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
-
+    
     override func viewDidLoad()
     {
         self.viewModel = KTPaymentViewModel(del: self)
@@ -96,10 +115,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     override func viewWillAppear(_ animated: Bool)
     {
+        self.tableView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool)
     {
+        
+        print("isShowBarcodeRequired: \(isShowBarcodeRequired)")
+        print("isCrossButtonPressed: \(isCrossButtonPressed)")
         if(isCrossButtonPressed)
         {
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
@@ -129,6 +152,12 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         {
             isManageButtonPressed = !isManageButtonPressed
             gotoManagePayments()
+        }
+        
+        if(isShowBarcodeRequired)
+        {
+            isShowBarcodeRequired = !isShowBarcodeRequired
+            presentBarcodeScanner()
         }
     }
 
@@ -161,6 +190,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func populatePayTripData()
     {
+        tableView.isHidden = false
         showBottomContainer()
     }
 
@@ -267,35 +297,24 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         vModel?.rowSelected(atIndex: indexPath.row)
     }
     
-    func showEmptyScreen()
-    {
-        emptyView.isHidden = false
-        tableView.isHidden = true
-
-        emptyView.animation = "squeezeDown"
-        emptyView.duration = 1
-        emptyView.delay = 0.15
-        
-        emptyView.animate()
-        
-        if(!SharedPrefUtil.isScanNPayCoachmarkShownInDetails())
-        {
-            showCardOnboarding()
-            SharedPrefUtil.setScanNPayCoachmarkShownInDetails()
-        }
-    }
-
-    func hideEmptyScreen()
-    {
-        emptyView.isHidden = true
-        tableView.isHidden = false
-    }
-    
     func gotoDashboardRequired(required: Bool)
     {
         gotoDashboardRequired = required
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "segueToManagePayment"
+        {
+//            let sBoard = UIStoryboard(name: "Main", bundle: nil)
+            let contentView : UINavigationController = segue.destination as! UINavigationController
+//            let destination : KTManagePaymentViewController = segue.destination as! KTManagePaymentViewController
+            let destination : KTManagePaymentViewController = (contentView.viewControllers)[0] as! KTManagePaymentViewController
+            destination.finishDelegate = self
+            destination.barcodeDelegate = self
+        }
+    }
+    
     func gotoManagePayments()
     {
         self.performSegue(withIdentifier: "segueToManagePayment", sender: self)

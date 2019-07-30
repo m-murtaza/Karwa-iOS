@@ -19,7 +19,6 @@ protocol KTManagePaymentViewModelDelegate : KTViewModelDelegate
     func hideCardIOPaymentController()
     func deleteRowWithAnimation(_ index: IndexPath)
     func show3dSecureController(_ html: String)
-    func gotoDashboardRequired(required: Bool)
 }
 
 class KTManagePaymentViewModel: KTBaseViewModel
@@ -121,6 +120,11 @@ class KTManagePaymentViewModel: KTBaseViewModel
         }
     }
     
+    func paymentMethodsCount() -> Int
+    {
+        return self.paymentMethods.count
+    }
+    
     func showingTripPayment()
     {
         let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
@@ -145,11 +149,9 @@ class KTManagePaymentViewModel: KTBaseViewModel
         if paymentMethods.count == 0
         {
             self.del?.showEmptyScreen()
-            self.del?.gotoDashboardRequired(required: true)
         }
         else
         {
-            self.del?.gotoDashboardRequired(required: false)
             self.del?.hideEmptyScreen()
         }
         self.del?.reloadTableData()
