@@ -19,6 +19,8 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func gotoManagePayments()
     func removeAllTags()
     func addTag(tag: String)
+    func tagViewTapped()
+    func selectedTipIdx() -> [NSNumber]
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -77,6 +79,22 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
     
+    func selectedTipValue() -> String
+    {
+        var selectedTipOption = ""
+        for r in (del?.selectedTipIdx())!
+        {
+            selectedTipOption = Constants.TIP_OPTIONS[r.intValue]
+        }
+
+        return selectedTipOption
+    }
+
+    func tagViewTapped()
+    {
+        //TODO: update Pay Button Text
+    }
+
     func paymentTapped()
     {
         self.del?.reloadTableData()

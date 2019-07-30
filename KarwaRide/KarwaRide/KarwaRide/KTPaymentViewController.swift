@@ -26,14 +26,6 @@ protocol BarcodeProtocol
 
 class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate
 {
-    func setFinishRequired(valueSent: Bool) {
-        isCrossButtonPressed = valueSent
-    }
-    
-    func setShowBarcodeRequired(valueSent: Bool) {
-        isShowBarcodeRequired = valueSent
-    }
-    
     @IBOutlet weak var tableView: UITableView!
 
     public var vModel : KTPaymentViewModel?
@@ -118,13 +110,13 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     @objc func tagViewTapped() {
         print("something tapped")
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
-//        {
-//            self.vModel?.tagViewTapped()
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
+        {
+            self.vModel?.tagViewTapped()
+        }
     }
     
-    func selectedIdx() ->[NSNumber] {
+    func selectedTipIdx() ->[NSNumber] {
         return tagView.selectedTagIndexes
     }
 
@@ -367,9 +359,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         if segue.identifier == "segueToManagePayment"
         {
-//            let sBoard = UIStoryboard(name: "Main", bundle: nil)
             let contentView : UINavigationController = segue.destination as! UINavigationController
-//            let destination : KTManagePaymentViewController = segue.destination as! KTManagePaymentViewController
             let destination : KTManagePaymentViewController = (contentView.viewControllers)[0] as! KTManagePaymentViewController
             destination.finishDelegate = self
             destination.barcodeDelegate = self
@@ -423,6 +413,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         {
             dismiss()
         }
+    }
+    
+    func setFinishRequired(valueSent: Bool) {
+        isCrossButtonPressed = valueSent
+    }
+    
+    func setShowBarcodeRequired(valueSent: Bool) {
+        isShowBarcodeRequired = valueSent
     }
     
     func gotoDashboard()
