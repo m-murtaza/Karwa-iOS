@@ -17,6 +17,8 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func showbarcodeScanner(show: Bool)
     func gotoDashboardRequired(required: Bool)
     func gotoManagePayments()
+    func removeAllTags()
+    func addTag(tag: String)
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -35,6 +37,12 @@ class KTPaymentViewModel: KTBaseViewModel
         del = self.delegate as? KTPaymentViewModelDelegate
         fetchnPaymentMethods()
         fetchSessionInfo()
+        
+        del?.removeAllTags()
+        for tipOption in Constants.TIP_OPTIONS
+        {
+            del?.addTag(tag: tipOption)
+        }
     }
     
     func numberOfRows() -> Int
@@ -195,6 +203,10 @@ class KTPaymentViewModel: KTBaseViewModel
         }
         return refinedYear
     }
+
+    func tipOptions(atIndex idx: Int) -> String {
+        return Constants.TIP_OPTIONS[idx]
+    }
     
     func getRefinedMonth(_ month:UInt) ->String
     {
@@ -240,6 +252,17 @@ class KTPaymentViewModel: KTBaseViewModel
         else {
             self.delegate?.showError!(title: "Error" , message: error)
         }
+    }
+    
+    func getTipNumber(tipString: String) -> String
+    {
+        var tipAmount = ""
+        let stringArray = tipString.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        for item in stringArray
+        {
+            tipAmount = item
+        }
+        return tipAmount
     }
     
     func validate(userName : String?, userEmail : String?) -> String {

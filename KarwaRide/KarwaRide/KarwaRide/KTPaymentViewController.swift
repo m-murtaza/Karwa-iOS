@@ -24,7 +24,7 @@ protocol BarcodeProtocol
     func setShowBarcodeRequired(valueSent: Bool)
 }
 
-class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate
 {
     func setFinishRequired(valueSent: Bool) {
         isCrossButtonPressed = valueSent
@@ -81,8 +81,53 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
         btnPay.addGestureRecognizer(tapGestureRecognizer)
+
+        tagView.textField.textAlignment = NSTextAlignment.center
+        tagView.textFieldAlign = .center
+
+        tagView.allowsMultipleSelection = false
+        tagView.isHidden = true
+        tagView.editable = false
+        tagView.delegate = self
     }
     
+    func removeAllTags() {
+        tagView.removeAllTags()
+    }
+    
+    func addTag(tag: String) {
+        tagView.addTag(tag)
+    }
+
+    func tagsView(_ tagsView: RKTagsView, buttonForTagAt index: Int) -> UIButton
+    {
+        tagView.scrollView.flashScrollIndicators()
+
+        let btn: KTTripTagButton = KTTripTagButton(type:UIButtonType.custom)
+
+        btn.setTitle(vModel?.tipOptions(atIndex: index), for: UIControlState.normal)
+
+        btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
+        
+        btn.setTitleColor(UIColor.white, for: UIControlState.selected)
+        
+        btn.adjustsImageWhenHighlighted = false
+        btn.addTarget(self, action: #selector(KTPaymentViewController.tagViewTapped), for: .touchUpInside)
+        return btn
+    }
+    
+    @objc func tagViewTapped() {
+        print("something tapped")
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
+//        {
+//            self.vModel?.tagViewTapped()
+//        }
+    }
+    
+    func selectedIdx() ->[NSNumber] {
+        return tagView.selectedTagIndexes
+    }
+
     func showCardOnboarding()
     {
         //First, declare datas
@@ -206,7 +251,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.isHidden = false
         labelHDriverTrip.isHidden = false
         btnPay.isHidden = false
-        
+
         bottomContainer.animation = "slideUp"
         labelHTripFare.animation = "zoomIn"
         labelTotalFare.animation = "zoomIn"
@@ -234,6 +279,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.animate()
         labelHDriverTrip.animate()
         btnPay.animate()
+        
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.8)
+        {
+            UIView.animate(withDuration: 3.0, animations:
+            {
+                self.tagView.isHidden = false
+            })
+        }
     }
     
     func showPayBtn()

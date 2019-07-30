@@ -6446,9 +6446,9 @@
                                 </prototypes>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_container" translatesAutoresizingMaskIntoConstraints="NO" id="pU0-Jv-aIk" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="492" width="375" height="320"/>
+                                <rect key="frame" x="0.0" y="462" width="375" height="350"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="lzP-AY-3mb"/>
+                                    <constraint firstAttribute="height" constant="350" id="lzP-AY-3mb"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
@@ -6461,15 +6461,33 @@
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pay_button" translatesAutoresizingMaskIntoConstraints="NO" id="nZR-ob-FP9" customClass="SpringImageView" customModule="Spring">
                                 <rect key="frame" x="0.0" y="732" width="375" height="80"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2a7-Ih-VDT" customClass="RKTagsView">
-                                <rect key="frame" x="16" y="667" width="343" height="57"/>
+                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="2a7-Ih-VDT" customClass="RKTagsView">
+                                <rect key="frame" x="31" y="625" width="328" height="88"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="interitemSpacing">
+                                        <real key="value" value="13"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="tagButtonHeight">
+                                        <real key="value" value="45"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="selectable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textFieldHeight">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="deselectAllOnEdit" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="MW4-6f-IKY" id="SFH-UN-Dkg"/>
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a tip for Driver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOk-1t-Srh" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="630" width="343" height="29"/>
+                                <rect key="frame" x="24" y="583" width="328" height="29"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -6481,7 +6499,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-nr-IXq" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="579" width="343" height="43"/>
+                                <rect key="frame" x="24" y="532" width="328" height="43"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="38"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6493,7 +6511,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP FARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giX-J9-4KN" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="558" width="343" height="21"/>
+                                <rect key="frame" x="24" y="511" width="328" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="iq5-Du-uxt"/>
                                 </constraints>
@@ -6508,7 +6526,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip ID: ASLKDHIO32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILp-L5-HcB" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="529" width="343" height="21"/>
+                                <rect key="frame" x="24" y="482" width="328" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="65a-Q6-gLA"/>
                                 </constraints>
@@ -6526,18 +6544,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="4v9-nr-IXq" secondAttribute="bottom" constant="8" symbolic="YES" id="02P-SI-ihB"/>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="trailing" secondItem="2a7-Ih-VDT" secondAttribute="trailing" id="2HX-xK-vk0"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="trailing" secondItem="2a7-Ih-VDT" secondAttribute="trailing" constant="-7" id="2HX-xK-vk0"/>
                             <constraint firstItem="ILp-L5-HcB" firstAttribute="trailing" secondItem="4v9-nr-IXq" secondAttribute="trailing" id="4pc-Rv-nxN"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6EM-0u-HFl"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6TF-h0-IXI"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="7aL-ln-9ip"/>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="2a7-Ih-VDT" secondAttribute="leading" id="BFo-wQ-0iu"/>
-                            <constraint firstItem="4v9-nr-IXq" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="8" symbolic="YES" id="HTz-2Y-im0"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="2a7-Ih-VDT" secondAttribute="leading" constant="-7" id="BFo-wQ-0iu"/>
+                            <constraint firstItem="4v9-nr-IXq" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="-39" id="HTz-2Y-im0"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="L4y-Fv-n6O"/>
-                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="96" id="MzF-ZQ-UDq"/>
-                            <constraint firstItem="nZR-ob-FP9" firstAttribute="top" secondItem="2a7-Ih-VDT" secondAttribute="bottom" constant="8" symbolic="YES" id="Rcw-tx-AQT"/>
+                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="54" id="MzF-ZQ-UDq"/>
+                            <constraint firstItem="nZR-ob-FP9" firstAttribute="top" secondItem="2a7-Ih-VDT" secondAttribute="bottom" constant="19" id="Rcw-tx-AQT"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="SYu-Qx-WI5"/>
-                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="centerX" secondItem="nZR-ob-FP9" secondAttribute="centerX" id="Tnq-8Q-DDa"/>
+                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="centerX" secondItem="nZR-ob-FP9" secondAttribute="centerX" constant="7.5" id="Tnq-8Q-DDa"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="bottom" secondItem="nZR-ob-FP9" secondAttribute="bottom" id="UsX-er-Joc"/>
                             <constraint firstItem="ILp-L5-HcB" firstAttribute="leading" secondItem="4v9-nr-IXq" secondAttribute="leading" id="Wv9-3z-VCG"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="Wyn-4y-gS8"/>
@@ -6549,13 +6567,13 @@
                             <constraint firstItem="nZR-ob-FP9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="aF2-ur-Fqb"/>
                             <constraint firstItem="giX-J9-4KN" firstAttribute="top" secondItem="ILp-L5-HcB" secondAttribute="bottom" constant="8" symbolic="YES" id="dMy-yw-RIR"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="nZR-ob-FP9" secondAttribute="trailing" id="dfI-Te-vAT"/>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="59" id="eyA-nY-CVb"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="12" id="eyA-nY-CVb"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="ilL-AH-X55"/>
                             <constraint firstItem="ILp-L5-HcB" firstAttribute="leading" secondItem="giX-J9-4KN" secondAttribute="leading" id="j0D-Y7-cvd"/>
-                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="fOk-1t-Srh" secondAttribute="bottom" constant="8" symbolic="YES" id="jQ5-3g-KnH"/>
+                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="fOk-1t-Srh" secondAttribute="bottom" constant="13" id="jQ5-3g-KnH"/>
                             <constraint firstItem="ILp-L5-HcB" firstAttribute="trailing" secondItem="giX-J9-4KN" secondAttribute="trailing" id="l64-NO-LIM"/>
                             <constraint firstItem="4v9-nr-IXq" firstAttribute="top" secondItem="giX-J9-4KN" secondAttribute="bottom" id="qKN-z6-gAg"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="top" secondItem="X4J-GD-7EC" secondAttribute="bottom" constant="91" id="qjK-cC-Jrh"/>
+                            <constraint firstItem="ILp-L5-HcB" firstAttribute="top" secondItem="X4J-GD-7EC" secondAttribute="bottom" constant="44" id="qjK-cC-Jrh"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="xzo-L6-u9J"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HYU-Id-3FI"/>

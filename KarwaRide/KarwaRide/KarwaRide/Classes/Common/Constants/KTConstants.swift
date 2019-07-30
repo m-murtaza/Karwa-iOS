@@ -101,6 +101,8 @@ struct Constants {
     static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
+    static let TIP_OPTIONS = ["   QR 2   ", "   QR 3   ", "   QR 5   ", "   QR 10  "]
+    
     
     static let SCAN_N_PAY_ENABLE:Bool = true
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
