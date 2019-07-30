@@ -12,6 +12,7 @@ import Spring
 import CDAlertView
 import AVFoundation
 import AlertOnboarding
+import RKTagsView
 
 protocol FinishProtocol
 {
@@ -42,12 +43,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     public var isCrossButtonPressed = false
     public var isShowBarcodeRequired = false
 
-    @IBOutlet weak var emptyView: SpringImageView!
-    
     @IBOutlet weak var bottomContainer: SpringImageView!
+    @IBOutlet weak var labelHTripFare: SpringLabel!
     @IBOutlet weak var labelTotalFare: SpringLabel!
     @IBOutlet weak var labelTripId: SpringLabel!
-    @IBOutlet weak var labelPickupType: SpringLabel!
+    @IBOutlet weak var labelHDriverTrip: SpringLabel!
+    
+    @IBOutlet weak var tagView: RKTagsView!
+    
+    
     @IBOutlet weak var btnPay: SpringImageView!
     
     @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
@@ -144,8 +148,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             bottomContainer.isHidden = true
             labelTotalFare.isHidden = true
             labelTripId.isHidden = true
-            labelPickupType.isHidden = true
             btnPay.isHidden = true
+            labelHTripFare.isHidden = true
+            labelHDriverTrip.isHidden = true
         }
 
         if(payTripBean == nil && isManageButtonPressed)
@@ -182,9 +187,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         if(payTripBean != nil)
         {
-            labelTotalFare.text = "TOTAL FARE - QR " + (payTripBean?.totalFare)!
+            labelTotalFare.text = "QR " + (payTripBean?.totalFare)!
             labelTripId.text = "TRIP ID: " + (payTripBean?.tripId)!
-            labelPickupType.text = payTripBean?.tripType == 1 ? "Street Pickup - Karwa" : "Booking - Karwa"
         }
     }
     
@@ -197,35 +201,38 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     func showBottomContainer()
     {
         bottomContainer.isHidden = false
+        labelHTripFare.isHidden = false
         labelTotalFare.isHidden = false
         labelTripId.isHidden = false
-        labelPickupType.isHidden = false
+        labelHDriverTrip.isHidden = false
         btnPay.isHidden = false
         
         bottomContainer.animation = "slideUp"
+        labelHTripFare.animation = "zoomIn"
         labelTotalFare.animation = "zoomIn"
         labelTripId.animation = "zoomIn"
-        labelPickupType.animation = "zoomIn"
+        labelHDriverTrip.animation = "zoomIn"
         btnPay.animation = "fadeIn"
         
+        labelHTripFare.duration = 1
         bottomContainer.duration = 1
         labelTotalFare.duration = 1
+        labelHDriverTrip.duration = 1
         labelTripId.duration = 1
-        labelPickupType.duration = 1
         btnPay.duration = 1
         
         bottomContainer.delay = 0.15
-        labelTotalFare.delay = 1
-        labelTripId.delay = 1.15
-        labelPickupType.delay = 1.30
-        btnPay.delay = 2
-
-        
+        labelTripId.delay = 0.8
+        labelHTripFare.delay = 0.9
+        labelTotalFare.delay = 1.0
+        labelHDriverTrip.delay = 1.1
+        btnPay.delay = 1.7
         
         bottomContainer.animate()
+        labelHTripFare.animate()
         labelTotalFare.animate()
         labelTripId.animate()
-        labelPickupType.animate()
+        labelHDriverTrip.animate()
         btnPay.animate()
     }
     
