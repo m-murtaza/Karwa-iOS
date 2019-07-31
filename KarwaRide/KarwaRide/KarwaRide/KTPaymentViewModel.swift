@@ -21,6 +21,8 @@ protocol KTPaymentViewModelDelegate : KTViewModelDelegate
     func addTag(tag: String)
     func tagViewTapped()
     func selectedTipIdx() -> [NSNumber]
+    func getPayTripBean() -> PayTripBeanForServer
+    func updatePayButton(btnText value: String)
 }
 
 class KTPaymentViewModel: KTBaseViewModel
@@ -81,18 +83,19 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func selectedTipValue() -> String
     {
-        var selectedTipOption = ""
+        var selectedTipValue = ""
         for r in (del?.selectedTipIdx())!
         {
-            selectedTipOption = Constants.TIP_OPTIONS[r.intValue]
+            selectedTipValue = Constants.TIP_OPTIONS_VALUES[r.intValue]
         }
 
-        return selectedTipOption
+        return selectedTipValue
     }
 
     func tagViewTapped()
     {
-        //TODO: update Pay Button Text
+        let fareWithTip = Int(((del?.getPayTripBean().totalFare)!))! + Int(selectedTipValue())!
+        del?.updatePayButton(btnText: String(fareWithTip))
     }
 
     func paymentTapped()
@@ -165,7 +168,7 @@ class KTPaymentViewModel: KTBaseViewModel
         
         let message = selectedPaymentMethod.source!
 
-        KTPaymentManager().payTripAtServer(AESEncryption.init().encrypt(message), payTripBean.data) { (success, response) in
+        KTPaymentManager().payTripAtServer(AESEncryption.init().encrypt(message), payTripBean.data, selectedTipValue()) { (success, response) in
 
             self.del?.hideProgressHud()
 
@@ -270,17 +273,6 @@ class KTPaymentViewModel: KTBaseViewModel
         else {
             self.delegate?.showError!(title: "Error" , message: error)
         }
-    }
-    
-    func getTipNumber(tipString: String) -> String
-    {
-        var tipAmount = ""
-        let stringArray = tipString.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        for item in stringArray
-        {
-            tipAmount = item
-        }
-        return tipAmount
     }
     
     func validate(userName : String?, userEmail : String?) -> String {

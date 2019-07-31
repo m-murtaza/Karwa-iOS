@@ -16,6 +16,7 @@ class PayTripBeanForServer
     var tripId: String
     var tripType: Int
     var data: String
+    var tip: String
     var u: String
     var s: String
     var e: String
@@ -31,5 +32,6 @@ class PayTripBeanForServer
         self.s = s
         self.e = e
         self.data = data
+        self.tip = "0"
     }
 }

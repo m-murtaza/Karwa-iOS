@@ -102,6 +102,7 @@ struct Constants {
     /* ------------------------------------------------------------------ */
     
     static let TIP_OPTIONS = ["   QR 2   ", "   QR 3   ", "   QR 5   ", "   QR 10  "]
+    static let TIP_OPTIONS_VALUES = ["2", "3", "5", "10"]
     
     
     static let SCAN_N_PAY_ENABLE:Bool = true
@@ -224,6 +225,7 @@ struct Constants {
         static let TotalFare = "TotalFare"
         static let TripId = "TripId"
         static let TripType = "TripType"
+        static let Tip = "Tip"
         static let Remarks = "Remarks"
         static let U =  "UnitNo"
         static let S =  "TripStartTime"

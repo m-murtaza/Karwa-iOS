@@ -6458,11 +6458,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pay_button" translatesAutoresizingMaskIntoConstraints="NO" id="nZR-ob-FP9" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="732" width="375" height="80"/>
-                            </imageView>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="2a7-Ih-VDT" customClass="RKTagsView">
-                                <rect key="frame" x="31" y="625" width="328" height="88"/>
+                                <rect key="frame" x="47" y="625" width="287" height="106"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
@@ -6487,7 +6484,10 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a tip for Driver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOk-1t-Srh" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="24" y="583" width="328" height="29"/>
+                                <rect key="frame" x="122" y="583" width="131" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="PSZ-yO-zDl"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -6499,7 +6499,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-nr-IXq" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="24" y="532" width="328" height="43"/>
+                                <rect key="frame" x="122" y="529" width="131" height="46"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="38"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6511,9 +6511,9 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP FARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giX-J9-4KN" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="24" y="511" width="328" height="21"/>
+                                <rect key="frame" x="122" y="511" width="131" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="iq5-Du-uxt"/>
+                                    <constraint firstAttribute="height" constant="21" id="aUw-Tg-eiD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6526,10 +6526,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip ID: ASLKDHIO32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILp-L5-HcB" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="24" y="482" width="328" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="65a-Q6-gLA"/>
-                                </constraints>
+                                <rect key="frame" x="122" y="486" width="131" height="17"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -6540,48 +6537,58 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndn-uh-DPX" customClass="SpringButton" customModule="Spring">
+                                <rect key="frame" x="41" y="739" width="293" height="51"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                <state key="normal" title="Pay" backgroundImage="SummitButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="payBtnTapped:" destination="MW4-6f-IKY" eventType="touchUpInside" id="yIk-sY-toA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="4v9-nr-IXq" secondAttribute="bottom" constant="8" symbolic="YES" id="02P-SI-ihB"/>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="trailing" secondItem="2a7-Ih-VDT" secondAttribute="trailing" constant="-7" id="2HX-xK-vk0"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="trailing" secondItem="4v9-nr-IXq" secondAttribute="trailing" id="4pc-Rv-nxN"/>
+                            <constraint firstItem="Ndn-uh-DPX" firstAttribute="top" secondItem="2a7-Ih-VDT" secondAttribute="bottom" constant="8" id="48E-hz-L6Z"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6EM-0u-HFl"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6TF-h0-IXI"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="7aL-ln-9ip"/>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="2a7-Ih-VDT" secondAttribute="leading" constant="-7" id="BFo-wQ-0iu"/>
-                            <constraint firstItem="4v9-nr-IXq" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="-39" id="HTz-2Y-im0"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="trailing" secondItem="4v9-nr-IXq" secondAttribute="trailing" id="CKN-8l-8ny"/>
+                            <constraint firstAttribute="bottom" secondItem="2a7-Ih-VDT" secondAttribute="bottom" constant="81" id="FUa-ao-srR"/>
+                            <constraint firstItem="giX-J9-4KN" firstAttribute="top" secondItem="ILp-L5-HcB" secondAttribute="bottom" constant="8" symbolic="YES" id="HXW-jI-Sh8"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="L4y-Fv-n6O"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="2a7-Ih-VDT" secondAttribute="trailing" constant="41" id="LTG-ZN-vzJ"/>
                             <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="54" id="MzF-ZQ-UDq"/>
-                            <constraint firstItem="nZR-ob-FP9" firstAttribute="top" secondItem="2a7-Ih-VDT" secondAttribute="bottom" constant="19" id="Rcw-tx-AQT"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="trailing" secondItem="giX-J9-4KN" secondAttribute="trailing" id="Mza-aN-K5k"/>
+                            <constraint firstItem="4v9-nr-IXq" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="PY1-RJ-9rW"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="SYu-Qx-WI5"/>
-                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="centerX" secondItem="nZR-ob-FP9" secondAttribute="centerX" constant="7.5" id="Tnq-8Q-DDa"/>
-                            <constraint firstItem="pU0-Jv-aIk" firstAttribute="bottom" secondItem="nZR-ob-FP9" secondAttribute="bottom" id="UsX-er-Joc"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="leading" secondItem="4v9-nr-IXq" secondAttribute="leading" id="Wv9-3z-VCG"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="4v9-nr-IXq" secondAttribute="leading" id="SiT-sF-ZzO"/>
+                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="47" id="SoO-tx-DaK"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="giX-J9-4KN" secondAttribute="leading" id="UVS-0W-Gi0"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="Wyn-4y-gS8"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="leading" secondItem="fOk-1t-Srh" secondAttribute="leading" id="XiV-TK-Ejh"/>
                             <constraint firstAttribute="bottom" secondItem="pU0-Jv-aIk" secondAttribute="bottom" id="ZXj-P7-FtJ"/>
                             <constraint firstItem="HYU-Id-3FI" firstAttribute="bottom" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="207" id="ZeW-fT-RIl"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="a6G-b5-5xv"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="trailing" secondItem="fOk-1t-Srh" secondAttribute="trailing" id="a94-xa-5sA"/>
-                            <constraint firstItem="nZR-ob-FP9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="aF2-ur-Fqb"/>
-                            <constraint firstItem="giX-J9-4KN" firstAttribute="top" secondItem="ILp-L5-HcB" secondAttribute="bottom" constant="8" symbolic="YES" id="dMy-yw-RIR"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="nZR-ob-FP9" secondAttribute="trailing" id="dfI-Te-vAT"/>
-                            <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="12" id="eyA-nY-CVb"/>
+                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="fOk-1t-Srh" secondAttribute="bottom" constant="13" id="dqr-tF-cGz"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="giX-J9-4KN" secondAttribute="bottom" constant="51" id="h2c-4d-Es3"/>
+                            <constraint firstItem="ILp-L5-HcB" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="h7B-RC-ijs"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="top" secondItem="4v9-nr-IXq" secondAttribute="bottom" constant="8" symbolic="YES" id="htW-49-HQb"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="ilL-AH-X55"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="leading" secondItem="giX-J9-4KN" secondAttribute="leading" id="j0D-Y7-cvd"/>
-                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="fOk-1t-Srh" secondAttribute="bottom" constant="13" id="jQ5-3g-KnH"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="trailing" secondItem="giX-J9-4KN" secondAttribute="trailing" id="l64-NO-LIM"/>
-                            <constraint firstItem="4v9-nr-IXq" firstAttribute="top" secondItem="giX-J9-4KN" secondAttribute="bottom" id="qKN-z6-gAg"/>
-                            <constraint firstItem="ILp-L5-HcB" firstAttribute="top" secondItem="X4J-GD-7EC" secondAttribute="bottom" constant="44" id="qjK-cC-Jrh"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="ILp-L5-HcB" secondAttribute="leading" id="kjf-ge-rMH"/>
+                            <constraint firstItem="Ndn-uh-DPX" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="pB7-Kt-DLv"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="trailing" secondItem="ILp-L5-HcB" secondAttribute="trailing" id="pdb-Bv-bP9"/>
+                            <constraint firstItem="giX-J9-4KN" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="piV-La-dpJ"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="122" id="teT-OX-aqR"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="xzo-L6-u9J"/>
+                            <constraint firstAttribute="bottom" secondItem="Ndn-uh-DPX" secondAttribute="bottom" constant="22" id="yWM-Dq-6pP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HYU-Id-3FI"/>
                     </view>
                     <navigationItem key="navigationItem" title="Payment Methods" id="HML-pY-ogg">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="Y8E-L9-SAQ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zWH-rP-IVx">
-                                <rect key="frame" x="16" y="9.6666666666666643" width="25" height="25"/>
+                                <rect key="frame" x="16" y="10" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="BackButton"/>
                                 <connections>
@@ -6592,7 +6599,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bottomContainer" destination="pU0-Jv-aIk" id="xu9-KY-Gvh"/>
-                        <outlet property="btnPay" destination="nZR-ob-FP9" id="YgQ-VH-4eP"/>
+                        <outlet property="btnPay" destination="Ndn-uh-DPX" id="r9N-mJ-OdQ"/>
                         <outlet property="labelHDriverTrip" destination="fOk-1t-Srh" id="QNm-E5-x2B"/>
                         <outlet property="labelHTripFare" destination="giX-J9-4KN" id="FFx-vN-GCz"/>
                         <outlet property="labelTotalFare" destination="4v9-nr-IXq" id="Y7q-ST-Q2i"/>
@@ -8761,7 +8768,6 @@
         <image name="newtag" width="30" height="14"/>
         <image name="notification_empty" width="360" height="458"/>
         <image name="paid_graphics" width="375" height="350"/>
-        <image name="pay_button" width="345" height="80"/>
         <image name="paymentoption_inactive_back" width="346" height="71"/>
         <image name="phone_address" width="180" height="325"/>
         <image name="phone_details" width="180" height="325"/>
