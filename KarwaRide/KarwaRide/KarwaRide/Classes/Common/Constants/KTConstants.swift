@@ -257,6 +257,7 @@ struct Constants {
         static let EstimatedFare = "EstimatedFare"
         static let Eta = "Eta"
         static let Fare = "Fare"
+        static let Tip = "DriverTip"
         
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"
