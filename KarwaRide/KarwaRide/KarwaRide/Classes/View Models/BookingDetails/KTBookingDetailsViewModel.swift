@@ -871,7 +871,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func ebillTitleTotal() -> String {
-        return "Total Fare"
+        return "Total Amount"
     }
     
     func eBillHeader() -> [KTKeyValue]?{
