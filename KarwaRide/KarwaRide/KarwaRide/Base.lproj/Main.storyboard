@@ -379,7 +379,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By pressing set destination, start your booking will let you start your booking instantly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTF-yJ-glx">
-                                <rect key="frame" x="43" y="500" width="289" height="56"/>
+                                <rect key="frame" x="43" y="500.00000000000006" width="289" height="57.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="SoI-Yg-DsK"/>
                                 </constraints>
@@ -467,7 +467,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="step2_pick&amp;drop" translatesAutoresizingMaskIntoConstraints="NO" id="Jrb-vb-kud" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="123.66666666666666" y="218" width="194.99999999999997" height="107"/>
+                                        <rect key="frame" x="123.66666666666666" y="218" width="194.99999999999997" height="107.00000000000003"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="195" id="HvI-Iw-Uuw"/>
                                             <constraint firstAttribute="height" constant="107" id="KX5-lU-ebe"/>
@@ -890,7 +890,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
-                                <rect key="frame" x="43" y="499.99999999999994" width="289" height="37.333333333333314"/>
+                                <rect key="frame" x="43" y="500.00000000000006" width="289" height="38.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="hO4-x0-oIG"/>
                                 </constraints>
@@ -1064,7 +1064,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrows" translatesAutoresizingMaskIntoConstraints="NO" id="Rn2-52-XZQ" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="89.666666666666686" y="260" width="196" height="14"/>
+                                        <rect key="frame" x="89.666666666666657" y="260" width="196.00000000000003" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="196" id="Eln-Mj-nMK"/>
                                             <constraint firstAttribute="height" constant="14" id="kyZ-oF-QmY"/>
@@ -2863,10 +2863,10 @@
                                 <state key="normal" image="RevealButton"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SHC-KS-ZZP">
-                                <rect key="frame" x="67" y="385.33333333333331" width="240" height="36.666666666666686"/>
+                                <rect key="frame" x="67" y="376" width="240" height="46"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EtaToCustomerBack1" translatesAutoresizingMaskIntoConstraints="NO" id="4zF-1q-LMi" customClass="SpringImageView" customModule="Spring">
-                                        <rect key="frame" x="112" y="6.0000000000000018" width="16" height="22.666666666666671"/>
+                                        <rect key="frame" x="55" y="6" width="130" height="32"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideLeft"/>
@@ -2879,7 +2879,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- to reach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9U-MH-hKX" customClass="SpringLabel" customModule="Spring">
-                                        <rect key="frame" x="87" y="10" width="66" height="15.666666666666664"/>
+                                        <rect key="frame" x="87" y="10" width="66" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.93725490196078431" green="0.97254901960784312" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -6585,7 +6585,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HYU-Id-3FI"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Scan N Pay Payment" id="HML-pY-ogg">
+                    <navigationItem key="navigationItem" title="Payment Methods" id="HML-pY-ogg">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="Y8E-L9-SAQ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zWH-rP-IVx">
                                 <rect key="frame" x="16" y="9.6666666666666643" width="25" height="25"/>
