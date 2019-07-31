@@ -17,6 +17,8 @@ class KTTripTagButton: UIButton {
         //Drawing code
         self.layer.cornerRadius = 23
         self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor(hexString:"#979899").cgColor
+
         self.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 16.0)!
         self.titleLabel?.textColor = UIColor(hexString:"#979899")
         var bgColor : UIColor = UIColor(hexString:"#979899")

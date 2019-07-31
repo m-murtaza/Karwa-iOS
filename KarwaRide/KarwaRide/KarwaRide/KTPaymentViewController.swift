@@ -76,6 +76,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         tagView.textField.textAlignment = NSTextAlignment.center
         tagView.textFieldAlign = .center
+        tagView.scrollsHorizontally = true
 
         tagView.allowsMultipleSelection = false
         tagView.isHidden = true
@@ -90,8 +91,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     override func viewDidAppear(_ animated: Bool)
     {
-//        payTripBean = KTUtils.isValidQRCode("https://app.karwatechnologies.com/download/Z4G1+M6UuamSg7ESwUJIX+/dtiQsSsrIq/Vgq7q9P2c=,70,BTFN69I2I9,1")
-//        self.isManageButtonPressed = true
+        payTripBean = KTUtils.isValidQRCode("https://app.karwatechnologies.com/download/Z4G1+M6UuamSg7ESwUJIX+/dtiQsSsrIq/Vgq7q9P2c=,70,BTFN69I2I9,1")
+        self.isManageButtonPressed = true
         print("isShowBarcodeRequired: \(isShowBarcodeRequired)")
         print("isCrossButtonPressed: \(isCrossButtonPressed)")
         if(isCrossButtonPressed)
@@ -135,14 +136,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showbarcodeScanner(show: Bool)
     {
-        if(!isTriggeredFromUniversalLink)
-        {
-            if(show)
-            {
-                presentBarcodeScanner()
-            }
-            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
-        }
+//        if(!isTriggeredFromUniversalLink)
+//        {
+//            if(show)
+//            {
+//                presentBarcodeScanner()
+//            }
+//            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
+//        }
     }
     
     func removeAllTags() {

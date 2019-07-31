@@ -83,7 +83,7 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func selectedTipValue() -> String
     {
-        var selectedTipValue = ""
+        var selectedTipValue = "0"
         for r in (del?.selectedTipIdx())!
         {
             selectedTipValue = Constants.TIP_OPTIONS_VALUES[r.intValue]
@@ -118,7 +118,7 @@ class KTPaymentViewModel: KTBaseViewModel
         }
         
     }
-    
+
     func fetchnPaymentMethods()
     {
         paymentMethods = KTPaymentManager().getAllPayments()

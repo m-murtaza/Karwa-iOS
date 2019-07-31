@@ -101,7 +101,7 @@ struct Constants {
     static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
-    static let TIP_OPTIONS = ["   QR 2   ", "   QR 3   ", "   QR 5   ", "   QR 10  "]
+    static let TIP_OPTIONS = ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
     static let TIP_OPTIONS_VALUES = ["2", "3", "5", "10"]
     
     
