@@ -97,8 +97,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
                 self.loadDataInView()
             }
             else {
-                
-                self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "Error"
+                let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "Something went wrong"
+                self.delegate?.showError!(title: title, message: message)
                 //self.delegate?.userIntraction(enable: true)
             }
             self.delegate?.hideProgressHud()

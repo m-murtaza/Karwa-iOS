@@ -91,10 +91,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     override func viewDidAppear(_ animated: Bool)
     {
-        payTripBean = KTUtils.isValidQRCode("https://app.karwatechnologies.com/download/Z4G1+M6UuamSg7ESwUJIX+/dtiQsSsrIq/Vgq7q9P2c=,70,BTFN69I2I9,1")
-        self.isManageButtonPressed = true
-        print("isShowBarcodeRequired: \(isShowBarcodeRequired)")
-        print("isCrossButtonPressed: \(isCrossButtonPressed)")
+//        payTripBean = KTUtils.isValidQRCode("https://app.karwatechnologies.com/download/Z4G1+M6UuamSg7ESwUJIX+/dtiQsSsrIq/Vgq7q9P2c=,70,BTFN69I2I9,1")
+//        self.isManageButtonPressed = true
+
         if(isCrossButtonPressed)
         {
             sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
@@ -136,14 +135,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showbarcodeScanner(show: Bool)
     {
-//        if(!isTriggeredFromUniversalLink)
-//        {
-//            if(show)
-//            {
-//                presentBarcodeScanner()
-//            }
-//            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
-//        }
+        if(!isTriggeredFromUniversalLink)
+        {
+            if(show)
+            {
+                presentBarcodeScanner()
+            }
+            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
+        }
     }
     
     func removeAllTags() {
