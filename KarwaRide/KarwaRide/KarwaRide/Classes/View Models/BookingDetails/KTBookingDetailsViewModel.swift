@@ -881,9 +881,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func eBillTotal() -> String {
-        let farePieces = booking?.fare?.split(separator: " ")
-        let totalAmount = Int(farePieces?[1] ?? "0")! + Int(booking?.tip ?? "0")!
-        return String("QR \(totalAmount)")
+        return booking?.totalFare ?? "QR 0"
     }
     
     //MARK: - Estimates
