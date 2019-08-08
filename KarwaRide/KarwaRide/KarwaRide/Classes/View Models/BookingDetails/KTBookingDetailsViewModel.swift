@@ -862,16 +862,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     //MARK:- Ebill
-    func eBillTitle() -> String {
-        return "Trip E-Bill"
-    }
-    
-    func eBillTotal() -> String {
-        return (booking?.fare)!
-    }
-    
     func ebillTitleTotal() -> String {
-        return "Total Fare"
+        return "Total Amount"
     }
     
     func eBillHeader() -> [KTKeyValue]?{
@@ -880,10 +872,18 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func eBillBody() -> [KTKeyValue]?{
-        
+
         return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
 
+    func eBillTitle() -> String {
+        return "Trip E-Bill"
+    }
+    
+    func eBillTotal() -> String {
+        return booking?.totalFare ?? "QR 0"
+    }
+    
     //MARK: - Estimates
     func estimateTitle() -> String {
         return "Fare Breakdown"

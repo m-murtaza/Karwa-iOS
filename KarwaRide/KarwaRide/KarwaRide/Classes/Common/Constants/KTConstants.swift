@@ -88,21 +88,24 @@ struct Constants {
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
     /*                Live Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTRQNB01"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
-    static let DIRECTIONS_API_ENABLE:Bool = false
-    static let SCAN_N_PAY_ENABLE:Bool = true
+//    static let MERCHANT_ID:String = "KTRQNB01"
+//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+//    static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
     
     /*                Test Payment Credentials                            */
-//    static let MERCHANT_ID:String = "KTQNB01A"
-//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
+    static let MERCHANT_ID:String = "KTQNB01A"
+    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
 //    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
-//    static let DIRECTIONS_API_ENABLE:Bool = false
-//    static let SCAN_N_PAY_ENABLE:Bool = true
+    static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
+    static let TIP_OPTIONS = ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
+    static let TIP_OPTIONS_VALUES = ["2", "3", "5", "10"]
+    
+    
+    static let SCAN_N_PAY_ENABLE:Bool = true
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     
@@ -115,6 +118,7 @@ struct Constants {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"
         static let DetailView = "BookingDetailNavController"
+        static let PaymentMethodsNavId = "PaymentMethodsNavController"
         static let PaymentMethodsView = "KTPaymentViewControllerIdentifier"
         static let PaymentNavigationController = "PaymentNavigationController"
         static let TrackTripNavController = "TrackTripNavController"
@@ -221,6 +225,7 @@ struct Constants {
         static let TotalFare = "TotalFare"
         static let TripId = "TripId"
         static let TripType = "TripType"
+        static let Tip = "Tip"
         static let Remarks = "Remarks"
         static let U =  "UnitNo"
         static let S =  "TripStartTime"
@@ -252,6 +257,7 @@ struct Constants {
         static let EstimatedFare = "EstimatedFare"
         static let Eta = "Eta"
         static let Fare = "Fare"
+        static let Tip = "DriverTip"
         
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"

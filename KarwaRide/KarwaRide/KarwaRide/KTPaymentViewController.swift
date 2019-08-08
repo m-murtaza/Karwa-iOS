@@ -12,8 +12,19 @@ import Spring
 import CDAlertView
 import AVFoundation
 import AlertOnboarding
+import RKTagsView
 
-class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
+protocol FinishProtocol
+{
+    func setFinishRequired(valueSent: Bool)
+}
+
+protocol BarcodeProtocol
+{
+    func setShowBarcodeRequired(valueSent: Bool)
+}
+
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate
 {
     @IBOutlet weak var tableView: UITableView!
 
@@ -22,22 +33,25 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     public var isManageButtonPressed = false
     public var isCrossButtonPressed = false
-    @IBOutlet weak var emptyView: SpringImageView!
-    
+    public var isShowBarcodeRequired = false
+
     @IBOutlet weak var bottomContainer: SpringImageView!
+    @IBOutlet weak var labelHTripFare: SpringLabel!
     @IBOutlet weak var labelTotalFare: SpringLabel!
     @IBOutlet weak var labelTripId: SpringLabel!
-    @IBOutlet weak var labelPickupType: SpringLabel!
-    @IBOutlet weak var btnPay: SpringImageView!
+    @IBOutlet weak var labelHDriverTrip: SpringLabel!
+    
+    @IBOutlet weak var tagView: RKTagsView!
+    
+    
+    @IBOutlet weak var btnPay: SpringButton!
     
     @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
-    @IBOutlet weak var btnAdd: SpringButton!
-    @IBOutlet weak var btnEdit: UIBarButtonItem!
-    
+
     var isTriggeredFromUniversalLink = false
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
-
+    
     override func viewDidLoad()
     {
         self.viewModel = KTPaymentViewModel(del: self)
@@ -56,11 +70,117 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 //        showbarcodeScanner(show: true)
         
         tripPaidSuccessImageView.isHidden = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
-        btnPay.addGestureRecognizer(tapGestureRecognizer)
+//        btnPay.addGestureRecognizer(tapGestureRecognizer)
+
+        tagView.textField.textAlignment = NSTextAlignment.center
+        tagView.textFieldAlign = .center
+        tagView.scrollsHorizontally = true
+
+        tagView.allowsMultipleSelection = false
+        tagView.isHidden = true
+        tagView.editable = false
+        tagView.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        self.tableView.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+//        payTripBean = KTUtils.isValidQRCode("https://app.karwatechnologies.com/download/Z4G1+M6UuamSg7ESwUJIX+/dtiQsSsrIq/Vgq7q9P2c=,70,BTFN69I2I9,1")
+//        self.isManageButtonPressed = true
+
+        if(isCrossButtonPressed)
+        {
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuViewController?.hideMenuViewController()
+            isCrossButtonPressed = !isCrossButtonPressed
+            
+            return
+        }
+        
+        if(payTripBean != nil)
+        {
+            fillPayTripData(payTripBean)
+            vModel?.showingTripPayment()
+            showBottomContainer()
+            populatePayTripData()
+        }
+        else
+        {
+            bottomContainer.isHidden = true
+            labelTotalFare.isHidden = true
+            labelTripId.isHidden = true
+            btnPay.isHidden = true
+            labelHTripFare.isHidden = true
+            labelHDriverTrip.isHidden = true
+        }
+        
+        if(payTripBean == nil && isManageButtonPressed)
+        {
+            isManageButtonPressed = !isManageButtonPressed
+            gotoManagePayments()
+        }
+        
+        if(isShowBarcodeRequired)
+        {
+            isShowBarcodeRequired = !isShowBarcodeRequired
+            presentBarcodeScanner()
+        }
+    }
+    
+    func showbarcodeScanner(show: Bool)
+    {
+        if(!isTriggeredFromUniversalLink)
+        {
+            if(show)
+            {
+                presentBarcodeScanner()
+            }
+            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
+        }
+    }
+    
+    func removeAllTags() {
+        tagView.removeAllTags()
+    }
+    
+    func addTag(tag: String) {
+        tagView.addTag(tag)
+    }
+
+    func tagsView(_ tagsView: RKTagsView, buttonForTagAt index: Int) -> UIButton
+    {
+        tagView.scrollView.flashScrollIndicators()
+
+        let btn: KTTripTagButton = KTTripTagButton(type:UIButtonType.custom)
+
+        btn.setTitle(vModel?.tipOptions(atIndex: index), for: UIControlState.normal)
+
+        btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
+        
+        btn.setTitleColor(UIColor.white, for: UIControlState.selected)
+        
+        btn.adjustsImageWhenHighlighted = false
+        btn.addTarget(self, action: #selector(KTPaymentViewController.tagViewTapped), for: .touchUpInside)
+        return btn
+    }
+    
+    @objc func tagViewTapped() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2)
+        {
+            self.vModel?.tagViewTapped()
+        }
+    }
+    
+    func selectedTipIdx() ->[NSNumber] {
+        return tagView.selectedTagIndexes
+    }
+
     func showCardOnboarding()
     {
         //First, declare datas
@@ -95,57 +215,6 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         alertView.show()
     }
     
-    override func viewWillAppear(_ animated: Bool)
-    {
-        if(payTripBean == nil)
-        {
-            hideBottomContainer()
-        }
-        btnAdd.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool)
-    {
-        if(isCrossButtonPressed)
-        {
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuViewController?.hideMenuViewController()
-            isCrossButtonPressed = !isCrossButtonPressed
-            
-            return
-        }
-        
-        if(payTripBean != nil)
-        {
-            fillPayTripData(payTripBean)
-            vModel?.showingTripPayment()
-            showBottomContainer()
-            populatePayTripData()
-            btnAdd.duration = 1
-            btnAdd.delay = 2.5
-        }
-        else
-        {
-            btnAdd.duration = 1
-            btnAdd.delay = 0.15
-        }
-        btnAdd.isHidden = false
-        btnAdd.animation = "slideUp"
-        btnAdd.animate()
-    }
-
-    func showbarcodeScanner(show: Bool)
-    {
-        if(!isTriggeredFromUniversalLink)
-        {
-            if(show)
-            {
-                presentBarcodeScanner()
-            }
-            isTriggeredFromUniversalLink = !isTriggeredFromUniversalLink
-        }
-    }
-    
     func showCameraPermissionError()
     {
         showWarningBanner("", "Tap on Settings to Enable Camera")
@@ -155,81 +224,134 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         if(payTripBean != nil)
         {
-            labelTotalFare.text = "TOTAL FARE - QR " + (payTripBean?.totalFare)!
+            labelTotalFare.text = "QR " + (payTripBean?.totalFare)!
             labelTripId.text = "TRIP ID: " + (payTripBean?.tripId)!
-            labelPickupType.text = payTripBean?.tripType == 1 ? "Street Pickup - Karwa" : "Booking - Karwa"
+            updatePayButton(btnText: (payTripBean?.totalFare)!)
         }
     }
     
     func populatePayTripData()
     {
+        tableView.isHidden = false
         showBottomContainer()
     }
 
+    func getPayTripBean() -> PayTripBeanForServer
+    {
+        return payTripBean!
+    }
+
+    func updatePayButton(btnText value: String)
+    {
+        btnPay.setTitle("PAY (QR " + (value) + ")", for: .normal)
+    }
+    
     func showBottomContainer()
     {
         bottomContainer.isHidden = false
+        labelHTripFare.isHidden = false
         labelTotalFare.isHidden = false
         labelTripId.isHidden = false
-        labelPickupType.isHidden = false
+        labelHDriverTrip.isHidden = false
         btnPay.isHidden = false
-        
+
         bottomContainer.animation = "slideUp"
+        labelHTripFare.animation = "zoomIn"
         labelTotalFare.animation = "zoomIn"
         labelTripId.animation = "zoomIn"
-        labelPickupType.animation = "zoomIn"
-        btnPay.animation = "fadeIn"
+        labelHDriverTrip.animation = "zoomIn"
+        btnPay.animation = "slideUp"
         
+        labelHTripFare.duration = 1
         bottomContainer.duration = 1
         labelTotalFare.duration = 1
+        labelHDriverTrip.duration = 1
         labelTripId.duration = 1
-        labelPickupType.duration = 1
         btnPay.duration = 1
         
         bottomContainer.delay = 0.15
-        labelTotalFare.delay = 1
-        labelTripId.delay = 1.15
-        labelPickupType.delay = 1.30
-        btnPay.delay = 2
-
-        
+        labelTripId.delay = 0.8
+        labelHTripFare.delay = 0.9
+        labelTotalFare.delay = 1.0
+        labelHDriverTrip.delay = 1.1
+        btnPay.delay = 1.7
         
         bottomContainer.animate()
+        labelHTripFare.animate()
         labelTotalFare.animate()
         labelTripId.animate()
-        labelPickupType.animate()
+        labelHDriverTrip.animate()
         btnPay.animate()
-    }
-    
-    func hideBottomContainer()
-    {
-        bottomContainer.isHidden = true
-        labelTotalFare.isHidden = true
-        labelTripId.isHidden = true
-        labelPickupType.isHidden = true
-        btnPay.isHidden = true
+        
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.8)
+        {
+            UIView.animate(withDuration: 3.0, animations:
+            {
+                self.tagView.isHidden = false
+            })
+        }
     }
     
     func showPayBtn()
     {
         btnPay.isUserInteractionEnabled = true
-        btnPay.image = UIImage(named: "pay_button")
+//        btnPay.image = UIImage(named: "pay_button")
     }
     
     func showPayNonTappableBtn()
     {
         btnPay.isUserInteractionEnabled = false
-        btnPay.image = UIImage(named: "pay_button_inactive")
+//        btnPay.image = UIImage(named: "pay_button_inactive")
     }
     
     func showPaidSuccessBtn()
     {
         btnPay.isUserInteractionEnabled = false
-        btnPay.image = UIImage(named: "successfully_paid")
+//        btnPay.image = UIImage(named: "successfully_paid")
+    }
+    
+    func hideBottomSheet()
+    {
+        btnPay.isEnabled = false
+
+        bottomContainer.animation = "fadeOut"
+        labelHTripFare.animation = "zoomOut"
+        labelTotalFare.animation = "zoomOut"
+        labelTripId.animation = "zoomOut"
+        labelHDriverTrip.animation = "zoomOut"
+        btnPay.animation = "zoomOut"
+        
+        labelHTripFare.duration = 1
+        bottomContainer.duration = 1
+        labelTotalFare.duration = 1
+        labelHDriverTrip.duration = 1
+        labelTripId.duration = 1
+        btnPay.duration = 1
+        
+        bottomContainer.delay = 1.7
+        labelTripId.delay = 1.1
+        labelHTripFare.delay = 1.0
+        labelTotalFare.delay = 0.9
+        labelHDriverTrip.delay = 0.8
+        btnPay.delay = 0.15
+        
+        bottomContainer.animate()
+        labelHTripFare.animate()
+        labelTotalFare.animate()
+        labelTripId.animate()
+        labelHDriverTrip.animate()
+        btnPay.animate()
+        
+        UIView.animate(withDuration: 3.0, animations:
+            {
+                self.tagView.isHidden = true
+        })
     }
     
     func showTripPaidScene()
     {
+        hideBottomSheet()
         showPaidSuccessBtn()
         tableView.isHidden = true
 
@@ -240,40 +362,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         tripPaidSuccessImageView.isHidden = false
         tripPaidSuccessImageView.animate()
-        
-        btnEdit.title = ""
-        btnAdd.isHidden = true
+
         isPaidSuccessfullShowed = true
     }
     
-    @IBAction func editBtnTapped(_ sender: Any)
-    {
-        toggleEditButton()
-    }
-    
-    func toggleEditButton()
-    {
-        if btnEdit.title! == "Edit"
-        {
-            self.tableView.setEditing(true, animated: true)
-            btnEdit.title = "Done"
-        }
-        else
-        {
-            self.tableView.setEditing(false, animated: true)
-            btnEdit.title = "Edit"
-        }
-    }
-    
-    func toggleDoneToEdit()
-    {
-        self.tableView.setEditing(false, animated: true)
-        if btnEdit.title! == "Done"
-        {
-            btnEdit.title = "Edit"
-        }
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return (vModel?.numberOfRows())!
@@ -293,65 +385,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
-        if(editingStyle == .delete)
-        {
-            self.showPopupDeleteConfirmation(indexPath)
-        }
     }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
 
-        let deleteAction = UITableViewRowAction(style: .normal, title: "Remove"){ (rowAction, indexPath) in
-//            self.showPopupDeleteConfirmation(indexPath)
-        }
-
-        deleteAction.backgroundColor = .red
-
-        self.showPopupDeleteConfirmation(indexPath)
-        
-        return [deleteAction]
-
-    }
-    
-    func showPopupDeleteConfirmation(_ indexPath: IndexPath)
-    {
-        let alert = CDAlertView(title: "Confrimation", message: "Are you sure you want to remove payment method", type: .warning)
-
-        let removeAction = CDAlertViewAction(title: "Remove", textColor: .red,
-                                           handler:{(alert: CDAlertViewAction) -> Bool in
-                                                self.vModel?.deletePaymentMethod(indexPath)
-                                                self.toggleDoneToEdit()
-                                                return true})
-
-        alert.add(action: removeAction)
-
-        let keepAction = CDAlertViewAction(title: "Keep", handler:{(alert: CDAlertViewAction) -> Bool in
-                                                self.toggleDoneToEdit()
-                                                return true})
-        alert.add(action: keepAction)
-        alert.show()
-    }
-    
-    func deleteRowWithAnimation(_ indexPath: IndexPath)
-    {
-        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
-    }
-    
-    var animationDelay = 1.0
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell : KTPaymentViewCell = tableView.dequeueReusableCell(withIdentifier: "KTPaymentViewCellIdentifier") as! KTPaymentViewCell
-        cell.cardNumber.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
-        cell.cardExpiry.text = vModel?.expiry(forCellIdx: indexPath.row)
-        cell.cardImage.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
-        cell.cellBackground?.image = vModel?.cardSelection(forCellIdx: indexPath.row)
-        cell.selectionStyle = .none
-
-        animateCell(cell, delay: animationDelay)
-        
-        return cell
-    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
@@ -365,88 +400,54 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         vModel?.rowSelected(atIndex: indexPath.row)
     }
     
-    func showEmptyScreen()
-    {
-        emptyView.isHidden = false
-        tableView.isHidden = true
-        btnEdit.title = ""
-
-        emptyView.animation = "squeezeDown"
-        emptyView.duration = 1
-        emptyView.delay = 0.15
-        
-        emptyView.animate()
-        
-        if(!SharedPrefUtil.isScanNPayCoachmarkShownInDetails())
-        {
-            showCardOnboarding()
-            SharedPrefUtil.setScanNPayCoachmarkShownInDetails()
-        }
-    }
-
-    func hideEmptyScreen()
-    {
-        emptyView.isHidden = true
-        tableView.isHidden = false
-        btnEdit.title = "Edit"
-    }
-    
     func gotoDashboardRequired(required: Bool)
     {
         gotoDashboardRequired = required
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "segueToManagePayment"
+        {
+            let contentView : UINavigationController = segue.destination as! UINavigationController
+            let destination : KTManagePaymentViewController = (contentView.viewControllers)[0] as! KTManagePaymentViewController
+            destination.finishDelegate = self
+            destination.barcodeDelegate = self
+        }
+    }
+    
+    func gotoManagePayments()
+    {
+        self.performSegue(withIdentifier: "segueToManagePayment", sender: self)
+    }
+    
     func reloadTableData()
     {
         tableView.reloadData()
     }
     
-    @objc func payBtnTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-        springAnimateButtonTapIn(imageView: btnPay)
-        springAnimateButtonTapOut(imageView: btnPay)
+    
+    @IBAction func payBtnTapped(_ sender: Any) {
+        //        springAnimateButtonTapIn(imageView: btnPay)
+        //        springAnimateButtonTapOut(imageView: btnPay)
         vModel!.payTripButtonTapped(payTripBean: payTripBean!)
     }
-
     
-    @IBAction func btnAddCardTapped(_ sender: Any)
+    var animationDelay = 1.0
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        vModel?.addCardButtonTapped()
-    }
-
-    func showAddCardVC()
-    {
-        presentAddCardViewController()
-    }
-    
-    func showVerifyEmailPopup(email: String)
-    {
-        showPopupMessage("", "Please verify your email before adding the new payment method.\nEntered email: \(email)")
-    }
-    
-    func showEnterEmailPopup()
-    {
-        showEnterEmailPopup(header: "Email", subHeader: "Please enter valid email address before adding payment method", currentText: "", inputType: "email")
-    }
-    
-    func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)
-    {
-        let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
-        inputPopup.paymentVC = self
-        view.addSubview(inputPopup.view)
-        addChildViewController(inputPopup)
+        let cell : KTPaymentViewCell = tableView.dequeueReusableCell(withIdentifier: "KTPaymentViewCellIdentifier") as! KTPaymentViewCell
+        cell.cardNumber.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
+        cell.cardExpiry.text = vModel?.expiry(forCellIdx: indexPath.row)
+        cell.cardImage.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
+        cell.cellBackground?.image = vModel?.cardSelection(forCellIdx: indexPath.row)
+        cell.selectionStyle = .none
         
-        inputPopup.inputType = inputType
-        inputPopup.header.text = header
-        inputPopup.txtPickupHint.text = currentText
-        inputPopup.lblSubHeader.text = subHeader
+        animateCell(cell, delay: animationDelay)
+        
+        return cell
     }
-    
-    func saveEmail(inputText: String)
-    {
-        vModel?.updateEmail(email: inputText)
-    }
-    
+
     @IBAction func btnBackTapped(_ sender: Any)
     {
         if(isPaidSuccessfullShowed || gotoDashboardRequired)
@@ -464,48 +465,18 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         }
     }
     
+    func setFinishRequired(valueSent: Bool) {
+        isCrossButtonPressed = valueSent
+    }
+    
+    func setShowBarcodeRequired(valueSent: Bool) {
+        isShowBarcodeRequired = valueSent
+    }
+    
     func gotoDashboard()
     {
         sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
         sideMenuViewController?.hideMenuViewController()
-    }
-    
-    func presentAddCardViewController()
-    {
-        let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
-        cardIOVC?.modalPresentationStyle = .formSheet
-        cardIOVC?.collectCardholderName = true
-        cardIOVC?.collectCVV = true
-        cardIOVC?.collectExpiry = true
-        cardIOVC?.hideCardIOLogo = true
-        cardIOVC?.keepStatusBarStyle = true
-        cardIOVC?.scanExpiry = true
-        present(cardIOVC!, animated: true, completion: nil)
-    }
-    
-    var cardIOPaymentController = CardIOPaymentViewController()
-    
-    func userDidCancel(_ paymentViewController: CardIOPaymentViewController!)
-    {
-        paymentViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!)
-    {
-        if let info = cardInfo
-        {
-            cardIOPaymentController = paymentViewController
-            
-//            let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
-//            print(str)
-
-            vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, info.expiryMonth, info.expiryYear)
-        }
-    }
-    
-    func hideCardIOPaymentController()
-    {
-        cardIOPaymentController.dismiss(animated: true, completion: nil)
     }
     
     private func presentBarcodeScanner()
@@ -549,50 +520,13 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         return viewController
     }
-    
-    internal func show3dSecureController(_ html:String)
-    {
-        // create the Gateway3DSecureViewController
-        let threeDSecureView = Gateway3DSecureViewController(nibName: nil, bundle: nil)
-        
-        // Optionally, customize the presentation
-        threeDSecureView.title = "3-D Secure"
-        threeDSecureView.navBar.tintColor = UIColor(red: 1, green: 0.357, blue: 0.365, alpha: 1)
-        // present the 3DSecureViewController
-        present(threeDSecureView, animated: true)
-
-        // provide the html content and a handler
-        threeDSecureView.authenticatePayer(htmlBodyContent: html) { (threeDSView, result) in
-            // dismiss the 3-D Secure view controller
-            threeDSView.dismiss(animated: true)
-
-            // handle the result case
-            switch result
-            {
-                case .completed(summaryStatus: "<FAILED STATUS>", threeDSecureId: _):
-                    // failed authentication
-                    self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
-                    break;
-                case .completed(summaryStatus: _, threeDSecureId: let id):
-                    // continue with the payment for all other statuses
-                    self.vModel!.updatePaymentMethod()
-                    break;
-                default:
-                    // authentication was cancelled
-                    self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
-                    break;
-                
-            }
-        }
-    }
-
 }
 
 // MARK: - BarcodeScannerCodeDelegate
 extension KTPaymentViewController: BarcodeScannerCodeDelegate {
     func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
 //        print("Barcode Data: \(code)")
-//        print("Symbology Type: \(type)")
+        //        print("Symbology Type: \(type)")
         let tripServerBean = KTUtils.isValidQRCode(code)
         if(tripServerBean != nil)
         {

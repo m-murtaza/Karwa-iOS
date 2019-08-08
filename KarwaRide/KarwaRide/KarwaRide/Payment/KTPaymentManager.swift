@@ -169,10 +169,11 @@ class KTPaymentManager: KTDALManager
         )
     }
     
-    func payTripAtServer(_ source: String, _ data : String, completion completionBlock: @escaping KTDALCompletionBlock)
+    func payTripAtServer(_ source: String, _ data : String, _ tipValue: String, completion completionBlock: @escaping KTDALCompletionBlock)
     {
         let param : NSDictionary = [Constants.PayTripAPIKey.Source: source,
-                                    Constants.PayTripAPIKey.Data: data]
+                                    Constants.PayTripAPIKey.Data: data,
+                                    Constants.PayTripAPIKey.Tip: tipValue]
         
         self.put(url: Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:
             { (responseData,cBlock) in

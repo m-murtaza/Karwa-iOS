@@ -2438,7 +2438,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_set_destination" translatesAutoresizingMaskIntoConstraints="NO" id="yrB-gH-nyK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="681" width="375" height="79"/>
+                                <rect key="frame" x="0.0" y="744" width="375" height="16"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
@@ -2449,7 +2449,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Qx-LE-1va" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="180.66666666666666" y="535" width="14" height="153"/>
+                                <rect key="frame" x="179.66666666666666" y="672" width="16" height="16"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
@@ -2490,7 +2490,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="coachmark2_background" translatesAutoresizingMaskIntoConstraints="NO" id="HfI-FX-g8l">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="coachmark2_background" translatesAutoresizingMaskIntoConstraints="NO" id="HfI-FX-g8l">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_cards" translatesAutoresizingMaskIntoConstraints="NO" id="hF5-Yn-Chi">
@@ -4373,7 +4373,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tooltip_share" translatesAutoresizingMaskIntoConstraints="NO" id="Rgn-Eu-1K0" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="123" y="125" width="222" height="36"/>
+                                <rect key="frame" x="329" y="125" width="16" height="16"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2n-Zk-ght">
                                 <rect key="frame" x="0.0" y="355" width="375" height="32"/>
@@ -4739,7 +4739,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evk-mQ-i72" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="178" y="14" width="46.333333333333343" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="47.666666666666657" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686274509804" green="0.59607843137254901" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4752,7 +4752,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 20-30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-5Q-1ai" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="265.66666666666669" y="14" width="55.333333333333314" height="14"/>
+                                                <rect key="frame" x="268.66666666666669" y="14" width="52.333333333333314" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960784313724" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4902,7 +4902,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-ox-eSf" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.666666666666629" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -6192,7 +6192,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51K-cv-XQZ">
-                                        <rect key="frame" x="35.666666666666657" y="185" width="304" height="442"/>
+                                        <rect key="frame" x="35.666666666666657" y="156" width="304" height="500"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip E-bill" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGB-mP-mca">
                                                 <rect key="frame" x="8" y="20" width="288" height="30"/>
@@ -6204,10 +6204,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xvJ-Tz-rD4">
-                                                <rect key="frame" x="0.0" y="71" width="304" height="280"/>
+                                                <rect key="frame" x="0.0" y="71" width="304" height="335"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="280" id="kz5-ic-Hss"/>
+                                                    <constraint firstAttribute="height" constant="335" id="kz5-ic-Hss"/>
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareCellReuseIdentifier" rowHeight="30" id="4fE-sY-2N3" customClass="KTFarePopupTableViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -6273,18 +6273,18 @@
                                                     <outlet property="delegate" destination="mqQ-zz-5wu" id="5oo-f1-nco"/>
                                                 </connections>
                                             </tableView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBE-Cr-6se" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="111" y="361" width="183" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBE-Cr-6se" customClass="SpringLabel" customModule="Spring">
+                                                <rect key="frame" x="146" y="421" width="148" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="0AI-ll-Bgo"/>
-                                                    <constraint firstAttribute="width" constant="98" id="1iB-WA-XbW"/>
+                                                    <constraint firstAttribute="width" constant="148" id="1iB-WA-XbW"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FlR-wn-rT3">
-                                                <rect key="frame" x="0.0" y="392" width="304" height="50"/>
+                                                <rect key="frame" x="0.0" y="450" width="304" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="uWI-fB-gCk"/>
                                                 </constraints>
@@ -6304,16 +6304,16 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbV-aI-JJa">
-                                                <rect key="frame" x="0.0" y="391" width="304" height="1"/>
+                                                <rect key="frame" x="0.0" y="449" width="304" height="1"/>
                                                 <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="Gec-jj-I2u"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXz-ra-fOt" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="10" y="361" width="93" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yXz-ra-fOt" customClass="SpringLabel" customModule="Spring">
+                                                <rect key="frame" x="10" y="421" width="133" height="21"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="114" id="JSM-cd-9PH"/>
+                                                    <constraint firstAttribute="width" constant="133" id="JSM-cd-9PH"/>
                                                     <constraint firstAttribute="height" constant="21" id="h73-JP-bRP"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
@@ -6323,7 +6323,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="442" id="2XQ-Rs-m8t"/>
+                                            <constraint firstAttribute="height" constant="500" id="2XQ-Rs-m8t"/>
                                             <constraint firstItem="aGB-mP-mca" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" constant="8" id="3wX-1k-bRw"/>
                                             <constraint firstAttribute="width" constant="304" id="5js-Qj-H22"/>
                                             <constraint firstAttribute="bottom" secondItem="FlR-wn-rT3" secondAttribute="bottom" id="FUV-dy-YWM"/>
@@ -6331,8 +6331,8 @@
                                             <constraint firstItem="lbV-aI-JJa" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" id="L9L-Ju-6Cq"/>
                                             <constraint firstItem="FlR-wn-rT3" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" id="NHy-rd-bbY"/>
                                             <constraint firstAttribute="trailing" secondItem="aGB-mP-mca" secondAttribute="trailing" constant="8" id="Nct-sL-Gg4"/>
-                                            <constraint firstItem="vBE-Cr-6se" firstAttribute="top" secondItem="xvJ-Tz-rD4" secondAttribute="bottom" constant="10" id="QLC-Vh-Xcf"/>
-                                            <constraint firstItem="yXz-ra-fOt" firstAttribute="top" secondItem="xvJ-Tz-rD4" secondAttribute="bottom" constant="10" id="R1Y-Rc-OPw"/>
+                                            <constraint firstItem="vBE-Cr-6se" firstAttribute="top" secondItem="xvJ-Tz-rD4" secondAttribute="bottom" constant="15" id="QLC-Vh-Xcf"/>
+                                            <constraint firstItem="yXz-ra-fOt" firstAttribute="top" secondItem="xvJ-Tz-rD4" secondAttribute="bottom" constant="15" id="R1Y-Rc-OPw"/>
                                             <constraint firstItem="yXz-ra-fOt" firstAttribute="leading" secondItem="51K-cv-XQZ" secondAttribute="leading" constant="10" id="RRP-5y-K8f"/>
                                             <constraint firstItem="aGB-mP-mca" firstAttribute="top" secondItem="51K-cv-XQZ" secondAttribute="top" constant="20" id="Sdm-mh-hdj"/>
                                             <constraint firstItem="G3b-X1-BnO" firstAttribute="top" secondItem="aGB-mP-mca" secondAttribute="bottom" constant="10" id="TEH-wn-ueO"/>
@@ -6376,9 +6376,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVM-O7-xC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5100" y="1722.1889055472266"/>
+            <point key="canvasLocation" x="5100" y="1721.6748768472908"/>
         </scene>
-        <!--Payment Methods-->
+        <!--Delegate-->
         <scene sceneID="pSa-WO-Dbs">
             <objects>
                 <viewController storyboardIdentifier="KTPaymentViewControllerIdentifier" id="MW4-6f-IKY" customClass="KTPaymentViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
@@ -6386,14 +6386,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_n_pay_empty" translatesAutoresizingMaskIntoConstraints="NO" id="GAF-BZ-qpj" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="88" width="375" height="640"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paid_graphics" translatesAutoresizingMaskIntoConstraints="NO" id="X4J-GD-7EC" customClass="SpringImageView" customModule="Spring">
                                 <rect key="frame" x="0.0" y="88" width="375" height="16"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Iua-R2-2r9">
-                                <rect key="frame" x="0.0" y="88" width="375" height="640"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="KTPaymentViewCellIdentifier" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTPaymentViewCellIdentifier" rowHeight="90" id="8Ej-gO-nwt" customClass="KTPaymentViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -6419,7 +6416,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EXP 05/21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v62-ax-Lps">
-                                                    <rect key="frame" x="292.66666666666669" y="44" width="47.333333333333314" height="12"/>
+                                                    <rect key="frame" x="293" y="44" width="47" height="12"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                     <color key="textColor" red="0.70588725805282593" green="0.70587378740310669" blue="0.70588284730911255" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
@@ -6448,20 +6445,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCu-cz-wg7" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="0.0" y="699" width="375" height="35"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="oIs-kY-gae"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
-                                <state key="normal" title="+ ADD CARD"/>
-                                <connections>
-                                    <action selector="btnAddCardTapped:" destination="MW4-6f-IKY" eventType="touchUpInside" id="dEi-Pu-MCz"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_container" translatesAutoresizingMaskIntoConstraints="NO" id="pU0-Jv-aIk" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="683" width="375" height="16"/>
+                                <rect key="frame" x="0.0" y="462" width="375" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="lzP-AY-3mb"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
@@ -6470,105 +6458,140 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL FARE - 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sde-wL-Aoe" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="615.66666666666663" width="343" height="20.333333333333371"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
+                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="2a7-Ih-VDT" customClass="RKTagsView">
+                                <rect key="frame" x="172" y="711" width="31" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="bmR-6O-h7e"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.14999999999999999"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineSpacing">
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <real key="value" value="1"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="interitemSpacing">
+                                        <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="tagButtonHeight">
+                                        <real key="value" value="45"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="selectable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsMultipleSelection" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textFieldHeight">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="deselectAllOnEdit" value="YES"/>
                                 </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP ID: 3A3HCC6334SU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KK2-ls-Suy" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="641" width="343" height="12"/>
-                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.25"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street Pickup - Karwa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vOj-qR-yry" customClass="SpringLabel" customModule="Spring">
-                                <rect key="frame" x="16" y="661" width="343" height="12"/>
-                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MW4-6f-IKY" id="SFH-UN-Dkg"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a tip for Driver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOk-1t-Srh" customClass="SpringLabel" customModule="Spring">
+                                <rect key="frame" x="0.0" y="661" width="375" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="PSZ-yO-zDl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.34999999999999998"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pay_button" translatesAutoresizingMaskIntoConstraints="NO" id="nZR-ob-FP9" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="0.0" y="683" width="375" height="16"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure-1" translatesAutoresizingMaskIntoConstraints="NO" id="OMs-qc-rPY">
-                                <rect key="frame" x="0.0" y="728" width="375" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip ID: ASLKDHIO32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILp-L5-HcB" customClass="SpringLabel" customModule="Spring">
+                                <rect key="frame" x="0.0" y="496" width="375" height="17"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ndn-uh-DPX" customClass="SpringButton" customModule="Spring">
+                                <rect key="frame" x="172" y="769" width="31" height="21"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                <state key="normal" title="Pay" backgroundImage="SummitButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="payBtnTapped:" destination="MW4-6f-IKY" eventType="touchUpInside" id="yIk-sY-toA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 40" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-nr-IXq" customClass="SpringLabel" customModule="Spring">
+                                <rect key="frame" x="0.0" y="567" width="375" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="1fy-HU-7Rn"/>
-                                    <constraint firstAttribute="height" constant="50" id="Kg8-aO-FiJ"/>
+                                    <constraint firstAttribute="height" constant="46" id="hph-xt-Lrf"/>
                                 </constraints>
-                            </imageView>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="38"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP FARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giX-J9-4KN" customClass="SpringLabel" customModule="Spring">
+                                <rect key="frame" x="0.0" y="547" width="375" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="aUw-Tg-eiD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="KK2-ls-Suy" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="2SX-tB-51f"/>
-                            <constraint firstItem="vOj-qR-yry" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="4CT-jg-JnV"/>
-                            <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="pU0-Jv-aIk" secondAttribute="bottom" id="4Co-gn-yLh"/>
+                            <constraint firstItem="Ndn-uh-DPX" firstAttribute="top" secondItem="2a7-Ih-VDT" secondAttribute="bottom" constant="8" id="48E-hz-L6Z"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6EM-0u-HFl"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="6TF-h0-IXI"/>
-                            <constraint firstItem="LCu-cz-wg7" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" constant="-44" id="7DA-fw-hKc"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="7aL-ln-9ip"/>
-                            <constraint firstItem="KK2-ls-Suy" firstAttribute="top" secondItem="Sde-wL-Aoe" secondAttribute="bottom" constant="5" id="9Du-uo-fdo"/>
-                            <constraint firstItem="GAF-BZ-qpj" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="Ed2-b4-0Av"/>
-                            <constraint firstItem="nZR-ob-FP9" firstAttribute="top" secondItem="vOj-qR-yry" secondAttribute="bottom" constant="10" id="G26-bS-HMF"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="Sde-wL-Aoe" secondAttribute="trailing" constant="16" id="ILn-wN-gT8"/>
-                            <constraint firstItem="OMs-qc-rPY" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" id="Id8-if-0jR"/>
+                            <constraint firstItem="4v9-nr-IXq" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="Bri-sS-5Rn"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="giX-J9-4KN" secondAttribute="trailing" id="CQ3-7K-XCg"/>
+                            <constraint firstItem="ILp-L5-HcB" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="FTa-Na-Fzu"/>
+                            <constraint firstItem="Ndn-uh-DPX" firstAttribute="leading" secondItem="2a7-Ih-VDT" secondAttribute="leading" id="I7h-0x-ymz"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="4v9-nr-IXq" secondAttribute="trailing" id="Klv-5D-kko"/>
+                            <constraint firstItem="Ndn-uh-DPX" firstAttribute="trailing" secondItem="2a7-Ih-VDT" secondAttribute="trailing" id="KmC-BK-XqJ"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="L4y-Fv-n6O"/>
-                            <constraint firstItem="GAF-BZ-qpj" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="MiL-pX-nSt"/>
-                            <constraint firstItem="Sde-wL-Aoe" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" constant="16" id="N3u-AU-A9V"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="vOj-qR-yry" secondAttribute="trailing" constant="16" id="NTs-8S-za5"/>
-                            <constraint firstItem="vOj-qR-yry" firstAttribute="top" secondItem="KK2-ls-Suy" secondAttribute="bottom" constant="8" id="Qm4-YC-JBH"/>
+                            <constraint firstItem="4v9-nr-IXq" firstAttribute="bottom" secondItem="ILp-L5-HcB" secondAttribute="bottom" constant="100" id="PJZ-rY-rOb"/>
+                            <constraint firstItem="4v9-nr-IXq" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="PY1-RJ-9rW"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="ILp-L5-HcB" secondAttribute="trailing" id="QAj-qE-sqf"/>
                             <constraint firstItem="X4J-GD-7EC" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="SYu-Qx-WI5"/>
                             <constraint firstItem="pU0-Jv-aIk" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="Wyn-4y-gS8"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="bottom" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="50" id="ZeW-fT-RIl"/>
+                            <constraint firstItem="4v9-nr-IXq" firstAttribute="top" secondItem="giX-J9-4KN" secondAttribute="top" constant="20" id="XIw-um-ZsS"/>
+                            <constraint firstItem="giX-J9-4KN" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="Xqd-j4-0wd"/>
+                            <constraint firstAttribute="bottom" secondItem="pU0-Jv-aIk" secondAttribute="bottom" id="ZXj-P7-FtJ"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="bottom" secondItem="Iua-R2-2r9" secondAttribute="bottom" constant="207" id="ZeW-fT-RIl"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="a6G-b5-5xv"/>
-                            <constraint firstItem="nZR-ob-FP9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="aF2-ur-Fqb"/>
-                            <constraint firstItem="GAF-BZ-qpj" firstAttribute="bottom" secondItem="HYU-Id-3FI" secondAttribute="bottom" constant="-50" id="aUT-l9-XyY"/>
-                            <constraint firstItem="OMs-qc-rPY" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="cAg-pv-6Bg"/>
-                            <constraint firstItem="LCu-cz-wg7" firstAttribute="trailing" secondItem="HYU-Id-3FI" secondAttribute="trailing" id="cNn-ip-kWW"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="nZR-ob-FP9" secondAttribute="trailing" id="dfI-Te-vAT"/>
-                            <constraint firstItem="GAF-BZ-qpj" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="edP-Ox-WNn"/>
+                            <constraint firstItem="2a7-Ih-VDT" firstAttribute="top" secondItem="fOk-1t-Srh" secondAttribute="top" constant="50" id="c9C-Fb-GZt"/>
+                            <constraint firstItem="ILp-L5-HcB" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="h7B-RC-ijs"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="top" secondItem="HYU-Id-3FI" secondAttribute="top" id="ilL-AH-X55"/>
-                            <constraint firstItem="OMs-qc-rPY" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="kdg-Yo-LRS"/>
-                            <constraint firstItem="LCu-cz-wg7" firstAttribute="top" secondItem="nZR-ob-FP9" secondAttribute="bottom" id="srU-u2-tbE"/>
-                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="KK2-ls-Suy" secondAttribute="trailing" constant="16" id="vie-Xl-kuI"/>
-                            <constraint firstItem="LCu-cz-wg7" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="wWe-BM-sIU"/>
+                            <constraint firstItem="HYU-Id-3FI" firstAttribute="trailing" secondItem="fOk-1t-Srh" secondAttribute="trailing" id="nB1-Lc-gos"/>
+                            <constraint firstItem="Ndn-uh-DPX" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="pB7-Kt-DLv"/>
+                            <constraint firstItem="giX-J9-4KN" firstAttribute="centerX" secondItem="pCh-vN-gbh" secondAttribute="centerX" id="piV-La-dpJ"/>
+                            <constraint firstItem="ILp-L5-HcB" firstAttribute="top" secondItem="pU0-Jv-aIk" secondAttribute="top" constant="34" id="ufh-Ba-mWd"/>
+                            <constraint firstItem="fOk-1t-Srh" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="xL1-5p-JHw"/>
                             <constraint firstItem="Iua-R2-2r9" firstAttribute="leading" secondItem="HYU-Id-3FI" secondAttribute="leading" id="xzo-L6-u9J"/>
+                            <constraint firstAttribute="bottom" secondItem="Ndn-uh-DPX" secondAttribute="bottom" constant="22" id="yWM-Dq-6pP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HYU-Id-3FI"/>
                     </view>
                     <navigationItem key="navigationItem" title="Payment Methods" id="HML-pY-ogg">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="Y8E-L9-SAQ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" width="40" id="Y8E-L9-SAQ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zWH-rP-IVx">
                                 <rect key="frame" x="16" y="9.6666666666666643" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -6578,28 +6601,23 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="vTe-W1-q4F">
-                            <connections>
-                                <action selector="editBtnTapped:" destination="MW4-6f-IKY" id="9iv-7a-W61"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="bottomContainer" destination="pU0-Jv-aIk" id="xu9-KY-Gvh"/>
-                        <outlet property="btnAdd" destination="LCu-cz-wg7" id="eZa-K9-PlD"/>
-                        <outlet property="btnEdit" destination="vTe-W1-q4F" id="cSu-dx-27h"/>
-                        <outlet property="btnPay" destination="nZR-ob-FP9" id="YgQ-VH-4eP"/>
-                        <outlet property="emptyView" destination="GAF-BZ-qpj" id="scc-y7-hbs"/>
-                        <outlet property="labelPickupType" destination="vOj-qR-yry" id="tXW-kA-uOj"/>
-                        <outlet property="labelTotalFare" destination="Sde-wL-Aoe" id="lyM-Ek-hGK"/>
-                        <outlet property="labelTripId" destination="KK2-ls-Suy" id="n0M-3x-Koe"/>
+                        <outlet property="btnPay" destination="Ndn-uh-DPX" id="r9N-mJ-OdQ"/>
+                        <outlet property="labelHDriverTrip" destination="fOk-1t-Srh" id="QNm-E5-x2B"/>
+                        <outlet property="labelHTripFare" destination="giX-J9-4KN" id="FFx-vN-GCz"/>
+                        <outlet property="labelTotalFare" destination="4v9-nr-IXq" id="Y7q-ST-Q2i"/>
+                        <outlet property="labelTripId" destination="ILp-L5-HcB" id="hVq-0h-Zhv"/>
                         <outlet property="tableView" destination="Iua-R2-2r9" id="W0h-FR-8Tb"/>
+                        <outlet property="tagView" destination="2a7-Ih-VDT" id="rBL-va-7bf"/>
                         <outlet property="tripPaidSuccessImageView" destination="X4J-GD-7EC" id="mQz-eo-6ye"/>
+                        <segue destination="Qch-Ep-Qpx" kind="presentation" identifier="segueToManagePayment" animates="NO" id="T12-Gh-fAE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Skp-xo-Wrp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1591.2" y="2207.0464767616195"/>
+            <point key="canvasLocation" x="-1519.2" y="2205.6650246305421"/>
         </scene>
         <!--Address Picker View Controller-->
         <scene sceneID="3YX-v2-1Ul">
@@ -7319,6 +7337,23 @@
             <point key="canvasLocation" x="7239.1999999999998" y="3501.4992503748131"/>
         </scene>
         <!--Navigation Controller-->
+        <scene sceneID="XNL-XS-2vS">
+            <objects>
+                <navigationController storyboardIdentifier="PaymentMethodsNavController" id="Qch-Ep-Qpx" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="B0J-Ws-yRJ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OFM-gR-KKT">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="v8E-tg-drv" kind="relationship" relationship="rootViewController" id="ZD3-pR-dul"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cez-M2-AG9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4071" y="2215"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="yrP-lM-Vth">
             <objects>
                 <navigationController storyboardIdentifier="PaymentNavigationController" id="fmF-HJ-JmT" sceneMemberID="viewController">
@@ -7334,7 +7369,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0j8-vx-jRK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2626" y="2208"/>
+            <point key="canvasLocation" x="-2300" y="2206"/>
         </scene>
         <!--Delegate-->
         <scene sceneID="sg5-Sv-r8Q">
@@ -7345,7 +7380,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbh-Zk-CTR" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="566"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="946"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="r1o-YG-hXJ" id="fDb-Te-Tta"/>
@@ -7372,7 +7407,7 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="white_back" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-Rd-LbO">
-                                <rect key="frame" x="0.0" y="416" width="375" height="396"/>
+                                <rect key="frame" x="0.0" y="796" width="375" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH4-Rv-MIQ" customClass="SpringButton" customModule="Spring">
@@ -7398,7 +7433,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nm2-KF-eOH">
-                                <rect key="frame" x="0.0" y="479" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="859" width="375" height="32"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eta_box" translatesAutoresizingMaskIntoConstraints="NO" id="hzb-Un-e3V" customClass="SpringImageView" customModule="Spring">
                                         <rect key="frame" x="122.66666666666669" y="0.0" width="130" height="32"/>
@@ -7426,7 +7461,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCB-nh-3a9" customClass="KTShadowView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="516" width="335" height="202"/>
+                                <rect key="frame" x="20" y="896" width="335" height="202"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGX-77-812">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="130"/>
@@ -7761,7 +7796,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est. Fare" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FV-dH-dNS" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="178" y="14" width="46.333333333333343" height="14"/>
+                                                <rect key="frame" x="178" y="14" width="47.666666666666657" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.59215686270000001" green="0.59607843140000005" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -7774,7 +7809,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR -----" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k60-RF-XEQ" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="271.66666666666669" y="14" width="49.333333333333314" height="14"/>
+                                                <rect key="frame" x="276.66666666666669" y="14" width="44.333333333333314" height="14"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                 <color key="textColor" red="0.34901960780000002" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -7859,13 +7894,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOD-lv-5xr">
-                                <rect key="frame" x="16" y="733" width="343" height="98"/>
+                                <rect key="frame" x="16" y="1113" width="343" height="98"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0D-xs-hGt" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="70"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_driver_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="0ZL-Nn-yOg" customClass="SpringImageView" customModule="Spring">
-                                                <rect key="frame" x="12" y="18.666666666666629" width="27" height="33"/>
+                                                <rect key="frame" x="12" y="18.666666666666742" width="27" height="33"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="27" id="5JK-qN-ZKf"/>
                                                     <constraint firstAttribute="height" constant="33" id="WVZ-eP-lVp"/>
@@ -7896,7 +7931,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="------ ------" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYN-wb-9Vu" customClass="SpringLabel" customModule="Spring">
-                                                <rect key="frame" x="49" y="18.666666666666629" width="170" height="17"/>
+                                                <rect key="frame" x="49" y="18.666666666666742" width="170" height="17"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -7924,7 +7959,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.666666666666629" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -8522,6 +8557,138 @@
             </objects>
             <point key="canvasLocation" x="4772" y="1052.9235382308846"/>
         </scene>
+        <!--Payment Methods-->
+        <scene sceneID="xtd-WR-1w5">
+            <objects>
+                <viewController storyboardIdentifier="KTManagePaymentViewControllerIdentifier" id="v8E-tg-drv" customClass="KTManagePaymentViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RLM-hC-orF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scan_n_pay_empty" translatesAutoresizingMaskIntoConstraints="NO" id="j20-fG-7kD" customClass="SpringImageView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="398" width="375" height="16"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="L08-6l-gpU">
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="KTPaymentViewCellIdentifier" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTPaymentViewCellIdentifier" rowHeight="90" id="sDg-5j-MB6" customClass="KTPaymentViewCell" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" restorationIdentifier="KTPaymentViewCellControllerIdentifier" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sDg-5j-MB6" id="c2O-1O-oQi" customClass="KTPaymentViewCellController" customModule="KarwaRide" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paymentoption_inactive_back" translatesAutoresizingMaskIntoConstraints="NO" id="Cer-HF-crb">
+                                                    <rect key="frame" x="15" y="7.3333333333333357" width="345" height="70"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="70" id="FOs-O9-6rb"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="ico_maestro" translatesAutoresizingMaskIntoConstraints="NO" id="9ZH-kt-u3a">
+                                                    <rect key="frame" x="27" y="39" width="16" height="16"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="**** **** **** 0008" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oja-Ul-eZ0">
+                                                    <rect key="frame" x="59" y="44" width="102" height="17"/>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EXP 05/21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpV-uX-1Go">
+                                                    <rect key="frame" x="293" y="44" width="47" height="12"/>
+                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                    <color key="textColor" red="0.70588725809999997" green="0.70587378739999995" blue="0.70588284729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9ZH-kt-u3a" firstAttribute="top" secondItem="c2O-1O-oQi" secondAttribute="topMargin" constant="28" id="2jT-mW-4m5"/>
+                                                <constraint firstItem="9ZH-kt-u3a" firstAttribute="leading" secondItem="c2O-1O-oQi" secondAttribute="leadingMargin" constant="12" id="50o-bB-hr2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fpV-uX-1Go" secondAttribute="trailing" constant="20" id="8Hw-ZL-sbf"/>
+                                                <constraint firstAttribute="bottom" secondItem="Cer-HF-crb" secondAttribute="bottom" constant="7.5" id="LEi-CC-ZDd"/>
+                                                <constraint firstAttribute="trailing" secondItem="Cer-HF-crb" secondAttribute="trailing" constant="15" id="LQ1-dy-JIs"/>
+                                                <constraint firstItem="Cer-HF-crb" firstAttribute="leading" secondItem="c2O-1O-oQi" secondAttribute="leading" constant="15" id="R8R-qH-qFs"/>
+                                                <constraint firstItem="fpV-uX-1Go" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oja-Ul-eZ0" secondAttribute="trailing" constant="8" symbolic="YES" id="hDm-f7-ihF"/>
+                                                <constraint firstItem="oja-Ul-eZ0" firstAttribute="leading" secondItem="9ZH-kt-u3a" secondAttribute="trailing" constant="16" id="jQZ-U7-qig"/>
+                                                <constraint firstItem="oja-Ul-eZ0" firstAttribute="top" secondItem="c2O-1O-oQi" secondAttribute="topMargin" constant="33" id="mvB-Ju-HC3"/>
+                                                <constraint firstItem="Cer-HF-crb" firstAttribute="top" secondItem="c2O-1O-oQi" secondAttribute="top" constant="7.5" id="vV4-2O-sjf"/>
+                                                <constraint firstItem="fpV-uX-1Go" firstAttribute="top" secondItem="c2O-1O-oQi" secondAttribute="topMargin" constant="33" id="zzd-0C-3Bf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cardExpiry" destination="fpV-uX-1Go" id="PNi-hP-RbV"/>
+                                            <outlet property="cardImage" destination="9ZH-kt-u3a" id="E3c-0D-oQd"/>
+                                            <outlet property="cardNumber" destination="oja-Ul-eZ0" id="LQr-70-Fdq"/>
+                                            <outlet property="cellBackground" destination="Cer-HF-crb" id="gFF-wL-MME"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLc-OD-XSt" customClass="SpringButton" customModule="Spring">
+                                <rect key="frame" x="0.0" y="688" width="375" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="6Ur-ME-oYV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="13"/>
+                                <state key="normal" title="+ ADD CARD"/>
+                                <connections>
+                                    <action selector="btnAddCardTapped:" destination="v8E-tg-drv" eventType="touchUpInside" id="e4t-cI-mbS"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure-1" translatesAutoresizingMaskIntoConstraints="NO" id="vLT-ON-V5S">
+                                <rect key="frame" x="0.0" y="736" width="375" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="6Nv-Ue-MGf"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="L08-6l-gpU" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="2dz-C1-Vpo"/>
+                            <constraint firstItem="j20-fG-7kD" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="3A0-2Q-fob"/>
+                            <constraint firstItem="eLc-OD-XSt" firstAttribute="bottom" secondItem="Hk6-Ta-fCk" secondAttribute="bottom" constant="-55" id="Htr-xC-K8x"/>
+                            <constraint firstItem="Hk6-Ta-fCk" firstAttribute="bottom" secondItem="L08-6l-gpU" secondAttribute="bottom" constant="-34" id="Imz-rS-NkO"/>
+                            <constraint firstItem="vLT-ON-V5S" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="KC2-HA-xXF"/>
+                            <constraint firstItem="L08-6l-gpU" firstAttribute="top" secondItem="Hk6-Ta-fCk" secondAttribute="top" id="SKj-Q9-pli"/>
+                            <constraint firstItem="vLT-ON-V5S" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="Ylf-kG-GtM"/>
+                            <constraint firstItem="L08-6l-gpU" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="bUP-kc-9Ic"/>
+                            <constraint firstItem="Hk6-Ta-fCk" firstAttribute="bottom" secondItem="vLT-ON-V5S" secondAttribute="bottom" constant="10" id="dqL-MM-5Z2"/>
+                            <constraint firstItem="eLc-OD-XSt" firstAttribute="leading" secondItem="Hk6-Ta-fCk" secondAttribute="leading" id="fMS-14-OIc"/>
+                            <constraint firstItem="j20-fG-7kD" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="h6Q-qv-qvM"/>
+                            <constraint firstItem="L08-6l-gpU" firstAttribute="top" secondItem="Hk6-Ta-fCk" secondAttribute="top" id="i3C-GM-Y71"/>
+                            <constraint firstItem="eLc-OD-XSt" firstAttribute="trailing" secondItem="Hk6-Ta-fCk" secondAttribute="trailing" id="ntL-kj-Bba"/>
+                            <constraint firstItem="j20-fG-7kD" firstAttribute="centerY" secondItem="RLM-hC-orF" secondAttribute="centerY" id="veW-rR-Gqg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hk6-Ta-fCk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Payment Methods" id="3ig-An-XTA">
+                        <barButtonItem key="leftBarButtonItem" title="Item" width="40" id="qNX-1V-lcb">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IM3-Bu-vQy">
+                                <rect key="frame" x="16" y="4.6666666666666679" width="25" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="BackButton"/>
+                                <connections>
+                                    <action selector="btnBackTapped:" destination="v8E-tg-drv" eventType="touchUpInside" id="ktj-is-WFc"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="Zo9-2p-e7l">
+                            <connections>
+                                <action selector="btnEditTapped:" destination="v8E-tg-drv" id="ILy-8R-cdQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="btnAdd" destination="eLc-OD-XSt" id="ypa-kD-msD"/>
+                        <outlet property="btnEdit" destination="Zo9-2p-e7l" id="Xk7-f0-5PY"/>
+                        <outlet property="emptyView" destination="j20-fG-7kD" id="wSE-bx-wSm"/>
+                        <outlet property="tableView" destination="L08-6l-gpU" id="i4y-Io-Qi4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AFW-uB-ry5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3183.1999999999998" y="2214.5320197044334"/>
+        </scene>
     </scenes>
     <resources>
         <image name="APAddressBox" width="362" height="112"/>
@@ -8606,7 +8773,6 @@
         <image name="newtag" width="30" height="14"/>
         <image name="notification_empty" width="360" height="458"/>
         <image name="paid_graphics" width="375" height="350"/>
-        <image name="pay_button" width="345" height="80"/>
         <image name="paymentoption_inactive_back" width="346" height="71"/>
         <image name="phone_address" width="180" height="325"/>
         <image name="phone_details" width="180" height="325"/>
@@ -8636,7 +8802,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4lO-1G-0fb"/>
-        <segue reference="UaL-kR-7Gj"/>
+        <segue reference="N6S-jP-c4x"/>
         <segue reference="k1N-by-NlO"/>
         <segue reference="wE4-w3-3Ll"/>
         <segue reference="izn-m5-Pdm"/>

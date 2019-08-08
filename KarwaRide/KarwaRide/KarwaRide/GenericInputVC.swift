@@ -24,7 +24,7 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
     public var inputType = ""
 
     public weak var previousView : KTEditAccountViewController?
-    public weak var paymentVC : KTPaymentViewController?
+    public weak var paymentVC : KTManagePaymentViewController?
     
     override func viewWillAppear(_ animated: Bool)
     {

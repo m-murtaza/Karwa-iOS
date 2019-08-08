@@ -101,8 +101,8 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.callerId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.CallerID] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.CallerID] as? String : ""
         b.eta = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Eta] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Eta] as! Int64 : 0
         b.estimatedFare = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.EstimatedFare] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.EstimatedFare] as? String : ""
+
         b.fare = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Fare] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Fare] as? String : ""
-        
         
         b.driverId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverID] as AnyObject)) ? String("\(booking[Constants.BookingResponseAPIKey.DriverID] ?? "")") : ""
        
@@ -130,7 +130,12 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.vehicleType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleType] as! Int16 : 0
 
         if(!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripSummary] as AnyObject)) {
-            self.saveTripSummey(data: booking[Constants.BookingResponseAPIKey.TripSummary] as! [AnyHashable:Any],booking: b )
+            let data = booking[Constants.BookingResponseAPIKey.TripSummary] as! [AnyHashable:Any]
+            if let value = data["Total Fare"]
+            {
+                b.totalFare = value as? String ?? "0"
+            }
+            self.saveTripSummey(data: data,booking: b )
         }
         
         b.isRated = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsRated] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsRated] as! Bool : false
