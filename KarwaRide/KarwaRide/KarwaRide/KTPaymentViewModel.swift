@@ -40,7 +40,6 @@ class KTPaymentViewModel: KTBaseViewModel
         super.viewDidLoad()
         del = self.delegate as? KTPaymentViewModelDelegate
         fetchnPaymentMethods()
-        fetchSessionInfo()
         
         del?.removeAllTags()
         for tipOption in Constants.TIP_OPTIONS
@@ -148,18 +147,6 @@ class KTPaymentViewModel: KTBaseViewModel
             self.del?.showbarcodeScanner(show: true)
         }
         self.del?.reloadTableData()
-    }
-    
-    func fetchSessionInfo()
-    {
-        KTPaymentManager().createSessionForPaymentAtServer { (status, response) in
-            if status == Constants.APIResponseStatus.SUCCESS
-            {
-                self.sessionId = (response[Constants.PaymentResponseAPIKey.SessionId] as? String)!
-                let apiVersionInt : Int = ((response[Constants.PaymentResponseAPIKey.ApiVersion] as? Int)!)
-                self.apiVersion = String(apiVersionInt)
-            }
-        }
     }
 
     func payTripButtonTapped(payTripBean : PayTripBeanForServer)
