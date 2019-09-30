@@ -721,12 +721,13 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var img : UIImage?
         switch booking?.vehicleType  {
-        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?:
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?:
             img = UIImage(named:"BookingMapTaxiIco")
             
         case VehicleType.KTCityTaxi7Seater.rawValue?:
             img = UIImage(named: "BookingMap7Ico")
-            
+        case VehicleType.KTSpecialNeedTaxi.rawValue?:
+        img = UIImage(named: "BookingMapSpecialNeedIco")
         case VehicleType.KTStandardLimo.rawValue?:
             img = UIImage(named: "BookingMapStandardIco")
         case VehicleType.KTBusinessLimo.rawValue?:

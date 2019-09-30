@@ -114,6 +114,7 @@ struct Constants {
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
     static let MIN_PASSWORD_LENGTH : Int = 6
+    
     struct StoryBoardId {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"
@@ -491,6 +492,8 @@ struct Constants {
         static let CancelReason = "syncTime"
         static let RatingReason = "syncTime"
         static let Complaints = "syncTime"
+        static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
+        static let VEHICLE_TYPES_ALL = "1,10,11,30,50,70"
     }
     
     
