@@ -107,6 +107,7 @@ struct Constants {
     
     static let SCAN_N_PAY_ENABLE:Bool = true
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
+    static let SERVER_DATE_FORMAT_WITHOUT_T: String = "yyyy-MM-dd HH:mm:ss"
     static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyBuQWTg0UryYGD0uPyUQI6RKk08kvZ0fgY"

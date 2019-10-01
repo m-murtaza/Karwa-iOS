@@ -214,12 +214,15 @@ class KTMyTripsViewModel: KTBaseViewModel {
         
         var type : String = ""
         switch (bookings![idx] as KTBooking).vehicleType {
-        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
             type = "TAXI"
         
         case VehicleType.KTCityTaxi7Seater.rawValue:
             type = "7 SEATER"
-            
+        
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "A.TAXI"
+
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
         
