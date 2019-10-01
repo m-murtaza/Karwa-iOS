@@ -30,6 +30,18 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl) // not required when using UITableViewController
+        
+//        if #available(iOS 13.0, *) {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+//            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//            UINavigationBar.init().scrollEdgeAppearance = appearance
+//        } else {
+//            // Fallback on earlier versions
+//        }
+        
+        
     }
 
     override func updateForBooking(_ booking: KTBooking)
