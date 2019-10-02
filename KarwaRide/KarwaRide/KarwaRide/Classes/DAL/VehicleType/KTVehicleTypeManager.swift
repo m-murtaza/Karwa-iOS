@@ -228,7 +228,8 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
                                       Constants.GetEstimateParam.PickLongitude : pickup.longitude,
                                       Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
                                       Constants.GetEstimateParam.DropLongitude : dropoff.longitude,
-                                      Constants.GetEstimateParam.PickTime : time]
+                                      Constants.GetEstimateParam.PickTime : time,
+                                      Constants.SyncParam.QUERY_PARAM_VEHICLE_TYPES : Constants.SyncParam.VEHICLE_TYPES_ALL]
         
         self.get(url: Constants.APIURL.GetEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
             
@@ -244,7 +245,8 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
                                       Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
                                       Constants.GetEstimateParam.DropLongitude : dropoff.longitude,
                                       Constants.GetEstimateParam.PickTime : time,
-                                      Constants.GetEstimateParam.PromoCode : promo]
+                                      Constants.GetEstimateParam.PromoCode : promo,
+                                      Constants.SyncParam.QUERY_PARAM_VEHICLE_TYPES : Constants.SyncParam.VEHICLE_TYPES_ALL]
         
         self.get(url: Constants.APIURL.GetPromoEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
             
