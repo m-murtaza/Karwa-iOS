@@ -12,7 +12,6 @@ import GoogleMaps
 import Cosmos
 import Spring
 import DDViewSwitcher
-import XLActionController
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
@@ -278,21 +277,51 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func moreOptionsTapped(_ sender: Any)
     {
-        let actionController = YoutubeActionController()
+//        let image = UIImage(named: "ico_rebook")
+//        let action = UIAlertAction(title: "Action 1", style: .default, handler: nil);
+//        action.setValue(image?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
-            { action in
+        
+        let alertController = UIAlertController()
+        
+        
+        
+        let rebookIcon = UIImage(named: "ico_rebook")
+        let rebookAction = UIAlertAction(title: "Re-book This Ride", style: .default)
+            { (action: UIAlertAction!) in
                 self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
             }
-        ))
-        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
-            { action in
+        rebookAction.setValue(rebookIcon, forKey: "image")
+        
+        let complainIcon = UIImage(named: "ico_complaint")
+        let complainAction = UIAlertAction(title: "Complaint or Lost Item", style: .default)
+            { (action: UIAlertAction!) in
                 self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
             }
-        ))
-        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
+        complainAction.setValue(complainIcon, forKey: "image")
         
-        present(actionController, animated: true, completion: nil)
+        let cancelIcon = UIImage(named: "ico_cancel")
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            { (action: UIAlertAction!) in}
+        cancelAction.setValue(cancelIcon, forKey: "image")
+        
+        alertController.addAction(rebookAction)
+        alertController.addAction(complainAction)
+        alertController.addAction(cancelAction)
+
+//        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
+//            { action in
+//                self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
+//            }
+//        ))
+//        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
+//            { action in
+//                self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
+//            }
+//        ))
+//        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
+
+        present(alertController, animated: true, completion: nil)
     }
 
     @IBAction func btnBackTapped(_ sender: Any) {
