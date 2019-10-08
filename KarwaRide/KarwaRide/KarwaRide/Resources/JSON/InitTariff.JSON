@@ -79,35 +79,6 @@
                           ]
           },
           {
-          "VehicleType": 10,
-          "Fare": "QR 10",
-          "Body": {
-          "Base Fare": "QR 4",
-          "Minimum Fare": "QR 10",
-          "Fare/km": "QR 1.6 - 1.9",
-          "Waiting/min (free 10 min)": "QR 0.533",
-          "Booking Fare": "QR 5",
-          "Technology": "QR 1"
-          },
-          "OrderedBody": [
-                          {
-                          "Key": "Minimum Fare",
-                          "Value": "QR 10",
-                          "Order": 1
-                          },
-                          {
-                          "Key": "Booking Fare",
-                          "Value": "QR 5",
-                          "Order": 2
-                          },
-                          {
-                          "Key": "Technology",
-                          "Value": "QR 1",
-                          "Order": 6
-                          }
-                          ]
-          },
-          {
           "VehicleType": 30,
           "Fare": "QR 40",
           "Body": {
@@ -168,6 +139,35 @@
                           "Key": "Fare/min",
                           "Value": "QR 0.5",
                           "Order": 4
+                          }
+                          ]
+          },
+          {
+          "VehicleType": 60,
+          "Fare": "QR 10",
+          "Body": {
+          "Base Fare": "QR 4",
+          "Minimum Fare": "QR 10",
+          "Fare/km": "QR 1.6 - 1.9",
+          "Waiting/min (free 10 min)": "QR 0.533",
+          "Booking Fare": "QR 5",
+          "Technology": "QR 1"
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 10",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Booking Fare",
+                          "Value": "QR 5",
+                          "Order": 2
+                          },
+                          {
+                          "Key": "Technology",
+                          "Value": "QR 1",
+                          "Order": 6
                           }
                           ]
           },

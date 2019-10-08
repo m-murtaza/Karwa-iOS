@@ -169,7 +169,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         let vTypeSpecialAssistance = KTVehicleType.mr_createEntity(in: localContext)!
         vTypeSpecialAssistance.typeBaseFare = "10"
         vTypeSpecialAssistance.typeName = "Accessible Taxi"
-        vTypeSpecialAssistance.typeId = Int16(VehicleType.KTCityTaxi7Seater.rawValue)
+        vTypeSpecialAssistance.typeId = Int16(VehicleType.KTSpecialNeedTaxi.rawValue)
         vTypeSpecialAssistance.typeSortOrder = 3
         
     }
@@ -199,9 +199,11 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         var vTypes : [KTVehicleType] = []
         
         vTypes = (KTVehicleType.mr_findAll() as? [KTVehicleType])!
-        return vTypes.sorted(by: { (this, that) -> Bool in
+        vTypes = vTypes.sorted(by: { (this, that) -> Bool in
             this.typeSortOrder < that.typeSortOrder
         })
+
+        return vTypes
     }
     
     func vehicleType(typeId : Int16) -> KTVehicleType? {

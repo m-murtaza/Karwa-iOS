@@ -24,7 +24,7 @@ enum VehicleType: Int16 {
     case KTCityTaxi7Seater = 11
     case KTAiport7Seater = 3
     case KTAirportSpare = 5
-    case KTSpecialNeedTaxi = 10
+    case KTSpecialNeedTaxi = 60
 //    case KTAiportTaxi = 11
     case KTCompactLimo = 20
     case KTStandardLimo = 30
@@ -494,7 +494,7 @@ struct Constants {
         static let RatingReason = "syncTime"
         static let Complaints = "syncTime"
         static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
-        static let VEHICLE_TYPES_ALL = "1,10,11,30,50,70"
+        static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
     }
     
     

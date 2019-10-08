@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Font Names = [\(names)]")
         }
     }
-    
+     
     // MARK: APPLE PUSH NOTIFICATION
     private let apnsManager : KTAPNSManager = KTAPNSManager.init()
     

@@ -94,6 +94,18 @@ class KTUtils
         return backgroundName
     }
     
+    static func reorderVehicleTypes(vehicleTypes: [KTVehicleType]) -> [KTVehicleType]? {
+        if(vehicleTypes.count == 6)
+        {
+            var sortedVehicleTypes = vehicleTypes
+            var temp = sortedVehicleTypes[2]
+            sortedVehicleTypes[2] = sortedVehicleTypes[4]
+            sortedVehicleTypes[4] = temp
+        }
+
+        return vehicleTypes
+    }
+    
     static func getETAString(etaInSeconds: Int) -> String
     {
         var etaString = "1 min to reach"
