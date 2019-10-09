@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        AppVersionUpdateNotifier().initNotifier(self)
+        
         setupDatabase()
         fetchInitialApplicationDataIfNeeded()
         handleNotification(launchOptions: launchOptions)
@@ -35,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         
         setupFirebase()
-
+        
         return true
     }
     
@@ -92,6 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func fetchInitialApplicationDataIfNeeded() {
+        SharedPrefUtil.resetRideIfRequired()
         KTVehicleTypeManager().fetchInitialTariffLocal()
         KTCancelBookingManager().fetchInitialCancelReasonsLocal()
         KTRatingManager().fetchInitialRatingReasonsLocal()
@@ -357,3 +360,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+
+extension AppDelegate: AppUpdateNotifier {
+    func onVersionUpdate(newVersion: Int, oldVersion: Int) {
+
+    }
+
+    func onFirstLaunch() {
+        //do something
+    }
+}

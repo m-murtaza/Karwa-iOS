@@ -411,7 +411,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
             img = UIImage(named:"MyTripNoRideFound")
         case BookingStatus.PICKUP.rawValue:
-            img = UIImage.gifImageWithName("MyTripHired")
+//            img = UIImage.gifImageWithName("MyTripHired")
+            img = UIImage(named:"MyTripsHired")
         default:
             img = UIImage()
             print("Do nothing")

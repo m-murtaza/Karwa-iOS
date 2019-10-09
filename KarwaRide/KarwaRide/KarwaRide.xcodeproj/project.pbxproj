@@ -35,6 +35,7 @@
 		0DB2224522BA30CA00C41D00 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224122BA30C900C41D00 /* Country.swift */; };
 		0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224222BA30C900C41D00 /* Countries.swift */; };
 		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
+		0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */; };
 		0DE6A73F218B141200125507 /* GatewayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A734218B140F00125507 /* GatewayError.swift */; };
 		0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A735218B141000125507 /* GatewayRegion.swift */; };
 		0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */; };
@@ -238,6 +239,7 @@
 		0DB2224222BA30C900C41D00 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV8.xcdatamodel; sourceTree = "<group>"; };
+		0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUpdateNotifier.swift; sourceTree = "<group>"; };
 		0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
 		0DE6A734218B140F00125507 /* GatewayError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayError.swift; sourceTree = "<group>"; };
@@ -1143,6 +1145,7 @@
 				0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */,
 				0D826ECC21997309006FF11B /* ImageUtil.swift */,
 				0D5C7093220AFA6D00541A21 /* BookingBean.swift */,
+				0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1638,6 +1641,7 @@
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
+				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
 				0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */,
