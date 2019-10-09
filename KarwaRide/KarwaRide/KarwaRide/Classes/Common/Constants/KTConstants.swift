@@ -116,7 +116,7 @@ struct Constants {
     
     static let MIN_PASSWORD_LENGTH : Int = 6
     
-    static let APP_REQUIRE_VEHICLE_UPDATE_VERSION : Int = 130
+    static let APP_REQUIRE_VEHICLE_UPDATE_VERSION : Int = 131
     
     struct StoryBoardId {
         static let LeftMenu = "LeftMenuViewController"
