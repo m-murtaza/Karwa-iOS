@@ -481,7 +481,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     private func presentBarcodeScanner()
     {
-        present(makeBarcodeScannerViewController(), animated: true, completion: nil)
+        let barcodeScannerVC = makeBarcodeScannerViewController()
+        barcodeScannerVC.modalPresentationStyle = .fullScreen
+
+        present(barcodeScannerVC, animated: true, completion: nil)
     }
     
     func isCameraPermissionGiven() -> Bool

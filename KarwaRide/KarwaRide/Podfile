@@ -12,7 +12,6 @@ target 'KarwaRide' do
   pod 'FacebookCore', '~> 0.4.0'
   pod 'SwiftyJSON', '~> 4.0.0'
   pod 'Toast-Swift', '~> 5.0.0'
-  pod 'XLActionController', '~> 4.1.1'
   pod 'libPhoneNumber-iOS', '~> 0.8'
   pod 'Kingfisher', '~> 4.0'
   pod 'Crashlytics', '~> 3.10.5'
@@ -20,9 +19,12 @@ target 'KarwaRide' do
   pod 'MarqueeLabel/Swift', '3.1.6'
   pod 'Firebase/Core'
 
+    #pod 'XLActionController', '~> 5.0.1' # Not working
+    #pod 'XLActionController/Youtube'     # May be not working
+
     pod 'MagicalRecord'
     pod 'ScalingCarousel'
-    pod 'SwiftDate'
+    pod 'SwiftDate' , '~> 6.1.0'
     pod 'SVProgressHUD'
     pod 'JTMaterialSwitch'
     pod 'Cosmos'
@@ -30,7 +32,6 @@ target 'KarwaRide' do
     pod 'Fabric'
     pod 'SAConfettiView'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
-    pod 'XLActionController/Youtube'
     pod 'DDViewSwitcher'
     pod 'BarcodeScanner'
     pod 'CardIO'

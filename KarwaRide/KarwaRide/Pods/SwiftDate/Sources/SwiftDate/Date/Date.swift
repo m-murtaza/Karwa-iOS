@@ -1,9 +1,13 @@
 //
-//  Date.swift
 //  SwiftDate
+//  Parse, validate, manipulate, and display dates, time and timezones in Swift
 //
-//  Created by Daniele Margutti on 06/06/2018.
-//  Copyright © 2018 SwiftDate. All rights reserved.
+//  Created by Daniele Margutti
+//   - Web: https://www.danielemargutti.com
+//   - Twitter: https://twitter.com/danielemargutti
+//   - Mail: hello@danielemargutti.com
+//
+//  Copyright © 2019 Daniele Margutti. Licensed under MIT License.
 //
 
 import Foundation
@@ -51,7 +55,7 @@ extension Date: DateRepresentable {
 
 	/// Extract the date components.
 	public var dateComponents: DateComponents {
-		return self.region.calendar.dateComponents(DateComponents.allComponentsSet, from: self)
+		return region.calendar.dateComponents(DateComponents.allComponentsSet, from: self)
 	}
 
 	/// Initialize a new date object from string expressed in given region.
@@ -141,14 +145,14 @@ extension Date: DateRepresentable {
 		return DateInRegion(self, region: region)
 	}
 
-	/// Return a date in the distant future.
+	/// Return a date in the distant past.
 	///
 	/// - Returns: Date instance.
 	public static func past() -> Date {
 		return Date.distantPast
 	}
 
-	/// Return a date in the distant past.
+	/// Return a date in the distant future.
 	///
 	/// - Returns: Date instance.
 	public static func future() -> Date {

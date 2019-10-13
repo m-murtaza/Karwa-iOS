@@ -897,6 +897,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             imgBg = UIImage(named: "BookingCardTaxiBox")!
         case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
             imgBg = UIImage(named: "BookingCard7SeaterBox")!
+        case Int16(VehicleType.KTSpecialNeedTaxi.rawValue):
+            imgBg = UIImage(named: "BookingCardSpecialNeedBox")!
         case Int16(VehicleType.KTStandardLimo.rawValue):
             imgBg = UIImage(named: "BookingCardStandardBox")!
         case Int16(VehicleType.KTBusinessLimo.rawValue):
@@ -919,6 +921,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             imgSType = UIImage(named: "BookingCardTaxiIco")!
         case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
             imgSType = UIImage(named: "BookingCard7SeaterIco")!
+        case Int16(VehicleType.KTSpecialNeedTaxi.rawValue):
+            imgSType = UIImage(named: "BookingCardSpecialNeedIco")!
         case Int16(VehicleType.KTStandardLimo.rawValue):
             imgSType = UIImage(named: "BookingCardStandardIco")!
         case Int16(VehicleType.KTBusinessLimo.rawValue):

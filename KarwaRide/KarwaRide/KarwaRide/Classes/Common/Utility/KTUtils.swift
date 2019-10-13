@@ -54,6 +54,8 @@ class KTUtils
             backgroundName = "EtaToCustomerBack1"
         case VehicleType.KTCityTaxi7Seater.rawValue:
             backgroundName = "EtaToCustomerBack5"
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            backgroundName = "EtaToCustomerBack6"
         case VehicleType.KTStandardLimo.rawValue:
             backgroundName = "EtaToCustomerBack2"
         case VehicleType.KTBusinessLimo.rawValue:
@@ -78,16 +80,30 @@ class KTUtils
         case 1:
             backgroundName = "EtaToCustomerBack5"
         case 2:
-            backgroundName = "EtaToCustomerBack2"
+            backgroundName = "EtaToCustomerBack6"
         case 3:
-            backgroundName = "EtaToCustomerBack3"
+            backgroundName = "EtaToCustomerBack2"
         case 4:
+            backgroundName = "EtaToCustomerBack3"
+        case 5:
             backgroundName = "EtaToCustomerBack4"
         default:
             backgroundName = "EtaToCustomerBack1"
         }
 
         return backgroundName
+    }
+    
+    static func reorderVehicleTypes(vehicleTypes: [KTVehicleType]) -> [KTVehicleType]? {
+        if(vehicleTypes.count == 6)
+        {
+            var sortedVehicleTypes = vehicleTypes
+            var temp = sortedVehicleTypes[2]
+            sortedVehicleTypes[2] = sortedVehicleTypes[4]
+            sortedVehicleTypes[4] = temp
+        }
+
+        return vehicleTypes
     }
     
     static func getETAString(etaInSeconds: Int) -> String

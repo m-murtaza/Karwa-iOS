@@ -331,6 +331,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         cardIOVC?.hideCardIOLogo = true
         cardIOVC?.keepStatusBarStyle = true
         cardIOVC?.scanExpiry = true
+        cardIOVC?.modalPresentationStyle = .fullScreen
         present(cardIOVC!, animated: true, completion: nil)
     }
     

@@ -370,12 +370,15 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var type : String = ""
         switch booking!.vehicleType {
-        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
             type = "TAXI"
             
         case VehicleType.KTCityTaxi7Seater.rawValue:
             type = "7 SEATER"
             
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "A.TAXI"
+
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
             
@@ -408,7 +411,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
             img = UIImage(named:"MyTripNoRideFound")
         case BookingStatus.PICKUP.rawValue:
-            img = UIImage.gifImageWithName("MyTripHired")
+//            img = UIImage.gifImageWithName("MyTripHired")
+            img = UIImage(named:"MyTripsHired")
         default:
             img = UIImage()
             print("Do nothing")
@@ -721,17 +725,16 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         var img : UIImage?
         switch booking?.vehicleType  {
-        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?,VehicleType.KTSpecialNeedTaxi.rawValue?:
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?:
             img = UIImage(named:"BookingMapTaxiIco")
-            
         case VehicleType.KTCityTaxi7Seater.rawValue?:
             img = UIImage(named: "BookingMap7Ico")
-            
+        case VehicleType.KTSpecialNeedTaxi.rawValue?:
+        img = UIImage(named: "BookingMapSpecialNeedIco")
         case VehicleType.KTStandardLimo.rawValue?:
             img = UIImage(named: "BookingMapStandardIco")
         case VehicleType.KTBusinessLimo.rawValue?:
             img = UIImage(named: "BookingMapBusinessIco")
-            
         case VehicleType.KTLuxuryLimo.rawValue?:
             img = UIImage(named: "BookingMapLuxuryIco")
         default:

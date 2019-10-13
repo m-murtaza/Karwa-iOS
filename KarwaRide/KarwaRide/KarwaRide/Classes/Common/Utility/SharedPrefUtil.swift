@@ -91,4 +91,16 @@ class SharedPrefUtil
             return true
         }
     }
+    
+    public static func resetRideIfRequired()
+    {
+//        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let currBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        let buildNo = Int(currBuild)!
+
+        if(buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION)
+        {
+            KTDALManager().resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+        }
+    }
 }

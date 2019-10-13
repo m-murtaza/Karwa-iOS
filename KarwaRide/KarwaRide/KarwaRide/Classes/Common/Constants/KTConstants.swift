@@ -24,7 +24,7 @@ enum VehicleType: Int16 {
     case KTCityTaxi7Seater = 11
     case KTAiport7Seater = 3
     case KTAirportSpare = 5
-    case KTSpecialNeedTaxi = 10
+    case KTSpecialNeedTaxi = 60
 //    case KTAiportTaxi = 11
     case KTCompactLimo = 20
     case KTStandardLimo = 30
@@ -107,6 +107,7 @@ struct Constants {
     
     static let SCAN_N_PAY_ENABLE:Bool = true
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
+    static let SERVER_DATE_FORMAT_WITHOUT_T: String = "yyyy-MM-dd HH:mm:ss"
     static let SERVER_DATE_ONLY_FORMAT: String = "dd-MM-yyyy"
     
     static let GOOGLE_DIRECTION_API_KEY: String = "AIzaSyBuQWTg0UryYGD0uPyUQI6RKk08kvZ0fgY"
@@ -114,6 +115,9 @@ struct Constants {
     //static let GOOGLE_SNAPTOROAD_API_KEY : String = "AIzaSyDorclvVWhNvrFshylfWcRK1iCN03N4KuM"
     
     static let MIN_PASSWORD_LENGTH : Int = 6
+    
+    static let APP_REQUIRE_VEHICLE_UPDATE_VERSION : Int = 131
+    
     struct StoryBoardId {
         static let LeftMenu = "LeftMenuViewController"
         static let LoginView = "FirstViewController"
@@ -491,6 +495,8 @@ struct Constants {
         static let CancelReason = "syncTime"
         static let RatingReason = "syncTime"
         static let Complaints = "syncTime"
+        static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
+        static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
     }
     
     

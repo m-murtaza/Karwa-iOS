@@ -214,12 +214,15 @@ class KTMyTripsViewModel: KTBaseViewModel {
         
         var type : String = ""
         switch (bookings![idx] as KTBooking).vehicleType {
-        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue,VehicleType.KTSpecialNeedTaxi.rawValue:
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
             type = "TAXI"
         
         case VehicleType.KTCityTaxi7Seater.rawValue:
             type = "7 SEATER"
-            
+        
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "A.TAXI"
+
         case VehicleType.KTStandardLimo.rawValue:
             type = "STANDARD"
         
@@ -253,7 +256,8 @@ class KTMyTripsViewModel: KTBaseViewModel {
         case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
             imgName = "MyTripNoRideFound"
         case BookingStatus.PICKUP.rawValue:
-            img = UIImage.gifImageWithName("MyTripHired")
+//            img = UIImage.gifImageWithName("MyTripHired")
+            imgName = "MyTripsHired"
         default:
             img = UIImage()
             print("Do nothing")
