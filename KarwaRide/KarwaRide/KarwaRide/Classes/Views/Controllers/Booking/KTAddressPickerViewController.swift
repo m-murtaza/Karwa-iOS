@@ -276,12 +276,21 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         txtDropAddress.tintColor = UIColor(hexString:"#006170")
         txtDropAddress.backgroundColor = UIColor.white
         
-        if selectedTxtField == SelectedTextField.PickupAddress {
-            txtPickAddress.becomeFirstResponder()
+        if selectedTxtField == SelectedTextField.PickupAddress
+        {
+            self.txtDropAddress.becomeFirstResponder()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
+            {
+                self.txtPickAddress.becomeFirstResponder()
+            }
         }
-        else {
-            
-            txtDropAddress.becomeFirstResponder()
+        else
+        {
+            self.txtPickAddress.becomeFirstResponder()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
+            {
+                self.txtDropAddress.becomeFirstResponder()
+            }
         }
     }
     
