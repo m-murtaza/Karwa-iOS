@@ -271,6 +271,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
                                       Constants.GetEstimateParam.PickLongitude : pickup.longitude,
                                       Constants.GetEstimateParam.PickTime : time,
+                                      Constants.SyncParam.QUERY_PARAM_VEHICLE_TYPES : Constants.SyncParam.VEHICLE_TYPES_ALL,
                                       Constants.GetEstimateParam.PromoCode : promo]
         
         self.get(url: Constants.APIURL.GetInitialFareForPromo, param: param, completion: complitionBlock)
