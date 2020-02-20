@@ -172,7 +172,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
             fetchEstimates()
             registerForMinuteChange()
-            drawDirectionOnMap()
             showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showCoachmarkTwoIfRequired()
         }
