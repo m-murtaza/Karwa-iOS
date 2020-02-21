@@ -169,9 +169,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
 
             resetPromo()
             resetPromoOrBaseFare()
-            
             fetchEstimates()
             registerForMinuteChange()
+            drawDirectionOnMap(encodedPath: "")
             showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showCoachmarkTwoIfRequired()
         }
