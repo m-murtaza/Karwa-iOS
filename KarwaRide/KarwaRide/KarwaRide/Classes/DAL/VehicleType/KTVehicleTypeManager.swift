@@ -233,7 +233,6 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     }
 
     func fetchEstimate(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, complition complitionBlock:@escaping KTDALCompletionBlock ) {
-        
         let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
                                       Constants.GetEstimateParam.PickLongitude : pickup.longitude,
                                       Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
@@ -244,35 +243,45 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         
         self.get(url: Constants.APIURL.GetEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
             
-            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+
+//            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+            
+            let estimatesBean = response[Constants.BookingResponseAPIKey.Estimates] as! [Any]
+            self.saveEstimates(response: estimatesBean)
+
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
 
     func fetchEstimateForPromo(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, promo: String, complition complitionBlock:@escaping KTDALCompletionBlock ) {
-        
         let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
                                       Constants.GetEstimateParam.PickLongitude : pickup.longitude,
                                       Constants.GetEstimateParam.DropLatitude : dropoff.latitude,
                                       Constants.GetEstimateParam.DropLongitude : dropoff.longitude,
                                       Constants.GetEstimateParam.PickTime : time,
                                       Constants.GetEstimateParam.PromoCode : promo,
+                                      Constants.SyncParam.QUERY_PARAM_INCLUDE_PATH : "true",
                                       Constants.SyncParam.QUERY_PARAM_VEHICLE_TYPES : Constants.SyncParam.VEHICLE_TYPES_ALL]
         
         self.get(url: Constants.APIURL.GetPromoEstimate, param: param, completion: complitionBlock) { (response, cBlock) in
             
-            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+//            let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as! String
+            let estimatesBean = response[Constants.BookingResponseAPIKey.Estimates] as! [Any]
+            self.saveEstimates(response: estimatesBean)
+
+//            self.saveEstimates(response: response[Constants.ResponseAPIKey.Data] as! [Any])
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------
     func fetchEstimateForPromo(pickup : CLLocationCoordinate2D, time: TimeInterval, promo: String, complition complitionBlock:@escaping KTDALCompletionBlock ) {
-        
+
         let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,
                                       Constants.GetEstimateParam.PickLongitude : pickup.longitude,
                                       Constants.GetEstimateParam.PickTime : time,
                                       Constants.SyncParam.QUERY_PARAM_VEHICLE_TYPES : Constants.SyncParam.VEHICLE_TYPES_ALL,
+                                      Constants.SyncParam.QUERY_PARAM_INCLUDE_PATH : "true",
                                       Constants.GetEstimateParam.PromoCode : promo]
         
         self.get(url: Constants.APIURL.GetInitialFareForPromo, param: param, completion: complitionBlock)

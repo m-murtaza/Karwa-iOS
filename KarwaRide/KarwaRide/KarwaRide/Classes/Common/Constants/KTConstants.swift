@@ -263,6 +263,8 @@ struct Constants {
         static let Fare = "Fare"
         static let Tip = "DriverTip"
         
+        static let Estimates = "Estimates"
+        static let EncodedPath = "EncodedPath"
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"
         static let PickupLon = "PickupLon"

@@ -337,24 +337,27 @@ extension KTCreateBookingViewController
     }
     
     public func addPointsOnMap(points: String) {
-        path = GMSPath.init(fromEncodedPath: points)!
-        polyline = GMSPolyline.init(path: path)
-        polyline.strokeWidth = 3
-        polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-        polyline.map = self.mapView
-        
-        var bounds = GMSCoordinateBounds()
-        for index in 1 ... (path.count().toInt) {
-            bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
+        if(!points.isEmpty)
+        {
+            path = GMSPath.init(fromEncodedPath: points)!
+            polyline = GMSPolyline.init(path: path)
+            polyline.strokeWidth = 3
+            polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+            polyline.map = self.mapView
+            
+            var bounds = GMSCoordinateBounds()
+            for index in 1 ... (path.count().toInt) {
+                bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
+            }
+            
+            mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
+            
+            bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+            self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+            
+            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
+            addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
         }
-        
-        mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
-        
-        bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
-        self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-        
-        addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
     }
     
     @objc func animatePolylinePath() {

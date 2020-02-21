@@ -424,7 +424,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 self.isEstimeting = false
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self.estimates = KTVehicleTypeManager().estimates()
+                    
+                    let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
                     self.del?.updateVehicleTypeList()
+                    self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
                 }
                 else {
                     if self.estimates != nil{
@@ -469,7 +472,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
                             self.del?.setPromoButtonLabel(validPromo: promoEntered)
                             self.estimates = KTVehicleTypeManager().estimates()
+                            
+                            let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
                             self.del?.updateVehicleTypeList()
+                            self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
                         }
                         else
                         {
@@ -487,7 +493,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             else if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != ""
             {
 //                isEstimeting = true
-
+                
                 KTVehicleTypeManager().fetchEstimateForPromo(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), promo: promoEntered, complition: { (status, response) in
                     //            self.isEstimeting = false
                     
@@ -497,7 +503,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
                         self.del?.setPromoButtonLabel(validPromo: promoEntered)
                         self.estimates = KTVehicleTypeManager().estimates()
+                        
+                        let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
                         self.del?.updateVehicleTypeList()
+                        self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
                     }
                     else
                     {
@@ -586,12 +595,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return title
     }
     //MARK: - Direction / Polyline on Map
-    private func drawDirectionOnMap() {
+    public func drawDirectionOnMap(encodedPath: String) {
         
         (delegate as! KTCreateBookingViewModelDelegate).clearMap()
         if isPickAvailable() && isDropAvailable() {
             //if both pickup and dropoff are available then draw path.
-            drawPath()
+            drawPath(encodedPath: encodedPath)
         }
         else {
             
@@ -615,7 +624,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
     
-    func drawPath(){
+    func drawPath(encodedPath: String){
+
+        (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: encodedPath)
+        
         if(Constants.DIRECTIONS_API_ENABLE)
         {
             let origin = String(format:"%f", booking.pickupLat) + "," + String(format:"%f", booking.pickupLon)
@@ -1294,6 +1306,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
                             self.estimates = KTVehicleTypeManager().estimates()
                             self.del?.updateVehicleTypeList()
+                            self.drawDirectionOnMap(encodedPath: "")
                             self.fetchEstimates()
                     }
                 }
