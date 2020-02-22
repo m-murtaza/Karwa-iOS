@@ -588,7 +588,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                         self.booking?.bookingStatus = BookingStatus.PICKUP.rawValue
                         self.isHiredShown = true
                         self.del?.updateBookingStatusOnCard(true)
-                        self.del?.hideEtaView()
+//                        self.del?.hideEtaView()
                     }
                     
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
@@ -708,7 +708,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else
         {
-            print("Direction API is disabled, please enable it from Constants.DIRECTIONS_API_ENABLE to see the route on map")
+            drawPath(encodedPath: ride.encodedPath)
         }
     }
     
@@ -721,6 +721,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         track.bearing = (rtrack["Bearing"] as! NSNumber).floatValue
         track.eta = rtrack["CurrentETA"] as! Int64
         track.status = rtrack["Status"] as! Int
+        track.encodedPath = rtrack["EncodedPath"] as! String
         track.trackType = VehicleTrackType.vehicle
         return track
     }
@@ -747,148 +748,21 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return img!
     }
     
-    //MARK: - Direction / Polyline on Map
-    public func drawDirectionOnMap(encodedPath: String) {
-        
-//        (delegate as! KTCreateBookingViewModelDelegate).clearMap()
-//        if isDropAvailable() {
-//            //if both pickup and dropoff are available then draw path.
-//            drawPath(encodedPath: encodedPath)
-//        }
-//        else {
-//
-//            if(isPickAvailable() && !isDropAvailable())
-//            {
-//                (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
-//                (delegate as! KTCreateBookingViewModelDelegate).focusOnLocation(lat: booking!.pickupLat, lon: booking!.pickupLon)
-//            }
-//            else
-//            {
-//                //else draw point what ever is available
-//                if isPickAvailable() {
-//                    //Setting Pick marker
-//                    (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
-//                }
-//
-//                if isDropAvailable() {
-//                    (delegate as! KTCreateBookingViewModelDelegate).addMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
-//                }
-//            }
-//        }
-    }
-    
     func drawPath(encodedPath: String){
 
         (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
         
-        if(Constants.DIRECTIONS_API_ENABLE)
-        {
-            let origin = String(format:"%f", booking!.pickupLat) + "," + String(format:"%f", booking!.pickupLon)
-            //"\(String(describing: pickUpAddress?.latitude)),\(String(describing: pickUpAddress?.longitude))"
-            let destination = String(format:"%f", booking!.dropOffLat) + "," + String(format:"%f", booking!.dropOffLon)
-            //"\(String(describing: dropOffAddress?.latitude)),\(String(describing: dropOffAddress?.longitude))"
-            
-            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_DIRECTION_API_KEY)"
-            print(url)
-            Alamofire.request(url, method: .get, parameters: nil, headers: nil).responseJSON { (response:DataResponse<Any>) in
-                //print(response)
-                
-                switch(response.result) {
-                case .success(_):
-                    if response.result.value != nil{
-                        do {
-                            let json = try JSON(data: response.data!)
-                            
-                            let routes = json["routes"].arrayValue
-                            
-                            for route in routes
-                            {
-                                let routeOverviewPolyline = route["overview_polyline"].dictionary
-                                let points = routeOverviewPolyline?["points"]?.stringValue
-                                
-                                (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: points!)
-                            }
-                        }
-                        catch _ {
-                            
-                            print("Error: Unalbe to draw polyline. ")
-                        }
-                    }
-                    break
-                    
-                case .failure(_):
-                    print(response.result.error as Any)
-                    break
-                }
-            }
-        }
-        else
-        {
-            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
-            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
-            
-            var pickDropMarkers = [GMSMarker]()
-            pickDropMarkers.append(pickMarker)
-            pickDropMarkers.append(dropMarker)
-            
-            (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
-        }
+        
+        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+        let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+        
+        var pickDropMarkers = [GMSMarker]()
+        pickDropMarkers.append(pickMarker)
+        pickDropMarkers.append(dropMarker)
+        
+        (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
     }
-//    func snapTrackToRoad(track : String) {
-//        let url = "https://roads.googleapis.com/v1/snapToRoads?path=\(track)&interpolate=true&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
-//        //let url = "https://maps.googleapis.com/maps/api/directions/json?origin=25.269500,51.533400&destination=25.269900,51.532800&mode=driving&key=AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
-//
-//        //let url = "https://roads.googleapis.com/v1/snapToRoads?path=-35.27801,149.12958|-35.28032,149.12907|-35.28099,149.12929|-35.28144,149.12984|-35.28194,149.13003|-35.28282,149.12956|-35.28302,149.12881|-35.28473,149.12836&interpolate=true&key=AIzaSyCcK4czilOp9CMilAGmbq47i6HQk18q7Tw"
-//
-//
-//        let encodedUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-//
-//        Alamofire.request(encodedUrl!, method: .get, parameters: nil, headers: nil).responseJSON { (response:DataResponse<Any>) in
-//            print(response)
-//
-//            switch(response.result) {
-//            case .success(_):
-//                if response.result.value != nil{
-//                    do {
-//                        guard response.result.isSuccess else {
-//                            return
-//                        }
-//                        guard response.response?.statusCode == 200 else {
-//                            return
-//                        }
-//                        let json = try JSON(data: response.data!)
-//                        let path = GMSMutablePath()
-//
-//                        for p in json["snappedPoints"].object as! [ Dictionary<String,Any>] {
-//                            path.add(CLLocationCoordinate2D(latitude: (p["location"] as! [AnyHashable: Any])["latitude"] as! CLLocationDegrees, longitude: (p["location"] as! [AnyHashable: Any])["longitude"] as! CLLocationDegrees))
-//                        }
-//
-//                        self.del?.showPathOnMap(path: path)
-//                        //print(json)
-//                        /*let routes = json["routes"].arrayValue
-//
-//                         for route in routes
-//                         {
-//                         let routeOverviewPolyline = route["overview_polyline"].dictionary
-//                         let points = routeOverviewPolyline?["points"]?.stringValue
-//
-//                         (self.delegate as! KTCreateBookingViewModelDelegate).addPointsOnMap(points: points!)
-//                         }*/
-//                    }
-//                    catch _ {
-//
-//                        print("Error: Unalbe to draw polyline. ")
-//                    }
-//                }
-//                break
-//
-//            case .failure(_):
-//                print(response.result.error as Any)
-//                break
-//            }
-//        }
-//    }
-    
+
     //MARK:- Bottom Bar buttons
     func updateBottomBarButtons() {
         

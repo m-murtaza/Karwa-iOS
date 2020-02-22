@@ -661,8 +661,23 @@ class KTTrackTripViewModel: KTBaseViewModel {
         }
         else
         {
-            print("Direction API is disabled, please enable it from Constants.DIRECTIONS_API_ENABLE to see the route on map")
+            drawPath(encodedPath: ride.encodedPath)
         }
+    }
+    
+    func drawPath(encodedPath: String){
+
+        (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
+        
+        
+        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+        let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+        
+        var pickDropMarkers = [GMSMarker]()
+        pickDropMarkers.append(pickMarker)
+        pickDropMarkers.append(dropMarker)
+        
+        (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
     }
     
     func parseVehicleTrack(track rtrack : [AnyHashable:Any]) -> VehicleTrack {
@@ -675,6 +690,7 @@ class KTTrackTripViewModel: KTBaseViewModel {
         track.eta = rtrack["CurrentETA"] as! Int64
         track.status = rtrack["Status"] as! Int
         track.trackType = VehicleTrackType.vehicle
+        track.encodedPath = rtrack["EncodedPath"] as! String
         return track
     }
     
