@@ -146,6 +146,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     var gmsMarker : Array<GMSMarker> = Array()
+
     var polyline = GMSPolyline()
     weak var animationPolyline = GMSPolyline()
     var path = GMSPath()
@@ -155,6 +156,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var bgPolylineColor : UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
 
     public func addPointsOnMap(encodedPath points: String) {
+        removeOldPolyline()
         if(!points.isEmpty)
         {
             path = GMSPath.init(fromEncodedPath: points)!
@@ -176,6 +178,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
 //            addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
         }
+    }
+    
+    func removeOldPolyline()
+    {
+        polyline.map = nil
     }
     
     @objc func animatePolylinePath() {
@@ -324,6 +331,15 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
+        
+        return marker
+    }
+    
+    func getMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
+        let marker = GMSMarker()
+        marker.position = location
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         
         return marker
     }

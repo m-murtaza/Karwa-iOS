@@ -671,11 +671,15 @@ class KTTrackTripViewModel: KTBaseViewModel {
         
         
         let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
-        let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
-        
+
         var pickDropMarkers = [GMSMarker]()
         pickDropMarkers.append(pickMarker)
-        pickDropMarkers.append(dropMarker)
+        
+        if(booking!.dropOffLat != 0)
+        {
+            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            pickDropMarkers.append(dropMarker)
+        }
         
         (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
     }
@@ -690,7 +694,10 @@ class KTTrackTripViewModel: KTBaseViewModel {
         track.eta = rtrack["CurrentETA"] as! Int64
         track.status = rtrack["Status"] as! Int
         track.trackType = VehicleTrackType.vehicle
-        track.encodedPath = rtrack["EncodedPath"] as! String
+        if let encodedPath = rtrack["EncodedPath"] as? String
+        {
+            track.encodedPath = encodedPath
+        }
         return track
     }
     
