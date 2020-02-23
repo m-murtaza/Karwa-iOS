@@ -119,9 +119,30 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     
-    //MARK:- ETA View
     func updateEta() {
-        if((booking != nil && booking!.eta < 1) || (booking?.bookingStatus == BookingStatus.COMPLETED.rawValue || booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.dropOffLat == 0))
+        updateEta(eta: "")
+    }
+    
+    //MARK:- ETA View
+    func updateEta(eta: String) {
+        var etaVal = ""
+        if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.PICKUP.rawValue
+        {
+            del?.showEtaView()
+            if(eta == "")
+            {
+                etaVal = eta
+                del?.updateEta(eta: etaVal)
+            }
+            else
+            {
+                etaVal = eta
+                del?.updateEta(eta: etaVal)
+            }
+            
+        }
+        
+        if(booking?.bookingStatus == BookingStatus.COMPLETED.rawValue || booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || etaVal == "0 min" || (booking?.bookingStatus == BookingStatus.PICKUP.rawValue && booking?.dropOffLat == 0))
         {
             del?.hideEtaView()
         }
@@ -129,11 +150,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         {
             del?.showEtaView()
         }
-        if booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue
-        {
-            del?.showEtaView()
-            del?.updateEta(eta: formatedETA(eta: booking!.eta))
-        }
+        
     }
     
     func formatedETA(eta: Int64) -> String {
@@ -610,7 +627,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                     {
                         self.del?.updateMapCamera()
                     }
-                    self.updateEta()
+                    self.updateEta(eta: self.formatedETA(eta: vtrack.eta))
 //                    self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
                 }
                 else
@@ -718,16 +735,34 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else
         {
-            drawPath(encodedPath: ride.encodedPath)
+            drawPath(encodedPath: ride.encodedPath, vTrack: ride)
 //            focusMarkers(vTrack: ride)
         }
     }
     
     func drawPath(encodedPath: String) {
 
-        (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
+        drawPath(encodedPath: encodedPath, vTrack: nil)
+    }
+    
+    func drawPath(encodedPath: String, vTrack: VehicleTrack?) {
 
-        if(!isPickDropMarked)
+        (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
+        
+        if(vTrack != nil && booking?.dropOffLat == 0)
+        {
+            var pickDropMarkers = [GMSMarker]()
+
+            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+
+            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: (vTrack?.position.latitude)!,longitude: (vTrack?.position.longitude)!) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            
+            pickDropMarkers.append(dropMarker)
+            pickDropMarkers.append(pickMarker)
+
+            (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
+        }
+        else if(!isPickDropMarked)
         {
             let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
 
