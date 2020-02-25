@@ -45,7 +45,11 @@ protocol KTTrackTripViewModelDelegate: KTViewModelDelegate {
     func updateMapCamera()
     func getTrackTripId() -> String
     func updateBookingStatusOnCard(_ withAnimation: Bool)
-    
+    func addPointsOnMap(encodedPath: String)
+    func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker
+    func getMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker
+    func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>)
+
 }
 
 class KTTrackTripViewModel: KTBaseViewModel {
@@ -485,10 +489,11 @@ class KTTrackTripViewModel: KTBaseViewModel {
             del?.clearMaps()
             showPickDropMarker(showOnlyPickup: false)
 
-            if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false
+            if booking?.encodedPath != nil && booking?.encodedPath?.isEmpty == false
             {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-                snapTrackToRoad(track: (booking?.tripTrack)!)
+
+                drawPath(encodedPath: booking?.encodedPath ?? "")
             }
         }
         else
@@ -575,6 +580,8 @@ class KTTrackTripViewModel: KTBaseViewModel {
         }
     }
     
+    var isMapCameraUpdated = false
+
     @objc func fetchTaxiForTracking()
     {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
@@ -596,9 +603,10 @@ class KTTrackTripViewModel: KTBaseViewModel {
                         self.del?.showSuccessBanner("  ", "Trip has been started")
                     }
                     
-                    if(bStatus != BookingStatus.PICKUP)
+                    if(bStatus != BookingStatus.PICKUP && !self.isMapCameraUpdated)
                     {
                         self.del?.updateMapCamera()
+                        self.isMapCameraUpdated = true
                     }
                     
                     self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
@@ -631,57 +639,32 @@ class KTTrackTripViewModel: KTBaseViewModel {
     
     private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
-        if(Constants.DIRECTIONS_API_ENABLE)
-        {
-            let origin = "\(ride.position.latitude),\(ride.position.longitude)"
-            let destination = "\(lat),\(long)"
-            
-            
-            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
-            
-            Alamofire.request(url).responseJSON { response in
-                
-                do
-                {
-                    let json = try JSON(data: response.data!)
-                    let routes = json["routes"].arrayValue
-                    
-                    for route in routes
-                    {
-                        let routeOverviewPolyline = route["overview_polyline"].dictionary
-                        let points = routeOverviewPolyline?["points"]?.stringValue
-                        
-                        self.del?.showRouteOnMap(points: points!)
-                    }
-                } catch
-                {
-                    
-                }
-            }
-        }
-        else
-        {
-            drawPath(encodedPath: ride.encodedPath)
-        }
+        drawPath(encodedPath: ride.encodedPath)
     }
+    
+    var isPickDropMarkerDrawn = false
     
     func drawPath(encodedPath: String){
 
-        (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
+        (self.delegate as! KTTrackTripViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
         
-        
-        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
-
-        var pickDropMarkers = [GMSMarker]()
-        pickDropMarkers.append(pickMarker)
-        
-        if(booking!.dropOffLat != 0)
+        if(!isPickDropMarkerDrawn)
         {
-            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
-            pickDropMarkers.append(dropMarker)
+            let pickMarker = (delegate as! KTTrackTripViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+
+            var pickDropMarkers = [GMSMarker]()
+            pickDropMarkers.append(pickMarker)
+
+            if(booking!.dropOffLat != 0)
+            {
+                let dropMarker = (delegate as! KTTrackTripViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+                pickDropMarkers.append(dropMarker)
+            }
+            
+            isPickDropMarkerDrawn = true
         }
-        
-        (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
+//
+//        (delegate as! KTTrackTripViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
     }
     
     func parseVehicleTrack(track rtrack : [AnyHashable:Any]) -> VehicleTrack {

@@ -190,6 +190,75 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
             navController.popViewController(animated: true)
         }
     }
+    
+    var polyline = GMSPolyline()
+        weak var animationPolyline = GMSPolyline()
+        var path = GMSPath()
+        var animationPath = GMSMutablePath()
+        var i: UInt = 0
+        var timer: Timer!
+        var bgPolylineColor : UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
+
+        public func addPointsOnMap(encodedPath points: String) {
+            removeOldPolyline()
+            if(!points.isEmpty)
+            {
+                path = GMSPath.init(fromEncodedPath: points)!
+                polyline = GMSPolyline.init(path: path)
+                polyline.strokeWidth = 3
+                polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+                polyline.map = self.mapView
+                
+                var bounds = GMSCoordinateBounds()
+                for index in 1 ... (path.count().toInt) {
+                    bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
+                }
+                
+                mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
+                
+                bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+                self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+                
+    //            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
+    //            addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
+            }
+        }
+        
+        func removeOldPolyline()
+        {
+            polyline.map = nil
+        }
+        
+        @objc func animatePolylinePath() {
+                
+                if (self.i < self.path.count()) {
+                    
+                    self.animationPath.add(self.path.coordinate(at: self.i))
+                    self.animationPolyline?.path = self.animationPath
+                    self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+                    self.animationPolyline?.strokeWidth = 4
+                    self.animationPolyline?.map = nil
+                    self.animationPolyline?.map = self.mapView
+                    self.i += 1
+                }
+                else if self.i == self.path.count() {
+                    timer.invalidate()
+                    self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+                    self.i += 1
+                    
+                    //self.i = 0
+                    self.animationPath = GMSMutablePath()
+                    self.animationPolyline?.map = nil
+                    polyline.strokeColor = bgPolylineColor
+                }
+                else {
+                    
+                    self.i = 0
+                    
+                    timer.invalidate()
+        //            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+                }
+            }
     //MARK:- Assignment Info
     
     func updateAssignmentInfo() {
@@ -399,7 +468,7 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 120.0)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 110.0)
         mapView.animate(with: update!)
     }
     
@@ -421,7 +490,41 @@ class KTTrackTripViewController: KTBaseDrawerRootViewController, GMSMapViewDeleg
         addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
     }
     
-    var polyline = GMSPolyline()
+    func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
+        
+        var bounds = GMSCoordinateBounds()
+        for marker: GMSMarker in gmsMarker {
+            bounds = bounds.includingCoordinate(marker.position)
+        }
+        
+        var update : GMSCameraUpdate?
+        update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
+        
+        CATransaction.begin()
+        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+        mapView.animate(with: update!)
+        CATransaction.commit()
+    }
+    
+    func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+        
+        return marker
+    }
+    
+    func getMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
+        let marker = GMSMarker()
+        marker.position = location
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        
+        return marker
+    }
     
     func showRouteOnMap(points pointsStr: String)
     {
