@@ -263,6 +263,8 @@ struct Constants {
         static let Fare = "Fare"
         static let Tip = "DriverTip"
         
+        static let Estimates = "Estimates"
+        static let EncodedPath = "EncodedPath"
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"
         static let PickupLon = "PickupLon"
@@ -275,7 +277,7 @@ struct Constants {
         
         static let VehicleNo = "VehicleNo"
         static let VehicleType = "VehicleType"
-        
+
         static let TripSummary = "OrderedTripSummary"
         
         static let IsRated = "IsRated"
@@ -496,6 +498,7 @@ struct Constants {
         static let RatingReason = "syncTime"
         static let Complaints = "syncTime"
         static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
+        static let QUERY_PARAM_INCLUDE_PATH = "includePath"
         static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
     }
     

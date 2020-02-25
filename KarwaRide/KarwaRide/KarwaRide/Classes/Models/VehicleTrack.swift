@@ -23,6 +23,7 @@ class VehicleTrack: NSObject {
     var etaText : String
     var status : Int
     var trackType : VehicleTrackType
+    var encodedPath : String
     
      override init() {
         
@@ -34,6 +35,7 @@ class VehicleTrack: NSObject {
         etaText = ""
         status = 1
         trackType = VehicleTrackType.vehicle
+        encodedPath = ""
         super.init()
     }
     
