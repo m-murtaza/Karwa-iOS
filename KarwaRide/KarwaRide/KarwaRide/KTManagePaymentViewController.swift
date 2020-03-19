@@ -14,8 +14,9 @@ import Spring
 import CDAlertView
 import AVFoundation
 import AlertOnboarding
+import PassKit
 
-class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
+class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate
 {
      @IBOutlet weak var tableView: UITableView!
 
@@ -83,9 +84,13 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         alertView.show()
     }
     
+    var applePayButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
+
     override func viewWillAppear(_ animated: Bool)
     {
         btnAdd.isHidden = true
+
+        applePayButton.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -379,6 +384,29 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         return isPermissionGiven
     }
     
+    
+    //TODO:
+    @objc func applePayAction() {
+        guard let request = vModel?.transaction!.pkPaymentRequest, let apvc = PKPaymentAuthorizationViewController(paymentRequest: request) else { return }
+        apvc.delegate = self
+        self.present(apvc, animated: true, completion: nil)
+    }
+    
+    public func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        controller.dismiss(animated: true) {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        vModel?.transaction?.applePayPayment = payment
+        self.completion?((vModel?.transaction!)!)
+        completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+    }
+
+    var completion: ((Transaction) -> Void)?
+    var cancelled: (() -> Void)?
+
     internal func show3dSecureController(_ html:String)
     {
         // create the Gateway3DSecureViewController
