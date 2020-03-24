@@ -90,12 +90,12 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     {
         btnAdd.isHidden = true
 
-        applePayButton.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
+//        applePayButton.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
         
-        applePayButton.translatesAutoresizingMaskIntoConstraints = false
-        applePayButton.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[applePayButton(==300)]", options: [], metrics: nil, views: ["applePayButton": applePayButton]))
-        applePayButton.addConstraint(NSLayoutConstraint(item: applePayButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100))
-        self.view.addSubview(applePayButton)
+//        applePayButton.translatesAutoresizingMaskIntoConstraints = false
+//        applePayButton.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[applePayButton(==300)]", options: [], metrics: nil, views: ["applePayButton": applePayButton]))
+//        applePayButton.addConstraint(NSLayoutConstraint(item: applePayButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100))
+//        self.view.addSubview(applePayButton)
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -274,7 +274,8 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     }
     
     @IBAction func btnAddCardTapped(_ sender: Any) {
-        vModel?.addCardButtonTapped()
+//        vModel?.addCardButtonTapped()
+        applePayAction()
     }
     
     
@@ -397,9 +398,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         self.present(apvc, animated: true, completion: nil)
     }
     
+    // We are getting this delegate called on approval
     public func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true) {
-//            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
         }
     }
     
