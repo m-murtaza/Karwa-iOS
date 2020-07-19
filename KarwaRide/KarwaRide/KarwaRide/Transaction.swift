@@ -28,9 +28,9 @@ struct Transaction {
     var session: GatewaySession?
     
     // basic transaction properties
-    var amount: NSDecimalNumber = 1.0
-    var amountString = "1.00"
-    var amountFormatted = "QAR1.00"
+    var amount: NSDecimalNumber = 100.0
+    var amountString = "100.00"
+    var amountFormatted = "QAR100.00"
     var currency = "QAR"
     var summary = "Some transaction"
     
@@ -43,8 +43,9 @@ struct Transaction {
     
     // Apple Pay Information
     var applePayMerchantIdentifier: String? = "merchant.mowasalat.karwa.taxi"
+//    var applePayMerchantIdentifier: String? = "KTQNB01"
     var countryCode = "QA"
-    var supportedNetworks: [PKPaymentNetwork] = [.visa, .masterCard, .discover, .amex]
+    var supportedNetworks: [PKPaymentNetwork] = [.visa, .masterCard]
     var applePayPayment: PKPayment?
     
     var isApplePay: Bool {
