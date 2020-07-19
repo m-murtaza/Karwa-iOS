@@ -25,7 +25,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     }
     
     func fetchInitialTariffLocal() {
-        if !tariffAvalible() || freshSynced(){
+        if !tariffAvalible() || freshSyncedForTariff(){
             //Tariff not available
             do {
                 
@@ -43,6 +43,14 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             }
         }
         
+    }
+    
+    func freshSyncedForTariff() -> Bool
+    {
+        let currBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        let buildNo = Int(currBuild)!
+
+        return buildNo > Constants.APP_REQUIRE_VEHICLE_REMOVAL_VERSION
     }
     
     func freshSynced() -> Bool
