@@ -363,7 +363,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: AppUpdateNotifier {
     func onVersionUpdate(newVersion: Int, oldVersion: Int) {
-//        resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+        resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
     }
 
     func resetSyncTime(forKey key: String) {
