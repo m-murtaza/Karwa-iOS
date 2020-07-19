@@ -98,7 +98,7 @@ class SharedPrefUtil
         let currBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         let buildNo = Int(currBuild)!
 
-        if(buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION)
+        if(buildNo > Constants.APP_REQUIRE_VEHICLE_REMOVAL_VERSION)
         {
             KTDALManager().resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
         }
