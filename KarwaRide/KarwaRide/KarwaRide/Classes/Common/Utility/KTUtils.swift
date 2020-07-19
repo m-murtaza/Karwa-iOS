@@ -81,11 +81,11 @@ class KTUtils
             backgroundName = "EtaToCustomerBack5"
         case 2:
             backgroundName = "EtaToCustomerBack6"
+//        case 3:
+//            backgroundName = "EtaToCustomerBack2"
         case 3:
-            backgroundName = "EtaToCustomerBack2"
-        case 4:
             backgroundName = "EtaToCustomerBack3"
-        case 5:
+        case 4:
             backgroundName = "EtaToCustomerBack4"
         default:
             backgroundName = "EtaToCustomerBack1"
