@@ -14,9 +14,8 @@ import Spring
 import CDAlertView
 import AVFoundation
 import AlertOnboarding
-import PassKit
 
-class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, PKPaymentAuthorizationViewControllerDelegate
+class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePaymentViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource
 {
      @IBOutlet weak var tableView: UITableView!
 
@@ -84,19 +83,9 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         alertView.show()
     }
     
-    var applePayButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
-
     override func viewWillAppear(_ animated: Bool)
     {
         btnAdd.isHidden = true
-
-        applePayButton.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
-        applePayButton.isHidden = true;
-        
-//        applePayButton.translatesAutoresizingMaskIntoConstraints = false
-//        applePayButton.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[applePayButton(==300)]", options: [], metrics: nil, views: ["applePayButton": applePayButton]))
-//        applePayButton.addConstraint(NSLayoutConstraint(item: applePayButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100))
-//        self.view.addSubview(applePayButton)
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -274,12 +263,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         tableView.reloadData()
     }
     
-    @IBAction func btnAddCardTapped(_ sender: Any) {
-//        vModel?.addCardButtonTapped()
-        applePayAction()
+    @IBAction func addCardTapped(_ sender: Any) {
+        vModel?.addCardButtonTapped()
     }
-    
-    
+
     func showAddCardVC()
     {
         presentAddCardViewController()
@@ -390,71 +377,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         }
         return isPermissionGiven
     }
-    
-    
-    //TODO:
-    @objc func applePayAction() {
-        guard let request = vModel?.transaction!.pkPaymentRequest, let apvc = PKPaymentAuthorizationViewController(paymentRequest: request) else { return }
-        apvc.delegate = self
-        self.present(apvc, animated: true, completion: nil)
-    }
-    
-    // We are getting this delegate called on approval
-    public func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        controller.dismiss(animated: true) {
-            //self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        print("Payment Token:")
-        processToken(payment: payment)
-        vModel?.transaction?.applePayPayment = payment
-        self.completion?((vModel?.transaction!)!)
-        completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
-    }
 
-    func processToken(payment: PKPayment)
-    {
-        let paymentDataDictionary: [AnyHashable: Any]? = try? JSONSerialization.jsonObject(with: payment.token.paymentData, options: .mutableContainers) as! [AnyHashable : Any]
-        
-//        let versoin = paymentDataDictionary["version"] as! String
-        
-//        "paymentToken":"{\r\n\t\"version\": \"EC_v1\",\r\n\t\"data\": \"WO\/fTbdARsB1Rg3tS4ISwNG4cWDRk3JZDSbP32iDdeMP7UFouS...\",\r\n\t\"signature\": \"MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkg...\",\r\n\t\"header\": {\r\n\t\t\"transactionId\": \"c162557e7ae1c69a47583bc2364d1a3e531428d13fb664032f9e09fa37381fc1\",\r\n\t\t\"ephemeralPublicKey\": \"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMeuRqVEOZAQ...\",\r\n\t\t\"publicKeyHash\": \"tBGp1mEoHLiHwfOkazpKVbf3cMKmVS98PGufUJ2Q3ys=\"\r\n\t}\r\n}"
-        
-        var paymentType: String = "debit"
-
-        var paymentMethodDictionary: [AnyHashable: Any] = ["network": "", "type": paymentType, "displayName": ""]
-
-        if #available(iOS 9.0, *) {
-            paymentMethodDictionary = ["network": payment.token.paymentMethod.network ?? "", "type": paymentType, "displayName": payment.token.paymentMethod.displayName ?? ""]
-
-            switch payment.token.paymentMethod.type {
-                case .debit:
-                    paymentType = "debit"
-                case .credit:
-                    paymentType = "credit"
-                case .store:
-                    paymentType = "store"
-                case .prepaid:
-                    paymentType = "prepaid"
-                default:
-                    paymentType = "unknown"
-                }
-        }
-
-        let cryptogramDictionary: [AnyHashable: Any] = ["paymentData": paymentDataDictionary ?? "", "transactionIdentifier": payment.token.transactionIdentifier, "paymentMethod": paymentMethodDictionary]
-        let cardCryptogramPacketDictionary: [AnyHashable: Any] = cryptogramDictionary
-        let cardCryptogramPacketData: Data? = try? JSONSerialization.data(withJSONObject: cardCryptogramPacketDictionary, options: [])
-
-        // in cardCryptogramPacketString we now have all necessary data which demand most of bank gateways to process the payment
-
-        let cardCryptogramPacketString = String(describing: cardCryptogramPacketData)
-        
-        print(cardCryptogramPacketString)
-//        po paymentDataDictionary
-    }
-    
     var completion: ((Transaction) -> Void)?
     var cancelled: (() -> Void)?
 

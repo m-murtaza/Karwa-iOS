@@ -35,6 +35,8 @@ class KTPaymentViewModel: KTBaseViewModel
     var sessionId = ""
     var apiVersion = ""
     
+    var transaction: Transaction?
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -46,6 +48,8 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             del?.addTag(tag: tipOption)
         }
+        
+        transaction = Transaction()
     }
     
     func numberOfRows() -> Int

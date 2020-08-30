@@ -25,8 +25,6 @@ class KTManagePaymentViewModel: KTBaseViewModel
 {
     var del : KTManagePaymentViewModelDelegate?
     
-    var transaction: Transaction?
-    
     var paymentMethods : [KTPaymentMethod] = []
     var selectedPaymentMethod = KTPaymentMethod()
     
@@ -39,7 +37,6 @@ class KTManagePaymentViewModel: KTBaseViewModel
         del = self.delegate as? KTManagePaymentViewModelDelegate
         fetchnPaymentMethods()
         fetchSessionInfo()
-        transaction = Transaction()
     }
     
     func numberOfRows() -> Int

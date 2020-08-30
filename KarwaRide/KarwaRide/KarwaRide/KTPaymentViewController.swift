@@ -13,6 +13,7 @@ import CDAlertView
 import AVFoundation
 import AlertOnboarding
 import RKTagsView
+import PassKit
 
 protocol FinishProtocol
 {
@@ -24,7 +25,7 @@ protocol BarcodeProtocol
     func setShowBarcodeRequired(valueSent: Bool)
 }
 
-class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate, PKPaymentAuthorizationViewControllerDelegate
 {
     @IBOutlet weak var tableView: UITableView!
 
@@ -45,6 +46,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     
     @IBOutlet weak var btnPay: SpringButton!
+    @IBOutlet weak var btnApplePay: SpringButton!
+
+    var applePayButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
     
     @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
 
@@ -72,6 +76,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.isHidden = true
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
+        btnApplePay.isUserInteractionEnabled = true
 //        btnPay.addGestureRecognizer(tapGestureRecognizer)
 
         tagView.textField.textAlignment = NSTextAlignment.center
@@ -87,7 +92,81 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     override func viewWillAppear(_ animated: Bool)
     {
         self.tableView.isHidden = true
+        applePayButton.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
+        applePayButton.isHidden = true;
+        
+        //        applePayButton.translatesAutoresizingMaskIntoConstraints = false
+        //        applePayButton.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[applePayButton(==300)]", options: [], metrics: nil, views: ["applePayButton": applePayButton]))
+        //        applePayButton.addConstraint(NSLayoutConstraint(item: applePayButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100))
+        //        self.view.addSubview(applePayButton)
     }
+    
+    //TODO:
+        @objc func applePayAction() {
+            guard let request = vModel?.transaction!.pkPaymentRequest, let apvc = PKPaymentAuthorizationViewController(paymentRequest: request) else { return }
+            apvc.delegate = self
+            self.present(apvc, animated: true, completion: nil)
+        }
+        
+        // We are getting this delegate called on approval
+        public func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+            controller.dismiss(animated: true) {
+                //self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+            print("Payment Token:")
+            processToken(payment: payment)
+            vModel?.transaction?.applePayPayment = payment
+            self.completion?((vModel?.transaction!)!)
+            completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+        }
+
+        func processToken(payment: PKPayment)
+        {
+            let paymentDataDictionary: [AnyHashable: Any]? = try? JSONSerialization.jsonObject(with: payment.token.paymentData, options: .mutableContainers) as! [AnyHashable : Any]
+            
+    //        let versoin = paymentDataDictionary["version"] as! String
+            
+    //        "paymentToken":"{\r\n\t\"version\": \"EC_v1\",\r\n\t\"data\": \"WO\/fTbdARsB1Rg3tS4ISwNG4cWDRk3JZDSbP32iDdeMP7UFouS...\",\r\n\t\"signature\": \"MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkg...\",\r\n\t\"header\": {\r\n\t\t\"transactionId\": \"c162557e7ae1c69a47583bc2364d1a3e531428d13fb664032f9e09fa37381fc1\",\r\n\t\t\"ephemeralPublicKey\": \"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMeuRqVEOZAQ...\",\r\n\t\t\"publicKeyHash\": \"tBGp1mEoHLiHwfOkazpKVbf3cMKmVS98PGufUJ2Q3ys=\"\r\n\t}\r\n}"
+            //po paymentDataDictionary
+
+            var paymentType: String = "debit"
+
+            var paymentMethodDictionary: [AnyHashable: Any] = ["network": "", "type": paymentType, "displayName": ""]
+
+            if #available(iOS 9.0, *) {
+                paymentMethodDictionary = ["network": payment.token.paymentMethod.network ?? "", "type": paymentType, "displayName": payment.token.paymentMethod.displayName ?? ""]
+
+                switch payment.token.paymentMethod.type {
+                    case .debit:
+                        paymentType = "debit"
+                    case .credit:
+                        paymentType = "credit"
+                    case .store:
+                        paymentType = "store"
+                    case .prepaid:
+                        paymentType = "prepaid"
+                    default:
+                        paymentType = "unknown"
+                    }
+            }
+
+            let cryptogramDictionary: [AnyHashable: Any] = ["paymentData": paymentDataDictionary ?? "", "transactionIdentifier": payment.token.transactionIdentifier, "paymentMethod": paymentMethodDictionary]
+            let cardCryptogramPacketDictionary: [AnyHashable: Any] = cryptogramDictionary
+            let cardCryptogramPacketData: Data? = try? JSONSerialization.data(withJSONObject: cardCryptogramPacketDictionary, options: [])
+
+            // in cardCryptogramPacketString we now have all necessary data which demand most of bank gateways to process the payment
+
+            let cardCryptogramPacketString = String(describing: cardCryptogramPacketData)
+            
+            print(cardCryptogramPacketString)
+    //        po paymentDataDictionary
+    }
+
+    var completion: ((Transaction) -> Void)?
+    var cancelled: (() -> Void)?
     
     override func viewDidAppear(_ animated: Bool)
     {
@@ -116,6 +195,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             labelTotalFare.isHidden = true
             labelTripId.isHidden = true
             btnPay.isHidden = true
+            btnApplePay.isHidden = true
             labelHTripFare.isHidden = true
             labelHDriverTrip.isHidden = true
         }
@@ -254,6 +334,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.isHidden = false
         labelHDriverTrip.isHidden = false
         btnPay.isHidden = false
+        btnApplePay.isHidden = false
 
         bottomContainer.animation = "slideUp"
         labelHTripFare.animation = "zoomIn"
@@ -261,6 +342,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.animation = "zoomIn"
         labelHDriverTrip.animation = "zoomIn"
         btnPay.animation = "slideUp"
+        btnApplePay.animation = "slideUp"
         
         labelHTripFare.duration = 1
         bottomContainer.duration = 1
@@ -268,6 +350,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelHDriverTrip.duration = 1
         labelTripId.duration = 1
         btnPay.duration = 1
+        btnApplePay.duration = 1
         
         bottomContainer.delay = 0.15
         labelTripId.delay = 0.8
@@ -275,14 +358,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTotalFare.delay = 1.0
         labelHDriverTrip.delay = 1.1
         btnPay.delay = 1.7
-        
+        btnApplePay.delay = 1.9
+
         bottomContainer.animate()
         labelHTripFare.animate()
         labelTotalFare.animate()
         labelTripId.animate()
         labelHDriverTrip.animate()
         btnPay.animate()
-        
+        btnApplePay.animate()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.8)
         {
@@ -321,6 +405,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.animation = "zoomOut"
         labelHDriverTrip.animation = "zoomOut"
         btnPay.animation = "zoomOut"
+        btnApplePay.animation = "zoomOut"
         
         labelHTripFare.duration = 1
         bottomContainer.duration = 1
@@ -328,13 +413,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelHDriverTrip.duration = 1
         labelTripId.duration = 1
         btnPay.duration = 1
-        
+        btnApplePay.duration = 1
+
         bottomContainer.delay = 1.7
         labelTripId.delay = 1.1
         labelHTripFare.delay = 1.0
         labelTotalFare.delay = 0.9
         labelHDriverTrip.delay = 0.8
         btnPay.delay = 0.15
+        btnApplePay.delay = 0
         
         bottomContainer.animate()
         labelHTripFare.animate()
@@ -342,6 +429,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.animate()
         labelHDriverTrip.animate()
         btnPay.animate()
+        btnApplePay.animate()
         
         UIView.animate(withDuration: 3.0, animations:
             {
