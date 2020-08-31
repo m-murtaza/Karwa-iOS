@@ -32,7 +32,7 @@ struct Transaction {
     var amountString = "0.00"
     var amountFormatted = "QAR0.00"
     var currency = "QAR"
-    var summary = "Some transaction"
+    var summary = "Karwa Trip"
     
     // card information
     var nameOnCard: String?

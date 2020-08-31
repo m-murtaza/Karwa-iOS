@@ -234,21 +234,25 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func showEmptyScreen()
     {
-        emptyView.isHidden = false
         tableView.isHidden = true
         btnEdit.title = ""
         
-        emptyView.animation = "squeezeDown"
-        emptyView.duration = 1
-        emptyView.delay = 0.15
-        
-        emptyView.animate()
+        showNoCardsBackground()
         
         if(!SharedPrefUtil.isScanNPayCoachmarkShownInDetails())
         {
             showCardOnboarding()
             SharedPrefUtil.setScanNPayCoachmarkShownInDetails()
         }
+    }
+    
+    func showNoCardsBackground()
+    {
+        emptyView.isHidden = false
+        emptyView.animation = "squeezeDown"
+        emptyView.duration = 1
+        emptyView.delay = 0.15
+        emptyView.animate()
     }
     
     func hideEmptyScreen()

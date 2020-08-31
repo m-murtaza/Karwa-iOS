@@ -30,7 +30,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
     
     var sessionId = ""
     var apiVersion = ""
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -145,7 +145,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         {
             selectedPaymentMethod = selectedPaymentFromDB!
         }
-        
+
         if paymentMethods.count == 0
         {
             self.del?.showEmptyScreen()
@@ -154,6 +154,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         {
             self.del?.hideEmptyScreen()
         }
+
         self.del?.reloadTableData()
     }
     
