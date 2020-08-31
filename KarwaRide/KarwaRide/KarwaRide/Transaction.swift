@@ -29,8 +29,8 @@ struct Transaction {
     
     // basic transaction properties
     var amount: NSDecimalNumber = 100.0
-    var amountString = "100.00"
-    var amountFormatted = "QAR100.00"
+    var amountString = "0.00"
+    var amountFormatted = "QAR0.00"
     var currency = "QAR"
     var summary = "Some transaction"
     

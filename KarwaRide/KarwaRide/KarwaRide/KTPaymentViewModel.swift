@@ -48,8 +48,18 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             del?.addTag(tag: tipOption)
         }
-        
+
         transaction = Transaction()
+    }
+    
+    func updateTotalAmountInApplePay(payTripBeanForServer: PayTripBeanForServer)
+    {
+        let totalAmount = Int(payTripBeanForServer.totalFare)! + Int(selectedTipValue())!
+
+        let totalFareWithTip = NSDecimalNumber(value: totalAmount)
+        transaction?.amount = totalFareWithTip
+        transaction?.amountString = totalFareWithTip.stringValue
+        transaction?.amountFormatted = String("QAR" + totalFareWithTip.stringValue)
     }
     
     func numberOfRows() -> Int
@@ -99,6 +109,7 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         let fareWithTip = Int(((del?.getPayTripBean().totalFare)!))! + Int(selectedTipValue())!
         del?.updatePayButton(btnText: String(fareWithTip))
+        updateTotalAmountInApplePay(payTripBeanForServer: (del?.getPayTripBean())!)
     }
 
     func paymentTapped()

@@ -56,6 +56,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
     
+    private var applePaySupported = true;
+    
     override func viewDidLoad()
     {
         self.viewModel = KTPaymentViewModel(del: self)
@@ -91,9 +93,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     override func viewWillAppear(_ animated: Bool)
     {
+        applePaySupported = PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: (vModel?.transaction!.supportedNetworks)!)
         self.tableView.isHidden = true
-        applePayButton.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
-        applePayButton.isHidden = true;
+        btnApplePay.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
+        btnApplePay.isHidden = true;
         
         //        applePayButton.translatesAutoresizingMaskIntoConstraints = false
         //        applePayButton.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[applePayButton(==300)]", options: [], metrics: nil, views: ["applePayButton": applePayButton]))
@@ -101,8 +104,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         //        self.view.addSubview(applePayButton)
     }
     
-    //TODO:
         @objc func applePayAction() {
+            
+            vModel!.payTripButtonTapped(payTripBean: payTripBean!)
+            vModel!.updateTotalAmountInApplePay(payTripBeanForServer: payTripBean!)
+
             guard let request = vModel?.transaction!.pkPaymentRequest, let apvc = PKPaymentAuthorizationViewController(paymentRequest: request) else { return }
             apvc.delegate = self
             self.present(apvc, animated: true, completion: nil)
@@ -335,7 +341,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelHDriverTrip.isHidden = false
         btnPay.isHidden = false
         btnApplePay.isHidden = false
-
+        btnApplePay.isEnabled = applePaySupported
+        
         bottomContainer.animation = "slideUp"
         labelHTripFare.animation = "zoomIn"
         labelTotalFare.animation = "zoomIn"
