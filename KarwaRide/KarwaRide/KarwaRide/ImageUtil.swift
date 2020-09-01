@@ -77,6 +77,9 @@ class ImageUtil
         
         switch brand
         {
+        case "APPLEPAY":
+            brandImage = "ico_applepay"
+            break;
         case "MASTERCARD":
             brandImage = "mastercard_ico_sm"
             break;
