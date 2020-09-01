@@ -433,6 +433,7 @@ struct Constants {
         static let CreateComplaint = "complaint/add"
         static let GetPayments = "payment/methods"
         static let PayTrip = "trip/pay"
+        static let PayTripByApplePay = "trip/pay"
         static let MPGSSuccessToServer = "mpgs/3ds"
         static let MPGSCreateSession = "mpgs/session"
         static let DeletePaymentMethod = "payment/delete"

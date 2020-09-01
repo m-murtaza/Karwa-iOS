@@ -176,11 +176,9 @@ class KTPaymentManager: KTDALManager
                                     Constants.PayTripAPIKey.PaymentToken: paymentToken,
                                     Constants.PayTripAPIKey.Tip: tipValue]
         
-        self.put(url: Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:
-            { (responseData,cBlock) in
+        self.put(url: paymentToken != "" ? Constants.APIURL.PayTripByApplePay : Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
-        }
-        )
+        })
     }
     
     func removeAllPaymentData()
