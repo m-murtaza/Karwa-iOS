@@ -59,7 +59,7 @@ class KTPaymentViewModel: KTBaseViewModel
 
         let message = selectedPaymentMethod.source!
 
-        payTripToServer(payTripBean: payTripBean, source: AESEncryption.init().encrypt(message), paymentToken: "")
+        payTripToServer(payTripBean: payTripBean, source: AESEncryption.init().encrypt(message))
     }
     
     func processApplePaymentToken(payment: PKPayment)
@@ -69,13 +69,34 @@ class KTPaymentViewModel: KTBaseViewModel
         self.del?.showProgressHud(show: true, status: "We are paying your amount")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.payTripToServer(payTripBean: (self.del?.getPayTripBean())!, source: "", paymentToken: paymentToken)
+            self.payTripToServerWithApplePay(payTripBean: (self.del?.getPayTripBean())!, paymentToken: paymentToken)
         }
     }
 
-    func payTripToServer(payTripBean : PayTripBeanForServer, source : String, paymentToken : String)
+    func payTripToServer(payTripBean : PayTripBeanForServer, source : String)
     {
-        KTPaymentManager().payTripAtServer(source, source, payTripBean.data, selectedTipValue()) { (success, response) in
+        KTPaymentManager().payTripAtServer(source, payTripBean.data, selectedTipValue()) { (success, response) in
+
+            self.del?.hideProgressHud()
+
+            if success == Constants.APIResponseStatus.SUCCESS
+            {
+                AnalyticsUtil.trackCardPayment(payTripBean.totalFare)
+
+                self.del?.showTripPaidScene()
+
+                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
+            }
+            else
+            {
+                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
+        }
+    }
+    
+    func payTripToServerWithApplePay(payTripBean : PayTripBeanForServer, paymentToken : String)
+    {
+        KTPaymentManager().payTripAtServerWithApplePay(paymentToken, payTripBean.data, selectedTipValue()) { (success, response) in
 
             self.del?.hideProgressHud()
 

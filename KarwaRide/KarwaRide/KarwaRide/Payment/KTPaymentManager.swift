@@ -169,14 +169,25 @@ class KTPaymentManager: KTDALManager
         )
     }
     
-    func payTripAtServer(_ source: String, _ paymentToken: String, _ data : String, _ tipValue: String, completion completionBlock: @escaping KTDALCompletionBlock)
+    func payTripAtServer(_ source: String, _ data : String, _ tipValue: String, completion completionBlock: @escaping KTDALCompletionBlock)
     {
         let param : NSDictionary = [Constants.PayTripAPIKey.Source: source,
                                     Constants.PayTripAPIKey.Data: data,
-                                    Constants.PayTripAPIKey.PaymentToken: paymentToken,
                                     Constants.PayTripAPIKey.Tip: tipValue]
         
-        self.put(url: paymentToken != "" ? Constants.APIURL.PayTripByApplePay : Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
+        self.put(url: Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
+                completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+        })
+    }
+    
+    func payTripAtServerWithApplePay(_ paymentToken: String, _ data : String, _ tipValue: String, completion completionBlock: @escaping KTDALCompletionBlock)
+    {
+        let param : NSDictionary = [Constants.PayTripAPIKey.Data: data,
+                                    Constants.PayTripAPIKey.PaymentToken: paymentToken,
+                                    Constants.PayTripAPIKey.PaymentMethod: "ApplePay",
+                                    Constants.PayTripAPIKey.Tip: tipValue]
+        
+        self.put(url: Constants.APIURL.PayTripByApplePay, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         })
     }
