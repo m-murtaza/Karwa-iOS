@@ -137,7 +137,7 @@ struct Constants {
     struct API {
         static let BaseURLKey = "BaseAPIURL"
         static let RequestTimeOut = 10.0
-        static let MAKHash = "mak"
+        static let Salt = "Salt"
     }
     
     struct ResponseAPIKey {

@@ -5,22 +5,34 @@
 //  Created by Asif Kamboh in C#
 //  Converted by Sam on 11/2/18
 //  Copyright © 2018 Karwa. All rights reserved.
-//
+//  Last Edited on 09/Sep/2020
 
 class MAKHashGenerator {
 	static let VERSION_INFO = "MAK1"
 
+    func getSalt() -> String
+    {
+        let secondsAfter2020 = round(Date().timeIntervalSince1970 - 1577836800)
+        return AESEncryption.init().encrypt(UUID().uuidString + String(secondsAfter2020), "s@n1tych3ck8", "k@rw@s0uls@mk@rw@f0rsure")
+    }
+
+    func currentTFH() -> String
+    {
+        let secondsAfter2020 = Date().timeIntervalSince1970 - 1577836800 // seconds after 2020
+        return String(round(secondsAfter2020))
+    }
+
 	//Date to milliseconds
 	func currentTimeInMiliseconds(date: Date) -> UInt64
     {
-        let newDate = Date(timeIntervalSinceReferenceDate: -1420070400)
+        let newDate = Date(timeIntervalSinceReferenceDate: 1420070400)
         return UInt64(newDate.currentTimeInMilliSeconds())
 	}
 
     //Date to milliseconds
     func currentTimeInSeconds(date: Date) -> UInt64
     {
-        let newDate = Date(timeIntervalSinceReferenceDate: -1420070400)
+        let newDate = Date(timeIntervalSinceReferenceDate: 1420070400)
         return UInt64(newDate.currentTimeInMilliSeconds()/1000)
     }
     
