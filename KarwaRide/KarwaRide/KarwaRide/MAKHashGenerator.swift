@@ -13,7 +13,7 @@ class MAKHashGenerator {
     func getSalt() -> String
     {
         let secondsAfter2020 = round(Date().timeIntervalSince1970 - 1577836800)
-        return AESEncryption.init().encrypt(UUID().uuidString + String(secondsAfter2020), "s@n1tych3ck8", "k@rw@s0uls@mk@rw@f0rsure")
+        return AESEncryption.init().encrypt(UUID().uuidString + String(secondsAfter2020), "s@n1tych", "k@rw@s0uls@mk@rw@f0rsure")
     }
 
     func currentTFH() -> String
