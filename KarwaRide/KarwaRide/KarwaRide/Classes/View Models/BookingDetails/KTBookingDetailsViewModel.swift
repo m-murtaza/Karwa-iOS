@@ -371,6 +371,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         {
             paymentMethod = "**** " +  booking!.lastFourDigits!
         }
+        else if(booking!.paymentMethod == "ApplePay")
+        {
+            paymentMethod = "Apple Pay"
+        }
 
         return paymentMethod
     }
