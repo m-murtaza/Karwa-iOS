@@ -373,7 +373,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else if(booking!.paymentMethod == "ApplePay")
         {
-            paymentMethod = "Apple Pay"
+            paymentMethod = "Paid by"
         }
 
         return paymentMethod

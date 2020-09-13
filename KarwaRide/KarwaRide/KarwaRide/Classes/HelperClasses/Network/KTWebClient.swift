@@ -80,21 +80,12 @@ class KTWebClient: NSObject {
         //Creating complet Url
         let url = baseURL! + uri
 
-//        let makHash = MAKHashGenerator().getHashFromString(text: String(Date().currentTimeInMilliSeconds()))
- 
-        var newParams = Parameters()
-        if param != nil
-        {
-            newParams = param!
-        }
-
-        newParams[Constants.API.Salt] = MAKHashGenerator().getSalt()
-
         print("Server call: \(url)")
-        print("Param: \(String(describing: newParams))")
+        print("Param: \(String(describing: param))")
         
         var httpHeaders : [String:String] = [:]
         httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
+        httpHeaders[Constants.API.Salt] = MAKHashGenerator().getSalt()
 
         if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
         {
@@ -107,7 +98,7 @@ class KTWebClient: NSObject {
 
         APIPinning.getManager().request(url,
           method: httpMethod,
-          parameters : newParams,
+          parameters : param,
           headers:httpHeaders).validate().responseJSON { (response) -> Void in
 
             guard response.result.isSuccess else {
