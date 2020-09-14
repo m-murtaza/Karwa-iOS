@@ -21,7 +21,7 @@ class KPNetworkManager {
                     certificates: ServerTrustPolicy.certificates(),
                     validateCertificateChain: true,
                     validateHost: true),
-                "insecure.expired-apis.com": .disableEvaluation
+                "*.com": .disableEvaluation
             ]
 
         Manager = SessionManager(serverTrustPolicyManager: ServerTrustPolicyManager(policies: serverTrustPolicies))

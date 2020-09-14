@@ -408,7 +408,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
                 // failed authentication
                 self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
                 break;
-            case .completed(summaryStatus: _, threeDSecureId: let id):
+            case .completed(summaryStatus: _, threeDSecureId: let _):
                 // continue with the payment for all other statuses
                 self.vModel!.updatePaymentMethod()
                 break;
