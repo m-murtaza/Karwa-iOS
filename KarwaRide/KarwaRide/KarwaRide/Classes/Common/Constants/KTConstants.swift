@@ -90,21 +90,18 @@ struct Constants {
     /*                Live Payment Credentials                            */
 //    static let MERCHANT_ID:String = "KTRQNB01"
 //    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
-    static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
-    
-    
+
     /*                Test Payment Credentials                            */
     static let MERCHANT_ID:String = "KTQNB01A"
     static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
 //    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
-//    static let DIRECTIONS_API_ENABLE:Bool = false
     /* ------------------------------------------------------------------ */
     
     static let TIP_OPTIONS = ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
     static let TIP_OPTIONS_VALUES = ["2", "3", "5", "10"]
     
-    
+    static let DIRECTIONS_API_ENABLE:Bool = false
     static let SCAN_N_PAY_ENABLE:Bool = true
     static let SERVER_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss"
     static let SERVER_DATE_FORMAT_WITHOUT_T: String = "yyyy-MM-dd HH:mm:ss"
