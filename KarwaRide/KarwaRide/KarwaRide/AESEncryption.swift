@@ -39,8 +39,12 @@ class AESEncryption
     func encrypt(_ msg: String) -> String {
         let IV = "p@ym3nt8"
         let PASSWORD = "k@rw@s0lp@ym3nt8k@rw@s0l"
+        return encrypt(msg, IV, PASSWORD)
+    }
+    
+    func encrypt(_ msg: String, _ IV: String, _ pass: String) -> String {
         let data: NSData! = msg.data(using: .utf8)! as NSData
-        let keyData: NSData! = PASSWORD.data(using: .utf8)! as NSData
+        let keyData: NSData! = pass.data(using: .utf8)! as NSData
         let ivData: NSData! = IV.data(using: .utf8)! as NSData
         let base64cryptString = self.crypt(data: data, keyData: keyData, ivData: ivData)
         

@@ -137,6 +137,7 @@ public class Gateway3DSecureViewController: UIViewController, WKNavigationDelega
     // MARK: - WKNavigationDelegate methods
     public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         activityIndicator.startAnimating()
+        print("Loding: " + webView.url!.absoluteString)
     }
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

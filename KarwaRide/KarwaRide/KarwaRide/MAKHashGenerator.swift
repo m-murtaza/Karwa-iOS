@@ -5,25 +5,35 @@
 //  Created by Asif Kamboh in C#
 //  Converted by Sam on 11/2/18
 //  Copyright © 2018 Karwa. All rights reserved.
-//
+//  Last Edited on 09/Sep/2020
 
 class MAKHashGenerator {
 	static let VERSION_INFO = "MAK1"
 
+    func getSalt() -> String
+    {
+        let secondsAfter2020 = round(Date().timeIntervalSince1970 - 1577836800)
+        return AESEncryption.init().encrypt(UUID().uuidString + String(secondsAfter2020), "s@n1tych", "k@rw@s0uls@mk@rw@f0rsure")
+    }
+
+    func currentTFH() -> String
+    {
+        let secondsAfter2020 = Date().timeIntervalSince1970 - 1577836800 // seconds after 2020
+        return String(round(secondsAfter2020))
+    }
+
 	//Date to milliseconds
 	func currentTimeInMiliseconds(date: Date) -> UInt64
     {
-    		let currentDate = date
-    		let since1970 = currentDate.timeIntervalSince1970
-    		return UInt64(since1970 * 1000)
+        let newDate = Date(timeIntervalSinceReferenceDate: 1420070400)
+        return UInt64(newDate.currentTimeInMilliSeconds())
 	}
 
     //Date to milliseconds
     func currentTimeInSeconds(date: Date) -> UInt64
     {
-        let currentDate = date
-        let since1970 = currentDate.timeIntervalSince1970
-        return UInt64(since1970)
+        let newDate = Date(timeIntervalSinceReferenceDate: 1420070400)
+        return UInt64(newDate.currentTimeInMilliSeconds()/1000)
     }
     
 	public func generateKey(date: Date) -> UInt64
@@ -65,14 +75,53 @@ class MAKHashGenerator {
 
     func getHashFromString(text: String) -> String
     {
-		let keyLength = 16
-        let headerLength = MAKHashGenerator.VERSION_INFO.count
-		
-		let hashIndex = headerLength + keyLength
-		let data = String(text.suffix(from: text.index(text.startIndex, offsetBy: hashIndex)))
-		return data
+        let dateIns = Date()
+        let key = generateKey(date: dateIns)
+        let hash = encrypt(text, dateIns)
+
+        return MAKHash.init(Int64(key), hash).toString()
 	}
 
+    public func encrypt(_ data: String, _ date: Date) -> String
+    {
+        let reversedData = String(data.reversed())
+        let bytes = reversedData.bytes
+        
+        let seconds = currentTimeInSeconds(date: Date())
+        
+        let high = seconds & 0x7f00 >> 8
+        let low = seconds & 0x007f
+
+        var outBytes = [UInt64?](repeating: nil, count: bytes.count*2)
+        
+        let max = bytes.count-1
+        
+        for i in 0 ... max
+        {
+            let c = UInt64(bytes[i])
+            if(i % 2 > 0)
+            {
+                let b1 = String(Int.random(in: 0..<127)).utf8.map{UInt64($0)}[0]
+                let b2 = UInt64(c ^ high)
+
+                outBytes[2 * i] = b1
+                outBytes[2 * i + 1] = b2
+            }
+            else
+            {
+                let b1 = c ^ low
+                let b2 = String(Int.random(in: 0..<127)).utf8.map{UInt64($0)}[0]
+                
+                outBytes[2 * i] = b1
+                outBytes[2 * i + 1] = b2
+            }
+        }
+
+        let data = NSData(bytes: outBytes, length: outBytes.count)
+        let base64 = data.base64EncodedString()
+        return base64
+    }
+    
     public func decrypt(text: String) -> String
     {
         let key = getKeyFromString(text: text)

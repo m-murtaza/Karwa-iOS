@@ -234,21 +234,25 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func showEmptyScreen()
     {
-        emptyView.isHidden = false
         tableView.isHidden = true
         btnEdit.title = ""
         
-        emptyView.animation = "squeezeDown"
-        emptyView.duration = 1
-        emptyView.delay = 0.15
-        
-        emptyView.animate()
+        showNoCardsBackground()
         
         if(!SharedPrefUtil.isScanNPayCoachmarkShownInDetails())
         {
             showCardOnboarding()
             SharedPrefUtil.setScanNPayCoachmarkShownInDetails()
         }
+    }
+    
+    func showNoCardsBackground()
+    {
+        emptyView.isHidden = false
+        emptyView.animation = "squeezeDown"
+        emptyView.duration = 1
+        emptyView.delay = 0.15
+        emptyView.animate()
     }
     
     func hideEmptyScreen()
@@ -263,11 +267,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         tableView.reloadData()
     }
     
-    @IBAction func btnAddCardTapped(_ sender: Any) {
+    @IBAction func addCardTapped(_ sender: Any) {
         vModel?.addCardButtonTapped()
     }
-    
-    
+
     func showAddCardVC()
     {
         presentAddCardViewController()
@@ -378,7 +381,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         }
         return isPermissionGiven
     }
-    
+
+    var completion: ((Transaction) -> Void)?
+    var cancelled: (() -> Void)?
+
     internal func show3dSecureController(_ html:String)
     {
         // create the Gateway3DSecureViewController
@@ -402,7 +408,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
                 // failed authentication
                 self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
                 break;
-            case .completed(summaryStatus: _, threeDSecureId: let id):
+            case .completed(summaryStatus: _, threeDSecureId: let _):
                 // continue with the payment for all other statuses
                 self.vModel!.updatePaymentMethod()
                 break;

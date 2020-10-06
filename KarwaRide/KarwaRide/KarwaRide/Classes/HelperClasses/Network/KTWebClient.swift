@@ -79,14 +79,14 @@ class KTWebClient: NSObject {
         }
         //Creating complet Url
         let url = baseURL! + uri
-        
+
         print("Server call: \(url)")
         print("Param: \(String(describing: param))")
         
         var httpHeaders : [String:String] = [:]
         httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
-        
-        //TODO: Add Session id in request header
+        httpHeaders[Constants.API.Salt] = MAKHashGenerator().getSalt()
+
         if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
         {
             httpHeaders["Session-ID"] = sessionId
@@ -95,49 +95,94 @@ class KTWebClient: NSObject {
         else {
             print("Unable to find SessionID for API call \(uri)")
         }
-        
-        Alamofire.request(url,
-                          method: httpMethod,
-                          parameters : param,
-                          headers:httpHeaders).validate().responseJSON { (response) -> Void in
-                            
-                            guard response.result.isSuccess else {
-                                
-                                //TODO: Handle 401 UnAuthorize
-                                
-                                print("ErrorCode: \(String(describing:  response.response?.statusCode))")
-                                print("Message: \(String(describing: response.result.error?.localizedDescription))")
 
-                                var error : NSDictionary = [:]
-                                
-                                if response.response?.statusCode == 401 {
-                                    //Handle 401 UnAuthorize
-                                    
-                                    error = ["ErrorCode" : 401]
-                                }
-                                else {
-                                    error = [Constants.ResponseAPIKey.Title : "Ops!",
-                                    Constants.ResponseAPIKey.Message: "Something went wrong"]
-                                }
-                                
-                                completionBlock(false,error as! [AnyHashable : Any])
-                                return
-                            }
-                            
-                            guard let responseJSON = response.result.value as? [String: Any] else {
-                                
-                                print("ErrorCode: 1001")
-                                print("Message: Invalid tag information received from the service")
-                                
-                                let error : NSDictionary = [Constants.ResponseAPIKey.Title  : 1001,
-                                                            Constants.ResponseAPIKey.Message : "Invalid tag information received from the service"]
-                                
-                                completionBlock(false,error as! [AnyHashable : Any])
-                                return
-                            }
-                            
-                            print(responseJSON)
-                            completionBlock(true,responseJSON)
-                        }
+        APIPinning.getManager().request(url,
+          method: httpMethod,
+          parameters : param,
+          headers:httpHeaders).validate().responseJSON { (response) -> Void in
+
+            guard response.result.isSuccess else {
+
+                //TODO: Handle 401 UnAuthorize
+                print("ErrorCode: \(String(describing:  response.response?.statusCode))")
+                print("Message: \(String(describing: response.result.error?.localizedDescription))")
+
+                var error : NSDictionary = [:]
+
+                if response.response?.statusCode == 401 {
+                    //Handle 401 UnAuthorize
+
+                    error = ["ErrorCode" : 401]
+                }
+                else {
+                    error = [Constants.ResponseAPIKey.Title : "Ops!",
+                    Constants.ResponseAPIKey.Message: "Something went wrong"]
+                }
+
+                completionBlock(false,error as! [AnyHashable : Any])
+                return
+            }
+
+            guard let responseJSON = response.result.value as? [String: Any] else {
+
+                print("ErrorCode: 1001")
+                print("Message: Invalid tag information received from the service")
+
+                let error : NSDictionary = [Constants.ResponseAPIKey.Title  : 1001,
+                                            Constants.ResponseAPIKey.Message : "Invalid tag information received from the service"]
+
+                completionBlock(false,error as! [AnyHashable : Any])
+                return
+            }
+
+            print(responseJSON)
+            completionBlock(true,responseJSON)
+        }
+        
+
+        //        Alamofire.request(url,
+        //          method: httpMethod,
+        //          parameters : param,
+        //          headers:httpHeaders).validate().responseJSON { (response) -> Void in
+        //
+        //            guard response.result.isSuccess else {
+        //
+        //                //TODO: Handle 401 UnAuthorize
+        //
+        //                print("ErrorCode: \(String(describing:  response.response?.statusCode))")
+        //                print("Message: \(String(describing: response.result.error?.localizedDescription))")
+        //
+        //                var error : NSDictionary = [:]
+        //
+        //                if response.response?.statusCode == 401 {
+        //                    //Handle 401 UnAuthorize
+        //
+        //                    error = ["ErrorCode" : 401]
+        //                }
+        //                else {
+        //                    error = [Constants.ResponseAPIKey.Title : "Ops!",
+        //                    Constants.ResponseAPIKey.Message: "Something went wrong"]
+        //                }
+        //
+        //                completionBlock(false,error as! [AnyHashable : Any])
+        //                return
+        //            }
+        //
+        //            guard let responseJSON = response.result.value as? [String: Any] else {
+        //
+        //                print("ErrorCode: 1001")
+        //                print("Message: Invalid tag information received from the service")
+        //
+        //                let error : NSDictionary = [Constants.ResponseAPIKey.Title  : 1001,
+        //                                            Constants.ResponseAPIKey.Message : "Invalid tag information received from the service"]
+        //
+        //                completionBlock(false,error as! [AnyHashable : Any])
+        //                return
+        //            }
+        //
+        //            print(responseJSON)
+        //            completionBlock(true,responseJSON)
+        //        }
+
     }
 }

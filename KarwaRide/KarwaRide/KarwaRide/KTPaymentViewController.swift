@@ -13,6 +13,7 @@ import CDAlertView
 import AVFoundation
 import AlertOnboarding
 import RKTagsView
+import PassKit
 
 protocol FinishProtocol
 {
@@ -24,7 +25,7 @@ protocol BarcodeProtocol
     func setShowBarcodeRequired(valueSent: Bool)
 }
 
-class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate
+class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate, PKPaymentAuthorizationViewControllerDelegate
 {
     @IBOutlet weak var tableView: UITableView!
 
@@ -40,11 +41,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var labelTotalFare: SpringLabel!
     @IBOutlet weak var labelTripId: SpringLabel!
     @IBOutlet weak var labelHDriverTrip: SpringLabel!
+    @IBOutlet weak var noCardsBackground: SpringImageView!
     
     @IBOutlet weak var tagView: RKTagsView!
     
     
     @IBOutlet weak var btnPay: SpringButton!
+    @IBOutlet weak var btnApplePay: SpringButton!
+
+    var applePayButton = PKPaymentButton(paymentButtonType: .buy, paymentButtonStyle: .black)
     
     @IBOutlet weak var tripPaidSuccessImageView: SpringImageView!
 
@@ -72,6 +77,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.isHidden = true
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
+        btnApplePay.isUserInteractionEnabled = true
 //        btnPay.addGestureRecognizer(tapGestureRecognizer)
 
         tagView.textField.textAlignment = NSTextAlignment.center
@@ -80,6 +86,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         tagView.allowsMultipleSelection = false
         tagView.isHidden = true
+        noCardsBackground.isHidden = true
+        tableView.isHidden = true
         tagView.editable = false
         tagView.delegate = self
     }
@@ -87,7 +95,38 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     override func viewWillAppear(_ animated: Bool)
     {
         self.tableView.isHidden = true
+        btnApplePay.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
+        btnApplePay.isHidden = true;
+        tagView.isHidden = true
     }
+    
+        @objc func applePayAction() {
+
+            vModel!.updateTotalAmountInApplePay(payTripBeanForServer: payTripBean!)
+
+            guard let request = vModel?.transaction!.pkPaymentRequest, let apvc = PKPaymentAuthorizationViewController(paymentRequest: request) else { return }
+            apvc.delegate = self
+            self.present(apvc, animated: true, completion: nil)
+        }
+        
+        // We are getting this delegate called on approval
+        public func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+            controller.dismiss(animated: true) {
+                //self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+
+            vModel?.processApplePaymentToken(payment: payment)
+
+            vModel?.transaction?.applePayPayment = payment
+            self.completion?((vModel?.transaction!)!)
+            completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+        }
+
+    var completion: ((Transaction) -> Void)?
+    var cancelled: (() -> Void)?
     
     override func viewDidAppear(_ animated: Bool)
     {
@@ -116,6 +155,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             labelTotalFare.isHidden = true
             labelTripId.isHidden = true
             btnPay.isHidden = true
+            btnApplePay.isHidden = true
             labelHTripFare.isHidden = true
             labelHDriverTrip.isHidden = true
         }
@@ -248,19 +288,29 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showBottomContainer()
     {
+        let isCardPaymentAvailable = vModel!.isPaymentMethodAdded()
+
         bottomContainer.isHidden = false
         labelHTripFare.isHidden = false
         labelTotalFare.isHidden = false
         labelTripId.isHidden = false
         labelHDriverTrip.isHidden = false
         btnPay.isHidden = false
-
+        btnApplePay.isHidden = false
+        tableView.isHidden = !isCardPaymentAvailable
+        noCardsBackground.isHidden = isCardPaymentAvailable
+        btnPay.isEnabled = isCardPaymentAvailable
+        btnApplePay.isEnabled = PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: (Transaction().supportedNetworks))
+        
+        
+        noCardsBackground.animation = "slideUp"
         bottomContainer.animation = "slideUp"
         labelHTripFare.animation = "zoomIn"
         labelTotalFare.animation = "zoomIn"
         labelTripId.animation = "zoomIn"
         labelHDriverTrip.animation = "zoomIn"
-        btnPay.animation = "slideUp"
+        btnPay.animation = "slideLeft"
+        btnApplePay.animation = "slideRight"
         
         labelHTripFare.duration = 1
         bottomContainer.duration = 1
@@ -268,21 +318,26 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelHDriverTrip.duration = 1
         labelTripId.duration = 1
         btnPay.duration = 1
-        
+        btnApplePay.duration = 1
+        noCardsBackground.duration = 1
+
+        noCardsBackground.delay = 0
         bottomContainer.delay = 0.15
         labelTripId.delay = 0.8
         labelHTripFare.delay = 0.9
         labelTotalFare.delay = 1.0
         labelHDriverTrip.delay = 1.1
         btnPay.delay = 1.7
-        
+        btnApplePay.delay = 1.9
+
         bottomContainer.animate()
         labelHTripFare.animate()
         labelTotalFare.animate()
         labelTripId.animate()
         labelHDriverTrip.animate()
         btnPay.animate()
-        
+        btnApplePay.animate()
+        noCardsBackground.animate()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.8)
         {
@@ -321,6 +376,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.animation = "zoomOut"
         labelHDriverTrip.animation = "zoomOut"
         btnPay.animation = "zoomOut"
+        btnApplePay.animation = "zoomOut"
         
         labelHTripFare.duration = 1
         bottomContainer.duration = 1
@@ -328,13 +384,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelHDriverTrip.duration = 1
         labelTripId.duration = 1
         btnPay.duration = 1
-        
+        btnApplePay.duration = 1
+
         bottomContainer.delay = 1.7
         labelTripId.delay = 1.1
         labelHTripFare.delay = 1.0
         labelTotalFare.delay = 0.9
         labelHDriverTrip.delay = 0.8
         btnPay.delay = 0.15
+        btnApplePay.delay = 0
         
         bottomContainer.animate()
         labelHTripFare.animate()
@@ -342,6 +400,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         labelTripId.animate()
         labelHDriverTrip.animate()
         btnPay.animate()
+        btnApplePay.animate()
         
         UIView.animate(withDuration: 3.0, animations:
             {

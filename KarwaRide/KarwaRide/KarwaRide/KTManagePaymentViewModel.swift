@@ -30,7 +30,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
     
     var sessionId = ""
     var apiVersion = ""
-    
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -115,7 +115,9 @@ class KTManagePaymentViewModel: KTBaseViewModel
             }
             else
             {
-                self.del?.showErrorBanner(response["T"] as! String, response["M"] as! String)
+                let title = response["T"] != nil ? response["T"] as! String : "Error"
+                let message = response["M"] != nil ? response["M"] as! String : "Something went wrong"
+                self.del?.showErrorBanner(title, message)
             }
         }
     }
@@ -145,7 +147,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         {
             selectedPaymentMethod = selectedPaymentFromDB!
         }
-        
+
         if paymentMethods.count == 0
         {
             self.del?.showEmptyScreen()
@@ -154,6 +156,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         {
             self.del?.hideEmptyScreen()
         }
+
         self.del?.reloadTableData()
     }
     

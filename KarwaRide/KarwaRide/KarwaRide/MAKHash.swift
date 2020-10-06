@@ -13,19 +13,19 @@ public class MAKHash
 {
     static let VERSION_INFO = "MAK1"
     var key : Int64 = 0
-    var value : Int64 = 0
+    var value : String = ""
     
     public func getKey() -> Int64
     {
         return self.key
     }
     
-    public func getValue() -> Int64
+    public func getValue() -> String
     {
         return self.value
     }
     
-    init(_ key: Int64, _ value:Int64)
+    init(_ key: Int64, _ value:String)
     {
         self.key = key
         self.value = value
@@ -33,7 +33,7 @@ public class MAKHash
     
     func toString() -> String
     {
-        return MAKHash.VERSION_INFO + String(format:"%08X", key) + String(value)
+        return MAKHash.VERSION_INFO + String(format:"%08X", key) + value
     }
     
     public static func getMAKHash(_ text: String) -> MAKHash
@@ -46,6 +46,6 @@ public class MAKHash
         let keyText = text.suffix(from: text.index(text.startIndex, offsetBy: headerLength)).lowercased()
         let data = text.suffix(from: text.index(text.startIndex, offsetBy: hashIndex)).lowercased()
 
-        return MAKHash(Int64(keyText)!, Int64(data)!)
+        return MAKHash(Int64(keyText)!, data)
     }
 }

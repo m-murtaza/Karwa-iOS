@@ -35,7 +35,14 @@
 		0DB2224522BA30CA00C41D00 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224122BA30C900C41D00 /* Country.swift */; };
 		0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224222BA30C900C41D00 /* Countries.swift */; };
 		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
+		0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */; };
+		0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48CB242358DB0018E3F0 /* Transaction.swift */; };
 		0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */; };
+		0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */; };
+		0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAC25075831000E27E4 /* APIPinning.swift */; };
+		0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */ = {isa = PBXBuildFile; fileRef = 0DE28EAE25076786000E27E4 /* karwatechnologies_com.der */; };
+		0DE28EB125076FB4000E27E4 /* StringProtocol_Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EB025076FB4000E27E4 /* StringProtocol_Ex.swift */; };
+		0DE28EB325077385000E27E4 /* Int_ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EB225077385000E27E4 /* Int_ex.swift */; };
 		0DE6A73F218B141200125507 /* GatewayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A734218B140F00125507 /* GatewayError.swift */; };
 		0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A735218B141000125507 /* GatewayRegion.swift */; };
 		0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */; };
@@ -240,9 +247,16 @@
 		0DB2224222BA30C900C41D00 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV8.xcdatamodel; sourceTree = "<group>"; };
+		0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantAPI.swift; sourceTree = "<group>"; };
+		0DCE48CB242358DB0018E3F0 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUpdateNotifier.swift; sourceTree = "<group>"; };
 		0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
+		0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPNetworkManager.swift; sourceTree = "<group>"; };
+		0DE28EAC25075831000E27E4 /* APIPinning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPinning.swift; sourceTree = "<group>"; };
+		0DE28EAE25076786000E27E4 /* karwatechnologies_com.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = karwatechnologies_com.der; sourceTree = "<group>"; };
+		0DE28EB025076FB4000E27E4 /* StringProtocol_Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocol_Ex.swift; sourceTree = "<group>"; };
+		0DE28EB225077385000E27E4 /* Int_ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int_ex.swift; sourceTree = "<group>"; };
 		0DE6A734218B140F00125507 /* GatewayError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayError.swift; sourceTree = "<group>"; };
 		0DE6A735218B141000125507 /* GatewayRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayRegion.swift; sourceTree = "<group>"; };
 		0DE6A736218B141000125507 /* Gateway+URLSessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gateway+URLSessionDelegate.swift"; sourceTree = "<group>"; };
@@ -518,6 +532,8 @@
 		0DE6A733218B140200125507 /* MPGS */ = {
 			isa = PBXGroup;
 			children = (
+				0DCE48CB242358DB0018E3F0 /* Transaction.swift */,
+				0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */,
 				0DE6A73B218B141100125507 /* BuildConfig.swift */,
 				0DE6A73A218B141100125507 /* Coding.swift */,
 				0DE6A738218B141000125507 /* Gateway.swift */,
@@ -717,6 +733,7 @@
 		181344981EF68671006E734A /* KarwaRide */ = {
 			isa = PBXGroup;
 			children = (
+				0DE28EAE25076786000E27E4 /* karwatechnologies_com.der */,
 				0D18C6BC215116750001FD4C /* GoogleService-Info.plist */,
 				18C24AE02004E201002D4B88 /* Resources */,
 				1810C0DB1FCBE3C2008E8D91 /* SupportingFiles */,
@@ -763,6 +780,8 @@
 			isa = PBXGroup;
 			children = (
 				181344AE1EF7B362006E734A /* KTWebClient.swift */,
+				0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */,
+				0DE28EAC25075831000E27E4 /* APIPinning.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -1147,6 +1166,8 @@
 				0D826ECC21997309006FF11B /* ImageUtil.swift */,
 				0D5C7093220AFA6D00541A21 /* BookingBean.swift */,
 				0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */,
+				0DE28EB025076FB4000E27E4 /* StringProtocol_Ex.swift */,
+				0DE28EB225077385000E27E4 /* Int_ex.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1378,6 +1399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
@@ -1570,6 +1592,7 @@
 				1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */,
 				18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */,
 				1814238E2029A20000992151 /* VehicleMarker.swift in Sources */,
+				0DE28EB125076FB4000E27E4 /* StringProtocol_Ex.swift in Sources */,
 				1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */,
 				1811E4EB2057ACB100C3C47F /* KTMyTripsTableViewCell.swift in Sources */,
 				186ECFC520A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift in Sources */,
@@ -1595,6 +1618,7 @@
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
 				0DE90AF72186E9FB005FC934 /* KTPaymentViewModel.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
+				0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */,
 				186ECFC320A1A4A0002CF81E /* KTOnboardingStep3ViewController.swift in Sources */,
 				1811E4E720564C4D00C3C47F /* KTShadowView.swift in Sources */,
 				0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */,
@@ -1622,6 +1646,7 @@
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
 				182A74D42097093F0025B6C7 /* KTNotificationManager.swift in Sources */,
 				18FA45B720720C94000487C1 /* KTCreateBookingViewController+Map.swift in Sources */,
+				0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */,
 				18861880207CA3EA000806D3 /* KTFarePopupViewController.swift in Sources */,
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */,
@@ -1651,6 +1676,7 @@
 				0D750BF721DB5B9700CFF75B /* RatingCommentPopupVC.swift in Sources */,
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
+				0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */,
 				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
 				181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */,
 				0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */,
@@ -1688,12 +1714,14 @@
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
 				0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */,
 				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
+				0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */,
 				0DE6A745218B141200125507 /* Coding.swift in Sources */,
 				0DE6A749218B141200125507 /* GatewayResult.swift in Sources */,
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
+				0DE28EB325077385000E27E4 /* Int_ex.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,

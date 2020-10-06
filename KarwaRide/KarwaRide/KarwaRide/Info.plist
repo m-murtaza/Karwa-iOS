@@ -9,7 +9,7 @@
 		<key>PROD</key>
 		<string>https://consumer.karwatechnologies.com/apiv2/</string>
 		<key>STAGE</key>
-		<string>http://stagemursaalapi.karwatechnologies.com:9000/apiv2/</string>
+		<string>https://stageconsumer.karwatechnologies.com/apiv2/</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
@@ -26,7 +26,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.16.0</string>
+	<string>2.16.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -37,7 +37,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>134</string>
+	<string>135</string>
 	<key>Development Environment</key>
 	<string>PROD</string>
 	<key>Fabric</key>
@@ -60,11 +60,6 @@
 	<string>Karwa Taxi</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>NSLocationUsageDescription</key>
 	<string>Use for finding user current location </string>
 	<key>NSLocationWhenInUseUsageDescription</key>

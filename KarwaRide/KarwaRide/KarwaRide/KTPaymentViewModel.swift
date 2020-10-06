@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PassKit
 
 protocol KTPaymentViewModelDelegate : KTViewModelDelegate
 {
@@ -35,6 +36,8 @@ class KTPaymentViewModel: KTBaseViewModel
     var sessionId = ""
     var apiVersion = ""
     
+    var transaction: Transaction?
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -46,6 +49,80 @@ class KTPaymentViewModel: KTBaseViewModel
         {
             del?.addTag(tag: tipOption)
         }
+
+        transaction = Transaction()
+    }
+    
+    func payTripButtonTapped(payTripBean : PayTripBeanForServer)
+    {
+        self.del?.showProgressHud(show: true, status: "We are paying your amount")
+
+        let message = selectedPaymentMethod.source!
+
+        payTripToServer(payTripBean: payTripBean, source: AESEncryption.init().encrypt(message))
+    }
+    
+    func processApplePaymentToken(payment: PKPayment)
+    {
+        let paymentToken = String(data: payment.token.paymentData, encoding: .utf8)!
+        
+        self.del?.showProgressHud(show: true, status: "We are paying your amount")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.payTripToServerWithApplePay(payTripBean: (self.del?.getPayTripBean())!, paymentToken: paymentToken)
+        }
+    }
+
+    func payTripToServer(payTripBean : PayTripBeanForServer, source : String)
+    {
+        KTPaymentManager().payTripAtServer(source, payTripBean.data, selectedTipValue()) { (success, response) in
+
+            self.del?.hideProgressHud()
+
+            if success == Constants.APIResponseStatus.SUCCESS
+            {
+                AnalyticsUtil.trackCardPayment(payTripBean.totalFare)
+
+                self.del?.showTripPaidScene()
+
+                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
+            }
+            else
+            {
+                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
+        }
+    }
+    
+    func payTripToServerWithApplePay(payTripBean : PayTripBeanForServer, paymentToken : String)
+    {
+        KTPaymentManager().payTripAtServerWithApplePay(paymentToken, payTripBean.data, selectedTipValue()) { (success, response) in
+
+            self.del?.hideProgressHud()
+
+            if success == Constants.APIResponseStatus.SUCCESS
+            {
+                AnalyticsUtil.trackCardPayment(payTripBean.totalFare)
+
+                self.del?.showTripPaidScene()
+
+                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
+            }
+            else
+            {
+                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
+        }
+    }
+    
+    func updateTotalAmountInApplePay(payTripBeanForServer: PayTripBeanForServer)
+    {
+        let totalAmount = Int(payTripBeanForServer.totalFare)! + Int(selectedTipValue())!
+
+        let totalFareWithTip = NSDecimalNumber(value: totalAmount)
+        transaction?.amount = totalFareWithTip
+        transaction?.amountString = totalFareWithTip.stringValue
+        transaction?.amountFormatted = String("QAR" + totalFareWithTip.stringValue)
     }
     
     func numberOfRows() -> Int
@@ -95,6 +172,7 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         let fareWithTip = Int(((del?.getPayTripBean().totalFare)!))! + Int(selectedTipValue())!
         del?.updatePayButton(btnText: String(fareWithTip))
+        updateTotalAmountInApplePay(payTripBeanForServer: (del?.getPayTripBean())!)
     }
 
     func paymentTapped()
@@ -118,6 +196,11 @@ class KTPaymentViewModel: KTBaseViewModel
         
     }
 
+    func isPaymentMethodAdded() -> Bool
+    {
+        return KTPaymentManager().getDefaultPayment() != nil
+    }
+    
     func fetchnPaymentMethods()
     {
         paymentMethods = KTPaymentManager().getAllPayments()
@@ -134,7 +217,7 @@ class KTPaymentViewModel: KTBaseViewModel
             self.del?.showPayBtn()
         }
 
-        if paymentMethods.count == 0
+        if paymentMethods.count == 0 && !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: (Transaction().supportedNetworks))
         {
             self.del?.showPayNonTappableBtn()
             self.del?.showbarcodeScanner(show: false)
@@ -149,31 +232,6 @@ class KTPaymentViewModel: KTBaseViewModel
         self.del?.reloadTableData()
     }
 
-    func payTripButtonTapped(payTripBean : PayTripBeanForServer)
-    {
-        self.del?.showProgressHud(show: true, status: "We are paying your amount")
-        
-        let message = selectedPaymentMethod.source!
-
-        KTPaymentManager().payTripAtServer(AESEncryption.init().encrypt(message), payTripBean.data, selectedTipValue()) { (success, response) in
-
-            self.del?.hideProgressHud()
-
-            if success == Constants.APIResponseStatus.SUCCESS
-            {
-                AnalyticsUtil.trackCardPayment(payTripBean.totalFare)
-
-                self.del?.showTripPaidScene()
-
-                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
-            }
-            else
-            {
-                self.del?.showError!(title: response["T"] as! String, message: response["M"] as! String)
-            }
-        }
-    }
-    
     func updatePaymentMethod()
     {
         AnalyticsUtil.trackAddPaymentMethod("")
@@ -270,3 +328,38 @@ class KTPaymentViewModel: KTBaseViewModel
         return errorString
     }
 }
+
+
+            //TODO:
+//            let paymentDataDictionary: [AnyHashable: Any]? = try? JSONSerialization.jsonObject(with: payment.token.paymentData, options: .mutableContainers) as! [AnyHashable : Any]
+//            var paymentType: String = "debit"
+//
+//            var paymentMethodDictionary: [AnyHashable: Any] = ["network": "", "type": paymentType, "displayName": ""]
+//
+//            if #available(iOS 9.0, *) {
+//                paymentMethodDictionary = ["network": payment.token.paymentMethod.network ?? "", "type": paymentType, "displayName": payment.token.paymentMethod.displayName ?? ""]
+//
+//                switch payment.token.paymentMethod.type {
+//                    case .debit:
+//                        paymentType = "debit"
+//                    case .credit:
+//                        paymentType = "credit"
+//                    case .store:
+//                        paymentType = "store"
+//                    case .prepaid:
+//                        paymentType = "prepaid"
+//                    default:
+//                        paymentType = "unknown"
+//                    }
+//            }
+//
+//            let cryptogramDictionary: [AnyHashable: Any] = ["paymentData": paymentDataDictionary ?? "", "transactionIdentifier": payment.token.transactionIdentifier, "paymentMethod": paymentMethodDictionary]
+//            let cardCryptogramPacketDictionary: [AnyHashable: Any] = cryptogramDictionary
+//            let cardCryptogramPacketData: Data? = try? JSONSerialization.data(withJSONObject: cardCryptogramPacketDictionary, options: [])
+//
+//            // in cardCryptogramPacketString we now have all necessary data which demand most of bank gateways to process the payment
+//
+//            let cardCryptogramPacketString = String(describing: cardCryptogramPacketData)
+//
+//            print(cardCryptogramPacketString)
+//            po paymentDataDictionary
