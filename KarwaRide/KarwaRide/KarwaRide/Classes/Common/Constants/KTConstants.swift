@@ -88,14 +88,15 @@ struct Constants {
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
     /*                Live Payment Credentials                            */
-//    static let MERCHANT_ID:String = "KTRQNB01"
-//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    static let MERCHANT_ID:String = "KTRQNB01"
+    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    static let APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
     /* ------------------------------------------------------------------ */
 
     /*                Test Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTQNB01A"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
-//    static let MERCHANT_ID:String = "TESTMOWKAREVL01"
+//    static let MERCHANT_ID:String = "KTQNB01A"
+//    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.mtf
+//    static let APPLE_PAY_MERCHANT_ID:String = "merchant.mowasalat.karwa.taxi"
     /* ------------------------------------------------------------------ */
     
     static let TIP_OPTIONS = ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]

@@ -42,8 +42,9 @@ struct Transaction {
     var cvv: String?
     
     // Apple Pay Information
-    var applePayMerchantIdentifier: String? = "merchant.mowasalat.karwa.taxi"
-//    var applePayMerchantIdentifier: String? = "KTQNB01"
+//    var applePayMerchantIdentifier: String? = "merchant.mowasalat.karwa.taxi"
+//    var applePayMerchantIdentifier: String? = "merchant.karwa.KTQNB01"
+    var applePayMerchantIdentifier: String? = Constants.APPLE_PAY_MERCHANT_ID
     var countryCode = "QA"
     var supportedNetworks: [PKPaymentNetwork] = [.visa, .masterCard]
     var applePayPayment: PKPayment?
