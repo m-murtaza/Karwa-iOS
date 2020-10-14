@@ -11,24 +11,26 @@ import WebKit
 
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate,WKUIDelegate {
 
-//    let url = "http://www.karwatechnologies.com/fare.htm"
-    let url = "https://consumerhelp.karwatechnologies.com/"    //live
-//    let url = "http://stagemursaalapi.karwasolutions.com:9001/" // stage
+    let url = "https://consumerhelp.karwatechnologies.com/"
+    var isFeedback = false
     
     @IBOutlet weak var webView : WKWebView?
 
     override func viewDidLoad() {
-        super.viewDidLoad()
 
+        super.viewDidLoad()
+        
+        title = isFeedback ? "Feedback" : "Help"
+        
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
 
-        let urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
+        let urlWithTimeAndSessionId = isFeedback ? "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)/#Feedback" : "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
         
         let request = URLRequest(url: URL(string: urlWithTimeAndSessionId)!)
-        
+
         showProgressHud(show: true)
-        
+
         webView?.load(request)
     }
 
@@ -41,7 +43,7 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("Finished navigating to url \(String(describing: webView.url))")
         hideProgressHud()
