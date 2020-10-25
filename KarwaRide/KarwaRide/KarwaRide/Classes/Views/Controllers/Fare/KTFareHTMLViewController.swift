@@ -25,7 +25,7 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
 
-        let urlWithTimeAndSessionId = isFeedback ? "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)/#Feedback" : "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
+        let urlWithTimeAndSessionId = isFeedback ? "\(url)/complaint/Feedback?sid=\(KTAppSessionInfo.currentSession.sessionId!)" : "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
         
         let request = URLRequest(url: URL(string: urlWithTimeAndSessionId)!)
 
