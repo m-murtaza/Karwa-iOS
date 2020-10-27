@@ -210,6 +210,7 @@
 		18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */; };
 		18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */; };
 		18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */; };
+		448595E22546A98D00409C6C /* KTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448595E12546A98D00409C6C /* KTTextField.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -429,6 +430,7 @@
 		18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseCreateBookingController.swift; path = Classes/Views/Controllers/Booking/KTBaseCreateBookingController.swift; sourceTree = "<group>"; };
 		18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Estimate.swift"; path = "Classes/DAL/Booking/KTBookingManager+Estimate.swift"; sourceTree = "<group>"; };
 		18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseFareEstimateManager.swift; path = Classes/DAL/KTBaseFareEstimateManager.swift; sourceTree = "<group>"; };
+		448595E12546A98D00409C6C /* KTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTextField.swift; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -797,6 +799,7 @@
 		181344B31EF7E058006E734A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				448595E02546A94D00409C6C /* Views */,
 				0D79DB3E215246A900316D2F /* Analytics */,
 				18C24AD120049145002D4B88 /* Extension */,
 				18C24AC2200340B0002D4B88 /* Utility */,
@@ -1304,6 +1307,14 @@
 			name = "New Group";
 			sourceTree = "<group>";
 		};
+		448595E02546A94D00409C6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				448595E12546A98D00409C6C /* KTTextField.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1466,6 +1477,7 @@
 				"${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ScalingCarousel/ScalingCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
@@ -1495,6 +1507,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAConfettiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScalingCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
@@ -1687,6 +1700,7 @@
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
+				448595E22546A98D00409C6C /* KTTextField.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */,
 				0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */,
