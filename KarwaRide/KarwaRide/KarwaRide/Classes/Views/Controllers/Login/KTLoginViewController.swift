@@ -39,8 +39,8 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     tap.cancelsTouchesInView = false
     
     view.addGestureRecognizer(tap)
-    phoneNumberTextField.placeHolder = "Phone Number"
-    passwordTextField.placeHolder = "Password"
+    phoneNumberTextField.placeHolder = "LBL_PHONE_NUMBER".localized()
+    passwordTextField.placeHolder = "LBL_PASSWORD".localized()
     passwordTextField.textField.isSecureTextEntry = true
     phoneNumberTextField.textField.delegate = self
     passwordTextField.textField.delegate = self

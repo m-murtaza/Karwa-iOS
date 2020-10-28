@@ -211,6 +211,7 @@
 		18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */; };
 		18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */; };
 		448595E22546A98D00409C6C /* KTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448595E12546A98D00409C6C /* KTTextField.swift */; };
+		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -431,6 +432,11 @@
 		18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Estimate.swift"; path = "Classes/DAL/Booking/KTBookingManager+Estimate.swift"; sourceTree = "<group>"; };
 		18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseFareEstimateManager.swift; path = Classes/DAL/KTBaseFareEstimateManager.swift; sourceTree = "<group>"; };
 		448595E12546A98D00409C6C /* KTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTextField.swift; sourceTree = "<group>"; };
+		44EBB8CA25486162000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		44EBB8CB25486163000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		44EBB8CF254861FC000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44EBB8D1254861FE000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1223,6 +1229,7 @@
 				18520943206240A900BD5FCD /* Images */,
 				18B9076D20271183000F45FE /* map_style_karwa.json */,
 				18C24AE12004E222002D4B88 /* Fonts */,
+				44EBB8D0254861FC000257EE /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1394,6 +1401,7 @@
 				English,
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 1813448D1EF68671006E734A;
 			productRefGroup = 181344971EF68671006E734A /* Products */;
@@ -1412,6 +1420,7 @@
 			files = (
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
+				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
@@ -1755,6 +1764,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				1813449E1EF68671006E734A /* Base */,
+				44EBB8CA25486162000257EE /* ar */,
+				44EBB8D3254863F0000257EE /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1763,8 +1774,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				181344A31EF68671006E734A /* Base */,
+				44EBB8CB25486163000257EE /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44EBB8D0254861FC000257EE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44EBB8CF254861FC000257EE /* en */,
+				44EBB8D1254861FE000257EE /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
