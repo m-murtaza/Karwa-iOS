@@ -16,29 +16,22 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   //MARK: - Properties
   @IBOutlet weak var loginButton: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
-  
   @IBOutlet weak var phoneNumberTextField: KTTextField!
   @IBOutlet weak var passwordTextField: KTTextField!
+  @IBOutlet weak var backButton: UIButton!
   
   var countryList = CountryList()
   
   //MARK: -View LifeCycle
   override func viewDidLoad() {
     viewModel = KTLoginViewModel(del:self)
+    
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
       self.phoneNumberTextField.textField.becomeFirstResponder()
     }
-    
-    //Looks for single or multiple taps.
-    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(KTLoginViewController.dismissKeyboardOld))
-    
-    //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-    tap.cancelsTouchesInView = false
-    
-    view.addGestureRecognizer(tap)
+
     phoneNumberTextField.placeHolder = "str_phone".localized()
     passwordTextField.placeHolder = "str_password".localized()
     passwordTextField.textField.isSecureTextEntry = true
@@ -47,14 +40,14 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     phoneNumberTextField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     
     countryList.delegate = self
-    let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
-    lblCountryCode.addGestureRecognizer(countryTap)
+
     setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
-    
+    backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+    tapToDismissKeyboard()
   }
   
-  @objc
-  func countrySelectorTapped(sender:UITapGestureRecognizer) {
+  
+  @IBAction func countrySelectorTapped(_ sender: Any) {
     let navController = UINavigationController(rootViewController: countryList)
     self.present(navController, animated: true, completion: nil)
   }
@@ -81,12 +74,6 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
-  }
-  
-  //Calls this function when the tap is recognized.
-  @objc func dismissKeyboardOld() {
-    //Causes the view (or one of its embedded text fields) to resign the first responder status.
-    view.endEditing(true)
   }
   
   // MARK: - Navigation
@@ -226,4 +213,5 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     }
     return true
   }
+  
 }
