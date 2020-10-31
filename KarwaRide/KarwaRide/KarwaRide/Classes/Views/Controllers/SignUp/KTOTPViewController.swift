@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
+class KTOTPViewController: KTBaseViewController, KTOTPViewModelDelegate {
     
     @IBOutlet weak var btnConfirmCode: ButtonWithShadow!
     @IBOutlet weak var otpView: VPMOTPView!
@@ -30,9 +30,21 @@ class KTOTPViewController: KTBaseViewController,KTOTPViewModelDelegate {
         otpView.initalizeUI()
         otpView.delegate = self
         
-        btnConfirmCode.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(confrimCodeTapped))
+        //btnConfirmCode.isHidden = true
+        /*navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                            style: .plain,
+                                                            target: self, action: #selector(confrimCodeTapped))*/
     }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.isNavigationBarHidden = true
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    navigationController?.isNavigationBarHidden = false
+  }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
