@@ -185,15 +185,16 @@ class KTTextField: UIView {
 //
 //}
 
-
-fileprivate extension UIView {
+extension UIView {
   
   struct Constants {
     static let ExternalBorderName = "externalBorder"
   }
   
   @discardableResult
-  func addExternalBorder(borderWidth: CGFloat = 2.0, borderColor: UIColor = UIColor.white) -> CALayer {
+  func addExternalBorder(borderWidth: CGFloat = 2.0,
+                         borderColor: UIColor = UIColor.white,
+                         cornerRadius: CGFloat = 10.0) -> CALayer {
     let externalBorder = CALayer()
     externalBorder.frame = CGRect(x: -borderWidth,
                                   y: -borderWidth,
@@ -202,7 +203,7 @@ fileprivate extension UIView {
     externalBorder.borderColor = borderColor.cgColor
     externalBorder.borderWidth = borderWidth
     externalBorder.name = Constants.ExternalBorderName
-    externalBorder.cornerRadius = 10
+    externalBorder.cornerRadius = cornerRadius
     layer.insertSublayer(externalBorder, at: 0)
     layer.masksToBounds = false
     
