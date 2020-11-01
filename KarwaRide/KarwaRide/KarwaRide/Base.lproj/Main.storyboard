@@ -1192,12 +1192,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvX-Kf-bc5" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="45.666666666666657" y="429" width="323" height="80"/>
+                                <rect key="frame" x="45.666666666666657" y="429" width="323" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="323" id="CDt-3H-hmm"/>
-                                    <constraint firstAttribute="height" constant="80" id="z2s-V8-THA"/>
+                                    <constraint firstAttribute="height" constant="60" id="z2s-V8-THA"/>
                                 </constraints>
-                                <state key="normal" image="CreateAnAccount"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
+                                <state key="normal" title="CREATE AN ACCOUNT">
+                                    <color key="titleColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
@@ -1206,6 +1210,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.corneRadius">
+                                        <integer key="value" value="18"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1248,7 +1255,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-Ly-soI" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="57" y="509" width="300" height="42"/>
+                                <rect key="frame" x="57" y="499" width="300" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="UqQ-8u-fap"/>
                                     <constraint firstAttribute="width" constant="300" id="kSy-Vd-v2O"/>
@@ -1271,7 +1278,7 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="vDV-Ly-soI" firstAttribute="top" secondItem="lvX-Kf-bc5" secondAttribute="bottom" id="4QJ-h5-jqW"/>
+                            <constraint firstItem="vDV-Ly-soI" firstAttribute="top" secondItem="lvX-Kf-bc5" secondAttribute="bottom" constant="10" id="4QJ-h5-jqW"/>
                             <constraint firstItem="vMV-JZ-kUc" firstAttribute="trailing" secondItem="mxy-PE-Iiv" secondAttribute="trailing" id="6Qc-yg-0G7"/>
                             <constraint firstAttribute="bottom" secondItem="mxy-PE-Iiv" secondAttribute="bottom" id="MQY-ze-ppC"/>
                             <constraint firstItem="wFI-ay-ZX6" firstAttribute="centerX" secondItem="vMV-JZ-kUc" secondAttribute="centerX" id="UsH-ew-gb1"/>
@@ -1936,7 +1943,7 @@
                                     <action selector="btnCloseTapped:" destination="C3v-6E-eFB" eventType="touchUpInside" id="cfE-W8-jVk"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Your Password?" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsj-66-Gu2" customClass="SpringLabel" customModule="Spring">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Your Password?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsj-66-Gu2" customClass="SpringLabel" customModule="Spring">
                                 <rect key="frame" x="40" y="70" width="334" height="27.666666666666671"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="23"/>
                                 <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1970,8 +1977,8 @@
                                                 <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tri_ico" translatesAutoresizingMaskIntoConstraints="NO" id="Ib4-iF-8Ob">
-                                                <rect key="frame" x="306" y="27.333333333333343" width="5" height="4"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="Ib4-iF-8Ob">
+                                                <rect key="frame" x="299.33333333333331" y="26" width="11.666666666666686" height="6.6666666666666643"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pFs-6l-edv">
                                                 <rect key="frame" x="0.0" y="0.0" width="332" height="50"/>
@@ -2150,7 +2157,7 @@
                                     <action selector="btnCloseTapped:" destination="eo2-jb-kjP" eventType="touchUpInside" id="g2h-fJ-clY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Your Password?" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n23-2G-pTx" customClass="SpringLabel" customModule="Spring">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Your Password?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n23-2G-pTx" customClass="SpringLabel" customModule="Spring">
                                 <rect key="frame" x="40" y="70" width="334" height="27.666666666666671"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="23"/>
                                 <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2231,6 +2238,11 @@
                                     <constraint firstItem="7hQ-wJ-7ow" firstAttribute="leading" secondItem="FEU-Za-8Sq" secondAttribute="leading" constant="1" id="gAK-ev-UeS"/>
                                     <constraint firstItem="7hQ-wJ-7ow" firstAttribute="top" secondItem="FEU-Za-8Sq" secondAttribute="top" constant="1" id="s8T-41-QWM"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywc-ER-MCh" customClass="SpringButton" customModule="Spring">
                                 <rect key="frame" x="60.666666666666657" y="318" width="293" height="51"/>
@@ -2249,9 +2261,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="btnSubmitTapped:" destination="cQY-xs-9LD" eventType="touchUpInside" id="LNk-zH-109"/>
-                                    <action selector="btnSubmitTapped:" destination="C3v-6E-eFB" eventType="touchUpInside" id="NQi-PG-DG3"/>
-                                    <action selector="btnSubmitTapped:" destination="E1j-Jm-PPl" eventType="touchUpInside" id="VAA-Pr-lz7"/>
+                                    <action selector="btnSubmitTapped:" destination="E1j-Jm-PPl" eventType="touchUpInside" id="aD8-7b-4Rc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2312,7 +2322,7 @@
                                     <color key="titleColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your number" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l" customClass="SpringLabel" customModule="Spring">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm your number" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdP-zW-75l" customClass="SpringLabel" customModule="Spring">
                                 <rect key="frame" x="40" y="80" width="343" height="27.666666666666671"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="23"/>
                                 <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -2328,7 +2338,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the 4-digit code Karwa just sent to" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN" customClass="SpringLabel" customModule="Spring">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the 4-digit code Karwa just sent to" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dT3-DH-MXN" customClass="SpringLabel" customModule="Spring">
                                 <rect key="frame" x="40" y="122.66666666666667" width="343" height="19.333333333333329"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -8908,11 +8918,11 @@
         <segue reference="N6S-jP-c4x"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="bJb-3g-Kix"/>
+        <segue reference="A9o-xm-kbF"/>
         <segue reference="UM1-sb-1vB"/>
         <segue reference="wcf-kD-wML"/>
         <segue reference="Otx-q2-Oud"/>
-        <segue reference="owf-mi-2L1"/>
+        <segue reference="IsY-nq-8bd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="APAddressBox" width="362" height="112"/>
@@ -8934,7 +8944,6 @@
         <image name="BookingPickDropTimeBox" width="345" height="146"/>
         <image name="BookingVehiclePad" width="50" height="50"/>
         <image name="BookingWaves" width="315" height="39"/>
-        <image name="CreateAnAccount" width="323" height="80"/>
         <image name="CrossBarButton" width="16" height="16"/>
         <image name="EtaToCustomerBack1" width="130" height="32"/>
         <image name="KarwaLogoWithText" width="160" height="45"/>
@@ -8954,7 +8963,6 @@
         <image name="SettingIconPassword" width="14" height="23"/>
         <image name="Signinbutton" width="345" height="80"/>
         <image name="SummitButton" width="293" height="51"/>
-        <image name="Tri_ico" width="5" height="4"/>
         <image name="UnderConstruction" width="500" height="341.33334350585938"/>
         <image name="apple_pay" width="315" height="50"/>
         <image name="arrow_down" width="11.666666984558105" height="6.6666665077209473"/>

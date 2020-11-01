@@ -19,7 +19,8 @@ class KTMainViewController: KTBaseViewController, UIPopoverPresentationControlle
     override func viewDidLoad() {
         viewModel = KTMainViewModel(del:self)
         super.viewDidLoad()
-        
+      btnCreatAccount.setTitle("txt_create_account".localized().uppercased(), for: .normal)
+      btnCreatAccount.layer.cornerRadius = 30
         // Do any additional setup after loading the view.
         (viewModel as! KTMainViewModel).viewDidLoad { (navigate:Bool) in
             if navigate {

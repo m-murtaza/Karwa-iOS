@@ -105,13 +105,13 @@ class VPMOTPView: UIView {
     var otpFieldDefaultBackgroundColor: UIColor = UIColor(hexString: "#FFFFFF")
     
     /// Set this value if a background color is needed when a text is enetered in the OTP field. Defaults to `clear` color.
-    var otpFieldEnteredBackgroundColor: UIColor = UIColor(hexString: "#CFD0D1")
+    var otpFieldEnteredBackgroundColor: UIColor = UIColor(hexString: "#FFFFFF")
     
     /// Set this value if a border color is needed when a text is not enetered in the OTP field. Defaults to `black` color.
     var otpFieldDefaultBorderColor: UIColor = UIColor(hexString: "#B0B0B0")
     
     /// Set this value if a border color is needed when a text is enetered in the OTP field. Defaults to `black` color.
-    var otpFieldEnteredBorderColor: UIColor = UIColor(hexString:"#F5F6F7")
+    var otpFieldEnteredBorderColor: UIColor = UIColor(hexString:"#005866")
     
     weak var delegate: VPMOTPViewDelegate?
     

@@ -39,7 +39,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     txtPassword.textField.isSecureTextEntry = true
     txtConfirmPass.textField.isSecureTextEntry = true
     tapToDismissKeyboard()
-    
+
     // Do any additional setup after loading the view.
     //btnSubmitt.isHidden = true
     // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
