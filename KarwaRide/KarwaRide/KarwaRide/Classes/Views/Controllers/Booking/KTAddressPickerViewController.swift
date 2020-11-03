@@ -15,16 +15,26 @@ enum SelectedTextField: Int {
 }
 
 enum SelectedInputMechanism : Int {
-  
   case ListView = 1
   case MapView = 2
+}
+
+enum Tab {
+  case address
+  case favorite
 }
 
 let MIN_ALLOWED_TEXT_COUNT_SEARCH  = 2
 let SEC_WAIT_START_SEARCH = 1.0
 let SELECTED_TEXT_FIELD_COLOR : UIColor = UIColor(hexString: "#F5F5F5")
 
-class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewModelDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,GMSMapViewDelegate, AddressPickerCellDelegate {
+class KTAddressPickerViewController: KTBaseViewController,
+KTAddressPickerViewModelDelegate,
+UITableViewDelegate,
+UITableViewDataSource,
+UITextFieldDelegate,
+GMSMapViewDelegate,
+AddressPickerCellDelegate {
   
   @IBOutlet weak var tblView: UITableView!
   @IBOutlet weak var txtPickAddress: UITextField!
@@ -34,6 +44,12 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
   @IBOutlet weak var mapView : GMSMapView!
   @IBOutlet weak var mapSuperView : UIView!
   @IBOutlet weak var imgMapMarker : UIImageView!
+  
+  @IBOutlet weak var skipButton: UIButton!
+  @IBOutlet weak var addressesListButton: UIButton!
+  @IBOutlet weak var favouritesListButton: UIButton!
+  
+  @IBOutlet weak var mapOptionsContainer: UIView!
   
   @IBOutlet weak var btnHome : UIButton!
   @IBOutlet weak var btnWork : UIButton!
@@ -45,6 +61,25 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
   public var dropoffAddress : KTGeoLocation?
   
   public weak var previousView : KTCreateBookingViewModel?
+  
+  private var tab: Tab = .address {
+    didSet {
+      switch tab {
+      case .address:
+        imgListSelected.isHidden = false
+        imgMapSelected.isHidden = true
+        
+        addressesListButton.setTitleColor(UIColor.primary, for: .normal)
+        favouritesListButton.setTitleColor(UIColor.lightGray, for: .normal)
+      case .favorite:
+        imgListSelected.isHidden = true
+        imgMapSelected.isHidden = false
+        
+        addressesListButton.setTitleColor(UIColor.lightGray, for: .normal)
+        favouritesListButton.setTitleColor(UIColor.primary, for: .normal)
+      }
+    }
+  }
   
   private var searchTimer: Timer = Timer()
   private var searchText : String = ""
@@ -74,9 +109,18 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     //Do not move these line after super.viewDidLoad
     super.viewDidLoad()
-    
     tblView.estimatedRowHeight = 80
     tblView.rowHeight = UITableViewAutomaticDimension
+    toggleSkipButton()
+  }
+  
+  private func toggleSkipButton() {
+    switch selectedTxtField {
+    case .PickupAddress:
+      skipButton.isHidden = true
+    case .DropoffAddress:
+      skipButton.isHidden = false
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -235,33 +279,49 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
   }
   //MARK: - User Actions
   
+  @IBAction func swapPickupAndDestination(_ sender: Any) {
+    let temporary = pickupAddress
+    pickupAddress = dropoffAddress
+    dropoffAddress = temporary
+    (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
+    (viewModel as! KTAddressPickerViewModel).dropOffAddress = dropoffAddress
+    
+    txtPickAddress.text = pickupAddress?.name
+    txtDropAddress.text = dropoffAddress?.name
+  }
+  
   @IBAction func btnConfirmTapped(_ sender: Any) {
     
     (viewModel as! KTAddressPickerViewModel).confimMapSelection()
   }
   
   @IBAction func btnSkipTapped(_ sender: Any) {
-    
     (viewModel as! KTAddressPickerViewModel).skipDestination()
   }
   
   @IBAction func btnSetWorkTapped(_ sender: Any) {
-    
+    btnToggleMapOptions(self)
     (viewModel as! KTAddressPickerViewModel).btnSetWorkTapped()
   }
   
+  @IBAction func btnSetFavoriteTapped(_ sender: Any) {
+    btnToggleMapOptions(self)
+    (viewModel as! KTAddressPickerViewModel).btnFavoriteTapped()
+  }
+  
   @IBAction func btnSetHomeTapped(_ sender: Any) {
-    
+    btnToggleMapOptions(self)
     (viewModel as! KTAddressPickerViewModel).btnSetHomeTapped()
+  }
+  
+  @IBAction func btnToggleMapOptions(_ sender: Any) {
+    self.mapOptionsContainer.isHidden.toggle()
   }
   
   //MARK: - MAP/ LIST Selected
   
   @IBAction func btnListViewTapped(_ sender: Any) {
-    
-    imgListSelected.isHidden = false
-    imgMapSelected.isHidden = true
-    
+    tab = .address
     self.tblView.isHidden = false
     self.mapSuperView.isHidden = true
     
@@ -270,10 +330,10 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     selectedInputMechanism = SelectedInputMechanism.ListView
     
-    txtPickAddress.tintColor = UIColor(hexString:"#006170")
-    txtPickAddress.backgroundColor = UIColor.white
-    txtDropAddress.tintColor = UIColor(hexString:"#006170")
-    txtDropAddress.backgroundColor = UIColor.white
+//    txtPickAddress.tintColor = UIColor(hexString:"#006170")
+//    txtPickAddress.backgroundColor = UIColor.white
+//    txtDropAddress.tintColor = UIColor(hexString:"#006170")
+//    txtDropAddress.backgroundColor = UIColor.white
     
     if selectedTxtField == SelectedTextField.PickupAddress
     {
@@ -303,6 +363,17 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     toggleToMapView()
   }
   
+  @IBAction func btnFavoritesViewTapped(_ sender: Any) {
+    tab = .favorite
+    addressesListButton.setTitleColor(UIColor.lightGray, for: .normal)
+    favouritesListButton.setTitleColor(UIColor.primary, for: .normal)
+    
+    imgListSelected.isHidden = true
+    imgMapSelected.isHidden = false
+    
+    (viewModel as! KTAddressPickerViewModel).loadFavoritesDataInView()
+  }
+  
   func toggleToMapView()
   {
     toggleToMapView(forPickup : false)
@@ -314,8 +385,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     self.zoomForPickupRequired = forPickup
     
-    imgListSelected.isHidden = true
-    imgMapSelected.isHidden = false
+//    imgListSelected.isHidden = true
+//    imgMapSelected.isHidden = false
     
     
     self.tblView.isHidden = true
@@ -329,27 +400,31 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     txtPickAddress.inputView = UIView()
     
     if selectedTxtField == SelectedTextField.DropoffAddress {
-      
+
       self.txtDropAddress.resignFirstResponder()
       txtDropAddress.becomeFirstResponder()
     }
     else {
-      
+
       self.txtPickAddress.resignFirstResponder()
       txtPickAddress.becomeFirstResponder()
     }
     
-    txtPickAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
-    txtDropAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
+//    txtPickAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
+//    txtDropAddress.tintColor = SELECTED_TEXT_FIELD_COLOR
     
-    if selectedTxtField == SelectedTextField.PickupAddress {
-      
-      txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
-    }
-    else {
-      
-      txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
-    }
+//    if selectedTxtField == SelectedTextField.PickupAddress {
+//
+//      txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+//    }
+//    else {
+//
+//      txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+//    }
+  }
+  
+  @IBAction func dismissAction(_ sender: UIButton) {
+    self.dismiss(animated: true, completion: nil)
   }
   
   // MARK: - View Model Delegate
@@ -398,6 +473,13 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
      - Change List to Map
      - Focus on Pickup field
      */
+  }
+  
+  func navigateToFavoriteScreen(location: KTGeoLocation?) {
+    let vc = KTFavoriteAddressViewController()
+    vc.favoritelocation = location
+    vc.modalPresentationStyle = .fullScreen
+    self.present(vc, animated: true, completion: nil)
   }
   
   func refineDropOff()
@@ -460,6 +542,8 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     cell.ImgTypeIcon.image = (viewModel as! KTAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
     
     cell.btnMore.tag = indexPath.row
+    cell.btnMore.isHidden = (tab == .favorite)
+
     cell.delegate = self
     
     animateCell(cell)
@@ -505,6 +589,9 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
         updateMap()
       }
     }
+    
+    toggleSkipButton()
+    tab = .address
   }
   
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -552,6 +639,7 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     return true;
   }
   
+  
   @objc func updateTimer() {
     print("OK Start searching now")
     
@@ -561,16 +649,16 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
     
     if txt.isEqual(txtDropAddress) {
       searchText = txtDropAddress.text!
-      txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
-      txtPickAddress.backgroundColor = UIColor.white
+//      txtDropAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+//      txtPickAddress.backgroundColor = UIColor.white
       imgMapMarker.image = UIImage(named: "APDropOffMarker")
       
       btnConfirm.setTitle("Confirm Destination", for: .normal)
     }
     else {
       searchText = txtPickAddress.text!
-      txtDropAddress.backgroundColor = UIColor.white
-      txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
+//      txtDropAddress.backgroundColor = UIColor.white
+//      txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
       imgMapMarker.image = UIImage(named: "APPickUpMarker")
       
       btnConfirm.setTitle("Confirm Pickup", for: .normal)
@@ -592,9 +680,14 @@ class KTAddressPickerViewController: KTBaseViewController,KTAddressPickerViewMod
       (self.viewModel as! KTAddressPickerViewModel).setWork(forIndex: idx)
     }
     
+    let favoriteAction = UIAlertAction(title: "Set Favorite", style: .default) { (UIAlertAction) in
+      (self.viewModel as! KTAddressPickerViewModel).setFavorite(forIndex: idx)
+    }
+    
     alertController.addAction(cancelAction)
     alertController.addAction(homeAction)
     alertController.addAction(workAction)
+    alertController.addAction(favoriteAction)
     self.present(alertController, animated: true, completion: nil)
   }
 }

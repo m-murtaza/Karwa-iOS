@@ -49,6 +49,7 @@ class KTTextField: UIView {
     textField.tintColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.selectedTitleColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.font = UIFont(name: "MuseoSans-500", size: 15.0)!
+    textField.autocorrectionType = .no
     return textField
   }()
   
@@ -184,41 +185,3 @@ class KTTextField: UIView {
 //  }
 //
 //}
-
-extension UIView {
-  
-  struct Constants {
-    static let ExternalBorderName = "externalBorder"
-  }
-  
-  @discardableResult
-  func addExternalBorder(borderWidth: CGFloat = 2.0,
-                         borderColor: UIColor = UIColor.white,
-                         cornerRadius: CGFloat = 10.0) -> CALayer {
-    let externalBorder = CALayer()
-    externalBorder.frame = CGRect(x: -borderWidth,
-                                  y: -borderWidth,
-                                  width: frame.size.width + 2 * borderWidth,
-                                  height: frame.size.height + 2 * borderWidth)
-    externalBorder.borderColor = borderColor.cgColor
-    externalBorder.borderWidth = borderWidth
-    externalBorder.name = Constants.ExternalBorderName
-    externalBorder.cornerRadius = cornerRadius
-    layer.insertSublayer(externalBorder, at: 0)
-    layer.masksToBounds = false
-    
-    return externalBorder
-  }
-  
-  func removeExternalBorders() {
-    layer.sublayers?.filter() { $0.name == Constants.ExternalBorderName }.forEach() {
-      $0.removeFromSuperlayer()
-    }
-  }
-  
-  func removeExternalBorder(externalBorder: CALayer) {
-    guard externalBorder.name == Constants.ExternalBorderName else { return }
-    externalBorder.removeFromSuperlayer()
-  }
-  
-}

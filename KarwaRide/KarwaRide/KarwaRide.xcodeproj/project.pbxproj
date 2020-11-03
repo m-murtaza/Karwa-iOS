@@ -211,6 +211,10 @@
 		18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */; };
 		18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */; };
 		441D1147254E8234005E1B66 /* Dohabank.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 441D1146254E8234005E1B66 /* Dohabank.gpx */; };
+		441D114A254FEC17005E1B66 /* KTFavoriteAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */; };
+		441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */; };
+		441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D114C254FED49005E1B66 /* UIView + Extension.swift */; };
+		441D116D25503A93005E1B66 /* KTAddressFavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D116C25503A93005E1B66 /* KTAddressFavoriteViewModel.swift */; };
 		448595E22546A98D00409C6C /* KTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448595E12546A98D00409C6C /* KTTextField.swift */; };
 		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
 		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
@@ -435,6 +439,10 @@
 		18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Estimate.swift"; path = "Classes/DAL/Booking/KTBookingManager+Estimate.swift"; sourceTree = "<group>"; };
 		18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseFareEstimateManager.swift; path = Classes/DAL/KTBaseFareEstimateManager.swift; sourceTree = "<group>"; };
 		441D1146254E8234005E1B66 /* Dohabank.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Dohabank.gpx; sourceTree = "<group>"; };
+		441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTFavoriteAddressViewController.swift; sourceTree = "<group>"; };
+		441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KTFavoriteAddressViewController.xib; sourceTree = "<group>"; };
+		441D114C254FED49005E1B66 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		441D116C25503A93005E1B66 /* KTAddressFavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddressFavoriteViewModel.swift; sourceTree = "<group>"; };
 		448595E12546A98D00409C6C /* KTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTextField.swift; sourceTree = "<group>"; };
 		448DCC262549B4E8005A644D /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
 		448DCC28254A61C2005A644D /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
@@ -900,6 +908,7 @@
 		1833CA7D200DB86E00AD885B /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				441D116E255103ED005E1B66 /* Favorite */,
 				18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */,
 				1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */,
 				18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */,
@@ -922,6 +931,7 @@
 			isa = PBXGroup;
 			children = (
 				1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */,
+				441D116C25503A93005E1B66 /* KTAddressFavoriteViewModel.swift */,
 				18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */,
 			);
 			name = Booking;
@@ -1218,6 +1228,7 @@
 				182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */,
 				448DCC262549B4E8005A644D /* UIFont + Extension.swift */,
 				448DCC28254A61C2005A644D /* UIViewController + Extension.swift */,
+				441D114C254FED49005E1B66 /* UIView + Extension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1321,6 +1332,15 @@
 				18F2B277204420FC00600966 /* Settings */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		441D116E255103ED005E1B66 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */,
+				441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */,
+			);
+			name = Favorite;
 			sourceTree = "<group>";
 		};
 		448595E02546A94D00409C6C /* Views */ = {
@@ -1428,6 +1448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
+				441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */,
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
@@ -1716,6 +1737,7 @@
 				0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */,
 				0D685A86218CB1F200DB2CDB /* MAKHash.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
+				441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */,
 				186ECFD120A80EDB002CF81E /* KTFirstViewModel.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
@@ -1758,11 +1780,13 @@
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				0DE28EB325077385000E27E4 /* Int_ex.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
+				441D116D25503A93005E1B66 /* KTAddressFavoriteViewModel.swift in Sources */,
 				0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,
 				0DE90AF42186E8A6005FC934 /* KTPaymentViewController.swift in Sources */,
 				0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */,
 				186ECFC920A2B827002CF81E /* KTOnBoardingRootViewController.swift in Sources */,
+				441D114A254FEC17005E1B66 /* KTFavoriteAddressViewController.swift in Sources */,
 				0DF3A22F2185B5440000503B /* PayTripBeanForServer.swift in Sources */,
 				1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */,
 				1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */,

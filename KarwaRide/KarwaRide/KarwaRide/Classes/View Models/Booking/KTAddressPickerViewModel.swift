@@ -28,6 +28,7 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
     func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
     func startConfirmPickupFlow()
     func toggleConfirmBtn(enableBtn enable : Bool)
+    func navigateToFavoriteScreen(location: KTGeoLocation?)
 }
 
 class KTAddressPickerViewModel: KTBaseViewModel {
@@ -36,6 +37,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     public var dropOffAddress : KTGeoLocation?
     private var locations : [KTGeoLocation] = []
     private var bookmarks : [KTGeoLocation] = []
+    private var favorites : [KTGeoLocation] = []
     private var nearBy : [KTGeoLocation] = []
     private var recent : [KTGeoLocation] = []
     private var popular : [KTGeoLocation] = []
@@ -139,6 +141,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
         return n!
     }
+  
+  func loadFavoritesDataInView() {
+    if let favorites = KTBookmarkManager().fetchAllFavorites() {
+      locations.removeAll()
+      for favorite in favorites {
+        if let loc = favorite.bookmarkToGeoLocation {
+          locations.append(loc)
+        }
+      }
+      del?.loadData()
+    }
+  }
     
     func loadDataInView() {
         if del?.inFocusTextField() == SelectedTextField.PickupAddress {
@@ -377,6 +391,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         saveBookmark(bookmarkType: BookmarkType.work, location: location)
         
     }
+  
+    func setFavorite(forIndex idx: Int) {
+      let location : KTGeoLocation = locations[idx]
+      del?.navigateToFavoriteScreen(location: location)
+    }
     
     func btnSetHomeTapped() {
         var location : KTGeoLocation? = dropOffAddress
@@ -396,6 +415,15 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         saveBookmark(bookmarkType: BookmarkType.work, location: location!)
     }
+  
+  func btnFavoriteTapped() {
+    var location : KTGeoLocation? = dropOffAddress
+    if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+        location = pickUpAddress
+    }
+    
+    del?.navigateToFavoriteScreen(location: location)
+  }
     
     func saveBookmark(bookmarkType: BookmarkType, location: KTGeoLocation) {
         

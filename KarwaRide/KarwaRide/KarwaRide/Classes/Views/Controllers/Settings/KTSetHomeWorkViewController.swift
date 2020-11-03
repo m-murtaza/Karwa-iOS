@@ -13,6 +13,7 @@ import GoogleMaps
 enum BookmarkType : Int{
     case home = 1
     case work = 2
+    case favorite = 3
 }
 
 class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource,GMSMapViewDelegate,UITextFieldDelegate {

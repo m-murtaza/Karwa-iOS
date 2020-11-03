@@ -75,7 +75,7 @@ extension UIFont {
 
 extension UIColor {
   static let primary = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
-  static let primaryLight = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 0.5038527397)
+  static let primaryLight = #colorLiteral(red: 0.8980392157, green: 0.9607843137, blue: 0.9490196078, alpha: 1)
   static let secondary = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
   static let background = #colorLiteral(red: 0.9607843137, green: 0.9647058824, blue: 0.968627451, alpha: 1)
 }
