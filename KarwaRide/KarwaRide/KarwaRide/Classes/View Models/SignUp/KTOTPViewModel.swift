@@ -44,7 +44,8 @@ class KTOTPViewModel: KTBaseViewModel {
         }
         else
         {
-            self.delegate?.showError!(title: "", message: "Please Enter Code first")
+            self.delegate?.showError!(title: "error_sr".localized(),
+                                      message: "Please Enter Code first")
         }
     }
     
@@ -57,7 +58,8 @@ class KTOTPViewModel: KTBaseViewModel {
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
             
-                self.delegate?.showError!(title: "", message: "Verification code sent")
+                self.delegate?.showError!(title: "error_sr".localized(),
+                                          message: "Verification code sent")
             }
             else
             {

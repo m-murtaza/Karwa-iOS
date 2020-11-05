@@ -24,12 +24,12 @@ class KTForgotPassViewModel: KTBaseViewModel {
     
     struct ForgotPassValidationError {
         
-        let NoPassword = "Password is mandatory"
-        let NoRePassword = "Confirm Password is mandatory"
-        let PasswordNotMatch = "Password & confirm password don't match"
-        let NoPhone = "Mobile number is mandatory"
-        let WrongPhone = "Please enter valid mobile number"
-        let PasswordSixChar = "Password should be more than six charecter"
+      let NoPassword = "err_min_password".localized()
+      let NoRePassword = "err_min_confirm_password".localized()
+      let PasswordNotMatch = "err_passwords_not_match".localized()
+      let NoPhone = "err_no_phone".localized()
+      let WrongPhone = "err_no_phone".localized()
+      let PasswordSixChar = "err_min_password".localized()
     }
     
 //    init(del: Any) {
@@ -69,13 +69,14 @@ class KTForgotPassViewModel: KTBaseViewModel {
                 }
                 else
                 {
-                    (self.delegate as! KTForgotPassViewModelDelegate).showError!(title: response["T"] as? String ?? "Error", message: response["M"] as! String)
+                    (self.delegate as! KTForgotPassViewModelDelegate).showError!(title: response["T"] as? String ?? "error_sr".localized(), message: response["M"] as! String)
                 }
             })
         }
         else
         {
-            (delegate as! KTForgotPassViewModelDelegate).showError!(title: "Error", message: error)
+            (delegate as! KTForgotPassViewModelDelegate).showError!(title: "error_sr".localized(),
+                                                                    message: error)
         }
         
     }

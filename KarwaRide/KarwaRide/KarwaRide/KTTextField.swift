@@ -47,6 +47,7 @@ class KTTextField: UIView {
     textField.placeholderColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.placeholderFont = UIFont(name: "MuseoSans-500", size: 15.0)!
     textField.tintColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
+    textField.textColor = UIColor.primary
     textField.selectedTitleColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.font = UIFont(name: "MuseoSans-500", size: 15.0)!
     textField.autocorrectionType = .no

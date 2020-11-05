@@ -83,10 +83,13 @@ class KTWebClient: NSObject {
         print("Server call: \(url)")
         print("Param: \(String(describing: param))")
         
-        var httpHeaders : [String:String] = [:]
+        var httpHeaders : [String: String] = [:]
         httpHeaders["Content-Type"] = "application/x-www-form-urlencoded"
         httpHeaders[Constants.API.Salt] = MAKHashGenerator().getSalt()
+        httpHeaders[Constants.API.Headers.AcceptLanguage] = Device.language()
+        httpHeaders[Constants.API.Headers.Localize] = "1"
 
+        print("Headers: \(httpHeaders)")
         if let sessionId = KTAppSessionInfo.currentSession.sessionId , !(KTAppSessionInfo.currentSession.sessionId?.isEmpty)!
         {
             httpHeaders["Session-ID"] = sessionId

@@ -38,6 +38,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     btnSubmitt.setTitle("txt_continue".localized(), for: .normal)
     txtPassword.textField.isSecureTextEntry = true
     txtConfirmPass.textField.isSecureTextEntry = true
+    txtPhoneNumber.textField.keyboardType = .phonePad
     tapToDismissKeyboard()
 
     // Do any additional setup after loading the view.
@@ -101,7 +102,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
   }
   
   func phoneNumber() -> String? {
-    return txtPhoneNumber.text
+    return txtPhoneNumber.text?.convertToNumbersIfNeeded()
   }
   
   func countryCode() -> String? {

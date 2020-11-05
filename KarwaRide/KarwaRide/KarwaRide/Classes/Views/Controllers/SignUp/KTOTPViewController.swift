@@ -79,13 +79,13 @@ class KTOTPViewController: KTBaseViewController, KTOTPViewModelDelegate {
     }
     
     func OTPCode() -> String? {
-        return otpString
+      return otpString?.convertToNumbersIfNeeded()
     }
     func countryCallingCode() -> String?  {
-        return countryCode
+      return countryCode?.convertToNumbersIfNeeded()
     }
     func phoneNum() -> String?  {
-        return phone
+        return phone.convertToNumbersIfNeeded()
     }
     
     func navigateToBooking() {

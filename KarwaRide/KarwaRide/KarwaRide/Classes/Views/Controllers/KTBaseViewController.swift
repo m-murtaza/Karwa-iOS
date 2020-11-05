@@ -53,7 +53,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     {
         let altError = UIAlertController(title: title,message: message,preferredStyle:UIAlertControllerStyle.alert)
         
-        altError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler:nil ))
+      altError.addAction(UIAlertAction(title: "ok".localized(), style: UIAlertActionStyle.default, handler:nil ))
         self.present(altError,animated: true, completion: nil)
     }
     
@@ -87,7 +87,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     func showPopupMessage(_ title: String, _ message: String)
     {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+      let okAction = UIAlertAction(title: "ok".localized(), style: .default)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
@@ -253,7 +253,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     func showOkDialog(titleMessage title: String, descMessage desc: String, completion: ((UIAlertAction) -> Void)? = nil)
     {
         let alertController = UIAlertController(title: title, message: desc, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: completion)
+      let okAction = UIAlertAction(title: "ok".localized(), style: .default, handler: completion)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }

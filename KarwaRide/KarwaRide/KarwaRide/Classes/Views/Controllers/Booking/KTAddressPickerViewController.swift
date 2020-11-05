@@ -109,9 +109,19 @@ AddressPickerCellDelegate {
     
     //Do not move these line after super.viewDidLoad
     super.viewDidLoad()
+    setupUI()
+  }
+  
+  private func setupUI() {
+    setupTableView()
+    toggleSkipButton()
+    addressesListButton.setTitle("btn_addresses_title".localized().uppercased(), for: .normal)
+    favouritesListButton.setTitle("btn_favorites_title".localized().uppercased(), for: .normal)
+  }
+  
+  private func setupTableView() {
     tblView.estimatedRowHeight = 80
     tblView.rowHeight = UITableViewAutomaticDimension
-    toggleSkipButton()
   }
   
   private func toggleSkipButton() {

@@ -42,6 +42,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     passwordTextField.textField.delegate = self
     emailTextField.textField.delegate = self
     nameTextField.textField.delegate = self
+    phoneNumberTextField.textField.keyboardType = .phonePad
     
     backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     tapToDismissKeyboard()
@@ -138,7 +139,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
   }
   
   func mobileNo() -> String? {
-    return phoneNumberTextField.text
+    return phoneNumberTextField.text?.convertToNumbersIfNeeded()
   }
   
   func email() -> String? {

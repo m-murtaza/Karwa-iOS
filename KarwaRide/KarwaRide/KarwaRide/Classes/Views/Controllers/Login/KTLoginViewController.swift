@@ -38,7 +38,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     phoneNumberTextField.textField.delegate = self
     passwordTextField.textField.delegate = self
     phoneNumberTextField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-    
+    phoneNumberTextField.textField.keyboardType = .phonePad
     countryList.delegate = self
 
     setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
@@ -133,7 +133,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
       return ""
     }
     
-    return phoneNumberTextField.text!
+    return phoneNumberTextField.text!.convertToNumbersIfNeeded()
   }
   
   func password() -> String {

@@ -82,6 +82,15 @@ enum BookingStatus : Int32 {
     case UNKNOWN = 0
 }
 
+struct Device {
+  static func language() -> String {
+    if Locale.current.languageCode == "ar" {
+      return "ar-QA"
+    }
+    return "en-US"
+  }
+}
+
 struct Constants {
     static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
@@ -136,6 +145,11 @@ struct Constants {
         static let BaseURLKey = "BaseAPIURL"
         static let RequestTimeOut = 10.0
         static let Salt = "Salt"
+      
+      struct Headers {
+        static let AcceptLanguage = "Accept-Language"
+        static let Localize = "Localize"
+      }
     }
     
     struct ResponseAPIKey {
