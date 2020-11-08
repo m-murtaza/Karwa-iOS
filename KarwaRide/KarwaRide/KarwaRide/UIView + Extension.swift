@@ -44,6 +44,24 @@ extension UIView {
     externalBorder.removeFromSuperlayer()
   }
   
+  
+  func applyShadow(radius: CGFloat = 8.0, opacity: Float = 0.3, size: CGSize = CGSize(width: 1, height: 1), color: UIColor = UIColor.black) {
+    layer.shadowRadius = radius
+    layer.shadowOpacity = opacity
+    layer.shadowOffset = size
+    layer.shadowColor = color.cgColor
+  }
+  
+  func topTwoRoundedCorners() {
+    //self.clipsToBounds = true
+    self.layer.cornerRadius = 10
+    if #available(iOS 11.0, *) {
+      self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    } else {
+      // Fallback on earlier versions
+    }
+  }
+  
 }
 
 

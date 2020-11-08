@@ -19,7 +19,7 @@ extension KTBookingManager
                                            Constants.TrackTaxiParams.Lat : coordinate.latitude,
                                            Constants.TrackTaxiParams.Lon: coordinate.longitude,
                                            Constants.TrackTaxiParams.Radius: TrackTaxiDefaultRadius,
-                                           Constants.TrackTaxiParams.VehicleType : vehicleType.rawValue,
+                                           //Constants.TrackTaxiParams.VehicleType : vehicleType.rawValue,
                                            Constants.TrackTaxiParams.Limit: TrackTaxiMaxFectchCount]
        
         self.get(url: Constants.APIURL.TrackTaxi, param: param as? [String : Any], completion: completionBlock, success: {

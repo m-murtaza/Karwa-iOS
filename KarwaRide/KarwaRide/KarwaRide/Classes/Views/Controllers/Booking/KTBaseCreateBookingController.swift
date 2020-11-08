@@ -24,7 +24,7 @@ class KTCreateBookingConstants {
     
 }
 
-class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDelegate {
+class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     
     //MARK:- Public and private variables
     var fareBreakdown : KTFareViewController!
@@ -40,9 +40,6 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     @IBOutlet weak var btnRevealBtn : UIButton!
     @IBOutlet weak var btnCancelBtn : UIButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
-    @IBOutlet weak var imgPickDestBoxBG :UIImageView!
-    @IBOutlet weak var btnPickDate: UIButton!
-    @IBOutlet weak var btnCash :UIButton!
     @IBOutlet weak var viewFareBreakdown : UIView!
     
     
@@ -58,11 +55,6 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController,GMSMapViewDe
     
     //MARK: - Constraints
     @IBOutlet weak var constraintBoxHeight : NSLayoutConstraint!
-    @IBOutlet weak var constraintBoxBGImageHeight : NSLayoutConstraint!
-    @IBOutlet weak var constraintBoxItemsTopSpace : NSLayoutConstraint!
-    @IBOutlet weak var constraintBtnRequestBookingHeight : NSLayoutConstraint!
-    @IBOutlet weak var constraintBoxBtnRequestBookingSpace : NSLayoutConstraint!
-    @IBOutlet weak var constraintBtnRequestBookingBottomSpace : NSLayoutConstraint!
     //This is top align constraint for farebreakdown and box.
     @IBOutlet weak var constraintFareToBox : NSLayoutConstraint!
     

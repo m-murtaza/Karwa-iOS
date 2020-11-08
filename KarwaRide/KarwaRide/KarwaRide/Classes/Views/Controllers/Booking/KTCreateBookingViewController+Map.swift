@@ -9,6 +9,20 @@
 import Foundation
 import GoogleMaps
 
+extension KTCreateBookingViewController: GMSMapViewDelegate {
+  
+  func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+    
+    let location = CLLocation(latitude: mapView.camera.target.latitude,
+                              longitude: mapView.camera.target.longitude)
+    let name = "LocationManagerNotificationIdentifier"
+    NotificationCenter.default.post(name: Notification.Name(name),
+                                    object: nil,
+                                    userInfo: ["location": location as Any,
+                                               "updateMap" : false])
+  }
+}
+
 extension KTCreateBookingViewController
 {
     internal func addMap() {
@@ -18,7 +32,7 @@ extension KTCreateBookingViewController
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
-        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 110, right: 0)
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         mapView.padding = padding
         
         do {
@@ -31,22 +45,25 @@ extension KTCreateBookingViewController
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
+      
+      mapView.delegate = self
+      self.focusMapToCurrentLocation()
     }
     
     internal func showCurrentLocationDot(show: Bool) {
         
         self.mapView!.isMyLocationEnabled = show
-        self.mapView!.settings.myLocationButton = show
+        //self.mapView!.settings.myLocationButton = show
     }
     
     func updateLocationInMap(location: CLLocation) {
         
         //Update map
-        if !(viewModel as! KTCreateBookingViewModel).isVehicleNearBy() {
+        //if !(viewModel as! KTCreateBookingViewModel).isVehicleNearBy() {
             let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
             
             self.mapView?.animate(to: camera)
-        }
+        //}
     }
     
     func imgForTrackMarker(_ vehicleType: Int16) -> UIImage {
@@ -103,14 +120,14 @@ extension KTCreateBookingViewController
 //                gmsMarker.append(marker)
 //            }
 //        }
-        if gmsMarker.count > 0
-        {
-            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-        }
-        else
-        {
-            self.focusMapToCurrentLocation()
-        }
+//        if gmsMarker.count > 0
+//        {
+//            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+//        }
+//        else
+//        {
+//            self.focusMapToCurrentLocation()
+//        }
     }
     
     private func moveVehiclesIfRequired(nearbyVehiclesNew newVehicles:[VehicleTrack])
