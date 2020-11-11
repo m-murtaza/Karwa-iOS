@@ -24,12 +24,12 @@ extension KTCreateBookingViewController {
     
     func updateVehicleTypeList () {
         
-        self.carousel.reloadData()
+        //self.carousel.reloadData()
     }
     
     func setVehicleType(idx: Int) {
         
-        carousel.scrollToItem(at:IndexPath(item: idx, section: 0), at: .right, animated: false)
+        //carousel.scrollToItem(at:IndexPath(item: idx, section: 0), at: .right, animated: false)
     }
 }
 

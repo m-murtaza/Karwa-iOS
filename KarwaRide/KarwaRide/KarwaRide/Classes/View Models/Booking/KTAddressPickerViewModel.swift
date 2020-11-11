@@ -315,12 +315,10 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     func didSelectRow(at idx:Int, type:SelectedTextField) {
         if type == SelectedTextField.PickupAddress {
-            
             pickUpAddress = locations[idx]
             (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
         }
         else {
-            
             dropOffAddress = locations[idx]
             (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name)!)
         }
@@ -330,15 +328,16 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 
     private func moveBackIfNeeded(skipDestination : Bool)
     {
-        if((delegate as! KTAddressPickerViewModelDelegate).getConfirmPickupFlowDone())
-        {
-            moveBackScreen(skipDestination: skipDestination)
-        }
-        else
-        {
-            // start pickup confirmation from map flow
-            (self.delegate as! KTAddressPickerViewModelDelegate).startConfirmPickupFlow()
-        }
+//        if((delegate as! KTAddressPickerViewModelDelegate).getConfirmPickupFlowDone())
+//        {
+//            moveBackScreen(skipDestination: skipDestination)
+//        }
+//        else
+//        {
+//            // start pickup confirmation from map flow
+//            (self.delegate as! KTAddressPickerViewModelDelegate).startConfirmPickupFlow()
+//        }
+      moveBackScreen(skipDestination: skipDestination)
     }
     
     private func moveBackScreen(skipDestination : Bool)

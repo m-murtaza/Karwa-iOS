@@ -10,6 +10,32 @@ import UIKit
 import Spring
 import Crashlytics
 
+class RideServiceCell: UITableViewCell {
+  @IBOutlet weak var serviceName: UILabel!
+  @IBOutlet weak var capacity: UILabel!
+  @IBOutlet weak var fare: UILabel!
+  @IBOutlet weak var time: UILabel!
+  @IBOutlet weak var icon: UIImageView!
+  
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+    contentView.backgroundColor = highlighted ? .white : .clear
+    contentView.layer.borderColor = highlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
+    contentView.layer.borderWidth = highlighted ? 2 : 0
+    contentView.layer.cornerRadius = highlighted ? 8 : 0
+  }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    contentView.backgroundColor = selected ? .white : .clear
+    contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
+    contentView.layer.borderWidth = selected ? 2 : 0
+    contentView.layer.cornerRadius = selected ? 8 : 0
+  }
+  
+  override class func awakeFromNib() {
+    super.awakeFromNib()
+  }
+}
+
 class DashboardAddressCell: UICollectionViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var addressLabel: UILabel!
@@ -41,6 +67,42 @@ class DashboardAddressCell: UICollectionViewCell {
   }
 }
 
+extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDelegate {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return (viewModel as! KTCreateBookingViewModel).numberOfRowsVType()
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! RideServiceCell
+    cell.serviceName.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
+    
+    cell.fare.text = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
+    //sTypeCell.lblFareEstimateTitle.text = (viewModel as! KTCreateBookingViewModel).FareEstimateTitle()
+    cell.icon.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
+    cell.selectionStyle = .none
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    selectedIndex = indexPath.row
+    (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
+    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+  }
+  
+  func restoreCustomerServiceSelection() {
+    guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+      return
+    }
+    let indexPath = IndexPath(row: selectedIndex, section: 0)
+    DispatchQueue.main.async {
+      self.tableView.selectRow(at: indexPath,
+                               animated: false,
+                               scrollPosition: .none)
+    }
+  }
+  
+}
+
 extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectionViewDelegate {
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,7 +117,7 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let destination = (viewModel as! KTCreateBookingViewModel).destinations[indexPath.item]
-    (viewModel as! KTCreateBookingViewModel).setDropAddress(dAddress: destination)
+    (viewModel as! KTCreateBookingViewModel).destinationSelectedFromHomeScreen(location: destination)
   }
   
   func reloadDestinations() {
@@ -71,14 +133,34 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     
   }
   
-  
   var vModel : KTCreateBookingViewModel?
   
   @IBOutlet weak var pickupPin: KTAddressPin!
   @IBOutlet weak var pickupCardView: UIView!
   @IBOutlet weak var destinationView: UIView!
   @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var pickupDropoffParentContainer: UIView!
+  @IBOutlet weak var pickupDropoffContainer: UIView!
+  @IBOutlet weak var promoAppliedContainer: UIView!
+  @IBOutlet weak var pickupLabel: UILabel!
+  @IBOutlet weak var dropoffLabel: UILabel!
+  @IBOutlet weak var promoAppliedKeyLabel: UILabel!
+  @IBOutlet weak var promoAppliedValueLabel: UILabel!
+  @IBOutlet weak var promoKeyLabel: UILabel!
+  @IBOutlet weak var cashKeyLabel: UILabel!
+  @IBOutlet weak var scheduleKeyLabel: UILabel!
+  @IBOutlet weak var rideServicesContainer: UIView!
+  @IBOutlet weak var mapInstructionsContainer: UIView!
+  @IBOutlet weak var currentLocationButton: UIButton!
   
+  var tableViewMinimumHeight: CGFloat = 170
+  var tableViewMaximumHeight: CGFloat = 370
+  var selectedIndex = 0
+  
+  @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+  @IBOutlet weak var mapToPickupCardView_Bottom: NSLayoutConstraint!
+  @IBOutlet weak var mapToRideServicesView_Bottom: NSLayoutConstraint!
   var removeBookingOnReset : Bool = true
   
   //MARK:- View lifecycle
@@ -108,7 +190,47 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     collectionView.dataSource = self
     collectionView.delegate = self
     (viewModel as! KTCreateBookingViewModel).fetchDestinations()
+    tableView.delegate = self
+    tableView.dataSource = self
+    tableView.isScrollEnabled = false
+    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
+    tableView.addGestureRecognizer(gesture)
   }
+  
+  private var heightBegan: CGFloat = 0.0
+  @objc func pan(_ pan: UIPanGestureRecognizer) {
+    let translation = pan.translation(in: view)
+    switch pan.state {
+    case .began:
+      print("translation: \(translation)")
+      heightBegan = tableViewHeight.constant
+    case .changed:
+      print("translation: \(translation)")
+      let fractionCompleted = abs(translation.y) / view.bounds.height
+      if translation.y < 0 { // going up
+        let value = tableViewMaximumHeight * fractionCompleted
+        var result = heightBegan + value
+        if result > tableViewMaximumHeight {
+          result = tableViewMaximumHeight
+        }
+        tableViewHeight.constant = result
+      }
+      if translation.y > 0 { // going down
+        let value = tableViewMaximumHeight * fractionCompleted
+        var result = heightBegan - value
+        if result < tableViewMinimumHeight {
+          result = tableViewMinimumHeight
+        }
+        tableViewHeight.constant = result
+      }
+    case .ended:
+      tableViewHeight.constant = (tableViewHeight.constant < 300) ? tableViewMinimumHeight : tableViewMaximumHeight
+    default:
+      ()
+    }
+    restoreCustomerServiceSelection()
+  }
+  
   func showScanPayCoachmark() {
     
   }
@@ -177,9 +299,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBAction func btnPickupAddTapped(_ sender: Any) {
     
     (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
-//    btnDropoffAddress.animation = "pop"
-//    btnDropoffAddress.duration = 1.5
-//    btnDropoffAddress.animate()
+    //    btnDropoffAddress.animation = "pop"
+    //    btnDropoffAddress.duration = 1.5
+    //    btnDropoffAddress.animate()
   }
   @IBAction func btnDropAddTapped(_ sender: Any) {
     
@@ -314,16 +436,11 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   }
   
   func hideRequestBookingBtn() {
-    //self.btnRequestBooking.setNeedsDisplay()
-    
-    //        self.btnRequestBooking.animation = "slideDown"
-    //        self.btnRequestBooking.curve = "easeOut"
-    //        self.btnRequestBooking.duration = 1
-    //        self.btnRequestBooking.animate()
-    
     UIView.animate(withDuration: 0.5, animations: {
       
       self.btnRequestBooking.isHidden = true
+      self.pickupDropoffParentContainer.isHidden = true
+      self.rideServicesContainer.isHidden = true
       self.view.layoutIfNeeded()
     })
   }
@@ -354,11 +471,38 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   }
   
   func pickDropBoxStep3() {
+    DispatchQueue.main.async {
+      self.pickupCardView.isHidden = true
+      self.pickupPin.isHidden = true
+      self.mapInstructionsContainer.isHidden = true
+      self.currentLocationButton.isHidden = true
+      
+      self.pickupDropoffParentContainer.isHidden = false
+      self.rideServicesContainer.isHidden = false
+      
+      //self.mapToRideServicesView_Bottom.priority = UILayoutPriority(rawValue: 1000)
+      
+      //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 500)
     
+    }
   }
   
   func pickDropBoxStep1() {
-    
+    DispatchQueue.main.async {
+      // step1
+      self.pickupCardView.isHidden = false
+      self.pickupPin.isHidden = false
+      self.mapInstructionsContainer.isHidden = false
+      self.currentLocationButton.isHidden = false
+      // step3
+      self.pickupDropoffParentContainer.isHidden = true
+      self.rideServicesContainer.isHidden = true
+      self.promoAppliedContainer.isHidden = true
+      
+      //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 1000)
+      
+      //self.mapToRideServicesView_Bottom.priority = UILayoutPriority(rawValue: 500)
+    }
   }
   
   func setETAContainerBackground(background: String)
@@ -455,6 +599,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       return
     }
     self.btnPickupAddress.setTitle(pick, for: UIControlState.normal)
+    self.pickupLabel.text = pick
   }
   
   func setDropOff(drop: String?) {
@@ -463,8 +608,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       return
     }
     
-    self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
-    self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
+    //self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
+    //self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
+    self.dropoffLabel.text = drop
   }
   
   func setPickDate(date: String) {
@@ -477,13 +623,12 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     //        btnRevealBtn.constant = 0
     //        btnRevealBtn.constant = 0
     
-    fareBreakdown.showHideBackFareDetailsBtn(hide: true)
+    //fareBreakdown.showHideBackFareDetailsBtn(hide: true)
     
-    constraintFareToBox.constant = 0
-    viewFareBreakdown.alpha = 0.0
-    self.viewFareBreakdown.isHidden = true
+    //viewFareBreakdown.alpha = 0.0
+    //self.viewFareBreakdown.isHidden = true
     
-    self.view.layoutIfNeeded()
+    //self.view.layoutIfNeeded()
   }
   
 }

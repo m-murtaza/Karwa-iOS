@@ -40,7 +40,6 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     @IBOutlet weak var btnRevealBtn : UIButton!
     @IBOutlet weak var btnCancelBtn : UIButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
-    @IBOutlet weak var viewFareBreakdown : UIView!
     
     
     //MARK: - Map related variables
@@ -52,11 +51,6 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     var i: UInt = 0
     var timer: Timer!
     var bgPolylineColor : UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
-    
-    //MARK: - Constraints
-    @IBOutlet weak var constraintBoxHeight : NSLayoutConstraint!
-    //This is top align constraint for farebreakdown and box.
-    @IBOutlet weak var constraintFareToBox : NSLayoutConstraint!
     
     //MARK:- REBook
     var booking : KTBooking?

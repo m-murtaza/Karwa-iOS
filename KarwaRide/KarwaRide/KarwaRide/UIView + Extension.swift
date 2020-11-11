@@ -8,6 +8,17 @@
 
 import Foundation
 
+class UIViewWithShadow: UIView {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    layer.shadowRadius = 8.0
+    layer.shadowOpacity = 0.3
+    layer.shadowOffset = CGSize(width: 1, height: 1)
+    layer.shadowColor = UIColor.black.cgColor
+  }
+}
+
 extension UIView {
   
   struct Constants {

@@ -246,6 +246,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
   }
   
+  func destinationSelectedFromHomeScreen(location: KTGeoLocation) {
+    if isPickAvailable() {
+      setDropAddress(dAddress: location)
+      step3SelectRideService()
+      (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
+      fetchEstimates()
+    }
+  }
+  
   func dropOffAddress() -> KTGeoLocation? {
     guard  isDropAvailable() else {
       return nil
@@ -267,7 +276,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     else
     {
-      (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Destination not set")
+      (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "set destination")
     }
     
     selectedVehicleType = VehicleType(rawValue: booking.vehicleType)!
@@ -389,25 +398,22 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     delegate?.performSegue(name: "segueBookingToAddresspickerForDropoff")
   }
   //MARK: - Navigation view functions
-  func dismiss() {
+  func step3SelectRideService() {
     currentBookingStep = BookingStep.step3
-    
     if booking.pickupAddress != nil || booking.pickupAddress != "" {
-      
       (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
     }
     
     if(booking.dropOffAddress != nil && booking.dropOffAddress != "") {
-      
       (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress)
     }
     else {
-      
       (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffBtnText)
     }
-    
     updateUI()
-    
+  }
+  func dismiss() {
+    step3SelectRideService()
     delegate?.dismiss()
   }
   
@@ -931,19 +937,19 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var imgSType : UIImage = UIImage()
     switch sType.typeId {
     case Int16(VehicleType.KTCityTaxi.rawValue):
-      imgSType = UIImage(named: "BookingCardTaxiIco")!
+      imgSType = UIImage(named: "icon-karwa-taxi")!
     case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
-      imgSType = UIImage(named: "BookingCard7SeaterIco")!
+      imgSType = UIImage(named: "icon-family-taxi")!
     case Int16(VehicleType.KTSpecialNeedTaxi.rawValue):
-      imgSType = UIImage(named: "BookingCardSpecialNeedIco")!
+      imgSType = UIImage(named: "icon-accessible-taxi")!
     case Int16(VehicleType.KTStandardLimo.rawValue):
-      imgSType = UIImage(named: "BookingCardStandardIco")!
+      imgSType = UIImage(named: "icon-standard-limo")!
     case Int16(VehicleType.KTBusinessLimo.rawValue):
-      imgSType = UIImage(named: "BookingCardBusinessIco")!
+      imgSType = UIImage(named: "icon-business-limo")!
     case Int16(VehicleType.KTLuxuryLimo.rawValue):
-      imgSType = UIImage(named: "BookingCardLuxuryIco")!
+      imgSType = UIImage(named: "icon-luxury-limo")!
     default:
-      imgSType = UIImage(named: "BookingCardTaxiIco")!
+      imgSType = UIImage(named: "icon-karwa-taxi")!
     }
     
     return imgSType
@@ -1289,7 +1295,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   func prepareToMoveAddressPicker() {
     //currentBookingStep = BookingStep.step2
-    dropOffBtnText = "Destination not set"
+    dropOffBtnText = "set destination"
   }
   
   func setRemoveBookingOnReset(removeBookingOnReset : Bool) {
