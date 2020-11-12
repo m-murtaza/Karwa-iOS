@@ -77,7 +77,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     cell.serviceName.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
     
     cell.fare.text = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
-    //sTypeCell.lblFareEstimateTitle.text = (viewModel as! KTCreateBookingViewModel).FareEstimateTitle()
+    
     cell.icon.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
     cell.selectionStyle = .none
     return cell
@@ -153,6 +153,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBOutlet weak var rideServicesContainer: UIView!
   @IBOutlet weak var mapInstructionsContainer: UIView!
   @IBOutlet weak var currentLocationButton: UIButton!
+  @IBOutlet weak var showMoreRideOptions: UIButton!
   
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
@@ -224,7 +225,13 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         tableViewHeight.constant = result
       }
     case .ended:
-      tableViewHeight.constant = (tableViewHeight.constant < 300) ? tableViewMinimumHeight : tableViewMaximumHeight
+      tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
+      DispatchQueue.main.async {
+        self.showMoreRideOptions.isHidden = (self.tableViewHeight.constant == self.tableViewMaximumHeight)
+      }
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+        self.view.layoutIfNeeded()
+      }, completion: nil)
     default:
       ()
     }
@@ -262,6 +269,15 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   @IBAction func currentLocationButtonAction(_ sender: Any) {
     (viewModel as! KTCreateBookingViewModel).setupCurrentLocaiton()
+  }
+  
+  @IBAction func showMoreRideOptions(_ sender: Any) {
+    tableViewHeight.constant =  tableViewMaximumHeight
+    UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+      self.view.layoutIfNeeded()
+    }, completion: { animated in
+      self.showMoreRideOptions.isHidden = true
+    })
   }
   
   
@@ -405,8 +421,21 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     }
   }
   
-  func setPromoButtonLabel(validPromo promo : String)
-  {
+  func setPromoButtonLabel(validPromo promo : String) {
+    DispatchQueue.main.async {
+      if promo.length > 0 {
+        self.promoKeyLabel.text = promo
+        self.promoAppliedKeyLabel.text = "Promo Applied"
+        self.promoAppliedValueLabel.text = ""
+        self.promoAppliedContainer.isHidden = false
+      }
+      else {
+        self.promoKeyLabel.text = "Promo"
+        self.promoAppliedKeyLabel.text = ""
+        self.promoAppliedValueLabel.text = ""
+        self.promoAppliedContainer.isHidden = true
+      }
+    }
     //btnPromo.setTitle(promo.length > 0 ? promo : "+ Promo", for: .normal)
   }
   
@@ -614,6 +643,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   }
   
   func setPickDate(date: String) {
+    scheduleKeyLabel.text = date
     //btnPickDate.setTitle(date, for: UIControlState.normal)
   }
   

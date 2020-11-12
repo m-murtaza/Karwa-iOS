@@ -2771,7 +2771,7 @@
                                     <constraint firstAttribute="width" constant="40" id="HRU-Mw-Dgw"/>
                                     <constraint firstAttribute="height" constant="40" id="zL7-gq-3d1"/>
                                 </constraints>
-                                <state key="normal" image="BackButton"/>
+                                <state key="normal" image="icon-close-booking"/>
                                 <connections>
                                     <action selector="btnCancelBtnTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="WBm-gc-I0m"/>
                                 </connections>
@@ -3033,12 +3033,22 @@
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Jo-kV-I0a">
+                                                        <rect key="frame" x="0.0" y="0.0" width="190.66666666666666" height="30"/>
+                                                        <connections>
+                                                            <action selector="btnPickupAddTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="9ZN-aF-2zB"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstItem="Omg-r8-Tlw" firstAttribute="top" secondItem="veU-uR-9WK" secondAttribute="top" id="Ixc-zI-Xmb"/>
+                                                    <constraint firstItem="2Jo-kV-I0a" firstAttribute="height" secondItem="veU-uR-9WK" secondAttribute="height" id="MVW-ud-xmq"/>
+                                                    <constraint firstItem="2Jo-kV-I0a" firstAttribute="width" secondItem="veU-uR-9WK" secondAttribute="width" id="TA6-QM-9GZ"/>
                                                     <constraint firstItem="Omg-r8-Tlw" firstAttribute="leading" secondItem="veU-uR-9WK" secondAttribute="leading" constant="10" id="bwm-K1-JaK"/>
+                                                    <constraint firstItem="2Jo-kV-I0a" firstAttribute="centerY" secondItem="veU-uR-9WK" secondAttribute="centerY" id="gqW-N2-7kI"/>
                                                     <constraint firstAttribute="trailing" secondItem="Omg-r8-Tlw" secondAttribute="trailing" constant="5" id="nzK-k0-JlL"/>
+                                                    <constraint firstItem="2Jo-kV-I0a" firstAttribute="centerX" secondItem="veU-uR-9WK" secondAttribute="centerX" id="rLe-AF-px0"/>
                                                     <constraint firstAttribute="bottom" secondItem="Omg-r8-Tlw" secondAttribute="bottom" id="y8I-yd-phH"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -3073,13 +3083,23 @@
                                                             </imageView>
                                                         </subviews>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKc-oN-9HU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="190.33333333333334" height="30"/>
+                                                        <connections>
+                                                            <action selector="btnDropAddTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="bRk-YY-R4g"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="OcK-mc-B7i" secondAttribute="bottom" id="2Iv-DN-kNX"/>
+                                                    <constraint firstItem="EKc-oN-9HU" firstAttribute="height" secondItem="z2s-vC-dnz" secondAttribute="height" id="8Mg-Lc-WCM"/>
+                                                    <constraint firstItem="EKc-oN-9HU" firstAttribute="centerY" secondItem="z2s-vC-dnz" secondAttribute="centerY" id="BHi-ak-biW"/>
                                                     <constraint firstAttribute="trailing" secondItem="OcK-mc-B7i" secondAttribute="trailing" constant="5" id="WAY-GB-92x"/>
                                                     <constraint firstItem="OcK-mc-B7i" firstAttribute="leading" secondItem="z2s-vC-dnz" secondAttribute="leading" constant="10" id="fFB-91-Zqk"/>
                                                     <constraint firstItem="OcK-mc-B7i" firstAttribute="top" secondItem="z2s-vC-dnz" secondAttribute="top" id="fzd-hw-sNY"/>
+                                                    <constraint firstItem="EKc-oN-9HU" firstAttribute="centerX" secondItem="z2s-vC-dnz" secondAttribute="centerX" id="gLE-5N-kpF"/>
+                                                    <constraint firstItem="EKc-oN-9HU" firstAttribute="width" secondItem="z2s-vC-dnz" secondAttribute="width" id="tRU-Yb-AIb"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -3380,9 +3400,24 @@
                                             <action selector="btnRequestBookingTouchUpOutside:" destination="L23-ue-kpU" eventType="touchUpOutside" id="rwO-Z6-I43"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ha-Ow-Wm2">
+                                        <rect key="frame" x="16" y="127" width="382" height="50"/>
+                                        <color key="backgroundColor" red="0.94509803920000002" green="0.98431372549999996" blue="0.98039215690000003" alpha="0.79454730308219179" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="96k-VX-paZ"/>
+                                        </constraints>
+                                        <state key="normal" image="icon-show-more-services"/>
+                                        <state key="highlighted" image="icon-show-more-services"/>
+                                        <connections>
+                                            <action selector="showMoreRideOptions:" destination="L23-ue-kpU" eventType="touchUpInside" id="Tma-Ti-sj0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94509803921568625" green="0.98431372549019602" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="0Ha-Ow-Wm2" secondAttribute="bottom" constant="140" id="5b6-aj-2aL"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Ha-Ow-Wm2" secondAttribute="trailing" constant="16" id="6lC-35-Pjj"/>
+                                    <constraint firstItem="0Ha-Ow-Wm2" firstAttribute="leading" secondItem="dXd-fk-x86" secondAttribute="leading" constant="16" id="9rl-lg-xlD"/>
                                     <constraint firstItem="H2d-7p-hcY" firstAttribute="trailing" secondItem="KzQ-bN-Cmv" secondAttribute="trailing" constant="16" id="Cy6-zO-Dp9"/>
                                     <constraint firstItem="H2d-7p-hcY" firstAttribute="leading" secondItem="dXd-fk-x86" secondAttribute="leading" id="Lk1-3e-WY8"/>
                                     <constraint firstAttribute="trailing" secondItem="H2d-7p-hcY" secondAttribute="trailing" id="Pdb-8B-wMg"/>
@@ -3457,6 +3492,7 @@
                         <outlet property="revealBarButton" destination="m2P-Jy-JP4" id="cvJ-yP-Yfh"/>
                         <outlet property="rideServicesContainer" destination="dXd-fk-x86" id="Thl-hV-bpx"/>
                         <outlet property="scheduleKeyLabel" destination="9I4-zh-a7q" id="WRh-BR-OKI"/>
+                        <outlet property="showMoreRideOptions" destination="0Ha-Ow-Wm2" id="ynL-UE-Fux"/>
                         <outlet property="tableView" destination="TrH-Zz-li5" id="tVU-QI-Ot1"/>
                         <outlet property="tableViewHeight" destination="qrQ-HL-P6m" id="8tL-XF-xGK"/>
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForPickup" modalPresentationStyle="fullScreen" id="FaI-op-NCo"/>
@@ -9487,7 +9523,9 @@
         <image name="ico_more_options" width="4" height="12"/>
         <image name="ico_moreinfo" width="12" height="12"/>
         <image name="icon-cash-new" width="22.666666030883789" height="10.333333015441895"/>
+        <image name="icon-close-booking" width="46" height="46"/>
         <image name="icon-pickup-to-dest" width="17" height="22.666666030883789"/>
+        <image name="icon-show-more-services" width="315" height="46"/>
         <image name="icon_promo" width="17.333333969116211" height="17.333333969116211"/>
         <image name="left_tree" width="64" height="62"/>
         <image name="light_tree" width="104" height="71"/>

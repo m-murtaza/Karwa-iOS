@@ -25,6 +25,7 @@ extension KTCreateBookingViewController {
     func updateVehicleTypeList () {
         
         //self.carousel.reloadData()
+      self.tableView.reloadData()
     }
     
     func setVehicleType(idx: Int) {

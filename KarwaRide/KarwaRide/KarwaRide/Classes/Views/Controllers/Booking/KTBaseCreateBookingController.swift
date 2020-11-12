@@ -20,7 +20,7 @@ class KTCreateBookingConstants {
     static let DEFAULT_MAP_ZOOM : Float = 15.0
     static let PICKUP_MAP_ZOOM : Float = 17.0
     static let BOUNDS_MARKER_DISTANCE_THRESHOULD : Double = 2000
-    static let DEFAULT_MAP_PADDING : Float = 150
+    static let DEFAULT_MAP_PADDING : Float = 0
     
 }
 
@@ -46,7 +46,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     var gmsMarker : Array<GMSMarker> = Array()
     var polyline = GMSPolyline()
     weak var animationPolyline = GMSPolyline()
-    var path = GMSPath()
+    var path = GMSMutablePath()
     var animationPath = GMSMutablePath()
     var i: UInt = 0
     var timer: Timer!
