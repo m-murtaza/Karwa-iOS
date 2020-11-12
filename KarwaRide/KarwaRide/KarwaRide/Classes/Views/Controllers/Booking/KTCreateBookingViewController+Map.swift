@@ -313,7 +313,8 @@ extension KTCreateBookingViewController
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
+        update = GMSCameraUpdate.fit(bounds,
+                                     with: UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 20))
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
@@ -353,29 +354,60 @@ extension KTCreateBookingViewController
         mapView.animate(with: update)
     }
     
-    public func addPointsOnMap(points: String) {
-        if(!points.isEmpty)
-        {
-            path = GMSPath.init(fromEncodedPath: points)!
-            polyline = GMSPolyline.init(path: path)
-            polyline.strokeWidth = 3
-            polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-            polyline.map = self.mapView
-            
-            var bounds = GMSCoordinateBounds()
-            for index in 1 ... (path.count().toInt) {
-                bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
-            }
-            
-            mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
-            
-            bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
-            self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-            
-            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-            addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
-        }
+  public func addPointsOnMap(points: String) {
+    if(!points.isEmpty) {
+      // set the line color to
+      bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
+      // clear map to remove already drawn pickup and destination pins
+      self.mapView.clear()
+      // create path for router
+      path = GMSMutablePath(fromEncodedPath: points)!
+      polyline = GMSPolyline.init(path: path)
+      polyline.strokeWidth = 3
+      polyline.strokeColor = bgPolylineColor
+      polyline.map = self.mapView
+      
+      // draw pickup and destimation pins from path
+      let pickup = path.coordinate(at:0)
+      let dropoff = path.coordinate(at:path.count()-1)
+      addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
+      addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
+      
+      let inset = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
+      
+      // focus to fit all the point including path, pick and destination in map camera
+      /*focusMapToFitRoute(pointA: path.coordinate(at: 0),
+                         pointB: path.coordinate(at: path.count()-1),
+                         path: path,
+                         inset: inset)*/
     }
+  }
+  
+  func focusMapToFitRoute(pointA: CLLocationCoordinate2D, pointB: CLLocationCoordinate2D, path: GMSMutablePath, inset: UIEdgeInsets) {
+
+    if pointA.latitude == 0 && pointA.longitude == 0 {
+      return
+    }
+
+    //var bounds: GMSCoordinateBounds
+
+    let c1 = pointA // swiftlint:disable:this identifier_name
+    let c2 = pointB // swiftlint:disable:this identifier_name
+
+    let mapCenter = CLLocationCoordinate2DMake((c1.latitude + c2.latitude)/2, (c1.longitude + c2.longitude)/2)
+
+    var bounds = GMSCoordinateBounds.init(coordinate: mapCenter, coordinate: mapCenter)
+
+    bounds = bounds.includingCoordinate(c1)
+    bounds = bounds.includingCoordinate(c2)
+    bounds = bounds.includingPath(path)
+
+    if let mutableCamera: GMSMutableCameraPosition = self.mapView.camera.mutableCopy() as? GMSMutableCameraPosition {
+      mutableCamera.target = mapCenter
+      self.mapView.camera = mutableCamera
+      self.mapView.animate(with: GMSCameraUpdate.fit(bounds, with: inset))
+    }
+  }
     
     @objc func animatePolylinePath() {
         
