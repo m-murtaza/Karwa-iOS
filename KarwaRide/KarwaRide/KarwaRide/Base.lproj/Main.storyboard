@@ -3190,9 +3190,21 @@
                                                             <rect key="frame" x="100" y="10" width="274" height="25"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-YS-i8t">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="234.66666666666666" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="210" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="Whb-At-C1K">
+                                                                    <rect key="frame" x="210" y="0.0" width="17.333333333333343" height="25"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="17.333333333333343" id="ADm-Us-eQg"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkU-OU-oBK">
+                                                                    <rect key="frame" x="210" y="0.0" width="24.666666666666657" height="25"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                                    <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-nA-kzs">
@@ -3206,17 +3218,20 @@
                                                                 <constraint firstAttribute="height" constant="25" id="xIy-KD-cAr"/>
                                                             </constraints>
                                                         </stackView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-capacity" translatesAutoresizingMaskIntoConstraints="NO" id="v6o-hq-nLK">
+                                                            <rect key="frame" x="100" y="36" width="10.666666666666671" height="10.666666666666664"/>
+                                                        </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-Fq-V20">
-                                                            <rect key="frame" x="100" y="35" width="274" height="15"/>
+                                                            <rect key="frame" x="112" y="35" width="262" height="15"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQs-iM-R8v">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="244.33333333333334" height="15"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="232.33333333333334" height="15"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huk-eg-CAJ">
-                                                                    <rect key="frame" x="244.33333333333329" y="0.0" width="29.666666666666657" height="15"/>
+                                                                    <rect key="frame" x="232.33333333333331" y="0.0" width="29.666666666666686" height="15"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.070588235294117646" green="0.59215686274509804" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -3231,9 +3246,11 @@
                                                         <constraint firstAttribute="trailing" secondItem="a6y-qO-HrH" secondAttribute="trailing" constant="20" id="41C-jv-G2m"/>
                                                         <constraint firstItem="a6y-qO-HrH" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="100" id="9yJ-fO-0Yj"/>
                                                         <constraint firstItem="dIL-Fq-V20" firstAttribute="top" secondItem="a6y-qO-HrH" secondAttribute="bottom" id="GVc-i1-rkv"/>
-                                                        <constraint firstItem="dIL-Fq-V20" firstAttribute="leading" secondItem="a6y-qO-HrH" secondAttribute="leading" id="R1P-gi-eNt"/>
+                                                        <constraint firstItem="v6o-hq-nLK" firstAttribute="leading" secondItem="a6y-qO-HrH" secondAttribute="leading" id="L7h-ux-pYy"/>
+                                                        <constraint firstItem="dIL-Fq-V20" firstAttribute="leading" secondItem="a6y-qO-HrH" secondAttribute="leading" constant="12" id="R1P-gi-eNt"/>
                                                         <constraint firstItem="6Rr-el-ICV" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="20" id="Tgr-r8-U4A"/>
                                                         <constraint firstItem="6Rr-el-ICV" firstAttribute="centerY" secondItem="38O-lH-uf2" secondAttribute="centerY" id="e3C-yr-HTb"/>
+                                                        <constraint firstItem="v6o-hq-nLK" firstAttribute="top" secondItem="a6y-qO-HrH" secondAttribute="bottom" constant="1" id="oVK-CP-ivw"/>
                                                         <constraint firstAttribute="bottom" secondItem="dIL-Fq-V20" secondAttribute="bottom" constant="10" id="sWF-qf-p73"/>
                                                         <constraint firstItem="a6y-qO-HrH" firstAttribute="top" secondItem="38O-lH-uf2" secondAttribute="top" constant="10" id="tuk-2z-qX4"/>
                                                         <constraint firstItem="dIL-Fq-V20" firstAttribute="trailing" secondItem="a6y-qO-HrH" secondAttribute="trailing" id="wj8-ZV-4sc"/>
@@ -3243,7 +3260,9 @@
                                                 <connections>
                                                     <outlet property="capacity" destination="zQs-iM-R8v" id="6o1-xE-guh"/>
                                                     <outlet property="fare" destination="Kb8-nA-kzs" id="ao5-lx-pkP"/>
+                                                    <outlet property="fareInfo" destination="hkU-OU-oBK" id="ufn-6x-qBf"/>
                                                     <outlet property="icon" destination="6Rr-el-ICV" id="g7P-Fw-6QV"/>
+                                                    <outlet property="promoBadge" destination="Whb-At-C1K" id="tfP-NA-xwf"/>
                                                     <outlet property="serviceName" destination="qVs-YS-i8t" id="Mdr-0R-7Fw"/>
                                                     <outlet property="time" destination="Huk-eg-CAJ" id="7rM-Hs-gTo"/>
                                                 </connections>
@@ -3385,7 +3404,7 @@
                                             <constraint firstAttribute="height" constant="54" id="rAb-le-FwW"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
-                                        <state key="normal" title="REQUEST BOOKING">
+                                        <state key="normal" title="Request Karwa">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -9522,6 +9541,7 @@
         <image name="ico_maestro" width="45" height="25"/>
         <image name="ico_more_options" width="4" height="12"/>
         <image name="ico_moreinfo" width="12" height="12"/>
+        <image name="icon-capacity" width="10.666666984558105" height="10.666666984558105"/>
         <image name="icon-cash-new" width="22.666666030883789" height="10.333333015441895"/>
         <image name="icon-close-booking" width="46" height="46"/>
         <image name="icon-pickup-to-dest" width="17" height="22.666666030883789"/>

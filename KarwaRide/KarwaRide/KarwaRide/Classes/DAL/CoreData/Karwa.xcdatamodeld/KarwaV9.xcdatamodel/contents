@@ -125,6 +125,7 @@
         <attribute name="userId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="KTVehicleType" representedClassName="KTVehicleType" parentEntity="KTBaseTrariff" syncable="YES" codeGenerationType="class">
+        <attribute name="etaText" optional="YES" attributeType="String"/>
         <attribute name="isPromoApplied" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="typeBaseFare" optional="YES" attributeType="String"/>
         <attribute name="typeId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -144,6 +145,6 @@
         <element name="KTPaymentMethod" positionX="45" positionY="-126" width="128" height="180"/>
         <element name="KTRatingReasons" positionX="196" positionY="255" width="128" height="120"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="195"/>
-        <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="120"/>
+        <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="133"/>
     </elements>
 </model>

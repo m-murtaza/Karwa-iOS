@@ -16,6 +16,8 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var fare: UILabel!
   @IBOutlet weak var time: UILabel!
   @IBOutlet weak var icon: UIImageView!
+  @IBOutlet weak var promoBadge: UIImageView!
+  @IBOutlet weak var fareInfo: UILabel!
   
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
     contentView.backgroundColor = highlighted ? .white : .clear
@@ -31,8 +33,28 @@ class RideServiceCell: UITableViewCell {
     contentView.layer.cornerRadius = selected ? 8 : 0
   }
   
+  func setFare(fare: String) {
+    let parts = fare.split(separator: "(")
+    if parts.count > 1, var last = parts.last {
+      last.removeLast()
+      self.fareInfo.text = "(\(String(last)))"
+      let startingFare = String(parts.first ?? "")
+      let trimmedString = startingFare.trimmingCharacters(in: .whitespacesAndNewlines)
+      self.fare.text = trimmedString
+    }
+    else {
+      self.fare.text = fare
+      self.fareInfo.text = ""
+    }
+  }
+  
   override class func awakeFromNib() {
     super.awakeFromNib()
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    self.promoBadge.isHidden = true
   }
 }
 
@@ -74,11 +96,15 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! RideServiceCell
+    cell.promoBadge.isHidden = true
     cell.serviceName.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
-    
-    cell.fare.text = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
-    
+    let fare = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
+    cell.setFare(fare: fare)
+    cell.capacity.text = (viewModel as! KTCreateBookingViewModel).vTypeCapacity(forIndex: indexPath.row)
+    cell.time.text = (viewModel as! KTCreateBookingViewModel).vTypeEta(forIndex: indexPath.row)
     cell.icon.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
+    let shouldHidePromoFare = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
+    cell.promoBadge.isHidden = shouldHidePromoFare
     cell.selectionStyle = .none
     return cell
   }
@@ -86,7 +112,10 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     selectedIndex = indexPath.row
     (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
-    tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+  }
+  
+  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+      return true
   }
   
   func restoreCustomerServiceSelection() {
@@ -129,6 +158,10 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 }
 class KTCreateBookingViewController:
 KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+  func moveRow(from: IndexPath, to: IndexPath) {
+    self.tableView.moveRow(at: from, to: to)
+  }
+  
   func allowScrollVTypeCard(allow: Bool) {
     
   }

@@ -438,6 +438,7 @@ struct Constants {
         static let trackVechicle = "track/job"
         static let initTariff = "tariff/init"
         static let GetEstimate = "tariff/estimate"
+        static let GetETA = "track/nearest"  
         static let GetPromoEstimate = "tariff/estimate"
         static let CancelReason = "booking/cancelreasons"
         static let RatingReason = "booking/ratingreasons"

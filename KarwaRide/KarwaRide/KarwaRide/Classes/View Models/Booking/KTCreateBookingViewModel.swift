@@ -59,6 +59,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func setPromotionCode(promo: String)
   func showScanPayCoachmark()
   func reloadDestinations()
+  func moveRow(from: IndexPath, to: IndexPath)
 }
 
 let CHECK_DELAY = 90.0
@@ -77,6 +78,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
   var vehicleTypes : [KTVehicleType]?
   public var estimates : [KTFareEstimate]?
+  var etas: [Any]?
   
   private var nearByVehicle: [VehicleTrack] = []
   
@@ -302,24 +304,32 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   //MARK: - FareBreakdown
   
   func vehicleTypeTapped(idx: Int) {
-    
-    if currentBookingStep == BookingStep.step3 {
-      if(!(del?.fareDetailVisible())!) {
-        //estimated fare view is not on screen right now
-        let vType : KTVehicleType = vehicleTypes![idx]
-        if(!isDropAvailable()) {
-          showFareBreakDown(vehicleType: vType)
-        }
-        else {
-          
-          showEstimate(vehicleType: vType)
-        }
-      }
-      else {
-        //Means view is on screen
-        del?.hideFareBreakdown(animated: true)
-      }
+    selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
+    if let selected = vehicleTypes?[idx] {
+      let fromIndexPath = IndexPath(row: idx, section: 0)
+      let toIndexPath = IndexPath(row: 0, section: 0)
+      vehicleTypes?.remove(at: idx)
+      vehicleTypes?.insert(selected, at: 0)
+      self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
     }
+
+//    if currentBookingStep == BookingStep.step3 {
+//      if(!(del?.fareDetailVisible())!) {
+//        //estimated fare view is not on screen right now
+//        let vType : KTVehicleType = vehicleTypes![idx]
+//        if(!isDropAvailable()) {
+//          showFareBreakDown(vehicleType: vType)
+//        }
+//        else {
+//
+//          showEstimate(vehicleType: vType)
+//        }
+//      }
+//      else {
+//        //Means view is on screen
+//        del?.hideFareBreakdown(animated: true)
+//      }
+//    }
   }
   
   func showEstimate(vehicleType vtype: KTVehicleType){
@@ -428,7 +438,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
       isEstimeting = true
       
-      KTVehicleTypeManager().fetchEstimate(pickup: CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon), dropoff: CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon), time: selectedPickupDateTime.serverTimeStamp(), complition: { (status, response) in
+      let pickup = CLLocationCoordinate2D(latitude: booking.pickupLat, longitude: booking.pickupLon)
+      let dropoff = CLLocationCoordinate2D(latitude: booking.dropOffLat,longitude: booking.dropOffLon)
+      
+      KTVehicleTypeManager().fetchEstimate(pickup: pickup,
+                                           dropoff: dropoff,
+                                           time: selectedPickupDateTime.serverTimeStamp(),
+                                           complition: { (status, response) in
         self.isEstimeting = false
         if status == Constants.APIResponseStatus.SUCCESS {
           self.estimates = KTVehicleTypeManager().estimates()
@@ -444,6 +460,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           }
         }
       })
+      
+      KTVehicleTypeManager().fetchETA(pickup: pickup) { [weak self] (status, response) in
+        if status == Constants.APIResponseStatus.SUCCESS {
+          self?.vehicleTypes?.removeAll()
+          self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+          self?.del?.updateVehicleTypeList()
+        }
+      }
     }
     else if estimates != nil{
       estimates?.removeAll()
@@ -545,6 +569,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //            estId = (estimate?.estimateId)!
     //        }
     return vEstimate
+  }
+  
+  func vTypeEta(forIndex idx: Int) -> String {
+    var result = ""
+    if let vehicles = self.vehicleTypes {
+      result = vehicles[idx].etaText ?? ""
+    }
+    return result
   }
   
   func vTypeBaseFareOrEstimate(forIndex idx: Int) -> String
@@ -892,6 +924,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   }
   func sTypeTitle(forIndex idx: Int) -> String {
     let vType : KTVehicleType = vehicleTypes![idx]
+    print("title: \(vType.typeName) order: \(vType.typeSortOrder)")
     return vType.typeName ?? ""
   }
   
@@ -929,6 +962,18 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     return imgBg
+  }
+  
+  func vTypeCapacity(forIndex idx: Int) -> String {
+    let sType : KTVehicleType = vehicleTypes![idx]
+    var capacity : String = "4"
+    switch sType.typeId {
+    case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+      capacity = "7"
+    default:
+      capacity = "4"
+    }
+    return capacity
   }
   
   func sTypeVehicleImage(forIndex idx: Int) -> UIImage
