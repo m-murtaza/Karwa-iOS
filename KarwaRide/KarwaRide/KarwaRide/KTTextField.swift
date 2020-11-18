@@ -45,11 +45,11 @@ class KTTextField: UIView {
     textField.titleFont = UIFont(name: "MuseoSans-500", size: 11.0)!
     
     textField.placeholderColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
-    textField.placeholderFont = UIFont(name: "MuseoSans-500", size: 15.0)!
+    textField.placeholderFont = UIFont(name: "MuseoSans-700", size: 15.0)!
     textField.tintColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.textColor = UIColor.primary
     textField.selectedTitleColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
-    textField.font = UIFont(name: "MuseoSans-500", size: 15.0)!
+    textField.font = UIFont(name: "MuseoSans-700", size: 15.0)!
     textField.autocorrectionType = .no
     return textField
   }()
@@ -123,14 +123,8 @@ class KTTextField: UIView {
       switch textFieldState {
       case .normal:
         removeExternalBorders()
-//        self.layer.cornerRadius = 0
-//        self.layer.borderColor = UIColor.clear.cgColor
-//        self.layer.borderWidth = 0
       case .focused:
-        addExternalBorder(borderWidth: 4, borderColor: #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1))
-//        self.layer.cornerRadius = 10
-//        self.layer.borderColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
-//        self.layer.borderWidth = 4
+        addExternalBorder(borderWidth: 2, borderColor: #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1))
       }
     }
   }

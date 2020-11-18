@@ -44,6 +44,24 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
     backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     tapToDismissKeyboard()
+    [phoneNumberTextField.textField, passwordTextField.textField].forEach({ $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged) })
+    loginButton.isEnabled = false
+  }
+  
+  @objc func textFieldsIsNotEmpty(sender: UITextField) {
+
+   sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+
+   guard
+     let number = phoneNumberTextField.textField.text, !number.isEmpty,
+     let password = passwordTextField.textField.text, !password.isEmpty
+     else
+   {
+     self.loginButton.isEnabled = false
+     return
+   }
+   // enable okButton if all conditions are met
+    self.loginButton.isEnabled = true
   }
   
   
