@@ -46,6 +46,30 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     
     backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     tapToDismissKeyboard()
+    [phoneNumberTextField.textField,
+     passwordTextField.textField,
+     nameTextField.textField,
+     passwordTextField.textField,
+     emailTextField.textField].forEach({ $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged) })
+      signUpBtn.isEnabled = false
+  }
+
+  
+  
+  @objc func textFieldsIsNotEmpty(sender: UITextField) {
+
+   sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+
+   guard
+     let number = phoneNumberTextField.textField.text, !number.isEmpty,
+     let password = passwordTextField.textField.text, !password.isEmpty
+     else
+   {
+     self.signUpBtn.isEnabled = false
+     return
+   }
+   // enable okButton if all conditions are met
+    self.signUpBtn.isEnabled = true
   }
   
   override func viewWillAppear(_ animated: Bool) {
