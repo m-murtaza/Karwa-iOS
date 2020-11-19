@@ -36,8 +36,8 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     txtPassword.placeHolder = "str_new_password".localized()
     txtConfirmPass.placeHolder = "str_confirm_new_password".localized()
     btnSubmitt.setTitle("txt_continue".localized(), for: .normal)
-    txtPassword.textField.isSecureTextEntry = true
-    txtConfirmPass.textField.isSecureTextEntry = true
+    txtPassword.passwordEntry = true
+    txtConfirmPass.passwordEntry = true
     txtPhoneNumber.textField.keyboardType = .phonePad
     tapToDismissKeyboard()
 

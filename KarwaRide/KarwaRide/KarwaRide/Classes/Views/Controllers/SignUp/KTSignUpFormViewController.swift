@@ -37,7 +37,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     emailTextField.placeHolder = "str_email".localized()
     phoneNumberTextField.placeHolder = "str_phone".localized()
     passwordTextField.placeHolder = "str_password".localized()
-    passwordTextField.textField.isSecureTextEntry = true
+    passwordTextField.passwordEntry = true
     phoneNumberTextField.textField.delegate = self
     passwordTextField.textField.delegate = self
     emailTextField.textField.delegate = self

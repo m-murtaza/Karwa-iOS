@@ -9,28 +9,6 @@
 import Foundation
 import SkyFloatingLabelTextField
 
-
-//protocol KTTextFieldDelegate : NSObjectProtocol {
-//
-//    func kTTextFieldShouldBeginEditing(_ textField: UITextField) -> Bool // return NO to disallow editing.
-//
-//    func kTTextFieldDidBeginEditing(_ textField: UITextField) // became first responder
-//
-//    func kTTextFieldShouldEndEditing(_ textField: UITextField) -> Bool // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-//
-//    func kTTextFieldDidEndEditing(_ textField: UITextField) // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-//
-//    func kTTextFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) // if implemented, called in place of textFieldDidEndEditing:
-//
-//    func kTTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool // return NO to not change text
-//
-//    func kTTextFieldDidChangeSelection(_ textField: UITextField)
-//
-//    func kTTextFieldShouldClear(_ textField: UITextField) -> Bool // called when clear button pressed. return NO to ignore (no notifications)
-//
-//    func kTTextFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return NO to ignore.
-//}
-
 class KTTextField: UIView {
   
   let textField: SkyFloatingLabelTextField = {
@@ -54,13 +32,11 @@ class KTTextField: UIView {
     return textField
   }()
   
-//  let lineSeparator: UIView = {
-//    let view = UIView()
-//    view.backgroundColor = .lightGray
-//    return view
-//  }()
-  
-  //weak var delegate: KTTextFieldDelegate?
+  let accessoryButton: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(named: "cross_icon_new"), for: .normal)
+    return button
+  }()
   
   var onValueChange: ((_ sender: KTTextField) -> Void)?
   
@@ -82,35 +58,79 @@ class KTTextField: UIView {
     }
   }
   
+  var passwordEntry: Bool = false {
+    didSet {
+      textField.isSecureTextEntry = passwordEntry
+      if passwordEntry {
+        accessoryButton.isHidden = false
+      }
+    }
+  }
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     setupUI()
+    accessoryButton.addTarget(self, action: #selector(accessoryButtonPressed), for: .touchUpInside)
     textField.addTarget(self, action: #selector(textFieldValueChanged(_:)), for: .editingChanged)
+    textField.addTarget(self, action: #selector(textFieldDidEnd(_:)), for: .editingDidEnd)
+    textField.addTarget(self, action: #selector(textFieldDidBegin(_:)), for: .editingDidBegin)
   }
   
   private func setupUI(){
     
     addSubview(textField)
-    //addSubview(lineSeparator)
+    addSubview(accessoryButton)
     
     textField.translatesAutoresizingMaskIntoConstraints = false
     textField.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-    textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+    textField.trailingAnchor.constraint(equalTo: accessoryButton.leadingAnchor).isActive = true
     textField.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
     textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -3).isActive = true
     
-//    lineSeparator.translatesAutoresizingMaskIntoConstraints = false
-//    lineSeparator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//    lineSeparator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//    lineSeparator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//    lineSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    accessoryButton.translatesAutoresizingMaskIntoConstraints = false
+    accessoryButton.widthAnchor.constraint(equalToConstant: 40.0).isActive = true
+    accessoryButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
+    accessoryButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    accessoryButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     
+    accessoryButton.isHidden = true
     backgroundColor = .clear
     textFieldState = .normal
   }
   
+  @objc private func textFieldDidEnd(_ textField: UITextField){
+    if passwordEntry {
+      
+    }
+    else {
+      self.accessoryButton.isHidden = true
+    }
+  }
+  
+  @objc private func textFieldDidBegin(_ textField: UITextField){
+    if passwordEntry {
+      
+    }
+    else {
+      self.accessoryButton.isHidden = textField.text!.isEmpty
+    }
+  }
+  
   @objc private func textFieldValueChanged(_ textField: UITextField){
-    onValueChange?(self)
+    //onValueChange?(self)
+    if passwordEntry {
+      accessoryButton.isHidden = false
+    } else {
+     accessoryButton.isHidden = textField.text!.isEmpty
+    }
+  }
+  
+  @objc private func accessoryButtonPressed() {
+    if passwordEntry {
+      textField.isSecureTextEntry.toggle()
+    } else {
+     textField.text = ""
+    }
   }
   
   enum State {

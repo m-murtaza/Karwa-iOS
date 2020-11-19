@@ -34,7 +34,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
 
     phoneNumberTextField.placeHolder = "str_phone".localized()
     passwordTextField.placeHolder = "str_password".localized()
-    passwordTextField.textField.isSecureTextEntry = true
+    passwordTextField.passwordEntry = true
     phoneNumberTextField.textField.delegate = self
     passwordTextField.textField.delegate = self
     phoneNumberTextField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -44,7 +44,10 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
     backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     tapToDismissKeyboard()
-    [phoneNumberTextField.textField, passwordTextField.textField].forEach({ $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged) })
+    [phoneNumberTextField.textField,
+     passwordTextField.textField].forEach({
+      $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged)
+     })
     loginButton.isEnabled = false
   }
   
