@@ -301,6 +301,7 @@ class KTBookmarkManager: KTDALManager {
     // update the existing bookmark
     if let savedFavorite = fetchBookmark(with: predicate) {
       savedFavorite.name = name
+      location.type = geoLocationType.favorite.rawValue
       savedFavorite.bookmarkToGeoLocation = location
       location.geolocationToBookmark = savedFavorite
       NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
@@ -313,6 +314,7 @@ class KTBookmarkManager: KTDALManager {
     bookmark?.latitude = location.latitude
     bookmark?.longitude = location.longitude
     bookmark?.address = location.name ?? "Unknown"
+    location.type = geoLocationType.favorite.rawValue
     bookmark?.bookmarkToGeoLocation = location
     location.geolocationToBookmark = bookmark
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()

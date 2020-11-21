@@ -70,9 +70,8 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         return bookmarkType
     }
     func UpdateUI(name bookmarkName:String, location: CLLocationCoordinate2D) {
-        
         txtAddress.text = bookmarkName
-        txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "Set Home address" : "Set Work address"
+      txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "set_as_home_address".localized() : "set_as_work_address".localized()
         imgBookmarkTypeIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "APICHome" : "APICWork")
         imgBookmarkAddressIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "SHWIconHome" : "SHWIconWork")
         

@@ -9,32 +9,34 @@
 import UIKit
 
 class KTOTPViewController: KTBaseViewController, KTOTPViewModelDelegate {
+  
+  @IBOutlet weak var btnConfirmCode: ButtonWithShadow!
+  @IBOutlet weak var otpView: VPMOTPView!
+  @IBOutlet weak var phoneNumberLabel: UILabel!
+  var otpString : String?
+  var countryCode: String?
+  var phone : String = ""
+  var password : String = ""
+  var email : String = ""
+  
+  var previousView : KTBaseLoginSignUpViewController?
+  
+  override func viewDidLoad() {
+    viewModel = KTOTPViewModel(del:self)
+    super.viewDidLoad()
     
-    @IBOutlet weak var btnConfirmCode: ButtonWithShadow!
-    @IBOutlet weak var otpView: VPMOTPView!
-    var otpString : String?
-    var countryCode: String?
-    var phone : String = ""
-    var password : String = ""
-    var email : String = ""
-
-    var previousView : KTBaseLoginSignUpViewController?
+    // Do any additional setup after loading the view.
     
-    override func viewDidLoad() {
-        viewModel = KTOTPViewModel(del:self)
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-       
-        // Create the UI
-        otpView.initalizeUI()
-        otpView.delegate = self
-        
-        //btnConfirmCode.isHidden = true
-        /*navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
-                                                            style: .plain,
-                                                            target: self, action: #selector(confrimCodeTapped))*/
-    }
+    // Create the UI
+    otpView.initalizeUI()
+    otpView.delegate = self
+    
+    //btnConfirmCode.isHidden = true
+    /*navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+     style: .plain,
+     target: self, action: #selector(confrimCodeTapped))*/
+    self.phoneNumberLabel.text = phone
+  }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -45,77 +47,77 @@ class KTOTPViewController: KTBaseViewController, KTOTPViewModelDelegate {
     super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = false
   }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  @IBAction func btnConfirmCode(_ sender: Any) {
+    confrimCodeTapped()
+  }
+  
+  @objc func confrimCodeTapped()
+  {
+    (viewModel as! KTOTPViewModel).confirmCode()
+  }
+  
+  func getCountryCode() -> String{
+    return countryCode ?? "+974"
+  }
+  
+  @IBAction func btnCloseTapped(_ sender: Any) {
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func btnConfirmCode(_ sender: Any) {
-        confrimCodeTapped()
-    }
-    
-    @objc func confrimCodeTapped()
-    {
-        (viewModel as! KTOTPViewModel).confirmCode()
-    }
-    
-    func getCountryCode() -> String{
-        return countryCode ?? "+974"
-    }
-    
-    @IBAction func btnCloseTapped(_ sender: Any) {
-        
-        if previousView != nil {
-            
-            previousView?.dismiss()
-        }
-        
+    if previousView != nil {
+      
+      previousView?.dismiss()
     }
     
-    @IBAction func btnReSendOTP(_ sender: Any) {
-        
-        (viewModel as! KTOTPViewModel).resendOTP()
-    }
+  }
+  
+  @IBAction func btnReSendOTP(_ sender: Any) {
     
-    func OTPCode() -> String? {
-      return otpString?.convertToNumbersIfNeeded()
-    }
-    func countryCallingCode() -> String?  {
-      return countryCode?.convertToNumbersIfNeeded()
-    }
-    func phoneNum() -> String?  {
-        return phone.convertToNumbersIfNeeded()
-    }
-    
-    func navigateToBooking() {
-        //self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
-       // previousView?.dismiss()
-        previousView?.dismissAndNavigateToBooking()
-    }
+    (viewModel as! KTOTPViewModel).resendOTP()
+  }
+  
+  func OTPCode() -> String? {
+    return otpString?.convertToNumbersIfNeeded()
+  }
+  func countryCallingCode() -> String?  {
+    return countryCode?.convertToNumbersIfNeeded()
+  }
+  func phoneNum() -> String?  {
+    return phone.convertToNumbersIfNeeded()
+  }
+  
+  func navigateToBooking() {
+    //self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
+    // previousView?.dismiss()
+    previousView?.dismissAndNavigateToBooking()
+  }
 }
 
 
 extension KTOTPViewController: VPMOTPViewDelegate {
-    func shouldBecomeFirstResponderForOTP(otpFieldIndex index: Int) -> Bool {
-        return true
-    }
+  func shouldBecomeFirstResponderForOTP(otpFieldIndex index: Int) -> Bool {
+    return true
+  }
+  
+  func hasEnteredAllOTP(hasEntered: Bool) {
+    print("Has entered all OTP? \(hasEntered)")
+    btnConfirmCode.isEnabled = hasEntered
+    //btnConfirmCode.updateLayerProperties()
+    btnConfirmCode.layoutIfNeeded()
+  }
+  
+  func enteredOTP(otpString otp: String) {
+    print("OTPString: \(String(describing: otpString))")
     
-    func hasEnteredAllOTP(hasEntered: Bool) {
-        print("Has entered all OTP? \(hasEntered)")
-        btnConfirmCode.isEnabled = hasEntered
-        //btnConfirmCode.updateLayerProperties()
-        btnConfirmCode.layoutIfNeeded()
-    }
+    otpString = otp
     
-    func enteredOTP(otpString otp: String) {
-        print("OTPString: \(String(describing: otpString))")
-    
-        otpString = otp
-        
-        if(otp.count == 4)
-        {
-            confrimCodeTapped()
-        }
+    if(otp.count == 4)
+    {
+      confrimCodeTapped()
     }
+  }
 }

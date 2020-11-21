@@ -34,7 +34,7 @@ class KTTextField: UIView {
   
   let accessoryButton: UIButton = {
     let button = UIButton()
-    button.setImage(UIImage(named: "cross_icon_new"), for: .normal)
+    button.setImage(UIImage(named: "icon-clear-button"), for: .normal)
     return button
   }()
   
@@ -62,6 +62,7 @@ class KTTextField: UIView {
     didSet {
       textField.isSecureTextEntry = passwordEntry
       if passwordEntry {
+        accessoryButton.setImage(UIImage(named: "ic-show-password"), for: .normal)
         accessoryButton.isHidden = false
       }
     }
@@ -128,6 +129,8 @@ class KTTextField: UIView {
   @objc private func accessoryButtonPressed() {
     if passwordEntry {
       textField.isSecureTextEntry.toggle()
+      let name = textField.isSecureTextEntry ? "ic-show-password" : "ic-hide-password"
+      accessoryButton.setImage(UIImage(named: name), for: .normal)
     } else {
      textField.text = ""
     }

@@ -47,7 +47,7 @@ class KTLoginViewModel: KTBaseViewModel {
         
         if error.count == 0
         {
-            delegate?.showProgressHud(show: true, status: "Logging In")
+          delegate?.showProgressHud(show: true, status: "str_logging_in".localized())
             KTUserManager.init().login(countryCodey: "+" + country.phoneExtension, phone: phone, password:password ) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS

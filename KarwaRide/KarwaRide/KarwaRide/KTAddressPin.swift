@@ -20,7 +20,7 @@ class KTAddressPin: UIView {
   
   private lazy var label: UILabel = {
     let label = UILabel()
-    label.font = UIFont.H7().regular
+    label.font = UIFont.H7().meduim
     label.textColor = UIColor.primary
     label.textAlignment = .center
     return label
@@ -69,7 +69,7 @@ class KTAddressPin: UIView {
     label.translatesAutoresizingMaskIntoConstraints = false
     label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    label.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
+    label.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
     
     indicator.translatesAutoresizingMaskIntoConstraints = false
     indicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

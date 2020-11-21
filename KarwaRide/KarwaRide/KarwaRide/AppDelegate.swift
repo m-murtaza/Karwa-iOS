@@ -130,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
                                           NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
         
-        let backImage = UIImage(named: "BackButton");
+        let backImage = UIImage(named: "back_arrow_ico");
         appearance.backIndicatorImage = backImage
         appearance.backIndicatorTransitionMaskImage = backImage
     }

@@ -16,6 +16,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
   @IBOutlet weak var txtConfirmPass : KTTextField!
   @IBOutlet weak var btnSubmitt: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
+  @IBOutlet weak var scrollView: UIScrollView!
   
   var countryList = CountryList()
   
@@ -46,6 +47,53 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
     //        let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
     //        lblCountryCode.addGestureRecognizer(countryTap)
+    [txtPhoneNumber.textField,
+     txtPassword.textField,
+     txtConfirmPass.textField].forEach({
+      $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged)
+     })
+    btnSubmitt.isEnabled = false
+    NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  @objc private func handlerKeyboard(notification: Notification) {
+    guard let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
+    let showKeyboard = notification.name == Notification.Name.UIKeyboardWillShow
+    var height = value.cgRectValue.height
+    let insets = self.scrollView.contentInset
+    height = showKeyboard ? height : 0.0
+    self.scrollView.contentInset = UIEdgeInsets(top: insets.top,
+                                                left: insets.left,
+                                                bottom: height,
+                                                right: insets.right)
+    // animate changes
+    UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
+      self.view.layoutIfNeeded()
+    }) { (animated) in
+      ()
+    }
+  }
+  
+  @objc func textFieldsIsNotEmpty(sender: UITextField) {
+
+   sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+
+   guard
+     let number = txtPhoneNumber.textField.text, !number.isEmpty,
+     let password = txtPassword.textField.text, !password.isEmpty,
+     let confirmpassword = txtConfirmPass.textField.text, !confirmpassword.isEmpty
+     else
+   {
+     self.btnSubmitt.isEnabled = false
+     return
+   }
+   // enable okButton if all conditions are met
+    self.btnSubmitt.isEnabled = true
   }
   
   override func viewWillAppear(_ animated: Bool) {

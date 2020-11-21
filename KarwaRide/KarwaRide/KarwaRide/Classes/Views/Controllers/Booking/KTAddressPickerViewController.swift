@@ -54,6 +54,10 @@ AddressPickerCellDelegate {
   @IBOutlet weak var btnHome : UIButton!
   @IBOutlet weak var btnWork : UIButton!
   @IBOutlet weak var btnConfirm : UIButton!
+  @IBOutlet weak var titleLabel: UILabel!
+  
+  @IBOutlet weak var clearButtonPickup: UIButton!
+  @IBOutlet weak var clearButtonDestination: UIButton!
   
   @IBOutlet weak var constraintTableViewBottom : NSLayoutConstraint!
   
@@ -70,12 +74,12 @@ AddressPickerCellDelegate {
         imgMapSelected.isHidden = true
         
         addressesListButton.setTitleColor(UIColor.primary, for: .normal)
-        favouritesListButton.setTitleColor(UIColor.lightGray, for: .normal)
+        favouritesListButton.setTitleColor(UIColor.primary.withAlphaComponent(0.5), for: .normal)
       case .favorite:
         imgListSelected.isHidden = true
         imgMapSelected.isHidden = false
-        
-        addressesListButton.setTitleColor(UIColor.lightGray, for: .normal)
+
+        addressesListButton.setTitleColor(UIColor.primary.withAlphaComponent(0.5), for: .normal)
         favouritesListButton.setTitleColor(UIColor.primary, for: .normal)
       }
     }
@@ -115,6 +119,7 @@ AddressPickerCellDelegate {
   private func setupUI() {
     setupTableView()
     toggleSkipButton()
+    skipButton.setTitle("signin_prompt_skip".localized(), for: .normal)
     addressesListButton.setTitle("btn_addresses_title".localized().uppercased(), for: .normal)
     favouritesListButton.setTitle("btn_favorites_title".localized().uppercased(), for: .normal)
   }
@@ -138,6 +143,14 @@ AddressPickerCellDelegate {
     NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
+  }
+  
+  @IBAction func clearActionPickup(_ sender: Any) {
+    txtPickAddress.text = ""
+  }
+  
+  @IBAction func clearActionDropoff(_ sender: Any) {
+    txtDropAddress.text = ""
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -290,6 +303,9 @@ AddressPickerCellDelegate {
   //MARK: - User Actions
   
   @IBAction func swapPickupAndDestination(_ sender: Any) {
+    if txtPickAddress.text!.isEmpty && txtDropAddress.text!.isEmpty {
+     return
+    }
     let temporary = pickupAddress
     pickupAddress = dropoffAddress
     dropoffAddress = temporary
@@ -375,7 +391,7 @@ AddressPickerCellDelegate {
   
   @IBAction func btnFavoritesViewTapped(_ sender: Any) {
     tab = .favorite
-    addressesListButton.setTitleColor(UIColor.lightGray, for: .normal)
+    addressesListButton.setTitleColor(UIColor.primary.withAlphaComponent(0.5), for: .normal)
     favouritesListButton.setTitleColor(UIColor.primary, for: .normal)
     
     imgListSelected.isHidden = true
@@ -471,7 +487,7 @@ AddressPickerCellDelegate {
   {
     //        btnConfirm.setTitle("CONFIRM PICKUP",for: .normal)
     
-    btnConfirm.setTitle("Confirm Pickup", for: .normal)
+    btnConfirm.setTitle("txt_confirm_pickup".localized(), for: .normal)
     
     selectedTxtField = SelectedTextField.PickupAddress
     toggleToMapView(forPickup: true)
@@ -575,12 +591,16 @@ AddressPickerCellDelegate {
     }
     
     if textField.isEqual(txtDropAddress) {
-      
       selectedTxtField = SelectedTextField.DropoffAddress
+      titleLabel.text = "txt_set_drop_off".localized()
+      clearButtonPickup.isHidden = true
+      clearButtonDestination.isHidden = false
     }
     else {
-      
       selectedTxtField = SelectedTextField.PickupAddress
+      titleLabel.text = "txt_pick_up".localized()
+      clearButtonPickup.isHidden = false
+      clearButtonDestination.isHidden = true
     }
     
     (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
@@ -628,7 +648,8 @@ AddressPickerCellDelegate {
   }
   func textFieldDidEndEditing(_ textField: UITextField) {
     //print("---textFieldDidEndEditing---")
-    
+    clearButtonPickup.isHidden = true
+    clearButtonDestination.isHidden = true
   }
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -663,7 +684,7 @@ AddressPickerCellDelegate {
 //      txtPickAddress.backgroundColor = UIColor.white
       imgMapMarker.image = UIImage(named: "APDropOffMarker")
       
-      btnConfirm.setTitle("Confirm Destination", for: .normal)
+      btnConfirm.setTitle("txt_confirm_dropoff".localized(), for: .normal)
     }
     else {
       searchText = txtPickAddress.text!
@@ -671,32 +692,30 @@ AddressPickerCellDelegate {
 //      txtPickAddress.backgroundColor = SELECTED_TEXT_FIELD_COLOR
       imgMapMarker.image = UIImage(named: "APPickUpMarker")
       
-      btnConfirm.setTitle("Confirm Pickup", for: .normal)
+      btnConfirm.setTitle("txt_confirm_pickup".localized(), for: .normal)
     }
   }
   
   //MARK: - Address Picker cell delegate
   func btnMoreTapped(withTag idx: Int) {
-    
-    
-    
     let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    let homeAction = UIAlertAction(title: "Set Home", style: .default) { (UIAlertAction) in
+    let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
+    let homeAction = UIAlertAction(title: "set_as_home_address".localized(), style: .default) { (UIAlertAction) in
       (self.viewModel as! KTAddressPickerViewModel).setHome(forIndex: idx)
     }
-    let workAction = UIAlertAction(title: "Set Work", style: .default) { (UIAlertAction) in
+    let workAction = UIAlertAction(title: "set_as_work_address".localized(), style: .default) { (UIAlertAction) in
       (self.viewModel as! KTAddressPickerViewModel).setWork(forIndex: idx)
     }
-    
-    let favoriteAction = UIAlertAction(title: "Set Favorite", style: .default) { (UIAlertAction) in
+    let favoriteAction = UIAlertAction(title: "set_as_favorite".localized(), style: .default) { (UIAlertAction) in
       (self.viewModel as! KTAddressPickerViewModel).setFavorite(forIndex: idx)
     }
-    
     alertController.addAction(cancelAction)
-    alertController.addAction(homeAction)
-    alertController.addAction(workAction)
+    if idx != 0 {
+     alertController.addAction(homeAction)
+    }
+    if idx != 1 {
+     alertController.addAction(workAction)
+    }
     alertController.addAction(favoriteAction)
     self.present(alertController, animated: true, completion: nil)
   }

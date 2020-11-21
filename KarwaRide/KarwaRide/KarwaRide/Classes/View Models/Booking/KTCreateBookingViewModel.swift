@@ -1183,13 +1183,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   }
   
   @objc func LocationManagerLocaitonUpdate(notification: Notification){
-    
     let location : CLLocation = notification.userInfo!["location"] as! CLLocation
     
     var updateMap = true
     if let info = notification.userInfo,
       let check = info["updateMap"] as? Bool {
       updateMap = check
+      del?.setETAString(etaString: "")
     }
     
     //Show user Location on map
@@ -1276,7 +1276,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         else
         {
-          (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride available")
+          (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride found")
         }
         
         if(self.currentBookingStep != BookingStep.step3)

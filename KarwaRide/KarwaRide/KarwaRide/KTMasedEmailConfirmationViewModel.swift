@@ -31,7 +31,7 @@ class KTMasedEmailConfirmationViewModel: KTBaseViewModel {
         let error = validate()
         if error.count == 0
         {
-            delegate?.showProgressHud(show: true, status: "Retriving your password")
+          delegate?.showProgressHud(show: true, status: "str_retrieving_your_password".localized())
             KTUserManager.init().sendForgotPassRequest(countryCode: countryCode!,phone: phone!, password: (password?.md5())!, email: email, completion: { (status, response) in
                 
                 self.delegate?.showProgressHud(show: false)

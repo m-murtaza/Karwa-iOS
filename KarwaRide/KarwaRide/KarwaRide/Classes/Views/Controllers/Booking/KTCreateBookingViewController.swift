@@ -69,7 +69,7 @@ class DashboardAddressCell: UICollectionViewCell {
         switch destination.type {
         case geoLocationType.Home.rawValue:
           titleLabel.text = "Home"
-          icon.image = UIImage(named: "ic_home_pickup")
+          icon.image = UIImage(named: "APICHome")
         case geoLocationType.Work.rawValue:
           titleLabel.text = "Work"
           icon.image = UIImage(named: "icon_work")
@@ -78,10 +78,12 @@ class DashboardAddressCell: UICollectionViewCell {
           icon.image = UIImage(named: "icon_recent_new")
         default:
           titleLabel.text = destination.name
-          icon.image = UIImage(named: "ic_home_pickup")
+          icon.image = UIImage(named: "ic_landmark")
         }
         addressLabel.text = destination.name
       }
+      self.applyShadow()
+      self.layer.masksToBounds = false
     }
   }
   override class func awakeFromNib() {
@@ -158,6 +160,12 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 }
 class KTCreateBookingViewController:
 KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+  func showCurrentLocationButton() {
+    DispatchQueue.main.async {
+      self.currentLocationButton.isHidden = false
+    }
+  }
+  
   func moveRow(from: IndexPath, to: IndexPath) {
     self.tableView.moveRow(at: from, to: to)
   }
@@ -187,6 +195,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBOutlet weak var mapInstructionsContainer: UIView!
   @IBOutlet weak var currentLocationButton: UIButton!
   @IBOutlet weak var showMoreRideOptions: UIButton!
+  @IBOutlet weak var pickupAddressLabel: UILabel!
   
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
@@ -219,8 +228,6 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     pickupCardView.applyShadow()
     destinationView.layer.cornerRadius = 30.0
     destinationView.applyShadow()
-    btnPickupAddress.titleLabel?.lineBreakMode = .byWordWrapping
-    btnPickupAddress.titleLabel?.numberOfLines = 2
     collectionView.dataSource = self
     collectionView.delegate = self
     (viewModel as! KTCreateBookingViewModel).fetchDestinations()
@@ -229,6 +236,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     tableView.addGestureRecognizer(gesture)
+    hideCurrentLocationButton()
   }
   
   private var heightBegan: CGFloat = 0.0
@@ -302,6 +310,13 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   @IBAction func currentLocationButtonAction(_ sender: Any) {
     (viewModel as! KTCreateBookingViewModel).setupCurrentLocaiton()
+    hideCurrentLocationButton()
+  }
+  
+  func hideCurrentLocationButton() {
+    DispatchQueue.main.async {
+     self.currentLocationButton.isHidden = true
+    }
   }
   
   @IBAction func showMoreRideOptions(_ sender: Any) {
@@ -627,9 +642,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   //MARK:- Locations
   func showAlertForLocationServerOn() {
-    
-    let alertController = UIAlertController(title: NSLocalizedString("", comment: ""), message: NSLocalizedString("Location services are disabled. Please enable location services.", comment: ""), preferredStyle: .alert)
-    
+    let alertController = UIAlertController(title: "",
+                                            message: "str_enable_location_services".localized(),
+                                            preferredStyle: .alert)
     let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
     let settingsAction = UIAlertAction(title: NSLocalizedString("Settings", comment: ""), style: .default) { (UIAlertAction) in
       
@@ -660,7 +675,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     guard pick != nil else {
       return
     }
-    self.btnPickupAddress.setTitle(pick, for: UIControlState.normal)
+    self.pickupAddressLabel.text = pick
     self.pickupLabel.text = pick
   }
   

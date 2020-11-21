@@ -39,6 +39,7 @@ enum geoLocationType : Int32 {
     case Recent = 10
     case Nearby = 11
     case Popular = 12
+    case favorite = 34
 }
 
 enum CustomerType : Int32 {

@@ -27,8 +27,8 @@ class KTFavoriteAddressViewController: KTBaseViewController {
   private func setupUI() {
     changeStatusBarColor(color: UIColor.primaryLight)
     navigationBar.backgroundColor = UIColor.primaryLight
-    locationNameTextField.placeHolder = "Location Name"
-    locationTextField.placeHolder = "Location"
+    locationNameTextField.placeHolder = "txt_loc_name".localized()
+    locationTextField.placeHolder = "txt_location_head".localized()
     
     locationTextField.textField.delegate = self
     locationNameTextField.textField.delegate = self
@@ -41,6 +41,8 @@ class KTFavoriteAddressViewController: KTBaseViewController {
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
       self.locationNameTextField.textField.becomeFirstResponder()
     }
+    locationTextField.textField.titleColor = #colorLiteral(red: 0, green: 0.3803921569, blue: 0.4392156863, alpha: 0.5)
+    locationTextField.textField.textColor = #colorLiteral(red: 0, green: 0.3803921569, blue: 0.4392156863, alpha: 0.5)
   }
   
   @IBAction func saveLocationAction(_ sender: UIButton) {

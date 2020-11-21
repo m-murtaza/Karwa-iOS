@@ -18,6 +18,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
   @IBOutlet weak var signUpBtn: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
   @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var scrollView: UIScrollView!
   
   var countryList = CountryList()
   
@@ -51,24 +52,49 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
      nameTextField.textField,
      passwordTextField.textField,
      emailTextField.textField].forEach({ $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged) })
-      signUpBtn.isEnabled = false
+    signUpBtn.isEnabled = false
+    NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+      self.phoneNumberTextField.textField.becomeFirstResponder()
+    }
   }
-
   
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  @objc private func handlerKeyboard(notification: Notification) {
+    guard let value = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
+    let showKeyboard = notification.name == Notification.Name.UIKeyboardWillShow
+    var height = value.cgRectValue.height
+    let insets = self.scrollView.contentInset
+    height = showKeyboard ? height : 0.0
+    self.scrollView.contentInset = UIEdgeInsets(top: insets.top,
+                                                left: insets.left,
+                                                bottom: height,
+                                                right: insets.right)
+    // animate changes
+    UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
+      self.view.layoutIfNeeded()
+    }) { (animated) in
+      ()
+    }
+  }
   
   @objc func textFieldsIsNotEmpty(sender: UITextField) {
-
-   sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
-
-   guard
-     let number = phoneNumberTextField.textField.text, !number.isEmpty,
-     let password = passwordTextField.textField.text, !password.isEmpty
-     else
-   {
-     self.signUpBtn.isEnabled = false
-     return
-   }
-   // enable okButton if all conditions are met
+    
+    sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
+    
+    guard
+      let number = phoneNumberTextField.textField.text, !number.isEmpty,
+      let password = passwordTextField.textField.text, !password.isEmpty
+      else
+    {
+      self.signUpBtn.isEnabled = false
+      return
+    }
+    // enable okButton if all conditions are met
     self.signUpBtn.isEnabled = true
   }
   
@@ -121,7 +147,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     {
       let webView : KTWebViewController = segue.destination as! KTWebViewController
       webView.url = Constants.TOSUrl
-      webView.navTitle = "Terms of Service"
+      webView.navTitle = "about_terms".localized()
     }
   }
   

@@ -11,10 +11,17 @@ import GoogleMaps
 
 extension KTCreateBookingViewController: GMSMapViewDelegate {
   
+  func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+    if gesture {
+      self.showCurrentLocationButton()
+    }
+  }
+  
   func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
     
     let location = CLLocation(latitude: mapView.camera.target.latitude,
                               longitude: mapView.camera.target.longitude)
+    //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
     let name = "LocationManagerNotificationIdentifier"
     NotificationCenter.default.post(name: Notification.Name(name),
                                     object: nil,

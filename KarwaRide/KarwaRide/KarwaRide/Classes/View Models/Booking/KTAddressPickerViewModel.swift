@@ -305,6 +305,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             case geoLocationType.Recent.rawValue:
                 img = UIImage(named: "ic_recent")
                 break
+            case geoLocationType.favorite.rawValue:
+              img = UIImage(named: "favorite_ico")
+               break
             default:
                 img = UIImage(named: "ic_landmark")
             }
@@ -363,7 +366,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
         else
         {
-            self.delegate?.showError!(title: "Error", message: "Pickup address cann't be empty")
+          self.delegate?.showError!(title: "error_sr".localized(), message: "Pickup address can't be empty")
         }
     }
     
@@ -431,19 +434,19 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             let error : String? = checkLocationIfAlreadyBookmark(location : location)
             if error != nil {
                 
-                delegate?.showError!(title: "Error", message: error!)
+              delegate?.showError!(title: "error_sr".localized(), message: error!)
             }
             else
             {
                 if bookmarkType == BookmarkType.home {
-                    delegate?.showProgressHud(show: true, status: "Setting Home address")
+                    delegate?.showProgressHud(show: true, status: "")
                     KTBookmarkManager().updateHome(withLocation: location) { (status, response) in
                         
                         self.handleUpdateResponse(status: status,response: response)
                     }
                 }
                 else {
-                    delegate?.showProgressHud(show: true, status: "Setting Work address")
+                    delegate?.showProgressHud(show: true, status: "")
                     KTBookmarkManager().updateWork(withLocation: location) { (status, response) in
                         
                         self.handleUpdateResponse(status: status,response: response)
@@ -453,14 +456,14 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         }
         else {
             if bookmarkType == BookmarkType.home {
-                delegate?.showProgressHud(show: true, status: "Setting Home address")
+                delegate?.showProgressHud(show: true, status: "")
                 KTBookmarkManager().updateHome(withCoordinate: CLLocationCoordinate2D(latitude: location.longitude,longitude: location.longitude), completion: { (status, response) in
                     self.handleUpdateResponse(status: status,response: response)
                     
                 })
             }
             else {
-                delegate?.showProgressHud(show: true, status: "Setting Work address")
+                delegate?.showProgressHud(show: true, status: "")
                 KTBookmarkManager().updateWork(withCoordinate: CLLocationCoordinate2D(latitude: location.longitude,longitude: location.longitude), completion: { (status, response) in
                     self.handleUpdateResponse(status: status,response: response)
                     
