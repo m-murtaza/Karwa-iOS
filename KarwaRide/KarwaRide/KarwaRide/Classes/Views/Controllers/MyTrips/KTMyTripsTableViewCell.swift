@@ -9,27 +9,29 @@
 import UIKit
 
 class KTMyTripsTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var lblPickAddress : UILabel!
-    @IBOutlet weak var viewCard : KTShadowView!
-    @IBOutlet weak var lblDayOfMonth: UILabel!
-    @IBOutlet weak var lblMonth: UILabel!
-    @IBOutlet weak var lblYear: UILabel!
-    @IBOutlet weak var lblDropoffAddress: UILabel!
-    @IBOutlet weak var lblDayAndTime: UILabel!
-    @IBOutlet weak var lblServiceType: UILabel!
-    @IBOutlet weak var imgBookingStatus: UIImageView!
-    @IBOutlet weak var lblCallerId: UILabel!
+  
+  @IBOutlet weak var pickupAddressLabel : UILabel!
+  @IBOutlet weak var dropoffAddressLabel : UILabel!
+  @IBOutlet weak var outerContainer : KTShadowView!
+  @IBOutlet weak var innerContainer : KTShadowView!
+  @IBOutlet weak var timeLabel : UILabel!
+  @IBOutlet weak var dateLabel : UILabel!
+  @IBOutlet weak var serviceTypeLabel : UILabel!
+  @IBOutlet weak var capacityLabel : UILabel!
+  @IBOutlet weak var statusLabel : UILabel!
+  @IBOutlet weak var cashIcon : UIImageView!
+  @IBOutlet weak var detailArrow : UIImageView!
+  
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+  }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    // Configure the view for the selected state
+  }
+  
 }

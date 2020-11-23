@@ -198,6 +198,13 @@ extension Date {
         
         return str.uppercased()
     }
+  
+  func toString(format: String = "dd MMM yyyy") -> String {
+    let formatter : DateFormatter = DateFormatter()
+    formatter.dateFormat = format
+    let str = formatter.string(from: self)
+    return str.uppercased()
+  }
     
     func year() -> String {
         let formatter : DateFormatter = DateFormatter()

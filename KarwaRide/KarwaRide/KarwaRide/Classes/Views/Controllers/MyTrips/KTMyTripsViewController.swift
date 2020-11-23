@@ -91,43 +91,31 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         return (viewModel as! KTMyTripsViewModel).numberOfRows()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //MyTripsReuseIdentifier
-        let cell : KTMyTripsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyTripsReuseIdentifier") as! KTMyTripsTableViewCell
-        
-        cell.lblPickAddress.text = (viewModel as! KTMyTripsViewModel).pickAddress(forIdx: indexPath.row)
-        cell.lblDropoffAddress.text = (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row)
-        
-        cell.lblDayOfMonth.text = (viewModel as! KTMyTripsViewModel).pickupDateOfMonth(forIdx: indexPath.row)
-        
-        cell.lblMonth.text = (viewModel as! KTMyTripsViewModel).pickupMonth(forIdx: indexPath.row)
-        cell.lblYear.text = (viewModel as! KTMyTripsViewModel).pickupYear(forIdx: indexPath.row)
-        
-        cell.lblDayAndTime.text = (viewModel as! KTMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
-        
-        cell.lblServiceType.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
-        
-        let img : UIImage? = (viewModel as! KTMyTripsViewModel).bookingStatusImage(forIdx: indexPath.row)
-        if img != nil {
-            cell.imgBookingStatus.image = img
-        }
-        
-        if isLargeScreen()  && (viewModel as! KTMyTripsViewModel).showCallerID(){
-            cell.lblCallerId.isHidden = false
-            cell.lblCallerId.text = (viewModel as! KTMyTripsViewModel).callerId(forIdx: indexPath.row)
-        }
-        
-        
-        cell.viewCard.backgroundColor = (viewModel as! KTMyTripsViewModel).cellBGColor(forIdx: indexPath.row)
-        
-        cell.viewCard.borderColor = (viewModel as! KTMyTripsViewModel).cellBorderColor(forIdx: indexPath.row)
-        
-        cell.selectionStyle = .none
-        
-        animateCell(cell)
-        
-        return cell
-    }
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    //MyTripsReuseIdentifier
+    let cell : KTMyTripsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyTripsReuseIdentifier") as! KTMyTripsTableViewCell
+    
+    cell.pickupAddressLabel.text = (viewModel as! KTMyTripsViewModel).pickAddress(forIdx: indexPath.row)
+    cell.dropoffAddressLabel.text = (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row)
+    cell.dateLabel.text = (viewModel as! KTMyTripsViewModel).pickupDate(forIdx: indexPath.row)
+    cell.timeLabel.text = (viewModel as! KTMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
+    cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+    cell.statusLabel.text = (viewModel as! KTMyTripsViewModel).bookingStatusString(forIdx: indexPath.row)
+    cell.outerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).outerContainerBackgroundColor(forIdx: indexPath.row)
+    cell.innerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).innerContainerBackgroundColor(forIdx: indexPath.row)
+    cell.statusLabel.textColor = (viewModel as! KTMyTripsViewModel).statusTextColor(forIdx: indexPath.row)
+    cell.capacityLabel.text = (viewModel as! KTMyTripsViewModel).capacity(forIdx: indexPath.row)
+    cell.serviceTypeLabel.textColor = (viewModel as! KTMyTripsViewModel).serviceTypeColor(forIdx: indexPath.row)
+    cell.cashIcon.isHidden = (viewModel as! KTMyTripsViewModel).showCashIcon(forIdx: indexPath.row)
+    cell.detailArrow.image?.imageFlippedForRightToLeftLayoutDirection()
+    //        if isLargeScreen()  && (viewModel as! KTMyTripsViewModel).showCallerID(){
+    //            cell.lblCallerId.isHidden = false
+    //            cell.lblCallerId.text = (viewModel as! KTMyTripsViewModel).callerId(forIdx: indexPath.row)
+    //        }
+    animateCell(cell)
+    
+    return cell
+  }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
