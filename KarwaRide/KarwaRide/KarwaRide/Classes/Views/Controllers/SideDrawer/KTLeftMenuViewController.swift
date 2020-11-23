@@ -66,9 +66,8 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         cell.lblTitle.text = (viewModel as! KTLeftMenuModel).textInCell(idx: indexPath.row)
         cell.lblTitle.textColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
         cell.imgTypeIcon.image = (viewModel as! KTLeftMenuModel).ImgTypeInCell(idx: indexPath.row)
-        cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
+        //cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
         cell.lblNew.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
-        cell.selectedBackgroundView = UIView()
 
         cell.lblWarning.isHidden = (viewModel as! KTLeftMenuModel).isEmailVerified(idx: indexPath.row)
 
@@ -82,11 +81,15 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         {
             if lastSelectedCell != nil {
                 lastSelectedCell?.sideView.isHidden = true
+              lastSelectedCell?.contentView.backgroundColor = UIColor.white
+              lastSelectedCell?.lblTitle.font = UIFont.H4().regular
               // reset cell styling
             }
 
             let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-            cell.sideView.isHidden = false
+          cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+            cell.lblTitle.font = UIFont.H4().bold
+            //cell.sideView.isHidden = false
           // do cell styling
 
             lastSelectedCell = cell

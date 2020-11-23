@@ -82,26 +82,27 @@ class KTLeftMenuModel: KTBaseViewModel {
     }
     
     func setMenuItems() {
+      
         
-        let menuItem1 : KTMenuItems = KTMenuItems(title: "Start a Booking", image: UIImage(named:"LMStartBooking")!, color: UIColor(hexString: "#25AAF1"), isNew: false)
+        let menuItem1 : KTMenuItems = KTMenuItems(title: "Get a ride", image: UIImage(named:"icon-get-a-ride")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem1)
         
-        let menuItem2 : KTMenuItems = KTMenuItems(title: "My Trips", image: UIImage(named:"LMMyTrips")!, color: UIColor(hexString: "#9FB067"), isNew: false)
+        let menuItem2 : KTMenuItems = KTMenuItems(title: "Ride history", image: UIImage(named:"icon-ride-history")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem2)
         
-        let menuItem3 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"qrcode")!, color: UIColor(hexString: "#B5B5B5"), isNew: false)
+        let menuItem3 : KTMenuItems = KTMenuItems(title: "Scan N Pay", image: UIImage(named:"icon-scan-n-pay")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem3)
         
-        let menuItem4 : KTMenuItems = KTMenuItems(title: "Notifications", image: UIImage(named:"LMNotification")!, color: UIColor(hexString: "#9B9B9B"), isNew: false)
+        let menuItem4 : KTMenuItems = KTMenuItems(title: "Notifications", image: UIImage(named:"icon-notifications")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem4)
         
-        let menuItem5 : KTMenuItems = KTMenuItems(title: "Feedback", image: UIImage(named:"feedback")!, color: UIColor(hexString: "#94B079"), isNew: true)
+        let menuItem5 : KTMenuItems = KTMenuItems(title: "Feedback", image: UIImage(named:"icon-feedback")!, color: UIColor(hexString: "#006170"), isNew: true)
         drawerOptions.append(menuItem5)
         
-        let menuItem6 : KTMenuItems = KTMenuItems(title: "Help", image: UIImage(named:"help")!, color: UIColor(hexString: "#1BB4B4"), isNew: false)
+        let menuItem6 : KTMenuItems = KTMenuItems(title: "Help", image: UIImage(named:"icon-help")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem6)
         
-        let menuItem7 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#F56458"), isNew: false)
+        let menuItem7 : KTMenuItems = KTMenuItems(title: "Settings", image: UIImage(named:"icon-settings")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem7)
     }
     
