@@ -221,7 +221,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     addMap()
     
     self.navigationItem.hidesBackButton = true;
-    self.btnRevealBtn.addTarget(self, action: #selector(SSASideMenu.presentLeftMenuViewController), for: .touchUpInside)
+    self.btnRevealBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
     
     hideFareBreakdown(animated: false)
     pickupCardView.topTwoRoundedCorners()
@@ -237,6 +237,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     tableView.addGestureRecognizer(gesture)
     hideCurrentLocationButton()
+  }
+  
+  @objc private func showMenu() {
+    sideMenuController?.revealMenu()
   }
   
   private var heightBegan: CGFloat = 0.0

@@ -198,7 +198,6 @@
 		18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */; };
 		18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3BC1322841DC3008096B2 /* GenericInputVC.swift */; };
 		18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC95B52289D33400EB000D /* CircularProgress.swift */; };
-		18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B26E204293F000600966 /* SSASideMenu.swift */; };
 		18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */; };
 		18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */; };
 		18F2B2762044135200600966 /* KTMyTripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2752044135200600966 /* KTMyTripsViewController.swift */; };
@@ -427,7 +426,6 @@
 		18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
 		18D3BC1322841DC3008096B2 /* GenericInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericInputVC.swift; sourceTree = "<group>"; };
 		18DC95B52289D33400EB000D /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
-		18F2B26E204293F000600966 /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSASideMenu.swift; path = Classes/ThirdParty/SSASideMenu/SSASideMenu.swift; sourceTree = "<group>"; };
 		18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLeftMenuModel.swift; path = "Classes/View Models/SideDrawer/KTLeftMenuModel.swift"; sourceTree = "<group>"; };
 		18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuTableViewCell.swift; path = Classes/Views/Controllers/SideDrawer/LeftMenuTableViewCell.swift; sourceTree = "<group>"; };
 		18F2B2752044135200600966 /* KTMyTripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsViewController.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsViewController.swift; sourceTree = "<group>"; };
@@ -1295,7 +1293,6 @@
 		18F2B26D2042932300600966 /* SSASideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				18F2B26E204293F000600966 /* SSASideMenu.swift */,
 			);
 			name = SSASideMenu;
 			sourceTree = "<group>";
@@ -1520,6 +1517,7 @@
 				"${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ScalingCarousel/ScalingCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenuSwift/SideMenuSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
@@ -1550,6 +1548,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAConfettiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScalingCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
@@ -1687,7 +1686,6 @@
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				18FA45B9207216F2000487C1 /* KTCreateBookingViewController+CarouselView.swift in Sources */,
-				18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */,
 				0DF3A2302185B5440000503B /* MPGSSession.swift in Sources */,
 				0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */,
 				0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */,

@@ -8,6 +8,19 @@
 
 import UIKit
 
+extension UIViewController {
+  func addMenuButton() {
+    let button = UIButton()
+    button.addTarget(self, action: #selector(revealSideMenu), for: .touchUpInside)
+    button.setImage(UIImage(named: "RevealButton"), for: .normal)
+    let item = UIBarButtonItem(customView: button)
+    self.navigationItem.leftBarButtonItem = item
+  }
+  @objc func revealSideMenu() {
+    sideMenuController?.revealMenu()
+  }
+}
+
 class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModelDelegate,UITableViewDataSource, UITableViewDelegate  {
 
     @IBOutlet weak var tableView: UITableView!
@@ -41,7 +54,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
 //            // Fallback on earlier versions
 //        }
         
-        
+      addMenuButton()
     }
 
     override func updateForBooking(_ booking: KTBooking)
@@ -160,8 +173,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     @IBAction func bookNowTapped(){
         
-        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuViewController?.hideMenuViewController()
+      sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuController?.hideMenu()
     }
 
 }

@@ -21,6 +21,7 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+      addMenuButton()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

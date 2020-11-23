@@ -135,8 +135,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         if(isCrossButtonPressed)
         {
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
             isCrossButtonPressed = !isCrossButtonPressed
             
             return
@@ -534,8 +534,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func gotoDashboard()
     {
-        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuViewController?.hideMenuViewController()
+        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuController?.hideMenu()
     }
     
     private func presentBarcodeScanner()

@@ -81,52 +81,51 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         if(indexPath.row != 3 && indexPath.row != 4)
         {
             if lastSelectedCell != nil {
-
                 lastSelectedCell?.sideView.isHidden = true
-                lastSelectedCell?.imgSelected.isHidden = true
+              // reset cell styling
             }
 
             let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
             cell.sideView.isHidden = false
-            cell.imgSelected.isHidden = false
+          // do cell styling
 
             lastSelectedCell = cell
         }
 
         switch indexPath.row {
         case 0:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
             break
         case 1:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuController?.hideMenu()
             break
         case 2:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+            sideMenuController?.hideMenu()
             break
         case 3:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
+            sideMenuController?.hideMenu()
             break
         case 4:
             let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
             let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
             detailView.isFeedback = true
-            sideMenuViewController?.contentViewController = contentView
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = contentView
+            sideMenuController?.hideMenu()
             break
         case 5:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
+            sideMenuController?.hideMenu()
             break
         case 6:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
+            sideMenuController?.hideMenu()
         default:
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
+            sideMenuController?.hideMenu()
             break
         }
 

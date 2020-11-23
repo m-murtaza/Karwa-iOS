@@ -92,8 +92,8 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     {
         if(isCrossButtonPressed)
         {
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
             isCrossButtonPressed = !isCrossButtonPressed
             
             return
@@ -320,8 +320,8 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func gotoDashboard()
     {
-        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuViewController?.hideMenuViewController()
+        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuController?.hideMenu()
     }
     
     func presentAddCardViewController()

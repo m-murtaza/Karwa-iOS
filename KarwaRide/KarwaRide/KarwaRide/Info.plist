@@ -60,12 +60,14 @@
 	<string>Karwa Taxi</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Karwa will use your Media to attach that with your complain</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Karwa will use your Camera to detect QR code of your trip (from meter) for instant Card payment or attach images with your complains</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Use for finding user current location </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Karwa will use your location to determine your pickup location. This will enable drivers to reach exact pickup location in shortest possible time.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Karwa will use your Camera to detect QR code of your trip (from meter) for instant Card payment or attach images with your complains</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MuseoSans-100.otf</string>
@@ -83,12 +85,8 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Karwa will use your Media to attach that with your complain</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -103,5 +101,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
