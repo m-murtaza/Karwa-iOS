@@ -145,11 +145,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   func loadFavoritesDataInView() {
     if let favorites = KTBookmarkManager().fetchAllFavorites() {
       locations.removeAll()
-      for favorite in favorites {
-        if let loc = favorite.bookmarkToGeoLocation {
-          locations.append(loc)
-        }
-      }
+      favorites.forEach( { locations.append( $0.toGeolocation() )})
       del?.loadData()
     }
   }
@@ -504,4 +500,17 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
         }
     }
+}
+
+extension KTFavorites {
+  func toGeolocation() -> KTGeoLocation {
+    let location = KTGeoLocation()
+    location.area = self.area
+    location.latitude = self.latitude
+    location.longitude = self.longitude
+    location.name = self.name
+    location.locationId = self.locationId
+    location.type = self.locationType
+    return location
+  }
 }
