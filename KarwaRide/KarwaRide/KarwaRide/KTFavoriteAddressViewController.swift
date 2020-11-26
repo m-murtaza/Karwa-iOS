@@ -36,6 +36,9 @@ class KTFavoriteAddressViewController: KTBaseViewController {
     if let loc = favoritelocation {
       locationTextField.textField.text = loc.name
     }
+    if let name = favoritelocation?.favoriteName {
+      locationNameTextField.text = name
+    }
     locationTextField.isUserInteractionEnabled = false
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

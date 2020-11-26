@@ -325,7 +325,7 @@ class KTBookmarkManager: KTDALManager {
   
     @discardableResult
     func saveFavorite(name: String, location: KTGeoLocation) -> Bool {
-      let p1 = NSPredicate(format: "name == %@", name)
+      let p1 = NSPredicate(format: "locationId == %d", location.locationId)
       let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1])
       
       // update the existing favorite

@@ -1218,22 +1218,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   }
   
   var destinations = [KTGeoLocation]()
-  private func fetchHomeAndWorkIfAvailable() {
-    let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
-    let home : KTBookmark? = bookmarkManager.getHome()
-    let work : KTBookmark?  = bookmarkManager.getWork()
-    
-    if home != nil && home!.bookmarkToGeoLocation != nil {
-      destinations.append(home!.bookmarkToGeoLocation!)
-    }
-    if work != nil && work!.bookmarkToGeoLocation != nil{
-      destinations.append(work!.bookmarkToGeoLocation!)
-    }
-  }
-  
   func fetchDestinations()  {
-    // Check locally saved Home and work addresses
-    fetchHomeAndWorkIfAvailable()
     KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
       if status == Constants.APIResponseStatus.SUCCESS {
         self.parseResponseToDestinations(serverResponse: response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])
@@ -1244,10 +1229,28 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   }
   
   func parseResponseToDestinations(serverResponse locs: [KTGeoLocation]){
+    let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
+    let home : KTBookmark? = bookmarkManager.getHome()
+    let work : KTBookmark?  = bookmarkManager.getWork()
+    
+    var array = [KTGeoLocation]()
     let popular = locs.filter({ $0.type == geoLocationType.Popular.rawValue})
     let recent = locs.filter({ $0.type == geoLocationType.Recent.rawValue})
-    destinations.append(contentsOf: popular)
-    destinations.append(contentsOf: recent)
+    
+    if let home = home, let location = home.bookmarkToGeoLocation {
+      array.append(location)
+    }
+    if let work = work, let location = work.bookmarkToGeoLocation {
+      array.append(location)
+    }
+    let recentMaxCount = (destinations.count == 2) ? 2 : 3
+    for index in 0..<recent.count {
+      if index < recentMaxCount {
+        array.append(recent[index])
+      }
+    }
+    array.append(contentsOf: popular)
+    destinations = Array(array.prefix(5))
   }
   
   private func showCurrentLocationDot(location: CLLocationCoordinate2D) {

@@ -146,10 +146,12 @@ AddressPickerCellDelegate {
   }
   
   @IBAction func clearActionPickup(_ sender: Any) {
+    (viewModel as! KTAddressPickerViewModel).pickupAddressClearedAction()
     txtPickAddress.text = ""
   }
   
   @IBAction func clearActionDropoff(_ sender: Any) {
+    (viewModel as! KTAddressPickerViewModel).dropoffAddressClearedAction()
     txtDropAddress.text = ""
   }
   
@@ -306,14 +308,12 @@ AddressPickerCellDelegate {
     if txtPickAddress.text!.isEmpty && txtDropAddress.text!.isEmpty {
      return
     }
-    let temporary = pickupAddress
-    pickupAddress = dropoffAddress
-    dropoffAddress = temporary
-    (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
-    (viewModel as! KTAddressPickerViewModel).dropOffAddress = dropoffAddress
-    
-    txtPickAddress.text = pickupAddress?.name
-    txtDropAddress.text = dropoffAddress?.name
+    let result = (viewModel as! KTAddressPickerViewModel).swapPickupAndDestination()
+    if result {
+      let temporary = txtPickAddress.text!
+      txtPickAddress.text = txtDropAddress.text!
+      txtDropAddress.text = temporary
+    }
   }
   
   @IBAction func btnConfirmTapped(_ sender: Any) {
@@ -568,7 +568,6 @@ AddressPickerCellDelegate {
     cell.ImgTypeIcon.image = (viewModel as! KTAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
     
     cell.btnMore.tag = indexPath.row
-    cell.btnMore.isHidden = (tab == .favorite)
 
     cell.delegate = self
     
@@ -698,25 +697,52 @@ AddressPickerCellDelegate {
   
   //MARK: - Address Picker cell delegate
   func btnMoreTapped(withTag idx: Int) {
-    let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
-    let homeAction = UIAlertAction(title: "set_as_home_address".localized(), style: .default) { (UIAlertAction) in
-      (self.viewModel as! KTAddressPickerViewModel).setHome(forIndex: idx)
+    
+    if tab == .favorite {
+      
+      let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+      let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
+      let editAction = UIAlertAction(title: "Edit", style: .default) { (UIAlertAction) in
+        (self.viewModel as! KTAddressPickerViewModel).editFavorite(forIndex: idx)
+      }
+      let removeAction = UIAlertAction(title: "Remove", style: .default) { (UIAlertAction) in
+        (self.viewModel as! KTAddressPickerViewModel).removeFavorite(forIndex: idx)
+      }
+      alertController.addAction(cancelAction)
+      alertController.addAction(editAction)
+      alertController.addAction(removeAction)
+      self.present(alertController, animated: true, completion: nil)
     }
-    let workAction = UIAlertAction(title: "set_as_work_address".localized(), style: .default) { (UIAlertAction) in
-      (self.viewModel as! KTAddressPickerViewModel).setWork(forIndex: idx)
+    else {
+      let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+      let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
+      let homeAction = UIAlertAction(title: "set_as_home_address".localized(), style: .default) { (UIAlertAction) in
+        (self.viewModel as! KTAddressPickerViewModel).setHome(forIndex: idx)
+      }
+      let workAction = UIAlertAction(title: "set_as_work_address".localized(), style: .default) { (UIAlertAction) in
+        (self.viewModel as! KTAddressPickerViewModel).setWork(forIndex: idx)
+      }
+      let favoriteAction = UIAlertAction(title: "set_as_favorite".localized(), style: .default) { (UIAlertAction) in
+        (self.viewModel as! KTAddressPickerViewModel).setFavorite(forIndex: idx)
+      }
+      
+      alertController.addAction(cancelAction)
+      let location = (self.viewModel as! KTAddressPickerViewModel).locationAtIndex(idx: idx)
+      if location.type == geoLocationType.Home.rawValue {
+        alertController.addAction(workAction)
+        alertController.addAction(favoriteAction)
+      }
+      else if location.type == geoLocationType.Work.rawValue {
+        alertController.addAction(homeAction)
+        alertController.addAction(favoriteAction)
+      }
+      else {
+        alertController.addAction(homeAction)
+        alertController.addAction(workAction)
+        alertController.addAction(favoriteAction)
+      }
+      self.present(alertController, animated: true, completion: nil)
     }
-    let favoriteAction = UIAlertAction(title: "set_as_favorite".localized(), style: .default) { (UIAlertAction) in
-      (self.viewModel as! KTAddressPickerViewModel).setFavorite(forIndex: idx)
-    }
-    alertController.addAction(cancelAction)
-    if idx != 0 {
-     alertController.addAction(homeAction)
-    }
-    if idx != 1 {
-     alertController.addAction(workAction)
-    }
-    alertController.addAction(favoriteAction)
-    self.present(alertController, animated: true, completion: nil)
+
   }
 }
