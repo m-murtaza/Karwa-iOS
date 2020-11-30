@@ -12,20 +12,32 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate,WKUIDelegate {
 
     let url = "https://consumerhelp.karwatechnologies.com/"
+    let promoURL = "https://www.karwa.qa/promo/\(Locale.current.identifier.replacingOccurrences(of: "_", with: "-").lowercased())/promo.html"
     var isFeedback = false
+    var isPromotion = false
     
     @IBOutlet weak var webView : WKWebView?
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        
-        title = isFeedback ? "Feedback" : "Help"
-        
+
+        title = "Help"
+        var urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
+
+        if(isFeedback)
+        {
+            urlWithTimeAndSessionId = "\(url)/complaint/Feedback?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
+            title = "Feedback"
+        }
+        else if(isPromotion)
+        {
+            urlWithTimeAndSessionId = promoURL
+            title = "Promotions"
+        }
+
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
-
-        let urlWithTimeAndSessionId = isFeedback ? "\(url)/complaint/Feedback?sid=\(KTAppSessionInfo.currentSession.sessionId!)" : "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
         
         let request = URLRequest(url: URL(string: urlWithTimeAndSessionId)!)
 
