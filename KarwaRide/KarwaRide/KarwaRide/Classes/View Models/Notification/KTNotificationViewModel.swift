@@ -96,9 +96,11 @@ class KTNotificationViewModel: KTBaseViewModel {
     
     func rowSelected(atIndex idx: Int) {
         
-        guard let notification : KTNotification = notifications[idx], let booking = notification.notificationToBooking else {
-            return
-        }
+        let notification : KTNotification = notifications[idx]
+        let booking = notification.notificationToBooking
+//        guard let notification : KTNotification = notifications[idx], let booking = notification.notificationToBooking else {
+//            return
+//        }
         selectedBooking = booking
         del?.showDetail()
     }
