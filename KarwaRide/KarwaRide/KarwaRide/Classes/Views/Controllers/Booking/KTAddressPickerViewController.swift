@@ -142,7 +142,6 @@ AddressPickerCellDelegate {
     super.viewWillAppear(animated)
     NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(KTAddressPickerViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    
   }
   
   @IBAction func clearActionPickup(_ sender: Any) {
@@ -190,7 +189,7 @@ AddressPickerCellDelegate {
   
   @objc func keyboardWillHide(notification: NSNotification) {
     if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-      
+
       constraintTableViewBottom.constant = 0
 
     }
@@ -571,7 +570,7 @@ AddressPickerCellDelegate {
 
     cell.delegate = self
     
-    animateCell(cell)
+//    animateCell(cell)
     
     return cell
   }
