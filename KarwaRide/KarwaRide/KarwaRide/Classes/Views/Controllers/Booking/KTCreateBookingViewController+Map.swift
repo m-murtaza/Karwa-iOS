@@ -19,14 +19,12 @@ extension KTCreateBookingViewController: GMSMapViewDelegate {
   
   func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
     
-    let location = CLLocation(latitude: mapView.camera.target.latitude,
-                              longitude: mapView.camera.target.longitude)
+    let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
     //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
     let name = "LocationManagerNotificationIdentifier"
-    NotificationCenter.default.post(name: Notification.Name(name),
-                                    object: nil,
-                                    userInfo: ["location": location as Any,
-                                               "updateMap" : false])
+    NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+    
+    KTLocationManager.sharedInstance.setCurrentLocation(location: location)
   }
 }
 

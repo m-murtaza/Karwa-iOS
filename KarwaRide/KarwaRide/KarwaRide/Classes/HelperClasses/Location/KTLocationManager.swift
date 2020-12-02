@@ -18,6 +18,7 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
 //    var delegate : KTLocationManagerDelegate?
     let locManager = CLLocationManager()
     var currentLocation : CLLocation = CLLocation(latitude: 0.0,longitude: 0.0)
+    var baseLocation : CLLocation = CLLocation(latitude: 0.0,longitude: 0.0)
     
     var isLocationAvailable: Bool {
         if currentLocation.coordinate.isZeroCoordinate {
@@ -84,9 +85,12 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locations[0]
+        baseLocation = locations[0]
         NotificationCenter.default.post(name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil, userInfo: ["location":currentLocation as Any])
     }
     
-    
+    func setCurrentLocation(location: CLLocation)
+    {
+        currentLocation = location
+    }
 }

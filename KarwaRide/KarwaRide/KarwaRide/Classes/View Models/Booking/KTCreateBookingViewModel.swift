@@ -1118,7 +1118,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
         
         var userInfo : [String :Any] = [:]
-        userInfo["location"] = KTLocationManager.sharedInstance.currentLocation
+        userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
         
         notification.userInfo = userInfo
         //notification.userInfo!["location"] as! CLLocation
@@ -1145,39 +1145,39 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     return vehicleNearBy
   }
   
-  @objc func LocationManagerLocaitonUpdate(notification: Notification){
-    let location : CLLocation = notification.userInfo!["location"] as! CLLocation
-    
-    var updateMap = true
-    if let info = notification.userInfo,
-      let check = info["updateMap"] as? Bool {
-      updateMap = check
-      del?.setETAString(etaString: "")
-    }
-    
-    //Show user Location on map
-    if currentBookingStep == BookingStep.step1 {
-      if updateMap {
-        (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location)
-      }
-      
-      //if booking.pickupAddress == nil || booking.pickupAddress == "" {
-      
-      //pickUpAddress = KTBookingManager().goeLocation(forLocation: location.coordinate)
-      booking.pickupLocationId = -1
-      booking.pickupAddress = UNKNOWN
-      booking.pickupLat = location.coordinate.latitude
-      booking.pickupLon = location.coordinate.longitude
-      (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
-      //}
-      
-      //Fetch location name (from Server) for current location.
-      self.fetchLocationName(forGeoCoordinate: location.coordinate)
-    }
-    else if currentBookingStep == BookingStep.step3 && isPickAvailable() {
-      showCurrentLocationDot(location: location.coordinate)
-    }
-    
+  @objc func LocationManagerLocaitonUpdate(notification: Notification)
+  {
+        let location : CLLocation = notification.userInfo!["location"] as! CLLocation
+        var updateMap = true
+
+        if let info = notification.userInfo, let check = info["updateMap"] as? Bool
+        {
+          updateMap = check
+          del?.setETAString(etaString: "")
+        }
+        
+        //Show user Location on map
+        if currentBookingStep == BookingStep.step1
+        {
+             if updateMap
+             {
+               (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location)
+             }
+
+            booking.pickupLocationId = -1
+            booking.pickupAddress = UNKNOWN
+            booking.pickupLat = location.coordinate.latitude
+            booking.pickupLon = location.coordinate.longitude
+
+            (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
+          
+            //Fetch location name (from Server) for current location.
+            self.fetchLocationName(forGeoCoordinate: location.coordinate)
+        }
+        else if currentBookingStep == BookingStep.step3 && isPickAvailable()
+        {
+          showCurrentLocationDot(location: location.coordinate)
+        }
   }
   
   var destinations = [KTGeoLocation]()
@@ -1247,7 +1247,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         if(self.currentBookingStep != BookingStep.step3)
         {
-          if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:"))) {
+          if self.delegate != nil && (self.delegate as! KTCreateBookingViewModelDelegate).responds(to: Selector(("addMarkerOnMapWithVTrack:")))
+          {
             (self.delegate as! KTCreateBookingViewModelDelegate).addOrRemoveOrMoveMarkerOnMap(vTrack: self.nearByVehicle, vehicleType: self.selectedVehicleType.rawValue)
           }
         }
