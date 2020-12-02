@@ -69,7 +69,7 @@ class DashboardAddressCell: UICollectionViewCell {
         switch destination.type {
         case geoLocationType.Home.rawValue:
           titleLabel.text = "Home"
-          icon.image = UIImage(named: "APICHome")
+          icon.image = UIImage(named: "home_db_ico")
         case geoLocationType.Work.rawValue:
           titleLabel.text = "Work"
           icon.image = UIImage(named: "icon_work")
@@ -338,10 +338,14 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     
     //TODO: If no pick uplocation
     if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
-      self.carousel!.scrollToItem(at: IndexPath(row: (viewModel as! KTCreateBookingViewModel).maxCarouselIdx(), section: 0), at: UICollectionViewScrollPosition.right, animated: false)
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
-        self.carousel!.scrollToItem(at: IndexPath(row: (self.viewModel as! KTCreateBookingViewModel).idxToSelectVehicleType(), section: 0), at: UICollectionViewScrollPosition.right, animated: true)
-      }
+        if(self.carousel != nil)
+        {
+            self.carousel!.scrollToItem(at: IndexPath(row: (viewModel as! KTCreateBookingViewModel).maxCarouselIdx(), section: 0), at: UICollectionViewScrollPosition.right, animated: false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
+            {
+              self.carousel!.scrollToItem(at: IndexPath(row: (self.viewModel as! KTCreateBookingViewModel).idxToSelectVehicleType(), section: 0), at: UICollectionViewScrollPosition.right, animated: true)
+            }
+        }
     }
   }
   
