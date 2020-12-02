@@ -10,7 +10,6 @@ import Foundation
 
 class SharedPrefUtil
 {
-    static let IS_COACHMARKS_SHOWN = "IS_COACHMARKS_SHOWN"
     static let IS_APP_STORE_RATING_DONE = "IS_APP_STORE_RATING_DONE"
     static let IS_SHARE_TRIP_TOOL_TIP_SHOWN = "IS_SHARE_TRIP_TOOL_TIP_SHOWN"
     static let IS_RATING_REASONS_RESET_FORCEFULLY = "IS_RATING_REASONS_RESET_FORCEFULLY"
@@ -69,20 +68,6 @@ class SharedPrefUtil
         let isShown = SharedPrefUtil.getSharePref(IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT)
         
         if(isShown.isEmpty || isShown.count == 0)
-        {
-            return false
-        }
-        else
-        {
-            return true
-        }
-    }
-    
-    public static func isBookingCoachmarkOneShown() -> Bool
-    {
-        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
-        
-        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
         {
             return false
         }

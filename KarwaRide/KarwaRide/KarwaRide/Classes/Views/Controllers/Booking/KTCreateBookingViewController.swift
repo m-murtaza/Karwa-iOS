@@ -160,6 +160,12 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 }
 class KTCreateBookingViewController:
 KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+
+    func showScanPayCoachmark()
+    {
+        
+    }
+
   func showCurrentLocationButton() {
     DispatchQueue.main.async {
       self.currentLocationButton.isHidden = false
@@ -283,27 +289,13 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     restoreCustomerServiceSelection()
   }
   
-  func showScanPayCoachmark() {
-    
-  }
-  
   override func viewWillAppear(_ animated: Bool)
   {
     super.viewWillAppear(animated)
     navigationController?.isNavigationBarHidden = true
   }
   
-  func showCoachmarkIfRequired()
-  {
-    if(SharedPrefUtil.isBookingCoachmarkOneShown())
-    {
-      if(vModel?.isCoachmarkOneShown)!
-      {
-        showCoachmarkTwo()
-      }
-    }
-  }
-  
+
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
   }
@@ -347,16 +339,6 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
             }
         }
     }
-  }
-  
-  func showCoachmarkOne()
-  {
-    self.performSegue(name: "SagueCoachmark1")
-  }
-  
-  func showCoachmarkTwo()
-  {
-    self.performSegue(name: "SagueCoachmark2")
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -628,10 +610,6 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       let destination : KTBookingDetailsViewController = segue.destination as! KTBookingDetailsViewController
       destination.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
       
-    }
-    else if segue.identifier == "SagueCoachmark1"
-    {
-      //TODO: Make Delegate here
     }
     else if segue.identifier == "segueBookingListForDetails" {
       

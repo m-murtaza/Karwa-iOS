@@ -48,8 +48,6 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func hideFareBreakdown(animated : Bool)
   func fareDetailVisible() -> Bool
   func updateVehicleTypeList()
-  func showCoachmarkOne()
-  func showCoachmarkTwo()
   func allowScrollVTypeCard(allow : Bool)
   func setETAContainerBackground(background : String)
   func setETAString(etaString : String)
@@ -115,40 +113,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       rebook = true
       updateForRebook()
     }
-    
-    showCoachmarkIfRequired()
-  }
-  
-  func showCoachmarkIfRequired()
-  {
-    let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
-    
-    if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
-    {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2)
-      {
-        self.isCoachmarkOneShown = true;
-        (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkOne()
-      }
-    }
-    
-    if(!SharedPrefUtil.isScanNPayCoachmarkShown())
-    {
-      (self.delegate as! KTCreateBookingViewModelDelegate).showScanPayCoachmark()
-    }
-  }
-  
-  func showCoachmarkTwoIfRequired()
-  {
-    let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
-    
-    if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
-    {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2)
-      {
-        (self.delegate as! KTCreateBookingViewModelDelegate).showCoachmarkTwo()
-      }
-    }
   }
   
   override func viewWillAppear() {
@@ -176,7 +140,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       registerForMinuteChange()
       drawDirectionOnMap(encodedPath: "")
       showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
-      showCoachmarkTwoIfRequired()
     }
   }
   
