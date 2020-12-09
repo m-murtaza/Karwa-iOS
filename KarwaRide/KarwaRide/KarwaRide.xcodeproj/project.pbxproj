@@ -40,6 +40,7 @@
 		0DD0F40E2580A6600089CECD /* LocalisableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */; };
 		0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F4102580A9E20089CECD /* LocalisableButton.swift */; };
 		0DD0F4142580AA340089CECD /* LocalisableSpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */; };
+		0DD0F43B2580DAE50089CECD /* ButtonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F43A2580DAE50089CECD /* ButtonExt.swift */; };
 		0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */; };
 		0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */; };
 		0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAC25075831000E27E4 /* APIPinning.swift */; };
@@ -264,6 +265,7 @@
 		0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableLabel.swift; sourceTree = "<group>"; };
 		0DD0F4102580A9E20089CECD /* LocalisableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableButton.swift; sourceTree = "<group>"; };
 		0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringButton.swift; sourceTree = "<group>"; };
+		0DD0F43A2580DAE50089CECD /* ButtonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExt.swift; sourceTree = "<group>"; };
 		0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUpdateNotifier.swift; sourceTree = "<group>"; };
 		0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
@@ -835,6 +837,7 @@
 				18C24AC2200340B0002D4B88 /* Utility */,
 				1864872C1F0BB01900DDB003 /* CommonBase */,
 				181344B41EF7E060006E734A /* Constants */,
+				0DD0F43A2580DAE50089CECD /* ButtonExt.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1690,6 +1693,7 @@
 				0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */,
 				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
 				0DE6A742218B141200125507 /* MPGSDK.swift in Sources */,
+				0DD0F43B2580DAE50089CECD /* ButtonExt.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,
 				0DE6A748218B141200125507 /* Gateway3DSecureViewController.swift in Sources */,
 				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
