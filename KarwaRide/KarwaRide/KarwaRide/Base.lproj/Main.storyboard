@@ -3411,24 +3411,30 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="138" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xwb-Up-ceB">
-                                                        <rect key="frame" x="34.999999999999993" y="11" width="68.333333333333314" height="18"/>
+                                                        <rect key="frame" x="33.666666666666657" y="-5" width="71" height="50"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="RvX-Aj-Pp2">
-                                                                <rect key="frame" x="0.0" y="0.33333333333337123" width="16" height="17.333333333333332"/>
+                                                                <rect key="frame" x="0.0" y="16.333333333333371" width="16" height="17.333333333333329"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="16" id="lbr-Kd-EOU"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g4-72-qAT">
-                                                                <rect key="frame" x="21.000000000000004" y="0.0" width="47.333333333333343" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g4-72-qAT" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                                                                <rect key="frame" x="21" y="0.0" width="50" height="50"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="str_promo_text"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSu-XH-vsP">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSu-XH-vsP" customClass="Button">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="40"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="str_promo_text"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="btnPromoTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="JOq-M2-7Qm"/>
                                                         </connections>
@@ -3448,24 +3454,30 @@
                                                 <rect key="frame" x="138" y="0.0" width="138" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4gK-Pr-Ma1">
-                                                        <rect key="frame" x="41.333333333333343" y="11" width="55.666666666666657" height="18"/>
+                                                        <rect key="frame" x="33.666666666666657" y="-5" width="71" height="50"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-cash-new" translatesAutoresizingMaskIntoConstraints="NO" id="3yU-hN-Xk2">
-                                                                <rect key="frame" x="0.0" y="4.0000000000000009" width="16" height="10.333333333333336"/>
+                                                                <rect key="frame" x="0.0" y="20" width="16" height="10.333333333333336"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="16" id="Lnj-yS-B1L"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4f-uy-oY2">
-                                                                <rect key="frame" x="20.999999999999996" y="0.0" width="34.666666666666657" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4f-uy-oY2" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                                                                <rect key="frame" x="21" y="0.0" width="50" height="50"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_cash"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-cf-Jwb">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9b-cf-Jwb" customClass="Button">
                                                         <rect key="frame" x="0.0" y="0.0" width="138" height="40"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_cash"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="btnCashTapped:" destination="L23-ue-kpU" eventType="touchUpInside" id="cUH-gl-qZe"/>
                                                         </connections>
@@ -3485,19 +3497,22 @@
                                                 <rect key="frame" x="276" y="0.0" width="138" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Lpb-A0-RV7">
-                                                        <rect key="frame" x="26.333333333333307" y="11" width="85.333333333333314" height="18"/>
+                                                        <rect key="frame" x="33.666666666666686" y="-5" width="71" height="50"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_events" translatesAutoresizingMaskIntoConstraints="NO" id="aKp-hM-A1R">
-                                                                <rect key="frame" x="0.0" y="2.3333333333333721" width="16" height="13.333333333333336"/>
+                                                                <rect key="frame" x="0.0" y="18.333333333333371" width="16" height="13.333333333333336"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="16" id="ojO-e6-gh9"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Schedule" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9I4-zh-a7q">
-                                                                <rect key="frame" x="21" y="0.0" width="64.333333333333329" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9I4-zh-a7q" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                                                                <rect key="frame" x="21" y="0.0" width="50" height="50"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_scheduled_short"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
