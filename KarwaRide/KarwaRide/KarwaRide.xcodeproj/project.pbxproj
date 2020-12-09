@@ -37,6 +37,9 @@
 		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
 		0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */; };
 		0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48CB242358DB0018E3F0 /* Transaction.swift */; };
+		0DD0F40E2580A6600089CECD /* LocalisableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */; };
+		0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F4102580A9E20089CECD /* LocalisableButton.swift */; };
+		0DD0F4142580AA340089CECD /* LocalisableSpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */; };
 		0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */; };
 		0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */; };
 		0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAC25075831000E27E4 /* APIPinning.swift */; };
@@ -258,6 +261,9 @@
 		0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV8.xcdatamodel; sourceTree = "<group>"; };
 		0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantAPI.swift; sourceTree = "<group>"; };
 		0DCE48CB242358DB0018E3F0 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableLabel.swift; sourceTree = "<group>"; };
+		0DD0F4102580A9E20089CECD /* LocalisableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableButton.swift; sourceTree = "<group>"; };
+		0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringButton.swift; sourceTree = "<group>"; };
 		0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUpdateNotifier.swift; sourceTree = "<group>"; };
 		0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
@@ -795,6 +801,9 @@
 				181344B71EF916DC006E734A /* ApplicationSession */,
 				181344B01EF7BC70006E734A /* Configuration */,
 				181344AD1EF7B2DD006E734A /* Network */,
+				0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */,
+				0DD0F4102580A9E20089CECD /* LocalisableButton.swift */,
+				0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */,
 			);
 			name = HelperClasses;
 			sourceTree = "<group>";
@@ -1654,6 +1663,7 @@
 				186ECFC520A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift in Sources */,
 				0DE6A747218B141200125507 /* GatewayMap.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
+				0DD0F4142580AA340089CECD /* LocalisableSpringButton.swift in Sources */,
 				182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */,
 				18FA45BB20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
@@ -1723,6 +1733,7 @@
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
+				0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */,
 				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
@@ -1744,6 +1755,7 @@
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
+				0DD0F40E2580A6600089CECD /* LocalisableLabel.swift in Sources */,
 				448595E22546A98D00409C6C /* KTTextField.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */,
