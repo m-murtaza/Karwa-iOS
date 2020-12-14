@@ -11,6 +11,7 @@
 		0D045C8B216F248500D3904B /* KTIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */; };
 		0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */; };
 		0D0A05CE2582147500ACD21B /* LocalisableSpringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A05CD2582147500ACD21B /* LocalisableSpringLabel.swift */; };
+		0D0A068A25823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */; };
 		0D18C6BD215116750001FD4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D18C6BC215116750001FD4C /* GoogleService-Info.plist */; };
 		0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */; };
 		0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */; };
@@ -232,6 +233,7 @@
 		0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueTableViewCell.swift; sourceTree = "<group>"; };
 		0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDownGestureRecognizer.swift; sourceTree = "<group>"; };
 		0D0A05CD2582147500ACD21B /* LocalisableSpringLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringLabel.swift; sourceTree = "<group>"; };
+		0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTBookingDetailsBottomSheetVC.swift; sourceTree = "<group>"; };
 		0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV3.xcdatamodel; sourceTree = "<group>"; };
 		0D18C6BC215116750001FD4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintCategoryModel.swift; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 				187E71122084935100E66A55 /* KTRatingViewController.swift */,
 				182A74CC20876A0B0025B6C7 /* KTTagButton.swift */,
 				0D750BF621DB5B9700CFF75B /* RatingCommentPopupVC.swift */,
+				0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -1539,6 +1542,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/UBottomSheet/UBottomSheet.framework",
 				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1570,6 +1574,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UBottomSheet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1696,6 +1701,7 @@
 				0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */,
 				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
 				0DE6A742218B141200125507 /* MPGSDK.swift in Sources */,
+				0D0A068A25823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift in Sources */,
 				0DD0F43B2580DAE50089CECD /* ButtonExt.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,
 				0DE6A748218B141200125507 /* Gateway3DSecureViewController.swift in Sources */,

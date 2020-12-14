@@ -8,7 +8,7 @@
 
 ## Overview
 
-*SideMenu* is an easy-to-use side menu container controller written in Swift 5.
+*SideMenu* is an easy-to-use side menu container controller written in Swift 4.
 
 Besides all the features a *Side Menu* should have, it supports:
 
@@ -160,7 +160,7 @@ sideMenuController?.cache(viewControllerGenerator: { self.storyboard?.instantiat
 
 ## Requirements
 
-- Xcode 10 or later
+- Xcode 10
 - iOS 9.0 or later
 
 ## License
