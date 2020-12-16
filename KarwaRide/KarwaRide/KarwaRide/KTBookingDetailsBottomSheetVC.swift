@@ -10,24 +10,20 @@ import Foundation
 import UBottomSheet
 
 
-class KTBookingDetailsBottomSheetVC: UIViewController
+class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 {
-    override func viewDidLoad() {
+    var vModel : KTBookingDetailsViewModel?
+
+    var sheetCoordinator: UBottomSheetCoordinator?
+
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        if #available(iOS 11.0, *)
-        {
-//            tableView.contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.register(UINib(nibName: "EmbeddedCell", bundle: nil), forCellReuseIdentifier: "EmbeddedCell")
-//        tableView.register(UINib(nibName: "MapItemCell", bundle: nil), forCellReuseIdentifier: "MapItemCell")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         super.viewWillAppear(animated)
-//        sheetCoordinator?.startTracking(item: self)
+        sheetCoordinator?.startTracking(item: self)
     }
 }

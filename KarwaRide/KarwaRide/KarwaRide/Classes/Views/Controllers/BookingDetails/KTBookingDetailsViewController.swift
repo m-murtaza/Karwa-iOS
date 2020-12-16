@@ -12,10 +12,13 @@ import GoogleMaps
 import Cosmos
 import Spring
 import DDViewSwitcher
+import UBottomSheet
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
     
     @IBOutlet weak var mapView : GMSMapView!
+    
+    var sheetCoordinator: UBottomSheetCoordinator!
     
     @IBOutlet weak var lblPickAddress : UILabel!
     @IBOutlet weak var lblPickMessage : UILabel!
@@ -112,6 +115,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         btnReveal.isHidden = !isOpenFromNotification
         
         showHideToolTipShareButton(false)
+        
+        let sheetCoordinator = UBottomSheetCoordinator(parent: self)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as! KTBookingDetailsBottomSheetVC
+        vc.sheetCoordinator = sheetCoordinator
+        vc.vModel = viewModel as? KTBookingDetailsViewModel
+        sheetCoordinator.addSheet(vc, to: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
