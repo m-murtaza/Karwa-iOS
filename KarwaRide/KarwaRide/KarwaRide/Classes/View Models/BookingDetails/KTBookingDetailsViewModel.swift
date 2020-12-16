@@ -339,7 +339,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func pickupMonth() -> String{
         
-        return booking!.pickupTime!.threeLetterMonth()
+        return " \(booking!.pickupTime!.threeLetterMonth()) "
         
     }
     
@@ -354,7 +354,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         let day = booking!.pickupTime!.dayOfWeek()
         let time = booking!.pickupTime!.timeWithAMPM()
         
-        let dayAndTime = "\(day), \(time)"
+        let dayAndTime = "\(day), \(time) "
         
         return dayAndTime
     }
@@ -794,6 +794,21 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if(booking!.dropOffLat == 0)
         {
             let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: vTrack.position.latitude,longitude: vTrack.position.longitude) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            pickDropMarkers.append(dropMarker)
+        }
+
+        (delegate as! KTBookingDetailsViewModelDelegate).focusMapToShowAllMarkers(gmsMarker: pickDropMarkers)
+    }
+    
+    func focusMarkers()
+    {
+        var pickDropMarkers = [GMSMarker]()
+        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+        pickDropMarkers.append(pickMarker)
+
+        if(booking!.dropOffLat == 0)
+        {
+            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
             pickDropMarkers.append(dropMarker)
         }
 
