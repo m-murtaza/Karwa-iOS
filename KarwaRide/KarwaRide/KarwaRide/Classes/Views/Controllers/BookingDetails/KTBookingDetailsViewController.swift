@@ -36,7 +36,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var isOpenFromNotification : Bool = false
 
     let MAX_ZOOM_LEVEL = 16
-    
+    var isAbleToObserveZooming = false
+    var haltAutoZooming = false
+
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
@@ -51,11 +53,27 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
         sheetCoordinator.addSheet(bottomSheetVC, to: self)
-        sheetCoordinator.setPosition(420, animated: true)
+        sheetCoordinator.setPosition(520, animated: true)
 
+        mapView.delegate = self
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3)
+        {
+            self.isAbleToObserveZooming = true
+//            let mapInsets = UIEdgeInsets(top: 100.0, left: 100.0, bottom: 100.0, right: 100.0)
+//            self.mapView.padding = mapInsets
+        }
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+    }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition)
+    {
+        if(isAbleToObserveZooming && !haltAutoZooming)
+        {
+            haltAutoZooming = true
+        }
     }
     
     var isBottomSheetExpanded = true
@@ -63,12 +81,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     func bottomSheet(_ container: UIView?, finishTranslateWith extraAnimation: @escaping ((CGFloat) -> Void) -> Void) {
         isBottomSheetExpanded = !isBottomSheetExpanded
         setMapPadding(height: getMapPadding())
-        vModel?.focusMarkers()
+//        vModel?.focusMarkers()
     }
     
     func getMapPadding() -> CGFloat
     {
-        return isBottomSheetExpanded ? 600 : 230
+        return isBottomSheetExpanded ? 420 : 40
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,19 +185,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
-        
-        var bounds = GMSCoordinateBounds()
-        for marker: GMSMarker in gmsMarker {
-            bounds = bounds.includingCoordinate(marker.position)
+        if(!haltAutoZooming)
+        {
+            var bounds = GMSCoordinateBounds()
+            for marker: GMSMarker in gmsMarker {
+                bounds = bounds.includingCoordinate(marker.position)
+            }
+            
+            var update : GMSCameraUpdate?
+            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(60))
+            
+            CATransaction.begin()
+            CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+            mapView.animate(with: update!)
+            CATransaction.commit()
         }
-        
-        var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
-        
-        CATransaction.begin()
-        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.animate(with: update!)
-        CATransaction.commit()
     }
 
     func setBooking(booking : KTBooking) {
@@ -265,11 +285,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             destination.bookingId = (vModel?.booking?.bookingId)!
         }
      }
-    
-    @IBAction func btnCallTapped(_ sender: Any)
-    {
-        vModel?.callDriver()
-    }
     
     @IBAction func shareBtnTapped(_ sender: Any)
     {
@@ -410,6 +425,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     {
+        bottomSheetVC.updateBookingStatusOnCard(withAnimation)
 //        if(withAnimation)
 //        {
 //            imgBookingStatus.duration = 1
@@ -441,7 +457,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateBookingStatusOnCard()
     {
-//        updateBookingStatusOnCard(false)
+        updateBookingStatusOnCard(false)
     }
     
     func updateBookingCardForCompletedBooking() {
@@ -749,7 +765,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     func setMapPadding(height : CGFloat)
     {
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
-        print(height)
         mapView.padding = padding
     }
     
@@ -757,6 +772,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     {
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: getMapPadding(), right: 0)
         mapView.padding = padding
+    }
+    
+    func updateHeaderMsg(_ msg : String)
+    {
+        bottomSheetVC.updateHeaderMsg(msg)
     }
 }
 

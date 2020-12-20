@@ -19,6 +19,7 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showUpdateVTrackMarker(vTrack: VehicleTrack)
     func showPathOnMap(path: GMSPath)
     func updateBookingCard()
+    func updateHeaderMsg(_ msg : String)
     func updateCallerId()
     func hidePhoneButton()
     func showCancelBooking()
@@ -257,7 +258,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     //MARK:- BookingCard
     func updateBookingCard() {
         del?.updateBookingCard()
-        
+        del?.updateHeaderMsg(getHeaderMsg(booking!.bookingStatus))
+
         if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
             del?.hidePhoneButton()
             del?.updateBookingCardForCompletedBooking()
@@ -399,55 +401,26 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         var type : String = ""
         switch booking!.vehicleType {
         case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
-            type = "TAXI"
+            type = "txt_taxi".localized()
             
         case VehicleType.KTCityTaxi7Seater.rawValue:
-            type = "7 SEATER"
+            type = "txt_family_taxi".localized()
             
         case VehicleType.KTSpecialNeedTaxi.rawValue:
-            type = "A.TAXI"
+            type = "txt_accessible".localized()
 
         case VehicleType.KTStandardLimo.rawValue:
-            type = "STANDARD"
+            type = "txt_limo_standard".localized()
             
         case VehicleType.KTBusinessLimo.rawValue:
-            type = "BUSINESS"
+            type = "txt_limo_buisness".localized()
             
         case VehicleType.KTLuxuryLimo.rawValue:
-            type = "LUXURY"
+            type = "txt_limo_luxury".localized()
         default:
             type = ""
         }
         return type
-    }
-    
-    func bookingStatusImage() -> UIImage? {
-        
-        var img : UIImage?
-        switch booking!.bookingStatus {
-            
-        case BookingStatus.COMPLETED.rawValue:
-            img = UIImage(named:"MyTripsCompleted")
-        case BookingStatus.ARRIVED.rawValue:
-            img = UIImage(named:"MyTripsArrived")
-        case BookingStatus.CONFIRMED.rawValue:
-            img = UIImage(named:"MyTripsAssigned")
-        case BookingStatus.CANCELLED.rawValue:
-            img = UIImage(named:"MyTripsCancelled")
-        case BookingStatus.PENDING.rawValue, BookingStatus.DISPATCHING.rawValue:
-            img = UIImage(named:"MyTripsScheduled")
-        case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
-            img = UIImage(named:"MyTripNoRideFound")
-        case BookingStatus.PICKUP.rawValue:
-//            img = UIImage.gifImageWithName("MyTripHired")
-            img = UIImage(named:"MyTripsHired")
-        default:
-            img = UIImage()
-            print("Do nothing")
-            
-        }
-        
-        return img
     }
     
     func pickupTime() -> String {
@@ -460,6 +433,55 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             
         }
         return time
+    }
+    
+    func getHeaderMsg(_ bookingStatus: Int32) -> String
+    {
+        var msg = ""
+        switch bookingStatus
+        {
+            case BookingStatus.DISPATCHING.rawValue:
+                msg = "str_searching_ride".localized()
+                break
+            case BookingStatus.CONFIRMED.rawValue:
+                msg = "str_confirmed".localized()
+                break
+        case BookingStatus.ARRIVED.rawValue:
+            msg = "str_arrived".localized()
+            break
+            case BookingStatus.PICKUP.rawValue:
+                msg = "str_pickup".localized()
+                break
+            case BookingStatus.CANCELLED.rawValue:
+                msg = "txt_ride_cancelled".localized()
+                break
+            case BookingStatus.COMPLETED.rawValue:
+                msg = "txt_completed".localized()
+                break
+            case BookingStatus.PENDING.rawValue:
+                msg = "str_scheduled".localized()
+                break;
+            case BookingStatus.NO_TAXI_ACCEPTED.rawValue:
+                msg = "txt_no_rides_found".localized()
+                break
+            default:
+                msg = "--"
+            
+        }
+
+        return msg
+    }
+    
+    func getPassengerCountr() -> String
+    {
+        var passengerCount = "txt_four".localized()
+
+        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue)
+        {
+            passengerCount = "txt_seven".localized()
+        }
+        
+        return passengerCount
     }
     
     func dropoffTime() -> String {
@@ -856,6 +878,28 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return img!
     }
     
+    func imgForVehicle() -> UIImage {
+        
+        var img : UIImage?
+        switch booking?.vehicleType  {
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?:
+            img = UIImage(named:"icon-karwa-taxi")
+        case VehicleType.KTCityTaxi7Seater.rawValue?:
+            img = UIImage(named: "icon-family-taxi")
+        case VehicleType.KTSpecialNeedTaxi.rawValue?:
+        img = UIImage(named: "icon-accessible-taxi")
+        case VehicleType.KTStandardLimo.rawValue?:
+            img = UIImage(named: "icon-standard-limo")
+        case VehicleType.KTBusinessLimo.rawValue?:
+            img = UIImage(named: "icon-business-limo")
+        case VehicleType.KTLuxuryLimo.rawValue?:
+            img = UIImage(named: "icon-luxury-limo")
+        default:
+            img = UIImage(named:"icon-karwa-taxi")
+        }
+        return img!
+    }
+    
     var isPickDropMarked = false
 
     //MARK:- Bottom Bar buttons
@@ -865,12 +909,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 
         if booking?.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.DISPATCHING.rawValue || booking?.bookingStatus == BookingStatus.PENDING.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue {
             
-            del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            del?.updateLeftBottomBarButtom(title: "fareDetails".localized(), color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
             
-            del?.updateRightBottomBarButtom(title: "CANCEL BOOKING", color: UIColor(hexString:"#E74C3C"), tag: BottomBarBtnTag.Cancel.rawValue)
+            del?.updateRightBottomBarButtom(title: "cancelBooking".localized(), color: UIColor(hexString:"#E74C3C"), tag: BottomBarBtnTag.Cancel.rawValue)
         }
         else if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
-            del?.updateLeftBottomBarButtom(title: "TRIP E-BILL", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.EBill.rawValue)
+            del?.updateLeftBottomBarButtom(title: "tripEBill".localized(), color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.EBill.rawValue)
             
             del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#26ADF0"), tag: BottomBarBtnTag.Rebook.rawValue)
             
@@ -886,7 +930,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             
         }
         else if booking?.bookingStatus == BookingStatus.PICKUP.rawValue {
-            del?.updateLeftBottomBarButtom(title: "FARE DETAILS", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
+            del?.updateLeftBottomBarButtom(title: "fareDetails".localized(), color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
             del?.updateRightBottomBarButtom(title: "", color: UIColor(hexString:"#129793"), tag: BottomBarBtnTag.FareBreakdown.rawValue)
             
         }
@@ -939,7 +983,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
 
     func eBillTitle() -> String {
-        return "Trip E-Bill"
+        return "tripEBill".localized()
     }
     
     func eBillTotal() -> String {
@@ -948,7 +992,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     //MARK: - Estimates
     func estimateTitle() -> String {
-        return "Fare Breakdown"
+        return "str_fare_breakdown".localized()
     }
     
     func estimateTotal() -> String {
@@ -959,7 +1003,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func estimateTitleTotal() -> String {
-        return "Total Fare"
+        return "total_fare".localized()
     }
     func isEstimateAvailable() -> Bool {
         guard let _ : KTFareEstimate = booking?.bookingToEstimate else {
@@ -987,7 +1031,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     //MARK: - Fare Details
     
     func fareDetailTitleTotal() -> String {
-        return "Starting Fare"
+        return "str_starting_fare".localized()
     }
     
     func fareDetailTotal() -> String {

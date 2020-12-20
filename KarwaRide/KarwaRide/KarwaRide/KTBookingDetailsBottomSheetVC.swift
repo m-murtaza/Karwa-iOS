@@ -22,6 +22,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBOutlet weak var bottomSheetToolIcon: UIImageView!
     
+    @IBOutlet weak var constraintPlateNo: NSLayoutConstraint!
+    @IBOutlet weak var constraintHeaderWidth: NSLayoutConstraint!
     @IBOutlet weak var eta: LocalisableButton!
 
     @IBOutlet weak var rideHeaderText: LocalisableSpringLabel!
@@ -30,15 +32,23 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     @IBOutlet weak var lblPickMessage: SpringLabel!
     @IBOutlet weak var bookingTime: UILabel!
-    @IBOutlet weak var btnPhone: LocalisableButton!
+    @IBOutlet weak var btnETA: LocalisableButton!
     
     @IBOutlet weak var btnShare: LocalisableButton!
+    @IBOutlet weak var btnCancel: UIView!
+    @IBOutlet weak var btnPhone: LocalisableSpringButton!
+    
+    @IBOutlet weak var iconVehicle: SpringImageView!
+    @IBOutlet weak var lblVehicleType: LocalisableLabel!
+    @IBOutlet weak var lblPassengerCount: LocalisableLabel!
     @IBOutlet weak var lblVehicleNumber: UILabel!
     @IBOutlet weak var imgNumberPlate: UIImageView!
     
     @IBOutlet weak var lblDriverName: LocalisableSpringLabel!
     @IBOutlet weak var starView: SpringLabel!
     var sheetCoordinator: UBottomSheetCoordinator?
+
+    @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
 
     override func viewDidLoad()
     {
@@ -51,7 +61,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         super.viewWillAppear(animated)
         sheetCoordinator?.startTracking(item: self)
         sheetCoordinator?.addDropShadowIfNotExist()
-        (sheetCoordinator?.parent as! (KTBookingDetailsViewController)).setMapPadding()
+        (sheetCoordinator?.parent as! (KTBookingDetailsViewController)).setMapPadding(height: 40)
+        constraintPlateNo.constant = Device.language().contains("ar") ? 60 : 25
     }
 
     @IBAction func cancelBtnTap(_ sender: Any) {
@@ -60,6 +71,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBAction func shareBtnTap(_ sender: Any) {
         shareBtnTapped()
+    }
+
+    @IBAction func phoneBtnTap(_ sender: Any) {
+        vModel?.callDriver()
     }
 
     func updateBookingCard()
@@ -75,6 +90,65 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         }
         
         bookingTime.text = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+
+        updateVehicleDetails()
+        
+        //MARK:- DISPATCHING
+        if(vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue)
+        {
+            hideEtaView()
+            showCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+        }
+        
+        //MARK:- ON CALL BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)
+        {
+            showEtaView()
+            showCancelBtn()
+            hideShareBtn()
+            showPhoneButton()
+        }
+
+        //MARK:- PICKUP BOOKING (Customer on-board)
+        if(vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            showShareBtn()
+            showPhoneButton()
+        }
+        
+        //MARK:- COMPLETED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+        }
+        
+        //MARK:- SHECULED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.PENDING.rawValue)
+        {
+            hideEtaView()
+            showCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            updateAssignmentInfo()
+        }
+
+        //MARK:- CANCELLED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            rideHeaderText.textColor = UIColor(hexString:"#E43825")
+            updateAssignmentInfo()
+        }
         
 //        lblServiceType.text = vModel?.vehicleType()
         
@@ -106,6 +180,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         btnPhone.isHidden = true
     }
+    
+    func showPhoneButton()
+    {
+        btnPhone.isHidden = false
+    }
 
     func updateBookingCardForCompletedBooking()
     {
@@ -127,7 +206,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     func hideDriverInfoBox()
     {
         preRideDriver.isHidden = true
+        //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 1000)
+        constraintTripInfoMarginTop.constant = 1
     }
+
     func showDriverInfoBox()
     {
         preRideDriver.isHidden = false
@@ -139,21 +221,57 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     }
     func hideEtaView()
     {
-        eta.isHidden = true
+        btnETA.isHidden = true
+        constraintHeaderWidth.constant = 420
     }
     func showEtaView()
     {
-        eta.isHidden = false
+        btnETA.isHidden = false
+        constraintHeaderWidth.constant = 250
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     {
         
     }
+    
+    func showShareBtn()
+    {
+        showHideShareButton(true)
+    }
+    
+    func showCancelBtn()
+    {
+        btnCancel.isHidden = false
+    }
+    
+    func hideCancelBtn()
+    {
+        btnCancel.isHidden = true
+    }
+
+    func hideShareBtn()
+    {
+        showHideShareButton(false)
+    }
+
     func showHideShareButton(_ show : Bool)
     {
         btnShare.isHidden = !show
     }
+    
+    func updateHeaderMsg(_ msg : String)
+    {
+        rideHeaderText.text = msg
+    }
+    
+    func updateVehicleDetails()
+    {
+        iconVehicle.image = vModel?.imgForVehicle()
+        lblVehicleType.text = vModel?.vehicleType()
+        lblPassengerCount.text = vModel?.getPassengerCountr()
+    }
+
     func shareBtnTapped()
     {
         let URLstring =  String(format: Constants.ShareTripUrl + (vModel?.booking?.trackId ?? "unknown"))
