@@ -25,7 +25,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func showCancelBooking()
     func showEbill()
     func showFareBreakdown()
-    
+    func showRecenterBtn()
+    func hideRecenterBtn()
     func moveToBooking()
     
     func popViewController()
@@ -187,6 +188,15 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func updateAssignmentInfo() {
+        if(booking?.bookingStatus == BookingStatus.PICKUP.rawValue || booking?.bookingStatus == BookingStatus.ARRIVED.rawValue || booking?.bookingStatus == BookingStatus.CONFIRMED.rawValue)
+        {
+            del?.showRecenterBtn()
+        }
+        else
+        {
+            del?.hideRecenterBtn()
+        }
+
         if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
         {
             del?.hideDriverInfoBox()
@@ -464,6 +474,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             case BookingStatus.NO_TAXI_ACCEPTED.rawValue:
                 msg = "txt_no_rides_found".localized()
                 break
+        case BookingStatus.TAXI_NOT_FOUND.rawValue:
+            msg = "txt_no_rides_found".localized()
+            break
             default:
                 msg = "--"
             

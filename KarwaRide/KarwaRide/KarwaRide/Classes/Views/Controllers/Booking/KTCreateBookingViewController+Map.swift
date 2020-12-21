@@ -52,6 +52,7 @@ extension KTCreateBookingViewController
         }
       
       mapView.delegate = self
+    
       self.focusMapToCurrentLocation()
     }
     
@@ -303,8 +304,10 @@ extension KTCreateBookingViewController
         }
     }
     
-    func focusMapToCurrentLocation() {
-        if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false) {
+    func focusMapToCurrentLocation()
+    {
+        if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false)
+        {
             let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
             mapView.animate(with: update)
         }

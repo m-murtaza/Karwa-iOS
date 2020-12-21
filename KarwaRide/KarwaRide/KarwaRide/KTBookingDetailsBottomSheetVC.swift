@@ -24,6 +24,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBOutlet weak var constraintPlateNo: NSLayoutConstraint!
     @IBOutlet weak var constraintHeaderWidth: NSLayoutConstraint!
+    @IBOutlet weak var constraintReportIssueMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintFareInfoMarginTop: LocalisableButton!
+    
+    
+    
     @IBOutlet weak var eta: LocalisableButton!
 
     @IBOutlet weak var rideHeaderText: LocalisableSpringLabel!
@@ -35,8 +40,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var btnETA: LocalisableButton!
     
     @IBOutlet weak var btnShare: LocalisableButton!
-    @IBOutlet weak var btnCancel: UIView!
+    @IBOutlet weak var btnCancel: LocalisableButton!
     @IBOutlet weak var btnPhone: LocalisableSpringButton!
+    @IBOutlet weak var btnReportIssue: LocalisableButton!
+    @IBOutlet weak var btnRebook: LocalisableButton!
+    @IBOutlet weak var btnFareInfo: LocalisableButton!
+    
+    
     
     @IBOutlet weak var iconVehicle: SpringImageView!
     @IBOutlet weak var lblVehicleType: LocalisableLabel!
@@ -77,6 +87,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         vModel?.callDriver()
     }
 
+    @IBAction func btnFareInfoTap(_ sender: Any)
+    {
+        vModel?.buttonTapped(withTag: BottomBarBtnTag.FareBreakdown.rawValue)
+    }
+
     func updateBookingCard()
     {
         lblPickAddress.text = vModel?.pickAddress()
@@ -93,89 +108,41 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
         updateVehicleDetails()
         
-        //MARK:- DISPATCHING
-        if(vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue)
-        {
-            hideEtaView()
-            showCancelBtn()
-            hideShareBtn()
-            hidePhoneButton()
-        }
-        
-        //MARK:- ON CALL BOOKING
-        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)
-        {
-            showEtaView()
-            showCancelBtn()
-            hideShareBtn()
-            showPhoneButton()
-        }
+        updateBookingBottomSheet()
 
-        //MARK:- PICKUP BOOKING (Customer on-board)
-        if(vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue)
-        {
-            hideEtaView()
-            hideCancelBtn()
-            showShareBtn()
-            showPhoneButton()
-        }
-        
-        //MARK:- COMPLETED BOOKING
-        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
-        {
-            hideEtaView()
-            hideCancelBtn()
-            hideShareBtn()
-            hidePhoneButton()
-        }
-        
-        //MARK:- SHECULED BOOKING
-        if(vModel?.bookingStatii() == BookingStatus.PENDING.rawValue)
-        {
-            hideEtaView()
-            showCancelBtn()
-            hideShareBtn()
-            hidePhoneButton()
-            updateAssignmentInfo()
-        }
-
-        //MARK:- CANCELLED BOOKING
-        if(vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue)
-        {
-            hideEtaView()
-            hideCancelBtn()
-            hideShareBtn()
-            hidePhoneButton()
-            rideHeaderText.textColor = UIColor(hexString:"#E43825")
-            updateAssignmentInfo()
-        }
-        
-//        lblServiceType.text = vModel?.vehicleType()
-        
-//        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
-//        {
-//            lblEstimatedFare.text = vModel?.totalFareOfTrip()
-//            titleEstimatedFare.text = "Fare"
-//        }
-//        else
-//        {
-//            lblEstimatedFare.text = vModel?.estimatedFare()
-//            titleEstimatedFare.text = "Est. Fare"
-//        }
-        
         updateBookingStatusOnCard(false)
-        
-//        lblPickTime.text = vModel?.pickupTime()
-//        lblDropTime.text = vModel?.dropoffTime()
-//
-//        viewCard.backgroundColor = vModel?.cellBGColor()
-//
-//        viewCard.borderColor = vModel?.cellBorderColor()
-//
-//        lblPaymentMethod.text = vModel?.paymentMethod()
-//        imgPaymentMethod.image = UIImage(named: ImageUtil.getSmallImage((vModel?.paymentMethodIcon())!))
     }
 
+    func hideBtnComplain()
+    {
+        btnReportIssue.isHidden = true
+    }
+    
+    func showBtnComplain()
+    {
+        btnReportIssue.isHidden = false
+    }
+    
+    func hideRebookBtn()
+    {
+        btnRebook.isHidden = true
+    }
+    
+    func showRebookBtn()
+    {
+        btnRebook.isHidden = false
+    }
+    
+    func hideFareDetailBtn()
+    {
+        btnFareInfo.isHidden = true
+    }
+    
+    func showFareDetailBtn()
+    {
+        btnFareInfo.isHidden = false
+    }
+    
     func hidePhoneButton()
     {
         btnPhone.isHidden = true
@@ -191,9 +158,21 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         eta.isHidden = true
         btnPhone.isHidden = true
     }
+
     func updateBookingCardForUnCompletedBooking()
     {
-        bookingTime.isHidden = true
+        updateBookingBottomSheet()
+    }
+
+    @IBAction func btnComplainTap(_ sender: Any)
+    {
+        performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
+    }
+    
+    
+    @IBAction func btnRebookTap(_ sender: Any)
+    {
+        vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
     }
     
     func updateAssignmentInfo()
@@ -237,7 +216,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showShareBtn()
     {
-        showHideShareButton(true)
+        btnShare.isHidden = false
     }
     
     func showCancelBtn()
@@ -252,17 +231,106 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     func hideShareBtn()
     {
-        showHideShareButton(false)
-    }
-
-    func showHideShareButton(_ show : Bool)
-    {
-        btnShare.isHidden = !show
+        btnShare.isHidden = true
     }
     
     func updateHeaderMsg(_ msg : String)
     {
         rideHeaderText.text = msg
+    }
+    
+    func updateBookingBottomSheet()
+    {
+        //MARK:- DISPATCHING
+        if(vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue)
+        {
+            hideEtaView()
+            showCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            hideRebookBtn()
+            hideFareDetailBtn()
+            hideBtnComplain()
+        }
+        
+        //MARK:- ON CALL BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)
+        {
+            showEtaView()
+            showCancelBtn()
+            showShareBtn()
+            showPhoneButton()
+            hideBtnComplain()
+            hideRebookBtn()
+            hideFareDetailBtn()
+        }
+
+        //MARK:- PICKUP BOOKING (Customer on-board)
+        if(vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            showShareBtn()
+            showPhoneButton()
+            hideBtnComplain()
+            hideRebookBtn()
+            hideFareDetailBtn()
+        }
+        
+        //MARK:- COMPLETED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            showBtnComplain()
+            showRebookBtn()
+            showFareDetailBtn()
+            constraintReportIssueMarginTop.constant = 100
+        }
+        
+        //MARK:- SHECULED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.PENDING.rawValue)
+        {
+            hideEtaView()
+            showCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            hideBtnComplain()
+            hideRebookBtn()
+            hideFareDetailBtn()
+        }
+
+        //MARK:- CANCELLED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            rideHeaderText.textColor = UIColor(hexString:"#E43825")
+            showBtnComplain()
+            showRebookBtn()
+            hideFareDetailBtn()
+            constraintReportIssueMarginTop.constant = 100
+        }
+        
+        //MARK:- NO RIDE FOUND BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.TAXI_NOT_FOUND.rawValue || vModel?.bookingStatii() == BookingStatus.NO_TAXI_ACCEPTED.rawValue)
+        {
+            hideEtaView()
+            hideCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            rideHeaderText.textColor = UIColor(hexString:"#E43825")
+            hideBtnComplain()
+            showRebookBtn()
+            hideFareDetailBtn()
+            constraintReportIssueMarginTop.constant = 100
+        }
+        
+        updateAssignmentInfo()
     }
     
     func updateVehicleDetails()

@@ -243,6 +243,11 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     tableView.addGestureRecognizer(gesture)
     hideCurrentLocationButton()
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 4)
+    {
+        self.vModel?.setupCurrentLocaiton()
+    }
   }
   
   @objc private func showMenu() {

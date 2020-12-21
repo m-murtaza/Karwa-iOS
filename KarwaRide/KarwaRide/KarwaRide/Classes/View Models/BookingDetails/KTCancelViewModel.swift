@@ -43,10 +43,10 @@ class KTCancelViewModel: KTBaseViewModel {
     
     func btnSubmitTapped(selectedIdx: Int) {
         if selectedIdx < 0 {
-            self.delegate?.showError!(title: "No Reason Selected", message: "Please select reason for your cancelation")
+            self.delegate?.showError!(title: "error_sr".localized(), message: "txt_select_two_or_more".localized())
         }
         else {
-            delegate?.showProgressHud(show: true, status: "Cancelling Booking")
+            delegate?.showProgressHud(show: true, status: "please_dialog_msg_cancel_booking".localized())
             let reason : KTCancelReason = reasons[selectedIdx]
             KTCancelBookingManager().cancelBooking(bookingId: (del?.getBookingID())!, reasonId: Int(reason.reasonCode)) { (status, response) in
                 
