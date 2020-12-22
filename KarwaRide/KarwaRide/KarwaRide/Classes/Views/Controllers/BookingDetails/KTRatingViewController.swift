@@ -10,12 +10,11 @@ import UIKit
 import Kingfisher
 import Cosmos
 import RKTagsView
-import SAConfettiView
 import Spring
 
 protocol KTRatingViewDelegate {
     
-    func closeRating()
+    func closeRating(_ rating : Int32)
 }
 class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDelegate {
     
@@ -131,60 +130,12 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func showAltForThanks(rating: Int32)
     {
-        let confettiView = SAConfettiView(frame: self.view.bounds)
-        let isAppStoreRatingDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_APP_STORE_RATING_DONE)
-        
-        if(rating > 3)
-        {
-            confettiView.type = .Diamond
-            confettiView.colors = [UIColor.yellow]
-            confettiView.intensity = 0.75
-            
-            view.addSubview(confettiView)
-            confettiView.startConfetti()
-
-            if(isAppStoreRatingDone.isEmpty || isAppStoreRatingDone.count == 0)
-            {
-                // Asking for App Store Rating
-                showRatingDialog(confettiView, rating)
-            }
-            else
-            {
-                // Show Normal OK Dialog
-                showOkDialog(confettiView, rating)
-            }
-        }
-        else
-        {
-            showOkDialog(confettiView, rating)
-        }
+        showOkDialog(rating)
     }
     
-    func showOkDialog(_ confettiView : SAConfettiView, _ rating : Int32)
+    func showOkDialog(_ rating : Int32)
     {
-        let alertController = UIAlertController(title: "", message: "booking_rated".localized(), preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
-            if(rating > 3)
-            {
-                confettiView.stopConfetti()
-            }
-            
-            self.closeScreen()
-        }
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-
-    }
-
-    func showRatingDialog(_ confettiView : SAConfettiView, _ rating : Int32)
-    {
-        if(rating > 3)
-        {
-            confettiView.stopConfetti()
-            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
-            self.vModel?.rateApplication()
-        }
+        closeScreen(rating)
     }
     
     func updateDriver(name: String) {
@@ -220,8 +171,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         btnSubmit.setTitle(label, for: .normal)
     }
     
-    func closeScreen() {
-        delegate?.closeRating()
+    func closeScreen(_ rating : Int32) {
+        delegate?.closeRating(rating)
     }
 
     override func showError(title:String, message:String)
@@ -230,7 +181,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
-            self.closeScreen()
+            self.closeScreen(-1)
         }
         
         //alertController.addAction(cancelAction)

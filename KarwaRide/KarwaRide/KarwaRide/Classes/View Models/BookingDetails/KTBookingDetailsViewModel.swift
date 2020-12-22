@@ -672,7 +672,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 else
                 {
                     self.fetchBooking((self.booking?.bookingId)!, true)
-                    self.del?.showSuccessBanner("  ", "Trip status has been updated")
+//                    self.del?.showSuccessBanner("  ", "Trip status has been updated")
                     self.stopVehicleUpdateTimer()
                 }
             })

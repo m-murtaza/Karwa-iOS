@@ -14,6 +14,7 @@ import Cosmos
 import Spring
 import DDViewSwitcher
 import UBottomSheet
+import StoreKit
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
 
@@ -511,11 +512,37 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         //self.performSegue(name: "detailToRating")
     }
     
-    func closeRating() {
+    func closeRating(_ rating : Int32) {
         ratingPopup?.view.removeFromSuperview()
         ratingPopup = nil
+
+        showSuccessBanner("  ", "booking_rated".localized())
+        
+        if(rating > 3)
+        {
+//            let confettiView = SAConfettiView(frame: self.view.bounds)
+//            confettiView.type = .Diamond
+//            confettiView.colors = [UIColor.yellow]
+//            confettiView.intensity = 1.00
+//
+//            view.addSubview(confettiView)
+//            confettiView.startConfetti()
+
+            let isAppStoreRatingDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_APP_STORE_RATING_DONE)
+            if(isAppStoreRatingDone.isEmpty || isAppStoreRatingDone.count == 0)
+            {
+                // Asking for App Store Rating
+                showRatingDialog(rating)
+            }
+        }
     }
-    
+
+    func showRatingDialog(_ rating : Int32)
+    {
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
+        SKStoreReviewController.requestReview()
+    }
+
     func showCancelBooking() {
         cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as? KTCancelViewController
         

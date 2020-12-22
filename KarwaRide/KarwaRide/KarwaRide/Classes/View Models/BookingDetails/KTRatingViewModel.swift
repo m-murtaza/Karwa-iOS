@@ -11,7 +11,7 @@ import StoreKit
 
 protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     
-    func closeScreen()
+    func closeScreen(_ rating : Int32)
     func updateDriverImage(url: URL)
     func updateDriver(name: String)
     func updateDriver(rating: Double)
@@ -189,7 +189,7 @@ class KTRatingViewModel: KTBaseViewModel {
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
-                self.del?.closeScreen()
+                self.del?.closeScreen(-1)
             }
             
         }
