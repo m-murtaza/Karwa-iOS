@@ -3,6 +3,7 @@
 //  KarwaRide
 //
 //  Created by Muhammad Usman on 3/15/18.
+//  Updated by Sam
 //  Copyright © 2018 Karwa. All rights reserved.
 //
 
@@ -28,11 +29,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var cancelPopup : KTCancelViewController?
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
-    
-    
-    //    @IBOutlet weak var btnShare: SpringButton!
-//    @IBOutlet weak var toolTipBtnShare: SpringImageView!
-    
+
     var bottomSheetVC : KTBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as! KTBookingDetailsBottomSheetVC
 
     var isOpenFromNotification : Bool = false
@@ -137,9 +134,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             
             bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
             self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-            
-//            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-//            addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
         }
     }
     
@@ -175,7 +169,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
                 self.i = 0
                 
                 timer.invalidate()
-    //            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
             }
         }
 
@@ -208,34 +201,26 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK:- ETA
-    func updateEta(eta: String) {
+    func updateEta(eta: String)
+    {
         bottomSheetVC.updateEta(eta: eta)
-//        lblEta.text = eta
     }
     
-    func hideEtaView() {
+    func hideEtaView()
+    {
         bottomSheetVC.hideEtaView()
-//        etaView.isHidden = true
     }
     
-    func showEtaView() {
+    func showEtaView()
+    {
         bottomSheetVC.showEtaView()
-//        etaView.isHidden = false
     }
     
     func showHideShareButton(_ show : Bool)
     {
-//        bottomSheetVC.showHideShareButton(show)
-//        btnShare.isHidden = !show
-//        if(show)
-//        {
-//            let isShareTripToolTipShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN)
-//            showHideToolTipShareButton((isShareTripToolTipShown.isEmpty || isShareTripToolTipShown.count == 0))
-//        }
     }
 
     var isTooltipVisible : Bool = false
@@ -315,18 +300,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         alertController.addAction(complainAction)
         alertController.addAction(cancelAction)
 
-//        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
-//            { action in
-//                self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
-//            }
-//        ))
-//        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
-//            { action in
-//                self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
-//            }
-//        ))
-//        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
-
         present(alertController, animated: true, completion: nil)
     }
 
@@ -338,22 +311,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     //MARK:- Assignment Info
     
-    func updateAssignmentInfo() {
-        
+    func updateAssignmentInfo()
+    {
         bottomSheetVC.updateAssignmentInfo()
-//        lblDriverName.text = vModel?.driverName()
-//        lblVehicleNumber.text = vModel?.vehicleNumber()
-//        starView.rating = (vModel?.driverRating())!
-//        imgNumberPlate.image = vModel?.imgForPlate()
-        
     }
     //MARK:- CallerId
-    func updateCallerId() {
-//        if isLargeScreen() {
-//            viewCallerID.isHidden = false
-//            lblCallerId.text = vModel?.idForCaller()
-//        }
-        
+    func updateCallerId()
+    {
     }
     //MARK:- Booking Card
     func updateBookingCard()
@@ -501,31 +465,24 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     //MARK: - Bottom Bar Buttons
-    func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int ) {
-        //TODO: Move them to Booking Details Bottom Sheet VC
-//        if !title.isEmpty {
-//
-//            leftBottomBarButton.setTitle(title, for: .normal)
-//            leftBottomBarButton.setTitleColor(color, for: .normal)
-//            leftBottomBarButton.tag = tag
-//        }
-//        else {
-//            leftBottomBarButton.isHidden = true
-//        }
+    func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int )
+    {
     }
 
-    func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int ) {
-        
+    func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int )
+    {
     }
     
-    @IBAction func leftBottomBarButtonTapped(btnSender: UIButton) {
+    @IBAction func leftBottomBarButtonTapped(btnSender: UIButton)
+    {
     }
     
-    @IBAction func rightBottomBarButtonTapped(btnSender: UIButton) {
+    @IBAction func rightBottomBarButtonTapped(btnSender: UIButton)
+    {
     }
     
-    func moveToBooking() {
-        
+    func moveToBooking()
+    {
         self.performSegue(name: "segueDetailToReBook")
     }
     
@@ -587,10 +544,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func hideMoreOptions()
     {
-        //TODO: Move them to Booking Details Bottom Sheet VC
-//        btnMoreOptions.isHidden = true
-//        rightArrow.isHidden = true
-//        hintText.isHidden = true
     }
     
     func showMoreOptions()
