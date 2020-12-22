@@ -179,7 +179,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         lblDriverName.text = vModel?.driverName()
         lblVehicleNumber.text = vModel?.vehicleNumber()
-        starView.text = (vModel?.driverRating())?.toString()
+        starView.text = String(format: "%.1f", vModel?.driverRating() as! CVarArg)
         imgNumberPlate.image = vModel?.imgForPlate()
     }
     func hideDriverInfoBox()
