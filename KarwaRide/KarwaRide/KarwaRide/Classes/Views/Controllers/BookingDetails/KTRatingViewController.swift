@@ -162,8 +162,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func showOkDialog(_ confettiView : SAConfettiView, _ rating : Int32)
     {
-        let alertController = UIAlertController(title: "", message: "Thanks for providing us your valuable feedback", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+        let alertController = UIAlertController(title: "", message: "booking_rated".localized(), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
             if(rating > 3)
             {
                 confettiView.stopConfetti()
@@ -179,35 +179,12 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
 
     func showRatingDialog(_ confettiView : SAConfettiView, _ rating : Int32)
     {
-        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
-        
-        let alert = UIAlertController(title: "Thank you", message: "Please rate us on App Store", preferredStyle: .alert)
-        
-        let rateAction = UIAlertAction(title: "Rate", style: UIAlertActionStyle.default)
+        if(rating > 3)
         {
-            UIAlertAction in
-            
-            if(rating > 3)
-            {
-                confettiView.stopConfetti()
-            }
-            self.closeScreen()
+            confettiView.stopConfetti()
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
             self.vModel?.rateApplication()
         }
-        let notNowAction = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.cancel)
-        {
-            UIAlertAction in
-            if(rating > 3)
-            {
-                confettiView.stopConfetti()
-            }
-            self.closeScreen()
-        }
-        
-        alert.addAction(rateAction)
-        alert.addAction(notNowAction)
-        
-        self.present(alert, animated: true)
     }
     
     func updateDriver(name: String) {
@@ -252,7 +229,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
             self.closeScreen()
         }
         
@@ -331,7 +308,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func resetComplainComment()
     {
-        complainComment.setTitle("Add complain comments here", for: .normal)
+        complainComment.setTitle("str_add_comment_here", for: .normal)
     }
     
     @objc func tagViewTapped() {

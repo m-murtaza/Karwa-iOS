@@ -18,6 +18,8 @@ class SharedPrefUtil
     static let IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT = "IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT"
     static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS"
 
+    static let LANGUAGE_SET = "LANGUAGE_SET"
+    
     static func setSharedPref(_ key:String, _ value: String)
     {
         let defaults = UserDefaults.standard
@@ -77,13 +79,24 @@ class SharedPrefUtil
         }
     }
     
+    public static func setLanguageChanged(setLanguage language : String)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(language, forKey: LANGUAGE_SET)
+    }
+    
+    public static func isLanguageChanged() -> Bool
+    {
+        return Device.language() != SharedPrefUtil.getSharePref(LANGUAGE_SET)
+    }
+    
     public static func resetRideIfRequired()
     {
 //        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let currBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         let buildNo = Int(currBuild)!
 
-        if(buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION)
+        if(buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION || SharedPrefUtil.isLanguageChanged())
         {
             KTDALManager().resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
         }

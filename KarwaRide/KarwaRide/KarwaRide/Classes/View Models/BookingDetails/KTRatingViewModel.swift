@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     
@@ -56,15 +57,15 @@ class KTRatingViewModel: KTBaseViewModel {
         del?.enableSubmitButton()
         if rating == 4
         {
-            del?.showConsolationText(message: "Overall good experience, impress with service. But need some improvements")
+            del?.showConsolationText(message: "rating_msg_satisfied".localized())
         }
         else if rating == 5
         {
-            del?.showConsolationText(message: "Overall good experience. Impress with service")
+            del?.showConsolationText(message: "rating_msg_completely_satisfied".localized())
         }
         else
         {
-            del?.showConsolationText(message: "We're really sorry. Tell us what happened?")
+            del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
         }
 
         del?.setTitleBtnSubmit(label: "SUBMIT")
@@ -86,7 +87,7 @@ class KTRatingViewModel: KTBaseViewModel {
     }
     
     private func fetchReason(forRating rating: Int32) {
-        reasons = KTRatingManager().ratingsReason(forRating: rating, language: "EN")!
+        reasons = KTRatingManager().ratingsReason(forRating: rating, language: Device.getLanguage())!
         
         del?.removeAllTags()
         for reason in reasons! {
@@ -139,7 +140,7 @@ class KTRatingViewModel: KTBaseViewModel {
     func tagViewTapped()
     {
         let complainableRating = selectedReasonIsComplainable()
-        del?.setTitleBtnSubmit(label: complainableRating ? "SUBMIT COMPLAIN" : "SUBMIT")
+        del?.setTitleBtnSubmit(label: complainableRating ? "submit_complain".localized() : "str_submit_upper".localized())
         del?.showHideComplainableLabel(show: complainableRating)
     }
     
@@ -151,7 +152,7 @@ class KTRatingViewModel: KTBaseViewModel {
         {
             if(remarks == "")
             {
-                delegate?.showErrorBanner("", "Please add complain comments first")
+                delegate?.showErrorBanner("", "err_empty_complain_remarks".localized())
             }
             else
             {
@@ -164,7 +165,7 @@ class KTRatingViewModel: KTBaseViewModel {
         }
         else
         {
-            delegate?.showErrorBanner("", "Please select rating for driver")
+            delegate?.showErrorBanner("", "text_please_select".localized())
         }
     }
     
@@ -174,7 +175,7 @@ class KTRatingViewModel: KTBaseViewModel {
         let bookingId : String = (booking?.bookingId)!
         let tripType : Int16 = (booking?.tripType)!
         
-        self.delegate?.showProgressHud(show: true, status: "Updating Driver Rating")
+        self.delegate?.showProgressHud(show: true, status: "str_loading".localized())
         KTRatingManager().rateBooking(forId: bookingId, rating: rating, reasons: reasonIds, tripType: tripType, remarks: remarks) { (status, response) in
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
@@ -227,18 +228,19 @@ class KTRatingViewModel: KTBaseViewModel {
     //MARK:- Rate Applicaiton
     func rateApplication() {
         
-        // App Store URL.
-        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
-        
-        /* First create a URL, then check whether there is an installed app that can
-         open it on the device. */
-        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
-            // Attempt to open the URL.
-            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
-                if success {
-                    print("Launching \(url) was successful")
-                    AnalyticsUtil.trackBehavior(event: "Rate-App")
-                }})
-        }
+        SKStoreReviewController.requestReview()
+//        // App Store URL.
+//        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+//
+//        /* First create a URL, then check whether there is an installed app that can
+//         open it on the device. */
+//        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+//            // Attempt to open the URL.
+//            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+//                if success {
+//                    print("Launching \(url) was successful")
+//                    AnalyticsUtil.trackBehavior(event: "Rate-App")
+//                }})
+//        }
     }
 }

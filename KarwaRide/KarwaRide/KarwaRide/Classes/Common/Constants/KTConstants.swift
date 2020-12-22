@@ -90,6 +90,15 @@ struct Device {
     }
     return "en-US"
   }
+    
+    static func getLanguage() -> String
+    {
+        if (Locale.current.languageCode == "ar")
+        {
+          return "AR"
+        }
+        return "EN"
+    }
 }
 
 struct Constants {
@@ -316,6 +325,7 @@ struct Constants {
         static let BookingStatii = "BookingStatii"
         static let Desc = "Desc"
         static let EN = "EN"
+        static let AR = "AR"
         static let ReasonCode = "ReasonCode"
     }
     

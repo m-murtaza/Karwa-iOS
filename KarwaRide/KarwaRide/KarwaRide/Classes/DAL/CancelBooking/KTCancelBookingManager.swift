@@ -74,10 +74,12 @@ class KTCancelBookingManager: KTDALManager {
     }
     
     private func saveSingleReason(reason : [AnyHashable: Any]) {
-        
         //let comaSapratedBookingStatii : String = reason[Constants.CancelReasonAPIKey.BookingStatii] as! String
-        for statii in reason[Constants.CancelReasonAPIKey.BookingStatii] as! [Int]{
-            for descKey in (reason[Constants.CancelReasonAPIKey.Desc] as! [String: String]).keys {
+        for statii in reason[Constants.CancelReasonAPIKey.BookingStatii] as! [Int]
+        {
+//            saveReason(statii: Int32(statii), language: Device.getLanguage(), desc: (reason[Constants.CancelReasonAPIKey.Desc] as! [AnyHashable: String])[Device.getLanguage()]!, reasonCode: reason[Constants.CancelReasonAPIKey.ReasonCode] as! Int16)
+            for descKey in (reason[Constants.CancelReasonAPIKey.Desc] as! [String: String]).keys
+            {
                 saveReason(statii: Int32(statii), language: descKey, desc: (reason[Constants.CancelReasonAPIKey.Desc] as! [AnyHashable: String])[descKey]!, reasonCode: reason[Constants.CancelReasonAPIKey.ReasonCode] as! Int16)
             }
         }
@@ -101,7 +103,7 @@ class KTCancelBookingManager: KTDALManager {
     
     func cancelReasons(forBookingStatii statii:Int32) -> [KTCancelReason]{
         
-        let perdicate = NSPredicate(format: "bookingStatii == %d AND language == %@",statii,"EN")
+        let perdicate = NSPredicate(format: "bookingStatii == %d AND language == %@",statii, Device.getLanguage())
         let reasons : [KTCancelReason] = KTCancelReason.mr_findAll(with: perdicate) as! [KTCancelReason]
         //let reasons : [KTCancelReason] = KTCancelReason.mr_findAll() as! [KTCancelReason]
         return reasons
