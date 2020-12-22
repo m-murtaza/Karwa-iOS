@@ -68,7 +68,7 @@ class KTRatingViewModel: KTBaseViewModel {
             del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
         }
 
-        del?.setTitleBtnSubmit(label: "SUBMIT")
+        del?.setTitleBtnSubmit(label: "str_submit_upper".localized())
         del?.showHideComplainableLabel(show: false)
         del?.resetComplainComment()
         remarks = ""

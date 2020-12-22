@@ -14,6 +14,7 @@ class LocalisableTextField: UITextField {
         didSet {
             guard let key = localisedKey else { return }
             placeholder = key.localized()
+            text = key.localized()
         }
     }
 
