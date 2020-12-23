@@ -38,7 +38,7 @@ class KTFirstViewController: KTBaseViewController, KTFirstViewModelDelegate {
     func userLogin(isLogin: Bool) {
         
         if !isLogin {
-           self.performSegue(name: "segueFirstToOnBoarding")
+           self.performSegue(name: "segueFirstToLogin")
         }
         else {
            self.performSegue(name: "segueOnboardingToBooking")
