@@ -41,8 +41,8 @@ class KTMainViewController: KTBaseViewController, UIPopoverPresentationControlle
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         
-        self.btnCreatAccount.isHidden = true
-        self.btnAlreadyHaveAccount.isHidden = true
+//        self.btnCreatAccount.isHidden = true
+//        self.btnAlreadyHaveAccount.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
