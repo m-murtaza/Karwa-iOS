@@ -83,23 +83,23 @@ class KTComplaintCategoryViewModel: KTBaseViewModel
     
     func getComplaintsCategories()
     {
-        categories.append(ComplaintCategoryModel(12, "ico_vehicle", "VEHICLE ISSUES", "Cleanliness, A/C, Printer not working, etc"))
-        categories.append(ComplaintCategoryModel(14, "ico_driver", "DRIVER ISSUES", "Mis-behaved, Speaking negatively, Smoking, etc"))
-        categories.append(ComplaintCategoryModel(15, "ico_fare", "FARE ISSUES", "Tampering, Long route, Meter not working, etc"))
-        categories.append(ComplaintCategoryModel(13, "ico_safety", "SAFETY ISSUES", "Lane discipline, Over speeding, Poor driving, etc"))
-        categories.append(ComplaintCategoryModel(17, "ico_other_complaints", "I HAVE DIFFERENT ISSUES", "Some feedback, quality improvements, etc"))
+        categories.append(ComplaintCategoryModel(12, "ico_vehicle", "str_vehicle_issues".localized(), "vehicle_issues_details".localized()))
+        categories.append(ComplaintCategoryModel(14, "ico_driver", "driver_issues".localized(), "driver_issues_details".localized()))
+        categories.append(ComplaintCategoryModel(15, "ico_fare", "fare_issues".localized(), "fare_issues_details".localized()))
+        categories.append(ComplaintCategoryModel(13, "ico_safety", "safety_issues".localized(), "safety_issues_details".localized()))
+        categories.append(ComplaintCategoryModel(17, "ico_other_complaints", "other_issue".localized(), "other_issue_details".localized()))
     }
     
     func getLostAndFoundCategories()
     {
-        categories.append(ComplaintCategoryModel(1, "ico_personal_items", "PERSONAL ITEMS", "Handbag, Keys, Luggage, Clothes, etc"))
-        categories.append(ComplaintCategoryModel(2, "ico_appliances", "APPLIANCES", "LED TV, Heater, Microwave, Speakers, etc"))
-        categories.append(ComplaintCategoryModel(3, "ico_electronics", "ELECTRONICS", "Mobile, Camera, Tablet, Laptop, etc"))
-        categories.append(ComplaintCategoryModel(4, "ico_documents", "DOCUMENTS", "Certificates, Books, Passport, etc"))
-        categories.append(ComplaintCategoryModel(10, "ico_valuables", "VALUABLES", "Gold, Cash, Silver Jewelry, etc"))
-        categories.append(ComplaintCategoryModel(18, "ico_cards", "CARDS", "QID, Driving license, ATM, Credit Card, etc"))
-        categories.append(ComplaintCategoryModel(20, "ico_sports", "SPORTS ITEMS", "Football, Cricket, Tennis, Badminton, etc"))
-        categories.append(ComplaintCategoryModel(11, "ico_other", "OTHERS", "I have lost something else"))
+        categories.append(ComplaintCategoryModel(1, "ico_personal_items", "personal_items".localized(), "personal_items_details".localized()))
+        categories.append(ComplaintCategoryModel(2, "ico_appliances", "appliances".localized(), "appliances_details".localized()))
+        categories.append(ComplaintCategoryModel(3, "ico_electronics", "electronics".localized(), "electronics_details".localized()))
+        categories.append(ComplaintCategoryModel(4, "ico_documents", "documents".localized(), "documents_details".localized()))
+        categories.append(ComplaintCategoryModel(10, "ico_valuables", "valuables".localized(), "valuables_details".localized()))
+        categories.append(ComplaintCategoryModel(18, "ico_cards", "cards".localized(), "cards_details".localized()))
+        categories.append(ComplaintCategoryModel(20, "ico_sports", "sports_item".localized(), "sports_item_detail".localized()))
+        categories.append(ComplaintCategoryModel(11, "ico_other", "others".localized(), "others_detail".localized()))
     }
 
     func rowSelected(atIndex idx: Int)

@@ -36,6 +36,12 @@ class KTComplaintsManager: KTDALManager {
     
     func addComplaintsToDB(responseData : [Any])
     {
+        guard responseData.count > 0 else {
+            return
+        }
+        
+        KTComplaint.mr_truncateAll()
+
         for  case let newComplaint as [AnyHashable: Any] in responseData
         {
             addComplaintToDB(complaint: newComplaint)
