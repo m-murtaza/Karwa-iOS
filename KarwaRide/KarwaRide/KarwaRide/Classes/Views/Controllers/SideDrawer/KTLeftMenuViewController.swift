@@ -100,18 +100,25 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
             sideMenuController?.hideMenu()
             break
+
         case 1:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
             sideMenuController?.hideMenu()
             break
+
         case 2:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-            sideMenuController?.hideMenu()
+            let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
+            let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
+            detailView.isPromotion = true
+            sideMenuViewController?.contentViewController = contentView
+            sideMenuViewController?.hideMenuViewController()
             break
+
         case 3:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
-            sideMenuController?.hideMenu()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+            sideMenuViewController?.hideMenuViewController()
             break
+
         case 4:
             let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
             let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
@@ -119,13 +126,21 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuController?.contentViewController = contentView
             sideMenuController?.hideMenu()
             break
+
         case 5:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
-            sideMenuController?.hideMenu()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
+            sideMenuViewController?.hideMenuViewController()
             break
+        
         case 6:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
-            sideMenuController?.hideMenu()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
+            sideMenuViewController?.hideMenuViewController()
+            break
+
+        case 7:
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
+            sideMenuViewController?.hideMenuViewController()
+
         default:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
             sideMenuController?.hideMenu()
