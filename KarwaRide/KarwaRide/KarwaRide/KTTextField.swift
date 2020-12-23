@@ -18,12 +18,12 @@ class KTTextField: UIView {
     textField.titleFormatter = { text in
       return text
     }
-    textField.disabledColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
+    textField.disabledColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
     textField.titleColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.titleFont = UIFont(name: "MuseoSans-500", size: 11.0)!
     
-    textField.placeholderColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
-    textField.placeholderFont = UIFont(name: "MuseoSans-700", size: 15.0)!
+    textField.placeholderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+    textField.placeholderFont = UIFont(name: "MuseoSans-500", size: 15.0)!
     textField.tintColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)
     textField.textColor = UIColor.primary
     textField.selectedTitleColor = #colorLiteral(red: 0, green: 0.3450980392, blue: 0.4, alpha: 1)

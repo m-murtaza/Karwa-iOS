@@ -8,16 +8,19 @@
 
 import UIKit
 import Spring
+import MaterialComponents
 
 let ALLOWED_NUM_PHONE_CHAR : Int = 15
 
 class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDelegate, UITextFieldDelegate, CountryListDelegate {
   
+    
+    
   //MARK: - Properties
   @IBOutlet weak var loginButton: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
-  @IBOutlet weak var phoneNumberTextField: KTTextField!
-  @IBOutlet weak var passwordTextField: KTTextField!
+  @IBOutlet weak var phoneNumberTextField: MDCFilledTextField!
+  @IBOutlet weak var passwordTextField: MDCFilledTextField!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var scrollView: UIScrollView!
   
@@ -30,29 +33,52 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     super.viewDidLoad()
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-      self.phoneNumberTextField.textField.becomeFirstResponder()
+        self.phoneNumberTextField.becomeFirstResponder()
     }
 
-    phoneNumberTextField.placeHolder = "str_phone".localized()
-    passwordTextField.placeHolder = "str_password".localized()
-    passwordTextField.passwordEntry = true
-    phoneNumberTextField.textField.delegate = self
-    passwordTextField.textField.delegate = self
-    phoneNumberTextField.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-    phoneNumberTextField.textField.keyboardType = .phonePad
-    countryList.delegate = self
-
-    setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
-    backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
-    tapToDismissKeyboard()
-    [phoneNumberTextField.textField,
-     passwordTextField.textField].forEach({
-      $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged)
-     })
-    loginButton.isEnabled = false
-    NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+    setupUI()
   }
+    
+    func setupUI()
+    {
+        phoneNumberTextField.label.text = "str_phone".localized()
+        passwordTextField.label.text = "str_password".localized()
+        
+        phoneNumberTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
+        passwordTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
+
+        phoneNumberTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .editing)
+        phoneNumberTextField.setUnderlineColor(UIColor(hexString: "#C9C9C9"), for: .normal)
+        passwordTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .editing)
+        passwordTextField.setUnderlineColor(UIColor(hexString: "#C9C9C9"), for: .normal)
+
+        phoneNumberTextField.label.textColor = UIColor(hexString: "#6CB1B7")
+        
+        phoneNumberTextField.tintColor = UIColor(hexString: "#6CB1B7")
+        passwordTextField.tintColor = UIColor(hexString: "#6CB1B7")
+        
+        phoneNumberTextField.inputView?.tintColor = UIColor(hexString: "#6CB1B7")
+
+        phoneNumberTextField.label.textColor = UIColor(hexString: "#6CB1B7")
+        phoneNumberTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .normal)
+        phoneNumberTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .editing)
+        passwordTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .normal)
+        passwordTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .editing)
+
+        passwordTextField.isSecureTextEntry = true
+        phoneNumberTextField.keyboardType = UIKeyboardType.decimalPad
+
+        phoneNumberTextField.delegate = self
+
+        countryList.delegate = self
+
+        setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
+        backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        tapToDismissKeyboard()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+    }
   
   deinit {
     NotificationCenter.default.removeObserver(self)
@@ -76,21 +102,13 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     }
   }
   
-  @objc func textFieldsIsNotEmpty(sender: UITextField) {
-
-   sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
-
-   guard
-     let number = phoneNumberTextField.textField.text, !number.isEmpty,
-     let password = passwordTextField.textField.text, !password.isEmpty
-     else
-   {
-     self.loginButton.isEnabled = false
-     return
-   }
-   // enable okButton if all conditions are met
-    self.loginButton.isEnabled = true
-  }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        let maxLength = ALLOWED_NUM_PHONE_CHAR
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
+    }
   
   
   @IBAction func countrySelectorTapped(_ sender: Any) {
@@ -119,11 +137,9 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   // MARK: - Navigation
-  
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     // Get the new view controller using segue.destinationViewController.
@@ -141,29 +157,23 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
       otpView.previousView = self
       
       otpView.countryCode = "+" + (viewModel as! KTLoginViewModel).country.phoneExtension
-      otpView.phone = phoneNumberTextField.text!
     }
-    
-    
   }
   
   //MARK: UI Events
   
   @IBAction func loginbtnTouchDown(_ sender: SpringButton)
   {
-    //        print("touch down")
     springAnimateButtonTapIn(button: loginButton)
   }
   
   @IBAction func loginbtnTouchUpOutside(_ sender: SpringButton)
   {
-    //        print("touch up outside")
     springAnimateButtonTapOut(button: loginButton)
   }
   
   @IBAction func loginBtnTapped(_ sender: Any)
   {
-    //        print("touch up inside")
     springAnimateButtonTapOut(button: loginButton)
     (viewModel as! KTLoginViewModel).loginBtnTapped()
   }
@@ -178,13 +188,13 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     guard let _ =  passwordTextField.text else {
       return ""
     }
-    
+
     return phoneNumberTextField.text!.convertToNumbersIfNeeded()
   }
   
   func password() -> String {
     guard let _ = passwordTextField.text else {
-      
+
       return ""
     }
     return passwordTextField.text!
@@ -200,8 +210,8 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   
   //MARK:- TextField Delegate
   //Bug 2567 Fixed.
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    
+//  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
     //        if textField == txtPhoneNumber {
     //
     //            let currentText = textField.text ?? ""
@@ -212,52 +222,52 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     //
     //            return changedText.count <= ALLOWED_NUM_PHONE_CHAR
     //        }
-    return true
-  }
+//    return true
+//  }
+//
+//  func textFieldShouldReturn(_ textField: UITextField) -> Bool
+//  {
+//    if textField == passwordTextField.textField
+//    {
+//      textField.resignFirstResponder()
+//      (viewModel as! KTLoginViewModel).loginBtnTapped()
+//    }
+//    return true
+//  }
+//
+//  @objc func textFieldDidChange(_ textField: UITextField)
+//  {
+//    phoneNumberTextField.text = textField.text?.replacingOccurrences(of: "+974", with: "")
+//    phoneNumberTextField.text = textField.text?.replacingOccurrences(of: " ", with: "")
+//
+//    if(phoneNumberTextField.text?.count == ALLOWED_NUM_PHONE_CHAR)
+//    {
+//      phoneNumberTextField.resignFirstResponder()
+//      passwordTextField.becomeFirstResponder()
+//    }
+//  }
   
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool
-  {
-    if textField == passwordTextField.textField
-    {
-      textField.resignFirstResponder()
-      (viewModel as! KTLoginViewModel).loginBtnTapped()
-    }
-    return true
-  }
+//  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//
+//    if phoneNumberTextField.textField == textField {
+//      phoneNumberTextField.textFieldState = .focused
+//    }
+//
+//    if passwordTextField.textField == textField {
+//      passwordTextField.textFieldState = .focused
+//    }
+//    return true
+//  }
   
-  @objc func textFieldDidChange(_ textField: UITextField)
-  {
-    phoneNumberTextField.text = textField.text?.replacingOccurrences(of: "+974", with: "")
-    phoneNumberTextField.text = textField.text?.replacingOccurrences(of: " ", with: "")
-    
-    if(phoneNumberTextField.text?.count == ALLOWED_NUM_PHONE_CHAR)
-    {
-      phoneNumberTextField.textField.resignFirstResponder()
-      passwordTextField.textField.becomeFirstResponder()
-    }
-  }
-  
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    
-    if phoneNumberTextField.textField == textField {
-      phoneNumberTextField.textFieldState = .focused
-    }
-    
-    if passwordTextField.textField == textField {
-      passwordTextField.textFieldState = .focused
-    }
-    return true
-  }
-  
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    if phoneNumberTextField.textField == textField {
-      phoneNumberTextField.textFieldState = .normal
-    }
-    
-    if passwordTextField.textField == textField {
-      passwordTextField.textFieldState = .normal
-    }
-    return true
-  }
+//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//    if phoneNumberTextField.textField == textField {
+//      phoneNumberTextField.textFieldState = .normal
+//    }
+//
+//    if passwordTextField.textField == textField {
+//      passwordTextField.textFieldState = .normal
+//    }
+//    return true
+//  }
   
 }

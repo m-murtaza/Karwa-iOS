@@ -1189,7 +1189,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvX-Kf-bc5" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="45.666666666666657" y="429" width="323" height="60"/>
+                                <rect key="frame" x="45.666666666666657" y="438" width="323" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="323" id="CDt-3H-hmm"/>
@@ -1203,7 +1203,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.14999999999999999"/>
+                                        <real key="value" value="1.25"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                         <real key="value" value="1"/>
@@ -1216,11 +1216,11 @@
                                     <segue destination="cQY-xs-9LD" kind="show" id="Otx-q2-Oud"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-ay-ZX6" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="154.66666666666666" y="38" width="104.99999999999997" height="108"/>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainMenuKarwalogo" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-ay-ZX6" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="132" y="38" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="108" id="TiV-lg-Obm"/>
-                                    <constraint firstAttribute="width" constant="105" id="gwm-e7-LI7"/>
+                                    <constraint firstAttribute="height" constant="150" id="TiV-lg-Obm"/>
+                                    <constraint firstAttribute="width" constant="150" id="gwm-e7-LI7"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="delay">
@@ -1231,20 +1231,20 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="curve" value="easeIn"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="pop"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KarwaLogoWithText" translatesAutoresizingMaskIntoConstraints="NO" id="XjH-Iy-HXy" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="127" y="154" width="160" height="45"/>
+                                <rect key="frame" x="127" y="163" width="160" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="4Lp-Gr-ERi"/>
                                     <constraint firstAttribute="width" constant="160" id="hHz-Nr-Swe"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.34999999999999998"/>
+                                        <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                         <real key="value" value="1"/>
@@ -1252,7 +1252,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDV-Ly-soI" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="57" y="499" width="300" height="42"/>
+                                <rect key="frame" x="57" y="508" width="300" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="UqQ-8u-fap"/>
                                     <constraint firstAttribute="width" constant="300" id="kSy-Vd-v2O"/>
@@ -1261,9 +1261,9 @@
                                 <state key="normal" title="Already have an account?"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideUp"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeUp"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                        <real key="value" value="0.34999999999999998"/>
+                                        <real key="value" value="1.5"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="duration">
                                         <real key="value" value="1"/>
@@ -1278,16 +1278,16 @@
                         <constraints>
                             <constraint firstItem="vDV-Ly-soI" firstAttribute="top" secondItem="lvX-Kf-bc5" secondAttribute="bottom" constant="10" id="4QJ-h5-jqW"/>
                             <constraint firstItem="vMV-JZ-kUc" firstAttribute="trailing" secondItem="mxy-PE-Iiv" secondAttribute="trailing" id="6Qc-yg-0G7"/>
+                            <constraint firstItem="XjH-Iy-HXy" firstAttribute="bottom" secondItem="wFI-ay-ZX6" secondAttribute="bottom" constant="20" id="8je-jA-YEE"/>
                             <constraint firstAttribute="bottom" secondItem="mxy-PE-Iiv" secondAttribute="bottom" id="MQY-ze-ppC"/>
                             <constraint firstItem="wFI-ay-ZX6" firstAttribute="centerX" secondItem="vMV-JZ-kUc" secondAttribute="centerX" id="UsH-ew-gb1"/>
                             <constraint firstItem="wFI-ay-ZX6" firstAttribute="top" secondItem="vMV-JZ-kUc" secondAttribute="top" constant="38" id="WVj-DK-o2K"/>
-                            <constraint firstItem="lvX-Kf-bc5" firstAttribute="top" secondItem="XjH-Iy-HXy" secondAttribute="bottom" constant="230" id="awj-xF-70c"/>
                             <constraint firstItem="XjH-Iy-HXy" firstAttribute="centerX" secondItem="vMV-JZ-kUc" secondAttribute="centerX" id="bX0-80-FZI"/>
                             <constraint firstItem="mxy-PE-Iiv" firstAttribute="top" secondItem="qn8-Nh-TlO" secondAttribute="top" id="gF6-O1-2CL"/>
                             <constraint firstItem="lvX-Kf-bc5" firstAttribute="centerX" secondItem="vMV-JZ-kUc" secondAttribute="centerX" id="gw7-AP-1Bm"/>
-                            <constraint firstItem="XjH-Iy-HXy" firstAttribute="top" secondItem="wFI-ay-ZX6" secondAttribute="bottom" constant="8" id="jVK-Iu-DaE"/>
                             <constraint firstItem="vDV-Ly-soI" firstAttribute="centerX" secondItem="vMV-JZ-kUc" secondAttribute="centerX" id="lLo-0k-c8A"/>
                             <constraint firstItem="mxy-PE-Iiv" firstAttribute="leading" secondItem="vMV-JZ-kUc" secondAttribute="leading" id="luV-03-SfF"/>
+                            <constraint firstItem="lvX-Kf-bc5" firstAttribute="centerY" secondItem="qn8-Nh-TlO" secondAttribute="centerY" constant="100" id="tn3-CE-z2L"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="la2-Rb-Bla">
@@ -1309,14 +1309,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="KTLoginViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xy2-G5-XeW">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FeR-2v-S4Y">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orN-4c-7Mp">
                                                 <rect key="frame" x="0.0" y="20" width="40" height="22"/>
@@ -1379,14 +1379,14 @@
                                                                     <constraint firstAttribute="height" constant="1" id="fro-Iz-6L4"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUl-1Z-LQc" customClass="KTTextField" customModule="KarwaRide" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUl-1Z-LQc" customClass="MDCFilledTextField">
                                                                 <rect key="frame" x="0.0" y="64" width="368" height="60"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="60" id="VHe-B9-tDp"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQL-8Y-veV" customClass="KTTextField" customModule="KarwaRide" customModuleProvider="target">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQL-8Y-veV" customClass="MDCFilledTextField">
                                                                 <rect key="frame" x="0.0" y="126" width="368" height="60"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
@@ -1600,14 +1600,14 @@
             <objects>
                 <viewController title="Create New Account" id="cQY-xs-9LD" customClass="KTSignUpFormViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wrT-fB-lkK">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rup-AG-cbY">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfZ-ti-B4p">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZ2-KG-fbc">
                                                 <rect key="frame" x="0.0" y="20" width="40" height="22"/>
@@ -2584,11 +2584,11 @@
             <objects>
                 <viewController id="3g9-9d-c1L" customClass="KTWebViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9XB-Y6-mqE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJ1-Yf-eXp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -2714,14 +2714,14 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="iR4-PC-91f" customClass="KTCoachmarkOneViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="cr7-jm-5Ny">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="coachmark1_background" translatesAutoresizingMaskIntoConstraints="NO" id="o8b-WK-1V9">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_set_destination" translatesAutoresizingMaskIntoConstraints="NO" id="yrB-gH-nyK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="619" width="414" height="79"/>
+                                <rect key="frame" x="0.0" y="639" width="414" height="79"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
@@ -2732,7 +2732,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Qx-LE-1va" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="200" y="473" width="14" height="153"/>
+                                <rect key="frame" x="200" y="493" width="14" height="153"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
@@ -2770,17 +2770,17 @@
             <objects>
                 <viewController id="9yX-87-tAm" customClass="KTCoachmarkTwoViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WuF-aE-JhM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="coachmark2_background" translatesAutoresizingMaskIntoConstraints="NO" id="HfI-FX-g8l">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_cards" translatesAutoresizingMaskIntoConstraints="NO" id="hF5-Yn-Chi">
-                                <rect key="frame" x="19.666666666666657" y="327" width="375" height="62"/>
+                                <rect key="frame" x="19.666666666666657" y="337" width="375" height="62"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_swipe_hand" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-rY-Z7v">
-                                <rect key="frame" x="195" y="462.66666666666669" width="24" height="39"/>
+                                <rect key="frame" x="195" y="472.66666666666669" width="24" height="39"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="USs-BK-q2R"/>
@@ -2825,11 +2825,11 @@
             <objects>
                 <viewController storyboardIdentifier="BookingStep1" modalTransitionStyle="crossDissolve" id="L23-ue-kpU" customClass="KTCreateBookingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7Cw-K8-q7x">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYM-p6-0VQ" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="465"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="485"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -2837,7 +2837,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egy-u8-lUc">
-                                <rect key="frame" x="356" y="393.66666666666669" width="58" height="58"/>
+                                <rect key="frame" x="356" y="413.66666666666669" width="58" height="58"/>
                                 <state key="normal" image="current_location_icon"/>
                                 <connections>
                                     <action selector="currentLocationButtonAction:" destination="L23-ue-kpU" eventType="touchUpInside" id="Cmb-p5-WCR"/>
@@ -2905,7 +2905,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ec-DO-97R" customClass="KTAddressPin" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="147" y="162" width="120" height="72"/>
+                                <rect key="frame" x="147" y="172" width="120" height="72"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="72" id="RfG-0X-OqN"/>
@@ -2913,7 +2913,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
-                                <rect key="frame" x="0.0" y="451.66666666666674" width="414" height="298.33333333333326"/>
+                                <rect key="frame" x="0.0" y="471.66666666666674" width="414" height="298.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM1-Su-Mie" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="19.999999999999993" y="20" width="115.33333333333331" height="15.333333333333336"/>
@@ -2936,7 +2936,7 @@
                                         <rect key="frame" x="20" y="40.333333333333314" width="374" height="38"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mowasalat HQ, Industrial Area Industrial Area" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-Sz-IBR">
-                                                <rect key="frame" x="0.0" y="6.3333333333333162" width="316" height="25.666666666666671"/>
+                                                <rect key="frame" x="0.0" y="6.333333333333373" width="316" height="25.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="22"/>
                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -3280,7 +3280,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXd-fk-x86">
-                                <rect key="frame" x="0.0" y="419" width="414" height="297"/>
+                                <rect key="frame" x="0.0" y="439" width="414" height="297"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TrH-Zz-li5">
                                         <rect key="frame" x="10" y="8" width="394" height="170"/>
@@ -4143,17 +4143,17 @@
             <objects>
                 <viewController title="My Trips" id="Lyp-sm-LQ1" customClass="KTMyTripsViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Rz-Wg-dXX">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrr-LW-66P">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsNoTrip" translatesAutoresizingMaskIntoConstraints="NO" id="Psf-3I-ypj">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="659"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="679"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-sh-uSy">
-                                        <rect key="frame" x="134.66666666666666" y="667" width="144.99999999999997" height="29"/>
+                                        <rect key="frame" x="134.66666666666666" y="687" width="144.99999999999997" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="tuz-2v-Ubb"/>
                                             <constraint firstAttribute="width" constant="145" id="yxH-Xg-KYj"/>
@@ -4178,7 +4178,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sb9-0i-o7X">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyTripsReuseIdentifier" rowHeight="158" id="U8K-VR-swH" customClass="KTMyTripsTableViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -4972,11 +4972,11 @@
             <objects>
                 <viewController id="l39-Ix-xs1" customClass="KTBookingDetailsViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EUR-qS-DtN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6a-f0-McA" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="520"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="540"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="l39-Ix-xs1" id="1uV-2e-GCJ"/>
@@ -4994,7 +4994,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mB1-6N-keC">
-                                <rect key="frame" x="344" y="438" width="58" height="58"/>
+                                <rect key="frame" x="344" y="458" width="58" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="1t8-4G-7Dc"/>
                                     <constraint firstAttribute="width" constant="58" id="yXY-JI-OQ9"/>
@@ -9427,6 +9427,9 @@
         <designable name="4th-k2-d64">
             <size key="intrinsicContentSize" width="137" height="32"/>
         </designable>
+        <designable name="5q4-Cd-UaS">
+            <size key="intrinsicContentSize" width="106" height="30"/>
+        </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="104" height="28"/>
         </designable>
@@ -9560,11 +9563,11 @@
         <segue reference="gMG-uB-ITN"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="wE4-w3-3Ll"/>
-        <segue reference="bsC-QL-uBN"/>
+        <segue reference="A9o-xm-kbF"/>
         <segue reference="uRk-Bz-EyY"/>
         <segue reference="wcf-kD-wML"/>
-        <segue reference="Pzn-gK-scz"/>
-        <segue reference="owf-mi-2L1"/>
+        <segue reference="Otx-q2-Oud"/>
+        <segue reference="IsY-nq-8bd"/>
         <segue reference="WXo-bu-cGa"/>
     </inferredMetricsTieBreakers>
     <resources>
