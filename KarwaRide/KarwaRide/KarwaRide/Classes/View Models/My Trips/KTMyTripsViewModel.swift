@@ -105,7 +105,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             dropAdd = (bookings![idx] as KTBooking).dropOffAddress
             if dropAdd == nil || (dropAdd?.isEmpty)! {
                 
-                dropAdd = "No Destination Set"
+                dropAdd = "str_default_no_destination".localized()
             }
         }
         return dropAdd!
@@ -217,28 +217,28 @@ class KTMyTripsViewModel: KTBaseViewModel {
         }
         return dayAndTime
     }
-    
+
     func vehicleType(forIdx idx: Int) -> String {
         
         var type : String = ""
         switch (bookings![idx] as KTBooking).vehicleType {
         case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
-            type = "TAXI"
+            type = "txt_taxi".localized()
         
         case VehicleType.KTCityTaxi7Seater.rawValue:
-            type = "7 SEATER"
+            type = "txt_family_taxi".localized()
         
         case VehicleType.KTSpecialNeedTaxi.rawValue:
-            type = "A.TAXI"
+            type = "txt_accessible".localized()
 
         case VehicleType.KTStandardLimo.rawValue:
-            type = "STANDARD"
+            type = "txt_limo_standard".localized()
         
         case VehicleType.KTBusinessLimo.rawValue:
-            type = "BUSINESS"
+            type = "txt_limo_buisness".localized()
             
         case VehicleType.KTLuxuryLimo.rawValue:
-            type = "LUXURY"
+            type = "txt_limo_luxury".localized()
         default:
             type = ""
         }
@@ -274,7 +274,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     case BookingStatus.PICKUP.rawValue:
       status = "MyTripsHired"
     default:
-      status = "Searching"
+        status = "txt_dispatching_short".localized()
     }
     return status
   }
@@ -315,9 +315,9 @@ class KTMyTripsViewModel: KTBaseViewModel {
   func capacity(forIdx idx: Int) -> String {
     switch (bookings![idx] as KTBooking).vehicleType {
     case VehicleType.KTCityTaxi7Seater.rawValue:
-        return "7"
+        return "txt_seven".localized()
     default:
-        return "4"
+        return "txt_four".localized()
     }
   }
   
