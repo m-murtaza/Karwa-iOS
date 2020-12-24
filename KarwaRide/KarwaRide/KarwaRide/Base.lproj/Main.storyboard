@@ -5620,7 +5620,7 @@
                                 <rect key="frame" x="37" y="128" width="340" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A BC Driver" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXs-hM-ckE">
-                                        <rect key="frame" x="8" y="54" width="85" height="19"/>
+                                        <rect key="frame" x="8" y="54" width="84" height="19"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -5649,7 +5649,7 @@
                                         </constraints>
                                     </imageView>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s4S-Ie-zjk" customClass="CosmosView" customModule="Cosmos">
-                                        <rect key="frame" x="8" y="72" width="75" height="13"/>
+                                        <rect key="frame" x="8" y="72.333333333333343" width="75" height="13"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="4tY-La-HGF"/>
@@ -5781,13 +5781,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall good experience, impressed with the service, but needs some improvements" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-6o-BFJ">
-                                        <rect key="frame" x="31" y="225" width="278" height="24"/>
+                                        <rect key="frame" x="31" y="225" width="278" height="23.333333333333343"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlB-Bm-JwG" customClass="RKTagsView">
-                                        <rect key="frame" x="8" y="264" width="324" height="120"/>
+                                        <rect key="frame" x="8" y="263.33333333333331" width="324" height="120"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="Zhh-jZ-m3t"/>
@@ -7782,7 +7782,7 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newtag" translatesAutoresizingMaskIntoConstraints="NO" id="Zfh-Wz-iEj">
-                                                    <rect key="frame" x="160" y="23" width="30" height="14"/>
+                                                    <rect key="frame" x="170" y="23" width="30" height="14"/>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="5mk-7k-6dR">
                                                     <rect key="frame" x="140" y="0.0" width="20" height="60"/>
@@ -7801,7 +7801,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="2Dc-2I-wME" secondAttribute="bottom" id="ehb-IQ-WPE"/>
                                                 <constraint firstItem="2Dc-2I-wME" firstAttribute="leading" secondItem="cMI-mr-Lcx" secondAttribute="leading" id="gi5-VA-itq"/>
                                                 <constraint firstItem="lNb-G9-76N" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="25" id="glR-H6-XSg"/>
-                                                <constraint firstItem="Zfh-Wz-iEj" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="110" id="vyo-UZ-LTt"/>
+                                                <constraint firstItem="Zfh-Wz-iEj" firstAttribute="leading" secondItem="EIg-fR-Bi0" secondAttribute="trailing" constant="120" id="vyo-UZ-LTt"/>
                                                 <constraint firstItem="2Dc-2I-wME" firstAttribute="top" secondItem="cMI-mr-Lcx" secondAttribute="top" id="xna-n0-QjZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -8897,7 +8897,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BCTextBoxBG" translatesAutoresizingMaskIntoConstraints="NO" id="SXO-OP-Yem">
-                                        <rect key="frame" x="18" y="121.33333333333331" width="234" height="45"/>
+                                        <rect key="frame" x="18" y="120.33333333333331" width="234" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="q8N-be-B09"/>
                                         </constraints>
@@ -8915,7 +8915,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please tell us more about the complain, it help us understand and take relevant actions for your complain" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSp-fo-3eL" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="56" width="234" height="39.666666666666657"/>
+                                        <rect key="frame" x="18" y="56" width="234" height="38.666666666666657"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -9413,10 +9413,10 @@
     </scenes>
     <designables>
         <designable name="0hF-e9-5FJ">
-            <size key="intrinsicContentSize" width="123" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="2SG-m5-gVM">
-            <size key="intrinsicContentSize" width="95" height="28"/>
+            <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="2a7-Ih-VDT">
             <size key="intrinsicContentSize" width="309" height="0.0"/>
@@ -9425,34 +9425,34 @@
             <size key="intrinsicContentSize" width="123" height="33"/>
         </designable>
         <designable name="4th-k2-d64">
-            <size key="intrinsicContentSize" width="137" height="32"/>
+            <size key="intrinsicContentSize" width="52" height="32"/>
         </designable>
         <designable name="5q4-Cd-UaS">
-            <size key="intrinsicContentSize" width="106" height="30"/>
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
-            <size key="intrinsicContentSize" width="104" height="28"/>
+            <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="9Ep-Vx-SD6">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
         <designable name="GEU-zf-xhn">
-            <size key="intrinsicContentSize" width="101" height="30"/>
+            <size key="intrinsicContentSize" width="56" height="30"/>
         </designable>
         <designable name="HoY-gp-J7t">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
         <designable name="JOi-AJ-LRH">
-            <size key="intrinsicContentSize" width="101" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="Jca-9C-0p9">
-            <size key="intrinsicContentSize" width="105" height="30"/>
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="KH4-Rv-MIQ">
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="Nbe-AW-Xro">
-            <size key="intrinsicContentSize" width="118" height="32"/>
+            <size key="intrinsicContentSize" width="78" height="32"/>
         </designable>
         <designable name="Ndn-uh-DPX">
             <size key="intrinsicContentSize" width="293" height="51"/>
@@ -9467,7 +9467,7 @@
             <size key="intrinsicContentSize" width="34" height="27"/>
         </designable>
         <designable name="X0C-dC-8Uf">
-            <size key="intrinsicContentSize" width="83" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="XxC-Vw-A6E">
             <size key="intrinsicContentSize" width="16" height="22"/>
@@ -9485,7 +9485,7 @@
             <size key="intrinsicContentSize" width="315" height="50"/>
         </designable>
         <designable name="arq-gK-pPn">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="b6s-dl-yKr">
             <size key="intrinsicContentSize" width="59" height="32"/>
@@ -9494,10 +9494,10 @@
             <size key="intrinsicContentSize" width="29" height="11.666666666666666"/>
         </designable>
         <designable name="d6U-1t-VSx">
-            <size key="intrinsicContentSize" width="88" height="30"/>
+            <size key="intrinsicContentSize" width="69" height="30"/>
         </designable>
         <designable name="dIk-Ek-Cc4">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="34" height="30"/>
         </designable>
         <designable name="eKI-lM-zdp">
             <size key="intrinsicContentSize" width="293" height="51"/>

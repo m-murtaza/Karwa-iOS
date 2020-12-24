@@ -67,7 +67,13 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         cell.lblTitle.textColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
         cell.imgTypeIcon.image = (viewModel as! KTLeftMenuModel).ImgTypeInCell(idx: indexPath.row)
         //cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
+
         cell.lblNew.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
+
+        if(Device.getLanguage() == "AR")
+        {
+            cell.lblNew.image = UIImage(named: "new_tag_ar")!
+        }
 
         cell.lblWarning.isHidden = (viewModel as! KTLeftMenuModel).isEmailVerified(idx: indexPath.row)
 
