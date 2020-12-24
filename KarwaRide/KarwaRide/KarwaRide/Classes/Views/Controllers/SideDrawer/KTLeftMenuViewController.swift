@@ -116,13 +116,13 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
             let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
             detailView.isPromotion = true
-//            sideMenuViewController?.contentViewController = contentView
-//            sideMenuViewController?.hideMenuViewController()
+            sideMenuViewController?.contentViewController = contentView
+            sideMenuViewController?.hideMenuViewController()
             break
 
         case 3:
-//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-//            sideMenuViewController?.hideMenuViewController()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+            sideMenuViewController?.hideMenuViewController()
             break
 
         case 4:
@@ -134,18 +134,18 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             break
 
         case 5:
-//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
-//            sideMenuViewController?.hideMenuViewController()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
+            sideMenuViewController?.hideMenuViewController()
             break
         
         case 6:
-//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
-//            sideMenuViewController?.hideMenuViewController()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
+            sideMenuViewController?.hideMenuViewController()
             break
 
         case 7:
-//            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
-//            sideMenuViewController?.hideMenuViewController()
+            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
+            sideMenuViewController?.hideMenuViewController()
             break
 
         default:
