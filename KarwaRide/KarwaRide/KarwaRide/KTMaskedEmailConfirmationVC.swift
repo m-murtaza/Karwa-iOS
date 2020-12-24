@@ -8,11 +8,12 @@
 
 import Foundation
 import Spring
+import MaterialComponents
 
 class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelDelegate {
   
   @IBOutlet weak var lblMaskedEmail: SpringLabel!
-  @IBOutlet weak var emailTextField: KTTextField!
+  @IBOutlet weak var emailTextField: MDCFilledTextField!
   
   var phone : String = ""
   var password: String = ""
@@ -25,8 +26,9 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     viewModel = KTMasedEmailConfirmationViewModel(del:self)
     super.viewDidLoad()
     lblMaskedEmail.text = maskedEmail
-    emailTextField.textField.delegate = self
-    emailTextField.placeHolder = "str_email".localized()
+    emailTextField.delegate = self
+    emailTextField.label.text = "str_email".localized()
+    InputFieldUtil.applyTheme(emailTextField, false)
     tapToDismissKeyboard()
     // Do any additional setup after loading the view.
     //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
@@ -94,20 +96,20 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
 }
 
 extension KTMaskedEmailConfirmationVC: UITextFieldDelegate {
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    
-    if emailTextField.textField == textField {
-      emailTextField.textFieldState = .focused
-    }
-    return true
-  }
-  
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    
-    if emailTextField.textField == textField {
-      emailTextField.textFieldState = .normal
-    }
-    return true
-  }
+//  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//
+//    if emailTextField == textField {
+//      emailTextField = .focused
+//    }
+//    return true
+//  }
+//
+//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//
+//    if emailTextField.textField == textField {
+//      emailTextField.textFieldState = .normal
+//    }
+//    return true
+//  }
 }
 

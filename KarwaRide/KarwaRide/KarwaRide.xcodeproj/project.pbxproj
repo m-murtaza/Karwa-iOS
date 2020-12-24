@@ -32,6 +32,7 @@
 		0D80810A21AE60FA0055E473 /* KTTrackTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */; };
 		0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */; };
 		0D826ECD21997309006FF11B /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D826ECC21997309006FF11B /* ImageUtil.swift */; };
+		0D9C169725945FAD004D0BF7 /* InputFieldUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */; };
 		0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
 		0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224022BA30C900C41D00 /* CountryCell.swift */; };
@@ -260,6 +261,7 @@
 		0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewModel.swift; sourceTree = "<group>"; };
 		0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewController.swift; sourceTree = "<group>"; };
 		0D826ECC21997309006FF11B /* ImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
+		0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldUtil.swift; sourceTree = "<group>"; };
 		0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV5.xcdatamodel; sourceTree = "<group>"; };
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
@@ -1220,6 +1222,7 @@
 				0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */,
 				0DE28EB025076FB4000E27E4 /* StringProtocol_Ex.swift */,
 				0DE28EB225077385000E27E4 /* Int_ex.swift */,
+				0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1655,6 +1658,7 @@
 				1852093F205F978D00BD5FCD /* ARCarMovement.swift in Sources */,
 				1811E4D4204E7B3D00C3C47F /* KTUserManager+AccountEdit.swift in Sources */,
 				448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */,
+				0D9C169725945FAD004D0BF7 /* InputFieldUtil.swift in Sources */,
 				0D1B4C6D22ED759C00CABE26 /* KTManagePaymentViewController.swift in Sources */,
 				182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,

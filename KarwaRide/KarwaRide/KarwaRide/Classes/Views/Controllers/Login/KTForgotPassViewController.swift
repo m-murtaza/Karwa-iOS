@@ -8,12 +8,13 @@
 
 import UIKit
 import Spring
+import MaterialComponents
 
 class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDelegate, UITextFieldDelegate, CountryListDelegate  {
   
-  @IBOutlet weak var txtPhoneNumber : KTTextField!
-  @IBOutlet weak var txtPassword : KTTextField!
-  @IBOutlet weak var txtConfirmPass : KTTextField!
+  @IBOutlet weak var txtPhoneNumber : MDCFilledTextField!
+  @IBOutlet weak var txtPassword : MDCFilledTextField!
+  @IBOutlet weak var txtConfirmPass : MDCFilledTextField!
   @IBOutlet weak var btnSubmitt: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
   @IBOutlet weak var scrollView: UIScrollView!
@@ -30,16 +31,19 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     super.viewDidLoad()
     countryList.delegate = self
     setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
-    txtPhoneNumber.textField.delegate = self
-    txtPassword.textField.delegate = self
-    txtConfirmPass.textField.delegate = self
-    txtPhoneNumber.placeHolder = "str_phone".localized()
-    txtPassword.placeHolder = "str_new_password".localized()
-    txtConfirmPass.placeHolder = "str_confirm_new_password".localized()
+    txtPhoneNumber.delegate = self
+    txtPassword.delegate = self
+    txtConfirmPass.delegate = self
+    txtPhoneNumber.label.text = "str_phone".localized()
+    txtPassword.label.text = "str_new_password".localized()
+    txtConfirmPass.label.text = "str_confirm_new_password".localized()
     btnSubmitt.setTitle("txt_continue".localized(), for: .normal)
-    txtPassword.passwordEntry = true
-    txtConfirmPass.passwordEntry = true
-    txtPhoneNumber.textField.keyboardType = .phonePad
+
+    InputFieldUtil.applyTheme(txtPhoneNumber, false)
+    InputFieldUtil.applyTheme(txtPassword, true)
+    InputFieldUtil.applyTheme(txtConfirmPass, true)
+    
+    txtPhoneNumber.keyboardType = .phonePad
     tapToDismissKeyboard()
 
     // Do any additional setup after loading the view.
@@ -47,12 +51,12 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
     //        let countryTap = UITapGestureRecognizer(target: self, action: #selector(countrySelectorTapped))
     //        lblCountryCode.addGestureRecognizer(countryTap)
-    [txtPhoneNumber.textField,
-     txtPassword.textField,
-     txtConfirmPass.textField].forEach({
-      $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged)
-     })
-    btnSubmitt.isEnabled = false
+//    [txtPhoneNumber,
+//     txtPassword.textField,
+//     txtConfirmPass.textField].forEach({
+//      $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged)
+//     })
+//    btnSubmitt.isEnabled = false
     NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
   }
@@ -84,9 +88,9 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
    sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
 
    guard
-     let number = txtPhoneNumber.textField.text, !number.isEmpty,
-     let password = txtPassword.textField.text, !password.isEmpty,
-     let confirmpassword = txtConfirmPass.textField.text, !confirmpassword.isEmpty
+     let number = txtPhoneNumber.text, !number.isEmpty,
+     let password = txtPassword.text, !password.isEmpty,
+     let confirmpassword = txtConfirmPass.text, !confirmpassword.isEmpty
      else
    {
      self.btnSubmitt.isEnabled = false
@@ -199,35 +203,35 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     return true
   }
   
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    if txtPassword.textField == textField {
-      txtPassword.textFieldState = .focused
-    }
-    
-    if txtConfirmPass.textField == textField {
-      txtConfirmPass.textFieldState = .focused
-    }
-    
-    if txtPhoneNumber.textField == textField {
-      txtPhoneNumber.textFieldState = .focused
-    }
-    
-    return true
-  }
-  
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    
-    if txtPassword.textField == textField {
-      txtPassword.textFieldState = .normal
-    }
-    
-    if txtConfirmPass.textField == textField {
-      txtConfirmPass.textFieldState = .normal
-    }
-    
-    if txtPhoneNumber.textField == textField {
-      txtPhoneNumber.textFieldState = .normal
-    }
-    return true
-  }
+//  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//    if txtPassword == textField {
+//      txtPassword = .focused
+//    }
+//
+//    if txtConfirmPass == textField {
+//      txtConfirmPass = .focused
+//    }
+//
+//    if txtPhoneNumber == textField {
+//      txtPhoneNumber = .focused
+//    }
+//
+//    return true
+//  }
+//
+//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//
+//    if txtPassword == textField {
+//        txtPassword.text. = .normal
+//    }
+//
+//    if txtConfirmPass == textField {
+//        txtConfirmPass.state = .normal
+//    }
+//
+//    if txtPhoneNumber == textField {
+//        txtPhoneNumber.state = .normal
+//    }
+//    return true
+//  }
 }

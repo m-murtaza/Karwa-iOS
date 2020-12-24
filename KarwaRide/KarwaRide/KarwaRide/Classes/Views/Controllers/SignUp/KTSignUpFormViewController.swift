@@ -8,13 +8,14 @@
 
 import UIKit
 import Spring
+import MaterialComponents
 
 class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewModelDelegate, CountryListDelegate {
   
-  @IBOutlet weak var nameTextField: KTTextField!
-  @IBOutlet weak var phoneNumberTextField: KTTextField!
-  @IBOutlet weak var emailTextField: KTTextField!
-  @IBOutlet weak var passwordTextField: KTTextField!
+  @IBOutlet weak var nameTextField: MDCFilledTextField!
+  @IBOutlet weak var phoneNumberTextField: MDCFilledTextField!
+  @IBOutlet weak var emailTextField: MDCFilledTextField!
+  @IBOutlet weak var passwordTextField: MDCFilledTextField!
   @IBOutlet weak var signUpBtn: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
   @IBOutlet weak var backButton: UIButton!
@@ -34,29 +35,29 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     
     setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
     
-    nameTextField.placeHolder = "str_name".localized()
-    emailTextField.placeHolder = "str_email".localized()
-    phoneNumberTextField.placeHolder = "str_phone".localized()
-    passwordTextField.placeHolder = "str_password".localized()
-    passwordTextField.passwordEntry = true
-    phoneNumberTextField.textField.delegate = self
-    passwordTextField.textField.delegate = self
-    emailTextField.textField.delegate = self
-    nameTextField.textField.delegate = self
-    phoneNumberTextField.textField.keyboardType = .phonePad
+//    nameTextField.placeHolder = "str_name".localized()
+//    emailTextField.placeHolder = "str_email".localized()
+//    phoneNumberTextField.placeHolder = "str_phone".localized()
+//    passwordTextField.placeHolder = "str_password".localized()
+//    passwordTextField.passwordEntry = true
+//    phoneNumberTextField.textField.delegate = self
+//    passwordTextField.textField.delegate = self
+//    emailTextField.textField.delegate = self
+//    nameTextField.textField.delegate = self
+//    phoneNumberTextField.textField.keyboardType = .phonePad
     
     backButton.setImage(UIImage(named: "back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     tapToDismissKeyboard()
-    [phoneNumberTextField.textField,
-     passwordTextField.textField,
-     nameTextField.textField,
-     passwordTextField.textField,
-     emailTextField.textField].forEach({ $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged) })
+    [phoneNumberTextField,
+     passwordTextField,
+     nameTextField,
+     passwordTextField,
+     emailTextField].forEach({ $0.addTarget(self, action: #selector(textFieldsIsNotEmpty), for: .editingChanged) })
     signUpBtn.isEnabled = false
     NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-      self.phoneNumberTextField.textField.becomeFirstResponder()
+      self.phoneNumberTextField.becomeFirstResponder()
     }
   }
   
@@ -87,8 +88,8 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     sender.text = sender.text?.trimmingCharacters(in: .whitespaces)
     
     guard
-      let number = phoneNumberTextField.textField.text, !number.isEmpty,
-      let password = passwordTextField.textField.text, !password.isEmpty
+      let number = phoneNumberTextField.text, !number.isEmpty,
+      let password = passwordTextField.text, !password.isEmpty
       else
     {
       self.signUpBtn.isEnabled = false
@@ -101,8 +102,29 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.isNavigationBarHidden = true
+    
+    setupUI()
   }
   
+    func setupUI()
+    {
+        nameTextField.label.text = "str_name".localized()
+        emailTextField.label.text = "str_email".localized()
+        phoneNumberTextField.label.text = "str_phone".localized()
+        passwordTextField.label.text = "str_password".localized()
+        
+        InputFieldUtil.applyTheme(nameTextField, false)
+        InputFieldUtil.applyTheme(emailTextField, false)
+        InputFieldUtil.applyTheme(phoneNumberTextField, false)
+        InputFieldUtil.applyTheme(passwordTextField, true)
+
+        phoneNumberTextField.delegate = self
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
+        nameTextField.delegate = self
+        phoneNumberTextField.keyboardType = .phonePad
+    }
+    
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = false
@@ -217,7 +239,7 @@ extension KTSignUpFormViewController: UITextFieldDelegate {
   //Bug 2567 Fixed.
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-    if textField == phoneNumberTextField.textField {
+    if textField == phoneNumberTextField {
       
       let currentText = textField.text ?? ""
       guard let stringRange = Range(range, in: currentText) else { return false }
@@ -229,42 +251,42 @@ extension KTSignUpFormViewController: UITextFieldDelegate {
     return true
   }
   
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    if nameTextField.textField == textField {
-      nameTextField.textFieldState = .focused
-    }
-    
-    if emailTextField.textField == textField {
-      emailTextField.textFieldState = .focused
-    }
-    
-    if phoneNumberTextField.textField == textField {
-      phoneNumberTextField.textFieldState = .focused
-    }
-    
-    if passwordTextField.textField == textField {
-      passwordTextField.textFieldState = .focused
-    }
-    return true
-  }
-  
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    
-    if nameTextField.textField == textField {
-      nameTextField.textFieldState = .normal
-    }
-    
-    if emailTextField.textField == textField {
-      emailTextField.textFieldState = .normal
-    }
-    
-    if phoneNumberTextField.textField == textField {
-      phoneNumberTextField.textFieldState = .normal
-    }
-    
-    if passwordTextField.textField == textField {
-      passwordTextField.textFieldState = .normal
-    }
-    return true
-  }
+//  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//    if nameTextField.textField == textField {
+//      nameTextField.textFieldState = .focused
+//    }
+//
+//    if emailTextField.textField == textField {
+//      emailTextField.textFieldState = .focused
+//    }
+//
+//    if phoneNumberTextField.textField == textField {
+//      phoneNumberTextField.textFieldState = .focused
+//    }
+//
+//    if passwordTextField.textField == textField {
+//      passwordTextField.textFieldState = .focused
+//    }
+//    return true
+//  }
+//
+//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//
+//    if nameTextField.textField == textField {
+//      nameTextField.textFieldState = .normal
+//    }
+//
+//    if emailTextField.textField == textField {
+//      emailTextField.textFieldState = .normal
+//    }
+//
+//    if phoneNumberTextField.textField == textField {
+//      phoneNumberTextField.textFieldState = .normal
+//    }
+//
+//    if passwordTextField.textField == textField {
+//      passwordTextField.textFieldState = .normal
+//    }
+//    return true
+//  }
 }

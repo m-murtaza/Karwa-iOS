@@ -32,11 +32,6 @@ class KTForgotPassViewModel: KTBaseViewModel {
       let PasswordSixChar = "err_min_password".localized()
     }
     
-//    init(del: Any) {
-//        super.init()
-//        delegate = del as? KTForgotPassViewModelDelegate
-//    }
-    
     var country = Country(countryCode: "QA", phoneExtension: "974")
     func setSelectedCountry(country: Country) {
         self.country = country
