@@ -62,7 +62,8 @@ class DashboardAddressCell: UICollectionViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var icon: UIImageView!
-  
+    @IBOutlet weak var bottomCardContainer: UIView!
+    
   var destination: KTGeoLocation? {
     didSet {
       if let destination = destination {
@@ -82,7 +83,7 @@ class DashboardAddressCell: UICollectionViewCell {
         }
         addressLabel.text = destination.name
       }
-      self.applyShadow()
+        bottomCardContainer.layer.cornerRadius = 10
       self.layer.masksToBounds = false
     }
   }
