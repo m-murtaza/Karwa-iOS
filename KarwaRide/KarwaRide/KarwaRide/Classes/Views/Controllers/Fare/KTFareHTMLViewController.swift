@@ -12,7 +12,10 @@ import WebKit
 class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDelegate,WKUIDelegate {
 
     let url = "https://consumerhelp.karwatechnologies.com/"
-    let promoURL = "https://www.karwa.qa/promo/\(Locale.current.identifier.replacingOccurrences(of: "_", with: "-").lowercased())/promo.html"
+    
+    let feedback = "https://consumerhelp.karwatechnologies.com/v2/\(Device.language().lowercased())/Complaint/Feedback"
+    let helpURL = "https://consumerhelp.karwatechnologies.com/v2/\(Device.language().lowercased())"
+    let promoURL = "https://www.karwa.qa/promo/\(Device.language().lowercased())/promo.html"
     var isFeedback = false
     var isPromotion = false
     
@@ -22,20 +25,21 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
 
         super.viewDidLoad()
 
-        title = "Help"
-        var urlWithTimeAndSessionId = "\(url)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
+        title = "txt_help".localized()
+        var urlWithTimeAndSessionId = "\(helpURL)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
 
         if(isFeedback)
         {
-            urlWithTimeAndSessionId = "\(url)/complaint/Feedback?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
-            title = "Feedback"
+            urlWithTimeAndSessionId = "\(feedback)?sid=\(KTAppSessionInfo.currentSession.sessionId!)"
+            title = "txt_feedback".localized()
         }
         else if(isPromotion)
         {
             urlWithTimeAndSessionId = promoURL
-            title = "Promotions"
+            title = "str_promotions".localized()
         }
 
+        print(urlWithTimeAndSessionId)
         // Do any additional setup after loading the view.
         webView?.navigationDelegate = self //as! WKNavigationDelegate
         

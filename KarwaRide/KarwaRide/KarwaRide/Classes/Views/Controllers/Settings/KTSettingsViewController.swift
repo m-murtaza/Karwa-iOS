@@ -144,7 +144,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "Change Password"
+            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "changePass".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconPassword")
         }
         
@@ -154,7 +154,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "Home"
+            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strHome".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconHome")
         }
         else if indexPath.section == 2 && indexPath.row == 1 {
@@ -163,7 +163,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "Work"
+            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strWork".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconWork")
         }
         else if indexPath.section == 3  {
@@ -183,7 +183,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
                 }
                 cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "Rate This App"
+                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strRateApp".localized()
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
                 
             }
@@ -197,7 +197,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
                 }
                 cell?.accessoryType = UITableViewCellAccessoryType.none
-                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "Logout"
+                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strLogout".localized()
                 (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor(hexString: "#E74C3C")
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconLogout")
                 
@@ -245,14 +245,14 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     //MARK: - Logout
     func showLogoutConfirmAlt() {
         
-        let logoutAlt = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: UIAlertControllerStyle.alert)
+        let logoutAlt = UIAlertController(title: "strLogout".localized(), message: "str_confirm_logout".localized(), preferredStyle: UIAlertControllerStyle.alert)
         
-        logoutAlt.addAction(UIAlertAction(title: "Yes! Log me out", style: UIAlertActionStyle.destructive, handler: { (action) in
+        logoutAlt.addAction(UIAlertAction(title: "str_yes".localized(), style: UIAlertActionStyle.destructive, handler: { (action) in
             
             (self.viewModel as! KTSettingsViewModel).logout()
         }))
         
-        logoutAlt.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        logoutAlt.addAction(UIAlertAction(title: "cancel".localized(), style: UIAlertActionStyle.cancel, handler: nil))
         
         self.present(logoutAlt, animated: true, completion: nil)
     }

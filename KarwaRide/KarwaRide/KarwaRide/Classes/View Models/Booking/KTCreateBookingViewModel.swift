@@ -887,9 +887,35 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   }
   func sTypeTitle(forIndex idx: Int) -> String {
     let vType : KTVehicleType = vehicleTypes![idx]
-    print("title: \(vType.typeName) order: \(vType.typeSortOrder)")
-    return vType.typeName ?? ""
+    return getVehicleTitle(vehicleType: vType.typeId)
   }
+    
+    func getVehicleTitle(vehicleType : Int16) -> String
+    {
+        var type : String = ""
+        switch vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
+            type = "txt_taxi".localized()
+        
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            type = "txt_family_taxi".localized()
+        
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "txt_accessible".localized()
+
+        case VehicleType.KTStandardLimo.rawValue:
+            type = "txt_limo_standard".localized()
+        
+        case VehicleType.KTBusinessLimo.rawValue:
+            type = "txt_limo_buisness".localized()
+            
+        case VehicleType.KTLuxuryLimo.rawValue:
+            type = "txt_limo_luxury".localized()
+        default:
+            type = ""
+        }
+        return type
+    }
   
   func estimate(forVehicleType vTypeId:Int16) -> KTFareEstimate? {
     
@@ -926,15 +952,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     return imgBg
   }
-  
+
   func vTypeCapacity(forIndex idx: Int) -> String {
     let sType : KTVehicleType = vehicleTypes![idx]
-    var capacity : String = "4"
+    var capacity : String = "txt_four".localized()
     switch sType.typeId {
     case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
-      capacity = "7"
+      capacity = "txt_seven".localized()
     default:
-      capacity = "4"
+      capacity = "txt_four".localized()
     }
     return capacity
   }

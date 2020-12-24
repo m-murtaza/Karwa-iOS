@@ -68,17 +68,17 @@ class DashboardAddressCell: UICollectionViewCell {
       if let destination = destination {
         switch destination.type {
         case geoLocationType.Home.rawValue:
-          titleLabel.text = "Home"
+            titleLabel.text = "strHome".localized()
           icon.image = UIImage(named: "home_db_ico")
         case geoLocationType.Work.rawValue:
-          titleLabel.text = "Work"
+            titleLabel.text = "strWork".localized()
           icon.image = UIImage(named: "icon_work")
         case geoLocationType.Recent.rawValue:
           titleLabel.text = destination.name
           icon.image = UIImage(named: "icon_recent_new")
         default:
           titleLabel.text = destination.name
-          icon.image = UIImage(named: "ic_landmark")
+          icon.image = UIImage(named: "bottom_card_landmark_icon")
         }
         addressLabel.text = destination.name
       }

@@ -100,6 +100,9 @@ and go back to the previous one. */
 example, this may be a button on a dialog that says "This will delete your data." */
 "cancel" = "الغاء";
 
+"str_booking_confirmation_content" = "سيتم حجز المركبة بعد التأكيد، ويمكنك إضافة معلومات إضافية (إن وجدت)";
+"str_booking_msg_eg" = "(مثل: بوابة رقم 4 مول فيلاجيو)";
+
 /* Shown as the title of the user's schedule for today */
 "day_title_today" = "Today";
 
@@ -166,7 +169,7 @@ conference, when there are no more sessions to show. */
 /* Label for a button to answer the question "Would you like to send feedback
 about this session?" which, when clicked, allows the user to send their feedback (ratings
 and comments) about a particular session [CHAR_LIMIT=10]. */
-"give_feedback" = "Yes";
+"str_yes" = "نعم";
 
 /* Keynotes group title for the video library */
 "keynote_group_title" = "Keynotes";
@@ -851,7 +854,7 @@ expanded the view. */
 "open" = "Open";
 
 /*  */
-"close" = "Close";
+"close" = "اغلاق";
 
 /*  */
 "txt_feedback" = "المقترحات";
@@ -1052,9 +1055,6 @@ expanded the view. */
 /*  */
 "str_booking_confirmation" = "تأكيد الحجز";
 
-/* <string name="str_booking_confirmation_content">your booking will be made when you confirm this, you can add additional booking info below (if you want)</string> */
-"str_booking_confirmation_content" = "";
-
 /*  */
 "str_booking_confirmation_hint" = "أدخل معلومات الحجز الإضافية";
 
@@ -1250,7 +1250,7 @@ expanded the view. */
 "str_work_address_removed" = "Work address removed";
 
 /*  */
-"str_confirm_logout" = "Are you sure you want to logout?";
+"str_confirm_logout" = "هل أنت متأكد من رغبتك في تسجيل الخروج؟";
 
 /*  */
 "str_confirm_set_home" = "Save location as home?";
@@ -1364,7 +1364,7 @@ expanded the view. */
 "booking_cancelled" = "Booking has been cancelled";
 
 /*  */
-"str_close" = "CLOSE";
+"str_close" = "اغلاق";
 
 /*  */
 "bill_not_available" = "E-Bill not available at this time";
