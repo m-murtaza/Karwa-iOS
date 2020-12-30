@@ -17,5 +17,12 @@ class LocalisableTextField: UITextField {
             text = key.localized()
         }
     }
+    
+    @IBInspectable var localisedHintKey: String? {
+        didSet {
+            guard let key = localisedKey else { return }
+            placeholder = key.localized()
+        }
+    }
 
 }

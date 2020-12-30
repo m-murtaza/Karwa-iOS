@@ -4487,13 +4487,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingIconPassword" translatesAutoresizingMaskIntoConstraints="NO" id="hjT-L3-puO">
-                                                    <rect key="frame" x="30" y="10" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SettingIconPassword" translatesAutoresizingMaskIntoConstraints="NO" id="hjT-L3-puO">
+                                                    <rect key="frame" x="40" y="10" width="14" height="30"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezW-K7-hYc" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                    <rect key="frame" x="71" y="15" width="255" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ezW-K7-hYc" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                                                    <rect key="frame" x="84" y="16" width="124.66666666666669" height="18"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -4502,6 +4500,13 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hjT-L3-puO" firstAttribute="leading" secondItem="G5W-Ck-3zd" secondAttribute="leading" constant="40" id="LIM-JM-Qzc"/>
+                                                <constraint firstAttribute="bottom" secondItem="hjT-L3-puO" secondAttribute="bottom" constant="10" id="Omg-HI-uxv"/>
+                                                <constraint firstItem="hjT-L3-puO" firstAttribute="top" secondItem="G5W-Ck-3zd" secondAttribute="top" constant="10" id="gyr-KZ-pKd"/>
+                                                <constraint firstItem="ezW-K7-hYc" firstAttribute="centerY" secondItem="hjT-L3-puO" secondAttribute="centerY" id="hpf-Z6-5Sq"/>
+                                                <constraint firstItem="ezW-K7-hYc" firstAttribute="leading" secondItem="hjT-L3-puO" secondAttribute="trailing" constant="30" id="jbN-o1-fLj"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imgIcon" destination="hjT-L3-puO" id="bxy-tK-tkM"/>
@@ -4515,18 +4520,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SettingIconCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="eCh-TJ-15I">
-                                                    <rect key="frame" x="30" y="10" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SettingIconCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="eCh-TJ-15I">
+                                                    <rect key="frame" x="40" y="10" width="16" height="30"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calendar Shortcut" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRv-ZR-ajY">
-                                                    <rect key="frame" x="71" y="15" width="238" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar Shortcut" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRv-ZR-ajY">
+                                                    <rect key="frame" x="86" y="16" width="126.66666666666669" height="18"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eCh-TJ-15I" firstAttribute="leading" secondItem="8ec-jL-A3u" secondAttribute="leading" constant="40" id="3Td-t6-4rY"/>
+                                                <constraint firstItem="kRv-ZR-ajY" firstAttribute="centerY" secondItem="eCh-TJ-15I" secondAttribute="centerY" id="UNw-N9-8zM"/>
+                                                <constraint firstItem="eCh-TJ-15I" firstAttribute="top" secondItem="8ec-jL-A3u" secondAttribute="top" constant="10" id="bJb-Cz-siZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="eCh-TJ-15I" secondAttribute="bottom" constant="10" id="m8d-hg-AKc"/>
+                                                <constraint firstItem="kRv-ZR-ajY" firstAttribute="leading" secondItem="eCh-TJ-15I" secondAttribute="trailing" constant="30" id="syO-sC-T4d"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imgIcon" destination="eCh-TJ-15I" id="95b-3e-brQ"/>
@@ -6295,7 +6305,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRH-af-ndf" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
                                 <rect key="frame" x="59.666666666666657" y="94" width="295" height="150"/>
                                 <subviews>
-                                    <textField opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Old Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zAV-OZ-iHi">
+                                    <textField opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zAV-OZ-iHi">
                                         <rect key="frame" x="20" y="10" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="vKj-Jf-DTp"/>
@@ -6303,11 +6313,15 @@
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localisedHintKey" value="str_old_password"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="str_old_password"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="H7q-4G-kKr" id="jwK-E7-iWU"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jn7-o0-t4N">
+                                    <textField opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jn7-o0-t4N">
                                         <rect key="frame" x="20" y="60" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="5D6-iH-CKz"/>
@@ -6315,11 +6329,14 @@
                                         <color key="textColor" red="0.35686274509999999" green="0.35294117650000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="str_new_password"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="H7q-4G-kKr" id="XSc-tB-Cax"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-XL-Xyw">
+                                    <textField opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-XL-Xyw">
                                         <rect key="frame" x="20" y="110" width="255" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="xlh-ze-2sE"/>
@@ -6327,6 +6344,9 @@
                                         <color key="textColor" red="0.35686274509803922" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="str_confirm_new_password"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="H7q-4G-kKr" id="hiG-Vj-gx7"/>
                                         </connections>

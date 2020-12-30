@@ -196,7 +196,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 guard let _ = cell else {
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
                 }
-                cell?.accessoryType = UITableViewCellAccessoryType.none
+//                cell?.accessoryType = UITableViewCellAccessoryType.none
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strLogout".localized()
                 (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor(hexString: "#E74C3C")
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconLogout")

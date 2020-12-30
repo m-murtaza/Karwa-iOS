@@ -18,3 +18,30 @@ class LocalisableLabel: UILabel {
     }
 
 }
+
+// MARK: Special protocol to localizaze UI's placeholder
+public protocol UIPlaceholderXIBLocalizable {
+    var localePlaceholderKey: String? { get set }
+}
+
+extension UITextField: UIPlaceholderXIBLocalizable {
+
+    @IBInspectable public var localePlaceholderKey: String? {
+        get { return nil }
+        set(key) {
+            placeholder = key?.localized()
+        }
+    }
+
+}
+
+extension UISearchBar: UIPlaceholderXIBLocalizable {
+
+    @IBInspectable public var localePlaceholderKey: String? {
+        get { return nil }
+        set(key) {
+            placeholder = key?.localized()
+        }
+    }
+
+}
