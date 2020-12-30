@@ -701,10 +701,10 @@ AddressPickerCellDelegate {
       
       let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
       let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
-      let editAction = UIAlertAction(title: "Edit", style: .default) { (UIAlertAction) in
+        let editAction = UIAlertAction(title: "txt_edit".localized(), style: .default) { (UIAlertAction) in
         (self.viewModel as! KTAddressPickerViewModel).editFavorite(forIndex: idx)
       }
-      let removeAction = UIAlertAction(title: "Remove", style: .default) { (UIAlertAction) in
+        let removeAction = UIAlertAction(title: "str_remove".localized(), style: .default) { (UIAlertAction) in
         (self.viewModel as! KTAddressPickerViewModel).removeFavorite(forIndex: idx)
       }
       alertController.addAction(cancelAction)

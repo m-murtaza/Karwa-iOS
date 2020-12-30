@@ -22,14 +22,14 @@ class RideServiceCell: UITableViewCell {
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
     contentView.backgroundColor = highlighted ? .white : .clear
     contentView.layer.borderColor = highlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = highlighted ? 2 : 0
+    contentView.layer.borderWidth = highlighted ? 1 : 0
     contentView.layer.cornerRadius = highlighted ? 8 : 0
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     contentView.backgroundColor = selected ? .white : .clear
     contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = selected ? 2 : 0
+    contentView.layer.borderWidth = selected ? 1 : 0
     contentView.layer.cornerRadius = selected ? 8 : 0
   }
   
@@ -117,9 +117,9 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
   }
   
-  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-      return true
-  }
+//  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//      return true
+//  }
   
   func restoreCustomerServiceSelection() {
     guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
@@ -701,4 +701,12 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     //self.view.layoutIfNeeded()
   }
   
+}
+
+extension UICollectionViewFlowLayout {
+
+    open override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+        return true
+    }
+
 }

@@ -58,6 +58,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func showScanPayCoachmark()
   func reloadDestinations()
   func moveRow(from: IndexPath, to: IndexPath)
+  func restoreCustomerServiceSelection()
 }
 
 let CHECK_DELAY = 90.0
@@ -133,7 +134,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     else if currentBookingStep == BookingStep.step3 {
       (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
-      
       resetPromo()
       resetPromoOrBaseFare()
       fetchEstimates()
@@ -275,24 +275,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       vehicleTypes?.insert(selected, at: 0)
       self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
     }
-
-//    if currentBookingStep == BookingStep.step3 {
-//      if(!(del?.fareDetailVisible())!) {
-//        //estimated fare view is not on screen right now
-//        let vType : KTVehicleType = vehicleTypes![idx]
-//        if(!isDropAvailable()) {
-//          showFareBreakDown(vehicleType: vType)
-//        }
-//        else {
-//
-//          showEstimate(vehicleType: vType)
-//        }
-//      }
-//      else {
-//        //Means view is on screen
-//        del?.hideFareBreakdown(animated: true)
-//      }
-//    }
   }
   
   func showEstimate(vehicleType vtype: KTVehicleType){
@@ -347,18 +329,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     del?.updateFareBreakdown(kvPair: orderedKV)
   }
   
-  //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-  //        // Get the new view controller using segue.destinationViewController.
-  //        // Pass the selected object to the new view controller.
-  //        if segue.identifier == "segueMyTripsToDetails" {
-  //
-  //            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
-  //            if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
-  //                details.setBooking(booking: booking)
-  //            }
-  //        }
-  //    }
-  
   //MARK: - Navigation to Address Picker
   func btnPickupAddTapped(){
     removeBooking = false
@@ -375,6 +345,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     currentBookingStep = BookingStep.step3
     if booking.pickupAddress != nil || booking.pickupAddress != "" {
       (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+        })
     }
     
     if(booking.dropOffAddress != nil && booking.dropOffAddress != "") {
