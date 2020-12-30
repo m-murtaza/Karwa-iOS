@@ -670,7 +670,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     if(sortedListForETA.count > 0)
     {
       sortedListForETA = sortedListForETA.sorted()
-      (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: KTUtils.getETAString(etaInSeconds: sortedListForETA[0]))
+//      (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: KTUtils.getETAString(etaInSeconds: sortedListForETA[0]))
+      
+        (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: vehicles[0].etaText)
     }
   }
   
@@ -966,8 +968,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     if currentIdx! < (vehicleTypes?.count)!  && selectedVehicleType != VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
     {
-      (delegate as! KTCreateBookingViewModelDelegate).setETAContainerBackground(background: KTUtils.getEtaBackgroundName(index: currentIdx!))
-      
       if rebook == false
       {
         selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![currentIdx!].typeId))!
@@ -1241,7 +1241,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         else
         {
-          (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "No ride found")
+            (self.delegate as! KTCreateBookingViewModelDelegate).setETAString(etaString: "str_no_ride_found".localized())
         }
         
         if(self.currentBookingStep != BookingStep.step3)
