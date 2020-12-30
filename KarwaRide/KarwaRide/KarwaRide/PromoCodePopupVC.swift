@@ -109,8 +109,8 @@ class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
     
     func showLengthError()
     {
-        let alertController = UIAlertController(title: "Error", message: "Promo length should be atleast 4 characters", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let alertController = UIAlertController(title: "error_sr".localized(), message: "promo_length_error".localized(), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }

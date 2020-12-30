@@ -397,9 +397,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
                                       buttonColor: UIColor(hexString: "129793"),
                                       font: UIFont(name: "MuseoSans-500", size: 18.0)!,
                                       showCancelButton: true)
-    datePicker.show("Set Pickup Time",
-                    doneButtonTitle: "Done",
-                    cancelButtonTitle: "Cancel", defaultDate: (viewModel as! KTCreateBookingViewModel).selectedPickupDateTime,
+    datePicker.show("",
+                    doneButtonTitle: "txt_done".localized(),
+                    cancelButtonTitle: "str_cancel".localized(), defaultDate: (viewModel as! KTCreateBookingViewModel).selectedPickupDateTime,
                     minimumDate: currentDate,
                     maximumDate: threeMonth,
                     datePickerMode: .dateAndTime) { (date) in
@@ -416,7 +416,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   @IBAction func btnCashTapped(_ sender: Any)
   {
-    showError(title: "Payment Methods", message: "More payment options will be available soon")
+    showError(title: "str_choose_payment_method".localized(), message: "txt_payment_message".localized())
   }
   
   @IBAction func btnCancelBtnTapped(_ sender: Any)
@@ -469,12 +469,12 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     DispatchQueue.main.async {
       if promo.length > 0 {
         self.promoKeyLabel.text = promo
-        self.promoAppliedKeyLabel.text = "Promo Applied"
+        self.promoAppliedKeyLabel.text = "txt_promo_applied".localized()
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = false
       }
       else {
-        self.promoKeyLabel.text = "Promo"
+        self.promoKeyLabel.text = "str_promo_str".localized()
         self.promoAppliedKeyLabel.text = ""
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = true
