@@ -19,6 +19,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         setVersionLable()
         
+        title = "action_settings".localized()
+
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
         
@@ -33,8 +35,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
 
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
-        
-        title = "action_settings".localized()
     }
 
     func setVersionLable()  {
