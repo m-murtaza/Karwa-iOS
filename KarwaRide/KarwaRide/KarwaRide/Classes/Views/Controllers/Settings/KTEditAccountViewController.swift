@@ -136,6 +136,7 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
             let cell : KTEmailCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierEmailCell") as! KTEmailCellViewController
             cell.viewModel = (viewModel as! KTEditUserViewModel)
             cell.message.text = (viewModel as! KTEditUserViewModel).emailMessage()
+            cell.message.isHidden = (viewModel as! KTEditUserViewModel).emailVerified()
             cell.resendButton.isHidden = (!(viewModel as! KTEditUserViewModel).resendVisible())
             cell.backgroundColor = UIColor(hexString: "#EFFAF8")
             return cell
