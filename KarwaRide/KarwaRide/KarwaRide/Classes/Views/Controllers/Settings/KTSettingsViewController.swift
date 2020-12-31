@@ -99,9 +99,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             view.backgroundColor = UIColor(hexString: "#EFFAF8")
         //}
         if section == 2 {
-            
-            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
-            lblSectionHeader.text = "FAVORITES"
+            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: Device.getLanguage().contains("ER") ? 30.0 : 250, y: 20.0, width: 100.0, height: 30))
+            lblSectionHeader.text = "txt_favourites".localized()
             lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
             lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
             view.addSubview(lblSectionHeader)
