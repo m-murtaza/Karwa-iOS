@@ -33,6 +33,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
 
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+        
+        title = "action_settings".localized()
     }
 
     func setVersionLable()  {

@@ -4578,12 +4578,12 @@
                         <segue destination="EQh-Tc-xlS" kind="show" identifier="segueSettingToEditAccount" id="NmH-Ry-U4c"/>
                         <segue destination="H7q-4G-kKr" kind="show" identifier="segueSettingToChangePassword" id="Pj7-96-HcP"/>
                         <segue destination="sUc-OZ-u40" kind="presentation" identifier="segueSettingsToSetHome" id="k1N-by-NlO"/>
-                        <segue destination="sUc-OZ-u40" kind="presentation" identifier="segueSettingsToSetWork" modalPresentationStyle="fullScreen" id="ArU-ag-8ou"/>
+                        <segue destination="sUc-OZ-u40" kind="presentation" identifier="segueSettingsToSetWork" id="ArU-ag-8ou"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lKC-iq-3de" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1749.5999999999999" y="3126.3868065967017"/>
+            <point key="canvasLocation" x="1659" y="3104"/>
         </scene>
         <!--Edit Account Info-->
         <scene sceneID="WGb-eZ-0qg">
@@ -4650,7 +4650,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="53.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-pN-BlG">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-pN-BlG" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
                                                     <rect key="frame" x="28" y="29" width="58" height="30.333333333333329"/>
                                                     <state key="normal" title="RESEND"/>
                                                     <connections>
@@ -4702,14 +4702,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ccz-6g-xpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2404" y="3125.4872563718145"/>
+            <point key="canvasLocation" x="2452" y="2817"/>
         </scene>
         <!--Set Home Work View Controller-->
         <scene sceneID="S3V-ST-3aZ">
             <objects>
                 <viewController id="sUc-OZ-u40" customClass="KTSetHomeWorkViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QcH-eU-1PO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EXp-gg-4fH">
@@ -4718,7 +4718,7 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SHWSetAddressBox" translatesAutoresizingMaskIntoConstraints="NO" id="S0P-ii-RjL">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="112"/>
                                     </imageView>
-                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Set Home address" placeholder="Set Home address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tZU-gx-FBK">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Set Home address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tZU-gx-FBK">
                                         <rect key="frame" x="60" y="20.666666666666671" width="326" height="30"/>
                                         <color key="tintColor" red="0.0" green="0.60392156860000001" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -4727,6 +4727,9 @@
                                         <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="set_as_home_address"/>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcc-RG-nw8">
                                         <rect key="frame" x="60" y="63.333333333333329" width="326" height="30"/>
@@ -4734,6 +4737,9 @@
                                         <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="str_list_view"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="sUc-OZ-u40" id="j3s-Cd-wq4"/>
                                         </connections>
@@ -4794,23 +4800,29 @@
                                             <constraint firstAttribute="height" constant="2" id="Juh-4e-Wch"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nr8-tk-IiJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nr8-tk-IiJ" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="207" height="40"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                         <state key="normal" title="LIST VIEW">
                                             <color key="titleColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="str_list_view"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="btnListViewTapped:" destination="sUc-OZ-u40" eventType="touchUpInside" id="A53-nn-IhU"/>
                                             <action selector="btnListViewTapped:" destination="2HM-Qh-ieS" eventType="touchUpInside" id="wv7-pH-2ht"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKf-7W-zEH">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tKf-7W-zEH" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="207" y="0.0" width="207" height="40"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                         <state key="normal" title="MAP VIEW">
                                             <color key="titleColor" red="0.59215686270000001" green="0.59607843140000005" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="str_list_view"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="btnMapViewTapped:" destination="sUc-OZ-u40" eventType="touchUpInside" id="gxF-So-Dlg"/>
                                             <action selector="btnMapViewTapped:" destination="2HM-Qh-ieS" eventType="touchUpInside" id="uE2-5Z-bcf"/>
@@ -4841,17 +4853,17 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6n2-9n-zRJ">
-                                <rect key="frame" x="0.0" y="162" width="414" height="574"/>
+                                <rect key="frame" x="0.0" y="162" width="414" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-wf-htm" customClass="GMSMapView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="574"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="554"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="delegate" destination="sUc-OZ-u40" id="JmJ-IL-2sr"/>
                                         </connections>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HoY-gp-J7t" customClass="ButtonWithShadow" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="40" y="503" width="334" height="51"/>
+                                        <rect key="frame" x="40" y="483" width="334" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="qvD-G2-pnH"/>
                                         </constraints>
@@ -4866,7 +4878,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="APPickUpMarker" translatesAutoresizingMaskIntoConstraints="NO" id="i8V-57-RqK">
-                                        <rect key="frame" x="180.66666666666666" y="245.66666666666669" width="53" height="71"/>
+                                        <rect key="frame" x="180.66666666666666" y="235.66666666666669" width="53" height="71"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="71" id="RCs-d9-oJW"/>
                                             <constraint firstAttribute="width" constant="53" id="enB-Hk-RCG"/>
@@ -4887,7 +4899,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ba6-e7-d9K">
-                                <rect key="frame" x="0.0" y="162" width="414" height="574"/>
+                                <rect key="frame" x="0.0" y="162" width="414" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" rowHeight="70" id="vg1-6s-9XD" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
@@ -9556,6 +9568,9 @@
         <designable name="jvt-vJ-Jxe">
             <size key="intrinsicContentSize" width="247" height="30"/>
         </designable>
+        <designable name="kBq-pN-BlG">
+            <size key="intrinsicContentSize" width="58" height="30"/>
+        </designable>
         <designable name="kdR-wq-0W7">
             <size key="intrinsicContentSize" width="64" height="30"/>
         </designable>
@@ -9564,6 +9579,9 @@
         </designable>
         <designable name="mlB-Bm-JwG">
             <size key="intrinsicContentSize" width="324" height="0.0"/>
+        </designable>
+        <designable name="nr8-tk-IiJ">
+            <size key="intrinsicContentSize" width="89" height="28"/>
         </designable>
         <designable name="oKt-NC-2ya">
             <size key="intrinsicContentSize" width="29" height="11.666666666666666"/>
@@ -9576,6 +9594,9 @@
         </designable>
         <designable name="s4S-Ie-zjk">
             <size key="intrinsicContentSize" width="73" height="13"/>
+        </designable>
+        <designable name="tKf-7W-zEH">
+            <size key="intrinsicContentSize" width="89" height="28"/>
         </designable>
         <designable name="tdt-g2-IHo">
             <size key="intrinsicContentSize" width="104" height="28"/>

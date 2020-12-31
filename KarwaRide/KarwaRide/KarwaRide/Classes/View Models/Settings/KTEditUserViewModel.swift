@@ -79,17 +79,17 @@ class KTEditUserViewModel: KTBaseViewModel {
 //    }
     func emailMessage() -> String
     {
-        var message = "Please enter your email"
+        var message = "enter_email_msg".localized()
 
         if user != nil && user!.email != nil && !(user!.email!.isEmpty)
         {
             if(user?.isEmailVerified ?? false)
             {
-                message = "✓ Email Verified"
+                message = "email_verified".localized()
             }
             else
             {
-                message = "Verification email has been sent to your account, if you haven't received, please resend by tapping below link"
+                message = "send_email_msg".localized()
             }
         }
         return message
@@ -128,18 +128,18 @@ class KTEditUserViewModel: KTBaseViewModel {
     }
     
     func userGender() -> String {
-        var gender :String = "Prefer not to mention"
+        var gender :String = "gender_array[0]".localized()
         if user != nil {
             switch user?.gender
             {
             case 1:
-                gender = "Male"
+                gender = "gender_array[1]".localized()
                 break
             case 2:
-                gender = "Female"
+                gender = "gender_array[2]".localized()
                 break
             default:
-                gender = "Prefer not to mention"
+                gender = "gender_array[0]".localized()
                 break
             }
         }
@@ -176,7 +176,7 @@ class KTEditUserViewModel: KTBaseViewModel {
 
         if  error.isEmpty
         {
-            delegate?.showProgressHud(show: true, status: "Updating Account Info")
+            delegate?.showProgressHud(show: true, status: "account_info_title".localized())
             
             KTUserManager().updateUserInfo(
                 name: userName!,
@@ -196,13 +196,13 @@ class KTEditUserViewModel: KTBaseViewModel {
             })
         }
         else {
-            self.delegate?.showError!(title: "Error" , message: error)
+            self.delegate?.showError!(title: "error_sr".localized() , message: error)
         }
     }
     
     func resendEmail()
     {
-        delegate?.showProgressHud(show: true, status: "Resending Email")
+        delegate?.showProgressHud(show: true, status: "str_resend".localized())
         
         KTUserManager().resendEmail(completion: { (status, response) in
             
@@ -210,7 +210,7 @@ class KTEditUserViewModel: KTBaseViewModel {
             
             if status == Constants.APIResponseStatus.SUCCESS
             {
-                self.delegate?.showSuccessBanner("", "Verification Email has been sent")
+                self.delegate?.showSuccessBanner("", "send_email_msg".localized())
             }
             else
             {
@@ -228,7 +228,7 @@ class KTEditUserViewModel: KTBaseViewModel {
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
-            errorString = "Please enter valid email address"
+            errorString = "err_no_email".localized()
         }
         return errorString
     }

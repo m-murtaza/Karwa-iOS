@@ -25,6 +25,8 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         self.tableView.rowHeight = 70
         self.tableView.tableFooterView = UIView()
 
+        title = "account_info_title".localized()
+
         NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
         // Do any additional setup after loading the view.
     }
@@ -77,8 +79,8 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         let view : UIView = UIView()
         if section == 0
         {
-            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
-            lblSectionHeader.text = "Basic Info"
+            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: Device.getLanguage().contains("EN") ? 30.0 : 250, y: 20.0, width: 100.0, height: 30))
+            lblSectionHeader.text = "basic_info_title".localized()
             lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
             lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
             view.backgroundColor = UIColor(hexString: "#EFFAF8")
@@ -87,8 +89,8 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         if section == 1
         {
             
-            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
-            lblSectionHeader.text = "Other"
+            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: Device.getLanguage().contains("EN") ? 30.0 : 250, y: 20.0, width: 100.0, height: 30))
+            lblSectionHeader.text = "other_title".localized()
             lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
             lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
             view.backgroundColor = UIColor(hexString: "#EFFAF8")
@@ -113,19 +115,19 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 && indexPath.row == 0 {
             let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
-            cell.label.text = "Name"
+            cell.label.text = "str_name".localized()
             cell.value.text = (viewModel as! KTEditUserViewModel).userName()
             return cell
         }
         else if indexPath.section == 0 && indexPath.row == 1 {
             let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
-            cell.label.text = "Phone"
+            cell.label.text = "str_phone".localized()
             cell.value.text = (viewModel as! KTEditUserViewModel).userPhone()
             return cell
         }
         else if indexPath.section == 0 && indexPath.row == 2 {
             let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
-            cell.label.text = "Email"
+            cell.label.text = "str_email".localized()
             cell.value.text = (viewModel as! KTEditUserViewModel).userEmail()
             cell.warning.isHidden = (viewModel as! KTEditUserViewModel).emailVerified()
             return cell
@@ -140,13 +142,13 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
             let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
-            cell.label.text = "Gender"
+            cell.label.text = "str_gender".localized()
             cell.value.text = (viewModel as! KTEditUserViewModel).userGender()
             return cell
         }
         else if indexPath.section == 1 && indexPath.row == 1 {
             let cell : KTProfileCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierProfileCell") as! KTProfileCellViewController
-            cell.label.text = "Date of birth"
+            cell.label.text = "str_dob".localized()
             cell.value.text = (viewModel as! KTEditUserViewModel).userDOB()
             return cell
         }
@@ -160,11 +162,11 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         {
             if indexPath.row == 0
             {
-                showInputDialog(header: "Name", subHeader: "Please enter your name", currentText: (viewModel as! KTEditUserViewModel).userName(), inputType: "name")
+                showInputDialog(header: "str_name".localized(), subHeader: "", currentText: (viewModel as! KTEditUserViewModel).userName(), inputType: "name")
             }
             else if(indexPath.row == 2)
             {
-                showInputDialog(header: "Email", subHeader: "Please enter your valid email address", currentText: (viewModel as! KTEditUserViewModel).userEmail(), inputType: "email")
+                showInputDialog(header: "str_email".localized(), subHeader: "", currentText: (viewModel as! KTEditUserViewModel).userEmail(), inputType: "email")
             }
         }
         else if indexPath.section == 1
@@ -219,21 +221,21 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
     
     func showGenderPicker()
     {
-        let alert = UIAlertController(title: "Select Gender", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "str_gender".localized(), message: "", preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Prefer not to mention", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "gender_array[0]".localized(), style: .default, handler: { (_) in
             self.saveGender(gender: 0)
         }))
         
-        alert.addAction(UIAlertAction(title: "Male", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "gender_array[1]".localized(), style: .default, handler: { (_) in
             self.saveGender(gender: 1)
         }))
         
-        alert.addAction(UIAlertAction(title: "Female", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "gender_array[2]".localized(), style: .default, handler: { (_) in
             self.saveGender(gender: 2)
         }))
         
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "str_cancel".localized(), style: .cancel, handler: { (_) in
         }))
         
         self.present(alert, animated: true, completion: {
@@ -250,8 +252,8 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
                                           font: UIFont(name: "MuseoSans-500", size: 18.0)!,
                                           showCancelButton: true)
         datePicker.show("Select Date of birth",
-                        doneButtonTitle: "Save",
-                        cancelButtonTitle: "Cancel", defaultDate: (viewModel as! KTEditUserViewModel).userDOBObject(),
+                        doneButtonTitle: "str_save".localized(),
+                        cancelButtonTitle: "cancel".localized(), defaultDate: (viewModel as! KTEditUserViewModel).userDOBObject(),
                         minimumDate: minDate,
                         maximumDate: currentDate,
                         datePickerMode: .date) { (date) in
