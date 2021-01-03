@@ -243,9 +243,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     tableView.addGestureRecognizer(gesture)
-    hideCurrentLocationButton()
+//    hideCurrentLocationButton()
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 4)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1)
     {
         self.vModel?.setupCurrentLocaiton()
     }
@@ -312,7 +312,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   @IBAction func currentLocationButtonAction(_ sender: Any) {
     (viewModel as! KTCreateBookingViewModel).setupCurrentLocaiton()
-    hideCurrentLocationButton()
+//    hideCurrentLocationButton()
   }
   
   func hideCurrentLocationButton() {

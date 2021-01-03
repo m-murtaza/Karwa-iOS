@@ -16,6 +16,7 @@ import GoogleMaps
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
 {
   func updateLocationInMap(location:CLLocation)
+  func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
   func addMarkerOnMap(vTrack:[VehicleTrack])
   func addOrRemoveOrMoveMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
   func addMarkerOnMap(vTrack:[VehicleTrack], vehicleType: Int16)
@@ -1144,6 +1145,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     return vehicleNearBy
   }
   
+    var isFirstZoomDone = false
+
   @objc func LocationManagerLocaitonUpdate(notification: Notification)
   {
         let location : CLLocation = notification.userInfo!["location"] as! CLLocation
@@ -1160,7 +1163,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         {
              if updateMap
              {
-               (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location)
+                if(isFirstZoomDone)
+                {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
+                }
+                else
+                {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: true)
+                    isFirstZoomDone = true
+                }
              }
 
             booking.pickupLocationId = -1
