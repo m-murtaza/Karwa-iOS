@@ -83,7 +83,7 @@ class DashboardAddressCell: UICollectionViewCell {
         }
         addressLabel.text = destination.name
       }
-        bottomCardContainer.layer.cornerRadius = 10
+        bottomCardContainer.layer.cornerRadius = 15
       self.layer.masksToBounds = false
     }
   }
@@ -203,7 +203,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBOutlet weak var currentLocationButton: UIButton!
   @IBOutlet weak var showMoreRideOptions: UIButton!
   @IBOutlet weak var pickupAddressLabel: UILabel!
-  
+    @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
+    
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
   var selectedIndex = 0
@@ -248,6 +249,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     DispatchQueue.main.asyncAfter(deadline: .now() + 1)
     {
         self.vModel?.setupCurrentLocaiton()
+    }
+    if(Device.getLanguage().contains("AR"))
+    {
+        btnRecenterLocationConstraint.constant = 10
     }
   }
   

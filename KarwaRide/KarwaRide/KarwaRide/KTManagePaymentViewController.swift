@@ -25,7 +25,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     public var isCrossButtonPressed = false
     @IBOutlet weak var emptyView: SpringImageView!
     
-    @IBOutlet weak var btnAdd: SpringButton!
+    @IBOutlet weak var btnAdd: LocalisableSpringButton!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     
     var isTriggeredFromUniversalLink = false
@@ -54,9 +54,9 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         //First, declare datas
         let arrayOfImage = ["add_credit_card", "scan_qr_code", "pay_trip_fare"]
         let arrayOfTitle = ["Add Credit Card", "Scan QR Code", "Pay Trip Fare"]
-        let arrayOfDescription = ["Getting started by adding a new credit card for scan n pay payment",
-                                  "Scan QR code from the taxi meter after ending the trip",
-                                  "Now, you can pay your trip by your credit card!"]
+        let arrayOfDescription = ["payment_help_desc_one".localized(),
+                                  "payment_help_desc_two".localized(),
+                                  "payment_help_desc_three".localized()]
         
         //Simply call AlertOnboarding...
         let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
@@ -86,6 +86,8 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     override func viewWillAppear(_ animated: Bool)
     {
         btnAdd.isHidden = true
+        title = "txt_payment_methods".localized()
+        btnEdit.title = "txt_edit".localized()
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -120,24 +122,24 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func toggleEditButton()
     {
-        if btnEdit.title! == "Edit"
+        if btnEdit.title! == "txt_edit".localized()
         {
             self.tableView.setEditing(true, animated: true)
-            btnEdit.title = "Done"
+            btnEdit.title = "txt_done".localized()
         }
         else
         {
             self.tableView.setEditing(false, animated: true)
-            btnEdit.title = "Edit"
+            btnEdit.title = "txt_edit".localized()
         }
     }
     
     func toggleDoneToEdit()
     {
         self.tableView.setEditing(false, animated: true)
-        if btnEdit.title! == "Done"
+        if btnEdit.title! == "txt_done".localized()
         {
-            btnEdit.title = "Edit"
+            btnEdit.title = "txt_edit".localized()
         }
     }
     
@@ -168,7 +170,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
         
-        let deleteAction = UITableViewRowAction(style: .normal, title: "Remove"){ (rowAction, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .normal, title: "remove".localized()){ (rowAction, indexPath) in
             //            self.showPopupDeleteConfirmation(indexPath)
         }
         
@@ -182,9 +184,9 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func showPopupDeleteConfirmation(_ indexPath: IndexPath)
     {
-        let alert = CDAlertView(title: "Confrimation", message: "Are you sure you want to remove payment method", type: .warning)
+        let alert = CDAlertView(title: "str_confirmation".localized(), message: "txt_remove_payment_method_confirmation".localized(), type: .warning)
         
-        let removeAction = CDAlertViewAction(title: "Remove", textColor: .red,
+        let removeAction = CDAlertViewAction(title: "remove".localized(), textColor: .red,
                                              handler:{(alert: CDAlertViewAction) -> Bool in
                                                 self.vModel?.deletePaymentMethod(indexPath)
                                                 self.toggleDoneToEdit()
@@ -192,7 +194,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
         
         alert.add(action: removeAction)
         
-        let keepAction = CDAlertViewAction(title: "Keep", handler:{(alert: CDAlertViewAction) -> Bool in
+        let keepAction = CDAlertViewAction(title: "keep_payment".localized(), handler:{(alert: CDAlertViewAction) -> Bool in
             self.toggleDoneToEdit()
             return true})
         alert.add(action: keepAction)
@@ -259,7 +261,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     {
         emptyView.isHidden = true
         tableView.isHidden = false
-        btnEdit.title = "Edit"
+        btnEdit.title = "txt_edit".localized()
     }
     
     func reloadTableData()
@@ -278,12 +280,12 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func showVerifyEmailPopup(email: String)
     {
-        showPopupMessage("", "Please verify your email before adding the new payment method.\nEntered email: \(email)")
+        showPopupMessage("", "please_verify_email_str".localized() + email)
     }
     
     func showEnterEmailPopup()
     {
-        showEnterEmailPopup(header: "Email", subHeader: "Please enter valid email address before adding payment method", currentText: "", inputType: "email")
+        showEnterEmailPopup(header: "txt_confirm_email".localized(), subHeader: "str_verify_email".localized(), currentText: "", inputType: "email")
     }
     
     func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)

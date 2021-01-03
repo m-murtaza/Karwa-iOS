@@ -122,7 +122,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
 
         case 3:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-//            sideMenuController?.hideMenuViewController()
+            sideMenuController?.hideMenu()
             break
 
         case 4:

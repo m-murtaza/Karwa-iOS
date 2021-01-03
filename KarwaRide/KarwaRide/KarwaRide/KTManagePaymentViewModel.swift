@@ -78,7 +78,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
     
     func deletePaymentMethod(_ indexPath: IndexPath)
     {
-        self.del?.showProgressHud(show: true, status: "Removing Payment Method")
+        self.del?.showProgressHud(show: true, status: "please_dialog_msg_delete_payment".localized())
         let paymentManager = KTPaymentManager()
         
         let deletionMethod = paymentMethods[indexPath.row]
@@ -102,7 +102,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
                     self.del?.showEmptyScreen()
                 }
                 
-                self.del?.showSuccessBanner("  ", "Payment method removed successfully")
+                self.del?.showSuccessBanner("  ", "txt_payment_method_removed".localized())
                 
                 if(self.paymentMethods.count > 0 && paymentManager.getDefaultPayment() == nil)
                 {
@@ -115,8 +115,8 @@ class KTManagePaymentViewModel: KTBaseViewModel
             }
             else
             {
-                let title = response["T"] != nil ? response["T"] as! String : "Error"
-                let message = response["M"] != nil ? response["M"] as! String : "Something went wrong"
+                let title = response["T"] != nil ? response["T"] as! String : "error_sr".localized()
+                let message = response["M"] != nil ? response["M"] as! String : "please_dialog_msg_went_wrong".localized()
                 self.del?.showErrorBanner(title, message)
             }
         }
@@ -175,12 +175,12 @@ class KTManagePaymentViewModel: KTBaseViewModel
     // Call the gateway to update the session.
     func updateSession(_ cardHolderName:String, _ cardNo:String, _ ccv:String, _ month:UInt, _ year:UInt)
     {
-        self.del?.showProgressHud(show: true, status: "Verifying card information")
+        self.del?.showProgressHud(show: true, status: "verifying_card_information".localized())
         
         if(sessionId.count == 0 || apiVersion.count == 0)
         {
             self.del?.hideProgressHud()
-            self.del?.showErrorBanner("Sorry", "Payment verification is not available, try again later")
+            self.del?.showErrorBanner("error_sr".localized(), "txt_not_available".localized())
             fetchSessionInfo()
         }
         else
@@ -208,7 +208,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         switch result
         {
         case .success(_):
-            self.del?.showProgressHud(show: true, status: "Adding card payment to your account")
+            self.del?.showProgressHud(show: true, status: "adding_card_payment_str".localized())
             updateCardToServer()
             break;
             
@@ -263,7 +263,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
     func updatePaymentMethod()
     {
         AnalyticsUtil.trackAddPaymentMethod("")
-        self.del?.showProgressHud(show: true, status: "Updating payment methods")
+        self.del?.showProgressHud(show: true, status: "dialog_msg_updating_profile".localized())
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in
             self.del?.hideProgressHud()
             self.del?.showSuccessBanner("  ", "Payment method added successfully")
@@ -338,7 +338,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         
         if  error.isEmpty
         {
-            delegate?.showProgressHud(show: true, status: "Updating Account Info")
+            delegate?.showProgressHud(show: true, status: "dialog_msg_updating_profile".localized())
             
             KTUserManager().updateUserInfo(
                 name: userName!,
@@ -351,7 +351,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
                     
                     if status == Constants.APIResponseStatus.SUCCESS
                     {
-                        self.delegate?.showPopupMessage("", "Email added successfully, Please verify")
+                        self.delegate?.showPopupMessage("", "profile_updated".localized())
                     }
                     else
                     {
@@ -360,14 +360,14 @@ class KTManagePaymentViewModel: KTBaseViewModel
             })
         }
         else {
-            self.delegate?.showError!(title: "Error" , message: error)
+            self.delegate?.showError!(title: "error_sr".localized() , message: error)
         }
     }
     
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
-            errorString = "Please enter valid email address"
+            errorString = "err_enter_valid_email".localized()
         }
         return errorString
     }
