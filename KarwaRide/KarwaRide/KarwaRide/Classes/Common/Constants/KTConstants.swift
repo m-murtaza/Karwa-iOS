@@ -118,7 +118,8 @@ struct Constants {
 //    static let APPLE_PAY_MERCHANT_ID:String = "merchant.mowasalat.karwa.taxi"
     /* ------------------------------------------------------------------ */
     
-    static let TIP_OPTIONS = ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
+    static let TIP_OPTIONS = Locale.current.languageCode == "ar" ? ["  ر.ق2  ", "  ر.ق3  ", "  ر.ق5  ", "  ر.ق10 "] : ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
+
     static let TIP_OPTIONS_VALUES = ["2", "3", "5", "10"]
     
     static let DIRECTIONS_API_ENABLE:Bool = false

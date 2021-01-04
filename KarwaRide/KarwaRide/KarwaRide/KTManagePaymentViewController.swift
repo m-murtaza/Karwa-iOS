@@ -53,7 +53,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     {
         //First, declare datas
         let arrayOfImage = ["add_credit_card", "scan_qr_code", "pay_trip_fare"]
-        let arrayOfTitle = ["Add Credit Card", "Scan QR Code", "Pay Trip Fare"]
+        let arrayOfTitle = ["Add Credit Card", "str_scan_qr_code".localized(), "Pay Trip Fare"]
         let arrayOfDescription = ["payment_help_desc_one".localized(),
                                   "payment_help_desc_two".localized(),
                                   "payment_help_desc_three".localized()]
@@ -86,7 +86,6 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     override func viewWillAppear(_ animated: Bool)
     {
         btnAdd.isHidden = true
-        title = "txt_payment_methods".localized()
         btnEdit.title = "txt_edit".localized()
     }
     
@@ -112,7 +111,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func showCameraPermissionError()
     {
-        showWarningBanner("", "Tap on Settings to Enable Camera")
+        showWarningBanner("", "camera_text".localized())
     }
 
     @IBAction func btnEditTapped(_ sender: Any) {

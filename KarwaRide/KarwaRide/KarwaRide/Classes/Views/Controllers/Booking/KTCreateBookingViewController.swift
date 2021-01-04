@@ -252,7 +252,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     }
     if(Device.getLanguage().contains("AR"))
     {
-        btnRecenterLocationConstraint.constant = 10
+        btnRecenterLocationConstraint.constant = 15
     }
   }
   
@@ -302,7 +302,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   override func viewWillAppear(_ animated: Bool)
   {
-    super.viewWillAppear(animated)
+    super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
   }
   
@@ -337,7 +337,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   
   override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+    super.viewDidAppear(false)
     
     //TODO: If no pick uplocation
     if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
