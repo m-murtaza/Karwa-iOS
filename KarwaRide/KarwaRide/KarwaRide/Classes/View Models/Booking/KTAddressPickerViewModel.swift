@@ -119,8 +119,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         self.loadDataInView()
       }
       else {
-        let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "Error"
-        let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "Something went wrong"
+        let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "error_sr".localized()
+        let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "please_dialog_msg_went_wrong".localized()
         self.delegate?.showError!(title: title, message: message)
         //self.delegate?.userIntraction(enable: true)
       }

@@ -78,7 +78,7 @@ extension KTBookingManager
                 }
                 else {
                     let error : NSDictionary = [Constants.ResponseAPIKey.Title : "Ops!" as Any,
-                                                Constants.ResponseAPIKey.Message : "Something went wrong" as Any]
+                                                Constants.ResponseAPIKey.Message : "please_dialog_msg_went_wrong".localized() as Any]
                     completionBlock(Constants.APIResponseStatus.FAILED_DB,error as! [AnyHashable : Any])
                 }
             })
