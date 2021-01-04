@@ -266,7 +266,7 @@ class KTManagePaymentViewModel: KTBaseViewModel
         self.del?.showProgressHud(show: true, status: "dialog_msg_updating_profile".localized())
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in
             self.del?.hideProgressHud()
-            self.del?.showSuccessBanner("  ", "Payment method added successfully")
+            self.del?.showSuccessBanner("  ", "profile_updated".localized())
             self.fetchnPaymentMethods()
         }
     }

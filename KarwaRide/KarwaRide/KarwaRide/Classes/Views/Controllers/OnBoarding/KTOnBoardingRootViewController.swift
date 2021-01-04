@@ -63,10 +63,10 @@ class KTOnBoardingRootViewController: KTBaseViewController,KTOnBoardingViewContr
     
     func updateButton(forIndex idx: Int) {
         if idx == pageViewController?.stepsViewControllers.count {
-            btnSkipFinish.setTitle("FINISH", for: .normal)
+            btnSkipFinish.setTitle(Locale.current.languageCode == "ar" ? "تخطى" : "FINISH", for: .normal)
         }
         else {
-            btnSkipFinish.setTitle("SKIP", for: .normal)
+            btnSkipFinish.setTitle(Locale.current.languageCode == "ar" ? "تخطى" : "SKIP", for: .normal)
         }
         btnSkipFinish.layoutIfNeeded()
     }

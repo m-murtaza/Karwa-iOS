@@ -53,7 +53,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     {
         //First, declare datas
         let arrayOfImage = ["add_credit_card", "scan_qr_code", "pay_trip_fare"]
-        let arrayOfTitle = ["Add Credit Card", "str_scan_qr_code".localized(), "Pay Trip Fare"]
+        let arrayOfTitle = ["payment_help_title_one".localized(), "str_scan_qr_code".localized(), "payment_help_title_three".localized()]
         let arrayOfDescription = ["payment_help_desc_one".localized(),
                                   "payment_help_desc_two".localized(),
                                   "payment_help_desc_three".localized()]
