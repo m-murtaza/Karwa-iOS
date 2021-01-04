@@ -383,7 +383,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     else
     {
-      self.delegate?.showError!(title: "error_sr".localized(), message: "Pickup address can't be empty")
+        self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
     }
   }
   
@@ -525,7 +525,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     print(status)
     print(response)
     if status == Constants.APIResponseStatus.SUCCESS {
-      delegate?.showTaskCompleted(withMessage: "Address saved successfully")
+        delegate?.showTaskCompleted(withMessage: "address_saved_success".localized())
       updateHomeAndWorkIfAvailable()
       removeHomeWorkFromRestOfTheList()
       loadDataInView()

@@ -58,7 +58,7 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
         locManager.desiredAccuracy = kCLLocationAccuracyBest
         
         locManager.requestWhenInUseAuthorization()
-        locManager.distanceFilter = 20.0
+        locManager.distanceFilter = 5.0
     }
     
     /*func showAlertForLocaiton() {
