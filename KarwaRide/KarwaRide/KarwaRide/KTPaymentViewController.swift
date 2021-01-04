@@ -42,6 +42,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var labelTripId: SpringLabel!
     @IBOutlet weak var labelHDriverTrip: SpringLabel!
     @IBOutlet weak var noCardsBackground: SpringImageView!
+    @IBOutlet weak var labelTripPaid: LocalisableLabel!
     
     @IBOutlet weak var tagView: RKTagsView!
     
@@ -75,6 +76,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 //        showbarcodeScanner(show: true)
         
         tripPaidSuccessImageView.isHidden = true
+        labelTripPaid.isHidden = true
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
         btnApplePay.isUserInteractionEnabled = true
@@ -420,6 +422,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.delay = 0.3
 
         tripPaidSuccessImageView.isHidden = false
+        labelTripPaid.isHidden = false
         tripPaidSuccessImageView.animate()
 
         isPaidSuccessfullShowed = true
