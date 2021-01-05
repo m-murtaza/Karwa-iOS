@@ -189,7 +189,7 @@ class KTSetHomeWorkViewModel: KTBaseViewModel {
     
     func fetchLocations()  {
         
-        delegate?.showProgressHud(show: true, status: "Fetching Locations")
+        delegate?.showProgressHud(show: true, status: "str_loading".localized())
         KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
             if status == Constants.APIResponseStatus.SUCCESS {
                 //Success

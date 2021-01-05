@@ -69,7 +69,7 @@ enum BookingStep {
   case step3
 }
 
-let UNKNOWN : String = "Loading..."
+let UNKNOWN : String = "str_loading".localized()
 let TIMER_INTERVAL = 4;
 var isBaseFareChangedForPromo = false
 

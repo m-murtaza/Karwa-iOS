@@ -111,7 +111,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   func fetchLocations()  {
     
     //delegate?.userIntraction(enable: false)
-    delegate?.showProgressHud(show: true, status: "Fetching Locations")
+    delegate?.showProgressHud(show: true, status: "str_loading".localized())
     KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
       if status == Constants.APIResponseStatus.SUCCESS {
         //Success
@@ -232,7 +232,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   {
     isLoadingAddress = true
     (self.delegate as! KTAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: false)
-    setNameToSelectedField(name: "Loading...")
+    setNameToSelectedField(name: "str_loading".localized())
     
     fetchLocation(forGeoCoordinate: location , completion: {
       (reverseLocation) -> Void in
