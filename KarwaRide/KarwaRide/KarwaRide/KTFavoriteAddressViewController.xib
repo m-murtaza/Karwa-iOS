@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,11 +30,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3k-pr-Yzf" userLabel="NavigationBar">
                     <rect key="frame" x="0.0" y="44" width="414" height="60"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                             <rect key="frame" x="141" y="30" width="132" height="20.5"/>
                             <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="title_favourite"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92T-24-Rxe">
                             <rect key="frame" x="0.0" y="20" width="40" height="40"/>
@@ -64,26 +68,26 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvU-dR-RJw" userLabel="OuterBorder">
-                    <rect key="frame" x="30" y="145" width="354" height="128"/>
+                    <rect key="frame" x="30" y="145" width="354" height="130"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1T-wq-0Z9" userLabel="Container">
-                            <rect key="frame" x="1" y="1" width="352" height="126"/>
+                            <rect key="frame" x="1" y="1" width="352" height="128"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9dn-9F-ojL">
-                                    <rect key="frame" x="0.0" y="0.0" width="352" height="126"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="352" height="128"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itm-9V-rVh" customClass="KTTextField" customModule="KarwaRide" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="352" height="63"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itm-9V-rVh" customClass="MDCFilledTextField">
+                                            <rect key="frame" x="0.0" y="0.0" width="352" height="64"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsB-Sg-xjX" customClass="KTTextField" customModule="KarwaRide" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="63" width="352" height="63"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsB-Sg-xjX" customClass="MDCFilledTextField">
+                                            <rect key="frame" x="0.0" y="64" width="352" height="64"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="9dn-9F-ojL" secondAttribute="bottom" id="NdB-2b-i6A"/>
                                 <constraint firstAttribute="trailing" secondItem="9dn-9F-ojL" secondAttribute="trailing" id="Swu-BT-8Lw"/>
@@ -97,9 +101,9 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="128" id="0R4-xN-wcP"/>
+                        <constraint firstAttribute="height" constant="130" id="0R4-xN-wcP"/>
                         <constraint firstItem="M1T-wq-0Z9" firstAttribute="leading" secondItem="lvU-dR-RJw" secondAttribute="leading" constant="1" id="5g9-Ha-8gs"/>
                         <constraint firstAttribute="bottom" secondItem="M1T-wq-0Z9" secondAttribute="bottom" constant="1" id="SFx-33-fk9"/>
                         <constraint firstAttribute="trailing" secondItem="M1T-wq-0Z9" secondAttribute="trailing" constant="1" id="r2V-c6-IaQ"/>
@@ -111,27 +115,29 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tq-ua-LyP">
-                    <rect key="frame" x="30" y="317" width="354" height="50"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tq-ua-LyP" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
+                    <rect key="frame" x="30" y="319" width="354" height="50"/>
                     <color key="backgroundColor" red="0.0" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="0pA-24-3oP"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="17"/>
-                    <state key="normal" title="Save">
+                    <state key="normal">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="25"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_save"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="saveLocationAction:" destination="-1" eventType="touchUpInside" id="XFx-cp-tc3"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="p6y-5W-Ig0" firstAttribute="leading" secondItem="t3k-pr-Yzf" secondAttribute="leading" id="6oG-Xy-sPm"/>
                 <constraint firstItem="t3k-pr-Yzf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6pe-Sn-Pcf"/>
@@ -146,11 +152,18 @@
                 <constraint firstItem="p6y-5W-Ig0" firstAttribute="trailing" secondItem="lvU-dR-RJw" secondAttribute="trailing" constant="30" id="lT9-As-zFX"/>
                 <constraint firstItem="4Tq-ua-LyP" firstAttribute="leading" secondItem="lvU-dR-RJw" secondAttribute="leading" id="pJN-VZ-HEm"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="139" y="103"/>
         </view>
     </objects>
+    <designables>
+        <designable name="4Tq-ua-LyP">
+            <size key="intrinsicContentSize" width="103" height="33"/>
+        </designable>
+    </designables>
     <resources>
         <image name="cross_icon_new" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
