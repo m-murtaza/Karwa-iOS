@@ -27,7 +27,7 @@ class KTAddressFavoriteViewModel: KTBaseViewModel {
   func saveLocation() {
     guard let delegate = del else { return  }
     if delegate.locationName.isEmpty {
-      delegate.showError?(title: "Error", message: "Location name cannot be empty")
+        delegate.showError?(title: "error_sr".localized(), message: "err_empty_field".localized())
       return
     }
     let favlocation = delegate.location
@@ -36,7 +36,7 @@ class KTAddressFavoriteViewModel: KTBaseViewModel {
     favlocation.geolocationToBookmark?.mr_delete(in: NSManagedObjectContext.mr_default())
     favlocation.mr_delete(in: NSManagedObjectContext.mr_default())
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
-    delegate.showTaskCompleted(withMessage: "Address has been saved as favorite")
+    delegate.showTaskCompleted(withMessage: "txt_location_fav_saved".localized())
     delegate.locationSavedSuccessfully(location: delegate.location)
   }
   

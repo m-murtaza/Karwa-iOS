@@ -60,11 +60,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   }
   override func viewWillAppear() {
     if pickUpAddress != nil {
-      (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name) ?? "btn_favorites_title".localized())
     }
     
     if dropOffAddress != nil{
-      (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name)!)
+      (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name) ?? "")
     }
     fetchLocations()
   }

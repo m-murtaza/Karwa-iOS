@@ -93,8 +93,9 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
     }
     
     func showTaskCompleted(withMessage msg: String) {
-        SVProgressHUD.show(UIImage(named: "light-check-mark")!, status: msg)
-        SVProgressHUD.dismiss(withDelay: 1.0)
+        showSuccessBanner("", msg)
+//        SVProgressHUD.show(UIImage(named: "light-check-mark")!, status: msg)
+//        SVProgressHUD.dismiss(withDelay: 1.0)
     }
     
     func userIntraction(enable: Bool) {
