@@ -18,18 +18,48 @@ extension KTCreateBookingViewController: GMSMapViewDelegate {
   }
   
   func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-    
-    let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-    //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
-    let name = "LocationManagerNotificationIdentifier"
-    NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-    
-    KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+    if(mapView.camera.target.latitude == 0.0)
+    {
+        //TODO: Move Camera to default Location
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            let location = CLLocation(latitude: 25.281308, longitude: 51.531917)
+            //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
+            let name = "LocationManagerNotificationIdentifier"
+            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+        }
+    }
+    else
+    {
+        let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
+        //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
+        let name = "LocationManagerNotificationIdentifier"
+        NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+        
+        KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+    }
   }
 }
 
 extension KTCreateBookingViewController
 {
+    func setupCurrentLocaiton() {
+      if KTLocationManager.sharedInstance.locationIsOn() {
+        if KTLocationManager.sharedInstance.isLocationAvailable {
+          var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
+          var userInfo : [String :Any] = [:]
+          userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
+          
+          notification.userInfo = userInfo
+          //notification.userInfo!["location"] as! CLLocation
+//          LocationManagerLocaitonUpdate(notification: notification)
+        }
+        else {
+          KTLocationManager.sharedInstance.start()
+        }
+      }
+    }
+
     internal func addMap() {
 
         let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14.0)

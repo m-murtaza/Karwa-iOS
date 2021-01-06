@@ -23,7 +23,6 @@ class KTServiceCardCell: ScalingCarouselCell {
 extension KTCreateBookingViewController {
     
     func updateVehicleTypeList () {
-        
         //self.carousel.reloadData()
       self.tableView.reloadData()
     }

@@ -246,10 +246,17 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     tableView.addGestureRecognizer(gesture)
 //    hideCurrentLocationButton()
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+    //TODO: This needs to be converted on Location Call Back
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
     {
         self.vModel?.setupCurrentLocaiton()
     }
+    
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4)
+    {
+        self.vModel?.setupCurrentLocaiton()
+    }
+
     if(Device.getLanguage().contains("AR"))
     {
         btnRecenterLocationConstraint.constant = 15

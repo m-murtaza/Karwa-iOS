@@ -1116,7 +1116,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     if KTLocationManager.sharedInstance.locationIsOn() {
       if KTLocationManager.sharedInstance.isLocationAvailable {
         var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
-        
         var userInfo : [String :Any] = [:]
         userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
         
