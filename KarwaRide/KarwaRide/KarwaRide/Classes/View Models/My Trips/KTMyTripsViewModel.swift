@@ -246,15 +246,6 @@ class KTMyTripsViewModel: KTBaseViewModel {
     }
   
   func bookingStatusString(forIdx idx: Int) -> String? {
-    /*
-     "txt_scheduled_short" = "Scheduled";
-     "txt_arrived_short" = "Arrived";
-     "txt_arriving_short" = "Arriving Soon";
-     "txt_pickup_short" = "Ride Started";
-     "txt_dispatching_short" = "Searching";
-     "txt_cancelled_short" = "Cancelled";
-     "txt_ride_not_found_short" = "Ride not found";
-     */
     var status : String?
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.COMPLETED.rawValue:
@@ -272,7 +263,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
       status = "txt_ride_not_found_short".localized()
     case BookingStatus.PICKUP.rawValue:
-      status = "MyTripsHired"
+        status = "txt_pickup_short".localized()
     default:
         status = "txt_dispatching_short".localized()
     }
@@ -281,7 +272,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
   
   func outerContainerBackgroundColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {
-    case BookingStatus.DISPATCHING.rawValue:
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.PENDING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
       return UIColor.primary
     default:
       return UIColor.white
@@ -301,8 +292,8 @@ class KTMyTripsViewModel: KTBaseViewModel {
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.PENDING.rawValue:
       return UIColor.lightGray
-    case BookingStatus.DISPATCHING.rawValue:
-      return UIColor.yellow
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.PENDING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
+      return UIColor.init(hex: "#EEC158")
     case BookingStatus.CANCELLED.rawValue, BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
       return UIColor.red
     case BookingStatus.COMPLETED.rawValue:
@@ -323,7 +314,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
   
   func serviceTypeColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {
-    case BookingStatus.DISPATCHING.rawValue:
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.PENDING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
       return UIColor.white
     default:
       return UIColor.primary
