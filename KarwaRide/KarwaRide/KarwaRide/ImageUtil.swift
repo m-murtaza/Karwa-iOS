@@ -74,9 +74,11 @@ class ImageUtil
     static func getSmallImage(_ brand: String) -> String
     {
         var brandImage = "wallet_ico_sm"
-        
         switch brand
         {
+        case "GPay":
+            brandImage = "ico_gpay"
+            break;
         case "ApplePay":
             brandImage = "ico_applepay"
             break;
