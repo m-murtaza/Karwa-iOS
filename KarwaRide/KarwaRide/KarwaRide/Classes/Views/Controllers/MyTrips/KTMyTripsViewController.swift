@@ -12,7 +12,7 @@ extension UIViewController {
   func addMenuButton() {
     let button = UIButton()
     button.addTarget(self, action: #selector(revealSideMenu), for: .touchUpInside)
-    button.setImage(UIImage(named: "RevealButton"), for: .normal)
+    button.setImage(UIImage(named: "RevealButton_no_background"), for: .normal)
     let item = UIBarButtonItem(customView: button)
     self.navigationItem.leftBarButtonItem = item
   }
