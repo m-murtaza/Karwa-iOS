@@ -107,6 +107,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     cell.capacityLabel.text = (viewModel as! KTMyTripsViewModel).capacity(forIdx: indexPath.row)
     cell.serviceTypeLabel.textColor = (viewModel as! KTMyTripsViewModel).serviceTypeColor(forIdx: indexPath.row)
     cell.cashIcon.isHidden = (viewModel as! KTMyTripsViewModel).showCashIcon(forIdx: indexPath.row)
+    cell.cashIcon.image = UIImage(named: (viewModel as! KTMyTripsViewModel).getPaymentIcon(forIdx: indexPath.row))
     cell.detailArrow.image?.imageFlippedForRightToLeftLayoutDirection()
     //        if isLargeScreen()  && (viewModel as! KTMyTripsViewModel).showCallerID(){
     //            cell.lblCallerId.isHidden = false

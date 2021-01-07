@@ -330,6 +330,13 @@ class KTMyTripsViewModel: KTBaseViewModel {
     }
   }
   
+    func getPaymentIcon(forIdx idx: Int) -> String
+    {
+        let booking = (bookings![idx] as KTBooking)
+
+        return ImageUtil.getSmallImage(booking.paymentMethod ?? "")
+    }
+
   func showCashIcon(forIdx idx: Int) -> Bool {
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.COMPLETED.rawValue:

@@ -59,10 +59,10 @@ class ImageUtil
             brandImage = "ico_maestro"
             break;
         case "Cash":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         case "":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         default:
             brandImage = "ico_wallet"
@@ -123,10 +123,10 @@ class ImageUtil
             brandImage = "maestro_ico_sm"
             break;
         case "Cash":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         case "":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         default:
             brandImage = "wallet_ico_sm"
