@@ -748,7 +748,7 @@ AddressPickerCellDelegate {
         alertController.addAction(favoriteAction)
       }
         
-        alertController.modalTransitionStyle = .partialCurl
+        alertController.modalTransitionStyle = .crossDissolve
 
       self.present(alertController, animated: true, completion: nil)
     }
