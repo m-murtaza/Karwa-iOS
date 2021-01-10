@@ -268,6 +268,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   }
   
   private var heightBegan: CGFloat = 0.0
+
   @objc func pan(_ pan: UIPanGestureRecognizer) {
     let translation = pan.translation(in: view)
     switch pan.state {
@@ -304,7 +305,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     default:
       ()
     }
-    restoreCustomerServiceSelection()
+//    restoreCustomerServiceSelection()
   }
   
   override func viewWillAppear(_ animated: Bool)
