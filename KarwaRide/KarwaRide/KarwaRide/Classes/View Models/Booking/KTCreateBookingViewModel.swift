@@ -346,7 +346,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     currentBookingStep = BookingStep.step3
     if booking.pickupAddress != nil || booking.pickupAddress != "" {
       (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
             (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
         })
     }
