@@ -94,6 +94,15 @@ extension Date {
         return str
     }
     
+    func sanitizedTime() -> String
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.init(identifier: "en")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd'T'HH:mm:ssZ") //2021-01-10 11:07:52 +0000
+
+        return formatter.string(from: date)
+    }
+    
     static func dateFromServerString(date strDate:String?) ->Date {
         var date : Date?
         

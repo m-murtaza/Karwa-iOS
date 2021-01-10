@@ -27,7 +27,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
                                     Constants.BookingParams.PickLat: job.pickupLat,
                                     Constants.BookingParams.PickLon: job.pickupLon,
                                     Constants.BookingParams.PickLocationID : job.pickupLocationId,
-                                    Constants.BookingParams.PickTime: job.pickupTime!,
+                                    Constants.BookingParams.PickTime: job.pickupTime!.sanitizedTime(),
                                     Constants.BookingParams.DropLocation: (job.dropOffAddress != nil) ? job.dropOffAddress as Any : "",
                                     Constants.BookingParams.DropLat : job.dropOffLat,
                                     Constants.BookingParams.DropLon : job.dropOffLon,
