@@ -504,13 +504,14 @@ AddressPickerCellDelegate {
     let vc = KTFavoriteAddressViewController()
     vc.favoritelocation = location
 
-    if #available(iOS 13.0, *)
-    {
-        vc.modalPresentationStyle = .automatic
-    } else
-    {
-        vc.modalPresentationStyle = .fullScreen
-    }
+    vc.modalPresentationStyle = .fullScreen
+//    if #available(iOS 13.0, *)
+//    {
+//        vc.modalPresentationStyle = .automatic
+//    } else
+//    {
+//        vc.modalPresentationStyle = .fullScreen
+//    }
     self.present(vc, animated: true, completion: nil)
   }
   

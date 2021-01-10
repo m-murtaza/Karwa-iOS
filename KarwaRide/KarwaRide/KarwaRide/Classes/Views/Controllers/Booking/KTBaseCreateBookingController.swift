@@ -17,8 +17,8 @@ class KTCreateBookingConstants {
     
     // MARK: List of Constants
     
-    static let DEFAULT_MAP_ZOOM : Float = 18.0
-    static let PICKUP_MAP_ZOOM : Float = 17.0
+    static let DEFAULT_MAP_ZOOM : Float = 17.2
+    static let PICKUP_MAP_ZOOM : Float = 17.2
     static let BOUNDS_MARKER_DISTANCE_THRESHOULD : Double = 2000
     static let DEFAULT_MAP_PADDING : Float = 0
     
