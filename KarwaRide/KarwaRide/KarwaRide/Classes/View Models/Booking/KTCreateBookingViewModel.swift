@@ -269,13 +269,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   func vehicleTypeTapped(idx: Int) {
     selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
-    if let selected = vehicleTypes?[idx] {
-      let fromIndexPath = IndexPath(row: idx, section: 0)
-      let toIndexPath = IndexPath(row: 0, section: 0)
-      vehicleTypes?.remove(at: idx)
-      vehicleTypes?.insert(selected, at: 0)
-      self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
-    }
+//    if let selected = vehicleTypes?[idx] {
+//      let fromIndexPath = IndexPath(row: idx, section: 0)
+//      let toIndexPath = IndexPath(row: 0, section: 0)
+//      vehicleTypes?.remove(at: idx)
+//      vehicleTypes?.insert(selected, at: 0)
+//      self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
+//    }
   }
   
   func showEstimate(vehicleType vtype: KTVehicleType){

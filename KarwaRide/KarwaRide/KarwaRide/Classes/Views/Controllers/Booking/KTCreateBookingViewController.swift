@@ -20,10 +20,10 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var fareInfo: UILabel!
   
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-    contentView.backgroundColor = highlighted ? .white : .clear
-    contentView.layer.borderColor = highlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = highlighted ? 1 : 0
-    contentView.layer.cornerRadius = highlighted ? 8 : 0
+//    contentView.backgroundColor = highlighted ? .white : .clear
+//    contentView.layer.borderColor = highlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
+//    contentView.layer.borderWidth = highlighted ? 1 : 0
+//    contentView.layer.cornerRadius = highlighted ? 8 : 0
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
@@ -273,10 +273,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     let translation = pan.translation(in: view)
     switch pan.state {
     case .began:
-      print("translation: \(translation)")
       heightBegan = tableViewHeight.constant
     case .changed:
-      print("translation: \(translation)")
       let fractionCompleted = abs(translation.y) / view.bounds.height
       if translation.y < 0 { // going up
         let value = tableViewMaximumHeight * fractionCompleted
@@ -298,6 +296,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
       DispatchQueue.main.async {
         self.showMoreRideOptions.isHidden = (self.tableViewHeight.constant == self.tableViewMaximumHeight)
+        //TODO: Re-order Ride Selection
       }
       UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
         self.view.layoutIfNeeded()
