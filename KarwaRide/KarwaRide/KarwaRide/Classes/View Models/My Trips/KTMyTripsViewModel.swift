@@ -282,12 +282,12 @@ class KTMyTripsViewModel: KTBaseViewModel {
   func innerContainerBackgroundColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.PENDING.rawValue:
-      return UIColor.lightGray.withAlphaComponent(0.2)
+        return UIColor.init(hex: "#F2F2F2")
     default:
       return UIColor.white
     }
   }
-  
+    
   func statusTextColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.PENDING.rawValue:
