@@ -272,7 +272,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
   
   func outerContainerBackgroundColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {
-    case BookingStatus.DISPATCHING.rawValue, BookingStatus.PENDING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
       return UIColor.primary
     default:
       return UIColor.white
@@ -314,7 +314,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
   
   func serviceTypeColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {
-    case BookingStatus.DISPATCHING.rawValue, BookingStatus.PENDING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
       return UIColor.white
     default:
       return UIColor.primary
