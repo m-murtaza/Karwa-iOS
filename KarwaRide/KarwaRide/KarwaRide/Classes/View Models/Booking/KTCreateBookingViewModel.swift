@@ -346,7 +346,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     currentBookingStep = BookingStep.step3
     if booking.pickupAddress != nil || booking.pickupAddress != "" {
       (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
             (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
         })
     }
@@ -371,7 +371,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   //MARK: - Estimates
   private func fetchEstimates() {
-    del?.updateVehicleTypeList()
+//    del?.updateVehicleTypeList()
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+//        (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+//    })
+
     if booking.pickupAddress != nil && booking.pickupAddress != "" && booking.dropOffAddress != nil && booking.dropOffAddress != "" {
       isEstimeting = true
       
@@ -389,6 +393,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
           self.del?.updateVehicleTypeList()
           self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+            })
         }
         else {
           if self.estimates != nil{
@@ -402,7 +409,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if status == Constants.APIResponseStatus.SUCCESS {
           self?.vehicleTypes?.removeAll()
           self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
-          self?.del?.updateVehicleTypeList()
+//          self?.del?.updateVehicleTypeList()
         }
       }
     }
@@ -414,7 +421,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   private func fetchEstimateForPromo(_ promoEntered: String)
   {
-    del?.updateVehicleTypeList()
+//    del?.updateVehicleTypeList()
+//    DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+//        (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+//    })
     
     if(booking.pickupAddress != nil && booking.pickupAddress != "")
     {
@@ -445,6 +455,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
               let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
               self.del?.updateVehicleTypeList()
               self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+                })
             }
             else
             {
@@ -476,6 +489,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
             self.del?.updateVehicleTypeList()
             self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+                (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+            })
           }
           else
           {
