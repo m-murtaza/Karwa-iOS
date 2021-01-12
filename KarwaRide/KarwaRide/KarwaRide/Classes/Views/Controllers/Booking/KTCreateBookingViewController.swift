@@ -15,7 +15,7 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var capacity: UILabel!
   @IBOutlet weak var fare: UILabel!
   @IBOutlet weak var time: UILabel!
-  @IBOutlet weak var icon: UIImageView!
+  @IBOutlet weak var icon: SpringImageView!
   @IBOutlet weak var promoBadge: UIImageView!
   @IBOutlet weak var fareInfo: UILabel!
   
@@ -29,8 +29,15 @@ class RideServiceCell: UITableViewCell {
   override func setSelected(_ selected: Bool, animated: Bool) {
     contentView.backgroundColor = selected ? .white : .clear
     contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = selected ? 1 : 0
+    contentView.layer.borderWidth = selected ? 2 : 0
     contentView.layer.cornerRadius = selected ? 8 : 0
+    serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+    fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+    if(selected && !animated)
+    {
+        icon.animation = "slideRight"
+        icon.animate()
+    }
   }
   
   func setFare(fare: String) {
@@ -549,7 +556,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     
     self.btnRequestBooking.animation = "slideUp"
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)
     {
       UIView.animate(withDuration: 0.5, animations: {
         

@@ -347,9 +347,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     currentBookingStep = BookingStep.step3
     if booking.pickupAddress != nil || booking.pickupAddress != "" {
       (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-            (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+//            (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+//        })
     }
     
     if(booking.dropOffAddress != nil && booking.dropOffAddress != "") {
