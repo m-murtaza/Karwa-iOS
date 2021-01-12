@@ -154,7 +154,11 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
   
   func reloadDestinations() {
     DispatchQueue.main.async {
-      self.collectionView.reloadData()
+//      self.collectionView.reloadData()
+        self.collectionView.performBatchUpdates({
+                            let indexSet = IndexSet(integersIn: 0...0)
+                            self.collectionView.reloadSections(indexSet)
+                        }, completion: nil)
     }
   }
   
@@ -300,8 +304,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
       DispatchQueue.main.async {
         self.showMoreRideOptions.isHidden = (self.tableViewHeight.constant == self.tableViewMaximumHeight)
-        //TODO: Re-order Ride Selection with moveRow function
-        self.moveRowToFirst(fromIndex: self.selectedIndex)
+        if(self.selectedIndex != 0)
+        {
+            self.moveRowToFirst(fromIndex: self.selectedIndex)
+        }
       }
       UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
         self.view.layoutIfNeeded()

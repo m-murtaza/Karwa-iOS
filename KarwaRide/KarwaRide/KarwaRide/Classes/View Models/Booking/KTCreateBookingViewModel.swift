@@ -1208,14 +1208,36 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   var destinations = [KTGeoLocation]()
   func fetchDestinations()  {
+
+    preloadHomeWork()
+
+    (self.delegate as! KTCreateBookingViewModelDelegate).reloadDestinations()
+
     KTBookingManager().address(forLocation: KTLocationManager.sharedInstance.currentLocation.coordinate) { (status, response) in
       if status == Constants.APIResponseStatus.SUCCESS {
         self.parseResponseToDestinations(serverResponse: response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])
         (self.delegate as! KTCreateBookingViewModelDelegate).reloadDestinations()
       }
     }
-    (self.delegate as! KTCreateBookingViewModelDelegate).reloadDestinations()
   }
+    
+    func preloadHomeWork()
+    {
+        let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
+        let home : KTBookmark? = bookmarkManager.getHome()
+        let work : KTBookmark?  = bookmarkManager.getWork()
+        
+        var array = [KTGeoLocation]()
+
+        if let home = home, let location = home.bookmarkToGeoLocation {
+          array.append(location)
+        }
+        if let work = work, let location = work.bookmarkToGeoLocation {
+          array.append(location)
+        }
+
+        destinations = Array(array.prefix(5))
+    }
   
   func parseResponseToDestinations(serverResponse locs: [KTGeoLocation]){
     let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
