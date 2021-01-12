@@ -183,6 +183,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     
     func moveRowToFirst(fromIndex from: Int) {
         self.tableView.moveRow(at: IndexPath(row: from, section: 0), to: IndexPath(row: 0, section: 0))
+        selectedIndex = 0
     }
   
   func allowScrollVTypeCard(allow: Bool) {
@@ -302,9 +303,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       }
     case .ended:
       tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
+        let isClosed = self.tableViewHeight.constant == self.tableViewMaximumHeight
       DispatchQueue.main.async {
-        self.showMoreRideOptions.isHidden = (self.tableViewHeight.constant == self.tableViewMaximumHeight)
-        if(self.selectedIndex != 0)
+        self.showMoreRideOptions.isHidden = isClosed
+        if(self.selectedIndex != 0 && !isClosed)
         {
             self.moveRowToFirst(fromIndex: self.selectedIndex)
         }
