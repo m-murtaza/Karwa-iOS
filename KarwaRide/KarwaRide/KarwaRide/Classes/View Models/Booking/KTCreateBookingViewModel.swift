@@ -59,6 +59,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func showScanPayCoachmark()
   func reloadDestinations()
   func moveRow(from: IndexPath, to: IndexPath)
+  func moveRowToFirst(fromIndex from: Int)
   func restoreCustomerServiceSelection()
 }
 
@@ -91,7 +92,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   var cloneBooking : BookingBean = BookingBean()
   
   var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
-  var dropOffBtnText = "No Destination set"
+    var dropOffBtnText = "str_no_destination_set".localized()
   var promo = ""
   
   var rebook: Bool = false
@@ -269,13 +270,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   func vehicleTypeTapped(idx: Int) {
     selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
-//    if let selected = vehicleTypes?[idx] {
+    if let selected = vehicleTypes?[idx] {
 //      let fromIndexPath = IndexPath(row: idx, section: 0)
 //      let toIndexPath = IndexPath(row: 0, section: 0)
-//      vehicleTypes?.remove(at: idx)
-//      vehicleTypes?.insert(selected, at: 0)
+      vehicleTypes?.remove(at: idx)
+      vehicleTypes?.insert(selected, at: 0)
 //      self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
-//    }
+    }
   }
   
   func showEstimate(vehicleType vtype: KTVehicleType){
@@ -1332,7 +1333,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   func prepareToMoveAddressPicker() {
     //currentBookingStep = BookingStep.step2
-    dropOffBtnText = "set destination"
+    dropOffBtnText = "txt_set_destination".localized()
   }
   
   func setRemoveBookingOnReset(removeBookingOnReset : Bool) {

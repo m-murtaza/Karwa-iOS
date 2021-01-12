@@ -176,6 +176,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   func moveRow(from: IndexPath, to: IndexPath) {
     self.tableView.moveRow(at: from, to: to)
   }
+    
+    func moveRowToFirst(fromIndex from: Int) {
+        self.tableView.moveRow(at: IndexPath(row: from, section: 0), to: IndexPath(row: 0, section: 0))
+    }
   
   func allowScrollVTypeCard(allow: Bool) {
     
@@ -297,6 +301,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       DispatchQueue.main.async {
         self.showMoreRideOptions.isHidden = (self.tableViewHeight.constant == self.tableViewMaximumHeight)
         //TODO: Re-order Ride Selection with moveRow function
+        self.moveRowToFirst(fromIndex: self.selectedIndex)
       }
       UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
         self.view.layoutIfNeeded()
@@ -513,6 +518,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   func showCancelBookingBtn() {
     btnCancelBtn.isHidden = false
     btnRevealBtn.isHidden = true
+    selectedIndex = 0
+    restoreCustomerServiceSelection()
   }
   
   func hideCancelBookingBtn()  {
