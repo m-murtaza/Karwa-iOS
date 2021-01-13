@@ -442,7 +442,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
                                       showCancelButton: true)
     datePicker.show("",
                     doneButtonTitle: "txt_done".localized(),
-                    cancelButtonTitle: "str_cancel".localized(), defaultDate: (viewModel as! KTCreateBookingViewModel).selectedPickupDateTime,
+                    cancelButtonTitle: "cancel".localized(), defaultDate: (viewModel as! KTCreateBookingViewModel).selectedPickupDateTime,
                     minimumDate: currentDate,
                     maximumDate: threeMonth,
                     datePickerMode: .dateAndTime) { (date) in
@@ -465,7 +465,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBAction func btnCancelBtnTapped(_ sender: Any)
   {
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
+    (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
     collapseRideList()
+    updateVehicleTypeList()
   }
   
   //MARK: - Book Ride
