@@ -309,24 +309,35 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         tableViewHeight.constant = result
       }
     case .ended:
-      tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
-        let isClosed = self.tableViewHeight.constant == self.tableViewMaximumHeight
-      DispatchQueue.main.async {
-        self.showMoreRideOptions.isHidden = isClosed
-        if(self.selectedIndex != 0 && !isClosed)
+        tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+          self.view.layoutIfNeeded()
+        }, completion: nil)
+
+        let isClosed = (self.tableViewHeight.constant == self.tableViewMaximumHeight)
+        DispatchQueue.main.async
         {
-            self.moveRowToFirst(fromIndex: self.selectedIndex)
+            self.showMoreRideOptions.isHidden = isClosed
+            if(self.selectedIndex != 0 && !isClosed)
+            {
+                self.moveRowToFirst(fromIndex: self.selectedIndex)
+            }
         }
-      }
-      UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-        self.view.layoutIfNeeded()
-      }, completion: nil)
-    default:
-      ()
+        default:
+          ()
     }
 //    restoreCustomerServiceSelection()
   }
   
+    func collapseRideList()
+    {
+        tableViewHeight.constant = tableViewMinimumHeight
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.showMoreRideOptions.isHidden = false
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
   override func viewWillAppear(_ animated: Bool)
   {
     super.viewWillAppear(false)
@@ -454,6 +465,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBAction func btnCancelBtnTapped(_ sender: Any)
   {
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
+    collapseRideList()
   }
   
   //MARK: - Book Ride
@@ -556,20 +568,13 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     
     self.btnRequestBooking.animation = "slideUp"
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)
-    {
-      UIView.animate(withDuration: 0.5, animations: {
-        
-        self.btnRequestBooking.setNeedsDisplay()
-        self.view.layoutIfNeeded()
-      })
-    }
+        UIView.animate(withDuration: 0.5, animations: {
+          self.btnRequestBooking.setNeedsDisplay()
+          self.view.layoutIfNeeded()
+        })
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1)
-    {
-      self.btnRequestBooking.isHidden = false
-      self.btnRequestBooking.animate()
-    }
+        self.btnRequestBooking.isHidden = false
+        self.btnRequestBooking.animate()
   }
   
   func setRemoveBookingOnReset(removeBookingOnReset : Bool)
