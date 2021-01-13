@@ -2837,7 +2837,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egy-u8-lUc">
-                                <rect key="frame" x="356" y="412.33333333333331" width="58" height="58"/>
+                                <rect key="frame" x="356" y="413.66666666666669" width="58" height="58"/>
                                 <state key="normal" image="current_location_icon"/>
                                 <connections>
                                     <action selector="currentLocationButtonAction:" destination="L23-ue-kpU" eventType="touchUpInside" id="Cmb-p5-WCR"/>
@@ -2912,10 +2912,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
-                                <rect key="frame" x="0.0" y="470.33333333333326" width="414" height="299.66666666666674"/>
+                                <rect key="frame" x="0.0" y="471.66666666666674" width="414" height="298.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM1-Su-Mie" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="19.999999999999993" y="20" width="116.33333333333331" height="15.666666666666664"/>
+                                        <rect key="frame" x="19.999999999999993" y="20" width="115.33333333333331" height="15.333333333333336"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                         <color key="textColor" red="0.49803921568627452" green="0.69019607843137254" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2924,7 +2924,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0a-8P-zEt">
-                                        <rect key="frame" x="141.33333333333334" y="19.333333333333371" width="15" height="15"/>
+                                        <rect key="frame" x="140.33333333333334" y="19.333333333333314" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="I7j-rM-2YT"/>
                                             <constraint firstAttribute="height" constant="15" id="X1n-Eq-ICa"/>
@@ -2932,16 +2932,16 @@
                                         <state key="normal" image="icon-more-info-blue"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="7rb-M9-9pW">
-                                        <rect key="frame" x="20" y="40.666666666666686" width="374" height="39"/>
+                                        <rect key="frame" x="20" y="40.333333333333314" width="374" height="38"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mowasalat HQ, Industrial Area Industrial Area" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-Sz-IBR">
-                                                <rect key="frame" x="0.0" y="6.333333333333373" width="316" height="26.666666666666671"/>
+                                                <rect key="frame" x="0.0" y="6.333333333333373" width="316" height="25.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="22"/>
                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-arrow-right-large" translatesAutoresizingMaskIntoConstraints="NO" id="cqT-Vq-xvH">
-                                                <rect key="frame" x="334" y="13.333333333333371" width="40" height="12.333333333333336"/>
+                                                <rect key="frame" x="334" y="13" width="40" height="12.333333333333336"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="CA6-HL-ZHn"/>
                                                 </constraints>
@@ -2949,7 +2949,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
-                                        <rect key="frame" x="20" y="40.666666666666686" width="374" height="39"/>
+                                        <rect key="frame" x="20" y="40.333333333333314" width="374" height="38"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="22"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -2962,7 +2962,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-vS-DNu">
-                                        <rect key="frame" x="20" y="99.666666666666686" width="374" height="60"/>
+                                        <rect key="frame" x="20" y="98.333333333333314" width="374" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="6Yr-9y-aii">
                                                 <rect key="frame" x="30" y="21" width="18" height="18"/>
@@ -3008,7 +3008,7 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nOQ-MD-aEv">
-                                        <rect key="frame" x="0.0" y="169.66666666666669" width="414" height="100"/>
+                                        <rect key="frame" x="0.0" y="168.33333333333331" width="414" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="ueA-qw-bg4"/>
@@ -3040,13 +3040,13 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEK-g4-uOv">
-                                                                            <rect key="frame" x="39.999999999999993" y="0.0" width="72.333333333333314" height="30"/>
+                                                                            <rect key="frame" x="39.999999999999993" y="0.0" width="69.333333333333314" height="30"/>
                                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
                                                                             <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right copy_2" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-V4-a9J">
-                                                                            <rect key="frame" x="115.33333333333333" y="0.0" width="8.6666666666666714" height="30"/>
+                                                                            <rect key="frame" x="112.33333333333333" y="0.0" width="11.666666666666671" height="30"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                     <constraints>
@@ -3243,7 +3243,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iRl-E4-3ME">
-                                                        <rect key="frame" x="84.333333333333329" y="0.0" width="245.66666666666669" height="40"/>
+                                                        <rect key="frame" x="86.666666666666671" y="0.0" width="240.66666666666663" height="40"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="5E5-5I-DwV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="40"/>
@@ -3253,13 +3253,13 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Applied:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isM-F9-AUG">
-                                                                <rect key="frame" x="25.000000000000007" y="0.0" width="94.666666666666686" height="40"/>
+                                                                <rect key="frame" x="24.999999999999993" y="0.0" width="90.333333333333314" height="40"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="13"/>
                                                                 <color key="textColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30% off, upto 10 QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRa-lZ-6lY">
-                                                                <rect key="frame" x="124.66666666666669" y="0.0" width="121" height="40"/>
+                                                                <rect key="frame" x="120.33333333333334" y="0.0" width="120.33333333333334" height="40"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -3297,6 +3297,17 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="394" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yt-A0-cqe" userLabel="rideBackground" customClass="AnimationView" customModule="Lottie">
+                                                            <rect key="frame" x="20" y="0.0" width="75" height="60"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="60" id="KsL-ST-U6D"/>
+                                                                <constraint firstAttribute="width" constant="75" id="vZL-3I-mmv"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="ride_shiner"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookingCardTaxiIco" translatesAutoresizingMaskIntoConstraints="NO" id="6Rr-el-ICV" customClass="SpringImageView" customModule="Spring">
                                                             <rect key="frame" x="20" y="-5.6666666666666679" width="38" height="71.333333333333329"/>
                                                         </imageView>
@@ -3304,26 +3315,26 @@
                                                             <rect key="frame" x="100" y="10" width="274" height="25"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-YS-i8t">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="209.33333333333334" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="210" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="Whb-At-C1K">
-                                                                    <rect key="frame" x="209.33333333333331" y="0.0" width="20" height="25"/>
+                                                                    <rect key="frame" x="210" y="0.0" width="20" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="20" id="JLI-wN-A5o"/>
                                                                         <constraint firstAttribute="height" constant="25" id="vJg-vr-WPq"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkU-OU-oBK">
-                                                                    <rect key="frame" x="209.33333333333331" y="0.0" width="25" height="25"/>
+                                                                    <rect key="frame" x="210" y="0.0" width="24.666666666666657" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-nA-kzs">
-                                                                    <rect key="frame" x="234.33333333333331" y="0.0" width="39.666666666666686" height="25"/>
+                                                                    <rect key="frame" x="234.66666666666669" y="0.0" width="39.333333333333314" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -3340,13 +3351,13 @@
                                                             <rect key="frame" x="112" y="35" width="262" height="15"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQs-iM-R8v">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="232" height="15"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="232.33333333333334" height="15"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huk-eg-CAJ">
-                                                                    <rect key="frame" x="232" y="0.0" width="30" height="15"/>
+                                                                    <rect key="frame" x="232.33333333333331" y="0.0" width="29.666666666666686" height="15"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.070588235294117646" green="0.59215686274509804" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -3362,9 +3373,12 @@
                                                         <constraint firstItem="a6y-qO-HrH" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="100" id="9yJ-fO-0Yj"/>
                                                         <constraint firstItem="dIL-Fq-V20" firstAttribute="top" secondItem="a6y-qO-HrH" secondAttribute="bottom" id="GVc-i1-rkv"/>
                                                         <constraint firstItem="v6o-hq-nLK" firstAttribute="leading" secondItem="a6y-qO-HrH" secondAttribute="leading" id="L7h-ux-pYy"/>
+                                                        <constraint firstItem="1yt-A0-cqe" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="20" id="MVI-LC-i4p"/>
                                                         <constraint firstItem="dIL-Fq-V20" firstAttribute="leading" secondItem="a6y-qO-HrH" secondAttribute="leading" constant="12" id="R1P-gi-eNt"/>
                                                         <constraint firstItem="6Rr-el-ICV" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="20" id="Tgr-r8-U4A"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1yt-A0-cqe" secondAttribute="bottom" id="cYP-1D-BAc"/>
                                                         <constraint firstItem="6Rr-el-ICV" firstAttribute="centerY" secondItem="38O-lH-uf2" secondAttribute="centerY" id="e3C-yr-HTb"/>
+                                                        <constraint firstItem="1yt-A0-cqe" firstAttribute="top" secondItem="38O-lH-uf2" secondAttribute="top" id="hAb-bJ-deK"/>
                                                         <constraint firstItem="v6o-hq-nLK" firstAttribute="top" secondItem="a6y-qO-HrH" secondAttribute="bottom" constant="1" id="oVK-CP-ivw"/>
                                                         <constraint firstAttribute="bottom" secondItem="dIL-Fq-V20" secondAttribute="bottom" constant="10" id="sWF-qf-p73"/>
                                                         <constraint firstItem="a6y-qO-HrH" firstAttribute="top" secondItem="38O-lH-uf2" secondAttribute="top" constant="10" id="tuk-2z-qX4"/>
@@ -3377,6 +3391,7 @@
                                                     <outlet property="fare" destination="Kb8-nA-kzs" id="ao5-lx-pkP"/>
                                                     <outlet property="fareInfo" destination="hkU-OU-oBK" id="ufn-6x-qBf"/>
                                                     <outlet property="icon" destination="6Rr-el-ICV" id="g7P-Fw-6QV"/>
+                                                    <outlet property="iconBackgroundAnim" destination="1yt-A0-cqe" id="RIq-ng-4Qi"/>
                                                     <outlet property="promoBadge" destination="Whb-At-C1K" id="tfP-NA-xwf"/>
                                                     <outlet property="serviceName" destination="qVs-YS-i8t" id="Mdr-0R-7Fw"/>
                                                     <outlet property="time" destination="Huk-eg-CAJ" id="7rM-Hs-gTo"/>
@@ -3655,7 +3670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1408.6956521739132" y="1497.3214285714284"/>
+            <point key="canvasLocation" x="1408.6956521739132" y="1496.7391304347827"/>
         </scene>
         <!--CallerID Popup-->
         <scene sceneID="zs6-tc-bRr">
@@ -6143,7 +6158,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qI8-3c-kzv" customClass="LocalisableSpringLabel" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="10" y="84" width="394" height="0.0"/>
+                                <rect key="frame" x="10" y="84" width="24" height="0.0"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -6160,10 +6175,10 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itB-6J-uV8" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="124" width="374" height="150"/>
+                                <rect key="frame" x="20" y="124" width="4" height="150"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39e-w7-fVQ" customClass="SpringTextView" customModule="Spring">
-                                        <rect key="frame" x="2" y="2" width="370" height="146"/>
+                                        <rect key="frame" x="2" y="2" width="0.0" height="146"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.59215686270000001" green="0.59607843140000005" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -6202,7 +6217,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-bz-O43" customClass="LocalisableSpringButton" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="60.666666666666657" y="352.66666666666669" width="293" height="51"/>
+                                <rect key="frame" x="-124.66666666666666" y="352.66666666666669" width="293.33333333333331" height="51"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="18"/>
                                 <state key="normal" title="SUBMIT" backgroundImage="SummitButton">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -6225,24 +6240,24 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uLM-k9-Kj1">
-                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="44" width="44" height="692"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTIssueTableViewCellIdentifier" rowHeight="70" id="a0z-D6-odw" customClass="KTIssueTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="28" width="44" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a0z-D6-odw" id="prF-xh-khv">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="44" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="some issue here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MS-yI-amj" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="26.666666666666671" width="364" height="17"/>
+                                                    <rect key="frame" x="20" y="27" width="0.0" height="16.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_arrow_right_lrg" translatesAutoresizingMaskIntoConstraints="NO" id="ysq-Q0-eGW">
-                                                    <rect key="frame" x="385" y="31.666666666666671" width="14" height="7"/>
+                                                    <rect key="frame" x="15" y="31.666666666666671" width="14" height="7"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -9401,7 +9416,7 @@
                                                     <rect key="frame" x="32" y="39" width="45" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="**** **** **** 0008" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oja-Ul-eZ0">
-                                                    <rect key="frame" x="93" y="44" width="124" height="17"/>
+                                                    <rect key="frame" x="93" y="44" width="102" height="17"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -9440,7 +9455,7 @@
                                 <rect key="frame" x="66" y="704" width="282" height="32"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9g-KR-Wfp" customClass="LocalisableSpringButton" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="192" y="651" width="30" height="30"/>
+                                <rect key="frame" x="134" y="651" width="146" height="30"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="addNewCardText"/>
@@ -9512,14 +9527,21 @@
         <designable name="0hF-e9-5FJ">
             <size key="intrinsicContentSize" width="123" height="30"/>
         </designable>
+        <designable name="1yt-A0-cqe"/>
         <designable name="2SG-m5-gVM">
             <size key="intrinsicContentSize" width="95" height="28"/>
         </designable>
         <designable name="2a7-Ih-VDT">
             <size key="intrinsicContentSize" width="309" height="0.0"/>
         </designable>
+        <designable name="3Hf-ht-uDd">
+            <size key="intrinsicContentSize" width="139" height="33"/>
+        </designable>
         <designable name="4th-k2-d64">
             <size key="intrinsicContentSize" width="137" height="32"/>
+        </designable>
+        <designable name="5q4-Cd-UaS">
+            <size key="intrinsicContentSize" width="106" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="104" height="28"/>
@@ -9599,6 +9621,9 @@
         <designable name="eKI-lM-zdp">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
+        <designable name="eMk-bz-O43">
+            <size key="intrinsicContentSize" width="293" height="51"/>
+        </designable>
         <designable name="efC-ko-7kP">
             <size key="intrinsicContentSize" width="131" height="30"/>
         </designable>
@@ -9658,6 +9683,9 @@
         </designable>
         <designable name="vh2-Ed-Oax">
             <size key="intrinsicContentSize" width="60" height="60"/>
+        </designable>
+        <designable name="x9g-KR-Wfp">
+            <size key="intrinsicContentSize" width="146" height="30"/>
         </designable>
         <designable name="yR2-3e-uTJ">
             <size key="intrinsicContentSize" width="98" height="26"/>

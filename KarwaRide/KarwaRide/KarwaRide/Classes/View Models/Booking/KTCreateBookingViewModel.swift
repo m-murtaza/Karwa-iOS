@@ -896,6 +896,25 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     return capacity
   }
   
+    func isPremiumRide(forIndex idx: Int) -> Bool
+    {
+        var isPremiumRide = false
+
+        let sType : KTVehicleType = vehicleTypes![idx]
+        switch sType.typeId {
+        case Int16(VehicleType.KTStandardLimo.rawValue):
+            isPremiumRide = true
+        case Int16(VehicleType.KTBusinessLimo.rawValue):
+            isPremiumRide = true
+        case Int16(VehicleType.KTLuxuryLimo.rawValue):
+            isPremiumRide = true
+        default:
+            isPremiumRide = false
+        }
+
+        return isPremiumRide
+    }
+    
   func sTypeVehicleImage(forIndex idx: Int) -> UIImage
   {
     let sType : KTVehicleType = vehicleTypes![idx]

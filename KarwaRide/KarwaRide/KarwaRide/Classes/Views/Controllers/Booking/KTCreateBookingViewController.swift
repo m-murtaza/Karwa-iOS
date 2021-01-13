@@ -9,6 +9,7 @@
 import UIKit
 import Spring
 import Crashlytics
+import Lottie
 
 class RideServiceCell: UITableViewCell {
   @IBOutlet weak var serviceName: UILabel!
@@ -18,8 +19,8 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var icon: SpringImageView!
   @IBOutlet weak var promoBadge: UIImageView!
   @IBOutlet weak var fareInfo: UILabel!
-  
-  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+  @IBOutlet weak var iconBackgroundAnim: AnimationView!
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 //    contentView.backgroundColor = highlighted ? .white : .clear
 //    contentView.layer.borderColor = highlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
 //    contentView.layer.borderWidth = highlighted ? 1 : 0
@@ -33,13 +34,14 @@ class RideServiceCell: UITableViewCell {
     contentView.layer.cornerRadius = selected ? 8 : 0
     serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
     fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+
     if(selected && !animated)
     {
         icon.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
         icon.animate()
     }
   }
-  
+
   func setFare(fare: String) {
     let parts = fare.split(separator: "(")
     if parts.count > 1, var last = parts.last {
@@ -116,6 +118,18 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     let shouldHidePromoFare = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
     cell.promoBadge.isHidden = shouldHidePromoFare
     cell.selectionStyle = .none
+    
+    if((viewModel as! KTCreateBookingViewModel).isPremiumRide(forIndex: indexPath.row))
+    {
+        cell.iconBackgroundAnim.backgroundColor = .clear
+        cell.iconBackgroundAnim.loopMode = .loop
+        cell.iconBackgroundAnim.play()
+    }
+    else
+    {
+        cell.iconBackgroundAnim.isHidden = true
+    }
+
     return cell
   }
   
@@ -310,7 +324,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
       }
     case .ended:
         tableViewHeight.constant = translation.y < 0 ? tableViewMaximumHeight : tableViewMinimumHeight
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
           self.view.layoutIfNeeded()
         }, completion: nil)
 
@@ -332,7 +346,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     func collapseRideList()
     {
         tableViewHeight.constant = tableViewMinimumHeight
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
             self.showMoreRideOptions.isHidden = false
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -366,7 +380,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   @IBAction func showMoreRideOptions(_ sender: Any) {
     tableViewHeight.constant =  tableViewMaximumHeight
-    UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
       self.view.layoutIfNeeded()
     }, completion: { animated in
       self.showMoreRideOptions.isHidden = true
