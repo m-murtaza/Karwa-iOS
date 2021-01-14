@@ -20,7 +20,8 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var promoBadge: UIImageView!
   @IBOutlet weak var fareInfo: UILabel!
   @IBOutlet weak var iconBackgroundAnim: AnimationView!
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+    
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 //    contentView.backgroundColor = highlighted ? .white : .clear
 //    contentView.layer.borderColor = highlighted ? UIColor.primary.cgColor : UIColor.clear.cgColor
 //    contentView.layer.borderWidth = highlighted ? 1 : 0
@@ -34,7 +35,6 @@ class RideServiceCell: UITableViewCell {
     contentView.layer.cornerRadius = selected ? 8 : 0
     serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
     fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-
     if(selected && !animated)
     {
         icon.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
@@ -121,6 +121,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     
     if((viewModel as! KTCreateBookingViewModel).isPremiumRide(forIndex: indexPath.row))
     {
+        cell.iconBackgroundAnim.isHidden = false
         cell.iconBackgroundAnim.backgroundColor = .clear
         cell.iconBackgroundAnim.loopMode = .loop
         cell.iconBackgroundAnim.play()
@@ -143,16 +144,38 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
 //  }
   
   func restoreCustomerServiceSelection() {
-    guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-      return
-    }
-    let indexPath = IndexPath(row: selectedIndex, section: 0)
-    DispatchQueue.main.async {
-      self.tableView.selectRow(at: indexPath,
-                               animated: false,
-                               scrollPosition: .none)
-    }
+    restoreCustomerServiceSelection(animateView: true)
   }
+    
+    func reloadRidesList()
+    {
+        tableView.reloadData()
+    }
+
+    func focusIndex(selectingRow: Int, animateView: Bool)
+    {
+        DispatchQueue.main.async {
+          self.tableView.selectRow(at: IndexPath(row: selectingRow, section: 0),
+                                   animated: !animateView,
+                                   scrollPosition: .none)
+        }
+    }
+
+    func restoreCustomerServiceSelection(animateView: Bool)
+    {
+        guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+          return
+        }
+        
+        print("Restoring index: \(selectedIndex)")
+
+        let indexPath = IndexPath(row: selectedIndex, section: 0)
+        DispatchQueue.main.async {
+          self.tableView.selectRow(at: indexPath,
+                                   animated: !animateView,
+                                   scrollPosition: .none)
+        }
+    }
   
 }
 
@@ -334,13 +357,21 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
             self.showMoreRideOptions.isHidden = isClosed
             if(self.selectedIndex != 0 && !isClosed)
             {
-                self.moveRowToFirst(fromIndex: self.selectedIndex)
+//                self.moveRowToFirst(fromIndex: self.selectedIndex)
+                UIView.transition(with: self.tableView,
+                                  duration: 0.2,
+                                  options: .transitionFlipFromTop,
+                                  animations: {self.tableView.reloadData()},
+                                  completion:
+                                    {
+                                        success in
+                                        self.focusIndex(selectingRow: 0, animateView: false)
+                                    })
             }
         }
         default:
           ()
     }
-//    restoreCustomerServiceSelection()
   }
   
     func collapseRideList()

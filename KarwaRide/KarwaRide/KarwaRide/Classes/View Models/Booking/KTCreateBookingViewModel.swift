@@ -61,6 +61,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func moveRow(from: IndexPath, to: IndexPath)
   func moveRowToFirst(fromIndex from: Int)
   func restoreCustomerServiceSelection()
+    func restoreCustomerServiceSelection(animateView: Bool)
 }
 
 let CHECK_DELAY = 90.0
@@ -71,7 +72,7 @@ enum BookingStep {
 }
 
 let UNKNOWN : String = "str_loading".localized()
-let TIMER_INTERVAL = 4;
+let TIMER_INTERVAL = 100;
 var isBaseFareChangedForPromo = false
 
 class KTCreateBookingViewModel: KTBaseViewModel {
@@ -268,16 +269,32 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   //MARK: - FareBreakdown
   
-  func vehicleTypeTapped(idx: Int) {
-    selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
-    if let selected = vehicleTypes?[idx] {
-//      let fromIndexPath = IndexPath(row: idx, section: 0)
-//      let toIndexPath = IndexPath(row: 0, section: 0)
-      vehicleTypes?.remove(at: idx)
-      vehicleTypes?.insert(selected, at: 0)
-//      self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
+    //TODO: Something is wrong here
+    func vehicleTypeTapped(idx: Int)
+    {
+        selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
+        print("Selected ---> \(selectedVehicleType.rawValue)")
+        print("Before")
+        for vt in vehicleTypes!
+        {
+            print(vt.typeId)
+        }
+        if let selected = vehicleTypes?[idx]
+        {
+//            let fromIndexPath = IndexPath(row: idx, section: 0)
+//            let toIndexPath = IndexPath(row: 0, section: 0)
+
+            vehicleTypes?.remove(at: idx)
+            vehicleTypes?.insert(selected, at: 0)
+            
+//            self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
+        }
+        print("After")
+        for vt in vehicleTypes!
+        {
+            print(vt.typeId)
+        }
     }
-  }
   
   func showEstimate(vehicleType vtype: KTVehicleType){
     
@@ -395,7 +412,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           self.del?.updateVehicleTypeList()
           self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-                (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+                (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection(animateView: false)
             })
         }
         else {
