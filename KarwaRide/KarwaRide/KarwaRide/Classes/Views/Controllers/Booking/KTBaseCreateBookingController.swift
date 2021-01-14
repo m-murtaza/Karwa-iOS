@@ -37,8 +37,8 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     @IBOutlet weak var carousel: ScalingCarouselView!
     @IBOutlet weak var btnPickupAddress: UIButton!
     @IBOutlet weak var btnDropoffAddress: SpringButton!
-    @IBOutlet weak var btnRevealBtn : UIButton!
-    @IBOutlet weak var btnCancelBtn : UIButton!
+    @IBOutlet weak var btnRevealBtn : SpringButton!
+    @IBOutlet weak var btnCancelBtn : SpringButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
     
     

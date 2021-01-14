@@ -603,13 +603,26 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   
   func hideRequestBookingBtn() {
     UIView.animate(withDuration: 0.5, animations: {
-      
       self.btnRequestBooking.isHidden = true
-      self.pickupDropoffParentContainer.isHidden = true
-      self.rideServicesContainer.isHidden = true
       self.view.layoutIfNeeded()
     })
   }
+    
+    func hidePickDropoffParentContainer()
+    {
+        UIView.animate(withDuration: 0.5, animations: {
+          self.pickupDropoffParentContainer.isHidden = true
+          self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideRideServicesContainer()
+    {
+        UIView.animate(withDuration: 0.5, animations: {
+          self.rideServicesContainer.isHidden = true
+          self.view.layoutIfNeeded()
+        })
+    }
   
   func showRequestBookingBtn()  {
     
@@ -628,39 +641,44 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   {
     self.removeBookingOnReset = removeBookingOnReset
   }
-  
+
   func pickDropBoxStep3() {
-    DispatchQueue.main.async {
+    DispatchQueue.main.async
+    {
+        self.rideServicesContainer.frame.origin.y += 150
+        self.pickupDropoffParentContainer.frame.origin.y += 150
+        self.pickupDropoffParentContainer.isHidden = false
+        self.rideServicesContainer.isHidden = false
+
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0.0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 2,
+            options: .curveEaseInOut,
+            animations:
+            {
+                self.rideServicesContainer.frame.origin.y -= 150
+                self.pickupDropoffParentContainer.frame.origin.y -= 150
+            },completion: nil)
+
+
       self.pickupCardView.isHidden = true
       self.pickupPin.isHidden = true
       self.mapInstructionsContainer.isHidden = true
       self.currentLocationButton.isHidden = true
-      
-      self.pickupDropoffParentContainer.isHidden = false
-      self.rideServicesContainer.isHidden = false
-      
-      //self.mapToRideServicesView_Bottom.priority = UILayoutPriority(rawValue: 1000)
-      
-      //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 500)
-    
     }
   }
   
   func pickDropBoxStep1() {
     DispatchQueue.main.async {
-      // step1
-      self.pickupCardView.isHidden = false
-      self.pickupPin.isHidden = false
-      self.mapInstructionsContainer.isHidden = false
-      self.currentLocationButton.isHidden = false
-      // step3
-      self.pickupDropoffParentContainer.isHidden = true
-      self.rideServicesContainer.isHidden = true
-      self.promoAppliedContainer.isHidden = true
-      
-      //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 1000)
-      
-      //self.mapToRideServicesView_Bottom.priority = UILayoutPriority(rawValue: 500)
+        self.pickupCardView.isHidden = false
+        self.pickupPin.isHidden = false
+        self.mapInstructionsContainer.isHidden = false
+        self.currentLocationButton.isHidden = false
+        self.promoAppliedContainer.isHidden = true
+        self.pickupDropoffParentContainer.isHidden = true
+        self.rideServicesContainer.isHidden = true
     }
   }
   

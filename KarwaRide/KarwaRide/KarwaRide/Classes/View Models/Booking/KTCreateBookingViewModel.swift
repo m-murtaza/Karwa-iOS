@@ -29,6 +29,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func showCallerIdPopUp()
   func showRequestBookingBtn()
   func hideRequestBookingBtn()
+  func hidePickDropoffParentContainer()
+  func hideRideServicesContainer()
   func showCancelBookingBtn()
   func hideCancelBookingBtn()
   func pickDropBoxStep3()
@@ -72,7 +74,7 @@ enum BookingStep {
 }
 
 let UNKNOWN : String = "str_loading".localized()
-let TIMER_INTERVAL = 100;
+let TIMER_INTERVAL = 4;
 var isBaseFareChangedForPromo = false
 
 class KTCreateBookingViewModel: KTBaseViewModel {
@@ -112,6 +114,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     vehicleTypes = KTVehicleTypeManager().VehicleTypes()
     del?.pickDropBoxStep1()
     del?.hideRequestBookingBtn()
+    del?.hidePickDropoffParentContainer()
+    del?.hideRideServicesContainer()
     
     if booking.bookingId != nil && booking.bookingId != "" {
       rebook = true
@@ -268,8 +272,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   }
   
   //MARK: - FareBreakdown
-  
-    //TODO: Something is wrong here
+
     func vehicleTypeTapped(idx: Int)
     {
         selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
