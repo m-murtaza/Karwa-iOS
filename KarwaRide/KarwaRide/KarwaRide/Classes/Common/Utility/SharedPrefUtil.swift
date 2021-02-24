@@ -19,6 +19,7 @@ class SharedPrefUtil
     static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS"
 
     static let LANGUAGE_SET = "LANGUAGE_SET"
+    static let DELTA_TO_TRUE_TIME = "DELTA_TO_REAL_TIME"
     
     static func setSharedPref(_ key:String, _ value: String)
     {
@@ -77,6 +78,17 @@ class SharedPrefUtil
         {
             return true
         }
+    }
+    
+    public static func setDeltaToRealTime(deltaTimeInMilliseconds delta : Double)
+    {
+        let defaults = UserDefaults.standard
+        defaults.setValue("\(delta)", forKey: DELTA_TO_TRUE_TIME)
+    }
+    
+    public static func getDeltaToRealTime() -> Double
+    {
+        return Double(getSharePref(DELTA_TO_TRUE_TIME)) ?? 0
     }
     
     public static func setLanguageChanged(setLanguage language : String)

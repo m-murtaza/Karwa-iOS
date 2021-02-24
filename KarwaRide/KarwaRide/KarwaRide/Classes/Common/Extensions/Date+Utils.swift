@@ -94,6 +94,14 @@ extension Date {
         return str
     }
     
+    /*
+     * If Clock is disturbed more than 10 mins function return true
+     */
+    func isClockDistrubed() -> Bool
+    {
+        return SharedPrefUtil.getDeltaToRealTime() > 600000
+    }
+    
     func sanitizedTime() -> String
     {
         let formatter = DateFormatter()

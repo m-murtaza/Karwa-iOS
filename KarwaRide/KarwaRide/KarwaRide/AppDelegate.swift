@@ -13,6 +13,7 @@ import GoogleMaps
 import FacebookCore
 import Firebase
 import SideMenuSwift
+import TrueTime
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AppVersionUpdateNotifier().initNotifier(self)
 
+        correctTime()
+
         setupDatabase()
+        
         fetchInitialApplicationDataIfNeeded()
         handleNotification(launchOptions: launchOptions)
 
@@ -38,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setupFirebase()
       
-      configureSideMenu()
+        configureSideMenu()
       return true
     }
   
@@ -362,6 +366,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             currentViewControllerName?.updateForBooking(booking)
         }
+    }
+    
+    func correctTime()
+    {
+        // At an opportune time (e.g. app start):
+        TrueTimeClient.sharedInstance.start()
+
+        TrueTimeClient.sharedInstance.fetchIfNeeded(completion:  { result in
+            switch result {
+            case let .success(referenceTime):
+                if #available(iOS 13.0, *)
+                {
+                    let offset = referenceTime.now().distance(to: Date()) * 1000
+                    print("Time Offset: \(offset)")
+                    SharedPrefUtil.setDeltaToRealTime(deltaTimeInMilliseconds: offset)
+                }
+            case let .failure(error):
+                print("Error Fixing Time: \(error)")
+            }
+        })
     }
 }
 
