@@ -10,8 +10,7 @@ import UIKit
 
 class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificationViewModelDelegate,UITableViewDelegate,UITableViewDataSource {
     
-    @IBOutlet weak var imgEmpty: UIImageView!
-    
+  @IBOutlet weak var noNotificationsView: UIView!
     @IBOutlet weak var tblView : UITableView!
     
     private var vModel : KTNotificationViewModel?
@@ -21,6 +20,7 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+      addMenuButton()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -73,12 +73,12 @@ class KTNotificationViewController: KTBaseDrawerRootViewController,KTNotificatio
     }
     
     func showEmptyScreen() {
-        imgEmpty.isHidden = false
+        noNotificationsView.isHidden = false
         tblView.isHidden = true
     }
     
     func hideEmptyScreen() {
-        imgEmpty.isHidden = true
+        noNotificationsView.isHidden = true
         tblView.isHidden = false
     }
 }

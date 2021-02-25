@@ -1,0 +1,2170 @@
+/* 
+  Localizable.strings
+  KarwaRide
+
+  Created by Umer Afzal on 27/10/2020.
+  Copyright © 2020 Karwa. All rights reserved.
+*/
+
+
+/*Authentication*/
+"err_name" = "Please enter a valid name";
+"err_no_password" = "Password cannot be less than 6 characters";
+"err_min_password" = "Password should be at-least 6 characters";
+"err_min_confirm_password" = "Confirm password should be at-least 6 characters";
+"err_no_phone" = "Please enter valid phone number";
+"err_no_email" = "Please enter valid email address";
+"err_passwords_not_match" = "New Password not match with Confirm Password";
+
+/*Select Pickup and Destination*/
+"btn_addresses_title" = "Addresses";
+"btn_favorites_title" = "Favorites";
+
+/* Name of the application, shown in the application's title bar. */
+"app_name" = "Karwa Taxi";
+
+/* Name of the application, shown in the application's title bar. */
+"app_name_with_spaces" = "K A R W A";
+
+/*  */
+"navigation_drawer_open" = "Open navigation drawer";
+
+/*  */
+"navigation_drawer_close" = "Close navigation drawer";
+
+/*  */
+"action_settings" = "Settings";
+
+/*  */
+"schedule_block_subtitle" = "<xliff:g id=\"number_of_sessions\">%d</xliff:g> available session";
+
+/*  */
+"x-available-sessions-40d30775c391e1d0a7f399bfe3e4555a" = "<xliff:g id=\"number_of_sessions\">%d</xliff:g> available sessions";
+
+/*  */
+"session_notification_text" = "and <xliff:g id=\"num_sessions\">%2$d</xliff:g> other starting in <xliff:g id=\"remaining_time\">%1$d</xliff:g> min.";
+
+/*  */
+"and-x-others-starting-in-x-min-e4d09a76d0bd6288ab60b127ee4724a8" = "and <xliff:g id=\"num_sessions\">%2$d</xliff:g> others starting in <xliff:g id=\"remaining_time\">%1$d</xliff:g> min.";
+
+/*  */
+"session_notification_ticker" = "%d session is about to start.";
+
+/*  */
+"x-sessions-are-about-to-start" = "%d sessions are about to start.";
+
+/*  */
+"session_plurals" = "%d session";
+
+/*  */
+"x-sessions" = "%d sessions";
+
+/* Title for the notification that alerts the user that some of their sessions are about to begin. */
+"session_notification_title" = "<xliff:g id=\"num_sessions\">%2$d</xliff:g> session is starting in <xliff:g id=\"remaining_time\">%1$d</xliff:g> min.";
+
+/* Title for the notification that alerts the user that some of their sessions are about to begin. */
+"x-sessions-are-starting-in-x-min-5e096a09fc812a3e76d4b11579d32c26" = "<xliff:g id=\"num_sessions\">%2$d</xliff:g> sessions are starting in <xliff:g id=\"remaining_time\">%1$d</xliff:g> min.";
+
+/*  */
+"duration_hours" = "%@ hour";
+
+/*  */
+"x-hours" = "%@ hours";
+
+/*  */
+"duration_minutes" = "%@ minute";
+
+/*  */
+"x-minutes" = "%@ minutes";
+
+/* Shown in the 'About' window of the app. */
+"about_main" = "<b>Google I/O 2016</b><br>\n        Version %@";
+
+/* Shown as a link in the About screen of the app; user can click to see the Terms of Services. */
+"about_terms" = "Terms of Service";
+
+/* Shown as a link in the About screen of the app; user can click to see the Privacy Policy. */
+"about_privacy_policy" = "Privacy Policy";
+
+/* Shown as a link in the About screen of the app; user can click to see the EULA. */
+"about_eula" = "End User License Agreement";
+
+/* Shown as a link in the About screen of the app; user can click it to see the licenses. */
+"about_licenses" = "Open Source Licenses";
+
+/* Label on a button that the user clicks to accept a license agreement. */
+"accept" = "Accept";
+
+/* Label on a button that, when clicked, adds the currently displayed session to their schedule. */
+"add_to_schedule" = "Add to schedule";
+
+/* Accessibility description for a button that, when clicked, adds the currently
+displayed session to the user's schedule. */
+"add_to_schedule_desc" = "Button to add session to your schedule";
+
+/* Shown in a drop-down list on the main screen, indicating that all conference themes
+are being displayed. Themes are major categories for sessions (the themes are Design,
+Develop and Distribute). */
+"all_themes" = "All Themes";
+
+/* Shown in a drop-down list on the main screen, indicating that all conference topics
+are being displayed. Topics are major categories for sessions (example topics are: Android,
+Chrome, Google APIs, Wearables, etc). */
+"all_topics" = "All Topics";
+
+/* Shown in a drop-down list on the main screen, indicating that all session types
+are being displayed. Some examples of session types are: session, office hours, code lab. */
+"all_types" = "All Types";
+
+/* Label on a button that is one possible answer to the question "Are you attending the
+conference in person in San Francisco or remotely via livestream?" */
+"attending_in_person" = "In Person";
+
+/* Label on a button that is one possible answer to the question "Are you attending the
+conference in person in San Francisco or remotely via livestream?" */
+"attending_remotely" = "Remotely";
+
+/* Label on a button that allows the user to see what conference sessions are available
+at a particular time. */
+"browse_sessions" = "BROWSE SESSIONS";
+
+/* Shown on Configure WiFi dialog, instructing user on what button to click. */
+"calltoaction_wifi_configure" = "<br><br>Tap 'Add Wi-Fi Network' to proceed.";
+
+/* Shown on Configure WiFi dialog, instructing user on what button to click. */
+"calltoaction_wifi_settings" = "<br><br>Tap 'Open Wi-Fi Settings' to enable Wi-Fi.";
+
+/* Accessibility description for a control that allows the user to close the current screen
+and go back to the previous one. */
+"close_and_go_back" = "Close and go back";
+
+/* Label on a button that allows the user to cancel an operation before it starts. For
+example, this may be a button on a dialog that says "This will delete your data." */
+"cancel" = "Cancel";
+
+/* Shown as the title of the user's schedule for today */
+"day_title_today" = "Today";
+
+/* Shown as the title of the user's schedule for tomorrow */
+"day_title_tomorrow" = "Tomorrow";
+
+/* Shown as the title of the user's schedule for yesterday */
+"day_title_yesterday" = "Yesterday";
+
+/* Label on a button that the user clicks to decline something (for example, a license
+agreement). */
+"decline" = "Decline";
+
+/* Menu item that brings up the application's About screen */
+"description_about" = "About";
+
+/* Menu item that allows user to configure the conference WiFi on their device. */
+"description_configure_wifi" = "Configure Wi-Fi";
+
+/* Menu item that takes the user to the conference venue map screen */
+"description_map" = "Map";
+
+/* Menu item that allows user to reload the data in the current screen so they see
+the most up-to-date version from the server. */
+"description_refresh" = "Refresh data";
+
+/* Menu item that allows the user to start a search for a session by name. After clicking,
+they type in their search query. */
+"description_search" = "Search";
+
+/* Explanation of wifi setup that appears in the WiFi setup dialog box. */
+"description_setup_wifi_body" = "Since you're attending in person, we can set up this device to access the conference\n        Wi-Fi network (5Ghz only). By configuring your Wi-Fi now, you'll help prevent network\n        congestion.";
+
+/* Menu item that allows user to share the currently displayed session. Sharing can be done
+by email, social networks, etc. */
+"description_share" = "Share";
+
+/* Session Detail label for Extended Session link. */
+"description_extended" = "Extended Session";
+
+/* Accessibility for the links to the G+ or Twitter pages for speakers.
+For example: "Go to the Twitter page for Sally Sample. */
+"speaker_social_page" = "Go to the %1$@ page for %2$@";
+
+/* Shown on the Session page, alerting user that no details could be found for that session. */
+"empty_session_detail" = "No session details found.";
+
+/* Shown on the Session page if a session is being livestreamed. */
+"session_live_streamed" = "Live streamed";
+
+/* Text under play button on session page if a session is currently being livestreamed. */
+"session_watch_live" = "Watch Live";
+
+/* Text under play button on session page if a session is no longer being livestreamed. */
+"session_watch" = "Watch";
+
+/* Text under play button on session page if a livestreamed session was previously watched. */
+"session_replay" = "Replay";
+
+/* Shown on a widget that normally displays upcoming sessions. This is shown after the
+conference, when there are no more sessions to show. */
+"empty_widget_text" = "No more upcoming sessions.\nSee you next year!";
+
+/* Label for a button to answer the question "Would you like to send feedback
+about this session?" which, when clicked, allows the user to send their feedback (ratings
+and comments) about a particular session [CHAR_LIMIT=10]. */
+"str_yes" = "Yes";
+
+/* Keynotes group title for the video library */
+"keynote_group_title" = "Keynotes";
+
+/* Short text appended to the end of the session subtitle when the session will be live
+streamed. Constrained to 10 chars because the session subtitle should be small enough to fit
+into the explore cards. [CHAR_LIMIT=10] */
+"live_available" = "LIVE";
+
+/* Short text appended to the end of the session subtitle when the session is currently being
+streamed. Also used in a "LIVE" badge overlay that shows up on top of the session card.
+Constrained because the session subtitle should be small enough to fit into the
+explore cards. [CHAR_LIMIT=10] */
+"live_now" = "LIVE NOW";
+
+/* Message shown in an error bar when there is a problem synchronizing the user's sessions
+to their account. Can be summarized as "Synchronization failed." if too long [CHAR_LIMIT=50] */
+"login_failed_text" = "Could not sync your sessions due to an error.";
+
+/* Button to retry a failed login attempt [CHAR_LIMIT=2 lines of 9 characters].
+If using multiple lines, separate them with "
+" ("Tentar
+de novo" for example) */
+"login_failed_text_retry" = "Retry";
+
+/* Message displayed when the location permission was denied */
+"map_permission_denied" = "App permission denied.";
+
+/* Button to view more Videos or sessions from the videos/sessions card view. */
+"more_items_button" = "More";
+
+/* Text for the title of an extra schedule item on the pre conference day */
+"my_schedule_badgepickup" = "Badge Pick-Up";
+
+/* Text for the description of an extra schedule item on the pre conference day */
+"my_schedule_badgepickup_description" = "Registration Desk";
+
+/* Accessibility announcement to confirm the feedback rating made for a session by the user. */
+"feedback_rating_confirmation" = "Your rating: %1$d out of %2$d stars\"";
+
+/* Accessibility announcement for an item in the custom feedback rating view. For example, "one star". */
+"feedback_rating_value" = "%d star";
+
+/* Text that shows session is reserved on Schedule and My I/O */
+"schedule_item_reserved" = "Reserved";
+
+/* Text that shows session is not reserved on Schedule and My I/O */
+"schedule_item_not_reserved" = "Not reserved";
+
+/* Text that shows session is waitlisted on Schedule and My I/O */
+"schedule_item_waitlisted" = "Waitlisted";
+
+/* Label for the button to rate a session */
+"my_schedule_rate_this_session" = "RATE THIS SESSION";
+
+/* Label for reserve session button when it is reservable */
+"my_schedule_reserve_seat" = "Reserve Seat";
+
+/* Label for reserve session button while request is getting processed */
+"my_schedule_request_pending" = "Request Pending…";
+
+/* Label for reserve session button if session is already reserved by user */
+"my_schedule_already_reserved" = "Seat Reserved";
+
+/* Label for reserve session button if reserving is disabled for whatever reason */
+"my_schedule_reserve_disabled" = "Reserving is disabled";
+
+/* Label for reserve session button if reserving is disabled due to auth */
+"my_schedule_reservation_disabled_auth_button_text" = "Must sign in to reserve";
+
+/* Message in info dialog explaining why reservations are disabled when user is not signed in
+or not registered */
+"my_schedule_reservation_must_sign_in_and_register_message" = "You must be signed in and registered for the event in order to register.";
+
+/* Title for info dialog explaining why reservations are disabled when user is not signed in
+or not registered */
+"my_schedule_reservation_why_disabled" = "Reservations Disabled";
+
+/* Label for reserve session button if user is waitlisted for session */
+"my_schedule_waitlisted" = "Waitlisted";
+
+/* Label for reserve session button if session is full and accepting waitlist requests */
+"my_schedule_join_waitlist" = "Join Waitlist";
+
+/*  */
+"cancel_booking_confirmation" = "Please let us know the reason of cancellation.";
+
+/* Message in alert dialog that tells you your seat reservation was successfully cancelled */
+"my_schedule_return_successful_message" = "Your seat reservation was\n        cancelled.";
+
+/* Message in alert dialog that tells you your seat reservation was successfully cancelled */
+"my_schedule_return_successful_title" = "Reservation Cancellation";
+
+/* Message in alert dialog when attempted reservation cancellation was past the cutoff time */
+"my_schedule_return_denied_cutoff_message" = "Reservations are not cancellable 60\n        minutes before the start time.";
+
+/* Reservation window closed info */
+"my_schedule_reservation_window_closed_info" = "Events are not reservable 60 minutes\n        before the start time. A portion of seats will be held and available first-come,\n        first-served onsite.";
+
+/* Message in alert dialog when reservation failed for unknown reason. */
+"my_schedule_reservation_request_failed_message" = "Server error: Request\n        failed, please try again later.";
+
+/* Title for alert dialog when reservation cancellation failed for unknown reason. */
+"my_schedule_request_failed_title" = "Request failed";
+
+/* Title for reservation cancellation confirmation dialog */
+"my_schedule_reservation_cancel_confirm_title" = "Confirm Cancellation";
+
+/* Message in reservation cancellation confirmation dialog */
+"my_schedule_reservation_cancel_confirm_message" = "Are you sure you want to\n        cancel your session reservation?";
+
+/*  */
+"cancel_confirm_message" = "Are you sure you want to cancel your request?";
+
+/* Title for waitlist cancellation confirmation dialog */
+"my_schedule_waitlist_cancel_confirm_title" = "Cancel Waitlist Request";
+
+/* Accessibility description for navigation drawer */
+"navdrawer_description_a11y" = "Navigation Menu";
+
+/* Menu item to open the Feed screen [CHAR_LIMIT=20] */
+"navdrawer_item_feed" = "Feed";
+
+/* Menu item to open the Map screen [CHAR_LIMIT=20] */
+"navdrawer_item_map" = "Map";
+
+/* Menu item to open the Info screen [CHAR_LIMIT=20] */
+"navdrawer_item_info" = "Info";
+
+/* Menu item to open the My I/O screen [CHAR_LIMIT=20] */
+"navdrawer_item_my_io" = "My I/O";
+
+/* Menu item to open the My Schedule screen [CHAR_LIMIT=20] */
+"navdrawer_item_my_schedule" = "Schedule";
+
+/* List dropdown item on the Video Library screen allowing the user to choose to see
+the videos from the last year of Google I/O. */
+"new_videos_title" = "New for <xliff:g id=\"year\">%d</xliff:g>";
+
+/* Message shown in the session explorer when the user applies a filter that results no
+session */
+"no_matching_sessions" = "No matching sessions.";
+
+/* Message shown in the video library when the user applies a filter that results no video */
+"no_matching_videos" = "No matching videos.";
+
+/* Button of a card in session or session explorer that dismiss the card.
+One sample of such card is "How was this session? We would love to hear your feedback"  with
+"Give feedback" and "No, thanks" as buttons. [CHAR_LIMIT=20] */
+"no_thanks" = "No, thanks";
+
+/* A single button shown on informative popups, like EULA, open source licenses and About */
+"ok" = "OK";
+
+/* An application permission (this permission allows the application to modify the Google
+I/O schedule data). Shows on a permissions dialog screen. */
+"permission_write" = "Modify Google I/O schedule data";
+
+/*  */
+"pref_conf_message_cards_enabled_description" = "Display cards with conference information on the Explore screen. These are time based and may include promotional messages from partners.";
+
+/* Title in the Settings screen for the setting that enables display of cards with
+conference information in the explore screen. */
+"pref_conf_message_cards_enabled_title" = "Show conference messages";
+
+/* Title in the Settings screen for the setting that enables sending of anonymous usage
+statistics to Google. */
+"pref_analytics_enabled_title" = "Send anonymous usage statistics";
+
+/* Description in the Settings screen for the setting that enables sending of anonymous usage
+statistics to Google. */
+"pref_analytics_enabled_description" = "Send anonymous statistics about app usage\n    to Google.";
+
+/* Summary in the Settings screen for the "Show local times" option */
+"pref_local_times_description" = "Use your local time instead of the conference’s local time.";
+
+/* Title in the Settings screen for the "Show local times" option */
+"pref_local_times_title" = "Show local times";
+
+/* Summary in the Settings screen for the "Notify me to send feedback about my sessions" option */
+"pref_notify_feedback_description" = "Display notifications asking for your feedback about your selected sessions.";
+
+/* Title in the Settings screen for the "Notify me to send feedback about my sessions" option */
+"pref_notify_feedback_title" = "Notify me to send feedback";
+
+/* Summary in the Settings screen for the "Notify me when my sessions are about to begin" option */
+"pref_notify_starred_sessions_description" = "Display a notification when your selected sessions are about to begin.";
+
+/* Title in the Settings screen for the "Notify me when my sessions are about to begin" option */
+"pref_notify_starred_sessions_title" = "Notify me about my sessions";
+
+/* Title in the Settings screen for the "Synchronize my schedule with Google Calendar" option */
+"pref_sync_with_calendar_description" = "Automatically sync your sessions to Google Calendar.";
+
+/* Summary in the Settings screen for the "Synchronize my schedule with Google Calendar" option */
+"pref_sync_with_calendar_title" = "Sync with Google Calendar";
+
+/* This message is displayed to the user when they disable the Calendar sync and they have revoked the Calendar permission. We are letting them know we couldn't remove the items from their Calendar. */
+"pref_sync_with_calendar_permission_denied_during_disable" = "Could not remove items from calendar, permission denied.";
+
+/* This message is displayed to the user when they enable the Calendar sync and they don't allow the Calendar permission. We are letting them know we can't process the Calendar updates. */
+"pref_sync_with_calendar_permission_denied_during_enable" = "Could not sync the calendar, permission denied.";
+
+/* Text of a card shown in the Explore I/O screen that asks the user if they want to configure
+the conference WiFi. "Not now" and "Yes, please" are options show on the card */
+"question_setup_wifi_card_text" = "<b>Conference Wi-Fi</b><br/>\n        Would you like to setup this device to\n        access the 5 Ghz conference Wi-Fi?";
+
+/* Section title for videos related to a particular event session */
+"related_videos" = "Related Videos";
+
+/* Section title for sessions related to a particular event session */
+"related_sessions" = "Related Sessions";
+
+/* Button text indicating the session is in the user's schedule and can be removed */
+"remove_from_schedule" = "Remove from schedule";
+
+/* Accessibility content description for button used to remove the session from the user's schedule */
+"remove_from_schedule_desc" = "Button to remove session from your schedule.";
+
+/* Hint that the user can search across sessions */
+"search_hint" = "Search sessions";
+
+/* Search label that shows the type of data being searched for when the user clicks the
+Search button. */
+"search_label" = "Google I/O sessions";
+
+/* A fragment of text appended to a Google calendar event indicating it was added by this application */
+"session_calendar_suffix" = "- added by Google I/O Android app";
+
+/* Accessibility text announced as a response to pressing a button to add a session to the schedule. */
+"session_details_a11y_session_added" = "Session added to your schedule";
+
+/* Accessibility text announced as a response to pressing a button to remove a session from the schedule. */
+"session_details_a11y_session_removed" = "Session removed from your schedule";
+
+/* Button text to launch session feedback from session details */
+"rate_session" = "Rate session";
+
+/* A session feedback section label asking the user to rate the session overall */
+"session_rating_label_text" = "Session rating:";
+
+/* A session feedback option indicating the content was too advanced */
+"session_feedback_advanced" = "Too advanced";
+
+/* A session feedback option indicating the content was too basic */
+"session_feedback_basic" = "Too basic";
+
+/* Session feedback section title */
+"session_feedback_content_label_text" = "Based on the description/my expectations, the content was:";
+
+/* Notification ticker text asking the user to provide session feedback */
+"session_feedback_notification_ticker" = "Provide session feedback";
+
+/* A negative overall session reating */
+"session_feedback_not_so_awesome" = "Not so awesome";
+
+/* A positive overall session reating */
+"session_feedback_awesome" = "Awesome";
+
+/* A negative relevance session feedback option */
+"session_feedback_not_at_all_relevant" = "Not at all";
+
+/* A negative relevance session feedback option */
+"session_feedback_extremely_relevant" = "Extremely";
+
+/* A positive speaker quality session feedback option */
+"session_feedback_outstanding" = "Outstanding";
+
+/* A negative speaker quality session feedback option */
+"session_feedback_poor" = "Poor";
+
+/* A session feedback section label asking for the session's relevance to the user's projects */
+"session_feedback_relevance" = "How relevant was this session to your projects?";
+
+/* A session feedback section label asking for the speaker's quality */
+"session_feedback_speaker_quality" = "Speaker quality:";
+
+/* Button text for submitting session feedback */
+"session_feedback_submitlink" = "Submit Feedback";
+
+/* Text indicating the session has ended */
+"session_finished" = "Ended";
+
+/* Card text asking the user to provide session feedback */
+"session_give_feedback_message" = "How was this session? Would you like to send feedback?";
+
+/* Link text for the user to watch a live video stream of the session */
+"session_link_livestream" = "Watch Live";
+
+/* Link text taking the user to the session's Google Moderator page */
+"session_link_moderator" = "Moderator";
+
+/* Link text taking the user to the session's notes page */
+"session_link_notes" = "Official notes";
+
+/* Link text taking the user to the session's slides page */
+"session_link_pdf" = "Slides";
+
+/* Link text taking the user to the session's YouTube page */
+"session_link_youtube" = "YouTube video";
+
+/* Notification text that a session is starting in some number of minutes */
+"session_notification_text_1" = "starting in <xliff:g id=\"remaining_time\">%d</xliff:g> min.";
+
+/* Short text indicating that the session is currently happening */
+"session_now" = "Now";
+
+/* Label for a session section listing the requirements for the session */
+"session_requirements" = "Requirements";
+
+/* Label for a session section listing the presenters at the session */
+"session_speakers" = "Speakers";
+
+/* Subtitle of a session indicating time interval and room number */
+"session_subtitle" = "<xliff:g id=\"time\">%1$@</xliff:g> in <xliff:g id=\"room\">%2$@</xliff:g>";
+
+/* Re-share template text indicating the user is at a particular session */
+"share_template" = "Check out '<xliff:g id=\"title\">%1$@</xliff:g>' at <xliff:g id=\"hashtags\">%2$@</xliff:g> <xliff:g id=\"url\">%3$@</xliff:g>";
+
+/* Notification action text for snoozing the notification for some number of minutes */
+"snooze_x_min" = "Snooze <xliff:g id=\"remaining_time\">%d</xliff:g> min.";
+
+/* Short text label indicating a grouping of themes */
+"themes" = "Themes";
+
+/* Text indicating the session is going to start in some number of minutes */
+"time_hint_about_to_start_min" = "This session will start in <xliff:g id=\"minutes\">%d</xliff:g> min.";
+
+/* Text indicating the session is going to start in less than 1 minute */
+"time_hint_about_to_start_shortly" = "This session is about to start (less than 1 minute).";
+
+/* Text indicating the session has ended */
+"time_hint_session_ended" = "This session has ended.";
+
+/* Text indicating the session just started */
+"time_hint_started_just" = "This session is happening now! (just started)";
+
+/* Text indicating the session is in progress but has not completed */
+"time_hint_started_min" = "This session is happening now! (started <xliff:g id=\"minutes\">%d</xliff:g> min. ago)";
+
+/* Title text for dialog screen about the application */
+"title_about" = "About";
+
+/* Navigation bar text for exploring the sessions */
+"title_explore" = "Explore";
+
+/* Navigation bar text for the map */
+"title_map" = "Map";
+
+/* Navigation bar text for viewing the user's My I/O */
+"title_my_io" = "My I/O";
+
+/* Navigation bar text for viewing the user's schedule */
+"title_schedule" = "Schedule";
+
+/* Navigation bar text for viewing the Feed */
+"title_feed" = "Feed";
+
+/* Navigation bar text for viewing Info */
+"title_info" = "Info";
+
+/* Label for Search screen, that allows users to search for sessions. */
+"title_search" = "Search";
+
+/* Map breadcrumb text for navigating session entries */
+"title_session_detail" = "Session Information";
+
+/* Label for SessionFeedback activity */
+"title_session_feedback" = "Session Feedback";
+
+/* Label for Event info fragment */
+"title_event" = "Event";
+
+/* Label for Travel info fragment */
+"title_travel" = "Travel";
+
+/* Label for Frequently Asked Questions info fragment */
+"title_faq" = "FAQ";
+
+/* Label for Settings fragment */
+"title_settings" = "Settings";
+
+/* Chooser dialog text when the user is selecting an application with which to share something */
+"title_share" = "Share using";
+
+/* Label for VideoLibrary activity */
+"title_video_library" = "Videos";
+
+/* Label for exploration category which groups session topics */
+"topics" = "Topics";
+
+/* Label for exploration category which groups session types */
+"types" = "Types";
+
+/* Text for a session subtitle indicating it does not have a room specified */
+"unknown_room" = "(Unspecified Room)";
+
+/* Text for a button which allows the user to watch this particular session on live stream. */
+"watch_now" = "Watch Now!";
+
+/* Short text welcoming the user to the application */
+"welcome_to_google_i_o" = "Welcome to #io17";
+
+/* Medium-length welcome text indicating the subsequent text is important legal information */
+"welcome_text" = "Before getting started, here is some important legal information regarding the use of this app.";
+
+/* Short text introducing the code of conduct for attendees coming in person */
+"welcome_conduct_title" = "I/O Community Best Practices";
+
+/* Medium-length welcome text asking if the user is attending Google I/O in person */
+"welcome_attending_text" = "Are you attending I/O remotely or in person in Mountain View?";
+
+/* Short text asking them to select an account */
+"welcome_select_account" = "Select an account";
+
+/* Medium text asking to choose an account from a list */
+"welcome_select_accoun_text" = "Please choose an account to use:";
+
+/* Text for a button which will add a wi-fi network */
+"wifi_dialog_button_configure" = "Add WiFi Network";
+
+/* Text for a button which will open the user's Wi-Fi settings */
+"wifi_dialog_button_settings" = "Open WiFi Settings";
+
+/* Title of the Video library screen when only videos of a given topic are displayed */
+"title_topic_filtered_video_library" = "Videos about <xliff:g id=\"topic\">%@</xliff:g>";
+
+/* Title of the Video library screen when only videos of a given year are displayed */
+"title_year_filtered_video_library" = "<xliff:g id=\"year\">%d</xliff:g> videos";
+
+/* Title of the Video library screen when only videos of a given year and a given topic are displayed */
+"title_year_and_topic_filtered_video_library" = "<xliff:g id=\"year\">%1$d</xliff:g> videos about <xliff:g id=\"topic\">%2$@</xliff:g>";
+
+/* Text of the Filter menu icon */
+"description_filter" = "Filter";
+
+/* Text of the My I/O avatar icon whilst signed out */
+"description_avatar_signed_out" = "Sign in";
+
+/* Text of the My I/O avatar icon whilst signed in */
+"description_avatar_signed_in" = "Sign out";
+
+/* Title of the Video library side panel containing all the filters */
+"title_video_library_filter" = "Filter";
+
+/* Sub-title for the Year filters */
+"year_filter_section_label" = "Year";
+
+/* Sub-title for the Topic filters */
+"topic_filter_section_label" = "Topic";
+
+/* Label of filter option that allow to display all elements */
+"all" = "ALL";
+
+/* Title of the Explore Sessions side panel containing all the filters */
+"title_explore_sessions_filter" = "Filter";
+
+/* Label of filter option to show only sessions */
+"filter_label_sessions_only" = "Sessions only";
+
+/* Label of filter option to show only sessions (intentional space) */
+"active_filters_description" = "Filters:";
+
+/* Label for a button which clears all filters in the filter pane */
+"clear_all" = "Clear all";
+
+/* Label for a button which clears all filters in the filter pane */
+"clear_filters" = "Clear filters";
+
+/* BEGIN Explore Message Card User Messages */
+"explore_io_notifications_ask_opt_in" = "<b>Session Notifications</b><br/>\n        Would you like to receive notifications for sessions on your schedule?";
+
+/*  */
+"explore_io_msgcards_ask_opt_in" = "<b>Conference Messages</b><br/>\n        Would you like to receive important messages about the conference? Messages are time based and may include promotional messages from partners.";
+
+/* This is used on the Explore I/O message cards to answer yes to a particular message */
+"explore_io_msgcards_answer_yes" = "Sure, let's do it!";
+
+/* This is used on the Explore I/O message cards to answer no to a particular message */
+"explore_io_msgcards_answer_no" = "No thanks";
+
+/* This string is presented to users when they attempt to click something that indicates they
+can watch a video but it turns out we can't show the video. */
+"explore_io_video_id_not_valid" = "Sorry, there appears to be a problem with the video url.";
+
+/*  */
+"explore_io_on_the_ground_title" = "On the Ground";
+
+/* Error message that is displayed when we aren't able to connect to Google Play Services,
+potentially due to a server error or loss of network connectivity. */
+"google_play_services_disconnected" = "Unable to connect to Google Play Services";
+
+/* Error message that is displayed when connection to GoogleP Play Services fails and there
+is no resolution. */
+"google_play_services_failed" = "Sorry, connection to Google Play Services failed";
+
+/* Message displayed to users as part of onboarding sign in. */
+"signin_message" = "Sign in to reserve seats for events ahead of time, sync saved\n        and reserved events from your account across mobile and desktop and provide feedback once\n        sessions have ended. You'll be able to save events locally without signing-in.";
+
+/* Label used when asking a user to sign in. */
+"signin_prompt" = "Sign in";
+
+/* Label used on an onboarding screen when user provides a positive response. */
+"yes" = "Yes";
+
+/* Label used on an onboarding screen when the user provides a negative response. */
+"no" = "No";
+
+/* Title for onboarding screen asking users if they want conference notifications. */
+"onboarding_notifications_title" = "I/O Notifications";
+
+/* Text shown on the onboarding screen asking users if they want conference notifications. */
+"onboarding_notifications_opt_in" = "Would you like to receive notifications about I/O?\nWe'll send you important\n        information about the event, agenda, schedule, travel, after hours, session recordings\n        and more. You can change this setting under \"Info > Settings\" at any time.";
+
+/* Text shown on the onboarding sign-in screen. */
+"onboarding_sign_in" = "Would you like to sign in to reserve seats for events ahead of time, sync saved events from\n        your account across mobile and desktop, and provide feedback once sessions have ended?\n        You'll still be able to save events locally without signing-in but the information won’t be\n        synced to your account.\n\nIMPORTANT: In order to reserve seats at events, you’ll need to\n        sign in with the same email address you used to register for Google I/O.";
+
+/* Message displayed in a card to the user on the My I/O screen after they have signed in. */
+"signed_in_card_message" = "Your saved and reserved events appear below and are synced from your account across\n        mobile and desktop.";
+
+/* Label used when asking a user to sign out. */
+"signout_prompt" = "Sign out";
+
+/* Label used on the onboarding sign in screen for skipping sign in. */
+"signin_prompt_skip" = "Skip";
+
+/* Label used for the user to dismiss a card. */
+"signin_prompt_dismiss" = "Dismiss";
+
+/* Button for finding quickly navigating from a day within My I/O to the relevant day within
+schedule */
+"add_events" = "Add Events";
+
+/* An introductory string used in the My I/O dialog to a signed out user */
+"my_io_body_intro_signed_out" = "Sign in to:";
+
+/* An introductory string used in the My I/O dialog to a signed in user */
+"my_io_body_intro_signed_in" = "As a signed in user:";
+
+/* The first bulletpoint string used in the My I/O dialog to a signed out user */
+"my_io_dialog_first_bullet_point_signed_out" = "Reserve seats for events ahead of time.";
+
+/* The first bulletpoint string used in the My I/O dialog to a signed in user */
+"my_io_dialog_first_bullet_point_signed_in" = "You can reserve seats for events ahead of time (up to one reservation per time\n        block).";
+
+/* The second bulletpoint string used in the My I/O dialog to a signed out user */
+"my_io_dialog_second_bullet_point_signed_out" = "Sync your saved and reserved events from your account across mobile and desktop.";
+
+/* The second bulletpoint string used in the My I/O dialog to a signed in user */
+"my_io_dialog_second_bullet_point_signed_in" = "Your saved and reserved events are synced from your account across mobile and\n        desktop.";
+
+/* The third bulletpoint string used in the My I/O dialog to a signed out user */
+"my_io_dialog_third_bullet_point_signed_out" = "Provide session feedback after sessions end.";
+
+/* The third bulletpoint string used in the My I/O dialog to a signed in user */
+"my_io_dialog_third_bullet_point_signed_in" = "You can provide session feedback after sessions end.";
+
+/* Message shown when a user initiated sign in fails. */
+"signin_failed_text" = "Could not sign in. Please try again.";
+
+/* Message shown when a user initiated sign out fails. */
+"signout_failed_text" = "Could not sign out. Please try again.";
+
+/* Strings for Info page */
+"wifi_network_label" = "Wifi network";
+
+/*  */
+"wifi_password_label" = "Password";
+
+/*  */
+"setup_wifi" = "Save wifi network";
+
+/* Snackbar message confirming save of wifi network */
+"wifi_install_success" = "Wifi network saved";
+
+/* Snackbar message if failed to save the wifi network */
+"wifi_install_error_message" = "Sorry, unable to save wifi network";
+
+/*  */
+"view_sessions_text" = "View Sessions";
+
+/*  */
+"view_codelabs_text" = "View Codelabs";
+
+/*  */
+"view_events_text" = "View Events";
+
+/*  */
+"view_map_text" = "View Map";
+
+/*  */
+"event_sandbox_title" = "Sandbox";
+
+/*  */
+"event_codelabs_title" = "Codelabs";
+
+/*  */
+"event_officehours_title" = "Office Hours & App Reviews";
+
+/*  */
+"event_afterhours_title" = "After Hours";
+
+/*  */
+"travel_details_title" = "Travel Details";
+
+/*  */
+"travel_shuttle_info_title" = "Shuttle Service";
+
+/*  */
+"travel_carpool_parking_info_title" = "Parking & Carpool";
+
+/*  */
+"travel_public_transportation_info_title" = "Public Transportation";
+
+/*  */
+"travel_biking_info_title" = "Biking";
+
+/*  */
+"travel_ride_sharing_info_title" = "Ride Sharing";
+
+/*  */
+"settings_time_zone_label" = "Show events in Pacific Time (PT)";
+
+/*  */
+"settings_enable_notifications" = "Enable notifications";
+
+/*  */
+"settings_enable_anon_statistics" = "Send anonymous usage statistics";
+
+/*  */
+"about_terms_url" = "https://www.google.com/policies/terms/";
+
+/*  */
+"about_app_version" = "Version %@";
+
+/*  */
+"feed_error" = "Error loading feed.";
+
+/* Button text indicating that the session can be added to the user's bookmarks. */
+"add_bookmark" = "Add bookmark";
+
+/* Button text indicating that the session can be removed from the user's bookmarks. */
+"remove_bookmark" = "Remove bookmark";
+
+/* Opt-out text to stop seeing bookmark related hints. */
+"bookmark_hint_optout" = "Got it";
+
+/* The label used on a button when a view is in an expanded state. Clicking on the icon
+collapses the view. */
+"expanded" = "Expanded";
+
+/* The label used on a button when a view is in an collapsed state. Clicking on the icon
+expanded the view. */
+"collapsed" = "Collapsed";
+
+/* Navigation Menu Text */
+"txt_get_a_ride" = "Get a ride";
+"txt_ride_hist" = "Ride history";
+"txt_notifications" = "Notifications";
+"txt_help" = "Help";
+"txt_scan_n_pay" = "Scan N Pay";
+"txt_settings" = "Settings";
+
+"txt_payment_methods" = "Payment Methods";
+/*  */
+"open" = "Open";
+
+/*  */
+"close" = "Close";
+
+/*  */
+"txt_feedback" = "Feedback";
+
+/*  */
+"str_create_account" = "Sign up";
+
+/*  */
+"str_my_trips" = "My Trips";
+
+/*  */
+"str_settings" = "Settings";
+
+/*  */
+"str_already_account" = "Already have an account?";
+
+/*  */
+"str_no_account" = "New to Karwa?";
+
+/*  */
+"str_forgot_pass" = "Forgot password?";
+
+/*  */
+"str_title_forgot_pass" = "Forgot Your Password?";
+
+/*  */
+"str_create_new" = "create new";
+
+/*  */
+"str_enter_mobile" = "Enter Your Mobile Number";
+
+/*  */
+"str_mobile_number" = "Number";
+
+/*  */
+"hint_set_pickup" = "Set Pickup";
+
+/*  */
+"hint_set_destination" = "set drop-off location";
+
+/*  */
+"str_password" = "Password";
+
+/*  */
+"str_name" = "Name";
+
+/*  */
+"str_verify_code_sent" = "Enter 4-digit code Karwa just sent to you";
+
+/*  */
+"str_code" = "Enter Your Code";
+
+/*  */
+"header_verify_otp" = "Confirm your number";
+
+/*  */
+"hint_search_pickup" = "Search Pickup";
+
+/*  */
+"hint_search_dropoff" = "Search Drop off";
+
+/*  */
+"str_qatar" = "Qatar";
+
+/*  */
+"str_qatar_country_name_code" = "QA";
+
+/*  */
+"str_qatar_country_code" = "+974";
+
+/*  */
+"str_number_example" = "12345678";
+
+/*  */
+"str_phone_number_hint" = "+97412345678";
+
+/*  */
+"str_phone" = "Phone";
+
+/*  */
+"str_email" = "Email";
+
+/*  */
+"str_email_caps" = "EMAIL";
+
+/*  */
+"str_terms_of_services_hyper_link" = "Terms of Services";
+
+"str_logging_in" = "Logging In";
+
+"str_retrieving_your_password" = "Retrieving your password";
+
+"str_confirming_code" = "Confirming Code";
+
+/*  */
+"str_help" = "Help";
+
+"str_signing_up" = "Signing Up";
+
+/*  */
+"str_agree_text" = "By signing up you agree to the";
+
+/*  */
+"str_email_optional" = "Email";
+
+/*  */
+"err_enter_valid_number" = "Please Enter Valid Phone Number";
+
+/*  */
+"err_enter_valid_email" = "Please Enter Valid Email Address";
+
+/*  */
+"err_name_not_valid" = "Please enter a valid name";
+
+/*  */
+"err_password_not_valid" = "Password is less than 6 characters";
+
+/*  */
+"progress_dialog_title_just_a_moment" = "Just a moment";
+
+/*  */
+"please_dialog_msg_account_creation" = "We are registering you";
+
+/*  */
+"please_dialog_msg_cancel_booking" = "We are cancelling your booking";
+
+/*  */
+"please_dialog_msg_rate_booking" = "We are saving your valuable review";
+
+/*  */
+"please_dialog_msg_delete_payment" = "We are removing your payment method";
+
+/*  */
+"please_dialog_msg_forgot_password" = "Verifying your information";
+
+/*  */
+"please_dialog_msg_login" = "Verifying your account";
+
+/*  */
+"please_dialog_msg_logout" = "We are logging you out";
+
+/*  */
+"please_dialog_msg_reg_finalization" = "Finalizing your registeration";
+
+/*  */
+"please_dialog_msg_requesting_resend_code" = "Requesting resend code";
+
+/*  */
+"please_dialog_msg_requesting_est_fare" = "Requesting estimated fare";
+
+/*  */
+"dialog_title_payment_removal" = "Remove Payment Method";
+
+/*  */
+"str_oops" = "Ooooops";
+
+/*  */
+"please_dialog_msg_went_wrong" = "Something went wrong";
+
+/*  */
+"str_dash" = "-";
+
+/*  */
+"str_did_not_get_otp" = "Didn't get a code,";
+
+/*  */
+"str_resend" = "Send again";
+
+/*  */
+"str_resend_caps" = "RESEND";
+
+/*  */
+"resend_pass_sent" = "Access code sent via SMS";
+
+/*  */
+"err_empty_field" = "Field can not be empty";
+
+/*  */
+"err_pass_length" = "Password can't be less than 6 characters";
+
+/*  */
+"title_activity_maps" = "Map";
+
+/*  */
+"permission_required_toast" = "Location permission is required to run this activity.";
+
+/*  */
+"booking_fragment_location_permission_rationale" = "To show your current location on map, please allow this app to use location services.";
+
+/*  */
+"str_set_destination" = "Set Destination, Start your booking";
+
+/*  */
+"pickDropSceneView" = "pick_drop_scene_view";
+
+/*  */
+"str_cash" = "Cash";
+
+/*  */
+"str_current_date_time" = "Date Time";
+
+/*  */
+"str_booking_confirmation" = "Booking Confirmation";
+
+"str_booking_confirmation_content" = "your booking will be made when you confirm this, you can add additional booking info below (if you want)";
+"str_booking_msg_eg" = "(e.g. gate no. 4 villaggio mall)";
+
+/*  */
+"str_booking_confirmation_hint" = "Enter Additional Booking Info";
+
+/*  */
+"str_confirmation" = "Confirmation";
+
+/*  */
+"str_booking_id" = "Booking ID";
+
+/*  */
+"empty" = "";
+
+/*  */
+"str_booking_confirmation_book" = "Book";
+
+/*  */
+"str_cancel" = "CANCEL";
+
+/*  */
+"please_dialog_msg_booking_creation" = "We are creating your booking";
+
+/*  */
+"please_dialog_msg_booking_creation_desc" = "Applying Promo Code";
+
+/*  */
+"str_list_view" = "ADDRESSES";
+
+/*  */
+"str_map_view" = "MAP";
+
+/*  */
+"set_as_home" = "Save as Home";
+
+/*  */
+"set_as_work" = "Save as Work";
+
+/*  */
+"set_as_home_address" = "Set Home Address";
+
+"set_as_favorite" =  "Set Favorite";
+
+/*  */
+"set_as_work_address" = "Set Work Address";
+
+/*  */
+"str_address" = "Address";
+
+/*  */
+"delete" = "Delete";
+
+/*  */
+"str_home_address_saved" = "Home location saved";
+
+/*  */
+"str_work_address_saved" = "Work location saved";
+
+/*  */
+"str_no_destination_set" = "no destination set";
+
+/*  */
+"str_no_path_found" = "No path found";
+
+/*  */
+"str_loading" = "Loading...";
+
+/*  */
+"str_unknown_place" = "Unknown place";
+
+/*  */
+"bookings_list" = "Bookings";
+
+/*  */
+"str_default_no_destination" = "No Destination Set";
+
+/*  */
+"str_no_location_set" = "No Location Set";
+
+/*  */
+"str_empty_trips" = "No Trips Found";
+
+/*  */
+"str_book" = "BOOK";
+
+/*  */
+"network_unreachable" = "Can't reach the Karwa network";
+
+/*  */
+"wait_finding_location" = "Please wait while we are finding your location";
+
+/*  */
+"locationServicesHeader" = "Location Services";
+
+/*  */
+"locaationServicesMsg" = "Allow location services to access your current location";
+
+/*  */
+"str_set_pickup_from_map" = "Set Pickup Location";
+
+/*  */
+"str_turn_on_location" = "Turn On Location Services";
+
+/*  */
+"str_request_on_location" = "Request Location Services";
+
+/*  */
+"january" = "Jan";
+
+/*  */
+"feburary" = "Feb";
+
+/*  */
+"march" = "Mar";
+
+/*  */
+"april" = "Apr";
+
+/*  */
+"may" = "May";
+
+/*  */
+"jun" = "Jun";
+
+/*  */
+"july" = "Jul";
+
+/*  */
+"aug" = "Aug";
+
+/*  */
+"sep" = "Sep";
+
+/*  */
+"oct" = "Oct";
+
+/*  */
+"nov" = "Nov";
+
+/*  */
+"dec" = "Dec";
+
+/*  */
+"hammadAirport" = "Hammad International Airport, Doha";
+
+/*  */
+"account_info_title" = "Account Info";
+
+/*  */
+"edit_account_info_title" = "Account Info";
+
+/*  */
+"changePass" = "Change Password";
+
+/*  */
+"favorites_title" = "Favorites";
+
+/*  */
+"basic_info_title" = "Basic Info";
+
+/*  */
+"other_title" = "Other";
+
+/*  */
+"strHome" = "Home";
+
+/*  */
+"calendarShortcuts" = "Calendar Shortcuts";
+
+/*  */
+"strNoLocSet" = "No location set";
+
+/*  */
+"strWork" = "Work";
+
+/*  */
+"strAirport" = "Airport";
+
+/*  */
+"strEnglish" = "English";
+
+/*  */
+"strLanguage" = "Language";
+
+/*  */
+"strRateApp" = "Rate This App";
+
+/*  */
+"strLogout" = "Logout";
+
+/*  */
+"str_remove" = "Remove";
+
+/*  */
+"str_home_address_removed" = "Home address removed";
+
+/*  */
+"str_work_address_removed" = "Work address removed";
+
+/*  */
+"str_confirm_logout" = "Are you sure you want to logout?";
+
+/*  */
+"str_confirm_set_home" = "Save location as home?";
+
+/*  */
+"str_confirm_set_work" = "Save location as work?";
+
+/*  */
+"disconnect_in_your_device" = "Disconnect from Settings";
+
+/*  */
+"disconnect_calendar_msg" = "To disconnect your calendar events from the app, go to Karwa in your device settings and turn off calendar access.";
+
+/*  */
+"calendarMessage" = "We assure you, no event from your calendar will be sent to our server.";
+
+/*  */
+"str_old_password" = "Old Password";
+
+/*  */
+"str_new_password" = "New Password";
+
+/*  */
+"str_confirm_new_password" = "Confirm New Password";
+
+/*  */
+"err_fields_not_same" = "New Password not match with Confirm Password";
+
+/*  */
+"dialog_msg_updating_profile" = "We are updating your profile";
+
+/*  */
+"profile_updated" = "Profile has been updated";
+
+/*  */
+"password_updated" = "Password has been updated";
+
+/*  */
+"str_fare" = "Fare";
+
+/*  */
+"str_est_fare" = "Est. Fare";
+
+/*  */
+"str_eta" = "ETA";
+
+/*  */
+"str_distance" = "Dis.";
+
+/*  */
+"str_km" = "km";
+
+/*  */
+"str_meter" = "m";
+
+/*  */
+"str_na" = "N/A";
+
+/*  */
+"transition_booking" = "bookingscene";
+
+/*  */
+"transition_pickup" = "pick_drop_scene_view";
+
+/*  */
+"str_arrived" = "Ride is arrived, driver is waiting for you!";
+
+
+"str_enable_location_services" = "Location services are disabled. Please enable location services.";
+
+/*  */
+"str_cancelled" = "Booking has been cancelled";
+
+/*  */
+"str_completed" = "Trip is completed, Thanks for choosing us!";
+
+/*  */
+"str_scheduled" = "Ride is scheduled";
+
+/*  */
+"str_no_ride_found" = "Ride not found, sorry for inconvenience.";
+
+/*  */
+"str_no_ride_available" = "No ride available";
+
+/*  */
+"str_available" = "available";
+
+/*  */
+"str_confirmed" = "Get ready, ride is arriving soon!";
+
+/*  */
+"str_searching_ride" = "Searching nearby ride, hold tight";
+
+/*  */
+"str_pickup" = "Enjoy the ride!";
+
+/*  */
+"fareDetails" = "Fare Details";
+
+/*  */
+"cancelBooking" = "Cancel Booking";
+
+/*  */
+"tripEBill" = "Trip E-Bill";
+
+/*  */
+"bookAgain" = "Book Again";
+
+/*  */
+"estimateTrip" = "Estimated Fare";
+
+/*  */
+"booking_cancelled" = "Booking has been cancelled";
+
+/*  */
+"str_close" = "CLOSE";
+
+/*  */
+"bill_not_available" = "E-Bill not available at this time";
+
+/*  */
+"str_fare_breakdown" = "FARE BREAKDOWN";
+
+/*  */
+"str_estimated_fare" = "الأجرة المقدرة";
+
+/*  */
+"str_loading_qr" = "--QAR";
+
+/*  */
+"str_starting_fare" = "Starting Fare";
+
+/*  */
+"uncought_exception" = "We encountered some unexcpected behaviour. We are getting ready for this response. Restart might solve the problem.";
+
+/*  */
+"restart" = "Restart";
+
+/*  */
+"exit" = "Exit";
+
+/*  */
+"str_cancel_booking_btn" = "Cancel Booking";
+
+/*  */
+"str_keep_booking_btn" = "Keep Booking";
+
+/*  */
+"no_estimated_fare_found" = "No Estimated Fare Found";
+
+/*  */
+"str_submit" = "Submit";
+
+/*  */
+"str_submit_upper" = "SUBMIT";
+
+/*  */
+"str_submit_n_report" = "SUBMIT & REPORT";
+
+/*  */
+"str_confirmation_cancel" = "Cancellation Reason";
+
+/*  */
+"please_select_reason" = "Please select reason first";
+
+/*  */
+"str_show" = "show";
+
+/*  */
+"str_hide" = "hide";
+
+/*  */
+"str_pas_change_header" = "No worries! enter your details below, and you will get your account back";
+
+/*  */
+"str_fare_comparison" = "Fare Details";
+
+/*  */
+"str_booking_colon" = "Booking:";
+
+/*  */
+"str_notifications" = "Notifications";
+
+/*  */
+"str_scan_qr_code" = "Scan QR Code";
+
+/*  */
+"str_rate_trip" = "RATE THIS TRIP";
+
+/*  */
+"rating_msg_no_satisfied" = "we're really sorry, tell us what happened";
+
+/*  */
+"rating_msg_completely_satisfied" = "overall good experience, impress with service";
+
+/*  */
+"rating_msg_satisfied" = "overall good experience, impress with service, but need some improvements";
+
+/*  */
+"err_empty_rating" = "Please rate the ride first";
+
+/*  */
+"err_empty_rating_reasons" = "Please selected the reason";
+
+/*  */
+"booking_rated" = "Thanks for your valuable review";
+
+/*  */
+"str_finding_your_ride" = "Searching your ride";
+
+/*  */
+"err_location_empty" = "Location is empty";
+
+/*  */
+"forgot_password_sub_header" = "No worries! enter your details below, and you will get your account back";
+
+/*  */
+"ps_rating_message" = "Please rate us on Play Store";
+
+/*  */
+"ps_rating_not_now" = "Not Now";
+
+/*  */
+"ps_rating_rate_now" = "Rate";
+
+/*  */
+"thank_you" = "Thank you";
+
+/*  */
+"str_to_reach" = "to reach";
+
+/*  */
+"str_to_arrive" = "to arrive";
+
+/*  */
+"rebookStr" = "Re-book This Ride";
+
+/*  */
+"complaintStr" = "Complaint or Lost Item";
+
+/*  */
+"complaintStrCapital" = "COMPLAINT OR LOST ITEM";
+
+/*  */
+"str_list_items" = "LOST ITEMS";
+
+/*  */
+"str_complaints" = "COMPLAINTS";
+
+/*  */
+"scanPaySubTitle" = "Scan your trip QR code from Meter for credit card payment";
+
+/*  */
+"okGotIt" = "OK, Got it";
+
+/*  */
+"requestPermissionAgain" = "This feature require camera permission to work, Press here to allow camera permission";
+
+/*  */
+"str_select_payment_method" = "Choose your payment option";
+
+/*  */
+"str_choose_payment_method" = "Payment Methods";
+
+/*  */
+"str_payment_methods" = "Payment Methods";
+
+/* on-boarding strings */
+"header_array[0]" = "Find Nearby Taxi and Limos";
+
+/*  */
+"header_array[1]" = "Start your booking";
+
+/*  */
+"header_array[2]" = "Set your destination";
+
+/*  */
+"header_array[3]" = "Best possible route";
+
+/*  */
+"header_array[4]" = "Select Taxi or Limo";
+
+/*  */
+"desc_array[0]" = "Track nearby taxis and limousines around pickup location";
+
+/*  */
+"desc_array[1]" = "By pressing <b>set destination, start your booking</b> will let you start your booking instantly";
+
+/*  */
+"desc_array[2]" = "Select destination from recent trips, popular places or drop a pin on map";
+
+/*  */
+"desc_array[3]" = "Get estimated fare for the best possible route details";
+
+/*  */
+"desc_array[4]" = "Swipe to change service type and enjoy your ride";
+
+/*  */
+"gateway_3d_secure_authentication" = "3-D Secure Authentication";
+
+/*  */
+"gateway_error_missing_summary_status" = "Missing summary status";
+
+/*  */
+"gateway_error_missing_3d_secure_id" = "Missing 3-D Secure Id";
+
+/*  */
+"title_action_reset" = "Reset";
+
+/*  */
+"label_card_number" = "XXXX XXXX XXXX XXXX";
+
+/*  */
+"label_expired_date" = "MM/YY";
+
+/*  */
+"label_card_holder" = "CARD HOLDER";
+
+/*  */
+"label_cvv_code" = "CVV CODE";
+
+/*  */
+"hint_card_number" = "16-DIGIT CARD NUMBER";
+
+/*  */
+"hint_expired_date" = "EXPIRED DATE";
+
+/*  */
+"hint_card_holder" = "CARD HOLDER";
+
+/*  */
+"hint_cvv_code" = "CVV CODE";
+
+/*  */
+"label_secure_submission" = "Secure Submission";
+
+/*  */
+"addNewCardText" = "+ ADD CARD";
+
+/*  */
+"addPaymentMethod" = "Add Card Details";
+
+/*  */
+"str_next" = "NEXT";
+
+/*  */
+"adding_card_payment_str" = "Adding card payment to your account";
+
+/*  */
+"verifying_card_information" = "Verifying card information";
+
+/*  */
+"strScanNPay" = "Scan N Pay";
+
+/*  */
+"unauthorized_qr_code" = "Un-Authorized QR Code";
+
+/*  */
+"unauthorized_ride_info" = "Un-Authorized Ride Information";
+
+/*  */
+"str_paying_with_card" = "We are paying your amount";
+
+/*  */
+"remove" = "Remove";
+
+/*  */
+"keep_payment" = "Keep";
+
+/*  */
+"str_fetching_ride" = "Fetching ride";
+
+/*  */
+"str_promo_text" = "Promo Code";
+
+/*  */
+"str_promo_str" = "Promo";
+
+/*  */
+"str_promo_desc" = "";
+
+/*  */
+"promo_apply" = "Apply";
+
+/*  */
+"promo_remove" = "Remove";
+
+/*  */
+"str_promo_hint" = "Enter Promo Code Here";
+
+/*  */
+"str_name_hint" = "Enter Name Here";
+
+/*  */
+"submit_complain" = "SUBMIT COMPLAIN";
+
+/*  */
+"err_empty_complain_remarks" = "Please add complain comments first";
+
+/*  */
+"str_add_comment_here" = "Add complain comment here";
+
+/*  */
+"str_save" = "Save";
+
+/*  */
+"str_complain_comment" = "Complain Comments";
+
+/*  */
+"send_email_msg" = "Verification email has been sent to your account, if you haven't received, please resend by tapping below link";
+
+/*  */
+"enter_email_msg" = "Please enter your email";
+
+/*  */
+"str_gender" = "Gender";
+
+/*  */
+"str_dob" = "Date of birth";
+
+/*  */
+"str_user_name" = "Enter Name";
+
+/*  */
+"email_verified" = "Email Verified";
+
+/*  */
+"resend_email_success" = "Email has been sent";
+
+/*  */
+"channel_name" = "karwa_notification_channel";
+
+/*  */
+"channel_description" = "channel used for karwa notifications";
+
+/*  */
+"error_sr" = "Error";
+
+/*  */
+"please_verify_email_str" = "Please verify your email before adding the new payment method.\nEntered email:";
+
+/*  */
+"str_verify_email" = "Please enter the complete email address";
+
+/*  */
+"gender_array[0]" = "Prefer not to mention";
+
+/*  */
+"gender_array[1]" = "Male";
+
+/*  */
+"gender_array[2]" = "Female";
+
+/*  */
+"no_result_found" = "Results not found";
+
+/*  */
+"select_country" = "Select a county";
+
+/*  */
+"payment_help_title_one" = "Add Credit Card";
+
+/*  */
+"payment_help_title_two" = "Scan QR Code";
+
+/*  */
+"payment_help_title_three" = "Pay Trip Fare";
+
+/*  */
+"payment_help_desc_three" = "Now, you can pay your trip by your credit card!";
+
+/*  */
+"payment_help_desc_two" = "Scan QR code from the taxi meter after ending the trip";
+
+/*  */
+"payment_help_desc_one" = "Getting started by adding a new credit card for scan n pay payment";
+
+/*  */
+"str_lets_start" = "LET'S START!";
+
+/*  */
+"cd_kmap" = "kmap";
+
+/*  */
+"dummy_cd" = "";
+
+/*  */
+"title_birthday" = "Happy Birthday";
+
+/*  */
+"birthday_qoutes_array[0]" = "Hope your special day brings you all that your heart desires! Here is wishing you a day full of pleasant surprises! Happy birthday from all of us at Karwa!";
+
+/*  */
+"birthday_qoutes_array[1]" = "A wish for you on your birthday, whatever you ask may you receive, whatever you seek may you find, whatever you wish may it be fulfilled on your birthday and always. Happy birthday from all of us at Karwa!";
+
+/*  */
+"birthday_qoutes_array[2]" = "Another adventure filled year awaits you. Welcome it by celebrating your birthday with pomp and splendor. Wishing you a very happy and fun-filled birthday! Happy birthday from all of us at Karwa!”";
+
+/*  */
+"birthday_qoutes_array[3]" = "May the joy that you have spread in the past come back to you on this day. Wishing you a very happy birthday!";
+
+/*  */
+"birthday_qoutes_array[4]" = "May you be gifted with life’s biggest joys and never-ending bliss. After all, you yourself are a gift to earth, so you deserve the best. Happy birthday from all of us at Karwa!";
+
+/*  */
+"birthday_qoutes_array[5]" = "Count not the candles…see the lights they give. Count not the years, but the life you live. Wishing you a wonderful time ahead. Happy birthday from all of us at Karwa!";
+
+/*  */
+"birthday_qoutes_array[6]" = "Birthdays are a new start, a fresh beginning and a time to pursue new endeavors with new goals. Move forward with confidence and courage. You are a very special person. May today and all of your days be amazing! Happy birthday from all of us at Karwa!";
+
+/*  */
+"birthday_qoutes_array[7]" = "Your birthday is the first day of another 365-day journey. Be the shining thread in the beautiful tapestry of the world to make this year the best ever. Enjoy the ride. Happy birthday from all of us at Karwa!";
+
+/*  */
+"birthday_qoutes_array[8]" = "On your birthday, We thought of giving you the cutest gift in the world. But then we realized that is not possible, because you yourself are the cutest gift in the world. Happy birthday from all of us at Karwa!";
+
+/* TODO: Remove or change this placeholder text */
+"hello_blank_fragment" = "Hello blank fragment";
+
+/* pick and drop screen address layout strings */
+"txt_favourites" = "Favorites";
+
+"txt_favourites_caps" = "FAVORITES";
+
+/*  */
+"txt_set_on_maps" = "Set on map";
+
+/*  */
+"txt_set_drop_off" = "Set Drop-off";
+
+/*  */
+"txt_pick_up" = "Set Pickup";
+
+"txt_loc_name" = "Location Name";
+
+"txt_location_head" = "Location";
+
+/*  */
+"title_favourite" = "Save as Favorite";
+
+/*  */
+"txt_multidest" = "Lorem Ipsum dolar ismet";
+
+/*  */
+"txt_mutidest1" = "MULTIPLE DESTINATIONS";
+
+/* fav screen layout strings */
+"txt_location_head" = "Location";
+
+/*  */
+"txt_loc_name" = "Location Name";
+
+/*  */
+"txt_save" = "Save";
+
+/*  */
+"txt_done" = "Done";
+
+/*  */
+"txt_more_dropoff" = "Set More Drop-off";
+
+/*  */
+"txt_confirm_dropoff" = "Confirm Drop-off";
+
+/*  */
+"txt_confirm_pickup" = "Confirm Pickup";
+
+/*  */
+"txt_location_fav_saved" = "Location has been saved as favorite";
+
+/*  */
+"txt_select_pickup_locaiton" = "Select the Pickup location first";
+
+/*  */
+"txt_no_record" = "No Record Found";
+
+/*  */
+"txt_location_unknown" = "Location is unknown";
+
+/*  */
+"hint_add_stop" = "Add Stop";
+
+/* booking detail screen layout strings */
+"txt_trip_info" = "TRIP INFO";
+
+/*  */
+"txt_driver_info" = "DRIVER INFO";
+
+/*  */
+"txt_share" = "Share Info";
+
+/*  */
+"txt_cancel_ride" = "Cancel Ride";
+
+/*  */
+"txt_fare_info" = "Fare Info";
+
+/*  */
+"txt_travel_charges" = "Travel Charges(Incl. Flag fall)";
+
+/*  */
+"txt_distance_covered" = "Distance Travelled";
+
+/*  */
+"txt_trip_duration" = "Trip Duration";
+
+/*  */
+"txt_cash" = "Cash";
+
+/*  */
+"txt_currency" = "$1s Cash";
+
+/*  */
+"txt_contact" = "Contact";
+
+/*  */
+"txt_enjoy_ride" = "Enjoy The Ride, Its on the way!";
+
+/*  */
+"txt_completed" = "Thankyou  for choosing karwa!";
+
+/*  */
+"txt_ride_cancelled" = "Ride is cancelled!";
+
+/*  */
+"txt_ride_not_found" = "Ride not found, sorry for inconvenience";
+
+/*  */
+"txt_reportissue" = "Report an issue";
+
+/*  */
+"txt_not_available" = "Not Available";
+
+/*  */
+"txt_eta" = "  %@ min";
+
+/*  */
+"txt_pickup_message" = "(%@)";
+
+/*  */
+"txt_eta_mins" = "%@ mins";
+
+/*  */
+"txt_pickup_loc" = "PICKUP LOCATION";
+
+/*  */
+"hint_search_destination" = "Search Destination";
+
+/*  */
+"txt_na" = "--";
+
+/*  */
+"txt_gesture" = "hold and drag map to change the pickup location";
+
+/*  */
+"txt_no_rides_found" = "No Ride Found, sorry for inconvenience";
+"str_no_ride_found" = "No Ride Found";
+/*  */
+"txt_req_karwa" = "Request Karwa";
+
+/*  */
+"txt_set_destination" = "set destination";
+
+/*  */
+"txt_fare_base" = "Starts %@";
+
+/*  */
+"txt_schedule_karwa" = "Schedule Karwa";
+
+/*  */
+"txt_promo_applied" = "Promo Applied";
+
+/*  */
+"txt_taxi" = "Taxi";
+
+/*  */
+"txt_limo_standard" = "Standard Limo";
+
+/*  */
+"txt_accessible" = "Accessible Taxi";
+
+/*  */
+"txt_family_taxi" = "Family Taxi";
+
+/*  */
+"txt_limo_buisness" = "Business Limo";
+
+/*  */
+"txt_limo_luxury" = "Luxury Limo";
+
+/*  */
+"txt_compact" = "Compact";
+
+/*  */
+"txt_scheduled_short" = "Scheduled";
+
+/*  */
+"txt_arrived_short" = "Arrived";
+
+/*  */
+"txt_arriving_short" = "Arriving Soon";
+
+/*  */
+"txt_pickup_short" = "Ride Started";
+
+/*  */
+"txt_dispatching_short" = "Searching";
+
+/*  */
+"txt_cancelled_short" = "Cancelled";
+
+/*  */
+"txt_ride_not_found_short" = "Ride not found";
+
+/*  */
+"txt_select_two_or_more" = "Please select one or more reasons";
+
+/*  */
+"txt_complain_reasons" = "Complain reasons";
+
+/*  */
+"googlepay_button_content_description" = "Pay with Google Pay";
+
+/*  */
+"googlepay_status_unavailable" = "Unfortunately, Google Pay is not available on this device.";
+
+/*  */
+"payments_show_name" = "Successfully received payment data for %@!";
+
+/*  */
+"str_no_location_found" = "No Location Found";
+
+/*  */
+"str_vehicle_issues" = "VEHICLE ISSUES";
+
+/*  */
+"str_comments" = "Comments";
+
+/*  */
+"driver_issues" = "DRIVER ISSUES";
+
+/*  */
+"fare_issues" = "FARE ISSUES";
+
+/*  */
+"safety_issues" = "SAFETY ISSUES";
+
+/*  */
+"other_issue" = "I HAVE DIFFERENT ISSUES";
+
+/*  */
+"personal_items" = "PERSONAL ITEMS";
+
+/*  */
+"appliances" = "APPLIANCES";
+
+/*  */
+"electronics" = "ELECTRONICS";
+
+/*  */
+"documents" = "DOCUMENTS";
+
+/*  */
+"valuables" = "VALUABLES";
+
+/*  */
+"cards" = "CARDS";
+
+/*  */
+"sports_item" = "SPORTS ITEMS";
+
+/*  */
+"others" = "OTHERS";
+
+/*  */
+"personal_items_details" = "Handbag, Keys, Luggage, Clothes, etc";
+
+/*  */
+"appliances_details" = "LED TV, Heater, Microwave, Speakers, etc";
+
+/*  */
+"electronics_details" = "Mobile, Camera, Tablet, Laptop, etc";
+
+/*  */
+"documents_details" = "Certificates, Books, Passport, etc";
+
+/*  */
+"valuables_details" = "Gold, Cash, Silver Jewelry, etc";
+
+/*  */
+"cards_details" = "QID, Driving license, ATM, Credit Card, etc";
+
+/*  */
+"sports_item_detail" = "Football, Cricket, Tennis, Badminton, etc";
+
+/*  */
+"others_detail" = "I have lost something else";
+
+/*  */
+"vehicle_issues_details" = "Cleanliness, A/C, Printer not working, etc";
+
+/*  */
+"driver_issues_details" = "Mis-behaved, Speaking negatively, Smoking, etc";
+
+/*  */
+"fare_issues_details" = "Tampering, Long route, Meter not working, etc";
+
+/*  */
+"safety_issues_details" = "Lane discipline, Over speeding, Poor driving, etc";
+
+/*  */
+"other_issue_details" = "Some feedback, quality improvements, etc";
+
+/*  */
+"txt_new" = "New!";
+
+/*  */
+"txt_continue" = "Continue";
+
+/*  */
+"txt_confirm_code" = "Confirm Code";
+
+/*  */
+"txt_confirm_email" = "Confirm Email";
+
+/*  */
+"txt_create_account" = "Create an account";
+
+/*  */
+"txt_login_karwa" = "Log in to Karwa";
+
+/*  */
+"txt_country_region" = "Country/Region";
+
+/*  */
+"txt_login" = "Log in";
+
+/*  */
+"txt_manage" = "MANAGE";
+
+/*  */
+"txt_edit" = "EDIT";
+
+/*  */
+"txt_add_a_tip" = "Add a tip for Driver";
+
+/*  */
+"txt_all_payment_stored" = "All payment information is stored securely";
+
+/*  */
+"txt_paid_success" = "Paid Successfully";
+
+"txt_completed" = "Thankyou for choosing karwa!";
+
+
+"total_fare" = "Total Fare";
+
+"txt_four" = "4";
+
+"txt_seven" = "7";
+
+"please_dialog_msg_cancel_booking" = "We are cancelling your booking";
+"cancel_booking_confirmation" = "Please let us know the reason of cancellation.";
+"booking_rated" = "Thanks for your valuable review";
+"txt_tell_us_about_complain" = "Please tell us about your complaint";
+"text_please_select" = "Please select";
+"str_promotions" = "Promotions";
+"txt_payment_message" = "Pay your trips by Credit Card or Google Pay using Scan N Pay";
+"promo_length_error" = "Promo length should be atleast 4 characters";
+"err_fields_not_same" = "New Password not match with Confirm Password";
+"err_password_not_valid" = "Password is less than 6 characters";
+"err_empty_field" = "Field can not be empty";
+"txt_remove_payment_method_confirmation" = "Do you want to remove payment method";
+"addNewCardText" = "+ Add Card";
+"txt_payment_method_removed" = "Payment Method has been successfully deleted";
+"txt_trip_id" = "TRIP ID: ";
+"txt_qr" = "QR ";
+"txt_pay_fare" = "PAY QR ";
+"camera_text" = "Tap on Settings to Enable Camera";
+"txt_trip_fare" = "TRIP FARE";
+"address_saved_success" = "Address saved successfully";
+"txt_location_fav_saved" = "Location has been saved as favorite";
+"strSuccessTripPaymentText" = "Thank you for using Scan N Pay service";

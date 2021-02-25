@@ -50,7 +50,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         let currBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         let buildNo = Int(currBuild)!
 
-        return buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION
+        return (buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION)
     }
     
     func fetchBasicTariffFromServer(completion completionBlock: @escaping KTDALCompletionBlock) {
@@ -231,6 +231,29 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             return true
         }
     }
+  
+  func fetchETA(pickup: CLLocationCoordinate2D, completion: @escaping KTDALCompletionBlock) {
+    let param : [String : Any] = [Constants.AddressPickParams.Lat : pickup.latitude,
+                                  Constants.AddressPickParams.Lon : pickup.longitude]
+    
+    self.get(url: Constants.APIURL.GetETA, param: param, completion: completion) { (response, cBlock) in
+      let etas = response[Constants.ResponseAPIKey.Data] as! [[AnyHashable: Any]]
+      func fetchEtaForVehicleType(vType: Int16) -> String {
+        for eta in etas {
+          guard let type = eta["VehicleType"] as? Int, vType == type  else { continue }
+          guard let etaText = eta["EtaText"] as? String else { continue }
+          return etaText
+        }
+        return ""
+      }
+      let vTypes = (KTVehicleType.mr_findAll() as? [KTVehicleType])!
+      for vehicle in vTypes {
+        vehicle.etaText = fetchEtaForVehicleType(vType: vehicle.typeId)
+      }
+      NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+      cBlock(Constants.APIResponseStatus.SUCCESS, response)
+    }
+  }
 
     func fetchEstimate(pickup : CLLocationCoordinate2D, dropoff : CLLocationCoordinate2D, time: TimeInterval, complition complitionBlock:@escaping KTDALCompletionBlock ) {
         let param : [String : Any] = [Constants.GetEstimateParam.PickLatitude : pickup.latitude,

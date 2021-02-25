@@ -105,7 +105,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             dropAdd = (bookings![idx] as KTBooking).dropOffAddress
             if dropAdd == nil || (dropAdd?.isEmpty)! {
                 
-                dropAdd = "No Destination Set"
+                dropAdd = "str_default_no_destination".localized()
             }
         }
         return dropAdd!
@@ -166,6 +166,14 @@ class KTMyTripsViewModel: KTBaseViewModel {
         }
         return color
     }
+  
+  func pickupDate(forIdx idx: Int) -> String {
+    var dateOfMonth : String = ""
+    if bookings != nil && idx < (bookings?.count)! && (bookings![idx] as KTBooking).pickupTime != nil {
+      dateOfMonth = (bookings![idx] as KTBooking).pickupTime!.toString()
+    }
+    return dateOfMonth
+  }
     
     func pickupDateOfMonth(forIdx idx: Int) -> String{
         
@@ -209,33 +217,125 @@ class KTMyTripsViewModel: KTBaseViewModel {
         }
         return dayAndTime
     }
-    
+
     func vehicleType(forIdx idx: Int) -> String {
         
         var type : String = ""
         switch (bookings![idx] as KTBooking).vehicleType {
         case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
-            type = "TAXI"
+            type = "txt_taxi".localized()
         
         case VehicleType.KTCityTaxi7Seater.rawValue:
-            type = "7 SEATER"
+            type = "txt_family_taxi".localized()
         
         case VehicleType.KTSpecialNeedTaxi.rawValue:
-            type = "A.TAXI"
+            type = "txt_accessible".localized()
 
         case VehicleType.KTStandardLimo.rawValue:
-            type = "STANDARD"
+            type = "txt_limo_standard".localized()
         
         case VehicleType.KTBusinessLimo.rawValue:
-            type = "BUSINESS"
+            type = "txt_limo_buisness".localized()
             
         case VehicleType.KTLuxuryLimo.rawValue:
-            type = "LUXURY"
+            type = "txt_limo_luxury".localized()
         default:
             type = ""
         }
         return type
     }
+  
+  func bookingStatusString(forIdx idx: Int) -> String? {
+    var status : String?
+    switch (bookings![idx] as KTBooking).bookingStatus {
+    case BookingStatus.COMPLETED.rawValue:
+      status = (bookings![idx] as KTBooking).fare
+    case BookingStatus.ARRIVED.rawValue:
+      status = "txt_arrived_short".localized()
+    case BookingStatus.CONFIRMED.rawValue:
+      status = "txt_arrived_short".localized()
+    case BookingStatus.CANCELLED.rawValue:
+      status = "txt_cancelled_short".localized()
+    case BookingStatus.PENDING.rawValue:
+      status = "txt_scheduled_short".localized()
+    case BookingStatus.DISPATCHING.rawValue:
+      status = "txt_dispatching_short".localized()
+    case BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
+      status = "txt_ride_not_found_short".localized()
+    case BookingStatus.PICKUP.rawValue:
+        status = "txt_pickup_short".localized()
+    default:
+        status = "txt_dispatching_short".localized()
+    }
+    return status
+  }
+  
+  func outerContainerBackgroundColor(forIdx idx: Int) -> UIColor {
+    switch (bookings![idx] as KTBooking).bookingStatus {
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
+      return UIColor.primary
+    default:
+      return UIColor.white
+    }
+  }
+  
+  func innerContainerBackgroundColor(forIdx idx: Int) -> UIColor {
+    switch (bookings![idx] as KTBooking).bookingStatus {
+    case BookingStatus.PENDING.rawValue:
+        return UIColor.init(hex: "#F2F2F2")
+    default:
+      return UIColor.white
+    }
+  }
+    
+  func statusTextColor(forIdx idx: Int) -> UIColor {
+    switch (bookings![idx] as KTBooking).bookingStatus {
+    case BookingStatus.PENDING.rawValue:
+      return UIColor.lightGray
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.PENDING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
+      return UIColor.init(hex: "#EEC158")
+    case BookingStatus.CANCELLED.rawValue, BookingStatus.TAXI_NOT_FOUND.rawValue, BookingStatus.TAXI_UNAVAIALBE.rawValue, BookingStatus.NO_TAXI_ACCEPTED.rawValue:
+      return UIColor.red
+    case BookingStatus.COMPLETED.rawValue:
+      return UIColor.primary
+    default:
+      return UIColor.white
+    }
+  }
+  
+  func capacity(forIdx idx: Int) -> String {
+    switch (bookings![idx] as KTBooking).vehicleType {
+    case VehicleType.KTCityTaxi7Seater.rawValue:
+        return "txt_seven".localized()
+    default:
+        return "txt_four".localized()
+    }
+  }
+  
+  func serviceTypeColor(forIdx idx: Int) -> UIColor {
+    switch (bookings![idx] as KTBooking).bookingStatus {
+    case BookingStatus.DISPATCHING.rawValue, BookingStatus.ARRIVED.rawValue, BookingStatus.CONFIRMED.rawValue, BookingStatus.PICKUP.rawValue:
+      return UIColor.white
+    default:
+      return UIColor.primary
+    }
+  }
+  
+    func getPaymentIcon(forIdx idx: Int) -> String
+    {
+        let booking = (bookings![idx] as KTBooking)
+
+        return ImageUtil.getSmallImage(booking.paymentMethod ?? "")
+    }
+
+  func showCashIcon(forIdx idx: Int) -> Bool {
+    switch (bookings![idx] as KTBooking).bookingStatus {
+    case BookingStatus.COMPLETED.rawValue:
+      return false
+    default:
+      return true
+    }
+  }
     
     func bookingStatusImage(forIdx idx: Int) -> UIImage? {
         

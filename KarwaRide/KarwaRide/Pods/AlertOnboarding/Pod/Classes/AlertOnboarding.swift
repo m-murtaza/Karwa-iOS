@@ -45,9 +45,9 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     open var percentageRatioHeight: CGFloat = 0.8
     open var percentageRatioWidth: CGFloat = 0.8
     
-    open var titleSkipButton = "SKIP"
-    open var titleGotItButton = "LET'S START"
-    
+    open var titleSkipButton = Locale.current.languageCode == "ar" ? "تخطى" : "SKIP"
+    open var titleGotItButton = Locale.current.languageCode == "ar" ? "البداية!" : "LET'S START"
+
     open var delegate: AlertOnboardingDelegate?
     
     

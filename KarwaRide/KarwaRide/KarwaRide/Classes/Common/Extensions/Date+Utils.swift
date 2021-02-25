@@ -94,6 +94,23 @@ extension Date {
         return str
     }
     
+    /*
+     * If Clock is disturbed more than 10 mins function return true
+     */
+    func isClockDistrubed() -> Bool
+    {
+        return SharedPrefUtil.getDeltaToRealTime() > 600000
+    }
+    
+    func sanitizedTime() -> String
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.init(identifier: "en")
+        formatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd'T'HH:mm:ssZ") //2021-01-10 11:07:52 +0000
+
+        return formatter.string(from: date)
+    }
+    
     static func dateFromServerString(date strDate:String?) ->Date {
         var date : Date?
         
@@ -198,6 +215,13 @@ extension Date {
         
         return str.uppercased()
     }
+  
+  func toString(format: String = "dd MMM yyyy") -> String {
+    let formatter : DateFormatter = DateFormatter()
+    formatter.dateFormat = format
+    let str = formatter.string(from: self)
+    return str.uppercased()
+  }
     
     func year() -> String {
         let formatter : DateFormatter = DateFormatter()

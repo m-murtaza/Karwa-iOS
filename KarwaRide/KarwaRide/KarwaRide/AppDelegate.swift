@@ -10,12 +10,12 @@ import UIKit
 import UserNotifications
 import MagicalRecord
 import GoogleMaps
-import FacebookCore
 import Firebase
+import SideMenuSwift
+import TrueTime
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     var location :KTLocationManager?
     var currentViewControllerName: KTBaseViewController?
@@ -24,22 +24,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         AppVersionUpdateNotifier().initNotifier(self)
-        
+
+        correctTime()
+
         setupDatabase()
+        
         fetchInitialApplicationDataIfNeeded()
         handleNotification(launchOptions: launchOptions)
-        
+
         updateUIAppreance()
         setupLocation()
         setupGoogleMaps()
-        
+
         //register For APNS if needed
         registerForPushNotifications()
-        
+
         setupFirebase()
-        
-        return true
+      
+        configureSideMenu()
+      return true
     }
+  
+  private func configureSideMenu() {
+      SideMenuController.preferences.basic.menuWidth = 270
+      SideMenuController.preferences.basic.defaultCacheKey = "0"
+  }
     
     func setupFirebase()
     {
@@ -85,8 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
-        AppEventsLogger.activate(application)
-        
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -126,11 +133,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appearance : UINavigationBar = UINavigationBar.appearance()
         
         appearance.barTintColor = UIColor(hexString:"#E5F5F2")
-        UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
+      UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
         appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
                                           NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
         
-        let backImage = UIImage(named: "BackButton");
+        let backImage = UIImage(named: "back_arrow_ico");
         appearance.backIndicatorImage = backImage
         appearance.backIndicatorTransitionMaskImage = backImage
     }
@@ -288,8 +295,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ktPaymentViewController.isTriggeredFromUniversalLink = true
             
             let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
-            let sideMeun : SSASideMenu = SSASideMenu(contentViewController: paymentNavigationController, leftMenuViewController: leftView)
-            
+            let sideMeun =  SideMenuController(contentViewController: paymentNavigationController,
+                                               menuViewController: leftView)
             window? = UIWindow(frame: UIScreen.main.bounds)
             window?.rootViewController = sideMeun
             window?.makeKeyAndVisible()
@@ -314,8 +321,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sBoard = UIStoryboard(name: "Main", bundle: nil)
 //        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
         let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
-        let sideMeun : SSASideMenu = SSASideMenu(contentViewController: view, leftMenuViewController: leftView)
-        
+        let sideMeun = SideMenuController(contentViewController: view, menuViewController: leftView)
         window? = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = sideMeun
         window?.makeKeyAndVisible()
@@ -357,6 +363,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         {
             currentViewControllerName?.updateForBooking(booking)
         }
+    }
+    
+    func correctTime()
+    {
+        // At an opportune time (e.g. app start):
+        TrueTimeClient.sharedInstance.start()
+
+        TrueTimeClient.sharedInstance.fetchIfNeeded(completion:  { result in
+            switch result {
+            case let .success(referenceTime):
+                if #available(iOS 13.0, *)
+                {
+                    let offset = referenceTime.now().distance(to: Date()) * 1000
+                    print("Time Offset: \(offset)")
+                    SharedPrefUtil.setDeltaToRealTime(deltaTimeInMilliseconds: offset)
+                }
+            case let .failure(error):
+                print("Error Fixing Time: \(error)")
+            }
+        })
     }
 }
 

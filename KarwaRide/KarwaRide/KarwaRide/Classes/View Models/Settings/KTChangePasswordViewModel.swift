@@ -17,7 +17,7 @@ class KTChangePasswordViewModel: KTBaseViewModel {
         
         let error: String = validate(oldPassword: oldPassword,password: password,rePassword: rePassword)
         if error.isEmpty {
-            delegate?.showProgressHud(show: true, status: "Updating Password")
+            delegate?.showProgressHud(show: true, status: "dialog_msg_updating_profile".localized())
             KTUserManager().updatePassword(oldPassword: oldPassword!.md5(), password: password!.md5(), completion: { (status, response) in
                 self.delegate?.hideProgressHud()
                 if status == Constants.APIResponseStatus.SUCCESS {
@@ -30,7 +30,7 @@ class KTChangePasswordViewModel: KTBaseViewModel {
             })
         }
         else {
-            self.delegate?.showError!(title: "Error", message: error)
+            self.delegate?.showError!(title: "error_sr".localized(), message: error)
             
         }
     }
@@ -39,16 +39,16 @@ class KTChangePasswordViewModel: KTBaseViewModel {
         
         var error : String = ""
         if oldPassword == nil  || (oldPassword?.isEmpty)! {
-            error = "Old password is mandatory"
+            error = "err_empty_field".localized()
         }
         else if password == nil  || (password?.isEmpty)! {
-            error = "Password is mandatory"
+            error = "err_empty_field".localized()
         }
         else if (password?.count)! < Constants.MIN_PASSWORD_LENGTH {
-            error = "Password should be more than six charecter"
+            error = "err_password_not_valid".localized()
         }
         else if password != rePassword {
-            error = "Passwords do not match"
+            error = "err_fields_not_same".localized()
         }
         return error
     }

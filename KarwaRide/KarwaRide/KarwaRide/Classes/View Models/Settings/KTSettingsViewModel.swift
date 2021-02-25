@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import StoreKit
+
 protocol KTSettingsViewModelDelegate {
     func showLogoutConfirmAlt()
     func reloadTable()
@@ -115,19 +117,21 @@ class KTSettingsViewModel: KTBaseViewModel {
     //MARK:- Rate Applicaiton
     func rateApplication() {
         
-        // App Store URL.
-        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+        SKStoreReviewController.requestReview()
         
-        /* First create a URL, then check whether there is an installed app that can
-         open it on the device. */
-        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
-            // Attempt to open the URL.
-            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
-                if success {
-                    print("Launching \(url) was successful")
-                    AnalyticsUtil.trackBehavior(event: "Rate-App")
-                }})
-        }
+//        // App Store URL.
+//        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+//
+//        /* First create a URL, then check whether there is an installed app that can
+//         open it on the device. */
+//        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+//            // Attempt to open the URL.
+//            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+//                if success {
+//                    print("Launching \(url) was successful")
+//                    AnalyticsUtil.trackBehavior(event: "Rate-App")
+//                }})
+//        }
     }
     
 }

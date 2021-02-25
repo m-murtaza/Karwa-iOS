@@ -109,7 +109,7 @@ private extension HeaderViewController {
 
   func makeTitleLabel() -> UILabel {
     let label = UILabel()
-    label.text = localizedString("Scan N Pay")
+    label.text = Locale.current.languageCode == "ar" ?  "صور الباركود وأدفع" : "Scan N Pay"
     label.font = UIFont.boldSystemFont(ofSize: 17)
     label.textColor = hexStringToUIColor(hex: "#49AAA6")
     label.numberOfLines = 1
@@ -126,7 +126,7 @@ private extension HeaderViewController {
     
     func makeManageButton() -> UIButton {
         let button = UIButton(type: .system)
-        button.setTitle("MANAGE", for: UIControlState())
+        button.setTitle(Locale.current.languageCode == "ar" ?  "يدير" : "MANAGE", for: UIControlState())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button.tintColor = hexStringToUIColor(hex: "#49AAA6")
         return button

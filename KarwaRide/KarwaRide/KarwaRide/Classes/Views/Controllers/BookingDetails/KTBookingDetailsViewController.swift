@@ -3,6 +3,7 @@
 //  KarwaRide
 //
 //  Created by Muhammad Usman on 3/15/18.
+//  Updated by Sam
 //  Copyright © 2018 Karwa. All rights reserved.
 //
 
@@ -12,96 +13,73 @@ import GoogleMaps
 import Cosmos
 import Spring
 import DDViewSwitcher
+import UBottomSheet
+import StoreKit
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
-    
+
     @IBOutlet weak var mapView : GMSMapView!
     
-    @IBOutlet weak var lblPickAddress : UILabel!
-    @IBOutlet weak var lblPickMessage : UILabel!
-    @IBOutlet weak var imgPickMsgImage :UIImageView!
-    @IBOutlet weak var viewCard : KTShadowView!
-    @IBOutlet weak var lblDayOfMonth: UILabel!
-    @IBOutlet weak var lblMonth: UILabel!
-    @IBOutlet weak var lblYear: UILabel!
-    @IBOutlet weak var lblDropoffAddress: UILabel!
-    @IBOutlet weak var lblDayAndTime: UILabel!
-    @IBOutlet weak var lblServiceType: UILabel!
-    @IBOutlet weak var imgBookingStatus: SpringImageView!
-
-    @IBOutlet weak var lblEstimatedFare : UILabel!
-    @IBOutlet weak var titleEstimatedFare: UILabel!
-    
-    @IBOutlet weak var starView : CosmosView!
-    @IBOutlet weak var lblEta : UILabel!
-    @IBOutlet weak var lblPickTime : RoundedLable!
-    @IBOutlet weak var lblDropTime : RoundedLable!
-    
-    @IBOutlet weak var lblCallerId: UILabel!
-    @IBOutlet weak var viewCallerID : UIView!
-    
-    @IBOutlet weak var lblDriverName : UILabel!
-    @IBOutlet weak var lblVehicleNumber :UILabel!
-    @IBOutlet weak var imgNumberPlate : UIImageView!
-    @IBOutlet weak var hintText: UILabel!
-    
-    @IBOutlet weak var driverPhoneBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var leftBottomBarButton : UIButton!
-    @IBOutlet weak var rightBottomBarButton : UIButton!
-    @IBOutlet weak var btnMoreOptions: SpringButton!
-    @IBOutlet weak var rightArrow: SpringImageView!
+    var sheetCoordinator: UBottomSheetCoordinator!
     
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
-    
-    @IBOutlet weak var btnPhone: UIButton!
-    @IBOutlet weak var driverInfoBox : UIView!
-    @IBOutlet weak var etaView : UIView!
-    
-    @IBOutlet weak var lblPaymentMethod: SpringLabel!
-    @IBOutlet weak var imgPaymentMethod: SpringImageView!
-    
-    
-    @IBOutlet weak var imgBookingBar : UIImageView!
-    
-    @IBOutlet weak var constraintDriverInfoHeightConstraint : NSLayoutConstraint!
-    @IBOutlet weak var constraintGapDriverInfoToBookingDetails : NSLayoutConstraint!
-    
-    @IBOutlet weak var constraintHeighBookingInfoBox : NSLayoutConstraint!
-    @IBOutlet weak var constraintHeighBookingInfoLargeBox : NSLayoutConstraint!
-    @IBOutlet weak var constraintHeightPickTime : NSLayoutConstraint!
-    @IBOutlet weak var constraintHeightDropTime : NSLayoutConstraint!
-    @IBOutlet weak var constraintSpacePickTimeNPickAddress : NSLayoutConstraint!
-    @IBOutlet weak var constraintSpaceDropTimeNDropAddress : NSLayoutConstraint!
-    @IBOutlet weak var constraintPickDropBarHeight : NSLayoutConstraint!
-    
-    @IBOutlet weak var arrowRight: SpringImageView!
-    @IBOutlet weak var constraintSpaceSapratorToPickupLable : NSLayoutConstraint!
-    @IBOutlet weak var constraintSapratorCenterAlign : NSLayoutConstraint!
-    
+    @IBOutlet weak var btnRecenter: UIButton!
+
     private var vModel : KTBookingDetailsViewModel?
     private var cancelPopup : KTCancelViewController?
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
-    
-    @IBOutlet weak var btnShare: SpringButton!
-    @IBOutlet weak var toolTipBtnShare: SpringImageView!
-    
-    
+
+    var bottomSheetVC : KTBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as! KTBookingDetailsBottomSheetVC
+
     var isOpenFromNotification : Bool = false
+
     let MAX_ZOOM_LEVEL = 16
-    
+    var isAbleToObserveZooming = false
+    var haltAutoZooming = false
+
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
         }
         
         vModel = viewModel as? KTBookingDetailsViewModel
+
+        sheetCoordinator = UBottomSheetCoordinator(parent: self)
+
+        bottomSheetVC.sheetCoordinator = sheetCoordinator
+
+        bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
+        sheetCoordinator.addSheet(bottomSheetVC, to: self)
+        sheetCoordinator.setPosition(520, animated: true)
+
+        mapView.delegate = self
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3)
+        {
+            self.isAbleToObserveZooming = true
+//            let mapInsets = UIEdgeInsets(top: 100.0, left: 100.0, bottom: 100.0, right: 100.0)
+//            self.mapView.padding = mapInsets
+        }
         super.viewDidLoad()
         
-//        startArrowAnimation()
-        
         // Do any additional setup after loading the view.
+    }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition)
+    {
+        if(isAbleToObserveZooming && !haltAutoZooming)
+        {
+            haltAutoZooming = true
+        }
+    }
+    
+    var isBottomSheetExpanded = true
+    
+    func getMapPadding() -> CGFloat
+    {
+        return isBottomSheetExpanded ? 420 : 40
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,8 +88,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 
         btnBack.isHidden = isOpenFromNotification
         btnReveal.isHidden = !isOpenFromNotification
-        
-        showHideToolTipShareButton(false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,21 +104,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     override func updateForBooking(_ booking: KTBooking)
     {
         vModel?.bookingUpdateTriggered(booking)
-    }
-    
-    func startArrowAnimation()
-    {
-        let midX = arrowRight.center.x
-        let midY = arrowRight.center.y
-        
-        let animation = CABasicAnimation(keyPath: "position")
-        animation.duration = 0.60
-        animation.repeatCount = 100
-        animation.autoreverses = true
-        animation.fromValue = CGPoint(x: midX, y: midY)
-        animation.toValue = CGPoint(x: midX + 3, y: midY)
-
-        rightArrow.layer.add(animation, forKey: "position")
     }
     
     var gmsMarker : Array<GMSMarker> = Array()
@@ -174,9 +135,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             
             bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
             self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-            
-//            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-//            addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
         }
     }
     
@@ -212,24 +170,25 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
                 self.i = 0
                 
                 timer.invalidate()
-    //            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
             }
         }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
-        
-        var bounds = GMSCoordinateBounds()
-        for marker: GMSMarker in gmsMarker {
-            bounds = bounds.includingCoordinate(marker.position)
+        if(!haltAutoZooming)
+        {
+            var bounds = GMSCoordinateBounds()
+            for marker: GMSMarker in gmsMarker {
+                bounds = bounds.includingCoordinate(marker.position)
+            }
+            
+            var update : GMSCameraUpdate?
+            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(60))
+            
+            CATransaction.begin()
+            CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+            mapView.animate(with: update!)
+            CATransaction.commit()
         }
-        
-        var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(KTCreateBookingConstants.DEFAULT_MAP_PADDING))
-        
-        CATransaction.begin()
-        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.animate(with: update!)
-        CATransaction.commit()
     }
 
     func setBooking(booking : KTBooking) {
@@ -243,87 +202,30 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK:- ETA
-    func updateEta(eta: String) {
-        lblEta.text = eta
-    }
-    
-    func hideEtaView() {
-        etaView.isHidden = true
-    }
-    
-    func showEtaView() {
-        etaView.isHidden = false
-    }
-    
-    //MARK: - UI update
-    func hideDriverInfoBox() {
-        
-        constraintDriverInfoHeightConstraint.constant = 0
-        constraintGapDriverInfoToBookingDetails.constant = 0
-        driverInfoBox.isHidden = true
-    }
-    
-    //MARK: - UI update
-    func showDriverInfoBox()
+    func updateEta(eta: String)
     {
-        self.driverInfoBox.isHidden = false
-        self.constraintDriverInfoHeightConstraint.constant = 95
-        self.constraintGapDriverInfoToBookingDetails.constant = 30
-
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.layoutIfNeeded()
-        })
+        bottomSheetVC.updateEta(eta: eta)
+    }
+    
+    func hideEtaView()
+    {
+        bottomSheetVC.hideEtaView()
+    }
+    
+    func showEtaView()
+    {
+        bottomSheetVC.showEtaView()
     }
     
     func showHideShareButton(_ show : Bool)
     {
-        btnShare.isHidden = !show
-        if(show)
-        {
-            let isShareTripToolTipShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN)
-            showHideToolTipShareButton((isShareTripToolTipShown.isEmpty || isShareTripToolTipShown.count == 0))
-        }
     }
 
     var isTooltipVisible : Bool = false
 
-    func showHideToolTipShareButton(_ show : Bool)
-    {
-        toolTipBtnShare.isHidden = !show
-        if(show)
-        {
-            SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_SHARE_TRIP_TOOL_TIP_SHOWN, "true")
-            Timer.scheduledTimer(withTimeInterval: 8, repeats: true){_ in
-
-                if(self.isTooltipVisible)
-                {
-                    self.toolTipBtnShare.duration = 1
-                    self.toolTipBtnShare.animation = "fadeOut"
-                    self.toolTipBtnShare.animate()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                        self.toolTipBtnShare.isHidden = true
-                    })
-                }
-                else
-                {
-                    self.toolTipBtnShare.isHidden = false
-                    self.toolTipBtnShare.duration = 1
-                    self.toolTipBtnShare.animation = "fadeInDown"
-                    self.toolTipBtnShare.animate()
-                }
-                self.isTooltipVisible = !self.isTooltipVisible
-            }
-        }
-        else
-        {
-            toolTipBtnShare.isHidden = true
-        }
-    }
-    
     func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
         let marker = GMSMarker()
         marker.position = location
@@ -365,23 +267,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
      }
     
-    @IBAction func btnCallTapped(_ sender: Any)
-    {
-        vModel?.callDriver()
-    }
-    
-    @IBAction func shareBtnTapped(_ sender: Any)
-    {
-        AnalyticsUtil.trackShareRide()
-        let URLstring =  String(format: Constants.ShareTripUrl + (vModel?.booking?.trackId ?? "unknown"))
-        let urlToShare = URL(string:URLstring)
-        let title = "Follow the link to track my ride: \n"
-        let activityViewController = UIActivityViewController(activityItems: [title,urlToShare!], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        present(activityViewController,animated: true,completion: nil)
-    }
-    
-    
     @IBAction func moreOptionsTapped(_ sender: Any)
     {
 //        let image = UIImage(named: "ico_rebook")
@@ -416,18 +301,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         alertController.addAction(complainAction)
         alertController.addAction(cancelAction)
 
-//        actionController.addAction(Action(ActionData(title: "Re-book This Ride", image: UIImage(named: "ico_rebook")!), style: .default, handler:
-//            { action in
-//                self.vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
-//            }
-//        ))
-//        actionController.addAction(Action(ActionData(title: "Complaint or Lost Item", image: UIImage(named: "ico_complaint")!), style: .default, handler:
-//            { action in
-//                self.performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
-//            }
-//        ))
-//        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ico_cancel")!), style: .default, handler:{ action in}))
-
         present(alertController, animated: true, completion: nil)
     }
 
@@ -439,100 +312,23 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     //MARK:- Assignment Info
     
-    func updateAssignmentInfo() {
-        
-        lblDriverName.text = vModel?.driverName()
-        lblVehicleNumber.text = vModel?.vehicleNumber()
-        starView.rating = (vModel?.driverRating())!
-        imgNumberPlate.image = vModel?.imgForPlate()
-        
+    func updateAssignmentInfo()
+    {
+        bottomSheetVC.updateAssignmentInfo()
     }
     //MARK:- CallerId
-    func updateCallerId() {
-        if isLargeScreen() {
-            viewCallerID.isHidden = false
-            lblCallerId.text = vModel?.idForCaller()
-        }
-        
+    func updateCallerId()
+    {
     }
     //MARK:- Booking Card
-    func updateBookingCard() {
-        
-        lblPickAddress.text = vModel?.pickAddress()
-        lblDropoffAddress.text = vModel?.dropAddress()
-        let msg = vModel?.pickMessage()
-        if (msg?.isEmpty)! {
-            lblPickMessage.isHidden = true
-            imgPickMsgImage.isHidden = true
-            constraintHeighBookingInfoBox.constant -= 10
-            constraintHeighBookingInfoLargeBox.constant -= 10
-        }
-        else {
-            lblPickMessage.text = vModel?.pickMessage()
-        }
-        lblDayOfMonth.text = vModel?.pickupDateOfMonth()
-        
-        lblMonth.text = vModel?.pickupMonth()
-        lblYear.text = vModel?.pickupYear()
-        
-        lblDayAndTime.text = vModel?.pickupDayAndTime()
-        
-        lblServiceType.text = vModel?.vehicleType()
-        
-        if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
-        {
-            lblEstimatedFare.text = vModel?.totalFareOfTrip()
-            titleEstimatedFare.text = "Fare"
-        }
-        else
-        {
-            lblEstimatedFare.text = vModel?.estimatedFare()
-            titleEstimatedFare.text = "Est. Fare"
-        }
-        
-        updateBookingStatusOnCard()
-        
-        lblPickTime.text = vModel?.pickupTime()
-        lblDropTime.text = vModel?.dropoffTime()
-        
-        viewCard.backgroundColor = vModel?.cellBGColor()
-        
-        viewCard.borderColor = vModel?.cellBorderColor()
-        
-        lblPaymentMethod.text = vModel?.paymentMethod()
-        imgPaymentMethod.image = UIImage(named: ImageUtil.getSmallImage((vModel?.paymentMethodIcon())!))
-
+    func updateBookingCard()
+    {
+        bottomSheetVC.updateBookingCard()
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     {
-        if(withAnimation)
-        {
-            imgBookingStatus.duration = 1
-            imgBookingStatus.animation = "zoomOut"
-            imgBookingStatus.animate()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1)
-            {
-                let img : UIImage? = self.vModel?.bookingStatusImage()
-                if img != nil
-                {
-                    self.imgBookingStatus.image = img
-                }
-
-                self.imgBookingStatus.duration = 1
-                self.imgBookingStatus.animation = "zoomIn"
-                self.imgBookingStatus.animate()
-            }
-        }
-        else
-        {
-            let img : UIImage? = vModel?.bookingStatusImage()
-            if img != nil
-            {
-                imgBookingStatus.image = img
-            }
-        }
+        bottomSheetVC.updateBookingStatusOnCard(withAnimation)
     }
     
     func updateBookingStatusOnCard()
@@ -542,30 +338,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateBookingCardForCompletedBooking() {
         
-        /*constraintHeighBookingInfoBox.constant -= 10
-         constraintHeighBookingInfoLargeBox.constant -= 10
-         imgPickMsgImage.isHidden = true
-         lblPickMessage.isHidden = true*/
+        bottomSheetVC.updateBookingCardForCompletedBooking()
     }
     
     func updateBookingCardForUnCompletedBooking() {
-        
-        imgBookingBar.image = UIImage(named:"BookingPickDropBar")
-        constraintPickDropBarHeight.constant -= 10
-        
-        constraintHeighBookingInfoBox.constant -= 10
-        constraintHeighBookingInfoLargeBox.constant -= 10
-        lblPickTime.isHidden = true
-
-        lblDropTime.isHidden = true
-        
-        constraintHeightPickTime.constant = 0
-        constraintHeightDropTime.constant = 0
-        constraintSpacePickTimeNPickAddress.constant = 0
-        constraintSpaceDropTimeNDropAddress.constant = -16
-        
-        constraintSapratorCenterAlign.priority = UILayoutPriority.defaultHigh
-        constraintSpaceSapratorToPickupLable.priority = UILayoutPriority.defaultLow
+        bottomSheetVC.updateBookingCardForUnCompletedBooking()
     }
     
     
@@ -620,13 +397,16 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateMapCamera()
     {
-        var bounds = GMSCoordinateBounds()
-        bounds = bounds.includingCoordinate((marker?.position)!)
-        bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
-        
-        var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
-        mapView.animate(with: update!)
+        if(marker != nil)
+        {
+            var bounds = GMSCoordinateBounds()
+            bounds = bounds.includingCoordinate((marker?.position)!)
+            bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
+            
+            var update : GMSCameraUpdate?
+            update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+            mapView.animate(with: update!)
+        }
     }
     
     func showPathOnMap(path: GMSPath) {
@@ -686,41 +466,24 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     //MARK: - Bottom Bar Buttons
-    func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int ) {
-        if !title.isEmpty {
-            
-            leftBottomBarButton.setTitle(title, for: .normal)
-            leftBottomBarButton.setTitleColor(color, for: .normal)
-            leftBottomBarButton.tag = tag
-        }
-        else {
-            leftBottomBarButton.isHidden = true
-        }
+    func updateLeftBottomBarButtom(title: String, color: UIColor,tag: Int )
+    {
     }
-    func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int ) {
-        if !title.isEmpty {
-            rightBottomBarButton.setTitle(title, for: .normal)
-            rightBottomBarButton.setTitleColor(color, for: .normal)
-            rightBottomBarButton.tag = tag
-        }
-        else {
-            rightBottomBarButton.isHidden = true
-        }
-        
+
+    func updateRightBottomBarButtom(title: String, color: UIColor, tag: Int )
+    {
     }
     
-    @IBAction func leftBottomBarButtonTapped(btnSender: UIButton) {
-        
-        vModel?.buttonTapped(withTag: btnSender.tag)
+    @IBAction func leftBottomBarButtonTapped(btnSender: UIButton)
+    {
     }
     
-    @IBAction func rightBottomBarButtonTapped(btnSender: UIButton) {
-        
-        vModel?.buttonTapped(withTag: btnSender.tag)
+    @IBAction func rightBottomBarButtonTapped(btnSender: UIButton)
+    {
     }
     
-    func moveToBooking() {
-        
+    func moveToBooking()
+    {
         self.performSegue(name: "segueDetailToReBook")
     }
     
@@ -749,11 +512,37 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         //self.performSegue(name: "detailToRating")
     }
     
-    func closeRating() {
+    func closeRating(_ rating : Int32) {
         ratingPopup?.view.removeFromSuperview()
         ratingPopup = nil
+
+        showSuccessBanner("  ", "booking_rated".localized())
+        
+        if(rating > 3)
+        {
+//            let confettiView = SAConfettiView(frame: self.view.bounds)
+//            confettiView.type = .Diamond
+//            confettiView.colors = [UIColor.yellow]
+//            confettiView.intensity = 1.00
+//
+//            view.addSubview(confettiView)
+//            confettiView.startConfetti()
+
+            let isAppStoreRatingDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_APP_STORE_RATING_DONE)
+            if(isAppStoreRatingDone.isEmpty || isAppStoreRatingDone.count == 0)
+            {
+                // Asking for App Store Rating
+                showRatingDialog(rating)
+            }
+        }
     }
-    
+
+    func showRatingDialog(_ rating : Int32)
+    {
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
+        SKStoreReviewController.requestReview()
+    }
+
     func showCancelBooking() {
         cancelPopup = storyboard?.instantiateViewController(withIdentifier: "CancelReasonPopup") as? KTCancelViewController
         
@@ -782,26 +571,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func hideMoreOptions()
     {
-        btnMoreOptions.isHidden = true
-        rightArrow.isHidden = true
-        hintText.isHidden = true
     }
     
     func showMoreOptions()
     {
-        let textSwitcher = DDTextSwitcher(frame:  hintText.bounds, data: ["Complaint or Lost Item", "Re-book This Ride"], scrollDirection: .vertical)
-        textSwitcher.setTextSize(size: 11)
-        textSwitcher.setTextColor(color: UIColor.gray)
-        textSwitcher.setTextAlignment(align: NSTextAlignment.right)
-        textSwitcher.duration = 0.5
-        hintText.addSubview(textSwitcher)
-
-        btnMoreOptions.isHidden = false
-        rightArrow.isHidden = false
-        hintText.isHidden = false
-
-        textSwitcher.start()
-
     }
     
     func showFareBreakdown()
@@ -825,10 +598,48 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func hidePhoneButton() {
-        
-        btnPhone.isHidden = true
+        bottomSheetVC.hidePhoneButton()
     }
     
+    func hideDriverInfoBox() {
+        bottomSheetVC.hideDriverInfoBox()
+    }
+    
+    func showDriverInfoBox() {
+        bottomSheetVC.showDriverInfoBox()
+    }
+    
+    func setMapPadding(height : CGFloat)
+    {
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
+        mapView.padding = padding
+    }
+    
+    func setMapPadding()
+    {
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: getMapPadding(), right: 0)
+        mapView.padding = padding
+    }
+    
+    func updateHeaderMsg(_ msg : String)
+    {
+        bottomSheetVC.updateHeaderMsg(msg)
+    }
+    
+    func hideRecenterBtn()
+    {
+        btnRecenter.isHidden = true
+    }
+    
+    @IBAction func btnRecenterTap(_ sender: Any)
+    {
+        updateMapCamera()
+    }
+
+    func showRecenterBtn()
+    {
+        btnRecenter.isHidden = false
+    }
 }
 
 extension UInt {

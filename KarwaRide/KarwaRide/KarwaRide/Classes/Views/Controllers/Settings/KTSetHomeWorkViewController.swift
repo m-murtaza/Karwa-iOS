@@ -13,6 +13,7 @@ import GoogleMaps
 enum BookmarkType : Int{
     case home = 1
     case work = 2
+    case favorite = 3
 }
 
 class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelDelegate,UITableViewDelegate,UITableViewDataSource,GMSMapViewDelegate,UITextFieldDelegate {
@@ -69,9 +70,8 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         return bookmarkType
     }
     func UpdateUI(name bookmarkName:String, location: CLLocationCoordinate2D) {
-        
-        txtAddress.text = bookmarkName
-        txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "Set Home address" : "Set Work address"
+        txtAddress.text = bookmarkName.contains("home") ? "strHome".localized() : "strWork".localized()
+        txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "set_as_home_address".localized() : "set_as_work_address".localized()
         imgBookmarkTypeIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "APICHome" : "APICWork")
         imgBookmarkAddressIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "SHWIconHome" : "SHWIconWork")
         
@@ -88,10 +88,10 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
     }
     
     func showSuccessAltAndMoveBack() {
-        let alertController = UIAlertController(title: "\((bookmarkType == BookmarkType.home) ? "Home" : "Work") Updated", message: "Your \((bookmarkType == BookmarkType.home) ? "Home" : "Work") address is updated", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "\((bookmarkType == BookmarkType.home) ? "strHome".localized() : "strWork".localized()) Updated", message: "Your \((bookmarkType == BookmarkType.home) ? "strHome".localized() : "strWork".localized()) address is updated", preferredStyle: .alert)
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
             self.previousView?.dismiss()
         }
         

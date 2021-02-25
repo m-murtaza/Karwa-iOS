@@ -42,6 +42,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBOutlet weak var labelTripId: SpringLabel!
     @IBOutlet weak var labelHDriverTrip: SpringLabel!
     @IBOutlet weak var noCardsBackground: SpringImageView!
+    @IBOutlet weak var labelTripPaid: LocalisableLabel!
     
     @IBOutlet weak var tagView: RKTagsView!
     
@@ -75,6 +76,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 //        showbarcodeScanner(show: true)
         
         tripPaidSuccessImageView.isHidden = true
+        labelTripPaid.isHidden = true
 //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(payBtnTapped(tapGestureRecognizer:)))
         btnPay.isUserInteractionEnabled = true
         btnApplePay.isUserInteractionEnabled = true
@@ -135,8 +137,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         if(isCrossButtonPressed)
         {
-            sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuViewController?.hideMenuViewController()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
             isCrossButtonPressed = !isCrossButtonPressed
             
             return
@@ -225,10 +227,10 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     {
         //First, declare datas
         let arrayOfImage = ["add_credit_card", "scan_qr_code", "pay_trip_fare"]
-        let arrayOfTitle = ["Add Credit Card", "Scan QR Code", "Pay Trip Fare"]
-        let arrayOfDescription = ["Getting started by adding a new credit card for scan n pay payment",
-                                  "Scan QR code from the taxi meter after ending the trip",
-                                  "Now, you can pay your trip by your credit card!"]
+        let arrayOfTitle = ["payment_help_title_one".localized(), "str_scan_qr_code".localized(), "payment_help_title_three".localized()]
+        let arrayOfDescription = ["payment_help_desc_one".localized(),
+                                  "payment_help_desc_two".localized(),
+                                  "payment_help_desc_three".localized()]
         
         //Simply call AlertOnboarding...
         let alertView = AlertOnboarding(arrayOfImage: arrayOfImage, arrayOfTitle: arrayOfTitle, arrayOfDescription: arrayOfDescription)
@@ -257,15 +259,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showCameraPermissionError()
     {
-        showWarningBanner("", "Tap on Settings to Enable Camera")
+        showWarningBanner("", "camera_text".localized())
     }
     
     func fillPayTripData(_ payTripBean: PayTripBeanForServer?)
     {
         if(payTripBean != nil)
         {
-            labelTotalFare.text = "QR " + (payTripBean?.totalFare)!
-            labelTripId.text = "TRIP ID: " + (payTripBean?.tripId)!
+            labelTotalFare.text = "txt_qr".localized() + (payTripBean?.totalFare)!
+            labelTripId.text = "txt_trip_id".localized() + (payTripBean?.tripId)!
             updatePayButton(btnText: (payTripBean?.totalFare)!)
         }
     }
@@ -283,7 +285,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
     func updatePayButton(btnText value: String)
     {
-        btnPay.setTitle("PAY (QR " + (value) + ")", for: .normal)
+        btnPay.setTitle("txt_pay_fare".localized() + (value), for: .normal)
     }
     
     func showBottomContainer()
@@ -420,6 +422,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.delay = 0.3
 
         tripPaidSuccessImageView.isHidden = false
+        labelTripPaid.isHidden = false
         tripPaidSuccessImageView.animate()
 
         isPaidSuccessfullShowed = true
@@ -470,6 +473,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         {
             let contentView : UINavigationController = segue.destination as! UINavigationController
             let destination : KTManagePaymentViewController = (contentView.viewControllers)[0] as! KTManagePaymentViewController
+            destination.title = "txt_payment_methods".localized()
             destination.finishDelegate = self
             destination.barcodeDelegate = self
         }
@@ -534,14 +538,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func gotoDashboard()
     {
-        sideMenuViewController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuViewController?.hideMenuViewController()
+        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuController?.hideMenu()
     }
     
     private func presentBarcodeScanner()
     {
         let barcodeScannerVC = makeBarcodeScannerViewController()
         barcodeScannerVC.modalPresentationStyle = .fullScreen
+        barcodeScannerVC.title = "strScanNPay".localized()
 
         present(barcodeScannerVC, animated: true, completion: nil)
     }

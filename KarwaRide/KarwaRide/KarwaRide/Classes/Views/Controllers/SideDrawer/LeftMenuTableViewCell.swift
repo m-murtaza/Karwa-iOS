@@ -12,7 +12,6 @@ class LeftMenuTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var imgTypeIcon: UIImageView!
-    @IBOutlet weak var imgSelected: UIImageView!
     @IBOutlet weak var sideView: UIView!
     @IBOutlet weak var lblNew: UIImageView!
     @IBOutlet weak var lblWarning: UIImageView!

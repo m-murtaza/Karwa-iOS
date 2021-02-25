@@ -104,6 +104,7 @@ class KTBookmarkManager: KTDALManager {
         let predicate : NSPredicate = NSPredicate(format: "name = %@",name)
         return fetchBookmark(with: predicate)
     }
+  
     
     func getHome() -> KTBookmark? {
         
@@ -280,5 +281,77 @@ class KTBookmarkManager: KTDALManager {
         
         loc.geolocationToBookmark = bmark
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+    }
+  
+  func fetchAllFavorites() -> [KTFavorites]? {
+//    let p1 = NSPredicate(format: "name != %@", Constants.BookmarkName.Home)
+//    let p2 = NSPredicate(format: "name != %@", Constants.BookmarkName.Work)
+//    let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+//    let bookmarks = KTBookmark.mr_findAll(with: predicate)
+//    return bookmarks as? [KTBookmark]
+    return KTFavorites.mr_findAll() as? [KTFavorites]
+  }
+
+//  @discardableResult
+//  func saveFavorite(name: String, location: KTGeoLocation) -> Bool {
+//    let p1 = NSPredicate(format: "name != %@", Constants.BookmarkName.Home)
+//    let p2 = NSPredicate(format: "name != %@", Constants.BookmarkName.Work)
+//    let p3 = NSPredicate(format: "bookmarkToGeoLocation.locationId = %d", location.locationId)
+//    let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
+//
+//    // update the existing bookmark
+//    if let savedFavorite = fetchBookmark(with: predicate) {
+//      savedFavorite.name = name
+//      location.type = geoLocationType.favorite.rawValue
+//      savedFavorite.bookmarkToGeoLocation = location
+//      location.geolocationToBookmark = savedFavorite
+//      NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+//      return true
+//    }
+//
+//    // create new favorite and save it to database
+//    let bookmark = KTBookmark.mr_createEntity(in: NSManagedObjectContext.mr_default())
+//    bookmark?.name = name
+//    bookmark?.latitude = location.latitude
+//    bookmark?.longitude = location.longitude
+//    bookmark?.address = location.name ?? "Unknown"
+//    location.type = geoLocationType.favorite.rawValue
+//    bookmark?.bookmarkToGeoLocation = location
+//    location.geolocationToBookmark = bookmark
+//    NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+//
+//    return true
+//  }
+  
+    @discardableResult
+    func saveFavorite(name: String, location: KTGeoLocation) -> Bool {
+      let p1 = NSPredicate(format: "locationId == %d", location.locationId)
+      let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1])
+      
+      // update the existing favorite
+      if let favorite = KTFavorites.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) {
+        favorite.name = name
+        favorite.locationType = geoLocationType.favorite.rawValue
+        favorite.locationName = location.name
+        favorite.locationId = location.locationId
+        favorite.longitude = location.longitude
+        favorite.latitude = location.latitude
+        favorite.area = location.area
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        return true
+      }
+      
+      // create new favorite and save it to database
+      let favorite = KTFavorites.mr_createEntity(in: NSManagedObjectContext.mr_default())
+      favorite?.name = name
+      favorite?.locationType = geoLocationType.favorite.rawValue
+      favorite?.locationName = location.name
+      favorite?.locationId = location.locationId
+      favorite?.longitude = location.longitude
+      favorite?.latitude = location.latitude
+      favorite?.area = location.area
+      NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+      
+      return true
     }
 }

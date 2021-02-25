@@ -7,7 +7,9 @@
 //
 import CoreLocation
 
-let TrackTaxiStatus = "0,1"
+//let TrackTaxiStatus = "0,1"
+//let TrackTaxiMaxFectchCount = 5
+let TrackTaxiStatus = "1"
 let TrackTaxiMaxFectchCount = 5
 let TrackTaxiDefaultRadius = 100000.0
 
@@ -19,7 +21,7 @@ extension KTBookingManager
                                            Constants.TrackTaxiParams.Lat : coordinate.latitude,
                                            Constants.TrackTaxiParams.Lon: coordinate.longitude,
                                            Constants.TrackTaxiParams.Radius: TrackTaxiDefaultRadius,
-                                           Constants.TrackTaxiParams.VehicleType : vehicleType.rawValue,
+                                           //Constants.TrackTaxiParams.VehicleType : vehicleType.rawValue,
                                            Constants.TrackTaxiParams.Limit: TrackTaxiMaxFectchCount]
        
         self.get(url: Constants.APIURL.TrackTaxi, param: param as? [String : Any], completion: completionBlock, success: {

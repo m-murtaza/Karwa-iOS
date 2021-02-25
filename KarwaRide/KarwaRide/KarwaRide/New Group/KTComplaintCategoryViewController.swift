@@ -38,6 +38,7 @@ class KTComplaintCategoryViewController: KTBaseDrawerRootViewController,KTCompla
         super.viewDidLoad()
         self.tblView.rowHeight = 80
         self.tblView.tableFooterView = UIView()
+        self.title = "complaintStrCapital".localized()
     }
 
     override func viewDidAppear(_ animated: Bool)

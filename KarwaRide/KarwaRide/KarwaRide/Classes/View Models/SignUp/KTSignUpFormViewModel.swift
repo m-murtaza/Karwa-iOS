@@ -26,14 +26,14 @@ class KTSignUpFormViewModel: KTBaseViewModel {
     
     //weak var delegate: KTSignUpViewModelDelegate?
 
-    struct SignUpValidationError {
-        let NoName = "Name is mandatory"
-        let NoPassword = "Password is mandatory"
-        let PasswordSixChar = "Password should be more than six charecter"
-        let NoPhone = "Mobile number is mandatory"
-        let WrongPhone = "Please enter valid mobile number"
-        let WrongEmail = "Please enter valid email address"
-    }
+  struct SignUpValidationError {
+    let NoName = "err_name".localized()
+    let NoPassword = "err_no_password".localized()
+    let PasswordSixChar = "err_min_password".localized()
+    let NoPhone = "err_no_phone".localized()
+    let WrongPhone = "err_no_phone".localized()
+    let WrongEmail = "err_no_email".localized()
+  }
     
 //    init(del: Any) {
 //        super.init()
@@ -54,7 +54,7 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         
         if error.count == 0
         {
-            delegate?.showProgressHud(show: true, status: "Signing Up")
+          delegate?.showProgressHud(show: true, status: "str_signing_up".localized())
             KTUserManager.init().signUp(name: name!, countryCode: "+" + country.phoneExtension, mobileNo: mobileNo!, email: email!, password: password!.md5(), completion: { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS
@@ -70,7 +70,8 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         else
         {
             //self.delegate?.navigateToOTP()
-            (self.delegate as! KTSignUpViewModelDelegate).showError!(title: "Error", message: error)
+          (self.delegate as! KTSignUpViewModelDelegate).showError!(title: "error_sr".localized(),
+                                                                   message: error)
         }
     }
     

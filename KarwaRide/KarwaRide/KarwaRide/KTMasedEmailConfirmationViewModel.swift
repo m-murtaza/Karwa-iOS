@@ -31,7 +31,7 @@ class KTMasedEmailConfirmationViewModel: KTBaseViewModel {
         let error = validate()
         if error.count == 0
         {
-            delegate?.showProgressHud(show: true, status: "Retriving your password")
+          delegate?.showProgressHud(show: true, status: "str_retrieving_your_password".localized())
             KTUserManager.init().sendForgotPassRequest(countryCode: countryCode!,phone: phone!, password: (password?.md5())!, email: email, completion: { (status, response) in
                 
                 self.delegate?.showProgressHud(show: false)
@@ -42,13 +42,15 @@ class KTMasedEmailConfirmationViewModel: KTBaseViewModel {
                 else
                 {
 //                    (self.delegate as! KTMaskedEmailViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
-                    (self.delegate as! KTMaskedEmailViewModelDelegate).showError!(title: "Error", message: response["M"] as! String)
+                    (self.delegate as! KTMaskedEmailViewModelDelegate).showError!(title: "error_sr".localized(),
+                                                                                  message: response["M"] as! String)
                 }
             })
         }
         else
         {
-            (delegate as! KTMaskedEmailViewModelDelegate).showError!(title: "Error", message: error)
+          (delegate as! KTMaskedEmailViewModelDelegate).showError!(title: "error_sr".localized(),
+                                                                   message: error)
         }
         
     }
@@ -56,7 +58,7 @@ class KTMasedEmailConfirmationViewModel: KTBaseViewModel {
     func validate() -> String {
         var errorString : String = ""
         if email == "" || email.isEmail == false {
-            errorString = "Please enter valid email address"
+            errorString = "err_no_email".localized()
         }
         return errorString
     }

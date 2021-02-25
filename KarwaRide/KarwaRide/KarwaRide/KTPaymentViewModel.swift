@@ -45,6 +45,7 @@ class KTPaymentViewModel: KTBaseViewModel
         fetchnPaymentMethods()
         
         del?.removeAllTags()
+
         for tipOption in Constants.TIP_OPTIONS
         {
             del?.addTag(tag: tipOption)
@@ -55,7 +56,7 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func payTripButtonTapped(payTripBean : PayTripBeanForServer)
     {
-        self.del?.showProgressHud(show: true, status: "We are paying your amount")
+        self.del?.showProgressHud(show: true, status: "str_paying_with_card".localized())
 
         let message = selectedPaymentMethod.source!
 
@@ -66,7 +67,7 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         let paymentToken = String(data: payment.token.paymentData, encoding: .utf8)!
         
-        self.del?.showProgressHud(show: true, status: "We are paying your amount")
+        self.del?.showProgressHud(show: true, status: "str_paying_with_card".localized())
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.payTripToServerWithApplePay(payTripBean: (self.del?.getPayTripBean())!, paymentToken: paymentToken)
@@ -85,7 +86,7 @@ class KTPaymentViewModel: KTBaseViewModel
 
                 self.del?.showTripPaidScene()
 
-                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
+                self.del?.showSuccessBanner("  ", "txt_paid_success".localized())
             }
             else
             {
@@ -106,7 +107,7 @@ class KTPaymentViewModel: KTBaseViewModel
 
                 self.del?.showTripPaidScene()
 
-                self.del?.showSuccessBanner("  ", "Trip amount has been paid successfully")
+                self.del?.showSuccessBanner("  ", "txt_paid_success".localized())
             }
             else
             {
@@ -235,10 +236,10 @@ class KTPaymentViewModel: KTBaseViewModel
     func updatePaymentMethod()
     {
         AnalyticsUtil.trackAddPaymentMethod("")
-        self.del?.showProgressHud(show: true, status: "Updating payment methods")
+        self.del?.showProgressHud(show: true, status: "dialog_msg_updating_profile".localized())
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in
             self.del?.hideProgressHud()
-            self.del?.showSuccessBanner("  ", "Payment method added successfully")
+            self.del?.showSuccessBanner("  ", "profile_updated".localized())
             self.fetchnPaymentMethods()
         }
     }
@@ -294,7 +295,7 @@ class KTPaymentViewModel: KTBaseViewModel
         
         if  error.isEmpty
         {
-            delegate?.showProgressHud(show: true, status: "Updating Account Info")
+            delegate?.showProgressHud(show: true, status: "profile_updated".localized())
             
             KTUserManager().updateUserInfo(
                 name: userName!,
@@ -307,7 +308,7 @@ class KTPaymentViewModel: KTBaseViewModel
 
                     if status == Constants.APIResponseStatus.SUCCESS
                     {
-                        self.delegate?.showPopupMessage("", "Email added successfully, Please verify")
+                        self.delegate?.showPopupMessage("", "profile_updated".localized())
                     }
                     else
                     {
@@ -316,50 +317,15 @@ class KTPaymentViewModel: KTBaseViewModel
             })
         }
         else {
-            self.delegate?.showError!(title: "Error" , message: error)
+            self.delegate?.showError!(title: "error_sr".localized() , message: error)
         }
     }
     
     func validate(userName : String?, userEmail : String?) -> String {
         var errorString :String = ""
         if userEmail == nil || userEmail == "" || userEmail?.isEmail == false {
-            errorString = "Please enter valid email address"
+            errorString = "err_enter_valid_email".localized()
         }
         return errorString
     }
 }
-
-
-            //TODO:
-//            let paymentDataDictionary: [AnyHashable: Any]? = try? JSONSerialization.jsonObject(with: payment.token.paymentData, options: .mutableContainers) as! [AnyHashable : Any]
-//            var paymentType: String = "debit"
-//
-//            var paymentMethodDictionary: [AnyHashable: Any] = ["network": "", "type": paymentType, "displayName": ""]
-//
-//            if #available(iOS 9.0, *) {
-//                paymentMethodDictionary = ["network": payment.token.paymentMethod.network ?? "", "type": paymentType, "displayName": payment.token.paymentMethod.displayName ?? ""]
-//
-//                switch payment.token.paymentMethod.type {
-//                    case .debit:
-//                        paymentType = "debit"
-//                    case .credit:
-//                        paymentType = "credit"
-//                    case .store:
-//                        paymentType = "store"
-//                    case .prepaid:
-//                        paymentType = "prepaid"
-//                    default:
-//                        paymentType = "unknown"
-//                    }
-//            }
-//
-//            let cryptogramDictionary: [AnyHashable: Any] = ["paymentData": paymentDataDictionary ?? "", "transactionIdentifier": payment.token.transactionIdentifier, "paymentMethod": paymentMethodDictionary]
-//            let cardCryptogramPacketDictionary: [AnyHashable: Any] = cryptogramDictionary
-//            let cardCryptogramPacketData: Data? = try? JSONSerialization.data(withJSONObject: cardCryptogramPacketDictionary, options: [])
-//
-//            // in cardCryptogramPacketString we now have all necessary data which demand most of bank gateways to process the payment
-//
-//            let cardCryptogramPacketString = String(describing: cardCryptogramPacketData)
-//
-//            print(cardCryptogramPacketString)
-//            po paymentDataDictionary

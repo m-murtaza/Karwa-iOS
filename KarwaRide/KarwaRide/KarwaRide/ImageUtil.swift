@@ -59,10 +59,10 @@ class ImageUtil
             brandImage = "ico_maestro"
             break;
         case "Cash":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         case "":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         default:
             brandImage = "ico_wallet"
@@ -74,9 +74,11 @@ class ImageUtil
     static func getSmallImage(_ brand: String) -> String
     {
         var brandImage = "wallet_ico_sm"
-        
         switch brand
         {
+        case "GPay":
+            brandImage = "ico_gpay"
+            break;
         case "ApplePay":
             brandImage = "ico_applepay"
             break;
@@ -123,10 +125,10 @@ class ImageUtil
             brandImage = "maestro_ico_sm"
             break;
         case "Cash":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         case "":
-            brandImage = "BDIconCash"
+            brandImage = "icon-cash-new"
             break;
         default:
             brandImage = "wallet_ico_sm"

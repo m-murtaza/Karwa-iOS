@@ -10,6 +10,8 @@
 		0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */; };
 		0D045C8B216F248500D3904B /* KTIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */; };
 		0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */; };
+		0D0A05CE2582147500ACD21B /* LocalisableSpringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A05CD2582147500ACD21B /* LocalisableSpringLabel.swift */; };
+		0D0A068A25823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */; };
 		0D18C6BD215116750001FD4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D18C6BC215116750001FD4C /* GoogleService-Info.plist */; };
 		0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */; };
 		0D1A4B57216CA29A00279AA6 /* KTComplaintCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */; };
@@ -18,6 +20,7 @@
 		0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */; };
 		0D1B4C6D22ED759C00CABE26 /* KTManagePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B4C6C22ED759C00CABE26 /* KTManagePaymentViewController.swift */; };
 		0D1B4C6F22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */; };
+		0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D499D56258F5EF200404DD3 /* InfoPlist.strings */; };
 		0D5C7094220AFA6D00541A21 /* BookingBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C7093220AFA6D00541A21 /* BookingBean.swift */; };
 		0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */; };
 		0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */; };
@@ -29,14 +32,21 @@
 		0D80810A21AE60FA0055E473 /* KTTrackTripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */; };
 		0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */; };
 		0D826ECD21997309006FF11B /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D826ECC21997309006FF11B /* ImageUtil.swift */; };
+		0D9C169725945FAD004D0BF7 /* InputFieldUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */; };
 		0DA1AF812188731100C5D3B6 /* KTPaymentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */; };
 		0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */; };
 		0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224022BA30C900C41D00 /* CountryCell.swift */; };
 		0DB2224522BA30CA00C41D00 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224122BA30C900C41D00 /* Country.swift */; };
 		0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224222BA30C900C41D00 /* Countries.swift */; };
 		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
+		0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */; };
+		0DC4A9172591E9EB007974BF /* LocalisableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */; };
 		0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */; };
 		0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48CB242358DB0018E3F0 /* Transaction.swift */; };
+		0DD0F40E2580A6600089CECD /* LocalisableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */; };
+		0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F4102580A9E20089CECD /* LocalisableButton.swift */; };
+		0DD0F4142580AA340089CECD /* LocalisableSpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */; };
+		0DD0F43B2580DAE50089CECD /* ButtonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD0F43A2580DAE50089CECD /* ButtonExt.swift */; };
 		0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */; };
 		0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */; };
 		0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE28EAC25075831000E27E4 /* APIPinning.swift */; };
@@ -198,7 +208,6 @@
 		18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */; };
 		18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3BC1322841DC3008096B2 /* GenericInputVC.swift */; };
 		18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC95B52289D33400EB000D /* CircularProgress.swift */; };
-		18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B26E204293F000600966 /* SSASideMenu.swift */; };
 		18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */; };
 		18F2B2732042C34500600966 /* LeftMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */; };
 		18F2B2762044135200600966 /* KTMyTripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F2B2752044135200600966 /* KTMyTripsViewController.swift */; };
@@ -210,6 +219,15 @@
 		18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */; };
 		18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */; };
 		18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */; };
+		441D114A254FEC17005E1B66 /* KTFavoriteAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */; };
+		441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */; };
+		441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D114C254FED49005E1B66 /* UIView + Extension.swift */; };
+		441D116D25503A93005E1B66 /* KTAddressFavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D116C25503A93005E1B66 /* KTAddressFavoriteViewModel.swift */; };
+		441D119E25571318005E1B66 /* KTAddressPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D119D25571318005E1B66 /* KTAddressPin.swift */; };
+		448595E22546A98D00409C6C /* KTTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448595E12546A98D00409C6C /* KTTextField.swift */; };
+		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
+		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
+		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -217,6 +235,8 @@
 		0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewModel.swift; sourceTree = "<group>"; };
 		0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueTableViewCell.swift; sourceTree = "<group>"; };
 		0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDownGestureRecognizer.swift; sourceTree = "<group>"; };
+		0D0A05CD2582147500ACD21B /* LocalisableSpringLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringLabel.swift; sourceTree = "<group>"; };
+		0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTBookingDetailsBottomSheetVC.swift; sourceTree = "<group>"; };
 		0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV3.xcdatamodel; sourceTree = "<group>"; };
 		0D18C6BC215116750001FD4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintCategoryModel.swift; sourceTree = "<group>"; };
@@ -226,6 +246,8 @@
 		0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewController.swift; sourceTree = "<group>"; };
 		0D1B4C6C22ED759C00CABE26 /* KTManagePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewController.swift; sourceTree = "<group>"; };
 		0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewModel.swift; sourceTree = "<group>"; };
+		0D499D55258F5EF200404DD3 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0D499D57258F5EFE00404DD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0D4FC2C624014ED400DE705C /* KarwaV9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV9.xcdatamodel; sourceTree = "<group>"; };
 		0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV4.xcdatamodel; sourceTree = "<group>"; };
 		0D5C7093220AFA6D00541A21 /* BookingBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingBean.swift; path = Classes/Common/Utility/BookingBean.swift; sourceTree = "<group>"; };
@@ -239,6 +261,7 @@
 		0D80810921AE60FA0055E473 /* KTTrackTripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewModel.swift; sourceTree = "<group>"; };
 		0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewController.swift; sourceTree = "<group>"; };
 		0D826ECC21997309006FF11B /* ImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
+		0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldUtil.swift; sourceTree = "<group>"; };
 		0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV5.xcdatamodel; sourceTree = "<group>"; };
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
@@ -246,9 +269,15 @@
 		0DB2224122BA30C900C41D00 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		0DB2224222BA30C900C41D00 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
+		0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ride_shiner.json; sourceTree = "<group>"; };
 		0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV8.xcdatamodel; sourceTree = "<group>"; };
+		0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableTextField.swift; sourceTree = "<group>"; };
 		0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantAPI.swift; sourceTree = "<group>"; };
 		0DCE48CB242358DB0018E3F0 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableLabel.swift; sourceTree = "<group>"; };
+		0DD0F4102580A9E20089CECD /* LocalisableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableButton.swift; sourceTree = "<group>"; };
+		0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringButton.swift; sourceTree = "<group>"; };
+		0DD0F43A2580DAE50089CECD /* ButtonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExt.swift; sourceTree = "<group>"; };
 		0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUpdateNotifier.swift; sourceTree = "<group>"; };
 		0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
 		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
@@ -417,7 +446,6 @@
 		18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
 		18D3BC1322841DC3008096B2 /* GenericInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericInputVC.swift; sourceTree = "<group>"; };
 		18DC95B52289D33400EB000D /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
-		18F2B26E204293F000600966 /* SSASideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SSASideMenu.swift; path = Classes/ThirdParty/SSASideMenu/SSASideMenu.swift; sourceTree = "<group>"; };
 		18F2B2702042BE4B00600966 /* KTLeftMenuModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLeftMenuModel.swift; path = "Classes/View Models/SideDrawer/KTLeftMenuModel.swift"; sourceTree = "<group>"; };
 		18F2B2722042C34500600966 /* LeftMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeftMenuTableViewCell.swift; path = Classes/Views/Controllers/SideDrawer/LeftMenuTableViewCell.swift; sourceTree = "<group>"; };
 		18F2B2752044135200600966 /* KTMyTripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTMyTripsViewController.swift; path = Classes/Views/Controllers/MyTrips/KTMyTripsViewController.swift; sourceTree = "<group>"; };
@@ -429,6 +457,19 @@
 		18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseCreateBookingController.swift; path = Classes/Views/Controllers/Booking/KTBaseCreateBookingController.swift; sourceTree = "<group>"; };
 		18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Estimate.swift"; path = "Classes/DAL/Booking/KTBookingManager+Estimate.swift"; sourceTree = "<group>"; };
 		18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseFareEstimateManager.swift; path = Classes/DAL/KTBaseFareEstimateManager.swift; sourceTree = "<group>"; };
+		441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTFavoriteAddressViewController.swift; sourceTree = "<group>"; };
+		441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KTFavoriteAddressViewController.xib; sourceTree = "<group>"; };
+		441D114C254FED49005E1B66 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		441D116C25503A93005E1B66 /* KTAddressFavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddressFavoriteViewModel.swift; sourceTree = "<group>"; };
+		441D119D25571318005E1B66 /* KTAddressPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddressPin.swift; sourceTree = "<group>"; };
+		448595E12546A98D00409C6C /* KTTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTextField.swift; sourceTree = "<group>"; };
+		448DCC262549B4E8005A644D /* UIFont + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extension.swift"; sourceTree = "<group>"; };
+		448DCC28254A61C2005A644D /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		44EBB8CA25486162000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		44EBB8CB25486163000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		44EBB8CF254861FC000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44EBB8D1254861FE000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -527,6 +568,15 @@
 				0DB2224322BA30C900C41D00 /* CountryList.swift */,
 			);
 			name = CountryPicker;
+			sourceTree = "<group>";
+		};
+		0DBC403525AEE9E4001AFDA2 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */,
+				181344A01EF68671006E734A /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		0DE6A733218B140200125507 /* MPGS */ = {
@@ -708,6 +758,7 @@
 				187E71122084935100E66A55 /* KTRatingViewController.swift */,
 				182A74CC20876A0B0025B6C7 /* KTTagButton.swift */,
 				0D750BF621DB5B9700CFF75B /* RatingCommentPopupVC.swift */,
+				0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */,
 			);
 			name = BookingDetails;
 			sourceTree = "<group>";
@@ -733,6 +784,7 @@
 		181344981EF68671006E734A /* KarwaRide */ = {
 			isa = PBXGroup;
 			children = (
+				0DBC403525AEE9E4001AFDA2 /* Assets */,
 				0DE28EAE25076786000E27E4 /* karwatechnologies_com.der */,
 				0D18C6BC215116750001FD4C /* GoogleService-Info.plist */,
 				18C24AE02004E201002D4B88 /* Resources */,
@@ -742,9 +794,9 @@
 				181344991EF68671006E734A /* AppDelegate.swift */,
 				1813449B1EF68671006E734A /* ViewController.swift */,
 				1813449D1EF68671006E734A /* Main.storyboard */,
-				181344A01EF68671006E734A /* Assets.xcassets */,
 				181344A21EF68671006E734A /* LaunchScreen.storyboard */,
 				181344A51EF68671006E734A /* Info.plist */,
+				0D499D56258F5EF200404DD3 /* InfoPlist.strings */,
 			);
 			path = KarwaRide;
 			sourceTree = "<group>";
@@ -772,6 +824,11 @@
 				181344B71EF916DC006E734A /* ApplicationSession */,
 				181344B01EF7BC70006E734A /* Configuration */,
 				181344AD1EF7B2DD006E734A /* Network */,
+				0DD0F40D2580A6600089CECD /* LocalisableLabel.swift */,
+				0DD0F4102580A9E20089CECD /* LocalisableButton.swift */,
+				0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */,
+				0D0A05CD2582147500ACD21B /* LocalisableSpringLabel.swift */,
+				0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */,
 			);
 			name = HelperClasses;
 			sourceTree = "<group>";
@@ -797,11 +854,13 @@
 		181344B31EF7E058006E734A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				448595E02546A94D00409C6C /* Views */,
 				0D79DB3E215246A900316D2F /* Analytics */,
 				18C24AD120049145002D4B88 /* Extension */,
 				18C24AC2200340B0002D4B88 /* Utility */,
 				1864872C1F0BB01900DDB003 /* CommonBase */,
 				181344B41EF7E060006E734A /* Constants */,
+				0DD0F43A2580DAE50089CECD /* ButtonExt.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -884,6 +943,7 @@
 		1833CA7D200DB86E00AD885B /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				441D116E255103ED005E1B66 /* Favorite */,
 				18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */,
 				1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */,
 				18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */,
@@ -898,6 +958,7 @@
 				0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */,
 				0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */,
 				0DF0CD3721E3740900124058 /* PromoCodePopupVC.swift */,
+				441D119D25571318005E1B66 /* KTAddressPin.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -906,6 +967,7 @@
 			isa = PBXGroup;
 			children = (
 				1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */,
+				441D116C25503A93005E1B66 /* KTAddressFavoriteViewModel.swift */,
 				18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */,
 			);
 			name = Booking;
@@ -1168,6 +1230,7 @@
 				0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */,
 				0DE28EB025076FB4000E27E4 /* StringProtocol_Ex.swift */,
 				0DE28EB225077385000E27E4 /* Int_ex.swift */,
+				0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -1200,6 +1263,9 @@
 				1852094C2063C91C00BD5FCD /* RoundedLable.swift */,
 				182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */,
 				182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */,
+				448DCC262549B4E8005A644D /* UIFont + Extension.swift */,
+				448DCC28254A61C2005A644D /* UIViewController + Extension.swift */,
+				441D114C254FED49005E1B66 /* UIView + Extension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1220,6 +1286,7 @@
 				18520943206240A900BD5FCD /* Images */,
 				18B9076D20271183000F45FE /* map_style_karwa.json */,
 				18C24AE12004E222002D4B88 /* Fonts */,
+				44EBB8D0254861FC000257EE /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1262,7 +1329,6 @@
 		18F2B26D2042932300600966 /* SSASideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				18F2B26E204293F000600966 /* SSASideMenu.swift */,
 			);
 			name = SSASideMenu;
 			sourceTree = "<group>";
@@ -1302,6 +1368,23 @@
 				18F2B277204420FC00600966 /* Settings */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		441D116E255103ED005E1B66 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */,
+				441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */,
+			);
+			name = Favorite;
+			sourceTree = "<group>";
+		};
+		448595E02546A94D00409C6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				448595E12546A98D00409C6C /* KTTextField.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
@@ -1383,6 +1466,7 @@
 				English,
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 1813448D1EF68671006E734A;
 			productRefGroup = 181344971EF68671006E734A /* Products */;
@@ -1399,8 +1483,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */,
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
+				441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */,
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
+				0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */,
+				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
@@ -1450,28 +1538,32 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlertOnboarding/AlertOnboarding.framework",
 				"${BUILT_PRODUCTS_DIR}/BarcodeScanner/BarcodeScanner.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/DDViewSwitcher/DDViewSwitcher.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JTMaterialSwitch/JTMaterialSwitch.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
 				"${BUILT_PRODUCTS_DIR}/MagicalRecord/MagicalRecord.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RKTagsView/RKTagsView.framework",
 				"${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ScalingCarousel/ScalingCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenuSwift/SideMenuSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/TrueTime/TrueTime.framework",
+				"${BUILT_PRODUCTS_DIR}/UBottomSheet/UBottomSheet.framework",
 				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1479,28 +1571,32 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlertOnboarding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BarcodeScanner.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DDViewSwitcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTMaterialSwitch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MagicalRecord.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKTagsView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAConfettiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScalingCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrueTime.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UBottomSheet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1567,6 +1663,8 @@
 				1811E4E920569A5100C3C47F /* Date+Utils.swift in Sources */,
 				1852093F205F978D00BD5FCD /* ARCarMovement.swift in Sources */,
 				1811E4D4204E7B3D00C3C47F /* KTUserManager+AccountEdit.swift in Sources */,
+				448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */,
+				0D9C169725945FAD004D0BF7 /* InputFieldUtil.swift in Sources */,
 				0D1B4C6D22ED759C00CABE26 /* KTManagePaymentViewController.swift in Sources */,
 				182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
@@ -1598,6 +1696,7 @@
 				186ECFC520A1A4E2002CF81E /* KTOnboardingStep4ViewController.swift in Sources */,
 				0DE6A747218B141200125507 /* GatewayMap.swift in Sources */,
 				18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */,
+				0DD0F4142580AA340089CECD /* LocalisableSpringButton.swift in Sources */,
 				182A74DC209836900025B6C7 /* KTNotificationTableViewCell.swift in Sources */,
 				18FA45BB20721848000487C1 /* KTCreateBookingViewController+FareBreakdown.swift in Sources */,
 				18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */,
@@ -1624,13 +1723,14 @@
 				0D0948E721995A3700ECC8E1 /* TouchDownGestureRecognizer.swift in Sources */,
 				1811E4E520564A6E00C3C47F /* KTMyTripsViewModel.swift in Sources */,
 				0DE6A742218B141200125507 /* MPGSDK.swift in Sources */,
+				0D0A068A25823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift in Sources */,
+				0DD0F43B2580DAE50089CECD /* ButtonExt.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,
 				0DE6A748218B141200125507 /* Gateway3DSecureViewController.swift in Sources */,
 				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				18FA45B9207216F2000487C1 /* KTCreateBookingViewController+CarouselView.swift in Sources */,
-				18F2B26F204293F000600966 /* SSASideMenu.swift in Sources */,
 				0DF3A2302185B5440000503B /* MPGSSession.swift in Sources */,
 				0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */,
 				0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */,
@@ -1647,6 +1747,7 @@
 				182A74D42097093F0025B6C7 /* KTNotificationManager.swift in Sources */,
 				18FA45B720720C94000487C1 /* KTCreateBookingViewController+Map.swift in Sources */,
 				0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */,
+				448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */,
 				18861880207CA3EA000806D3 /* KTFarePopupViewController.swift in Sources */,
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */,
@@ -1667,6 +1768,7 @@
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
+				0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */,
 				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
@@ -1682,11 +1784,16 @@
 				0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */,
 				0D685A86218CB1F200DB2CDB /* MAKHash.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
+				441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */,
+				0DC4A9172591E9EB007974BF /* LocalisableTextField.swift in Sources */,
 				186ECFD120A80EDB002CF81E /* KTFirstViewModel.swift in Sources */,
+				0D0A05CE2582147500ACD21B /* LocalisableSpringLabel.swift in Sources */,
 				186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */,
 				1810C13E1FCE95CA008E8D91 /* KTMainViewController.swift in Sources */,
 				1833CA6C2007474A00AD885B /* KTForgotPassViewModel.swift in Sources */,
 				1811E4D0204E723C00C3C47F /* KTEditAccountViewController.swift in Sources */,
+				0DD0F40E2580A6600089CECD /* LocalisableLabel.swift in Sources */,
+				448595E22546A98D00409C6C /* KTTextField.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
 				18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */,
 				0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */,
@@ -1700,6 +1807,7 @@
 				18203CC922888F2900B19B43 /* KTEmailCellViewController.swift in Sources */,
 				0DF5D51622F053940057BED9 /* KTTipTagButton.swift in Sources */,
 				182A74D720972EB10025B6C7 /* KTNotificationViewController.swift in Sources */,
+				441D119E25571318005E1B66 /* KTAddressPin.swift in Sources */,
 				1811E4D2204E73DF00C3C47F /* KTEditUserViewModel.swift in Sources */,
 				18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */,
 				1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */,
@@ -1723,11 +1831,13 @@
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				0DE28EB325077385000E27E4 /* Int_ex.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
+				441D116D25503A93005E1B66 /* KTAddressFavoriteViewModel.swift in Sources */,
 				0DB2224422BA30CA00C41D00 /* CountryCell.swift in Sources */,
 				18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */,
 				0DE90AF42186E8A6005FC934 /* KTPaymentViewController.swift in Sources */,
 				0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */,
 				186ECFC920A2B827002CF81E /* KTOnBoardingRootViewController.swift in Sources */,
+				441D114A254FEC17005E1B66 /* KTFavoriteAddressViewController.swift in Sources */,
 				0DF3A22F2185B5440000503B /* PayTripBeanForServer.swift in Sources */,
 				1864872E1F0BB04500DDB003 /* KTBase.swift in Sources */,
 				1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */,
@@ -1737,10 +1847,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0D499D56258F5EF200404DD3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0D499D55258F5EF200404DD3 /* ar */,
+				0D499D57258F5EFE00404DD3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		1813449D1EF68671006E734A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1813449E1EF68671006E734A /* Base */,
+				44EBB8CA25486162000257EE /* ar */,
+				44EBB8D3254863F0000257EE /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1749,8 +1870,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				181344A31EF68671006E734A /* Base */,
+				44EBB8CB25486163000257EE /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44EBB8D0254861FC000257EE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44EBB8CF254861FC000257EE /* en */,
+				44EBB8D1254861FE000257EE /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1872,11 +2003,13 @@
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 155;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1899,10 +2032,12 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 155;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.0.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -39,6 +39,7 @@ enum geoLocationType : Int32 {
     case Recent = 10
     case Nearby = 11
     case Popular = 12
+    case favorite = 34
 }
 
 enum CustomerType : Int32 {
@@ -82,6 +83,24 @@ enum BookingStatus : Int32 {
     case UNKNOWN = 0
 }
 
+struct Device {
+  static func language() -> String {
+    if Locale.current.languageCode == "ar" {
+      return "ar-QA"
+    }
+    return "en-US"
+  }
+    
+    static func getLanguage() -> String
+    {
+        if (Locale.current.languageCode == "ar")
+        {
+          return "AR"
+        }
+        return "EN"
+    }
+}
+
 struct Constants {
     static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
@@ -99,7 +118,8 @@ struct Constants {
 //    static let APPLE_PAY_MERCHANT_ID:String = "merchant.mowasalat.karwa.taxi"
     /* ------------------------------------------------------------------ */
     
-    static let TIP_OPTIONS = ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
+    static let TIP_OPTIONS = Locale.current.languageCode == "ar" ? ["  ر.ق2  ", "  ر.ق3  ", "  ر.ق5  ", "  ر.ق10 "] : ["  QR 2  ", "  QR 3  ", "  QR 5  ", "  QR 10 "]
+
     static let TIP_OPTIONS_VALUES = ["2", "3", "5", "10"]
     
     static let DIRECTIONS_API_ENABLE:Bool = false
@@ -136,6 +156,11 @@ struct Constants {
         static let BaseURLKey = "BaseAPIURL"
         static let RequestTimeOut = 10.0
         static let Salt = "Salt"
+      
+      struct Headers {
+        static let AcceptLanguage = "Accept-Language"
+        static let Localize = "Localize"
+      }
     }
     
     struct ResponseAPIKey {
@@ -301,6 +326,7 @@ struct Constants {
         static let BookingStatii = "BookingStatii"
         static let Desc = "Desc"
         static let EN = "EN"
+        static let AR = "AR"
         static let ReasonCode = "ReasonCode"
     }
     
@@ -424,6 +450,7 @@ struct Constants {
         static let trackVechicle = "track/job"
         static let initTariff = "tariff/init"
         static let GetEstimate = "tariff/estimate"
+        static let GetETA = "track/nearest"  
         static let GetPromoEstimate = "tariff/estimate"
         static let CancelReason = "booking/cancelreasons"
         static let RatingReason = "booking/ratingreasons"

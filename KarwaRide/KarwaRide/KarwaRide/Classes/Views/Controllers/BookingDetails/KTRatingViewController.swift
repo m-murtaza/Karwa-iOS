@@ -10,12 +10,11 @@ import UIKit
 import Kingfisher
 import Cosmos
 import RKTagsView
-import SAConfettiView
 import Spring
 
 protocol KTRatingViewDelegate {
     
-    func closeRating()
+    func closeRating(_ rating : Int32)
 }
 class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDelegate {
     
@@ -131,83 +130,12 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func showAltForThanks(rating: Int32)
     {
-        let confettiView = SAConfettiView(frame: self.view.bounds)
-        let isAppStoreRatingDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_APP_STORE_RATING_DONE)
-        
-        if(rating > 3)
-        {
-            confettiView.type = .Diamond
-            confettiView.colors = [UIColor.yellow]
-            confettiView.intensity = 0.75
-            
-            view.addSubview(confettiView)
-            confettiView.startConfetti()
-
-            if(isAppStoreRatingDone.isEmpty || isAppStoreRatingDone.count == 0)
-            {
-                // Asking for App Store Rating
-                showRatingDialog(confettiView, rating)
-            }
-            else
-            {
-                // Show Normal OK Dialog
-                showOkDialog(confettiView, rating)
-            }
-        }
-        else
-        {
-            showOkDialog(confettiView, rating)
-        }
+        showOkDialog(rating)
     }
     
-    func showOkDialog(_ confettiView : SAConfettiView, _ rating : Int32)
+    func showOkDialog(_ rating : Int32)
     {
-        let alertController = UIAlertController(title: "", message: "Thanks for providing us your valuable feedback", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-            if(rating > 3)
-            {
-                confettiView.stopConfetti()
-            }
-            
-            self.closeScreen()
-        }
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-
-    }
-
-    func showRatingDialog(_ confettiView : SAConfettiView, _ rating : Int32)
-    {
-        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
-        
-        let alert = UIAlertController(title: "Thank you", message: "Please rate us on App Store", preferredStyle: .alert)
-        
-        let rateAction = UIAlertAction(title: "Rate", style: UIAlertActionStyle.default)
-        {
-            UIAlertAction in
-            
-            if(rating > 3)
-            {
-                confettiView.stopConfetti()
-            }
-            self.closeScreen()
-            self.vModel?.rateApplication()
-        }
-        let notNowAction = UIAlertAction(title: "Not Now", style: UIAlertActionStyle.cancel)
-        {
-            UIAlertAction in
-            if(rating > 3)
-            {
-                confettiView.stopConfetti()
-            }
-            self.closeScreen()
-        }
-        
-        alert.addAction(rateAction)
-        alert.addAction(notNowAction)
-        
-        self.present(alert, animated: true)
+        closeScreen(rating)
     }
     
     func updateDriver(name: String) {
@@ -243,8 +171,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         btnSubmit.setTitle(label, for: .normal)
     }
     
-    func closeScreen() {
-        delegate?.closeRating()
+    func closeScreen(_ rating : Int32) {
+        delegate?.closeRating(rating)
     }
 
     override func showError(title:String, message:String)
@@ -252,8 +180,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-            self.closeScreen()
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
+            self.closeScreen(-1)
         }
         
         //alertController.addAction(cancelAction)
@@ -331,7 +259,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func resetComplainComment()
     {
-        complainComment.setTitle("Add complain comments here", for: .normal)
+        complainComment.setTitle("str_add_comment_here", for: .normal)
     }
     
     @objc func tagViewTapped() {

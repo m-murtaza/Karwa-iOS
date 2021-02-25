@@ -26,11 +26,11 @@ class KTLoginViewModel: KTBaseViewModel {
 //    }
     
     struct LoginValidationError {
-        let NoName = "Name is mandatory"
-        let NoPassword = "Password is mandatory"
-        let PasswordSixChar = "Password should be more than six charecter"
-        let NoPhone = "Mobile number is mandatory"
-        let WrongPhone = "Please enter valid mobile number"
+      let NoName = "err_name".localized()
+      let NoPassword = "err_no_password".localized()
+      let PasswordSixChar = "err_min_password".localized()
+      let NoPhone = "err_no_phone".localized()
+      let WrongPhone = "err_no_phone".localized()
     }
 
     var country = Country(countryCode: "QA", phoneExtension: "974")
@@ -47,7 +47,7 @@ class KTLoginViewModel: KTBaseViewModel {
         
         if error.count == 0
         {
-            delegate?.showProgressHud(show: true, status: "Logging In")
+          delegate?.showProgressHud(show: true, status: "str_logging_in".localized())
             KTUserManager.init().login(countryCodey: "+" + country.phoneExtension, phone: phone, password:password ) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS
@@ -67,7 +67,8 @@ class KTLoginViewModel: KTBaseViewModel {
         }
         else
         {
-            (self.delegate as! KTLoginViewModelDelegate).showError!(title: "Error", message: error)
+            (self.delegate as! KTLoginViewModelDelegate).showError!(title: "error_sr".localized(),
+                                                                    message: error)
         }
     }
     

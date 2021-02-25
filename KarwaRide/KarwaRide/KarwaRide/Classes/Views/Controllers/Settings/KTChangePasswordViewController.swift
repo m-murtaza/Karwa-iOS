@@ -24,8 +24,10 @@ class KTChangePasswordViewController: KTBaseViewController,KTChangePasswordViewM
         // Do any additional setup after loading the view.
         txtOldPassword.becomeFirstResponder()
 
+        title = "changePass".localized()
+        
         btnSave.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(btnChangeTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "str_save".localized(), style: .plain, target: self, action: #selector(btnChangeTapped))
         
     }
 
@@ -49,10 +51,10 @@ class KTChangePasswordViewController: KTBaseViewController,KTChangePasswordViewM
     }
     
     func showSuccessAltAndMoveBack() {
-        let alertController = UIAlertController(title: "Password Updated", message: "Your Password is updated", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "progress_dialog_title_just_a_moment".localized(), message: "password_updated".localized(), preferredStyle: .alert)
         
         //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
             self.navigationController?.popViewController(animated: true)
         }
         

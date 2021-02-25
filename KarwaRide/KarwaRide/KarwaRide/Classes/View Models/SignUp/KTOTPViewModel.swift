@@ -26,7 +26,7 @@ class KTOTPViewModel: KTBaseViewModel {
             let phone : String = ((self.delegate as! KTOTPViewModelDelegate).phoneNum())!
             if KTUtils.isObjectNotNil(object: otp as AnyObject)
             {
-                delegate?.showProgressHud(show: true, status: "Confirming Code")
+              delegate?.showProgressHud(show: true, status: "str_confirming_code".localized())
                 KTUserManager().varifyOTP(countryCode: countryCode, phone: phone, code: otp!
                     , completion: { (status, response) in
                         self.delegate?.showProgressHud(show: false)
@@ -44,7 +44,8 @@ class KTOTPViewModel: KTBaseViewModel {
         }
         else
         {
-            self.delegate?.showError!(title: "", message: "Please Enter Code first")
+            self.delegate?.showError!(title: "error_sr".localized(),
+                                      message: "Please Enter Code first")
         }
     }
     
@@ -57,7 +58,8 @@ class KTOTPViewModel: KTBaseViewModel {
             self.delegate?.hideProgressHud()
             if status == Constants.APIResponseStatus.SUCCESS {
             
-                self.delegate?.showError!(title: "", message: "Verification code sent")
+                self.delegate?.showError!(title: "error_sr".localized(),
+                                          message: "Verification code sent")
             }
             else
             {

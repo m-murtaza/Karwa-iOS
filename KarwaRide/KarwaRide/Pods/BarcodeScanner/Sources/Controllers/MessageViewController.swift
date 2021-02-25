@@ -104,7 +104,7 @@ public final class MessageViewController: UIViewController {
     borderView.isHidden = true
     borderView.layer.removeAllAnimations()
 //    textLabel.text = status.text ?? messages.makeText(for: status.state)
-    textLabel.text = "Scan your trip QR code from Meter for credit card payment"
+    textLabel.text =  Locale.current.languageCode == "ar" ? "صور الباركود في عداد التاكسي للدفع ببطاقة الائتمان" : "Scan your trip QR code from Meter for credit card payment"
     textLabel.textAlignment = .center
 
     switch status.state {

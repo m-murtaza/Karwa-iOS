@@ -71,7 +71,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
     {
         if((categoryId == 17 || categoryId == 11) && remarks.count == 0)
         {
-            del?.showToast(message: "Please enter the comments")
+            del?.showToast(message: "err_empty_complain_remarks".localized())
         }
         else
         {
@@ -104,7 +104,7 @@ class KTIssueSelectionViewModel: KTBaseViewModel
         KTComplaintsManager().createComplaintAtServer(complaint: complaint) { (status, response) in
             self.delegate?.hideProgressHud()
             
-            self.del?.showMessage("", "Your Complaint has been registered, we will get back to you shortly.")
+            self.del?.showMessage("", "booking_rated".localized())
         }
     }
 }

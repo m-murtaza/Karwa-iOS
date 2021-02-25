@@ -11,6 +11,7 @@ import UIKit
 class KTAppDataSyncManager: KTDALManager {
     
     func syncApplicationData()  {
+        sanitizeSyncTimesIfRequired()
         self.syncProfile()
         self.syncVechicleTypes()
         self.fetchBookmarks()
@@ -20,7 +21,17 @@ class KTAppDataSyncManager: KTDALManager {
         self.syncComplaints()
         self.syncPaymentMethods()
         self.removeNotificaiton()
-        
+    }
+    
+    private func sanitizeSyncTimesIfRequired()
+    {
+        if(SharedPrefUtil.isLanguageChanged())
+        {
+            resetSyncTime(forKey: BOOKING_SYNC_TIME)
+            resetSyncTime(forKey: RATING_REASON_SYNC_TIME)
+            resetSyncTime(forKey: COMPLAINTS_SYNC_TIME)
+            SharedPrefUtil.setLanguageChanged(setLanguage: Device.language())
+        }
     }
     
     private func syncProfile()

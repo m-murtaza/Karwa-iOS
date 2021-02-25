@@ -135,4 +135,30 @@ extension String {
         }
         return String(usv)
     }
+  
+  func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
+    return NSLocalizedString(self, tableName: tableName, value: "**\(self)**", comment: "")
+  }
+  
+  func convertToNumbersIfNeeded() -> String {
+    let numberStr: String = self
+    let formatter = NumberFormatter()
+    formatter.locale = NSLocale(localeIdentifier: "EN") as Locale
+    formatter.numberStyle = .decimal
+    formatter.decimalSeparator = "."
+    if let final = formatter.number(from: numberStr) {
+      return final.stringValue
+    }
+    formatter.decimalSeparator = ","
+    if let final = formatter.number(from: numberStr) {
+      return final.stringValue
+    }
+    formatter.decimalSeparator = "٫"
+    if let final = formatter.number(from: numberStr) {
+      return final.stringValue
+    }
+    else {
+      return numberStr
+    }
+  }
 }

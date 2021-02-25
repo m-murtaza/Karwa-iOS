@@ -110,7 +110,7 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
     func showPopupMessage(_ title: String, _ message: String)
     {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
@@ -130,7 +130,7 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
     }
     
     func showTaskCompleted(withMessage msg: String) {
-        SVProgressHUD.show(UIImage(named: "light-check-mark")!, status: msg)
+        SVProgressHUD.showInfo(withStatus: msg)
         SVProgressHUD.dismiss(withDelay: 1.0)
     }
     

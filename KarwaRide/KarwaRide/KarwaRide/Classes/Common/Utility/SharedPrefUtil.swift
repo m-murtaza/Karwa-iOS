@@ -10,7 +10,6 @@ import Foundation
 
 class SharedPrefUtil
 {
-    static let IS_COACHMARKS_SHOWN = "IS_COACHMARKS_SHOWN"
     static let IS_APP_STORE_RATING_DONE = "IS_APP_STORE_RATING_DONE"
     static let IS_SHARE_TRIP_TOOL_TIP_SHOWN = "IS_SHARE_TRIP_TOOL_TIP_SHOWN"
     static let IS_RATING_REASONS_RESET_FORCEFULLY = "IS_RATING_REASONS_RESET_FORCEFULLY"
@@ -19,6 +18,9 @@ class SharedPrefUtil
     static let IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT = "IS_SCAN_PAY_COACHMARK_SHOWN_ON_PAYMENT"
     static let SYNC_TIME_COMPLAINTS = "SYNC_TIME_COMPLAINTS"
 
+    static let LANGUAGE_SET = "LANGUAGE_SET"
+    static let DELTA_TO_TRUE_TIME = "DELTA_TO_REAL_TIME"
+    
     static func setSharedPref(_ key:String, _ value: String)
     {
         let defaults = UserDefaults.standard
@@ -78,18 +80,26 @@ class SharedPrefUtil
         }
     }
     
-    public static func isBookingCoachmarkOneShown() -> Bool
+    public static func setDeltaToRealTime(deltaTimeInMilliseconds delta : Double)
     {
-        let isCoachmarksShown = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_COACHMARKS_SHOWN)
-        
-        if(isCoachmarksShown.isEmpty || isCoachmarksShown.count == 0)
-        {
-            return false
-        }
-        else
-        {
-            return true
-        }
+        let defaults = UserDefaults.standard
+        defaults.setValue("\(delta)", forKey: DELTA_TO_TRUE_TIME)
+    }
+    
+    public static func getDeltaToRealTime() -> Double
+    {
+        return Double(getSharePref(DELTA_TO_TRUE_TIME)) ?? 0
+    }
+    
+    public static func setLanguageChanged(setLanguage language : String)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(language, forKey: LANGUAGE_SET)
+    }
+    
+    public static func isLanguageChanged() -> Bool
+    {
+        return Device.language() != SharedPrefUtil.getSharePref(LANGUAGE_SET)
     }
     
     public static func resetRideIfRequired()
@@ -98,7 +108,7 @@ class SharedPrefUtil
         let currBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         let buildNo = Int(currBuild)!
 
-        if(buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION)
+        if(buildNo < Constants.APP_REQUIRE_VEHICLE_UPDATE_VERSION || SharedPrefUtil.isLanguageChanged())
         {
             KTDALManager().resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
         }
