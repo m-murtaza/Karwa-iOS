@@ -128,6 +128,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showBtnComplain()
     {
+        if Device.getLanguage().contains("ar") {
+            btnReportIssue.contentHorizontalAlignment = .right
+        } else {
+            btnReportIssue.contentHorizontalAlignment = .left
+        }
         btnReportIssue.isHidden = false
     }
     
