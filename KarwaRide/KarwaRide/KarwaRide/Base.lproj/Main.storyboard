@@ -382,7 +382,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By pressing set destination, start your booking will let you start your booking instantly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTF-yJ-glx">
-                                <rect key="frame" x="43" y="534" width="289" height="57.666666666666629"/>
+                                <rect key="frame" x="43" y="534" width="289" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="SoI-Yg-DsK"/>
                                 </constraints>
@@ -893,7 +893,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slide to change service type and enjoy your ride" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gr2-Vq-9E0">
-                                <rect key="frame" x="43" y="534" width="289" height="38.666666666666629"/>
+                                <rect key="frame" x="43" y="534" width="289" height="37.333333333333371"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="hO4-x0-oIG"/>
                                 </constraints>
@@ -5160,7 +5160,7 @@
                                             <constraint firstAttribute="width" constant="100" id="X10-YX-Nln"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
-                                        <color key="textColor" red="0.53881412740000001" green="0.68565791850000002" blue="0.7137319446" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="0.53725490196078429" green="0.70588235294117641" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_driver_info"/>
@@ -5512,7 +5512,6 @@
                                     <constraint firstItem="0hF-e9-5FJ" firstAttribute="leading" secondItem="s5X-rU-3FG" secondAttribute="leading" constant="45" id="71l-qB-6dk"/>
                                     <constraint firstItem="0hF-e9-5FJ" firstAttribute="centerY" secondItem="s5X-rU-3FG" secondAttribute="centerY" id="ZoF-fF-44g"/>
                                     <constraint firstAttribute="height" constant="85" id="b2F-Rx-hdU"/>
-                                    <constraint firstAttribute="bottom" secondItem="HWb-uw-pdX" secondAttribute="bottom" id="kcw-tN-rWI"/>
                                     <constraint firstAttribute="trailing" secondItem="HWb-uw-pdX" secondAttribute="trailing" id="qcp-dX-4RF"/>
                                     <constraint firstItem="X0C-dC-8Uf" firstAttribute="centerY" secondItem="s5X-rU-3FG" secondAttribute="centerY" id="rMT-Fw-T7x"/>
                                     <constraint firstItem="HWb-uw-pdX" firstAttribute="leading" secondItem="s5X-rU-3FG" secondAttribute="leading" id="rhY-1b-ZsS"/>
@@ -5612,6 +5611,7 @@
                             <constraint firstItem="c04-ru-BQW" firstAttribute="top" secondItem="g9y-en-URd" secondAttribute="top" constant="8" id="Kf6-M2-twH"/>
                             <constraint firstItem="BSi-cS-tS7" firstAttribute="trailing" secondItem="bcw-NG-Sxh" secondAttribute="trailing" id="Ltl-Rv-tHj"/>
                             <constraint firstItem="Q7Y-sl-aNe" firstAttribute="top" secondItem="VMQ-Ms-vYx" secondAttribute="bottom" constant="5" id="NLv-2s-2nN"/>
+                            <constraint firstItem="4th-k2-d64" firstAttribute="top" secondItem="HWb-uw-pdX" secondAttribute="bottom" constant="8" symbolic="YES" id="Nir-85-HrF"/>
                             <constraint firstItem="Nbe-AW-Xro" firstAttribute="trailing" secondItem="bcw-NG-Sxh" secondAttribute="trailing" id="PTj-E9-LeU"/>
                             <constraint firstItem="UFi-zD-5H1" firstAttribute="top" secondItem="bcw-NG-Sxh" secondAttribute="top" constant="30" id="Urc-Nw-fhg"/>
                             <constraint firstItem="bcw-NG-Sxh" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UFi-zD-5H1" secondAttribute="trailing" symbolic="YES" id="V49-Wh-iIg"/>
@@ -9422,7 +9422,7 @@
                                                     <rect key="frame" x="32" y="39" width="45" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="**** **** **** 0008" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oja-Ul-eZ0">
-                                                    <rect key="frame" x="93" y="44" width="102" height="17"/>
+                                                    <rect key="frame" x="93" y="44" width="124" height="17"/>
                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -9461,7 +9461,7 @@
                                 <rect key="frame" x="66" y="704" width="282" height="32"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9g-KR-Wfp" customClass="LocalisableSpringButton" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="134" y="651" width="146" height="30"/>
+                                <rect key="frame" x="192" y="651" width="30" height="30"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="addNewCardText"/>
@@ -9540,14 +9540,8 @@
         <designable name="2a7-Ih-VDT">
             <size key="intrinsicContentSize" width="309" height="0.0"/>
         </designable>
-        <designable name="3Hf-ht-uDd">
-            <size key="intrinsicContentSize" width="139" height="33"/>
-        </designable>
         <designable name="4th-k2-d64">
             <size key="intrinsicContentSize" width="137" height="32"/>
-        </designable>
-        <designable name="5q4-Cd-UaS">
-            <size key="intrinsicContentSize" width="106" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="104" height="28"/>
@@ -9630,9 +9624,6 @@
         <designable name="eKI-lM-zdp">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
-        <designable name="eMk-bz-O43">
-            <size key="intrinsicContentSize" width="293" height="51"/>
-        </designable>
         <designable name="efC-ko-7kP">
             <size key="intrinsicContentSize" width="131" height="30"/>
         </designable>
@@ -9695,9 +9686,6 @@
         </designable>
         <designable name="vh2-Ed-Oax">
             <size key="intrinsicContentSize" width="60" height="60"/>
-        </designable>
-        <designable name="x9g-KR-Wfp">
-            <size key="intrinsicContentSize" width="146" height="30"/>
         </designable>
         <designable name="yR2-3e-uTJ">
             <size key="intrinsicContentSize" width="98" height="26"/>
