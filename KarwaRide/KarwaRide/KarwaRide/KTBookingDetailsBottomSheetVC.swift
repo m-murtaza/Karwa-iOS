@@ -60,6 +60,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
 
+    lazy var fareBreakDownView: UIStackView = {
+        let view = UIStackView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.distribution = .fillProportionally
+        return view
+    }()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -120,6 +128,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showBtnComplain()
     {
+        if Device.getLanguage().contains("ar") {
+            btnReportIssue.contentHorizontalAlignment = .right
+        } else {
+            btnReportIssue.contentHorizontalAlignment = .left
+        }
         btnReportIssue.isHidden = false
     }
     
@@ -286,8 +299,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hidePhoneButton()
             showBtnComplain()
             showRebookBtn()
-            showFareDetailBtn()
-            constraintReportIssueMarginTop.constant = 100
+//            showFareDetailBtn()
+            hideFareDetailBtn()
+            constraintReportIssueMarginTop.constant = 250
+            setUpfareBreakDownView()
         }
         
         //MARK:- SHECULED BOOKING
@@ -349,4 +364,108 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         activityViewController.popoverPresentationController?.sourceView = self.view
         present(activityViewController,animated: true,completion: nil)
     }
+    
+    fileprivate func setUpfareBreakDownView() {
+        setHeaderFooter("txt_fare_info_Upper_Case".localized(), value: "")
+        
+        for i in 0 ..< (vModel?.fareDetailsHeader()?.count ?? 0) {
+            setFarDetails(fareDetail: vModel?.fareDetailsHeader()?[i] ?? KTKeyValue())
+        }
+        
+        for i in 0 ..< (vModel?.fareDetailsBody()?.count ?? 0) {
+            setFarDetails(fareDetail: vModel?.fareDetailsBody()?[i] ?? KTKeyValue())
+        }
+        
+        let seperatorView = UIView()
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
+        seperatorView.heightAnchor.constraint(equalToConstant: 0.6).isActive = true
+        seperatorView.backgroundColor = UIColor(hexString: "#89B4BC")
+        
+        fareBreakDownView.addArrangedSubview(seperatorView)
+        
+        setHeaderFooter("str_cash".localized(), value: vModel?.totalFareOfTrip() ?? "")
+        
+        self.view.addSubview(fareBreakDownView)
+        
+        [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),
+         fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+         fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+         fareBreakDownView.heightAnchor.constraint(equalToConstant: 150)].forEach{$0.isActive = true}
+    }
+    
+    fileprivate func setFarDetails(fareDetail: KTKeyValue) {
+        
+        print("Device.language() -> ", Device.language())
+        
+        let keyLbl = UILabel()
+        keyLbl.translatesAutoresizingMaskIntoConstraints = false
+        keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        keyLbl.text = fareDetail.key ?? ""
+        keyLbl.textAlignment = .right
+        keyLbl.textColor = UIColor(hexString: "#006170")
+        keyLbl.font = UIFont(name: "MuseoSans-500", size: 11.0)!
+        
+        let valueLbl = UILabel()
+        valueLbl.translatesAutoresizingMaskIntoConstraints = false
+        valueLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        valueLbl.text = fareDetail.value ?? ""
+        
+        if Device.language().contains("ar") {
+            valueLbl.textAlignment = .left
+            keyLbl.textAlignment = .right
+        } else {
+            keyLbl.textAlignment = .left
+            valueLbl.textAlignment = .right
+        }
+        
+        valueLbl.textColor = UIColor(hexString: "#006170")
+        valueLbl.font = UIFont(name: "MuseoSans-500", size: 11.0)!
+
+        let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        fareBreakDownView.addArrangedSubview(stackView)
+    }
+    
+    fileprivate func setHeaderFooter(_ key: String, value: String) {
+        let keyLbl = LocalisableLabel()
+        keyLbl.translatesAutoresizingMaskIntoConstraints = false
+        keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        
+        if value != "" {
+            keyLbl.addLeading(image: UIImage(named: "icon-cash-new") ?? UIImage(), text: " \(key) ")
+        }
+        else {
+            keyLbl.text = key
+        }
+
+        keyLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
+        keyLbl.font = UIFont(name: "MuseoSans-700", size: 12.0)!
+
+        let valueLbl = LocalisableLabel()
+        valueLbl.translatesAutoresizingMaskIntoConstraints = false
+        valueLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        valueLbl.text = value
+        valueLbl.font = UIFont(name: "MuseoSans-700", size: 12.0)!
+        valueLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
+
+        if Device.language().contains("ar") {
+            valueLbl.textAlignment = .left
+            keyLbl.textAlignment = .right
+        } else {
+            keyLbl.textAlignment = .left
+            valueLbl.textAlignment = .right
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        
+        
+        fareBreakDownView.addArrangedSubview(stackView)
+
+    }
+    
 }
+
+//icon-cash-new

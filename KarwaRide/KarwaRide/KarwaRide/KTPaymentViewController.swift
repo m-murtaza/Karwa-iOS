@@ -625,7 +625,7 @@ extension KTPaymentViewController: BarcodeScannerDismissalDelegate
     }
 }
 
-// MARK: - BarcodeScannerDismissalDelegate
+//// MARK: - BarcodeScannerDismissalDelegate
 extension KTPaymentViewController: BarcodeScannerManageDelegate
 {
     func scannerDidManage(_ controller: BarcodeScannerViewController)
