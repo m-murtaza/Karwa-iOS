@@ -35,7 +35,7 @@ class LocalisableLabel: UILabel {
         let attachment = NSTextAttachment()
         attachment.image = image
         // Set bound to reposition
-        let imageOffsetY: CGFloat = -5.0
+        let imageOffsetY: CGFloat = -4.0
         attachment.bounds = CGRect(x: 0, y: imageOffsetY, width: attachment.image!.size.width, height: attachment.image!.size.height)
         let attachmentString = NSAttributedString(attachment: attachment)
         let mutableAttributedString = NSMutableAttributedString()

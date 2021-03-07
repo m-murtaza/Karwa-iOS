@@ -39,6 +39,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
 
+    lazy var scheduleTimeTitleLable: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
@@ -52,7 +58,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
         sheetCoordinator.addSheet(bottomSheetVC, to: self)
-        sheetCoordinator.setPosition(520, animated: true)
+        sheetCoordinator.setPosition(UIScreen.main.bounds.size.height - 200, animated: true)
 
         mapView.delegate = self
 
@@ -84,16 +90,16 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-
-        btnBack.isHidden = isOpenFromNotification
+//        navigationController?.isNavigationBarHidden = true        
+        //UIColor(hexString: "#89B4BC") :
+        btnBack.isHidden = true
         btnReveal.isHidden = !isOpenFromNotification
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
+//        navigationController?.isNavigationBarHidden = false
     }
 
     override func viewDidDisappear(_ animated: Bool)
@@ -182,7 +188,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             }
             
             var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(60))
+            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(150))
             
             CATransaction.begin()
             CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
@@ -197,7 +203,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
-        
+        navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
     }
     
     override func didReceiveMemoryWarning() {
@@ -349,7 +355,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 14.0)
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 12.0)
         
         self.mapView.camera = camera;
         self.mapView.delegate = self
