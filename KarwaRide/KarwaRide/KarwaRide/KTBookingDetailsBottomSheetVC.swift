@@ -59,6 +59,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     var sheetCoordinator: UBottomSheetCoordinator?
 
     @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintVehicleInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintRebookMarginTop: NSLayoutConstraint!
+
+    @IBOutlet weak var seperatorBeforeReportAnIssue: UIView!
 
     lazy var fareBreakDownView: UIStackView = {
         let view = UIStackView()
@@ -191,7 +196,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateAssignmentInfo()
     {
         lblDriverName.text = vModel?.driverName()
-        lblVehicleNumber.text = vModel?.vehicleNumber()
+        lblVehicleNumber.text = vModel?.vehicleNumber() == "" ? "----" : vModel?.vehicleNumber()
         starView.text = String(format: "%.1f", vModel?.driverRating() as! CVarArg)
         imgNumberPlate.image = vModel?.imgForPlate()
     }
@@ -199,7 +204,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         preRideDriver.isHidden = true
         //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 1000)
-        constraintTripInfoMarginTop.constant = 1
+        constraintTripInfoMarginTop.constant = 10
     }
 
     func showDriverInfoBox()
@@ -252,6 +257,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         rideHeaderText.text = msg
     }
     
+    fileprivate func hideSeperatorBeforeReportAnIssue() {
+        seperatorBeforeReportAnIssue.isHidden = true
+    }
+    
     func updateBookingBottomSheet()
     {
         //MARK:- DISPATCHING
@@ -301,8 +310,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
 //            showFareDetailBtn()
             hideFareDetailBtn()
-            constraintReportIssueMarginTop.constant = 250
+            constraintRebookMarginTop.constant = 550
             setUpfareBreakDownView()
+
+            let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 2
+
+            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 18.5)
         }
         
         //MARK:- SHECULED BOOKING
@@ -325,10 +338,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideShareBtn()
             hidePhoneButton()
             rideHeaderText.textColor = UIColor(hexString:"#E43825")
-            showBtnComplain()
+//            showBtnComplain()
+            hideBtnComplain()
             showRebookBtn()
             hideFareDetailBtn()
+            hideSeperatorBeforeReportAnIssue()
+            constraintVehicleInfoMarginTop.constant = 140
             constraintReportIssueMarginTop.constant = 100
+            constraintRebookMarginTop.constant = 300
         }
         
         //MARK:- NO RIDE FOUND BOOKING
@@ -365,6 +382,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         present(activityViewController,animated: true,completion: nil)
     }
     
+            //MARK:- FARE DETAILS BREAKDOWN VIEW
     fileprivate func setUpfareBreakDownView() {
         setHeaderFooter("txt_fare_info_Upper_Case".localized(), value: "")
         
@@ -387,10 +405,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         
         self.view.addSubview(fareBreakDownView)
         
+        let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 2
+        
         [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),
-         fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-         fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-         fareBreakDownView.heightAnchor.constraint(equalToConstant: 150)].forEach{$0.isActive = true}
+         fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+         fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 16.5))].forEach{$0.isActive = true}
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue) {
@@ -432,8 +452,20 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
+        var iconImage = UIImage()
+        
+        switch vModel?.paymentMethodIcon() ?? "" {
+        case "JCBCARD":
+            iconImage = UIImage(named: "jcb_ico_sm") ?? UIImage()
+        case "VISACARD":
+            iconImage = UIImage(named: "visa_ico_sm") ?? UIImage()
+        case "MASTERCARD":
+            iconImage = UIImage(named: "mastercard_ico_sm") ?? UIImage()
+        default:
+            iconImage = UIImage(named: "icon-cash-new") ?? UIImage()
+        }
         if value != "" {
-            keyLbl.addLeading(image: UIImage(named: "icon-cash-new") ?? UIImage(), text: " \(key) ")
+            keyLbl.addLeading(image: iconImage, text: "  \(String(describing: vModel?.paymentMethod() ?? "")) ")
         }
         else {
             keyLbl.text = key
@@ -460,7 +492,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        
+            
         
         fareBreakDownView.addArrangedSubview(stackView)
 
