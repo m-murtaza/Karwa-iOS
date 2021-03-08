@@ -43,7 +43,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var btnCancel: LocalisableButton!
     @IBOutlet weak var btnPhone: LocalisableSpringButton!
     @IBOutlet weak var btnReportIssue: LocalisableButton!
-    @IBOutlet weak var btnRebook: LocalisableButton!
+    @IBOutlet weak var btnRebook: SpringButton!
     @IBOutlet weak var btnFareInfo: LocalisableButton!
     
     
@@ -59,6 +59,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     var sheetCoordinator: UBottomSheetCoordinator?
 
     @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintVehicleInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintRebookMarginTop: NSLayoutConstraint!
+
+    @IBOutlet weak var seperatorBeforeReportAnIssue: UIView!
+    @IBOutlet weak var bottomStartRatingLabel: LocalisableLabel!
 
     lazy var fareBreakDownView: UIStackView = {
         let view = UIStackView()
@@ -183,23 +189,83 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     }
     
     
-    @IBAction func btnRebookTap(_ sender: Any)
+    @IBAction func btnRebookTap(_ sender: UIButton)
     {
         vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
+    }
+    
+    @IBAction func btnRebookTapTouchIn(_ sender: UIButton)
+    {
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 18
+        sender.clipsToBounds = true
+
+        sender.imageView?.layer.cornerRadius = 16
+        sender.imageView?.clipsToBounds = true
+
+        sender.setBackgroundColor(color: UIColor(hexString: "#0C81C0"), forState: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+        sender.tintColor = UIColor(hexString: "#0C81C0")
+                
+    }
+    
+    @IBAction func btnShareTapTouchIn(_ sender: UIButton)
+    {
+        
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 18
+        sender.clipsToBounds = true
+
+        sender.imageView?.layer.cornerRadius = 16
+        sender.imageView?.clipsToBounds = true
+
+        sender.setBackgroundColor(color: UIColor(hexString: "#0C81C0"), forState: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+        sender.tintColor = UIColor(hexString: "#0C81C0")
+                
+    }
+    
+    @IBAction func btnCancelTapTouchIn(_ sender: UIButton)
+    {
+        
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 18
+        sender.clipsToBounds = true
+
+        sender.imageView?.layer.cornerRadius = 16
+        sender.imageView?.clipsToBounds = true
+
+        sender.setBackgroundColor(color: UIColor(hexString:"#E43825"), forState: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+        sender.tintColor = UIColor(hexString:"#E43825")
+                
     }
     
     func updateAssignmentInfo()
     {
         lblDriverName.text = vModel?.driverName()
-        lblVehicleNumber.text = vModel?.vehicleNumber()
-        starView.text = String(format: "%.1f", vModel?.driverRating() as! CVarArg)
+        
+        if vModel?.vehicleNumber() == "" || vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue {
+            lblVehicleNumber.text = "----"
+        } else {
+            lblVehicleNumber.text = vModel?.vehicleNumber()
+        }
+        
+        starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         imgNumberPlate.image = vModel?.imgForPlate()
     }
     func hideDriverInfoBox()
     {
         preRideDriver.isHidden = true
         //self.mapToPickupCardView_Bottom.priority = UILayoutPriority(rawValue: 1000)
-        constraintTripInfoMarginTop.constant = 1
+        constraintTripInfoMarginTop.constant = 10
     }
 
     func showDriverInfoBox()
@@ -252,6 +318,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         rideHeaderText.text = msg
     }
     
+    fileprivate func hideSeperatorBeforeReportAnIssue() {
+        seperatorBeforeReportAnIssue.isHidden = true
+    }
+    
     func updateBookingBottomSheet()
     {
         //MARK:- DISPATCHING
@@ -264,6 +334,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideRebookBtn()
             hideFareDetailBtn()
             hideBtnComplain()
+            constraintVehicleInfoMarginTop.constant = 140
+            self.bookingTime.isHidden = false
+            hideSeperatorBeforeReportAnIssue()
+
         }
         
         //MARK:- ON CALL BOOKING
@@ -276,6 +350,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
+            starView.isHidden = true
+            bottomStartRatingLabel.isHidden = false
+            bookingTime.isHidden = false
         }
 
         //MARK:- PICKUP BOOKING (Customer on-board)
@@ -288,6 +365,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
+            starView.isHidden = true
+            bottomStartRatingLabel.isHidden = false
         }
         
         //MARK:- COMPLETED BOOKING
@@ -301,8 +380,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
 //            showFareDetailBtn()
             hideFareDetailBtn()
-            constraintReportIssueMarginTop.constant = 250
+            constraintRebookMarginTop.constant = 530
             setUpfareBreakDownView()
+
+            let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 2
+
+            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 18.5)
+            starView.isHidden = false
+            bottomStartRatingLabel.isHidden = true
         }
         
         //MARK:- SHECULED BOOKING
@@ -315,6 +400,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
+            constraintVehicleInfoMarginTop.constant = 140
+            hideSeperatorBeforeReportAnIssue()
+
+            
         }
 
         //MARK:- CANCELLED BOOKING
@@ -325,10 +414,28 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideShareBtn()
             hidePhoneButton()
             rideHeaderText.textColor = UIColor(hexString:"#E43825")
-            showBtnComplain()
             showRebookBtn()
             hideFareDetailBtn()
-            constraintReportIssueMarginTop.constant = 100
+            hideSeperatorBeforeReportAnIssue()
+            starView.isHidden = false
+            bottomStartRatingLabel.isHidden = true
+            
+            if vModel?.driverName().count != 0 {
+                showDriverInfoBox()
+                preRideDriver.isHidden = false
+                constraintDriverInfoMarginTop.constant = 100
+                constraintVehicleInfoMarginTop.constant = 220
+                constraintReportIssueMarginTop.constant = 10
+                constraintRebookMarginTop.constant = 375
+                showBtnComplain()
+            } else {
+                constraintVehicleInfoMarginTop.constant = 140
+                constraintReportIssueMarginTop.constant = 100
+                constraintRebookMarginTop.constant = 275
+                hideBtnComplain()
+            }
+           
+            
         }
         
         //MARK:- NO RIDE FOUND BOOKING
@@ -343,8 +450,25 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
             hideFareDetailBtn()
             constraintReportIssueMarginTop.constant = 100
+            constraintVehicleInfoMarginTop.constant = 140
+            hideSeperatorBeforeReportAnIssue()
+            constraintRebookMarginTop.constant = 300
+
         }
         
+        if(vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
+            starView.isHidden = true
+            
+            bottomStartRatingLabel.isHidden = false
+            constraintTripInfoMarginTop.constant = 110
+            constraintDriverInfoMarginTop.constant = 5
+            hideFareDetailBtn()
+            hideBtnComplain()
+            hideRebookBtn()
+            eta.isHidden = true
+
+        }
+
         updateAssignmentInfo()
     }
     
@@ -365,6 +489,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         present(activityViewController,animated: true,completion: nil)
     }
     
+            //MARK:- FARE DETAILS BREAKDOWN VIEW
     fileprivate func setUpfareBreakDownView() {
         setHeaderFooter("txt_fare_info_Upper_Case".localized(), value: "")
         
@@ -387,10 +512,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         
         self.view.addSubview(fareBreakDownView)
         
+        let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 2
+        
         [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),
-         fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-         fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-         fareBreakDownView.heightAnchor.constraint(equalToConstant: 150)].forEach{$0.isActive = true}
+         fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+         fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 16.5))].forEach{$0.isActive = true}
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue) {
@@ -432,8 +559,20 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
+        var iconImage = UIImage()
+        
+        switch vModel?.paymentMethodIcon() ?? "" {
+        case "JCBCARD":
+            iconImage = UIImage(named: "jcb_ico_sm") ?? UIImage()
+        case "VISACARD":
+            iconImage = UIImage(named: "visa_ico_sm") ?? UIImage()
+        case "MASTERCARD":
+            iconImage = UIImage(named: "mastercard_ico_sm") ?? UIImage()
+        default:
+            iconImage = UIImage(named: "icon-cash-new") ?? UIImage()
+        }
         if value != "" {
-            keyLbl.addLeading(image: UIImage(named: "icon-cash-new") ?? UIImage(), text: " \(key) ")
+            keyLbl.addLeading(image: iconImage, text: "  \(String(describing: vModel?.paymentMethod() ?? "")) ", imageOffsetY: -4.0)
         }
         else {
             keyLbl.text = key
@@ -460,7 +599,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        
+            
         
         fareBreakDownView.addArrangedSubview(stackView)
 
@@ -468,4 +607,16 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
 }
 
-//icon-cash-new
+extension UIButton {
+
+    func setBackgroundColor(color: UIColor, forState: UIControlState) {
+
+        let colorImage = UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).image { _ in
+          color.setFill()
+          UIBezierPath(rect: CGRect(x: 0, y: 0, width: 1, height: 1)).fill()
+        }
+        setBackgroundImage(colorImage, for: forState)
+        
+    }
+    
+}

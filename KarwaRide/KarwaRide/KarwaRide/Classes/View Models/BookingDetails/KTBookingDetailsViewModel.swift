@@ -199,7 +199,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 
         if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
         {
-            del?.hideDriverInfoBox()
+            if booking?.driverName == nil && (booking?.driverName?.isEmpty)! {
+                del?.hideDriverInfoBox()
+            } else {
+                del?.showDriverInfoBox()
+            }
         }
         else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
         {
@@ -803,14 +807,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else if(!isPickDropMarked)
         {
-            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "APPickUpMarker")!)
 
             var pickDropMarkers = [GMSMarker]()
             pickDropMarkers.append(pickMarker)
 
             if(booking!.dropOffLat != 0)
             {
-                let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+                let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "APDropOffMarker")!)
                 pickDropMarkers.append(dropMarker)
             }
 

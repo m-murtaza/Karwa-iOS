@@ -44,6 +44,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl) // not required when using UITableViewController
         
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#095A86"), NSAttributedStringKey.font: UIFont(name: "MuseoSans-700", size: 18.0)!]
+
 //        if #available(iOS 13.0, *) {
 //            let appearance = UINavigationBarAppearance()
 //            appearance.configureWithOpaqueBackground()
@@ -146,7 +148,17 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     
     func moveToDetails() {
-        self.performSegue(name: "segueMyTripsToDetails")
+        
+        let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTBookingDetailsViewController") as! KTBookingDetailsViewController
+
+        if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
+            bookingDetailsViewController.setBooking(booking: booking)
+            (viewModel as! KTMyTripsViewModel).selectedBooking = nil;
+        }
+        
+        navigationItem.backButtonTitle = ""
+        self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
+        //self.performSegue(name: "segueMyTripsToDetails")
     }
     
     
