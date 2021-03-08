@@ -55,14 +55,14 @@ class KTPaymentManager: KTDALManager
         if payment[Constants.PaymentResponseAPIKey.Source] != nil
         {
             let newPayment = KTPaymentMethod.mr_createEntity(in: NSManagedObjectContext.mr_default())
-            newPayment?.source = (payment[Constants.PaymentResponseAPIKey.Source] as? String)!
-            newPayment?.payment_type = (payment[Constants.PaymentResponseAPIKey.PaymentType] as? String)!
-            newPayment?.last_four_digits = (payment[Constants.PaymentResponseAPIKey.LastFourDigits] as? String)!
-            newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String)!
-            newPayment?.expiry_year = (payment[Constants.PaymentResponseAPIKey.ExpiryYear] as? String)!
-            newPayment?.brand = (payment[Constants.PaymentResponseAPIKey.Brand] as? String)!
+            newPayment?.source = (payment[Constants.PaymentResponseAPIKey.Source] as? String) ?? ""
+            newPayment?.payment_type = (payment[Constants.PaymentResponseAPIKey.PaymentType] as? String) ?? ""
+            newPayment?.last_four_digits = (payment[Constants.PaymentResponseAPIKey.LastFourDigits] as? String) ?? ""
+            newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String) ?? ""
+            newPayment?.expiry_year = (payment[Constants.PaymentResponseAPIKey.ExpiryYear] as? String) ?? ""
+            newPayment?.brand = (payment[Constants.PaymentResponseAPIKey.Brand] as? String) ?? ""
 //            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String)!
-            newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool)!
+            newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool) ?? false
         }
     }
     

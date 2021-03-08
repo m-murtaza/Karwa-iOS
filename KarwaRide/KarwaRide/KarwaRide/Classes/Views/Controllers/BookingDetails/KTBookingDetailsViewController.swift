@@ -90,16 +90,20 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.isNavigationBarHidden = true        
-        //UIColor(hexString: "#89B4BC") :
-        btnBack.isHidden = true
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue || vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue || vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue || vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue) {
+            navigationController?.isNavigationBarHidden = true
+            btnBack.isHidden = isOpenFromNotification
+        } else {
+            btnBack.isHidden = true 
+        }
         btnReveal.isHidden = !isOpenFromNotification
+        self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-//        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
     }
 
     override func viewDidDisappear(_ animated: Bool)

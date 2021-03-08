@@ -199,7 +199,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 
         if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
         {
-            del?.hideDriverInfoBox()
+            if booking?.driverName == nil && (booking?.driverName?.isEmpty)! {
+                del?.hideDriverInfoBox()
+            } else {
+                del?.showDriverInfoBox()
+            }
         }
         else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
         {

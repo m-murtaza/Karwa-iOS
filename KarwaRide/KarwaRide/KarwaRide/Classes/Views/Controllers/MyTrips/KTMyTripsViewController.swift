@@ -153,6 +153,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
 
         if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
             bookingDetailsViewController.setBooking(booking: booking)
+            (viewModel as! KTMyTripsViewModel).selectedBooking = nil;
         }
         
         navigationItem.backButtonTitle = ""

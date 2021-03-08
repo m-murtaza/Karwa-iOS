@@ -17,11 +17,14 @@ class LocalisableLabel: UILabel {
         }
     }
     
-    func addTrailing(image: UIImage, text:String) {
+}
+
+extension UILabel {
+    
+    func addTrailing(image: UIImage, text:String, imageOffsetY: CGFloat) {
         let attachment = NSTextAttachment()
         attachment.image = image
         // Set bound to reposition
-        let imageOffsetY: CGFloat = -5.0
         attachment.bounds = CGRect(x: 0, y: imageOffsetY, width: attachment.image!.size.width, height: attachment.image!.size.height)
         
         let attachmentString = NSAttributedString(attachment: attachment)
@@ -31,16 +34,15 @@ class LocalisableLabel: UILabel {
         self.attributedText = string
     }
     
-    func addLeading(image: UIImage, text:String) {
+    func addLeading(image: UIImage, text:String, imageOffsetY: CGFloat) {
         let attachment = NSTextAttachment()
         attachment.image = image
         // Set bound to reposition
-        let imageOffsetY: CGFloat = -4.0
         attachment.bounds = CGRect(x: 0, y: imageOffsetY, width: attachment.image!.size.width, height: attachment.image!.size.height)
         let attachmentString = NSAttributedString(attachment: attachment)
         let mutableAttributedString = NSMutableAttributedString()
         mutableAttributedString.append(attachmentString)
-        let string = NSMutableAttributedString(string: text, attributes: [:])
+        let string = NSMutableAttributedString(string: "  "+text, attributes: [:])
         mutableAttributedString.append(string)
         self.attributedText = mutableAttributedString
     }
@@ -66,7 +68,6 @@ class LocalisableLabel: UILabel {
             self.attributedText = mutableAttachmentString
         }
     }
-    
 }
 
 // MARK: Special protocol to localizaze UI's placeholder
