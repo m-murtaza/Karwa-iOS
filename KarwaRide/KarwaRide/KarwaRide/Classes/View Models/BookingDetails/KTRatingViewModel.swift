@@ -30,6 +30,8 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func setTitleBtnSubmit(label: String)
     func showHideComplainableLabel(show: Bool)
     func resetComplainComment()
+    func updatePickUpAddress(address: String)
+    func updateDropAddress(address: String)
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -47,9 +49,14 @@ class KTRatingViewModel: KTBaseViewModel {
         //updateDriverImage()
     }
     
+    override func viewDidAppear() {
+        del = self.delegate as? KTRatingViewModelDelegate
+        updateView()
+    }
+    
     func setBookingForRating(booking b : KTBooking)  {
         booking = b
-        updateView()
+        
         //updateDriverImage()
     }
     
@@ -140,7 +147,7 @@ class KTRatingViewModel: KTBaseViewModel {
     func tagViewTapped()
     {
         let complainableRating = selectedReasonIsComplainable()
-        del?.setTitleBtnSubmit(label: complainableRating ? "submit_complain".localized() : "str_submit_upper".localized())
+        del?.setTitleBtnSubmit(label: complainableRating ? "str_submit_n_report".localized() : "str_submit_upper".localized())
         del?.showHideComplainableLabel(show: complainableRating)
     }
     
@@ -206,8 +213,89 @@ class KTRatingViewModel: KTBaseViewModel {
         }
         del?.updateTrip(fare: (booking?.fare)!)
         del?.updatePickup(date: formatedDateForRating(date: (booking?.pickupTime)!))
+        del?.updatePickUpAddress(address: booking?.pickupAddress ?? "")
+        del?.updateDropAddress(address: booking?.dropOffAddress ?? "")
         //let formatedDate = formatedDateForRating(date: (booking?.pickupTime)!)
     }
+    
+    func vehicleType() -> String {
+        
+        var type : String = ""
+        switch booking!.vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
+            type = "txt_taxi".localized()
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            type = "txt_family_taxi".localized()
+            
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "txt_accessible".localized()
+
+        case VehicleType.KTStandardLimo.rawValue:
+            type = "txt_limo_standard".localized()
+            
+        case VehicleType.KTBusinessLimo.rawValue:
+            type = "txt_limo_buisness".localized()
+            
+        case VehicleType.KTLuxuryLimo.rawValue:
+            type = "txt_limo_luxury".localized()
+        default:
+            type = ""
+        }
+        return type
+    }
+    
+    func paymentMethod() -> String
+    {
+        var paymentMethod = "Cash"
+        let bookingStatus = bookingStatii()
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+        {
+            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
+        {
+            paymentMethod = "**** " +  booking!.lastFourDigits!
+        }
+        else if(booking!.paymentMethod == "ApplePay")
+        {
+            paymentMethod = "Paid by"
+        }
+
+        return paymentMethod
+    }
+    
+    func bookingStatii() -> Int32 {
+        return (booking?.bookingStatus)!
+    }
+
+    func paymentMethodIcon() -> String
+    {
+        var paymentMethodIcon = ""
+        let bookingStatus = bookingStatii()
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+        {
+            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else
+        {
+            paymentMethodIcon = booking!.paymentMethod ?? ""
+        }
+        return paymentMethodIcon
+    }
+    
+    func getPassengerCountr() -> String
+    {
+        var passengerCount = "txt_four".localized()
+
+        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue)
+        {
+            passengerCount = "txt_seven".localized()
+        }
+        
+        return passengerCount
+    }
+    
     func formatedDateForRating(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMM, YYYY 'at' HH:mm a"

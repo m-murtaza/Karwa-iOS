@@ -13,6 +13,8 @@ import Spring
 class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 {
     var vModel : KTBookingDetailsViewModel?
+    
+    @IBOutlet weak var scrollView: UIScrollView!
 
     @IBOutlet weak var preRideDriver: UIView!
     @IBOutlet weak var viewTripInfo: UIView!
@@ -87,6 +89,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         sheetCoordinator?.addDropShadowIfNotExist()
         (sheetCoordinator?.parent as! (KTBookingDetailsViewController)).setMapPadding(height: 40)
         constraintPlateNo.constant = Device.language().contains("ar") ? 60 : 25
+    }
+    
+    func draggableView() -> UIScrollView? {
+        return scrollView
     }
 
     @IBAction func cancelBtnTap(_ sender: Any) {

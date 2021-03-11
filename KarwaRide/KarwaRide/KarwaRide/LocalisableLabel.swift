@@ -21,6 +21,17 @@ class LocalisableLabel: UILabel {
 
 extension UILabel {
     
+    @IBInspectable var genericLocalisedKey: String? {        
+        get {
+            guard let key = self.genericLocalisedKey else { return ""}
+            return  NSLocalizedString(key, comment: "")
+        }
+        set {
+            text = NSLocalizedString(newValue ?? "", comment: "")
+        }
+        
+    }
+    
     func addTrailing(image: UIImage, text:String, imageOffsetY: CGFloat) {
         let attachment = NSTextAttachment()
         attachment.image = image

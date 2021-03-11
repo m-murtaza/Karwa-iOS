@@ -35,10 +35,10 @@ class PopupVC: KTBaseViewController {
     private func showViewWithAnimation() {
         
         self.view.alpha = 0
-        self.viewPopupUI.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+//        self.viewPopupUI.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
         UIView.animate(withDuration: 0.3) {
-            self.viewPopupUI.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+//            self.viewPopupUI.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             self.view.alpha = 1
         }
         
@@ -48,7 +48,7 @@ class PopupVC: KTBaseViewController {
         
         UIView.animate(withDuration: 0.3, animations: {
             
-            self.viewPopupUI.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+//            self.viewPopupUI.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.view.alpha = 0
             
         }, completion: {

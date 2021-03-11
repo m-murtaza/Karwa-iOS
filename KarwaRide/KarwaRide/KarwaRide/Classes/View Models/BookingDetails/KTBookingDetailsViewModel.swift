@@ -395,6 +395,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return paymentMethod
     }
     
+    
     func paymentMethodIcon() -> String
     {
         var paymentMethodIcon = ""
@@ -1083,6 +1084,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         guard booking != nil, booking?.isRated == false else {
             return
         }
+        
+        del?.showRatingScreen()
         
         if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
             del?.showRatingScreen()

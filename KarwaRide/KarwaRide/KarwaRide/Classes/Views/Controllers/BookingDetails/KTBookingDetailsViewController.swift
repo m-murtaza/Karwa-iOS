@@ -208,6 +208,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
         navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "MuseoSans-900", size: 17.0)!]
     }
     
     override func didReceiveMemoryWarning() {
@@ -512,13 +514,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func showRatingScreen() {
+                
+        //RatingNavigationController
+        let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RatingNavigationController") as! UINavigationController
+        
         ratingPopup = storyboard?.instantiateViewController(withIdentifier: "RatingReasonPopup") as? KTRatingViewController
         
-        ratingPopup?.view.frame = self.view.bounds
-        view.addSubview((ratingPopup?.view)!)
-        addChildViewController(ratingPopup!)
+//        ratingPopup?.view.frame = self.view.bounds
+//        view.addSubview((ratingPopup?.view)!)
+//        addChildViewController(ratingPopup!)
         ratingPopup?.booking((vModel?.booking)!)
-        ratingPopup?.delegate = self
+        
+        self.modalPresentationStyle = .fullScreen
+        self.present(ratingPopup!, animated: true, completion: nil)
+        
+//        ratingPopup?.delegate = self
         //self.performSegue(name: "detailToRating")
     }
     
