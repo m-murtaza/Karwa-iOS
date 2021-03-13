@@ -297,6 +297,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         {
             print(vt.typeId)
         }
+        
+
     }
   
   func showEstimate(vehicleType vtype: KTVehicleType){

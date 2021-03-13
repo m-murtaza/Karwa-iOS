@@ -53,7 +53,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
 
         sheetCoordinator = UBottomSheetCoordinator(parent: self)
-
+        sheetCoordinator.dataSource = self
+        
         bottomSheetVC.sheetCoordinator = sheetCoordinator
 
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
@@ -209,7 +210,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         (viewModel as! KTBookingDetailsViewModel).booking = booking
         navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "MuseoSans-900", size: 17.0)!]
     }
     
     override func didReceiveMemoryWarning() {
@@ -514,19 +514,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func showRatingScreen() {
-                
-        //RatingNavigationController
-        let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "RatingNavigationController") as! UINavigationController
-        
+                        
         ratingPopup = storyboard?.instantiateViewController(withIdentifier: "RatingReasonPopup") as? KTRatingViewController
         
+        let navController = UINavigationController(rootViewController: ratingPopup!) // Creating a navigation controller with VC1 at the root of the navigation stack.
+
 //        ratingPopup?.view.frame = self.view.bounds
 //        view.addSubview((ratingPopup?.view)!)
 //        addChildViewController(ratingPopup!)
         ratingPopup?.booking((vModel?.booking)!)
-        
-        self.modalPresentationStyle = .fullScreen
-        self.present(ratingPopup!, animated: true, completion: nil)
+//        navController.modalPresentationStyle = .fullScreen
+        self.present(navController, animated: true, completion: nil)
         
 //        ratingPopup?.delegate = self
         //self.performSegue(name: "detailToRating")
@@ -660,6 +658,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     {
         btnRecenter.isHidden = false
     }
+    
 }
 
 extension UInt {

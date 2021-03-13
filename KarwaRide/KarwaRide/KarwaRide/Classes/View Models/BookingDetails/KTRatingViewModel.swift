@@ -26,6 +26,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func enableSubmitButton()
     func showConsolationText()
     func showConsolationText(message: String)
+    func showSelectReasonText(message: String)
     func hideConsolationText()
     func setTitleBtnSubmit(label: String)
     func showHideComplainableLabel(show: Bool)
@@ -65,13 +66,19 @@ class KTRatingViewModel: KTBaseViewModel {
         if rating == 4
         {
             del?.showConsolationText(message: "rating_msg_satisfied".localized())
+            del?.showSelectReasonText(message: "")
         }
         else if rating == 5
         {
             del?.showConsolationText(message: "rating_msg_completely_satisfied".localized())
+            del?.showSelectReasonText(message: "")
+        } else if rating ==  3
+        {
+            del?.showSelectReasonText(message: "")
         }
         else
         {
+            del?.showSelectReasonText(message: "txt_select_two_or_more".localized())
             del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
         }
 
@@ -149,6 +156,27 @@ class KTRatingViewModel: KTBaseViewModel {
         let complainableRating = selectedReasonIsComplainable()
         del?.setTitleBtnSubmit(label: complainableRating ? "str_submit_n_report".localized() : "str_submit_upper".localized())
         del?.showHideComplainableLabel(show: complainableRating)
+        
+        let rating = (del?.userFinalRating())!
+
+        if selectedReasonIsComplainable() {
+            
+            if(rating >= 3){
+                del?.showSelectReasonText(message:"")
+            }
+            
+            del?.showSelectReasonText(message:complainableRating ? "txt_complain_reasons".localized() : "txt_select_two_or_more".localized())
+        } else {
+            
+            if(rating < 3){
+                if del?.selectedIdx().count == 0{
+                    del?.showSelectReasonText(message:"txt_select_two_or_more".localized())
+                } else {
+                    del?.showSelectReasonText(message:"")
+                }
+            }
+        }
+
     }
     
     func btnRattingTapped()
@@ -311,6 +339,33 @@ class KTRatingViewModel: KTBaseViewModel {
         let baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         let url = URL(string: baseURL + Constants.APIURL.DriverImage + "/" + (booking?.driverId)!)!
         del?.updateDriverImage(url: url)
+    }
+    
+    func pickupDateOfMonth() -> String{
+        
+        return booking!.pickupTime!.dayOfMonth()
+    }
+    
+    func pickupMonth() -> String{
+        
+        return " \(booking!.pickupTime!.threeLetterMonth()) "
+        
+    }
+    
+    func pickupYear() -> String{
+        
+        return booking!.pickupTime!.year()
+        
+    }
+    
+    func pickupDayAndTime() -> String{
+        
+        let day = booking!.pickupTime!.dayOfWeek()
+        let time = booking!.pickupTime!.timeWithAMPM()
+        
+        let dayAndTime = "\(day), \(time) "
+        
+        return dayAndTime
     }
     
     //MARK:- Rate Applicaiton

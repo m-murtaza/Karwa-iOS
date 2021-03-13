@@ -73,6 +73,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.distribution = .fillProportionally
+        view.spacing = 3
         return view
     }()
     
@@ -286,7 +287,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     func hideEtaView()
     {
         btnETA.isHidden = true
-        constraintHeaderWidth.constant = 420
+        constraintHeaderWidth.constant = UIScreen.main.bounds.width - 40
     }
     func showEtaView()
     {
@@ -386,12 +387,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
 //            showFareDetailBtn()
             hideFareDetailBtn()
-            constraintRebookMarginTop.constant = 530
+//            constraintRebookMarginTop.constant = 530
             setUpfareBreakDownView()
 
-            let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 2
+            let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 3
 
-            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 18.5)
+            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 21)
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
         }
@@ -432,12 +433,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                 constraintDriverInfoMarginTop.constant = 100
                 constraintVehicleInfoMarginTop.constant = 220
                 constraintReportIssueMarginTop.constant = 10
-                constraintRebookMarginTop.constant = 375
+//                constraintRebookMarginTop.constant = 375
                 showBtnComplain()
             } else {
+                hideDriverInfoBox()
                 constraintVehicleInfoMarginTop.constant = 140
                 constraintReportIssueMarginTop.constant = 100
-                constraintRebookMarginTop.constant = 275
+                constraintDriverInfoMarginTop.constant = 5
+//                constraintRebookMarginTop.constant = 275
                 hideBtnComplain()
             }
            
@@ -458,7 +461,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintReportIssueMarginTop.constant = 100
             constraintVehicleInfoMarginTop.constant = 140
             hideSeperatorBeforeReportAnIssue()
-            constraintRebookMarginTop.constant = 300
+//            constraintRebookMarginTop.constant = 300
 
         }
         
@@ -523,7 +526,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),
          fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
          fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 16.5))].forEach{$0.isActive = true}
+         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 20))].forEach{$0.isActive = true}
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue) {
@@ -565,35 +568,25 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
-        var iconImage = UIImage()
-        
-        switch vModel?.paymentMethodIcon() ?? "" {
-        case "JCBCARD":
-            iconImage = UIImage(named: "jcb_ico_sm") ?? UIImage()
-        case "VISACARD":
-            iconImage = UIImage(named: "visa_ico_sm") ?? UIImage()
-        case "MASTERCARD":
-            iconImage = UIImage(named: "mastercard_ico_sm") ?? UIImage()
-        default:
-            iconImage = UIImage(named: "icon-cash-new") ?? UIImage()
-        }
         if value != "" {
-            keyLbl.addLeading(image: iconImage, text: "  \(String(describing: vModel?.paymentMethod() ?? "")) ", imageOffsetY: -4.0)
+            var iconImage = UIImage()
+            iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
+            keyLbl.addLeading(image: iconImage, text: "  \(String(describing: vModel?.paymentMethod() ?? "")) ", imageOffsetY: -4)
         }
         else {
             keyLbl.text = key
         }
-
+        
         keyLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
         keyLbl.font = UIFont(name: "MuseoSans-700", size: 12.0)!
-
+        
         let valueLbl = LocalisableLabel()
         valueLbl.translatesAutoresizingMaskIntoConstraints = false
         valueLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
         valueLbl.text = value
         valueLbl.font = UIFont(name: "MuseoSans-700", size: 12.0)!
         valueLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
-
+        
         if Device.language().contains("ar") {
             valueLbl.textAlignment = .left
             keyLbl.textAlignment = .right
@@ -605,10 +598,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-            
+        
         
         fareBreakDownView.addArrangedSubview(stackView)
-
+        
     }
     
 }

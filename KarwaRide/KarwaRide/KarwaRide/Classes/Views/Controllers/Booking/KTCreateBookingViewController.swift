@@ -163,6 +163,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
 
     func restoreCustomerServiceSelection(animateView: Bool)
     {
+        
         guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
           return
         }
@@ -387,6 +388,31 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
+    if booking != nil {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // your code here
+            let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.vModel?.booking.vehicleType)!)!
+            
+            self.selectedIndex = (self.vModel?.vehicleTypes?.index(of: vehicleType))!
+
+            (self.viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: self.selectedIndex)
+            
+            UIView.transition(with: self.tableView,
+                              duration: 0.2,
+                              options: .transitionFlipFromTop,
+                              animations: {self.tableView.reloadData()},
+                              completion:
+                                {
+                                    success in
+                                    self.focusIndex(selectingRow: 0, animateView: false)
+                                })
+        }
+        
+        
+       
+                
+    }
   }
   
 
@@ -433,6 +459,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
             }
         }
     }
+
+    print(vModel?.booking.vehicleType)
   }
   
   override func viewWillDisappear(_ animated: Bool) {

@@ -30,6 +30,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     @IBOutlet weak var userRating: CosmosView!
     
     @IBOutlet weak var lblConsolationText: UILabel!
+    @IBOutlet weak var lblSelectReasonText: UILabel!
+
     @IBOutlet weak var tagView: RKTagsView!
     @IBOutlet weak var complainComment: SpringButton!
     @IBOutlet weak var complainCommentSeperator: UIView!
@@ -85,7 +87,9 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
             viewModel = KTRatingViewModel(del: self)
             vModel = viewModel as? KTRatingViewModel
         }
-        vModel?.setBookingForRating(booking: b) 
+        vModel?.setBookingForRating(booking: b)
+        navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+
     }
     
     /*
@@ -113,6 +117,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
             self.complainComment.setNeedsDisplay()
             self.complainCommentSeperator.setNeedsDisplay()
             self.view.layoutIfNeeded()
+                        
         })
     }
     
@@ -136,6 +141,12 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         lblConsolationText.text = message
         lblConsolationText.isHidden = false
     }
+    
+    func showSelectReasonText(message: String) {
+        lblSelectReasonText.text = message
+        lblSelectReasonText.isHidden = false
+    }
+    
     func hideConsolationText() {
         lblConsolationText.isHidden = true
     }

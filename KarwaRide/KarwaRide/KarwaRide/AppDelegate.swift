@@ -130,16 +130,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func updateUIAppreance ()
     {
         //printFonts()
-        let appearance : UINavigationBar = UINavigationBar.appearance()
         
-        appearance.barTintColor = UIColor(hexString:"#E5F5F2")
-      UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
-        appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
-                                          NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
-        
+        UINavigationBar.appearance().barTintColor = UIColor(hexString:"#E5F5F2")
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+             NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
         let backImage = UIImage(named: "back_arrow_ico");
-        appearance.backIndicatorImage = backImage
-        appearance.backIndicatorTransitionMaskImage = backImage
+        UINavigationBar.appearance().backIndicatorImage = backImage
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
+        
+        UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
+
     }
     
     func printFonts() {
