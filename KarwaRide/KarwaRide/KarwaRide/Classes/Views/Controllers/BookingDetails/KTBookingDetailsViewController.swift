@@ -523,7 +523,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //        view.addSubview((ratingPopup?.view)!)
 //        addChildViewController(ratingPopup!)
         ratingPopup?.booking((vModel?.booking)!)
-//        navController.modalPresentationStyle = .fullScreen
+        navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true, completion: nil)
         
 //        ratingPopup?.delegate = self

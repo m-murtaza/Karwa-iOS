@@ -804,7 +804,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     let timeFormatter = DateFormatter()
-    timeFormatter.dateFormat = "h:mma"
+    timeFormatter.dateFormat = "h:mm a"
     
     let time = "\(datePart), \(timeFormatter.string(from: date))"
     
