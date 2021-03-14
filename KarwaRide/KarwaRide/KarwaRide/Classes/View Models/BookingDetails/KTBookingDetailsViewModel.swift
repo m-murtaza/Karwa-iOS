@@ -1083,8 +1083,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     //MARK:- Check for rating
     func checkForRating(){
         
-        del?.showRatingScreen()
-
         guard booking != nil, booking?.isRated == false else {
             return
         }
