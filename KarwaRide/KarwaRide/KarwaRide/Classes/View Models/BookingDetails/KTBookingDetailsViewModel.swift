@@ -209,10 +209,13 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         {
             //del?.hideDriverInfoBox()
             del?.updateAssignmentInfo()
-        }
-        else {
+        }else if(booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue) || booking?.bookingStatus == BookingStatus.PENDING.rawValue
+        {
+            
             del?.hideDriverInfoBox()
+            
         }
+        
         
     }
     
@@ -370,7 +373,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         let day = booking!.pickupTime!.dayOfWeek()
         let time = booking!.pickupTime!.timeWithAMPM()
         
-        let dayAndTime = "\(day), \(time) "
+        let dayAndTime = "\(time), "
         
         return dayAndTime
     }
@@ -537,7 +540,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            
+            self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: false)
             startPollingForBooking()
             del?.showHideShareButton(false)
@@ -551,14 +555,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         else if(bStatus == BookingStatus.PICKUP)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             startVechicleTrackTimer()
             del?.showHideShareButton(true)
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: true)
             del?.showHideShareButton(true)
             startVechicleTrackTimer()
@@ -1119,4 +1123,18 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             }
         }
     }
+    
+    //KTLocationManager.sharedInstance.currentLocation.coordinate
+    
+    private func showCurrentLocationDot(location: CLLocationCoordinate2D) {
+      
+        if location.distance(from: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude: booking?.pickupLon ?? 0.0)) <= 100 {
+            del?.showCurrentLocationDot(show: true)
+        }
+      else {
+        del?.showCurrentLocationDot(show: false)
+        
+      }
+    }
+    
 }

@@ -23,7 +23,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func selectedIdx() -> [NSNumber]
     func userFinalRating() -> Int32
     func showAltForThanks(rating: Int32)
-    func enableSubmitButton()
+    func enableSubmitButton(enable: Bool)
     func showConsolationText()
     func showConsolationText(message: String)
     func showSelectReasonText(message: String)
@@ -33,6 +33,7 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func resetComplainComment()
     func updatePickUpAddress(address: String)
     func updateDropAddress(address: String)
+
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -62,24 +63,32 @@ class KTRatingViewModel: KTBaseViewModel {
     }
     
     func ratingUpdate(rating: Double) {
-        del?.enableSubmitButton()
         if rating == 4
         {
             del?.showConsolationText(message: "rating_msg_satisfied".localized())
             del?.showSelectReasonText(message: "")
+            del?.enableSubmitButton(enable: true)
+
         }
         else if rating == 5
         {
             del?.showConsolationText(message: "rating_msg_completely_satisfied".localized())
             del?.showSelectReasonText(message: "")
+            del?.enableSubmitButton(enable: true)
+
         } else if rating ==  3
         {
             del?.showSelectReasonText(message: "")
+            del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
+            del?.enableSubmitButton(enable: false)
+
         }
         else
         {
             del?.showSelectReasonText(message: "txt_select_two_or_more".localized())
             del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
+            del?.enableSubmitButton(enable: false)
+
         }
 
         del?.setTitleBtnSubmit(label: "str_submit_upper".localized())
@@ -153,6 +162,8 @@ class KTRatingViewModel: KTBaseViewModel {
     
     func tagViewTapped()
     {
+        del?.enableSubmitButton(enable: true)
+
         let complainableRating = selectedReasonIsComplainable()
         del?.setTitleBtnSubmit(label: complainableRating ? "str_submit_n_report".localized() : "str_submit_upper".localized())
         del?.showHideComplainableLabel(show: complainableRating)
@@ -224,7 +235,7 @@ class KTRatingViewModel: KTBaseViewModel {
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
-                self.del?.closeScreen(-1)
+//                self.del?.closeScreen(-1)
             }
             
         }
@@ -363,7 +374,7 @@ class KTRatingViewModel: KTBaseViewModel {
         let day = booking!.pickupTime!.dayOfWeek()
         let time = booking!.pickupTime!.timeWithAMPM()
         
-        let dayAndTime = "\(day), \(time) "
+        let dayAndTime = "\(time), "
         
         return dayAndTime
     }

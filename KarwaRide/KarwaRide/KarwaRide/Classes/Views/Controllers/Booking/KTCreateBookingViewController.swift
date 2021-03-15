@@ -164,18 +164,42 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     func restoreCustomerServiceSelection(animateView: Bool)
     {
         
-        guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-          return
+        if booking != nil {
+            
+            let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.vModel?.booking.vehicleType)!)!
+            
+            self.selectedIndex = (self.vModel?.vehicleTypes?.index(of: vehicleType)) ?? 0
+            
+            (self.viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: self.selectedIndex)
+            
+            UIView.transition(with: self.tableView,
+                              duration: 0.2,
+                              options: .transitionFlipFromTop,
+                              animations: {self.tableView.reloadData()},
+                              completion:
+                                {
+                                    success in
+                                    self.focusIndex(selectingRow: 0, animateView: false)
+                                })
         }
         
-        print("Restoring index: \(selectedIndex)")
-
-        let indexPath = IndexPath(row: selectedIndex, section: 0)
-        DispatchQueue.main.async {
-          self.tableView.selectRow(at: indexPath,
-                                   animated: !animateView,
-                                   scrollPosition: .none)
+        else {
+            
+            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+                return
+            }
+            
+            print("Restoring index: \(selectedIndex)")
+            
+            let indexPath = IndexPath(row: selectedIndex, section: 0)
+            DispatchQueue.main.async {
+                self.tableView.selectRow(at: indexPath,
+                                         animated: !animateView,
+                                         scrollPosition: .none)
+            }
+            
         }
+        
     }
   
 }
@@ -388,34 +412,31 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
-    if booking != nil {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            // your code here
-            let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.vModel?.booking.vehicleType)!)!
-            
-            self.selectedIndex = (self.vModel?.vehicleTypes?.index(of: vehicleType))!
-
-            (self.viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: self.selectedIndex)
-            
-            UIView.transition(with: self.tableView,
-                              duration: 0.2,
-                              options: .transitionFlipFromTop,
-                              animations: {self.tableView.reloadData()},
-                              completion:
-                                {
-                                    success in
-                                    self.focusIndex(selectingRow: 0, animateView: false)
-                                })
-        }
-        
-        
-       
-                
-    }
+//    if booking != nil {
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            // your code here
+//            let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.vModel?.booking.vehicleType)!)!
+//
+//            self.selectedIndex = (self.vModel?.vehicleTypes?.index(of: vehicleType))!
+//
+//            (self.viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: self.selectedIndex)
+//
+//            UIView.transition(with: self.tableView,
+//                              duration: 0.2,
+//                              options: .transitionFlipFromTop,
+//                              animations: {self.tableView.reloadData()},
+//                              completion:
+//                                {
+//                                    success in
+//                                    self.focusIndex(selectingRow: 0, animateView: false)
+//                                })
+//
+//        }
+//
+//    }
   }
-  
-
+      
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
   }

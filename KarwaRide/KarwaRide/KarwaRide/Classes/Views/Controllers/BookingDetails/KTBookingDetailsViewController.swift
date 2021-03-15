@@ -59,7 +59,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
         sheetCoordinator.addSheet(bottomSheetVC, to: self)
-        sheetCoordinator.setPosition(UIScreen.main.bounds.size.height - 200, animated: true)
+        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
 
         mapView.delegate = self
 
@@ -518,22 +518,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         ratingPopup = storyboard?.instantiateViewController(withIdentifier: "RatingReasonPopup") as? KTRatingViewController
         
         let navController = UINavigationController(rootViewController: ratingPopup!) // Creating a navigation controller with VC1 at the root of the navigation stack.
-
-//        ratingPopup?.view.frame = self.view.bounds
-//        view.addSubview((ratingPopup?.view)!)
-//        addChildViewController(ratingPopup!)
         ratingPopup?.booking((vModel?.booking)!)
         navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true, completion: nil)
-        
-//        ratingPopup?.delegate = self
-        //self.performSegue(name: "detailToRating")
     }
     
     func closeRating(_ rating : Int32) {
-        ratingPopup?.view.removeFromSuperview()
-        ratingPopup = nil
+//        ratingPopup?.view.removeFromSuperview()
+//        ratingPopup = nil
 
+        self.dismiss(animated: true, completion: nil)
+        
         showSuccessBanner("  ", "booking_rated".localized())
         
         if(rating > 3)

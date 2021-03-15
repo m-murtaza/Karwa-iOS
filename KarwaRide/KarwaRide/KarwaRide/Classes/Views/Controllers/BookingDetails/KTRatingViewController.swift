@@ -11,12 +11,13 @@ import Kingfisher
 import Cosmos
 import RKTagsView
 import Spring
+import StoreKit
 
 protocol KTRatingViewDelegate {
     
     func closeRating(_ rating : Int32)
 }
-class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDelegate {
+class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, RKTagsViewDelegate {
     
     var delegate : KTRatingViewDelegate?
     private var vModel : KTRatingViewModel?
@@ -56,18 +57,13 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
 
         // Do any additional setup after loading the view.
         updateUIForImageView()
-        
-//        viewPopupUI.layer.cornerRadius = 16
-//        btnSubmit.layer.addBorder(edge: UIRectEdge.top, color: UIColor(hexString:"#DEDEDE"), thickness: 1.0)
-        
+                
         tagView.textField.textAlignment = NSTextAlignment.center
         
         userRating.didFinishTouchingCosmos = {rating in
             
             self.vModel?.ratingUpdate(rating: rating)
         }
-        
-        tagView.textFieldAlign = .center
         
         showHideComplainableLabel(show: false)
         
@@ -117,7 +113,6 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
             self.complainComment.setNeedsDisplay()
             self.complainCommentSeperator.setNeedsDisplay()
             self.view.layoutIfNeeded()
-                        
         })
     }
     
@@ -130,8 +125,10 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     //MARK: - Delegates
-    func enableSubmitButton() {
-        self.btnSubmit.isEnabled = true
+    func enableSubmitButton(enable: Bool) {
+        self.btnSubmit.isEnabled = enable
+        self.btnSubmit.isUserInteractionEnabled = enable
+        self.btnSubmit.alpha = enable == true ? 1 : 0.5
     }
     
     func showConsolationText() {
@@ -166,18 +163,18 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     func updateDriver(rating: Double) {
-        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: 0)
+        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: -3)
     }
     
     func updateTrip(fare: String) {
-        lblTripFare.text = fare
-        
         var iconImage = UIImage()
         iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
-        lblTripFare.addLeading(image: iconImage, text: fare, imageOffsetY: -5)
+        lblTripFare.addTrailing(image: iconImage, text: fare + "  ", imageOffsetY: -4)
         lblNumberOfPassenger.text = vModel?.getPassengerCountr()
         lblVehicleType.text = vModel?.vehicleType()
-    
+        
+        lblTripFare.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
+        lblVehicleType.textAlignment = Device.getLanguage().contains("AR") ? .right : .left
     }
     
     func updateDriverImage(url: URL) {
@@ -186,10 +183,13 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func updatePickUpAddress(address: String) {
         lblPickUpAddress.text = address
+        lblPickUpAddress.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
+
     }
     
     func updateDropAddress(address: String) {
         lblDestinationAddress.text = address
+        lblDestinationAddress.textAlignment = Device.getLanguage().contains("AR") ? .right : .left
 
     }
     
@@ -211,7 +211,28 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     func closeScreen(_ rating : Int32) {
-        delegate?.closeRating(rating)
+        
+        
+        showSuccessBanner("  ", "booking_rated".localized())
+        
+        if(rating > 3)
+        {
+            let isAppStoreRatingDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_APP_STORE_RATING_DONE)
+            if(isAppStoreRatingDone.isEmpty || isAppStoreRatingDone.count == 0)
+            {
+                // Asking for App Store Rating
+                showRatingDialog(rating)
+            }
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+
+    }
+    
+    func showRatingDialog(_ rating : Int32)
+    {
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
+        SKStoreReviewController.requestReview()
     }
 
     override func showError(title:String, message:String)
@@ -257,8 +278,6 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
             btn.setComplainable(true)
         }
         
-        btn.setTitleColor(UIColor(hexString:"#006170"), for: UIControlState.normal)
-
         btn.setTitleColor(UIColor.white, for: UIControlState.selected)
         
         btn.adjustsImageWhenHighlighted = false

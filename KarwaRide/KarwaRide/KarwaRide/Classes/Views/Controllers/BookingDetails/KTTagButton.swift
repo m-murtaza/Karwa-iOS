@@ -16,7 +16,7 @@ class KTTagButton: UIButton {
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
          //Drawing code
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 10
         self.layer.borderWidth = 1
         self.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
         var bgColor : UIColor = UIColor(hexString:"#006170")
@@ -39,10 +39,12 @@ class KTTagButton: UIButton {
         if(isComplainable)
         {
             self.layer.borderColor = UIColor(hexString:"#E43825").cgColor
+            self.setTitleColor(UIColor(hexString:"#E43825"), for: .normal)
         }
         else
         {
             self.layer.borderColor = UIColor(hexString:"#006170").cgColor
+            self.setTitleColor(UIColor(hexString:"#006170"), for: .normal)
         }
         
         self.layer.backgroundColor = bgColor.cgColor

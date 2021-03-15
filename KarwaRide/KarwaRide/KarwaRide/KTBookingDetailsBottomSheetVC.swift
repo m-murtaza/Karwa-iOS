@@ -9,6 +9,7 @@
 import Foundation
 import UBottomSheet
 import Spring
+import ABLoaderView
 
 class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 {
@@ -67,13 +68,18 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     @IBOutlet weak var seperatorBeforeReportAnIssue: UIView!
     @IBOutlet weak var bottomStartRatingLabel: LocalisableLabel!
+    
+    @IBOutlet weak var shimmerView: UIView!
+    @IBOutlet weak var shimmerLabel1: UILabel!
+    @IBOutlet weak var shimmerLabel2: UILabel!
+    @IBOutlet weak var shimmerImageView: UIImageView!
 
     lazy var fareBreakDownView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.distribution = .fillProportionally
-        view.spacing = 3
+        view.spacing = 10
         return view
     }()
     
@@ -141,7 +147,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showBtnComplain()
     {
-        if Device.getLanguage().contains("ar") {
+        if Device.getLanguage().contains("AR") {
             btnReportIssue.contentHorizontalAlignment = .right
         } else {
             btnReportIssue.contentHorizontalAlignment = .left
@@ -265,7 +271,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         }
         
         starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
         bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
     }
     func hideDriverInfoBox()
@@ -341,9 +349,35 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideRebookBtn()
             hideFareDetailBtn()
             hideBtnComplain()
-            constraintVehicleInfoMarginTop.constant = 140
+            
+            showDriverInfoBox()
+
+            
             self.bookingTime.isHidden = false
+            
             hideSeperatorBeforeReportAnIssue()
+            
+            self.preRideDriver.setNeedsUpdateConstraints()
+            self.viewTripInfo.setNeedsUpdateConstraints()
+            
+            constraintTripInfoMarginTop.constant = 110
+            constraintDriverInfoMarginTop.constant = 5
+            constraintVehicleInfoMarginTop.constant = 250
+            constraintReportIssueMarginTop.constant = 10
+            
+            self.starView.isHidden = true
+            self.shimmerView.isHidden = false
+            ABLoader().startShining(self.shimmerImageView)
+            ABLoader().startShining(self.shimmerLabel1)
+            ABLoader().startShining(self.shimmerLabel2)
+
+            DispatchQueue.main.async {
+                self.lblDriverName.startShimmeringAnimation()
+                self.bottomStartRatingLabel.startShimmeringAnimation()
+            }
+            
+            self.view.customCornerRadius = 20.0
+            
 
         }
         
@@ -360,6 +394,22 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             bookingTime.isHidden = false
+            
+            showDriverInfoBox()
+            self.shimmerView.isHidden = true
+            self.lblDriverName.stopShimmeringAnimation()
+            self.bottomStartRatingLabel.stopShimmeringAnimation()
+            
+            constraintTripInfoMarginTop.constant = 110
+            constraintDriverInfoMarginTop.constant = 5            
+            constraintVehicleInfoMarginTop.constant = 250
+            constraintReportIssueMarginTop.constant = 10
+//                constraintRebookMarginTop.constant = 375
+            hideBtnComplain()
+            
+            self.view.customCornerRadius = 20.0
+
+            
         }
 
         //MARK:- PICKUP BOOKING (Customer on-board)
@@ -374,6 +424,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideFareDetailBtn()
             starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
+            
+            self.view.customCornerRadius = 20.0
+
         }
         
         //MARK:- COMPLETED BOOKING
@@ -392,9 +445,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
             let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 3
 
-            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 21)
+            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 26)
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
+            
+            self.view.customCornerRadius = 0
+
         }
         
         //MARK:- SHECULED BOOKING
@@ -443,6 +499,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 //                constraintRebookMarginTop.constant = 275
                 hideBtnComplain()
             }
+            
+            self.view.customCornerRadius = 0
            
             
         }
@@ -462,6 +520,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintVehicleInfoMarginTop.constant = 140
             hideSeperatorBeforeReportAnIssue()
 //            constraintRebookMarginTop.constant = 300
+            
+            self.view.customCornerRadius = 0
 
         }
         
@@ -475,6 +535,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             eta.isHidden = true
+
+            self.view.customCornerRadius = 20.0
 
         }
 
@@ -526,7 +588,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),
          fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
          fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 20))].forEach{$0.isActive = true}
+         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 25))].forEach{$0.isActive = true}
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue) {
@@ -539,7 +601,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         keyLbl.text = fareDetail.key ?? ""
         keyLbl.textAlignment = .right
         keyLbl.textColor = UIColor(hexString: "#006170")
-        keyLbl.font = UIFont(name: "MuseoSans-500", size: 11.0)!
+        keyLbl.font = UIFont(name: "MuseoSans-500", size: 14.0)!
         
         let valueLbl = UILabel()
         valueLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -555,7 +617,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         }
         
         valueLbl.textColor = UIColor(hexString: "#006170")
-        valueLbl.font = UIFont(name: "MuseoSans-500", size: 11.0)!
+        valueLbl.font = UIFont(name: "MuseoSans-500", size: 14.0)!
 
         let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
         stackView.axis = .horizontal
@@ -568,23 +630,26 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
+        let valueLbl = LocalisableLabel()
+
         if value != "" {
             var iconImage = UIImage()
             iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
             keyLbl.addLeading(image: iconImage, text: "  \(String(describing: vModel?.paymentMethod() ?? "")) ", imageOffsetY: -4)
+            keyLbl.font = UIFont(name: "MuseoSans-900", size: 14.0)!
         }
         else {
             keyLbl.text = key
+            keyLbl.font = UIFont(name: "MuseoSans-700", size: 14.0)!
+
         }
         
         keyLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
-        keyLbl.font = UIFont(name: "MuseoSans-700", size: 12.0)!
         
-        let valueLbl = LocalisableLabel()
         valueLbl.translatesAutoresizingMaskIntoConstraints = false
         valueLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
         valueLbl.text = value
-        valueLbl.font = UIFont(name: "MuseoSans-700", size: 12.0)!
+        valueLbl.font = UIFont(name: "MuseoSans-900", size: 14.0)!
         valueLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
         
         if Device.language().contains("ar") {
