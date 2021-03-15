@@ -253,7 +253,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     case BookingStatus.ARRIVED.rawValue:
       status = "txt_arrived_short".localized()
     case BookingStatus.CONFIRMED.rawValue:
-      status = "txt_arrived_short".localized()
+      status = "txt_arriving_short".localized()
     case BookingStatus.CANCELLED.rawValue:
       status = "txt_cancelled_short".localized()
     case BookingStatus.PENDING.rawValue:
