@@ -427,6 +427,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     KTFavorites.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default())
     loadFavoritesDataInView()
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+    delegate?.showToast(message: "txt_location_fav_removed".localized())
   }
   
   func btnSetHomeTapped() {

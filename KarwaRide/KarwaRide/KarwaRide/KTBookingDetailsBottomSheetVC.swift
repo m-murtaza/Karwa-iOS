@@ -370,11 +370,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             ABLoader().startShining(self.shimmerImageView)
             ABLoader().startShining(self.shimmerLabel1)
             ABLoader().startShining(self.shimmerLabel2)
-
-            DispatchQueue.main.async {
-                self.lblDriverName.startShimmeringAnimation()
-                self.bottomStartRatingLabel.startShimmeringAnimation()
-            }
             
             self.view.customCornerRadius = 20.0
             

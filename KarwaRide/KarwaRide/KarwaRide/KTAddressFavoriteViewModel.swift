@@ -34,9 +34,9 @@ class KTAddressFavoriteViewModel: KTBaseViewModel {
     KTBookmarkManager().saveFavorite(name: delegate.locationName,
                                      location: favlocation)
     favlocation.geolocationToBookmark?.mr_delete(in: NSManagedObjectContext.mr_default())
-    favlocation.mr_delete(in: NSManagedObjectContext.mr_default())
+//    favlocation.mr_delete(in: NSManagedObjectContext.mr_default())
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
-    delegate.showTaskCompleted(withMessage: "txt_location_fav_saved".localized())
+    delegate.showToast(message: "txt_location_fav_saved".localized())
     delegate.locationSavedSuccessfully(location: delegate.location)
   }
   

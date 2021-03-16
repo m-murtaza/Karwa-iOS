@@ -16,8 +16,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KTFavoriteAddressViewController" customModule="KarwaRide" customModuleProvider="target">
             <connections>
-                <outlet property="locationNameTextField" destination="Itm-9V-rVh" id="kn2-9L-VzM"/>
-                <outlet property="locationTextField" destination="tsB-Sg-xjX" id="HNm-px-4HE"/>
+                <outlet property="locationNameTextField" destination="jl0-FA-gwl" id="y1D-jK-81S"/>
+                <outlet property="locationTextField" destination="4op-Fk-aie" id="mhV-Uo-rOO"/>
                 <outlet property="navigationBar" destination="t3k-pr-Yzf" id="jhJ-iy-g2l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,11 +27,60 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yrw-fp-tH1">
+                    <rect key="frame" x="33" y="183" width="348" height="70"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4op-Fk-aie" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                            <rect key="frame" x="10" y="20" width="328" height="50"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                    <color key="value" red="0.136245966" green="0.6220081449" blue="0.62187951799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                    <color key="value" red="0.066560536619999999" green="0.37833580369999997" blue="0.44618362189999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                    <color key="value" red="0.136245966" green="0.6220081449" blue="0.62187951799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="JOA-vU-Xsk"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="4op-Fk-aie" firstAttribute="leading" secondItem="yrw-fp-tH1" secondAttribute="leading" constant="10" id="DXE-79-GbX"/>
+                        <constraint firstAttribute="height" constant="70" id="M1X-xy-w6E"/>
+                        <constraint firstAttribute="bottom" secondItem="4op-Fk-aie" secondAttribute="bottom" id="Sgt-U4-K4g"/>
+                        <constraint firstAttribute="trailing" secondItem="4op-Fk-aie" secondAttribute="trailing" constant="10" id="Vxk-Lg-K0v"/>
+                        <constraint firstItem="4op-Fk-aie" firstAttribute="top" secondItem="yrw-fp-tH1" secondAttribute="top" constant="20" id="pMF-VQ-Zel"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="customBorderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3k-pr-Yzf" userLabel="NavigationBar">
                     <rect key="frame" x="0.0" y="44" width="414" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                            <rect key="frame" x="144" y="30" width="126" height="20"/>
+                            <rect key="frame" x="141" y="30" width="132" height="20"/>
                             <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -60,6 +109,58 @@
                         <constraint firstItem="9uo-ZV-Jdz" firstAttribute="centerX" secondItem="t3k-pr-Yzf" secondAttribute="centerX" id="yVu-4Q-s3B"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Y0-VB-lxo">
+                    <rect key="frame" x="31" y="134" width="352" height="59"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jl0-FA-gwl" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                            <rect key="frame" x="10" y="10" width="332" height="39"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                    <color key="value" red="0.136245966" green="0.6220081449" blue="0.62187951799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                    <color key="value" red="0.136245966" green="0.6220081449" blue="0.62187951799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                    <color key="value" red="0.136245966" green="0.6220081449" blue="0.62187951799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                    <color key="value" red="0.066560536619999999" green="0.37833580369999997" blue="0.44618362189999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="F9y-iJ-NXz"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="59" id="2aV-Zw-top"/>
+                        <constraint firstAttribute="trailing" secondItem="jl0-FA-gwl" secondAttribute="trailing" constant="10" id="4Ov-kh-lNs"/>
+                        <constraint firstAttribute="bottom" secondItem="jl0-FA-gwl" secondAttribute="bottom" constant="10" id="Q34-uN-cft"/>
+                        <constraint firstItem="jl0-FA-gwl" firstAttribute="leading" secondItem="9Y0-VB-lxo" secondAttribute="leading" constant="10" id="RgS-tA-2XS"/>
+                        <constraint firstItem="jl0-FA-gwl" firstAttribute="top" secondItem="9Y0-VB-lxo" secondAttribute="top" constant="10" id="ZpI-x0-XRv"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="customBorderWidth">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                            <color key="value" red="0.066560536619999999" green="0.37833580369999997" blue="0.44618362189999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p6y-5W-Ig0" userLabel="separator">
                     <rect key="frame" x="0.0" y="104" width="414" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,56 +168,8 @@
                         <constraint firstAttribute="height" constant="1" id="Kw5-aM-ssg"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvU-dR-RJw" userLabel="OuterBorder">
-                    <rect key="frame" x="30" y="145" width="354" height="130"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1T-wq-0Z9" userLabel="Container">
-                            <rect key="frame" x="1" y="1" width="352" height="128"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9dn-9F-ojL">
-                                    <rect key="frame" x="0.0" y="0.0" width="352" height="128"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Itm-9V-rVh" customClass="MDCFilledTextField">
-                                            <rect key="frame" x="0.0" y="0.0" width="352" height="64"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tsB-Sg-xjX" customClass="MDCFilledTextField">
-                                            <rect key="frame" x="0.0" y="64" width="352" height="64"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        </view>
-                                    </subviews>
-                                </stackView>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="9dn-9F-ojL" secondAttribute="bottom" id="NdB-2b-i6A"/>
-                                <constraint firstAttribute="trailing" secondItem="9dn-9F-ojL" secondAttribute="trailing" id="Swu-BT-8Lw"/>
-                                <constraint firstItem="9dn-9F-ojL" firstAttribute="top" secondItem="M1T-wq-0Z9" secondAttribute="top" id="ZOx-e2-2nf"/>
-                                <constraint firstItem="9dn-9F-ojL" firstAttribute="leading" secondItem="M1T-wq-0Z9" secondAttribute="leading" id="yH3-Bg-JRr"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="130" id="0R4-xN-wcP"/>
-                        <constraint firstItem="M1T-wq-0Z9" firstAttribute="leading" secondItem="lvU-dR-RJw" secondAttribute="leading" constant="1" id="5g9-Ha-8gs"/>
-                        <constraint firstAttribute="bottom" secondItem="M1T-wq-0Z9" secondAttribute="bottom" constant="1" id="SFx-33-fk9"/>
-                        <constraint firstAttribute="trailing" secondItem="M1T-wq-0Z9" secondAttribute="trailing" constant="1" id="r2V-c6-IaQ"/>
-                        <constraint firstItem="M1T-wq-0Z9" firstAttribute="top" secondItem="lvU-dR-RJw" secondAttribute="top" constant="1" id="s0A-KA-7oT"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tq-ua-LyP" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
-                    <rect key="frame" x="30" y="319" width="354" height="50"/>
+                    <rect key="frame" x="30" y="293" width="354" height="50"/>
                     <color key="backgroundColor" red="0.0" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="0pA-24-3oP"/>
@@ -139,25 +192,34 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="4Tq-ua-LyP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="24t-Dg-v7V"/>
+                <constraint firstItem="yrw-fp-tH1" firstAttribute="top" secondItem="9Y0-VB-lxo" secondAttribute="bottom" constant="-10" id="30a-d0-YcS"/>
                 <constraint firstItem="p6y-5W-Ig0" firstAttribute="leading" secondItem="t3k-pr-Yzf" secondAttribute="leading" id="6oG-Xy-sPm"/>
                 <constraint firstItem="t3k-pr-Yzf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6pe-Sn-Pcf"/>
-                <constraint firstItem="4Tq-ua-LyP" firstAttribute="top" secondItem="lvU-dR-RJw" secondAttribute="bottom" constant="44" id="A6M-UP-HpW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="t3k-pr-Yzf" secondAttribute="trailing" id="Kgt-wB-4mg"/>
                 <constraint firstItem="p6y-5W-Ig0" firstAttribute="trailing" secondItem="t3k-pr-Yzf" secondAttribute="trailing" id="NuJ-fX-kqI"/>
-                <constraint firstItem="4Tq-ua-LyP" firstAttribute="trailing" secondItem="lvU-dR-RJw" secondAttribute="trailing" id="Ojy-iU-Pim"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="t3k-pr-Yzf" secondAttribute="leading" id="RFS-g9-Dvz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Y0-VB-lxo" secondAttribute="trailing" constant="31" id="VDf-hg-L3t"/>
+                <constraint firstItem="9Y0-VB-lxo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="31" id="a2m-Wr-Wt5"/>
                 <constraint firstItem="p6y-5W-Ig0" firstAttribute="top" secondItem="t3k-pr-Yzf" secondAttribute="bottom" id="hyK-rH-1uQ"/>
-                <constraint firstItem="lvU-dR-RJw" firstAttribute="top" secondItem="p6y-5W-Ig0" secondAttribute="bottom" constant="40" id="jF4-Vc-lnw"/>
-                <constraint firstItem="lvU-dR-RJw" firstAttribute="leading" secondItem="p6y-5W-Ig0" secondAttribute="leading" constant="30" id="knI-dV-Dxj"/>
-                <constraint firstItem="p6y-5W-Ig0" firstAttribute="trailing" secondItem="lvU-dR-RJw" secondAttribute="trailing" constant="30" id="lT9-As-zFX"/>
-                <constraint firstItem="4Tq-ua-LyP" firstAttribute="leading" secondItem="lvU-dR-RJw" secondAttribute="leading" id="pJN-VZ-HEm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Tq-ua-LyP" secondAttribute="trailing" constant="30" id="k7n-DT-jX4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yrw-fp-tH1" secondAttribute="trailing" constant="33" id="km2-Dy-cQh"/>
+                <constraint firstItem="4Tq-ua-LyP" firstAttribute="top" secondItem="yrw-fp-tH1" secondAttribute="bottom" constant="40" id="mqn-Ou-Wrh"/>
+                <constraint firstItem="yrw-fp-tH1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="33" id="xoR-DP-beU"/>
+                <constraint firstItem="9Y0-VB-lxo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="90" id="xyw-oc-xZR"/>
             </constraints>
             <point key="canvasLocation" x="139" y="103"/>
         </view>
     </objects>
     <designables>
         <designable name="4Tq-ua-LyP">
-            <size key="intrinsicContentSize" width="88" height="32"/>
+            <size key="intrinsicContentSize" width="103" height="33"/>
+        </designable>
+        <designable name="4op-Fk-aie">
+            <size key="intrinsicContentSize" width="328" height="39.220703125"/>
+        </designable>
+        <designable name="jl0-FA-gwl">
+            <size key="intrinsicContentSize" width="332" height="39.220703125"/>
         </designable>
     </designables>
     <resources>
