@@ -95,6 +95,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   var cloneBooking : BookingBean = BookingBean()
   
   var selectedVehicleType : VehicleType = VehicleType.KTCityTaxi
+  var previousSelectedIndex = Int()
     var dropOffBtnText = "str_no_destination_set".localized()
   var promo = ""
   
@@ -168,14 +169,25 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   //MARK:- Address picker setting pick drop
   func setPickAddress(pAddress : KTGeoLocation) {
     booking.pickupLocationId = pAddress.locationId
-    booking.pickupAddress = pAddress.name
+    
+    if pAddress.favoriteName == "" {
+        booking.pickupAddress = pAddress.name
+    } else {
+        booking.pickupAddress = pAddress.favoriteName
+    }
+    
     booking.pickupLat = pAddress.latitude
     booking.pickupLon = pAddress.longitude
   }
   
   func setDropAddress(dAddress : KTGeoLocation) {
     booking.dropOffLocationId = dAddress.locationId
-    booking.dropOffAddress = dAddress.name
+    
+    if dAddress.favoriteName == "" {
+        booking.dropOffAddress = dAddress.name
+    } else {
+        booking.dropOffAddress = dAddress.favoriteName
+    }
     booking.dropOffLat = dAddress.latitude
     booking.dropOffLon = dAddress.longitude
   }
@@ -275,30 +287,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
 
     func vehicleTypeTapped(idx: Int)
     {
-        selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
-        print("Selected ---> \(selectedVehicleType.rawValue)")
-        print("Before")
-        for vt in vehicleTypes!
-        {
-            print(vt.typeId)
-        }
-        if let selected = vehicleTypes?[idx]
-        {
-//            let fromIndexPath = IndexPath(row: idx, section: 0)
-//            let toIndexPath = IndexPath(row: 0, section: 0)
-
-            vehicleTypes?.remove(at: idx)
-            vehicleTypes?.insert(selected, at: 0)
+        if previousSelectedIndex != idx  {
             
-//            self.del?.moveRow(from: fromIndexPath, to: toIndexPath)
-        }
-        print("After")
-        for vt in vehicleTypes!
-        {
-            print(vt.typeId)
+            selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
+            print("Selected ---> \(selectedVehicleType.rawValue)")
+            var filteredList = vehicleTypes?.filter{$0.typeId != vehicleTypes![idx].typeId}
+            filteredList?.insert((vehicleTypes?[idx])!, at: 0)
+            vehicleTypes = filteredList
+            previousSelectedIndex = idx
+            
         }
         
-
     }
   
   func showEstimate(vehicleType vtype: KTVehicleType){
@@ -418,6 +417,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                 (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection(animateView: false)
+                let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.booking.vehicleType))!
+                
+                let selectedIndex = (self.vehicleTypes?.index(of: vehicleType)) ?? 0
+                
+                self.vehicleTypeTapped(idx: selectedIndex)
             })
         }
         else {
@@ -520,6 +524,13 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                 (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
+                
+                let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.booking.vehicleType))!
+                
+                let selectedIndex = (self.vehicleTypes?.index(of: vehicleType)) ?? 0
+                
+                self.vehicleTypeTapped(idx: selectedIndex)
+                
             })
           }
           else

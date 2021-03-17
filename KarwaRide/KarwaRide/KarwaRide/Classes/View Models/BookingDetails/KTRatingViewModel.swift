@@ -327,7 +327,7 @@ class KTRatingViewModel: KTBaseViewModel {
     {
         var passengerCount = "txt_four".localized()
 
-        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue)
+        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue || booking?.vehicleType == VehicleType.KTCityTaxi7Seater.rawValue )
         {
             passengerCount = "txt_seven".localized()
         }

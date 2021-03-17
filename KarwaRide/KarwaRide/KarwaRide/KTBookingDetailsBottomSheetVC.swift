@@ -80,6 +80,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         view.axis = .vertical
         view.distribution = .fillProportionally
         view.spacing = 10
+        view.isUserInteractionEnabled = false
         return view
     }()
     

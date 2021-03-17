@@ -680,7 +680,12 @@ AddressPickerCellDelegate {
   @objc func updateTimer() {
     print("OK Start searching now")
     
-    (viewModel as! KTAddressPickerViewModel).fetchLocations(forSearch: searchText)
+    if tab == .favorite {
+
+    } else {
+        (viewModel as! KTAddressPickerViewModel).fetchLocations(forSearch: searchText)
+    }
+    
   }
   func updateSelectedField(txt: UITextField) {
     

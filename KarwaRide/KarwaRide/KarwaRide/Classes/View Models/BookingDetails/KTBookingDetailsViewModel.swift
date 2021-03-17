@@ -156,14 +156,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func formatedETA(eta: Int64) -> String {
-        //        if eta/60 < 60 {
-        //
-        //            return "1 min"
-        //        }
-        
         let formatedEta : Double = Double(eta)/60
-        return "\(Int(ceil(Double(formatedEta)))) min"
-        
+        if formatedEta > 1 {
+            return String(format: "txt_eta_mins".localized(), "\(Int(ceil(Double(formatedEta))))")
+        } else {
+            return String(format: "txt_eta".localized(), "\(Int(ceil(Double(formatedEta))))")
+        }
     }
     
     override func viewWillDisappear()
@@ -199,7 +197,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 
         if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
         {
-            if booking?.driverName == nil && (booking?.driverName?.isEmpty)! {
+            if booking?.driverName == nil && (booking?.driverName?.isEmpty ?? false) {
                 del?.hideDriverInfoBox()
             } else {
                 del?.showDriverInfoBox()
@@ -497,7 +495,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     {
         var passengerCount = "txt_four".localized()
 
-        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue)
+        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue || booking?.vehicleType == VehicleType.KTCityTaxi7Seater.rawValue)
         {
             passengerCount = "txt_seven".localized()
         }
