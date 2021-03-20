@@ -468,6 +468,10 @@ AddressPickerCellDelegate {
     txtDropAddress.becomeFirstResponder()
   }
   
+    func moveFocusToPickUp() {
+      txtPickAddress.becomeFirstResponder()
+    }
+    
   func inFocusTextField() -> SelectedTextField {
     
     return selectedTxtField

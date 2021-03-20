@@ -24,6 +24,7 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
   func navigateToPreviousView(pickup: KTGeoLocation?, dropOff:KTGeoLocation?)
   func inFocusTextField() -> SelectedTextField
   func moveFocusToDestination()
+  func moveFocusToPickUp()
   func getConfirmPickupFlowDone() -> Bool
   func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
   func startConfirmPickupFlow()
@@ -400,6 +401,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     else
     {
         self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
+        self.del?.moveFocusToPickUp()
     }
   }
   

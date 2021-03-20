@@ -264,6 +264,7 @@ class KTCreateBookingViewController:
   @IBOutlet weak var showMoreRideOptions: UIButton!
   @IBOutlet weak var pickupAddressLabel: UILabel!
     @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
+  @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
     
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
@@ -572,14 +573,14 @@ class KTCreateBookingViewController:
     DispatchQueue.main.async {
       if promo.length > 0 {
         self.promoKeyLabel.text = promo
-        self.promoKeyLabel.font = UIFont(name: "MuseoSans-900", size: 17.0)!
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-900", size: 15.0)!
         self.promoAppliedKeyLabel.text = "txt_promo_applied".localized()
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = false
       }
       else {
         self.promoKeyLabel.text = "str_promo_str".localized()
-        self.promoKeyLabel.font = UIFont(name: "MuseoSans-500", size: 17.0)!
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-500", size: 15.0)!
         self.promoAppliedKeyLabel.text = ""
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = true
@@ -591,10 +592,11 @@ class KTCreateBookingViewController:
   func setPromotionCode(promo promoEntered: String)
   {
     promoCode = promoEntered
-    if promoEntered.count > 1 {
+  }
+    
+    func showPromotionAppliedToast(show: Bool) {
         self.showToast(message: "txt_promo_applied".localized())
     }
-  }
   // ----------------------------------------------------
   
   func showCallerIdPopUp() {
@@ -629,6 +631,7 @@ class KTCreateBookingViewController:
     {
         UIView.animate(withDuration: 0.5, animations: {
           self.pickupDropoffParentContainer.isHidden = true
+            self.mapViewBottomConstraint.constant = -75
           self.view.layoutIfNeeded()
         })
     }
@@ -665,6 +668,12 @@ class KTCreateBookingViewController:
         self.rideServicesContainer.frame.origin.y += 150
         self.pickupDropoffParentContainer.frame.origin.y += 150
         self.pickupDropoffParentContainer.isHidden = false
+
+        if self.promoCode == ""{
+            self.promoAppliedContainer.isHidden = true
+        }
+        
+        self.mapViewBottomConstraint.constant = 0
         self.rideServicesContainer.isHidden = false
 
         UIView.animate(
@@ -694,13 +703,14 @@ class KTCreateBookingViewController:
         self.mapInstructionsContainer.isHidden = false
         self.currentLocationButton.isHidden = false
         
-        if (self.promoKeyLabel.text?.count ?? 0) > 0 {
+        if (self.promoKeyLabel.text?.count ?? 0) > 0 && self.promoKeyLabel.text! != "str_promo_str".localized() {
             self.promoAppliedContainer.isHidden = false
         } else {
             self.promoAppliedContainer.isHidden = true
         }
 
         self.pickupDropoffParentContainer.isHidden = true
+        self.mapViewBottomConstraint.constant = -75
         self.rideServicesContainer.isHidden = true
     }
   }
@@ -801,8 +811,10 @@ class KTCreateBookingViewController:
   
   func setDropOff(drop: String?) {
     
-    guard drop != nil else {
-        self.dropoffLabel.font = UIFont(name: "MuseoSans-500Italic", size: 13.0)!
+    guard drop! != "txt_set_destination".localized() else {
+        self.dropoffLabel.text = drop!
+        self.dropoffLabel.font = UIFont(name: "MuseoSans-900Italic", size: 13.0)!
+        self.tableView.reloadData()
         return
     }
     
@@ -817,6 +829,11 @@ class KTCreateBookingViewController:
     scheduleKeyLabel.text = date
     //btnPickDate.setTitle(date, for: UIControlState.normal)
   }
+    
+    func setRequestButtonTitle(title: String) {
+        self.btnRequestBooking.setTitle(title, for: .normal)
+    }
+      
   
   func hideFareBreakdown() {
     

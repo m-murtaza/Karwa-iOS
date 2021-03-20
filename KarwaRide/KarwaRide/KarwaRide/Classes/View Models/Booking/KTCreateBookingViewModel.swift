@@ -25,6 +25,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func setPickUp(pick: String?)
   func setDropOff(drop: String?)
   func setPickDate(date: String)
+  func setRequestButtonTitle(title: String)
   func showBookingConfirmation()
   func showCallerIdPopUp()
   func showRequestBookingBtn()
@@ -58,6 +59,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func showPromoInputDialog(currentPromo : String)
   func setPromoButtonLabel(validPromo : String)
   func setPromotionCode(promo: String)
+  func showPromotionAppliedToast(show: Bool)
+
   func showScanPayCoachmark()
   func reloadDestinations()
   func moveRow(from: IndexPath, to: IndexPath)
@@ -266,7 +269,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     else
     {
-      (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "set destination")
+        (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "txt_set_destination".localized())
     }
     
     selectedVehicleType = VehicleType(rawValue: booking.vehicleType)!
@@ -513,6 +516,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
               self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
               self.promo = promoEntered
               (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                (self.delegate as! KTCreateBookingViewModelDelegate).showPromotionAppliedToast(show: true)
+
               self.del?.setPromoButtonLabel(validPromo: promoEntered)
               self.estimates = KTVehicleTypeManager().estimates()
               
@@ -547,6 +552,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           {
             self.promo = promoEntered
             (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+            (self.delegate as! KTCreateBookingViewModelDelegate).showPromotionAppliedToast(show: true)
             self.del?.setPromoButtonLabel(validPromo: promoEntered)
             self.estimates = KTVehicleTypeManager().estimates()
             
@@ -622,7 +628,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     {
       if estimates == nil || estimates?.count == 0
       {
-        fareOrEstimate =  vType.typeBaseFare ?? ""
+        fareOrEstimate =  "txt_qr".localized() + "XX"//vType.typeBaseFare ?? ""
       }
       else
       {
@@ -821,13 +827,23 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   {
     isAdvanceBooking = true
     setPickupDate(date: date)
-    fetchEstimates()
     
-    resetPromo()
-    resetPromoOrBaseFare()
+    if promo != "" || promo != nil {
+        fetchEstimateForPromo(promo)
+    } else {
+        fetchEstimates()
+        resetPromo()
+        resetPromoOrBaseFare()
+    }
+    
+    
   }
   func setPickupDate(date: Date)
   {
+    if selectedPickupDateTime.timeIntervalSinceNow >= date.timeIntervalSinceNow {
+        
+    }
+    
     selectedPickupDateTime = date
     updateUI(forDate: selectedPickupDateTime)
   }
@@ -846,6 +862,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     if date.isToday {
       
       datePart = "Today"
+      (delegate as! KTCreateBookingViewModelDelegate).setRequestButtonTitle(title: "txt_req_karwa".localized())
+
     }
     else {
       
@@ -853,7 +871,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       //            dateFormatter.dateFormat = "MM/dd/yyyy"
       dateFormatter.dateFormat = "MM/dd"
       datePart = dateFormatter.string(from: date)
+     (delegate as! KTCreateBookingViewModelDelegate).setRequestButtonTitle(title: "txt_schedule_karwa".localized())
+
     }
+    
+    
+    
     
     let timeFormatter = DateFormatter()
     timeFormatter.dateFormat = "h:mm a"
@@ -1419,7 +1442,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
     (delegate as! KTCreateBookingViewModelDelegate).showCurrentLocationDot(show: true)
     (delegate as! KTCreateBookingViewModelDelegate).clearMap()
-    (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "Set Destination, Start your booking")
+    (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: "str_set_destination".localized())
     
     resetPromo()
     
