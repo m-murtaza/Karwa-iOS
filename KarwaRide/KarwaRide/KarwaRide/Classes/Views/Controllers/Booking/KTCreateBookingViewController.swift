@@ -210,7 +210,12 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
   
 }
 class KTCreateBookingViewController:
-KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    
+    func reloadSelection() {
+        self.tableView.reloadData()
+    }
+    
 
     func showScanPayCoachmark()
     {
@@ -293,7 +298,6 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     destinationView.applyShadow()
     collectionView.dataSource = self
     collectionView.delegate = self
-    (viewModel as! KTCreateBookingViewModel).fetchDestinations()
     tableView.delegate = self
     tableView.dataSource = self
     tableView.isScrollEnabled = false
@@ -357,6 +361,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         DispatchQueue.main.async
         {
             self.showMoreRideOptions.isHidden = isClosed
+            
+            (self.viewModel as! KTCreateBookingViewModel).vehicleTypes = (self.viewModel as! KTCreateBookingViewModel).modifiedVehicleTypes
+
             if(self.selectedIndex != 0 && !isClosed)
             {
 //                self.moveRowToFirst(fromIndex: self.selectedIndex)
@@ -390,8 +397,6 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
   }
-    
-
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
@@ -411,7 +416,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
      self.currentLocationButton.isHidden = true
     }
   }
-  
+
   @IBAction func showMoreRideOptions(_ sender: Any) {
     tableViewHeight.constant =  tableViewMaximumHeight
     UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
@@ -425,6 +430,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(false)
     
+    (viewModel as! KTCreateBookingViewModel).fetchDestinations()
+    
     //TODO: If no pick uplocation
     if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
         if(self.carousel != nil)
@@ -437,6 +444,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         }
     }
     print(vModel?.booking.vehicleType)
+
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -564,12 +572,14 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     DispatchQueue.main.async {
       if promo.length > 0 {
         self.promoKeyLabel.text = promo
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-900", size: 17.0)!
         self.promoAppliedKeyLabel.text = "txt_promo_applied".localized()
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = false
       }
       else {
         self.promoKeyLabel.text = "str_promo_str".localized()
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-500", size: 17.0)!
         self.promoAppliedKeyLabel.text = ""
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = true
@@ -581,6 +591,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   func setPromotionCode(promo promoEntered: String)
   {
     promoCode = promoEntered
+    if promoEntered.count > 1 {
+        self.showToast(message: "txt_promo_applied".localized())
+    }
   }
   // ----------------------------------------------------
   
@@ -680,7 +693,13 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         self.pickupPin.isHidden = false
         self.mapInstructionsContainer.isHidden = false
         self.currentLocationButton.isHidden = false
-        self.promoAppliedContainer.isHidden = true
+        
+        if (self.promoKeyLabel.text?.count ?? 0) > 0 {
+            self.promoAppliedContainer.isHidden = false
+        } else {
+            self.promoAppliedContainer.isHidden = true
+        }
+
         self.pickupDropoffParentContainer.isHidden = true
         self.rideServicesContainer.isHidden = true
     }
@@ -777,17 +796,21 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     }
     self.pickupAddressLabel.text = pick
     self.pickupLabel.text = pick
+    
   }
   
   func setDropOff(drop: String?) {
     
     guard drop != nil else {
-      return
+        self.dropoffLabel.font = UIFont(name: "MuseoSans-500Italic", size: 13.0)!
+        return
     }
     
     //self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
     //self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
     self.dropoffLabel.text = drop
+    self.dropoffLabel.font = UIFont(name: "MuseoSans-900", size: 13.0)!
+
   }
   
   func setPickDate(date: String) {

@@ -64,6 +64,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
   func moveRowToFirst(fromIndex from: Int)
   func restoreCustomerServiceSelection()
     func restoreCustomerServiceSelection(animateView: Bool)
+    func reloadSelection()
 }
 
 let CHECK_DELAY = 90.0
@@ -81,6 +82,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   
   var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
   var vehicleTypes : [KTVehicleType]?
+  var modifiedVehicleTypes : [KTVehicleType]?
+
   public var estimates : [KTFareEstimate]?
   var etas: [Any]?
   
@@ -113,6 +116,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     self.syncApplicationData()
     vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+    self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
     del?.pickDropBoxStep1()
     del?.hideRequestBookingBtn()
     del?.hidePickDropoffParentContainer()
@@ -122,6 +126,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       rebook = true
       updateForRebook()
     }
+    
+    resetPromo()
+    resetPromoOrBaseFare()
   }
   
   override func viewWillAppear() {
@@ -142,12 +149,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     else if currentBookingStep == BookingStep.step3 {
       (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
-      resetPromo()
-      resetPromoOrBaseFare()
-      fetchEstimates()
-      registerForMinuteChange()
-      drawDirectionOnMap(encodedPath: "")
-      showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
+        
+        fetchEstimates()
+        registerForMinuteChange()
+        drawDirectionOnMap(encodedPath: "")
+        showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
     }
   }
   
@@ -287,16 +293,22 @@ class KTCreateBookingViewModel: KTBaseViewModel {
 
     func vehicleTypeTapped(idx: Int)
     {
+        
+        print("vehicleTypes?[idx]", vehicleTypes?[idx])
+        print("idx", idx)
+
+        selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
+        print("Selected ---> \(selectedVehicleType.rawValue)")
+        
+        let firstElement = (vehicleTypes?[idx])!
+        let filteredList = (modifiedVehicleTypes?.filter{$0.typeId != vehicleTypes![idx].typeId})!
+        modifiedVehicleTypes?.removeAll()
+        modifiedVehicleTypes?.append(firstElement)
+        modifiedVehicleTypes?.append(contentsOf: filteredList)
         if previousSelectedIndex != idx  {
-            
-            selectedVehicleType = VehicleType(rawValue: Int16(vehicleTypes![idx].typeId))!
-            print("Selected ---> \(selectedVehicleType.rawValue)")
-            var filteredList = vehicleTypes?.filter{$0.typeId != vehicleTypes![idx].typeId}
-            filteredList?.insert((vehicleTypes?[idx])!, at: 0)
-            vehicleTypes = filteredList
             previousSelectedIndex = idx
-            
         }
+        
         
     }
   
@@ -415,14 +427,30 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
           self.del?.updateVehicleTypeList()
           self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
+            
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                 (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection(animateView: false)
+            })
+            
+            
+            if self.booking != nil {
                 let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.booking.vehicleType))!
-                
                 let selectedIndex = (self.vehicleTypes?.index(of: vehicleType)) ?? 0
                 
-                self.vehicleTypeTapped(idx: selectedIndex)
-            })
+                self.selectedVehicleType = VehicleType(rawValue: Int16(self.vehicleTypes![selectedIndex].typeId))!
+                print("Selected ---> \(self.selectedVehicleType.rawValue)")
+                
+                let firstElement = (self.vehicleTypes?[selectedIndex])!
+                let filteredList = (self.modifiedVehicleTypes?.filter{$0.typeId != self.vehicleTypes![selectedIndex].typeId})!
+                self.modifiedVehicleTypes?.removeAll()
+                self.modifiedVehicleTypes?.append(firstElement)
+                self.modifiedVehicleTypes?.append(contentsOf: filteredList)
+                
+                self.vehicleTypes = self.modifiedVehicleTypes
+                
+                (self.delegate as! KTCreateBookingViewModelDelegate).reloadSelection()
+            }
+            
         }
         else {
           if self.estimates != nil{
@@ -434,9 +462,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       
       KTVehicleTypeManager().fetchETA(pickup: pickup) { [weak self] (status, response) in
         if status == Constants.APIResponseStatus.SUCCESS {
-          self?.vehicleTypes?.removeAll()
-          self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
-//          self?.del?.updateVehicleTypeList()
+            self?.vehicleTypes?.removeAll()
+            self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+            self?.modifiedVehicleTypes = self?.vehicleTypes
+            //          self?.del?.updateVehicleTypeList()
         }
       }
     }
@@ -450,6 +479,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     {
         vehicleTypes?.removeAll()
         vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+        self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
     }
     
   private func fetchEstimateForPromo(_ promoEntered: String)
@@ -480,6 +510,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
               
               self.vehicleTypes = nil
               self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+              self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
               self.promo = promoEntered
               (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
               self.del?.setPromoButtonLabel(validPromo: promoEntered)
@@ -522,16 +553,26 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
             self.del?.updateVehicleTypeList()
             self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
+            
             DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                 (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
-                
-                let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.booking.vehicleType))!
-                
-                let selectedIndex = (self.vehicleTypes?.index(of: vehicleType)) ?? 0
-                
-                self.vehicleTypeTapped(idx: selectedIndex)
-                
             })
+            
+            let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.booking.vehicleType))!
+            let selectedIndex = (self.vehicleTypes?.index(of: vehicleType)) ?? 0
+            self.selectedVehicleType = VehicleType(rawValue: Int16(self.vehicleTypes![selectedIndex].typeId))!
+            print("Selected ---> \(self.selectedVehicleType.rawValue)")
+            
+            let firstElement = (self.vehicleTypes?[selectedIndex])!
+            let filteredList = (self.modifiedVehicleTypes?.filter{$0.typeId != self.vehicleTypes![selectedIndex].typeId})!
+            self.modifiedVehicleTypes?.removeAll()
+            self.modifiedVehicleTypes?.append(firstElement)
+            self.modifiedVehicleTypes?.append(contentsOf: filteredList)
+            
+            self.vehicleTypes = self.modifiedVehicleTypes
+            
+            (self.delegate as! KTCreateBookingViewModelDelegate).reloadSelection()
+            
           }
           else
           {
@@ -1028,7 +1069,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     {
       booking = BookingBean.getBookingEntityFromBooking(bookingBean: self.cloneBooking)
     }
+    
+    promo = newPromoCode
+    
     fetchEstimateForPromo(newPromoCode)
+    
   }
   
   func removePromoTapped()
@@ -1404,6 +1449,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             { (status, response) in
               self.vehicleTypes = nil
               self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+              self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
               self.estimates = KTVehicleTypeManager().estimates()
               self.del?.updateVehicleTypeList()
               self.drawDirectionOnMap(encodedPath: "")

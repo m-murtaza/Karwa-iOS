@@ -176,6 +176,17 @@ AddressPickerCellDelegate {
     }
     
     initializeMap()
+    
+    if (self.txtPickAddress.text?.count ?? 0) > 0 && (self.txtDropAddress.text?.count ?? 0) > 0{
+        
+        if selectedTxtField == SelectedTextField.DropoffAddress {
+            toggleToMapView(forPickup: false)
+        }
+        else {
+            toggleToMapView(forPickup: true)
+        }
+        
+    }
   }
   
   //MARK: - Notification

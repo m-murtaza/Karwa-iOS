@@ -28,6 +28,22 @@ class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
         txtPickupHint.text = previousPromo
     }
     
+    fileprivate func setPopUpButtonState() {
+        if previousPromo?.count == 0 {
+            btnClose.setTitle("str_cancel".localized(), for: .normal)
+            btnClose.isUserInteractionEnabled = true
+            btnClose.alpha = 0.5
+            btnConfirm.isUserInteractionEnabled = false
+            btnConfirm.alpha = 0.5
+        } else {
+            btnClose.setTitle("str_remove".localized(), for: .normal)
+            btnClose.isUserInteractionEnabled = true
+            btnClose.alpha = 1
+            btnConfirm.isUserInteractionEnabled = true
+            btnConfirm.alpha = 1
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +58,11 @@ class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
         btnClose.layer.borderColor = UIColor.lightGray.cgColor
         btnConfirm.layer.borderWidth = 0.5
         btnConfirm.layer.borderColor = UIColor.lightGray.cgColor
+        
+        txtPickupHint.becomeFirstResponder()
+        
+        setPopUpButtonState()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -125,6 +146,26 @@ class PromoCodePopupVC: PopupVC, UITextFieldDelegate {
             guard let stringRange = Range(range, in: currentText) else { return false }
             
             let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            if changedText.count == 0 && previousPromo?.count == 0{
+                btnClose.setTitle("str_cancel".localized(), for: .normal)
+                btnClose.isUserInteractionEnabled = true
+                btnClose.alpha = 0.5
+                btnConfirm.isUserInteractionEnabled = false
+                btnConfirm.alpha = 0.5
+            } else if changedText.count != 0 && previousPromo?.count == 0 && changedText != "\n"{
+                btnClose.setTitle("str_remove".localized(), for: .normal)
+                btnClose.isUserInteractionEnabled = true
+                btnClose.alpha = 1
+                btnConfirm.isUserInteractionEnabled = true
+                btnConfirm.alpha = 1
+            } else {
+                btnClose.setTitle("str_cancel".localized(), for: .normal)
+                btnClose.isUserInteractionEnabled = true
+                btnClose.alpha = 0.5
+                btnConfirm.isUserInteractionEnabled = true
+                btnConfirm.alpha = 0.5
+            }
             
             return changedText.count <= ALLOWED_PROMO_LENGTH
         }
