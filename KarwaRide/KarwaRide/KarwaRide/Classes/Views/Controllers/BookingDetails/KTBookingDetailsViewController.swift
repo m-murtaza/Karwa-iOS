@@ -60,6 +60,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
         sheetCoordinator.addSheet(bottomSheetVC, to: self)
         sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
+        sheetCoordinator.delegate = self
 
         mapView.delegate = self
 
@@ -661,3 +662,10 @@ extension UInt {
     var toInt: Int { return Int(self) }
 }
 
+extension KTBookingDetailsViewController: UBottomSheetCoordinatorDelegate {
+ 
+    func bottomSheet(_ container: UIView?, didChange state: SheetTranslationState) {
+        
+    }
+    
+}

@@ -373,19 +373,12 @@ AddressPickerCellDelegate {
     
     if selectedTxtField == SelectedTextField.PickupAddress
     {
-      self.txtDropAddress.becomeFirstResponder()
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
-      {
+        print(self.pickUpTxt())
         self.txtPickAddress.becomeFirstResponder()
-      }
     }
     else
     {
-      self.txtPickAddress.becomeFirstResponder()
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
-      {
         self.txtDropAddress.becomeFirstResponder()
-      }
     }
   }
   
