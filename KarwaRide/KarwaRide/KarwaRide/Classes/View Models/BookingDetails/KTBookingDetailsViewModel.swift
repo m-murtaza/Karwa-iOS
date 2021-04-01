@@ -746,7 +746,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             del?.setMapCamera(bound: bounds)
         }
         else {
-            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            //del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
     }
     

@@ -479,12 +479,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
-            if vModel?.driverName().count != 0 {
+            if self.lblDriverName.text!.count != 0 &&  self.shimmerView.isHidden == true {
                 showDriverInfoBox()
                 preRideDriver.isHidden = false
-                constraintDriverInfoMarginTop.constant = 100
-                constraintVehicleInfoMarginTop.constant = 220
-                constraintReportIssueMarginTop.constant = 10
+                constraintDriverInfoMarginTop.constant = 150
+                constraintVehicleInfoMarginTop.constant = 247
+                constraintReportIssueMarginTop.constant = 15
 //                constraintRebookMarginTop.constant = 375
                 showBtnComplain()
             } else {

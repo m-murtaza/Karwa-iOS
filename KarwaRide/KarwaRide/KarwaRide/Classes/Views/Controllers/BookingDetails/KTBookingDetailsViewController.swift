@@ -45,6 +45,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         return view
     }()
     
+    var bounds : GMSCoordinateBounds = GMSCoordinateBounds()
+    
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
@@ -380,6 +382,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
+        
     }
     
     func showCurrentLocationDot(show: Bool) {
@@ -458,6 +461,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(marker.position)
+        
     }
     
     func addPickupMarker(location : CLLocationCoordinate2D) {
@@ -466,6 +472,14 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
         addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
+        
+        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
+
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        mapView.animate(with: update)
+
+        mapView.setMinZoom(1, maxZoom: 20)
+        
     }
     
     func setMapCamera(bound : GMSCoordinateBounds) {

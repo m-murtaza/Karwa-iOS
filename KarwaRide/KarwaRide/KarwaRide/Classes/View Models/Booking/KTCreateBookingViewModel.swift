@@ -613,7 +613,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   func vTypeEta(forIndex idx: Int) -> String {
     var result = ""
     if let vehicles = self.vehicleTypes {
-        result = vehicles[idx].etaText ?? "txt_not_available".localized()
+        
+        if isDropAvailable() && isAdvanceBooking {
+            result = vehicles[idx].etaText! == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
+        } else if !isDropAvailable() && isAdvanceBooking  {
+            result = vehicles[idx].etaText! == "" ? "str_starting_fare".localized() : (vehicles[idx].etaText ?? "str_starting_fare".localized())
+        } else {
+            result = vehicles[idx].etaText! == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
+        }
+        
     }
 
     return result.isEmpty ? "txt_not_available".localized() : result
@@ -627,7 +635,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     {
       if estimates == nil || estimates?.count == 0
       {
-        fareOrEstimate =  "txt_qr".localized() + "XX"//vType.typeBaseFare ?? ""
+        let localizedMsg = String(format: "txt_fare_base".localized(), vType.typeBaseFare ?? "")
+
+        fareOrEstimate =  localizedMsg //vType.typeBaseFare ?? ""
       }
       else
       {
@@ -827,7 +837,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     isAdvanceBooking = true
     setPickupDate(date: date)
     
-    if promo != "" || promo != nil {
+    if promo != ""{
         fetchEstimateForPromo(promo)
     } else {
         fetchEstimates()
