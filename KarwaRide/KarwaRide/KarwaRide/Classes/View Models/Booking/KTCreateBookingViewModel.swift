@@ -615,11 +615,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     if let vehicles = self.vehicleTypes {
         
         if isDropAvailable() && isAdvanceBooking {
-            result = vehicles[idx].etaText! == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
+            result = vehicles[idx].etaText ?? "" == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
         } else if !isDropAvailable() && isAdvanceBooking  {
-            result = vehicles[idx].etaText! == "" ? "str_starting_fare".localized() : (vehicles[idx].etaText ?? "str_starting_fare".localized())
+            result = vehicles[idx].etaText ?? "" == "" ? "str_starting_fare".localized() : (vehicles[idx].etaText ?? "str_starting_fare".localized())
         } else {
-            result = vehicles[idx].etaText! == "" ? "txt_not_available".localized() : (vehicles[idx].etaText ?? "txt_not_available".localized())
+            result = vehicles[idx].etaText ?? "" == "" ? "txt_not_available".localized() : (vehicles[idx].etaText ?? "txt_not_available".localized())
         }
         
     }
