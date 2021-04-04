@@ -217,7 +217,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     func vehicleType(typeId : Int16) -> KTVehicleType? {
         var vType : KTVehicleType
         let predicate : NSPredicate = NSPredicate(format: "typeId == %d",typeId)
-        vType  = (KTVehicleType.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()))!
+        vType  = (KTVehicleType.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) ?? KTVehicleType())
     
         return vType
     }

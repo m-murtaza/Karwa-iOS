@@ -26,8 +26,8 @@ class KTChangePasswordViewController: KTBaseViewController,KTChangePasswordViewM
 
         title = "changePass".localized()
         
-        btnSave.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "str_save".localized(), style: .plain, target: self, action: #selector(btnChangeTapped))
+        btnSave.isHidden = false
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "str_save".localized(), style: .plain, target: self, action: #selector(btnChangeTapped))
         
     }
 

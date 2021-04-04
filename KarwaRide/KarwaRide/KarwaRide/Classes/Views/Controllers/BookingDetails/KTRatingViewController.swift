@@ -11,28 +11,38 @@ import Kingfisher
 import Cosmos
 import RKTagsView
 import Spring
+import StoreKit
 
 protocol KTRatingViewDelegate {
     
     func closeRating(_ rating : Int32)
 }
-class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDelegate {
+class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, RKTagsViewDelegate {
     
     var delegate : KTRatingViewDelegate?
     private var vModel : KTRatingViewModel?
     
     @IBOutlet weak var driverImgView : UIImageView!
     @IBOutlet weak var lblDriverName: UILabel!
-    @IBOutlet weak var ratingDriverSystem: CosmosView!
+    
+    @IBOutlet weak var ratingDriverLabel: LocalisableLabel!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var lblTripFare: UILabel!
-    @IBOutlet weak var lblPickDateTime: UILabel!
     @IBOutlet weak var userRating: CosmosView!
+    
     @IBOutlet weak var lblConsolationText: UILabel!
+    @IBOutlet weak var lblSelectReasonText: UILabel!
+
     @IBOutlet weak var tagView: RKTagsView!
     @IBOutlet weak var complainComment: SpringButton!
-    @IBOutlet weak var complainCommentHeader: UIView!
-    @IBOutlet weak var tagViewHeightConstrain: NSLayoutConstraint!
+    @IBOutlet weak var complainCommentSeperator: UIView!
+    
+    @IBOutlet weak var lblPickUpAddress: UILabel!
+    @IBOutlet weak var lblDestinationAddress: UILabel!
+    
+    @IBOutlet weak var lblVehicleType: UILabel!
+    @IBOutlet weak var lblNumberOfPassenger: UILabel!
+
 
     @IBAction func testbtnTapped(_ sender: Any) {
         (sender as! UIButton).backgroundColor = UIColor.blue
@@ -47,10 +57,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
 
         // Do any additional setup after loading the view.
         updateUIForImageView()
-        
-        viewPopupUI.layer.cornerRadius = 16
-        btnSubmit.layer.addBorder(edge: UIRectEdge.top, color: UIColor(hexString:"#DEDEDE"), thickness: 1.0)
-        
+                
         tagView.textField.textAlignment = NSTextAlignment.center
         
         userRating.didFinishTouchingCosmos = {rating in
@@ -58,9 +65,8 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
             self.vModel?.ratingUpdate(rating: rating)
         }
         
-        tagView.textFieldAlign = .center
-        
         showHideComplainableLabel(show: false)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +78,14 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         vModel?.rateBooking()
     }*/
     func booking(_ b: KTBooking) {
-        vModel?.setBookingForRating(booking: b) 
+        
+        if vModel == nil {
+            viewModel = KTRatingViewModel(del: self)
+            vModel = viewModel as? KTRatingViewModel
+        }
+        vModel?.setBookingForRating(booking: b)
+        navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+
     }
     
     /*
@@ -96,10 +109,9 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         UIView.animate(withDuration: 0.5, animations:
         {
             self.complainComment.isHidden = !show
-            self.complainCommentHeader.isHidden = !show
-            self.tagViewHeightConstrain.constant = show ? 130 : 160
-            
+            self.complainCommentSeperator.isHidden = !show
             self.complainComment.setNeedsDisplay()
+            self.complainCommentSeperator.setNeedsDisplay()
             self.view.layoutIfNeeded()
         })
     }
@@ -113,8 +125,10 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     //MARK: - Delegates
-    func enableSubmitButton() {
-        self.btnSubmit.isEnabled = true
+    func enableSubmitButton(enable: Bool) {
+        self.btnSubmit.isEnabled = enable
+        self.btnSubmit.isUserInteractionEnabled = enable
+        self.btnSubmit.alpha = enable == true ? 1 : 0.5
     }
     
     func showConsolationText() {
@@ -124,6 +138,12 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
         lblConsolationText.text = message
         lblConsolationText.isHidden = false
     }
+    
+    func showSelectReasonText(message: String) {
+        lblSelectReasonText.text = message
+        lblSelectReasonText.isHidden = false
+    }
+    
     func hideConsolationText() {
         lblConsolationText.isHidden = true
     }
@@ -143,23 +163,42 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     func updateDriver(rating: Double) {
-        ratingDriverSystem.rating = rating
+        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: -3)
     }
     
     func updateTrip(fare: String) {
-        lblTripFare.text = fare
+        var iconImage = UIImage()
+        iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
+        lblTripFare.addTrailing(image: iconImage, text: fare + "  ", imageOffsetY: -4)
+        lblNumberOfPassenger.text = vModel?.getPassengerCountr()
+        lblVehicleType.text = vModel?.vehicleType()
+        
+        lblTripFare.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
+        lblVehicleType.textAlignment = Device.getLanguage().contains("AR") ? .right : .left
     }
     
     func updateDriverImage(url: URL) {
         driverImgView.kf.setImage(with: url)
     }
     
+    func updatePickUpAddress(address: String) {
+        lblPickUpAddress.text = address
+        lblPickUpAddress.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
+
+    }
+    
+    func updateDropAddress(address: String) {
+        lblDestinationAddress.text = address
+        lblDestinationAddress.textAlignment = Device.getLanguage().contains("AR") ? .right : .left
+
+    }
+    
     func hideSystemRating() {
-        ratingDriverSystem.isHidden = true
+        ratingDriverLabel.isHidden = true
     }
     
     func updatePickup(date: String) {
-        lblPickDateTime.text = date
+//        lblPickDateTime.text = date
     }
     
     @IBAction func btnRateBookingTapped(_ sender: Any) {
@@ -172,7 +211,28 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     }
     
     func closeScreen(_ rating : Int32) {
-        delegate?.closeRating(rating)
+        
+        
+        showSuccessBanner("  ", "booking_rated".localized())
+        
+        if(rating > 3)
+        {
+            let isAppStoreRatingDone = SharedPrefUtil.getSharePref(SharedPrefUtil.IS_APP_STORE_RATING_DONE)
+            if(isAppStoreRatingDone.isEmpty || isAppStoreRatingDone.count == 0)
+            {
+                // Asking for App Store Rating
+                showRatingDialog(rating)
+            }
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+
+    }
+    
+    func showRatingDialog(_ rating : Int32)
+    {
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.IS_APP_STORE_RATING_DONE, "true")
+        SKStoreReviewController.requestReview()
     }
 
     override func showError(title:String, message:String)
@@ -218,8 +278,6 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
             btn.setComplainable(true)
         }
         
-        btn.setTitleColor(UIColor(hexString:"#5B5A5A"), for: UIControlState.normal)
-
         btn.setTitleColor(UIColor.white, for: UIControlState.selected)
         
         btn.adjustsImageWhenHighlighted = false
@@ -259,7 +317,7 @@ class KTRatingViewController: PopupVC, KTRatingViewModelDelegate, RKTagsViewDele
     
     func resetComplainComment()
     {
-        complainComment.setTitle("str_add_comment_here", for: .normal)
+        complainComment.setTitle("str_add_comment_here".localized(), for: .normal)
     }
     
     @objc func tagViewTapped() {

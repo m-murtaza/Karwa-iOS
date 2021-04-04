@@ -163,18 +163,20 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
 
     func restoreCustomerServiceSelection(animateView: Bool)
     {
-        guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-          return
-        }
         
-        print("Restoring index: \(selectedIndex)")
-
-        let indexPath = IndexPath(row: selectedIndex, section: 0)
-        DispatchQueue.main.async {
-          self.tableView.selectRow(at: indexPath,
-                                   animated: !animateView,
-                                   scrollPosition: .none)
-        }
+            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+                return
+            }
+            
+            print("Restoring index: \(selectedIndex)")
+            
+            let indexPath = IndexPath(row: selectedIndex, section: 0)
+            DispatchQueue.main.async {
+                self.tableView.selectRow(at: indexPath,
+                                         animated: !animateView,
+                                         scrollPosition: .none)
+            }
+                    
     }
   
 }
@@ -208,7 +210,12 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
   
 }
 class KTCreateBookingViewController:
-KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    
+    func reloadSelection() {
+        self.tableView.reloadData()
+    }
+    
 
     func showScanPayCoachmark()
     {
@@ -257,6 +264,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBOutlet weak var showMoreRideOptions: UIButton!
   @IBOutlet weak var pickupAddressLabel: UILabel!
     @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
+  @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
     
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
@@ -291,7 +299,6 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     destinationView.applyShadow()
     collectionView.dataSource = self
     collectionView.delegate = self
-    (viewModel as! KTCreateBookingViewModel).fetchDestinations()
     tableView.delegate = self
     tableView.dataSource = self
     tableView.isScrollEnabled = false
@@ -355,6 +362,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         DispatchQueue.main.async
         {
             self.showMoreRideOptions.isHidden = isClosed
+            
+            (self.viewModel as! KTCreateBookingViewModel).vehicleTypes = (self.viewModel as! KTCreateBookingViewModel).modifiedVehicleTypes
+
             if(self.selectedIndex != 0 && !isClosed)
             {
 //                self.moveRowToFirst(fromIndex: self.selectedIndex)
@@ -388,8 +398,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
   }
-  
-
+      
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
   }
@@ -408,7 +417,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
      self.currentLocationButton.isHidden = true
     }
   }
-  
+
   @IBAction func showMoreRideOptions(_ sender: Any) {
     tableViewHeight.constant =  tableViewMaximumHeight
     UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
@@ -422,6 +431,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(false)
     
+    (viewModel as! KTCreateBookingViewModel).fetchDestinations()
+    
     //TODO: If no pick uplocation
     if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
         if(self.carousel != nil)
@@ -433,6 +444,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
             }
         }
     }
+    print(vModel?.booking.vehicleType)
+
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -560,12 +573,14 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     DispatchQueue.main.async {
       if promo.length > 0 {
         self.promoKeyLabel.text = promo
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-900", size: 15.0)!
         self.promoAppliedKeyLabel.text = "txt_promo_applied".localized()
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = false
       }
       else {
         self.promoKeyLabel.text = "str_promo_str".localized()
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-500", size: 15.0)!
         self.promoAppliedKeyLabel.text = ""
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = true
@@ -578,6 +593,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   {
     promoCode = promoEntered
   }
+    
+    func showPromotionAppliedToast(show: Bool) {
+        self.showToast(message: "txt_promo_applied".localized())
+    }
   // ----------------------------------------------------
   
   func showCallerIdPopUp() {
@@ -612,6 +631,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     {
         UIView.animate(withDuration: 0.5, animations: {
           self.pickupDropoffParentContainer.isHidden = true
+            self.mapViewBottomConstraint.constant = -75
           self.view.layoutIfNeeded()
         })
     }
@@ -648,6 +668,12 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         self.rideServicesContainer.frame.origin.y += 150
         self.pickupDropoffParentContainer.frame.origin.y += 150
         self.pickupDropoffParentContainer.isHidden = false
+
+        if self.promoCode == ""{
+            self.promoAppliedContainer.isHidden = true
+        }
+        
+        self.mapViewBottomConstraint.constant = 0
         self.rideServicesContainer.isHidden = false
 
         UIView.animate(
@@ -676,8 +702,15 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         self.pickupPin.isHidden = false
         self.mapInstructionsContainer.isHidden = false
         self.currentLocationButton.isHidden = false
-        self.promoAppliedContainer.isHidden = true
+        
+        if (self.promoKeyLabel.text?.count ?? 0) > 0 && self.promoKeyLabel.text! != "str_promo_str".localized() {
+            self.promoAppliedContainer.isHidden = false
+        } else {
+            self.promoAppliedContainer.isHidden = true
+        }
+
         self.pickupDropoffParentContainer.isHidden = true
+        self.mapViewBottomConstraint.constant = -75
         self.rideServicesContainer.isHidden = true
     }
   }
@@ -773,23 +806,34 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     }
     self.pickupAddressLabel.text = pick
     self.pickupLabel.text = pick
+    
   }
   
   func setDropOff(drop: String?) {
     
-    guard drop != nil else {
-      return
+    guard drop! != "txt_set_destination".localized() else {
+        self.dropoffLabel.text = drop!
+        self.dropoffLabel.font = UIFont(name: "MuseoSans-900Italic", size: 13.0)!
+        self.tableView.reloadData()
+        return
     }
     
     //self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
     //self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
     self.dropoffLabel.text = drop
+    self.dropoffLabel.font = UIFont(name: "MuseoSans-900", size: 13.0)!
+
   }
   
   func setPickDate(date: String) {
     scheduleKeyLabel.text = date
     //btnPickDate.setTitle(date, for: UIControlState.normal)
   }
+    
+    func setRequestButtonTitle(title: String) {
+        self.btnRequestBooking.setTitle(title, for: .normal)
+    }
+      
   
   func hideFareBreakdown() {
     

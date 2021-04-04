@@ -44,7 +44,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl) // not required when using UITableViewController
         
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#095A86"), NSAttributedStringKey.font: UIFont(name: "MuseoSans-700", size: 18.0)!]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                                   NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
 
 //        if #available(iOS 13.0, *) {
 //            let appearance = UINavigationBarAppearance()
@@ -157,7 +158,14 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         }
         
         navigationItem.backButtonTitle = ""
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+             NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
+        
         self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
+        
+        
         //self.performSegue(name: "segueMyTripsToDetails")
     }
     

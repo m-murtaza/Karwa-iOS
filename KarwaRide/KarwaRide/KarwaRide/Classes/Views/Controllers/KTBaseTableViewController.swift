@@ -161,14 +161,12 @@ class KTBaseTableViewController: UITableViewController,KTViewModelDelegate
     
     func showToast(message : String)
     {
-        // create a new style
         var style = ToastStyle()
-        style.backgroundColor = .white
-        style.messageFont = .systemFont(ofSize: 13)
-        style.messageColor = .black
-        
+        style.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+        style.messageFont = UIFont(name: "MuseoSans-500", size: 13.0)!
+        style.messageColor = .white
+        style.cornerRadius = 20
         self.view.makeToast(message, duration: 3.0, position: .center, style: style)
-        
     }
     
     func showSuccessBanner(_ title: String, _ message: String)

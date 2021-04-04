@@ -24,6 +24,7 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
   func navigateToPreviousView(pickup: KTGeoLocation?, dropOff:KTGeoLocation?)
   func inFocusTextField() -> SelectedTextField
   func moveFocusToDestination()
+  func moveFocusToPickUp()
   func getConfirmPickupFlowDone() -> Bool
   func setConfirmPickupFlowDone(isConfirmPickupFlowDone : Bool)
   func startConfirmPickupFlow()
@@ -336,11 +337,27 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   func didSelectRow(at idx:Int, type:SelectedTextField) {
     if type == SelectedTextField.PickupAddress {
       pickUpAddress = locations[idx]
-      (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name)!)
+    
+        if !locations[idx].favoriteName.isEmpty {
+          let title = locations[idx].favoriteName
+            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+        } else {
+            let title = locations[idx].name!
+              (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+        }
+        
     }
     else {
       dropOffAddress = locations[idx]
-      (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name)!)
+        
+        if !locations[idx].favoriteName.isEmpty {
+          let title = locations[idx].favoriteName
+            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+        } else {
+            let title = locations[idx].name!
+            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+        }
+        
     }
     
     moveBackIfNeeded(skipDestination: false)
@@ -366,7 +383,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     {
       if  (skipDestination || dropOffAddress != nil || isSkippedPressed)
       {
-        if pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() && (isSkippedPressed || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt())
+        if (pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || pickUpAddress?.favoriteName == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt()) && (isSkippedPressed || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() || dropOffAddress?.favoriteName == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()  )
         {
           if isSkippedPressed
           {
@@ -384,6 +401,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     else
     {
         self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
+        self.del?.moveFocusToPickUp()
     }
   }
   
@@ -427,6 +445,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     KTFavorites.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default())
     loadFavoritesDataInView()
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+    delegate?.showToast(message: "txt_location_fav_removed".localized())
   }
   
   func btnSetHomeTapped() {

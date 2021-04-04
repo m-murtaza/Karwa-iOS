@@ -45,6 +45,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         return view
     }()
     
+    var bounds : GMSCoordinateBounds = GMSCoordinateBounds()
+    
     override func viewDidLoad() {
         if viewModel == nil {
             viewModel = KTBookingDetailsViewModel(del: self)
@@ -53,12 +55,14 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
 
         sheetCoordinator = UBottomSheetCoordinator(parent: self)
-
+        sheetCoordinator.dataSource = self
+        
         bottomSheetVC.sheetCoordinator = sheetCoordinator
 
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
         sheetCoordinator.addSheet(bottomSheetVC, to: self)
-        sheetCoordinator.setPosition(UIScreen.main.bounds.size.height - 200, animated: true)
+        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
+        sheetCoordinator.delegate = self
 
         mapView.delegate = self
 
@@ -208,6 +212,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
         navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -377,6 +382,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
+        
     }
     
     func showCurrentLocationDot(show: Bool) {
@@ -455,6 +461,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(marker.position)
+        
     }
     
     func addPickupMarker(location : CLLocationCoordinate2D) {
@@ -463,6 +472,14 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
         addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
+        
+        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
+
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        mapView.animate(with: update)
+
+        mapView.setMinZoom(1, maxZoom: 20)
+        
     }
     
     func setMapCamera(bound : GMSCoordinateBounds) {
@@ -512,20 +529,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func showRatingScreen() {
+                        
         ratingPopup = storyboard?.instantiateViewController(withIdentifier: "RatingReasonPopup") as? KTRatingViewController
         
-        ratingPopup?.view.frame = self.view.bounds
-        view.addSubview((ratingPopup?.view)!)
-        addChildViewController(ratingPopup!)
+        let navController = UINavigationController(rootViewController: ratingPopup!) // Creating a navigation controller with VC1 at the root of the navigation stack.
         ratingPopup?.booking((vModel?.booking)!)
-        ratingPopup?.delegate = self
-        //self.performSegue(name: "detailToRating")
+        navController.modalPresentationStyle = .fullScreen
+        self.present(navController, animated: true, completion: nil)
     }
     
     func closeRating(_ rating : Int32) {
-        ratingPopup?.view.removeFromSuperview()
-        ratingPopup = nil
+//        ratingPopup?.view.removeFromSuperview()
+//        ratingPopup = nil
 
+        self.dismiss(animated: true, completion: nil)
+        
         showSuccessBanner("  ", "booking_rated".localized())
         
         if(rating > 3)
@@ -650,6 +668,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     {
         btnRecenter.isHidden = false
     }
+    
 }
 
 extension UInt {
@@ -657,3 +676,10 @@ extension UInt {
     var toInt: Int { return Int(self) }
 }
 
+extension KTBookingDetailsViewController: UBottomSheetCoordinatorDelegate {
+ 
+    func bottomSheet(_ container: UIView?, didChange state: SheetTranslationState) {
+        
+    }
+    
+}
