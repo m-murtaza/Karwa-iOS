@@ -47,7 +47,7 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
     
     @objc func keyboardWillShowNotification(_ notification: Notification) {
         if let userInfo = notification.userInfo {
-            if let frameValue = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSValue {
+            if let frameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
                 let frame = frameValue.cgRectValue
                 keyboardVisibleHeight = frame.size.height
             }
@@ -81,8 +81,8 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
         self.updateConstant()
         
         if let userInfo = notification.userInfo {
-            //keyboardAnimationDurationUserInfoKey
-            switch (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber, userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber) {
+            
+            switch (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber, userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber) {
             case let (.some(duration), .some(curve)):
                 
                 let options = UIView.AnimationOptions(rawValue: curve.uintValue)
