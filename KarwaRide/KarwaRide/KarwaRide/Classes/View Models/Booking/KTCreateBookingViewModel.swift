@@ -619,7 +619,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         } else if !isDropAvailable() && isAdvanceBooking  {
             result = vehicles[idx].etaText! == "" ? "str_starting_fare".localized() : (vehicles[idx].etaText ?? "str_starting_fare".localized())
         } else {
-            result = vehicles[idx].etaText! == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
+            result = vehicles[idx].etaText ?? "" == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
         }
         
     }
