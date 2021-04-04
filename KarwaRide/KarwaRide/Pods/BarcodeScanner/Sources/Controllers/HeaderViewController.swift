@@ -119,14 +119,14 @@ private extension HeaderViewController {
 
   func makeCloseButton() -> UIButton {
     let image = UIImage(named: "CrossBarButton") as UIImage?
-    let button   = UIButton(type: UIButtonType.custom) as UIButton
+    let button   = UIButton(type: UIButton.ButtonType.custom) as UIButton
     button.setImage(image, for: .normal)
     return button
   }
     
     func makeManageButton() -> UIButton {
         let button = UIButton(type: .system)
-        button.setTitle(Locale.current.languageCode == "ar" ?  "يدير" : "MANAGE", for: UIControlState())
+        button.setTitle(Locale.current.languageCode == "ar" ?  "يدير" : "MANAGE", for: UIControl.State())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button.tintColor = hexStringToUIColor(hex: "#49AAA6")
         return button

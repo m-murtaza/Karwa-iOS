@@ -108,7 +108,7 @@ open class BarcodeScannerViewController: UIViewController {
     cameraViewController.delegate = self
     add(childViewController: cameraViewController)
 
-    view.bringSubview(toFront: messageView)
+    view.bringSubviewToFront(messageView)
   }
 
   open override func viewWillAppear(_ animated: Bool) {
@@ -208,7 +208,7 @@ open class BarcodeScannerViewController: UIViewController {
     flashView.alpha = 1
 
     view.addSubview(flashView)
-    view.bringSubview(toFront: flashView)
+    view.bringSubviewToFront(flashView)
 
     UIView.animate(
       withDuration: 0.2,
@@ -313,7 +313,7 @@ extension BarcodeScannerViewController: CameraViewControllerDelegate {
 
   func cameraViewControllerDidTapSettingsButton(_ controller: CameraViewController) {
     DispatchQueue.main.async {
-      if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
         UIApplication.shared.openURL(settingsURL)
       }
     }

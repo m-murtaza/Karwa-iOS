@@ -370,10 +370,10 @@ public class Spring : NSObject {
     func getTimingFunction(curve: String) -> CAMediaTimingFunction {
         if let curve = AnimationCurve(rawValue: curve) {
             switch curve {
-            case .EaseIn: return CAMediaTimingFunction(name: "easeIn")
-            case .EaseOut: return CAMediaTimingFunction(name: "easeOut")
-            case .EaseInOut: return CAMediaTimingFunction(name: "easeInEaseOut")
-            case .Linear: return CAMediaTimingFunction(name: "linear")
+            case .EaseIn: return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+            case .EaseOut: return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            case .EaseInOut: return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            case .Linear: return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
             case .Spring: return CAMediaTimingFunction(controlPoints: 0.5, 1.1+Float(force/3), 1, 1)
             case .EaseInSine: return CAMediaTimingFunction(controlPoints: 0.47, 0, 0.745, 0.715)
             case .EaseOutSine: return CAMediaTimingFunction(controlPoints: 0.39, 0.575, 0.565, 1)
@@ -401,7 +401,7 @@ public class Spring : NSObject {
             case .EaseInOutBack: return CAMediaTimingFunction(controlPoints: 0.68, -0.55, 0.265, 1.55)
             }
         }
-        return CAMediaTimingFunction(name: "default")
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
     }
     
     func getAnimationOptions(curve: String) -> UIView.AnimationOptions {
