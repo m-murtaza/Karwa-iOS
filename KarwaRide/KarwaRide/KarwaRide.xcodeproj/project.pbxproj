@@ -228,6 +228,11 @@
 		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
 		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
 		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
+		F03DAFFC261AE4B6002B3C44 /* KTWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */; };
+		F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */; };
+		F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */; };
+		F03DB009261D42E4002B3C44 /* KTAddCreditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DB008261D42E4002B3C44 /* KTAddCreditViewModel.swift */; };
+		F04EF865262290580088C29B /* KTWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04EF864262290580088C29B /* KTWalletManager.swift */; };
 		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
 /* End PBXBuildFile section */
 
@@ -472,6 +477,12 @@
 		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
+		F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewController.swift; sourceTree = "<group>"; };
+		F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewModel.swift; sourceTree = "<group>"; };
+		F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddCreditViewController.swift; sourceTree = "<group>"; };
+		F03DB008261D42E4002B3C44 /* KTAddCreditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddCreditViewModel.swift; sourceTree = "<group>"; };
+		F04EF864262290580088C29B /* KTWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletManager.swift; sourceTree = "<group>"; };
+		F04EF87126229AD60088C29B /* KTTransactions+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTTransactions+CoreDataClass.swift"; path = "Classes/KTTransactions+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -804,6 +815,7 @@
 		181344AB1EF7B271006E734A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F04EF87126229AD60088C29B /* KTTransactions+CoreDataClass.swift */,
 				18B5EA4B201473AE00D9B1D1 /* Models */,
 				1810C0C81FC59BA6008E8D91 /* ThirdParty */,
 				1864872B1F0BAFD800DDB003 /* DAL */,
@@ -1041,6 +1053,8 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F03DB006261D41B3002B3C44 /* AddCredit */,
+				F03DAFFA261AE46A002B3C44 /* Wallet */,
 				0D80810B21AE614F0055E473 /* TripTrack */,
 				0DE90AF22186E805005FC934 /* ScanAndPay */,
 				0D1A4B53216CA24A00279AA6 /* ComplaintsController */,
@@ -1066,6 +1080,8 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				F03DB007261D42C5002B3C44 /* AddCredit */,
+				F03DAFFE261B1329002B3C44 /* Wallet */,
 				0D80810821AE60B40055E473 /* TripTrack */,
 				0DE90AF52186E9D1005FC934 /* ScanAndPayViewModel */,
 				0D1A4B58216CA85B00279AA6 /* ComplaintsVM */,
@@ -1109,6 +1125,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				F04EF863262290390088C29B /* WalletManager */,
 				0DF3A22B2185B5280000503B /* Payment */,
 				0DEA1F4F2166051A00649F8B /* Complaints */,
 				182A74D0209708A60025B6C7 /* Notification */,
@@ -1403,6 +1420,46 @@
 				6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F03DAFFA261AE46A002B3C44 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */,
+			);
+			name = Wallet;
+			sourceTree = "<group>";
+		};
+		F03DAFFE261B1329002B3C44 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */,
+			);
+			name = Wallet;
+			sourceTree = "<group>";
+		};
+		F03DB006261D41B3002B3C44 /* AddCredit */ = {
+			isa = PBXGroup;
+			children = (
+				F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */,
+			);
+			name = AddCredit;
+			sourceTree = "<group>";
+		};
+		F03DB007261D42C5002B3C44 /* AddCredit */ = {
+			isa = PBXGroup;
+			children = (
+				F03DB008261D42E4002B3C44 /* KTAddCreditViewModel.swift */,
+			);
+			name = AddCredit;
+			sourceTree = "<group>";
+		};
+		F04EF863262290390088C29B /* WalletManager */ = {
+			isa = PBXGroup;
+			children = (
+				F04EF864262290580088C29B /* KTWalletManager.swift */,
+			);
+			name = WalletManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1718,6 +1775,7 @@
 				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
+				F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
 				18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */,
 				0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */,
@@ -1753,6 +1811,7 @@
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				0DE7B9AC2226B1F50098951C /* AESEncryption.swift in Sources */,
 				0D1B4C6F22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift in Sources */,
+				F03DAFFC261AE4B6002B3C44 /* KTWalletViewController.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
 				181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */,
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
@@ -1764,6 +1823,7 @@
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */,
 				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,
+				F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */,
 				1833CA7F200DC74300AD885B /* KTCreateBookingViewController.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
 				18F2B2762044135200600966 /* KTMyTripsViewController.swift in Sources */,
@@ -1782,6 +1842,7 @@
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
 				0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */,
 				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
+				F03DB009261D42E4002B3C44 /* KTAddCreditViewModel.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
 				0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */,
@@ -1826,6 +1887,7 @@
 				186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */,
 				186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */,
 				0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */,
+				F04EF865262290580088C29B /* KTWalletManager.swift in Sources */,
 				0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */,
 				0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,

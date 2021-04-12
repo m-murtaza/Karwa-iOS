@@ -465,6 +465,8 @@ struct Constants {
         static let MPGSCreateSession = "mpgs/session"
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
+        static let GetTransactions = "payment?records=10"
+
     }
     
     struct TrackTaxiParams {
@@ -531,5 +533,12 @@ struct Constants {
         static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
     }
     
+    struct TransactionResponseAPIKey {
+        static let PrimaryInfo = "PrimaryInfo"
+        static let PaymentMethod = "PaymentMethod"
+        static let Amount = "Amount"
+        static let TransactionTime = "TransactionTime"
+        static let TransactionType = "TransactionType"
+    }
     
 }

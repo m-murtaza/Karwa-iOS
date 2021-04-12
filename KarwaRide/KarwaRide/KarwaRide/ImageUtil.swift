@@ -136,4 +136,26 @@ class ImageUtil
         }
         return brandImage
     }
+    
+    static func getTransactionImage(_ type: String) -> String
+    {
+        var brandImage = ""
+        
+        switch type
+        {
+        case "CREDITWALLET":
+            brandImage = "addcredit_icon"
+            break;
+        case "PAIDWALLET":
+            brandImage = "creditbalance_icon"
+            break;
+        case "PAIDCARD":
+            brandImage = "card_icon"
+            break;
+        default:
+            brandImage = "card_icon"
+            break;
+        }
+        return brandImage
+    }
 }

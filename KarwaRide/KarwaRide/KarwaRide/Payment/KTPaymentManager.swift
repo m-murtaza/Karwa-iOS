@@ -14,11 +14,12 @@ class KTPaymentManager: KTDALManager
 {
     func fetchPaymentsFromServer(completion completionBlock:@escaping KTDALCompletionBlock)
     {
-        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:PAYMENTS_SYNC_TIME)]
+//        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:PAYMENTS_SYNC_TIME)]
         
-        self.get(url: Constants.APIURL.GetPayments, param: param, completion: completionBlock) { (responseData,cBlock) in
+        self.get(url: Constants.APIURL.GetPayments, param: nil, completion: completionBlock) { (responseData,cBlock) in
             
             print(responseData)
+            
             if(responseData.count > 0)
             {
                 if(responseData[Constants.ResponseAPIKey.Data] != nil)
@@ -61,7 +62,7 @@ class KTPaymentManager: KTDALManager
             newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String) ?? ""
             newPayment?.expiry_year = (payment[Constants.PaymentResponseAPIKey.ExpiryYear] as? String) ?? ""
             newPayment?.brand = (payment[Constants.PaymentResponseAPIKey.Brand] as? String) ?? ""
-//            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String)!
+            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String) ?? ""
             newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool) ?? false
         }
     }
@@ -122,8 +123,11 @@ class KTPaymentManager: KTDALManager
     func deleteAllPaymentMethods()
     {
         let predicate : NSPredicate = NSPredicate(format:"is_removable = %d" , true)
-        
+        let predicateNew : NSPredicate = NSPredicate(format:"is_removable = %d" , false)
+
         KTPaymentMethod.mr_deleteAll(matching: predicate)
+        KTPaymentMethod.mr_deleteAll(matching: predicateNew)
+        
     }
     
     func deletePaymentMethods(_ paymentMethod : KTPaymentMethod)
