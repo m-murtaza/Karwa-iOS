@@ -13,6 +13,24 @@ let TRANSACTIONS_SYNC_TIME = "TransactionsSyncTime"
 
 class KTWalletManager: KTDALManager {
     
+    func addCreditAmount(paymentMethod: KTPaymentMethod, amount: String, type: String,completion completionBlock:@escaping KTDALCompletionBlock) {
+
+        let params : NSMutableDictionary = [Constants.WalletTopUpParam.method : type,
+                                            Constants.WalletTopUpParam.amount : amount]
+        
+        if type == "creditcard" {
+            params[Constants.WalletTopUpParam.source] = AESEncryption().encrypt(paymentMethod.source ?? "")
+        }
+            
+        self.post(url: Constants.APIURL.walletTopup, param: (params as! [String : Any]), completion: completionBlock) { (response,  cBlock) in
+            
+            print(response)
+
+            completionBlock(Constants.APIResponseStatus.SUCCESS,response)
+
+        }
+    }
+    
     func fetchTransactionsFromServer(completion completionBlock:@escaping KTDALCompletionBlock)
     {
         
@@ -71,28 +89,19 @@ class KTWalletManager: KTDALManager {
         }
     }
     
-    func getAllTransactions() -> [KTTransactions]
-    {
+    func getAllTransactions() -> [KTTransactions] {
+        
         var paymentMethods : [KTTransactions] = []
-        
         paymentMethods = KTTransactions.mr_findAllSorted(by: "date", ascending: false, in: NSManagedObjectContext.mr_default()) as! [KTTransactions]
-        
         return paymentMethods
+        
     }
     
-    func deleteAllTransaction()
-    {
+    func deleteAllTransaction() {
         
         let predicate : NSPredicate = NSPredicate(format:"date contains[c]         %@" , "T")
-
         KTTransactions.mr_deleteAll(matching: predicate)
-        
-//        let transactions : [KTTransactions] = KTTransactions.mr_findAll() as! [KTTransactions]
-//
-//        for transaction in transactions {
-//            transaction.mr_deleteEntity()
-//        }
-        
-    }
     
+    }
+        
 }

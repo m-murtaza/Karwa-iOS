@@ -9,7 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 
-class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataSource, UITableViewDelegate  {
+class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataSource, UITableViewDelegate, KTWalletViewModelDelegate  {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var creditTextField: SkyFloatingLabelTextField!
@@ -18,37 +18,23 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
     private var vModel : KTWalletViewModel?
     
     private let refreshControl = UIRefreshControl()
-    
-    var cardArray = ["String","String","String","String"]
-    
+        
     override func viewDidLoad() {
         
         if viewModel == nil {
             viewModel = KTWalletViewModel(del: self)
         }
         vModel = viewModel as? KTWalletViewModel
+        
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        
-        refreshControl.attributedTitle = NSAttributedString(string: "")
-        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
-        tableView.addSubview(refreshControl) // not required when using UITableViewController
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
                                                                    NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
+        self.creditTextField.becomeFirstResponder()
+        self.creditTextField.delegate = self
         
-        addMenuButton()
+        self.hideKeyboardWhenTappedAround()
         
-    }
-    
-    
-    @objc func refresh(sender:AnyObject) {
-        //        (viewModel as! KTWalletViewModel).fetchBookings()
-    }
-    
-    func endRefreshing() {
-        refreshControl.endRefreshing()
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,8 +43,15 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
     }
     
     
+    @objc func addCredit() {
+        
+        (viewModel as! KTWalletViewModel).addCreditToWallet(amount: self.creditTextField.text ?? "")
+        
+    }
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -67,16 +60,15 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 110.0
+        return 80.0
         
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+    fileprivate func createHeaderView(_ tableView: UITableView) -> UIView? {
         let keyLbl = LocalisableLabel()
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        keyLbl.localisedKey = section == 0 ? "cards".localized() : "str_transactions".localized()
+        keyLbl.text = "str_choose_card".localized()
         keyLbl.textAlignment = .right
         keyLbl.textColor = UIColor(hexString: "#00A8A8")
         keyLbl.font = UIFont(name: "MuseoSans-500", size: 12.0)!
@@ -96,6 +88,11 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
          keyLbl.centerYAnchor.constraint(equalTo: view.centerYAnchor)].forEach({$0.isActive = true})
         
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        return createHeaderView(tableView)
         
     }
     
@@ -103,8 +100,7 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
         return 100
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
+    fileprivate func createFooterView(_ tableView: UITableView) -> UIView? {
         let conitnueButton = UIButton()
         conitnueButton.translatesAutoresizingMaskIntoConstraints = false
         conitnueButton.setTitle("txt_continue".localized(), for: .normal)
@@ -112,7 +108,7 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
         conitnueButton.setTitleColor( UIColor.white, for: .normal)
         conitnueButton.setBackgroundColor(color: UIColor(hex: "#00A8A8"), forState: .normal)
         conitnueButton.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
-        conitnueButton.cornerRadius = 20
+        conitnueButton.cornerRadius = 25
         conitnueButton.clipsToBounds = true
         conitnueButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         
@@ -124,88 +120,61 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
         view.addSubview(buttonBgView)
         buttonBgView.addSubview(conitnueButton)
         
-        [conitnueButton.heightAnchor.constraint(equalToConstant: 40),
-         conitnueButton.widthAnchor.constraint(equalToConstant: 150),
-         conitnueButton.centerXAnchor.constraint(equalTo: buttonBgView.centerXAnchor),
+        [conitnueButton.heightAnchor.constraint(equalToConstant: 50),
+         conitnueButton.leadingAnchor.constraint(equalTo: buttonBgView.leadingAnchor, constant: 20),
+         conitnueButton.trailingAnchor.constraint(equalTo: buttonBgView.trailingAnchor, constant: -20),
          conitnueButton.centerYAnchor.constraint(equalTo: buttonBgView.centerYAnchor)].forEach({$0.isActive = true})
         
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        return createFooterView(tableView)
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.cardArray.count
+        return (viewModel as! KTWalletViewModel).numberOfCardRows() + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : KTWalletTableViewCell = tableView.dequeueReusableCell(withIdentifier: "WalletTableViewCellIdentifier") as! KTWalletTableViewCell
         
+        let cell : KTWalletTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "WalletTableViewCellIdentifier") as! KTWalletTableViewCell
+        
+        if indexPath.row ==  (viewModel as! KTWalletViewModel).numberOfCardRows() {
+            cell.titleLabel.text = "Debit card"
+            cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
+            cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
+            cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
+        } else {
+            cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
+            cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
+            cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
+            cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
+            cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
+        }
+                
         let backgroundCell : KTWalletTableViewBackgroundCell = tableView.dequeueReusableCell(withIdentifier: "WalletTableViewBackgroundCellIdentifier") as! KTWalletTableViewBackgroundCell
         backgroundCell.iconImageView.image = #imageLiteral(resourceName: "card_icon")
         
-        
-        //    cell.cashIcon.isHidden = (viewModel as! KTMyTripsViewModel).showCashIcon(forIdx: indexPath.row)
-        //    cell.cashIcon.image = UIImage(named: (viewModel as! KTMyTripsViewModel).getPaymentIcon(forIdx: indexPath.row))
-        
         animateCell(cell)
         
-        return self.cardArray.count == 0 ? backgroundCell : cell
+        return (viewModel as! KTWalletViewModel).numberOfCardRows() == 0 ? backgroundCell : cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        (viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
-    }
-    
-    func setBooking(booking : KTBooking) {
-        if viewModel == nil {
-            viewModel = KTMyTripsViewModel(del: self)
-        }
-        (viewModel as! KTMyTripsViewModel).selectedBooking = booking
+        (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
     }
     
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "segueMyTripsToDetails" {
-            
-            let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
-            if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
-                details.setBooking(booking: booking)
-            }
-        }
-    }
     
-    func moveToAddCreditCard() {
-        
-        let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTAddCreditViewController") as! KTAddCreditViewController
-        
-        navigationItem.backButtonTitle = ""
-        
-        self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
-                                                                        NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        
-        self.navigationController?.pushViewController(addCreditViewController, animated: true)
-        
-    }
-    
-    
-    func reloadTable() {
+    func reloadTableData()
+    {
         tableView.reloadData()
-    }
-    
-    //MARK:- Book Now
-    func showNoBooking() {
-        tableView.isHidden = true
-    }
-    
-    @IBAction func bookNowTapped(){
-        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuController?.hideMenu()
     }
     
 }

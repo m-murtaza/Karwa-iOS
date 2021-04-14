@@ -466,6 +466,7 @@ struct Constants {
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
         static let GetTransactions = "payment?records=10"
+        static let walletTopup = "payment/wallet/topup"
 
     }
     
@@ -539,6 +540,12 @@ struct Constants {
         static let Amount = "Amount"
         static let TransactionTime = "TransactionTime"
         static let TransactionType = "TransactionType"
+    }
+    
+    struct WalletTopUpParam {
+        static let method = "PaymentMethod"
+        static let source = "Source"
+        static let amount = "Amount"
     }
     
 }

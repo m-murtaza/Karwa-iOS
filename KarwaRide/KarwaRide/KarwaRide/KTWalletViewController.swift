@@ -280,15 +280,9 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
     
     @objc func moveToAddCreditCard() {
         
-        let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTAddCreditViewController") as! KTAddCreditViewController
+        let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCreditViewController") as! KTAddCreditViewController
         
-        navigationItem.backButtonTitle = ""
-        
-        self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
-                                                                        NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        
-        self.navigationController?.pushViewController(addCreditViewController, animated: true)
+        self.navigationController?.present(addCreditViewController, animated: true, completion: nil)
                 
     }
     

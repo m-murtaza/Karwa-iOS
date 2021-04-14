@@ -13,6 +13,12 @@ protocol KTWalletViewModelDelegate: KTViewModelDelegate {
     func loadAvailableBalance(_ amount: String)
 }
 
+extension KTWalletViewModelDelegate {
+    func loadAvailableBalance(_ amount: String) {
+        
+    }
+}
+
 class KTWalletViewModel: KTBaseViewModel {
     
     var del : KTManagePaymentViewModelDelegate?
@@ -21,8 +27,9 @@ class KTWalletViewModel: KTBaseViewModel {
     var paymentMethods : [KTPaymentMethod] = []
     var selectedPaymentMethod = KTPaymentMethod()
     var transactions : [KTTransactions] = []
+    var debitCardSelected = false
 
-    
+    //AESEncryption.init().encrypt(message)
     var sessionId = ""
     var apiVersion = ""
 
@@ -35,6 +42,7 @@ class KTWalletViewModel: KTBaseViewModel {
         KTUserManager.init().isUserLogin { (login:Bool) in
             if login == true
             {
+                self.delegate?.showProgressHud(show: true, status: "str_loading".localized())
                 self.fetchTransactionsServer()
             }
             else
@@ -50,16 +58,12 @@ class KTWalletViewModel: KTBaseViewModel {
         
     }
     
-    func numberOfCardRows() -> Int
-    {
+    func numberOfCardRows() -> Int {
         return paymentMethods.count == 0 ? 1 : paymentMethods.count
     }
     
-    func paymentMethodName(forCellIdx idx: Int) -> String
-    {
-        
-        print("paymentMethods[idx].balance", paymentMethods[idx].balance)
-        
+    func paymentMethodName(forCellIdx idx: Int) -> String {
+                
         if paymentMethods[idx].balance != nil && paymentMethods[idx].balance != ""{
             return paymentMethods[idx].payment_type!
         } else {
@@ -68,8 +72,7 @@ class KTWalletViewModel: KTBaseViewModel {
         
     }
     
-    func expiry(forCellIdx idx: Int) -> String
-    {
+    func expiry(forCellIdx idx: Int) -> String {
         if paymentMethods[idx].balance != nil && paymentMethods[idx].balance != ""{
             return ""
         } else {
@@ -77,8 +80,7 @@ class KTWalletViewModel: KTBaseViewModel {
         }
     }
     
-    func cardIcon(forCellIdx idx: Int) -> UIImage
-    {
+    func cardIcon(forCellIdx idx: Int) -> UIImage {
         if paymentMethods[idx].balance != nil && paymentMethods[idx].balance != ""{
             return UIImage(named: ImageUtil.getTransactionImage("PAIDWALLET"))!
         } else {
@@ -86,20 +88,37 @@ class KTWalletViewModel: KTBaseViewModel {
         }
     }
     
-    func cardSelection(forCellIdx idx: Int) -> UIImage
-    {
-        if(paymentMethods[idx].is_selected)
-        {
-            return UIImage(named: "paymentoption_active_back")!
-        }
-        else
-        {
-            return UIImage(named: "paymentoption_inactive_back")!
+    func cardSelection(forCellIdx idx: Int) -> UIColor {
+        if debitCardSelected == true {
+            return UIColor(hexString: "#00A8A8")
+        } else if debitCardSelected == false && idx == paymentMethods.count{
+            return UIColor(hexString: "#EBEBEB")
+        } else {
+            if(paymentMethods[idx].is_selected) {
+                return UIColor(hexString: "#00A8A8")
+            }
+            else {
+                return UIColor(hexString: "#EBEBEB")
+            }
         }
     }
     
-    func paymentTapped()
-    {
+    func cardSelectionStatusIcon(forCellIdx idx: Int) -> UIImage {
+        if debitCardSelected == true {
+            return #imageLiteral(resourceName: "checked_icon")
+        } else if debitCardSelected == false && idx == paymentMethods.count{
+            return #imageLiteral(resourceName: "uncheck_icon")
+        }
+        else {
+            if(paymentMethods[idx].is_selected) {
+                return #imageLiteral(resourceName: "checked_icon")
+            } else {
+                return #imageLiteral(resourceName: "uncheck_icon")
+            }
+        }
+    }
+        
+    func paymentTapped() {
         self.del?.reloadTableData()
     }
     
@@ -134,7 +153,6 @@ class KTWalletViewModel: KTBaseViewModel {
                 if(self.paymentMethods.count > 0 && paymentManager.getDefaultPayment() == nil)
                 {
                     let newListWithDefaultSelection = paymentManager.makeOnePaymentMethodDefaultAndReturn()
-                    self.selectedPaymentMethod = newListWithDefaultSelection[0]
                     self.paymentMethods.removeAll()
                     self.paymentMethods = newListWithDefaultSelection
                     self.del?.reloadTableData()
@@ -154,16 +172,6 @@ class KTWalletViewModel: KTBaseViewModel {
         return self.paymentMethods.count
     }
     
-    func showingTripPayment()
-    {
-        let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
-        
-        if(selectedPaymentFromDB != nil)
-        {
-            selectedPaymentMethod = selectedPaymentFromDB!
-        }
-    }
-    
     func fetchnPaymentMethods()
     {
                
@@ -175,24 +183,9 @@ class KTWalletViewModel: KTBaseViewModel {
         if walletPaymentMethod.count > 0{
             self.transactionDelegate?.loadAvailableBalance(walletPaymentMethod[0].balance ?? "")
         }
-        
-//        let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
-//
-//        if(selectedPaymentFromDB != nil)
-//        {
-//            selectedPaymentMethod = selectedPaymentFromDB!
-//        }
-//
-//        if paymentMethods.count == 0
-//        {
-//            self.del?.showEmptyScreen()
-//        }
-//        else
-//        {
-//            self.del?.hideEmptyScreen()
-//        }
 
         self.del?.reloadTableData()
+    
     }
     
     func fetchTransactions()
@@ -204,7 +197,7 @@ class KTWalletViewModel: KTBaseViewModel {
     func fetchTransactionsServer()
     {
         KTWalletManager().fetchTransactionsFromServer(completion: { (status, response) in
-            self.del?.hideProgressHud()
+            self.delegate?.hideProgressHud()
             self.fetchTransactions()
         })
     }
@@ -284,6 +277,24 @@ class KTWalletViewModel: KTBaseViewModel {
     {
         return transactions.count == 0 ? 1 : transactions.count
     }
+    
+    func addCreditToWallet(amount: String) {
+        
+        guard amount.count != 0 else {
+            self.transactionDelegate?.showError?(title: "Please enter the amount", message: "")
+            return
+        }
+        
+        KTWalletManager().addCreditAmount(paymentMethod: selectedPaymentMethod, amount: amount, type: "") { (status, response) in
+            
+            self.transactionDelegate?.showSuccessBanner("", status)
+            self.del?.dismiss()
+            
+        }
+
+        
+    }
+    
     
     func fetchSessionInfo()
     {
@@ -426,11 +437,28 @@ class KTWalletViewModel: KTBaseViewModel {
         return KTUserManager().loginUserInfo()!
     }
     
-    func rowSelected(atIndex idx: Int)
-    {
-        selectedPaymentMethod = paymentMethods[idx]
-        KTPaymentManager().makeDefaultPaymentMethod(defaultPaymentMethod: selectedPaymentMethod)
-        self.del?.reloadTableData()
+    func rowSelected(atIndex idx: Int) {
+        
+        if idx == paymentMethods.count {
+            debitCardSelected = true
+        } else {
+            
+            debitCardSelected = false
+            
+            selectedPaymentMethod = paymentMethods[idx]
+            
+            var modifiedPaymentMethods = [KTPaymentMethod]()
+            for item in paymentMethods {
+                item.is_selected = (item.source == selectedPaymentMethod.source)
+                modifiedPaymentMethods.append(item)
+            }
+            
+            paymentMethods = modifiedPaymentMethods
+            
+        }
+        
+        self.transactionDelegate?.reloadTableData()
+
     }
     
     func getRefinedYear(_ year:UInt) ->String
@@ -499,28 +527,5 @@ class KTWalletViewModel: KTBaseViewModel {
     
     
     
-    @objc func fetchBooking(_ bookingId : String, _ isFromBookingId : Bool)
-    {
-        self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
-
-        //TODO: Show expired link here
-        
-        KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
-            
-                self.del?.hideProgressHud()
-
-                if status == Constants.APIResponseStatus.SUCCESS
-                {
-                    let updatedBooking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
-//                    self.bookingUpdateTriggered(updatedBooking)
-//                    self.del?.showDriverInfoBox()
-                }
-                else
-                {
-                    self.del?.showErrorBanner("   ", response["M"] as! String)
-
-                }
-        }
-    }
     
 }

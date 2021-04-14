@@ -73,7 +73,6 @@ class KTPaymentManager: KTDALManager
         {
             item.is_selected = (item.source == paymentMethod.source)
         }
-        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
     
     func makeOnePaymentMethodDefault()
