@@ -9,7 +9,7 @@
 import UIKit
 import SkyFloatingLabelTextField
 
-class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataSource, UITableViewDelegate, KTWalletViewModelDelegate  {
+class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UITableViewDelegate, KTWalletViewModelDelegate  {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var creditTextField: SkyFloatingLabelTextField!
@@ -44,9 +44,7 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
     
     
     @objc func addCredit() {
-        
         (viewModel as! KTWalletViewModel).addCreditToWallet(amount: self.creditTextField.text ?? "")
-        
     }
     
     
@@ -101,16 +99,18 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
     }
     
     fileprivate func createFooterView(_ tableView: UITableView) -> UIView? {
-        let conitnueButton = UIButton()
-        conitnueButton.translatesAutoresizingMaskIntoConstraints = false
-        conitnueButton.setTitle("txt_continue".localized(), for: .normal)
+        let continueButton = UIButton()
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
+        continueButton.setTitle("txt_continue".localized(), for: .normal)
         
-        conitnueButton.setTitleColor( UIColor.white, for: .normal)
-        conitnueButton.setBackgroundColor(color: UIColor(hex: "#00A8A8"), forState: .normal)
-        conitnueButton.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
-        conitnueButton.cornerRadius = 25
-        conitnueButton.clipsToBounds = true
-        conitnueButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        continueButton.setTitleColor( UIColor.white, for: .normal)
+        continueButton.setBackgroundColor(color: UIColor(hex: "#00A8A8"), forState: .normal)
+        continueButton.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
+        continueButton.cornerRadius = 25
+        continueButton.clipsToBounds = true
+        continueButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        continueButton.addTarget(self, action: #selector(addCredit), for: .touchUpInside)
+        
         
         let view : UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 100))
         
@@ -118,12 +118,12 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
         buttonBgView.backgroundColor = .white
         
         view.addSubview(buttonBgView)
-        buttonBgView.addSubview(conitnueButton)
+        buttonBgView.addSubview(continueButton)
         
-        [conitnueButton.heightAnchor.constraint(equalToConstant: 50),
-         conitnueButton.leadingAnchor.constraint(equalTo: buttonBgView.leadingAnchor, constant: 20),
-         conitnueButton.trailingAnchor.constraint(equalTo: buttonBgView.trailingAnchor, constant: -20),
-         conitnueButton.centerYAnchor.constraint(equalTo: buttonBgView.centerYAnchor)].forEach({$0.isActive = true})
+        [continueButton.heightAnchor.constraint(equalToConstant: 50),
+         continueButton.leadingAnchor.constraint(equalTo: buttonBgView.leadingAnchor, constant: 20),
+         continueButton.trailingAnchor.constraint(equalTo: buttonBgView.trailingAnchor, constant: -20),
+         continueButton.centerYAnchor.constraint(equalTo: buttonBgView.centerYAnchor)].forEach({$0.isActive = true})
         
         return view
     }
@@ -142,18 +142,24 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
         
         let cell : KTWalletTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "WalletTableViewCellIdentifier") as! KTWalletTableViewCell
         
-        if indexPath.row ==  (viewModel as! KTWalletViewModel).numberOfCardRows() {
-            cell.titleLabel.text = "Debit card"
+        if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
+                        
             cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
-            cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
-            cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
+            cell.titleLabel.text = "Debit Card"
+            cell.detailLable.text = ""
+            cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
+            cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
+            
         } else {
+            
+            cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
             cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
             cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
-            cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
             cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
             cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
+            
         }
+        
                 
         let backgroundCell : KTWalletTableViewBackgroundCell = tableView.dequeueReusableCell(withIdentifier: "WalletTableViewBackgroundCellIdentifier") as! KTWalletTableViewBackgroundCell
         backgroundCell.iconImageView.image = #imageLiteral(resourceName: "card_icon")
@@ -165,7 +171,13 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
+        
+        if indexPath.row != (viewModel as! KTWalletViewModel).numberOfCardRows() {
+            (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
+        } else {
+            (viewModel as! KTWalletViewModel).debitRowSelected(atIndex: indexPath.row)
+        }
+        
     }
     
     // MARK: - Navigation
@@ -177,4 +189,13 @@ class KTAddCreditViewController: KTBaseDrawerRootViewController,UITableViewDataS
         tableView.reloadData()
     }
     
+}
+
+extension KTAddCreditViewController: UITextFieldDelegate {
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+
 }

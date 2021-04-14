@@ -89,32 +89,19 @@ class KTWalletViewModel: KTBaseViewModel {
     }
     
     func cardSelection(forCellIdx idx: Int) -> UIColor {
-        if debitCardSelected == true {
+        if(paymentMethods[idx].is_selected) {
             return UIColor(hexString: "#00A8A8")
-        } else if debitCardSelected == false && idx == paymentMethods.count{
+        }
+        else {
             return UIColor(hexString: "#EBEBEB")
-        } else {
-            if(paymentMethods[idx].is_selected) {
-                return UIColor(hexString: "#00A8A8")
-            }
-            else {
-                return UIColor(hexString: "#EBEBEB")
-            }
         }
     }
     
     func cardSelectionStatusIcon(forCellIdx idx: Int) -> UIImage {
-        if debitCardSelected == true {
+        if(paymentMethods[idx].is_selected) {
             return #imageLiteral(resourceName: "checked_icon")
-        } else if debitCardSelected == false && idx == paymentMethods.count{
+        } else {
             return #imageLiteral(resourceName: "uncheck_icon")
-        }
-        else {
-            if(paymentMethods[idx].is_selected) {
-                return #imageLiteral(resourceName: "checked_icon")
-            } else {
-                return #imageLiteral(resourceName: "uncheck_icon")
-            }
         }
     }
         
@@ -174,18 +161,19 @@ class KTWalletViewModel: KTBaseViewModel {
     
     func fetchnPaymentMethods()
     {
-               
-       let walletPaymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"})
+        
+        let walletPaymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"})
         
         paymentMethods = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})
         
-        
+        self.setSelectedPayment(0)
+
         if walletPaymentMethod.count > 0{
             self.transactionDelegate?.loadAvailableBalance(walletPaymentMethod[0].balance ?? "")
         }
+        
+        self.transactionDelegate?.reloadTableData()
 
-        self.del?.reloadTableData()
-    
     }
     
     func fetchTransactions()
@@ -285,10 +273,12 @@ class KTWalletViewModel: KTBaseViewModel {
             return
         }
         
-        KTWalletManager().addCreditAmount(paymentMethod: selectedPaymentMethod, amount: amount, type: "") { (status, response) in
+        let type = debitCardSelected == true ? "debitcard" : "creditcard"
+        
+        KTWalletManager().addCreditAmount(paymentMethod: selectedPaymentMethod, amount: amount, type: type) { (status, response) in
             
             self.transactionDelegate?.showSuccessBanner("", status)
-            self.del?.dismiss()
+            self.delegate?.dismiss()
             
         }
 
@@ -437,29 +427,63 @@ class KTWalletViewModel: KTBaseViewModel {
         return KTUserManager().loginUserInfo()!
     }
     
-    func rowSelected(atIndex idx: Int) {
+    fileprivate func setSelectedPayment(_ idx: Int) {
+        selectedPaymentMethod = paymentMethods[idx]
         
-        if idx == paymentMethods.count {
-            debitCardSelected = true
-        } else {
-            
-            debitCardSelected = false
-            
-            selectedPaymentMethod = paymentMethods[idx]
-            
-            var modifiedPaymentMethods = [KTPaymentMethod]()
-            for item in paymentMethods {
-                item.is_selected = (item.source == selectedPaymentMethod.source)
-                modifiedPaymentMethods.append(item)
-            }
-            
-            paymentMethods = modifiedPaymentMethods
-            
+        var modifiedPaymentMethods = [KTPaymentMethod]()
+        for item in paymentMethods {
+            item.is_selected = (item.source == selectedPaymentMethod.source)
+            modifiedPaymentMethods.append(item)
         }
         
-        self.transactionDelegate?.reloadTableData()
-
+        paymentMethods = modifiedPaymentMethods
     }
+    
+    func rowSelected(atIndex idx: Int) {
+        
+        debitCardSelected = false
+        
+        setSelectedPayment(idx)
+        
+        self.transactionDelegate?.reloadTableData()
+        
+        
+    }
+    
+    func debitRowSelected(atIndex idx: Int) {
+                
+        debitCardSelected = debitCardSelected == false ? true : false
+        
+        var modifiedPaymentMethods = [KTPaymentMethod]()
+        for item in paymentMethods {
+            item.is_selected = false
+            modifiedPaymentMethods.append(item)
+        }
+        
+        paymentMethods = modifiedPaymentMethods
+        
+        self.transactionDelegate?.reloadTableData()
+        
+        
+    }
+    
+    func debitCardSelection(forCellIdx idx: Int) -> UIColor {
+        if(debitCardSelected) {
+            return UIColor(hexString: "#00A8A8")
+        }
+        else {
+            return UIColor(hexString: "#EBEBEB")
+        }
+    }
+    
+    func debitCardSelectionStatusIcon(forCellIdx idx: Int) -> UIImage {
+        if(debitCardSelected) {
+            return #imageLiteral(resourceName: "checked_icon")
+        } else {
+            return #imageLiteral(resourceName: "uncheck_icon")
+        }
+    }
+    
     
     func getRefinedYear(_ year:UInt) ->String
     {
