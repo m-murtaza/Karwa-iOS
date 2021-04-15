@@ -88,7 +88,7 @@ class KTLeftMenuModel: KTBaseViewModel {
       let menuItem2 : KTMenuItems = KTMenuItems(title: "txt_ride_hist".localized(), image: UIImage(named:"icon-ride-history")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem2)
         
-        let menuItem3 : KTMenuItems = KTMenuItems(title: "str_wallet".localized(), image: UIImage(named:"LMpromotions")!, color: UIColor(hexString: "#006170"), isNew: true)
+        let menuItem3 : KTMenuItems = KTMenuItems(title: "str_wallet".localized(), image: UIImage(named:"menu_ico_wallet")!, color: UIColor(hexString: "#006170"), isNew: true)
         drawerOptions.append(menuItem3)
         
         //str_wallet

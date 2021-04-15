@@ -543,8 +543,8 @@ struct Constants {
     }
     
     struct WalletTopUpParam {
+        static let methodId = "PaymentMethodId"
         static let method = "PaymentMethod"
-        static let source = "Source"
         static let amount = "Amount"
     }
     

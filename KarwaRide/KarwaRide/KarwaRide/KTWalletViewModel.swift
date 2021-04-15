@@ -273,7 +273,7 @@ class KTWalletViewModel: KTBaseViewModel {
             return
         }
         
-        let type = debitCardSelected == true ? "debitcard" : "creditcard"
+        let type = debitCardSelected == true ? "debitcard" : ""
         
         KTWalletManager().addCreditAmount(paymentMethod: selectedPaymentMethod, amount: amount, type: type) { (status, response) in
             

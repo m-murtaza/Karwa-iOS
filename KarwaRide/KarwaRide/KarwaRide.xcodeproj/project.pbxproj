@@ -2073,6 +2073,7 @@
 			baseConfigurationReference = A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2101,6 +2102,7 @@
 			baseConfigurationReference = 6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
@@ -2108,6 +2110,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 155;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2117,6 +2120,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = KarwaAppStoreProvisionProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -42,6 +42,9 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func closeViewController() {
+        self.dismiss()
+    }
     
     @objc func addCredit() {
         (viewModel as! KTWalletViewModel).addCreditToWallet(amount: self.creditTextField.text ?? "")

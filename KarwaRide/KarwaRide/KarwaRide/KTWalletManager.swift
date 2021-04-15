@@ -14,21 +14,20 @@ let TRANSACTIONS_SYNC_TIME = "TransactionsSyncTime"
 class KTWalletManager: KTDALManager {
     
     func addCreditAmount(paymentMethod: KTPaymentMethod, amount: String, type: String,completion completionBlock:@escaping KTDALCompletionBlock) {
-
-        let params : NSMutableDictionary = [Constants.WalletTopUpParam.method : type,
-                                            Constants.WalletTopUpParam.amount : amount]
         
-        if type == "creditcard" {
-            params[Constants.WalletTopUpParam.source] = AESEncryption().encrypt(paymentMethod.source ?? "")
+        let params : NSMutableDictionary = [Constants.WalletTopUpParam.amount : amount]
+        params[Constants.LoginParams.DeviceType] = Constants.DeviceTypes.iOS
+        
+        if type == "" {
+            params[Constants.WalletTopUpParam.methodId] = AESEncryption().encrypt(paymentMethod.source ?? "")
+            params[Constants.WalletTopUpParam.method] = paymentMethod.payment_type ?? ""
+            self.post(url: Constants.APIURL.walletTopup, param: (params as! [String : Any]), completion: completionBlock) { (response,  cBlock) in
+                print(response)
+                completionBlock(Constants.APIResponseStatus.SUCCESS,response)
+            }
         }
-            
-        self.post(url: Constants.APIURL.walletTopup, param: (params as! [String : Any]), completion: completionBlock) { (response,  cBlock) in
-            
-            print(response)
-
-            completionBlock(Constants.APIResponseStatus.SUCCESS,response)
-
-        }
+        
+        
     }
     
     func fetchTransactionsFromServer(completion completionBlock:@escaping KTDALCompletionBlock)
