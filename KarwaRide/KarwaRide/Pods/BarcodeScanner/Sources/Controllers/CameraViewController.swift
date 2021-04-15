@@ -66,12 +66,12 @@ public final class CameraViewController: UIViewController {
         captureDevice.unlockForConfiguration()
       } catch {}
 
-        flashButton.setImage(torchMode.image, for: UIControl.State())
+      flashButton.setImage(torchMode.image, for: UIControl.State())
     }
   }
 
   private var frontCameraDevice: AVCaptureDevice? {
-    return AVCaptureDevice.devices(for: .video).first(where: { $0.position == .front })
+    AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
   }
 
   private var backCameraDevice: AVCaptureDevice? {
@@ -173,8 +173,8 @@ public final class CameraViewController: UIViewController {
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(appWillEnterForeground),
-        name:UIApplication.willEnterForegroundNotification,
-        object: nil
+      name: UIApplication.willEnterForegroundNotification,
+      object: nil
     )
   }
 

@@ -219,6 +219,22 @@ Shows: ★★★★☆ (123)
     previousRatingForDidTouchCallback = -123.192
   }
   
+  /**
+  
+  Makes sure that the right colors are used when the user switches between Light and Dark mode
+  while the app is running
+     
+  */
+  open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+        
+    if #available(iOS 13.0, tvOS 10.0, *) {
+      if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+        update()
+      }
+    }
+  }
+  
   // MARK: - Accessibility
   
   private func updateAccessibility() {
@@ -253,14 +269,14 @@ Shows: ★★★★☆ (123)
   
   /// Overriding the function to detect the first touch gesture.
   open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesBegan(touches, with: event)
+    if settings.passTouchesToSuperview { super.touchesBegan(touches, with: event) }
     guard let location = touchLocationFromBeginningOfRating(touches) else { return }
     onDidTouch(location)
   }
   
   /// Overriding the function to detect touch move.
   open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesMoved(touches, with: event)
+    if settings.passTouchesToSuperview { super.touchesMoved(touches, with: event) }
     guard let location = touchLocationFromBeginningOfRating(touches) else { return }
     onDidTouch(location)
   }
@@ -278,9 +294,16 @@ Shows: ★★★★☆ (123)
   
   /// Detecting event when the user lifts their finger.
   open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesEnded(touches, with: event)
-    
+    if settings.passTouchesToSuperview { super.touchesEnded(touches, with: event) }
     didFinishTouchingCosmos?(rating)
+  }
+
+  /// Deciding whether to recognize a gesture.
+  open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    if settings.disablePanGestures {
+      return !(gestureRecognizer is UIPanGestureRecognizer)
+    }
+      return true
   }
 
   /**
@@ -290,8 +313,7 @@ Shows: ★★★★☆ (123)
    
    */
   open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesCancelled(touches, with: event)
-    
+    if settings.passTouchesToSuperview { super.touchesCancelled(touches, with: event) }
     didFinishTouchingCosmos?(rating)
   }
 

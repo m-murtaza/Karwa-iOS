@@ -13,11 +13,13 @@ target 'KarwaRide' do
   pod 'Toast-Swift', '~> 5.0.0'
   pod 'libPhoneNumber-iOS', '~> 0.8'
   pod 'Kingfisher', '~> 4.0'
-  pod 'Crashlytics', '~> 3.10.5'
+#  pod 'Crashlytics', '~> 3.10.5'
   pod 'NotificationBannerSwift', '1.6.3'
   pod 'MarqueeLabel/Swift', '3.1.6'
-  pod 'Firebase/Core'
-
+#  pod 'Firebase/Core'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
+  
     #pod 'XLActionController', '~> 5.0.1' # Not working
     #pod 'XLActionController/Youtube'     # May be not working
 
@@ -28,7 +30,7 @@ target 'KarwaRide' do
     pod 'JTMaterialSwitch'
     pod 'Cosmos'
     pod 'RKTagsView'
-    pod 'Fabric'
+#    pod 'Fabric'
     pod 'SAConfettiView'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
     pod 'DDViewSwitcher'

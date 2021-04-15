@@ -70,8 +70,8 @@ public class UBottomSheetCoordinator: NSObject {
         self.dataSource = parent
         self.delegate = delegate
         
-        minSheetPosition = 200.0//dataSource.sheetPositions(availableHeight).min()
-        maxSheetPosition = 200.0//dataSource.sheetPositions(availableHeight).max()
+        minSheetPosition = dataSource.sheetPositions(availableHeight).min()
+        maxSheetPosition = dataSource.sheetPositions(availableHeight).max()
     }
     
     /**

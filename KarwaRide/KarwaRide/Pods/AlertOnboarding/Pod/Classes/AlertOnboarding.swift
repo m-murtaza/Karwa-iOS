@@ -45,9 +45,9 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     open var percentageRatioHeight: CGFloat = 0.8
     open var percentageRatioWidth: CGFloat = 0.8
     
-    open var titleSkipButton = Locale.current.languageCode == "ar" ? "تخطى" : "SKIP"
-    open var titleGotItButton = Locale.current.languageCode == "ar" ? "البداية!" : "LET'S START"
-
+    open var titleSkipButton = "SKIP"
+    open var titleGotItButton = "GOT IT !"
+    
     open var delegate: AlertOnboardingDelegate?
     
     
@@ -134,7 +134,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     fileprivate func configure(_ arrayOfImage: [String], arrayOfTitle: [String], arrayOfDescription: [String]) {
         
         self.buttonBottom = UIButton(frame: CGRect(x: 0,y: 0, width: 0, height: 0))
-        self.buttonBottom.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 16)
+        self.buttonBottom.titleLabel?.font = UIFont(name: "Avenir-Black", size: 15)
         self.buttonBottom.addTarget(self, action: #selector(AlertOnboarding.onClick), for: .touchUpInside)
         
         self.background = UIView(frame: CGRect(x: 0,y: 0, width: 0, height: 0))
@@ -143,7 +143,7 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
         
         
         self.clipsToBounds = true
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 10
     }
     
     
@@ -238,8 +238,8 @@ open class AlertOnboarding: UIView, AlertPageViewDelegate {
     
     //MARK: NOTIFICATIONS PROCESS ------------------------------------------
     fileprivate func interceptOrientationChange(){
-//        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-//        NotificationCenter.default.addObserver(self, selector: #selector(AlertOnboarding.onOrientationChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(AlertOnboarding.onOrientationChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     @objc func onOrientationChange(){
