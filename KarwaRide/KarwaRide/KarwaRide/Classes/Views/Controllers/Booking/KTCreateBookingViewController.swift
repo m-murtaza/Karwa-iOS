@@ -8,7 +8,6 @@
 
 import UIKit
 import Spring
-import Crashlytics
 import Lottie
 
 class RideServiceCell: UITableViewCell {

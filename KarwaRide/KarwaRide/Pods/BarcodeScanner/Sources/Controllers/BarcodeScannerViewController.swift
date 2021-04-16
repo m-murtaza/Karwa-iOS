@@ -47,7 +47,7 @@ open class BarcodeScannerViewController: UIViewController {
   /// Delegate to dismiss barcode scanner when the close button has been pressed.
   public weak var dismissalDelegate: BarcodeScannerDismissalDelegate?
 
-    public weak var manageDelegate: BarcodeScannerManageDelegate?
+  public weak var manageDelegate: BarcodeScannerManageDelegate?
 
   /// When the flag is set to `true` controller returns a captured code
   /// and waits for the next reset action.
@@ -287,10 +287,6 @@ private extension BarcodeScannerViewController {
 // MARK: - HeaderViewControllerDelegate
 
 extension BarcodeScannerViewController: HeaderViewControllerDelegate {
-    func headerViewControllerDidTapManageButton(_ controller: HeaderViewController) {
-        manageDelegate?.scannerDidManage(self)
-    }
-    
   func headerViewControllerDidTapCloseButton(_ controller: HeaderViewController) {
     dismissalDelegate?.scannerDidDismiss(self)
   }
@@ -313,8 +309,8 @@ extension BarcodeScannerViewController: CameraViewControllerDelegate {
 
   func cameraViewControllerDidTapSettingsButton(_ controller: CameraViewController) {
     DispatchQueue.main.async {
-        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-        UIApplication.shared.openURL(settingsURL)
+      if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+        UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
       }
     }
   }

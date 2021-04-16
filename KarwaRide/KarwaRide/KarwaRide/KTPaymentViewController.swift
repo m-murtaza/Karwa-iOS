@@ -635,3 +635,6 @@ extension KTPaymentViewController: BarcodeScannerManageDelegate
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
+
+

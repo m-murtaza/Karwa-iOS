@@ -57,8 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         print("Initializing K-Firebase")
         FirebaseApp.configure()
-        Fabric.with([Crashlytics.self()])
-        Fabric.sharedSDK().debug = true
+//        Fabric.with([Crashlytics.self()])
+//        Fabric.sharedSDK().debug = true
         setFirebaseAnalyticsUserPref()
         #endif
     }
