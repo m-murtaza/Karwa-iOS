@@ -25,6 +25,12 @@ class KTWalletManager: KTDALManager {
                 print(response)
                 completionBlock(Constants.APIResponseStatus.SUCCESS,response)
             }
+        } else {
+            params[Constants.WalletTopUpParam.method] = type
+            self.post(url: Constants.APIURL.walletTopup, param: (params as! [String : Any]), completion: completionBlock) { (response,  cBlock) in
+                print(response)
+                completionBlock(Constants.APIResponseStatus.SUCCESS,response)
+            }
         }
         
         
@@ -101,6 +107,29 @@ class KTWalletManager: KTDALManager {
         let predicate : NSPredicate = NSPredicate(format:"date contains[c]         %@" , "T")
         KTTransactions.mr_deleteAll(matching: predicate)
     
+    }
+    
+    func deletePaymentAtServer(paymentMethod: String, completion completionBlock: @escaping KTDALCompletionBlock)
+    {
+        let param : NSDictionary = [Constants.PaymentResponseAPIKey.Source: paymentMethod]
+
+        let url = Constants.APIURL.DeletePaymentMethod
+        
+        self.post(url: url, param: param as? [String : Any], completion: completionBlock, success:
+            { (responseData,cBlock) in
+                completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            }
+        )
+    }
+    
+    func deletePaymentMethods(_ paymentMethod : KTPaymentMethod)
+    {
+        let predicate : NSPredicate = NSPredicate(format:"source = %d" , paymentMethod.source!)
+        
+        KTPaymentMethod.mr_deleteAll(matching: predicate)
+        
+        KTPaymentManager().getAllPayments()
+        
     }
         
 }

@@ -36,6 +36,10 @@ class KTBookingManager: KTBaseFareEstimateManager {
                                     Constants.BookingParams.CallerID : job.callerId!,
                                     Constants.BookingParams.EstimateId : (estimate != nil) ? (estimate!.estimateId)! : 0,
                                     Constants.BookingParams.PromoCode : promo]
+        
+        if job.paymentMethod?.count != 0 {
+            param[Constants.BookingParams.PaymentSource] = job.paymentMethod ?? ""
+        }
 
         if #available(iOS 13.0, *) {
             if(Date().distance(to: job.pickupTime!) > 300) // Skipping time for current booking

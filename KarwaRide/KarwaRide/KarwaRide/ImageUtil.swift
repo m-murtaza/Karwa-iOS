@@ -61,6 +61,9 @@ class ImageUtil
         case "Cash":
             brandImage = "icon-cash-new"
             break;
+        case "WALLET":
+            brandImage = "ico_wallet_new"
+            break;
         case "":
             brandImage = "icon-cash-new"
             break;

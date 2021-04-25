@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import BarcodeScanner
+import AVFoundation
 
-class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSource, UITableViewDelegate, KTWalletViewModelDelegate  {
+class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addCreditCardButton: UIButton!
@@ -19,9 +21,11 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
     
     private let refreshControl = UIRefreshControl()
     
-    var cardArray = [String]()
-    var transactionArray = ["String","String","String","String"]
-
+    var finishDelegate:FinishProtocol?
+    var barcodeDelegate:BarcodeProtocol?
+    
+    var fromPaymentViewController = false
+    
     override func viewDidLoad() {
         
         if viewModel == nil {
@@ -39,7 +43,12 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
                                                                    NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
         
-        addMenuButton()
+        if fromPaymentViewController == false {
+            addMenuButton()
+        } else {
+            //cross_icon
+            addCloseButton()
+        }
         
         addCreditCardButton.addTarget(self, action: #selector(moveToAddCreditCard), for: .touchUpInside)
         
@@ -48,11 +57,150 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         tableView.tableFooterView = UIView(frame: .zero)
      
         self.tableView.allowsMultipleSelectionDuringEditing = false
-
+        self.tableView.isEditing = false
+        
+        
     }
     
+    func addCloseButton() {
+      let button = UIButton()
+      button.addTarget(self, action: #selector(closeViewController), for: .touchUpInside)
+      button.setImage(UIImage(named: "cross_icon"), for: .normal)
+      let item = UIBarButtonItem(customView: button)
+      self.navigationItem.leftBarButtonItem = item
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        (viewModel as? KTWalletViewModel)?.getPaymentData()
+        (viewModel as? KTWalletViewModel)?.fetchTransactionsServer()
+    }
+    
+    @objc func closeViewController() {
+        if(vModel?.paymentMethods.count == 0)
+        {
+            finishDelegate?.setFinishRequired(valueSent: true)
+        }
+        else
+        {
+            barcodeDelegate?.setShowBarcodeRequired(valueSent: true)
+        }
+        
+        
+
+        dismiss()
+    }
+    
+    @objc func showPaymentScreen() {
+        
+        vModel?.addCardButtonTapped()
+
+//        let sBoard = UIStoryboard(name: "Main", bundle: nil)
+//        let destination : KTManagePaymentViewController = sBoard.instantiateViewController(withIdentifier: "KTManagePaymentViewControllerIdentifier") as! KTManagePaymentViewController
+//        destination.title = "txt_payment_methods".localized()
+//        let navigationController = UINavigationController(rootViewController: destination)
+//        navigationController.modalPresentationStyle = .fullScreen
+//        self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func presentAddCardViewController()
+    {
+        let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
+        cardIOVC?.modalPresentationStyle = .formSheet
+        cardIOVC?.collectCardholderName = true
+        cardIOVC?.collectCVV = true
+        cardIOVC?.collectExpiry = true
+        cardIOVC?.hideCardIOLogo = true
+        cardIOVC?.keepStatusBarStyle = true
+        cardIOVC?.scanExpiry = true
+        cardIOVC?.modalPresentationStyle = .fullScreen
+        present(cardIOVC!, animated: true, completion: nil)
+    }
+    
+    var cardIOPaymentController = CardIOPaymentViewController()
+    
+    func userDidCancel(_ paymentViewController: CardIOPaymentViewController!)
+    {
+        paymentViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!)
+    {
+        if let info = cardInfo
+        {
+            cardIOPaymentController = paymentViewController
+            
+            //            let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
+            //            print(str)
+            
+            vModel?.updateSession(info.cardholderName, info.cardNumber, cardInfo.cvv, info.expiryMonth, info.expiryYear)
+        }
+    }
+    
+    func hideCardIOPaymentController()
+    {
+        cardIOPaymentController.dismiss(animated: true, completion: nil)
+    }
+    
+    func isCameraPermissionGiven() -> Bool
+    {
+        var isPermissionGiven = false
+    
+        if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized
+        {
+            isPermissionGiven = true
+        } else
+        {
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                if granted
+                {
+                    isPermissionGiven = true
+                }
+            })
+        }
+        return isPermissionGiven
+    }
+
+    var completion: ((Transaction) -> Void)?
+    var cancelled: (() -> Void)?
+
+    internal func show3dSecureController(_ html:String)
+    {
+        // create the Gateway3DSecureViewController
+        let threeDSecureView = Gateway3DSecureViewController(nibName: nil, bundle: nil)
+        
+        // Optionally, customize the presentation
+        threeDSecureView.title = "3-D Secure"
+        threeDSecureView.navBar.tintColor = UIColor(red: 1, green: 0.357, blue: 0.365, alpha: 1)
+        // present the 3DSecureViewController
+        present(threeDSecureView, animated: true)
+            
+        // provide the html content and a handler
+        threeDSecureView.authenticatePayer(htmlBodyContent: html) { (threeDSView, result) in
+            // dismiss the 3-D Secure view controller
+            threeDSView.dismiss(animated: true)
+            
+            // handle the result case
+            switch result
+            {
+            case .completed(summaryStatus: "<FAILED STATUS>", threeDSecureId: _):
+                // failed authentication
+                self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
+                break;
+            case .completed(summaryStatus: _, threeDSecureId: _):
+                // continue with the payment for all other statuses
+                self.vModel!.updatePaymentMethod()
+                break;
+            default:
+                // authentication was cancelled
+                self.vModel!.kmpgs3dSecureFailure("3D Secure Failed")
+                break;
+                
+            }
+        }
+    }
     
     @objc func refresh(sender:AnyObject) {
+        (viewModel as! KTWalletViewModel).fetchnPaymentMethods()
         (viewModel as! KTWalletViewModel).fetchTransactions()
     }
     
@@ -97,25 +245,26 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         keyLbl.textColor = UIColor(hexString: "#00A8A8")
         keyLbl.font = UIFont(name: "MuseoSans-500", size: 12.0)!
         
-        let valueLbl = UIButton()
-        valueLbl.translatesAutoresizingMaskIntoConstraints = false
-        valueLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        valueLbl.setTitle(section == 0 ? "txt_manage_lc".localized() : "", for: .normal)
-        
+        let manageButton = UIButton()
+        manageButton.translatesAutoresizingMaskIntoConstraints = false
+        manageButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        manageButton.setTitle(section == 0 ? "txt_manage_lc".localized() : "", for: .normal)
+        manageButton.addTarget(self, action: #selector(editMode(sender:)), for: .touchUpInside)
+        manageButton.isHidden = (self.viewModel as! KTWalletViewModel).paymentMethods.count == 0 ? true : false
         if Device.language().contains("ar") {
-            valueLbl.titleLabel?.textAlignment = .left
+            manageButton.titleLabel?.textAlignment = .left
             keyLbl.textAlignment = .right
         } else {
             keyLbl.textAlignment = .left
-            valueLbl.titleLabel?.textAlignment = .right
+            manageButton.titleLabel?.textAlignment = .right
         }
         
-        valueLbl.setTitleColor( UIColor(hexString: "#129793"), for: .normal)
-        valueLbl.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
+        manageButton.setTitleColor( UIColor(hexString: "#129793"), for: .normal)
+        manageButton.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
         
         let view : UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
-        let stackView = UIStackView(arrangedSubviews: [keyLbl, valueLbl])
+        let stackView = UIStackView(arrangedSubviews: [keyLbl, manageButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -132,6 +281,15 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         
     }
     
+    @objc func editMode(sender: UIButton) {
+        
+        if (self.viewModel as! KTWalletViewModel).paymentMethods.count != 0 {
+            sender.setTitle(sender.title(for: .normal) == "txt_manage_lc".localized() ? "txt_done".localized() : "txt_manage_lc".localized(), for: .normal)            
+            self.tableView.setEditing(self.tableView.isEditing == true ? false : true, animated: true)
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return section == 0 ? 150 : 0
     }
@@ -141,9 +299,10 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         let addCardButton = UIButton()
         addCardButton.translatesAutoresizingMaskIntoConstraints = false
         addCardButton.setTitle("str_add_card".localized(), for: .normal)
+        addCardButton.addTarget(self, action: #selector(showPaymentScreen), for: .touchUpInside)
         
         addCardButton.setTitleColor( UIColor.white, for: .normal)
-        addCardButton.setBackgroundColor(color: UIColor(hex: "#00A8A8"), forState: .normal)
+        addCardButton.setBackgroundColor(color: UIColor(hex: "#37E7E7"), forState: .normal)
         addCardButton.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
         addCardButton.setImage(#imageLiteral(resourceName: "card_ico_btn"), for: .normal)
         addCardButton.cornerRadius = 20
@@ -153,7 +312,7 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         let keyLbl = LocalisableLabel()
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        keyLbl.localisedKey = section == 0 ? "str_seamless".localized() : ""
+        keyLbl.localisedKey = section == 0 ? "txt_all_payment_stored".localized() : ""
         keyLbl.textAlignment = .right
         keyLbl.textColor = UIColor(hexString: "#B4B4B4")
         keyLbl.font = UIFont(name: "MuseoSans-500", size: 12.0)!
@@ -170,10 +329,9 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         view.addSubview(buttonBgView)
         buttonBgView.addSubview(addCardButton)
         view.addSubview(keyLbl)
-
         
         [addCardButton.heightAnchor.constraint(equalToConstant: 40),
-         addCardButton.widthAnchor.constraint(equalToConstant: 150),
+         addCardButton.widthAnchor.constraint(equalToConstant: 200),
         addCardButton.centerXAnchor.constraint(equalTo: buttonBgView.centerXAnchor),
         addCardButton.centerYAnchor.constraint(equalTo: buttonBgView.centerYAnchor)].forEach({$0.isActive = true})
 
@@ -204,6 +362,7 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
             if (self.viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
                 let backgroundCell : KTWalletTableViewBackgroundCell = tableView.dequeueReusableCell(withIdentifier: "WalletTableViewBackgroundCellIdentifier") as! KTWalletTableViewBackgroundCell
                 backgroundCell.iconImageView.image = #imageLiteral(resourceName: "card_icon")
+                backgroundCell.descriptionLabel.text = "str_no_pay_method".localized()
                 return backgroundCell
             }
                         
@@ -246,17 +405,23 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == 0 {
-            return true
+            return self.tableView.isEditing
         } else {
             return false
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete {
-            
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+    -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
+            // delete the item here
+            (self.viewModel as! KTWalletViewModel).deletePaymentMethod(indexPath)
+            completionHandler(true)
         }
+        deleteAction.image = #imageLiteral(resourceName: "delete_box")
+        deleteAction.backgroundColor = .clear
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -279,7 +444,7 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
     }
     
     @objc func moveToAddCreditCard() {
-        
+    
         let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCreditViewController") as! KTAddCreditViewController
         
         self.navigationController?.present(addCreditViewController, animated: true, completion: nil)
@@ -302,10 +467,59 @@ class KTWalletViewController:  KTBaseDrawerRootViewController,UITableViewDataSou
         sideMenuController?.hideMenu()
     }
     
-    func reloadTableData() {
+    func reloadTableData() {        
+        self.tableView.setEditing(false, animated: true)
         self.refreshControl.endRefreshing()
         self.tableView.reloadData()
     }
+    
+    func showAddCardVC()
+    {
+        presentAddCardViewController()
+    }
+    
+    func showVerifyEmailPopup(email: String)
+    {
+        showPopupMessage("", "please_verify_email_str".localized() + email)
+    }
+    
+    func showEnterEmailPopup()
+    {
+        showEnterEmailPopup(header: "txt_confirm_email".localized(), subHeader: "str_verify_email".localized(), currentText: "", inputType: "email")
+    }
+    
+    func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)
+    {
+        let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
+        inputPopup.paymentVC = self
+        view.addSubview(inputPopup.view)
+        addChildViewController(inputPopup)
+        
+        inputPopup.inputType = inputType
+        inputPopup.header.text = header
+        inputPopup.txtPickupHint.text = currentText
+        inputPopup.lblSubHeader.text = subHeader
+    }
+    
+    func saveEmail(inputText: String)
+    {
+        vModel?.updateEmail(email: inputText)
+    }
+
+    @IBAction func btnBackTapped(_ sender: Any)
+    {
+        if(vModel?.paymentMethods.count == 0)
+        {
+            finishDelegate?.setFinishRequired(valueSent: true)
+        }
+        else
+        {
+            barcodeDelegate?.setShowBarcodeRequired(valueSent: true)
+        }
+
+        dismiss()
+    }
+    
     
 }
 

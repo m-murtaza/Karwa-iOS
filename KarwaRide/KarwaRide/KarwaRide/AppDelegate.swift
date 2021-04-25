@@ -210,11 +210,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let detailView : KTPaymentViewController = sBoard.instantiateViewController(withIdentifier: "KTPaymentViewControllerIdentifier") as! KTPaymentViewController
 //        detailView.isManageButtonPressed = true
 //        self.showView(view: detailView)
-        
+//
 //                let sBoard = UIStoryboard(name: "Main", bundle: nil)
 //                let detailView : KTCreateBookingViewController = sBoard.instantiateViewController(withIdentifier: "BookingStep1") as! KTCreateBookingViewController
 //                detailView.showPayment()
-        
+//
     }
     
     //Notifiacation receive when application is in background

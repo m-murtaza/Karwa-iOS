@@ -26,6 +26,8 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         }
         vModel = viewModel as? KTWalletViewModel
         
+        vModel?.fetchnPaymentMethods()
+        
         super.viewDidLoad()
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
@@ -138,32 +140,46 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (viewModel as! KTWalletViewModel).numberOfCardRows() + 1
+        
+        if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
+            return 1
+        } else {
+            return (viewModel as! KTWalletViewModel).numberOfCardRows() + 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : KTWalletTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "WalletTableViewCellIdentifier") as! KTWalletTableViewCell
-        
-        if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
-                        
+        cell.selectionStyle = .none
+
+        if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
             cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
             cell.titleLabel.text = "Debit Card"
             cell.detailLable.text = ""
             cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
             cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
+        } else if (viewModel as! KTWalletViewModel).paymentMethods.count != 0 {
             
-        } else {
-            
-            cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
-            cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
-            cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
-            cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
-            cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
-            
+            if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
+                cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
+                cell.titleLabel.text = "Debit Card"
+                cell.detailLable.text = ""
+                cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
+                cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
+                
+            } else {
+                
+                cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
+                cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
+                cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
+                cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
+                cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
+                
+            }
         }
         
-                
         let backgroundCell : KTWalletTableViewBackgroundCell = tableView.dequeueReusableCell(withIdentifier: "WalletTableViewBackgroundCellIdentifier") as! KTWalletTableViewBackgroundCell
         backgroundCell.iconImageView.image = #imageLiteral(resourceName: "card_icon")
         
@@ -175,10 +191,10 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row != (viewModel as! KTWalletViewModel).numberOfCardRows() {
-            (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
-        } else {
+        if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() || tableView.numberOfRows(inSection: 0) == 1 {
             (viewModel as! KTWalletViewModel).debitRowSelected(atIndex: indexPath.row)
+        } else {
+            (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
         }
         
     }
@@ -190,6 +206,30 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     func reloadTableData()
     {
         tableView.reloadData()
+    }
+    
+    func showCyberSecureViewController(url: String) {
+        
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "CyberSecureViewController") as? KTCyberSecureViewController
+        viewController?.paymentLink = url
+        viewController?.delegate = self
+        self.present(viewController!, animated: true, completion: nil)
+        
+    }
+        
+}
+
+extension KTAddCreditViewController: WebViewDelegate {
+    
+    func getUpdatedTransactions() {
+        
+        self.showSuccessBanner("", "Payment Done Successfully".localized())
+        (self.viewModel as? KTWalletViewModel)?.fetchTransactionsServer()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.closeViewController()
+        }
+        
     }
     
 }

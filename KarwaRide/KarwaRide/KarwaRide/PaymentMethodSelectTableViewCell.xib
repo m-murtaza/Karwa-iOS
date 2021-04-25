@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="MuseoSans-500.otf">
+            <string>MuseoSans-500</string>
+        </array>
+        <array key="MuseoSans-700.otf">
+            <string>MuseoSans-700</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentMethodSelectTableViewCelllIdentifier" rowHeight="90" id="GXy-qP-xrx" customClass="PaymentMethodSelectTableViewCell" customModule="KarwaRide" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GXy-qP-xrx" id="Kfd-cv-y1r">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HRw-Bv-2HG">
+                        <rect key="frame" x="20" y="9" width="375" height="72"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                                <real key="value" value="7"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="customBorderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                                <color key="value" red="0.136245966" green="0.6220081449" blue="0.62187951799999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uncheck_icon" translatesAutoresizingMaskIntoConstraints="NO" id="2pu-fH-HvN">
+                        <rect key="frame" x="30" y="35" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Ywg-bm-eSV"/>
+                            <constraint firstAttribute="height" constant="20" id="jSg-T4-efE"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa_ico_sm" translatesAutoresizingMaskIntoConstraints="NO" id="ZwK-tm-LB9">
+                        <rect key="frame" x="60" y="30" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="cEz-EF-lBF"/>
+                            <constraint firstAttribute="width" constant="30" id="swB-Ay-e6W"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nxt-Tu-Mtc">
+                        <rect key="frame" x="110" y="38" width="91.5" height="14.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogd-tg-xRL">
+                                <rect key="frame" x="0.0" y="0.0" width="91.5" height="14.5"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EXP 12/03" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sLE-aI-TAK">
+                        <rect key="frame" x="322" y="38.5" width="52" height="13.5"/>
+                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="11"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HRw-Bv-2HG" firstAttribute="leading" secondItem="Kfd-cv-y1r" secondAttribute="leading" constant="20" symbolic="YES" id="8MQ-VF-6eR"/>
+                    <constraint firstItem="sLE-aI-TAK" firstAttribute="centerY" secondItem="Kfd-cv-y1r" secondAttribute="centerY" id="8gf-Xr-D86"/>
+                    <constraint firstAttribute="trailing" secondItem="sLE-aI-TAK" secondAttribute="trailing" constant="40" id="B6V-tF-3du"/>
+                    <constraint firstItem="HRw-Bv-2HG" firstAttribute="top" secondItem="Kfd-cv-y1r" secondAttribute="top" constant="9" id="Bhv-8v-9cH"/>
+                    <constraint firstItem="nxt-Tu-Mtc" firstAttribute="centerY" secondItem="Kfd-cv-y1r" secondAttribute="centerY" id="RgF-Ku-Cpo"/>
+                    <constraint firstAttribute="bottom" secondItem="HRw-Bv-2HG" secondAttribute="bottom" constant="9" id="TSx-A1-O2H"/>
+                    <constraint firstAttribute="trailing" secondItem="HRw-Bv-2HG" secondAttribute="trailing" constant="19" id="VNk-6S-SLH"/>
+                    <constraint firstItem="ZwK-tm-LB9" firstAttribute="leading" secondItem="Kfd-cv-y1r" secondAttribute="leading" constant="60" id="VcS-KC-Jc7"/>
+                    <constraint firstItem="2pu-fH-HvN" firstAttribute="centerY" secondItem="Kfd-cv-y1r" secondAttribute="centerY" id="WCZ-0S-V9w"/>
+                    <constraint firstItem="nxt-Tu-Mtc" firstAttribute="leading" secondItem="ZwK-tm-LB9" secondAttribute="trailing" constant="20" id="k10-Qt-kWh"/>
+                    <constraint firstItem="ZwK-tm-LB9" firstAttribute="centerY" secondItem="Kfd-cv-y1r" secondAttribute="centerY" id="qww-Wj-CL2"/>
+                    <constraint firstItem="2pu-fH-HvN" firstAttribute="leading" secondItem="Kfd-cv-y1r" secondAttribute="leading" constant="30" id="zCX-gW-Oux"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="detailLable" destination="sLE-aI-TAK" id="XlD-8o-j7A"/>
+                <outlet property="iconImageView" destination="ZwK-tm-LB9" id="LGu-ju-WtG"/>
+                <outlet property="selectedIconImageView" destination="2pu-fH-HvN" id="1Mh-Db-0s2"/>
+                <outlet property="selectedView" destination="HRw-Bv-2HG" id="10V-Zx-Pj7"/>
+                <outlet property="titleLabel" destination="ogd-tg-xRL" id="qcW-Dy-oOr"/>
+            </connections>
+            <point key="canvasLocation" x="164" y="-41"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="uncheck_icon" width="21" height="21"/>
+        <image name="visa_ico_sm" width="24" height="14"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -111,6 +111,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   var removeBooking = true
   var removeBookingOnReset = true
   var isAdvanceBooking = false
+    
+  var selectedPaymentMethodId = ""
   
   override func viewDidLoad() {
     
@@ -1152,6 +1154,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         booking.callerId = KTAppSessionInfo.currentSession.phone
       }
       
+        booking.paymentMethod = selectedPaymentMethodId
       var filterBaseFare = vehicleTypes?.filter( { (vtype: KTVehicleType) -> Bool in
         return vtype.typeId == booking.vehicleType
       })

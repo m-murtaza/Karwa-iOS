@@ -274,6 +274,12 @@ class KTCreateBookingViewController:
   @IBOutlet weak var mapToRideServicesView_Bottom: NSLayoutConstraint!
   var removeBookingOnReset : Bool = true
   
+    @IBOutlet weak var selectPaymentMethodView: KTPaymentMethodSelectionView!
+    @IBOutlet weak var selectPaymentMethodTopConstraint: NSLayoutConstraint!
+    var selectedPaymentMethod = "Cash"
+    @IBOutlet weak var paymentTypeIcon: UIImageView!
+    @IBOutlet weak var paymentTypeLabel: UILabel!
+
   //MARK:- View lifecycle
   override func viewDidLoad() {
     viewModel = KTCreateBookingViewModel(del:self)
@@ -303,6 +309,12 @@ class KTCreateBookingViewController:
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     tableView.addGestureRecognizer(gesture)
+    
+    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissSelectionMethod))
+    self.selectPaymentMethodView.tapView.addGestureRecognizer(tapGestureRecognizer)
+    self.selectPaymentMethodView.backgroundColor = .clear
+    selectPaymentMethodView.contentView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    selectPaymentMethodView.delegate = self
 //    hideCurrentLocationButton()
     
     //TODO: This needs to be converted on Location Call Back
@@ -396,6 +408,7 @@ class KTCreateBookingViewController:
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
+    selectPaymentMethodView.isHidden = true
   }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
@@ -444,7 +457,6 @@ class KTCreateBookingViewController:
         }
     }
     print(vModel?.booking.vehicleType)
-
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -516,8 +528,31 @@ class KTCreateBookingViewController:
   
   @IBAction func btnCashTapped(_ sender: Any)
   {
-    showError(title: "str_choose_payment_method".localized(), message: "txt_payment_message".localized())
+//    showError(title: "str_choose_payment_method".localized(), message: "txt_payment_message".localized())
+    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        self.selectPaymentMethodTopConstraint.constant = 0
+        self.selectPaymentMethodView.isHidden = false
+        self.selectPaymentMethodView.tableView.alpha = 1
+        self.selectPaymentMethodView.titleBackGroundView.alpha = 1
+        self.view.layoutIfNeeded()
+        self.view.bringSubview(toFront: self.selectPaymentMethodView)
+    }, completion: {_ in
+        self.selectPaymentMethodView.tableView.isHidden = false
+        self.selectPaymentMethodView.titleBackGroundView.isHidden = false
+    })
   }
+    
+    @objc func dismissSelectionMethod() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            self.selectPaymentMethodTopConstraint.constant += UIScreen.main.bounds.height
+            self.selectPaymentMethodView.tableView.alpha = 0
+            self.selectPaymentMethodView.titleBackGroundView.alpha = 0
+                self.view.layoutIfNeeded()
+        }, completion: {_ in
+                self.selectPaymentMethodView.tableView.isHidden = true
+                self.selectPaymentMethodView.titleBackGroundView.isHidden = true
+            })
+    }
   
   @IBAction func btnCancelBtnTapped(_ sender: Any)
   {
@@ -848,6 +883,24 @@ class KTCreateBookingViewController:
     //self.view.layoutIfNeeded()
   }
   
+}
+
+extension KTCreateBookingViewController: PaymethodSelectionDelegate {
+    func setSelectedPaymentType(type: String, paymentMethod: KTPaymentMethod?) {
+        if type == "Wallet" {
+            let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
+            self.paymentTypeLabel.text = "str_wallet".localized()
+            self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
+        } else {
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+            self.paymentTypeLabel.text = "str_cash".localized()
+            self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+        }
+        
+        self.dismissSelectionMethod()
+
+    }
 }
 
 extension UICollectionViewFlowLayout {

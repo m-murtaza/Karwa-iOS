@@ -39,7 +39,7 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Development Environment</key>
-	<string>PROD</string>
+	<string>STAGE</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -81,6 +81,11 @@
 		<string>MuseoSans-700Italic.otf</string>
 		<string>MuseoSans-900Italic.otf</string>
 	</array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
