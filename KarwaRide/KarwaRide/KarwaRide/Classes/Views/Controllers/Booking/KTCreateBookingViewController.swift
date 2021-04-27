@@ -169,7 +169,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
             
             print("Restoring index: \(selectedIndex)")
             
-            let indexPath = IndexPath(row: selectedIndex, section: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
             DispatchQueue.main.async {
                 self.tableView.selectRow(at: indexPath,
                                          animated: !animateView,
@@ -363,10 +363,11 @@ class KTCreateBookingViewController:
             self.showMoreRideOptions.isHidden = isClosed
             
             (self.viewModel as! KTCreateBookingViewModel).vehicleTypes = (self.viewModel as! KTCreateBookingViewModel).modifiedVehicleTypes
+            
+            (self.viewModel as! KTCreateBookingViewModel).drawDirectionOnMap(encodedPath: (self.viewModel as! KTCreateBookingViewModel).encodedPath)
 
             if(self.selectedIndex != 0 && !isClosed)
             {
-//                self.moveRowToFirst(fromIndex: self.selectedIndex)
                 UIView.transition(with: self.tableView,
                                   duration: 0.2,
                                   options: .transitionFlipFromTop,
@@ -374,6 +375,7 @@ class KTCreateBookingViewController:
                                   completion:
                                     {
                                         success in
+                                        self.selectedIndex = 0
                                         self.focusIndex(selectingRow: 0, animateView: false)
                                     })
             }

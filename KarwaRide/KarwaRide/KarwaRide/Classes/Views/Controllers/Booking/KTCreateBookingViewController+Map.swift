@@ -421,10 +421,10 @@ extension KTCreateBookingViewController
       let inset = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
       
       // focus to fit all the point including path, pick and destination in map camera
-      /*focusMapToFitRoute(pointA: path.coordinate(at: 0),
+      focusMapToFitRoute(pointA: path.coordinate(at: 0),
                          pointB: path.coordinate(at: path.count()-1),
                          path: path,
-                         inset: inset)*/
+                         inset: inset)
     }
   }
   

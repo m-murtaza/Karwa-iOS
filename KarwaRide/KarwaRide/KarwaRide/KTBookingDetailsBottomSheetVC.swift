@@ -87,6 +87,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        ABLoader().startShining(self.shimmerImageView)
+        ABLoader().startShining(self.shimmerLabel1)
+        ABLoader().startShining(self.shimmerLabel2)
     }
     
     
@@ -368,9 +371,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             self.starView.isHidden = true
             self.shimmerView.isHidden = false
-            ABLoader().startShining(self.shimmerImageView)
-            ABLoader().startShining(self.shimmerLabel1)
-            ABLoader().startShining(self.shimmerLabel2)
             
             self.view.customCornerRadius = 20.0
             

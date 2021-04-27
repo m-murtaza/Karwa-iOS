@@ -420,7 +420,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
             
             var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+            update = GMSCameraUpdate.fit(bounds, withPadding: 100)
             mapView.animate(with: update!)
         }
     }

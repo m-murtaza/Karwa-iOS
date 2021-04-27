@@ -111,7 +111,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   var removeBooking = true
   var removeBookingOnReset = true
   var isAdvanceBooking = false
-  
+  var encodedPath = ""
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -155,6 +155,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         fetchEstimates()
         registerForMinuteChange()
+        encodedPath = ""
         drawDirectionOnMap(encodedPath: "")
         showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
     }
@@ -428,6 +429,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
           self.estimates = KTVehicleTypeManager().estimates()
           
           let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
+            self.encodedPath = encodedPath ?? ""
           self.del?.updateVehicleTypeList()
           self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
             
@@ -435,8 +437,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection(animateView: false)
             })
             
-            
-            if self.booking != nil {
+            if self.booking.paymentMethod != nil && self.selectedVehicleType.rawValue == self.booking.vehicleType {
                 let vehicleType = KTVehicleTypeManager().vehicleType(typeId: (self.booking.vehicleType))!
                 let selectedIndex = (self.vehicleTypes?.index(of: vehicleType)) ?? 0
                 
@@ -467,8 +468,24 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if status == Constants.APIResponseStatus.SUCCESS {
             self?.vehicleTypes?.removeAll()
             self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+            
             self?.modifiedVehicleTypes = self?.vehicleTypes
-            //          self?.del?.updateVehicleTypeList()
+
+            let firstElement = self?.vehicleTypes?.filter({ (KTV) -> Bool in
+                if KTV.typeId == self?.selectedVehicleType.rawValue{
+                    return true
+                } else {
+                    return false
+                }
+            })
+            let filteredList = (self?.modifiedVehicleTypes?.filter{$0.typeId != self?.selectedVehicleType.rawValue})!
+            self?.modifiedVehicleTypes?.removeAll()
+            self?.modifiedVehicleTypes?.append(firstElement![0])
+            self?.modifiedVehicleTypes?.append(contentsOf: filteredList)
+            
+            self?.vehicleTypes = self?.modifiedVehicleTypes
+            
+        
         }
       }
     }
@@ -522,6 +539,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
               self.estimates = KTVehicleTypeManager().estimates()
               
               let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
+                self.encodedPath = encodedPath ?? ""
               self.del?.updateVehicleTypeList()
               self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
@@ -556,6 +574,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             self.estimates = KTVehicleTypeManager().estimates()
             
             let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
+            self.encodedPath = encodedPath ?? ""
             self.del?.updateVehicleTypeList()
             self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
             
@@ -1484,6 +1503,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
               self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
               self.estimates = KTVehicleTypeManager().estimates()
               self.del?.updateVehicleTypeList()
+              self.encodedPath = ""
               self.drawDirectionOnMap(encodedPath: "")
               self.fetchEstimates()
           }
