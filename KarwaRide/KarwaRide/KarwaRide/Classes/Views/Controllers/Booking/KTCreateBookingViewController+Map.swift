@@ -359,7 +359,7 @@ extension KTCreateBookingViewController
         
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds,
-                                     with: UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 20))
+                                     with: UIEdgeInsets(top: 80, left: 20, bottom: 80, right: 20))
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
