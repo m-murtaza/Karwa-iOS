@@ -351,6 +351,7 @@ AddressPickerCellDelegate {
   }
   
   @IBAction func btnToggleMapOptions(_ sender: Any) {
+    self.view.endEditing(true)
     self.mapOptionsContainer.isHidden.toggle()
   }
   

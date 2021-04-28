@@ -302,7 +302,7 @@ class KTCreateBookingViewController:
     tableView.dataSource = self
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
-    tableView.addGestureRecognizer(gesture)
+    rideServicesContainer.addGestureRecognizer(gesture)
 //    hideCurrentLocationButton()
     
     //TODO: This needs to be converted on Location Call Back
