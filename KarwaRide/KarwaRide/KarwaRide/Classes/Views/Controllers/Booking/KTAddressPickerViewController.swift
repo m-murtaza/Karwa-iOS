@@ -381,6 +381,9 @@ AddressPickerCellDelegate {
     {
         self.txtDropAddress.becomeFirstResponder()
     }
+    
+    (viewModel as! KTAddressPickerViewModel).fetchLocations()
+    
   }
   
   func toggleConfirmBtn(enableBtn enable : Bool)

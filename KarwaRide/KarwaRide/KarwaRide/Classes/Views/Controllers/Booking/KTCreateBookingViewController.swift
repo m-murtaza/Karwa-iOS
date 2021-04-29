@@ -92,6 +92,7 @@ class DashboardAddressCell: UICollectionViewCell {
         addressLabel.text = destination.name
       }
         bottomCardContainer.layer.cornerRadius = 15
+        bottomCardContainer.applyShadow()
       self.layer.masksToBounds = false
     }
   }
