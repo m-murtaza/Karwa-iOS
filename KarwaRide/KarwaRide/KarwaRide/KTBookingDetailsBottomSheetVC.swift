@@ -531,8 +531,12 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             eta.isHidden = true
-
             self.view.customCornerRadius = 20.0
+            showDriverInfoBox()
+            self.shimmerView.isHidden = true
+            self.lblDriverName.stopShimmeringAnimation()
+            self.bottomStartRatingLabel.stopShimmeringAnimation()
+
 
         }
 
@@ -635,9 +639,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             keyLbl.font = UIFont(name: "MuseoSans-900", size: 14.0)!
         }
         else {
-            keyLbl.text = key
             keyLbl.font = UIFont(name: "MuseoSans-700", size: 14.0)!
-
+            keyLbl.text = key
         }
         
         keyLbl.textColor = value == "" ? UIColor(hexString: "#89B4BC") : UIColor(hexString: "#095A86")
