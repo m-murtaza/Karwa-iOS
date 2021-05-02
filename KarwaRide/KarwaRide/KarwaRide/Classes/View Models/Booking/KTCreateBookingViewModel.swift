@@ -493,6 +493,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
       estimates?.removeAll()
       estimates = nil
     }
+    
   }
   
     func resetVehicleTypes()
@@ -633,11 +634,12 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var result = ""
     if let vehicles = self.vehicleTypes {
         
-        if isDropAvailable() && isAdvanceBooking {
+       if selectedPickupDateTime > Date()  {
             result = vehicles[idx].etaText ?? "" == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
-        } else if !isDropAvailable() && isAdvanceBooking  {
+        } else if  !isDropAvailable() && (selectedPickupDateTime <= Date()) {
             result = vehicles[idx].etaText ?? "" == "" ? "str_starting_fare".localized() : (vehicles[idx].etaText ?? "str_starting_fare".localized())
-        } else {
+        }
+        else {
             result = vehicles[idx].etaText ?? "" == "" ? "txt_not_available".localized() : (vehicles[idx].etaText ?? "txt_not_available".localized())
         }
         

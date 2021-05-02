@@ -188,21 +188,35 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
-        if(!haltAutoZooming)
-        {
-            var bounds = GMSCoordinateBounds()
-            for marker: GMSMarker in gmsMarker {
-                bounds = bounds.includingCoordinate(marker.position)
-            }
-            
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(150))
-            
-            CATransaction.begin()
-            CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-            mapView.animate(with: update!)
-            CATransaction.commit()
+//        if(!haltAutoZooming)
+//        {
+//            var bounds = GMSCoordinateBounds()
+//            for marker: GMSMarker in gmsMarker {
+//                bounds = bounds.includingCoordinate(marker.position)
+//            }
+//
+//            var update : GMSCameraUpdate?
+//            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(150))
+//
+//            CATransaction.begin()
+//            CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+//            mapView.animate(with: update!)
+//            CATransaction.commit()
+//        }
+        
+        var bounds = GMSCoordinateBounds()
+        for marker: GMSMarker in gmsMarker {
+            bounds = bounds.includingCoordinate(marker.position)
         }
+        
+        var update : GMSCameraUpdate?
+        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+
+        
+        CATransaction.begin()
+        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+        mapView.animate(with: update!)
+        CATransaction.commit()
     }
 
     func setBooking(booking : KTBooking) {

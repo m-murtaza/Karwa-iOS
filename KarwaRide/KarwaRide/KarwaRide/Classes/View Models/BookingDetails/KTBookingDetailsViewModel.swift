@@ -378,7 +378,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func paymentMethod() -> String
     {
-        var paymentMethod = "Cash"
+        var paymentMethod = "str_cash".localized()
         let bookingStatus = bookingStatii()
         if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
         {
@@ -665,6 +665,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
+                        self.updateBookingCard()
+
                     }
 
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
@@ -746,7 +748,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             del?.setMapCamera(bound: bounds)
         }
         else {
-            //del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            if booking?.dropOffLat != nil && booking?.dropOffLon != nil && !(booking?.dropOffLat.isZero)! && !(booking?.dropOffLon.isZero)! {} else {
+                del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            }
         }
     }
     

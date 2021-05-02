@@ -365,8 +365,6 @@ class KTCreateBookingViewController:
             
             (self.viewModel as! KTCreateBookingViewModel).vehicleTypes = (self.viewModel as! KTCreateBookingViewModel).modifiedVehicleTypes
             
-            (self.viewModel as! KTCreateBookingViewModel).drawDirectionOnMap(encodedPath: (self.viewModel as! KTCreateBookingViewModel).encodedPath)
-
             if(self.selectedIndex != 0 && !isClosed)
             {
                 UIView.transition(with: self.tableView,
@@ -454,6 +452,12 @@ class KTCreateBookingViewController:
     if timer != nil {
       timer.invalidate()
     }
+    tableViewHeight.constant =  tableViewMinimumHeight
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+      self.view.layoutIfNeeded()
+    }, completion: { animated in
+      self.showMoreRideOptions.isHidden = false
+    })
     super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = false
   }
@@ -808,14 +812,14 @@ class KTCreateBookingViewController:
     }
     self.pickupAddressLabel.text = pick
     self.pickupLabel.text = pick
-    
+    self.pickupLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
   }
   
   func setDropOff(drop: String?) {
     
     guard drop! != "txt_set_destination".localized() else {
         self.dropoffLabel.text = drop!
-        self.dropoffLabel.font = UIFont(name: "MuseoSans-900Italic", size: 13.0)!
+        self.dropoffLabel.font = UIFont(name: "MuseoSans-500Italic", size: 13.0)!
         self.tableView.reloadData()
         return
     }
@@ -823,7 +827,7 @@ class KTCreateBookingViewController:
     //self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
     //self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
     self.dropoffLabel.text = drop
-    self.dropoffLabel.font = UIFont(name: "MuseoSans-900", size: 13.0)!
+    self.dropoffLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
 
   }
   
