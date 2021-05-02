@@ -359,7 +359,7 @@ extension KTCreateBookingViewController
         
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds,
-                                     with: UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 20))
+                                     with: UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100))
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
@@ -418,13 +418,13 @@ extension KTCreateBookingViewController
       addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
       addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
       
-      let inset = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
+      let inset = UIEdgeInsets(top: 100, left: 100, bottom: -100, right: 100)
       
       // focus to fit all the point including path, pick and destination in map camera
-      /*focusMapToFitRoute(pointA: path.coordinate(at: 0),
+      focusMapToFitRoute(pointA: path.coordinate(at: 0),
                          pointB: path.coordinate(at: path.count()-1),
                          path: path,
-                         inset: inset)*/
+                         inset: inset)
     }
   }
   

@@ -169,7 +169,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
             
             print("Restoring index: \(selectedIndex)")
             
-            let indexPath = IndexPath(row: selectedIndex, section: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
             DispatchQueue.main.async {
                 self.tableView.selectRow(at: indexPath,
                                          animated: !animateView,
@@ -308,14 +308,15 @@ class KTCreateBookingViewController:
     tableView.dataSource = self
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
-    tableView.addGestureRecognizer(gesture)
     
     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissSelectionMethod))
     self.selectPaymentMethodView.tapView.addGestureRecognizer(tapGestureRecognizer)
     self.selectPaymentMethodView.backgroundColor = .clear
     selectPaymentMethodView.contentView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     selectPaymentMethodView.delegate = self
-//    hideCurrentLocationButton()
+    rideServicesContainer.addGestureRecognizer(gesture)
+
+    //    hideCurrentLocationButton()
     
     //TODO: This needs to be converted on Location Call Back
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
@@ -375,10 +376,9 @@ class KTCreateBookingViewController:
             self.showMoreRideOptions.isHidden = isClosed
             
             (self.viewModel as! KTCreateBookingViewModel).vehicleTypes = (self.viewModel as! KTCreateBookingViewModel).modifiedVehicleTypes
-
+            
             if(self.selectedIndex != 0 && !isClosed)
             {
-//                self.moveRowToFirst(fromIndex: self.selectedIndex)
                 UIView.transition(with: self.tableView,
                                   duration: 0.2,
                                   options: .transitionFlipFromTop,
@@ -386,6 +386,7 @@ class KTCreateBookingViewController:
                                   completion:
                                     {
                                         success in
+                                        self.selectedIndex = 0
                                         self.focusIndex(selectingRow: 0, animateView: false)
                                     })
             }
@@ -463,6 +464,12 @@ class KTCreateBookingViewController:
     if timer != nil {
       timer.invalidate()
     }
+    tableViewHeight.constant =  tableViewMinimumHeight
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+      self.view.layoutIfNeeded()
+    }, completion: { animated in
+      self.showMoreRideOptions.isHidden = false
+    })
     super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = false
   }
@@ -840,14 +847,14 @@ class KTCreateBookingViewController:
     }
     self.pickupAddressLabel.text = pick
     self.pickupLabel.text = pick
-    
+    self.pickupLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
   }
   
   func setDropOff(drop: String?) {
     
     guard drop! != "txt_set_destination".localized() else {
         self.dropoffLabel.text = drop!
-        self.dropoffLabel.font = UIFont(name: "MuseoSans-900Italic", size: 13.0)!
+        self.dropoffLabel.font = UIFont(name: "MuseoSans-500Italic", size: 13.0)!
         self.tableView.reloadData()
         return
     }
@@ -855,7 +862,7 @@ class KTCreateBookingViewController:
     //self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
     //self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
     self.dropoffLabel.text = drop
-    self.dropoffLabel.font = UIFont(name: "MuseoSans-900", size: 13.0)!
+    self.dropoffLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
 
   }
   

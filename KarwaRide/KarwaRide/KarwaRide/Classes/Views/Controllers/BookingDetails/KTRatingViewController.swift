@@ -140,8 +140,15 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     func showSelectReasonText(message: String) {
-        lblSelectReasonText.text = message
-        lblSelectReasonText.isHidden = false
+        
+        if message  ==  "txt_complain_reasons".localized() {
+            lblSelectReasonText.addLeading(image: #imageLiteral(resourceName: "complainreason_lgd"), text: message, imageOffsetY: 0)
+            lblSelectReasonText.isHidden = false
+        } else {
+            lblSelectReasonText.text = message
+            lblSelectReasonText.isHidden = false
+        }
+        
     }
     
     func hideConsolationText() {
