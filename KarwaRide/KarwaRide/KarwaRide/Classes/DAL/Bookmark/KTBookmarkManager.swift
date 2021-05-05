@@ -220,7 +220,7 @@ class KTBookmarkManager: KTDALManager {
         bmark?.longitude = loc.longitude
         
         let location : KTGeoLocation = KTGeoLocation.obj(withValue: -2, forAttrib: "locationId", inContext: NSManagedObjectContext.mr_default()) as! KTGeoLocation
-        location.name = name
+        location.name = name.localized()
         location.area = "Unknown"
         location.latitude = loc.latitude
         location.longitude = loc.longitude

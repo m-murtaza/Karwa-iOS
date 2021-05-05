@@ -348,8 +348,8 @@ struct Constants {
     }
     
     struct BookmarkName {
-        static let Home = "home"
-        static let Work = "work"
+        static let Home = "strHome".localized()
+        static let Work = "strWork".localized()
     }
     
     struct KTAPIStatus : OptionSet {

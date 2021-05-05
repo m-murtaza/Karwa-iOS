@@ -122,6 +122,8 @@ AddressPickerCellDelegate {
     skipButton.setTitle("signin_prompt_skip".localized(), for: .normal)
     addressesListButton.setTitle("btn_addresses_title".localized().uppercased(), for: .normal)
     favouritesListButton.setTitle("btn_favorites_title".localized().uppercased(), for: .normal)
+    clearButtonPickup.isHidden = true
+    clearButtonDestination.isHidden = true
   }
   
   private func setupTableView() {
@@ -561,10 +563,22 @@ AddressPickerCellDelegate {
     }
     
     txtPickAddress.text = pick
+    
+    if pick.count == 0 {
+        clearButtonPickup.isHidden = true
+    } else {
+        clearButtonPickup.isHidden = false
+    }
+    
   }
   
   func setDropOff(drop: String) {
     txtDropAddress.text = drop
+    if drop.count == 0 {
+        clearButtonDestination.isHidden = true
+    } else {
+        clearButtonDestination.isHidden = false
+    }
   }
   
   // MARK: - TableView Delegates
@@ -607,14 +621,14 @@ AddressPickerCellDelegate {
     if textField.isEqual(txtDropAddress) {
       selectedTxtField = SelectedTextField.DropoffAddress
       titleLabel.text = "txt_set_drop_off".localized()
-      clearButtonPickup.isHidden = true
-      clearButtonDestination.isHidden = false
+//      clearButtonPickup.isHidden = true
+//      clearButtonDestination.isHidden = false
     }
     else {
       selectedTxtField = SelectedTextField.PickupAddress
       titleLabel.text = "txt_pick_up".localized()
-      clearButtonPickup.isHidden = false
-      clearButtonDestination.isHidden = true
+//      clearButtonPickup.isHidden = false
+//      clearButtonDestination.isHidden = true
     }
     
     (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
@@ -674,11 +688,28 @@ AddressPickerCellDelegate {
     }
     searchText = textField.text!;
     if searchTimer.isValid {
-      
       searchTimer.invalidate()
     }
     if let txt = textField.text, txt.count >= MIN_ALLOWED_TEXT_COUNT_SEARCH {
       searchTimer = Timer.scheduledTimer(timeInterval: SEC_WAIT_START_SEARCH, target: self,   selector: (#selector(self.updateTimer)), userInfo: nil, repeats: false)
+    }
+    
+    if textField.isEqual(txtDropAddress) {
+        
+        if string == "" && textField.text?.count == 1 || (string == "" && textField.text?.count == 1) {
+            clearButtonDestination.isHidden = true
+        } else {
+            clearButtonDestination.isHidden = false
+        }
+      clearButtonPickup.isHidden = true
+    }
+    else {
+        if (string == "" && textField.text?.count == 1) || (string == "" && textField.text?.count == 0) {
+            clearButtonPickup.isHidden = true
+        } else {
+            clearButtonPickup.isHidden = false
+        }
+      clearButtonDestination.isHidden = true
     }
     
     return true;

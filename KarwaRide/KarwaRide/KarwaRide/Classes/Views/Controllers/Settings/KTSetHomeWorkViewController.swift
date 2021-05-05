@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 
-enum BookmarkType : Int{
+enum BookmarkType : Int32{
     case home = 1
     case work = 2
     case favorite = 3
@@ -70,7 +70,7 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         return bookmarkType
     }
     func UpdateUI(name bookmarkName:String, location: CLLocationCoordinate2D) {
-        txtAddress.text = bookmarkName.contains("home") ? "strHome".localized() : "strWork".localized()
+        txtAddress.text = bookmarkName.contains("strHome".localized()) ? "strHome".localized() : "strWork".localized()
         txtBookmarkType.text = (bookmarkType == BookmarkType.home) ? "set_as_home_address".localized() : "set_as_work_address".localized()
         imgBookmarkTypeIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "APICHome" : "APICWork")
         imgBookmarkAddressIcon.image = UIImage(named: (bookmarkType == BookmarkType.home) ? "SHWIconHome" : "SHWIconWork")

@@ -296,9 +296,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
       area = locations[idx.row].name!
     }
-    else if locations[idx.row].area != nil {
-      area = locations[idx.row].area!
-    }
+//    else if locations[idx.row].geolocationToBookmark == nil && locations[idx.row].area != nil {
+//      area = locations[idx.row].area!
+//    }
     
     return area.capitalizingFirstLetter()
   }
@@ -400,8 +400,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
     else
     {
-        self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
         self.del?.moveFocusToPickUp()
+        self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
     }
   }
   
@@ -480,7 +480,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     if location.locationId != -1 {
       
-      let error : String? = checkLocationIfAlreadyBookmark(location : location)
+        let error : String? = checkLocationIfAlreadyBookmark(location : location, type: bookmarkType)
       if error != nil {
         
         delegate?.showError!(title: "error_sr".localized(), message: error!)
@@ -521,13 +521,22 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
   }
   
-  func checkLocationIfAlreadyBookmark(location : KTGeoLocation) -> String?{
-    var error : String? = nil
-    if location.geolocationToBookmark != nil {
-      error = "This location is already saved as \((location.geolocationToBookmark?.name)!)"
-      
-    }
-    return error
+    func checkLocationIfAlreadyBookmark(location : KTGeoLocation, type: BookmarkType) -> String?{
+
+        var error : String? = nil
+
+        if location.geolocationToBookmark != nil {
+            
+            if location.geolocationToBookmark?.bookmarkToGeoLocation?.type ?? -1 == 6 && type.rawValue == 2 {
+                error = "This location is already saved as \((location.geolocationToBookmark?.name)!)"
+            } else if location.geolocationToBookmark?.bookmarkToGeoLocation?.type ?? -1 == 5 && type.rawValue == 1{
+                error = "This location is already saved as \((location.geolocationToBookmark?.name)!)"
+            }
+
+        }
+        
+        return error
+    
   }
   
   func removeHomeWorkFromRestOfTheList()  {
