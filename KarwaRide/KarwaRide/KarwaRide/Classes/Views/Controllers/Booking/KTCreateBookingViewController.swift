@@ -46,6 +46,7 @@ class RideServiceCell: UITableViewCell {
     if parts.count > 1, var last = parts.last {
       last.removeLast()
       self.fareInfo.text = "(\(String(last)))"
+      self.fareInfo.isHidden = false
       let startingFare = String(parts.first ?? "")
       let trimmedString = startingFare.trimmingCharacters(in: .whitespacesAndNewlines)
       self.fare.text = trimmedString
@@ -53,6 +54,8 @@ class RideServiceCell: UITableViewCell {
     else {
       self.fare.text = fare
       self.fareInfo.text = ""
+        self.fareInfo.isHidden = true
+        
     }
   }
   
@@ -166,7 +169,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
             guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
                 return
             }
-            
+
             print("Restoring index: \(selectedIndex)")
             
             let indexPath = IndexPath(row: 0, section: 0)
@@ -320,6 +323,7 @@ class KTCreateBookingViewController:
     {
         btnRecenterLocationConstraint.constant = 15
     }
+    
   }
   
   @objc private func showMenu() {
@@ -396,6 +400,7 @@ class KTCreateBookingViewController:
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
+    self.mapViewBottomConstraint.constant = 270
   }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
@@ -636,7 +641,8 @@ class KTCreateBookingViewController:
     {
         UIView.animate(withDuration: 0.5, animations: {
           self.pickupDropoffParentContainer.isHidden = true
-            self.mapViewBottomConstraint.constant = -75
+//            self.mapViewBottomConstraint.constant = 304
+            
           self.view.layoutIfNeeded()
         })
     }
@@ -676,9 +682,13 @@ class KTCreateBookingViewController:
 
         if self.promoCode == ""{
             self.promoAppliedContainer.isHidden = true
+//            self.mapViewBottomConstraint.constant = 304
+        } else {
+//            self.mapViewBottomConstraint.constant = 375
         }
         
-        self.mapViewBottomConstraint.constant = 0
+        self.view.layoutIfNeeded()
+        
         self.rideServicesContainer.isHidden = false
 
         UIView.animate(
@@ -710,12 +720,13 @@ class KTCreateBookingViewController:
         
         if (self.promoKeyLabel.text?.count ?? 0) > 0 && self.promoKeyLabel.text! != "str_promo_str".localized() {
             self.promoAppliedContainer.isHidden = false
+//            self.mapViewBottomConstraint.constant = 375
         } else {
             self.promoAppliedContainer.isHidden = true
+//            self.mapViewBottomConstraint.constant = 304
         }
 
         self.pickupDropoffParentContainer.isHidden = true
-        self.mapViewBottomConstraint.constant = -75
         self.rideServicesContainer.isHidden = true
     }
   }
