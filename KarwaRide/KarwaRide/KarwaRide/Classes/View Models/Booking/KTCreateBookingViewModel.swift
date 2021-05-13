@@ -115,8 +115,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   var selectedPaymentMethodId = ""
   
   var encodedPath = ""
-    
-  override func viewDidLoad() {
+  var initialDateSetUp = true
+
+    override func viewDidLoad() {
     
     super.viewDidLoad()
     del = self.delegate as? KTCreateBookingViewModelDelegate
@@ -157,7 +158,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     else if currentBookingStep == BookingStep.step3 {
       (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
         
-        fetchEstimates()
+        setPickupDate(date: Date())
+        (delegate as! KTCreateBookingViewModelDelegate).setRequestButtonTitle(title: "txt_req_karwa".localized())
+        (delegate as! KTCreateBookingViewModelDelegate).setPickDate(date: "title_schedule".localized())
+        
+        if promo != ""{
+            fetchEstimateForPromo(promo)
+        } else {
+            fetchEstimates()
+        }
+        
         registerForMinuteChange()
         encodedPath = ""
         drawDirectionOnMap(encodedPath: "")
@@ -178,6 +188,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     super.viewWillDisappear()
     NotificationCenter.default.removeObserver(self)
     timerFetchNearbyVehicle.invalidate()
+    initialDateSetUp = true
   }
   
   //MARK:- Address picker setting pick drop
@@ -638,10 +649,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var result = ""
     if let vehicles = self.vehicleTypes {
         
-       if selectedPickupDateTime > Date()  {
-            result = vehicles[idx].etaText ?? "" == "" ? "str_estimated_fare".localized() : (vehicles[idx].etaText ?? "str_estimated_fare".localized())
+       if initialDateSetUp == false && (selectedPickupDateTime > Date())  {
+            result = "str_estimated_fare".localized()
         } else if  !isDropAvailable() && (selectedPickupDateTime <= Date()) {
-            result = vehicles[idx].etaText ?? "" == "" ? "str_starting_fare".localized() : (vehicles[idx].etaText ?? "str_starting_fare".localized())
+            result =  "str_starting_fare".localized()
         }
         else {
             result = vehicles[idx].etaText ?? "" == "" ? "txt_not_available".localized() : (vehicles[idx].etaText ?? "txt_not_available".localized())
@@ -860,6 +871,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
   func setPickupDateForAdvJob(date: Date)
   {
     isAdvanceBooking = true
+    initialDateSetUp = false
     setPickupDate(date: date)
     
     if promo != ""{
@@ -894,8 +906,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var datePart : String = ""
     if date.isToday {
-      
-      datePart = "Today"
+        
+        datePart = "day_title_today".localized()
       (delegate as! KTCreateBookingViewModelDelegate).setRequestButtonTitle(title: "txt_req_karwa".localized())
 
     }
@@ -909,15 +921,19 @@ class KTCreateBookingViewModel: KTBaseViewModel {
 
     }
     
-    
-    
-    
     let timeFormatter = DateFormatter()
     timeFormatter.dateFormat = "h:mm a"
     
-    let time = "\(datePart), \(timeFormatter.string(from: date))"
+    var time = ""
+
+    if initialDateSetUp == true {
+        time = "title_schedule".localized()
+    } else {
+        time = "\(datePart), \(timeFormatter.string(from: date))"
+    }
     
     return time
+
   }
   
   //MARK:-  Vehicle Types
@@ -1147,6 +1163,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     promo = ""
     (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promo)
     self.del?.setPromoButtonLabel(validPromo: promo)
+    fetchEstimates()
+    (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection(animateView: false)
   }
   
   //MARK:- Create Booking
