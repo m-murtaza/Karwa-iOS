@@ -12,25 +12,27 @@ import Spring
 
 class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
 
-    @IBOutlet weak var pickUpButton: SpringButton!
-    
-    @IBOutlet weak var dropButton: SpringButton!
-
-    @IBOutlet weak var submitButton: SpringButton!
-    
-    @IBOutlet weak var rideServiceTableView: UITableView!
-
-    @IBOutlet weak var plusButton: SpringButton!
-    
-    @IBOutlet weak var minusButton: SpringButton!
-
-    @IBOutlet weak var passengerLabel: SpringLabel!
-    
-    @IBOutlet weak var rideServiceView: SpringView!
-
-    @IBOutlet weak var pickDropUpView: SpringView!
-
-    @IBOutlet weak var backButton: SpringButton!
+    @IBOutlet weak var pickUpAddressLabel: SpringLabel!
+//
+//    @IBOutlet weak var pickUpButton: SpringButton!
+//
+//    @IBOutlet weak var dropButton: SpringButton!
+//
+//    @IBOutlet weak var submitButton: SpringButton!
+//
+//    @IBOutlet weak var rideServiceTableView: UITableView!
+//
+//    @IBOutlet weak var plusButton: SpringButton!
+//
+//    @IBOutlet weak var minusButton: SpringButton!
+//
+//    @IBOutlet weak var passengerLabel: SpringLabel!
+//
+//    @IBOutlet weak var rideServiceView: SpringView!
+//
+//    @IBOutlet weak var pickDropUpView: SpringView!
+//
+//    @IBOutlet weak var backButton: SpringButton!
     
     var vModel : KTCreateXpressBookingViewModel?
 
@@ -51,7 +53,7 @@ class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
         addMap()
         
         self.navigationItem.hidesBackButton = true;
-        self.btnRevealBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+//        self.btnRevealBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //TODO: This needs to be converted on Location Call Back
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
@@ -59,10 +61,13 @@ class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
             self.vModel?.setupCurrentLocaiton()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4)
-        {
-            self.vModel?.setupCurrentLocaiton()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4)
+//        {
+//            self.vModel?.setupCurrentLocaiton()
+//        }
+        
+//        pickUpButton.titleLabel?.numberOfLines = 2; // if you want unlimited number of lines put 0
+
         
     }
     
@@ -70,7 +75,9 @@ class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
         guard pick != nil else {
             return
         }
-        self.pickUpButton.setTitle(pick, for: .normal)
+        
+        self.pickUpAddressLabel.text = pick
+        
     }
     
     @objc private func showMenu() {

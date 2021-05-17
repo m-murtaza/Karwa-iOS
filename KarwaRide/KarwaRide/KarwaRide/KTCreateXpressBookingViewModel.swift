@@ -25,6 +25,16 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
     var booking : KTBooking = KTBookingManager().booking()
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var isFirstZoomDone = false
+    
+    override func viewWillAppear() {
+        
+        setupCurrentLocaiton()
+        
+        super.viewWillAppear()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
+    
+    }
 
     func setupCurrentLocaiton() {
       if KTLocationManager.sharedInstance.locationIsOn() {
@@ -81,14 +91,14 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
               booking.pickupLon = location.coordinate.longitude
 
               //Fetch location name (from Server) for current location.
-            self.fetchLocationName(forGeoCoordinate: location.coordinate)
 
           }
         
+        self.fetchLocationName(forGeoCoordinate: location.coordinate)
         
-        (self.delegate as! KTCreateXpressBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: true)
-        
-        (self.delegate as! KTCreateXpressBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
+//        (self.delegate as! KTCreateXpressBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
+//
+//        (self.delegate as! KTCreateXpressBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
 
          
     }
@@ -107,8 +117,7 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
           DispatchQueue.main.async {
             //self.delegate?.userIntraction(enable: true)
             if self.delegate != nil {
-              (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
-              
+              (self.delegate as! KTCreateXpressBookingViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
             }
           }
         }
