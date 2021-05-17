@@ -8,6 +8,19 @@
 
 import Foundation
 
+class ButtonRightImageLeftTitle: UIButton {
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        guard imageView != nil else { return }
+
+        imageEdgeInsets = UIEdgeInsets(top: 5, left: (bounds.width - 35), bottom: 5, right: 5)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: -((imageView?.bounds.width)! + 10), bottom: 0, right: 0 )
+
+    }
+}
+
 class UIViewWithShadow: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()

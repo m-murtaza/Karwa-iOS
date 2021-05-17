@@ -27,7 +27,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
       addMenuButton()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+    }
+    
     func updateUI()
     {
         (viewModel as! KTSettingsViewModel).reloadData()

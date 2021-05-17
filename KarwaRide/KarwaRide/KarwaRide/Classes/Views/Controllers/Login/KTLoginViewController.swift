@@ -204,6 +204,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   {
     self.performSegue(withIdentifier: "segueToBooking", sender: self)
   }
+    
   func navigateToOTP() {
     self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
   }
