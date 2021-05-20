@@ -9,7 +9,7 @@
 import Foundation
 import GoogleMaps
 
-extension KTCreateXpressBookingViewController: GMSMapViewDelegate, KTCreateXpressBookingViewModelDelegate {
+extension KTXpressPickUpViewController: GMSMapViewDelegate, KTXpressPickUpViewModelDelegate {
     
   
   func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
@@ -33,7 +33,7 @@ extension KTCreateXpressBookingViewController: GMSMapViewDelegate, KTCreateXpres
     else
     {
         let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
+        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
         let name = "LocationManagerNotificationIdentifier"
         NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
         
@@ -42,7 +42,7 @@ extension KTCreateXpressBookingViewController: GMSMapViewDelegate, KTCreateXpres
   }
 }
 
-extension KTCreateXpressBookingViewController
+extension KTXpressPickUpViewController
 {
     func setupCurrentLocaiton() {
       if KTLocationManager.sharedInstance.locationIsOn() {
@@ -143,35 +143,6 @@ extension KTCreateXpressBookingViewController
         removeUnRetainedMarkers(nearbyVehiclesNew: vTrack)
         addNewMarkers(nearbyVehiclesNew: vTrack)
         moveVehiclesIfRequired(nearbyVehiclesNew: vTrack)
-
-//        gmsMarker.removeAll()
-//        clearMap()
-//        vTrack.forEach
-//        { track in
-//            if !track.position.isZeroCoordinate
-//            {
-//                let marker = GMSMarker()
-//                marker.snippet = track.vehicleNo
-//                marker.position = track.position
-//
-//                if track.trackType == VehicleTrackType.vehicle
-//                {
-//                    marker.rotation = CLLocationDegrees(track.bearing)
-//                    marker.icon = imgForTrackMarker(vehicleType)
-//                    marker.map = self.mapView
-//                }
-//
-//                gmsMarker.append(marker)
-//            }
-//        }
-//        if gmsMarker.count > 0
-//        {
-//            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-//        }
-//        else
-//        {
-//            self.focusMapToCurrentLocation()
-//        }
     }
     
     private func moveVehiclesIfRequired(nearbyVehiclesNew newVehicles:[VehicleTrack])

@@ -1,5 +1,5 @@
 //
-//  KTCreateXpressBookingViewController.swift
+//  KTXpressPickUpViewController.swift
 //  KarwaRide
 //
 //  Created by Satheesh Speed Mac on 14/05/21.
@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Spring
 
-class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
+class KTXpressPickUpViewController: KTBaseCreateBookingController {
 
     @IBOutlet weak var pickUpAddressLabel: SpringLabel!
 //
@@ -34,14 +34,14 @@ class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
 //
 //    @IBOutlet weak var backButton: SpringButton!
     
-    var vModel : KTCreateXpressBookingViewModel?
+    var vModel : KTXpressPickUpViewModel?
 
     var pickUpSet: Bool?
     var dropSet: Bool?
 
     override func viewDidLoad() {
-        viewModel = KTCreateXpressBookingViewModel(del:self)
-        vModel = viewModel as? KTCreateXpressBookingViewModel
+        viewModel = KTXpressPickUpViewModel(del:self)
+        vModel = viewModel as? KTXpressPickUpViewModel
         
         if booking != nil {
             vModel?.booking = booking!
@@ -53,7 +53,7 @@ class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
         addMap()
         
         self.navigationItem.hidesBackButton = true;
-//        self.btnRevealBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        self.btnRevealBtn?.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //TODO: This needs to be converted on Location Call Back
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
@@ -95,3 +95,6 @@ class KTCreateXpressBookingViewController: KTBaseCreateBookingController {
     */
 
 }
+
+
+

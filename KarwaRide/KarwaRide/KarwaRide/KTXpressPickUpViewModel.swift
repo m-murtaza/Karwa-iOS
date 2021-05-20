@@ -13,19 +13,20 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
-protocol KTCreateXpressBookingViewModelDelegate: KTViewModelDelegate {
+protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func showAlertForLocationServerOn()
     func updateLocationInMap(location:CLLocation)
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setPickUp(pick: String?)
 }
 
-class KTCreateXpressBookingViewModel: KTBaseViewModel {
+class KTXpressPickUpViewModel: KTBaseViewModel {
     
     var booking : KTBooking = KTBookingManager().booking()
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var isFirstZoomDone = false
-    
+    static var askedToTurnOnLocaiton : Bool = false
+
     override func viewWillAppear() {
         
         setupCurrentLocaiton()
@@ -51,9 +52,9 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
           KTLocationManager.sharedInstance.start()
         }
       }
-      else if KTCreateBookingViewModel.askedToTurnOnLocaiton == false{
-        (delegate as! KTCreateXpressBookingViewModelDelegate).showAlertForLocationServerOn()
-        KTCreateBookingViewModel.askedToTurnOnLocaiton = true
+      else if KTXpressPickUpViewModel.askedToTurnOnLocaiton == false{
+        (delegate as! KTXpressPickUpViewModelDelegate).showAlertForLocationServerOn()
+        KTXpressPickUpViewModel.askedToTurnOnLocaiton = true
         
       }
     }
@@ -76,11 +77,11 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
                {
                   if(isFirstZoomDone)
                   {
-                      (self.delegate as! KTCreateXpressBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
+                      (self.delegate as! KTXpressPickUpViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
                   }
                   else
                   {
-                      (self.delegate as! KTCreateXpressBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: true)
+                      (self.delegate as! KTXpressPickUpViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: true)
                       isFirstZoomDone = true
                   }
                }
@@ -96,11 +97,6 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
         
         self.fetchLocationName(forGeoCoordinate: location.coordinate)
         
-//        (self.delegate as! KTCreateXpressBookingViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
-//
-//        (self.delegate as! KTCreateXpressBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
-
-         
     }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
@@ -117,7 +113,7 @@ class KTCreateXpressBookingViewModel: KTBaseViewModel {
           DispatchQueue.main.async {
             //self.delegate?.userIntraction(enable: true)
             if self.delegate != nil {
-              (self.delegate as! KTCreateXpressBookingViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
+              (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
             }
           }
         }
