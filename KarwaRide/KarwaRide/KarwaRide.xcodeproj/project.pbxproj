@@ -238,6 +238,7 @@
 		F0762A8426552785000E36F2 /* KTXpressAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0762A82265523CC000E36F2 /* KTXpressAddressViewController.swift */; };
 		F08E6F22264EB14C00235674 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08E6F21264EB14C00235674 /* TabViewController.swift */; };
 		F0A5D1E42650FF780022C82D /* KTXpressPickUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A5D1E32650FF770022C82D /* KTXpressPickUpViewModel.swift */; };
+		F0C0152D265656A900E3DD01 /* KTXpressBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C0152C265656A900E3DD01 /* KTXpressBookingManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -490,6 +491,7 @@
 		F0762A82265523CC000E36F2 /* KTXpressAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressAddressViewController.swift; sourceTree = "<group>"; };
 		F08E6F21264EB14C00235674 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		F0A5D1E32650FF770022C82D /* KTXpressPickUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressPickUpViewModel.swift; sourceTree = "<group>"; };
+		F0C0152C265656A900E3DD01 /* KTXpressBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressBookingManager.swift; sourceTree = "<group>"; };
 		FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1132,6 +1134,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				F0C0152B2656567900E3DD01 /* Xpress */,
 				0DF3A22B2185B5280000503B /* Payment */,
 				0DEA1F4F2166051A00649F8B /* Complaints */,
 				182A74D0209708A60025B6C7 /* Notification */,
@@ -1456,6 +1459,14 @@
 			name = TabViewController;
 			sourceTree = "<group>";
 		};
+		F0C0152B2656567900E3DD01 /* Xpress */ = {
+			isa = PBXGroup;
+			children = (
+				F0C0152C265656A900E3DD01 /* KTXpressBookingManager.swift */,
+			);
+			name = Xpress;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1777,6 +1788,7 @@
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
 				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
+				F0C0152D265656A900E3DD01 /* KTXpressBookingManager.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,

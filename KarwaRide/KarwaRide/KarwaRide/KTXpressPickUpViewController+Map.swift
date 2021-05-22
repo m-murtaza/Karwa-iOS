@@ -33,11 +33,26 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate, KTXpressPickUpViewMo
     else
     {
         let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
+//        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
         let name = "LocationManagerNotificationIdentifier"
         NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
         
         KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+        
+        
+        let coordinates = [(CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095)),
+          (CLLocationCoordinate2D(latitude: 25.31004, longitude: 51.52094)),
+          (CLLocationCoordinate2D(latitude: 25.3175, longitude: 51.54029)),
+          (CLLocationCoordinate2D(latitude: 25.33393, longitude: 51.54589)),
+          (CLLocationCoordinate2D(latitude: 25.33665, longitude: 51.51766)),
+          (CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095))]
+          
+          if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+              print("it contatins")
+          } else {
+              print("it wont contains")
+          }
+        
     }
   }
 }
@@ -62,7 +77,7 @@ extension KTXpressPickUpViewController
     }
 
     internal func addMap() {
-
+        
         let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14.0)
         
         showCurrentLocationDot(show: true)
@@ -81,10 +96,50 @@ extension KTXpressPickUpViewController
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
-      
-      mapView.delegate = self
+        
+        mapView.delegate = self
+        
+        self.focusMapToCurrentLocation()
+        self.polygon()
+        self.polygonNext()
+    }
     
-      self.focusMapToCurrentLocation()
+    func polygon(){
+        // Create a rectangular path
+        let rect = GMSMutablePath()
+        
+        rect.add(CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095))
+        rect.add(CLLocationCoordinate2D(latitude: 25.31004, longitude: 51.52094))
+        rect.add(CLLocationCoordinate2D(latitude: 25.3175, longitude: 51.54029))
+        rect.add(CLLocationCoordinate2D(latitude: 25.33393, longitude: 51.54589))
+        rect.add(CLLocationCoordinate2D(latitude: 25.33665, longitude: 51.51766))
+        rect.add(CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095))
+
+        
+        // Create the polygon, and assign it to the map.
+        let polygon = GMSPolygon(path: rect)
+        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
+        polygon.strokeColor = .black
+        polygon.strokeWidth = 2
+        polygon.map = mapView
+    }
+    
+    func polygonNext(){
+        // Create a rectangular path
+        let rect = GMSMutablePath()
+        
+        rect.add(CLLocationCoordinate2D(latitude: 25.32203, longitude: 51.52779))
+        rect.add(CLLocationCoordinate2D(latitude: 25.32208, longitude: 51.52872))
+        rect.add(CLLocationCoordinate2D(latitude: 25.32394, longitude: 51.52868))
+        rect.add(CLLocationCoordinate2D(latitude: 25.32385, longitude: 51.5278))
+        rect.add(CLLocationCoordinate2D(latitude: 25.32203, longitude: 51.52779))
+
+        // Create the polygon, and assign it to the map.
+        let polygon = GMSPolygon(path: rect)
+        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
+        polygon.strokeColor = .black
+        polygon.strokeWidth = 2
+        polygon.map = mapView
     }
     
     internal func showCurrentLocationDot(show: Bool) {
@@ -102,6 +157,7 @@ extension KTXpressPickUpViewController
         {
             let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
             self.mapView?.animate(to: camera)
+        
         }
         else
         {
@@ -486,4 +542,22 @@ extension KTXpressPickUpViewController
       self.present(alertController, animated: true, completion: nil)
     }
     
+}
+
+extension CLLocationCoordinate2D {
+
+    func contained(by vertices: [CLLocationCoordinate2D]) -> Bool {
+        let path = CGMutablePath()
+
+        for vertex in vertices {
+            if path.isEmpty {
+                path.move(to: CGPoint(x: vertex.longitude, y: vertex.latitude))
+            } else {
+                path.addLine(to: CGPoint(x: vertex.longitude, y: vertex.latitude))
+            }
+        }
+
+        let point = CGPoint(x: self.longitude, y: self.latitude)
+        return path.contains(point)
+    }
 }

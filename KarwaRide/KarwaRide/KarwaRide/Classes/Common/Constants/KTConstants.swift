@@ -465,6 +465,7 @@ struct Constants {
         static let MPGSCreateSession = "mpgs/session"
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
+        static let GetRSAreas = "rs/areas?"
     }
     
     struct TrackTaxiParams {

@@ -13,6 +13,8 @@ import Spring
 class KTXpressPickUpViewController: KTBaseCreateBookingController {
 
     @IBOutlet weak var pickUpAddressLabel: SpringLabel!
+    @IBOutlet weak var markerButton: SpringButton!
+
 //
 //    @IBOutlet weak var pickUpButton: SpringButton!
 //
@@ -61,13 +63,9 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController {
             self.vModel?.setupCurrentLocaiton()
         }
         
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4)
-//        {
-//            self.vModel?.setupCurrentLocaiton()
-//        }
-        
-//        pickUpButton.titleLabel?.numberOfLines = 2; // if you want unlimited number of lines put 0
-
+        KTXpressBookingManager().getZoneWithSync { (status, response) in
+            
+        }
         
     }
     

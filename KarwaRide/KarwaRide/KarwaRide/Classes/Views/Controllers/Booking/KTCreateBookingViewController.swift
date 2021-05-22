@@ -281,7 +281,6 @@ class KTCreateBookingViewController:
   override func viewDidLoad() {
     viewModel = KTCreateBookingViewModel(del:self)
     vModel = viewModel as? KTCreateBookingViewModel
-    
     if booking != nil {
       vModel?.booking = booking!
       (viewModel as! KTCreateBookingViewModel).setRemoveBookingOnReset(removeBookingOnReset: removeBookingOnReset)
@@ -401,6 +400,7 @@ class KTCreateBookingViewController:
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
     self.mapViewBottomConstraint.constant = 270
+    self.tabBarController?.tabBar.isHidden = false
   }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
