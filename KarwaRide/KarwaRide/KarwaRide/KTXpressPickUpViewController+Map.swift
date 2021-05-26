@@ -11,7 +11,7 @@ import GoogleMaps
 
 extension KTXpressPickUpViewController: GMSMapViewDelegate, KTXpressPickUpViewModelDelegate {
     
-  
+
   func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
     if gesture {
 //      self.showCurrentLocationButton()
@@ -33,25 +33,34 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate, KTXpressPickUpViewMo
     else
     {
         let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-//        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
+        //        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
         let name = "LocationManagerNotificationIdentifier"
         NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
         
         KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         
-        
-        let coordinates = [(CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095)),
-          (CLLocationCoordinate2D(latitude: 25.31004, longitude: 51.52094)),
-          (CLLocationCoordinate2D(latitude: 25.3175, longitude: 51.54029)),
-          (CLLocationCoordinate2D(latitude: 25.33393, longitude: 51.54589)),
-          (CLLocationCoordinate2D(latitude: 25.33665, longitude: 51.51766)),
-          (CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095))]
-          
-          if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-              print("it contatins")
-          } else {
-              print("it wont contains")
-          }
+        if let string = (self.viewModel as! KTXpressPickUpViewModel).areas.filter({$0.type! == "OperatingArea"}).first?.bound {
+            
+            let coordinates = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            
+            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                print("it contains")
+                self.setPickUpButton.setTitle("Set Pickup", for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = true
+            } else {
+                print("it wont contains")
+                self.setPickUpButton.setTitle("OUT OF ZONE", for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor.clear
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = false
+            }
+        }
         
     }
   }
@@ -100,21 +109,31 @@ extension KTXpressPickUpViewController
         mapView.delegate = self
         
         self.focusMapToCurrentLocation()
-        self.polygon()
-        self.polygonNext()
+//        self.polygon()
+//        self.polygonNext()
+    }
+        
+    func addPickUpLocations() {
+        for item in (self.viewModel as! KTXpressPickUpViewModel).pickUpArea {
+            let _ = item.bound.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image: #imageLiteral(resourceName: "metro_ico_map"))
+               return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+        }
     }
     
-    func polygon(){
+    func setPolygon() {
         // Create a rectangular path
         let rect = GMSMutablePath()
         
-        rect.add(CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095))
-        rect.add(CLLocationCoordinate2D(latitude: 25.31004, longitude: 51.52094))
-        rect.add(CLLocationCoordinate2D(latitude: 25.3175, longitude: 51.54029))
-        rect.add(CLLocationCoordinate2D(latitude: 25.33393, longitude: 51.54589))
-        rect.add(CLLocationCoordinate2D(latitude: 25.33665, longitude: 51.51766))
-        rect.add(CLLocationCoordinate2D(latitude: 25.32003, longitude: 51.51095))
-
+        let string = (self.viewModel as! KTXpressPickUpViewModel).areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
+        
+        let array = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+            rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
+           return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+        }
+        
+        print(array)
         
         // Create the polygon, and assign it to the map.
         let polygon = GMSPolygon(path: rect)
@@ -123,7 +142,7 @@ extension KTXpressPickUpViewController
         polygon.strokeWidth = 2
         polygon.map = mapView
     }
-    
+
     func polygonNext(){
         // Create a rectangular path
         let rect = GMSMutablePath()
@@ -191,8 +210,6 @@ extension KTXpressPickUpViewController
     @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
         addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
     }
-    
-    
     
     @objc func addOrRemoveOrMoveMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
         

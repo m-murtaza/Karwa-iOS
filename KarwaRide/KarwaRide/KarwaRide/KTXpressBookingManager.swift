@@ -10,6 +10,9 @@ import Foundation
 
 import UIKit
 
+
+
+
 let ZONE_SYNC_TIME = "ZoneSyncTime"
 
 class KTXpressBookingManager: KTBaseFareEstimateManager {
@@ -18,9 +21,11 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         
         self.resetSyncTime(forKey: ZONE_SYNC_TIME)
 
-        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:ZONE_SYNC_TIME)]
+        //syncTime(forKey:ZONE_SYNC_TIME)
+        
+        let param : [String: Any] = [Constants.SyncParam.BookingList: 0 ]
                 
-        self.get(url: Constants.APIURL.GetRSAreas+"syncTime=\(syncTime(forKey:ZONE_SYNC_TIME))", param: nil, completion: completionBlock) { (response, cBlock) in
+        self.get(url: Constants.APIURL.GetRSAreas, param: param, completion: completionBlock) { (response, cBlock) in
             
             
             print(response)
@@ -28,7 +33,7 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
 //            let bookings = self.saveBookingsInDB(bookings: response[Constants.ResponseAPIKey.Data] as! [Any])
             self.updateSyncTime(forKey: ZONE_SYNC_TIME)
             
-            cBlock(Constants.APIResponseStatus.SUCCESS,["Constants.ResponseAPIKey":"test"])
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
     

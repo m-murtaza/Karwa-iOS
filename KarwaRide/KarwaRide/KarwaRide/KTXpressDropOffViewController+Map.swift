@@ -33,11 +33,35 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
     else
     {
         let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
+        //        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
         let name = "LocationManagerNotificationIdentifier"
         NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
         
         KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+        
+        if let string = self.areas.filter({$0.type! == "OperatingArea"}).first?.bound {
+            
+            let coordinates = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            
+            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                print("it contains")
+                self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                self.setDropOffButton.backgroundColor = UIColor(hexString: "#006170")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                self.setDropOffButton.isUserInteractionEnabled = true
+            } else {
+                print("it wont contains")
+                self.setDropOffButton.setTitle("OUT OF ZONE", for: .normal)
+                self.setDropOffButton.backgroundColor = UIColor.clear
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                self.setDropOffButton.isUserInteractionEnabled = false
+            }
+        }
+        
     }
   }
 }
@@ -87,6 +111,37 @@ extension KTXpressDropOffViewController
       self.focusMapToCurrentLocation()
     }
     
+    func polygon(){
+        // Create a rectangular path
+        let rect = GMSMutablePath()
+        
+        let string = self.areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
+        
+        let array = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+            rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
+           return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+        }
+        
+        print(array)
+        
+        // Create the polygon, and assign it to the map.
+        let polygon = GMSPolygon(path: rect)
+        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
+        polygon.strokeColor = .black
+        polygon.strokeWidth = 2
+        polygon.map = mapView
+    }
+    
+    
+    func addDropOffLocations() {
+        for item in self.dropOffArea {
+            let _ = item.bound.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image: #imageLiteral(resourceName: "metro_ico_map"))
+               return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+        }
+    }
+    
     internal func showCurrentLocationDot(show: Bool) {
         
         self.mapView!.isMyLocationEnabled = show
@@ -109,6 +164,7 @@ extension KTXpressDropOffViewController
             self.mapView?.animate(to: camera)
         }
     }
+    
     
     func imgForTrackMarker(_ vehicleType: Int16) -> UIImage {
         

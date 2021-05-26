@@ -18,6 +18,8 @@ protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location:CLLocation)
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setPickUp(pick: String?)
+    func setPolygon()
+    func addPickUpLocations()
 }
 
 class KTXpressPickUpViewModel: KTBaseViewModel {
@@ -26,6 +28,11 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var isFirstZoomDone = false
     static var askedToTurnOnLocaiton : Bool = false
+    
+    var areas = [Area]()
+    var destinations = [Destination]()
+    var pickUpArea = [Area]()
+    var metroStopsArea = [Area]()
 
     override func viewWillAppear() {
         
@@ -120,6 +127,69 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
       }
     }
     
+    func fetchOperatingArea() {
+        
+        KTXpressBookingManager().getZoneWithSync { (string, response) in
+                        
+            if let totalOperatingResponse = response["Response"] as? [String: Any] {
+                
+                print(totalOperatingResponse)
+                
+                if let totalAreas = totalOperatingResponse["Areas"] as? [[String:Any]] {
+
+                    for item in totalAreas {
+                        
+                        let area = Area(code: (item["Code"] as? Int)!, vehicleType:(item["VehicleType"] as? Int)!, name: (item["Name"] as? String)!, parent: (item["Parent"] as? Int)!, bound: (item["Bound"] as? String)!, type: (item["Type"] as? String)!, isActive: (item["IsActive"] as? Bool)!)
+                        
+                        self.areas.append(area)
+                                                
+                    }
+                    
+                    if self.delegate != nil {
+                      (self.delegate as! KTXpressPickUpViewModelDelegate).setPolygon()
+                    }
+                                                            
+                }
+                
+                if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
+
+                    for item in totalDestinations {
+                        
+                        let destination = Destination(source: (item["Source"] as? Int)!, destination: (item["Destination"] as? Int)!, isActive: (item["IsActive"] as? Bool)!)
+                        
+                        self.destinations.append(destination)
+                                                
+                    }
+                                        
+                                
+                }
+                
+                self.metroStopsArea = self.areas.filter{$0.type! == "MetroStop"}
+                
+                for item in self.metroStopsArea {
+                    
+                    if let pickUpLocation = self.destinations.filter({$0.source! == item.parent!}).first {
+                        if self.pickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
+                            
+                        } else {
+                            self.pickUpArea.append(item)
+                        }
+                    }
+                    
+                    
+                    
+                }
+                
+                print(self.pickUpArea)
+                
+                if self.delegate != nil {
+                  (self.delegate as! KTXpressPickUpViewModelDelegate).addPickUpLocations()
+                }
+                    
+            }
+            
+        }
+    }
     
     
 }

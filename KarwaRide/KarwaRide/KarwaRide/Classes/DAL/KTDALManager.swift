@@ -145,4 +145,10 @@ class KTDALManager: KTBase {
         return Date(timeIntervalSince1970: 0)
         //Default date of 1970
     }
+    
+    func addSyncTime(timeStamp: Double, key: String) {
+        let defaults: UserDefaults? = UserDefaults.standard
+        defaults?.set(timeStamp, forKey: key)
+        defaults?.synchronize()
+    }
 }

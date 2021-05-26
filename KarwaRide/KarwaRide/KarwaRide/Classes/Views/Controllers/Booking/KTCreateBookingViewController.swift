@@ -400,7 +400,6 @@ class KTCreateBookingViewController:
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
     self.mapViewBottomConstraint.constant = 270
-    self.tabBarController?.tabBar.isHidden = false
   }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
