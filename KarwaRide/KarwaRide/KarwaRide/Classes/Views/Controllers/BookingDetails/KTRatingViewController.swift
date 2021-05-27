@@ -24,6 +24,8 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     
     @IBOutlet weak var driverImgView : UIImageView!
     @IBOutlet weak var lblDriverName: UILabel!
+    @IBOutlet weak var arrowImgView : UIImageView!
+
     
     @IBOutlet weak var ratingDriverLabel: LocalisableLabel!
     @IBOutlet weak var btnSubmit: UIButton!
@@ -64,6 +66,8 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
             
             self.vModel?.ratingUpdate(rating: rating)
         }
+        
+        arrowImgView.image = #imageLiteral(resourceName: "single_des_ico").imageFlippedForRightToLeftLayoutDirection()
         
         showHideComplainableLabel(show: false)
         

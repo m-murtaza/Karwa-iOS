@@ -15,6 +15,8 @@ class KTFirstViewController: KTBaseViewController, KTFirstViewModelDelegate {
         self.viewModel = KTFirstViewModel(del: self)
         vModel = viewModel as? KTFirstViewModel
         super.viewDidLoad()
+                
+
         
         // Do any additional setup after loading the view.
     }
