@@ -479,12 +479,16 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
+            
             if self.lblDriverName.text!.count != 0 &&  self.shimmerView.isHidden == true {
                 showDriverInfoBox()
                 preRideDriver.isHidden = false
+                
+                constraintTripInfoMarginTop.constant = 5
                 constraintDriverInfoMarginTop.constant = 150
-                constraintVehicleInfoMarginTop.constant = 247
-                constraintReportIssueMarginTop.constant = 15
+                constraintVehicleInfoMarginTop.constant = 250
+                constraintReportIssueMarginTop.constant = 10
+
 //                constraintRebookMarginTop.constant = 375
                 showBtnComplain()
             } else {
@@ -582,7 +586,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         setHeaderFooter("str_cash".localized(), value: vModel?.totalFareOfTrip() ?? "")
         
         self.view.addSubview(fareBreakDownView)
-        
+        fareBreakDownView.backgroundColor = UIColor.clear
+                
         let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 2
         
         [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),

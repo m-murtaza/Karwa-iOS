@@ -680,7 +680,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 }
                 else
                 {
-                    self.del?.showRatingScreen()
                     self.fetchBooking((self.booking?.bookingId)!, true)
 //                    self.del?.showSuccessBanner("  ", "Trip status has been updated")
                     self.stopVehicleUpdateTimer()
@@ -712,6 +711,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 //                self.del?.showDriverInfoBox()
                 
                 self.booking = updatedBooking
+                
+                self.checkForRating()
                 
                 self.initializeViewWRTBookingStatus()
                 
@@ -1119,7 +1120,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
             {
                 del?.clearMaps()
-                checkForRating()
                 initializeViewWRTBookingStatus()
                 del?.showHideShareButton(false)
             }
