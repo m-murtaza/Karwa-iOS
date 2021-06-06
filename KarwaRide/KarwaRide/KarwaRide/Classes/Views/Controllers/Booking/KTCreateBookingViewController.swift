@@ -399,7 +399,7 @@ class KTCreateBookingViewController:
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
-    self.mapViewBottomConstraint.constant = 270
+    self.mapViewBottomConstraint.constant = 260
   }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {

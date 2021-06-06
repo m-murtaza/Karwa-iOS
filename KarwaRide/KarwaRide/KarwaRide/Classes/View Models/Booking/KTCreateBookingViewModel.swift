@@ -113,6 +113,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var isAdvanceBooking = false
     var encodedPath = ""
     var initialDateSetUp = true
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -133,6 +134,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         resetPromo()
         resetPromoOrBaseFare()
+        
+        checkUpdatedLanguage()
+        
     }
     
     override func viewWillAppear() {
@@ -168,6 +172,31 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             encodedPath = ""
             drawDirectionOnMap(encodedPath: "")
             showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
+        }
+            
+    }
+    
+    fileprivate func checkUpdatedLanguage() {
+        
+        guard let lanugage = UserDefaults.standard.value(forKey: "language") as? String else {
+            self.updateLanguageToServer()
+            return
+        }
+        
+        if lanugage != Device.language() {
+            self.updateLanguageToServer()
+        }
+        
+    }
+    
+   func updateLanguageToServer() {
+        UserDefaults.standard.set(Device.language(), forKey: "language")
+        guard let user: KTUser = KTUserManager().loginUserInfo() else {
+            return
+            
+        }
+        KTUserManager().updateUserInfo(name: user.name!, email: "", dob: "", gender: user.gender) { (status, response) in
+            print(response)
         }
     }
     
@@ -503,6 +532,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         else if estimates != nil{
             estimates?.removeAll()
             estimates = nil
+        } else {
+            (self.delegate as! KTCreateBookingViewModelDelegate).reloadSelection()
         }
         
     }
@@ -643,14 +674,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     func vTypeEta(forIndex idx: Int) -> String {
         var result = ""
+        
         if let vehicles = self.vehicleTypes {
             
-            if initialDateSetUp == false && (selectedPickupDateTime > Date())  {
-                result = "str_estimated_fare".localized()
-            } else if  !isDropAvailable() && (selectedPickupDateTime <= Date()) {
+            if  !isDropAvailable() && (selectedPickupDateTime >= Date()) {
                 result =  "str_starting_fare".localized()
-            }
-            else {
+            } else if isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result = "str_estimated_fare".localized()
+            } else {
                 result = vehicles[idx].etaText ?? "" == "" ? "txt_not_available".localized() : (vehicles[idx].etaText ?? "txt_not_available".localized())
             }
             
@@ -1536,5 +1567,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
     }
 }
+
 
 

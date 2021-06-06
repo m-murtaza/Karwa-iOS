@@ -65,7 +65,10 @@ class KTBookingManager: KTBaseFareEstimateManager {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
                 
                 estimate?.toKeyValueHeader = estimate?.toKeyValueHeader!.adding(kv)
-                job.bookingToEstimate = estimate
+                
+                if job.bookingToEstimate != nil {
+                    job.bookingToEstimate = estimate
+                }
                 estimate?.fareestimateToBooking = job
                 
             }

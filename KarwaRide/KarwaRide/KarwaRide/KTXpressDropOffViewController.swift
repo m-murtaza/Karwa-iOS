@@ -24,14 +24,19 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
     
     @IBOutlet weak var markerButton: SpringButton!
     
-    var areas = [Area]()
-    var destinations = [Destination]()
-    var dropOffArea = [Area]()
-    var metroStopsArea = [Area]()
-    
     var vModel : KTXpressDropoffViewModel?
 
     var dropSet: Bool?
+    
+    var destinationsForPickUp = [Area]()
+    var pickUpZone: Area?
+    var pickUpStation: Area?
+    var pickUpStop: Area?
+
+    var dropOffLocation: Area?
+    
+    var pickUpCoordinate: CLLocationCoordinate2D?
+    var dropOffCoordinate: CLLocationCoordinate2D?
 
     override func viewDidLoad() {
         viewModel = KTXpressDropoffViewModel(del:self)
@@ -40,7 +45,6 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
         
         if booking != nil {
             vModel?.booking = booking!
-            //          (viewModel as! KTCreateBookingViewModel).setRemoveBookingOnReset(removeBookingOnReset: removeBookingOnReset)
         }
         super.viewDidLoad()
         
@@ -55,62 +59,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
         {
             self.vModel?.setupCurrentLocaiton()
         }
-        
-        KTXpressBookingManager().getZoneWithSync { (string, response) in
-                        
-            if let totalOperatingResponse = response["Response"] as? [String: Any] {
-                
-                print(totalOperatingResponse)
-                
-                if let totalAreas = totalOperatingResponse["Areas"] as? [[String:Any]] {
 
-                    for item in totalAreas {
-                        
-                        let area = Area(code: (item["Code"] as? Int)!, vehicleType:(item["VehicleType"] as? Int)!, name: (item["Name"] as? String)!, parent: (item["Parent"] as? Int)!, bound: (item["Bound"] as? String)!, type: (item["Type"] as? String)!, isActive: (item["IsActive"] as? Bool)!)
-                        
-                        self.areas.append(area)
-                                                
-                    }
-                                        
-                    self.polygon()
-                    
-                }
-                
-                if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
-
-                    for item in totalDestinations {
-                        
-                        let destination = Destination(source: (item["Source"] as? Int)!, destination: (item["Destination"] as? Int)!, isActive: (item["IsActive"] as? Bool)!)
-                        
-                        self.destinations.append(destination)
-                                                
-                    }
-                                        
-                                
-                }
-                
-                self.metroStopsArea = self.areas.filter{$0.type! == "MetroStop"}
-                
-                for item in self.metroStopsArea {
-                    
-                    if let dropOffLocation = self.destinations.filter({$0.destination! == item.parent!}).first {
-                        if self.dropOffArea.contains(where: {$0.parent! == dropOffLocation.destination }) {
-                            
-                        } else {
-                            self.dropOffArea.append(item)
-                        }
-                    }
-                                        
-                }
-                
-                print(self.dropOffArea)
-                
-                self.addDropOffLocations()
-                
-            }
-            
-        }
-        
     }
     
     func setDropOff(pick: String?) {

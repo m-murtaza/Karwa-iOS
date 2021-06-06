@@ -239,6 +239,9 @@
 		F0762A8426552785000E36F2 /* KTXpressAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0762A82265523CC000E36F2 /* KTXpressAddressViewController.swift */; };
 		F08E6F22264EB14C00235674 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08E6F21264EB14C00235674 /* TabViewController.swift */; };
 		F0A5D1E42650FF780022C82D /* KTXpressPickUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A5D1E32650FF770022C82D /* KTXpressPickUpViewModel.swift */; };
+		F0AA6C9026639F6100B45469 /* KTXpressRideCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA6C8F26639F6100B45469 /* KTXpressRideCreationViewController.swift */; };
+		F0AA6C932663ADB000B45469 /* KTXpressRideCreationViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA6C922663ADB000B45469 /* KTXpressRideCreationViewController+Map.swift */; };
+		F0AA6C972663AE8400B45469 /* KTXpressRideCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AA6C962663AE8400B45469 /* KTXpressRideCreationViewModel.swift */; };
 		F0C0152D265656A900E3DD01 /* KTXpressBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C0152C265656A900E3DD01 /* KTXpressBookingManager.swift */; };
 		F0CFCF98265C94F0008E9440 /* XpressAreasModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CFCF97265C94F0008E9440 /* XpressAreasModel.swift */; };
 /* End PBXBuildFile section */
@@ -494,6 +497,9 @@
 		F0762A82265523CC000E36F2 /* KTXpressAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressAddressViewController.swift; sourceTree = "<group>"; };
 		F08E6F21264EB14C00235674 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		F0A5D1E32650FF770022C82D /* KTXpressPickUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressPickUpViewModel.swift; sourceTree = "<group>"; };
+		F0AA6C8F26639F6100B45469 /* KTXpressRideCreationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressRideCreationViewController.swift; sourceTree = "<group>"; };
+		F0AA6C922663ADB000B45469 /* KTXpressRideCreationViewController+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KTXpressRideCreationViewController+Map.swift"; sourceTree = "<group>"; };
+		F0AA6C962663AE8400B45469 /* KTXpressRideCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressRideCreationViewModel.swift; sourceTree = "<group>"; };
 		F0C0152C265656A900E3DD01 /* KTXpressBookingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressBookingManager.swift; sourceTree = "<group>"; };
 		F0CFCF97265C94F0008E9440 /* XpressAreasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpressAreasModel.swift; sourceTree = "<group>"; };
 		FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
@@ -1096,6 +1102,7 @@
 			children = (
 				F0A5D1E32650FF770022C82D /* KTXpressPickUpViewModel.swift */,
 				F016F4AB2654EA6D009242DD /* KTXpressDropoffViewModel.swift */,
+				F0AA6C962663AE8400B45469 /* KTXpressRideCreationViewModel.swift */,
 				0D80810821AE60B40055E473 /* TripTrack */,
 				0DE90AF52186E9D1005FC934 /* ScanAndPayViewModel */,
 				0D1A4B58216CA85B00279AA6 /* ComplaintsVM */,
@@ -1461,6 +1468,8 @@
 				F016F4AF2654F7F6009242DD /* KTXpressPickUpViewController.swift */,
 				F016F4B32654F8D4009242DD /* KTXpressDropOffViewController+Map.swift */,
 				F04F2D3D264EF15500300C6E /* KTXpressDropOffViewController.swift */,
+				F0AA6C8F26639F6100B45469 /* KTXpressRideCreationViewController.swift */,
+				F0AA6C922663ADB000B45469 /* KTXpressRideCreationViewController+Map.swift */,
 			);
 			name = TabViewController;
 			sourceTree = "<group>";
@@ -1818,6 +1827,7 @@
 				0DE6A742218B141200125507 /* MPGSDK.swift in Sources */,
 				0D0A068A25823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift in Sources */,
 				0DD0F43B2580DAE50089CECD /* ButtonExt.swift in Sources */,
+				F0AA6C972663AE8400B45469 /* KTXpressRideCreationViewModel.swift in Sources */,
 				182A74DE209EDCF20025B6C7 /* AddressPickCell.swift in Sources */,
 				0DE6A748218B141200125507 /* Gateway3DSecureViewController.swift in Sources */,
 				1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */,
@@ -1854,6 +1864,7 @@
 				1839111A20457E1E002EDE1A /* KTSettingsProfileTableViewCell.swift in Sources */,
 				18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */,
 				0DF0CD3821E3740900124058 /* PromoCodePopupVC.swift in Sources */,
+				F0AA6C9026639F6100B45469 /* KTXpressRideCreationViewController.swift in Sources */,
 				1811E4E0204FD22300C3C47F /* KTBookmarkManager.swift in Sources */,
 				18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */,
 				18F2B2792044214000600966 /* KTSettingsViewController.swift in Sources */,
@@ -1880,6 +1891,7 @@
 				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
 				181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */,
 				0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */,
+				F0AA6C932663ADB000B45469 /* KTXpressRideCreationViewController+Map.swift in Sources */,
 				0D685A86218CB1F200DB2CDB /* MAKHash.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
 				441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */,
@@ -2106,7 +2118,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 167;
+				CURRENT_PROJECT_VERSION = 168;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
@@ -2138,7 +2150,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 167;
+				CURRENT_PROJECT_VERSION = 168;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

@@ -18,52 +18,73 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
     }
   }
   
-  func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-    if(mapView.camera.target.latitude == 0.0)
-    {
-        //TODO: Move Camera to default Location
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let location = CLLocation(latitude: 25.281308, longitude: 51.531917)
-            //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
-            let name = "LocationManagerNotificationIdentifier"
-            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
-        }
-    }
-    else
-    {
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        
         let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        //        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
         let name = "LocationManagerNotificationIdentifier"
         NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
         
         KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         
-        if let string = self.areas.filter({$0.type! == "OperatingArea"}).first?.bound {
+        for item in destinationsForPickUp {
+                         
+                let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                }
+                
+                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                    
+                    if pickUpStation != nil {
+                        
+                        let pickupCoordinates = pickUpStation!.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                        }
+                        
+                        if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
+                            
+                            print("not permitted")
+                            self.setDropOffButton.setTitle("SET DROP OFF TO PERMITTED ZONE", for: .normal)
+                            self.setDropOffButton.backgroundColor = UIColor.clear
+                            self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                            self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                            self.setDropOffButton.isUserInteractionEnabled = false
+                            
+                        }
+                        else {
+                            
+                            print("Permitted")
+                            self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                            self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                            self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                            self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                            self.setDropOffButton.isUserInteractionEnabled = true
+                            
+                            break
+                            
+                        }
+                    } else {
+                        print("Permitted")
+                        self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                        self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                        self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                        self.setDropOffButton.isUserInteractionEnabled = true
+                        break
+                    }
+                                        
+                } else {
+                    print("it wont contains")
+                    self.setDropOffButton.setTitle("OUT OF ZONE", for: .normal)
+                    self.setDropOffButton.backgroundColor = UIColor.clear
+                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                    self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                    self.setDropOffButton.isUserInteractionEnabled = false
+                }
             
-            let coordinates = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            }
-            
-            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                print("it contains")
-                self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
-                self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                self.setDropOffButton.backgroundColor = UIColor(hexString: "#006170")
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
-                self.setDropOffButton.isUserInteractionEnabled = true
-            } else {
-                print("it wont contains")
-                self.setDropOffButton.setTitle("OUT OF ZONE", for: .normal)
-                self.setDropOffButton.backgroundColor = UIColor.clear
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
-                self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
-                self.setDropOffButton.isUserInteractionEnabled = false
-            }
         }
-        
+                
     }
-  }
+
 }
 
 extension KTXpressDropOffViewController
@@ -87,10 +108,19 @@ extension KTXpressDropOffViewController
 
     internal func addMap() {
 
-        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14.0)
+        dropOffCoordinate = CLLocationCoordinate2D(latitude: pickUpCoordinate!.latitude.advanced(by: 0.00100), longitude: pickUpCoordinate!.longitude.advanced(by: 0.00100))
+        
+        let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 14.0)
         
         showCurrentLocationDot(show: true)
+        
         self.mapView.camera = camera;
+        
+        self.addMarkerOnMap(location: pickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+        
+        markerButton.isHidden = false
+        
+//        self.addMarkerOnMap(location: dropOffCoordinate!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
         
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         mapView.padding = padding
@@ -106,18 +136,32 @@ extension KTXpressDropOffViewController
             NSLog("One or more of the map styles failed to load. \(error)")
         }
       
-      mapView.delegate = self
+        mapView.delegate = self
+        
+        if self.pickUpStop != nil {
+            self.polygon(bounds: (self.pickUpStation?.bound!)!, type: "Pick")
+        } else {
+            self.polygon(bounds: (self.pickUpZone?.bound!)!, type: "Pick")
+        }
     
-      self.focusMapToCurrentLocation()
+        for item in destinationsForPickUp {
+            self.polygon(bounds: item.bound!, type: "")
+        }
+        
+      //self.focusMapToCurrentLocation()
+        
     }
     
-    func polygon(){
+    func polygon(bounds: String, type: String){
+        
+        if type == "Pick" {
+            
+        }
+        
         // Create a rectangular path
         let rect = GMSMutablePath()
-        
-        let string = self.areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
-        
-        let array = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                
+        let array = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
             rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
         }
@@ -132,15 +176,6 @@ extension KTXpressDropOffViewController
         polygon.map = mapView
     }
     
-    
-    func addDropOffLocations() {
-        for item in self.dropOffArea {
-            let _ = item.bound.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image: #imageLiteral(resourceName: "metro_ico_map"))
-               return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            }
-        }
-    }
     
     internal func showCurrentLocationDot(show: Bool) {
         
@@ -165,237 +200,10 @@ extension KTXpressDropOffViewController
         }
     }
     
-    
-    func imgForTrackMarker(_ vehicleType: Int16) -> UIImage {
-        
-        var img : UIImage?
-        switch vehicleType  {
-        case VehicleType.KTAirportSpare.rawValue, VehicleType.KTCityTaxi.rawValue:
-            img = UIImage(named:"BookingMapTaxiIco")
-        case VehicleType.KTCityTaxi7Seater.rawValue:
-            img = UIImage(named: "BookingMap7Ico")
-        case VehicleType.KTSpecialNeedTaxi.rawValue:
-                img = UIImage(named: "BookingMapSpecialNeedIco")
-        case VehicleType.KTStandardLimo.rawValue:
-            img = UIImage(named: "BookingMapStandardIco")
-        case VehicleType.KTBusinessLimo.rawValue:
-            img = UIImage(named: "BookingMapBusinessIco")
-        case VehicleType.KTLuxuryLimo.rawValue:
-            img = UIImage(named: "BookingMapLuxuryIco")
-        default:
-            img = UIImage(named:"BookingMapTaxiIco")
-        }
-        return img!
-    }
-    
-    @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
-        addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
-    }
-    
-    
-    
-    @objc func addOrRemoveOrMoveMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
-        
-        removeUnRetainedMarkers(nearbyVehiclesNew: vTrack)
-        addNewMarkers(nearbyVehiclesNew: vTrack)
-        moveVehiclesIfRequired(nearbyVehiclesNew: vTrack)
-
-//        gmsMarker.removeAll()
-//        clearMap()
-//        vTrack.forEach
-//        { track in
-//            if !track.position.isZeroCoordinate
-//            {
-//                let marker = GMSMarker()
-//                marker.snippet = track.vehicleNo
-//                marker.position = track.position
-//
-//                if track.trackType == VehicleTrackType.vehicle
-//                {
-//                    marker.rotation = CLLocationDegrees(track.bearing)
-//                    marker.icon = imgForTrackMarker(vehicleType)
-//                    marker.map = self.mapView
-//                }
-//
-//                gmsMarker.append(marker)
-//            }
-//        }
-//        if gmsMarker.count > 0
-//        {
-//            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-//        }
-//        else
-//        {
-//            self.focusMapToCurrentLocation()
-//        }
-    }
-    
-    private func moveVehiclesIfRequired(nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        let markersNeedsToMove = getMarkersNeedsToMove(nearbyVehiclesNew: newVehicles)
-
-        for markerNeedsToMove in markersNeedsToMove
-        {
-            for newTrack in newVehicles
-            {
-                if(markerNeedsToMove.snippet == newTrack.vehicleNo)
-                {
-                    moveMarker(marker: markerNeedsToMove, from: markerNeedsToMove.position, to: newTrack.position, degree: newTrack.bearing)
-                    break
-                }
-            }
-        }
-    }
-    
-    private func moveMarker(marker markerNeedsToMove: GMSMarker, from fromCoordinate : CLLocationCoordinate2D, to toCoordinate : CLLocationCoordinate2D, degree rotation : Float)
-    {
-        // Keep Rotation Short
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(1.5)
-        markerNeedsToMove.rotation = CLLocationDegrees(rotation)
-        CATransaction.commit()
-        
-        // Movement
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(4)
-        markerNeedsToMove.position = toCoordinate
-        
-        // Center Map View
-//        let camera = GMSCameraUpdate.setTarget(coordinates)
-//        mapView.animateWithCameraUpdate(camera)
-        
-        CATransaction.commit()
-    }
-    
-    private func getMarkersNeedsToMove(nearbyVehiclesNew newVehicles:[VehicleTrack]) -> [GMSMarker]
-    {
-        var updatedVehicleMarkers : [GMSMarker] = []
-        
-        for oldVehicleMarker in gmsMarker
-        {
-            for newVehicle in newVehicles
-            {
-                if(oldVehicleMarker.snippet == newVehicle.vehicleNo)
-                {
-                    updatedVehicleMarkers.append(oldVehicleMarker)
-                    break
-                }
-            }
-        }
-        return updatedVehicleMarkers
-    }
-    
-    private func removeUnRetainedMarkers(nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        if(newVehicles.count == 0)
-        {
-            for oldMarker in gmsMarker
-            {
-                oldMarker.map = nil
-            }
-        }
-        else
-        {
-            for oldMarker in gmsMarker
-            {
-                var indexCount = 0
-                
-                for newVehicle in newVehicles
-                {
-                    if(oldMarker.snippet! == newVehicle.vehicleNo)
-                    {
-                        break
-                    }
-                    indexCount = indexCount + 1
-                }
-                
-                if(indexCount == newVehicles.count)
-                {
-                    removeMarkerFromMap(markerToBeRemoved: oldMarker)
-                }
-            }
-        }
-    }
-    
     private func removeMarkerFromMap(markerToBeRemoved marker:GMSMarker)
     {
         gmsMarker.remove(at: gmsMarker.index(of: marker)!)
         marker.map = nil
-    }
-    
-    private func addNewMarkers(nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        if(gmsMarker.count == 0)
-        {
-            for newVehicle in newVehicles
-            {
-                addOneMarkerOnMap(vTrack: newVehicle)
-            }
-        }
-        else
-        {
-            for newVehicle in newVehicles
-            {
-                var indexCount = 0
-                for i in 0 ... gmsMarker.count - 1
-                {
-                    indexCount = indexCount + 1
-                    if(newVehicle.vehicleNo == gmsMarker[i].snippet)
-                    {
-                        break;
-                    }
-                }
-                if(indexCount == gmsMarker.count)
-                {
-                    addOneMarkerOnMap(vTrack: newVehicle)
-                }
-            }
-        }
-    }
-    
-    private func addOneMarkerOnMap(vTrack: VehicleTrack)
-    {
-        let marker = GMSMarker()
-        marker.position = vTrack.position
-        marker.snippet = vTrack.vehicleNo
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-        marker.appearAnimation = GMSMarkerAnimation.pop
-
-        if vTrack.trackType == VehicleTrackType.vehicle
-        {
-            marker.rotation = CLLocationDegrees(vTrack.bearing)
-            marker.icon = imgForTrackMarker(Int16(vTrack.vehicleType))
-            marker.map = self.mapView
-        }
-
-        gmsMarker.append(marker)
-    }
-    
-    @objc func addMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
-        gmsMarker.removeAll()
-        clearMap()
-        vTrack.forEach { track in
-            if !track.position.isZeroCoordinate   {
-                let marker = GMSMarker()
-                marker.position = track.position
-                
-                if track.trackType == VehicleTrackType.vehicle {
-                    marker.rotation = CLLocationDegrees(track.bearing)
-                    marker.icon = imgForTrackMarker(vehicleType)
-                    marker.map = self.mapView
-                }
-                
-                gmsMarker.append(marker)
-            }
-        }
-        if gmsMarker.count > 0
-        {
-            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-        }
-        else
-        {
-            self.focusMapToCurrentLocation()
-        }
     }
     
     func focusMapToCurrentLocation()
@@ -406,59 +214,18 @@ extension KTXpressDropOffViewController
             mapView.animate(with: update)
         }
     }
-    
-    func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
         
-        var bounds = GMSCoordinateBounds()
-        for marker: GMSMarker in gmsMarker {
-            bounds = bounds.includingCoordinate(marker.position)
-        }
-        
-        var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds,
-                                     with: UIEdgeInsets(top: 100, left: 50, bottom: 150, right: 50))
-        
-        CATransaction.begin()
-        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.animate(with: update!)
-        CATransaction.commit()
-        
-//
-        // focus to fit all the point including path, pick and destination in map camera
-        
-        if path.count() != 0 {
-            let inset = UIEdgeInsets(top: 100, left: 50, bottom: 100, right: 50)
-            focusMapToFitRoute(pointA: path.coordinate(at: 0),
-                               pointB: path.coordinate(at: path.count()-1),
-                               path: path,
-                               inset: inset)
-        }
-        
-        
-    }
-    
     func clearMap()
     {
         mapView.clear()
     }
-    
-    func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
-        let marker = GMSMarker()
-        marker.position = location
         
-        marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
-        marker.map = self.mapView
-        
-        return marker
-    }
-    
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
         marker.position = location
         
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.2,y:1)
         marker.map = self.mapView
     }
     
@@ -467,92 +234,6 @@ extension KTXpressDropOffViewController
         let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
         mapView.animate(with: update)
-    }
-    
-  public func addPointsOnMap(points: String) {
-    if(!points.isEmpty) {
-      // set the line color to
-      bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
-      // clear map to remove already drawn pickup and destination pins
-      self.mapView.clear()
-      // create path for router
-      path = GMSMutablePath(fromEncodedPath: points)!
-      polyline = GMSPolyline.init(path: path)
-      polyline.strokeWidth = 3
-      polyline.strokeColor = bgPolylineColor
-      polyline.map = self.mapView
-      
-      // draw pickup and destimation pins from path
-      let pickup = path.coordinate(at:0)
-      let dropoff = path.coordinate(at:path.count()-1)
-      addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
-      addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
-      
-      let inset = UIEdgeInsets(top: 100, left: 100, bottom: 200, right: 100)
-      
-      // focus to fit all the point including path, pick and destination in map camera
-      focusMapToFitRoute(pointA: path.coordinate(at: 0),
-                         pointB: path.coordinate(at: path.count()-1),
-                         path: path,
-                         inset: inset)
-    }
-  }
-  
-  func focusMapToFitRoute(pointA: CLLocationCoordinate2D, pointB: CLLocationCoordinate2D, path: GMSMutablePath, inset: UIEdgeInsets) {
-
-    if pointA.latitude == 0 && pointA.longitude == 0 {
-      return
-    }
-
-    //var bounds: GMSCoordinateBounds
-
-    let c1 = pointA // swiftlint:disable:this identifier_name
-    let c2 = pointB // swiftlint:disable:this identifier_name
-
-    let mapCenter = CLLocationCoordinate2DMake((c1.latitude + c2.latitude)/2, (c1.longitude + c2.longitude)/2)
-
-    var bounds = GMSCoordinateBounds.init(coordinate: mapCenter, coordinate: mapCenter)
-
-    bounds = bounds.includingCoordinate(c1)
-    bounds = bounds.includingCoordinate(c2)
-    bounds = bounds.includingPath(path)
-
-    if let mutableCamera: GMSMutableCameraPosition = self.mapView.camera.mutableCopy() as? GMSMutableCameraPosition {
-      mutableCamera.target = mapCenter
-      self.mapView.camera = mutableCamera
-      self.mapView.animate(with: GMSCameraUpdate.fit(bounds, with: inset))
-    }
-  }
-    
-    @objc func animatePolylinePath() {
-        
-        if (self.i < self.path.count()) {
-            
-            self.animationPath.add(self.path.coordinate(at: self.i))
-            self.animationPolyline?.path = self.animationPath
-            self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-            self.animationPolyline?.strokeWidth = 4
-            self.animationPolyline?.map = nil
-            self.animationPolyline?.map = self.mapView
-            self.i += 1
-        }
-        else if self.i == self.path.count() {
-            timer.invalidate()
-            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-            self.i += 1
-            
-            //self.i = 0
-            self.animationPath = GMSMutablePath()
-            self.animationPolyline?.map = nil
-            polyline.strokeColor = bgPolylineColor
-        }
-        else {
-            
-            self.i = 0
-            
-            timer.invalidate()
-//            self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-        }
     }
     
     //MARK:- Locations

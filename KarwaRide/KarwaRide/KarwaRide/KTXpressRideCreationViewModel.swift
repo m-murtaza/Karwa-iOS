@@ -13,14 +13,15 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
-protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
+protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func showAlertForLocationServerOn()
     func updateLocationInMap(location:CLLocation)
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setDropOff(pick: String?)
+    func setPickup(pick: String?)
 }
 
-class KTXpressDropoffViewModel: KTBaseViewModel {
+class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     var booking : KTBooking = KTBookingManager().booking()
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
@@ -29,7 +30,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 
     override func viewWillAppear() {
         
-//        setupCurrentLocaiton()
+        setupCurrentLocaiton()
         
         super.viewWillAppear()
         
@@ -39,10 +40,21 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 
     func setupCurrentLocaiton() {
       if KTLocationManager.sharedInstance.locationIsOn() {
-    
+        if KTLocationManager.sharedInstance.isLocationAvailable {
+          var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
+          var userInfo : [String :Any] = [:]
+          userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
+          
+          notification.userInfo = userInfo
+          //notification.userInfo!["location"] as! CLLocation
+          LocationManagerLocaitonUpdate(notification: notification)
+        }
+        else {
+          KTLocationManager.sharedInstance.start()
+        }
       }
       else if KTXpressDropoffViewModel.askedToTurnOnLocaiton == false{
-        (delegate as! KTXpressPickUpViewModelDelegate).showAlertForLocationServerOn()
+        (delegate as! KTXpressRideCreationViewModelDelegate).showAlertForLocationServerOn()
         KTXpressDropoffViewModel.askedToTurnOnLocaiton = true
         
       }
@@ -51,7 +63,36 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     @objc func LocationManagerLocaitonUpdate(notification: Notification)
     {
           let location : CLLocation = notification.userInfo!["location"] as! CLLocation
+          var updateMap = true
+
+          if let info = notification.userInfo, let check = info["updateMap"] as? Bool
+          {
+            updateMap = check
+//            del?.setETAString(etaString: "")
+          }
+          
+          //Show user Location on map
+          if currentBookingStep == BookingStep.step1
+          {
+               if updateMap
+               {
+                  if(isFirstZoomDone)
+                  {
+                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateLocationInMap(location: location, shouldZoomToDefault: false)
+                  }
+                  else
+                  {
+                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateLocationInMap(location: location, shouldZoomToDefault: true)
+                      isFirstZoomDone = true
+                  }
+               }
+
+              //Fetch location name (from Server) for current location.
+
+          }
+        
         self.fetchLocationName(forGeoCoordinate: location.coordinate)
+        
     }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
@@ -68,14 +109,29 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
           DispatchQueue.main.async {
             //self.delegate?.userIntraction(enable: true)
             if self.delegate != nil {
-              (self.delegate as! KTXpressDropoffViewModelDelegate).setDropOff(pick: self.booking.pickupAddress)
+              (self.delegate as? KTXpressRideCreationViewModelDelegate)?
+                .setDropOff(pick: self.booking.pickupAddress)
             }
           }
         }
       }
     }
     
+    func fareDetailsHeader() -> [KTKeyValue]? {
+        
+        guard let _ = booking.toKeyValueHeader else {
+            return nil
+        }
+        return (booking.toKeyValueHeader?.array as! [KTKeyValue])
+        
+    }
     
+    func fareDetailsBody() -> [KTKeyValue]? {
+        guard let _ = booking.toKeyValueBody else {
+            return nil
+        }
+        return (booking.toKeyValueBody?.array as! [KTKeyValue])
+    }
     
 }
 

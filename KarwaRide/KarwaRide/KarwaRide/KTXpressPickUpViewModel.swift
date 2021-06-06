@@ -20,6 +20,8 @@ protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func setPickUp(pick: String?)
     func setPolygon()
     func addPickUpLocations()
+    func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D)
+    func showStopAlertViewController(stops: [Area], selectedStation: Area)
 }
 
 class KTXpressPickUpViewModel: KTBaseViewModel {
@@ -33,6 +35,19 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     var destinations = [Destination]()
     var pickUpArea = [Area]()
     var metroStopsArea = [Area]()
+    var metroStations = [Area]()
+    var tramStations = [Area]()
+    var tramStopsArea = [Area]()
+    var destinationForPickUp = [Area]()
+    var selectedCoordinate: CLLocationCoordinate2D?
+
+    var zones = [Area]()
+    var zonalArea = [[String : [Area]]]()
+    
+    var selectedZone:Area?
+    var selectedStop:Area?
+    var selectedStation:Area?
+    var stopsOFStations = [Area]()
 
     override func viewWillAppear() {
         
@@ -151,6 +166,27 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                                                             
                 }
                 
+                self.zones = self.areas.filter{$0.type == "Zone"}
+                self.metroStopsArea = self.areas.filter{$0.type! == "MetroStop"}
+                self.metroStations = self.areas.filter{$0.type! == "MetroStation"}
+                self.tramStopsArea = self.areas.filter{$0.type! == "TramStop"}
+                self.tramStations = self.areas.filter{$0.type! == "TramStation"}
+
+                for zone in self.zones {
+                    
+                    var z  = [String: [Area]]()
+                    z["zone"] = [zone]
+                    var stations = self.metroStations.filter{$0.parent! == zone.code!}
+                    stations.append(contentsOf: self.tramStations.filter{$0.parent! == zone.code!})
+                    z["stations"] = stations
+                    self.zonalArea.append(z)
+                    
+                }
+                
+                for item in self.zonalArea {
+                    print("Zonal Area", item)
+                }
+                
                 if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
 
                     for item in totalDestinations {
@@ -160,13 +196,10 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                         self.destinations.append(destination)
                                                 
                     }
-                                        
                                 
                 }
-                
-                self.metroStopsArea = self.areas.filter{$0.type! == "MetroStop"}
-                
-                for item in self.metroStopsArea {
+                                
+                for item in self.metroStations {
                     
                     if let pickUpLocation = self.destinations.filter({$0.source! == item.parent!}).first {
                         if self.pickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
@@ -175,9 +208,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                             self.pickUpArea.append(item)
                         }
                     }
-                    
-                    
-                    
+                                        
                 }
                 
                 print(self.pickUpArea)
@@ -189,6 +220,135 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             }
             
         }
+    }
+    
+    func didTapMarker(location: CLLocation) {
+        let selectedArea = self.areas.filter{$0.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first! == String(format: "%.5f", location.coordinate.latitude)}
+         
+         print(selectedArea)
+        
+        if selectedArea.count > 0 {
+            (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: selectedArea.first?.name ?? "")
+        } else {
+            let name = "LocationManagerNotificationIdentifier"
+            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+        }
+        
+    }
+    
+    func showStopAlert() {
+                
+        defer {
+            (delegate as! KTXpressPickUpViewModelDelegate).showStopAlertViewController(stops: stopsOFStations, selectedStation: selectedStation!)
+        }
+        
+        selectedStop = nil
+        self.getDestinationForPickUp()
+
+    }
+    
+    func didTapSetPickUpButton() {
+                
+        defer {
+            (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!)
+        }
+        
+        self.getDestinationForPickUp()
+
+    }
+    
+    func getDestinationForPickUp() {
+        
+        destinationForPickUp.removeAll()
+        selectedZone = nil
+        selectedStation = nil
+        stopsOFStations.removeAll()
+        
+        for item in zones {
+            
+            let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            })!
+            
+            if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                selectedZone = item
+                break
+            }
+            
+        }
+        
+        let stationsOfZone = self.zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
+        
+        print(selectedZone)
+        print(stationsOfZone)
+        
+        for item in stationsOfZone! {
+            
+            let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            })!
+            
+            if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                selectedStation = item
+                break
+            }
+            
+        }
+        
+        if selectedStation != nil {
+            print("it's inside station")
+        } else {
+            print("it's inside a zone")
+        }
+                
+//        for item in stationsOfZone! {
+//            stopsOFStations.append(contentsOf: self.areas.filter{$0.parent! == item.code!})
+//
+//        }
+        
+        var customDestinationsCode = [Int]()
+        
+        if selectedStation != nil {
+            
+            stopsOFStations.append(contentsOf: self.areas.filter{$0.parent! == selectedStation!.code!})
+            
+            let coordinates = (selectedStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            })!
+            
+            selectedCoordinate = coordinates.first!
+            
+            customDestinationsCode = self.destinations.filter{$0.source == selectedStation?.code}.map{$0.destination!}
+            
+            
+            for item in customDestinationsCode {
+                
+                destinationForPickUp.append(contentsOf: self.areas.filter{$0.code! == item})
+                
+            }
+            
+            print(destinationForPickUp)
+        
+        } else {
+            
+            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            })!
+            
+            selectedCoordinate = coordinates.first!
+            
+            customDestinationsCode = self.destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
+            
+            for item in customDestinationsCode {
+                destinationForPickUp.append(contentsOf: self.areas.filter{$0.code! == item})
+            }
+            
+            print(destinationForPickUp)
+        
+        }
+        
+        
     }
     
     

@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Spring
 
-class KTXpressPickUpViewController: KTBaseCreateBookingController {
+class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickUpViewModelDelegate {
 
     @IBOutlet weak var pickUpAddressLabel: SpringLabel!
     @IBOutlet weak var markerButton: SpringButton!
@@ -21,8 +21,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController {
     var pickUpSet: Bool?
     var dropSet: Bool?
     
+    var tapOnMarker = false
     
-
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController {
         addMap()
         
         self.navigationItem.hidesBackButton = true;
-//        self.btnRevealBtn?.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
+        self.btnRevealBtn?.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
         //TODO: This needs to be converted on Location Call Back
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
@@ -44,9 +44,13 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController {
             self.vModel?.setupCurrentLocaiton()
         }
         
+        self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
+        
     }
     
-    
+    @objc func clickSetPickUp() {
+        (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
+    }
     
     func setPickUp(pick: String?) {
         guard pick != nil else {
@@ -68,10 +72,38 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController {
     
     */
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D) {
         
+        let dropOff = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressDropOffViewController") as? KTXpressDropOffViewController)!
+        dropOff.destinationsForPickUp = destinationForPickUp
+        dropOff.pickUpCoordinate = coordinate
+        dropOff.pickUpStop = pickUpStop
+        dropOff.pickUpStation = pickUpStation
+        dropOff.pickUpZone = pickUpzone
+
+        self.navigationController?.pushViewController(dropOff, animated: true)
         
     }
+    
+    func showStopAlertViewController(stops: [Area], selectedStation: Area) {
+        
+        let alert = UIAlertController(title: "\(selectedStation.name! + "Stops")", message: "Please Select Stop for Station", preferredStyle: .actionSheet)
+        
+        
+        for item in stops {
+            alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
+                self.tapOnMarker = true
+                print("User click Approve button")
+                (self.viewModel as! KTXpressPickUpViewModel).selectedStop = item
+            }))
+        }
+
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+        
+    }
+
 
 }
 

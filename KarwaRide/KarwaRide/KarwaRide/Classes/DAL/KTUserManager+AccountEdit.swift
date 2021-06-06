@@ -85,7 +85,7 @@ extension KTUserManager {
         KTUserManager().updateUserInfo(param: param ,completion: completionBlock)
     }
     
-    private func updateUserInfo(param : [String:Any], completion completionBlock:@escaping KTDALCompletionBlock) {
+    public func updateUserInfo(param : [String:Any], completion completionBlock:@escaping KTDALCompletionBlock) {
         self.post(url: Constants.APIURL.UpdateUserAccount, param: param, completion: completionBlock, success: {
             (responseData,cBlock) in
             
