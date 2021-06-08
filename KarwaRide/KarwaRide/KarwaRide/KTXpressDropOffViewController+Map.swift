@@ -17,72 +17,103 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
 //      self.showCurrentLocationButton()
     }
   }
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
+        
+        self.mapView.camera = camera
+        
+        (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
+        
+        
+        (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
+        
+        defer {
+            (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+        }
+        
+        self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+        self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+        self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+        self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+        self.setDropOffButton.isUserInteractionEnabled = true
+        
+        self.tapOnMarker = true
+
+        return true
+    }
   
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
-        let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        let name = "LocationManagerNotificationIdentifier"
-        NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
         
-        KTLocationManager.sharedInstance.setCurrentLocation(location: location)
-        
-        for item in destinationsForPickUp {
-                         
-                let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                }
-                
-                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+        if self.tapOnMarker == false {
+            let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
+            let name = "LocationManagerNotificationIdentifier"
+            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+            
+            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+            
+            for item in destinationsForPickUp {
+                             
+                    let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    }
                     
-                    if pickUpStation != nil {
+                    if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
                         
-                        let pickupCoordinates = pickUpStation!.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                        }
-                        
-                        if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
+                        if pickUpStation != nil {
                             
-                            print("not permitted")
-                            self.setDropOffButton.setTitle("SET DROP OFF TO PERMITTED ZONE", for: .normal)
-                            self.setDropOffButton.backgroundColor = UIColor.clear
-                            self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
-                            self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
-                            self.setDropOffButton.isUserInteractionEnabled = false
+                            let pickupCoordinates = pickUpStation!.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                            }
                             
-                        }
-                        else {
-                            
+                            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
+                                
+                                print("not permitted")
+                                self.setDropOffButton.setTitle("SET DROP OFF TO PERMITTED ZONE", for: .normal)
+                                self.setDropOffButton.backgroundColor = UIColor.clear
+                                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                                self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                                self.setDropOffButton.isUserInteractionEnabled = false
+                                
+                            }
+                            else {
+                                
+                                print("Permitted")
+                                self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                                self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                                self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                                self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                                self.setDropOffButton.isUserInteractionEnabled = true
+                                
+                                break
+                                
+                            }
+                        } else {
                             print("Permitted")
                             self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
                             self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                             self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                             self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                             self.setDropOffButton.isUserInteractionEnabled = true
-                            
                             break
-                            
                         }
+                                            
                     } else {
-                        print("Permitted")
-                        self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
-                        self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
-                        self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
-                        self.setDropOffButton.isUserInteractionEnabled = true
-                        break
+                        print("it wont contains")
+                        self.setDropOffButton.setTitle("OUT OF ZONE", for: .normal)
+                        self.setDropOffButton.backgroundColor = UIColor.clear
+                        self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                        self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                        self.setDropOffButton.isUserInteractionEnabled = false
                     }
-                                        
-                } else {
-                    print("it wont contains")
-                    self.setDropOffButton.setTitle("OUT OF ZONE", for: .normal)
-                    self.setDropOffButton.backgroundColor = UIColor.clear
-                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
-                    self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
-                    self.setDropOffButton.isUserInteractionEnabled = false
-                }
-            
-        }
                 
+            }
+        } else {
+            self.tapOnMarker = false
+            return
+        }
+                        
     }
 
 }
@@ -138,21 +169,80 @@ extension KTXpressDropOffViewController
       
         mapView.delegate = self
         
+        var rect = [GMSMutablePath]()
         if self.pickUpStop != nil {
-            self.polygon(bounds: (self.pickUpStation?.bound!)!, type: "Pick")
+            rect.append(self.polygon(bounds: (self.pickUpStation?.bound!)!, type: "Pick"))
+            picupRect = rect.first!
+            
         } else {
-            self.polygon(bounds: (self.pickUpZone?.bound!)!, type: "Pick")
+            rect.append(self.polygon(bounds: (self.pickUpZone?.bound!)!, type: "Pick"))
+            picupRect = rect.first!
+            
         }
     
         for item in destinationsForPickUp {
-            self.polygon(bounds: item.bound!, type: "")
+            
+            if item.type! != "Zone" {
+                
+                let coordinate = CLLocationCoordinate2D(latitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first!)!)!, longitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").last!)!)!)
+                
+                if item.type == "TramStation"{
+                    self.addMarkerOnMap(location: coordinate, image: #imageLiteral(resourceName: "tram_ico_map"))
+
+                } else{
+                    self.addMarkerOnMap(location: coordinate, image: #imageLiteral(resourceName: "metro_ico_map"))
+
+                }
+
+            }
+            
+            rect.append(self.polygon(bounds: item.bound!, type: ""))
+            
         }
         
+        self.locateCountry(pathG: rect)
+
       //self.focusMapToCurrentLocation()
         
     }
     
-    func polygon(bounds: String, type: String){
+    
+    func locateCountry(pathG: [GMSMutablePath]) {
+        // 1. Create one quarter earth filling polygon
+        let fillingPath = GMSMutablePath()
+        fillingPath.addLatitude(90.0, longitude: -90.0)
+        fillingPath.addLatitude(90.0, longitude: 90.0)
+        fillingPath.addLatitude(0, longitude: 90.0)
+        fillingPath.addLatitude(0, longitude: -90.0)
+
+        let fillingPolygon = GMSPolygon(path:fillingPath)
+        let fillColor = UIColor.gray.withAlphaComponent(0.2)
+        fillingPolygon.fillColor = fillColor
+        fillingPolygon.map = self.mapView
+
+        // 2. Add prepared array of GMSPath
+        fillingPolygon.holes = pathG
+
+//        // 3. Add lines for boundaries
+        for path in pathG {
+
+            let polygon = GMSPolygon(path: path)
+            
+            if picupRect == path {
+                polygon.fillColor = UIColor.gray.withAlphaComponent(0.2)
+            } else {
+                polygon.fillColor = UIColor.white.withAlphaComponent(0.2)
+            }
+            
+            polygon.strokeColor = .black
+            polygon.strokeWidth = 2
+            polygon.map = mapView
+        }
+            
+
+    }
+    
+    func polygon(bounds: String, type: String) -> GMSMutablePath {
         
         if type == "Pick" {
             
@@ -166,14 +256,13 @@ extension KTXpressDropOffViewController
            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
         }
         
+        self.locateCountry(pathG: [rect])
+        
         print(array)
         
-        // Create the polygon, and assign it to the map.
-        let polygon = GMSPolygon(path: rect)
-        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
-        polygon.strokeColor = .black
-        polygon.strokeWidth = 2
-        polygon.map = mapView
+       
+        
+        return rect
     }
     
     

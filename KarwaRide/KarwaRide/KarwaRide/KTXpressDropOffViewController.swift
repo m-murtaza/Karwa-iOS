@@ -28,24 +28,32 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
 
     var dropSet: Bool?
     
+    var operationArea = [Area]()
     var destinationsForPickUp = [Area]()
     var pickUpZone: Area?
     var pickUpStation: Area?
     var pickUpStop: Area?
 
     var dropOffLocation: Area?
+    var picupRect = GMSMutablePath()
     
     var pickUpCoordinate: CLLocationCoordinate2D?
     var dropOffCoordinate: CLLocationCoordinate2D?
+    
+    var tapOnMarker = false
 
     override func viewDidLoad() {
         viewModel = KTXpressDropoffViewModel(del:self)
         
         vModel = viewModel as? KTXpressDropoffViewModel
         
-        if booking != nil {
-            vModel?.booking = booking!
-        }
+        vModel?.operationArea = self.operationArea
+        vModel?.destinationsForPickUp = self.destinationsForPickUp
+        vModel?.pickUpZone = self.pickUpZone
+        vModel?.pickUpStation = self.pickUpStation
+        vModel?.pickUpStop = self.pickUpStop
+        vModel?.pickUpCoordinate = self.pickUpCoordinate
+
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -74,6 +82,24 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
     @objc private func showMenu() {
       sideMenuController?.revealMenu()
     }
+    
+    func showStopAlertViewController(stops: [Area], selectedStation: Area) {
+        
+        let alert = UIAlertController(title: "\(selectedStation.name! + "Stops")", message: "Please Select Stop for Station", preferredStyle: .actionSheet)
+        
+        
+        for item in stops {
+            alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
+                self.tapOnMarker = true
+                (self.viewModel as! KTXpressDropoffViewModel).selectedStop = item
+            }))
+        }
+
+        self.present(alert, animated: true, completion: {
+            print("completion block")
+        })
+        
+    }
 
     /*
     // MARK: - Navigation
@@ -86,6 +112,3 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
     */
 
 }
-
-
-

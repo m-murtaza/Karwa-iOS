@@ -15,6 +15,11 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @IBOutlet weak var pickUpAddressLabel: SpringLabel!
     @IBOutlet weak var markerButton: SpringButton!
     @IBOutlet weak var setPickUpButton: UIButton!
+    
+    @IBOutlet weak var plusBtn: UIButton!
+    @IBOutlet weak var minuBtn: UIButton!
+    @IBOutlet weak var passengerLabel: UILabel!
+
 
     var vModel : KTXpressPickUpViewModel?
 
@@ -22,6 +27,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     var dropSet: Bool?
     
     var tapOnMarker = false
+    var countOfPassenger = 1
     
     override func viewDidLoad() {
         
@@ -45,6 +51,19 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         }
         
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
+        
+    }
+    
+    
+    @IBAction func setCountForPassenger(sender: UIButton) {
+        
+        if sender.tag == 10 {
+            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
+        } else {
+            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
+        }
+        
+        self.passengerLabel.text = "\(countOfPassenger) Passenger"
         
     }
     
@@ -80,6 +99,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.pickUpStop = pickUpStop
         dropOff.pickUpStation = pickUpStation
         dropOff.pickUpZone = pickUpzone
+        dropOff.operationArea = (self.viewModel as! KTXpressPickUpViewModel).areas
 
         self.navigationController?.pushViewController(dropOff, animated: true)
         

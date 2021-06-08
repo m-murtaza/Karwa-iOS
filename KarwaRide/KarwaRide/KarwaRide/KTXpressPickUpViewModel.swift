@@ -238,9 +238,11 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     }
     
     func showStopAlert() {
-                
+        
         defer {
-            (delegate as! KTXpressPickUpViewModelDelegate).showStopAlertViewController(stops: stopsOFStations, selectedStation: selectedStation!)
+            if stopsOFStations.count > 1 {
+                (delegate as! KTXpressPickUpViewModelDelegate).showStopAlertViewController(stops: stopsOFStations, selectedStation: selectedStation!)
+            }
         }
         
         selectedStop = nil
