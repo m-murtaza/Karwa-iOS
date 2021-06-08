@@ -101,7 +101,6 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         }
 
         if selectedStation != nil {
-            let stations = destinationsForPickUp.filter{$0.type != "Zone"}
             stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
         }
         
