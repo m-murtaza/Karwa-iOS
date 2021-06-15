@@ -14,11 +14,11 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
 
     @IBOutlet weak var dropOffAddressLabel: SpringLabel!
     
-    @IBOutlet weak var plusButton: SpringButton!
+    @IBOutlet weak var plusButton: UIButton!
 
-    @IBOutlet weak var minusButton: SpringButton!
+    @IBOutlet weak var minusButton: UIButton!
 
-    @IBOutlet weak var passengerLabel: SpringLabel!
+    @IBOutlet weak var passengerLabel: UILabel!
     
     @IBOutlet weak var setDropOffButton: UIButton!
     
@@ -33,12 +33,16 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
     var pickUpZone: Area?
     var pickUpStation: Area?
     var pickUpStop: Area?
+    var countOfPassenger = 1
 
     var dropOffLocation: Area?
     var picupRect = GMSMutablePath()
     
     var pickUpCoordinate: CLLocationCoordinate2D?
     var dropOffCoordinate: CLLocationCoordinate2D?
+    
+    var zonalArea = [[String : [Area]]]()
+
     
     var tapOnMarker = false
 
@@ -53,6 +57,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
         vModel?.pickUpStation = self.pickUpStation
         vModel?.pickUpStop = self.pickUpStop
         vModel?.pickUpCoordinate = self.pickUpCoordinate
+        vModel?.zonalArea = self.zonalArea
 
         super.viewDidLoad()
         
@@ -68,6 +73,22 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
             self.vModel?.setupCurrentLocaiton()
         }
 
+        self.setDropOffButton.addTarget(self, action: #selector(clickToSetUpBooking), for: .touchUpInside)
+
+        
+    }
+    
+    
+    @IBAction func setCountForPassenger(sender: UIButton) {
+        
+        if sender.tag == 10 {
+            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
+        } else {
+            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
+        }
+        
+        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+        
     }
     
     func setDropOff(pick: String?) {
@@ -77,6 +98,10 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
         
         self.dropOffAddressLabel.text = pick
         
+    }
+    
+    @objc func clickToSetUpBooking() {
+        (viewModel as! KTXpressDropoffViewModel).didTapSetDropOffButton()
     }
     
     @objc private func showMenu() {
@@ -100,6 +125,15 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
         })
         
     }
+    
+    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?) {
+        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
+        rideService!.rideServicePickDropOffData = rideLocationData
+
+        self.navigationController?.pushViewController(rideService!, animated: true)
+        
+    }
+
 
     /*
     // MARK: - Navigation

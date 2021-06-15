@@ -466,6 +466,7 @@ struct Constants {
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
         static let GetRSAreas = "rs/areas?"
+        static let PostRSService = "rs/explore"
     }
     
     struct TrackTaxiParams {

@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Area
-struct Area {
+struct Area: Hashable {
     let code, vehicleType: Int?
     let name: String?
     let parent: Int?
@@ -18,7 +18,7 @@ struct Area {
 }
 
 // MARK: - Destination
-struct Destination: Codable {
+struct Destination: Codable, Hashable {
     let source, destination: Int?
     let isActive: Bool?
 

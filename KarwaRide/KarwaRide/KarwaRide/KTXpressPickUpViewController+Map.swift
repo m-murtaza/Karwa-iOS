@@ -20,6 +20,8 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
+        self.tapOnMarker = true
+
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         self.mapView.camera = camera
         
@@ -38,8 +40,6 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
         self.setPickUpButton.isUserInteractionEnabled = true
         
-        self.tapOnMarker = true
-
         return true
     }
       
@@ -68,7 +68,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             } else {
                 let name = "LocationManagerNotificationIdentifier"
                 NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-                KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+//                KTLocationManager.sharedInstance.setCurrentLocation(location: location)
             }
             
             (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -163,8 +163,12 @@ extension KTXpressPickUpViewController
             let firstValue = item.bound?.components(separatedBy: ";").first
             
             let _ = firstValue.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image: #imageLiteral(resourceName: "metro_ico_map"))
-               return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                if item.type == "MetroStop" {
+                    addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image:  #imageLiteral(resourceName: "metro_ico_map"))
+                } else {
+                    addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image:  #imageLiteral(resourceName: "tram_ico_map"))
+                }
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
             }
         }
     }

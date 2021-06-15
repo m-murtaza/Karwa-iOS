@@ -40,10 +40,12 @@ class KTFirstViewController: KTBaseViewController, KTFirstViewModelDelegate {
     func userLogin(isLogin: Bool) {
         
         if !isLogin {
-            self.tabBarController?.tabBar.isHidden = true
+            self.tabBarController?.tabBar.alpha = 0
+            self.tabBarController?.tabBar.isHidden = false
            self.performSegue(name: "segueFirstToLogin")
         }
         else {
+            self.tabBarController?.tabBar.alpha = 0
             self.tabBarController?.tabBar.isHidden = false
            self.performSegue(name: "segueOnboardingToBooking")
         }

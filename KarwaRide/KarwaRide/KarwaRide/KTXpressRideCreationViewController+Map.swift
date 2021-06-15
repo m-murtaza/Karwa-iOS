@@ -11,64 +11,21 @@ import GoogleMaps
 
 extension KTXpressRideCreationViewController: GMSMapViewDelegate {
     
-
-  func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-    if gesture {
-//      self.showCurrentLocationButton()
-    }
-  }
-  
-  func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-    if(mapView.camera.target.latitude == 0.0)
-    {
-        //TODO: Move Camera to default Location
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let location = CLLocation(latitude: 25.281308, longitude: 51.531917)
-            //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
-            let name = "LocationManagerNotificationIdentifier"
-            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
-        }
-    }
-    else
-    {
-        let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        //        addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
-        let name = "LocationManagerNotificationIdentifier"
-        NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-        
-        KTLocationManager.sharedInstance.setCurrentLocation(location: location)
-        
-    }
-  }
 }
 
 extension KTXpressRideCreationViewController
 {
-    func setupCurrentLocaiton() {
-      if KTLocationManager.sharedInstance.locationIsOn() {
-        if KTLocationManager.sharedInstance.isLocationAvailable {
-          var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
-          var userInfo : [String :Any] = [:]
-          userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
-          
-          notification.userInfo = userInfo
-          //notification.userInfo!["location"] as! CLLocation
-//          LocationManagerLocaitonUpdate(notification: notification)
-        }
-        else {
-          KTLocationManager.sharedInstance.start()
-        }
-      }
-    }
-
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14.0)
+        let camera = GMSCameraPosition.camera(withLatitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.latitude)!, longitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.longitude)!, zoom: 14.0)
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
+        gmsMarker.append(self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pin_pickup_map")))
+        
+        gmsMarker.append(self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "pin_dropoff_map")))
+
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         mapView.padding = padding
         
@@ -84,270 +41,73 @@ extension KTXpressRideCreationViewController
         }
         
         mapView.delegate = self
+                
+        self.drawArcPolyline(startLocation: self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!, endLocation: self.vModel?.rideServicePickDropOffData?.dropOffCoordinate)
+    
         
-        self.focusMapToCurrentLocation()
+        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
 
-    }
         
-    func addPickUpLocations() {
-
     }
     
-    func setPolygon() {
-        // Create a rectangular path
-        let rect = GMSMutablePath()
+    func bezierPath(from startLocation: CLLocationCoordinate2D, to endLocation: CLLocationCoordinate2D) -> GMSMutablePath {
+
+            let distance = GMSGeometryDistance(startLocation, endLocation)
+            let midPoint = GMSGeometryInterpolate(startLocation, endLocation, 0.5)
+
+            let midToStartLocHeading = GMSGeometryHeading(midPoint, startLocation)
+
+            let controlPointAngle = 360.0 - (90.0 - midToStartLocHeading)
+            let controlPoint = GMSGeometryOffset(midPoint, distance / 2.0 , controlPointAngle)
+            
+            let path = GMSMutablePath()
+            
+            let stepper = 0.05
+            let range = stride(from: 0.0, through: 1.0, by: stepper)// t = [0,1]
+            
+            func calculatePoint(when t: Double) -> CLLocationCoordinate2D {
+                let t1 = (1.0 - t)
+                let latitude = t1 * t1 * startLocation.latitude + 2 * t1 * t * controlPoint.latitude + t * t * endLocation.latitude
+                let longitude = t1 * t1 * startLocation.longitude + 2 * t1 * t * controlPoint.longitude + t * t * endLocation.longitude
+                let point = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                return point
+            }
+            
+            range.map { calculatePoint(when: $0) }.forEach { path.add($0) }
+            return path
+     }
         
-        let string = (self.viewModel as! KTXpressPickUpViewModel).areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
-        
-        let array = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-            rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
-           return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+    func drawArcPolyline(startLocation: CLLocationCoordinate2D?, endLocation: CLLocationCoordinate2D?) {
+        if let startLocation = startLocation, let endLocation = endLocation {
+            //Draw polyline
+            let polyline = GMSPolyline(path: self.bezierPath(from: startLocation, to: endLocation))
+            polyline.map = mapView // Assign GMSMapView as map
+            polyline.strokeWidth = 3.0
+            polyline.strokeColor = .black
+            
+            let inset = UIEdgeInsets(top: 150, left: 100, bottom: self.view.frame.height/2, right: 100)
+            
+            // focus to fit all the point including path, pick and destination in map camera
+            self.focusMapToFitRoute(pointA: startLocation,
+                               pointB: endLocation,
+                               path: self.bezierPath(from: startLocation, to: endLocation),
+                               inset: inset)
+//            let styles = [GMSStrokeStyle.solidColor(UIColor.black), GMSStrokeStyle.solidColor(UIColor.clear)]
+//            let lengths = [20, 20] // Play with this for dotted line
+//            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            
+//            let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
+//            let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+//            let camera = mapView.camera(for: bounds, insets: insets)!
+//            mapView.animate(to: camera)
         }
-        
-        print(array)
-        
-        // Create the polygon, and assign it to the map.
-        let polygon = GMSPolygon(path: rect)
-        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
-        polygon.strokeColor = .black
-        polygon.strokeWidth = 2
-        polygon.map = mapView
     }
     
     internal func showCurrentLocationDot(show: Bool) {
-        
         self.mapView!.isMyLocationEnabled = show
         //self.mapView!.settings.myLocationButton = show
     }
-    
-    func updateLocationInMap(location: CLLocation) {
-        updateLocationInMap(location: location, shouldZoomToDefault: true)
-    }
-    
-    func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool) {
-        if(withZoom)
-        {
-            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-            self.mapView?.animate(to: camera)
         
-        }
-        else
-        {
-            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: self.mapView?.camera.zoom ?? KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-            self.mapView?.animate(to: camera)
-        }
-    }
-    
-    func imgForTrackMarker(_ vehicleType: Int16) -> UIImage {
-        
-        var img : UIImage?
-        switch vehicleType  {
-        case VehicleType.KTAirportSpare.rawValue, VehicleType.KTCityTaxi.rawValue:
-            img = UIImage(named:"BookingMapTaxiIco")
-        case VehicleType.KTCityTaxi7Seater.rawValue:
-            img = UIImage(named: "BookingMap7Ico")
-        case VehicleType.KTSpecialNeedTaxi.rawValue:
-                img = UIImage(named: "BookingMapSpecialNeedIco")
-        case VehicleType.KTStandardLimo.rawValue:
-            img = UIImage(named: "BookingMapStandardIco")
-        case VehicleType.KTBusinessLimo.rawValue:
-            img = UIImage(named: "BookingMapBusinessIco")
-        case VehicleType.KTLuxuryLimo.rawValue:
-            img = UIImage(named: "BookingMapLuxuryIco")
-        default:
-            img = UIImage(named:"BookingMapTaxiIco")
-        }
-        return img!
-    }
-    
-    @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
-        addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
-    }
-    
-    @objc func addOrRemoveOrMoveMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
-        
-        removeUnRetainedMarkers(nearbyVehiclesNew: vTrack)
-        addNewMarkers(nearbyVehiclesNew: vTrack)
-        moveVehiclesIfRequired(nearbyVehiclesNew: vTrack)
-    }
-    
-    private func moveVehiclesIfRequired(nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        let markersNeedsToMove = getMarkersNeedsToMove(nearbyVehiclesNew: newVehicles)
-
-        for markerNeedsToMove in markersNeedsToMove
-        {
-            for newTrack in newVehicles
-            {
-                if(markerNeedsToMove.snippet == newTrack.vehicleNo)
-                {
-                    moveMarker(marker: markerNeedsToMove, from: markerNeedsToMove.position, to: newTrack.position, degree: newTrack.bearing)
-                    break
-                }
-            }
-        }
-    }
-    
-    private func moveMarker(marker markerNeedsToMove: GMSMarker, from fromCoordinate : CLLocationCoordinate2D, to toCoordinate : CLLocationCoordinate2D, degree rotation : Float)
-    {
-        // Keep Rotation Short
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(1.5)
-        markerNeedsToMove.rotation = CLLocationDegrees(rotation)
-        CATransaction.commit()
-        
-        // Movement
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(4)
-        markerNeedsToMove.position = toCoordinate
-        
-        // Center Map View
-//        let camera = GMSCameraUpdate.setTarget(coordinates)
-//        mapView.animateWithCameraUpdate(camera)
-        
-        CATransaction.commit()
-    }
-    
-    private func getMarkersNeedsToMove(nearbyVehiclesNew newVehicles:[VehicleTrack]) -> [GMSMarker]
-    {
-        var updatedVehicleMarkers : [GMSMarker] = []
-        
-        for oldVehicleMarker in gmsMarker
-        {
-            for newVehicle in newVehicles
-            {
-                if(oldVehicleMarker.snippet == newVehicle.vehicleNo)
-                {
-                    updatedVehicleMarkers.append(oldVehicleMarker)
-                    break
-                }
-            }
-        }
-        return updatedVehicleMarkers
-    }
-    
-    private func removeUnRetainedMarkers(nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        if(newVehicles.count == 0)
-        {
-            for oldMarker in gmsMarker
-            {
-                oldMarker.map = nil
-            }
-        }
-        else
-        {
-            for oldMarker in gmsMarker
-            {
-                var indexCount = 0
-                
-                for newVehicle in newVehicles
-                {
-                    if(oldMarker.snippet! == newVehicle.vehicleNo)
-                    {
-                        break
-                    }
-                    indexCount = indexCount + 1
-                }
-                
-                if(indexCount == newVehicles.count)
-                {
-                    removeMarkerFromMap(markerToBeRemoved: oldMarker)
-                }
-            }
-        }
-    }
-    
-    private func removeMarkerFromMap(markerToBeRemoved marker:GMSMarker)
-    {
-        gmsMarker.remove(at: gmsMarker.index(of: marker)!)
-        marker.map = nil
-    }
-    
-    private func addNewMarkers(nearbyVehiclesNew newVehicles:[VehicleTrack])
-    {
-        if(gmsMarker.count == 0)
-        {
-            for newVehicle in newVehicles
-            {
-                addOneMarkerOnMap(vTrack: newVehicle)
-            }
-        }
-        else
-        {
-            for newVehicle in newVehicles
-            {
-                var indexCount = 0
-                for i in 0 ... gmsMarker.count - 1
-                {
-                    indexCount = indexCount + 1
-                    if(newVehicle.vehicleNo == gmsMarker[i].snippet)
-                    {
-                        break;
-                    }
-                }
-                if(indexCount == gmsMarker.count)
-                {
-                    addOneMarkerOnMap(vTrack: newVehicle)
-                }
-            }
-        }
-    }
-    
-    private func addOneMarkerOnMap(vTrack: VehicleTrack)
-    {
-        let marker = GMSMarker()
-        marker.position = vTrack.position
-        marker.snippet = vTrack.vehicleNo
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-        marker.appearAnimation = GMSMarkerAnimation.pop
-
-        if vTrack.trackType == VehicleTrackType.vehicle
-        {
-            marker.rotation = CLLocationDegrees(vTrack.bearing)
-            marker.icon = imgForTrackMarker(Int16(vTrack.vehicleType))
-            marker.map = self.mapView
-        }
-
-        gmsMarker.append(marker)
-    }
-    
-    @objc func addMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
-        gmsMarker.removeAll()
-        clearMap()
-        vTrack.forEach { track in
-            if !track.position.isZeroCoordinate   {
-                let marker = GMSMarker()
-                marker.position = track.position
-                
-                if track.trackType == VehicleTrackType.vehicle {
-                    marker.rotation = CLLocationDegrees(track.bearing)
-                    marker.icon = imgForTrackMarker(vehicleType)
-                    marker.map = self.mapView
-                }
-                
-                gmsMarker.append(marker)
-            }
-        }
-        if gmsMarker.count > 0
-        {
-            self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-        }
-        else
-        {
-            self.focusMapToCurrentLocation()
-        }
-    }
-    
-    func focusMapToCurrentLocation()
-    {
-        if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false)
-        {
-            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-            mapView.animate(with: update)
-        }
-    }
-    
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
         
         var bounds = GMSCoordinateBounds()
@@ -386,20 +146,17 @@ extension KTXpressRideCreationViewController
     func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
         let marker = GMSMarker()
         marker.position = location
-        
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.3,y:1)
         marker.map = self.mapView
-        
         return marker
     }
     
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
         marker.position = location
-        
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:1,y:0.8)
         marker.map = self.mapView
     }
     

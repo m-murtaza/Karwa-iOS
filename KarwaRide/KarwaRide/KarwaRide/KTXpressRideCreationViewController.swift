@@ -8,6 +8,7 @@
 
 import UIKit
 import Spring
+import GoogleMaps
 
 class KTXpressRideServiceCell: UITableViewCell {
     
@@ -36,64 +37,111 @@ class KTFareServiceCell: UITableViewCell {
 }
 
 
-class KTXpressRideCreationViewController: KTBaseCreateBookingController {
+class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpressRideCreationViewModelDelegate {
+    
+    @IBOutlet weak var rideServiceView: UIView!
     
     @IBOutlet weak var pickUpAddressButton: SpringButton!
     @IBOutlet weak var dropOffAddressButton: SpringButton!
-    @IBOutlet weak var markerButton: SpringButton!
     @IBOutlet weak var setBookingButton: UIButton!
 
     @IBOutlet weak var rideServiceTableView: UITableView!
-
+    
+    @IBOutlet weak var bookingProgress: UIProgressView!
+    
+    var operationArea = [Area]()
+        
+    var rideServicePickDropOffData: RideSerivceLocationData? = nil
     
     var vModel : KTXpressRideCreationViewModel?
 
-    var pickUpSet: Bool?
-    var dropSet: Bool?
-        
+    var headerData = [1,2,3,4]
+    
+    @IBOutlet weak var plusButton: UIButton!
+
+    @IBOutlet weak var minusButton: UIButton!
+
+    @IBOutlet weak var passengerLabel: UILabel!
+    
+    var countOfPassenger = 1
+    var secondsRemaining:Float = 1.0
+    
+    var expiryTime = 0
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
+        vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+        
+        self.vModel?.fetchRideService()
                 
         // Do any additional setup after loading the view.
         addMap()
         
         self.navigationItem.hidesBackButton = true;
         
-        //TODO: This needs to be converted on Location Call Back
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
-        {
-            self.vModel?.setupCurrentLocaiton()
-        }
-        
         rideServiceTableView.delegate = self
         rideServiceTableView.dataSource = self
         
+        self.pickUpAddressButton.titleLabel?.numberOfLines = 2
+        self.dropOffAddressButton.titleLabel?.numberOfLines = 2
+        
+        self.rideServiceView.isHidden = true
+
     }
     
+    @IBAction func setCountForPassenger(sender: UIButton) {
+        
+        if sender.tag == 10 {
+            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
+        } else {
+            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
+        }
+        
+        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+        
+    }
     
-    
-    func setPickUp(pick: String?) {
+    func setPickup(pick: String?) {
         guard pick != nil else {
             return
         }
-        
         self.pickUpAddressButton.setTitle(pick, for: .normal)
-        
     }
-    
+        
     func setDropOff(pick: String?) {
         guard pick != nil else {
             return
         }
-        
         self.dropOffAddressButton.setTitle(pick, for: .normal)
-        
     }
  
+    func setProgressViewCounter(countDown: Int) {
+        expiryTime = countDown
+        Timer.scheduledTimer(timeInterval: TimeInterval(countDown), target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+
+    }
+    
+    @objc func updateCounter(){
+        if self.bookingProgress.progress > 0 {
+            print("\(self.bookingProgress.progress) seconds.")
+            
+            let change: Float = Float(Float(1) / Float(expiryTime))
+            let progress = self.bookingProgress.progress - (change)
+            self.bookingProgress.setProgress(progress, animated: true)
+            
+        } else {
+            self.bookingProgress.isHidden = true
+        }
+    }
+    
+    func showHideRideServiceView(show: Bool) {
+        self.rideServiceView.isHidden = !show
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -111,11 +159,11 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController {
 extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return self.headerData.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return (self.headerData[section] == 0) ? 0 : 1
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -124,6 +172,8 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "KTXpressRideServiceCell") as! KTXpressRideServiceCell
+        cell.dropDownButton.addTarget(self, action: #selector(showDetails(sender:)), for: .touchUpInside)
+        cell.dropDownButton.tag = section
         return cell
     }
     
@@ -133,6 +183,13 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         self.setUpfareBreakDownView(fareBreakDownView: cell.fareStackView, cell: cell)
         
         return cell
+    }
+    
+    @objc func showDetails(sender: UIButton)  {
+        
+        self.headerData[sender.tag] = (self.headerData[sender.tag] == 0) ? 1 : 0
+        self.rideServiceTableView.reloadSections([sender.tag], with: .fade)
+        
     }
     
     //MARK:- FARE DETAILS BREAKDOWN VIEW
@@ -188,6 +245,14 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         fareBreakDownView.addArrangedSubview(stackView)
+    }
+    
+    func updateLocationInMap(location: CLLocation) {
+        
+    }
+    
+    func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom: Bool) {
+        
     }
     
 }

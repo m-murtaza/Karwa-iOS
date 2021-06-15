@@ -91,7 +91,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     
     */
     
-    func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D) {
+    func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D, zonalArea: [[String : [Area]]]) {
         
         let dropOff = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressDropOffViewController") as? KTXpressDropOffViewController)!
         dropOff.destinationsForPickUp = destinationForPickUp
@@ -100,6 +100,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.pickUpStation = pickUpStation
         dropOff.pickUpZone = pickUpzone
         dropOff.operationArea = (self.viewModel as! KTXpressPickUpViewModel).areas
+        dropOff.zonalArea = zonalArea
 
         self.navigationController?.pushViewController(dropOff, animated: true)
         

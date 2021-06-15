@@ -45,14 +45,14 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
   
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
-        
         if self.tapOnMarker == false {
             let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
             let name = "LocationManagerNotificationIdentifier"
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-            
-            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
-            
+
+            (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+
+
             for item in destinationsForPickUp {
                              
                     let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
@@ -170,7 +170,7 @@ extension KTXpressDropOffViewController
         mapView.delegate = self
         
         var rect = [GMSMutablePath]()
-        if self.pickUpStop != nil {
+        if self.pickUpStop != nil || self.pickUpStation != nil {
             rect.append(self.polygon(bounds: (self.pickUpStation?.bound!)!, type: "Pick"))
             picupRect = rect.first!
             
@@ -251,16 +251,10 @@ extension KTXpressDropOffViewController
         // Create a rectangular path
         let rect = GMSMutablePath()
                 
-        let array = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+        _ = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
             rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
         }
-        
-        self.locateCountry(pathG: [rect])
-        
-        print(array)
-        
-       
         
         return rect
     }

@@ -202,11 +202,13 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   
   func navigateToBooking()
   {
+    self.tabBarController?.tabBar.alpha = 0
     self.tabBarController?.tabBar.isHidden = false
     self.performSegue(withIdentifier: "segueToBooking", sender: self)
   }
     
   func navigateToOTP() {
+    self.tabBarController?.tabBar.alpha = 1
     self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
   }
   

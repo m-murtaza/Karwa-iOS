@@ -20,7 +20,7 @@ protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func setPickUp(pick: String?)
     func setPolygon()
     func addPickUpLocations()
-    func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D)
+    func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D, zonalArea: [[String : [Area]]])
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
 }
 
@@ -199,7 +199,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                                 
                 }
                                 
-                for item in self.metroStations {
+                for item in self.metroStopsArea {
                     
                     if let pickUpLocation = self.destinations.filter({$0.source! == item.parent!}).first {
                         if self.pickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
@@ -211,7 +211,28 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                                         
                 }
                 
+                var localPickUpArea = [Area]()
+                
+                for item in self.tramStopsArea {
+                    
+                    if let pickUpLocation = self.destinations.filter({$0.source! == item.parent!}).first {
+                        if localPickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
+                            
+                        } else {
+                            localPickUpArea.append(item)
+                        }
+                    }
+                    
+                }
+                
+                
+                let set1: Set<Area> = Set(self.pickUpArea)
+                let set2: Set<Area> = Set(localPickUpArea)
+                
+                self.pickUpArea = Array(set1.union(set2))
+                
                 print(self.pickUpArea)
+
                 
                 if self.delegate != nil {
                   (self.delegate as! KTXpressPickUpViewModelDelegate).addPickUpLocations()
@@ -232,7 +253,6 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         } else {
             let name = "LocationManagerNotificationIdentifier"
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         }
         
     }
@@ -253,7 +273,13 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     func didTapSetPickUpButton() {
                 
         defer {
-            (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!)
+            
+            if self.destinationForPickUp.count > 0 {
+                (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!, zonalArea: self.zonalArea)
+            } else {
+                
+            }
+            
         }
         
         self.getDestinationForPickUp()
@@ -321,7 +347,14 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             
             selectedCoordinate = coordinates.first!
             
-            customDestinationsCode = self.destinations.filter{$0.source == selectedStation?.code}.map{$0.destination!}
+//
+//            for stop in self.stopsOFStations {
+//                customDestinationsCode = self.destinations.filter{$0.source == stop.code!}.map{$0.destination!}
+//            }
+//
+            if customDestinationsCode.count == 0{
+                customDestinationsCode = self.destinations.filter{$0.source == selectedStation?.code!}.map{$0.destination!}
+            }
             
             
             for item in customDestinationsCode {
@@ -330,15 +363,15 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                 
             }
             
-            print(destinationForPickUp)
+            print("destinationForPickUp", destinationForPickUp)
         
         } else {
             
-            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            })!
+//            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+//                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+//            })!
             
-            selectedCoordinate = coordinates.first!
+//            selectedCoordinate = coordinates.first!
             
             customDestinationsCode = self.destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
             

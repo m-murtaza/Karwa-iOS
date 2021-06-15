@@ -37,6 +37,57 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         }
     }
     
+    func getRideService(rideData: RideSerivceLocationData, completion completionBlock: @escaping KTDALCompletionBlock) {
+        
+        //syncTime(forKey:ZONE_SYNC_TIME)
+        
+        /*
+         {
+             "Pick":{
+                 "Location":{
+                         "Lat":25.512321,"Lon":51.56343
+                 },
+                 "Zone":32,
+                 "Station":12,
+                 "Stop":32
+             },
+             "Drop":{
+                 "Location":{
+                         "Lat":25.4321,"Lon":51.2312
+                 },
+                 "Zone":32,
+                 "Station":12,
+                 "Stop":32
+             },
+             "PassengerCount":2
+         }
+         */
+        
+        
+        
+        var param  = [String: Any]()
+        
+        let pickUpLocationData = ["Location": ["Lat": "\(rideData.pickUpCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.pickUpCoordinate?.longitude ?? 0.0)"], "zone": rideData.pickUpZone?.code ?? "", "station": rideData.pickUpStation?.code ?? "", "stop": rideData.pickUpStop?.code ?? ""] as [String : Any]
+        
+        let dropOffLocationData = ["Location": ["Lat": "\(rideData.dropOffCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.dropOffCoordinate?.longitude ?? 0.0)"], "zone": rideData.dropOffZone?.code ?? "", "station": rideData.dropOfSftation?.code ?? "", "stop": rideData.dropOffStop?.code ?? ""] as [String : Any]
+        
+        param["Pick"] = pickUpLocationData
+        param["Drop"] = pickUpLocationData
+        param["PassengerCount"] = rideData.passsengerCount ?? 1
+
+                
+        self.post(url: Constants.APIURL.PostRSService, param: param, completion: completionBlock) { (response, cBlock) in
+            
+            
+            print(response)
+            
+//            let bookings = self.saveBookingsInDB(bookings: response[Constants.ResponseAPIKey.Data] as! [Any])
+            self.updateSyncTime(forKey: ZONE_SYNC_TIME)
+            
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+    
 //    func booking() -> KTBooking {
 //
 //        let book : KTBooking = KTBooking.mr_createEntity(in: NSManagedObjectContext.mr_default())!

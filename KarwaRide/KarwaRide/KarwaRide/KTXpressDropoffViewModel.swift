@@ -13,12 +13,30 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
+struct RideSerivceLocationData {
+    
+    var pickUpZone: Area?
+    var pickUpStation: Area?
+    var pickUpStop: Area?
+    
+    var dropOffZone: Area?
+    var dropOfSftation: Area?
+    var dropOffStop: Area?
+    
+    var pickUpCoordinate: CLLocationCoordinate2D?
+    var dropOffCoordinate: CLLocationCoordinate2D?
+    
+    var passsengerCount: Int? = 1
+
+}
+
 protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func showAlertForLocationServerOn()
     func updateLocationInMap(location:CLLocation)
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setDropOff(pick: String?)
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
+    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?)
 }
 
 class KTXpressDropoffViewModel: KTBaseViewModel {
@@ -41,6 +59,8 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     var stopsOFStations = [Area]()
     var selectedStop:Area?
     var selectedStation: Area?
+    var selectedZone: Area?
+    var zonalArea = [[String : [Area]]]()
 
     override func viewWillAppear() {
         
@@ -121,6 +141,104 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
             KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         }
+        
+    }
+    
+    func didTapSetDropOffButton() {
+                
+        defer {
+            
+            let rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate)
+            
+            (delegate as! KTXpressDropoffViewModelDelegate).showRideServiceViewController(rideLocationData: rideLocationData)
+        }
+
+        
+        getDestination()
+
+    }
+    
+    func getDestination() {
+        
+        selectedZone = nil
+        selectedStation = nil
+        stopsOFStations.removeAll()
+        
+        let stations = destinationsForPickUp.filter{$0.type != "Zone"}
+                
+        for item in stations {
+            
+                let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                })!
+                
+                if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                    selectedStation = item
+                    break
+                }
+            
+        }
+        
+        let zones = destinationsForPickUp.filter{$0.type == "Zone"}
+        
+        if zones.count > 0 {
+            
+            for item in zones {
+                
+                    let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    })!
+                    
+                    if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                        selectedZone = item
+                        break
+                    }
+                
+            }
+            
+            let stationsOfZone = self.zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
+            
+            print(selectedZone)
+            print(stationsOfZone)
+            
+            for item in stationsOfZone! {
+                
+                let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                })!
+                
+                if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                    selectedStation = item
+                    break
+                }
+                
+            }
+        }
+        
+        if selectedStation != nil {
+            print("it's inside station")
+        } else {
+            print("it's inside a zone")
+        }
+                
+        if selectedStation != nil {
+                        
+            let coordinates = (selectedStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            })!
+            
+            selectedCoordinate = coordinates.first!
+        
+        } else {
+            
+//            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+//                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+//            })!
+//            
+//            selectedCoordinate = coordinates.first!
+//        
+        }
+        
         
     }
     

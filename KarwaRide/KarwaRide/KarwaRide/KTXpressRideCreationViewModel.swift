@@ -19,83 +19,52 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setDropOff(pick: String?)
     func setPickup(pick: String?)
+    func setProgressViewCounter(countDown: Int)
+    func showHideRideServiceView(show: Bool)
 }
 
 class KTXpressRideCreationViewModel: KTBaseViewModel {
+    
+    var operationArea = [Area]()
+    
+    var rideServicePickDropOffData: RideSerivceLocationData? = nil
     
     var booking : KTBooking = KTBookingManager().booking()
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var isFirstZoomDone = false
     static var askedToTurnOnLocaiton : Bool = false
+    
+    var rideInfo: RideInfo?
 
     override func viewWillAppear() {
-        
-        setupCurrentLocaiton()
-        
+                
         super.viewWillAppear()
+            
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
-    
-    }
-
-    func setupCurrentLocaiton() {
-      if KTLocationManager.sharedInstance.locationIsOn() {
-        if KTLocationManager.sharedInstance.isLocationAvailable {
-          var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
-          var userInfo : [String :Any] = [:]
-          userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
-          
-          notification.userInfo = userInfo
-          //notification.userInfo!["location"] as! CLLocation
-          LocationManagerLocaitonUpdate(notification: notification)
+        if self.rideServicePickDropOffData?.dropOffStop == nil && self.rideServicePickDropOffData?.dropOfSftation == nil{
+            self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.dropOffCoordinate)!, type: "Drop")
+        } else {
+            if self.rideServicePickDropOffData?.dropOffStop == nil {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setDropOff(pick: self.rideServicePickDropOffData?.dropOfSftation?.name ?? "")
+            } else {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setDropOff(pick: self.rideServicePickDropOffData?.dropOffStop?.name ?? "")
+            }
         }
-        else {
-          KTLocationManager.sharedInstance.start()
+        
+        if self.rideServicePickDropOffData?.pickUpStop == nil && self.rideServicePickDropOffData?.pickUpStation == nil {
+            self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.pickUpCoordinate)!, type: "Pick")
+        } else {
+            if  self.rideServicePickDropOffData?.pickUpStop == nil {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setPickup(pick: self.rideServicePickDropOffData?.pickUpStation?.name ?? "")
+            } else {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setPickup(pick: self.rideServicePickDropOffData?.pickUpStop?.name ?? "")
+            }
         }
-      }
-      else if KTXpressDropoffViewModel.askedToTurnOnLocaiton == false{
-        (delegate as! KTXpressRideCreationViewModelDelegate).showAlertForLocationServerOn()
-        KTXpressDropoffViewModel.askedToTurnOnLocaiton = true
         
-      }
+    
     }
     
-    @objc func LocationManagerLocaitonUpdate(notification: Notification)
-    {
-          let location : CLLocation = notification.userInfo!["location"] as! CLLocation
-          var updateMap = true
-
-          if let info = notification.userInfo, let check = info["updateMap"] as? Bool
-          {
-            updateMap = check
-//            del?.setETAString(etaString: "")
-          }
-          
-          //Show user Location on map
-          if currentBookingStep == BookingStep.step1
-          {
-               if updateMap
-               {
-                  if(isFirstZoomDone)
-                  {
-                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateLocationInMap(location: location, shouldZoomToDefault: false)
-                  }
-                  else
-                  {
-                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateLocationInMap(location: location, shouldZoomToDefault: true)
-                      isFirstZoomDone = true
-                  }
-               }
-
-              //Fetch location name (from Server) for current location.
-
-          }
-        
-        self.fetchLocationName(forGeoCoordinate: location.coordinate)
-        
-    }
-    
-    private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
+    private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D, type: String) {
       
       KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
         if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
@@ -109,8 +78,14 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
           DispatchQueue.main.async {
             //self.delegate?.userIntraction(enable: true)
             if self.delegate != nil {
-              (self.delegate as? KTXpressRideCreationViewModelDelegate)?
-                .setDropOff(pick: self.booking.pickupAddress)
+                
+                if type == "Drop" {
+                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?
+                      .setDropOff(pick: self.booking.pickupAddress)
+                } else {
+                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setPickup(pick: self.booking.pickupAddress)
+                }
+             
             }
           }
         }
@@ -133,6 +108,84 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         return (booking.toKeyValueBody?.array as! [KTKeyValue])
     }
     
+    func fetchRideService() {
+        
+        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [self] (String, response) in
+                        
+            print("ridedata", response)
+                        
+            self.rideInfo?.rides.removeAll()
+            
+            var ridesVehicleInfoList = [RideVehiceInfo]()
+            
+            guard let rides = response["Rides"] as? [[String : Any]] else {
+                return
+            }
+            
+            for item in rides {
+                
+                var vehicleInfo = RideVehiceInfo()
+                var dropLocationInfo = LocationInfo()
+                var pickUplocationInfo = LocationInfo()
+                
+                vehicleInfo.eta = item["Eta"] as? Int
+                vehicleInfo.id = item["Id"] as? String
+                vehicleInfo.vehicleNo = item["VehicleNo"] as? String
+                dropLocationInfo.lat = (item["Drop"] as?[String:String])?["lat"]
+                dropLocationInfo.lon = (item["Drop"] as?[String:String])?["lon"]
+                pickUplocationInfo.lat = (item["Pick"] as?[String:String])?["lat"]
+                pickUplocationInfo.lon = (item["Pick"] as?[String:String])?["lon"]
+                vehicleInfo.drop = dropLocationInfo
+                vehicleInfo.pick = pickUplocationInfo
+            
+                ridesVehicleInfoList.append(vehicleInfo)
+
+            }
+            
+            self.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: response["ExpirySeconds"] as! Int)
+            
+            print(self.rideInfo)
+            
+            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
+            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: self.rideInfo?.expirySeconds ?? 0)
+            
+        }
+        
+    }
+    
+}
+
+struct RideInfo: Codable {
+    
+    var rides = [RideVehiceInfo]()
+    var expirySeconds: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case rides = "Rides"
+        case expirySeconds = "ExpirySeconds"
+    }
 }
 
 
+struct RideVehiceInfo: Codable {
+    
+    var drop: LocationInfo?
+    var eta: Int?
+    var id: String?
+    var pick: LocationInfo?
+    var vehicleNo: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case drop = "Drop"
+        case eta = "ETA"
+        case id = "Id"
+        case pick = "Pick"
+        case vehicleNo = "VehicleNo"
+    }
+    
+}
+
+struct LocationInfo: Codable {
+    var lat: String?
+    var lon: String?
+}
