@@ -68,7 +68,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         
         super.viewWillAppear()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
     
     }
 
@@ -83,11 +83,11 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
       }
     }
     
-    @objc func LocationManagerLocaitonUpdate(notification: Notification)
-    {
-          let location : CLLocation = notification.userInfo!["location"] as! CLLocation
-        self.fetchLocationName(forGeoCoordinate: location.coordinate)
-    }
+//    @objc func LocationManagerLocaitonUpdate(notification: Notification)
+//    {
+//          let location : CLLocation = notification.userInfo!["location"] as! CLLocation
+//        self.fetchLocationName(forGeoCoordinate: location.coordinate)
+//    }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
       
@@ -96,14 +96,10 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
           
           
           let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
-          self.booking.pickupLocationId = pAddress.locationId
-          self.booking.pickupAddress = pAddress.name
-          self.booking.pickupLat = pAddress.latitude
-          self.booking.pickupLon = pAddress.longitude
           DispatchQueue.main.async {
             //self.delegate?.userIntraction(enable: true)
             if self.delegate != nil {
-              (self.delegate as! KTXpressDropoffViewModelDelegate).setDropOff(pick: self.booking.pickupAddress)
+              (self.delegate as! KTXpressDropoffViewModelDelegate).setDropOff(pick: pAddress.name)
             }
           }
         }

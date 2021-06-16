@@ -42,9 +42,9 @@ open class DDViewSwitcher: UIView {
     private var pointNormal: CGPoint!
     
     //Action when view is tapped
-    open var tapAction: ((Void) -> Void)?
-    open var finishScrollAction: ((Void) -> Void)?
-    open var didChangeItemAction: ((Void) -> Void)?
+    open var tapAction: (() -> Void)?
+    open var finishScrollAction: (() -> Void)?
+    open var didChangeItemAction: (() -> Void)?
     
     public init(frame: CGRect, data: [UIView], scrollDirection: ScrollDirection) {
         super.init(frame: frame)
@@ -192,18 +192,18 @@ open class DDViewSwitcher: UIView {
     //Tap action handler
     @objc open func didTap(sender: UITapGestureRecognizer) {
         guard let action = self.tapAction else { return /*didn't set closure*/}
-        action(())
+        action()
     }
     
     //scroll finish(Only isInfiniteScrolling is false) action handler
     open func finishScroll() {
         guard let action = self.finishScrollAction else { return /*didn't set closure*/}
-        action(())
+        action()
     }
     
     //scroll finish(Only isInfiniteScrolling is false) action handler
     open func didChangeItem() {
         guard let action = self.didChangeItemAction else { return /*didn't set closure*/}
-        action(())
+        action()
     }
 }

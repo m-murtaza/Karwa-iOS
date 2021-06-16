@@ -21,6 +21,7 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func setPickup(pick: String?)
     func setProgressViewCounter(countDown: Int)
     func showHideRideServiceView(show: Bool)
+    func updateUI()
 }
 
 class KTXpressRideCreationViewModel: KTBaseViewModel {
@@ -40,7 +41,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 
         super.viewWillAppear()
             
-        
+        //Check the drop of address name
         if self.rideServicePickDropOffData?.dropOffStop == nil && self.rideServicePickDropOffData?.dropOfSftation == nil{
             self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.dropOffCoordinate)!, type: "Drop")
         } else {
@@ -51,6 +52,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             }
         }
         
+        //Check the pickup address name
         if self.rideServicePickDropOffData?.pickUpStop == nil && self.rideServicePickDropOffData?.pickUpStation == nil {
             self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.pickUpCoordinate)!, type: "Pick")
         } else {
@@ -65,31 +67,24 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D, type: String) {
-      
-      KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
-        if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
-          
-          
-          let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
-          self.booking.pickupLocationId = pAddress.locationId
-          self.booking.pickupAddress = pAddress.name
-          self.booking.pickupLat = pAddress.latitude
-          self.booking.pickupLon = pAddress.longitude
-          DispatchQueue.main.async {
-            //self.delegate?.userIntraction(enable: true)
-            if self.delegate != nil {
+        
+        KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
                 
-                if type == "Drop" {
-                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?
-                      .setDropOff(pick: self.booking.pickupAddress)
-                } else {
-                    (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setPickup(pick: self.booking.pickupAddress)
+                let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
+                
+                DispatchQueue.main.async {
+                    if self.delegate != nil {
+                        if type == "Drop" {
+                            (self.delegate as? KTXpressRideCreationViewModelDelegate)?
+                                .setDropOff(pick: pAddress.name)
+                        } else {
+                            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setPickup(pick: pAddress.name)
+                        }
+                    }
                 }
-             
             }
-          }
         }
-      }
     }
     
     func fareDetailsHeader() -> [KTKeyValue]? {
@@ -131,10 +126,10 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 vehicleInfo.eta = item["Eta"] as? Int
                 vehicleInfo.id = item["Id"] as? String
                 vehicleInfo.vehicleNo = item["VehicleNo"] as? String
-                dropLocationInfo.lat = (item["Drop"] as?[String:String])?["lat"]
-                dropLocationInfo.lon = (item["Drop"] as?[String:String])?["lon"]
-                pickUplocationInfo.lat = (item["Pick"] as?[String:String])?["lat"]
-                pickUplocationInfo.lon = (item["Pick"] as?[String:String])?["lon"]
+                dropLocationInfo.lat = Double((item["Drop"] as?[String:String])?["lat"] ?? "0.0")
+                dropLocationInfo.lon = Double((item["Drop"] as?[String:String])?["lon"] ?? "0.0")
+                pickUplocationInfo.lat = Double((item["Pick"] as?[String:String])?["lat"] ?? "0.0")
+                pickUplocationInfo.lon = Double((item["Pick"] as?[String:String])?["lon"] ?? "0.0")
                 vehicleInfo.drop = dropLocationInfo
                 vehicleInfo.pick = pickUplocationInfo
             
@@ -149,43 +144,25 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             (self.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
             (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: self.rideInfo?.expirySeconds ?? 0)
             
+            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
+            
         }
         
     }
     
-}
-
-struct RideInfo: Codable {
-    
-    var rides = [RideVehiceInfo]()
-    var expirySeconds: Int?
-    
-    enum CodingKeys: String, CodingKey {
-        case rides = "Rides"
-        case expirySeconds = "ExpirySeconds"
-    }
-}
-
-
-struct RideVehiceInfo: Codable {
-    
-    var drop: LocationInfo?
-    var eta: Int?
-    var id: String?
-    var pick: LocationInfo?
-    var vehicleNo: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case drop = "Drop"
-        case eta = "ETA"
-        case id = "Id"
-        case pick = "Pick"
-        case vehicleNo = "VehicleNo"
+    func getVehicleNo(index: Int) -> String {
+        return self.rideInfo?.rides[index].vehicleNo ?? ""
     }
     
+    func getEstimatedTime(index: Int) -> String {
+        return  "Arrives" + "\(self.rideInfo?.rides[index].eta ?? 0) Mins"
+    }
+    
+    func getPickUpCoordinateFromServer(index: Int) -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon))
+    }
+    
+    
 }
 
-struct LocationInfo: Codable {
-    var lat: String?
-    var lon: String?
-}
+

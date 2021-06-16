@@ -153,17 +153,21 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         
     }
+    
+    func updateUI() {
+        self.rideServiceTableView.reloadData()
+    }
 
 }
 
 extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.headerData.count
+        return (self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.headerData[section] == 0) ? 0 : 1
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -174,6 +178,8 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "KTXpressRideServiceCell") as! KTXpressRideServiceCell
         cell.dropDownButton.addTarget(self, action: #selector(showDetails(sender:)), for: .touchUpInside)
         cell.dropDownButton.tag = section
+        cell.lblServiceType.text = (self.viewModel as! KTXpressRideCreationViewModel).getVehicleNo(index: section)
+        cell.lblBaseFareOrEstimate.text = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
         return cell
     }
     

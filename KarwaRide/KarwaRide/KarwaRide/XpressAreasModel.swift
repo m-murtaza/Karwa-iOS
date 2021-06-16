@@ -28,3 +28,38 @@ struct Destination: Codable, Hashable {
         case isActive = "IsActive"
     }
 }
+
+struct RideInfo: Codable {
+    
+    var rides = [RideVehiceInfo]()
+    var expirySeconds: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case rides = "Rides"
+        case expirySeconds = "ExpirySeconds"
+    }
+}
+
+
+struct RideVehiceInfo: Codable {
+    
+    var drop: LocationInfo?
+    var eta: Int?
+    var id: String?
+    var pick: LocationInfo?
+    var vehicleNo: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case drop = "Drop"
+        case eta = "ETA"
+        case id = "Id"
+        case pick = "Pick"
+        case vehicleNo = "VehicleNo"
+    }
+    
+}
+
+struct LocationInfo: Codable {
+    var lat: Double?
+    var lon: Double?
+}

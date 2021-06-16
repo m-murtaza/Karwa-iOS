@@ -1518,9 +1518,7 @@
 				TargetAttributes = {
 					181344951EF68671006E734A = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 2U24J4Z466;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2149,7 +2147,7 @@
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 168;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
@@ -2162,7 +2160,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = KarwaAppStoreProvisionProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
