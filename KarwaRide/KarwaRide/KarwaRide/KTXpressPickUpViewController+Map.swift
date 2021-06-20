@@ -34,7 +34,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             (self.viewModel as! KTXpressPickUpViewModel).showStopAlert()
         }
         
-        self.setPickUpButton.setTitle("Set Pickup", for: .normal)
+        self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
         self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
         self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
@@ -65,10 +65,11 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
                 
             if (self.viewModel as! KTXpressPickUpViewModel).areas.count > 0 {
                 (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+                KTLocationManager.sharedInstance.setCurrentLocation(location: location)
             } else {
                 let name = "LocationManagerNotificationIdentifier"
                 NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-//                KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+                KTLocationManager.sharedInstance.setCurrentLocation(location: location)
             }
             
             (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
@@ -80,15 +81,14 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
                 }
                 
                 if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                    print("it contains")
-                    self.setPickUpButton.setTitle("Set Pickup", for: .normal)
+                    self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                     self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
                     self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                     self.setPickUpButton.isUserInteractionEnabled = true
                 } else {
                     print("it wont contains")
-                    self.setPickUpButton.setTitle("OUT OF ZONE", for: .normal)
+                    self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
                     self.setPickUpButton.backgroundColor = UIColor.clear
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                     self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)

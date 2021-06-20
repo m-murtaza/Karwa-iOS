@@ -10954,10 +10954,10 @@
             </objects>
             <point key="canvasLocation" x="-2762.3188405797105" y="-845.08928571428567"/>
         </scene>
-        <!--Xpress Pick Up View Controller-->
+        <!--View Controller-->
         <scene sceneID="Nhc-yV-rR9">
             <objects>
-                <viewController storyboardIdentifier="InProgressXpressBooking" modalTransitionStyle="crossDissolve" id="jUL-QK-WFX" customClass="KTXpressPickUpViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InProgressXpressBooking" modalTransitionStyle="crossDissolve" id="jUL-QK-WFX" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="40b-N9-WXD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -11374,6 +11374,23 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZC-ve-6Us" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="liv-00-eg0">
+                                        <rect key="frame" x="173" y="256" width="105" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="walktopickup" translatesAutoresizingMaskIntoConstraints="NO" id="7cc-br-Xgb">
+                                                <rect key="frame" x="-1" y="8" width="106" height="39"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="walk_ico" translatesAutoresizingMaskIntoConstraints="NO" id="VPg-ar-VO0">
+                                                <rect key="frame" x="14" y="47" width="89" height="43"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -11464,19 +11481,26 @@
                                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <state key="normal" image="downarrow_ico"/>
                                                                 </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYy-Qc-pgh">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="364" height="60"/>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="ROz-ir-mOq" firstAttribute="top" secondItem="xJI-Lm-iDp" secondAttribute="top" constant="10" id="1TK-sZ-sZ1"/>
+                                                                <constraint firstItem="CYy-Qc-pgh" firstAttribute="top" secondItem="xJI-Lm-iDp" secondAttribute="top" id="480-mS-Por"/>
                                                                 <constraint firstItem="u8S-1V-zrd" firstAttribute="leading" secondItem="xJI-Lm-iDp" secondAttribute="leading" constant="10" id="8jp-ni-XlM"/>
                                                                 <constraint firstItem="Mxl-vM-Suw" firstAttribute="leading" secondItem="my5-WH-O0E" secondAttribute="trailing" constant="2" id="9Hb-7E-erg"/>
                                                                 <constraint firstAttribute="bottom" secondItem="u8S-1V-zrd" secondAttribute="bottom" id="F0o-gp-ueN"/>
                                                                 <constraint firstItem="ROz-ir-mOq" firstAttribute="leading" secondItem="xJI-Lm-iDp" secondAttribute="leading" constant="100" id="J2j-sy-mLM"/>
                                                                 <constraint firstItem="Isw-v4-M98" firstAttribute="centerY" secondItem="xJI-Lm-iDp" secondAttribute="centerY" id="KwQ-fB-QAS"/>
                                                                 <constraint firstItem="Mxl-vM-Suw" firstAttribute="centerY" secondItem="xJI-Lm-iDp" secondAttribute="centerY" id="PPF-Z4-AlZ"/>
+                                                                <constraint firstAttribute="trailing" secondItem="CYy-Qc-pgh" secondAttribute="trailing" id="Vbv-N1-yEG"/>
                                                                 <constraint firstItem="Isw-v4-M98" firstAttribute="leading" secondItem="xJI-Lm-iDp" secondAttribute="leading" constant="20" id="W9m-KS-Ine"/>
                                                                 <constraint firstAttribute="trailing" secondItem="ROz-ir-mOq" secondAttribute="trailing" constant="33" id="Wrx-al-CJb"/>
+                                                                <constraint firstItem="CYy-Qc-pgh" firstAttribute="leading" secondItem="xJI-Lm-iDp" secondAttribute="leading" id="ZWr-He-fBD"/>
                                                                 <constraint firstItem="my5-WH-O0E" firstAttribute="centerY" secondItem="xJI-Lm-iDp" secondAttribute="centerY" id="aNe-RC-qaU"/>
+                                                                <constraint firstAttribute="bottom" secondItem="CYy-Qc-pgh" secondAttribute="bottom" id="cey-6R-c84"/>
                                                                 <constraint firstItem="u8S-1V-zrd" firstAttribute="top" secondItem="xJI-Lm-iDp" secondAttribute="top" id="f48-uk-Tng"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Mxl-vM-Suw" secondAttribute="trailing" constant="10" id="xba-2C-jGG"/>
                                                             </constraints>
@@ -11487,6 +11511,7 @@
                                                             <outlet property="imgVehicleType" destination="Isw-v4-M98" id="fiB-FG-zft"/>
                                                             <outlet property="lblBaseFareOrEstimate" destination="546-1A-w3J" id="ONR-tU-Sli"/>
                                                             <outlet property="lblServiceType" destination="2fZ-la-FaU" id="POK-8N-Y3g"/>
+                                                            <outlet property="showDetailsButton" destination="CYy-Qc-pgh" id="nNx-Ro-7ZR"/>
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTFareServiceCell" id="2iY-83-aYB" customClass="KTFareServiceCell" customModule="KarwaRide" customModuleProvider="target">
@@ -11623,9 +11648,6 @@
                                                                 <real key="value" value="6"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <segue destination="jUL-QK-WFX" kind="show" id="wQE-yi-RFG"/>
-                                                        </connections>
                                                     </button>
                                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="9eb-cZ-7y0">
                                                         <rect key="frame" x="0.0" y="119" width="364" height="4"/>
@@ -11855,6 +11877,7 @@
                         <outlet property="rideServiceTableView" destination="5RP-7s-Nfm" id="vtc-4g-h83"/>
                         <outlet property="rideServiceView" destination="sA7-G4-J9r" id="ctz-Lg-Clk"/>
                         <outlet property="setBookingButton" destination="CKz-2e-BDH" id="vEE-VS-iNc"/>
+                        <outlet property="walkToPickUpView" destination="liv-00-eg0" id="pBU-hb-Syq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="akE-y0-Bjs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -12243,6 +12266,8 @@
         <image name="taxi_sm_ico" width="44" height="44"/>
         <image name="taxiplate" width="87" height="32"/>
         <image name="vehicle_ico" width="71" height="29"/>
+        <image name="walk_ico" width="43" height="43"/>
+        <image name="walktopickup" width="106" height="47"/>
         <image name="warning" width="20" height="18"/>
         <image name="white_back" width="375" height="396"/>
         <image name="work_ico_map" width="18" height="17"/>

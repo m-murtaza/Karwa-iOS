@@ -35,12 +35,11 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
         viewModel = KTXpressPickUpViewModel(del:self)
         vModel = viewModel as? KTXpressPickUpViewModel
-        
-        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
-        
         // Do any additional setup after loading the view.
         addMap()
         
+        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
+
         self.navigationItem.hidesBackButton = true;
         self.btnRevealBtn?.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
@@ -52,6 +51,17 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+    }
+    
+    @IBAction func setCurrentLocation(sender: UIButton) {
+
+        //for temporary
+        let location = CLLocation(latitude: 25.281308, longitude: 51.531917)
+        KTLocationManager.sharedInstance.setCurrentLocation(location: location)
     }
     
     

@@ -17,14 +17,14 @@ extension KTXpressRideCreationViewController
 {
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.latitude)!, longitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.longitude)!, zoom: 14.0)
+        let camera = GMSCameraPosition.camera(withLatitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.latitude)!, longitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.longitude)!, zoom: 7.0)
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
-        gmsMarker.append(self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pin_pickup_map")))
+        pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pin_pickup_map"))
         
-        gmsMarker.append(self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "pin_dropoff_map")))
+        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
 
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         mapView.padding = padding
@@ -48,6 +48,58 @@ extension KTXpressRideCreationViewController
         self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
 
         
+    }
+    
+    func  addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)  {
+        
+        
+        mapView.clear()
+        
+        self.drawArcPolyline(startLocation: coordinate, endLocation: self.vModel?.rideServicePickDropOffData?.dropOffCoordinate)
+        
+        serverPickUpLocationMarker = GMSMarker()
+        serverPickUpLocationMarker.position = coordinate
+        serverPickUpLocationMarker.icon = #imageLiteral(resourceName: "pin_pickup_map")
+        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
+        serverPickUpLocationMarker.map = self.mapView
+        
+        pickUpLocationMarker = GMSMarker()
+        pickUpLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!
+        pickUpLocationMarker.iconView = walkToPickUpView
+//        pickUpLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
+        pickUpLocationMarker.map = self.mapView
+        
+        dropOffLocationMarker = GMSMarker()
+        dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
+        dropOffLocationMarker.icon = #imageLiteral(resourceName: "pin_dropoff_map")
+        dropOffLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
+        dropOffLocationMarker.map = self.mapView
+        
+      
+        self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
+
+        
+    }
+    
+    func drawArc(startLocation: CLLocationCoordinate2D?, endLocation: CLLocationCoordinate2D?) {
+        if let startLocation = startLocation, let endLocation = endLocation {
+            //swap the startLocation & endLocation if you want to reverse the direction of polyline arc formed.
+            let path = GMSMutablePath()
+            path.add(startLocation)
+            path.add(endLocation)
+            //Draw polyline
+            let polyline = GMSPolyline(path: path)
+            polyline.map = mapView // Assign GMSMapView as map
+            polyline.strokeWidth = 3.0
+            let styles = [GMSStrokeStyle.solidColor(UIColor.black), GMSStrokeStyle.solidColor(UIColor.clear)]
+            let lengths = [0.5, 0.5] // Play with this for dotted line
+            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            
+            let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
+            let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+            let camera = mapView.camera(for: bounds, insets: insets)!
+            mapView.animate(to: camera)
+        }
     }
     
     func bezierPath(from startLocation: CLLocationCoordinate2D, to endLocation: CLLocationCoordinate2D) -> GMSMutablePath {

@@ -18,7 +18,7 @@ class KTLocationManager: NSObject,CLLocationManagerDelegate {
 //    var delegate : KTLocationManagerDelegate?
     let locManager = CLLocationManager()
     var currentLocation : CLLocation = CLLocation(latitude: 0.0,longitude: 0.0)
-    var baseLocation : CLLocation = CLLocation(latitude: 0.0,longitude: 0.0)
+    var baseLocation : CLLocation = CLLocation(latitude: 25.281308,longitude: 51.531917)
     
     var isLocationAvailable: Bool {
         if currentLocation.coordinate.isZeroCoordinate {

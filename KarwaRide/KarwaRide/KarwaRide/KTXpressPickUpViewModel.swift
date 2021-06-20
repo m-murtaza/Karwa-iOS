@@ -96,7 +96,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             DispatchQueue.main.async {
               //self.delegate?.userIntraction(enable: true)
               if self.delegate != nil {
-                (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
+                (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: pAddress.name)
               }
             }
         }

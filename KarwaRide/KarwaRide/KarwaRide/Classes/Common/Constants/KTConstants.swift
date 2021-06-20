@@ -150,7 +150,7 @@ struct Constants {
         static let MinuteChanged = "MinuteChangedNotification"
         static let LocationManager = "LocationManagerNotificationIdentifier"
         static let UserLogin = "UserLoginNotificationIdentifire"
-        static let LocationManager = "LocationManagerNotificationIdentifier"
+        static let XpressLocationManager = "XpressLocationManagerNotificationIdentifier"
     }
     
     struct API {

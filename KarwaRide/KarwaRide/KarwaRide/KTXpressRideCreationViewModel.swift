@@ -22,6 +22,7 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func setProgressViewCounter(countDown: Int)
     func showHideRideServiceView(show: Bool)
     func updateUI()
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)
 }
 
 class KTXpressRideCreationViewModel: KTBaseViewModel {
@@ -126,10 +127,10 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 vehicleInfo.eta = item["Eta"] as? Int
                 vehicleInfo.id = item["Id"] as? String
                 vehicleInfo.vehicleNo = item["VehicleNo"] as? String
-                dropLocationInfo.lat = Double((item["Drop"] as?[String:String])?["lat"] ?? "0.0")
-                dropLocationInfo.lon = Double((item["Drop"] as?[String:String])?["lon"] ?? "0.0")
-                pickUplocationInfo.lat = Double((item["Pick"] as?[String:String])?["lat"] ?? "0.0")
-                pickUplocationInfo.lon = Double((item["Pick"] as?[String:String])?["lon"] ?? "0.0")
+                dropLocationInfo.lat = (item["Drop"] as?[String:Double])?["lat"] ?? 0.0
+                dropLocationInfo.lon = (item["Drop"] as?[String:Double])?["lon"] ?? 0.0
+                pickUplocationInfo.lat = ((item["Pick"] as?[String:Double])?["lat"] ?? 0.0) + 0.00011
+                pickUplocationInfo.lon = ((item["Pick"] as?[String:Double])?["lon"] ?? 0.0) + 0.00011
                 vehicleInfo.drop = dropLocationInfo
                 vehicleInfo.pick = pickUplocationInfo
             
@@ -137,12 +138,14 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
 
             }
             
-            self.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: response["ExpirySeconds"] as! Int)
+            self.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: (response["ExpirySeconds"] as! Int))
             
             print(self.rideInfo)
             
             (self.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
             (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: self.rideInfo?.expirySeconds ?? 0)
+            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!))
+
             
             (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
             
@@ -155,13 +158,12 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     func getEstimatedTime(index: Int) -> String {
-        return  "Arrives" + "\(self.rideInfo?.rides[index].eta ?? 0) Mins"
+        return  "str_arrives".localized() + "\((self.rideInfo?.rides[index].eta ?? 0)/60) Mins"
     }
     
-    func getPickUpCoordinateFromServer(index: Int) -> CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon))
+    func setPickUpLocationForXpressRide(index: Int) {
+        (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon)!))
     }
-    
     
 }
 

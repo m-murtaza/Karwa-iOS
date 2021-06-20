@@ -47,7 +47,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
         
         if self.tapOnMarker == false {
             let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-            let name = "LocationManagerNotificationIdentifier"
+            let name = "XpressLocationManagerNotificationIdentifier"
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
 
             (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)

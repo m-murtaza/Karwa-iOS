@@ -68,7 +68,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         
         super.viewWillAppear()
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.XpressLocationManager), object: nil)
     
     }
 
@@ -83,11 +83,11 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
       }
     }
     
-//    @objc func LocationManagerLocaitonUpdate(notification: Notification)
-//    {
-//          let location : CLLocation = notification.userInfo!["location"] as! CLLocation
-//        self.fetchLocationName(forGeoCoordinate: location.coordinate)
-//    }
+    @objc func LocationManagerLocaitonUpdate(notification: Notification)
+    {
+          let location : CLLocation = notification.userInfo!["location"] as! CLLocation
+        self.fetchLocationName(forGeoCoordinate: location.coordinate)
+    }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
       
@@ -133,9 +133,9 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             self.selectedStation = selectedArea.first!
             (self.delegate as! KTXpressDropoffViewModelDelegate).setDropOff(pick: selectedArea.first?.name ?? "")
         } else {
-            let name = "LocationManagerNotificationIdentifier"
-            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+//            let name = "LocationManagerNotificationIdentifier"
+//            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+//            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         }
         
     }

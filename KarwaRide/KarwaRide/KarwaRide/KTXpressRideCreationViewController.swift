@@ -18,6 +18,7 @@ class KTXpressRideServiceCell: UITableViewCell {
     @IBOutlet weak var imgVehicleType : UIImageView!
     @IBOutlet weak var dropDownButton : UIButton!
     @IBOutlet weak var informationButton : UIButton!
+    @IBOutlet weak var showDetailsButton : UIButton!
 
     override class func awakeFromNib() {
         
@@ -67,6 +68,12 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var secondsRemaining:Float = 1.0
     
     var expiryTime = 0
+    
+    var serverPickUpLocationMarker: GMSMarker!
+    var pickUpLocationMarker: GMSMarker!
+    var dropOffLocationMarker: GMSMarker!
+    
+    @IBOutlet weak var walkToPickUpView = UIView()
 
     override func viewDidLoad() {
         
@@ -142,13 +149,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         self.rideServiceView.isHidden = !show
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
-    */
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         
@@ -176,7 +176,9 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "KTXpressRideServiceCell") as! KTXpressRideServiceCell
-        cell.dropDownButton.addTarget(self, action: #selector(showDetails(sender:)), for: .touchUpInside)
+        cell.showDetailsButton.addTarget(self, action: #selector(addPickupMarker(sender:)), for: .touchUpInside)
+    
+        
         cell.dropDownButton.tag = section
         cell.lblServiceType.text = (self.viewModel as! KTXpressRideCreationViewModel).getVehicleNo(index: section)
         cell.lblBaseFareOrEstimate.text = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
@@ -191,10 +193,14 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    @objc func showDetails(sender: UIButton)  {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: indexPath.row)
+    }
+    
+    @objc func addPickupMarker(sender: UIButton)  {
         
-        self.headerData[sender.tag] = (self.headerData[sender.tag] == 0) ? 1 : 0
-        self.rideServiceTableView.reloadSections([sender.tag], with: .fade)
+        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
+
         
     }
     
