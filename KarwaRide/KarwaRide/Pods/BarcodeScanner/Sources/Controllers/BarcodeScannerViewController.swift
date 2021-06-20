@@ -290,6 +290,9 @@ extension BarcodeScannerViewController: HeaderViewControllerDelegate {
   func headerViewControllerDidTapCloseButton(_ controller: HeaderViewController) {
     dismissalDelegate?.scannerDidDismiss(self)
   }
+    func headerViewControllerDidTapManageButton(_ controller: HeaderViewController) {
+      manageDelegate?.scannerDidManage(self)
+    }
 }
 
 // MARK: - CameraViewControllerDelegate
