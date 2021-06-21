@@ -910,7 +910,13 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
             self.paymentTypeLabel.text = "str_wallet".localized()
             self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
-        } else {
+        } else if type == "Card" {
+            let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
+            self.paymentTypeLabel.text = "***** " + (paymentMethod?.last_four_digits ?? "")
+            self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage(paymentMethod?.brand ?? ""))!
+        }
+        else {
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
             self.paymentTypeLabel.text = "str_cash".localized()
             self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))

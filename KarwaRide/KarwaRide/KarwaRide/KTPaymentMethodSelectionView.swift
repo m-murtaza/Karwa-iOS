@@ -27,9 +27,11 @@ class KTPaymentMethodSelectionView: UIView {
 
     var cashSelected: Bool = true
     var walletSelected: Bool = false
+    var cardSelected: Bool = false
 
     var paymentMethods: [KTPaymentMethod] = []
-    
+    var cardPaymentMethods: [KTPaymentMethod] = []
+
     var delegate: PaymethodSelectionDelegate?
     
     override init(frame: CGRect) {
@@ -58,7 +60,16 @@ class KTPaymentMethodSelectionView: UIView {
     }
 
     func fetchnPaymentMethods() {
+        
+        paymentMethods.removeAll()
+        cardPaymentMethods.removeAll()
+        
         paymentMethods = KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"})
+        
+        cardPaymentMethods = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})
+                
+        paymentMethods.append(contentsOf: cardPaymentMethods)
+        
         self.tableView.reloadData()
     }
 }
@@ -86,13 +97,23 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
                 cell.titleLabel.text = "str_cash".localized()
                 cell.detailLable.text = ""
             } else {
-                cell.iconImageView.image  = UIImage(named:"ico_wallet_new")
-                cell.titleLabel.text = "str_wallet".localized()
                 
-                if let balance = paymentMethods[0].balance {
-                    cell.detailLable.text = balance
+                if paymentMethods[indexPath.row].payment_type != nil {
+                    if paymentMethods[indexPath.row].payment_type == "WALLET" {
+                        cell.iconImageView.image  = UIImage(named:"ico_wallet_new")
+                        cell.titleLabel.text = "str_wallet".localized()
+                        if let balance = paymentMethods[indexPath.row].balance {
+                            cell.detailLable.text = balance
+                        }
+                    } else {
+                        
+                        cell.iconImageView.image  = UIImage(named: ImageUtil.getImage(paymentMethods[indexPath.row].brand!))!
+                        cell.detailLable.text = "EXP. " + paymentMethods[indexPath.row].expiry_month! + "/" + paymentMethods[indexPath.row].expiry_year!
+                        cell.titleLabel.text =  "**** **** **** " + paymentMethods[indexPath.row].last_four_digits!
+
+                    }
                 }
-                
+            
             }
                         
         }
@@ -110,14 +131,27 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
         if indexPath.row == paymentMethods.count {
             cashSelected = true
             walletSelected = false
-        } else {
+            cardSelected = false
+            self.delegate?.setSelectedPaymentType(type: "Cash", paymentMethod: nil)
+        } else if indexPath.row == 0 {
             walletSelected = true
             cashSelected = false
+            cardSelected = false
+            self.delegate?.setSelectedPaymentType(type: "Wallet", paymentMethod: paymentMethods[0])
+        } else {
+            walletSelected = false
+            cashSelected = false
+            cardSelected = true
+            
+            
+            let paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row - 1]
+            
+            self.delegate?.setSelectedPaymentType(type: "Card", paymentMethod: paymentMethod)
+
         }
         
         self.tableView.reloadData()
         
-        self.delegate?.setSelectedPaymentType(type: cashSelected == true ? "Cash" : "Wallet", paymentMethod: walletSelected == true ? paymentMethods[0] : nil)
         
     }
     
@@ -130,15 +164,18 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
             else {
                 return UIColor(hexString: "#EBEBEB")
             }
-        } else {
+        }else if idx == 0 {
             if(walletSelected) {
                 return UIColor(hexString: "#00A8A8")
             }
-            else {
-                return UIColor(hexString: "#EBEBEB")
+            return UIColor(hexString: "#EBEBEB")
+        } else {
+            if(cardSelected) {
+                return UIColor(hexString: "#00A8A8")
             }
+            return UIColor(hexString: "#EBEBEB")
         }
-    
+            
     }
     
     func paymentSelectionIcon(forCellIdx idx: Int) -> UIImage {
@@ -149,15 +186,18 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
             } else {
                 return #imageLiteral(resourceName: "uncheck_icon")
             }
-        } else {
-            
+        } else if idx == 0 {
             if(walletSelected) {
                 return #imageLiteral(resourceName: "checked_icon")
-            } else {
-                return #imageLiteral(resourceName: "uncheck_icon")
             }
+            return #imageLiteral(resourceName: "uncheck_icon")
+        } else {
+            if(cardSelected) {
+                return #imageLiteral(resourceName: "checked_icon")
+            }
+            return #imageLiteral(resourceName: "uncheck_icon")
         }
-        
+                
     }
     
 }
