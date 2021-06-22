@@ -13,6 +13,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblVersion : UILabel!
     
+    var otpEnabledStatus: String = "false"
+    
     override func viewDidLoad() {
         viewModel = KTSettingsViewModel(del: self)
         super.viewDidLoad()
@@ -70,12 +72,11 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numRows = 1
         if section == 2 {
-            
             numRows = 2
         }
-        /*else if section == 3 {
+        else if section == 3 {
             numRows = 2
-        }*/
+        }
         return numRows
     }
     
@@ -147,6 +148,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             (cell as! KTSettingsImgTextTableViewCell).lblText.text = "changePass".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconPassword")
+            (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
         }
         
         else if indexPath.section == 2 && indexPath.row == 0 {
@@ -157,6 +159,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strHome".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconHome")
+            (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
         }
         else if indexPath.section == 2 && indexPath.row == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
@@ -166,6 +169,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strWork".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconWork")
+            (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
         }
         else if indexPath.section == 3  {
             /*if indexPath.row == 0 {
@@ -178,7 +182,30 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingCalendarTableViewCell).lblText.text = "Calendar Shortcut"
                 (cell as! KTSettingCalendarTableViewCell).imgIcon.image = UIImage(named: "SettingIconCalendar")
             }
-            else */if indexPath.row == 0 {
+            else */
+            if indexPath.row == 0{
+                cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+                guard let _ = cell else {
+                    return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
+                }
+                
+                (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = false
+                
+                if let otpEnabled: Bool = UserDefaults.standard.value(forKey: "OTPEnabled") as? Bool, otpEnabled == true {
+                    otpEnabledStatus = "false"
+                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.setImage(#imageLiteral(resourceName: "ic_confirmed"), for: .normal)
+                } else {
+                    
+                    otpEnabledStatus = "true"
+                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.setImage(#imageLiteral(resourceName: "ic_arrived"), for: .normal)
+                }
+                
+                (cell as! KTSettingsImgTextTableViewCell).otpSwitch.addTarget(self, action: #selector(setOneTimePassword(sender:)), for: .touchUpInside)
+                
+                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "str_otp".localized()
+                (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
+                
+            } else if indexPath.row == 1 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
                 guard let _ = cell else {
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
@@ -186,6 +213,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strRateApp".localized()
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
+                (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
                 
             }
             
@@ -201,12 +229,23 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strLogout".localized()
                 (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor(hexString: "#E74C3C")
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconLogout")
-                
+                (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
+
             }
         }
         
         
         return cell!
+    }
+    
+    @objc func setOneTimePassword(sender: UIButton) {
+
+        KTUserManager().updateOTP(otp: otpEnabledStatus) { status, response in
+            
+            print(response)
+            self.tableView.reloadData()
+                        
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -231,7 +270,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             }
         }
         else if indexPath.section == 3 {
-            if indexPath.row == 0{
+            if indexPath.row == 1{
                 (viewModel as! KTSettingsViewModel).rateApplication()
             }
         }
@@ -249,7 +288,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         let logoutAlt = UIAlertController(title: "strLogout".localized(), message: "str_confirm_logout".localized(), preferredStyle: UIAlertControllerStyle.alert)
         
         logoutAlt.addAction(UIAlertAction(title: "str_yes".localized(), style: UIAlertActionStyle.destructive, handler: { (action) in
-            
+            UserDefaults.standard.removeObject(forKey: "OTPEnabled")
             (self.viewModel as! KTSettingsViewModel).logout()
         }))
         

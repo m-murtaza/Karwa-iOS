@@ -28,8 +28,14 @@ extension KTUserManager {
         user.name = responseDic[Constants.EditAccountInfoParam.Name] as? String
         user.email = responseDic[Constants.EditAccountInfoParam.Email] as? String
         user.isEmailVerified = responseDic[Constants.EditAccountInfoParam.isEmailVerified] as? Int == 1 ? true : false
-
-        if let gender = responseDic[Constants.EditAccountInfoParam.gender] as? String, let genderIntVal = Int16(gender) {
+        
+        if let otpEnabled = (responseDic[Constants.EditAccountInfoParam.Preference] as? [String:Int])?[Constants.EditAccountInfoParam.BookingOtp] {
+            UserDefaults.standard.setValue(otpEnabled == 1 ? true : false, forKey: "OTPEnabled")
+            UserDefaults.standard.synchronize()
+        }
+    
+        
+         if let gender = responseDic[Constants.EditAccountInfoParam.gender] as? String, let genderIntVal = Int16(gender) {
             user.gender = genderIntVal
         }
         
@@ -43,6 +49,17 @@ extension KTUserManager {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
     }
     
+    fileprivate func saveOtpStatus(_ response: [AnyHashable : Any])
+    {
+        let responseDic = response as! [String : Any]
+       
+        if let otpEnabled = responseDic[Constants.EditAccountInfoParam.BookingOtp] as? Int {
+            UserDefaults.standard.setValue(otpEnabled == 1 ? true : false, forKey: "OTPEnabled")
+            UserDefaults.standard.synchronize()
+        }
+    
+    }
+    
     func updateUserInfo(
         name: String,
         email: String,
@@ -53,14 +70,14 @@ extension KTUserManager {
                                            Constants.EditAccountInfoParam.Email : email,
                                            Constants.EditAccountInfoParam.dob : dob,
                                            Constants.EditAccountInfoParam.gender : gender
-                                          ]
+        ]
         
         updateUserInfo(param: param as! [String : Any], completion: { (status, response) in
             
             self.saveUserData(response)
             
             completionBlock(Constants.APIResponseStatus.SUCCESS,response)
-            })
+        })
     }
     
     func resendEmail(completion completionBlock: @escaping KTDALCompletionBlock)
@@ -101,6 +118,24 @@ extension KTUserManager {
               //  completionBlock(Constants.APIResponseStatus.FAILED_DB,[:])
             //}
         })
+    }
+    
+    func updateOTP(otp: String, completion completionBlock:@escaping KTDALCompletionBlock) {
+        let param : NSMutableDictionary = [Constants.OtpParams.otp : otp]
+        
+        updateOtpEnabledStatus(param: param as! [String : Any], completion: { (status, response) in
+            self.saveOtpStatus(response)
+            completionBlock(Constants.APIResponseStatus.SUCCESS,response)
+            
+        })
+    }
+    
+    func updateOtpEnabledStatus(param : [String:Any], completion completionBlock:@escaping KTDALCompletionBlock) {
+        self.post(url: Constants.APIURL.OtpEnableStatus, param: param, completion: completionBlock, success: {
+            (responseData,cBlock) in
+            completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+        })
+
     }
 
     func syncUserProfile(completion completionBlock: @escaping KTDALCompletionBlock)

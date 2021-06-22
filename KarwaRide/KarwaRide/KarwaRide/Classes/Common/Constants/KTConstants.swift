@@ -313,6 +313,8 @@ struct Constants {
         
         static let TrackId = "TrackID"
         static let TripType = "TripType"
+        static let OTP = "Otp"
+
     }
     
     struct GetEstimateResponseAPIKey {
@@ -429,6 +431,10 @@ struct Constants {
         static let TripType = "TripType"
     }
     
+    struct OtpParams {
+        static let otp = "BookingOtp"
+    }
+    
     struct APIURL {
         static let Login = "user/login"
         static let Logout = "user/logout"
@@ -436,6 +442,7 @@ struct Constants {
         static let SignUp = "user/"
         static let Otp = "user/otp"
         static let ResendOtp = "user/resendotp"
+        static let OtpEnableStatus = "user/preferences/"
         static let UpdateUserAccount = "user/update"
         static let ResendEmail = "user/verify/resend"
         static let ForgotPass = "user/recover"
@@ -516,6 +523,8 @@ struct Constants {
         static let OldPassword = "Password"
         static let NewPassword = "NewPassword"
         static let DeviceToken = "DeviceToken"
+        static let Preference = "Preference"
+        static let BookingOtp = "BookingOtp"
     }
     
     struct UpdateBookmarkParam {
