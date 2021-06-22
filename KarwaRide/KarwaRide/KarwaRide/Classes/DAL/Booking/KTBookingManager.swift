@@ -60,6 +60,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
             job.trackId = responseData[Constants.BookingParams.TrackId] as? String
             job.tripType = responseData[Constants.BookingParams.TripType] as? Int16 ?? 1
+            job.otp = responseData[Constants.BookingParams.Otp] as? String
 
             let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
             job.toKeyValueHeader = vType.toKeyValueHeader

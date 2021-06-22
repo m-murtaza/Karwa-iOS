@@ -410,6 +410,8 @@ struct Constants {
         static let TripType = "TripType"
         static let PromoCode = "promoCode"
         static let PaymentSource = "PaymentSource"
+        static let Otp = "Otp"
+
         //static let BookingType = "BookingType"
     }
     
