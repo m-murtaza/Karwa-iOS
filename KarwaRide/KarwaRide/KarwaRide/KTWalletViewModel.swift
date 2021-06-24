@@ -252,8 +252,10 @@ class KTWalletViewModel: KTBaseViewModel {
         let combination = NSMutableAttributedString()
 
         let titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#525252"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 12.0)!]
-
-        let titleString = NSMutableAttributedString(string: "\(transactions[idx].primaryMethod ?? "")", attributes: titleAttribute)
+        
+        let paymentMethod = "\(transactions[idx].primaryMethod ?? "")"
+        
+        let titleString = NSMutableAttributedString(string: paymentMethod == "WALLET" ? paymentMethod.localized() : paymentMethod, attributes: titleAttribute)
         
         let typeAtrribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#00A8A8"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 12.0)!]
 
@@ -329,13 +331,13 @@ class KTWalletViewModel: KTBaseViewModel {
     
     func addCreditToWallet(amount: String) {
         
-        self.transactionDelegate?.showProgressHud(show: true)
-        
         guard amount.count != 0 else {
-            self.transactionDelegate?.showError?(title: "Please enter the amount", message: "")
+            self.transactionDelegate?.showError?(title: "error_enter_amount".localized(), message: "")
             return
         }
         
+        self.transactionDelegate?.showProgressHud(show: true)
+
         let type = debitCardSelected == true ? "DEBITCARD" : ""
         
         KTWalletManager().addCreditAmount(paymentMethod: selectedPaymentMethod, amount: amount, type: type) { (status, response) in

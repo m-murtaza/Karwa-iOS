@@ -12,7 +12,7 @@ class KTSettingsImgTextTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblText : UILabel!
     @IBOutlet weak var imgIcon : UIImageView!
-    @IBOutlet weak var otpSwitch : UIButton!
+    @IBOutlet weak var otpSwitch : UISwitch!
 
     override func awakeFromNib() {
         super.awakeFromNib()

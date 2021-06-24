@@ -193,17 +193,18 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 
                 if let otpEnabled: Bool = UserDefaults.standard.value(forKey: "OTPEnabled") as? Bool, otpEnabled == true {
                     otpEnabledStatus = "false"
-                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.setImage(#imageLiteral(resourceName: "ic_confirmed"), for: .normal)
+                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isOn = otpEnabled
+//                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.setImage(#imageLiteral(resourceName: "ic_confirmed"), for: .normal)
                 } else {
-                    
+                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isOn = false
                     otpEnabledStatus = "true"
-                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.setImage(#imageLiteral(resourceName: "ic_arrived"), for: .normal)
+//                    (cell as! KTSettingsImgTextTableViewCell).otpSwitch.setImage(#imageLiteral(resourceName: "ic_arrived"), for: .normal)
                 }
                 
-                (cell as! KTSettingsImgTextTableViewCell).otpSwitch.addTarget(self, action: #selector(setOneTimePassword(sender:)), for: .touchUpInside)
+                (cell as! KTSettingsImgTextTableViewCell).otpSwitch.addTarget(self, action: #selector(setOneTimePassword(sender:)), for: .valueChanged)
                 
-                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "str_otp".localized()
-                (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
+                (cell as! KTSettingsImgTextTableViewCell).lblText.text = "str_otp_settings".localized()
+                (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "otp_ico_setting")
                 
             } else if indexPath.row == 1 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
@@ -240,8 +241,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     
     @objc func setOneTimePassword(sender: UIButton) {
 
+        showProgressHud(show: true)
         KTUserManager().updateOTP(otp: otpEnabledStatus) { status, response in
-            
+            self.hideProgressHud()
             print(response)
             self.tableView.reloadData()
                         
@@ -249,6 +251,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if indexPath.section == 0{
             
             if indexPath.row == 0 {

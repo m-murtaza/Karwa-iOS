@@ -156,7 +156,7 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
 
         if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
             cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
-            cell.titleLabel.text = "Debit Card"
+            cell.titleLabel.text = "str_debit_card".localized()
             cell.detailLable.text = ""
             cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
             cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
@@ -164,7 +164,7 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
             
             if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
                 cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
-                cell.titleLabel.text = "Debit Card"
+                cell.titleLabel.text = "str_debit_card".localized()
                 cell.detailLable.text = ""
                 cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
                 cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)

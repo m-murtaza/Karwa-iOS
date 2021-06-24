@@ -28,6 +28,7 @@ class KTPaymentMethodSelectionView: UIView {
     var cashSelected: Bool = true
     var walletSelected: Bool = false
     var cardSelected: Bool = false
+    var selectedCardIndex = 0
 
     var paymentMethods: [KTPaymentMethod] = []
     var cardPaymentMethods: [KTPaymentMethod] = []
@@ -146,6 +147,7 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
             
             let paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row - 1]
             
+            selectedCardIndex = indexPath.row
             self.delegate?.setSelectedPaymentType(type: "Card", paymentMethod: paymentMethod)
 
         }
@@ -170,7 +172,7 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
             }
             return UIColor(hexString: "#EBEBEB")
         } else {
-            if(cardSelected) {
+            if(cardSelected && selectedCardIndex == idx) {
                 return UIColor(hexString: "#00A8A8")
             }
             return UIColor(hexString: "#EBEBEB")
@@ -192,7 +194,7 @@ extension KTPaymentMethodSelectionView: UITableViewDelegate, UITableViewDataSour
             }
             return #imageLiteral(resourceName: "uncheck_icon")
         } else {
-            if(cardSelected) {
+            if(cardSelected && selectedCardIndex == idx) {
                 return #imageLiteral(resourceName: "checked_icon")
             }
             return #imageLiteral(resourceName: "uncheck_icon")

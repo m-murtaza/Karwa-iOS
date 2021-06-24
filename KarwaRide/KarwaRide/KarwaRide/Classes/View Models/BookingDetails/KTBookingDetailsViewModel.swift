@@ -120,6 +120,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return (booking?.bookingStatus)!
     }
     
+    func getBookingOtp() -> String? {
+        return booking?.otp
+    }
+    
     
     func updateEta() {
         updateEta(eta: "")

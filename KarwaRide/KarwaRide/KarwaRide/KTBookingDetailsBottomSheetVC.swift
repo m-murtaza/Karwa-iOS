@@ -17,6 +17,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBOutlet weak var scrollView: UIScrollView!
 
+    @IBOutlet weak var otpView: UIView!
     @IBOutlet weak var preRideDriver: UIView!
     @IBOutlet weak var viewTripInfo: UIView!
     @IBOutlet weak var viewRideInfo: UIView!
@@ -31,7 +32,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var constraintFareInfoMarginTop: LocalisableButton!
     
     
-    
+    @IBOutlet weak var otpLabel: UILabel!
     @IBOutlet weak var eta: LocalisableButton!
 
     @IBOutlet weak var rideHeaderText: LocalisableSpringLabel!
@@ -337,12 +338,30 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         rideHeaderText.text = msg
     }
     
+    func showOTP() -> Bool{
+        if (vModel?.getBookingOtp() != nil && ((vModel?.getBookingOtp()?.count ?? 0) > 0)) {
+            self.otpLabel.text = vModel?.getBookingOtp() ?? ""
+            self.otpView.isHidden = false
+            return true
+        } else {
+            self.otpView.isHidden = true
+            return false
+        }
+        
+        
+    }
+    
     fileprivate func hideSeperatorBeforeReportAnIssue() {
         seperatorBeforeReportAnIssue.isHidden = true
     }
     
+    
+    
     func updateBookingBottomSheet()
     {
+        
+        print("vModel?.getBookingOtp()", vModel?.getBookingOtp())
+                
         //MARK:- DISPATCHING
         if(vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue)
         {
@@ -364,11 +383,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.preRideDriver.setNeedsUpdateConstraints()
             self.viewTripInfo.setNeedsUpdateConstraints()
             
-            constraintTripInfoMarginTop.constant = 110
-            constraintDriverInfoMarginTop.constant = 5
-            constraintVehicleInfoMarginTop.constant = 250
-            constraintReportIssueMarginTop.constant = 10
-            
+            if showOTP() {
+                constraintTripInfoMarginTop.constant = 110 + 88
+                constraintDriverInfoMarginTop.constant = 5 + 88
+                constraintVehicleInfoMarginTop.constant = 250 + 88
+                constraintReportIssueMarginTop.constant = 10 + 88
+            }
+
             self.starView.isHidden = true
             self.shimmerView.isHidden = false
             
@@ -396,15 +417,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.lblDriverName.stopShimmeringAnimation()
             self.bottomStartRatingLabel.stopShimmeringAnimation()
             
-            constraintTripInfoMarginTop.constant = 110
-            constraintDriverInfoMarginTop.constant = 5            
-            constraintVehicleInfoMarginTop.constant = 250
-            constraintReportIssueMarginTop.constant = 10
+            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 88 : 110
+            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 88 : 5
+            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 88 : 250
+            constraintReportIssueMarginTop.constant = showOTP() == true ? 10 + 88 : 10
 //                constraintRebookMarginTop.constant = 375
             hideBtnComplain()
             
             self.view.customCornerRadius = 20.0
-
             
         }
 
@@ -422,7 +442,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             bottomStartRatingLabel.isHidden = false
             
             self.view.customCornerRadius = 20.0
+            
+            self.otpView.isHidden = true
 
+            constraintTripInfoMarginTop.constant = 10
+            constraintDriverInfoMarginTop.constant = 150
+            constraintVehicleInfoMarginTop.constant = 250
+//
         }
         
         //MARK:- COMPLETED BOOKING
@@ -446,6 +472,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             bottomStartRatingLabel.isHidden = true
             
             self.view.customCornerRadius = 0
+           _ = showOTP()
 
         }
         
@@ -461,7 +488,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideFareDetailBtn()
             constraintVehicleInfoMarginTop.constant = 140
             hideSeperatorBeforeReportAnIssue()
-
+            _ = showOTP()
             
         }
 
@@ -501,7 +528,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             }
             
             self.view.customCornerRadius = 0
-           
+            showOTP()
             
         }
         
@@ -529,8 +556,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             
             bottomStartRatingLabel.isHidden = false
-            constraintTripInfoMarginTop.constant = 110
-            constraintDriverInfoMarginTop.constant = 5
+            constraintTripInfoMarginTop.constant = 110 + 88
+            constraintDriverInfoMarginTop.constant = 5 + 88
             hideFareDetailBtn()
             hideBtnComplain()
             hideRebookBtn()
@@ -540,7 +567,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.shimmerView.isHidden = true
             self.lblDriverName.stopShimmeringAnimation()
             self.bottomStartRatingLabel.stopShimmeringAnimation()
-
+            showOTP()
 
         }
 

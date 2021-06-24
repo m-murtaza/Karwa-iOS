@@ -162,6 +162,8 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.trackId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TrackId] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TrackId] as! String : ""
 
         b.tripType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TripType] as! Int16 : 1
+        
+        b.otp = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.OTP] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.OTP] as? String : ""
 
         return b
     }

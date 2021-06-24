@@ -77,7 +77,7 @@ class KTCallerIDPopup: PopupVC, UITextFieldDelegate {
         if error != nil {
             let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
                 self.txtCallerId.becomeFirstResponder()
             }
             alertController.addAction(okAction)

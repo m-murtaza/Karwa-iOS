@@ -39,26 +39,24 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         refreshControl.attributedTitle = NSAttributedString(string: "")
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl) // not required when using UITableViewController
-        
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
                                                                    NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        
         if fromPaymentViewController == false {
             addMenuButton()
         } else {
             //cross_icon
             addCloseButton()
         }
-        
         addCreditCardButton.addTarget(self, action: #selector(moveToAddCreditCard), for: .touchUpInside)
-        
+        if Device.getLanguage().contains("AR") {
+            addCreditCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
+        } else {
+            addCreditCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        }
         CardIOUtilities.preload()
-        
         tableView.tableFooterView = UIView(frame: .zero)
-     
         self.tableView.allowsMultipleSelectionDuringEditing = false
         self.tableView.isEditing = false
-        
         
     }
     
@@ -307,7 +305,11 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         addCardButton.setImage(#imageLiteral(resourceName: "card_ico_btn"), for: .normal)
         addCardButton.cornerRadius = 20
         addCardButton.clipsToBounds = true
-        addCardButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        if Device.getLanguage().contains("AR") {
+            addCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
+        } else {
+            addCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        }
         
         let keyLbl = LocalisableLabel()
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
