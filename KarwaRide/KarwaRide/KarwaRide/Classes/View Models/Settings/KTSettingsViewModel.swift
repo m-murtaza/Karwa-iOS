@@ -91,7 +91,7 @@ class KTSettingsViewModel: KTBaseViewModel {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         
-        return "app version " + version! + " (" + build! + ")"
+        return "str_version ".localized() + version! + " (" + build! + ")"
     }
     
     // Mark: - Logout
