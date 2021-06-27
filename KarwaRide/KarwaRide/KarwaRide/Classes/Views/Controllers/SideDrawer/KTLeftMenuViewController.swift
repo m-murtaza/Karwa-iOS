@@ -23,10 +23,10 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         viewModel = KTLeftMenuModel(del:self)
         super.viewDidLoad()
      
-        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
     }
     
-    func updateUI()
+    @objc func updateUI()
     {
         (viewModel as! KTLeftMenuModel).reloadData()
 //        showSuccessBanner("", "Profile Updated")
