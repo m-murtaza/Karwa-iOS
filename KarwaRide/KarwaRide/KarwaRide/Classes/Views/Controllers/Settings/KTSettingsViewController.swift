@@ -24,14 +24,14 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
         
-        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
       addMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
     }
     
-    func updateUI()
+    @objc func updateUI()
     {
         (viewModel as! KTSettingsViewModel).reloadData()
     }

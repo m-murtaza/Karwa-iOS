@@ -27,11 +27,11 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
 
         title = "account_info_title".localized()
 
-        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
         // Do any additional setup after loading the view.
     }
     
-    func updateUI()
+   @objc  func updateUI()
     {
         (viewModel as! KTEditUserViewModel).reloadData()
     }
