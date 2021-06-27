@@ -286,7 +286,16 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       
       //title = locations[idx.row].name!
     }
-    return title.capitalizingFirstLetter()
+    
+    
+    if title == "home" {
+        return "strHome".localized()
+    } else if title == "work" {
+        return "strWork".localized()
+    } else {
+        return title.capitalizingFirstLetter()
+    }
+    
   }
   
   func addressArea(forIndex idx: IndexPath) -> String {
