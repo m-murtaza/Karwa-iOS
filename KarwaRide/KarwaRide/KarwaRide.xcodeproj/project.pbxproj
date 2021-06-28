@@ -2113,7 +2113,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 168;
@@ -2147,7 +2147,7 @@
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 168;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
@@ -2160,7 +2160,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = KarwaAppStoreProvisionProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
