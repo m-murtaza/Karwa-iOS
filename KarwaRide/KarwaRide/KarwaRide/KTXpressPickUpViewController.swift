@@ -19,6 +19,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @IBOutlet weak var plusBtn: UIButton!
     @IBOutlet weak var minuBtn: UIButton!
     @IBOutlet weak var passengerLabel: UILabel!
+    @IBOutlet weak var showAddressPickerBtn: UIButton!
 
 
     var vModel : KTXpressPickUpViewModel?
@@ -50,6 +51,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         }
         
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
+        self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
+
         
     }
     
@@ -135,6 +138,12 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
     }
 
+    @objc func showAddressPickerViewController() {
+        let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
+        addressPicker.metroStations = (self.viewModel as! KTXpressPickUpViewModel).pickUpArea
+        self.navigationController?.pushViewController(addressPicker, animated: true)
+    }
+    
 
 }
 

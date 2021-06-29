@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Wk-ik-TwS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Wk-ik-TwS">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -2858,7 +2858,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egy-u8-lUc">
-                                <rect key="frame" x="356" y="538" width="58" height="58"/>
+                                <rect key="frame" x="356" y="539.5" width="58" height="58"/>
                                 <state key="normal" image="current_location_icon"/>
                                 <connections>
                                     <action selector="currentLocationButtonAction:" destination="L23-ue-kpU" eventType="touchUpInside" id="Cmb-p5-WCR"/>
@@ -2939,10 +2939,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
-                                <rect key="frame" x="0.0" y="596" width="414" height="300"/>
+                                <rect key="frame" x="0.0" y="597.5" width="414" height="298.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM1-Su-Mie" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="20" width="116.5" height="16"/>
+                                        <rect key="frame" x="20" y="20" width="115.5" height="15.5"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="13"/>
                                         <color key="textColor" red="0.49803921568627452" green="0.69019607843137254" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2951,7 +2951,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0a-8P-zEt">
-                                        <rect key="frame" x="141.5" y="19.5" width="15" height="15"/>
+                                        <rect key="frame" x="140.5" y="19.5" width="15" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="15" id="I7j-rM-2YT"/>
                                             <constraint firstAttribute="height" constant="15" id="X1n-Eq-ICa"/>
@@ -2959,16 +2959,16 @@
                                         <state key="normal" image="icon-more-info-blue"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="7rb-M9-9pW">
-                                        <rect key="frame" x="20" y="41" width="374" height="39"/>
+                                        <rect key="frame" x="20" y="40.5" width="374" height="38"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mowasalat HQ, Industrial Area Industrial Area" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-Sz-IBR">
-                                                <rect key="frame" x="0.0" y="6.5" width="316" height="26.5"/>
+                                                <rect key="frame" x="0.0" y="6" width="316" height="26"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="22"/>
                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-arrow-right-large" translatesAutoresizingMaskIntoConstraints="NO" id="cqT-Vq-xvH">
-                                                <rect key="frame" x="334" y="13.5" width="40" height="12.5"/>
+                                                <rect key="frame" x="334" y="13" width="40" height="12.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="CA6-HL-ZHn"/>
                                                 </constraints>
@@ -2976,7 +2976,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcL-JI-p0b">
-                                        <rect key="frame" x="20" y="41" width="374" height="39"/>
+                                        <rect key="frame" x="20" y="40.5" width="374" height="38"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="22"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -2989,7 +2989,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUc-vS-DNu">
-                                        <rect key="frame" x="20" y="100" width="374" height="60"/>
+                                        <rect key="frame" x="20" y="98.5" width="374" height="60"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="6Yr-9y-aii">
                                                 <rect key="frame" x="30" y="21" width="18" height="18"/>
@@ -3035,7 +3035,7 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nOQ-MD-aEv">
-                                        <rect key="frame" x="0.0" y="170" width="414" height="100"/>
+                                        <rect key="frame" x="0.0" y="168.5" width="414" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="ueA-qw-bg4"/>
@@ -3067,13 +3067,13 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEK-g4-uOv">
-                                                                            <rect key="frame" x="40" y="0.0" width="72.5" height="30"/>
+                                                                            <rect key="frame" x="40" y="0.0" width="69.5" height="30"/>
                                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="15"/>
                                                                             <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right copy_2" translatesAutoresizingMaskIntoConstraints="NO" id="4TI-V4-a9J">
-                                                                            <rect key="frame" x="115.5" y="0.0" width="8.5" height="30"/>
+                                                                            <rect key="frame" x="112.5" y="0.0" width="11.5" height="30"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                     <constraints>
@@ -3270,7 +3270,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iRl-E4-3ME">
-                                                        <rect key="frame" x="81.5" y="0.0" width="251" height="40"/>
+                                                        <rect key="frame" x="86.5" y="0.0" width="241" height="40"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="5E5-5I-DwV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="40"/>
@@ -3280,13 +3280,13 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Applied:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isM-F9-AUG">
-                                                                <rect key="frame" x="25" y="0.0" width="98.5" height="40"/>
+                                                                <rect key="frame" x="25" y="0.0" width="90.5" height="40"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="13"/>
                                                                 <color key="textColor" red="0.2627450980392157" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30% off, upto 10 QR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRa-lZ-6lY">
-                                                                <rect key="frame" x="128.5" y="0.0" width="122.5" height="40"/>
+                                                                <rect key="frame" x="120.5" y="0.0" width="120.5" height="40"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -3318,7 +3318,7 @@
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="serviceCell" rowHeight="60" id="Zhh-QG-a5l" customClass="RideServiceCell" customModule="KarwaRide" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="374" height="60"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="374" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zhh-QG-a5l" id="38O-lH-uf2">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
@@ -3342,25 +3342,25 @@
                                                             <rect key="frame" x="100" y="10" width="254" height="25"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-YS-i8t">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="179" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="Whb-At-C1K">
-                                                                    <rect key="frame" x="164" y="0.0" width="15" height="25"/>
+                                                                    <rect key="frame" x="165" y="0.0" width="15" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="15" id="Skb-lZ-COC"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkU-OU-oBK">
-                                                                    <rect key="frame" x="184" y="0.0" width="25" height="25"/>
+                                                                    <rect key="frame" x="185" y="0.0" width="24.5" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-nA-kzs">
-                                                                    <rect key="frame" x="214" y="0.0" width="40" height="25"/>
+                                                                    <rect key="frame" x="214.5" y="0.0" width="39.5" height="25"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="16"/>
                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -3378,13 +3378,13 @@
                                                             <rect key="frame" x="112" y="35" width="242" height="15"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQs-iM-R8v">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="212" height="15"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="212.5" height="15"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huk-eg-CAJ">
-                                                                    <rect key="frame" x="212" y="0.0" width="30" height="15"/>
+                                                                    <rect key="frame" x="212.5" y="0.0" width="29.5" height="15"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.070588235294117646" green="0.59215686274509804" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -3440,17 +3440,17 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="131.5" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xwb-Up-ceB">
-                                                        <rect key="frame" x="0.0" y="11" width="131.5" height="18"/>
+                                                        <rect key="frame" x="0.0" y="11.5" width="131.5" height="17.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="RvX-Aj-Pp2">
-                                                                <rect key="frame" x="0.0" y="1.5" width="15" height="15"/>
+                                                                <rect key="frame" x="0.0" y="1" width="15" height="15"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="15" id="l83-a2-0Il"/>
                                                                     <constraint firstAttribute="width" constant="15" id="lbr-Kd-EOU"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g4-72-qAT" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="0.0" width="111.5" height="18"/>
+                                                                <rect key="frame" x="20" y="0.0" width="111.5" height="17.5"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -3482,17 +3482,17 @@
                                                 <rect key="frame" x="131.5" y="0.0" width="131" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4gK-Pr-Ma1">
-                                                        <rect key="frame" x="34" y="11" width="63" height="18"/>
+                                                        <rect key="frame" x="34" y="11.5" width="63" height="17.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-cash-new" translatesAutoresizingMaskIntoConstraints="NO" id="3yU-hN-Xk2">
-                                                                <rect key="frame" x="0.0" y="1.5" width="23" height="15"/>
+                                                                <rect key="frame" x="0.0" y="1" width="23" height="15"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="15" id="4vq-rt-TnP"/>
                                                                     <constraint firstAttribute="height" constant="15" id="lz8-mC-m82"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4f-uy-oY2" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                                <rect key="frame" x="28" y="0.0" width="35" height="18"/>
+                                                                <rect key="frame" x="28" y="0.0" width="35" height="17.5"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -3526,17 +3526,17 @@
                                                 <rect key="frame" x="262.5" y="0.0" width="131.5" height="40"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Lpb-A0-RV7">
-                                                        <rect key="frame" x="4.5" y="11" width="123" height="18"/>
+                                                        <rect key="frame" x="5.5" y="11.5" width="120.5" height="17.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_events" translatesAutoresizingMaskIntoConstraints="NO" id="aKp-hM-A1R">
-                                                                <rect key="frame" x="0.0" y="1.5" width="15" height="15"/>
+                                                                <rect key="frame" x="0.0" y="1" width="15" height="15"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="15" id="DXh-pc-i3g"/>
                                                                     <constraint firstAttribute="height" constant="15" id="fxH-Kb-5nq"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today, 6:43 PM" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9I4-zh-a7q" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                                <rect key="frame" x="17" y="0.0" width="106" height="18"/>
+                                                                <rect key="frame" x="17" y="0.0" width="103.5" height="17.5"/>
                                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="15"/>
                                                                 <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -4015,7 +4015,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotificationTableViewCellIdentifier" rowHeight="108" id="w7Z-Um-raC" customClass="KTNotificationTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="108"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="108"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w7Z-Um-raC" id="U3X-LG-yUn">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
@@ -4251,7 +4251,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyTripsReuseIdentifier" rowHeight="158" id="U8K-VR-swH" customClass="KTMyTripsTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="158"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="158"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U8K-VR-swH" id="gH9-ve-F4i">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="158"/>
@@ -4481,7 +4481,7 @@
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.98039215686274506" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfoCellIdentifier" rowHeight="80" id="Xon-4r-yED" customClass="KTSettingsProfileTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xon-4r-yED" id="UoP-KA-kY9">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -4536,7 +4536,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImgTxtCellIdentifier" rowHeight="50" id="eWz-1F-iPj" customClass="KTSettingsImgTextTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="104.5" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eWz-1F-iPj" id="G5W-Ck-3zd">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -4569,7 +4569,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CalendarShortcutCellIdentifier" rowHeight="50" id="WbN-Ew-Efz" customClass="KTSettingCalendarTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="158" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="154.5" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WbN-Ew-Efz" id="8ec-jL-A3u">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -4654,7 +4654,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="identifierProfileCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifierProfileCell" id="eRV-dJ-jL5" customClass="KTProfileCellViewController" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="40.5"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="40.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eRV-dJ-jL5" id="3Yx-IE-VjC">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="40.5"/>
@@ -4702,7 +4702,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifierEmailCell" id="f8G-aW-2eX" customClass="KTEmailCellViewController" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="68.5" width="414" height="61.5"/>
+                                        <rect key="frame" x="0.0" y="65" width="414" height="61.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f8G-aW-2eX" id="7aG-Gx-tUD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="61.5"/>
@@ -4963,7 +4963,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" rowHeight="70" id="vg1-6s-9XD" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vg1-6s-9XD" id="rSr-Zx-WZo">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -6239,7 +6239,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ComplaintCategoryTableViewCellIdentifier" rowHeight="80" id="WWr-r1-R1W" customClass="KTComplaintsCategoryTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WWr-r1-R1W" id="WDq-2N-urO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -6419,7 +6419,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTIssueTableViewCellIdentifier" rowHeight="70" id="a0z-D6-odw" customClass="KTIssueTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a0z-D6-odw" id="prF-xh-khv">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -6698,7 +6698,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reasonsCellIdentifier" id="FOK-QJ-fdf" customClass="KTCancelReasonTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="270" height="42"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="270" height="42"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FOK-QJ-fdf" id="CDR-to-JAD">
                                                     <rect key="frame" x="0.0" y="0.0" width="270" height="42"/>
@@ -6858,7 +6858,7 @@
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareCellReuseIdentifier" rowHeight="30" id="4fE-sY-2N3" customClass="KTFarePopupTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="304" height="30"/>
+                                                        <rect key="frame" x="0.0" y="24.5" width="304" height="30"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4fE-sY-2N3" id="Uf3-e3-ccJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -6894,7 +6894,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareSectionSapratorCellIdentifier" id="rkT-hi-eGe">
-                                                        <rect key="frame" x="0.0" y="58" width="304" height="44"/>
+                                                        <rect key="frame" x="0.0" y="54.5" width="304" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rkT-hi-eGe" id="ZUQ-aF-qte">
                                                             <rect key="frame" x="0.0" y="0.0" width="304" height="44"/>
@@ -7054,7 +7054,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="KTPaymentViewCellIdentifier" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTPaymentViewCellIdentifier" rowHeight="90" id="8Ej-gO-nwt" customClass="KTPaymentViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="KTPaymentViewCellControllerIdentifier" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Ej-gO-nwt" id="5aQ-VY-gA0" customClass="KTPaymentViewCellController" customModule="KarwaRide" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -7607,7 +7607,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" translatesAutoresizingMaskIntoConstraints="NO" id="prb-qg-PlM" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="61"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="prb-qg-PlM" id="20r-Be-fLH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
@@ -8021,7 +8021,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideDrawerCell" rowHeight="60" id="ZmO-dv-oxk" customClass="LeftMenuTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="272" height="60"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="272" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZmO-dv-oxk" id="cMI-mr-Lcx">
                                             <rect key="frame" x="0.0" y="0.0" width="272" height="60"/>
@@ -8193,7 +8193,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FareCellIdentifier" rowHeight="25" id="e3O-5E-TE9" customClass="KTFareTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="25"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="374" height="25"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e3O-5E-TE9" id="gFA-cE-GvQ">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="25"/>
@@ -9578,7 +9578,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="KTPaymentViewCellIdentifier" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTPaymentViewCellIdentifier" rowHeight="90" id="sDg-5j-MB6" customClass="KTPaymentViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="KTPaymentViewCellControllerIdentifier" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sDg-5j-MB6" id="c2O-1O-oQi" customClass="KTPaymentViewCellController" customModule="KarwaRide" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -10149,7 +10149,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideDrawerCell" rowHeight="60" id="NrV-v6-MfO" customClass="LeftMenuTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="272" height="60"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="272" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NrV-v6-MfO" id="hBF-x1-B5r">
                                             <rect key="frame" x="0.0" y="0.0" width="272" height="60"/>
@@ -10316,9 +10316,6 @@
                                             <constraint firstAttribute="height" constant="43" id="XRC-Ie-Sn2"/>
                                         </constraints>
                                         <state key="normal" image="icon-trips-right-arrow"/>
-                                        <connections>
-                                            <segue destination="AfI-Xb-LUm" kind="show" id="4td-nV-xmB"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSX-fA-mA4">
                                         <rect key="frame" x="23" y="89" width="18" height="20"/>
@@ -10501,6 +10498,7 @@
                         <outlet property="plusBtn" destination="fb0-nn-Hfj" id="fF5-z0-Gwy"/>
                         <outlet property="revealBarButton" destination="WWx-cn-gGY" id="SYN-f3-xRH"/>
                         <outlet property="setPickUpButton" destination="aey-wq-Jld" id="6Ag-xk-Wha"/>
+                        <outlet property="showAddressPickerBtn" destination="wVK-55-Ana" id="5MR-B1-8Ci"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbN-Oo-PkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -10510,7 +10508,7 @@
         <!--Xpress Address View Controller-->
         <scene sceneID="Xos-Vh-hUz">
             <objects>
-                <viewController id="AfI-Xb-LUm" customClass="KTXpressAddressViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KTXpressAddressViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AfI-Xb-LUm" customClass="KTXpressAddressViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Za-HT-vva">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -10562,7 +10560,7 @@
                                 <rect key="frame" x="0.0" y="130.5" width="414" height="765.5"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTXpressAddressTableViewCell" rowHeight="62" id="qku-On-mRo" customClass="KTXpressAddressTableViewCell" customModule="KarwaRide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="62"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qku-On-mRo" id="tbW-bD-1pW">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="62"/>
@@ -11415,7 +11413,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="KTXpressRideServiceCell" rowHeight="60" id="HWb-2c-U3d" customClass="KTXpressRideServiceCell" customModule="KarwaRide" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="364" height="60"/>
+                                                        <rect key="frame" x="0.0" y="24.5" width="364" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HWb-2c-U3d" id="xJI-Lm-iDp">
                                                             <rect key="frame" x="0.0" y="0.0" width="364" height="60"/>
@@ -11515,7 +11513,7 @@
                                                         </connections>
                                                     </tableViewCell>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTFareServiceCell" id="2iY-83-aYB" customClass="KTFareServiceCell" customModule="KarwaRide" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="88" width="364" height="44"/>
+                                                        <rect key="frame" x="0.0" y="84.5" width="364" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2iY-83-aYB" id="df3-Pg-FOi">
                                                             <rect key="frame" x="0.0" y="0.0" width="364" height="44"/>
@@ -11895,11 +11893,17 @@
         <designable name="2SG-m5-gVM">
             <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
+        <designable name="3Hf-ht-uDd">
+            <size key="intrinsicContentSize" width="30" height="33"/>
+        </designable>
         <designable name="3Nx-rn-lam">
             <size key="intrinsicContentSize" width="12.5" height="22"/>
         </designable>
         <designable name="4th-k2-d64">
             <size key="intrinsicContentSize" width="52" height="32"/>
+        </designable>
+        <designable name="5q4-Cd-UaS">
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="30" height="28"/>
@@ -12030,6 +12034,9 @@
         <designable name="eKI-lM-zdp">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
+        <designable name="eMk-bz-O43">
+            <size key="intrinsicContentSize" width="293" height="51"/>
+        </designable>
         <designable name="efC-ko-7kP">
             <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
@@ -12102,6 +12109,9 @@
         <designable name="vh2-Ed-Oax">
             <size key="intrinsicContentSize" width="60" height="60"/>
         </designable>
+        <designable name="x9g-KR-Wfp">
+            <size key="intrinsicContentSize" width="30" height="30"/>
+        </designable>
         <designable name="yR2-3e-uTJ">
             <size key="intrinsicContentSize" width="98" height="26"/>
         </designable>
@@ -12113,7 +12123,6 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="4td-nV-xmB"/>
         <segue reference="V75-o5-E0G"/>
         <segue reference="4lO-1G-0fb"/>
         <segue reference="N6S-jP-c4x"/>

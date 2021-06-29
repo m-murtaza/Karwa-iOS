@@ -1,21 +1,17 @@
 //
-//  KTPickDropSelectionViewModel.swift
+//  KTXpressAddressPickerViewModel.swift
 //  KarwaRide
 //
-//  Created by Muhammad Usman on 1/24/18.
-//  Copyright © 2018 Karwa. All rights reserved.
+//  Created by Apple on 28/06/21.
+//  Copyright © 2021 Karwa. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import CoreLocation
 
-struct KTAddress {
-  var name : String
-  var address : String
-  var location : CLLocationCoordinate2D
-}
 
-protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
+protocol  KTXpressAddressPickerViewModelDelegate : KTViewModelDelegate {
   func loadData()
   func pickUpTxt() -> String
   func dropOffTxt() -> String
@@ -32,7 +28,7 @@ protocol KTAddressPickerViewModelDelegate : KTViewModelDelegate {
   func navigateToFavoriteScreen(location: KTGeoLocation?)
 }
 
-class KTAddressPickerViewModel: KTBaseViewModel {
+class KTXpressAddressPickerViewModel: KTBaseViewModel {
   
   public var pickUpAddress : KTGeoLocation?
   public var dropOffAddress : KTGeoLocation?
@@ -46,26 +42,25 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   private var isSkippedPressed : Bool = false
   private var isLoadingAddress : Bool = false
   
-  private var del : KTAddressPickerViewModelDelegate?
-  
+  private var del : KTXpressAddressPickerViewModelDelegate?
+    
+  var metroStations = [Area]()
   
   //MARK: - View Lifecycle
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    
-    del = (delegate as! KTAddressPickerViewModelDelegate)
-    
+        
     fetchLocations()
   }
   override func viewWillAppear() {
     if pickUpAddress != nil {
-        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name) ?? "btn_favorites_title".localized())
+        (delegate as! KTXpressAddressPickerViewModelDelegate).setPickUp(pick: (pickUpAddress?.name) ?? "btn_favorites_title".localized())
     }
     
     if dropOffAddress != nil{
-      (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name) ?? "")
+      (delegate as! KTXpressAddressPickerViewModelDelegate).setDropOff(drop: (dropOffAddress?.name) ?? "")
     }
     fetchLocations()
   }
@@ -105,7 +100,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   func getAllLocations() {
     
     locations  = KTBookingManager().allGeoLocations()!
-    (delegate as! KTAddressPickerViewModelDelegate).loadData()
+    (delegate as! KTXpressAddressPickerViewModelDelegate).loadData()
     //delegate?.userIntraction(enable: true)
   }
   
@@ -127,7 +122,6 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       }
       self.delegate?.hideProgressHud()
     }
-    
   }
   
   //MARK:-  Sort and Manage data for Dispaly
@@ -168,18 +162,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     if let favorites = KTBookmarkManager().fetchAllFavorites() {
       locations.removeAll()
       favorites.forEach( { locations.append( $0.toGeolocation() )})
-      del?.loadData()
+      (delegate as! KTXpressAddressPickerViewModelDelegate).loadData()
     }
   }
   
   func loadDataInView() {
-    if del?.inFocusTextField() == SelectedTextField.PickupAddress {
-      locations = bookmarks + recent + nearBy + popular
-      del?.loadData()
+    if (delegate as! KTXpressAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.PickupAddress {
+      locations =  recent + nearBy + popular
+        (delegate as! KTXpressAddressPickerViewModelDelegate).loadData()
     }
     else {
-      locations = bookmarks + recent + popular + nearBy
-      del?.loadData()
+      locations =  recent + popular + nearBy
+        (delegate as! KTXpressAddressPickerViewModelDelegate).loadData()
     }
   }
   
@@ -210,12 +204,12 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   func fetchLocations(forSearch query:String) {
     
     //delegate?.userIntraction(enable: false)
-    delegate?.showProgressHud(show: true, status: "str_search".localized())
+    delegate?.showProgressHud(show: true, status: "Searching Location")
     KTBookingManager().address(forSearch: query) { (status, response) in
       
       if status == Constants.APIResponseStatus.SUCCESS {
         self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
-        (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
+        (self.delegate as! KTXpressAddressPickerViewModelDelegate).loadData()
         //self.delegate?.userIntraction(enable: true)
         self.delegate?.hideProgressHud()
       }
@@ -233,13 +227,13 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   func MapStopMoving(location : CLLocationCoordinate2D)
   {
     isLoadingAddress = true
-    (self.delegate as! KTAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: false)
+    (self.delegate as! KTXpressAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: false)
     setNameToSelectedField(name: "str_loading".localized())
     
     fetchLocation(forGeoCoordinate: location , completion: {
       (reverseLocation) -> Void in
       
-      if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
+      if (self.delegate as! KTXpressAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
       {
         self.dropOffAddress  = reverseLocation
         self.setNameToSelectedField(name: reverseLocation.name!)
@@ -250,89 +244,162 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         self.setNameToSelectedField(name: reverseLocation.name!)
       }
       
-      (self.delegate as! KTAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: true)
+      (self.delegate as! KTXpressAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: true)
     })
   }
   
   func setNameToSelectedField(name nameStr: String)
   {
-    if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
+    if (self.delegate as! KTXpressAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
     {
-      (self.delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: nameStr)
+      (self.delegate as! KTXpressAddressPickerViewModelDelegate).setDropOff(drop: nameStr)
     }
     else
     {
-      (self.delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: nameStr)
+      (self.delegate as! KTXpressAddressPickerViewModelDelegate).setPickUp(pick: nameStr)
     }
   }
   
   //MARK: - TableView
   func numberOfRow(section : Int) -> Int {
-    return locations.count
+    
+    if section == 1 {
+        return bookmarks.count
+    } else if section == 0 {
+        return locations.count
+    } else {
+        return metroStations.count
+    }
+    
   }
   
   func addressTitle(forIndex idx: IndexPath) -> String {
     
-    var title : String = ""
-    if idx.row < locations.count  {
-      if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].geolocationToBookmark?.name != nil {
-        title = (locations[idx.row].geolocationToBookmark?.name)!
-      }
-      else if !locations[idx.row].favoriteName.isEmpty {
-        title = locations[idx.row].favoriteName
-      }
-      else if locations[idx.row].name != nil {
-        title = locations[idx.row].name!
-      }
-      
-      //title = locations[idx.row].name!
+    
+    if idx.section == 0 {
+        var title : String = ""
+        if idx.row < locations.count  {
+          if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].geolocationToBookmark?.name != nil {
+            title = (locations[idx.row].geolocationToBookmark?.name)!
+          }
+          else if !locations[idx.row].favoriteName.isEmpty {
+            title = locations[idx.row].favoriteName
+          }
+          else if locations[idx.row].name != nil {
+            title = locations[idx.row].name!
+          }
+          
+          //title = locations[idx.row].name!
+        }
+        return title.capitalizingFirstLetter()
+    } else if idx.section == 1 {
+        var title : String = ""
+        if idx.row < bookmarks.count  {
+          if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].geolocationToBookmark?.name != nil {
+            title = (bookmarks[idx.row].geolocationToBookmark?.name)!
+          }
+          else if !bookmarks[idx.row].favoriteName.isEmpty {
+            title = bookmarks[idx.row].favoriteName
+          }
+          else if bookmarks[idx.row].name != nil {
+            title = bookmarks[idx.row].name!
+          }
+          
+          //title = locations[idx.row].name!
+        }
+        return title.capitalizingFirstLetter()
     }
-    return title.capitalizingFirstLetter()
+    else  {
+        var title : String = ""
+        return title.capitalizingFirstLetter()
+    }
+    
+    
   }
   
   func addressArea(forIndex idx: IndexPath) -> String {
     
-    var area : String = ""
-    
-    if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
-      area = locations[idx.row].name!
+    if idx.section == 0 {
+        var area : String = ""
+        
+        if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
+          area = locations[idx.row].name!
+        }
+        else if locations[idx.row].area != nil {
+          area = locations[idx.row].area!
+        }
+        
+        return area.capitalizingFirstLetter()
+    } else if idx.section == 1 {
+        var area : String = ""
+        
+        if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
+          area = bookmarks[idx.row].name!
+        }
+        else if bookmarks[idx.row].area != nil {
+          area = bookmarks[idx.row].area!
+        }
+        
+        return area.capitalizingFirstLetter()
+    } else {
+        return ""
     }
-    else if locations[idx.row].area != nil {
-      area = locations[idx.row].area!
-    }
     
-    return area.capitalizingFirstLetter()
   }
   
   func addressTypeIcon(forIndex idx: IndexPath) -> UIImage {
     var img : UIImage?
     
-    if idx.row < locations.count  {
-      switch locations[idx.row].type {
-      case geoLocationType.Home.rawValue:
-        img = UIImage(named: "APICHome")
-        break
-      case geoLocationType.Work.rawValue:
-        img = UIImage(named: "APICWork")
-        break
-      case geoLocationType.Nearby.rawValue:
-        img = UIImage(named: "ic_landmark")
-        break
-      case geoLocationType.Popular.rawValue:
-        img = UIImage(named: "ic_landmark")
-        break
-      case geoLocationType.Recent.rawValue:
-        img = UIImage(named: "ic_recent")
-        break
-      case geoLocationType.favorite.rawValue:
-        img = UIImage(named: "favorite_ico")
-        break
-      default:
-        img = UIImage(named: "ic_landmark")
-      }
+    if idx.section == 0 {
+        
+        if idx.row < locations.count  {
+          switch locations[idx.row].type {
+          case geoLocationType.Home.rawValue:
+            img = UIImage(named: "fav_home_ico")
+            break
+          case geoLocationType.Work.rawValue:
+            img = UIImage(named: "fav_work_ico")
+            break
+          case geoLocationType.Nearby.rawValue:
+            img = UIImage(named: "loc_pin_ico")
+            break
+          case geoLocationType.Popular.rawValue:
+            img = UIImage(named: "loc_pin_ico")
+            break
+          case geoLocationType.Recent.rawValue:
+            img = UIImage(named: "ic_recent")
+            break
+          case geoLocationType.favorite.rawValue:
+            img = UIImage(named: "fav_star_ico")
+            break
+          default:
+            img = UIImage(named: "ic_landmark")
+          }
+        }
+        return img!
+
+    } else if idx.section == 1 {
+        
+        if idx.row < bookmarks.count  {
+          switch bookmarks[idx.row].type {
+          case geoLocationType.Home.rawValue:
+            img = UIImage(named: "fav_home_ico")
+            break
+          case geoLocationType.Work.rawValue:
+            img = UIImage(named: "fav_work_ico")
+            break
+          default:
+            img = UIImage(named: "fav_home_ico")
+          }
+        }
+        return img!
+
+    } else {
+        return #imageLiteral(resourceName: "metro_ico_map")
     }
     
-    return img!
+
+    
   }
   
   func didSelectRow(at idx:Int, type:SelectedTextField) {
@@ -341,10 +408,10 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
         if !locations[idx].favoriteName.isEmpty {
           let title = locations[idx].favoriteName
-            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+            (delegate as! KTXpressAddressPickerViewModelDelegate).setPickUp(pick: title)
         } else {
             let title = locations[idx].name!
-              (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+              (delegate as! KTXpressAddressPickerViewModelDelegate).setPickUp(pick: title)
         }
         
     }
@@ -353,10 +420,10 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         if !locations[idx].favoriteName.isEmpty {
           let title = locations[idx].favoriteName
-            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+            (delegate as! KTXpressAddressPickerViewModelDelegate).setDropOff(drop: title)
         } else {
             let title = locations[idx].name!
-            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+            (delegate as! KTXpressAddressPickerViewModelDelegate).setDropOff(drop: title)
         }
         
     }
@@ -366,31 +433,31 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   
   private func moveBackIfNeeded(skipDestination : Bool)
   {
-    //        if((delegate as! KTAddressPickerViewModelDelegate).getConfirmPickupFlowDone())
+    //        if((delegate as! KTXpressAddressPickerViewModelDelegate).getConfirmPickupFlowDone())
     //        {
     //            moveBackScreen(skipDestination: skipDestination)
     //        }
     //        else
     //        {
     //            // start pickup confirmation from map flow
-    //            (self.delegate as! KTAddressPickerViewModelDelegate).startConfirmPickupFlow()
+    //            (self.delegate as! KTXpressAddressPickerViewModelDelegate).startConfirmPickupFlow()
     //        }
     moveBackScreen(skipDestination: skipDestination)
   }
   
   private func moveBackScreen(skipDestination : Bool)
   {
-    if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty)
+    if pickUpAddress != nil  &&  !((delegate as! KTXpressAddressPickerViewModelDelegate).pickUpTxt().isEmpty)
     {
       if  (skipDestination || dropOffAddress != nil || isSkippedPressed)
       {
-        if (pickUpAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || pickUpAddress?.favoriteName == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt()) && (isSkippedPressed || dropOffAddress?.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() || dropOffAddress?.favoriteName == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()  )
+        if (pickUpAddress?.name == (delegate as! KTXpressAddressPickerViewModelDelegate).pickUpTxt() || pickUpAddress?.favoriteName == (delegate as! KTXpressAddressPickerViewModelDelegate).pickUpTxt()) && (isSkippedPressed || dropOffAddress?.name == (delegate as! KTXpressAddressPickerViewModelDelegate).dropOffTxt() || dropOffAddress?.favoriteName == (delegate as! KTXpressAddressPickerViewModelDelegate).dropOffTxt()  )
         {
           if isSkippedPressed
           {
             dropOffAddress = nil
           }
-          (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+          (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
         }
       }
       else
@@ -554,33 +621,4 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
     }
   }
-}
-
-extension KTFavorites {
-  func toGeolocation() -> KTGeoLocation {
-    let location = KTGeoLocation(context: NSManagedObjectContext.mr_default())
-    location.area = self.area
-    location.latitude = self.latitude
-    location.longitude = self.longitude
-    location.name = self.locationName
-    location.locationId = self.locationId
-    location.type = self.locationType
-    location.favoriteName = self.name ?? ""
-    return location
-  }
-}
-
-extension KTGeoLocation {
-      private static var _favoriteName = [String:String]()
-      
-      var favoriteName: String {
-          get {
-              let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-              return KTGeoLocation._favoriteName[tmpAddress] ?? ""
-          }
-          set(newValue) {
-              let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-              KTGeoLocation._favoriteName[tmpAddress] = newValue
-          }
-      }
 }
