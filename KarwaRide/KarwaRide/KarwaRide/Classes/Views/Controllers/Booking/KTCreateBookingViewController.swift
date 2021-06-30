@@ -702,18 +702,8 @@ class KTCreateBookingViewController:
   }
   
   func hideCancelBookingBtn()  {
-    
     self.tableView.isUserInteractionEnabled = true
     self.mapView.isUserInteractionEnabled = true
-    
-    if btnRevealBtn.isHidden == true {
-        
-        if self.sheetCoordinator.parent != nil {
-            self.sheetCoordinator.removeSheet()
-        }
-        
-    }
-    
     btnCancelBtn.isHidden = true
     btnRevealBtn.isHidden = false
   }

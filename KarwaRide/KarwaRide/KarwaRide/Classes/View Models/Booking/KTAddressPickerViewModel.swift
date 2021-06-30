@@ -283,6 +283,12 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       else if locations[idx.row].name != nil {
         title = locations[idx.row].name!
       }
+        
+        if title == "home" {
+            title = "strHome".localized()
+        } else if title == "work" {
+            title = "strWork".localized()
+        }
       
       //title = locations[idx.row].name!
     }
