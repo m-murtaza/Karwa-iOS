@@ -30,7 +30,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RD7-5d-f1C">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RD7-5d-f1C">
                     <rect key="frame" x="0.0" y="492" width="414" height="404"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Payment Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jue-dS-ZtX" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
@@ -50,7 +50,7 @@
                         <constraint firstAttribute="height" constant="404" id="ml0-i8-L1T"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All payment information is stored securely" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saZ-c5-prb" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All payment information is stored securely" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saZ-c5-prb" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                     <rect key="frame" x="20" y="814" width="374" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="WcS-Mb-UNk"/>
@@ -62,7 +62,7 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_all_payment_stored"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H9S-Tu-LzO">
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H9S-Tu-LzO">
                     <rect key="frame" x="0.0" y="568" width="414" height="226"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>

@@ -269,6 +269,10 @@ class KTCreateBookingViewController:
     @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
   @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var pickUpClikcBtn: UIButton!
+    @IBOutlet weak var dropClikcBtn: UIButton!
+
+    
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
   var selectedIndex = 0
@@ -316,7 +320,8 @@ class KTCreateBookingViewController:
     let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissSelectionMethod))
     self.selectPaymentMethodView.tapView.addGestureRecognizer(tapGestureRecognizer)
     self.selectPaymentMethodView.backgroundColor = .clear
-    selectPaymentMethodView.contentView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    selectPaymentMethodView.contentView.backgroundColor = UIColor.clear
+    selectPaymentMethodView.tableView.isHidden = true
     selectPaymentMethodView.delegate = self
     rideServicesContainer.addGestureRecognizer(gesture)
 
@@ -555,7 +560,8 @@ class KTCreateBookingViewController:
     sheetCoordinator.parent.view.layer.addSublayer(backGroundLayer)
     
     sheetCoordinator.addSheet(paymentSelectionVC, to: self)
-    
+    self.selectPaymentMethodView.isHidden = false
+
     sheetPresented = true
     
 //    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
@@ -581,7 +587,8 @@ class KTCreateBookingViewController:
         self.btnCancelBtn.isUserInteractionEnabled = true
         self.btnPickupAddress.isUserInteractionEnabled = true
         self.btnDropoffAddress.isUserInteractionEnabled = true
-                
+        self.selectPaymentMethodView.isHidden = true
+
         sheetCoordinator.removeSheet()
         
 //        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
