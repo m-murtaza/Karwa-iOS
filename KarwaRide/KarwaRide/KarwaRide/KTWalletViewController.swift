@@ -51,7 +51,7 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         if Device.getLanguage().contains("AR") {
             addCreditCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
         } else {
-            addCreditCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            addCreditCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         }
         CardIOUtilities.preload()
         tableView.tableFooterView = UIView(frame: .zero)
@@ -199,7 +199,7 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     
     @objc func refresh(sender:AnyObject) {
         (viewModel as! KTWalletViewModel).fetchnPaymentMethods()
-        (viewModel as! KTWalletViewModel).fetchTransactions()
+        (viewModel as! KTWalletViewModel).fetchTransactionsServer()
     }
     
     func endRefreshing() {
@@ -303,12 +303,13 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         addCardButton.setBackgroundColor(color: UIColor(hex: "#37E7E7"), forState: .normal)
         addCardButton.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
         addCardButton.setImage(#imageLiteral(resourceName: "card_ico_btn"), for: .normal)
+        addCardButton.tintColor = .white
         addCardButton.cornerRadius = 20
         addCardButton.clipsToBounds = true
         if Device.getLanguage().contains("AR") {
             addCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
         } else {
-            addCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            addCardButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         }
         
         let keyLbl = LocalisableLabel()
@@ -448,7 +449,7 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     @objc func moveToAddCreditCard() {
     
         let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCreditViewController") as! KTAddCreditViewController
-        
+        addCreditViewController.modalPresentationStyle = .fullScreen
         self.navigationController?.present(addCreditViewController, animated: true, completion: nil)
                 
     }

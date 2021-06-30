@@ -26,6 +26,10 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         NotificationCenter.default.addObserver(self, selector: (#selector(updateUI)), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     @objc func updateUI()
     {
         (viewModel as! KTLeftMenuModel).reloadData()
@@ -69,7 +73,18 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         //cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
 
         cell.lblNew.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
-
+        
+        if (KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"}).first?.balance ?? "").count > 0 {
+            cell.walletAmountLbl.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
+            cell.walletAmountLbl.text =  (KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"}).first?.balance ?? "") + "  "
+            cell.lblNew.isHidden = true
+        } else {
+            cell.walletAmountLbl.isHidden = true
+        }
+        
+        cell.walletAmountLbl.layer.cornerRadius = 5
+        cell.walletAmountLbl.layer.masksToBounds = true
+        
         if(Device.getLanguage() == "AR")
         {
             cell.lblNew.image = UIImage(named: "new_tag_ar")!
@@ -160,5 +175,19 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         }
 
         return false
+    }
+}
+
+extension UILabel {
+    func setMargins(_ margin: CGFloat = 10) {
+        if let textString = self.text {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.firstLineHeadIndent = margin
+            paragraphStyle.headIndent = margin
+            paragraphStyle.tailIndent = margin
+            let attributedString = NSMutableAttributedString(string: textString)
+            attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+            attributedText = attributedString
+        }
     }
 }

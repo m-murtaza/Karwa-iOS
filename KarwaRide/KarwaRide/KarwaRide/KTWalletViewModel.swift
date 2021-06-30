@@ -28,6 +28,9 @@ class KTWalletViewModel: KTBaseViewModel {
     var selectedPaymentMethod = KTPaymentMethod()
     var transactions : [KTTransactions] = []
     var debitCardSelected = false
+    
+    var paymentSelected = false
+
 
     //AESEncryption.init().encrypt(message)
     var sessionId = ""
@@ -179,7 +182,7 @@ class KTWalletViewModel: KTBaseViewModel {
         
         paymentMethods = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})
         
-        self.setSelectedPayment(0)
+        //self.setSelectedPayment(0)
 
         if walletPaymentMethod.count > 0{
             self.transactionDelegate?.loadAvailableBalance(walletPaymentMethod[0].balance ?? "")
@@ -215,7 +218,7 @@ class KTWalletViewModel: KTBaseViewModel {
         let oldDate = olDateFormatter.date(from: inputDate)
 
          let convertDateFormatter = DateFormatter()
-         convertDateFormatter.dateFormat = "HH:mm MM/dd/yyyy"
+         convertDateFormatter.dateFormat = "h:mm a dd MMM yyyy"
 
          return convertDateFormatter.string(from: oldDate!)
     }
@@ -249,6 +252,8 @@ class KTWalletViewModel: KTBaseViewModel {
     
     func titelLabel(forCellIdx idx: Int) -> NSAttributedString {
         
+        print("transactions", transactions)
+        
         let combination = NSMutableAttributedString()
 
         let titleAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#525252"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 12.0)!]
@@ -258,16 +263,20 @@ class KTWalletViewModel: KTBaseViewModel {
         let titleString = NSMutableAttributedString(string: paymentMethod == "WALLET" ? paymentMethod.localized() : paymentMethod, attributes: titleAttribute)
         
         let typeAtrribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#00A8A8"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 12.0)!]
+        
+        let type = NSMutableAttributedString(string: (transactions[idx].transactionStatement ?? "") + "   ", attributes: typeAtrribute)
+        combination.append(type)
+//        combination.append(titleString)
 
-        if (transactions[idx].transactionType ?? "") == "CREDIT" {
-            let type = NSMutableAttributedString(string: "str_credit_by".localized() + "   ", attributes: typeAtrribute)
-            combination.append(type)
-            combination.append(titleString)
-        } else {
-            let type = NSMutableAttributedString(string: "str_paid_by".localized() + "   ", attributes: typeAtrribute)
-            combination.append(type)
-            combination.append(titleString)
-        }
+//        if (transactions[idx].transactionType ?? "") == "CREDIT" {
+//            let type = NSMutableAttributedString(string: (transactions[idx].transactionStatement ?? "") + "   ", attributes: typeAtrribute)
+//            combination.append(type)
+//            combination.append(titleString)
+//        } else {
+//            let type = NSMutableAttributedString(string: "str_paid_by".localized() + "   ", attributes: typeAtrribute)
+//            combination.append(type)
+//            combination.append(titleString)
+//        }
         
         return combination
         
@@ -279,18 +288,14 @@ class KTWalletViewModel: KTBaseViewModel {
 
         let currencyCodeAttribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#A5A5A5"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 11.0)!]
 
-        let currencyCodeString = NSMutableAttributedString(string: "txt_qr".localized(), attributes: currencyCodeAttribute)
-        
-        if (transactions[idx].primaryMethod ?? "") == "str_wallet".localized().uppercased() {
-            let amountAtrribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#000000"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 14.0)!]
+        if transactions[idx].transactionType == "CREDIT" {
+            let amountAtrribute = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#008000"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 14.0)!]
             let amount = NSMutableAttributedString(string: "+\(transactions[idx].amount ?? "")" + "   ", attributes: amountAtrribute)
             combination.append(amount)
-//            combination.append(currencyCodeString)
         } else {
             let amountAtrribute = [NSAttributedString.Key.foregroundColor: UIColor(hexString: "#E43825"), NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 14.0)!]
             let amount = NSMutableAttributedString(string: "-\(transactions[idx].amount ?? "")" + "   ", attributes: amountAtrribute)
             combination.append(amount)
-//            combination.append(currencyCodeString)
         }
         
         return combination
@@ -316,7 +321,7 @@ class KTWalletViewModel: KTBaseViewModel {
         
         if (transactions[idx].primaryMethod ?? "") == "str_wallet".localized().uppercased() && (transactions[idx].transactionType ?? "") == "CREDIT"{
             return UIImage(named: ImageUtil.getTransactionImage("CREDITWALLET"))!
-        } else if (transactions[idx].primaryMethod ?? "") == "str_wallet".localized().uppercased() {
+        } else if (transactions[idx].primaryMethod ?? "") == "WALLET".localized().uppercased() {
             return UIImage(named: ImageUtil.getTransactionImage("PAIDWALLET"))!
         }
         else {
@@ -336,14 +341,25 @@ class KTWalletViewModel: KTBaseViewModel {
             return
         }
         
+        guard paymentSelected else {
+            self.transactionDelegate?.showError?(title: "str_select_payment".localized(), message: "")
+            return
+        }
+        
+        guard (Int(amount) ?? 0) >= 30 else {
+            self.transactionDelegate?.showError?(title: "str_amount_hint".localized(), message: "")
+            return
+        }
+        
         self.transactionDelegate?.showProgressHud(show: true)
 
         let type = debitCardSelected == true ? "DEBITCARD" : ""
         
         KTWalletManager().addCreditAmount(paymentMethod: selectedPaymentMethod, amount: amount, type: type) { (status, response) in
             
+            self.transactionDelegate?.hideProgressHud()
+
             if type == "DEBITCARD" {
-                self.transactionDelegate?.hideProgressHud()
                 let paymentLink = ((response["D"] as? Array<[String:String]>)?[0])?["PaymentLink"] ?? ""
                 print("test", ((response["D"] as? Array<[String:String]>)?[0])?["PaymentLink"] ?? "")
                 self.transactionDelegate?.showCyberSecureViewController(url: paymentLink)
@@ -532,6 +548,8 @@ class KTWalletViewModel: KTBaseViewModel {
             return
         }
         
+        paymentSelected = true
+        
         selectedPaymentMethod = paymentMethods[idx]
         
         var modifiedPaymentMethods = [KTPaymentMethod]()
@@ -557,6 +575,7 @@ class KTWalletViewModel: KTBaseViewModel {
     func debitRowSelected(atIndex idx: Int) {
                 
         debitCardSelected = debitCardSelected == false ? true : false
+        paymentSelected = debitCardSelected
         
         var modifiedPaymentMethods = [KTPaymentMethod]()
         for item in paymentMethods {

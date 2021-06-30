@@ -54,6 +54,7 @@ extension KTUserManager
     KTUser.mr_truncateAll(in: NSManagedObjectContext.mr_default())
     KTBooking.mr_truncateAll(in: NSManagedObjectContext.mr_default())
     KTNotification.mr_truncateAll(in: NSManagedObjectContext.mr_default())
+    KTTransactions.mr_truncateAll(in: NSManagedObjectContext.mr_default())
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
   }
 }

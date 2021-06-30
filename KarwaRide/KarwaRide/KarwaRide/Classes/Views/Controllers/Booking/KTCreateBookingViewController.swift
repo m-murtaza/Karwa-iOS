@@ -9,6 +9,7 @@
 import UIKit
 import Spring
 import Lottie
+import UBottomSheet
 
 class RideServiceCell: UITableViewCell {
   @IBOutlet weak var serviceName: UILabel!
@@ -541,29 +542,59 @@ class KTCreateBookingViewController:
   @IBAction func btnCashTapped(_ sender: Any)
   {
 //    showError(title: "str_choose_payment_method".localized(), message: "txt_payment_message".localized())
-    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-        self.selectPaymentMethodTopConstraint.constant = 0
-        self.selectPaymentMethodView.isHidden = false
-        self.selectPaymentMethodView.tableView.alpha = 1
-        self.selectPaymentMethodView.titleBackGroundView.alpha = 1
-        self.view.layoutIfNeeded()
-        self.view.bringSubview(toFront: self.selectPaymentMethodView)
-    }, completion: {_ in
-        self.selectPaymentMethodView.tableView.isHidden = false
-        self.selectPaymentMethodView.titleBackGroundView.isHidden = false
-    })
+    
+    self.tableView.isUserInteractionEnabled = false
+    self.mapView.isUserInteractionEnabled = false
+    self.btnCancelBtn.isUserInteractionEnabled = false
+    self.btnPickupAddress.isUserInteractionEnabled = false
+    self.btnDropoffAddress.isUserInteractionEnabled = false
+    
+    paymentSelectionVC.sheetCoordinator = sheetCoordinator
+    paymentSelectionVC.delegate = self
+    gradientLayer.isHidden = false
+    sheetCoordinator.parent.view.layer.addSublayer(gradientLayer)
+    
+    
+    sheetCoordinator.addSheet(paymentSelectionVC, to: self)
+    
+    sheetPresented = true
+    
+//    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+//        self.selectPaymentMethodTopConstraint.constant = 0
+//        self.selectPaymentMethodView.isHidden = false
+//        self.selectPaymentMethodView.tableView.alpha = 1
+//        self.selectPaymentMethodView.titleBackGroundView.alpha = 1
+//        self.selectPaymentMethodView.animation = "slideUp"
+//        self.view.layoutIfNeeded()
+//        self.view.bringSubview(toFront: self.selectPaymentMethodView)
+//    }, completion: {_ in
+//        self.selectPaymentMethodView.tableView.isHidden = false
+//        self.selectPaymentMethodView.titleBackGroundView.isHidden = false
+//    })
   }
     
     @objc func dismissSelectionMethod() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-            self.selectPaymentMethodTopConstraint.constant += UIScreen.main.bounds.height
-            self.selectPaymentMethodView.tableView.alpha = 0
-            self.selectPaymentMethodView.titleBackGroundView.alpha = 0
-                self.view.layoutIfNeeded()
-        }, completion: {_ in
-                self.selectPaymentMethodView.tableView.isHidden = true
-                self.selectPaymentMethodView.titleBackGroundView.isHidden = true
-            })
+    
+        gradientLayer.isHidden = true
+        sheetPresented = false
+        self.tableView.isUserInteractionEnabled = true
+        self.mapView.isUserInteractionEnabled = true
+        self.btnCancelBtn.isUserInteractionEnabled = true
+        self.btnPickupAddress.isUserInteractionEnabled = true
+        self.btnDropoffAddress.isUserInteractionEnabled = true
+                
+        sheetCoordinator.removeSheet()
+        
+//        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+//            self.selectPaymentMethodTopConstraint.constant += UIScreen.main.bounds.height
+//            self.selectPaymentMethodView.tableView.alpha = 0
+//            self.selectPaymentMethodView.titleBackGroundView.alpha = 0
+//            self.selectPaymentMethodView.animation = "slideDown"
+//                self.view.layoutIfNeeded()
+//        }, completion: {_ in
+//                self.selectPaymentMethodView.tableView.isHidden = true
+//                self.selectPaymentMethodView.titleBackGroundView.isHidden = true
+//            })
     }
   
   @IBAction func btnCancelBtnTapped(_ sender: Any)
@@ -572,6 +603,9 @@ class KTCreateBookingViewController:
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
     collapseRideList()
     updateVehicleTypeList()
+    if sheetPresented == true {
+        self.dismissSelectionMethod()
+    }
   }
   
   //MARK: - Book Ride
@@ -662,6 +696,18 @@ class KTCreateBookingViewController:
   }
   
   func hideCancelBookingBtn()  {
+    
+    self.tableView.isUserInteractionEnabled = true
+    self.mapView.isUserInteractionEnabled = true
+    
+    if btnRevealBtn.isHidden == true {
+        
+        if self.sheetCoordinator.parent != nil {
+            self.sheetCoordinator.removeSheet()
+        }
+        
+    }
+    
     btnCancelBtn.isHidden = true
     btnRevealBtn.isHidden = false
   }
@@ -921,10 +967,13 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
             self.paymentTypeLabel.text = "str_cash".localized()
             self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
         }
-        
         self.dismissSelectionMethod()
-
     }
+    
+    func closeSheet() {
+        self.sheetCoordinator.removeSheet()
+    }
+    
 }
 
 extension UICollectionViewFlowLayout {

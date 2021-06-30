@@ -87,6 +87,8 @@ class KTWalletManager: KTDALManager {
 
             transactionEntity?.transactionType = (transaction[Constants.TransactionResponseAPIKey.TransactionType] as? String) ?? ""
             
+            transactionEntity?.transactionStatement = (transaction[Constants.TransactionResponseAPIKey.TransactionStatement] as? String) ?? ""
+            
             transactionEntity?.date = (transaction[Constants.TransactionResponseAPIKey.TransactionTime] as? String) ?? ""
             
             transactionEntity?.amount = (transaction[Constants.TransactionResponseAPIKey.Amount] as? String) ?? ""

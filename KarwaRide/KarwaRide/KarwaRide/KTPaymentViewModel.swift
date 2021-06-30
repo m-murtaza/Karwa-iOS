@@ -135,7 +135,7 @@ class KTPaymentViewModel: KTBaseViewModel
         let totalFareWithTip = NSDecimalNumber(value: totalAmount)
         transaction?.amount = totalFareWithTip
         transaction?.amountString = totalFareWithTip.stringValue
-        transaction?.amountFormatted = String("QAR" + totalFareWithTip.stringValue)
+        transaction?.amountFormatted = String("str_qr".localized() + totalFareWithTip.stringValue)
     }
     
     func numberOfRows() -> Int
@@ -158,7 +158,7 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         
         if paymentMethods[idx].payment_type == "WALLET" {
-            return paymentMethods[idx].balance ?? ""
+            return "str_balance".localized() + " " + (paymentMethods[idx].balance ?? "")
         } else {
             return "EXP. " + paymentMethods[idx].expiry_month! + "/" + paymentMethods[idx].expiry_year!
         }

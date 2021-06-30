@@ -472,7 +472,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             bottomStartRatingLabel.isHidden = true
             
             self.view.customCornerRadius = 0
-           _ = showOTP()
+            self.otpView.isHidden = true
 
         }
         
@@ -528,7 +528,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             }
             
             self.view.customCornerRadius = 0
-            showOTP()
+            self.otpView.isHidden = true
             
         }
         
@@ -549,6 +549,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 //            constraintRebookMarginTop.constant = 300
             
             self.view.customCornerRadius = 0
+            self.otpView.isHidden = true
 
         }
         
@@ -556,8 +557,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             
             bottomStartRatingLabel.isHidden = false
-            constraintTripInfoMarginTop.constant = 110 + 88
-            constraintDriverInfoMarginTop.constant = 5 + 88
+            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 88 : 110
+            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 88 : 5
             hideFareDetailBtn()
             hideBtnComplain()
             hideRebookBtn()
@@ -567,7 +568,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.shimmerView.isHidden = true
             self.lblDriverName.stopShimmeringAnimation()
             self.bottomStartRatingLabel.stopShimmeringAnimation()
-            showOTP()
 
         }
 
@@ -620,7 +620,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         [fareBreakDownView.topAnchor.constraint(equalTo: self.iconVehicle.bottomAnchor, constant: 35),
          fareBreakDownView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
          fareBreakDownView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 25))].forEach{$0.isActive = true}
+         fareBreakDownView.heightAnchor.constraint(equalToConstant: CGFloat(Double(totalDetailsCount) * 25.5))].forEach{$0.isActive = true}
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue) {
@@ -715,3 +715,4 @@ extension UIButton {
     }
     
 }
+

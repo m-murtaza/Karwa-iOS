@@ -149,6 +149,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             (cell as! KTSettingsImgTextTableViewCell).lblText.text = "changePass".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconPassword")
             (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
+            (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
         }
         
         else if indexPath.section == 2 && indexPath.row == 0 {
@@ -160,6 +161,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strHome".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconHome")
             (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
+            (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
+
         }
         else if indexPath.section == 2 && indexPath.row == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
@@ -170,6 +173,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strWork".localized()
             (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconWork")
             (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
+            (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
+
         }
         else if indexPath.section == 3  {
             /*if indexPath.row == 0 {
@@ -205,6 +210,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "str_otp_settings".localized()
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "otp_ico_setting")
+                (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = false
+
                 
             } else if indexPath.row == 1 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
@@ -215,7 +222,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "strRateApp".localized()
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
                 (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
-                
+                (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
+
             }
             
         }
@@ -243,6 +251,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
 
         showProgressHud(show: true)
         KTUserManager().updateOTP(otp: otpEnabledStatus) { status, response in
+            
+            self.showToast(message: "profile_updated".localized())
+            
             self.hideProgressHud()
             print(response)
             self.tableView.reloadData()

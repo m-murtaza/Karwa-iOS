@@ -93,6 +93,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tableView.isHidden = true
         tagView.editable = false
         tagView.delegate = self
+        
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 250, right: 0)
+        self.tableView.contentInset = insets
     }
     
     override func viewWillAppear(_ animated: Bool)

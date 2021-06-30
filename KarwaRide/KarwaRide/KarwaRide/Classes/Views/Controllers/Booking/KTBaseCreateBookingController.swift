@@ -12,6 +12,7 @@ import ScalingCarousel
 import Alamofire
 import SwiftyJSON
 import Spring
+import UBottomSheet
 
 class KTCreateBookingConstants {
     
@@ -41,7 +42,18 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     @IBOutlet weak var btnCancelBtn : SpringButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
     
+    lazy var paymentSelectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PaymentSelectionBottomSheetController") as! PaymentSelectionBottomSheetController
+    lazy var sheetCoordinator = UBottomSheetCoordinator(parent: self)
     
+    lazy var gradientLayer: CALayer = {
+        let layer = CALayer()
+        layer.backgroundColor = UIColor.black.withAlphaComponent(0.6).cgColor
+        layer.frame = view.bounds
+        return layer
+    }()
+    
+    var sheetPresented = false
+
     //MARK: - Map related variables
     var gmsMarker : Array<GMSMarker> = Array()
     var polyline = GMSPolyline()

@@ -552,6 +552,7 @@ struct Constants {
         static let Amount = "Amount"
         static let TransactionTime = "TransactionTime"
         static let TransactionType = "TransactionType"
+        static let TransactionStatement = "TransactionStatement"
     }
     
     struct WalletTopUpParam {

@@ -388,16 +388,20 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         {
             //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
         }
+        else if booking!.lastFourDigits!.contains("QR") == true {
+            paymentMethod = "str_paid_with".localized()
+        }
         else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
         {
             paymentMethod = "**** " +  booking!.lastFourDigits!
         }
         else if(booking!.paymentMethod == "ApplePay")
         {
-            paymentMethod = "Paid by"
+            paymentMethod = "str_paid_by".localized()
         }
 
         return paymentMethod
+        
     }
     
     

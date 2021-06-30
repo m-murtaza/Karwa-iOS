@@ -14,6 +14,8 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var creditTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var addCreditTitleLbl: UILabel!
+    @IBOutlet weak var clearButton: UIButton!
+
     
     private var vModel : KTWalletViewModel?
     
@@ -37,6 +39,22 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         
         self.hideKeyboardWhenTappedAround()
         
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 250, right: 0)
+        self.tableView.contentInset = insets
+        
+//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.dismssView))
+//        swipeDown.direction = .down
+//        self.view.addGestureRecognizer(swipeDown)
+        
+    }
+    
+    @IBAction func clearText(_ sender: UIButton) {
+        self.creditTextField.text = ""
+        self.clearButton.isHidden = true
+    }
+    
+    @objc func dismssView() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,7 +69,6 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     @objc func addCredit() {
         (viewModel as! KTWalletViewModel).addCreditToWallet(amount: self.creditTextField.text ?? "")
     }
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -155,7 +172,9 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         cell.selectionStyle = .none
 
         if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
-            cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
+            cell.iconImageView.image  = #imageLiteral(resourceName: "card_ico_btn")
+            cell.iconImageView.contentMode = .center
+            cell.iconImageView.tintColor = UIColor(hex: "#37E7E7")
             cell.titleLabel.text = "str_debit_card".localized()
             cell.detailLable.text = ""
             cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
@@ -163,7 +182,9 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         } else if (viewModel as! KTWalletViewModel).paymentMethods.count != 0 {
             
             if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
-                cell.iconImageView.image  = #imageLiteral(resourceName: "empty_cards_icon")
+                cell.iconImageView.image  = #imageLiteral(resourceName: "card_ico_btn")
+                cell.iconImageView.contentMode = .center
+                cell.iconImageView.tintColor = UIColor(hex: "#37E7E7")
                 cell.titleLabel.text = "str_debit_card".localized()
                 cell.detailLable.text = ""
                 cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
@@ -239,6 +260,35 @@ extension KTAddCreditViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true;
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard (textField.text?.count ?? 0) > 0 else {
+            clearButton.isHidden = true
+            return
+        }
+        clearButton.isHidden = false
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField.text?.count ?? 0) == 1 {
+            if string.count == 0 {
+                clearButton.isHidden = true
+            }else {
+                clearButton.isHidden = false
+            }
+        } else if string.count > 0 {
+            clearButton.isHidden = false
+        }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard (textField.text?.count ?? 0) > 0 else {
+            clearButton.isHidden = true
+            return
+        }
+        clearButton.isHidden = false
     }
 
 }
