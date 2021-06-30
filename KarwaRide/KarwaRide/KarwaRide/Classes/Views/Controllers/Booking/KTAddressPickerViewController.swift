@@ -95,12 +95,7 @@ AddressPickerCellDelegate {
   
   
   private var zoomForPickupRequired : Bool = false
-  
-  ///This bool will be use to check if selected text box should be clear when user type a charecter.
-  ///http://redmine.karwatechnologies.com/issues/2430 Point D.
-  ///D)Tap and type in the Set current/destination address should clear the current/destination address
-  private var removeTxtFromTextBox : Bool = true
-  
+    
   override func viewDidLoad() {
     viewModel = KTAddressPickerViewModel(del:self)
     
@@ -618,9 +613,7 @@ AddressPickerCellDelegate {
     }
     
     (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
-    
-    
-    removeTxtFromTextBox = true
+        
     if selectedInputMechanism == SelectedInputMechanism.MapView {
       
       if(zoomForPickupRequired)
@@ -643,6 +636,11 @@ AddressPickerCellDelegate {
                                            borderColor: UIColor.primary,
                                            cornerRadius: 8.0)
     textField.superview?.backgroundColor = UIColor.white
+    
+    if (viewModel as! KTAddressPickerViewModel).pickUpAddress?.area == "str_loading".localized() {
+        textField.text = ""
+    }
+    
     return true
   }
   
@@ -668,10 +666,6 @@ AddressPickerCellDelegate {
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-    if removeTxtFromTextBox == true {
-      removeTxtFromTextBox = false
-      textField.text = ""
-    }
     searchText = textField.text!;
     if searchTimer.isValid {
       
