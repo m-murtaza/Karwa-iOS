@@ -551,9 +551,8 @@ class KTCreateBookingViewController:
     
     paymentSelectionVC.sheetCoordinator = sheetCoordinator
     paymentSelectionVC.delegate = self
-    gradientLayer.isHidden = false
-    sheetCoordinator.parent.view.layer.addSublayer(gradientLayer)
-    
+    backGroundLayer.isHidden = false
+    sheetCoordinator.parent.view.layer.addSublayer(backGroundLayer)
     
     sheetCoordinator.addSheet(paymentSelectionVC, to: self)
     
@@ -575,7 +574,7 @@ class KTCreateBookingViewController:
     
     @objc func dismissSelectionMethod() {
     
-        gradientLayer.isHidden = true
+        backGroundLayer.isHidden = true
         sheetPresented = false
         self.tableView.isUserInteractionEnabled = true
         self.mapView.isUserInteractionEnabled = true

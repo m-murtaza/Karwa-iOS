@@ -45,7 +45,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     lazy var paymentSelectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PaymentSelectionBottomSheetController") as! PaymentSelectionBottomSheetController
     lazy var sheetCoordinator = UBottomSheetCoordinator(parent: self)
     
-    lazy var gradientLayer: CALayer = {
+    lazy var backGroundLayer: CALayer = {
         let layer = CALayer()
         layer.backgroundColor = UIColor.black.withAlphaComponent(0.6).cgColor
         layer.frame = view.bounds
