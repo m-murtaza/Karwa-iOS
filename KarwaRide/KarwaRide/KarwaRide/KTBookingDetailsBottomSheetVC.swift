@@ -359,8 +359,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func updateBookingBottomSheet()
     {
-        
-        print("vModel?.getBookingOtp()", vModel?.getBookingOtp())
+        KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
                 
         //MARK:- DISPATCHING
         if(vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue)
@@ -473,6 +472,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
+            
 
         }
         
@@ -529,6 +529,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
+            
             
         }
         

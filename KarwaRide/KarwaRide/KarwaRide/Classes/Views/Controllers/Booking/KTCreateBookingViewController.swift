@@ -953,8 +953,8 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
         } else if type == "Card" {
             let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
-            self.paymentTypeLabel.text = "***** " + (paymentMethod?.last_four_digits ?? "")
-            self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage(paymentMethod?.brand ?? ""))!
+            self.paymentTypeLabel.text =  (paymentMethod?.brand ?? "") == "MASTERCARD" ? "MASTER" : (paymentMethod?.brand ?? "")
+            self.paymentTypeIcon.image = (paymentMethod?.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paymentMethod?.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paymentMethod?.brand ?? ""))!
         }
         else {
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
@@ -962,6 +962,7 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
             self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
         }
         self.dismissSelectionMethod()
+        self.paymentTypeIcon.contentMode = .center
     }
     
     func closeSheet() {

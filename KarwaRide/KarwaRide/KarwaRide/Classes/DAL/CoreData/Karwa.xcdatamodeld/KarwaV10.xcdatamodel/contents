@@ -15,6 +15,7 @@
         <attribute name="driverName" optional="YES" attributeType="String"/>
         <attribute name="driverPhone" optional="YES" attributeType="String"/>
         <attribute name="driverRating" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="driverTip" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dropOffAddress" optional="YES" attributeType="String"/>
         <attribute name="dropOffLat" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dropOffLocationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -151,7 +152,7 @@
     </entity>
     <elements>
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
-        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="629"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="644"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="118"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTComplaint" positionX="45" positionY="-126" width="128" height="165"/>

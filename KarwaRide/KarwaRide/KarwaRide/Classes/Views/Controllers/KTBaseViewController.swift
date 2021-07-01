@@ -176,7 +176,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         style.messageColor = .white
         style.cornerRadius = 20
         
-        self.view.makeToast(message, duration: 3.0, position: .center, style: style)
+        self.view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 
     }
     

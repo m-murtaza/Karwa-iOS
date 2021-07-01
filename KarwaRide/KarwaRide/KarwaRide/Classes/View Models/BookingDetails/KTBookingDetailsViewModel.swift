@@ -1076,7 +1076,31 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func totalFareOfTrip() -> String {
         
-        return (booking?.fare)!
+        if Device.getLanguage().contains("AR") {
+            let numberStr: String = (booking?.fare?.components(separatedBy: " ")[0])!
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.locale = NSLocale(localeIdentifier: "EN") as Locale!
+            let final = formatter.number(from: numberStr)
+            let intNumber = Int(final!)
+            print("\(intNumber)")
+            
+            let totalFare = Int(booking?.driverTip ?? 0) + intNumber
+            
+            let arformatter = NumberFormatter()
+            arformatter.locale = Locale(identifier: "ar")
+            if let localized = arformatter.string(from: NSNumber(value: totalFare)) {
+               return "\(localized) \((booking?.fare?.components(separatedBy: " ")[1])!)"
+            }
+            return ""
+        } else {
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.locale = NSLocale(localeIdentifier: "EN") as Locale!
+            let final = formatter.number(from: (booking?.fare?.components(separatedBy: " ")[1])!)
+            let totalFare = Int(booking?.driverTip ?? 0) + Int(final!)
+            return (booking?.fare?.components(separatedBy: " ")[0])! + " " + String(totalFare)
+        }
+                
+                
     }
     
     func fareDetailsHeader() -> [KTKeyValue]? {
