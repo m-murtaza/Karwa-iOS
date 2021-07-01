@@ -321,8 +321,6 @@ class KTCreateBookingViewController:
     self.selectPaymentMethodView.tapView.addGestureRecognizer(tapGestureRecognizer)
     self.selectPaymentMethodView.backgroundColor = .clear
     selectPaymentMethodView.contentView.backgroundColor = UIColor.clear
-    selectPaymentMethodView.tableView.isHidden = true
-    selectPaymentMethodView.delegate = self
     rideServicesContainer.addGestureRecognizer(gesture)
 
     //    hideCurrentLocationButton()
