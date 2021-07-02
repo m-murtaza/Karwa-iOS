@@ -104,8 +104,8 @@ class KTSettingsViewModel: KTBaseViewModel {
             print("Logout on server " + status)
             KTUserManager().removeUserData()
             KTPaymentManager().removeAllPaymentData()
+            PreviousSelectedPayment.shared.selectedPaymentMethod = nil
             self.showLogin()
-            
         }
     }
 

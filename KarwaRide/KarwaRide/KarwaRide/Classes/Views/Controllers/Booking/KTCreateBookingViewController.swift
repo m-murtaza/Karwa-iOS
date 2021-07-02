@@ -11,6 +11,14 @@ import Spring
 import Lottie
 import UBottomSheet
 
+public class PreviousSelectedPayment: NSObject {
+    static let shared = PreviousSelectedPayment()
+    var selectedPaymentMethod: String?
+    public override init() {
+        
+    }
+}
+
 class RideServiceCell: UITableViewCell {
   @IBOutlet weak var serviceName: UILabel!
   @IBOutlet weak var capacity: UILabel!
@@ -289,7 +297,34 @@ class KTCreateBookingViewController:
     @IBOutlet weak var paymentTypeLabel: UILabel!
 
   //MARK:- View lifecycle
-  override func viewDidLoad() {
+    fileprivate func setUpPreviousPaymentMethod() {
+        if let selectedPM = PreviousSelectedPayment.shared.selectedPaymentMethod {
+            if let paym = KTPaymentManager().getAllPayments().filter({$0.source! == selectedPM}).first {
+                
+                let paymentId = AESEncryption().encrypt(paym.source!)
+                (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
+                
+                if paym.payment_type == "WALLET" {
+                    self.paymentTypeLabel.text = "str_wallet".localized()
+                    self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
+                } else {
+                    self.paymentTypeLabel.text =  (paym.brand ?? "") == "MASTERCARD" ? "MASTER" : (paym.brand ?? "")
+                    self.paymentTypeIcon.image = (paym.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paym.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paym.brand ?? ""))!
+                }
+                
+            } else {
+                (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+                self.paymentTypeLabel.text = "str_cash".localized()
+                self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+            }
+        } else {
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+            self.paymentTypeLabel.text = "str_cash".localized()
+            self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+        }
+    }
+    
+    override func viewDidLoad() {
     viewModel = KTCreateBookingViewModel(del:self)
     vModel = viewModel as? KTCreateBookingViewModel
     
@@ -341,6 +376,15 @@ class KTCreateBookingViewController:
         btnRecenterLocationConstraint.constant = 15
     }
     
+    if vModel?.rebook == false {
+        setUpPreviousPaymentMethod()
+    } else {
+        (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+        self.paymentTypeLabel.text = "str_cash".localized()
+        self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+    }
+    
+            
   }
   
   @objc private func showMenu() {
@@ -704,6 +748,8 @@ class KTCreateBookingViewController:
     self.mapView.isUserInteractionEnabled = true
     btnCancelBtn.isHidden = true
     btnRevealBtn.isHidden = false
+    setUpPreviousPaymentMethod()
+
   }
   
   func hideRequestBookingBtn() {
@@ -950,19 +996,25 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
             self.paymentTypeLabel.text = "str_wallet".localized()
             self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
+            PreviousSelectedPayment.shared.selectedPaymentMethod = paymentMethod?.source!
         } else if type == "Card" {
             let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
             self.paymentTypeLabel.text =  (paymentMethod?.brand ?? "") == "MASTERCARD" ? "MASTER" : (paymentMethod?.brand ?? "")
             self.paymentTypeIcon.image = (paymentMethod?.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paymentMethod?.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paymentMethod?.brand ?? ""))!
+            PreviousSelectedPayment.shared.selectedPaymentMethod = paymentMethod?.source!
         }
         else {
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
             self.paymentTypeLabel.text = "str_cash".localized()
             self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+            PreviousSelectedPayment.shared.selectedPaymentMethod = nil
+
         }
         self.dismissSelectionMethod()
         self.paymentTypeIcon.contentMode = .center
+        
+              
     }
     
     func closeSheet() {

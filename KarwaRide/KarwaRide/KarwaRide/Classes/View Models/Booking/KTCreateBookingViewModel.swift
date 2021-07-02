@@ -148,7 +148,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
         
         FetchNearByVehicle()
-        
+        KTPaymentManager().fetchPaymentsFromServer { status, response in}
+
         // Resuming timer even if booking in progress
         timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
         
