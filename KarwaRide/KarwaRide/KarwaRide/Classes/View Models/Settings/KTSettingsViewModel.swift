@@ -105,6 +105,7 @@ class KTSettingsViewModel: KTBaseViewModel {
             KTUserManager().removeUserData()
             KTPaymentManager().removeAllPaymentData()
             PreviousSelectedPayment.shared.selectedPaymentMethod = nil
+            PreviousSelectedPayment.shared.rebook = false
             self.showLogin()
         }
     }

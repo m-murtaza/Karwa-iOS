@@ -14,6 +14,7 @@ import UBottomSheet
 public class PreviousSelectedPayment: NSObject {
     static let shared = PreviousSelectedPayment()
     var selectedPaymentMethod: String?
+    var rebook: Bool? = false
     public override init() {
         
     }
@@ -598,6 +599,9 @@ class KTCreateBookingViewController:
     
     paymentSelectionVC.sheetCoordinator = sheetCoordinator
     paymentSelectionVC.delegate = self
+    
+    paymentSelectionVC.rebook = (viewModel as! KTCreateBookingViewModel).rebook
+    
     backGroundLayer.isHidden = false
     sheetCoordinator.parent.view.layer.addSublayer(backGroundLayer)
     

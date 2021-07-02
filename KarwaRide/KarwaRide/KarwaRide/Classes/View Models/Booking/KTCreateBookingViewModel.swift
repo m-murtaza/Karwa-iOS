@@ -133,6 +133,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if booking.bookingId != nil && booking.bookingId != "" {
             rebook = true
             updateForRebook()
+            PreviousSelectedPayment.shared.rebook = true
+            PreviousSelectedPayment.shared.selectedPaymentMethod = nil
+        } else {
+            PreviousSelectedPayment.shared.rebook = false
         }
         
         resetPromo()
