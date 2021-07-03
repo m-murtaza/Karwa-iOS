@@ -47,6 +47,7 @@ extension KTUserManager {
         NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+    
     }
     
     fileprivate func saveOtpStatus(_ response: [AnyHashable : Any])

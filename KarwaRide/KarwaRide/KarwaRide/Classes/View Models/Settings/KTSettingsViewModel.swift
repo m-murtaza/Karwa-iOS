@@ -111,7 +111,6 @@ class KTSettingsViewModel: KTBaseViewModel {
     }
 
     func showLogin()  {
-        
         (UIApplication.shared.delegate as! AppDelegate).showLogin()
     }
     

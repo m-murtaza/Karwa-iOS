@@ -309,7 +309,7 @@ class KTCreateBookingViewController:
                     self.paymentTypeLabel.text = "str_wallet".localized()
                     self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
                 } else {
-                    self.paymentTypeLabel.text =  (paym.brand ?? "") == "MASTERCARD" ? "MASTER" : (paym.brand ?? "")
+                    self.paymentTypeLabel.text = "str_card".localized()
                     self.paymentTypeIcon.image = (paym.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paym.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paym.brand ?? ""))!
                 }
                 
@@ -1004,7 +1004,7 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
         } else if type == "Card" {
             let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
             (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
-            self.paymentTypeLabel.text =  (paymentMethod?.brand ?? "") == "MASTERCARD" ? "MASTER" : (paymentMethod?.brand ?? "")
+            self.paymentTypeLabel.text =  "str_card".localized()
             self.paymentTypeIcon.image = (paymentMethod?.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paymentMethod?.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paymentMethod?.brand ?? ""))!
             PreviousSelectedPayment.shared.selectedPaymentMethod = paymentMethod?.source!
         }

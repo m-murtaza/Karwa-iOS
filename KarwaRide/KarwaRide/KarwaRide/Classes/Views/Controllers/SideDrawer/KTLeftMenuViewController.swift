@@ -28,6 +28,8 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
+        (viewModel as! KTLeftMenuModel).reloadData()
+
     }
     
     @objc func updateUI()
