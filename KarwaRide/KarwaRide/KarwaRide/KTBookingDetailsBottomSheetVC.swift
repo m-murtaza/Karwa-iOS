@@ -65,6 +65,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintVehicleInfoMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var constraintViewRideActionsTop: NSLayoutConstraint!
     @IBOutlet weak var constraintRebookMarginTop: NSLayoutConstraint!
 
     @IBOutlet weak var seperatorBeforeReportAnIssue: UIView!
@@ -419,10 +420,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 88 : 110
             constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 88 : 5
             constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 88 : 250
-            constraintReportIssueMarginTop.constant = showOTP() == true ? 10 + 88 : 10
+            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 88 : 20
+            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 88 : 328
 //                constraintRebookMarginTop.constant = 375
             hideBtnComplain()
-            
+                        
             self.view.customCornerRadius = 20.0
             
         }
@@ -447,6 +449,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintTripInfoMarginTop.constant = 10
             constraintDriverInfoMarginTop.constant = 150
             constraintVehicleInfoMarginTop.constant = 250
+            constraintViewRideActionsTop.constant = 328
+
 //
         }
         
@@ -560,6 +564,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             bottomStartRatingLabel.isHidden = false
             constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 88 : 110
             constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 88 : 5
+            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 88 : 20
+            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 88 : 328
+            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 88 : 250
+            self.viewRideInfo.isHidden = false
+            self.view.bringSubview(toFront: self.viewRideInfo)
             hideFareDetailBtn()
             hideBtnComplain()
             hideRebookBtn()
