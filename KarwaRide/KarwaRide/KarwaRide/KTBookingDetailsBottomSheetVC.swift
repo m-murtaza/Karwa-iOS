@@ -360,7 +360,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateBookingBottomSheet()
     {
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
-                
+
         //MARK:- DISPATCHING
         if(vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue)
         {

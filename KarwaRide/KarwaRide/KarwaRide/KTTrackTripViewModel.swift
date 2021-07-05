@@ -78,6 +78,8 @@ class KTTrackTripViewModel: KTBaseViewModel {
         }
     }
     
+    
+    
     override func viewDidAppear() {
         super.viewDidAppear()
     }

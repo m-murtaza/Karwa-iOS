@@ -65,11 +65,14 @@ class KTBookingManager: KTBaseFareEstimateManager {
             let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
             job.toKeyValueHeader = vType.toKeyValueHeader
             job.toKeyValueBody = vType.toKeyValueBody
-            
+                        
             if estimate != nil {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
                 
-                estimate?.toKeyValueHeader = estimate?.toKeyValueHeader!.adding(kv)
+                if let header = estimate?.toKeyValueHeader {
+                    estimate?.toKeyValueHeader = header.adding(kv)
+                }
+                
                 job.bookingToEstimate = estimate
                 estimate?.fareestimateToBooking = job
                 
