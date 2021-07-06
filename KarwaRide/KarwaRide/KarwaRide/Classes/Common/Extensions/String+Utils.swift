@@ -42,6 +42,15 @@ extension String {
         return isValidPhone
     }
     
+    func extractCountryCode() -> String
+    {
+        let phoneUtil = NBPhoneNumberUtil()
+        var nationalNumber:NSString? = nil
+        let countryCode = phoneUtil.extractCountryCode(self, nationalNumber: &nationalNumber)
+        print(nationalNumber)
+        return "\(countryCode ?? 0)"
+    }
+    
 //    var isPhoneNumber: Bool {
 //        let numberWithoutPlus = self.replacingOccurrences(of: "+", with: "", options: .literal, range: nil)
 //        let PHONE_REGEX = "^[0-9]{0, 14}$"
@@ -55,12 +64,9 @@ extension String {
 //    }
     
     var isEmail: Bool {
-        
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,64}"
-        
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
-        
     }
     
     func urlEncodedString(plainString: String) -> String? {

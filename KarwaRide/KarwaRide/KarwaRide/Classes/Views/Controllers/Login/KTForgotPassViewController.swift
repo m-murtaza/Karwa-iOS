@@ -43,7 +43,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     InputFieldUtil.applyTheme(txtPassword, true)
     InputFieldUtil.applyTheme(txtConfirmPass, true)
     
-    txtPhoneNumber.keyboardType = .phonePad
+    txtPhoneNumber.keyboardType = .numberPad
     tapToDismissKeyboard()
 
     // Do any additional setup after loading the view.
