@@ -50,7 +50,6 @@ class KTPaymentMethodSelectionView: SpringView {
 class PaymentSelectionBottomSheetController: UIViewController, Draggable{
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var closeButton: UIButton!
 
     var rebook: Bool = true
     var walletSelected: Bool = false
@@ -95,6 +94,32 @@ class PaymentSelectionBottomSheetController: UIViewController, Draggable{
 
 extension PaymentSelectionBottomSheetController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let keyLbl = LocalisableLabel()
+        keyLbl.translatesAutoresizingMaskIntoConstraints = false
+        keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        keyLbl.localisedKey = section == 0 ? "txt_all_payment_stored".localized() : ""
+        keyLbl.textAlignment = .center
+        keyLbl.textColor = UIColor(hexString: "#B4B4B4")
+        keyLbl.font = UIFont(name: "MuseoSans-500", size: 12.0)!
+        
+        let bgview : UIView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        bgview.backgroundColor = .white
+        bgview.addSubview(keyLbl)
+
+        [keyLbl.heightAnchor.constraint(equalToConstant: 40),
+         keyLbl.leadingAnchor.constraint(equalTo: bgview.leadingAnchor,constant: 0),
+         keyLbl.trailingAnchor.constraint(equalTo: bgview.trailingAnchor,constant: 0),
+         keyLbl.centerYAnchor.constraint(equalTo: bgview.centerYAnchor, constant: 0)].forEach({$0.isActive = true})
+        
+        return  bgview
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+       return 50
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return KTPaymentManager().getAllPayments().count + 1
@@ -212,7 +237,11 @@ extension PaymentSelectionBottomSheetController: UITableViewDelegate, UITableVie
             
             
         } else {
-            let paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row - 1]
+            var paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row]
+            
+            if KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"}).count > 0 {
+                paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row - 1]
+            }
             
             selectedCardIndex = indexPath.row
             self.delegate?.setSelectedPaymentType(type: "Card", paymentMethod: paymentMethod)

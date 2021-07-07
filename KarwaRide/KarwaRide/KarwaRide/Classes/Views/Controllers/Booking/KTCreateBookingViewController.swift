@@ -291,8 +291,6 @@ class KTCreateBookingViewController:
   @IBOutlet weak var mapToRideServicesView_Bottom: NSLayoutConstraint!
   var removeBookingOnReset : Bool = true
   
-    @IBOutlet weak var selectPaymentMethodView: KTPaymentMethodSelectionView!
-    @IBOutlet weak var selectPaymentMethodTopConstraint: NSLayoutConstraint!
     var selectedPaymentMethod = "Cash"
     @IBOutlet weak var paymentTypeIcon: UIImageView!
     @IBOutlet weak var paymentTypeLabel: UILabel!
@@ -353,10 +351,6 @@ class KTCreateBookingViewController:
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
-    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissSelectionMethod))
-    self.selectPaymentMethodView.tapView.addGestureRecognizer(tapGestureRecognizer)
-    self.selectPaymentMethodView.backgroundColor = .clear
-    selectPaymentMethodView.contentView.backgroundColor = UIColor.clear
     rideServicesContainer.addGestureRecognizer(gesture)
 
     //    hideCurrentLocationButton()
@@ -462,7 +456,6 @@ class KTCreateBookingViewController:
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
-    selectPaymentMethodView.isHidden = true
     self.mapViewBottomConstraint.constant = 260
   }
       
@@ -587,70 +580,26 @@ class KTCreateBookingViewController:
     (viewModel as! KTCreateBookingViewModel).btnPromoTapped()
   }
   
-  @IBAction func btnCashTapped(_ sender: Any)
-  {
-//    showError(title: "str_choose_payment_method".localized(), message: "txt_payment_message".localized())
-    
-    self.tableView.isUserInteractionEnabled = false
-    self.mapView.isUserInteractionEnabled = false
-    self.btnCancelBtn.isUserInteractionEnabled = false
-    self.btnPickupAddress.isUserInteractionEnabled = false
-    self.btnDropoffAddress.isUserInteractionEnabled = false
-    
-    paymentSelectionVC.sheetCoordinator = sheetCoordinator
+  @IBAction func btnCashTapped(_ sender: Any) {
     paymentSelectionVC.delegate = self
-    
-    paymentSelectionVC.rebook = (viewModel as! KTCreateBookingViewModel).rebook
-    
-    backGroundLayer.isHidden = false
-    sheetCoordinator.parent.view.layer.addSublayer(backGroundLayer)
-    
-    sheetCoordinator.addSheet(paymentSelectionVC, to: self)
-    self.selectPaymentMethodView.isHidden = false
-
-    sheetPresented = true
-    
-//    UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-//        self.selectPaymentMethodTopConstraint.constant = 0
-//        self.selectPaymentMethodView.isHidden = false
-//        self.selectPaymentMethodView.tableView.alpha = 1
-//        self.selectPaymentMethodView.titleBackGroundView.alpha = 1
-//        self.selectPaymentMethodView.animation = "slideUp"
-//        self.view.layoutIfNeeded()
-//        self.view.bringSubview(toFront: self.selectPaymentMethodView)
-//    }, completion: {_ in
-//        self.selectPaymentMethodView.tableView.isHidden = false
-//        self.selectPaymentMethodView.titleBackGroundView.isHidden = false
-//    })
+    sheet.allowPullingPastMaxHeight = true
+    sheet.allowPullingPastMinHeight = true
+    sheet.setSizes([.fixed(CGFloat(KTPaymentManager().getAllPayments().count * 90) + 270),.intrinsic], animated: true)
+    sheet.dismissOnPull = true
+    sheet.dismissOnOverlayTap = true
+    sheet.overlayColor = UIColor.black.withAlphaComponent(0.6)
+    sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+    sheet.contentViewController.view.layer.shadowOpacity = 0.1
+    sheet.contentViewController.view.layer.shadowRadius = 10
+    sheet.allowGestureThroughOverlay = false
+    sheet.animateIn(to: view, in: self)
   }
     
     @objc func dismissSelectionMethod() {
-    
-        backGroundLayer.isHidden = true
-        sheetPresented = false
-        self.tableView.isUserInteractionEnabled = true
-        self.mapView.isUserInteractionEnabled = true
-        self.btnCancelBtn.isUserInteractionEnabled = true
-        self.btnPickupAddress.isUserInteractionEnabled = true
-        self.btnDropoffAddress.isUserInteractionEnabled = true
-        self.selectPaymentMethodView.isHidden = true
-
-        sheetCoordinator.removeSheet()
-        
-//        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {
-//            self.selectPaymentMethodTopConstraint.constant += UIScreen.main.bounds.height
-//            self.selectPaymentMethodView.tableView.alpha = 0
-//            self.selectPaymentMethodView.titleBackGroundView.alpha = 0
-//            self.selectPaymentMethodView.animation = "slideDown"
-//                self.view.layoutIfNeeded()
-//        }, completion: {_ in
-//                self.selectPaymentMethodView.tableView.isHidden = true
-//                self.selectPaymentMethodView.titleBackGroundView.isHidden = true
-//            })
+        sheet.attemptDismiss(animated: true)
     }
   
-  @IBAction func btnCancelBtnTapped(_ sender: Any)
-  {
+  @IBAction func btnCancelBtnTapped(_ sender: Any) {
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
     collapseRideList()
@@ -1022,7 +971,7 @@ extension KTCreateBookingViewController: PaymethodSelectionDelegate {
     }
     
     func closeSheet() {
-        self.sheetCoordinator.removeSheet()
+        
     }
     
 }

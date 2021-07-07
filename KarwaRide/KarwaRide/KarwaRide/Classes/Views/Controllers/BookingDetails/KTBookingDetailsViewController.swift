@@ -15,6 +15,34 @@ import Spring
 import DDViewSwitcher
 import UBottomSheet
 import StoreKit
+import FittedSheets
+
+protocol Demoable {
+    static func openDemo(from parent: UIViewController, in view: UIView?)
+}
+
+extension Demoable {
+    static func addSheetEventLogging(to sheet: SheetViewController) {
+        let previousDidDismiss = sheet.didDismiss
+        sheet.didDismiss = {
+            print("did dismiss")
+            previousDidDismiss?($0)
+        }
+        
+        let previousShouldDismiss = sheet.shouldDismiss
+        sheet.shouldDismiss = {
+            print("should dismiss")
+            return previousShouldDismiss?($0) ?? true
+        }
+        
+        let previousSizeChanged = sheet.sizeChanged
+        sheet.sizeChanged = { sheet, size, height in
+            print("Changed to \(size) with a height of \(height)")
+            previousSizeChanged?(sheet, size, height)
+        }
+    }
+}
+
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
 
@@ -39,6 +67,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
 
+    lazy var sheet = SheetViewController(
+        controller: bottomSheetVC,
+        sizes: [.fixed(200),.intrinsic,.marginFromTop(150)],
+        options: SheetOptions(useInlineMode: true))
+    
     lazy var scheduleTimeTitleLable: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,19 +86,36 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         
         vModel = viewModel as? KTBookingDetailsViewModel
-
-        sheetCoordinator = UBottomSheetCoordinator(parent: self)
-        sheetCoordinator.dataSource = self
-        
-        bottomSheetVC.sheetCoordinator = sheetCoordinator
-
+//
+//        sheetCoordinator = UBottomSheetCoordinator(parent: self)
+//        sheetCoordinator.dataSource = self
+//
+        bottomSheetVC.sheet = sheet
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
-        sheetCoordinator.addSheet(bottomSheetVC, to: self)
-        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
-        sheetCoordinator.delegate = self
+//        sheetCoordinator.addSheet(bottomSheetVC, to: self)
+//        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
+//        sheetCoordinator.delegate = self
 
         mapView.delegate = self
-
+        
+        sheet.allowPullingPastMaxHeight = false
+        sheet.allowPullingPastMinHeight = false
+                
+        sheet.dismissOnPull = false
+        sheet.dismissOnOverlayTap = false
+        sheet.overlayColor = UIColor.clear
+        
+        sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+        sheet.contentViewController.view.layer.shadowOpacity = 0.1
+        sheet.contentViewController.view.layer.shadowRadius = 10
+        sheet.allowGestureThroughOverlay = true
+        
+        if let view = view {
+            sheet.animateIn(to: view, in: self)
+        } else {
+            self.present(sheet, animated: true, completion: nil)
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3)
         {
             self.isAbleToObserveZooming = true
@@ -188,29 +238,14 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
-//        if(!haltAutoZooming)
-//        {
-//            var bounds = GMSCoordinateBounds()
-//            for marker: GMSMarker in gmsMarker {
-//                bounds = bounds.includingCoordinate(marker.position)
-//            }
-//
-//            var update : GMSCameraUpdate?
-//            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(150))
-//
-//            CATransaction.begin()
-//            CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-//            mapView.animate(with: update!)
-//            CATransaction.commit()
-//        }
-        
+
         var bounds = GMSCoordinateBounds()
         for marker: GMSMarker in gmsMarker {
             bounds = bounds.includingCoordinate(marker.position)
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
 
         
         CATransaction.begin()
@@ -690,10 +725,3 @@ extension UInt {
     var toInt: Int { return Int(self) }
 }
 
-extension KTBookingDetailsViewController: UBottomSheetCoordinatorDelegate {
- 
-    func bottomSheet(_ container: UIView?, didChange state: SheetTranslationState) {
-        
-    }
-    
-}

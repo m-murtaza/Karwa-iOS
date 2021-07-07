@@ -10,6 +10,7 @@ import Foundation
 import UBottomSheet
 import Spring
 import ABLoaderView
+import FittedSheets
 
 class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 {
@@ -29,8 +30,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var constraintPlateNo: NSLayoutConstraint!
     @IBOutlet weak var constraintHeaderWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintReportIssueMarginTop: NSLayoutConstraint!
-    @IBOutlet weak var constraintFareInfoMarginTop: LocalisableButton!
-    
+    @IBOutlet weak var constraintFareInfoMarginTop: NSLayoutConstraint!
     
     @IBOutlet weak var otpLabel: UILabel!
     @IBOutlet weak var eta: LocalisableButton!
@@ -49,9 +49,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var btnReportIssue: LocalisableButton!
     @IBOutlet weak var btnRebook: SpringButton!
     @IBOutlet weak var btnFareInfo: LocalisableButton!
-    
-    
-    
+        
     @IBOutlet weak var iconVehicle: SpringImageView!
     @IBOutlet weak var lblVehicleType: LocalisableLabel!
     @IBOutlet weak var lblPassengerCount: LocalisableLabel!
@@ -61,12 +59,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var lblDriverName: LocalisableSpringLabel!
     @IBOutlet weak var starView: SpringLabel!
     var sheetCoordinator: UBottomSheetCoordinator?
+    var sheet: SheetViewController?
 
     @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintVehicleInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintViewRideActionsTop: NSLayoutConstraint!
     @IBOutlet weak var constraintRebookMarginTop: NSLayoutConstraint!
+    @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
 
     @IBOutlet weak var seperatorBeforeReportAnIssue: UIView!
     @IBOutlet weak var bottomStartRatingLabel: LocalisableLabel!
@@ -75,6 +75,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var shimmerLabel1: UILabel!
     @IBOutlet weak var shimmerLabel2: UILabel!
     @IBOutlet weak var shimmerImageView: UIImageView!
+    
+    var oneTimeSetSizeForBottomSheet = false
 
     lazy var fareBreakDownView: UIStackView = {
         let view = UIStackView()
@@ -92,15 +94,16 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         ABLoader().startShining(self.shimmerImageView)
         ABLoader().startShining(self.shimmerLabel1)
         ABLoader().startShining(self.shimmerLabel2)
+        scrollView.isScrollEnabled = false
     }
     
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        sheetCoordinator?.startTracking(item: self)
-        sheetCoordinator?.addDropShadowIfNotExist()
-        (sheetCoordinator?.parent as! (KTBookingDetailsViewController)).setMapPadding(height: 40)
+//        sheetCoordinator?.startTracking(item: self)
+//        sheetCoordinator?.addDropShadowIfNotExist()
+//        (sheetCoordinator?.parent as! (KTBookingDetailsViewController)).setMapPadding(height: 40)
         constraintPlateNo.constant = Device.language().contains("ar") ? 60 : 25
     }
     
@@ -129,12 +132,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         lblPickAddress.text = vModel?.pickAddress()
         lblDropoffAddress.text = vModel?.dropAddress()
-        let msg = vModel?.pickMessage()
-        if (msg?.isEmpty)! {
+        if let msg = vModel?.pickMessage() {
+            lblPickMessage.text = msg
+        } else {
             lblPickMessage.isHidden = true
-        }
-        else {
-            lblPickMessage.text = vModel?.pickMessage()
         }
         
         bookingTime.text = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
@@ -395,6 +396,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             self.view.customCornerRadius = 20.0
             
+            DispatchQueue.main.async {
+                self.constraintViewRideActionsTop.constant = 340
+                self.heightOFScrollViewContent.constant = 500
+                self.sheet?.setSizes([.fixed(500)], animated: true)
+                self.sheet?.allowPullingPastMaxHeight = true
+                self.scrollView.isScrollEnabled = true
+            }
+            
 
         }
         
@@ -427,6 +436,21 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                         
             self.view.customCornerRadius = 20.0
             
+            if showOTP() {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 650
+                    self.sheet?.setSizes([.percent(0.5),.marginFromTop(150)], animated: true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.constraintViewRideActionsTop.constant = 335
+                    self.heightOFScrollViewContent.constant = 550
+                    self.sheet?.setSizes([.percent(0.5),.marginFromTop(250)], animated: true)
+                    self.sheet?.allowPullingPastMaxHeight = true
+                }
+            }
+            
+            
         }
 
         //MARK:- PICKUP BOOKING (Customer on-board)
@@ -449,9 +473,20 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintTripInfoMarginTop.constant = 10
             constraintDriverInfoMarginTop.constant = 150
             constraintVehicleInfoMarginTop.constant = 250
-            constraintViewRideActionsTop.constant = 328
 
-//
+            if oneTimeSetSizeForBottomSheet == false {
+                DispatchQueue.main.async {
+                    if self.vModel?.getBookingOtp() != nil {
+                        self.constraintViewRideActionsTop.constant = 328
+                    } else {
+                        self.constraintViewRideActionsTop.constant = 323
+                    }
+                    self.heightOFScrollViewContent.constant = 550
+                    self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                    self.oneTimeSetSizeForBottomSheet = true
+                }
+            }
+                        
         }
         
         //MARK:- COMPLETED BOOKING
@@ -463,21 +498,36 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hidePhoneButton()
             showBtnComplain()
             showRebookBtn()
-//            showFareDetailBtn()
             hideFareDetailBtn()
-//            constraintRebookMarginTop.constant = 530
             setUpfareBreakDownView()
 
             let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 3
 
-            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 26)
+            constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 27)
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
             
-
+            DispatchQueue.main.async {
+                
+                if (self.vModel?.fareDetailsBody()?.count ?? 0) >= 4 {
+                    self.constraintRebookMarginTop.constant = 690
+                    self.heightOFScrollViewContent.constant = 860
+                } else {
+                    
+                    if self.vModel?.getBookingOtp() != nil && self.vModel?.getBookingOtp() != ""{
+                        self.constraintRebookMarginTop.constant = 630
+                    } else {
+                        self.constraintRebookMarginTop.constant = 675
+                    }
+                    self.heightOFScrollViewContent.constant = 855
+                }
+                self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                self.scrollView.isScrollEnabled = true
+            }
+            
         }
         
         //MARK:- SHECULED BOOKING
@@ -493,6 +543,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintVehicleInfoMarginTop.constant = 140
             hideSeperatorBeforeReportAnIssue()
             _ = showOTP()
+            DispatchQueue.main.async {
+                self.constraintViewRideActionsTop.constant = 220
+                self.heightOFScrollViewContent.constant = 340
+                self.sheet?.setSizes([.fixed(390)], animated: true)
+                self.sheet?.allowPullingPastMaxHeight = true
+                self.scrollView.isScrollEnabled = true
+            }
             
         }
 
@@ -510,31 +567,39 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
-            
             if self.lblDriverName.text!.count != 0 &&  self.shimmerView.isHidden == true {
                 showDriverInfoBox()
                 preRideDriver.isHidden = false
-                
                 constraintTripInfoMarginTop.constant = 5
                 constraintDriverInfoMarginTop.constant = 150
                 constraintVehicleInfoMarginTop.constant = 250
-                constraintReportIssueMarginTop.constant = 10
-
-//                constraintRebookMarginTop.constant = 375
+                constraintReportIssueMarginTop.constant = 20
+                constraintRebookMarginTop.constant = 400
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 600
+                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(250)], animated: true)
+                    self.sheet?.allowPullingPastMaxHeight = true
+                    self.scrollView.isScrollEnabled = true
+                }
                 showBtnComplain()
             } else {
                 hideDriverInfoBox()
                 constraintVehicleInfoMarginTop.constant = 140
                 constraintReportIssueMarginTop.constant = 100
                 constraintDriverInfoMarginTop.constant = 5
-//                constraintRebookMarginTop.constant = 275
+                constraintRebookMarginTop.constant = 230
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 370
+                    self.sheet?.setSizes([.fixed(370)], animated: true)
+                    self.sheet?.allowPullingPastMaxHeight = true
+                    self.scrollView.isScrollEnabled = true
+                }
                 hideBtnComplain()
             }
             
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
-            
-            
+                        
         }
         
         //MARK:- NO RIDE FOUND BOOKING
@@ -550,9 +615,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideFareDetailBtn()
             constraintReportIssueMarginTop.constant = 100
             constraintVehicleInfoMarginTop.constant = 140
+            DispatchQueue.main.async {
+                self.constraintRebookMarginTop.constant = 240
+                self.heightOFScrollViewContent.constant = 370
+                self.sheet?.setSizes([.fixed(420)], animated: true)
+                self.sheet?.allowPullingPastMaxHeight = true
+                self.scrollView.isScrollEnabled = true
+            }
             hideSeperatorBeforeReportAnIssue()
-//            constraintRebookMarginTop.constant = 300
-            
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
 
@@ -567,6 +637,27 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 88 : 20
             constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 88 : 328
             constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 88 : 250
+            hideSeperatorBeforeReportAnIssue()
+            
+            if showOTP() {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 650
+                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+//                    self.scrollView.isScrollEnabled = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    if self.vModel?.getBookingOtp() != nil {
+                        self.constraintViewRideActionsTop.constant = 325
+                    } else {
+                        self.constraintViewRideActionsTop.constant = 350
+                    }
+                    self.heightOFScrollViewContent.constant = 550
+                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(250)], animated: true)
+                    self.sheet?.allowPullingPastMaxHeight = true
+                }
+            }
+            
             self.viewRideInfo.isHidden = false
             self.view.bringSubview(toFront: self.viewRideInfo)
             hideFareDetailBtn()
