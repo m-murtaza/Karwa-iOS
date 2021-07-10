@@ -313,6 +313,15 @@ class KTMyTripsViewModel: KTBaseViewModel {
         return "txt_four".localized()
     }
   }
+    
+    func cancellationCharge(forIdx idx: Int) -> String {
+        if let cancellationCharges = (bookings![idx] as KTBooking).cancellationCharges, cancellationCharges.count > 0 {
+            return "str_cancellation".localized() + " \(cancellationCharges)"
+      } else {
+        return ""
+      }
+      
+    }
   
   func serviceTypeColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {

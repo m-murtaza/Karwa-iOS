@@ -15,7 +15,8 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     @IBOutlet weak var creditTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var addCreditTitleLbl: UILabel!
     @IBOutlet weak var clearButton: UIButton!
-
+    
+    var walletController: KTWalletViewController!
     
     private var vModel : KTWalletViewModel?
     
@@ -48,6 +49,7 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         
     }
     
+    
     @IBAction func clearText(_ sender: UIButton) {
         self.creditTextField.text = ""
         self.clearButton.isHidden = true
@@ -62,8 +64,43 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
+    func showVerifyEmailPopup(email: String)
+    {
+        showPopupMessage("", "please_verify_email_str".localized() + email)
+    }
+    
+    func showEnterEmailPopup()
+    {
+        showEnterEmailPopup(header: "txt_confirm_email".localized(), subHeader: "str_verify_email".localized(), currentText: "", inputType: "email")
+    }
+    
+    func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)
+    {
+        let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
+        inputPopup.creditVC = self
+        view.addSubview(inputPopup.view)
+        addChildViewController(inputPopup)
+        
+        inputPopup.inputType = inputType
+        inputPopup.header.text = header
+        inputPopup.txtPickupHint.text = currentText
+        inputPopup.lblSubHeader.text = subHeader
+    }
+    
+    func saveEmail(inputText: String)
+    {
+        vModel?.updateEmail(email: inputText)
+    }
+    
+    func closeView() {
+        self.dismiss(animated: true) {
+            (self.walletController?.viewModel as? KTWalletViewModel)?.fetchLatestTransactions()
+            (self.walletController?.viewModel as? KTWalletViewModel)?.getPaymentData()
+        }
+    }
+    
     @IBAction func closeViewController() {
-        self.dismiss()
+        self.closeView()
     }
     
     @objc func addCredit() {
@@ -224,8 +261,7 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     
-    func reloadTableData()
-    {
+    func reloadTableData() {
         tableView.reloadData()
     }
     
@@ -245,7 +281,6 @@ extension KTAddCreditViewController: WebViewDelegate {
     func getUpdatedTransactions() {
         
         self.showSuccessBanner("", "Payment Done Successfully".localized())
-        (self.viewModel as? KTWalletViewModel)?.fetchTransactionsServer()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.closeViewController()

@@ -17,9 +17,11 @@ class KTPaymentManager: KTDALManager
         var param : [String: Any] = [Constants.SyncParam.Payments: 0]
 //        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:PAYMENTS_SYNC_TIME)]
 
-        param["includeWallet"] = true
+        param["includeWallet"] = "true"
+        
+        let newUrl = Constants.APIURL.GetPayments + "?includeWallet=true&syncTime=0"
 
-        self.get(url: Constants.APIURL.GetPayments, param: param, completion: completionBlock) { (responseData,cBlock) in
+        self.get(url: newUrl, param: nil, completion: completionBlock) { (responseData,cBlock) in
             
             print(responseData)
             

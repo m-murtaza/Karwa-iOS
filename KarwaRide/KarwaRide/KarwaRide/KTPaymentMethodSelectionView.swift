@@ -237,10 +237,12 @@ extension PaymentSelectionBottomSheetController: UITableViewDelegate, UITableVie
             
             
         } else {
-            var paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row]
+            var paymentMethod = KTPaymentManager().getAllPayments().first
             
             if KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"}).count > 0 {
                 paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row - 1]
+            } else {
+                paymentMethod = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})[indexPath.row]
             }
             
             selectedCardIndex = indexPath.row

@@ -25,7 +25,8 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
 
     public weak var previousView : KTEditAccountViewController?
     public weak var paymentVC : KTWalletViewController?
-    
+    public weak var creditVC : KTAddCreditViewController?
+
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -112,6 +113,9 @@ class GenericInputVC: PopupVC, UITextFieldDelegate {
             if(paymentVC != nil)
             {
                 paymentVC?.saveEmail(inputText: trimmedEmail)
+            } else if(creditVC != nil)
+            {
+                creditVC?.saveEmail(inputText: trimmedEmail)
             }
             else if(previousView != nil)
             {

@@ -72,8 +72,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
                 if let header = estimate?.toKeyValueHeader {
                     estimate?.toKeyValueHeader = header.adding(kv)
                 }
-                
-                job.bookingToEstimate = estimate
+                                
+                let bookingEstimate = estimate?.managedObjectContext?.object(with: job.objectID)
+                job.bookingToEstimate = bookingEstimate as? KTFareEstimate
                 estimate?.fareestimateToBooking = job
                 
             }
@@ -120,7 +121,8 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.estimatedFare = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.EstimatedFare] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.EstimatedFare] as? String : ""
 
         b.fare = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Fare] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Fare] as? String : ""
-        
+        b.cancellationCharges = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.cancellationCharges] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.cancellationCharges] as? String : ""
+
         b.driverId = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.DriverID] as AnyObject)) ? String("\(booking[Constants.BookingResponseAPIKey.DriverID] ?? "")") : ""
         
         b.driverTip = Int16((!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Tip] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Tip] as! Int : 0)

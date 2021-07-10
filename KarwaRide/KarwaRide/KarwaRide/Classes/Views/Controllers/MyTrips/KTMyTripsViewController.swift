@@ -111,6 +111,19 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     cell.serviceTypeLabel.textColor = (viewModel as! KTMyTripsViewModel).serviceTypeColor(forIdx: indexPath.row)
     cell.cashIcon.isHidden = (viewModel as! KTMyTripsViewModel).showCashIcon(forIdx: indexPath.row)
     cell.cashIcon.image = UIImage(named: (viewModel as! KTMyTripsViewModel).getPaymentIcon(forIdx: indexPath.row))
+    
+    if (viewModel as! KTMyTripsViewModel).cancellationCharge(forIdx: indexPath.row) != "" {
+        cell.cancellationChargeLabel.text = (viewModel as! KTMyTripsViewModel).cancellationCharge(forIdx: indexPath.row)
+        cell.cancellationChargeLabel.isHidden = false
+        if Device.getLanguage().contains("AR") {
+            cell.cancellationChargeLabel.textAlignment = .left
+        } else {
+            cell.cancellationChargeLabel.textAlignment = .right
+        }
+    } else {
+        cell.cancellationChargeLabel.isHidden = true
+    }
+    
     cell.detailArrow.image?.imageFlippedForRightToLeftLayoutDirection()
     //        if isLargeScreen()  && (viewModel as! KTMyTripsViewModel).showCallerID(){
     //            cell.lblCallerId.isHidden = false

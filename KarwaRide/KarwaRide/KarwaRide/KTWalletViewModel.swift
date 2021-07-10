@@ -12,6 +12,7 @@ protocol KTWalletViewModelDelegate: KTManagePaymentViewModelDelegate {
     func reloadTableData()
     func loadAvailableBalance(_ amount: String)
     func showCyberSecureViewController(url: String)
+    func closeView()
 }
 
 extension KTWalletViewModelDelegate {
@@ -63,6 +64,10 @@ class KTWalletViewModel: KTBaseViewModel {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+    }
+    
+    
+    func fetchLatestTransactions() {
         KTUserManager.init().isUserLogin { (login:Bool) in
             if login == true
             {
@@ -77,7 +82,7 @@ class KTWalletViewModel: KTBaseViewModel {
         
         self.fetchSessionInfo()
     }
-    
+  
     func numberOfCardRows() -> Int {
         return paymentMethods.count == 0 ? 1 : paymentMethods.count
     }
@@ -336,6 +341,18 @@ class KTWalletViewModel: KTBaseViewModel {
     
     func addCreditToWallet(amount: String) {
         
+        let user = loginUserInfo()
+        
+        guard user.email != nil && !(user.email!.isEmpty) else {
+            self.transactionDelegate?.showEnterEmailPopup()
+            return
+        }
+        
+        guard user.isEmailVerified else {
+            self.transactionDelegate?.showVerifyEmailPopup(email: user.email ?? "")
+            return
+        }
+                
         guard amount.count != 0 else {
             self.transactionDelegate?.showError?(title: "error_enter_amount".localized(), message: "")
             return
@@ -366,7 +383,7 @@ class KTWalletViewModel: KTBaseViewModel {
                 return
             } else {
                 self.transactionDelegate?.showSuccessBanner("", status)
-                self.transactionDelegate?.dismiss()
+                self.transactionDelegate?.closeView()
             }
                         
         }

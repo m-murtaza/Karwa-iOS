@@ -124,6 +124,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return booking?.otp
     }
     
+    func getCancellationCharges() -> String {
+        return "str_cancellation".localized() + ": \(booking?.cancellationCharges ?? "")"
+    }
+    
     
     func updateEta() {
         updateEta(eta: "")

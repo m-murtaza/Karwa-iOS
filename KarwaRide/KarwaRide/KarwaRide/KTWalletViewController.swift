@@ -9,9 +9,9 @@
 import UIKit
 import BarcodeScanner
 import AVFoundation
+import FittedSheets
 
-class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
-    
+class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelDelegate, CardIOPaymentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIAdaptivePresentationControllerDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addCreditCardButton: UIButton!
     @IBOutlet weak var availableBalanceTitleLable: UILabel!
@@ -25,6 +25,13 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     var barcodeDelegate:BarcodeProtocol?
     
     var fromPaymentViewController = false
+
+    var addCreditViewController : KTAddCreditViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddCreditViewController") as! KTAddCreditViewController
+
+    lazy var sheet = SheetViewController(
+        controller: addCreditViewController,
+        sizes: [.intrinsic,.marginFromTop(150)],
+        options: SheetOptions(useInlineMode: true))
     
     override func viewDidLoad() {
         
@@ -70,7 +77,10 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     
     override func viewWillAppear(_ animated: Bool) {
         (viewModel as? KTWalletViewModel)?.getPaymentData()
-        (viewModel as? KTWalletViewModel)?.fetchTransactionsServer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        (viewModel as? KTWalletViewModel)?.fetchLatestTransactions()
     }
     
     @objc func closeViewController() {
@@ -449,11 +459,29 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     @objc func moveToAddCreditCard() {
     
         let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCreditViewController") as! KTAddCreditViewController
-        addCreditViewController.modalPresentationStyle = .fullScreen
+        addCreditViewController.walletController = self
         self.navigationController?.present(addCreditViewController, animated: true, completion: nil)
                 
+        
+//        sheet.allowPullingPastMaxHeight = true
+//        sheet.allowPullingPastMinHeight = true
+//        sheet.setSizes([.fixed(CGFloat(KTPaymentManager().getAllPayments().count * 90) + 270),.intrinsic], animated: true)
+//        sheet.dismissOnPull = true
+//        sheet.dismissOnOverlayTap = true
+//        sheet.overlayColor = UIColor.black.withAlphaComponent(0.6)
+//        sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+//        sheet.contentViewController.view.layer.shadowOpacity = 0.1
+//        sheet.contentViewController.view.layer.shadowRadius = 10
+//        sheet.allowGestureThroughOverlay = false
+//        sheet.animateIn(to: view, in: self)
+//
     }
     
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        
+        print("this is getting called")
+        
+    }
     
     func reloadTable() {
         tableView.reloadData()
@@ -523,6 +551,9 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         dismiss()
     }
     
+    func closeView() {
+        
+    }
     
 }
 
