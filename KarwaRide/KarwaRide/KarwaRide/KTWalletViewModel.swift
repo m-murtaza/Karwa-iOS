@@ -522,7 +522,7 @@ class KTWalletViewModel: KTBaseViewModel {
         self.transactionDelegate?.showProgressHud(show: true, status: "dialog_msg_updating_profile".localized())
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in
             self.transactionDelegate?.hideProgressHud()
-            self.transactionDelegate?.showSuccessBanner("  ", "profile_updated".localized())
+            self.transactionDelegate?.showSuccessBanner("  ", status)
             self.fetchnPaymentMethods()
         }
     }

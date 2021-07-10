@@ -142,7 +142,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
       let maskedEmailVC : KTMaskedEmailConfirmationVC = segue.destination as! KTMaskedEmailConfirmationVC
       maskedEmailVC.previousView = previousView
       maskedEmailVC.countryCode = countryCode()!
-      maskedEmailVC.phone = phoneNumber()!
+        maskedEmailVC.phone = (viewModel as! KTForgotPassViewModel).phone!
       maskedEmailVC.maskedEmail = maskedEmail
       maskedEmailVC.password = password()!
     }
