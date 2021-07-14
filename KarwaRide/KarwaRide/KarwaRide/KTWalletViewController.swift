@@ -413,7 +413,6 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         } else {
             return UITableViewCell()
         }
-        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

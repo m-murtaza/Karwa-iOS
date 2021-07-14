@@ -98,6 +98,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         ABLoader().startShining(self.shimmerImageView)
         ABLoader().startShining(self.shimmerLabel1)
         ABLoader().startShining(self.shimmerLabel2)
+        self.sheet?.handleScrollView(self.scrollView)
 //        scrollView.isScrollEnabled = false
     }
     
@@ -366,6 +367,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateBookingBottomSheet()
     {
         self.sheet?.handleScrollView(self.scrollView)
+//        self.scrollView.isScrollEnabled = false
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
 
         //MARK:- DISPATCHING
@@ -442,14 +444,18 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             if showOTP() {
                 DispatchQueue.main.async {
-                    self.heightOFScrollViewContent.constant = 625
-                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                    self.heightOFScrollViewContent.constant = 700
+                    if UIScreen.main.bounds.height < 800 {
+                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                    } else {
+                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                    }
                 }
             } else {
                 DispatchQueue.main.async {
                     self.constraintViewRideActionsTop.constant = 335
-                    self.heightOFScrollViewContent.constant = 550
-                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(250)], animated: true)
+                    self.heightOFScrollViewContent.constant = 600
+                    self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                 }
             }
             
@@ -468,6 +474,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideFareDetailBtn()
             starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
+            hideSeperatorBeforeReportAnIssue()
             
             self.view.customCornerRadius = 20.0
             
@@ -478,16 +485,21 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintVehicleInfoMarginTop.constant = 250
 
             if oneTimeSetSizeForBottomSheet == false {
-                self.oneTimeSetSizeForBottomSheet = true
                 DispatchQueue.main.async {
                     if self.vModel?.getBookingOtp() != nil {
                         self.constraintViewRideActionsTop.constant = 328
                     } else {
                         self.constraintViewRideActionsTop.constant = 323
                     }
-                    self.heightOFScrollViewContent.constant = 550
-                    self.sheet?.resize(to: .percent(0.25))
-                    self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                    self.heightOFScrollViewContent.constant = 600
+                    
+                    if UIScreen.main.bounds.height < 800 {
+                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                    } else {
+                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                    }
+                    
+                    self.oneTimeSetSizeForBottomSheet = true
                 }
             }
                         
@@ -504,6 +516,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
             hideFareDetailBtn()
             setUpfareBreakDownView()
+            seperatorBeforeReportAnIssue.isHidden = false
 
             let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 3
 
@@ -516,8 +529,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             DispatchQueue.main.async {
                 self.constraintRebookMarginTop.constant = self.btnReportIssue.frame.origin.y + 50
-                self.heightOFScrollViewContent.constant = self.btnReportIssue.frame.origin.y + 230
+                self.heightOFScrollViewContent.constant = self.btnReportIssue.frame.origin.y + 280
                 self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+//                self.scrollView.isScrollEnabled = true
             }
             
         }
@@ -537,7 +551,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.otpView.isHidden = true
             DispatchQueue.main.async {
                 self.constraintViewRideActionsTop.constant = 220
-                self.heightOFScrollViewContent.constant = 450
+                self.heightOFScrollViewContent.constant = 500
                 self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
             }
             
@@ -573,13 +587,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                     self.cancellationChargeLbl.text = self.vModel?.getCancellationCharges()
                     self.cancellationChargesView.isHidden = false
                     DispatchQueue.main.async {
-                        self.heightOFScrollViewContent.constant = 650
+                        self.heightOFScrollViewContent.constant = 700
                         self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.cancellationChargesView.isHidden = true
-                        self.heightOFScrollViewContent.constant = 600
+                        self.heightOFScrollViewContent.constant = 650
                         self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                     }
                 }
@@ -640,7 +654,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             if showOTP() {
                 DispatchQueue.main.async {
-                    self.heightOFScrollViewContent.constant = 650
+                    self.heightOFScrollViewContent.constant = 700
                     self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
                 }
             } else {
@@ -650,7 +664,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                     } else {
                         self.constraintViewRideActionsTop.constant = 350
                     }
-                    self.heightOFScrollViewContent.constant = 550
+                    self.heightOFScrollViewContent.constant = 650
                     self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                 }
             }

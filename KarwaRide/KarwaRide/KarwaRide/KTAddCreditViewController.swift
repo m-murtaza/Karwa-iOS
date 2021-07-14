@@ -195,11 +195,14 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
-            return 1
-        } else {
-            return (viewModel as! KTWalletViewModel).numberOfCardRows() + 1
-        }
+//        if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
+//            return 1
+//        } else {
+//            return (viewModel as! KTWalletViewModel).numberOfCardRows() + 1
+//        }
+        
+        return (viewModel as! KTWalletViewModel).numberOfCardRows()
+
         
     }
     
@@ -207,36 +210,41 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
         
         let cell : KTWalletTableViewCell =  tableView.dequeueReusableCell(withIdentifier: "WalletTableViewCellIdentifier") as! KTWalletTableViewCell
         cell.selectionStyle = .none
+        cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
+        cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
+        cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
+        cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
+        cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
 
-        if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
-            cell.iconImageView.image  = #imageLiteral(resourceName: "card_ico_btn")
-            cell.iconImageView.contentMode = .center
-            cell.iconImageView.tintColor = UIColor(hex: "#37E7E7")
-            cell.titleLabel.text = "str_debit_card".localized()
-            cell.detailLable.text = ""
-            cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
-            cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
-        } else if (viewModel as! KTWalletViewModel).paymentMethods.count != 0 {
-            
-            if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
-                cell.iconImageView.image  = #imageLiteral(resourceName: "card_ico_btn")
-                cell.iconImageView.contentMode = .center
-                cell.iconImageView.tintColor = UIColor(hex: "#37E7E7")
-                cell.titleLabel.text = "str_debit_card".localized()
-                cell.detailLable.text = ""
-                cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
-                cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
-                
-            } else {
-                
-                cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
-                cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
-                cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
-                cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
-                cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
-                
-            }
-        }
+//        if (viewModel as! KTWalletViewModel).paymentMethods.count == 0 {
+//            cell.iconImageView.image  = #imageLiteral(resourceName: "card_ico_btn")
+//            cell.iconImageView.contentMode = .center
+//            cell.iconImageView.tintColor = UIColor(hex: "#37E7E7")
+//            cell.titleLabel.text = "str_debit_card".localized()
+//            cell.detailLable.text = ""
+//            cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
+//            cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
+//        } else if (viewModel as! KTWalletViewModel).paymentMethods.count != 0 {
+//
+//            if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() {
+//                cell.iconImageView.image  = #imageLiteral(resourceName: "card_ico_btn")
+//                cell.iconImageView.contentMode = .center
+//                cell.iconImageView.tintColor = UIColor(hex: "#37E7E7")
+//                cell.titleLabel.text = "str_debit_card".localized()
+//                cell.detailLable.text = ""
+//                cell.selectedView.customBorderColor = vModel?.debitCardSelection(forCellIdx: indexPath.row)
+//                cell.selectedIconImageView.image = vModel?.debitCardSelectionStatusIcon(forCellIdx: indexPath.row)
+//
+//            } else {
+//
+//                cell.iconImageView.image  = vModel?.cardIcon(forCellIdx: indexPath.row)
+//                cell.titleLabel.text = vModel?.paymentMethodName(forCellIdx: indexPath.row)
+//                cell.detailLable.text = vModel?.expiry(forCellIdx: indexPath.row)
+//                cell.selectedView.customBorderColor = vModel?.cardSelection(forCellIdx: indexPath.row)
+//                cell.selectedIconImageView.image = vModel?.cardSelectionStatusIcon(forCellIdx: indexPath.row)
+//
+//            }
+//        }
         
         let backgroundCell : KTWalletTableViewBackgroundCell = tableView.dequeueReusableCell(withIdentifier: "WalletTableViewBackgroundCellIdentifier") as! KTWalletTableViewBackgroundCell
         backgroundCell.iconImageView.image = #imageLiteral(resourceName: "card_icon")

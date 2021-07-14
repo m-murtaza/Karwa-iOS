@@ -388,11 +388,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     {
         var paymentMethod = "str_cash".localized()
         let bookingStatus = bookingStatii()
+        
+        print(booking?.paymentMethod)
+        
         if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
         {
             //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
         }
-        else if booking!.lastFourDigits!.contains("QR") == true {
+        else if (booking?.paymentMethod ?? "WALLET") == "WALLET" {
             paymentMethod = "str_paid_with".localized()
         }
         else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))

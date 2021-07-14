@@ -69,7 +69,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 
     lazy var sheet = SheetViewController(
         controller: bottomSheetVC,
-        sizes: [.fixed(200),.intrinsic,.marginFromTop(150)],
+        sizes: [.percent(0.25), .intrinsic],
         options: SheetOptions(useInlineMode: true))
     
     lazy var scheduleTimeTitleLable: UILabel = {
