@@ -375,7 +375,9 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func hideCardIOPaymentController()
     {
-        cardIOPaymentController.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.cardIOPaymentController.dismiss(animated: true, completion: nil)
+        }
     }
     
     func isCameraPermissionGiven() -> Bool

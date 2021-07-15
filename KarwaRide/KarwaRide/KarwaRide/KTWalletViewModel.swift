@@ -508,11 +508,15 @@ class KTWalletViewModel: KTBaseViewModel {
                 let html = response["Html"] as? String
                 if(html != nil)
                 {
-                    self.transactionDelegate?.show3dSecureController(html!)
+                    DispatchQueue.main.async {
+                        self.transactionDelegate?.show3dSecureController(html!)
+                    }
                 }
                 else
                 {
-                    self.updatePaymentMethod()
+                    DispatchQueue.main.async {
+                        self.updatePaymentMethod()
+                    }
                 }
             }
             else

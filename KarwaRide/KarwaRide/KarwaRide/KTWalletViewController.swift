@@ -146,7 +146,11 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     
     func hideCardIOPaymentController()
     {
-        self.cardIOPaymentController.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.cardIOPaymentController.resignFirstResponder()
+            self.cardIOPaymentController.dismiss(animated: true, completion: nil)
+        }
+       
     }
     
     func isCameraPermissionGiven() -> Bool
@@ -181,6 +185,7 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
         threeDSecureView.navBar.tintColor = UIColor(red: 1, green: 0.357, blue: 0.365, alpha: 1)
         // present the 3DSecureViewController
         present(threeDSecureView, animated: true)
+        self.hideCardIOPaymentController()
             
         // provide the html content and a handler
         threeDSecureView.authenticatePayer(htmlBodyContent: html) { (threeDSView, result) in

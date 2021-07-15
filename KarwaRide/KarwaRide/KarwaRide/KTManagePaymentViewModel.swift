@@ -261,21 +261,26 @@ class KTManagePaymentViewModel: KTBaseViewModel
             
             self.del?.hideProgressHud()
             self.del?.hideCardIOPaymentController()
-            
+
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 let html = response["Html"] as? String
                 if(html != nil)
                 {
-                    self.del?.show3dSecureController(html!)
+                    DispatchQueue.main.async {
+                        self.del?.show3dSecureController(html!)
+                    }
                 }
                 else
                 {
-                    self.updatePaymentMethod()
+                    DispatchQueue.main.async {
+                        self.updatePaymentMethod()
+                    }
                 }
             }
             else
             {
+                self.del?.hideCardIOPaymentController()
                 self.del?.showErrorBanner("   ", response["M"] as! String)
             }
         })
