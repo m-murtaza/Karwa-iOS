@@ -13,11 +13,13 @@ protocol KTWalletViewModelDelegate: KTManagePaymentViewModelDelegate {
     func loadAvailableBalance(_ amount: String)
     func showCyberSecureViewController(url: String)
     func closeView()
+    func moveToAddCredit()
 }
 
 extension KTWalletViewModelDelegate {
     func loadAvailableBalance(_ amount: String) {}
     func showCyberSecureViewController(url: String) {}
+    func moveToAddCredit() {}
 }
 
 class KTWalletViewModel: KTBaseViewModel {
@@ -84,7 +86,8 @@ class KTWalletViewModel: KTBaseViewModel {
     }
   
     func numberOfCardRows() -> Int {
-        return paymentMethods.count == 0 ? 1 : paymentMethods.count
+        return paymentMethods.count
+       // return paymentMethods.count == 0 ? 1 : paymentMethods.count
     }
     
     func paymentMethodName(forCellIdx idx: Int) -> String {
@@ -107,6 +110,14 @@ class KTWalletViewModel: KTBaseViewModel {
             return ""
         } else {
             return "EXP. " + paymentMethods[idx].expiry_month! + "/" + paymentMethods[idx].expiry_year!
+        }
+    }
+    
+    func moveToAddCredit() {
+        if  paymentMethods.count  == 0 {
+            self.transactionDelegate?.showError?(title: "str_addcredit_first".localized(), message: "")
+        } else {
+            self.transactionDelegate?.moveToAddCredit()
         }
     }
     

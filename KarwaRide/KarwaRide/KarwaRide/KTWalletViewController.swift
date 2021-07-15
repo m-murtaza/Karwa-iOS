@@ -76,10 +76,10 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        (viewModel as? KTWalletViewModel)?.getPaymentData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        (viewModel as? KTWalletViewModel)?.getPaymentData()
         (viewModel as? KTWalletViewModel)?.fetchLatestTransactions()
     }
     
@@ -146,7 +146,7 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     
     func hideCardIOPaymentController()
     {
-        cardIOPaymentController.dismiss(animated: true, completion: nil)
+        self.cardIOPaymentController.dismiss(animated: true, completion: nil)
     }
     
     func isCameraPermissionGiven() -> Bool
@@ -456,24 +456,13 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     }
     
     @objc func moveToAddCreditCard() {
+        (self.viewModel as! KTWalletViewModel).moveToAddCredit()
+    }
     
+    func moveToAddCredit() {
         let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "AddCreditViewController") as! KTAddCreditViewController
         addCreditViewController.walletController = self
         self.navigationController?.present(addCreditViewController, animated: true, completion: nil)
-                
-        
-//        sheet.allowPullingPastMaxHeight = true
-//        sheet.allowPullingPastMinHeight = true
-//        sheet.setSizes([.fixed(CGFloat(KTPaymentManager().getAllPayments().count * 90) + 270),.intrinsic], animated: true)
-//        sheet.dismissOnPull = true
-//        sheet.dismissOnOverlayTap = true
-//        sheet.overlayColor = UIColor.black.withAlphaComponent(0.6)
-//        sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
-//        sheet.contentViewController.view.layer.shadowOpacity = 0.1
-//        sheet.contentViewController.view.layer.shadowRadius = 10
-//        sheet.allowGestureThroughOverlay = false
-//        sheet.animateIn(to: view, in: self)
-//
     }
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {

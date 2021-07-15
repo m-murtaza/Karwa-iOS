@@ -32,6 +32,8 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewPopupUI.layer.cornerRadius = 16
+        tblView.estimatedRowHeight = 44
+        tblView.rowHeight = UITableViewAutomaticDimension;
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,10 +66,17 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         tblView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return vModel!.numberOfRows()
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KTCancelReasonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reasonsCellIdentifier", for: indexPath) as! KTCancelReasonTableViewCell
         
