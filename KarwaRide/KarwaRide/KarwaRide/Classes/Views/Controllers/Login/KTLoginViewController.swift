@@ -202,13 +202,17 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     return passwordTextField.text!
   }
   
-  func navigateToBooking()
-  {
-    self.performSegue(withIdentifier: "segueToBooking", sender: self)
-  }
-  func navigateToOTP() {
-    self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
-  }
+    func navigateToBooking()
+    {
+      self.tabBarController?.tabBar.alpha = 0
+      self.tabBarController?.tabBar.isHidden = false
+      self.performSegue(withIdentifier: "segueToBooking", sender: self)
+    }
+      
+    func navigateToOTP() {
+      self.tabBarController?.tabBar.alpha = 1
+      self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
+    }
   
   //MARK:- TextField Delegate
   //Bug 2567 Fixed.

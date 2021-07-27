@@ -322,8 +322,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
         let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
         let sideMeun = SideMenuController(contentViewController: view, menuViewController: leftView)
+        let tabbarController = sBoard.instantiateViewController(withIdentifier: "TabViewController")
         window? = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = sideMeun
+        window?.rootViewController = tabbarController
+        window?.rootViewController?.tabBarController?.tabBar.alpha = 0
+        window?.rootViewController?.tabBarController?.tabBar.isHidden = false
         window?.makeKeyAndVisible()
     }
     

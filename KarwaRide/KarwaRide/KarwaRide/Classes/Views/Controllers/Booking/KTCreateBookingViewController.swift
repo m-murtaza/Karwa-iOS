@@ -456,6 +456,8 @@ class KTCreateBookingViewController:
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
+    navigationController?.isNavigationBarHidden = true
+    self.tabBarController?.tabBar.alpha = 1
     self.mapViewBottomConstraint.constant = 260
   }
       

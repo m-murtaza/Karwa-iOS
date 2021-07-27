@@ -150,6 +150,7 @@ struct Constants {
         static let MinuteChanged = "MinuteChangedNotification"
         static let LocationManager = "LocationManagerNotificationIdentifier"
         static let UserLogin = "UserLoginNotificationIdentifire"
+        static let XpressLocationManager = "XpressLocationManagerNotificationIdentifier"
     }
     
     struct API {
@@ -478,7 +479,8 @@ struct Constants {
         static let GetInitialFareForPromo = "tariff/promo/"
         static let GetTransactions = "payment?records=10"
         static let walletTopup = "payment/wallet/topup"
-
+        static let GetRSAreas = "rs/areas?"
+        static let PostRSService = "rs/explore"
     }
     
     struct TrackTaxiParams {
