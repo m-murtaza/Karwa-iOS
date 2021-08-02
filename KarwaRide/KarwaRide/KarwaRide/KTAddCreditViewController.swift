@@ -11,8 +11,6 @@ import SkyFloatingLabelTextField
 
 class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UITableViewDelegate, KTWalletViewModelDelegate  {
     
-    
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var creditTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var addCreditTitleLbl: UILabel!
@@ -259,11 +257,13 @@ class KTAddCreditViewController: KTBaseViewController, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() || tableView.numberOfRows(inSection: 0) == 1 {
-            (viewModel as! KTWalletViewModel).debitRowSelected(atIndex: indexPath.row)
-        } else {
-            (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
-        }
+        (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
+
+//        if indexPath.row == (viewModel as! KTWalletViewModel).numberOfCardRows() || tableView.numberOfRows(inSection: 0) == 1 {
+//            (viewModel as! KTWalletViewModel).debitRowSelected(atIndex: indexPath.row)
+//        } else {
+//            (viewModel as! KTWalletViewModel).rowSelected(atIndex: indexPath.row)
+//        }
         
     }
     
