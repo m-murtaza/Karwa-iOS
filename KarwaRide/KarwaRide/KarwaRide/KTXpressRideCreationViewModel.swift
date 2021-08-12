@@ -23,6 +23,9 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func showHideRideServiceView(show: Bool)
     func updateUI()
     func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)
+    func showRideTrackViewController()
+    func showAlertForTimeOut()
+    func showAlertForFailedRide(message: String)
 }
 
 class KTXpressRideCreationViewModel: KTBaseViewModel {
@@ -35,8 +38,11 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     var currentBookingStep : BookingStep = BookingStep.step1  //Booking will strat with step 1
     var isFirstZoomDone = false
     static var askedToTurnOnLocaiton : Bool = false
+    var selectedRide: RideVehiceInfo?
     
     var rideInfo: RideInfo?
+    var timer: Timer!
+    public var selectedBooking : KTBooking?
 
     override func viewWillAppear() {
                 
@@ -52,7 +58,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 (delegate as! KTXpressRideCreationViewModelDelegate).setDropOff(pick: self.rideServicePickDropOffData?.dropOffStop?.name ?? "")
             }
         }
-        
+
         //Check the pickup address name
         if self.rideServicePickDropOffData?.pickUpStop == nil && self.rideServicePickDropOffData?.pickUpStation == nil {
             self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.pickUpCoordinate)!, type: "Pick")
@@ -153,6 +159,40 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         
     }
     
+    @objc func fetchRideOrderStatus() {
+        
+        self.delegate?.showProgressHud(show: true, status: "str_fetching_data".localized())
+
+        KTXpressBookingManager().getOrderStatus(vehicleInfo: selectedRide!) { [weak self] (String, response) in
+            guard let strongSelf = self else{
+                return
+            }
+            if String.lowercased() == "SUCCESS".lowercased() {
+                strongSelf.timer = Timer.scheduledTimer(timeInterval: 3.0, target: strongSelf, selector: #selector(strongSelf.fetchRideOrderPollingStatus), userInfo: nil, repeats: true)
+            } else {
+                strongSelf.delegate?.hideProgressHud()
+
+            }
+        }
+    }
+    
+    @objc func fetchRideOrderPollingStatus() {
+        KTXpressBookingManager().getOrderPollingStatus(vehicleInfo: selectedRide!) { (String, response) in
+
+            print("polling", (response["DispatchStatus"] as? String) ?? "")
+            if let dispatchStatus = (response["DispatchStatus"] as? String), dispatchStatus == "COMPLETED" {
+                self.timer.invalidate()
+                self.getBookingData()
+            }
+            print("status", String)
+            if String.contains("FAILED") {
+                self.delegate?.hideProgressHud()
+                (self.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "We were unable to find a ride for you. Please try again.")
+                self.timer.invalidate()
+            }
+        }
+    }
+    
     func getVehicleNo(index: Int) -> String {
         return self.rideInfo?.rides[index].vehicleNo ?? ""
     }
@@ -161,10 +201,51 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         return  "str_arrives".localized() + "\((self.rideInfo?.rides[index].eta ?? 0)/60) Mins"
     }
     
+    func getRide(index: Int) {
+        if let vehicleInfo = self.rideInfo?.rides[index] {
+            self.selectedRide = vehicleInfo
+//            return self.selectedRide
+//            fetchRideOrderStatus()
+        }
+//        return nil
+    }
+    
     func setPickUpLocationForXpressRide(index: Int) {
         (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon)!))
     }
     
+    func didTapBookButton() {
+//        let rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate)
+
+        self.fetchRideOrderStatus()
+//        (self.delegate as! KTXpressRideCreationViewModelDelegate).showRideTrackViewController()
+
+
+    }
+    
+    
+    func getBookingData() {
+        KTBookingManager().syncXpressBookings(orderId: selectedRide?.id ?? "") { (status, response) in
+            
+            print(response["D"])
+            self.fetchBookingsFromDB()
+            self.delegate?.hideProgressHud()
+            
+            self.selectedBooking = response["D"] as? KTBooking
+            
+            (self.delegate as! KTXpressRideCreationViewModelDelegate).showRideTrackViewController()
+
+        }
+    }
+    
+    private func fetchBookingsFromDB() {
+        
+        let pendingBooking : [KTBooking] = KTBookingManager().pendingXpressBookings()
+        //bookings = pendingBooking
+//        for b in bookings! {
+//            print((b as KTBooking).callerId)
+//        }
+    }
 }
 
 

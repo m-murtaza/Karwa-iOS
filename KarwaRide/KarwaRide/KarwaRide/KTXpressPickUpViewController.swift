@@ -56,6 +56,10 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
 
     }

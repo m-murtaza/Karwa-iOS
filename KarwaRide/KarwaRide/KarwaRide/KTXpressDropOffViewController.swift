@@ -87,6 +87,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
         }
         
+        (viewModel as? KTXpressDropoffViewModel)?.countOfPassenger = countOfPassenger
+        
         self.passengerLabel.text = "\(countOfPassenger) Passenger"
         
     }

@@ -30,6 +30,8 @@ enum VehicleType: Int16 {
     case KTStandardLimo = 30
     case KTBusinessLimo = 50
     case KTLuxuryLimo = 70
+    case KTXpressTaxi = 200
+
 }
 
 enum geoLocationType : Int32 {
@@ -481,6 +483,7 @@ struct Constants {
         static let walletTopup = "payment/wallet/topup"
         static let GetRSAreas = "rs/areas?"
         static let PostRSService = "rs/explore"
+        static let orderService = "rs/order/"
     }
     
     struct TrackTaxiParams {

@@ -9,19 +9,34 @@
 import UIKit
 import Spring
 import GoogleMaps
+import CDAlertView
 
 class KTXpressRideServiceCell: UITableViewCell {
     
     @IBOutlet weak var lblServiceType : UILabel!
     @IBOutlet weak var lblBaseFareOrEstimate : UILabel!
-    @IBOutlet weak var imgBg : UIImageView!
-    @IBOutlet weak var imgVehicleType : UIImageView!
+    @IBOutlet weak var imgVehicleType : SpringImageView!
     @IBOutlet weak var dropDownButton : UIButton!
-    @IBOutlet weak var informationButton : UIButton!
+    @IBOutlet weak var orderRideButton : UIButton!
     @IBOutlet weak var showDetailsButton : UIButton!
+
 
     override class func awakeFromNib() {
         
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+      contentView.backgroundColor = selected ? .white : .clear
+      contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
+      contentView.layer.borderWidth = selected ? 2 : 0
+      contentView.layer.cornerRadius = selected ? 8 : 0
+      lblServiceType.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+        lblBaseFareOrEstimate.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+      if(selected && !animated)
+      {
+        imgVehicleType.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
+        imgVehicleType.animate()
+      }
     }
     
 }
@@ -64,6 +79,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
     @IBOutlet weak var passengerLabel: UILabel!
     
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    
     var countOfPassenger = 1
     var secondsRemaining:Float = 1.0
     
@@ -77,7 +94,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var indexProgressBar = 0
     var currentPoseIndex = 0
     
-    @IBOutlet weak var walkToPickUpView = UIView()
+    var selectedVehicleIndex = 0
+    
+    @IBOutlet weak var walkToPickUpView: UIView!
 
     override func viewDidLoad() {
         
@@ -87,7 +106,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         vModel = viewModel as? KTXpressRideCreationViewModel
         vModel?.rideServicePickDropOffData = rideServicePickDropOffData
         
-        self.vModel?.fetchRideService()
+        vModel?.fetchRideService()
                 
         // Do any additional setup after loading the view.
         addMap()
@@ -103,7 +122,14 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         self.rideServiceView.isHidden = true
         
         bookingProgress.progress = 0.0
+        
+        self.navigationController?.navigationBar.isHidden = true
 
+//        heightConstraint.constant = 250
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.timer.invalidate()
     }
     
     @IBAction func setCountForPassenger(sender: UIButton) {
@@ -151,6 +177,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             
         } else {
             self.bookingProgress.isHidden = true
+            showAlertForTimeOut()
+            timer.invalidate()
         }
     }
     
@@ -167,16 +195,16 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
              indexProgressBar = 0
             timer.invalidate()
             self.bookingProgress.isHidden = true
-
+            showAlertForTimeOut()
+         } else {
+            // update the display
+            // use poseDuration - 1 so that you display 20 steps of the the progress bar, from 0...19
+           self.bookingProgress.setProgress(Float(indexProgressBar) / Float(poseDuration - 1), animated: true)
+           self.bookingProgress.isHidden = false
+            // increment the counter
+            indexProgressBar += 1
          }
-
-         // update the display
-         // use poseDuration - 1 so that you display 20 steps of the the progress bar, from 0...19
-        self.bookingProgress.setProgress(Float(indexProgressBar) / Float(poseDuration - 1), animated: true)
-
-
-         // increment the counter
-         indexProgressBar += 1
+         
      }
     
     func showHideRideServiceView(show: Bool) {
@@ -185,16 +213,56 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        
     }
     
+    func showAlertForTimeOut() {
+        let alert = CDAlertView(title: "This ride is no longer available.", message: "Request another ride?", type: .custom(image: UIImage(named:"icon-notifications")!))
+        let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
+            self.navigationController?.popToRootViewController(animated: true)
+            return true
+        }
+        alert.add(action: doneAction)
+        let yesAction = CDAlertViewAction(title: "str_yes".localized()) { value in
+            self.vModel?.fetchRideService()
+            return true
+        }
+        alert.add(action: yesAction)
+        alert.show()
+    }
+    
+    func showAlertForFailedRide(message: String) {
+        let alert = CDAlertView(title: message, message: "", type: .error)
+        let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
+            self.navigationController?.popToRootViewController(animated: true)
+            return true
+        }
+        alert.add(action: doneAction)
+        alert.show()
+    }
+        
     func updateUI() {
+        heightConstraint.constant = CGFloat(190 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 70))
         self.rideServiceTableView.reloadData()
     }
 
     @IBAction func showRideTrackingViewController() {
-        let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideTrackingViewController") as? KTXpressRideTrackingViewController)!
-        self.navigationController?.pushViewController(addressPicker, animated: true)
+        self.timer.invalidate()
+        (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: selectedVehicleIndex)
+        (self.viewModel as! KTXpressRideCreationViewModel).didTapBookButton()
+    }
+    
+    func showRideTrackViewController() {
+//        let rideService = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideTrackingViewController") as? KTXpressRideTrackingViewController)!
+//        rideService.rideServicePickDropOffData = rideServicePickDropOffData
+//        rideService.selectedRide = (self.viewModel as! KTXpressRideCreationViewModel).selectedRide
+        
+        let details  = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as? KTXpressBookingDetailsViewController)!
+        details.rideServicePickDropOffData = rideServicePickDropOffData
+
+        if let booking : KTBooking = vModel?.selectedBooking {
+            details.setBooking(booking: booking)
+        }
+        self.navigationController?.pushViewController(details, animated: true)
     }
     
 }
@@ -216,11 +284,23 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "KTXpressRideServiceCell") as! KTXpressRideServiceCell
         cell.showDetailsButton.addTarget(self, action: #selector(addPickupMarker(sender:)), for: .touchUpInside)
-    
-        
         cell.dropDownButton.tag = section
         cell.lblServiceType.text = (self.viewModel as! KTXpressRideCreationViewModel).getVehicleNo(index: section)
         cell.lblBaseFareOrEstimate.text = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
+        cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
+        cell.orderRideButton.tag = section
+        cell.orderRideButton.isHidden = true
+        
+        if selectedVehicleIndex == section {
+            cell.contentView.customBorderWidth = 2
+            cell.contentView.customBorderColor = UIColor.black
+            cell.contentView.customCornerRadius = 10
+        } else {
+            cell.contentView.customBorderWidth = 0
+            cell.contentView.customBorderColor = UIColor.black
+            cell.contentView.customCornerRadius = 10
+        }
+        
         return cell
     }
     
@@ -240,7 +320,12 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         
         (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
 
+    }
+    
+    @objc func orderVehicle(sender: UIButton) {
         
+        selectedVehicleIndex = sender.tag
+        (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: sender.tag)
     }
     
     //MARK:- FARE DETAILS BREAKDOWN VIEW

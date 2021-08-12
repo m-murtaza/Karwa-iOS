@@ -204,7 +204,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   func fetchLocations(forSearch query:String) {
     
     //delegate?.userIntraction(enable: false)
-    delegate?.showProgressHud(show: true, status: "Searching Location")
+    delegate?.showProgressHud(show: true, status: "str_searching".localized())
     KTBookingManager().address(forSearch: query) { (status, response) in
       
       if status == Constants.APIResponseStatus.SUCCESS {
@@ -213,9 +213,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
         //self.delegate?.userIntraction(enable: true)
         self.delegate?.hideProgressHud()
       }
-        
       else {
-        
         self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
         self.delegate?.hideProgressHud()
       }
@@ -311,6 +309,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
     }
     else  {
         var title : String = ""
+        title = metroStations[idx.row].name ?? ""
         return title.capitalizingFirstLetter()
     }
     

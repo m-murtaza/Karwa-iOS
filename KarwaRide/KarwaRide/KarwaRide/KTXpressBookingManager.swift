@@ -72,18 +72,26 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         let dropOffLocationData = ["Location": ["Lat": "\(rideData.dropOffCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.dropOffCoordinate?.longitude ?? 0.0)"], "zone": rideData.dropOffZone?.code ?? "", "station": rideData.dropOfSftation?.code ?? "", "stop": rideData.dropOffStop?.code ?? ""] as [String : Any]
         
         param["Pick"] = pickUpLocationData
-        param["Drop"] = pickUpLocationData
+        param["Drop"] = dropOffLocationData
         param["PassengerCount"] = rideData.passsengerCount ?? 1
 
                 
         self.post(url: Constants.APIURL.PostRSService, param: param, completion: completionBlock) { (response, cBlock) in
-            
-            
             print(response)
-            
-//            let bookings = self.saveBookingsInDB(bookings: response[Constants.ResponseAPIKey.Data] as! [Any])
-            self.updateSyncTime(forKey: ZONE_SYNC_TIME)
-            
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+    
+    func getOrderStatus(vehicleInfo: RideVehiceInfo, completion completionBlock: @escaping KTDALCompletionBlock) {
+        self.post(url: Constants.APIURL.orderService + "\(vehicleInfo.id ?? "")", param: nil, completion: completionBlock) { (response, cBlock) in
+            print(response)
+            cBlock(Constants.APIResponseStatus.SUCCESS,response)
+        }
+    }
+    
+    func getOrderPollingStatus(vehicleInfo: RideVehiceInfo, completion completionBlock: @escaping KTDALCompletionBlock) {
+        self.get(url: Constants.APIURL.orderService + "\(vehicleInfo.id ?? "")/status", param: nil, completion: completionBlock) { (response, cBlock) in
+            print(response)
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }

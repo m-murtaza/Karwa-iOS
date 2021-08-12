@@ -1,8 +1,8 @@
 //
-//  KTBookingDetailsViewController.swift
+//  KTXpressBookingDetailsViewController.swift
 //  KarwaRide
 //
-//  Created by Muhammad Usman on 3/15/18.
+//  Created by Satheesh K on 8/8/21.
 //  Updated by Sam
 //  Copyright © 2018 Karwa. All rights reserved.
 //
@@ -17,49 +17,46 @@ import UBottomSheet
 import StoreKit
 import FittedSheets
 
-protocol Demoable {
-    static func openDemo(from parent: UIViewController, in view: UIView?)
-}
-
-extension Demoable {
-    static func addSheetEventLogging(to sheet: SheetViewController) {
-        let previousDidDismiss = sheet.didDismiss
-        sheet.didDismiss = {
-            print("did dismiss")
-            previousDidDismiss?($0)
-        }
-        
-        let previousShouldDismiss = sheet.shouldDismiss
-        sheet.shouldDismiss = {
-            print("should dismiss")
-            return previousShouldDismiss?($0) ?? true
-        }
-        
-        let previousSizeChanged = sheet.sizeChanged
-        sheet.sizeChanged = { sheet, size, height in
-            print("Changed to \(size) with a height of \(height)")
-            previousSizeChanged?(sheet, size, height)
-        }
-    }
-}
-
-
-class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
-
+class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate,KTXpressRideCreationViewModelDelegate {
+    
     @IBOutlet weak var mapView : GMSMapView!
     
-    var sheetCoordinator: UBottomSheetCoordinator!
+    @IBOutlet weak var trackRideServiceView : UIView!
     
+    var sheetCoordinator: UBottomSheetCoordinator!
+
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
     @IBOutlet weak var btnRecenter: UIButton!
 
-    private var vModel : KTBookingDetailsViewModel?
+    private var vModel : KTXpresssBookingDetailsViewModel?
     private var cancelPopup : KTCancelViewController?
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
+    
+    @IBOutlet weak var pickupWithInfoView: UIView!
+    @IBOutlet weak var etaLabel: UILabel!
 
-    var bottomSheetVC : KTBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as! KTBookingDetailsBottomSheetVC
+    //driver
+    @IBOutlet weak var driverView: UIView!
+    @IBOutlet weak var driverImageView: UIImageView!
+    @IBOutlet weak var ratingsView: UILabel!
+    @IBOutlet weak var driverNameLabel: UILabel!
+    @IBOutlet weak var carTypeLabel: UILabel!
+
+    @IBOutlet weak var rideServiceView: UIView!
+    @IBOutlet weak var lblServiceType : UILabel!
+    @IBOutlet weak var numberOfPassengersLabel : UILabel!
+    @IBOutlet weak var imgVehicleType : SpringImageView!
+    @IBOutlet weak var carNumber : UILabel!
+    
+    @IBOutlet weak var cancelButton : UIButton!
+
+    @IBOutlet weak var pickUpAddressButton: SpringButton!
+    @IBOutlet weak var dropOffAddressButton: SpringButton!
+    var rideServicePickDropOffData: RideSerivceLocationData? = nil
+
+    var bottomSheetVC : KTXpressBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTXpressBookingDetailsBottomSheetVC") as! KTXpressBookingDetailsBottomSheetVC
 
     var isOpenFromNotification : Bool = false
 
@@ -82,16 +79,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     override func viewDidLoad() {
         if viewModel == nil {
-            viewModel = KTBookingDetailsViewModel(del: self)
+            viewModel = KTXpresssBookingDetailsViewModel(del: self)
         }
         
-        vModel = viewModel as? KTBookingDetailsViewModel
+        vModel = viewModel as? KTXpresssBookingDetailsViewModel
+        vModel?.rideServicePickDropOffData = rideServicePickDropOffData
 //
 //        sheetCoordinator = UBottomSheetCoordinator(parent: self)
 //        sheetCoordinator.dataSource = self
 //
         bottomSheetVC.sheet = sheet
-        bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
+        bottomSheetVC.vModel = viewModel as? KTXpresssBookingDetailsViewModel
 //        sheetCoordinator.addSheet(bottomSheetVC, to: self)
 //        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
 //        sheetCoordinator.delegate = self
@@ -126,7 +124,61 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         // Do any additional setup after loading the view.
     }
+        
+    func showAlertForLocationServerOn() {
+        
+    }
     
+    func updateLocationInMap(location: CLLocation) {
+        
+    }
+    
+    func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom: Bool) {
+        
+    }
+    
+    func setProgressViewCounter(countDown: Int) {
+        
+    }
+    
+    func showHideRideServiceView(show: Bool) {
+        
+    }
+    
+    func updateUI() {
+        
+    }
+    
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D) {
+        
+    }
+    
+    func showRideTrackViewController() {
+        
+    }
+    
+    func showAlertForTimeOut() {
+        
+    }
+    
+    func showAlertForFailedRide(message: String) {
+        
+    }
+    
+    func setPickup(pick: String?) {
+        guard pick != nil else {
+            return
+        }
+        self.pickUpAddressButton.setTitle(pick, for: .normal)
+    }
+        
+    func setDropOff(pick: String?) {
+        guard pick != nil else {
+            return
+        }
+        self.dropOffAddressButton.setTitle(pick, for: .normal)
+    }
+
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition)
     {
         if(isAbleToObserveZooming && !haltAutoZooming)
@@ -153,6 +205,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         btnReveal.isHidden = !isOpenFromNotification
         self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         
@@ -256,10 +309,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 
     func setBooking(booking : KTBooking) {
         if viewModel == nil {
-            viewModel = KTBookingDetailsViewModel(del: self)
+            viewModel = KTXpresssBookingDetailsViewModel(del: self)
         }
-        vModel = viewModel as? KTBookingDetailsViewModel
-        (viewModel as! KTBookingDetailsViewModel).booking = booking
+        vModel = viewModel as? KTXpresssBookingDetailsViewModel
+        (viewModel as! KTXpresssBookingDetailsViewModel).booking = booking
         navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
         
     }
@@ -271,17 +324,20 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     //MARK:- ETA
     func updateEta(eta: String)
     {
-        bottomSheetVC.updateEta(eta: eta)
+        self.etaLabel.text = eta
+//        bottomSheetVC.updateEta(eta: eta)
     }
     
     func hideEtaView()
     {
-        bottomSheetVC.hideEtaView()
+        self.etaLabel.isHidden = true
+//        bottomSheetVC.hideEtaView()
     }
     
     func showEtaView()
     {
-        bottomSheetVC.showEtaView()
+        self.etaLabel.isHidden = false
+//        bottomSheetVC.showEtaView()
     }
     
     func showHideShareButton(_ show : Bool)
@@ -295,7 +351,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         marker.position = location
         
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
         
         return marker
@@ -305,7 +361,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
         
         return marker
     }
@@ -376,13 +432,22 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     //MARK:- Assignment Info
     
-    func updateAssignmentInfo()
-    {
-        bottomSheetVC.updateAssignmentInfo()
+    func updateAssignmentInfo() {
+        driverNameLabel.text = vModel?.driverName()
+        
+        if vModel?.vehicleNumber() == "" || vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue {
+            carNumber.text = "----"
+        } else {
+            carNumber.text = vModel?.vehicleNumber()
+        }
+        
+        ratingsView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        ratingsView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
+//        imgNumberPlate.image = vModel?.imgForPlate()
     }
     //MARK:- CallerId
-    func updateCallerId()
-    {
+    func updateCallerId() {
+        
     }
     //MARK:- Booking Card
     func updateBookingCard()
@@ -449,7 +514,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             marker?.position = vTrack.position
             marker?.groundAnchor = CGPoint(x: 0.5, y: 0.5)
             marker?.rotation = CLLocationDegrees(vTrack.bearing)
-            marker?.icon = (viewModel as! KTBookingDetailsViewModel).imgForTrackMarker()
+            marker?.icon = (viewModel as! KTXpresssBookingDetailsViewModel).imgForTrackMarker()
             marker?.map = self.mapView
             
         }
@@ -488,8 +553,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
         
-        addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "BookingMapDirectionPickup")!)
-        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "BookingMapDirectionDropOff")!)
+        if etaLabel.isHidden == false {
+            addMarkerOnMapWithInfoView(location: path.coordinate(at: 0))
+        } else {
+            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "pin_pickup_map")!)
+        }
+        
+        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "pin_dropoff_map")!)
     }
     
     func showRouteOnMap(points pointsStr: String)
@@ -503,12 +573,25 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         polyline.map = mapView
     }
     
+    func addMarkerOnMapWithInfoView(location: CLLocationCoordinate2D) {
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.iconView = pickupWithInfoView
+        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(marker.position)
+        
+    }
+    
+    
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
         marker.position = location
         
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
         
         bounds = bounds.includingCoordinate(marker.position)
@@ -516,12 +599,23 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func addPickupMarker(location : CLLocationCoordinate2D) {
-        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+//        if etaLabel.isHidden == false {
+//            addMarkerOnMapWithInfoView(location: location)
+//        } else {
+//        }
+        addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
+
+//        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
     }
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
-        addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
-        
+//        if etaLabel.isHidden == false {
+//            addMarkerOnMapWithInfoView(location: location)
+//        } else {
+//            addMarkerOnMap(location: location, image: UIImage(named:"pin_dropoff_map")! )
+//        }
+        addMarkerOnMap(location: location, image: UIImage(named:"pin_dropoff_map")! )
+
         mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
 
         let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
@@ -560,7 +654,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func moveToBooking()
     {
-        self.performSegue(name: "segueDetailToReBook")
+//        self.performSegue(name: "segueDetailToReBook")
+        let rideLocationData = RideSerivceLocationData(pickUpZone: nil, pickUpStation: nil, pickUpStop: nil, dropOffZone: nil, dropOfSftation: nil, dropOffStop: nil, pickUpCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.pickupLon)!, longitude: (vModel?.booking?.pickupLat)!), dropOffCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.dropOffLat)!, longitude: (vModel?.booking?.dropOffLon)!), passsengerCount: 2)
+        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
+        rideService!.rideServicePickDropOffData = rideLocationData
+        self.navigationController?.pushViewController(rideService!, animated: true)
+        
     }
     
     func showEbill() {
@@ -719,9 +818,3 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
 }
-
-extension UInt {
-    /// SwiftExtensionKit
-    var toInt: Int { return Int(self) }
-}
-

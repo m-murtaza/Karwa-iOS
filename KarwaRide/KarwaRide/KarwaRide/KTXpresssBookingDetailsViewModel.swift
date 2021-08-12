@@ -1,9 +1,9 @@
 //
-//  KTBookingDetailsViewModel.swift
+//  KTXpressBookingDetailsViewModel.swift
 //  KarwaRide
 //
-//  Created by Muhammad Usman on 3/15/18.
-//  Copyright © 2018 Karwa. All rights reserved.
+//  Created by Satheesh on 8/8/21.
+//  Copyright © 2021 Karwa. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ import SwiftyJSON
 import GoogleMaps
 
 //MARK: - Protocols
-protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
+protocol KTXpresssBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func initializeMap(location : CLLocationCoordinate2D)
     func showCurrentLocationDot(show: Bool)
     func showUpdateVTrackMarker(vTrack: VehicleTrack)
@@ -64,28 +64,15 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func getMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>)
     func addPointsOnMap(encodedPath: String)
-    func setPickup(pick: String?)
-    func setDropOff(pick: String?)
+
 }
 
-extension KTBookingDetailsViewModelDelegate {
-    func setPickup(pick: String?) {}
-    func setDropOff(pick: String?) {}
-}
-
-//MARK: -
-enum BottomBarBtnTag : Int {
-    case Cancel = 101
-    case FareBreakdown = 102
-    case Rebook = 103
-    case EBill = 104
-}
-
-class KTBookingDetailsViewModel: KTBaseViewModel {
+class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     var booking : KTBooking?
     var del : KTBookingDetailsViewModelDelegate?
-    
+    var rideServicePickDropOffData: RideSerivceLocationData? = nil
+
     private var timerVechicleTrack : Timer? = Timer()
     private var timerBookingFreshness : Timer? = Timer()
     
@@ -101,6 +88,54 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     override func viewDidAppear() {
         super.viewDidAppear()
         checkForRating()
+        //Check the drop of address name
+        
+        guard self.rideServicePickDropOffData != nil else {
+            return
+        }
+        
+        if self.rideServicePickDropOffData?.dropOffStop == nil && self.rideServicePickDropOffData?.dropOfSftation == nil{
+            self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.dropOffCoordinate)!, type: "Drop")
+        } else {
+            if self.rideServicePickDropOffData?.dropOffStop == nil {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setDropOff(pick: self.rideServicePickDropOffData?.dropOfSftation?.name ?? "")
+            } else {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setDropOff(pick: self.rideServicePickDropOffData?.dropOffStop?.name ?? "")
+            }
+        }
+
+        //Check the pickup address name
+        if self.rideServicePickDropOffData?.pickUpStop == nil && self.rideServicePickDropOffData?.pickUpStation == nil {
+            self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.pickUpCoordinate)!, type: "Pick")
+        } else {
+            if  self.rideServicePickDropOffData?.pickUpStop == nil {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setPickup(pick: self.rideServicePickDropOffData?.pickUpStation?.name ?? "")
+            } else {
+                (delegate as! KTXpressRideCreationViewModelDelegate).setPickup(pick: self.rideServicePickDropOffData?.pickUpStop?.name ?? "")
+            }
+        }
+
+    }
+    
+    private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D, type: String) {
+        
+        KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
+            if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0{
+                
+                let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
+                
+                DispatchQueue.main.async {
+                    if self.delegate != nil {
+                        if type == "Drop" {
+                            (self.delegate as? KTXpressRideCreationViewModelDelegate)?
+                                .setDropOff(pick: pAddress.name)
+                        } else {
+                            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setPickup(pick: pAddress.name)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func initializeViewWRTBookingStatus() {
@@ -813,9 +848,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         {
             var pickDropMarkers = [GMSMarker]()
 
-            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "pin_pickup_map")!)
 
-            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: (vTrack?.position.latitude)!,longitude: (vTrack?.position.longitude)!) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: (vTrack?.position.latitude)!,longitude: (vTrack?.position.longitude)!) , image: UIImage(named: "pin_dropoff_map")!)
             
             pickDropMarkers.append(dropMarker)
             pickDropMarkers.append(pickMarker)
@@ -824,14 +859,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else if(!isPickDropMarked)
         {
-            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "APPickUpMarker")!)
+            let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "pin_pickup_map")!)
 
             var pickDropMarkers = [GMSMarker]()
             pickDropMarkers.append(pickMarker)
 
             if(booking!.dropOffLat != 0)
             {
-                let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "APDropOffMarker")!)
+                let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).addAndGetMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "pin_dropoff_map")!)
                 pickDropMarkers.append(dropMarker)
             }
 
@@ -844,12 +879,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func focusMarkers(vTrack: VehicleTrack)
     {
         var pickDropMarkers = [GMSMarker]()
-        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "pin_pickup_map")!)
         pickDropMarkers.append(pickMarker)
 
         if(booking!.dropOffLat == 0)
         {
-            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: vTrack.position.latitude,longitude: vTrack.position.longitude) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: vTrack.position.latitude,longitude: vTrack.position.longitude) , image: UIImage(named: "pin_dropoff_map")!)
             pickDropMarkers.append(dropMarker)
         }
 
@@ -859,12 +894,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func focusMarkers()
     {
         var pickDropMarkers = [GMSMarker]()
-        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "BookingMapDirectionPickup")!)
+        let pickMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.pickupLat,longitude: booking!.pickupLon) , image: UIImage(named: "pin_pickup_map")!)
         pickDropMarkers.append(pickMarker)
 
         if(booking!.dropOffLat == 0)
         {
-            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "BookingMapDirectionDropOff")!)
+            let dropMarker = (delegate as! KTBookingDetailsViewModelDelegate).getMarkerOnMap(location:CLLocationCoordinate2D(latitude: booking!.dropOffLat,longitude: booking!.dropOffLon) , image: UIImage(named: "pin_dropoff_map")!)
             pickDropMarkers.append(dropMarker)
         }
 

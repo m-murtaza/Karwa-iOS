@@ -51,6 +51,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     var pickUpZone: Area?
     var pickUpStation: Area?
     var pickUpStop: Area?
+    var countOfPassenger = 1
 
     var dropOffLocation: Area?
     var picupRect = GMSMutablePath()
@@ -144,7 +145,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
                 
         defer {
             
-            let rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate)
+            let rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
             
             (delegate as! KTXpressDropoffViewModelDelegate).showRideServiceViewController(rideLocationData: rideLocationData)
         }

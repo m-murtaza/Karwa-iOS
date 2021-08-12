@@ -53,7 +53,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         self.textField.text = ""
         
-        self.textField.placeholder = "Search for location".localized()
+        self.textField.placeholder = "str_search".localized()
                 
     }
     

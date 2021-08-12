@@ -225,7 +225,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     static func isTaxi(vType: VehicleType) -> Bool {
         
         switch vType {
-        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo:
+        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo, .KTXpressTaxi:
             return false
         default:
             return true

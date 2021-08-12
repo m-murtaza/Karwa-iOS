@@ -1,41 +1,28 @@
 //
-//  KTMyTripsViewController.swift
+//  KTXpressMyTripsViewController.swift
 //  KarwaRide
 //
-//  Created by Muhammad Usman on 2/26/18.
-//  Copyright © 2018 Karwa. All rights reserved.
+//  Created by Satheesh on 8/8/21.
+//  Copyright © 2021 Karwa. All rights reserved.
 //
 
 import UIKit
 
-extension UIViewController {
-  func addMenuButton() {
-    let button = UIButton()
-    button.addTarget(self, action: #selector(revealSideMenu), for: .touchUpInside)
-    button.setImage(UIImage(named: "RevealButton_no_background"), for: .normal)
-    let item = UIBarButtonItem(customView: button)
-    self.navigationItem.leftBarButtonItem = item
-  }
-  @objc func revealSideMenu() {
-    sideMenuController?.revealMenu()
-  }
-}
-
-class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModelDelegate,UITableViewDataSource, UITableViewDelegate  {
+class KTXpressMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModelDelegate,UITableViewDataSource, UITableViewDelegate  {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noBookingView: UIView!
     
-    private var vModel : KTMyTripsViewModel?
+    private var vModel : KTXpressMyTripsViewModel?
 
     private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         if viewModel == nil
         {
-            viewModel = KTMyTripsViewModel(del: self)
+            viewModel = KTXpressMyTripsViewModel(del: self)
         }
-        vModel = viewModel as? KTMyTripsViewModel
+        vModel = viewModel as? KTXpressMyTripsViewModel
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -67,7 +54,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     
     @objc func refresh(sender:AnyObject)
     {
-        (viewModel as! KTMyTripsViewModel).fetchBookings()
+        (viewModel as! KTXpressMyTripsViewModel).fetchBookings()
     }
     
     func endRefreshing()
@@ -91,29 +78,29 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (viewModel as! KTMyTripsViewModel).numberOfRows()
+        return (viewModel as! KTXpressMyTripsViewModel).numberOfRows()
     }
     
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //MyTripsReuseIdentifier
     let cell : KTMyTripsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyTripsReuseIdentifier") as! KTMyTripsTableViewCell
     
-    cell.pickupAddressLabel.text = (viewModel as! KTMyTripsViewModel).pickAddress(forIdx: indexPath.row)
-    cell.dropoffAddressLabel.text = (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row)
-    cell.dateLabel.text = (viewModel as! KTMyTripsViewModel).pickupDate(forIdx: indexPath.row)
-    cell.timeLabel.text = (viewModel as! KTMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
-    cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
-    cell.statusLabel.text = (viewModel as! KTMyTripsViewModel).bookingStatusString(forIdx: indexPath.row)
-    cell.outerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).outerContainerBackgroundColor(forIdx: indexPath.row)
-    cell.innerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).innerContainerBackgroundColor(forIdx: indexPath.row)
-    cell.statusLabel.textColor = (viewModel as! KTMyTripsViewModel).statusTextColor(forIdx: indexPath.row)
-    cell.capacityLabel.text = (viewModel as! KTMyTripsViewModel).capacity(forIdx: indexPath.row)
-    cell.serviceTypeLabel.textColor = (viewModel as! KTMyTripsViewModel).serviceTypeColor(forIdx: indexPath.row)
-    cell.cashIcon.isHidden = (viewModel as! KTMyTripsViewModel).showCashIcon(forIdx: indexPath.row)
-    cell.cashIcon.image = UIImage(named: (viewModel as! KTMyTripsViewModel).getPaymentIcon(forIdx: indexPath.row))
+    cell.pickupAddressLabel.text = (viewModel as! KTXpressMyTripsViewModel).pickAddress(forIdx: indexPath.row)
+    cell.dropoffAddressLabel.text = (viewModel as! KTXpressMyTripsViewModel).dropAddress(forIdx: indexPath.row)
+    cell.dateLabel.text = (viewModel as! KTXpressMyTripsViewModel).pickupDate(forIdx: indexPath.row)
+    cell.timeLabel.text = (viewModel as! KTXpressMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
+    cell.serviceTypeLabel.text = (viewModel as! KTXpressMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+    cell.statusLabel.text = (viewModel as! KTXpressMyTripsViewModel).bookingStatusString(forIdx: indexPath.row)
+    cell.outerContainer.backgroundColor = (viewModel as! KTXpressMyTripsViewModel).outerContainerBackgroundColor(forIdx: indexPath.row)
+    cell.innerContainer.backgroundColor = (viewModel as! KTXpressMyTripsViewModel).innerContainerBackgroundColor(forIdx: indexPath.row)
+    cell.statusLabel.textColor = (viewModel as! KTXpressMyTripsViewModel).statusTextColor(forIdx: indexPath.row)
+    cell.capacityLabel.text = (viewModel as! KTXpressMyTripsViewModel).capacity(forIdx: indexPath.row)
+    cell.serviceTypeLabel.textColor = (viewModel as! KTXpressMyTripsViewModel).serviceTypeColor(forIdx: indexPath.row)
+    cell.cashIcon.isHidden = (viewModel as! KTXpressMyTripsViewModel).showCashIcon(forIdx: indexPath.row)
+    cell.cashIcon.image = UIImage(named: (viewModel as! KTXpressMyTripsViewModel).getPaymentIcon(forIdx: indexPath.row))
     
-    if (viewModel as! KTMyTripsViewModel).cancellationCharge(forIdx: indexPath.row) != "" {
-        cell.cancellationChargeLabel.text = (viewModel as! KTMyTripsViewModel).cancellationCharge(forIdx: indexPath.row)
+    if (viewModel as! KTXpressMyTripsViewModel).cancellationCharge(forIdx: indexPath.row) != "" {
+        cell.cancellationChargeLabel.text = (viewModel as! KTXpressMyTripsViewModel).cancellationCharge(forIdx: indexPath.row)
         cell.cancellationChargeLabel.isHidden = false
         if Device.getLanguage().contains("AR") {
             cell.cancellationChargeLabel.textAlignment = .left
@@ -125,9 +112,9 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     
     cell.detailArrow.image?.imageFlippedForRightToLeftLayoutDirection()
-    //        if isLargeScreen()  && (viewModel as! KTMyTripsViewModel).showCallerID(){
+    //        if isLargeScreen()  && (viewModel as! KTXpressMyTripsViewModel).showCallerID(){
     //            cell.lblCallerId.isHidden = false
-    //            cell.lblCallerId.text = (viewModel as! KTMyTripsViewModel).callerId(forIdx: indexPath.row)
+    //            cell.lblCallerId.text = (viewModel as! KTXpressMyTripsViewModel).callerId(forIdx: indexPath.row)
     //        }
     animateCell(cell)
     
@@ -136,14 +123,14 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        (viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
+        (viewModel as! KTXpressMyTripsViewModel).rowSelected(forIdx: indexPath.row)
     }
     
     func setBooking(booking : KTBooking) {
         if viewModel == nil {
-            viewModel = KTMyTripsViewModel(del: self)
+            viewModel = KTXpressMyTripsViewModel(del: self)
         }
-        (viewModel as! KTMyTripsViewModel).selectedBooking = booking
+        (viewModel as! KTXpressMyTripsViewModel).selectedBooking = booking
     }
     
     // MARK: - Navigation
@@ -155,7 +142,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         if segue.identifier == "segueMyTripsToDetails" {
             
             let details : KTBookingDetailsViewController  = segue.destination as! KTBookingDetailsViewController
-            if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
+            if let booking : KTBooking = (viewModel as! KTXpressMyTripsViewModel).selectedBooking {
                 details.setBooking(booking: booking)
             }
         }
@@ -163,27 +150,22 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     
     func moveToDetails() {
         
+        let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as! KTXpressBookingDetailsViewController
+
+        if let booking : KTBooking = (viewModel as! KTXpressMyTripsViewModel).selectedBooking {
+            bookingDetailsViewController.setBooking(booking: booking)
+            (viewModel as! KTXpressMyTripsViewModel).selectedBooking = nil;
+        }
+        
         navigationItem.backButtonTitle = ""
         
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
              NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
         
-        if let vehicelType = (viewModel as! KTMyTripsViewModel).selectedBooking?.vehicleType {
-            if vehicelType == 200 {
-                let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as! KTXpressBookingDetailsViewController
-                bookingDetailsViewController.setBooking(booking: (viewModel as! KTMyTripsViewModel).selectedBooking!)
-                self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
-            } else {
-                let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTBookingDetailsViewController") as! KTBookingDetailsViewController
-                if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
-                    bookingDetailsViewController.setBooking(booking: booking)
-                    (viewModel as! KTMyTripsViewModel).selectedBooking = nil;
-                }
-                self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
-            }
-        }
-  
+        self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
+        
+        
         //self.performSegue(name: "segueMyTripsToDetails")
     }
     
@@ -200,13 +182,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     @IBAction func bookNowTapped(){
         
-        if let index = self.tabBarController?.selectedIndex, index == 1 {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController")
-            sideMenuController?.hideMenu()
-        } else {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuController?.hideMenu()
-        }
+      sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuController?.hideMenu()
     }
 
 }
