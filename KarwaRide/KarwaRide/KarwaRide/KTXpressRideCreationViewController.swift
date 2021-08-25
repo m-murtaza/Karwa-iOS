@@ -129,7 +129,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.timer.invalidate()
+        if self.timer != nil {
+            self.timer.invalidate()
+        }
     }
     
     @IBAction func setCountForPassenger(sender: UIButton) {
@@ -212,13 +214,21 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
+        if segue.identifier == "segueXpressBookingListForDetails" {
+          
+          // Create a variable that you want to send
+          //            var newProgramVar = ""
+          
+          // Create a new variable to store the instance of PlayerTableViewController
+          let destinationVC = segue.destination as! KTMyTripsViewController
+          destinationVC.setBooking(booking: (viewModel as! KTXpressRideCreationViewModel).booking)
+        }
+      }
     
     func showAlertForTimeOut() {
         let alert = CDAlertView(title: "This ride is no longer available.", message: "Request another ride?", type: .custom(image: UIImage(named:"icon-notifications")!))
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
-            self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
             return true
         }
         alert.add(action: doneAction)
@@ -233,7 +243,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     func showAlertForFailedRide(message: String) {
         let alert = CDAlertView(title: message, message: "", type: .error)
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
-            self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
             return true
         }
         alert.add(action: doneAction)
@@ -263,8 +273,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             details.setBooking(booking: booking)
         }
         self.navigationController?.pushViewController(details, animated: true)
+        
+//        self.performSegue(withIdentifier: "segueXpressBookingListForDetails", sender: self)
     }
-    
+        
 }
 
 extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDataSource {

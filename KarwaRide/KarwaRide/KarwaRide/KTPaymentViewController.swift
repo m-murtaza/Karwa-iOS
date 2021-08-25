@@ -145,13 +145,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         if(isCrossButtonPressed)
         {
-            if let index = self.tabBarController?.selectedIndex, index == 1 {
-                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController")
-                sideMenuController?.hideMenu()
-            } else {
-                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-                sideMenuController?.hideMenu()
-            }
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
             isCrossButtonPressed = !isCrossButtonPressed
             
             return

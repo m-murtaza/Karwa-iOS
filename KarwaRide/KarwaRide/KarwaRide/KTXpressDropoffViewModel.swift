@@ -119,9 +119,13 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 
         if selectedStation != nil {
             stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
+            if stopsOFStations.count == 1 {
+                selectedStation = stopsOFStations.first!
+            }
+        } else {
+            selectedStop = nil
         }
         
-        selectedStop = nil
 
     }
     
@@ -133,6 +137,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         if selectedArea.count > 0 {
             self.selectedStation = selectedArea.first!
             (self.delegate as! KTXpressDropoffViewModelDelegate).setDropOff(pick: selectedArea.first?.name ?? "")
+            
         } else {
 //            let name = "LocationManagerNotificationIdentifier"
 //            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
@@ -225,6 +230,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             })!
             
             selectedCoordinate = coordinates.first!
+            
         
         } else {
             

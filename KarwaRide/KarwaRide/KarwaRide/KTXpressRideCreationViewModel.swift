@@ -135,8 +135,8 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 vehicleInfo.vehicleNo = item["VehicleNo"] as? String
                 dropLocationInfo.lat = (item["Drop"] as?[String:Double])?["lat"] ?? 0.0
                 dropLocationInfo.lon = (item["Drop"] as?[String:Double])?["lon"] ?? 0.0
-                pickUplocationInfo.lat = ((item["Pick"] as?[String:Double])?["lat"] ?? 0.0) + 0.00011
-                pickUplocationInfo.lon = ((item["Pick"] as?[String:Double])?["lon"] ?? 0.0) + 0.00011
+                pickUplocationInfo.lat = ((item["Pick"] as?[String:Double])?["lat"] ?? 0.0)
+                pickUplocationInfo.lon = ((item["Pick"] as?[String:Double])?["lon"] ?? 0.0)
                 vehicleInfo.drop = dropLocationInfo
                 vehicleInfo.pick = pickUplocationInfo
             
@@ -159,6 +159,8 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         
     }
     
+    //execute the order api repeatedly when nextstep as Retry
+    
     @objc func fetchRideOrderStatus() {
         
         self.delegate?.showProgressHud(show: true, status: "str_fetching_data".localized())
@@ -171,7 +173,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 strongSelf.timer = Timer.scheduledTimer(timeInterval: 3.0, target: strongSelf, selector: #selector(strongSelf.fetchRideOrderPollingStatus), userInfo: nil, repeats: true)
             } else {
                 strongSelf.delegate?.hideProgressHud()
-
+                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "Ride Expired")
             }
         }
     }

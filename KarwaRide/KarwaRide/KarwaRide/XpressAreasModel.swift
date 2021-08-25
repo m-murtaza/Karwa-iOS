@@ -10,11 +10,11 @@ import Foundation
 
 // MARK: - Area
 struct Area: Hashable {
-    let code, vehicleType: Int?
-    let name: String?
-    let parent: Int?
-    let bound, type: String?
-    let isActive: Bool?
+    var code, vehicleType: Int?
+    var name: String?
+    var parent: Int?
+    var bound, type: String?
+    var isActive: Bool?
 }
 
 // MARK: - Destination

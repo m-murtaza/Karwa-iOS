@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 import CoreLocation
 
+protocol KTXpressFavoriteDelegate {
+    func savedFavorite()
+}
+
+protocol KTXpressAddressDelegate {
+    func setLocation(location: Any)
+}
 
 protocol  KTXpressAddressPickerViewModelDelegate : KTViewModelDelegate {
   func loadData()
@@ -96,6 +103,16 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   func locationAtIndex(idx: Int) -> KTGeoLocation {
     locations[idx]
   }
+    
+  func locationAtIndexPath(indexPath: IndexPath) -> KTGeoLocation {
+    if indexPath.section == 1 {
+        return bookmarks[indexPath.row]
+    } else if indexPath.section == 0 {
+        return locations[indexPath.row]
+    } else {
+        return KTGeoLocation()
+    }
+ }
   
   func getAllLocations() {
     
@@ -144,6 +161,11 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
     if work != nil && work!.bookmarkToGeoLocation != nil{
       bookmarks.append(work!.bookmarkToGeoLocation!)
     }
+        
+    if let favorites = KTBookmarkManager().fetchAllFavorites() {
+        favorites.forEach( { bookmarks.append( $0.toGeolocation() )})
+    }
+
   }
   
   func filterArray(ForLocationType type : geoLocationType , serverResponse locs: [KTGeoLocation]) -> [KTGeoLocation]{
@@ -165,7 +187,8 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
       (delegate as! KTXpressAddressPickerViewModelDelegate).loadData()
     }
   }
-  
+    
+    
   func loadDataInView() {
     if (delegate as! KTXpressAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.PickupAddress {
       locations =  recent + nearBy + popular
@@ -270,9 +293,16 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
     }
     
   }
+    
+    func moreButtonIcon(forIndex idx: IndexPath) -> UIImage {
+        if idx.section == 0 || idx.section == 1 {
+            return #imageLiteral(resourceName: "APICMore") //UIImage(named: "APICMore")!
+        } else {
+            return #imageLiteral(resourceName: "fav_ico")
+        }
+    }
   
   func addressTitle(forIndex idx: IndexPath) -> String {
-    
     
     if idx.section == 0 {
         var title : String = ""
@@ -286,7 +316,6 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
           else if locations[idx.row].name != nil {
             title = locations[idx.row].name!
           }
-          
           //title = locations[idx.row].name!
         }
         return title.capitalizingFirstLetter()
@@ -302,7 +331,6 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
           else if bookmarks[idx.row].name != nil {
             title = bookmarks[idx.row].name!
           }
-          
           //title = locations[idx.row].name!
         }
         return title.capitalizingFirstLetter()
@@ -312,7 +340,6 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
         title = metroStations[idx.row].name ?? ""
         return title.capitalizingFirstLetter()
     }
-    
     
   }
   
@@ -388,7 +415,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
             img = UIImage(named: "fav_work_ico")
             break
           default:
-            img = UIImage(named: "fav_home_ico")
+            img = UIImage(named: "fav_star_ico")
           }
         }
         return img!
@@ -484,21 +511,56 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   
   
   //MARK: - Save/Update Bookmark
-  func setHome(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
-    saveBookmark(bookmarkType: BookmarkType.home, location: location)
     
-  }
-  
-  func setWork(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
-    saveBookmark(bookmarkType: BookmarkType.work, location: location)
+    func setHome(forIndex idxPath: IndexPath) {
+        if idxPath.section == 0{
+            let location : KTGeoLocation = locations[idxPath.row]
+            saveBookmark(bookmarkType: BookmarkType.home, location: location)
+        }
+        if idxPath.section == 1{
+            let location : KTGeoLocation = bookmarks[idxPath.row]
+            saveBookmark(bookmarkType: BookmarkType.home, location: location)
+        }
+    }
     
-  }
+    func setWork(forIndex idxPath: IndexPath) {
+        if idxPath.section == 0{
+            let location : KTGeoLocation = locations[idxPath.row]
+            saveBookmark(bookmarkType: BookmarkType.work, location: location)
+        }
+        if idxPath.section == 1{
+            let location : KTGeoLocation = bookmarks[idxPath.row]
+            saveBookmark(bookmarkType: BookmarkType.work, location: location)
+        }
+    }
+    
+    func setFavorite(forIndex idxPath: IndexPath) {
+        if idxPath.section == 0{
+            let location : KTGeoLocation = locations[idxPath.row]
+            (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
+        }
+        if idxPath.section == 1{
+            let location : KTGeoLocation = bookmarks[idxPath.row]
+            (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
+        }
+      
+    }
+    
+//  func setHome(forIndex idx: Int) {
+//    let location : KTGeoLocation = locations[idx]
+//    saveBookmark(bookmarkType: BookmarkType.home, location: location)
+//
+//  }
+//
+//  func setWork(forIndex idx: Int) {
+//    let location : KTGeoLocation = locations[idx]
+//    saveBookmark(bookmarkType: BookmarkType.work, location: location)
+//
+//  }
   
   func setFavorite(forIndex idx: Int) {
     let location : KTGeoLocation = locations[idx]
-    del?.navigateToFavoriteScreen(location: location)
+    (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
   }
   
   func editFavorite(forIndex idx: Int) {
@@ -615,6 +677,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
       updateHomeAndWorkIfAvailable()
       removeHomeWorkFromRestOfTheList()
       loadDataInView()
+        self.fetchLocations()
     }
     else {
       self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)

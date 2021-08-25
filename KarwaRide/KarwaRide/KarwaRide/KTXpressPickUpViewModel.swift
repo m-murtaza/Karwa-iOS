@@ -50,13 +50,12 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     var stopsOFStations = [Area]()
 
     override func viewWillAppear() {
-        
         setupCurrentLocaiton()
-        
         super.viewWillAppear()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.LocationManager), object: nil)
+    }
     
+    override func viewDidAppear() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.XpressLocationManager), object: nil)
     }
 
     func setupCurrentLocaiton() {
@@ -81,15 +80,12 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
       }
     }
     
-    @objc func LocationManagerLocaitonUpdate(notification: Notification)
-    {
+    @objc func LocationManagerLocaitonUpdate(notification: Notification) {
         let location : CLLocation = notification.userInfo!["location"] as! CLLocation
         self.fetchLocationName(forGeoCoordinate: location.coordinate)
-        
     }
     
-    private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
-      
+    func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D) {
       KTBookingManager().address(forLocation: coordinate, Limit: 1) { (status, response) in
         if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
           let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
@@ -101,6 +97,25 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             }
         }
       }
+    }
+    
+    func checkLatLonInside(location: CLLocation) -> Bool {
+        if let string = self.areas.filter({$0.type! == "OperatingArea"}).first?.bound {
+            let coordinates = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                return true
+            } else {
+                print("it wont contains")
+                return false
+            }
+        } else {
+            print("it wont contains")
+            return false
+
+        }
+
     }
     
     func fetchOperatingArea() {
@@ -212,8 +227,9 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         if selectedArea.count > 0 {
             (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: selectedArea.first?.name ?? "")
         } else {
-            let name = "LocationManagerNotificationIdentifier"
+            let name = "XpressLocationManagerNotificationIdentifier"
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
+            self.fetchLocationName(forGeoCoordinate: location.coordinate)
         }
         
     }
@@ -236,7 +252,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         defer {
             
             if self.destinationForPickUp.count > 0 {
-                (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!, zonalArea: self.zonalArea)
+                (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStation == nil ? nil : selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!, zonalArea: self.zonalArea)
             } else {
                 
             }
@@ -325,6 +341,8 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             }
             
             print("destinationForPickUp", destinationForPickUp)
+            
+            selectedStop = stopsOFStations.first!
         
         } else {
             

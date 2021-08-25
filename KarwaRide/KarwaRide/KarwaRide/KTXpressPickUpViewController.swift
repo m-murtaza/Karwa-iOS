@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Spring
 
-class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickUpViewModelDelegate {
+class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickUpViewModelDelegate, KTXpressAddressDelegate {
 
     @IBOutlet weak var pickUpAddressLabel: SpringLabel!
     @IBOutlet weak var markerButton: SpringButton!
@@ -57,12 +57,15 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
+        navigationController?.isNavigationBarHidden = true
+        self.navigationController?.navigationBar.isHidden = true
     }
+    
     
     @IBAction func setCurrentLocation(sender: UIButton) {
 
@@ -103,9 +106,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
     */
     
     func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D, zonalArea: [[String : [Area]]]) {
@@ -145,7 +146,14 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @objc func showAddressPickerViewController() {
         let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
         addressPicker.metroStations = (self.viewModel as! KTXpressPickUpViewModel).pickUpArea
+        addressPicker.delegateAddress = self
         self.navigationController?.pushViewController(addressPicker, animated: true)
+    }
+    
+    func setLocation(location: Any) {
+        
+        print(location)
+        
     }
     
 

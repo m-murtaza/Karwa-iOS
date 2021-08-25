@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GK8-46-KKa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1169,13 +1169,13 @@
                     <navigationItem key="navigationItem" id="iHS-RY-KcG"/>
                     <connections>
                         <segue destination="UMU-Cy-YBn" kind="show" identifier="segueFirstToOnBoarding" id="vHa-Qk-iPJ"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueOnboardingToBooking" id="d0m-9D-DJW"/>
+                        <segue destination="uVu-F4-Ovh" kind="show" identifier="segueOnboardingToBooking" id="d0m-9D-DJW"/>
                         <segue destination="ksB-Hr-p8O" kind="show" identifier="segueFirstToLogin" id="WXo-bu-cGa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Pd-d2-Rnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-613.04347826086962" y="754.6875"/>
+            <point key="canvasLocation" x="297.10144927536237" y="754.6875"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="tAO-pV-ngh">
@@ -1297,12 +1297,12 @@
                     <connections>
                         <outlet property="btnAlreadyHaveAccount" destination="vDV-Ly-soI" id="oV7-la-tSP"/>
                         <outlet property="btnCreatAccount" destination="lvX-Kf-bc5" id="LdJ-v3-6Da"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueMainToBooking" id="A9o-xm-kbF"/>
+                        <segue destination="uVu-F4-Ovh" kind="show" identifier="segueMainToBooking" id="A9o-xm-kbF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdg-nP-IJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-12" y="301"/>
+            <point key="canvasLocation" x="897.10144927536237" y="300.66964285714283"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -1587,13 +1587,13 @@
                         <outlet property="passwordTextField" destination="bQL-8Y-veV" id="Qtw-Qi-FUB"/>
                         <outlet property="phoneNumberTextField" destination="fUl-1Z-LQc" id="V3e-Yd-sAh"/>
                         <outlet property="scrollView" destination="Xy2-G5-XeW" id="9Ia-Kq-s15"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueToBooking" id="bsC-QL-uBN"/>
+                        <segue destination="uVu-F4-Ovh" kind="show" identifier="segueToBooking" id="bsC-QL-uBN"/>
                         <segue destination="4DU-b4-Mvb" kind="presentation" identifier="segueLoginToOTP" id="uRk-Bz-EyY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="921.73913043478262" y="560.86956521739137"/>
+            <point key="canvasLocation" x="1831.8840579710147" y="560.49107142857144"/>
         </scene>
         <!--Create New Account-->
         <scene sceneID="hHE-x6-x2a">
@@ -1942,7 +1942,7 @@
                         <outlet property="scrollView" destination="Rup-AG-cbY" id="hB1-oB-f7x"/>
                         <outlet property="signUpBtn" destination="zcc-f8-WEv" id="SFA-Kb-2i6"/>
                         <segue destination="4DU-b4-Mvb" kind="presentation" identifier="segueSignupToOtp" id="UM1-sb-1vB"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueToBooking" id="bJb-3g-Kix"/>
+                        <segue destination="uVu-F4-Ovh" kind="show" identifier="segueToBooking" id="bJb-3g-Kix"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="showLoginScreen" id="owf-mi-2L1"/>
                     </connections>
                 </viewController>
@@ -1965,7 +1965,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIu-NZ-sYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3012" y="276"/>
+            <point key="canvasLocation" x="3921.739130434783" y="275.89285714285711"/>
         </scene>
         <!--Forgot Your Password-->
         <scene sceneID="HEs-ut-tSI">
@@ -2206,7 +2206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qpe-6C-J6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3701.5999999999999" y="275.61576354679806"/>
+            <point key="canvasLocation" x="4611.594202898551" y="275.22321428571428"/>
         </scene>
         <!--Forgot Your Password-->
         <scene sceneID="2oP-bB-jWi">
@@ -2368,7 +2368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dxe-c3-2YO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4487" y="276"/>
+            <point key="canvasLocation" x="5397.1014492753629" y="275.89285714285711"/>
         </scene>
         <!--Verify Code-->
         <scene sceneID="1I3-Id-U4b">
@@ -2577,7 +2577,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oZN-AW-31r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3142.0289855072465" y="734.59821428571422"/>
+            <point key="canvasLocation" x="4052.1739130434785" y="734.59821428571422"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="xzn-OT-FS0">
@@ -2612,7 +2612,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJF-Iu-Ca2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4843.4782608695659" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="6663.7681159420299" y="1052.6785714285713"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3jF-vZ-O5X">
@@ -2628,7 +2628,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XUQ-sM-xYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6408.6956521739139" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="8228.9855072463779" y="1052.6785714285713"/>
         </scene>
         <!--Help-->
         <scene sceneID="uoB-wm-WMe">
@@ -2670,12 +2670,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Zz-9D-kkE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7171.0144927536239" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="8991.3043478260879" y="1052.6785714285713"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Book Ride-->
         <scene sceneID="JFs-6F-Nvu">
             <objects>
                 <navigationController storyboardIdentifier="FirstViewController" navigationBarHidden="YES" id="GiH-tG-C4s" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Book Ride" image="bookride_ico_idle" selectedImage="bookride_ico_active" id="AoM-Kl-QiI">
+                        <color key="badgeColor" red="0.070588235289999995" green="0.38823529410000002" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R6E-Gl-Kab">
@@ -2687,7 +2690,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QJb-UX-pbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1334.7826086956522" y="754.6875"/>
+            <point key="canvasLocation" x="-424.63768115942031" y="754.6875"/>
         </scene>
         <!--Book Ride-->
         <scene sceneID="Ju1-0F-rpa">
@@ -2702,8 +2705,8 @@
                     <tabBarItem key="tabBarItem" title="Book Ride" image="bookride_ico_idle" selectedImage="bookride_ico_active" id="cPT-dj-zQG"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="GiH-tG-C4s" kind="custom" identifier="SideMenu.Content" customClass="SideMenuSegue" customModule="SideMenuSwift" id="ucn-RB-TLJ"/>
                         <segue destination="9ja-zW-Zco" kind="custom" identifier="SideMenu.Menu" customClass="SideMenuSegue" customModule="SideMenuSwift" id="vWJ-6h-BMs"/>
+                        <segue destination="GiH-tG-C4s" kind="custom" identifier="SideMenu.Content" customClass="SideMenuSegue" customModule="SideMenuSwift" id="20j-Kk-lTq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttt-Ie-j9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2722,7 +2725,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_set_destination" translatesAutoresizingMaskIntoConstraints="NO" id="yrB-gH-nyK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="765" width="414" height="79"/>
+                                <rect key="frame" x="0.0" y="716" width="414" height="79"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
@@ -2733,7 +2736,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Qx-LE-1va" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="200" y="619" width="14" height="153"/>
+                                <rect key="frame" x="200" y="570" width="14" height="153"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
@@ -2814,14 +2817,14 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="L23-ue-kpU" kind="relationship" relationship="rootViewController" id="XB0-DD-FoR"/>
+                        <segue destination="uVu-F4-Ovh" kind="relationship" relationship="rootViewController" id="XB0-DD-FoR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKu-gN-F5Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1582.608695652174" y="1498.6607142857142"/>
         </scene>
-        <!--Create Booking View Controller-->
+        <!--Book Ride-->
         <scene sceneID="pKq-i1-mEE">
             <objects>
                 <viewController storyboardIdentifier="BookingStep1" modalTransitionStyle="crossDissolve" id="L23-ue-kpU" customClass="KTCreateBookingViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
@@ -2830,7 +2833,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uYM-p6-0VQ" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="560"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="511"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -2838,7 +2841,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egy-u8-lUc">
-                                <rect key="frame" x="356" y="538.33333333333337" width="58" height="58"/>
+                                <rect key="frame" x="356" y="489.33333333333326" width="58" height="58"/>
                                 <state key="normal" image="current_location_icon"/>
                                 <connections>
                                     <action selector="currentLocationButtonAction:" destination="L23-ue-kpU" eventType="touchUpInside" id="Cmb-p5-WCR"/>
@@ -2912,14 +2915,14 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="2ec-DO-97R" customClass="KTAddressPin" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="147" y="214" width="120" height="72"/>
+                                <rect key="frame" x="147" y="189.66666666666666" width="120" height="71.999999999999972"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="72" id="RfG-0X-OqN"/>
                                     <constraint firstAttribute="width" constant="120" id="ewc-aH-tZc"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
-                                <rect key="frame" x="0.0" y="596.33333333333337" width="414" height="299.66666666666663"/>
+                                <rect key="frame" x="0.0" y="547.33333333333337" width="414" height="299.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM1-Su-Mie" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="19.999999999999993" y="20" width="116.33333333333331" height="15.666666666666664"/>
@@ -3128,7 +3131,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="oRN-BB-uz7">
-                                <rect key="frame" x="0.0" y="485" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="436" width="414" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="stW-Bp-UzO">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -3288,7 +3291,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXd-fk-x86">
-                                <rect key="frame" x="0.0" y="565" width="414" height="297"/>
+                                <rect key="frame" x="0.0" y="516" width="414" height="297"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TrH-Zz-li5">
                                         <rect key="frame" x="20" y="8" width="374" height="170"/>
@@ -3636,6 +3639,9 @@
                             <constraint firstItem="dXd-fk-x86" firstAttribute="top" secondItem="oRN-BB-uz7" secondAttribute="bottom" id="xzP-sk-JaC"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Book Ride" image="bookride_ico_idle" selectedImage="bookride_ico_active" id="RLE-Pi-BVA">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="HJc-9O-lht">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="m2P-Jy-JP4"/>
                     </navigationItem>
@@ -3681,7 +3687,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVP-rU-ue2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2318.840579710145" y="1496.6517857142856"/>
+            <point key="canvasLocation" x="3046" y="1497"/>
         </scene>
         <!--CallerID Popup-->
         <scene sceneID="zs6-tc-bRr">
@@ -3796,7 +3802,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mFT-PK-MYQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2908" y="2106"/>
+            <point key="canvasLocation" x="3817.3913043478265" y="2105.3571428571427"/>
         </scene>
         <!--Booking Confermation PopupVC-->
         <scene sceneID="r6A-cr-Yv7">
@@ -3939,7 +3945,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQS-11-clT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4210.144927536232" y="1066.7410714285713"/>
+            <point key="canvasLocation" x="6030.434782608696" y="1066.7410714285713"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JVg-0i-CMn">
@@ -4199,13 +4205,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrr-LW-66P">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsNoTrip" translatesAutoresizingMaskIntoConstraints="NO" id="Psf-3I-ypj">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="717"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="712"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-sh-uSy">
-                                        <rect key="frame" x="134.66666666666666" y="725" width="144.99999999999997" height="29"/>
+                                        <rect key="frame" x="134.66666666666666" y="720" width="144.99999999999997" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="tuz-2v-Ubb"/>
                                             <constraint firstAttribute="width" constant="145" id="yxH-Xg-KYj"/>
@@ -4230,7 +4236,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sb9-0i-o7X">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MyTripsReuseIdentifier" rowHeight="158" id="U8K-VR-swH" customClass="KTMyTripsTableViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -5168,7 +5174,7 @@
                         <outlet property="btnRecenter" destination="mB1-6N-keC" id="CUo-IK-LnW"/>
                         <outlet property="btnReveal" destination="fe2-d4-qJR" id="ech-hD-hrp"/>
                         <outlet property="mapView" destination="h6a-f0-McA" id="rau-lw-5zc"/>
-                        <segue destination="L23-ue-kpU" kind="show" identifier="segueDetailToReBook" id="izn-m5-Pdm"/>
+                        <segue destination="uVu-F4-Ovh" kind="show" identifier="segueDetailToReBook" id="izn-m5-Pdm"/>
                         <segue destination="tXe-Bx-5sw" kind="presentation" identifier="segueComplaintCategorySelection" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="xtI-7f-jBP"/>
                     </connections>
                 </viewController>
@@ -6246,7 +6252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lct-yU-795" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5786" y="2040"/>
+            <point key="canvasLocation" x="6695.652173913044" y="2039.7321428571427"/>
         </scene>
         <!--Complaints Category Scene-->
         <scene sceneID="Zst-SX-2rO">
@@ -6953,7 +6959,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mw6-j9-tBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4420.289855072464" y="2041.3043478260872"/>
+            <point key="canvasLocation" x="5330.434782608696" y="2041.0714285714284"/>
         </scene>
         <!--Fare Popup View Controller-->
         <scene sceneID="47b-n1-7LI">
@@ -7151,7 +7157,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVM-O7-xC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5120" y="2042"/>
+            <point key="canvasLocation" x="6028.985507246377" y="2041.7410714285713"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="pSa-WO-Dbs">
@@ -7801,13 +7807,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MoV-li-qfF">
                                                             <rect key="frame" x="35" y="4.3333333333333339" width="299" height="31.666666666666664"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" text="Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9D-0P-vgW">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" ambiguous="YES" text="Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9D-0P-vgW">
                                                                     <rect key="frame" x="0.0" y="0.0" width="299" height="17"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.0" green="0.34509803919999998" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <color key="highlightedColor" red="0.29803921568627451" green="0.29803921568627451" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fdurdur  rdur u dur uurdrudurdu6r dr ur6du" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njO-NP-LfK">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="fdurdur  rdur u dur uurdrudurdu6r dr ur6du" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njO-NP-LfK">
                                                                     <rect key="frame" x="0.0" y="17" width="299" height="14.666666666666664"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -9470,7 +9476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVF-aa-BPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7973.9130434782619" y="2040.4017857142856"/>
+            <point key="canvasLocation" x="8884.0579710144939" y="2040.4017857142856"/>
         </scene>
         <!--Payment Selection Bottom Sheet Controller-->
         <scene sceneID="R7Q-oM-Hj8">
@@ -9528,7 +9534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qca-6H-y4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8678" y="2042"/>
+            <point key="canvasLocation" x="9586.9565217391319" y="2041.7410714285713"/>
         </scene>
         <!--Promo Code PopupVC-->
         <scene sceneID="Xdk-UL-aed">
@@ -9668,7 +9674,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KWu-eb-s9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4568.115942028986" y="1860.9375"/>
+            <point key="canvasLocation" x="5478.2608695652179" y="1860.9375"/>
         </scene>
         <!--Generic InputVC-->
         <scene sceneID="NrR-p6-SPL">
@@ -9804,7 +9810,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8v-vt-Yb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5681.1594202898559" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="7501.449275362319" y="1052.6785714285713"/>
         </scene>
         <!--Manage Payment View Controller-->
         <scene sceneID="xtd-WR-1w5">
@@ -10310,7 +10316,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IA-5a-cKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7192.753623188406" y="2039.7321428571427"/>
+            <point key="canvasLocation" x="8102.898550724638" y="2039.7321428571427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5yL-hU-pGj">
@@ -10328,7 +10334,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7d-Yc-PyI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6496" y="2040"/>
+            <point key="canvasLocation" x="7405.7971014492759" y="2039.7321428571427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fno-CA-S6o">
@@ -10344,7 +10350,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MhF-zG-zyP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7866.666666666667" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="9686.9565217391319" y="1052.6785714285713"/>
         </scene>
         <!--Wallet View Controller-->
         <scene sceneID="vpu-lm-ckZ">
@@ -10375,13 +10381,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zAO-0z-9NM">
                                                     <rect key="frame" x="80" y="18.000000000000004" width="91.333333333333314" height="34.333333333333343"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
                                                             <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
                                                             <rect key="frame" x="0.0" y="19.666666666666664" width="91.333333333333329" height="14.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -10637,7 +10643,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SQh-0Y-lBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8628.9855072463779" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="10449.275362318842" y="1052.6785714285713"/>
         </scene>
         <!--Wallet-->
         <scene sceneID="1SD-vb-PbG">
@@ -10901,7 +10907,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsl-KV-aaw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9363.7681159420299" y="1052.6785714285713"/>
+            <point key="canvasLocation" x="11184.057971014494" y="1052.6785714285713"/>
         </scene>
         <!--Wallet-->
         <scene sceneID="AV4-Ao-MKA">
@@ -10961,26 +10967,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="le6-Rj-zUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10081.159420289856" y="1052.6785714285713"/>
-        </scene>
-        <!--Tab View Controller-->
-        <scene sceneID="Vdp-1G-Ux7">
-            <objects>
-                <tabBarController storyboardIdentifier="TabViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GK8-46-KKa" customClass="TabViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rfZ-pK-Orx">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="x1n-cl-kCl" kind="relationship" relationship="viewControllers" id="S26-Mt-3Hh"/>
-                        <segue destination="9c0-et-wyN" kind="relationship" relationship="viewControllers" id="yNy-mX-9Xe"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LTu-kH-DXJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3099" y="1330"/>
+            <point key="canvasLocation" x="11901.44927536232" y="1052.6785714285713"/>
         </scene>
         <!--Express Link-->
         <scene sceneID="F7H-2v-UgM">
@@ -10995,7 +10982,6 @@
                     <tabBarItem key="tabBarItem" title="Express Link" image="xpresslink_ico_idle" selectedImage="xpresslink_ico_active" id="soy-3w-nyt"/>
                     <connections>
                         <segue destination="CjY-W0-WLG" kind="custom" identifier="SideMenu.Menu" customClass="SideMenuSegue" customModule="SideMenuSwift" id="i1h-3b-3lb"/>
-                        <segue destination="Cuc-rR-60o" kind="custom" identifier="SideMenu.Content" customClass="SideMenuSegue" customModule="SideMenuSwift" id="xdP-an-FOz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c9H-qs-GoF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -11141,7 +11127,7 @@
             </objects>
             <point key="canvasLocation" x="-3670" y="496"/>
         </scene>
-        <!--Xpress Pick Up View Controller-->
+        <!--Xpress Link-->
         <scene sceneID="cLY-g8-PLK">
             <objects>
                 <viewController storyboardIdentifier="XpressBooking" modalTransitionStyle="crossDissolve" id="zBY-Du-PDN" customClass="KTXpressPickUpViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
@@ -11158,7 +11144,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6l-It-L3R" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="191" y="400" width="38" height="44"/>
+                                <rect key="frame" x="191" y="375.66666666666669" width="38" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="AT4-S6-zCF"/>
                                     <constraint firstAttribute="width" constant="38" id="QHo-cU-nDc"/>
@@ -11166,7 +11152,7 @@
                                 <state key="normal" image="pin_outofzone"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dnz-iy-Dm3">
-                                <rect key="frame" x="352" y="585" width="44" height="44"/>
+                                <rect key="frame" x="352" y="536" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="rIZ-4g-Wgj"/>
                                     <constraint firstAttribute="width" constant="44" id="ua3-1c-E51"/>
@@ -11174,7 +11160,7 @@
                                 <state key="normal" image="current_loc_ico"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYU-8p-z2r">
-                                <rect key="frame" x="18" y="657" width="378" height="185"/>
+                                <rect key="frame" x="18" y="608" width="378" height="185"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pickup_pin" translatesAutoresizingMaskIntoConstraints="NO" id="7c0-Lv-qq7">
                                         <rect key="frame" x="19" y="18" width="21" height="31"/>
@@ -11373,6 +11359,9 @@
                             <constraint firstItem="TeW-q2-t37" firstAttribute="leading" secondItem="IoV-SH-B7T" secondAttribute="leadingMargin" id="z18-bb-hLV"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Xpress Link" image="xpresslink_ico_idle" selectedImage="xpresslink_ico_active" id="Mr0-Um-Emf">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="Mew-M1-AWz">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="R45-7R-edK"/>
                     </navigationItem>
@@ -11484,21 +11473,21 @@
                                                     </constraints>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qIp-a5-DH0">
-                                                    <rect key="frame" x="373" y="20" width="21" height="22"/>
+                                                    <rect key="frame" x="352" y="11" width="53" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="21" id="NTn-yL-ksy"/>
-                                                        <constraint firstAttribute="height" constant="22" id="fWk-7y-MVe"/>
+                                                        <constraint firstAttribute="width" constant="53" id="NTn-yL-ksy"/>
+                                                        <constraint firstAttribute="height" constant="40" id="fWk-7y-MVe"/>
                                                     </constraints>
                                                     <color key="tintColor" systemColor="systemGray4Color"/>
-                                                    <state key="normal" image="fav_star_ico"/>
+                                                    <state key="normal" image="APICMore"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="po5-Iq-ugk" firstAttribute="leading" secondItem="Efe-g1-Rug" secondAttribute="leading" constant="20" symbolic="YES" id="2aZ-gB-sUc"/>
-                                                <constraint firstItem="qIp-a5-DH0" firstAttribute="leading" secondItem="fVw-nr-wOI" secondAttribute="trailing" constant="14" id="2ox-fa-HTN"/>
+                                                <constraint firstItem="qIp-a5-DH0" firstAttribute="leading" secondItem="fVw-nr-wOI" secondAttribute="trailing" constant="-7" id="2ox-fa-HTN"/>
                                                 <constraint firstItem="fVw-nr-wOI" firstAttribute="leading" secondItem="po5-Iq-ugk" secondAttribute="trailing" constant="16" id="DSI-fy-1aB"/>
                                                 <constraint firstItem="fVw-nr-wOI" firstAttribute="centerY" secondItem="Efe-g1-Rug" secondAttribute="centerY" id="H5D-jH-F3C"/>
-                                                <constraint firstAttribute="trailing" secondItem="qIp-a5-DH0" secondAttribute="trailing" constant="20" id="LUU-2K-ynw"/>
+                                                <constraint firstAttribute="trailing" secondItem="qIp-a5-DH0" secondAttribute="trailing" constant="9" id="LUU-2K-ynw"/>
                                                 <constraint firstItem="po5-Iq-ugk" firstAttribute="top" secondItem="FHX-EI-s0r" secondAttribute="top" id="Z4B-SW-SE4"/>
                                                 <constraint firstItem="qIp-a5-DH0" firstAttribute="centerY" secondItem="Efe-g1-Rug" secondAttribute="centerY" id="cbZ-hv-EJp"/>
                                             </constraints>
@@ -11554,11 +11543,13 @@
             </objects>
             <point key="canvasLocation" x="-2113.0434782608695" y="-175.44642857142856"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Express Link-->
         <scene sceneID="4iS-xO-fxa">
             <objects>
                 <navigationController storyboardIdentifier="XpressBookingNavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="Cuc-rR-60o" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Express Link" image="xpresslink_ico_idle" selectedImage="xpresslink_ico_active" id="lXl-uT-O8a"/>
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="uxz-6l-VPL">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -12810,6 +12801,7 @@
                         <outlet property="rideServiceView" destination="TS3-ke-1AL" id="fke-nb-QmP"/>
                         <outlet property="setBookingButton" destination="Rvo-tl-b2o" id="eHH-kc-uqC"/>
                         <outlet property="walkToPickUpView" destination="jJH-Vc-OLo" id="ZeM-EB-dlK"/>
+                        <segue destination="Lyp-sm-LQ1" kind="show" identifier="segueXpressBookingListForDetails" id="rqR-e6-HCz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynu-Ir-ORe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -14183,6 +14175,26 @@
             </objects>
             <point key="canvasLocation" x="746" y="-1602"/>
         </scene>
+        <!--Tab View Controller-->
+        <scene sceneID="znT-er-NxX">
+            <objects>
+                <tabBarController storyboardIdentifier="TabViewController" automaticallyAdjustsScrollViewInsets="NO" id="uVu-F4-Ovh" customClass="TabViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="aI8-YG-dOt"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bwv-jS-0JQ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="L23-ue-kpU" kind="relationship" relationship="viewControllers" id="7zE-3X-zpg"/>
+                        <segue destination="zBY-Du-PDN" kind="relationship" relationship="viewControllers" id="itz-h2-jiH"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bER-uY-1y1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2318.840579710145" y="1496.6517857142856"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="0hF-e9-5FJ">
@@ -14249,7 +14261,7 @@
             <size key="intrinsicContentSize" width="113" height="28"/>
         </designable>
         <designable name="KXG-l9-2gL">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
         <designable name="Kdh-NL-2a0">
             <size key="intrinsicContentSize" width="38" height="44"/>
@@ -14429,7 +14441,7 @@
             <size key="intrinsicContentSize" width="30" height="29"/>
         </designable>
         <designable name="tsX-Ub-xAj">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
         <designable name="uAf-9D-Eh5">
             <size key="intrinsicContentSize" width="31" height="32"/>
@@ -14466,17 +14478,18 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
+        <segue reference="bsC-QL-uBN"/>
+        <segue reference="itz-h2-jiH"/>
         <segue reference="xtI-7f-jBP"/>
         <segue reference="4lO-1G-0fb"/>
         <segue reference="UaL-kR-7Gj"/>
         <segue reference="ArU-ag-8ou"/>
-        <segue reference="o4e-xE-9YN"/>
-        <segue reference="izn-m5-Pdm"/>
-        <segue reference="UM1-sb-1vB"/>
+        <segue reference="wE4-w3-3Ll"/>
+        <segue reference="uRk-Bz-EyY"/>
         <segue reference="wcf-kD-wML"/>
         <segue reference="Otx-q2-Oud"/>
         <segue reference="IsY-nq-8bd"/>
-        <segue reference="nfG-yr-EC7"/>
+        <segue reference="WXo-bu-cGa"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="APICHome" width="30" height="30"/>
@@ -14511,7 +14524,7 @@
         <image name="arrow_right copy_2" width="4.6666665077209473" height="8"/>
         <image name="arrows" width="196" height="14"/>
         <image name="avatar" width="35" height="35"/>
-        <image name="back_arrow_ico" width="18" height="13.666666984558105"/>
+        <image name="back_arrow_ico" width="8" height="14"/>
         <image name="balance_box" width="352" height="122"/>
         <image name="bookmark_popup" width="232" height="189.66667175292969"/>
         <image name="bookride_ico_active" width="21" height="21"/>
@@ -14538,7 +14551,6 @@
         <image name="empty_cards_icon" width="34" height="34"/>
         <image name="empty_star_ico" width="48" height="48"/>
         <image name="eta_box" width="130" height="32"/>
-        <image name="fav_star_ico" width="15" height="15"/>
         <image name="favorite_map_ico" width="18" height="18"/>
         <image name="filled" width="20" height="20"/>
         <image name="filled_star_ico" width="48" height="48"/>

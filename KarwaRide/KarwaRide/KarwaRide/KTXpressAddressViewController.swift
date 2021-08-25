@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Spring
 
-class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPickerViewModelDelegate {
+class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPickerViewModelDelegate, AddressPickerCellDelegate, KTXpressFavoriteDelegate {
 
     @IBOutlet weak var pickUpAddressHeaderLabel: SpringLabel!
     @IBOutlet weak var textField: UITextField!
@@ -20,6 +20,8 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     var fromPickup: Bool?
     var fromDropOff: Bool?
 
+    var delegateAddress: KTXpressAddressDelegate?
+    
     var vModel : KTXpressAddressPickerViewModel?
     var metroStations = [Area]()
 
@@ -87,9 +89,9 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         if section == 0 {
             return nil
         } else if section == 1 {
-            headerLabel.text = "favorites_title".localized().capitalized
+            headerLabel.text = "favorites_title".localizedUppercase
         } else {
-            headerLabel.text = "str_metro_title".localized().capitalized
+            headerLabel.text = "str_metro_title".localizedUppercase
         }
       
         headerLabel.textColor = UIColor(hexString: "#8EA8A7")
@@ -117,14 +119,84 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         cell.addressLabel.text = (viewModel as! KTXpressAddressPickerViewModel).addressArea(forIndex: indexPath)
         cell.icon.image = (viewModel as! KTXpressAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
         
+        cell.moreButton.setImage((viewModel as! KTXpressAddressPickerViewModel).moreButtonIcon(forIndex: indexPath), for: .normal)
+        
+        cell.moreButton.addTarget(self, action: #selector(showActionSheet(sender:)), for: .touchUpInside)
+        
         cell.moreButton.tag = indexPath.row
+        cell.delegate = self
         
         return cell
         
     }
     
+    @objc func showActionSheet(sender: UIButton) {
+        guard let cell = sender.superview?.superview as? KTXpressAddressTableViewCell else {
+            return // or fatalError() or whatever
+        }
+        
+        let indexPath = tableView.indexPath(for: cell)
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel, handler: nil)
+        let homeAction = UIAlertAction(title: "set_as_home_address".localized(), style: .default) { (UIAlertAction) in
+            (self.viewModel as! KTXpressAddressPickerViewModel).setHome(forIndex: indexPath!)
+        }
+        let workAction = UIAlertAction(title: "set_as_work_address".localized(), style: .default) { (UIAlertAction) in
+            (self.viewModel as! KTXpressAddressPickerViewModel).setWork(forIndex: indexPath!)
+        }
+        let favoriteAction = UIAlertAction(title: "set_as_favorite".localized(), style: .default) { (UIAlertAction) in
+            (self.viewModel as! KTXpressAddressPickerViewModel).setFavorite(forIndex: indexPath!)
+        }
+        
+        alertController.addAction(cancelAction)
+        
+        if indexPath!.section != 2 {
+            let location = (self.viewModel as! KTXpressAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath!)
+            if location.type == geoLocationType.Home.rawValue {
+                alertController.addAction(workAction)
+                alertController.addAction(favoriteAction)
+            }
+            else if location.type == geoLocationType.Work.rawValue {
+                alertController.addAction(homeAction)
+                alertController.addAction(favoriteAction)
+            }else if location.type == geoLocationType.favorite.rawValue {
+                alertController.addAction(homeAction)
+                alertController.addAction(workAction)
+            }
+            else {
+                alertController.addAction(homeAction)
+                alertController.addAction(workAction)
+                alertController.addAction(favoriteAction)
+            }
+            alertController.modalTransitionStyle = .crossDissolve
+            self.present(alertController, animated: true, completion: nil)
+
+        } else {
+            
+        }
+        
+        
+    }
+    
+    func toGeolocation(area: Area) -> KTGeoLocation {
+        let location = KTGeoLocation(context: NSManagedObjectContext.mr_default())
+        location.area = metroStations.first?.name
+        
+        let coordinates = (area.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+        })!
+        location.latitude = coordinates.first!.latitude
+        location.longitude = coordinates.first!.longitude
+        location.name = area.name
+        location.locationId = Int32((area.code)!)
+        location.type = 0
+        location.favoriteName = area.name ?? ""
+        return location
+    }
+  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        self.delegateAddress?.setLocation(location: (self.viewModel as! KTXpressAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath))
     }
     
     func loadData() {
@@ -180,9 +252,15 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func navigateToFavoriteScreen(location: KTGeoLocation?) {
-        
+        let vc = KTXpressFavoriteAddressViewController()
+        vc.favoritelocation = location
+        vc.xpressFavoriteDelegate = self
+        self.present(vc, animated: true, completion: nil)
     }
     
+    func btnMoreTapped(withTag idx: Int) {
+        
+    }
     
 }
 
@@ -232,9 +310,10 @@ extension KTXpressAddressViewController:  UITextFieldDelegate {
     
     @objc func updateTimer() {
       print("OK Start searching now")
-      
         (viewModel as! KTXpressAddressPickerViewModel).fetchLocations(forSearch: searchText)
-      
+    }
+    func savedFavorite() {
+        (viewModel as! KTXpressAddressPickerViewModel).fetchLocations()
     }
 }
 
@@ -246,6 +325,7 @@ class KTXpressAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var moreButton: UIButton!
+    var delegate : AddressPickerCellDelegate?
 
     override func awakeFromNib()
     {
@@ -257,6 +337,12 @@ class KTXpressAddressTableViewCell: UITableViewCell {
     {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+    
+    @IBAction func btnMoreTapped(_ sender: Any) {
+        
+        //TODO: Show action sheet. As discussed with Danish bahi
+        self.delegate?.btnMoreTapped(withTag: moreButton.tag)
     }
     
 }

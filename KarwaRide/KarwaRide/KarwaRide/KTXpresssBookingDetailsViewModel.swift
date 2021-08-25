@@ -154,7 +154,6 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func bookingId() -> String {
-        
         return booking?.bookingId ?? "RS210807-ILNL"
     }
     
@@ -1130,9 +1129,15 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         } else {
             let formatter: NumberFormatter = NumberFormatter()
             formatter.locale = NSLocale(localeIdentifier: "EN") as Locale!
-            let final = formatter.number(from: (booking?.fare?.components(separatedBy: " ")[1])!)
-            let totalFare = Int(booking?.driverTip ?? 0) + Int(final!)
-            return (booking?.fare?.components(separatedBy: " ")[0])! + " " + String(totalFare)
+            
+            if (booking?.fare?.count ?? 0) > 0 {
+                let final = formatter.number(from: (booking?.fare?.components(separatedBy: " ")[1])!)
+                let totalFare = Int(booking?.driverTip ?? 0) + Int(final!)
+                return (booking?.fare?.components(separatedBy: " ")[0])! + " " + String(totalFare)
+            }
+            
+            return ""
+            
         }
                 
                 

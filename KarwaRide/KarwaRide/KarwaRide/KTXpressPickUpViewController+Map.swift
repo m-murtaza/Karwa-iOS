@@ -62,40 +62,31 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         else
         {
             let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-                
+            let name = "XpressLocationManagerNotificationIdentifier"
+            
             if (self.viewModel as! KTXpressPickUpViewModel).areas.count > 0 {
                 (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
                 KTLocationManager.sharedInstance.setCurrentLocation(location: location)
             } else {
-                let name = "LocationManagerNotificationIdentifier"
                 NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
                 KTLocationManager.sharedInstance.setCurrentLocation(location: location)
+                (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
             }
             
             (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             
-            if let string = (self.viewModel as! KTXpressPickUpViewModel).areas.filter({$0.type! == "OperatingArea"}).first?.bound {
-                
-                let coordinates = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                }
-                
-                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                    self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
-                    self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-                    self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
-                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
-                    self.setPickUpButton.isUserInteractionEnabled = true
-                } else {
-                    print("it wont contains")
-                    self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
-                    self.setPickUpButton.backgroundColor = UIColor.clear
-                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
-                    self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
-                    self.setPickUpButton.isUserInteractionEnabled = false
-                }
-            
-
+            if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: location) {
+                self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = true
+            } else {
+                self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor.clear
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = false
             }
             
         }

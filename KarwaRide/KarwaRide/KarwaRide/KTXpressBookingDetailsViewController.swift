@@ -425,11 +425,15 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
 
     @IBAction func btnBackTapped(_ sender: Any) {
-        
         if let navController = self.navigationController {
-            navController.popToRootViewController(animated: true)
+            if navController.viewControllers.count > 2 {
+                navController.popToViewController(navController.viewControllers[1], animated: true)
+            } else {
+                navController.popToRootViewController(animated: true)
+            }
         }
     }
+    
     //MARK:- Assignment Info
     
     func updateAssignmentInfo() {

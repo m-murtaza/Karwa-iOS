@@ -31,6 +31,10 @@ class TabViewController: UITabBarController {
         
     }
     
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        navigationController?.isNavigationBarHidden = true
+    }
+    
 }
 
 extension UIImage {

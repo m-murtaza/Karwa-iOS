@@ -51,13 +51,8 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
     }
 
     @IBAction func backPressed(_ sender: Any) {
-        if let index = self.tabBarController?.selectedIndex, index == 1 {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController")
-            sideMenuController?.hideMenu()
-        } else {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuController?.hideMenu()
-        }
+        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+        sideMenuController?.hideMenu()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

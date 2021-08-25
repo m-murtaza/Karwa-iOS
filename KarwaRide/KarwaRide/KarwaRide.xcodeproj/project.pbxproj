@@ -73,6 +73,7 @@
 		0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22E2185B5430000503B /* KTPaymentManager.swift */; };
 		0DF5D51622F053940057BED9 /* KTTipTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF5D51522F053940057BED9 /* KTTipTagButton.swift */; };
 		0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFFA828218F5F8D00F9EFE2 /* MAKHashGenerator.swift */; };
+		1808F46126D2787700D10F64 /* KTXpressFavoriteAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18819BCA26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.xib */; };
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
 		1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */; };
@@ -184,6 +185,7 @@
 		187E71112083790300E66A55 /* KTRatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71102083790300E66A55 /* KTRatingManager.swift */; };
 		187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71122084935100E66A55 /* KTRatingViewController.swift */; };
 		187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71142084B53400E66A55 /* KTRatingViewModel.swift */; };
+		18819BCC26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18819BCB26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift */; };
 		1886187420761B14000806D3 /* KTCancelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187320761B14000806D3 /* KTCancelViewController.swift */; };
 		1886187620763C3A000806D3 /* KTCancelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187520763C3A000806D3 /* KTCancelViewModel.swift */; };
 		188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */; };
@@ -455,6 +457,8 @@
 		187E71102083790300E66A55 /* KTRatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingManager.swift; path = Classes/DAL/Rating/KTRatingManager.swift; sourceTree = "<group>"; };
 		187E71122084935100E66A55 /* KTRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTRatingViewController.swift; sourceTree = "<group>"; };
 		187E71142084B53400E66A55 /* KTRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewModel.swift; path = "Classes/View Models/BookingDetails/KTRatingViewModel.swift"; sourceTree = "<group>"; };
+		18819BCA26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KTXpressFavoriteAddressViewController.xib; sourceTree = "<group>"; };
+		18819BCB26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressFavoriteAddressViewController.swift; sourceTree = "<group>"; };
 		1886187320761B14000806D3 /* KTCancelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTCancelViewController.swift; sourceTree = "<group>"; };
 		1886187520763C3A000806D3 /* KTCancelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTCancelViewModel.swift; path = "Classes/View Models/BookingDetails/KTCancelViewModel.swift"; sourceTree = "<group>"; };
 		188618772079FCB7000806D3 /* cancelReasonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = cancelReasonTableViewCell.swift; path = Classes/Views/Controllers/BookingDetails/cancelReasonTableViewCell.swift; sourceTree = "<group>"; };
@@ -793,6 +797,8 @@
 		1811AE2526AD19DA002C991E /* Xpress */ = {
 			isa = PBXGroup;
 			children = (
+				18819BCA26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.xib */,
+				18819BCB26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift */,
 				1811AE3926AD1A1F002C991E /* XpressAddress */,
 				1811AE3626AD1A1B002C991E /* KTXpressAddressViewController.swift */,
 				1811AE3526AD1A1B002C991E /* ViewControllerExtension.swift */,
@@ -1670,6 +1676,7 @@
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
 				F07CFD722630231D00F003DA /* KTPaymentMethodSelectionView.xib in Resources */,
 				441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */,
+				1808F46126D2787700D10F64 /* KTXpressFavoriteAddressViewController.xib in Resources */,
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */,
 				F07CFD7E26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib in Resources */,
@@ -1990,6 +1997,7 @@
 				1811E4E0204FD22300C3C47F /* KTBookmarkManager.swift in Sources */,
 				18F2B2712042BE4B00600966 /* KTLeftMenuModel.swift in Sources */,
 				18F2B2792044214000600966 /* KTSettingsViewController.swift in Sources */,
+				18819BCC26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift in Sources */,
 				0DE6A743218B141200125507 /* Gateway.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */,

@@ -324,7 +324,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sideMeun = SideMenuController(contentViewController: view, menuViewController: leftView)
         let tabbarController = sBoard.instantiateViewController(withIdentifier: "TabViewController")
         window? = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabbarController
+        window?.rootViewController = sideMeun
         window?.rootViewController?.tabBarController?.tabBar.alpha = 0
         window?.rootViewController?.tabBarController?.tabBar.isHidden = false
         window?.makeKeyAndVisible()
