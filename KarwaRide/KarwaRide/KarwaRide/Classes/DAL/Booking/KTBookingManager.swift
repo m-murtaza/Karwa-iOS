@@ -170,6 +170,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.tripType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TripType] as! Int16 : 1
         
         b.otp = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.OTP] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.OTP] as? String : ""
+        
+        b.desc = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Desc] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Desc] as? String : ""
+
 
         return b
     }

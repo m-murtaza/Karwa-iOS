@@ -315,6 +315,7 @@ struct Constants {
         static let TrackId = "TrackID"
         static let TripType = "TripType"
         static let OTP = "Otp"
+        static let Desc = "Desc"
 
     }
     
