@@ -112,15 +112,20 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     func fetchRideService() {
         
-        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [self] (String, response) in
+        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (String, response) in
                         
+            guard let strongSelf = self else{
+                return
+            }
+            
             print("ridedata", response)
                         
-            self.rideInfo?.rides.removeAll()
+            strongSelf.rideInfo?.rides.removeAll()
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
             guard let rides = response["Rides"] as? [[String : Any]] else {
+                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "No ride found")
                 return
             }
             
@@ -144,16 +149,16 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
 
             }
             
-            self.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: (response["ExpirySeconds"] as! Int))
+            strongSelf.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: (response["ExpirySeconds"] as! Int))
             
-            print(self.rideInfo)
+            print(strongSelf.rideInfo)
             
-            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
-            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: self.rideInfo?.expirySeconds ?? 0)
-            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!))
+            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
+            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: strongSelf.rideInfo?.expirySeconds ?? 0)
+            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].pick?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].pick?.lon)!))
 
             
-            (self.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
+            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
             
         }
         

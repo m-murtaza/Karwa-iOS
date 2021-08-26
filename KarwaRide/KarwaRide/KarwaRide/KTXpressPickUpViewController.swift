@@ -70,7 +70,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @IBAction func setCurrentLocation(sender: UIButton) {
 
         //for temporary
-        let location = CLLocation(latitude: 25.281308, longitude: 51.531917)
+        let location = CLLocation(latitude: mapView.myLocation?.coordinate.latitude ?? 0.00, longitude: mapView.myLocation?.coordinate.longitude ?? 0.00)
         KTLocationManager.sharedInstance.setCurrentLocation(location: location)
     }
     
@@ -119,6 +119,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.pickUpZone = pickUpzone
         dropOff.operationArea = (self.viewModel as! KTXpressPickUpViewModel).areas
         dropOff.zonalArea = zonalArea
+        dropOff.countOfPassenger = countOfPassenger
 
         self.navigationController?.pushViewController(dropOff, animated: true)
         
@@ -147,12 +148,76 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
         addressPicker.metroStations = (self.viewModel as! KTXpressPickUpViewModel).pickUpArea
         addressPicker.delegateAddress = self
+        addressPicker.fromPickup = true
         self.navigationController?.pushViewController(addressPicker, animated: true)
     }
     
     func setLocation(location: Any) {
         
-        print(location)
+        if let loc = location as? KTGeoLocation {
+            print(location)
+            (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+            self.setPickUp(pick: loc.name)
+            KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
+            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 16)
+            mapView.camera = camera
+            mapView.animate(to: camera)
+            if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: actualLocation) {
+                self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = true
+            } else {
+                self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor.clear
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = false
+            }
+        } else {
+            
+            if let loc = location as? Area {
+                print(location)
+                
+                self.tapOnMarker = true
+                
+                let firstValue = loc.bound?.components(separatedBy: ";").first
+                
+               let coordinate = firstValue.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                }
+                
+                guard let metroAreaCoordinate = coordinate else {
+                    return
+                }
+                
+                print(metroAreaCoordinate.latitude)
+
+                (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
+
+                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 17.0)
+                self.mapView.camera = camera
+
+                (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+
+
+                (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
+
+                defer {
+                    (self.viewModel as! KTXpressPickUpViewModel).showStopAlert()
+                }
+
+                self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
+                self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                self.setPickUpButton.isUserInteractionEnabled = true
+            }
+            
+        }
+        
         
     }
     

@@ -10,8 +10,8 @@ import UIKit
 import GoogleMaps
 import Spring
 
-class KTXpressDropOffViewController: KTBaseCreateBookingController {
-
+class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddressDelegate {
+    
     @IBOutlet weak var dropOffAddressLabel: SpringLabel!
     
     @IBOutlet weak var plusButton: UIButton!
@@ -23,6 +23,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
     @IBOutlet weak var setDropOffButton: UIButton!
     
     @IBOutlet weak var markerButton: SpringButton!
+    
+    @IBOutlet weak var showAddressPickerBtn: UIButton!
     
     var vModel : KTXpressDropoffViewModel?
 
@@ -75,19 +77,35 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
 
         self.setDropOffButton.addTarget(self, action: #selector(clickToSetUpBooking), for: .touchUpInside)
 
+        self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
+        
+        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+
         
     }
     
+    @objc func showAddressPickerViewController() {
+        let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
+        addressPicker.metroStations = (self.viewModel as! KTXpressDropoffViewModel).destinationsForPickUp
+        addressPicker.delegateAddress = self
+        addressPicker.fromDropOff = true
+        self.navigationController?.pushViewController(addressPicker, animated: true)
+    }
     
     @IBAction func setCountForPassenger(sender: UIButton) {
-        
-        if sender.tag == 10 {
+        if sender.tag == 101 {
             countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
         } else {
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
         }
-        
         (viewModel as? KTXpressDropoffViewModel)?.countOfPassenger = countOfPassenger
+        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+    }
+    
+    func setPassenderCount(count: String?) {
+        guard count != nil else {
+            return
+        }
         
         self.passengerLabel.text = "\(countOfPassenger) Passenger"
         
@@ -135,6 +153,62 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController {
         self.navigationController?.pushViewController(rideService!, animated: true)
         
     }
+    
+    func setLocation(location: Any) {
+        
+        if let loc = location as? KTGeoLocation {
+            print(location)
+            (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+            KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
+            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 16)
+            mapView.camera = camera
+            mapView.animate(to: camera)
+            
+            self.checkPermittedDropOff(actualLocation)
+            
+        } else {
+            
+            if let loc = location as? Area {
+                print(location)
+                
+                self.tapOnMarker = true
+                
+                let firstValue = loc.bound?.components(separatedBy: ";").first
+                
+               let coordinate = firstValue.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                }
+                
+                guard let metroAreaCoordinate = coordinate else {
+                    return
+                }
+                
+                print(metroAreaCoordinate.latitude)
+
+                (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = metroAreaCoordinate
+
+                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 17.0)
+                self.mapView.camera = camera
+
+                (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+                
+                defer {
+                    (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+                }
+
+                self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                self.setDropOffButton.isUserInteractionEnabled = true
+            }
+            
+        }
+        
+        
+    }
+    
 
 
     /*

@@ -151,8 +151,7 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         
         alertController.addAction(cancelAction)
         
-        if indexPath!.section != 2 {
-            let location = (self.viewModel as! KTXpressAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath!)
+        if let location = (self.viewModel as! KTXpressAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath!) as? KTGeoLocation {
             if location.type == geoLocationType.Home.rawValue {
                 alertController.addAction(workAction)
                 alertController.addAction(favoriteAction)
@@ -171,9 +170,6 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
             }
             alertController.modalTransitionStyle = .crossDissolve
             self.present(alertController, animated: true, completion: nil)
-
-        } else {
-            
         }
         
         
@@ -197,6 +193,7 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegateAddress?.setLocation(location: (self.viewModel as! KTXpressAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath))
+        self.navigationController?.popViewController(animated: true)
     }
     
     func loadData() {

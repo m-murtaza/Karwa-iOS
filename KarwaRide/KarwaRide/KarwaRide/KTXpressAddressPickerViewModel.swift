@@ -104,13 +104,13 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
     locations[idx]
   }
     
-  func locationAtIndexPath(indexPath: IndexPath) -> KTGeoLocation {
+  func locationAtIndexPath(indexPath: IndexPath) -> Any {
     if indexPath.section == 1 {
         return bookmarks[indexPath.row]
     } else if indexPath.section == 0 {
         return locations[indexPath.row]
     } else {
-        return KTGeoLocation()
+        return metroStations[indexPath.row]
     }
  }
   

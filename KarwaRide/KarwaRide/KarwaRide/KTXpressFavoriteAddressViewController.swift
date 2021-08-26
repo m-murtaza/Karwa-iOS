@@ -29,7 +29,7 @@ class KTXpressFavoriteAddressViewController: KTBaseViewController, UITextFieldDe
     }
     
     private func setupUI() {
-        changeStatusBarColor(color: UIColor.primaryLight)
+        //changeStatusBarColor(color: UIColor.primaryLight)
        // navigationBar.backgroundColor = UIColor.primaryLight
         
         locationNameTextField.placeholder = "txt_loc_name".localized()

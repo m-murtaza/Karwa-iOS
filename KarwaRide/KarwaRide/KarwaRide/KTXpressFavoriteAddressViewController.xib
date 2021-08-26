@@ -21,7 +21,6 @@
             <connections>
                 <outlet property="locationNameTextField" destination="jl0-FA-gwl" id="hYJ-Cg-rPs"/>
                 <outlet property="locationTextField" destination="4op-Fk-aie" id="GA8-qD-NJL"/>
-                <outlet property="navigationBar" destination="t3k-pr-Yzf" id="Zic-Js-8Mg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -82,13 +81,6 @@
                         <constraint firstAttribute="trailing" secondItem="4op-Fk-aie" secondAttribute="trailing" constant="10" id="Vxk-Lg-K0v"/>
                         <constraint firstItem="VVt-4U-7tH" firstAttribute="centerY" secondItem="yrw-fp-tH1" secondAttribute="centerY" constant="10" id="fmv-SH-9dH"/>
                         <constraint firstItem="4op-Fk-aie" firstAttribute="top" secondItem="yrw-fp-tH1" secondAttribute="top" constant="20" id="pMF-VQ-Zel"/>
-                    </constraints>
-                </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3k-pr-Yzf" userLabel="NavigationBar">
-                    <rect key="frame" x="0.0" y="44" width="414" height="60"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="u5I-pv-kQ5"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92T-24-Rxe">
@@ -174,7 +166,7 @@
                         <action selector="saveLocationAction:" destination="-1" eventType="touchUpInside" id="uD8-cA-xvL"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                     <rect key="frame" x="32" y="167" width="208" height="34"/>
                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="28"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -191,11 +183,7 @@
                 <constraint firstItem="yrw-fp-tH1" firstAttribute="top" secondItem="9Y0-VB-lxo" secondAttribute="bottom" constant="-10" id="30a-d0-YcS"/>
                 <constraint firstItem="92T-24-Rxe" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="36" id="3S4-NX-XVr"/>
                 <constraint firstItem="bn2-Ry-3aF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="6i8-D0-Efo"/>
-                <constraint firstItem="t3k-pr-Yzf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6pe-Sn-Pcf"/>
-                <constraint firstItem="9uo-ZV-Jdz" firstAttribute="top" secondItem="t3k-pr-Yzf" secondAttribute="bottom" constant="63" id="HvZ-5K-pXw"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="t3k-pr-Yzf" secondAttribute="trailing" id="Kgt-wB-4mg"/>
                 <constraint firstItem="92T-24-Rxe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="PoT-TQ-qJm"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="t3k-pr-Yzf" secondAttribute="leading" id="RFS-g9-Dvz"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Y0-VB-lxo" secondAttribute="trailing" constant="31" id="VDf-hg-L3t"/>
                 <constraint firstItem="bn2-Ry-3aF" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="YHK-1u-Nzg"/>
                 <constraint firstItem="9uo-ZV-Jdz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="YPF-c8-Tfw"/>
