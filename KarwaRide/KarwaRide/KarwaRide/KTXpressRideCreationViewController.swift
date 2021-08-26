@@ -320,7 +320,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.lblBaseFareOrEstimate.text = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
-        cell.orderRideButton.isHidden = true
+        cell.orderRideButton.isHidden = false
         
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
@@ -357,6 +357,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         
         selectedVehicleIndex = sender.tag
         (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: sender.tag)
+        self.rideServiceTableView.reloadData()
     }
     
     //MARK:- FARE DETAILS BREAKDOWN VIEW

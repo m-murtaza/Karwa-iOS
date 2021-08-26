@@ -151,10 +151,9 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
                 
         defer {
             
-            if selectedStop == nil{
+            if selectedStop == nil && selectedStation != nil{
                 stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
                 selectedStop = stopsOFStations.first!
-
             }
             
 
