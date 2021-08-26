@@ -130,6 +130,8 @@ extension KTXpressPickUpViewController
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         mapView.padding = padding
         
+        mapView.setMinZoom(0.4, maxZoom: 16)
+        
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
@@ -177,12 +179,42 @@ extension KTXpressPickUpViewController
         
         print(array)
         
-        // Create the polygon, and assign it to the map.
-        let polygon = GMSPolygon(path: rect)
-        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
-        polygon.strokeColor = .black
-        polygon.strokeWidth = 2
-        polygon.map = mapView
+        // 1. Create one quarter earth filling polygon
+        let fillingPath = GMSMutablePath()
+        fillingPath.addLatitude(90.0, longitude: -90.0)
+        fillingPath.addLatitude(90.0, longitude: 90.0)
+        fillingPath.addLatitude(0, longitude: 90.0)
+        fillingPath.addLatitude(0, longitude: -90.0)
+
+        let fillingPolygon = GMSPolygon(path:fillingPath)
+        let fillColor = UIColor.gray.withAlphaComponent(0.7)
+        fillingPolygon.fillColor = fillColor
+        fillingPolygon.map = self.mapView
+
+        // 2. Add prepared array of GMSPath
+        fillingPolygon.holes = [rect]
+
+//        // 3. Add lines for boundaries
+        for path in [rect] {
+
+            let polygon = GMSPolygon(path: path)
+            
+            polygon.fillColor = UIColor.white.withAlphaComponent(0.4)
+            
+            polygon.strokeColor = .black
+            polygon.strokeWidth = 2
+            polygon.map = mapView
+        }
+            
+
+//
+//
+//        // Create the polygon, and assign it to the map.
+//        let polygon = GMSPolygon(path: rect)
+//        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
+//        polygon.strokeColor = .black
+//        polygon.strokeWidth = 2
+//        polygon.map = mapView
     }
 
     func polygonNext(){
@@ -498,7 +530,7 @@ extension KTXpressPickUpViewController
         let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
         mapView.animate(with: update)
     }
-    
+        
   public func addPointsOnMap(points: String) {
     if(!points.isEmpty) {
       // set the line color to

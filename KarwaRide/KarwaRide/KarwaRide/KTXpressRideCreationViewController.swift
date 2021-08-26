@@ -122,10 +122,16 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         self.rideServiceView.isHidden = true
         
         bookingProgress.progress = 0.0
-        
-        self.navigationController?.navigationBar.isHidden = true
 
 //        heightConstraint.constant = 250
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    func showHideNavigationBar(status: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -243,7 +249,20 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     func showAlertForFailedRide(message: String) {
         let alert = CDAlertView(title: message, message: "", type: .error)
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
-            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+            
+            if let controllers = self.navigationController?.viewControllers {
+                
+                for item in controllers {
+                    if item.isKind(of: TabViewController.self) {
+                        self.navigationController?.popToViewController(item, animated: true)
+                    }
+                    if item.isKind(of: KTMyTripsViewController.self) {
+                        self.navigationController?.popToViewController(item, animated: true)
+                    }
+                }
+                
+            }
+            
             return true
         }
         alert.add(action: doneAction)

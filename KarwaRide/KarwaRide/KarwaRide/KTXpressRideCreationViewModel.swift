@@ -26,6 +26,8 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func showRideTrackViewController()
     func showAlertForTimeOut()
     func showAlertForFailedRide(message: String)
+    func showHideNavigationBar(status: Bool)
+
 }
 
 class KTXpressRideCreationViewModel: KTBaseViewModel {
@@ -59,6 +61,8 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             }
         }
 
+        
+        (delegate as! KTXpressRideCreationViewModelDelegate).showHideNavigationBar(status: true)
         //Check the pickup address name
         if self.rideServicePickDropOffData?.pickUpStop == nil && self.rideServicePickDropOffData?.pickUpStation == nil {
             self.fetchLocationName(forGeoCoordinate: (self.rideServicePickDropOffData?.pickUpCoordinate)!, type: "Pick")
@@ -69,8 +73,6 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 (delegate as! KTXpressRideCreationViewModelDelegate).setPickup(pick: self.rideServicePickDropOffData?.pickUpStop?.name ?? "")
             }
         }
-        
-    
     }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D, type: String) {

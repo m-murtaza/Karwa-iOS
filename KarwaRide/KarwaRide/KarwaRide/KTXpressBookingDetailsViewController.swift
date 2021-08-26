@@ -19,6 +19,7 @@ import FittedSheets
 
 class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate,KTXpressRideCreationViewModelDelegate {
     
+    
     @IBOutlet weak var mapView : GMSMapView!
     
     @IBOutlet weak var trackRideServiceView : UIView!
@@ -124,6 +125,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
         // Do any additional setup after loading the view.
     }
+    
+    func showHideNavigationBar(status: Bool) {
+        
+    }
+    
         
     func showAlertForLocationServerOn() {
         

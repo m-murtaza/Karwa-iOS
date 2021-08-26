@@ -3639,9 +3639,7 @@
                             <constraint firstItem="dXd-fk-x86" firstAttribute="top" secondItem="oRN-BB-uz7" secondAttribute="bottom" id="xzP-sk-JaC"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Book Ride" image="bookride_ico_idle" selectedImage="bookride_ico_active" id="RLE-Pi-BVA">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Book Ride" image="bookride_ico_idle" selectedImage="bookride_ico_active" id="RLE-Pi-BVA"/>
                     <navigationItem key="navigationItem" id="HJc-9O-lht">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="m2P-Jy-JP4"/>
                     </navigationItem>
@@ -10381,13 +10379,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zAO-0z-9NM">
                                                     <rect key="frame" x="80" y="18.000000000000004" width="91.333333333333314" height="34.333333333333343"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
                                                             <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
                                                             <rect key="frame" x="0.0" y="19.666666666666664" width="91.333333333333329" height="14.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -11158,6 +11156,9 @@
                                     <constraint firstAttribute="width" constant="44" id="ua3-1c-E51"/>
                                 </constraints>
                                 <state key="normal" image="current_loc_ico"/>
+                                <connections>
+                                    <action selector="setCurrentLocationWithSender:" destination="zBY-Du-PDN" eventType="touchUpInside" id="977-HT-m6x"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYU-8p-z2r">
                                 <rect key="frame" x="18" y="608" width="378" height="185"/>
@@ -11359,9 +11360,7 @@
                             <constraint firstItem="TeW-q2-t37" firstAttribute="leading" secondItem="IoV-SH-B7T" secondAttribute="leadingMargin" id="z18-bb-hLV"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Xpress Link" image="xpresslink_ico_idle" selectedImage="xpresslink_ico_active" id="Mr0-Um-Emf">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="4"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Xpress Link" image="xpresslink_ico_idle" selectedImage="xpresslink_ico_active" id="Mr0-Um-Emf"/>
                     <navigationItem key="navigationItem" id="Mew-M1-AWz">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="R45-7R-edK"/>
                     </navigationItem>
@@ -11786,6 +11785,9 @@
                                     <constraint firstAttribute="height" constant="44" id="YjV-lJ-2cb"/>
                                 </constraints>
                                 <state key="normal" image="current_loc_ico"/>
+                                <connections>
+                                    <action selector="setCurrentLocationWithSender:" destination="fAy-yV-HUn" eventType="touchUpInside" id="1vA-Ws-CEA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdh-NL-2a0" customClass="SpringButton" customModule="Spring">
                                 <rect key="frame" x="195" y="400" width="38" height="44"/>
@@ -12060,7 +12062,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAR-Cc-n5S">
                                                 <rect key="frame" x="0.0" y="121" width="378" height="85"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-accessible-taxi" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ju-DiU" customClass="SpringImageView" customModule="Spring">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vehicle_ico" translatesAutoresizingMaskIntoConstraints="NO" id="Ctw-ju-DiU" customClass="SpringImageView" customModule="Spring">
                                                         <rect key="frame" x="19" y="7.6666666666666288" width="70" height="70"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -12281,7 +12283,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYs-g4-KZi" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJH-Vc-OLo">
                                         <rect key="frame" x="173" y="256" width="105" height="90"/>
@@ -12785,7 +12787,7 @@
                             <constraint firstItem="KXG-l9-2gL" firstAttribute="top" secondItem="V6R-Sh-frO" secondAttribute="top" constant="10" id="COT-Jw-0BX"/>
                             <constraint firstItem="V6R-Sh-frO" firstAttribute="bottom" secondItem="DoJ-9w-7M9" secondAttribute="bottom" constant="11" id="Dcf-sq-Yez"/>
                             <constraint firstItem="aYs-g4-KZi" firstAttribute="leading" secondItem="V6R-Sh-frO" secondAttribute="leading" id="IAj-0z-wKS"/>
-                            <constraint firstItem="V6R-Sh-frO" firstAttribute="bottom" secondItem="aYs-g4-KZi" secondAttribute="bottom" id="Rcq-5R-cJZ"/>
+                            <constraint firstAttribute="bottom" secondItem="aYs-g4-KZi" secondAttribute="bottom" id="Rcq-5R-cJZ"/>
                             <constraint firstAttribute="top" secondItem="aYs-g4-KZi" secondAttribute="top" id="imD-gV-38Q"/>
                             <constraint firstItem="DoJ-9w-7M9" firstAttribute="leading" secondItem="V6R-Sh-frO" secondAttribute="leading" id="ldJ-UK-KwP"/>
                             <constraint firstItem="V6R-Sh-frO" firstAttribute="trailing" secondItem="DoJ-9w-7M9" secondAttribute="trailing" id="nNO-KS-b0D"/>
@@ -13499,7 +13501,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Opm-yx-FqD">
                                                                 <rect key="frame" x="0.0" y="122" width="390" height="378"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="XMs-bU-IKt">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="XMs-bU-IKt">
                                                                         <rect key="frame" x="0.0" y="0.0" width="390" height="363"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFA-ka-XWk">
@@ -13601,7 +13603,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="91Q-fB-Lkn">
                                                                                 <rect key="frame" x="0.0" y="123" width="390" height="88"/>
                                                                                 <subviews>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-accessible-taxi" translatesAutoresizingMaskIntoConstraints="NO" id="NBD-Ev-Lwe" customClass="SpringImageView" customModule="Spring">
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vehicle_ico" translatesAutoresizingMaskIntoConstraints="NO" id="NBD-Ev-Lwe" customClass="SpringImageView" customModule="Spring">
                                                                                         <rect key="frame" x="19" y="9" width="70" height="70"/>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
@@ -13801,6 +13803,11 @@
                                                                     </stackView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="XMs-bU-IKt" firstAttribute="leading" secondItem="Opm-yx-FqD" secondAttribute="leading" id="7hz-VC-jrt"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="XMs-bU-IKt" secondAttribute="trailing" id="RHF-1z-RQW"/>
+                                                                    <constraint firstItem="XMs-bU-IKt" firstAttribute="top" secondItem="Opm-yx-FqD" secondAttribute="top" id="dHZ-8n-Y5G"/>
+                                                                </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
                                                                         <color key="value" systemColor="systemGray3Color"/>

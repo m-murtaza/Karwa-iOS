@@ -67,7 +67,7 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         
         let pickUpLocationData = ["Location": ["Lat": "\(rideData.pickUpCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.pickUpCoordinate?.longitude ?? 0.0)"], "zone": rideData.pickUpZone?.code ?? "", "station": rideData.pickUpStation?.code ?? "", "stop": rideData.pickUpStop?.code ?? ""] as [String : Any]
         //
-        let dropOffLocationData = ["Location": ["Lat": "\(rideData.dropOffCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.dropOffCoordinate?.longitude ?? 0.0)"], "zone": rideData.dropOffZone?.code ?? "", "station": rideData.dropOfSftation?.code ?? "", "stop": "116"] as [String : Any]
+        let dropOffLocationData = ["Location": ["Lat": "\(rideData.dropOffCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.dropOffCoordinate?.longitude ?? 0.0)"], "zone": rideData.dropOffZone?.code ?? "", "station": rideData.dropOfSftation?.code ?? "", "stop": rideData.dropOffStop?.code ?? ""] as [String : Any]
         //
         param["Pick"] = pickUpLocationData
         param["Drop"] = dropOffLocationData

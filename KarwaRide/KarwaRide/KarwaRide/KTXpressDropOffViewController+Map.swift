@@ -154,6 +154,8 @@ extension KTXpressDropOffViewController
         
         markerButton.isHidden = false
         
+        mapView.setMinZoom(4.6, maxZoom: 20)
+                
 //        self.addMarkerOnMap(location: dropOffCoordinate!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
         
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
@@ -219,7 +221,7 @@ extension KTXpressDropOffViewController
         fillingPath.addLatitude(0, longitude: -90.0)
 
         let fillingPolygon = GMSPolygon(path:fillingPath)
-        let fillColor = UIColor.gray.withAlphaComponent(0.2)
+        let fillColor = UIColor.gray.withAlphaComponent(0.7)
         fillingPolygon.fillColor = fillColor
         fillingPolygon.map = self.mapView
 
@@ -232,9 +234,9 @@ extension KTXpressDropOffViewController
             let polygon = GMSPolygon(path: path)
             
             if picupRect == path {
-                polygon.fillColor = UIColor.gray.withAlphaComponent(0.2)
+                polygon.fillColor = UIColor.gray.withAlphaComponent(0.7)
             } else {
-                polygon.fillColor = UIColor.white.withAlphaComponent(0.2)
+                polygon.fillColor = UIColor.white.withAlphaComponent(0.4)
             }
             
             polygon.strokeColor = .black

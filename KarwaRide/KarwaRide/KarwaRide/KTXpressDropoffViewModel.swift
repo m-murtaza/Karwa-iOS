@@ -113,6 +113,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         
         defer {
             if stopsOFStations.count > 1 {
+                selectedStop = stopsOFStations.first!
                 (delegate as! KTXpressDropoffViewModelDelegate).showStopAlertViewController(stops: stopsOFStations, selectedStation: selectedStation!)
             }
         }
@@ -120,7 +121,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         if selectedStation != nil {
             stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
             if stopsOFStations.count == 1 {
-                selectedStation = stopsOFStations.first!
+                selectedStop = stopsOFStations.first!
             }
         } else {
             selectedStop = nil
@@ -150,6 +151,13 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
                 
         defer {
             
+            if selectedStop == nil{
+                stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
+                selectedStop = stopsOFStations.first!
+
+            }
+            
+
             let rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
             
             (delegate as! KTXpressDropoffViewModelDelegate).showRideServiceViewController(rideLocationData: rideLocationData)
@@ -231,7 +239,6 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             
             selectedCoordinate = coordinates.first!
             
-        
         } else {
             
 //            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
