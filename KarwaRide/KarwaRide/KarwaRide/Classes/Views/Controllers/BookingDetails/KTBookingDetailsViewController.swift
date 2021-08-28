@@ -66,6 +66,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
+    var showCancelCharges = false
 
     lazy var sheet = SheetViewController(
         controller: bottomSheetVC,
@@ -626,6 +627,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         cancelPopup?.bookingId = (vModel?.bookingId())!
         cancelPopup?.bookingStatii = (vModel?.bookingStatii())!
         cancelPopup?.delegate = self
+        cancelPopup?.showCancelCharges = showCancelCharges
+        
         cancelPopup?.view.frame = self.view.bounds
         view.addSubview((cancelPopup?.view)!)
         addChildViewController(cancelPopup!)
@@ -679,10 +682,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func hideDriverInfoBox() {
+        self.showCancelCharges = false
         bottomSheetVC.hideDriverInfoBox()
     }
     
     func showDriverInfoBox() {
+        self.showCancelCharges = true
         bottomSheetVC.showDriverInfoBox()
     }
     

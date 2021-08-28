@@ -36,6 +36,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var constraintFareInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintCancellationChargeMarginTop: NSLayoutConstraint!
 
+    @IBOutlet weak var congratulationsLabel: UILabel!
     @IBOutlet weak var otpLabel: UILabel!
     @IBOutlet weak var eta: LocalisableButton!
 
@@ -346,6 +347,14 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     }
     
     func showOTP() -> Bool{
+        
+        if (vModel?.getBookingDescription() != nil && ((vModel?.getBookingDescription()?.count ?? 0) > 0)) {
+            self.congratulationsLabel.text = vModel?.getBookingDescription() ?? ""
+            self.congratulationsLabel.isHidden = false
+        } else {
+            self.congratulationsLabel.isHidden = true
+        }
+        
         if (vModel?.getBookingOtp() != nil && ((vModel?.getBookingOtp()?.count ?? 0) > 0)) {
             self.otpLabel.text = vModel?.getBookingOtp() ?? ""
             self.otpView.isHidden = false
