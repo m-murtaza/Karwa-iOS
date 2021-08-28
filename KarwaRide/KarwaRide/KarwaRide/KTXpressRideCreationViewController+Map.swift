@@ -17,7 +17,7 @@ extension KTXpressRideCreationViewController
 {
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.latitude)!, longitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.longitude)!, zoom: 7.0)
+        let camera = GMSCameraPosition.camera(withLatitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.latitude)!, longitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.longitude)!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
@@ -211,7 +211,7 @@ extension KTXpressRideCreationViewController
     func focusOnLocation(lat: Double, lon: Double)
     {
         let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
         mapView.animate(with: update)
     }
     

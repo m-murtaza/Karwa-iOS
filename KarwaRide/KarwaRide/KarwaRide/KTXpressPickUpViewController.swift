@@ -39,8 +39,6 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         // Do any additional setup after loading the view.
         addMap()
         
-        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
-
         self.navigationItem.hidesBackButton = true;
         self.btnRevealBtn?.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
         
@@ -53,7 +51,6 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
 
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,11 +61,12 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
     }
     
     
     @IBAction func setCurrentLocation(sender: UIButton) {
-        let camera = GMSCameraPosition.camera(withLatitude: KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 16)
+        let camera = GMSCameraPosition.camera(withLatitude: KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 10)
         mapView.camera = camera
         mapView.animate(to: camera)
     }
@@ -159,7 +157,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             self.setPickUp(pick: loc.name)
             KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
-            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 16)
+            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 10)
             mapView.camera = camera
             mapView.animate(to: camera)
             if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: actualLocation) {
@@ -196,7 +194,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
                 (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
 
-                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 17.0)
+                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 10)
                 self.mapView.camera = camera
 
                 (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))

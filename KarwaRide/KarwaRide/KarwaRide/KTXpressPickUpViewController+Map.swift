@@ -122,7 +122,7 @@ extension KTXpressPickUpViewController
 
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 15)
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
@@ -167,6 +167,9 @@ extension KTXpressPickUpViewController
     }
     
     func setPolygon() {
+        
+        self.mapView.clear()
+        
         // Create a rectangular path
         let rect = GMSMutablePath()
         
@@ -185,6 +188,12 @@ extension KTXpressPickUpViewController
         fillingPath.addLatitude(90.0, longitude: 90.0)
         fillingPath.addLatitude(0, longitude: 90.0)
         fillingPath.addLatitude(0, longitude: -90.0)
+        
+        let nfillingPath = GMSMutablePath()
+        nfillingPath.addLatitude(0.0, longitude: -90.0)
+        nfillingPath.addLatitude(0.0, longitude: 90.0)
+        nfillingPath.addLatitude(90, longitude: 0.0)
+        nfillingPath.addLatitude(-90, longitude: 0.0)
 
         let fillingPolygon = GMSPolygon(path:fillingPath)
         let fillColor = UIColor.gray.withAlphaComponent(0.7)
@@ -248,13 +257,13 @@ extension KTXpressPickUpViewController
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool) {
         if(withZoom)
         {
-            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
             self.mapView?.animate(to: camera)
         
         }
         else
         {
-            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: self.mapView?.camera.zoom ?? KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            let camera = GMSCameraPosition.camera(withLatitude: (location.coordinate.latitude), longitude: (location.coordinate.longitude), zoom: self.mapView?.camera.zoom ?? KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
             self.mapView?.animate(to: camera)
         }
     }
@@ -464,7 +473,7 @@ extension KTXpressPickUpViewController
     {
         if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false)
         {
-            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
             mapView.animate(with: update)
         }
     }
@@ -527,7 +536,7 @@ extension KTXpressPickUpViewController
     func focusOnLocation(lat: Double, lon: Double)
     {
         let location = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(location, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
         mapView.animate(with: update)
     }
         

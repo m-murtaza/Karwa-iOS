@@ -26,6 +26,17 @@ class KTCreateBookingConstants {
     
 }
 
+class KTXpressCreateBookingConstants {
+    
+    // MARK: List of Constants
+    
+    static let DEFAULT_MAP_ZOOM : Float = 15
+    static let PICKUP_MAP_ZOOM : Float = 17.2
+    static let BOUNDS_MARKER_DISTANCE_THRESHOULD : Double = 2000
+    static let DEFAULT_MAP_PADDING : Float = 0
+    
+}
+
 class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     
     //MARK:- Public and private variables

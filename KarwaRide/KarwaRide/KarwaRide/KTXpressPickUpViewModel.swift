@@ -120,8 +120,12 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     
     func fetchOperatingArea() {
         
+        delegate?.showProgressHud(show: true, status: "str_loading".localized())
+
         KTXpressBookingManager().getZoneWithSync { (string, response) in
                         
+            self.delegate?.hideProgressHud()
+            
             if let totalOperatingResponse = response["Response"] as? [String: Any] {
                 
                 print(totalOperatingResponse)
