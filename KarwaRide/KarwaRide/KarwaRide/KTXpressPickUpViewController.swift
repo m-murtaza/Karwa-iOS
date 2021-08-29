@@ -66,9 +66,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     
     
     @IBAction func setCurrentLocation(sender: UIButton) {
-        let camera = GMSCameraPosition.camera(withLatitude: KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 10)
-        mapView.camera = camera
-        mapView.animate(to: camera)
+        (viewModel as! KTXpressPickUpViewModel).setupCurrentLocaiton()
+
     }
     
     

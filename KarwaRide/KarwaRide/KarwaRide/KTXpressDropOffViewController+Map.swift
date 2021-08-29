@@ -142,13 +142,7 @@ extension KTXpressDropOffViewController
 
     internal func addMap() {
 
-        dropOffCoordinate = CLLocationCoordinate2D(latitude: pickUpCoordinate!.latitude.advanced(by: 0.00100), longitude: pickUpCoordinate!.longitude.advanced(by: 0.00100))
-        
-        let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
-        
         showCurrentLocationDot(show: true)
-        
-        self.mapView.camera = camera;
         
         self.addMarkerOnMap(location: pickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
         
@@ -190,6 +184,7 @@ extension KTXpressDropOffViewController
             if item.type! != "Zone" {
                 
                 let coordinate = CLLocationCoordinate2D(latitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first!)!)!, longitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").last!)!)!)
+                dropOffCoordinate = coordinate
                 
                 if item.type == "TramStation"{
                     self.addMarkerOnMap(location: coordinate, image: #imageLiteral(resourceName: "tram_ico_map"))
@@ -198,6 +193,12 @@ extension KTXpressDropOffViewController
                     self.addMarkerOnMap(location: coordinate, image: #imageLiteral(resourceName: "metro_ico_map"))
 
                 }
+                
+                dropOffCoordinate = coordinate
+                
+                let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
+                    
+                self.mapView.camera = camera;
 
             }
             
@@ -258,6 +259,13 @@ extension KTXpressDropOffViewController
                 
         _ = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
             rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
+            
+            dropOffCoordinate = CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
+                
+            self.mapView.camera = camera;
+            
            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
         }
         
