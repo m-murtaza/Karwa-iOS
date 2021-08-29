@@ -112,6 +112,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         stopsOFStations.removeAll()
         
         defer {
+            stopsOFStations = Array(Set(stopsOFStations))
             if stopsOFStations.count > 1 {
                 selectedStop = stopsOFStations.first!
                 (delegate as! KTXpressDropoffViewModelDelegate).showStopAlertViewController(stops: stopsOFStations, selectedStation: selectedStation!)
