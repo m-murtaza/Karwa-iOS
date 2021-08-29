@@ -144,7 +144,7 @@ extension KTXpressDropOffViewController
 
         dropOffCoordinate = CLLocationCoordinate2D(latitude: pickUpCoordinate!.latitude.advanced(by: 0.00100), longitude: pickUpCoordinate!.longitude.advanced(by: 0.00100))
         
-        let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 14.0)
+        let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
         
         showCurrentLocationDot(show: true)
         
