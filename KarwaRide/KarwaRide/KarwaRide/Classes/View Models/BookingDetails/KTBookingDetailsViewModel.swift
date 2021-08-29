@@ -253,13 +253,17 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func imgForPlate() -> UIImage {
-        
+                
         guard let vehicleType = booking?.vehicleType else {
             return UIImage(named:"taxiplate")!
         }
-        if KTVehicleTypeManager.isTaxi(vType: VehicleType(rawValue: vehicleType)!) {
+        
+        let vType = VehicleType(rawValue: vehicleType) ?? .KTCityTaxi
+        
+        if KTVehicleTypeManager.isTaxi(vType: vType) {
             return UIImage(named:"taxiplate")!
         }
+                
         return UIImage(named:"limo_number_plate")!
     }
     

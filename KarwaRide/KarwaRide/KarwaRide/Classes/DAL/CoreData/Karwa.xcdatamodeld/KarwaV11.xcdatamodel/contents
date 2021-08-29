@@ -12,6 +12,7 @@
         <attribute name="cancellationCharges" optional="YES" attributeType="String"/>
         <attribute name="cancelReason" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="creationTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="driverId" optional="YES" attributeType="String"/>
         <attribute name="driverName" optional="YES" attributeType="String"/>
         <attribute name="driverPhone" optional="YES" attributeType="String"/>
@@ -153,7 +154,7 @@
     </entity>
     <elements>
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
-        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="659"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="674"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="118"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTComplaint" positionX="45" positionY="-126" width="128" height="165"/>

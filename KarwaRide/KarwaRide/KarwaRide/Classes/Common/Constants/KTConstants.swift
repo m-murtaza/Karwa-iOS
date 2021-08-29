@@ -303,7 +303,7 @@ struct Constants {
         static let Track = "Track"
         
         static let VehicleNo = "VehicleNo"
-        static let VehicleType = "VehicleType"
+        static let VehicleType = "PlateType"
 
         static let TripSummary = "OrderedTripSummary"
         
