@@ -189,11 +189,10 @@ extension KTXpressPickUpViewController
         fillingPath.addLatitude(0, longitude: 90.0)
         fillingPath.addLatitude(0, longitude: -90.0)
         
-        let nfillingPath = GMSMutablePath()
-        nfillingPath.addLatitude(0.0, longitude: -90.0)
-        nfillingPath.addLatitude(0.0, longitude: 90.0)
-        nfillingPath.addLatitude(90, longitude: 0.0)
-        nfillingPath.addLatitude(-90, longitude: 0.0)
+//        fillingPath.addLatitude(85.0, longitude: -180)
+//        fillingPath.addLatitude(85.0, longitude: 180)
+//        fillingPath.addLatitude(0.0, longitude: 180.0)
+//        fillingPath.addLatitude(0.0, longitude: -180.0)
 
         let fillingPolygon = GMSPolygon(path:fillingPath)
         let fillColor = UIColor.gray.withAlphaComponent(0.7)
@@ -216,7 +215,22 @@ extension KTXpressPickUpViewController
         }
             
 
+//        let nfillingPath = GMSMutablePath()
+//        nfillingPath.addLatitude(85.0, longitude: 90.0)
+//        nfillingPath.addLatitude(85.0, longitude: 175.0)
+//        nfillingPath.addLatitude(0, longitude: 175.0)
+//        nfillingPath.addLatitude(0, longitude: -95.0)
+//        
+////        fillingPath.addLatitude(85.0, longitude: -180)
+////        fillingPath.addLatitude(85.0, longitude: 180)
+////        fillingPath.addLatitude(0.0, longitude: 180.0)
+////        fillingPath.addLatitude(0.0, longitude: -180.0)
 //
+//        let nfillingPolygon = GMSPolygon(path:nfillingPath)
+//        let nfillColor = UIColor.gray.withAlphaComponent(0.7)
+//        nfillingPolygon.fillColor = fillColor
+//        nfillingPolygon.map = self.mapView
+////
 //
 //        // Create the polygon, and assign it to the map.
 //        let polygon = GMSPolygon(path: rect)
