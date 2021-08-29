@@ -40,7 +40,7 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         tblView.rowHeight = UITableViewAutomaticDimension;
         
         if showCancelCharges == true {
-            self.cancelLabel.text  = "cancel_booking_confirmation".localized() + " \("cancel_booking_charges".localized())"
+            self.cancelLabel.text  = "cancel_booking_confirmation".localized() + "(\("cancel_booking_charges".localized()))"
         } else {
             self.cancelLabel.text  = "cancel_booking_confirmation".localized()
         }

@@ -401,10 +401,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.viewTripInfo.setNeedsUpdateConstraints()
             
             if showOTP() {
-                constraintTripInfoMarginTop.constant = 110 + 95
-                constraintDriverInfoMarginTop.constant = 5 + 95
-                constraintVehicleInfoMarginTop.constant = 250 + 95
-                constraintReportIssueMarginTop.constant = 10 + 95
+                constraintTripInfoMarginTop.constant = 110 + 100
+                constraintDriverInfoMarginTop.constant = 5 + 100
+                constraintVehicleInfoMarginTop.constant = 250 + 100
+                constraintReportIssueMarginTop.constant = 10 + 100
             }
 
             self.starView.isHidden = true
@@ -441,11 +441,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.lblDriverName.stopShimmeringAnimation()
             self.bottomStartRatingLabel.stopShimmeringAnimation()
             
-            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 95 : 110
-            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 95 : 5
-            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 95 : 250
-            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 95 : 20
-            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 95 : 328
+            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 100 : 110
+            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 100 : 5
+            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 100 : 250
+            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 100 : 20
+            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 100 : 328
 //                constraintRebookMarginTop.constant = 375
             hideBtnComplain()
                         
@@ -654,11 +654,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             
             bottomStartRatingLabel.isHidden = false
-            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 95 : 110
-            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 95 : 5
-            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 95 : 20
-            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 95 : 328
-            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 95 : 250
+            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 100 : 110
+            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 100 : 5
+            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 100 : 20
+            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 100 : 328
+            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 100 : 250
             hideSeperatorBeforeReportAnIssue()
             
             if showOTP() {

@@ -627,7 +627,15 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         cancelPopup?.bookingId = (vModel?.bookingId())!
         cancelPopup?.bookingStatii = (vModel?.bookingStatii())!
         cancelPopup?.delegate = self
-        cancelPopup?.showCancelCharges = showCancelCharges
+        
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue) {
+            cancelPopup?.showCancelCharges = true
+        } else if (vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
+            cancelPopup?.showCancelCharges = true
+        }else if (vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue) {
+            cancelPopup?.showCancelCharges = true
+        }
+        
         
         cancelPopup?.view.frame = self.view.bounds
         view.addSubview((cancelPopup?.view)!)
