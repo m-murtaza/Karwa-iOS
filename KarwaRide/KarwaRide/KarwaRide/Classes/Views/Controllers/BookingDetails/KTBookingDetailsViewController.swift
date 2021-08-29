@@ -636,7 +636,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             cancelPopup?.showCancelCharges = true
         }
         
-        
         cancelPopup?.view.frame = self.view.bounds
         view.addSubview((cancelPopup?.view)!)
         addChildViewController(cancelPopup!)
