@@ -9,6 +9,22 @@
 import Foundation
 import GoogleMaps
 
+func getCenterPointOfPolygon(bounds: String) -> CLLocationCoordinate2D {
+    
+    var arrayCoordinate = [CLLocationCoordinate2D]()
+
+    _ = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+        arrayCoordinate.append(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
+       return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+    }
+    
+    let sumOfLatitude: Double = arrayCoordinate.map{$0.latitude}.reduce(0, +)
+    let sumOfLongitude: Double = arrayCoordinate.map{$0.longitude}.reduce(0, +)
+    let centerLatitude = arrayCoordinate.count > 0 ? sumOfLatitude / Double(arrayCoordinate.count) : 0.0
+    let centerLongitude = arrayCoordinate.count > 0 ? sumOfLongitude / Double(arrayCoordinate.count) : 0.0
+    return CLLocationCoordinate2D.init(latitude: centerLatitude, longitude: centerLongitude)
+}
+
 extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffViewModelDelegate {
     
   
@@ -184,24 +200,23 @@ extension KTXpressDropOffViewController
             if item.type! != "Zone" {
                 
                 let coordinate = CLLocationCoordinate2D(latitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first!)!)!, longitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").last!)!)!)
-                dropOffCoordinate = coordinate
-                
+                                
                 if item.type == "TramStation"{
-                    self.addMarkerOnMap(location: coordinate, image: #imageLiteral(resourceName: "tram_ico_map"))
+                    self.addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
 
                 } else{
-                    self.addMarkerOnMap(location: coordinate, image: #imageLiteral(resourceName: "metro_ico_map"))
+                    self.addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
 
                 }
-                
-                dropOffCoordinate = coordinate
-                
-                let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
-                    
-                self.mapView.camera = camera;
+                                
 
             }
             
+            dropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
+            
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
+                
+            self.mapView.camera = camera;
             rect.append(self.polygon(bounds: item.bound!, type: ""))
             
         }
@@ -260,11 +275,9 @@ extension KTXpressDropOffViewController
         _ = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
             rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
             
-            dropOffCoordinate = CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            
-            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
-                
-            self.mapView.camera = camera;
+//            dropOffCoordinate = CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+//            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
+//            self.mapView.camera = camera;
             
            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
         }
@@ -348,4 +361,22 @@ extension KTXpressDropOffViewController
       self.present(alertController, animated: true, completion: nil)
     }
     
+}
+
+extension GMSPolygon {
+
+    func contains(coordinate: CLLocationCoordinate2D) -> Bool {
+
+        if self.path != nil {
+            if GMSGeometryContainsLocation(coordinate, self.path!, true) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        else {
+            return false
+        }
+    }
 }

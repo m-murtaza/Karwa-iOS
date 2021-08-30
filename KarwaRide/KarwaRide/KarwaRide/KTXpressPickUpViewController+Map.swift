@@ -152,16 +152,10 @@ extension KTXpressPickUpViewController
         
     func addPickUpLocations() {
         for item in (self.viewModel as! KTXpressPickUpViewModel).pickUpArea {
-            
-            let firstValue = item.bound?.components(separatedBy: ";").first
-            
-            let _ = firstValue.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                if item.type == "MetroStop" {
-                    addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image:  #imageLiteral(resourceName: "metro_ico_map"))
-                } else {
-                    addMarkerOnMap(location: CLLocationCoordinate2D(latitude: value[0], longitude: value[1]), image:  #imageLiteral(resourceName: "tram_ico_map"))
-                }
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            if item.type == "MetroStop" {
+                addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image:  #imageLiteral(resourceName: "metro_ico_map"))
+            } else {
+                addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image:  #imageLiteral(resourceName: "tram_ico_map"))
             }
         }
     }
