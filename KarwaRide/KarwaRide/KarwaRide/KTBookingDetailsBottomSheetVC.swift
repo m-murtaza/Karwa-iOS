@@ -22,6 +22,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var cancellationChargeLbl: UILabel!
 
     @IBOutlet weak var otpView: UIView!
+    @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var preRideDriver: UIView!
     @IBOutlet weak var viewTripInfo: UIView!
     @IBOutlet weak var viewRideInfo: UIView!
@@ -346,15 +347,21 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         rideHeaderText.text = msg
     }
     
-    func showOTP() -> Bool{
-        
+    func showDescription() -> Bool {
+        self.descriptionView.isHidden = false
+        return true
         if (vModel?.getBookingDescription() != nil && ((vModel?.getBookingDescription()?.count ?? 0) > 0)) {
             self.congratulationsLabel.text = vModel?.getBookingDescription() ?? ""
-            self.congratulationsLabel.isHidden = false
+            self.descriptionView.isHidden = false
+            return true
         } else {
-            self.congratulationsLabel.isHidden = true
+            self.descriptionView.isHidden = true
+            return false
         }
-        
+    }
+    
+    func showOTP() -> Bool{
+     
         if (vModel?.getBookingOtp() != nil && ((vModel?.getBookingOtp()?.count ?? 0) > 0)) {
             self.otpLabel.text = vModel?.getBookingOtp() ?? ""
             self.otpView.isHidden = false
@@ -363,7 +370,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.otpView.isHidden = true
             return false
         }
-        
         
     }
     
@@ -400,13 +406,21 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.preRideDriver.setNeedsUpdateConstraints()
             self.viewTripInfo.setNeedsUpdateConstraints()
             
-            if showOTP() {
-                constraintTripInfoMarginTop.constant = 110 + 100
-                constraintDriverInfoMarginTop.constant = 5 + 100
-                constraintVehicleInfoMarginTop.constant = 250 + 100
-                constraintReportIssueMarginTop.constant = 10 + 100
+            if showOTP() == true && showDescription() == true {
+                constraintTripInfoMarginTop.constant = 110 + 65 + 65
+                constraintDriverInfoMarginTop.constant = 5 + 65 + 65
+                constraintVehicleInfoMarginTop.constant = 250 + 65 + 65
+                constraintReportIssueMarginTop.constant = 20 + 65 + 65
+                constraintViewRideActionsTop.constant = 328 + 65 + 65
+            } else if showOTP() == true || showDescription() == true {
+                constraintTripInfoMarginTop.constant = 110 + 80
+                constraintDriverInfoMarginTop.constant = 5 + 80
+                constraintVehicleInfoMarginTop.constant = 250 + 80
+                constraintReportIssueMarginTop.constant = 20 + 80
+                constraintViewRideActionsTop.constant = 328 + 80
             }
-
+            
+            
             self.starView.isHidden = true
             self.shimmerView.isHidden = false
             
@@ -441,17 +455,36 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.lblDriverName.stopShimmeringAnimation()
             self.bottomStartRatingLabel.stopShimmeringAnimation()
             
-            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 100 : 110
-            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 100 : 5
-            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 100 : 250
-            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 100 : 20
-            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 100 : 328
+            if showOTP() == true && showDescription() == true {
+                constraintTripInfoMarginTop.constant = 110 + 65 + 65
+                constraintDriverInfoMarginTop.constant = 5 + 65 + 65
+                constraintVehicleInfoMarginTop.constant = 250 + 65 + 65
+                constraintReportIssueMarginTop.constant = 20 + 65 + 65
+                constraintViewRideActionsTop.constant = 328 + 65 + 65
+            } else if showOTP() == true || showDescription() == true {
+                constraintTripInfoMarginTop.constant = 110 + 80
+                constraintDriverInfoMarginTop.constant = 5 + 80
+                constraintVehicleInfoMarginTop.constant = 250 + 80
+                constraintReportIssueMarginTop.constant = 20 + 80
+                constraintViewRideActionsTop.constant = 328 + 80
+            }
+            
+            
 //                constraintRebookMarginTop.constant = 375
             hideBtnComplain()
                         
             self.view.customCornerRadius = 20.0
             
-            if showOTP() {
+            if showOTP() == true && showDescription() == true {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 800
+                    if UIScreen.main.bounds.height < 900 {
+                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                    } else {
+                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                    }
+                }
+            } else if showOTP() == true || showDescription() == true {
                 DispatchQueue.main.async {
                     self.heightOFScrollViewContent.constant = 700
                     if UIScreen.main.bounds.height < 800 {
@@ -535,6 +568,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
+            self.descriptionView.isHidden = true
             
             DispatchQueue.main.async {
                 self.constraintRebookMarginTop.constant = self.btnReportIssue.frame.origin.y + 50
@@ -560,8 +594,19 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.otpView.isHidden = true
             DispatchQueue.main.async {
                 self.constraintViewRideActionsTop.constant = 220
+                self.constraintVehicleInfoMarginTop.constant = 140
                 self.heightOFScrollViewContent.constant = 500
                 self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+            }
+            
+            if showDescription() {
+                DispatchQueue.main.async {
+                    self.constraintTripInfoMarginTop.constant = 85
+                    self.constraintVehicleInfoMarginTop.constant = 140 + 70
+                    self.constraintViewRideActionsTop.constant = 220 + 65
+                    self.heightOFScrollViewContent.constant = 500
+                    self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                }
             }
             
         }
@@ -623,6 +668,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
+            self.descriptionView.isHidden = true
+
                         
         }
         
@@ -647,6 +694,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideSeperatorBeforeReportAnIssue()
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
+            self.descriptionView.isHidden = true
 
         }
         
@@ -654,14 +702,29 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             
             bottomStartRatingLabel.isHidden = false
-            constraintTripInfoMarginTop.constant = showOTP() == true ? 110 + 100 : 110
-            constraintDriverInfoMarginTop.constant = showOTP() == true ? 5 + 100 : 5
-            constraintReportIssueMarginTop.constant = showOTP() == true ? 20 + 100 : 20
-            constraintViewRideActionsTop.constant = showOTP() == true ? 328 + 100 : 328
-            constraintVehicleInfoMarginTop.constant = showOTP() == true ? 250 + 100 : 250
+            
+            if showOTP() == true && showDescription() == true {
+                constraintTripInfoMarginTop.constant = 110 + 65 + 65
+                constraintDriverInfoMarginTop.constant = 5 + 65 + 65
+                constraintVehicleInfoMarginTop.constant = 250 + 65 + 65
+                constraintReportIssueMarginTop.constant = 20 + 65 + 65
+                constraintViewRideActionsTop.constant = 328 + 65 + 65
+            } else if showOTP() == true || showDescription() == true {
+                constraintTripInfoMarginTop.constant = 110 + 80
+                constraintDriverInfoMarginTop.constant = 5 + 80
+                constraintVehicleInfoMarginTop.constant = 250 + 80
+                constraintReportIssueMarginTop.constant = 20 + 80
+                constraintViewRideActionsTop.constant = 328 + 80
+            }
+           
             hideSeperatorBeforeReportAnIssue()
             
-            if showOTP() {
+            if showOTP() == true && showDescription() == true {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 800
+                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                }
+            } else if showOTP() == true && showDescription() == true {
                 DispatchQueue.main.async {
                     self.heightOFScrollViewContent.constant = 700
                     self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
