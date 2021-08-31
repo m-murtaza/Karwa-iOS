@@ -159,7 +159,7 @@ extension KTXpressDropOffViewController
     internal func addMap() {
 
         showCurrentLocationDot(show: true)
-        
+                
         self.addMarkerOnMap(location: pickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
         
         markerButton.isHidden = false
@@ -214,7 +214,7 @@ extension KTXpressDropOffViewController
             
             dropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
             
-            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 15.5)
                 
             self.mapView.camera = camera;
             rect.append(self.polygon(bounds: item.bound!, type: ""))

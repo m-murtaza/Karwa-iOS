@@ -488,12 +488,12 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 12.0)
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         
         self.mapView.camera = camera;
         self.mapView.delegate = self
         
-        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        let padding = UIEdgeInsets(top: 0, left: 50, bottom: 50, right: 50)
         mapView.padding = padding
         
         do {

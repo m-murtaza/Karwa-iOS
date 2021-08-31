@@ -37,6 +37,7 @@ protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func setDropOff(pick: String?)
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
     func showRideServiceViewController(rideLocationData: RideSerivceLocationData?)
+    func hideNavigationController()
 }
 
 class KTXpressDropoffViewModel: KTBaseViewModel {
@@ -68,7 +69,8 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 //        setupCurrentLocaiton()
         
         super.viewWillAppear()
-        
+        (delegate as? KTXpressDropoffViewModelDelegate)?.hideNavigationController()
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.XpressLocationManager), object: nil)
     
     }

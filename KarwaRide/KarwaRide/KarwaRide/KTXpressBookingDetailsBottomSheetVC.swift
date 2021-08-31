@@ -396,12 +396,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 //                    } else {
 //                        self.constraintViewRideActionsTop.constant = 323
 //                    }
-                    self.heightOFScrollViewContent.constant = 600
                     
-                    if UIScreen.main.bounds.height < 800 {
-                        self.sheet?.setSizes([.percent(0.45),.marginFromTop(150)], animated: true)
-                    } else {
-                        self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                    DispatchQueue.main.async {
+                        self.heightOFScrollViewContent.constant = 575
+                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(200)], animated: true)
                     }
                     
                     self.oneTimeSetSizeForBottomSheet = true

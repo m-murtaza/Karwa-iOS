@@ -83,6 +83,12 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
 
         
     }
+    
+    func hideNavigationController() {
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     @IBAction func setCurrentLocation(sender: UIButton) {
         let camera = GMSCameraPosition.camera(withLatitude: KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 16)
         mapView.camera = camera
