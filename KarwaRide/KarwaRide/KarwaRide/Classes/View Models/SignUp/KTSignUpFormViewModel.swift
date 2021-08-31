@@ -50,6 +50,11 @@ class KTSignUpFormViewModel: KTBaseViewModel {
         mobileNo = (self.delegate as! KTSignUpViewModelDelegate).mobileNo()
         password = (self.delegate as! KTSignUpViewModelDelegate).password()
         email = (self.delegate as! KTSignUpViewModelDelegate).email()
+        
+        if country.phoneExtension == "\(mobileNo?.extractCountryCode() ?? "")" {
+            mobileNo = mobileNo?.components(separatedBy: "\(mobileNo?.extractCountryCode() ?? "")")[1]
+        }
+        
         let error = validate()
         
         if error.count == 0

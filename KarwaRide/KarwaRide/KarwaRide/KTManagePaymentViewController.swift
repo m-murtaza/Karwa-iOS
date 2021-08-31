@@ -86,7 +86,13 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     override func viewWillAppear(_ animated: Bool)
     {
         btnAdd.isHidden = true
-        btnEdit.title = "txt_edit".localized()
+
+        if (viewModel as! KTManagePaymentViewModel).paymentMethods.count == 0 {
+            btnEdit.title = ""
+        } else {
+            btnEdit.title = "txt_edit".localized()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -115,7 +121,10 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     }
 
     @IBAction func btnEditTapped(_ sender: Any) {
-        toggleEditButton()
+        
+        if (viewModel as! KTManagePaymentViewModel).paymentMethods.count != 0 {
+            toggleEditButton()
+        }
     }
     
     
@@ -265,6 +274,11 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func reloadTableData()
     {
+        if (viewModel as! KTManagePaymentViewModel).paymentMethods.count == 0 {
+            btnEdit.title = ""
+        } else {
+            btnEdit.title = "txt_edit".localized()
+        }
         tableView.reloadData()
     }
     
@@ -290,7 +304,7 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     func showEnterEmailPopup(header: String, subHeader: String, currentText : String, inputType: String)
     {
         let inputPopup = storyboard?.instantiateViewController(withIdentifier: "GenericInputVC") as! GenericInputVC
-        inputPopup.paymentVC = self
+//        inputPopup.paymentVC = self
         view.addSubview(inputPopup.view)
         addChildViewController(inputPopup)
         
@@ -361,7 +375,9 @@ class KTManagePaymentViewController: KTBaseDrawerRootViewController, KTManagePay
     
     func hideCardIOPaymentController()
     {
-        cardIOPaymentController.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.cardIOPaymentController.dismiss(animated: true, completion: nil)
+        }
     }
     
     func isCameraPermissionGiven() -> Bool

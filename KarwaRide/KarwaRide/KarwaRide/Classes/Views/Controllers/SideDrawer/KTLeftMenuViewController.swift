@@ -23,10 +23,16 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         viewModel = KTLeftMenuModel(del:self)
         super.viewDidLoad()
      
-        NotificationCenter.default.addObserver(self, selector: (Selector(("updateUI"))), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: (#selector(updateUI)), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
     }
     
-    func updateUI()
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+        (viewModel as! KTLeftMenuModel).reloadData()
+
+    }
+    
+    @objc func updateUI()
     {
         (viewModel as! KTLeftMenuModel).reloadData()
 //        showSuccessBanner("", "Profile Updated")
@@ -69,7 +75,18 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         //cell.sideView.backgroundColor = (viewModel as! KTLeftMenuModel).colorInCell(idx: indexPath.row)
 
         cell.lblNew.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
-
+        
+        if (KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"}).first?.balance ?? "").count > 0 {
+            cell.walletAmountLbl.isHidden = (!(viewModel as! KTLeftMenuModel).isNew(idx: indexPath.row))
+            cell.walletAmountLbl.text =  (KTPaymentManager().getAllPayments().filter({$0.payment_type == "WALLET"}).first?.balance ?? "") + "  "
+            cell.lblNew.isHidden = true
+        } else {
+            cell.walletAmountLbl.isHidden = true
+        }
+        
+        cell.walletAmountLbl.layer.cornerRadius = 5
+        cell.walletAmountLbl.layer.masksToBounds = true
+        
         if(Device.getLanguage() == "AR")
         {
             cell.lblNew.image = UIImage(named: "new_tag_ar")!
@@ -111,8 +128,13 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
             sideMenuController?.hideMenu()
             break
-
+        
         case 2:
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTWalletNavigationController")
+            sideMenuController?.hideMenu()
+            break
+
+        case 3:
             let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
             let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
             detailView.isPromotion = true
@@ -120,12 +142,12 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuController?.hideMenu()
             break
 
-        case 3:
+        case 4:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
             sideMenuController?.hideMenu()
             break
 
-        case 4:
+        case 5:
             let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
             let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
             detailView.isFeedback = true
@@ -133,17 +155,17 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             sideMenuController?.hideMenu()
             break
 
-        case 5:
+        case 6:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
             sideMenuController?.hideMenu()
             break
         
-        case 6:
+        case 7:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
             sideMenuController?.hideMenu()
             break
 
-        case 7:
+        case 8:
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
             sideMenuController?.hideMenu()
             break
@@ -155,5 +177,19 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         }
 
         return false
+    }
+}
+
+extension UILabel {
+    func setMargins(_ margin: CGFloat = 10) {
+        if let textString = self.text {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.firstLineHeadIndent = margin
+            paragraphStyle.headIndent = margin
+            paragraphStyle.tailIndent = margin
+            let attributedString = NSMutableAttributedString(string: textString)
+            attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+            attributedText = attributedString
+        }
     }
 }

@@ -91,7 +91,7 @@ class KTSettingsViewModel: KTBaseViewModel {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         
-        return "app version " + version! + " (" + build! + ")"
+        return "str_version ".localized() + version! + " (" + build! + ")"
     }
     
     // Mark: - Logout
@@ -104,13 +104,13 @@ class KTSettingsViewModel: KTBaseViewModel {
             print("Logout on server " + status)
             KTUserManager().removeUserData()
             KTPaymentManager().removeAllPaymentData()
+            PreviousSelectedPayment.shared.selectedPaymentMethod = nil
+            PreviousSelectedPayment.shared.rebook = false
             self.showLogin()
-            
         }
     }
 
     func showLogin()  {
-        
         (UIApplication.shared.delegate as! AppDelegate).showLogin()
     }
     

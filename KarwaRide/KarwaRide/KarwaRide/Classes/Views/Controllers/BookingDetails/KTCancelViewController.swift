@@ -16,6 +16,10 @@ protocol KTCancelViewDelegate {
 class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCellDelegate, UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var tblView : UITableView!
+    @IBOutlet weak var cancelLabel : LocalisableLabel!
+    
+    var showCancelCharges = false
+    
     var delegate : KTCancelViewDelegate?
     
     var bookingStatii : Int32 = 0
@@ -32,6 +36,14 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewPopupUI.layer.cornerRadius = 16
+        tblView.estimatedRowHeight = 44
+        tblView.rowHeight = UITableViewAutomaticDimension;
+        
+        if showCancelCharges == true {
+            self.cancelLabel.text  = "cancel_booking_confirmation".localized() + " (\("cancel_booking_charges".localized()))"
+        } else {
+            self.cancelLabel.text  = "cancel_booking_confirmation".localized()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,10 +76,17 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         tblView.reloadData()
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return vModel!.numberOfRows()
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KTCancelReasonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "reasonsCellIdentifier", for: indexPath) as! KTCancelReasonTableViewCell
         

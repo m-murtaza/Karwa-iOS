@@ -43,7 +43,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     InputFieldUtil.applyTheme(txtPassword, true)
     InputFieldUtil.applyTheme(txtConfirmPass, true)
     
-    txtPhoneNumber.keyboardType = .phonePad
+    txtPhoneNumber.keyboardType = .numberPad
     tapToDismissKeyboard()
 
     // Do any additional setup after loading the view.
@@ -142,7 +142,7 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
       let maskedEmailVC : KTMaskedEmailConfirmationVC = segue.destination as! KTMaskedEmailConfirmationVC
       maskedEmailVC.previousView = previousView
       maskedEmailVC.countryCode = countryCode()!
-      maskedEmailVC.phone = phoneNumber()!
+        maskedEmailVC.phone = (viewModel as! KTForgotPassViewModel).phone!
       maskedEmailVC.maskedEmail = maskedEmail
       maskedEmailVC.password = password()!
     }

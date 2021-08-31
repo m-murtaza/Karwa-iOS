@@ -288,6 +288,7 @@ struct Constants {
         static let Eta = "Eta"
         static let Fare = "Fare"
         static let Tip = "DriverTip"
+        static let cancellationCharges = "CancellationCharges"
         
         static let Estimates = "Estimates"
         static let EncodedPath = "EncodedPath"
@@ -303,6 +304,7 @@ struct Constants {
         
         static let VehicleNo = "VehicleNo"
         static let VehicleType = "VehicleType"
+        static let PlateType = "PlateType"
 
         static let TripSummary = "OrderedTripSummary"
         
@@ -313,6 +315,9 @@ struct Constants {
         
         static let TrackId = "TrackID"
         static let TripType = "TripType"
+        static let OTP = "Otp"
+        static let Desc = "Desc"
+
     }
     
     struct GetEstimateResponseAPIKey {
@@ -407,6 +412,9 @@ struct Constants {
         static let TrackId = "TrackID"
         static let TripType = "TripType"
         static let PromoCode = "promoCode"
+        static let PaymentSource = "PaymentSource"
+        static let Otp = "Otp"
+
         //static let BookingType = "BookingType"
     }
     
@@ -428,6 +436,10 @@ struct Constants {
         static let TripType = "TripType"
     }
     
+    struct OtpParams {
+        static let otp = "BookingOtp"
+    }
+    
     struct APIURL {
         static let Login = "user/login"
         static let Logout = "user/logout"
@@ -435,6 +447,7 @@ struct Constants {
         static let SignUp = "user/"
         static let Otp = "user/otp"
         static let ResendOtp = "user/resendotp"
+        static let OtpEnableStatus = "user/preferences/"
         static let UpdateUserAccount = "user/update"
         static let ResendEmail = "user/verify/resend"
         static let ForgotPass = "user/recover"
@@ -465,6 +478,9 @@ struct Constants {
         static let MPGSCreateSession = "mpgs/session"
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
+        static let GetTransactions = "payment?records=10"
+        static let walletTopup = "payment/wallet/topup"
+
     }
     
     struct TrackTaxiParams {
@@ -512,6 +528,8 @@ struct Constants {
         static let OldPassword = "Password"
         static let NewPassword = "NewPassword"
         static let DeviceToken = "DeviceToken"
+        static let Preference = "Preference"
+        static let BookingOtp = "BookingOtp"
     }
     
     struct UpdateBookmarkParam {
@@ -526,10 +544,25 @@ struct Constants {
         static let CancelReason = "syncTime"
         static let RatingReason = "syncTime"
         static let Complaints = "syncTime"
+        static let Payments = "syncTime"
         static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
         static let QUERY_PARAM_INCLUDE_PATH = "includePath"
         static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
     }
     
+    struct TransactionResponseAPIKey {
+        static let PrimaryInfo = "PrimaryInfo"
+        static let PaymentMethod = "PaymentMethod"
+        static let Amount = "Amount"
+        static let TransactionTime = "TransactionTime"
+        static let TransactionType = "TransactionType"
+        static let TransactionStatement = "TransactionStatement"
+    }
+    
+    struct WalletTopUpParam {
+        static let methodId = "PaymentMethodId"
+        static let method = "PaymentMethod"
+        static let amount = "Amount"
+    }
     
 }

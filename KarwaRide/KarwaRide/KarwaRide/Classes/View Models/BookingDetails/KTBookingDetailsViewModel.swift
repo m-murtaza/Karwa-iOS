@@ -120,6 +120,18 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return (booking?.bookingStatus)!
     }
     
+    func getBookingOtp() -> String? {
+        return booking?.otp
+    }
+    
+    func getBookingDescription() -> String? {
+        return booking?.desc
+    }
+    
+    func getCancellationCharges() -> String {
+        return "str_cancellation".localized() + ": \(booking?.cancellationCharges ?? "")"
+    }
+    
     
     func updateEta() {
         updateEta(eta: "")
@@ -156,14 +168,12 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func formatedETA(eta: Int64) -> String {
-        //        if eta/60 < 60 {
-        //
-        //            return "1 min"
-        //        }
-        
         let formatedEta : Double = Double(eta)/60
-        return "\(Int(ceil(Double(formatedEta)))) min"
-        
+        if formatedEta > 1 {
+            return String(format: "txt_eta_mins".localized(), "\(Int(ceil(Double(formatedEta))))")
+        } else {
+            return String(format: "txt_eta".localized(), "\(Int(ceil(Double(formatedEta))))")
+        }
     }
     
     override func viewWillDisappear()
@@ -199,16 +209,23 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 
         if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue)
         {
-            del?.hideDriverInfoBox()
+            if booking?.driverName == nil && (booking?.driverName?.isEmpty ?? false) {
+                del?.hideDriverInfoBox()
+            } else {
+                del?.showDriverInfoBox()
+            }
         }
         else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
         {
             //del?.hideDriverInfoBox()
             del?.updateAssignmentInfo()
-        }
-        else {
+        }else if(booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue) || booking?.bookingStatus == BookingStatus.PENDING.rawValue
+        {
+            
             del?.hideDriverInfoBox()
+            
         }
+        
         
     }
     
@@ -236,13 +253,15 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func imgForPlate() -> UIImage {
-        
-        guard let vehicleType = booking?.vehicleType else {
+                
+        guard let plateType = booking?.plateType else {
             return UIImage(named:"taxiplate")!
         }
-        if KTVehicleTypeManager.isTaxi(vType: VehicleType(rawValue: vehicleType)!) {
+                
+        if plateType == 1 {
             return UIImage(named:"taxiplate")!
         }
+                
         return UIImage(named:"limo_number_plate")!
     }
     
@@ -366,18 +385,24 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         let day = booking!.pickupTime!.dayOfWeek()
         let time = booking!.pickupTime!.timeWithAMPM()
         
-        let dayAndTime = "\(day), \(time) "
+        let dayAndTime = "\(time), "
         
         return dayAndTime
     }
     
     func paymentMethod() -> String
     {
-        var paymentMethod = "Cash"
+        var paymentMethod = "str_cash".localized()
         let bookingStatus = bookingStatii()
+        
+        print(booking?.paymentMethod)
+        
         if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
         {
             //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else if (booking?.paymentMethod ?? "WALLET") == "WALLET" {
+            paymentMethod = "str_paid_with".localized()
         }
         else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
         {
@@ -385,11 +410,13 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         }
         else if(booking!.paymentMethod == "ApplePay")
         {
-            paymentMethod = "Paid by"
+            paymentMethod = "str_paid_by".localized()
         }
 
         return paymentMethod
+        
     }
+    
     
     func paymentMethodIcon() -> String
     {
@@ -489,7 +516,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     {
         var passengerCount = "txt_four".localized()
 
-        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue)
+        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue || booking?.vehicleType == VehicleType.KTCityTaxi7Seater.rawValue)
         {
             passengerCount = "txt_seven".localized()
         }
@@ -532,7 +559,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            
+            self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: false)
             startPollingForBooking()
             del?.showHideShareButton(false)
@@ -546,14 +574,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         else if(bStatus == BookingStatus.PICKUP)
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             startVechicleTrackTimer()
             del?.showHideShareButton(true)
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-            del?.showCurrentLocationDot(show: true)
+            self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: true)
             del?.showHideShareButton(true)
             startVechicleTrackTimer()
@@ -658,6 +686,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
+                        self.updateBookingCard()
+
                     }
 
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
@@ -703,6 +733,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 
                 self.booking = updatedBooking
                 
+                self.checkForRating()
+                
                 self.initializeViewWRTBookingStatus()
                 
             }
@@ -738,7 +770,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             del?.setMapCamera(bound: bounds)
         }
         else {
-            del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            if booking?.dropOffLat != nil && booking?.dropOffLon != nil && !(booking?.dropOffLat.isZero)! && !(booking?.dropOffLon.isZero)! {} else {
+                del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+            }
         }
     }
     
@@ -1055,7 +1089,31 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func totalFareOfTrip() -> String {
         
-        return (booking?.fare)!
+        if Device.getLanguage().contains("AR") {
+            let numberStr: String = (booking?.fare?.components(separatedBy: " ")[0])!
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.locale = NSLocale(localeIdentifier: "EN") as Locale!
+            let final = formatter.number(from: numberStr)
+            let intNumber = Int(final!)
+            print("\(intNumber)")
+            
+            let totalFare = Int(booking?.driverTip ?? 0) + intNumber
+            
+            let arformatter = NumberFormatter()
+            arformatter.locale = Locale(identifier: "ar")
+            if let localized = arformatter.string(from: NSNumber(value: totalFare)) {
+               return "\(localized) \((booking?.fare?.components(separatedBy: " ")[1])!)"
+            }
+            return ""
+        } else {
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.locale = NSLocale(localeIdentifier: "EN") as Locale!
+            let final = formatter.number(from: (booking?.fare?.components(separatedBy: " ")[1])!)
+            let totalFare = Int(booking?.driverTip ?? 0) + Int(final!)
+            return (booking?.fare?.components(separatedBy: " ")[0])! + " " + String(totalFare)
+        }
+                
+                
     }
     
     func fareDetailsHeader() -> [KTKeyValue]? {
@@ -1076,10 +1134,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     //MARK:- Check for rating
     func checkForRating(){
+        
         guard booking != nil, booking?.isRated == false else {
             return
         }
-        
         if booking?.bookingStatus == BookingStatus.COMPLETED.rawValue {
             del?.showRatingScreen()
         }
@@ -1107,10 +1165,23 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             else if(booking?.bookingStatus == BookingStatus.CANCELLED.rawValue || booking?.bookingStatus == BookingStatus.TAXI_NOT_FOUND.rawValue || booking?.bookingStatus == BookingStatus.TAXI_UNAVAIALBE.rawValue || booking?.bookingStatus == BookingStatus.NO_TAXI_ACCEPTED.rawValue || booking?.bookingStatus == BookingStatus.COMPLETED.rawValue)
             {
                 del?.clearMaps()
-                checkForRating()
                 initializeViewWRTBookingStatus()
                 del?.showHideShareButton(false)
             }
         }
     }
+    
+    //KTLocationManager.sharedInstance.currentLocation.coordinate
+    
+    private func showCurrentLocationDot(location: CLLocationCoordinate2D) {
+      
+        if location.distance(from: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude: booking?.pickupLon ?? 0.0)) <= 100 {
+            del?.showCurrentLocationDot(show: true)
+        }
+      else {
+        del?.showCurrentLocationDot(show: false)
+        
+      }
+    }
+    
 }

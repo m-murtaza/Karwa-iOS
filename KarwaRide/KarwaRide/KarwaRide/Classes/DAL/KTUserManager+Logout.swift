@@ -21,6 +21,9 @@ extension KTUserManager
         print("Logout on server " + status)
         self.removeUserData()
         self.removeNotification()
+        KTPaymentManager().removeAllPaymentData()
+        PreviousSelectedPayment.shared.selectedPaymentMethod = nil
+        PreviousSelectedPayment.shared.rebook = false
         (UIApplication.shared.delegate as! AppDelegate).showLogin()
         
       }
@@ -54,6 +57,7 @@ extension KTUserManager
     KTUser.mr_truncateAll(in: NSManagedObjectContext.mr_default())
     KTBooking.mr_truncateAll(in: NSManagedObjectContext.mr_default())
     KTNotification.mr_truncateAll(in: NSManagedObjectContext.mr_default())
+    KTTransactions.mr_truncateAll(in: NSManagedObjectContext.mr_default())
     NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
   }
 }

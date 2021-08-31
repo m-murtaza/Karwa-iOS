@@ -25,6 +25,7 @@ protocol BarcodeProtocol
     func setShowBarcodeRequired(valueSent: Bool)
 }
 
+
 class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewModelDelegate, UITableViewDelegate, UITableViewDataSource, FinishProtocol, BarcodeProtocol, RKTagsViewDelegate, PKPaymentAuthorizationViewControllerDelegate
 {
     @IBOutlet weak var tableView: UITableView!
@@ -92,14 +93,21 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tableView.isHidden = true
         tagView.editable = false
         tagView.delegate = self
+        
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 250, right: 0)
+        self.tableView.contentInset = insets
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
+        
+        super.viewWillAppear(true)
+
         self.tableView.isHidden = true
         btnApplePay.addTarget(self, action: #selector(applePayAction), for: .touchUpInside)
         btnApplePay.isHidden = true;
         tagView.isHidden = true
+        (viewModel as? KTPaymentViewModel)?.getPaymentData()
     }
     
         @objc func applePayAction() {
@@ -479,9 +487,22 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         }
     }
     
-    func gotoManagePayments()
+    @IBAction func gotoManagePayments()
     {
-        self.performSegue(withIdentifier: "segueToManagePayment", sender: self)
+        
+        let nav : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTWalletNavigationController") as! UINavigationController
+        
+        let destination : KTWalletViewController = (nav.viewControllers)[0] as! KTWalletViewController
+
+        destination.title = "str_wallet".localized()
+        destination.finishDelegate = self
+        destination.barcodeDelegate = self
+        nav.modalPresentationStyle = .fullScreen
+        destination.fromPaymentViewController = true
+        
+        self.present(nav, animated: true, completion: nil)
+        
+//        self.performSegue(withIdentifier: "segueToManagePayment", sender: self)
     }
     
     func reloadTableData()
@@ -635,3 +656,6 @@ extension KTPaymentViewController: BarcodeScannerManageDelegate
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
+
+

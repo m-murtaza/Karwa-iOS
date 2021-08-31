@@ -122,7 +122,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
         passwordTextField.delegate = self
         emailTextField.delegate = self
         nameTextField.delegate = self
-        phoneNumberTextField.keyboardType = .phonePad
+        phoneNumberTextField.keyboardType = .numberPad
     }
     
   override func viewWillDisappear(_ animated: Bool) {

@@ -13,11 +13,14 @@ target 'KarwaRide' do
   pod 'Toast-Swift', '~> 5.0.0'
   pod 'libPhoneNumber-iOS', '~> 0.8'
   pod 'Kingfisher', '~> 4.0'
-  pod 'Crashlytics', '~> 3.10.5'
+#  pod 'Crashlytics', '~> 3.10.5'
   pod 'NotificationBannerSwift', '1.6.3'
   pod 'MarqueeLabel/Swift', '3.1.6'
-  pod 'Firebase/Core'
-
+#  pod 'Firebase/Core'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Analytics'
+  pod 'FittedSheets'
+  
     #pod 'XLActionController', '~> 5.0.1' # Not working
     #pod 'XLActionController/Youtube'     # May be not working
 
@@ -28,7 +31,7 @@ target 'KarwaRide' do
     pod 'JTMaterialSwitch'
     pod 'Cosmos'
     pod 'RKTagsView'
-    pod 'Fabric'
+#    pod 'Fabric'
     pod 'SAConfettiView'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
     pod 'DDViewSwitcher'
@@ -43,17 +46,27 @@ target 'KarwaRide' do
     pod 'UBottomSheet', '~> 1.0.0'
     pod 'lottie-ios'
     pod 'TrueTime'
-end
+    pod 'ABLoaderView'
 
+end
 
 post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        plist_buddy = "/usr/libexec/PlistBuddy"
-        plist = "Pods/Target Support Files/#{target}/Info.plist"
-        
-        puts "Add arm64 to #{target} to make it pass iTC verification."
-        
-        `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities array" "#{plist}"`
-        `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities:0 string arm64" "#{plist}"`
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+      config.build_settings["ONLY_ACTIVE_ARCH"] = "YES"
     end
+  end
 end
+
+#post_install do |installer|
+#    installer.pods_project.targets.each do |target|
+#        plist_buddy = "/usr/libexec/PlistBuddy"
+#        plist = "Pods/Target Support Files/#{target}/Info.plist"
+#
+#        puts "Add arm64 to #{target} to make it pass iTC verification."
+#
+#        `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities array" "#{plist}"`
+#        `#{plist_buddy} -c "Add UIRequiredDeviceCapabilities:0 string arm64" "#{plist}"`
+#    end
+#end

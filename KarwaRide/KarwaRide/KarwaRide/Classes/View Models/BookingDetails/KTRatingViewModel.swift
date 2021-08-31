@@ -23,13 +23,17 @@ protocol KTRatingViewModelDelegate : KTViewModelDelegate {
     func selectedIdx() -> [NSNumber]
     func userFinalRating() -> Int32
     func showAltForThanks(rating: Int32)
-    func enableSubmitButton()
+    func enableSubmitButton(enable: Bool)
     func showConsolationText()
     func showConsolationText(message: String)
+    func showSelectReasonText(message: String)
     func hideConsolationText()
     func setTitleBtnSubmit(label: String)
     func showHideComplainableLabel(show: Bool)
     func resetComplainComment()
+    func updatePickUpAddress(address: String)
+    func updateDropAddress(address: String)
+
 }
 
 class KTRatingViewModel: KTBaseViewModel {
@@ -47,25 +51,44 @@ class KTRatingViewModel: KTBaseViewModel {
         //updateDriverImage()
     }
     
+    override func viewDidAppear() {
+        del = self.delegate as? KTRatingViewModelDelegate
+        updateView()
+    }
+    
     func setBookingForRating(booking b : KTBooking)  {
         booking = b
-        updateView()
+        
         //updateDriverImage()
     }
     
     func ratingUpdate(rating: Double) {
-        del?.enableSubmitButton()
         if rating == 4
         {
             del?.showConsolationText(message: "rating_msg_satisfied".localized())
+            del?.showSelectReasonText(message: "")
+            del?.enableSubmitButton(enable: true)
+
         }
         else if rating == 5
         {
             del?.showConsolationText(message: "rating_msg_completely_satisfied".localized())
+            del?.showSelectReasonText(message: "")
+            del?.enableSubmitButton(enable: true)
+
+        } else if rating ==  3
+        {
+            del?.showSelectReasonText(message: "")
+            del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
+            del?.enableSubmitButton(enable: false)
+
         }
         else
         {
+            del?.showSelectReasonText(message: "txt_select_two_or_more".localized())
             del?.showConsolationText(message: "rating_msg_no_satisfied".localized())
+            del?.enableSubmitButton(enable: false)
+
         }
 
         del?.setTitleBtnSubmit(label: "str_submit_upper".localized())
@@ -139,9 +162,32 @@ class KTRatingViewModel: KTBaseViewModel {
     
     func tagViewTapped()
     {
+        del?.enableSubmitButton(enable: true)
+
         let complainableRating = selectedReasonIsComplainable()
-        del?.setTitleBtnSubmit(label: complainableRating ? "submit_complain".localized() : "str_submit_upper".localized())
+        del?.setTitleBtnSubmit(label: complainableRating ? "str_submit_n_report".localized() : "str_submit_upper".localized())
         del?.showHideComplainableLabel(show: complainableRating)
+        
+        let rating = (del?.userFinalRating())!
+
+        if selectedReasonIsComplainable() {
+            
+            if(rating >= 3){
+                del?.showSelectReasonText(message:"")
+            }
+            
+            del?.showSelectReasonText(message:complainableRating ? "txt_complain_reasons".localized() : "txt_select_two_or_more".localized())
+        } else {
+            
+            if(rating < 3){
+                if del?.selectedIdx().count == 0{
+                    del?.showSelectReasonText(message:"txt_select_two_or_more".localized())
+                } else {
+                    del?.showSelectReasonText(message:"")
+                }
+            }
+        }
+
     }
     
     func btnRattingTapped()
@@ -189,7 +235,7 @@ class KTRatingViewModel: KTBaseViewModel {
             else {
                 
                 self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
-                self.del?.closeScreen(-1)
+//                self.del?.closeScreen(-1)
             }
             
         }
@@ -206,8 +252,89 @@ class KTRatingViewModel: KTBaseViewModel {
         }
         del?.updateTrip(fare: (booking?.fare)!)
         del?.updatePickup(date: formatedDateForRating(date: (booking?.pickupTime)!))
+        del?.updatePickUpAddress(address: booking?.pickupAddress ?? "")
+        del?.updateDropAddress(address: booking?.dropOffAddress ?? "")
         //let formatedDate = formatedDateForRating(date: (booking?.pickupTime)!)
     }
+    
+    func vehicleType() -> String {
+        
+        var type : String = ""
+        switch booking!.vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
+            type = "txt_taxi".localized()
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            type = "txt_family_taxi".localized()
+            
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            type = "txt_accessible".localized()
+
+        case VehicleType.KTStandardLimo.rawValue:
+            type = "txt_limo_standard".localized()
+            
+        case VehicleType.KTBusinessLimo.rawValue:
+            type = "txt_limo_buisness".localized()
+            
+        case VehicleType.KTLuxuryLimo.rawValue:
+            type = "txt_limo_luxury".localized()
+        default:
+            type = ""
+        }
+        return type
+    }
+    
+    func paymentMethod() -> String
+    {
+        var paymentMethod = "Cash"
+        let bookingStatus = bookingStatii()
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+        {
+            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
+        {
+            paymentMethod = "**** " +  booking!.lastFourDigits!
+        }
+        else if(booking!.paymentMethod == "ApplePay")
+        {
+            paymentMethod = "Paid by"
+        }
+
+        return paymentMethod
+    }
+    
+    func bookingStatii() -> Int32 {
+        return (booking?.bookingStatus)!
+    }
+
+    func paymentMethodIcon() -> String
+    {
+        var paymentMethodIcon = ""
+        let bookingStatus = bookingStatii()
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+        {
+            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        }
+        else
+        {
+            paymentMethodIcon = booking!.paymentMethod ?? ""
+        }
+        return paymentMethodIcon
+    }
+    
+    func getPassengerCountr() -> String
+    {
+        var passengerCount = "txt_four".localized()
+
+        if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue || booking?.vehicleType == VehicleType.KTCityTaxi7Seater.rawValue )
+        {
+            passengerCount = "txt_seven".localized()
+        }
+        
+        return passengerCount
+    }
+    
     func formatedDateForRating(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, dd MMM, YYYY 'at' HH:mm a"
@@ -223,6 +350,33 @@ class KTRatingViewModel: KTBaseViewModel {
         let baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         let url = URL(string: baseURL + Constants.APIURL.DriverImage + "/" + (booking?.driverId)!)!
         del?.updateDriverImage(url: url)
+    }
+    
+    func pickupDateOfMonth() -> String{
+        
+        return booking!.pickupTime!.dayOfMonth()
+    }
+    
+    func pickupMonth() -> String{
+        
+        return " \(booking!.pickupTime!.threeLetterMonth()) "
+        
+    }
+    
+    func pickupYear() -> String{
+        
+        return booking!.pickupTime!.year()
+        
+    }
+    
+    func pickupDayAndTime() -> String{
+        
+        let day = booking!.pickupTime!.dayOfWeek()
+        let time = booking!.pickupTime!.timeWithAMPM()
+        
+        let dayAndTime = "\(time), "
+        
+        return dayAndTime
     }
     
     //MARK:- Rate Applicaiton

@@ -35,7 +35,7 @@ class KTFareHTMLViewController: KTBaseDrawerRootViewController,WKNavigationDeleg
         }
         else if(isPromotion)
         {
-            urlWithTimeAndSessionId = promoURL
+            urlWithTimeAndSessionId = promoURL+"?t=\(Date().serverTimeStamp())"
             title = "str_promotions".localized()
         }
 

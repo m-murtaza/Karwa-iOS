@@ -21,7 +21,7 @@ class KTMyTripsTableViewCell: UITableViewCell {
   @IBOutlet weak var statusLabel : UILabel!
   @IBOutlet weak var cashIcon : UIImageView!
   @IBOutlet weak var detailArrow : UIImageView!
-  
+  @IBOutlet weak var cancellationChargeLabel : UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()

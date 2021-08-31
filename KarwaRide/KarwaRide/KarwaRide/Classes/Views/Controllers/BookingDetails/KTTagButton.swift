@@ -16,19 +16,19 @@ class KTTagButton: UIButton {
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
          //Drawing code
-        self.layer.cornerRadius = 14
+        self.layer.cornerRadius = 10
         self.layer.borderWidth = 1
-        self.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 9.0)!
-        var bgColor : UIColor = UIColor(hexString:"#5B5A5A")
+        self.titleLabel?.font = UIFont(name: "MuseoSans-500", size: 12.0)!
+        var bgColor : UIColor = UIColor(hexString:"#006170")
         if isSelected
         {
             if(isComplainable)
             {
-                bgColor = UIColor(hexString:"#25AAF1")
+                bgColor = UIColor(hexString:"#E43825")
             }
             else
             {
-                bgColor = UIColor(hexString:"#5B5A5A")
+                bgColor = UIColor(hexString:"#006170")
             }
         }
         else
@@ -38,11 +38,13 @@ class KTTagButton: UIButton {
         
         if(isComplainable)
         {
-            self.layer.borderColor = UIColor(hexString:"#25AAF1").cgColor
+            self.layer.borderColor = UIColor(hexString:"#E43825").cgColor
+            self.setTitleColor(UIColor(hexString:"#E43825"), for: .normal)
         }
         else
         {
-            self.layer.borderColor = UIColor(hexString:"#5B5A5A").cgColor
+            self.layer.borderColor = UIColor(hexString:"#006170").cgColor
+            self.setTitleColor(UIColor(hexString:"#006170"), for: .normal)
         }
         
         self.layer.backgroundColor = bgColor.cgColor

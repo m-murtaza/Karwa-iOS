@@ -8,8 +8,17 @@
 
 import UIKit
 import Spring
-import Crashlytics
 import Lottie
+import UBottomSheet
+
+public class PreviousSelectedPayment: NSObject {
+    static let shared = PreviousSelectedPayment()
+    var selectedPaymentMethod: String?
+    var rebook: Bool? = false
+    public override init() {
+        
+    }
+}
 
 class RideServiceCell: UITableViewCell {
   @IBOutlet weak var serviceName: UILabel!
@@ -47,6 +56,7 @@ class RideServiceCell: UITableViewCell {
     if parts.count > 1, var last = parts.last {
       last.removeLast()
       self.fareInfo.text = "(\(String(last)))"
+      self.fareInfo.isHidden = false
       let startingFare = String(parts.first ?? "")
       let trimmedString = startingFare.trimmingCharacters(in: .whitespacesAndNewlines)
       self.fare.text = trimmedString
@@ -54,6 +64,8 @@ class RideServiceCell: UITableViewCell {
     else {
       self.fare.text = fare
       self.fareInfo.text = ""
+        self.fareInfo.isHidden = true
+        
     }
   }
   
@@ -163,18 +175,20 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
 
     func restoreCustomerServiceSelection(animateView: Bool)
     {
-        guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-          return
-        }
         
-        print("Restoring index: \(selectedIndex)")
+            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+                return
+            }
 
-        let indexPath = IndexPath(row: selectedIndex, section: 0)
-        DispatchQueue.main.async {
-          self.tableView.selectRow(at: indexPath,
-                                   animated: !animateView,
-                                   scrollPosition: .none)
-        }
+            print("Restoring index: \(selectedIndex)")
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            DispatchQueue.main.async {
+                self.tableView.selectRow(at: indexPath,
+                                         animated: !animateView,
+                                         scrollPosition: .none)
+            }
+                    
     }
   
 }
@@ -208,7 +222,12 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
   
 }
 class KTCreateBookingViewController:
-KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    
+    func reloadSelection() {
+        self.tableView.reloadData()
+    }
+    
 
     func showScanPayCoachmark()
     {
@@ -257,6 +276,11 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBOutlet weak var showMoreRideOptions: UIButton!
   @IBOutlet weak var pickupAddressLabel: UILabel!
     @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
+  @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var pickUpClikcBtn: UIButton!
+    @IBOutlet weak var dropClikcBtn: UIButton!
+
     
   var tableViewMinimumHeight: CGFloat = 170
   var tableViewMaximumHeight: CGFloat = 370
@@ -267,8 +291,39 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   @IBOutlet weak var mapToRideServicesView_Bottom: NSLayoutConstraint!
   var removeBookingOnReset : Bool = true
   
+    var selectedPaymentMethod = "Cash"
+    @IBOutlet weak var paymentTypeIcon: UIImageView!
+    @IBOutlet weak var paymentTypeLabel: UILabel!
+
   //MARK:- View lifecycle
-  override func viewDidLoad() {
+    fileprivate func setUpPreviousPaymentMethod() {
+        if let selectedPM = PreviousSelectedPayment.shared.selectedPaymentMethod {
+            if let paym = KTPaymentManager().getAllPayments().filter({$0.source! == selectedPM}).first {
+                
+                let paymentId = AESEncryption().encrypt(paym.source!)
+                (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
+                
+                if paym.payment_type == "WALLET" {
+                    self.paymentTypeLabel.text = "str_wallet".localized()
+                    self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
+                } else {
+                    self.paymentTypeLabel.text = "str_card".localized()
+                    self.paymentTypeIcon.image = (paym.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paym.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paym.brand ?? ""))!
+                }
+                
+            } else {
+                (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+                self.paymentTypeLabel.text = "str_cash".localized()
+                self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+            }
+        } else {
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+            self.paymentTypeLabel.text = "str_cash".localized()
+            self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+        }
+    }
+    
+    override func viewDidLoad() {
     viewModel = KTCreateBookingViewModel(del:self)
     vModel = viewModel as? KTCreateBookingViewModel
     
@@ -291,13 +346,14 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     destinationView.applyShadow()
     collectionView.dataSource = self
     collectionView.delegate = self
-    (viewModel as! KTCreateBookingViewModel).fetchDestinations()
     tableView.delegate = self
     tableView.dataSource = self
     tableView.isScrollEnabled = false
     let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
-    tableView.addGestureRecognizer(gesture)
-//    hideCurrentLocationButton()
+    
+    rideServicesContainer.addGestureRecognizer(gesture)
+
+    //    hideCurrentLocationButton()
     
     //TODO: This needs to be converted on Location Call Back
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1)
@@ -314,6 +370,16 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     {
         btnRecenterLocationConstraint.constant = 15
     }
+    
+    if vModel?.rebook == false {
+        setUpPreviousPaymentMethod()
+    } else {
+        (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+        self.paymentTypeLabel.text = "str_cash".localized()
+        self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+    }
+    
+            
   }
   
   @objc private func showMenu() {
@@ -355,9 +421,11 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         DispatchQueue.main.async
         {
             self.showMoreRideOptions.isHidden = isClosed
+            
+            (self.viewModel as! KTCreateBookingViewModel).vehicleTypes = (self.viewModel as! KTCreateBookingViewModel).modifiedVehicleTypes
+            
             if(self.selectedIndex != 0 && !isClosed)
             {
-//                self.moveRowToFirst(fromIndex: self.selectedIndex)
                 UIView.transition(with: self.tableView,
                                   duration: 0.2,
                                   options: .transitionFlipFromTop,
@@ -365,6 +433,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
                                   completion:
                                     {
                                         success in
+                                        self.selectedIndex = 0
                                         self.focusIndex(selectingRow: 0, animateView: false)
                                     })
             }
@@ -387,9 +456,9 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
+    self.mapViewBottomConstraint.constant = 260
   }
-  
-
+      
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
   }
@@ -408,7 +477,7 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
      self.currentLocationButton.isHidden = true
     }
   }
-  
+
   @IBAction func showMoreRideOptions(_ sender: Any) {
     tableViewHeight.constant =  tableViewMaximumHeight
     UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
@@ -422,6 +491,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(false)
     
+    (viewModel as! KTCreateBookingViewModel).fetchDestinations()
+    
     //TODO: If no pick uplocation
     if (viewModel as! KTCreateBookingViewModel).vehicleTypeShouldAnimate() {
         if(self.carousel != nil)
@@ -433,12 +504,19 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
             }
         }
     }
+    print(vModel?.booking.vehicleType)
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     if timer != nil {
       timer.invalidate()
     }
+    tableViewHeight.constant =  tableViewMinimumHeight
+    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+      self.view.layoutIfNeeded()
+    }, completion: { animated in
+      self.showMoreRideOptions.isHidden = false
+    })
     super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = false
   }
@@ -502,17 +580,33 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     (viewModel as! KTCreateBookingViewModel).btnPromoTapped()
   }
   
-  @IBAction func btnCashTapped(_ sender: Any)
-  {
-    showError(title: "str_choose_payment_method".localized(), message: "txt_payment_message".localized())
+  @IBAction func btnCashTapped(_ sender: Any) {
+    paymentSelectionVC.delegate = self
+    sheet.allowPullingPastMaxHeight = true
+    sheet.allowPullingPastMinHeight = true
+    sheet.setSizes([.fixed(CGFloat(KTPaymentManager().getAllPayments().count * 90) + 270),.intrinsic], animated: true)
+    sheet.dismissOnPull = true
+    sheet.dismissOnOverlayTap = true
+    sheet.overlayColor = UIColor.black.withAlphaComponent(0.6)
+    sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+    sheet.contentViewController.view.layer.shadowOpacity = 0.1
+    sheet.contentViewController.view.layer.shadowRadius = 10
+    sheet.allowGestureThroughOverlay = false
+    sheet.animateIn(to: view, in: self)
   }
+    
+    @objc func dismissSelectionMethod() {
+        sheet.attemptDismiss(animated: true)
+    }
   
-  @IBAction func btnCancelBtnTapped(_ sender: Any)
-  {
+  @IBAction func btnCancelBtnTapped(_ sender: Any) {
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
     collapseRideList()
     updateVehicleTypeList()
+    if sheetPresented == true {
+        self.dismissSelectionMethod()
+    }
   }
   
   //MARK: - Book Ride
@@ -560,12 +654,14 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     DispatchQueue.main.async {
       if promo.length > 0 {
         self.promoKeyLabel.text = promo
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-900", size: 15.0)!
         self.promoAppliedKeyLabel.text = "txt_promo_applied".localized()
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = false
       }
       else {
         self.promoKeyLabel.text = "str_promo_str".localized()
+        self.promoKeyLabel.font = UIFont(name: "MuseoSans-500", size: 15.0)!
         self.promoAppliedKeyLabel.text = ""
         self.promoAppliedValueLabel.text = ""
         self.promoAppliedContainer.isHidden = true
@@ -578,6 +674,10 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   {
     promoCode = promoEntered
   }
+    
+    func showPromotionAppliedToast(show: Bool) {
+        self.showToast(message: "txt_promo_applied".localized())
+    }
   // ----------------------------------------------------
   
   func showCallerIdPopUp() {
@@ -597,8 +697,12 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
   }
   
   func hideCancelBookingBtn()  {
+    self.tableView.isUserInteractionEnabled = true
+    self.mapView.isUserInteractionEnabled = true
     btnCancelBtn.isHidden = true
     btnRevealBtn.isHidden = false
+    setUpPreviousPaymentMethod()
+
   }
   
   func hideRequestBookingBtn() {
@@ -612,6 +716,8 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     {
         UIView.animate(withDuration: 0.5, animations: {
           self.pickupDropoffParentContainer.isHidden = true
+//            self.mapViewBottomConstraint.constant = 304
+            
           self.view.layoutIfNeeded()
         })
     }
@@ -648,6 +754,16 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         self.rideServicesContainer.frame.origin.y += 150
         self.pickupDropoffParentContainer.frame.origin.y += 150
         self.pickupDropoffParentContainer.isHidden = false
+
+        if self.promoCode == ""{
+            self.promoAppliedContainer.isHidden = true
+//            self.mapViewBottomConstraint.constant = 304
+        } else {
+//            self.mapViewBottomConstraint.constant = 375
+        }
+        
+        self.view.layoutIfNeeded()
+        
         self.rideServicesContainer.isHidden = false
 
         UIView.animate(
@@ -676,7 +792,15 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
         self.pickupPin.isHidden = false
         self.mapInstructionsContainer.isHidden = false
         self.currentLocationButton.isHidden = false
-        self.promoAppliedContainer.isHidden = true
+        
+        if (self.promoKeyLabel.text?.count ?? 0) > 0 && self.promoKeyLabel.text! != "str_promo_str".localized() {
+            self.promoAppliedContainer.isHidden = false
+//            self.mapViewBottomConstraint.constant = 375
+        } else {
+            self.promoAppliedContainer.isHidden = true
+//            self.mapViewBottomConstraint.constant = 304
+        }
+
         self.pickupDropoffParentContainer.isHidden = true
         self.rideServicesContainer.isHidden = true
     }
@@ -773,23 +897,34 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     }
     self.pickupAddressLabel.text = pick
     self.pickupLabel.text = pick
+    self.pickupLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
   }
   
   func setDropOff(drop: String?) {
     
-    guard drop != nil else {
-      return
+    guard drop! != "txt_set_destination".localized() else {
+        self.dropoffLabel.text = drop!
+        self.dropoffLabel.font = UIFont(name: "MuseoSans-500Italic", size: 13.0)!
+        self.tableView.reloadData()
+        return
     }
     
     //self.btnDropoffAddress.setTitle(drop, for: UIControlState.normal)
     //self.btnDropoffAddress.setTitleColor(UIColor(hexString:"#1799A6"), for: UIControlState.normal)
     self.dropoffLabel.text = drop
+    self.dropoffLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
+
   }
   
   func setPickDate(date: String) {
     scheduleKeyLabel.text = date
     //btnPickDate.setTitle(date, for: UIControlState.normal)
   }
+    
+    func setRequestButtonTitle(title: String) {
+        self.btnRequestBooking.setTitle(title, for: .normal)
+    }
+      
   
   func hideFareBreakdown() {
     
@@ -805,6 +940,40 @@ KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelega
     //self.view.layoutIfNeeded()
   }
   
+}
+
+extension KTCreateBookingViewController: PaymethodSelectionDelegate {
+    func setSelectedPaymentType(type: String, paymentMethod: KTPaymentMethod?) {
+        if type == "Wallet" {
+            let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
+            self.paymentTypeLabel.text = "str_wallet".localized()
+            self.paymentTypeIcon.image = UIImage(named:"ico_wallet_new")
+            PreviousSelectedPayment.shared.selectedPaymentMethod = paymentMethod?.source!
+        } else if type == "Card" {
+            let paymentId = AESEncryption().encrypt(paymentMethod?.source ?? "")
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = paymentId
+            self.paymentTypeLabel.text =  "str_card".localized()
+            self.paymentTypeIcon.image = (paymentMethod?.brand ?? "") == "MASTERCARD" ? UIImage(named: ImageUtil.getSmallImage(paymentMethod?.brand ?? ""))! : UIImage(named: ImageUtil.getImage(paymentMethod?.brand ?? ""))!
+            PreviousSelectedPayment.shared.selectedPaymentMethod = paymentMethod?.source!
+        }
+        else {
+            (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+            self.paymentTypeLabel.text = "str_cash".localized()
+            self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+            PreviousSelectedPayment.shared.selectedPaymentMethod = nil
+
+        }
+        self.dismissSelectionMethod()
+        self.paymentTypeIcon.contentMode = .center
+        
+              
+    }
+    
+    func closeSheet() {
+        
+    }
+    
 }
 
 extension UICollectionViewFlowLayout {

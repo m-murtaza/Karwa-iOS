@@ -40,8 +40,12 @@ class KTLoginViewModel: KTBaseViewModel {
 
     func loginBtnTapped()
     {
-        let phone : String = ((delegate as! KTLoginViewModelDelegate).phoneNumber())
+        var phone : String = ((delegate as! KTLoginViewModelDelegate).phoneNumber())
         let password: String = (delegate as! KTLoginViewModelDelegate).password().md5()
+        
+        if country.phoneExtension == "\(phone.extractCountryCode())" {
+            phone = phone.components(separatedBy: "\(phone.extractCountryCode())")[1]
+        }
         
         let error = validate(phoneNumber: phone, password: password)
         

@@ -21,6 +21,18 @@ protocol KTManagePaymentViewModelDelegate : KTViewModelDelegate
     func show3dSecureController(_ html: String)
 }
 
+extension KTManagePaymentViewModelDelegate {
+    func showEmptyScreen() {}
+    func hideEmptyScreen() {}
+    func showAddCardVC() {}
+    func showVerifyEmailPopup(email: String) {}
+    func showEnterEmailPopup() {}
+    func deleteRowWithAnimation(_ index: IndexPath){}
+    func hideCardIOPaymentController() {}
+    func show3dSecureController(_ html: String) {}
+    
+}
+
 class KTManagePaymentViewModel: KTBaseViewModel
 {
     var del : KTManagePaymentViewModelDelegate?
@@ -141,23 +153,30 @@ class KTManagePaymentViewModel: KTBaseViewModel
     {
         paymentMethods = KTPaymentManager().getAllPayments()
         
-        let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
+        paymentMethods = KTPaymentManager().getAllPayments().filter({$0.payment_type != "WALLET"})
         
-        if(selectedPaymentFromDB != nil)
-        {
-            selectedPaymentMethod = selectedPaymentFromDB!
-        }
+        if paymentMethods.count != 0 {
+            
+            let selectedPaymentFromDB = KTPaymentManager().getDefaultPayment()
+            
+            if(selectedPaymentFromDB != nil)
+            {
+                selectedPaymentMethod = selectedPaymentFromDB!
+            }
 
-        if paymentMethods.count == 0
-        {
-            self.del?.showEmptyScreen()
-        }
-        else
-        {
-            self.del?.hideEmptyScreen()
-        }
+            if paymentMethods.count == 0
+            {
+                self.del?.showEmptyScreen()
+            }
+            else
+            {
+                self.del?.hideEmptyScreen()
+            }
 
-        self.del?.reloadTableData()
+            self.del?.reloadTableData()
+        }
+        
+       
     }
     
     func fetchSessionInfo()
@@ -197,36 +216,43 @@ class KTManagePaymentViewModel: KTBaseViewModel
             request[at: "sourceOfFunds.provided.card.expiry.year"] = getRefinedYear(year)
             
             gateway.updateSession(sessionId, apiVersion: self.apiVersion, payload: request, completion: updateSessionHandler(_:))
+
+            
+//            gateway.updateSession(sessionId, apiVersion: self.apiVersion, payload: request, completion: updateSessionHandler(_:))
         }
     }
     
     // MARK: - Handle the Update Response call the gateway to update the session
     fileprivate func updateSessionHandler(_ result: GatewayResult<GatewayMap>)
     {
-        self.del?.hideProgressHud()
-        
-        switch result
-        {
-        case .success(_):
-            self.del?.showProgressHud(show: true, status: "adding_card_payment_str".localized())
-            updateCardToServer()
-            break;
+                    
+            self.del?.hideProgressHud()
             
-        case .error(let error):
-            self.del?.hideCardIOPaymentController()
-            
-            var message = "Unable to update session."
-            if case GatewayError.failedRequest( _, let explination) = error
+            switch result
             {
-                message = explination
+            case .success(_):
+                self.del?.showProgressHud(show: true, status: "adding_card_payment_str".localized())
+                self.updateCardToServer()
+                break;
+                
+            case .error(let error):
+                self.del?.hideCardIOPaymentController()
+                
+                var message = "Unable to update session."
+                if case GatewayError.failedRequest( _, let explination) = error
+                {
+                    message = explination
+                }
+                
+                DispatchQueue.main.async {
+                    self.del?.showErrorBanner("   ", message)
+                }
+                
+                break;
             }
-            
-            DispatchQueue.main.async {
-                self.del?.showErrorBanner("   ", message)
-            }
-            
-            break;
-        }
+        
+        
+        
     }
     
     func updateCardToServer()
@@ -235,21 +261,26 @@ class KTManagePaymentViewModel: KTBaseViewModel
             
             self.del?.hideProgressHud()
             self.del?.hideCardIOPaymentController()
-            
+
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 let html = response["Html"] as? String
                 if(html != nil)
                 {
-                    self.del?.show3dSecureController(html!)
+                    DispatchQueue.main.async {
+                        self.del?.show3dSecureController(html!)
+                    }
                 }
                 else
                 {
-                    self.updatePaymentMethod()
+                    DispatchQueue.main.async {
+                        self.updatePaymentMethod()
+                    }
                 }
             }
             else
             {
+                self.del?.hideCardIOPaymentController()
                 self.del?.showErrorBanner("   ", response["M"] as! String)
             }
         })

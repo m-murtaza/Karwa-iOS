@@ -12,7 +12,7 @@ class ImageUtil
 {
     static func getImage(_ brand: String) -> String
     {
-        var brandImage = "ico_wallet"
+        var brandImage = "ico_wallet_new"
         
         switch brand
         {
@@ -61,11 +61,14 @@ class ImageUtil
         case "Cash":
             brandImage = "icon-cash-new"
             break;
+        case "WALLET":
+            brandImage = "ico_wallet_new"
+            break;
         case "":
             brandImage = "icon-cash-new"
             break;
         default:
-            brandImage = "ico_wallet"
+            brandImage = "ico_wallet_new"
             break;
         }
         return brandImage
@@ -73,7 +76,7 @@ class ImageUtil
     
     static func getSmallImage(_ brand: String) -> String
     {
-        var brandImage = "wallet_ico_sm"
+        var brandImage = "ico_wallet_new"
         switch brand
         {
         case "GPay":
@@ -131,7 +134,29 @@ class ImageUtil
             brandImage = "icon-cash-new"
             break;
         default:
-            brandImage = "wallet_ico_sm"
+            brandImage = "ico_wallet_new"
+            break;
+        }
+        return brandImage
+    }
+    
+    static func getTransactionImage(_ type: String) -> String
+    {
+        var brandImage = ""
+        
+        switch type
+        {
+        case "CREDITWALLET":
+            brandImage = "addcredit_icon"
+            break;
+        case "PAIDWALLET":
+            brandImage = "creditbalance_icon"
+            break;
+        case "PAIDCARD":
+            brandImage = "card_icon"
+            break;
+        default:
+            brandImage = "card_icon"
             break;
         }
         return brandImage

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -130,6 +130,7 @@
 		1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */; };
 		1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA84200E048100AD885B /* KTBookingManager.swift */; };
 		1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */; };
+		1834000C269B5E700063EAA4 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */; };
 		18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839110F204517FB002EDE1A /* KTSettingsViewModel.swift */; };
 		18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18391113204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift */; };
 		1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */; };
@@ -228,7 +229,16 @@
 		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
 		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
 		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
-		F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */; };
+		F03DAFFC261AE4B6002B3C44 /* KTWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */; };
+		F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */; };
+		F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */; };
+		F03DB009261D42E4002B3C44 /* KTAddCreditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DB008261D42E4002B3C44 /* KTAddCreditViewModel.swift */; };
+		F04EF865262290580088C29B /* KTWalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04EF864262290580088C29B /* KTWalletManager.swift */; };
+		F07CFD722630231D00F003DA /* KTPaymentMethodSelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F07CFD712630231D00F003DA /* KTPaymentMethodSelectionView.xib */; };
+		F07CFD762630238B00F003DA /* KTPaymentMethodSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07CFD752630238B00F003DA /* KTPaymentMethodSelectionView.swift */; };
+		F07CFD7D26311A4A00F003DA /* PaymentMethodSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07CFD7B26311A4A00F003DA /* PaymentMethodSelectTableViewCell.swift */; };
+		F07CFD7E26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F07CFD7C26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib */; };
+		F09D469D262C51A600695369 /* KTCyberSecureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09D469C262C51A600695369 /* KTCyberSecureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -380,6 +390,7 @@
 		185209452062411C00BD5FCD /* MyTripHired@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "MyTripHired@3x.gif"; path = "Resources/Images/MyTripHired@3x.gif"; sourceTree = "<group>"; };
 		185209462062411C00BD5FCD /* MyTripHired.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = MyTripHired.gif; path = Resources/Images/MyTripHired.gif; sourceTree = "<group>"; };
 		1852094C2063C91C00BD5FCD /* RoundedLable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoundedLable.swift; path = Classes/Common/Extensions/RoundedLable.swift; sourceTree = "<group>"; };
+		1854EE90268222C9000AC67B /* KarwaV10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV10.xcdatamodel; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -396,6 +407,7 @@
 		186ECFCA20A410CE002CF81E /* KTSpringImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSpringImageView.swift; path = Classes/Views/Controllers/OnBoarding/KTSpringImageView.swift; sourceTree = "<group>"; };
 		186ECFCD20A80E2B002CF81E /* KTFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFirstViewController.swift; path = Classes/Views/Controllers/FirstViewController/KTFirstViewController.swift; sourceTree = "<group>"; };
 		186ECFD020A80EDB002CF81E /* KTFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFirstViewModel.swift; path = "Classes/View Models/FirstView/KTFirstViewModel.swift"; sourceTree = "<group>"; };
+		18787B3026DB73D70047D84E /* KarwaV11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV11.xcdatamodel; sourceTree = "<group>"; };
 		187E71102083790300E66A55 /* KTRatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingManager.swift; path = Classes/DAL/Rating/KTRatingManager.swift; sourceTree = "<group>"; };
 		187E71122084935100E66A55 /* KTRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTRatingViewController.swift; sourceTree = "<group>"; };
 		187E71142084B53400E66A55 /* KTRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewModel.swift; path = "Classes/View Models/BookingDetails/KTRatingViewModel.swift"; sourceTree = "<group>"; };
@@ -470,9 +482,20 @@
 		44EBB8CF254861FC000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D1254861FE000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
-		A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
-		FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
+		F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewController.swift; sourceTree = "<group>"; };
+		F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewModel.swift; sourceTree = "<group>"; };
+		F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddCreditViewController.swift; sourceTree = "<group>"; };
+		F03DB008261D42E4002B3C44 /* KTAddCreditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddCreditViewModel.swift; sourceTree = "<group>"; };
+		F04EF864262290580088C29B /* KTWalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletManager.swift; sourceTree = "<group>"; };
+		F04EF87126229AD60088C29B /* KTTransactions+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KTTransactions+CoreDataClass.swift"; path = "Classes/KTTransactions+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F07CFD712630231D00F003DA /* KTPaymentMethodSelectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KTPaymentMethodSelectionView.xib; sourceTree = "<group>"; };
+		F07CFD752630238B00F003DA /* KTPaymentMethodSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentMethodSelectionView.swift; sourceTree = "<group>"; };
+		F07CFD7B26311A4A00F003DA /* PaymentMethodSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSelectTableViewCell.swift; sourceTree = "<group>"; };
+		F07CFD7C26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodSelectTableViewCell.xib; sourceTree = "<group>"; };
+		F09D469C262C51A600695369 /* KTCyberSecureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCyberSecureViewController.swift; sourceTree = "<group>"; };
+		FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -481,7 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1833CA7C200CBE8100AD885B /* CoreLocation.framework in Frameworks */,
-				F85C067603546E7E89D0DA65 /* Pods_KarwaRide.framework in Frameworks */,
+				1834000C269B5E700063EAA4 /* Pods_KarwaRide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -768,8 +791,8 @@
 			children = (
 				181344981EF68671006E734A /* KarwaRide */,
 				181344971EF68671006E734A /* Products */,
-				BD4440AA5AEB794F28535676 /* Pods */,
 				A58B8D61F51636D5CBD777D5 /* Frameworks */,
+				82B8F4BF37A02B16704AD1D5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -804,6 +827,7 @@
 		181344AB1EF7B271006E734A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F04EF87126229AD60088C29B /* KTTransactions+CoreDataClass.swift */,
 				18B5EA4B201473AE00D9B1D1 /* Models */,
 				1810C0C81FC59BA6008E8D91 /* ThirdParty */,
 				1864872B1F0BAFD800DDB003 /* DAL */,
@@ -943,6 +967,7 @@
 		1833CA7D200DB86E00AD885B /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				F07CFD70263022F100F003DA /* PaymentSelectionView */,
 				441D116E255103ED005E1B66 /* Favorite */,
 				18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */,
 				1833CA7E200DC74300AD885B /* KTCreateBookingViewController.swift */,
@@ -1041,6 +1066,9 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F09D469B262C518C00695369 /* CyberSecure */,
+				F03DB006261D41B3002B3C44 /* AddCredit */,
+				F03DAFFA261AE46A002B3C44 /* Wallet */,
 				0D80810B21AE614F0055E473 /* TripTrack */,
 				0DE90AF22186E805005FC934 /* ScanAndPay */,
 				0D1A4B53216CA24A00279AA6 /* ComplaintsController */,
@@ -1066,6 +1094,8 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				F03DB007261D42C5002B3C44 /* AddCredit */,
+				F03DAFFE261B1329002B3C44 /* Wallet */,
 				0D80810821AE60B40055E473 /* TripTrack */,
 				0DE90AF52186E9D1005FC934 /* ScanAndPayViewModel */,
 				0D1A4B58216CA85B00279AA6 /* ComplaintsVM */,
@@ -1109,6 +1139,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				F04EF863262290390088C29B /* WalletManager */,
 				0DF3A22B2185B5280000503B /* Payment */,
 				0DEA1F4F2166051A00649F8B /* Complaints */,
 				182A74D0209708A60025B6C7 /* Notification */,
@@ -1387,22 +1418,81 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		82B8F4BF37A02B16704AD1D5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */,
+				FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		A58B8D61F51636D5CBD777D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				1833CA7B200CBE8100AD885B /* CoreLocation.framework */,
-				FD935E64F7B11D6804DC8756 /* Pods_KarwaRide.framework */,
+				7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BD4440AA5AEB794F28535676 /* Pods */ = {
+		F03DAFFA261AE46A002B3C44 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
-				A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */,
-				6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */,
+				F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */,
 			);
-			name = Pods;
+			name = Wallet;
+			sourceTree = "<group>";
+		};
+		F03DAFFE261B1329002B3C44 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */,
+			);
+			name = Wallet;
+			sourceTree = "<group>";
+		};
+		F03DB006261D41B3002B3C44 /* AddCredit */ = {
+			isa = PBXGroup;
+			children = (
+				F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */,
+			);
+			name = AddCredit;
+			sourceTree = "<group>";
+		};
+		F03DB007261D42C5002B3C44 /* AddCredit */ = {
+			isa = PBXGroup;
+			children = (
+				F03DB008261D42E4002B3C44 /* KTAddCreditViewModel.swift */,
+			);
+			name = AddCredit;
+			sourceTree = "<group>";
+		};
+		F04EF863262290390088C29B /* WalletManager */ = {
+			isa = PBXGroup;
+			children = (
+				F04EF864262290580088C29B /* KTWalletManager.swift */,
+			);
+			name = WalletManager;
+			sourceTree = "<group>";
+		};
+		F07CFD70263022F100F003DA /* PaymentSelectionView */ = {
+			isa = PBXGroup;
+			children = (
+				F07CFD712630231D00F003DA /* KTPaymentMethodSelectionView.xib */,
+				F07CFD752630238B00F003DA /* KTPaymentMethodSelectionView.swift */,
+				F07CFD7B26311A4A00F003DA /* PaymentMethodSelectTableViewCell.swift */,
+				F07CFD7C26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib */,
+			);
+			name = PaymentSelectionView;
+			sourceTree = "<group>";
+		};
+		F09D469B262C518C00695369 /* CyberSecure */ = {
+			isa = PBXGroup;
+			children = (
+				F09D469C262C51A600695369 /* KTCyberSecureViewController.swift */,
+			);
+			name = CyberSecure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1412,13 +1502,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 181344A81EF68671006E734A /* Build configuration list for PBXNativeTarget "KarwaRide" */;
 			buildPhases = (
-				A73D21A6E2BF48F601F4273E /* [CP] Check Pods Manifest.lock */,
+				752AECF0786652127F60095C /* [CP] Check Pods Manifest.lock */,
 				181344921EF68671006E734A /* Sources */,
 				181344931EF68671006E734A /* Frameworks */,
 				181344941EF68671006E734A /* Resources */,
-				2829D11D0A5684BBDC46667E /* [CP] Embed Pods Frameworks */,
-				5AD6841055C07E0A83D414E4 /* [CP] Copy Pods Resources */,
 				182A74DF20A1761C0025B6C7 /* ShellScript */,
+				1F6201008D4EE0A77E5624ED /* [CP] Embed Pods Frameworks */,
+				E1DDE0DFA351A34CC1082E9F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1441,9 +1531,7 @@
 				TargetAttributes = {
 					181344951EF68671006E734A = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 2U24J4Z466;
 						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1485,9 +1573,11 @@
 			files = (
 				0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */,
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
+				F07CFD722630231D00F003DA /* KTPaymentMethodSelectionView.xib in Resources */,
 				441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */,
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */,
+				F07CFD7E26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib in Resources */,
 				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
@@ -1517,30 +1607,40 @@
 /* Begin PBXShellScriptBuildPhase section */
 		182A74DF20A1761C0025B6C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TRAGET_NAME}",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 18a63cc6ce3523ea81e6bd4138a364a25790a476 433f9788c24c4941ceb0d1b923d1d16afb99c1dccf40c6c7f2a3c6e24ac2adbe\n";
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\" \n";
 		};
-		2829D11D0A5684BBDC46667E /* [CP] Embed Pods Frameworks */ = {
+		1F6201008D4EE0A77E5624ED /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ABLoaderView/ABLoaderView.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlertOnboarding/AlertOnboarding.framework",
 				"${BUILT_PRODUCTS_DIR}/BarcodeScanner/BarcodeScanner.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/DDViewSwitcher/DDViewSwitcher.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FittedSheets/FittedSheets.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JTMaterialSwitch/JTMaterialSwitch.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -1549,6 +1649,7 @@
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/RKTagsView/RKTagsView.framework",
 				"${BUILT_PRODUCTS_DIR}/SAConfettiView/SAConfettiView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -1568,12 +1669,19 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ABLoaderView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlertOnboarding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BarcodeScanner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DDViewSwitcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FittedSheets.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTMaterialSwitch.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -1582,6 +1690,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKTagsView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SAConfettiView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -1604,7 +1713,29 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5AD6841055C07E0A83D414E4 /* [CP] Copy Pods Resources */ = {
+		752AECF0786652127F60095C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KarwaRide-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1DDE0DFA351A34CC1082E9F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1620,24 +1751,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A73D21A6E2BF48F601F4273E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KarwaRide-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1668,6 +1781,7 @@
 				0D1B4C6D22ED759C00CABE26 /* KTManagePaymentViewController.swift in Sources */,
 				182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */,
 				18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */,
+				F07CFD7D26311A4A00F003DA /* PaymentMethodSelectTableViewCell.swift in Sources */,
 				0D5EAA8820EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift in Sources */,
 				0DE6A746218B141200125507 /* BuildConfig.swift in Sources */,
 				18C24B1620061890002D4B88 /* ButtonWithShadow.swift in Sources */,
@@ -1682,6 +1796,7 @@
 				18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
 				183B91E220C7C19500097FAF /* KTFareHTMLViewController.swift in Sources */,
+				F07CFD762630238B00F003DA /* KTPaymentMethodSelectionView.swift in Sources */,
 				0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */,
 				18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */,
 				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
@@ -1706,6 +1821,7 @@
 				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
+				F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
 				18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */,
 				0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */,
@@ -1741,6 +1857,7 @@
 				181344B21EF7BC94006E734A /* KTConfiguration.swift in Sources */,
 				0DE7B9AC2226B1F50098951C /* AESEncryption.swift in Sources */,
 				0D1B4C6F22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift in Sources */,
+				F03DAFFC261AE4B6002B3C44 /* KTWalletViewController.swift in Sources */,
 				18C24ACE20037C21002D4B88 /* KTUserManager+SignUp.swift in Sources */,
 				181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */,
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
@@ -1752,6 +1869,7 @@
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
 				1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */,
 				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,
+				F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */,
 				1833CA7F200DC74300AD885B /* KTCreateBookingViewController.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
 				18F2B2762044135200600966 /* KTMyTripsViewController.swift in Sources */,
@@ -1766,10 +1884,12 @@
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
 				18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
+				F09D469D262C51A600695369 /* KTCyberSecureViewController.swift in Sources */,
 				18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */,
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
 				0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */,
 				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
+				F03DB009261D42E4002B3C44 /* KTAddCreditViewModel.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
 				0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */,
@@ -1814,6 +1934,7 @@
 				186ECFBB20A199BF002CF81E /* KTOnBoardingViewController.swift in Sources */,
 				186ECFC720A1A4F5002CF81E /* KTOnboardingStep5ViewController.swift in Sources */,
 				0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */,
+				F04EF865262290580088C29B /* KTWalletManager.swift in Sources */,
 				0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */,
 				0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
@@ -1921,6 +2042,7 @@
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1978,6 +2100,7 @@
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1989,27 +2112,35 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		181344A91EF68671006E734A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A09FA01CD5775D7A081FD8AC /* Pods-KarwaRide.debug.xcconfig */;
+			baseConfigurationReference = C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 155;
+				CURRENT_PROJECT_VERSION = 194;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.0.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2024,25 +2155,33 @@
 		};
 		181344AA1EF68671006E734A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BB42F409FEA216EDE406C57 /* Pods-KarwaRide.release.xcconfig */;
+			baseConfigurationReference = FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 155;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 194;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = KarwaRide/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.0.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.4;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = KarwaAppStoreProvisionProfile;
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2076,6 +2215,8 @@
 		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				18787B3026DB73D70047D84E /* KarwaV11.xcdatamodel */,
+				1854EE90268222C9000AC67B /* KarwaV10.xcdatamodel */,
 				0D4FC2C624014ED400DE705C /* KarwaV9.xcdatamodel */,
 				0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */,
 				0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */,
@@ -2086,7 +2227,7 @@
 				0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */,
 				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
 			);
-			currentVersion = 0D4FC2C624014ED400DE705C /* KarwaV9.xcdatamodel */;
+			currentVersion = 18787B3026DB73D70047D84E /* KarwaV11.xcdatamodel */;
 			name = Karwa.xcdatamodeld;
 			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
 			sourceTree = "<group>";

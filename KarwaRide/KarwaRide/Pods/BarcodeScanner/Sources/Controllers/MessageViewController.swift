@@ -58,7 +58,7 @@ public final class MessageViewController: UIViewController {
 
    - Parameter style: The current blur style.
    */
-  private func animate(blurStyle: UIBlurEffectStyle) {
+  private func animate(blurStyle: UIBlurEffect.Style) {
     guard status.state == .processing else { return }
 
     UIView.animate(
@@ -103,9 +103,7 @@ public final class MessageViewController: UIViewController {
   private func handleStatusUpdate() {
     borderView.isHidden = true
     borderView.layer.removeAllAnimations()
-//    textLabel.text = status.text ?? messages.makeText(for: status.state)
-    textLabel.text =  Locale.current.languageCode == "ar" ? "صور الباركود في عداد التاكسي للدفع ببطاقة الائتمان" : "Scan your trip QR code from Meter for credit card payment"
-    textLabel.textAlignment = .center
+    textLabel.text = status.text ?? messages.makeText(for: status.state)
 
     switch status.state {
     case .scanning, .unauthorized:

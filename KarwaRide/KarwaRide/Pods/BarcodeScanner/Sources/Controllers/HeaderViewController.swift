@@ -19,7 +19,8 @@ public final class HeaderViewController: UIViewController {
   public private(set) lazy var titleLabel: UILabel = self.makeTitleLabel()
   /// Left bar button item of the navigation bar.
   public private(set) lazy var closeButton: UIButton = self.makeCloseButton()
-  /// Right bar button item of the navigation bar.
+
+    /// Right bar button item of the navigation bar.
     public private(set) lazy var manageButton: UIButton = self.makeManageButton()
 
   // MARK: - View lifecycle
@@ -30,21 +31,19 @@ public final class HeaderViewController: UIViewController {
     navigationBar.delegate = self
     closeButton.addTarget(self, action: #selector(handleCloseButtonTap), for: .touchUpInside)
     manageButton.addTarget(self, action: #selector(handleManageButtonTap), for: .touchUpInside)
-    
-    navigationController?.navigationBar.barTintColor = hexStringToUIColor(hex: "#ebf6f4")
+
     view.addSubview(navigationBar)
     setupConstraints()
   }
-    
+
   // MARK: - Actions
 
-  @objc private func handleManageButtonTap() {
-    delegate?.headerViewControllerDidTapManageButton(self)
-  }
-    
   @objc private func handleCloseButtonTap() {
     delegate?.headerViewControllerDidTapCloseButton(self)
   }
+    @objc private func handleManageButtonTap() {
+      delegate?.headerViewControllerDidTapManageButton(self)
+    }
 
   // MARK: - Layout
 
@@ -62,27 +61,6 @@ public final class HeaderViewController: UIViewController {
   }
 }
 
-func hexStringToUIColor (hex:String) -> UIColor {
-    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-    
-    if (cString.hasPrefix("#")) {
-        cString.remove(at: cString.startIndex)
-    }
-    
-    if ((cString.count) != 6) {
-        return UIColor.gray
-    }
-    
-    var rgbValue:UInt32 = 0
-    Scanner(string: cString).scanHexInt32(&rgbValue)
-    
-    return UIColor(
-        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-        alpha: CGFloat(1.0)
-    )
-}
 // MARK: - Subviews factory
 
 private extension HeaderViewController {
@@ -96,40 +74,39 @@ private extension HeaderViewController {
 
   func makeNavigationItem() -> UINavigationItem {
     let navigationItem = UINavigationItem()
-
     closeButton.sizeToFit()
     manageButton.sizeToFit()
-    titleLabel.sizeToFit()
-
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: manageButton)
+    titleLabel.sizeToFit()
     navigationItem.titleView = titleLabel
     return navigationItem
   }
 
   func makeTitleLabel() -> UILabel {
     let label = UILabel()
-    label.text = Locale.current.languageCode == "ar" ?  "صور الباركود وأدفع" : "Scan N Pay"
+    label.text = localizedString("SCAN_BARCODE_TITLE")
     label.font = UIFont.boldSystemFont(ofSize: 17)
-    label.textColor = hexStringToUIColor(hex: "#49AAA6")
+    label.textColor = .black
     label.numberOfLines = 1
     label.textAlignment = .center
     return label
   }
 
   func makeCloseButton() -> UIButton {
-    let image = UIImage(named: "CrossBarButton") as UIImage?
-    let button   = UIButton(type: UIButtonType.custom) as UIButton
-    button.setImage(image, for: .normal)
+    let button = UIButton(type: .system)
+    button.setTitle(localizedString("BUTTON_CLOSE"), for: UIControl.State())
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+    button.tintColor = .black
     return button
   }
     
     func makeManageButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(Locale.current.languageCode == "ar" ?  "يدير" : "MANAGE", for: UIControlState())
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
-        button.tintColor = hexStringToUIColor(hex: "#49AAA6")
-        return button
+      let button = UIButton(type: .system)
+      button.setTitle(localizedString("BUTTON_MANAGE"), for: UIControl.State())
+      button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+      button.tintColor = .black
+      return button
     }
 }
 

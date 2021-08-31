@@ -176,6 +176,17 @@ AddressPickerCellDelegate {
     }
     
     initializeMap()
+    
+    if (self.txtPickAddress.text?.count ?? 0) > 0 && (self.txtDropAddress.text?.count ?? 0) > 0{
+        
+        if selectedTxtField == SelectedTextField.DropoffAddress {
+            toggleToMapView(forPickup: false)
+        }
+        else {
+            toggleToMapView(forPickup: true)
+        }
+        
+    }
   }
   
   //MARK: - Notification
@@ -235,7 +246,7 @@ AddressPickerCellDelegate {
     self.mapView.settings.myLocationButton = true
     self.mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 85, right: 0)
     
-    self.imgMapMarker.frame = CGRect(x: self.imgMapMarker.frame.origin.x, y: self.imgMapMarker.frame.origin.y - 45, width: self.imgMapMarker.frame.size.width, height: self.imgMapMarker.frame.size.height)
+    self.imgMapMarker.frame = CGRect(x: self.imgMapMarker.frame.origin.x, y: self.mapView.frame.height/2 - 85, width: self.imgMapMarker.frame.size.width, height: self.imgMapMarker.frame.size.height)
     //            self.imgMapMarker.frame = CGRect(x: 0, y: 75, width: self.imgMapMarker.frame.height, height: self.imgMapMarker.frame.width)
     //        }
   }
@@ -362,19 +373,12 @@ AddressPickerCellDelegate {
     
     if selectedTxtField == SelectedTextField.PickupAddress
     {
-      self.txtDropAddress.becomeFirstResponder()
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
-      {
+        print(self.pickUpTxt())
         self.txtPickAddress.becomeFirstResponder()
-      }
     }
     else
     {
-      self.txtPickAddress.becomeFirstResponder()
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.25)
-      {
         self.txtDropAddress.becomeFirstResponder()
-      }
     }
   }
   
@@ -457,6 +461,10 @@ AddressPickerCellDelegate {
     txtDropAddress.becomeFirstResponder()
   }
   
+    func moveFocusToPickUp() {
+      txtPickAddress.becomeFirstResponder()
+    }
+    
   func inFocusTextField() -> SelectedTextField {
     
     return selectedTxtField
@@ -680,7 +688,12 @@ AddressPickerCellDelegate {
   @objc func updateTimer() {
     print("OK Start searching now")
     
-    (viewModel as! KTAddressPickerViewModel).fetchLocations(forSearch: searchText)
+    if tab == .favorite {
+
+    } else {
+        (viewModel as! KTAddressPickerViewModel).fetchLocations(forSearch: searchText)
+    }
+    
   }
   func updateSelectedField(txt: UITextField) {
     

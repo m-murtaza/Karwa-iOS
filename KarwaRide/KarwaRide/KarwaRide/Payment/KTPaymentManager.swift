@@ -14,11 +14,17 @@ class KTPaymentManager: KTDALManager
 {
     func fetchPaymentsFromServer(completion completionBlock:@escaping KTDALCompletionBlock)
     {
-        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:PAYMENTS_SYNC_TIME)]
+        var param : [String: Any] = [Constants.SyncParam.Payments: 0]
+//        let param : [String: Any] = [Constants.SyncParam.Complaints: syncTime(forKey:PAYMENTS_SYNC_TIME)]
+
+        param["includeWallet"] = "true"
         
-        self.get(url: Constants.APIURL.GetPayments, param: param, completion: completionBlock) { (responseData,cBlock) in
+        let newUrl = Constants.APIURL.GetPayments + "?includeWallet=true&syncTime=0"
+
+        self.get(url: newUrl, param: nil, completion: completionBlock) { (responseData,cBlock) in
             
             print(responseData)
+            
             if(responseData.count > 0)
             {
                 if(responseData[Constants.ResponseAPIKey.Data] != nil)
@@ -55,14 +61,14 @@ class KTPaymentManager: KTDALManager
         if payment[Constants.PaymentResponseAPIKey.Source] != nil
         {
             let newPayment = KTPaymentMethod.mr_createEntity(in: NSManagedObjectContext.mr_default())
-            newPayment?.source = (payment[Constants.PaymentResponseAPIKey.Source] as? String)!
-            newPayment?.payment_type = (payment[Constants.PaymentResponseAPIKey.PaymentType] as? String)!
-            newPayment?.last_four_digits = (payment[Constants.PaymentResponseAPIKey.LastFourDigits] as? String)!
-            newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String)!
-            newPayment?.expiry_year = (payment[Constants.PaymentResponseAPIKey.ExpiryYear] as? String)!
-            newPayment?.brand = (payment[Constants.PaymentResponseAPIKey.Brand] as? String)!
-//            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String)!
-            newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool)!
+            newPayment?.source = (payment[Constants.PaymentResponseAPIKey.Source] as? String) ?? ""
+            newPayment?.payment_type = (payment[Constants.PaymentResponseAPIKey.PaymentType] as? String) ?? ""
+            newPayment?.last_four_digits = (payment[Constants.PaymentResponseAPIKey.LastFourDigits] as? String) ?? ""
+            newPayment?.expiry_month = (payment[Constants.PaymentResponseAPIKey.ExpiryMonth] as? String) ?? ""
+            newPayment?.expiry_year = (payment[Constants.PaymentResponseAPIKey.ExpiryYear] as? String) ?? ""
+            newPayment?.brand = (payment[Constants.PaymentResponseAPIKey.Brand] as? String) ?? ""
+            newPayment?.balance = (payment[Constants.PaymentResponseAPIKey.Balance] as? String) ?? ""
+            newPayment?.is_removable = (payment[Constants.PaymentResponseAPIKey.IsRemovable] as? Bool) ?? false
         }
     }
     
@@ -72,7 +78,6 @@ class KTPaymentManager: KTDALManager
         {
             item.is_selected = (item.source == paymentMethod.source)
         }
-        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
     }
     
     func makeOnePaymentMethodDefault()
@@ -122,8 +127,11 @@ class KTPaymentManager: KTDALManager
     func deleteAllPaymentMethods()
     {
         let predicate : NSPredicate = NSPredicate(format:"is_removable = %d" , true)
-        
+        let predicateNew : NSPredicate = NSPredicate(format:"is_removable = %d" , false)
+
         KTPaymentMethod.mr_deleteAll(matching: predicate)
+        KTPaymentMethod.mr_deleteAll(matching: predicateNew)
+        
     }
     
     func deletePaymentMethods(_ paymentMethod : KTPaymentMethod)

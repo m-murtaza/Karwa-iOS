@@ -57,8 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         print("Initializing K-Firebase")
         FirebaseApp.configure()
-        Fabric.with([Crashlytics.self()])
-        Fabric.sharedSDK().debug = true
+//        Fabric.with([Crashlytics.self()])
+//        Fabric.sharedSDK().debug = true
         setFirebaseAnalyticsUserPref()
         #endif
     }
@@ -130,16 +130,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func updateUIAppreance ()
     {
         //printFonts()
-        let appearance : UINavigationBar = UINavigationBar.appearance()
         
-        appearance.barTintColor = UIColor(hexString:"#E5F5F2")
-      UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
-        appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#129793"),
-                                          NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-500", size: 18.0)!]
-        
+        UINavigationBar.appearance().barTintColor = UIColor(hexString:"#E5F5F2")
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+             NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
         let backImage = UIImage(named: "back_arrow_ico");
-        appearance.backIndicatorImage = backImage
-        appearance.backIndicatorTransitionMaskImage = backImage
+        UINavigationBar.appearance().backIndicatorImage = backImage
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
+        
+        UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
+
     }
     
     func printFonts() {
@@ -210,11 +210,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let detailView : KTPaymentViewController = sBoard.instantiateViewController(withIdentifier: "KTPaymentViewControllerIdentifier") as! KTPaymentViewController
 //        detailView.isManageButtonPressed = true
 //        self.showView(view: detailView)
-        
+//
 //                let sBoard = UIStoryboard(name: "Main", bundle: nil)
 //                let detailView : KTCreateBookingViewController = sBoard.instantiateViewController(withIdentifier: "BookingStep1") as! KTCreateBookingViewController
 //                detailView.showPayment()
-        
+//
     }
     
     //Notifiacation receive when application is in background

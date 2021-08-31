@@ -44,6 +44,8 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         phoneNumberTextField.label.text = "str_phone".localized()
         passwordTextField.label.text = "str_password".localized()
         
+        
+        
         phoneNumberTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
         passwordTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
 
@@ -66,7 +68,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         passwordTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .editing)
 
         passwordTextField.isSecureTextEntry = true
-        phoneNumberTextField.keyboardType = UIKeyboardType.decimalPad
+        phoneNumberTextField.keyboardType = UIKeyboardType.numberPad
 
         phoneNumberTextField.delegate = self
 

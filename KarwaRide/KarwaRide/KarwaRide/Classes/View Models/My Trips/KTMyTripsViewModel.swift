@@ -31,6 +31,8 @@ class KTMyTripsViewModel: KTBaseViewModel {
             showBooking(selectedBooking!)
             selectedBooking = nil;
         }
+        KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
+
     }
     
     func fetchBookings()  {
@@ -253,7 +255,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     case BookingStatus.ARRIVED.rawValue:
       status = "txt_arrived_short".localized()
     case BookingStatus.CONFIRMED.rawValue:
-      status = "txt_arrived_short".localized()
+      status = "txt_arriving_short".localized()
     case BookingStatus.CANCELLED.rawValue:
       status = "txt_cancelled_short".localized()
     case BookingStatus.PENDING.rawValue:
@@ -311,6 +313,15 @@ class KTMyTripsViewModel: KTBaseViewModel {
         return "txt_four".localized()
     }
   }
+    
+    func cancellationCharge(forIdx idx: Int) -> String {
+        if let cancellationCharges = (bookings![idx] as KTBooking).cancellationCharges, cancellationCharges.count > 0 {
+            return "str_cancellation".localized() + " \(cancellationCharges)"
+      } else {
+        return ""
+      }
+      
+    }
   
   func serviceTypeColor(forIdx idx: Int) -> UIColor {
     switch (bookings![idx] as KTBooking).bookingStatus {

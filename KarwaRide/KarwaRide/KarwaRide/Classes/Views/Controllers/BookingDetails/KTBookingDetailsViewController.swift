@@ -15,6 +15,34 @@ import Spring
 import DDViewSwitcher
 import UBottomSheet
 import StoreKit
+import FittedSheets
+
+protocol Demoable {
+    static func openDemo(from parent: UIViewController, in view: UIView?)
+}
+
+extension Demoable {
+    static func addSheetEventLogging(to sheet: SheetViewController) {
+        let previousDidDismiss = sheet.didDismiss
+        sheet.didDismiss = {
+            print("did dismiss")
+            previousDidDismiss?($0)
+        }
+        
+        let previousShouldDismiss = sheet.shouldDismiss
+        sheet.shouldDismiss = {
+            print("should dismiss")
+            return previousShouldDismiss?($0) ?? true
+        }
+        
+        let previousSizeChanged = sheet.sizeChanged
+        sheet.sizeChanged = { sheet, size, height in
+            print("Changed to \(size) with a height of \(height)")
+            previousSizeChanged?(sheet, size, height)
+        }
+    }
+}
+
 
 class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate {
 
@@ -38,12 +66,20 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
+    var showCancelCharges = false
 
+    lazy var sheet = SheetViewController(
+        controller: bottomSheetVC,
+        sizes: [.percent(0.25), .intrinsic],
+        options: SheetOptions(useInlineMode: true))
+    
     lazy var scheduleTimeTitleLable: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    var bounds : GMSCoordinateBounds = GMSCoordinateBounds()
     
     override func viewDidLoad() {
         if viewModel == nil {
@@ -51,17 +87,36 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         
         vModel = viewModel as? KTBookingDetailsViewModel
-
-        sheetCoordinator = UBottomSheetCoordinator(parent: self)
-
-        bottomSheetVC.sheetCoordinator = sheetCoordinator
-
+//
+//        sheetCoordinator = UBottomSheetCoordinator(parent: self)
+//        sheetCoordinator.dataSource = self
+//
+        bottomSheetVC.sheet = sheet
         bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
-        sheetCoordinator.addSheet(bottomSheetVC, to: self)
-        sheetCoordinator.setPosition(UIScreen.main.bounds.size.height - 200, animated: true)
+//        sheetCoordinator.addSheet(bottomSheetVC, to: self)
+//        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
+//        sheetCoordinator.delegate = self
 
         mapView.delegate = self
-
+        
+        sheet.allowPullingPastMaxHeight = false
+        sheet.allowPullingPastMinHeight = false
+                
+        sheet.dismissOnPull = false
+        sheet.dismissOnOverlayTap = false
+        sheet.overlayColor = UIColor.clear
+        
+        sheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+        sheet.contentViewController.view.layer.shadowOpacity = 0.1
+        sheet.contentViewController.view.layer.shadowRadius = 10
+        sheet.allowGestureThroughOverlay = true
+        
+        if let view = view {
+            sheet.animateIn(to: view, in: self)
+        } else {
+            self.present(sheet, animated: true, completion: nil)
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3)
         {
             self.isAbleToObserveZooming = true
@@ -90,16 +145,20 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.isNavigationBarHidden = true        
-        //UIColor(hexString: "#89B4BC") :
-        btnBack.isHidden = true
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue || vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue || vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue || vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue) {
+            navigationController?.isNavigationBarHidden = true
+            btnBack.isHidden = isOpenFromNotification
+        } else {
+            btnBack.isHidden = true 
+        }
         btnReveal.isHidden = !isOpenFromNotification
+        self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-//        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = false
     }
 
     override func viewDidDisappear(_ animated: Bool)
@@ -180,21 +239,20 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
-        if(!haltAutoZooming)
-        {
-            var bounds = GMSCoordinateBounds()
-            for marker: GMSMarker in gmsMarker {
-                bounds = bounds.includingCoordinate(marker.position)
-            }
-            
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(150))
-            
-            CATransaction.begin()
-            CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-            mapView.animate(with: update!)
-            CATransaction.commit()
+
+        var bounds = GMSCoordinateBounds()
+        for marker: GMSMarker in gmsMarker {
+            bounds = bounds.includingCoordinate(marker.position)
         }
+        
+        var update : GMSCameraUpdate?
+        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+
+        
+        CATransaction.begin()
+        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+        mapView.animate(with: update!)
+        CATransaction.commit()
     }
 
     func setBooking(booking : KTBooking) {
@@ -204,6 +262,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
         navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -373,6 +432,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
+        
     }
     
     func showCurrentLocationDot(show: Bool) {
@@ -410,7 +470,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
             
             var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+            update = GMSCameraUpdate.fit(bounds, withPadding: 100)
             mapView.animate(with: update!)
         }
     }
@@ -451,6 +511,9 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(marker.position)
+        
     }
     
     func addPickupMarker(location : CLLocationCoordinate2D) {
@@ -459,6 +522,14 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
         addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
+        
+        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
+
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        mapView.animate(with: update)
+
+        mapView.setMinZoom(1, maxZoom: 20)
+        
     }
     
     func setMapCamera(bound : GMSCoordinateBounds) {
@@ -508,20 +579,21 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func showRatingScreen() {
+                        
         ratingPopup = storyboard?.instantiateViewController(withIdentifier: "RatingReasonPopup") as? KTRatingViewController
         
-        ratingPopup?.view.frame = self.view.bounds
-        view.addSubview((ratingPopup?.view)!)
-        addChildViewController(ratingPopup!)
+        let navController = UINavigationController(rootViewController: ratingPopup!) // Creating a navigation controller with VC1 at the root of the navigation stack.
         ratingPopup?.booking((vModel?.booking)!)
-        ratingPopup?.delegate = self
-        //self.performSegue(name: "detailToRating")
+        navController.modalPresentationStyle = .fullScreen
+        self.present(navController, animated: true, completion: nil)
     }
     
     func closeRating(_ rating : Int32) {
-        ratingPopup?.view.removeFromSuperview()
-        ratingPopup = nil
+//        ratingPopup?.view.removeFromSuperview()
+//        ratingPopup = nil
 
+        self.dismiss(animated: true, completion: nil)
+        
         showSuccessBanner("  ", "booking_rated".localized())
         
         if(rating > 3)
@@ -555,6 +627,15 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         cancelPopup?.bookingId = (vModel?.bookingId())!
         cancelPopup?.bookingStatii = (vModel?.bookingStatii())!
         cancelPopup?.delegate = self
+        
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue) {
+            cancelPopup?.showCancelCharges = true
+        } else if (vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
+            cancelPopup?.showCancelCharges = true
+        }else if (vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue) {
+            cancelPopup?.showCancelCharges = true
+        }
+        
         cancelPopup?.view.frame = self.view.bounds
         view.addSubview((cancelPopup?.view)!)
         addChildViewController(cancelPopup!)
@@ -608,10 +689,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func hideDriverInfoBox() {
+        self.showCancelCharges = false
         bottomSheetVC.hideDriverInfoBox()
     }
     
     func showDriverInfoBox() {
+        self.showCancelCharges = true
         bottomSheetVC.showDriverInfoBox()
     }
     
@@ -646,6 +729,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     {
         btnRecenter.isHidden = false
     }
+    
 }
 
 extension UInt {

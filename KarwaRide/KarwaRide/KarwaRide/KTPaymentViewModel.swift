@@ -42,7 +42,6 @@ class KTPaymentViewModel: KTBaseViewModel
     {
         super.viewDidLoad()
         del = self.delegate as? KTPaymentViewModelDelegate
-        fetchnPaymentMethods()
         
         del?.removeAllTags()
 
@@ -54,6 +53,19 @@ class KTPaymentViewModel: KTBaseViewModel
         transaction = Transaction()
     }
     
+    override func viewWillAppear() {
+        fetchnPaymentMethods()
+    }
+    
+    func getPaymentData() {
+        
+        self.del?.showProgressHud(show: true)
+        KTPaymentManager().fetchPaymentsFromServer{(status, response) in
+            self.del?.hideProgressHud()
+            self.fetchnPaymentMethods()
+        }
+    }
+
     func payTripButtonTapped(payTripBean : PayTripBeanForServer)
     {
         self.del?.showProgressHud(show: true, status: "str_paying_with_card".localized())
@@ -123,7 +135,7 @@ class KTPaymentViewModel: KTBaseViewModel
         let totalFareWithTip = NSDecimalNumber(value: totalAmount)
         transaction?.amount = totalFareWithTip
         transaction?.amountString = totalFareWithTip.stringValue
-        transaction?.amountFormatted = String("QAR" + totalFareWithTip.stringValue)
+        transaction?.amountFormatted = String("str_qr".localized() + totalFareWithTip.stringValue)
     }
     
     func numberOfRows() -> Int
@@ -133,17 +145,33 @@ class KTPaymentViewModel: KTBaseViewModel
     
     func paymentMethodName(forCellIdx idx: Int) -> String
     {
-        return "**** **** **** " + paymentMethods[idx].last_four_digits!
+        
+        if paymentMethods[idx].payment_type == "WALLET" {
+            return "str_wallet".localized()
+        } else {
+            return "**** **** **** " + paymentMethods[idx].last_four_digits!
+        }
+        
     }
     
     func expiry(forCellIdx idx: Int) -> String
     {
-        return "EXP. " + paymentMethods[idx].expiry_month! + "/" + paymentMethods[idx].expiry_year!
+        
+        if paymentMethods[idx].payment_type == "WALLET" {
+            return "str_balance".localized() + " " + (paymentMethods[idx].balance ?? "")
+        } else {
+            return "EXP. " + paymentMethods[idx].expiry_month! + "/" + paymentMethods[idx].expiry_year!
+        }
+        
     }
     
     func cardIcon(forCellIdx idx: Int) -> UIImage
     {
-        return UIImage(named: ImageUtil.getImage(paymentMethods[idx].brand!))!
+        if paymentMethods[idx].payment_type == "WALLET" {
+            return UIImage(named: ImageUtil.getImage(paymentMethods[idx].payment_type!))!
+        } else {
+            return UIImage(named: ImageUtil.getImage(paymentMethods[idx].brand!))!
+        }
     }
     
     func cardSelection(forCellIdx idx: Int) -> UIImage

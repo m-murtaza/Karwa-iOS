@@ -8,92 +8,102 @@
 
 import UIKit
 import MaterialComponents
+import SkyFloatingLabelTextField
 
-class KTFavoriteAddressViewController: KTBaseViewController {
-  
-  @IBOutlet weak var navigationBar: UIView!
-  @IBOutlet weak var locationNameTextField: MDCFilledTextField!
-  @IBOutlet weak var locationTextField: MDCFilledTextField!
-  
-  var favoritelocation: KTGeoLocation?
-  
-  override func viewDidLoad() {
-    viewModel = KTAddressFavoriteViewModel(del:self)
-    super.viewDidLoad()
+class KTFavoriteAddressViewController: KTBaseViewController, UITextFieldDelegate {
     
-    // Do any additional setup after loading the view.
-    setupUI()
-  }
-  
-  private func setupUI() {
-    changeStatusBarColor(color: UIColor.primaryLight)
-    navigationBar.backgroundColor = UIColor.primaryLight
-
-    locationNameTextField.label.text = "txt_loc_name".localized()
-    locationNameTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
-    locationNameTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .editing)
-    locationNameTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .normal)
-    locationNameTextField.label.textColor = UIColor(hexString: "#6CB1B7")
-    locationNameTextField.tintColor = UIColor(hexString: "#6CB1B7")
-    locationNameTextField.inputView?.tintColor = UIColor(hexString: "#6CB1B7")
-    locationNameTextField.label.textColor = UIColor(hexString: "#6CB1B7")
-    locationNameTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .normal)
-    locationNameTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .editing)
+    @IBOutlet weak var navigationBar: UIView!
+    @IBOutlet weak var locationNameTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
     
-    locationTextField.label.text = "txt_loc_name".localized()
-    locationTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
-    locationTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .editing)
-    locationTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .normal)
-    locationTextField.label.textColor = UIColor(hexString: "#6CB1B7")
-    locationTextField.tintColor = UIColor(hexString: "#6CB1B7")
-    locationTextField.inputView?.tintColor = UIColor(hexString: "#6CB1B7")
-    locationTextField.label.textColor = UIColor(hexString: "#6CB1B7")
-    locationTextField.setFilledBackgroundColor(UIColor(hexString: "#FFFFFF"), for: .normal)
-
-//    locationTextField.label.text = "txt_location_head".localized()
+    var favoritelocation: KTGeoLocation?
     
-//    locationTextField.textField.delegate = self
-//    locationNameTextField.textField.delegate = self
-    
-    if let loc = favoritelocation {
-      locationTextField.label.text = loc.name
+    override func viewDidLoad() {
+        viewModel = KTAddressFavoriteViewModel(del:self)
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        setupUI()
     }
-    if let name = favoritelocation?.favoriteName {
-      locationNameTextField.text = name
-    }
-    locationTextField.isUserInteractionEnabled = false
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-        self.locationNameTextField.becomeFirstResponder()
+    private func setupUI() {
+        changeStatusBarColor(color: UIColor.primaryLight)
+        navigationBar.backgroundColor = UIColor.primaryLight
+        
+        locationNameTextField.placeholder = "txt_loc_name".localized()
+        locationNameTextField.font = UIFont(name: "MuseoSans-700", size: 14.0)!
+        locationNameTextField.placeholderFont = UIFont(name: "MuseoSans-500", size: 17.0)!
+        //    locationNameTextField.label.textColor = UIColor(hexString: "#6CB1B7")
+        locationNameTextField.tintColor = UIColor(hexString: "#6CB1B7")
+        locationNameTextField.inputView?.tintColor = UIColor(hexString: "#6CB1B7")
+        locationNameTextField.textColor = UIColor(hexString: "#6CB1B7")
+        locationNameTextField.delegate = self
+        locationNameTextField.titleColor = UIColor(hexString: "#6CB1B7")
+        locationNameTextField.titleFont = UIFont(name: "MuseoSans-500", size: 9.0)!
+        locationNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        locationNameTextField.becomeFirstResponder()
+        locationNameTextField.title = "txt_loc_name".localized()
+        
+        locationTextField.font = UIFont(name: "MuseoSans-500", size: 17.0)!
+        locationTextField.tintColor = UIColor(hexString: "#6CB1B7")
+        locationTextField.inputView?.tintColor = UIColor(hexString: "#6CB1B7")
+        locationTextField.textColor = UIColor(hexString: "#6CB1B7")
+        locationTextField.delegate = self
+        locationTextField.titleColor = UIColor(hexString: "#6CB1B7")
+        locationTextField.titleFont = UIFont(name: "MuseoSans-500", size: 9.0)!
+        locationTextField.title = "txt_location_head".localized()
+        
+        if let loc = favoritelocation {
+            locationTextField.text = loc.name
+        }
+        if let name = favoritelocation?.favoriteName {
+            locationNameTextField.text = name
+        }
+        locationTextField.isUserInteractionEnabled = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.locationNameTextField.becomeFirstResponder()
+        }
+        
     }
-
-//    locationTextField.textField.titleColor = #colorLiteral(red: 0, green: 0.3803921569, blue: 0.4392156863, alpha: 0.5)
-//    locationTextField.textField.textColor = #colorLiteral(red: 0, green: 0.3803921569, blue: 0.4392156863, alpha: 0.5)
-  }
-  
-  @IBAction func saveLocationAction(_ sender: UIButton) {
-    (viewModel as! KTAddressFavoriteViewModel).saveLocation()
-  }
-  
-  @IBAction func dismissAction(_ sender: Any) {
-    dismiss(animated: true, completion: nil)
-  }
-  
+    
+    @IBAction func saveLocationAction(_ sender: UIButton) {
+        (viewModel as! KTAddressFavoriteViewModel).saveLocation()
+    }
+    
+    @IBAction func dismissAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @objc func textFieldDidChange(_ textfield: UITextField) {
+        if let text = textfield.text {
+            if let floatingLabelTextField = locationNameTextField {
+                
+                
+            }
+        }
+    }
+    
 }
 
 extension KTFavoriteAddressViewController: KTAddressFavoriteViewModelDelegate {
-  var locationName: String {
-    locationNameTextField.text!
-  }
-  
-  var location: KTGeoLocation {
-    favoritelocation!
-  }
-  
-  func locationSavedSuccessfully(location: KTGeoLocation) {
-    dismissAction(self)
-  }
-  
+    var locationName: String {
+        locationNameTextField.text!
+    }
+    
+    var location: KTGeoLocation {
+        favoritelocation!
+    }
+    
+    func locationSavedSuccessfully(location: KTGeoLocation) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            self.dismiss(animated: true, completion: nil)
+        })
+        
+    }
+    
 }
 
 //extension KTFavoriteAddressViewController: UITextFieldDelegate {
