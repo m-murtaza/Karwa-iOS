@@ -284,9 +284,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        starView.addLeading(image:  #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
-        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        bottomStartRatingLabel.addLeading(image:  #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
     }
@@ -498,8 +498,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                     self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                 }
             }
-            
-            
         }
 
         //MARK:- PICKUP BOOKING (Customer on-board)
@@ -521,18 +519,19 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.otpView.isHidden = true
             self.descriptionView.isHidden = true
             
-            constraintTripInfoMarginTop.constant = 10
-            constraintDriverInfoMarginTop.constant = 150
-            constraintVehicleInfoMarginTop.constant = 250
+            constraintTripInfoMarginTop.constant = showDescription() ? 10 + 65 : 10
+            constraintDriverInfoMarginTop.constant = showDescription() ? 150 + 65 : 150
+            constraintVehicleInfoMarginTop.constant = showDescription() ? 250 + 65 : 250
 
             if oneTimeSetSizeForBottomSheet == false {
                 DispatchQueue.main.async {
                     if self.vModel?.getBookingOtp() != nil {
-                        self.constraintViewRideActionsTop.constant = 328
+                        self.constraintViewRideActionsTop.constant = self.showDescription() ? 328 + 65 : 328
                     } else {
-                        self.constraintViewRideActionsTop.constant = 323
+                        self.constraintViewRideActionsTop.constant = self.showDescription() ? 323 + 65 : 323
                     }
-                    self.heightOFScrollViewContent.constant = 600
+                    
+                    self.heightOFScrollViewContent.constant = self.showDescription() ? 600 + 65 : 600
                     
                     if UIScreen.main.bounds.height < 800 {
                         self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
@@ -568,6 +567,31 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.view.customCornerRadius = 0
             self.otpView.isHidden = true
             self.descriptionView.isHidden = true
+            
+            constraintTripInfoMarginTop.constant = 10
+            constraintDriverInfoMarginTop.constant = 150
+            constraintVehicleInfoMarginTop.constant = 250
+
+            if oneTimeSetSizeForBottomSheet == false {
+                DispatchQueue.main.async {
+                    if self.vModel?.getBookingOtp() != nil {
+                        self.constraintViewRideActionsTop.constant = 328
+                    } else {
+                        self.constraintViewRideActionsTop.constant = 323
+                    }
+                    
+                    self.heightOFScrollViewContent.constant =  600
+                    
+                    if UIScreen.main.bounds.height < 800 {
+                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
+                    } else {
+                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                    }
+                    
+                    self.oneTimeSetSizeForBottomSheet = true
+                }
+            }
+            
             
             DispatchQueue.main.async {
                 self.constraintRebookMarginTop.constant = self.btnReportIssue.frame.origin.y + 50
@@ -898,4 +922,5 @@ extension UIButton {
     }
     
 }
+
 
