@@ -519,7 +519,8 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.view.customCornerRadius = 20.0
             
             self.otpView.isHidden = true
-
+            self.descriptionView.isHidden = true
+            
             constraintTripInfoMarginTop.constant = 10
             constraintDriverInfoMarginTop.constant = 150
             constraintVehicleInfoMarginTop.constant = 250
