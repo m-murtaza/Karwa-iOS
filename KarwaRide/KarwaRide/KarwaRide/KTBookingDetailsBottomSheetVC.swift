@@ -348,8 +348,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     }
     
     func showDescription() -> Bool {
-        self.descriptionView.isHidden = false
-        return true
         if (vModel?.getBookingDescription() != nil && ((vModel?.getBookingDescription()?.count ?? 0) > 0)) {
             self.congratulationsLabel.text = vModel?.getBookingDescription() ?? ""
             self.descriptionView.isHidden = false
