@@ -214,7 +214,7 @@ extension KTXpressDropOffViewController
             
             dropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
             
-            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 15.5)
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 17)
                 
             self.mapView.camera = camera;
             rect.append(self.polygon(bounds: item.bound!, type: ""))
