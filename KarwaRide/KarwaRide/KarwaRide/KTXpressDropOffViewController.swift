@@ -185,21 +185,13 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
                 
                 self.tapOnMarker = true
                 
-                let firstValue = loc.bound?.components(separatedBy: ";").first
-                
-               let coordinate = firstValue.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                }
-                
-                guard let metroAreaCoordinate = coordinate else {
-                    return
-                }
-                
+                let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
+
                 print(metroAreaCoordinate.latitude)
 
                 (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = metroAreaCoordinate
 
-                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 17.0)
+                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15.0)
                 self.mapView.camera = camera
 
                 (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
@@ -208,19 +200,14 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
                     (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
                 }
 
-                self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
                 self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                 self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                 self.setDropOffButton.isUserInteractionEnabled = true
             }
-            
         }
-        
-        
     }
-    
-
 
     /*
     // MARK: - Navigation

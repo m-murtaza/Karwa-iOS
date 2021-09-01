@@ -17,8 +17,8 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: SpringButton!
 
-    var fromPickup: Bool?
-    var fromDropOff: Bool?
+    var fromPickup = false
+    var fromDropOff = false
 
     var delegateAddress: KTXpressAddressDelegate?
     
@@ -34,11 +34,15 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         viewModel = KTXpressAddressPickerViewModel(del:self)
         vModel = viewModel as? KTXpressAddressPickerViewModel
         vModel?.metroStations = self.metroStations
-
+        
+        pickUpAddressHeaderLabel.text = fromDropOff ? "DROPOFFHEADER".localized() : "PICKUPHEADER".localized()
+        
         pickUpAddressHeaderLabel.duration = 1
         pickUpAddressHeaderLabel.delay = 0.15
         pickUpAddressHeaderLabel.animation = "slideUp"
         pickUpAddressHeaderLabel.animate()
+        
+        self.tableView.tableFooterView = UIView(frame: .zero)
         
 //        pickUpAddressHeaderLabel.animation = "squeeze"
 //        pickUpAddressHeaderLabel.animate()
@@ -56,8 +60,24 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         self.textField.text = ""
         
         self.textField.placeholder = "str_search".localized()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        tableView.keyboardDismissMode = .onDrag
+
                 
     }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + tableView.rowHeight, right: 0)
+            }
+        }
+
+        @objc private func keyboardWillHide(notification: NSNotification) {
+            tableView.contentInset = .zero
+        }
     
     /*
     // MARK: - Navigation

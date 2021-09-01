@@ -293,6 +293,9 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         defer {
             
             if self.destinationForPickUp.count > 0 {
+                
+                self.destinationForPickUp = Array(Set(destinationForPickUp))
+                
                 (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStation == nil ? nil : selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!, zonalArea: self.zonalArea)
             } else {
                 

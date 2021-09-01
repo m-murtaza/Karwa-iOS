@@ -48,7 +48,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
             (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
         }
         
-        self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+        self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
         self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
@@ -77,7 +77,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
                         
                         print("not permitted")
-                        self.setDropOffButton.setTitle("SET DROP OFF TO PERMITTED ZONE", for: .normal)
+                        self.setDropOffButton.setTitle("SETTODROPZONE".localized(), for: .normal)
                         self.setDropOffButton.backgroundColor = UIColor.clear
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
@@ -87,7 +87,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     else {
                         
                         print("Permitted")
-                        self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                        self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                         self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
@@ -98,7 +98,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     }
                 } else {
                     print("Permitted")
-                    self.setDropOffButton.setTitle("Set Dropoff", for: .normal)
+                    self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
                     self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                     self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
@@ -108,7 +108,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                 
             } else {
                 print("it wont contains")
-                self.setDropOffButton.setTitle("OUT OF ZONE", for: .normal)
+                self.setDropOffButton.setTitle("OUTOFZONE".localized(), for: .normal)
                 self.setDropOffButton.backgroundColor = UIColor.clear
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)

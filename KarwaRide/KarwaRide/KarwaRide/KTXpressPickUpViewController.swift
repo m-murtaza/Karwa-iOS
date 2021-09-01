@@ -179,27 +179,17 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 
                 self.tapOnMarker = true
                 
-                let firstValue = loc.bound?.components(separatedBy: ";").first
-                
-               let coordinate = firstValue.map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                }
-                
-                guard let metroAreaCoordinate = coordinate else {
-                    return
-                }
+                let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
                 
                 print(metroAreaCoordinate.latitude)
 
-                (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
 
-                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 10)
+                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
                 self.mapView.camera = camera
 
                 (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
 
-
-                (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
+                (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
 
                 defer {
                     (self.viewModel as! KTXpressPickUpViewModel).showStopAlert()
