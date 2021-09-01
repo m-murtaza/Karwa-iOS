@@ -241,6 +241,10 @@ class KTMyTripsViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+            
+        case VehicleType.KTXpressTaxi.rawValue:
+            type = "txt_pickup_short".localized()
+
         default:
             type = ""
         }
