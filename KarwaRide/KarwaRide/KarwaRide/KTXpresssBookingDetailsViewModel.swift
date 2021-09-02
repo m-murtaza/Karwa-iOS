@@ -475,6 +475,9 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+        
+        case VehicleType.KTXpressTaxi.rawValue:
+            type = "txt_express_taxi".localized()
         default:
             type = ""
         }

@@ -32,7 +32,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var btnRebook: SpringButton!
         
 //    @IBOutlet weak var iconVehicle: SpringImageView!
-//    @IBOutlet weak var lblVehicleType: LocalisableLabel!
+    @IBOutlet weak var lblVehicleType: LocalisableLabel!
     @IBOutlet weak var lblPassengerCount: LocalisableLabel!
     @IBOutlet weak var lblVehicleNumber: UILabel!
     @IBOutlet weak var imgNumberPlate: UIImageView!
@@ -523,7 +523,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateVehicleDetails()
     {
 //        iconVehicle.image = vModel?.imgForVehicle()
-//        lblVehicleType.text = vModel?.vehicleType()
+        lblVehicleType.text = vModel?.vehicleType()
         lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("Passengers")"
     }
 
