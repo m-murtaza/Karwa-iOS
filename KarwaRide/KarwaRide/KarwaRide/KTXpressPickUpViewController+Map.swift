@@ -122,7 +122,7 @@ extension KTXpressPickUpViewController
 
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 15)
+        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14)
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
@@ -174,8 +174,9 @@ extension KTXpressPickUpViewController
            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
         }
         
-        print(array)
-        
+        let camera = GMSCameraPosition.camera(withLatitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude, zoom: 15)
+        self.mapView.animate(to: camera)
+                
         // 1. Create one quarter earth filling polygon
         let fillingPath = GMSMutablePath()
         fillingPath.addLatitude(90.0, longitude: -90.0)
