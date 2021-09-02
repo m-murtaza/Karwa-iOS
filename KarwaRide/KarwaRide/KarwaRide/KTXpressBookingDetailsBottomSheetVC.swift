@@ -368,7 +368,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             DispatchQueue.main.async {
                 self.heightOFScrollViewContent.constant = 500
-                self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
             }
             
         }
@@ -378,7 +378,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         {
             hideEtaView()
             hideCancelBtn()
-            showShareBtn()
+            hideShareBtn()
             showPhoneButton()
             hideBtnComplain()
             hideRebookBtn()
@@ -391,15 +391,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
                        
             if oneTimeSetSizeForBottomSheet == false {
                 DispatchQueue.main.async {
-//                    if self.vModel?.getBookingOtp() != nil {
-//                        self.constraintViewRideActionsTop.constant = 328
-//                    } else {
-//                        self.constraintViewRideActionsTop.constant = 323
-//                    }
-                    
                     DispatchQueue.main.async {
-                        self.heightOFScrollViewContent.constant = 575
-                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(200)], animated: true)
+                        self.heightOFScrollViewContent.constant = 400
+                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                     }
                     
                     self.oneTimeSetSizeForBottomSheet = true
@@ -417,6 +411,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hidePhoneButton()
             showBtnComplain()
             showRebookBtn()
+            hideRebookBtn()
+
             showFareDetailBtn()
             setUpfareBreakDownView()
 
@@ -528,7 +524,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
 //        iconVehicle.image = vModel?.imgForVehicle()
 //        lblVehicleType.text = vModel?.vehicleType()
-        lblPassengerCount.text = vModel?.getPassengerCountr()
+        lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("Passengers")"
     }
 
     func shareBtnTapped()

@@ -109,9 +109,9 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         if section == 0 {
             return nil
         } else if section == 1 {
-            headerLabel.text = "favorites_title".localizedUppercase
+            headerLabel.text = "\("favorites_title".localized())".uppercased()
         } else {
-            headerLabel.text = "str_metro_title".localizedUppercase
+            headerLabel.text = "\("str_metro_title".localized())".uppercased()
         }
       
         headerLabel.textColor = UIColor(hexString: "#8EA8A7")

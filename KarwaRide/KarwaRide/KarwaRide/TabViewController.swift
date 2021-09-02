@@ -9,7 +9,9 @@
 import UIKit
 
 class TabViewController: UITabBarController {
-
+    
+    fileprivate lazy var defaultTabBarHeight = { tabBar.frame.size.height }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,15 @@ class TabViewController: UITabBarController {
         tabBar.customShadowOpacity = 1
         tabBar.customShadowOffset = CGSize(width: 1, height: 0)
         tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let newTabBarHeight = defaultTabBarHeight + 7
+        var newFrame = tabBar.frame
+        newFrame.size.height = newTabBarHeight
+        newFrame.origin.y = view.frame.size.height - newTabBarHeight
+        tabBar.frame = newFrame
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -47,5 +57,18 @@ extension UIImage {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
+    }
+}
+
+
+class CustomTabBar : UITabBar {
+    @IBInspectable var height: CGFloat = 0.0
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var sizeThatFits = super.sizeThatFits(size)
+        if height > 0.0 {
+            sizeThatFits.height = height
+        }
+        return sizeThatFits
     }
 }

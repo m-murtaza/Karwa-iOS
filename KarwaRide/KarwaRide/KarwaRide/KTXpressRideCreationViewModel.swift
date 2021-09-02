@@ -207,7 +207,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     func getEstimatedTime(index: Int) -> String {
-        return  "str_arrives".localized() + "\((self.rideInfo?.rides[index].eta ?? 0)/60) Mins"
+        return  "str_arrives".localized() + " \((self.rideInfo?.rides[index].eta ?? 0)/60) Mins"
     }
     
     func getRide(index: Int) {
