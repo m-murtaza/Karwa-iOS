@@ -188,6 +188,7 @@ extension KTXpressPickUpViewController
         if addressSelected == false {
             let camera = GMSCameraPosition.camera(withLatitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude, zoom: 15)
             self.mapView.animate(to: camera)
+            KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude)
             (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: CLLocationCoordinate2D(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude))
             self.checkCoordinateStatus(CLLocation(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude))
         }
