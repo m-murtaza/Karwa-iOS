@@ -172,7 +172,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
             let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
-            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 16)
+            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 15)
             mapView.camera = camera
             mapView.animate(to: camera)
             

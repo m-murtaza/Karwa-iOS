@@ -20,7 +20,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @IBOutlet weak var minuBtn: UIButton!
     @IBOutlet weak var passengerLabel: UILabel!
     @IBOutlet weak var showAddressPickerBtn: UIButton!
-
+    var addressSelected = false
 
     var vModel : KTXpressPickUpViewModel?
 
@@ -150,13 +150,15 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     
     func setLocation(location: Any) {
         
+        addressSelected = true
+        
         if let loc = location as? KTGeoLocation {
             print(location)
             (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
             let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             self.setPickUp(pick: loc.name)
             KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
-            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 10)
+            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 15)
             mapView.camera = camera
             mapView.animate(to: camera)
             if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: actualLocation) {
@@ -182,7 +184,6 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
                 
                 print(metroAreaCoordinate.latitude)
-
 
                 let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
                 self.mapView.camera = camera

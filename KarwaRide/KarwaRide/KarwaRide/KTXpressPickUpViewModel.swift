@@ -94,18 +94,18 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         //Show user Location on map
         if currentBookingStep == BookingStep.step1
         {
-            if updateMap
-            {
-                if(isFirstZoomDone)
-                {
-                    (self.delegate as! KTXpressPickUpViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
-                }
-                else
-                {
-                    (self.delegate as! KTXpressPickUpViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: true)
-                    isFirstZoomDone = true
-                }
-            }
+//            if updateMap
+//            {
+//                if(isFirstZoomDone)
+//                {
+//                    (self.delegate as! KTXpressPickUpViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: false)
+//                }
+//                else
+//                {
+//                    (self.delegate as! KTXpressPickUpViewModelDelegate).updateLocationInMap(location: location, shouldZoomToDefault: true)
+//                    isFirstZoomDone = true
+//                }
+//            }
             
 //            booking.pickupLocationId = -1
 //            booking.pickupAddress = UNKNOWN
