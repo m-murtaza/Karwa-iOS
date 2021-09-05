@@ -162,7 +162,15 @@ class KTBookingManager: KTBaseFareEstimateManager {
         
         b.vehicleNo =  (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleNo] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleNo] as? String : ""
         b.vehicleType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.VehicleType] as! Int16 : 0
-
+        
+        if self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.VehicleNo] as AnyObject) {
+            if let plateType = booking[Constants.BookingResponseAPIKey.PlateType] as? Int16 {
+                b.plateType = plateType
+            } else {
+                b.plateType = -1
+            }
+        }
+        
         b.encodedPath =  (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.EncodedPath] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.EncodedPath] as? String : ""
         
         if(!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripSummary] as AnyObject)) {
@@ -184,6 +192,9 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.tripType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TripType] as! Int16 : 1
         
         b.otp = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.OTP] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.OTP] as? String : ""
+        
+        b.desc = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Desc] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Desc] as? String : ""
+
 
         return b
     }

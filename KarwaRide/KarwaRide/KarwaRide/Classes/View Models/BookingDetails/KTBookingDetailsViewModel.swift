@@ -131,6 +131,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return booking?.otp
     }
     
+    func getBookingDescription() -> String? {
+        return booking?.desc
+    }
+    
     func getCancellationCharges() -> String {
         return "str_cancellation".localized() + ": \(booking?.cancellationCharges ?? "")"
     }
@@ -256,12 +260,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func imgForPlate() -> UIImage {
-        guard let vehicleType = booking?.vehicleType else {
+        guard let plateType = booking?.plateType else {
             return UIImage(named:"taxiplate")!
         }
-        if KTVehicleTypeManager.isTaxi(vType: VehicleType(rawValue: vehicleType)!) {
+                
+        if plateType == 1 {
             return UIImage(named:"taxiplate")!
         }
+                
         return UIImage(named:"limo_number_plate")!
     }
     

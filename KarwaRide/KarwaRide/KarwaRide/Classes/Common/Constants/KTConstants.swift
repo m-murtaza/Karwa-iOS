@@ -307,6 +307,7 @@ struct Constants {
         
         static let VehicleNo = "VehicleNo"
         static let VehicleType = "VehicleType"
+        static let PlateType = "PlateType"
 
         static let TripSummary = "OrderedTripSummary"
         
@@ -318,6 +319,7 @@ struct Constants {
         static let TrackId = "TrackID"
         static let TripType = "TripType"
         static let OTP = "Otp"
+        static let Desc = "Desc"
 
     }
     

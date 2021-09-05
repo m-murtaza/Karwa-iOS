@@ -16,6 +16,10 @@ protocol KTCancelViewDelegate {
 class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCellDelegate, UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var tblView : UITableView!
+    @IBOutlet weak var cancelLabel : LocalisableLabel!
+    
+    var showCancelCharges = false
+    
     var delegate : KTCancelViewDelegate?
     
     var bookingStatii : Int32 = 0
@@ -34,6 +38,12 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         viewPopupUI.layer.cornerRadius = 16
         tblView.estimatedRowHeight = 44
         tblView.rowHeight = UITableViewAutomaticDimension;
+        
+        if showCancelCharges == true {
+            self.cancelLabel.text  = "cancel_booking_confirmation".localized() + " (\("cancel_booking_charges".localized()))"
+        } else {
+            self.cancelLabel.text  = "cancel_booking_confirmation".localized()
+        }
     }
 
     override func didReceiveMemoryWarning() {
