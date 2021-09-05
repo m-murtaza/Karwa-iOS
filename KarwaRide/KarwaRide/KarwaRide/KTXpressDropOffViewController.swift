@@ -79,7 +79,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
 
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
 
         
     }
@@ -110,7 +110,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
         }
         (viewModel as? KTXpressDropoffViewModel)?.countOfPassenger = countOfPassenger
-        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
     }
     
     func setPassenderCount(count: String?) {
@@ -118,7 +118,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             return
         }
         
-        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
         
     }
     

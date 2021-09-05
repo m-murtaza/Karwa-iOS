@@ -80,7 +80,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
         }
         
-        self.passengerLabel.text = "\(countOfPassenger) Passenger"
+        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
         
     }
     
