@@ -31,7 +31,7 @@ class KTXpressRideServiceCell: UITableViewCell {
       contentView.layer.borderWidth = selected ? 2 : 0
       contentView.layer.cornerRadius = selected ? 8 : 0
       lblServiceType.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-        lblBaseFareOrEstimate.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+        lblBaseFareOrEstimate.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 14.0)
       if(selected && !animated)
       {
         imgVehicleType.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
@@ -122,6 +122,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         self.rideServiceView.isHidden = true
         
         bookingProgress.progress = 0.0
+        
+        self.passengerLabel.text = "\(rideServicePickDropOffData?.passsengerCount ?? 1) \("str_pass".localized())"
 
 //        heightConstraint.constant = 250
     }
@@ -147,9 +149,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         } else {
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
         }
-        
+                
         self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
-        
+        vModel?.rideServicePickDropOffData?.passsengerCount = countOfPassenger
     }
     
     func setPickup(pick: String?) {

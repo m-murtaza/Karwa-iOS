@@ -17,6 +17,14 @@ import UBottomSheet
 import StoreKit
 import FittedSheets
 
+public var xpressRebookSelected = false
+public var xpressRebookPickUpSelected = false
+public var xpressRebookDropOffSelected = false
+public var xpressRebookPassengerSelected = false
+public var xpressRebookPickUpCoordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+public var xpressRebookDropOffCoordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+public var xpressRebookNumberOfPassenger = 2
+
 class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate,KTXpressRideCreationViewModelDelegate {
     
     
@@ -122,8 +130,21 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //            self.mapView.padding = mapInsets
         }
         super.viewDidLoad()
+        initializeValue()
         
         // Do any additional setup after loading the view.
+    }
+    
+    func initializeValue() {
+        xpressRebookSelected = false
+        xpressRebookPickUpSelected = false
+        xpressRebookDropOffSelected = false
+        xpressRebookPassengerSelected = false
+        xpressRebookNumberOfPassenger = 1
+        xpressRebookPickUpCoordinates.latitude =  0.0
+        xpressRebookPickUpCoordinates.longitude =  0.0
+        xpressRebookDropOffCoordinates.latitude = 0.0
+        xpressRebookDropOffCoordinates.longitude = 0.0
     }
     
     func showHideNavigationBar(status: Bool) {
@@ -665,10 +686,27 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     func moveToBooking()
     {
 //        self.performSegue(name: "segueDetailToReBook")
-        let rideLocationData = RideSerivceLocationData(pickUpZone: nil, pickUpStation: nil, pickUpStop: nil, dropOffZone: nil, dropOfSftation: nil, dropOffStop: nil, pickUpCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.pickupLon)!, longitude: (vModel?.booking?.pickupLat)!), dropOffCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.dropOffLat)!, longitude: (vModel?.booking?.dropOffLon)!), passsengerCount: 2)
-        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
-        rideService!.rideServicePickDropOffData = rideLocationData
-        self.navigationController?.pushViewController(rideService!, animated: true)
+        
+        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController") as? UINavigationController
+        
+        xpressRebookSelected = true
+        xpressRebookPickUpSelected = true
+        xpressRebookDropOffSelected = true
+        xpressRebookPassengerSelected = true
+        xpressRebookNumberOfPassenger = 2
+
+        xpressRebookPickUpCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0
+        xpressRebookPickUpCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0
+
+        xpressRebookDropOffCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0
+        xpressRebookDropOffCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0
+        
+        sideMenuController?.hideMenu()
+        
+//        let rideLocationData = RideSerivceLocationData(pickUpZone: nil, pickUpStation: nil, pickUpStop: nil, dropOffZone: nil, dropOfSftation: nil, dropOffStop: nil, pickUpCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.pickupLon)!, longitude: (vModel?.booking?.pickupLat)!), dropOffCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.dropOffLat)!, longitude: (vModel?.booking?.dropOffLon)!), passsengerCount: 2)
+//        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
+//        rideService!.rideServicePickDropOffData = rideLocationData
+//        self.navigationController?.pushViewController(rideService!, animated: true)
         
     }
     

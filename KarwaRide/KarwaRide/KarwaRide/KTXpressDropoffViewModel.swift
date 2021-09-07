@@ -52,7 +52,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     var pickUpZone: Area?
     var pickUpStation: Area?
     var pickUpStop: Area?
-    var countOfPassenger = 1
+    lazy var countOfPassenger = xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1
 
     var dropOffLocation: Area?
     var picupRect = GMSMutablePath()

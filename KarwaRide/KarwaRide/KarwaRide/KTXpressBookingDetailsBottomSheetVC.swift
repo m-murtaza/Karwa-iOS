@@ -63,7 +63,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         self.lblPickAddress.titleLabel?.numberOfLines = 2
         self.lblDropoffAddress.titleLabel?.numberOfLines = 2
         self.sheet?.view.backgroundColor = .clear
-        btnRebook.isUserInteractionEnabled = false
+//        btnRebook.isUserInteractionEnabled = false
         
     }
     
@@ -411,7 +411,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hidePhoneButton()
             showBtnComplain()
             showRebookBtn()
-            hideRebookBtn()
+            showRebookBtn()
 
             showFareDetailBtn()
             setUpfareBreakDownView()

@@ -30,6 +30,10 @@ class TabViewController: UITabBarController {
         tabBar.customShadowOpacity = 1
         tabBar.customShadowOffset = CGSize(width: 1, height: 0)
         tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
+        
+        if xpressRebookSelected {
+            self.selectedIndex = 1
+        }
     }
     
     override func viewDidLayoutSubviews() {

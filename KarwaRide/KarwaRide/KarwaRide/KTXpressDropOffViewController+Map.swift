@@ -31,10 +31,11 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
   func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
     if gesture {
 //      self.showCurrentLocationButton()
+        xpressRebookDropOffSelected = false
     }
   }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
+                
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         
         self.mapView.camera = camera
@@ -220,6 +221,13 @@ extension KTXpressDropOffViewController
             rect.append(self.polygon(bounds: item.bound!, type: ""))
             
         }
+        
+        if xpressRebookSelected && xpressRebookPickUpSelected && xpressRebookDropOffSelected {
+            dropOffCoordinate = xpressRebookDropOffCoordinates
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17)
+            self.mapView.camera = camera;
+        }
+        
         
         self.locateCountry(pathG: rect)
 

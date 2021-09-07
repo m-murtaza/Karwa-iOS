@@ -114,8 +114,12 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     func fetchRideService() {
         
+        self.delegate?.showProgressHud(show: true)
+        
         KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (String, response) in
-                        
+            
+            self?.delegate?.hideProgressHud()
+            
             guard let strongSelf = self else{
                 return
             }

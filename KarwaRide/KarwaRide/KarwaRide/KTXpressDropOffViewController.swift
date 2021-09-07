@@ -35,7 +35,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     var pickUpZone: Area?
     var pickUpStation: Area?
     var pickUpStop: Area?
-    var countOfPassenger = 1
+    lazy var countOfPassenger = xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1
 
     var dropOffLocation: Area?
     var picupRect = GMSMutablePath()
@@ -166,6 +166,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     }
     
     func setLocation(location: Any) {
+        
+        xpressRebookDropOffSelected = false
         
         if let loc = location as? KTGeoLocation {
             print(location)

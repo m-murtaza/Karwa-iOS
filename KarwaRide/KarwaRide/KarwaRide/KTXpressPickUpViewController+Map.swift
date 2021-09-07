@@ -15,12 +15,14 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
   func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
     if gesture {
 //      self.showCurrentLocationButton()
+        xpressRebookPickUpSelected = false
     }
   }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         self.tapOnMarker = true
+        xpressRebookPickUpSelected = false
 
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         self.mapView.camera = camera
@@ -186,7 +188,7 @@ extension KTXpressPickUpViewController
         }
         
         if addressSelected == false {
-            let camera = GMSCameraPosition.camera(withLatitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude, zoom: 15)
+            let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : xpressRebookPickUpSelected ? xpressRebookDropOffCoordinates.longitude : getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude, zoom: 15)
             self.mapView.animate(to: camera)
             KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude)
             (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: CLLocationCoordinate2D(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude))
