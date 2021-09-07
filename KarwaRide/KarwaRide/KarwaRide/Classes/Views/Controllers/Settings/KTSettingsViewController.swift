@@ -28,6 +28,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
       addMenuButton()
+        
+        self.tabBarController?.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.navigationController?.navigationBar.isHidden = true
+
     }
 
     @objc func updateUI()

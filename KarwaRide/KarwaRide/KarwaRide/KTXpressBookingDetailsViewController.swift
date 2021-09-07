@@ -352,7 +352,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     func updateEta(eta: String)
     {
         self.etaLabel.text = eta
-//        bottomSheetVC.updateEta(eta: eta)
+        bottomSheetVC.updateEta(eta: eta)
     }
     
     func hideEtaView()

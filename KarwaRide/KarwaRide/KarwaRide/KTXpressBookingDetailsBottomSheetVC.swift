@@ -24,8 +24,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
 //    @IBOutlet weak var lblPickMessage: SpringLabel!
 //    @IBOutlet weak var bookingTime: UILabel!
-//    @IBOutlet weak var btnETA: LocalisableButton!
-    
+    @IBOutlet weak var btnETA: LocalisableButton!
+    @IBOutlet weak var eta: LocalisableButton!
+
     @IBOutlet weak var btnShare: LocalisableButton!
     @IBOutlet weak var btnCancel: LocalisableButton!
     @IBOutlet weak var btnPhone: LocalisableSpringButton!
@@ -63,6 +64,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         self.lblPickAddress.titleLabel?.numberOfLines = 2
         self.lblDropoffAddress.titleLabel?.numberOfLines = 2
         self.sheet?.view.backgroundColor = .clear
+        btnPhone.isHidden = true
 //        btnRebook.isUserInteractionEnabled = false
         
     }
@@ -162,12 +164,12 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showPhoneButton()
     {
-        btnPhone.isHidden = false
+        btnPhone.isHidden = true
     }
 
     func updateBookingCardForCompletedBooking()
     {
-//        eta.isHidden = true
+        eta.isHidden = true
         btnPhone.isHidden = true
     }
 
@@ -270,16 +272,16 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func updateEta(eta: String)
     {
-//        self.eta.setTitle(eta, for: .normal)
+        self.eta.setTitle(eta, for: .normal)
     }
     func hideEtaView()
     {
-//        btnETA.isHidden = true
+        btnETA.isHidden = true
 //        constraintHeaderWidth.constant = UIScreen.main.bounds.width - 40
     }
     func showEtaView()
     {
-//        btnETA.isHidden = false
+        btnETA.isHidden = false
 //        constraintHeaderWidth.constant = 250
     }
     
@@ -345,6 +347,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.view.backgroundColor = UIColor.clear
             showEtaView()
             showCancelBtn()
+            showEtaView()
             hideShareBtn()
             showPhoneButton()
             hideBtnComplain()
