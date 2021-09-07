@@ -501,12 +501,13 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- ARRIVED BOOKING
         if(vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
             starView.isHidden = true
-            
+            eta.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
+            self.hideShareBtn()
             
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 650
+                self.heightOFScrollViewContent.constant = 525
                 self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
             }
             
