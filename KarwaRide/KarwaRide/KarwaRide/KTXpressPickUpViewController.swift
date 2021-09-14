@@ -182,18 +182,14 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             
             if let loc = location as? Area {
                 print(location)
-                
                 self.tapOnMarker = true
                 
                 let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
-                
                 print(metroAreaCoordinate.latitude)
 
                 let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
                 self.mapView.camera = camera
-
                 (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
-
                 (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
 
                 defer {

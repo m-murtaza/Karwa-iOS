@@ -172,27 +172,36 @@ extension KTXpressPickUpViewController
             }
         }
     }
-    
+        
     func setPolygon() {
         
         self.mapView.clear()
         
         // Create a rectangular path
-        let rect = GMSMutablePath()
-        
         let string = (self.viewModel as! KTXpressPickUpViewModel).areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
         
-        let array = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-            rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
-           return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-        }
+        let operatingArea = string.components(separatedBy: "|")
         
-        if addressSelected == false {
-            let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : xpressRebookPickUpSelected ? xpressRebookDropOffCoordinates.longitude : getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude, zoom: 15)
-            self.mapView.animate(to: camera)
-            KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude)
-            (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: CLLocationCoordinate2D(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude))
-            self.checkCoordinateStatus(CLLocation(latitude: getCenterPointOfPolygon(bounds: string).latitude, longitude: getCenterPointOfPolygon(bounds: string).longitude))
+        var rects = [GMSMutablePath]()
+        
+        for item in operatingArea {
+            
+            let rect = GMSMutablePath()
+            
+            _ = item.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0) ?? 0.0})}.map { (value) -> CLLocationCoordinate2D in
+                rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            
+            rects.append(rect)
+            
+            if addressSelected == false {
+                let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : xpressRebookPickUpSelected ? xpressRebookDropOffCoordinates.longitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: getCenterPointOfPolygon(bounds: item).longitude, zoom: 15)
+                self.mapView.animate(to: camera)
+                KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude: getCenterPointOfPolygon(bounds: item).latitude, longitude: getCenterPointOfPolygon(bounds: item).longitude)
+                (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: CLLocationCoordinate2D(latitude: getCenterPointOfPolygon(bounds: item).latitude, longitude: getCenterPointOfPolygon(bounds: item).longitude))
+                self.checkCoordinateStatus(CLLocation(latitude: getCenterPointOfPolygon(bounds: item).latitude, longitude: getCenterPointOfPolygon(bounds: item).longitude))
+            }
         }
         
         // 1. Create one quarter earth filling polygon
@@ -202,22 +211,17 @@ extension KTXpressPickUpViewController
         fillingPath.addLatitude(0, longitude: 90.0)
         fillingPath.addLatitude(0, longitude: -90.0)
         
-//        fillingPath.addLatitude(85.0, longitude: -180)
-//        fillingPath.addLatitude(85.0, longitude: 180)
-//        fillingPath.addLatitude(0.0, longitude: 180.0)
-//        fillingPath.addLatitude(0.0, longitude: -180.0)
-
         let fillingPolygon = GMSPolygon(path:fillingPath)
         let fillColor = UIColor.gray.withAlphaComponent(0.7)
         fillingPolygon.fillColor = fillColor
         fillingPolygon.map = self.mapView
-
+        
         // 2. Add prepared array of GMSPath
-        fillingPolygon.holes = [rect]
-
-//        // 3. Add lines for boundaries
-        for path in [rect] {
-
+        fillingPolygon.holes = rects
+        
+        // 3. Add lines for boundaries
+        for path in rects {
+            
             let polygon = GMSPolygon(path: path)
             
             polygon.fillColor = UIColor.white.withAlphaComponent(0.4)
@@ -226,31 +230,9 @@ extension KTXpressPickUpViewController
             polygon.strokeWidth = 2
             polygon.map = mapView
         }
-            
-
-//        let nfillingPath = GMSMutablePath()
-//        nfillingPath.addLatitude(85.0, longitude: 90.0)
-//        nfillingPath.addLatitude(85.0, longitude: 175.0)
-//        nfillingPath.addLatitude(0, longitude: 175.0)
-//        nfillingPath.addLatitude(0, longitude: -95.0)
-//        
-////        fillingPath.addLatitude(85.0, longitude: -180)
-////        fillingPath.addLatitude(85.0, longitude: 180)
-////        fillingPath.addLatitude(0.0, longitude: 180.0)
-////        fillingPath.addLatitude(0.0, longitude: -180.0)
-//
-//        let nfillingPolygon = GMSPolygon(path:nfillingPath)
-//        let nfillColor = UIColor.gray.withAlphaComponent(0.7)
-//        nfillingPolygon.fillColor = fillColor
-//        nfillingPolygon.map = self.mapView
-////
-//
-//        // Create the polygon, and assign it to the map.
-//        let polygon = GMSPolygon(path: rect)
-//        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.2);
-//        polygon.strokeColor = .black
-//        polygon.strokeWidth = 2
-//        polygon.map = mapView
+        
+        print(string)
+        
     }
 
     func polygonNext(){

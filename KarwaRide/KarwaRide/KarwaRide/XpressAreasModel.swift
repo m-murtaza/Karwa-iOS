@@ -15,6 +15,15 @@ struct Area: Hashable {
     var parent: Int?
     var bound, type: String?
     var isActive: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case bound = "Bound"
+        case code = "Code"
+        case name = "Name"
+        case vehicleType = "VehicleType"
+        case type = "Type"
+        case parent = "Parent"
+    }
 }
 
 // MARK: - Destination

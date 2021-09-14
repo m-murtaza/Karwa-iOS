@@ -711,7 +711,6 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
                         self.updateBookingCard()
-
                     }
 
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
@@ -802,39 +801,41 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
-        if(Constants.DIRECTIONS_API_ENABLE)
-        {
-            let origin = "\(ride.position.latitude),\(ride.position.longitude)"
-            let destination = "\(lat),\(long)"
-            
-            
-            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
-            
-            Alamofire.request(url).responseJSON { response in
-                
-                do
-                {
-                    let json = try JSON(data: response.data!)
-                    let routes = json["routes"].arrayValue
-                    
-                    for route in routes
-                    {
-                        let routeOverviewPolyline = route["overview_polyline"].dictionary
-                        let points = routeOverviewPolyline?["points"]?.stringValue
-                        
-                        self.del?.showRouteOnMap(points: points!)
-                    }
-                } catch
-                {
-                    
-                }
-            }
-        }
-        else
-        {
-            drawPath(encodedPath: ride.encodedPath, vTrack: ride)
-//            focusMarkers(vTrack: ride)
-        }
+        drawPath(encodedPath: ride.encodedPath, vTrack: ride)
+
+//        if(Constants.DIRECTIONS_API_ENABLE)
+//        {
+//            let origin = "\(ride.position.latitude),\(ride.position.longitude)"
+//            let destination = "\(lat),\(long)"
+//
+//
+//            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
+//
+//            Alamofire.request(url).responseJSON { response in
+//
+//                do
+//                {
+//                    let json = try JSON(data: response.data!)
+//                    let routes = json["routes"].arrayValue
+//
+//                    for route in routes
+//                    {
+//                        let routeOverviewPolyline = route["overview_polyline"].dictionary
+//                        let points = routeOverviewPolyline?["points"]?.stringValue
+//
+//                        self.del?.showRouteOnMap(points: points!)
+//                    }
+//                } catch
+//                {
+//
+//                }
+//            }
+//        }
+//        else
+//        {
+//            drawPath(encodedPath: ride.encodedPath, vTrack: ride)
+////            focusMarkers(vTrack: ride)
+//        }
     }
     
     func drawPath(encodedPath: String) {

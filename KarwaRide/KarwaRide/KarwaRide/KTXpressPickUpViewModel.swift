@@ -137,15 +137,28 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     
     func checkLatLonInside(location: CLLocation) -> Bool {
         if let string = self.areas.filter({$0.type! == "OperatingArea"}).first?.bound {
-            let coordinates = string.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            
+            let operatingArea = string.components(separatedBy: "|")
+
+            var latLonInside = false
+            
+            for item in operatingArea {
+                
+                let coordinates = item.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                }
+                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                    latLonInside = true
+                    break
+                } else {
+                    print("it wont contains")
+                    latLonInside = false
+                }
+                
             }
-            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                return true
-            } else {
-                print("it wont contains")
-                return false
-            }
+                        
+          return latLonInside
+            
         } else {
             print("it wont contains")
             return false
@@ -167,10 +180,14 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                 print(totalOperatingResponse)
                 
                 if let totalAreas = totalOperatingResponse["Areas"] as? [[String:Any]] {
+                    
+                    print(totalAreas)
 
                     for item in totalAreas {
                         
-                        let area = Area(code: (item["Code"] as? Int)!, vehicleType:(item["VehicleType"] as? Int)!, name: (item["Name"] as? String)!, parent: (item["Parent"] as? Int)!, bound: (item["Bound"] as? String)!, type: (item["Type"] as? String)!, isActive: (item["IsActive"] as? Bool)!)
+                        print(item)
+                        
+                        let area = Area(code: (item["Code"] as? Int) ?? 0, vehicleType:(item["VehicleType"] as? Int) ?? -1, name: (item["Name"] as? String) ?? "", parent: (item["Parent"] as? Int) ?? -1, bound: (item["Bound"] as? String) ?? "", type: (item["Type"] as? String) ?? "", isActive: (item["IsActive"] as? Bool) ?? false)
                         
                         self.areas.append(area)
                                                 

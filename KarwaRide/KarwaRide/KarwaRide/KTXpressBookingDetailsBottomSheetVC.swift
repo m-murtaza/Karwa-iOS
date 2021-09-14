@@ -507,8 +507,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.hideShareBtn()
             
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 525
-                self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                self.heightOFScrollViewContent.constant = 500
+                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
             }
             
             hideFareDetailBtn()
