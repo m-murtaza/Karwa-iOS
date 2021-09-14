@@ -355,20 +355,19 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
+        var bounds = GMSCoordinateBounds()
+        for marker: GMSMarker in gmsMarker {
+            bounds = bounds.includingCoordinate(marker.position)
+        }
 
-//        var bounds = GMSCoordinateBounds()
-//        for marker: GMSMarker in gmsMarker {
-//            bounds = bounds.includingCoordinate(marker.position)
-//        }
-//
-//        var update : GMSCameraUpdate?
-//        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
-//
-//
-//        CATransaction.begin()
-//        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-//        mapView.animate(with: update!)
-//        CATransaction.commit()
+        var update : GMSCameraUpdate?
+        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+
+
+        CATransaction.begin()
+        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+        mapView.animate(with: update!)
+        CATransaction.commit()
     }
 
     func setBooking(booking : KTBooking) {
