@@ -24,6 +24,7 @@ class VehicleTrack: NSObject {
     var status : Int
     var trackType : VehicleTrackType
     var encodedPath : String
+    var wayPoints: [WayPoints]
     
      override init() {
         
@@ -36,6 +37,7 @@ class VehicleTrack: NSObject {
         status = 1
         trackType = VehicleTrackType.vehicle
         encodedPath = ""
+        wayPoints = [WayPoints]()
         super.init()
     }
     

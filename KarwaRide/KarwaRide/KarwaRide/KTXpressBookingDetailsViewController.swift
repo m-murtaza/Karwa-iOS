@@ -250,7 +250,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         vModel?.bookingUpdateTriggered(booking)
     }
     
-    var gmsMarker : Array<GMSMarker> = Array()
+    var wayPointsMarker : Array<GMSMarker> = Array()
 
     var polyline = GMSPolyline()
     weak var animationPolyline = GMSPolyline()
@@ -260,6 +260,43 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var timer: Timer!
     var bgPolylineColor : UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
 
+    func addPointsOnMapWithWayPoints(encodedPath points: String, wayPoints: [WayPoints]) {
+                
+        for item in wayPointsMarker {
+            item.map = nil
+        }
+        
+        wayPointsMarker.removeAll()
+        
+        for item in wayPoints {
+            let wayPointImageView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 14))
+            wayPointImageView.customCornerRadius = 7
+            wayPointImageView.backgroundColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+            let wayPointImage = wayPointImageView.asImage()
+            wayPointsMarker.append(self.addAndGetMarkerOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
+        }
+        
+        removeOldPolyline()
+        if(!points.isEmpty)
+        {
+            path = GMSPath.init(fromEncodedPath: points)!
+            polyline = GMSPolyline.init(path: path)
+            polyline.strokeWidth = 3
+            polyline.strokeColor = bgPolylineColor  // UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+            polyline.map = self.mapView
+            
+            var bounds = GMSCoordinateBounds()
+            for index in 1 ... (path.count().toInt) {
+                bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
+            }
+            
+       //     mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
+            
+            bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+            self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+        }
+    }
+    
     public func addPointsOnMap(encodedPath points: String) {
         removeOldPolyline()
         if(!points.isEmpty)
@@ -275,7 +312,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
                 bounds = bounds.includingCoordinate(path.coordinate(at: UInt(index)))
             }
             
-            mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
+           // mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 100.0))
             
             bgPolylineColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
             self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
@@ -319,19 +356,19 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
 
-        var bounds = GMSCoordinateBounds()
-        for marker: GMSMarker in gmsMarker {
-            bounds = bounds.includingCoordinate(marker.position)
-        }
-        
-        var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
-
-        
-        CATransaction.begin()
-        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.animate(with: update!)
-        CATransaction.commit()
+//        var bounds = GMSCoordinateBounds()
+//        for marker: GMSMarker in gmsMarker {
+//            bounds = bounds.includingCoordinate(marker.position)
+//        }
+//
+//        var update : GMSCameraUpdate?
+//        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+//
+//
+//        CATransaction.begin()
+//        CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
+//        mapView.animate(with: update!)
+//        CATransaction.commit()
     }
 
     func setBooking(booking : KTBooking) {
@@ -378,7 +415,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         marker.position = location
         
         marker.icon = image
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
         
         return marker
@@ -509,6 +546,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {
         
+        self.mapView.clear()
+        
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
         
         self.mapView.camera = camera;
@@ -563,7 +602,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             var bounds = GMSCoordinateBounds()
             bounds = bounds.includingCoordinate((marker?.position)!)
             bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
-            
+
             var update : GMSCameraUpdate?
             update = GMSCameraUpdate.fit(bounds, withPadding: 100)
             mapView.animate(with: update!)
@@ -584,13 +623,13 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
         mapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
         
-        if etaLabel.isHidden == false {
-            addMarkerOnMapWithInfoView(location: path.coordinate(at: 0))
-        } else {
-            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "pin_pickup_map")!)
-        }
+//        if etaLabel.isHidden == false {
+//            addMarkerOnMapWithInfoView(location: path.coordinate(at: 0))
+//        } else {
+//            addMarkerOnMap(location: path.coordinate(at:0), image: UIImage(named: "pin_pickup_map")!)
+//        }
         
-        addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "pin_dropoff_map")!)
+        //addMarkerOnMap(location: path.coordinate(at:path.count()-1), image: UIImage(named: "pin_dropoff_map")!)
     }
     
     func showRouteOnMap(points pointsStr: String)
@@ -634,7 +673,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //            addMarkerOnMapWithInfoView(location: location)
 //        } else {
 //        }
-        addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
+       // addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
 
 //        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
     }
@@ -650,6 +689,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
 
         let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        
         mapView.animate(with: update)
 
         mapView.setMinZoom(1, maxZoom: 20)
@@ -865,4 +905,16 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         btnRecenter.isHidden = false
     }
     
+}
+
+extension UIView {
+
+    // Using a function since `var image` might conflict with an existing variable
+    // (like on `UIImageView`)
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
+    }
 }

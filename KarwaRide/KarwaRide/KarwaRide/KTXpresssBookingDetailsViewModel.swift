@@ -12,6 +12,28 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
+struct WayPoints {
+    /*
+     {
+                     "Location": {
+                         "lat": 25.195471,
+                         "lon": 51.471721
+                     },
+                     "PickCount": 0,
+                     "DropCount": 1
+                 }
+     */
+    var Location: WayPointLocations
+    var PickCount: Int
+    var DropCount: Int
+
+}
+
+struct WayPointLocations {
+    var lat: Double
+    var lon: Double
+}
+
 //MARK: - Protocols
 protocol KTXpresssBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func initializeMap(location : CLLocationCoordinate2D)
@@ -615,7 +637,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
-                drawPath(encodedPath: booking?.encodedPath ?? "")
+                drawPath(encodedPath: booking?.encodedPath ?? "", wayPoints: [WayPoints]())
 //                snapTrackToRoad(track: (booking?.tripTrack)!)
             }
         }
@@ -801,7 +823,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
-        drawPath(encodedPath: ride.encodedPath, vTrack: ride)
+        drawPath(encodedPath: ride.encodedPath,wayPoints: ride.wayPoints ,vTrack: ride)
 
 //        if(Constants.DIRECTIONS_API_ENABLE)
 //        {
@@ -838,14 +860,14 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
 //        }
     }
     
-    func drawPath(encodedPath: String) {
+    func drawPath(encodedPath: String, wayPoints: [WayPoints]) {
 
-        drawPath(encodedPath: encodedPath, vTrack: nil)
+        drawPath(encodedPath: encodedPath, wayPoints: wayPoints, vTrack: nil)
     }
     
-    func drawPath(encodedPath: String, vTrack: VehicleTrack?) {
+    func drawPath(encodedPath: String, wayPoints: [WayPoints] ,vTrack: VehicleTrack?) {
 
-        (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMap(encodedPath: encodedPath)
+        (self.delegate as! KTBookingDetailsViewModelDelegate).addPointsOnMapWithWayPoints(encodedPath: encodedPath, wayPoints: wayPoints)
         
         if(vTrack != nil && booking?.dropOffLat == 0)
         {
@@ -925,7 +947,23 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             track.encodedPath = encodedPath
         }
         track.trackType = VehicleTrackType.vehicle
+        
+        if let waypoints = rtrack["Waypoints"] as? [[String: Any]] {
+            
+            track.wayPoints = [WayPoints]()
+            
+            for item in waypoints {
+                let locationWayP = WayPointLocations(lat: ((item["Location"] as? [String: Double])?["lat"])!, lon: ((item["Location"] as? [String: Double])?["lon"])!)
+                let wayP = WayPoints(Location: locationWayP, PickCount: item["PickCount"] as? Int ?? 0, DropCount: item["DropCount"] as? Int ?? 0)
+                track.wayPoints.append(wayP)
+            }
+            
+        }
+        
+        print(track.wayPoints)
+        
         return track
+        
     }
     
     func imgForTrackMarker() -> UIImage {
