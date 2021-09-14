@@ -381,7 +381,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         {
             hideEtaView()
             hideCancelBtn()
-            hideShareBtn()
+            showShareBtn()
             showPhoneButton()
             hideBtnComplain()
             hideRebookBtn()
@@ -395,7 +395,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             if oneTimeSetSizeForBottomSheet == false {
                 DispatchQueue.main.async {
                     DispatchQueue.main.async {
-                        self.heightOFScrollViewContent.constant = 400
+                        self.heightOFScrollViewContent.constant = 500
                         self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                     }
                     
