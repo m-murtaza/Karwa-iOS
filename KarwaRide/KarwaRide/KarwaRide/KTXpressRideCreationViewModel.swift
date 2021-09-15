@@ -131,7 +131,9 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
             guard let rides = response["Rides"] as? [[String : Any]] else {
-                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "No ride found")
+                if let message = response["M"] as? String {
+                    (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: message)
+                }
                 return
             }
             

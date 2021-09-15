@@ -278,6 +278,7 @@ class KTCreateBookingViewController:
     @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
   @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomConstraintCardView: NSLayoutConstraint!
     @IBOutlet weak var pickUpClikcBtn: UIButton!
     @IBOutlet weak var dropClikcBtn: UIButton!
 
@@ -379,6 +380,25 @@ class KTCreateBookingViewController:
         self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
     }
     
+        if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case 1136:
+                    print("iPhone 5 or 5S or 5C")
+                    bottomConstraintCardView.constant = 38
+                case 1334:
+                    print("iPhone 6/6S/7/8")
+                    bottomConstraintCardView.constant = 38
+                case 1920, 2208:
+                    print("iPhone 6+/6S+/7+/8+")
+                    bottomConstraintCardView.constant = 38
+                case 2436:
+                    print("iPhone X")
+                    bottomConstraintCardView.constant = 68
+                default:
+                    print("unknown")
+                    bottomConstraintCardView.constant = 68
+                }
+            }
             
   }
   
@@ -609,6 +629,9 @@ class KTCreateBookingViewController:
     if sheetPresented == true {
         self.dismissSelectionMethod()
     }
+    self.tabBarController?.tabBar.isHidden = false
+    self.edgesForExtendedLayout = UIRectEdge.all
+    self.view.layoutIfNeeded()
   }
   
   //MARK: - Book Ride
@@ -696,6 +719,7 @@ class KTCreateBookingViewController:
     btnRevealBtn.isHidden = true
     selectedIndex = 0
     restoreCustomerServiceSelection()
+    self.tabBarController?.tabBar.isHidden = true
   }
   
   func hideCancelBookingBtn()  {
