@@ -2922,7 +2922,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QCN-32-Vxz">
-                                <rect key="frame" x="0.0" y="547.33333333333337" width="414" height="299.66666666666663"/>
+                                <rect key="frame" x="0.0" y="538.33333333333326" width="414" height="299.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM1-Su-Mie" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="19.999999999999993" y="20" width="116.33333333333331" height="15.666666666666664"/>
@@ -3623,7 +3623,7 @@
                             <constraint firstItem="dXd-fk-x86" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" id="X25-c2-att"/>
                             <constraint firstItem="Igi-Xb-Q9F" firstAttribute="top" secondItem="eyk-Uq-bby" secondAttribute="bottom" constant="5" id="XNB-BY-Q3h"/>
                             <constraint firstItem="QCN-32-Vxz" firstAttribute="trailing" secondItem="egy-u8-lUc" secondAttribute="trailing" id="Xkn-Qg-QGh"/>
-                            <constraint firstItem="QCN-32-Vxz" firstAttribute="top" secondItem="egy-u8-lUc" secondAttribute="bottom" id="Yns-cl-DLG"/>
+                            <constraint firstItem="QCN-32-Vxz" firstAttribute="top" secondItem="egy-u8-lUc" secondAttribute="bottom" constant="-9" id="Yns-cl-DLG"/>
                             <constraint firstItem="oRN-BB-uz7" firstAttribute="trailing" secondItem="dXd-fk-x86" secondAttribute="trailing" id="ZSQ-wK-tpw"/>
                             <constraint firstItem="QCN-32-Vxz" firstAttribute="leading" secondItem="t8Z-H3-W4a" secondAttribute="leading" id="aAF-DT-U8u"/>
                             <constraint firstAttribute="top" secondItem="uYM-p6-0VQ" secondAttribute="top" id="deF-FF-kzj"/>
@@ -3634,7 +3634,7 @@
                             <constraint firstItem="2ec-DO-97R" firstAttribute="centerX" secondItem="uYM-p6-0VQ" secondAttribute="centerX" id="oec-i8-a61"/>
                             <constraint firstItem="uYM-p6-0VQ" firstAttribute="top" secondItem="7Cw-K8-q7x" secondAttribute="top" id="ryU-If-QsD"/>
                             <constraint firstItem="t8Z-H3-W4a" firstAttribute="trailing" secondItem="QCN-32-Vxz" secondAttribute="trailing" id="x6s-gE-CSF"/>
-                            <constraint firstItem="t8Z-H3-W4a" firstAttribute="bottom" secondItem="QCN-32-Vxz" secondAttribute="bottom" constant="-34" id="xIR-yT-97p"/>
+                            <constraint firstItem="t8Z-H3-W4a" firstAttribute="bottom" secondItem="QCN-32-Vxz" secondAttribute="bottom" constant="-24.999999999999886" id="xIR-yT-97p"/>
                             <constraint firstItem="bbM-Eg-s80" firstAttribute="leading" secondItem="eyk-Uq-bby" secondAttribute="leading" id="xn2-2N-kLw"/>
                             <constraint firstItem="dXd-fk-x86" firstAttribute="top" secondItem="oRN-BB-uz7" secondAttribute="bottom" id="xzP-sk-JaC"/>
                         </constraints>
@@ -4160,11 +4160,11 @@
             </objects>
             <point key="canvasLocation" x="-194.40000000000001" y="2939.2803598200903"/>
         </scene>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="kjA-VI-BM7">
             <objects>
                 <navigationController storyboardIdentifier="SettingsNavigationController" id="8ld-0p-5OO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="tUT-zD-BvX"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings_ico_idle" selectedImage="settings_ico_active" id="tUT-zD-BvX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z63-wu-xKn">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -4206,13 +4206,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrr-LW-66P">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsNoTrip" translatesAutoresizingMaskIntoConstraints="NO" id="Psf-3I-ypj">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="761"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="712"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uoo-sh-uSy">
-                                        <rect key="frame" x="134.66666666666666" y="769" width="144.99999999999997" height="29"/>
+                                        <rect key="frame" x="134.66666666666666" y="720" width="144.99999999999997" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="tuz-2v-Ubb"/>
                                             <constraint firstAttribute="width" constant="145" id="yxH-Xg-KYj"/>
@@ -4670,7 +4670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lKC-iq-3de" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657.9710144927537" y="3103.7946428571427"/>
+            <point key="canvasLocation" x="1628" y="3078"/>
         </scene>
         <!--Edit Account Info-->
         <scene sceneID="WGb-eZ-0qg">
@@ -14357,7 +14357,7 @@
             <size key="intrinsicContentSize" width="113" height="28"/>
         </designable>
         <designable name="KXG-l9-2gL">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
         <designable name="Kdh-NL-2a0">
             <size key="intrinsicContentSize" width="38" height="44"/>
@@ -14531,7 +14531,7 @@
             <size key="intrinsicContentSize" width="30" height="29"/>
         </designable>
         <designable name="tsX-Ub-xAj">
-            <size key="intrinsicContentSize" width="18" height="22"/>
+            <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
         <designable name="uAf-9D-Eh5">
             <size key="intrinsicContentSize" width="31" height="32"/>
@@ -14574,7 +14574,7 @@
         <segue reference="4lO-1G-0fb"/>
         <segue reference="UaL-kR-7Gj"/>
         <segue reference="ArU-ag-8ou"/>
-        <segue reference="rqR-e6-HCz"/>
+        <segue reference="wE4-w3-3Ll"/>
         <segue reference="UM1-sb-1vB"/>
         <segue reference="wcf-kD-wML"/>
         <segue reference="Otx-q2-Oud"/>
@@ -14614,7 +14614,7 @@
         <image name="arrow_right copy_2" width="4.6666665077209473" height="8"/>
         <image name="arrows" width="196" height="14"/>
         <image name="avatar" width="35" height="35"/>
-        <image name="back_arrow_ico" width="18" height="13.666666984558105"/>
+        <image name="back_arrow_ico" width="8" height="14"/>
         <image name="balance_box" width="352" height="122"/>
         <image name="bookmark_popup" width="232" height="189.66667175292969"/>
         <image name="bookride_ico_active" width="21" height="21"/>
