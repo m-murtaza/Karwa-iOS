@@ -55,7 +55,7 @@ class KTCancelViewModel: KTBaseViewModel {
                     self.del?.cancelSuccess()
                 }
                 else {
-                    self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                    self.delegate?.showError!(title: response[Constants.ResponseAPIKey.Title] as? String ?? "Error", message: response[Constants.ResponseAPIKey.Message] as? String ?? "Error")
                 }
             }
         }

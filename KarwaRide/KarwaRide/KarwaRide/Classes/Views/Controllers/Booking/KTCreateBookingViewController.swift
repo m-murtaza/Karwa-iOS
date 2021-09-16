@@ -774,43 +774,50 @@ class KTCreateBookingViewController:
     self.removeBookingOnReset = removeBookingOnReset
   }
 
-  func pickDropBoxStep3() {
-    DispatchQueue.main.async
-    {
-        self.rideServicesContainer.frame.origin.y += 150
-        self.pickupDropoffParentContainer.frame.origin.y += 150
+    func pickDropBoxStep3() {
+        
+        let corouselSelected = (viewModel as? KTCreateBookingViewModel)?.carouselSelected
+        
+        self.rideServicesContainer.frame.origin.y += corouselSelected! ? 50 : 150
+        self.pickupDropoffParentContainer.frame.origin.y += corouselSelected! ? 40 : 150
         self.pickupDropoffParentContainer.isHidden = false
-
+        
+        
         if self.promoCode == ""{
             self.promoAppliedContainer.isHidden = true
-//            self.mapViewBottomConstraint.constant = 304
+            //            self.mapViewBottomConstraint.constant = 304
         } else {
-//            self.mapViewBottomConstraint.constant = 375
+            //            self.mapViewBottomConstraint.constant = 375
         }
         
-        self.view.layoutIfNeeded()
+        //        self.view.layoutIfNeeded()
         
         self.rideServicesContainer.isHidden = false
+        
+        if corouselSelected == false {
+            UIView.animate(
+                withDuration: 0.4,
+                delay: 0.0,
+                usingSpringWithDamping: 0.5,
+                initialSpringVelocity: 2,
+                options: .curveEaseInOut,
+                animations:
+                    {
+                        self.rideServicesContainer.frame.origin.y -= 150
+                        self.pickupDropoffParentContainer.frame.origin.y -= 150
+                    },completion: nil)
+            
+        }
+        
+        
+        self.pickupCardView.isHidden = true
+        self.pickupPin.isHidden = true
+        self.mapInstructionsContainer.isHidden = true
+        self.currentLocationButton.isHidden = true
+        (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
-        UIView.animate(
-            withDuration: 0.4,
-            delay: 0.0,
-            usingSpringWithDamping: 0.5,
-            initialSpringVelocity: 2,
-            options: .curveEaseInOut,
-            animations:
-            {
-                self.rideServicesContainer.frame.origin.y -= 150
-                self.pickupDropoffParentContainer.frame.origin.y -= 150
-            },completion: nil)
-
-
-      self.pickupCardView.isHidden = true
-      self.pickupPin.isHidden = true
-      self.mapInstructionsContainer.isHidden = true
-      self.currentLocationButton.isHidden = true
+        //}
     }
-  }
   
   func pickDropBoxStep1() {
     DispatchQueue.main.async {

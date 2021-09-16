@@ -116,7 +116,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     var encodedPath = ""
     var initialDateSetUp = true
-    
+    var carouselSelected = false
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -263,6 +264,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func destinationSelectedFromHomeScreen(location: KTGeoLocation) {
         if isPickAvailable() {
             setDropAddress(dAddress: location)
+            carouselSelected = true
             step3SelectRideService()
             (delegate as! KTCreateBookingViewModelDelegate).showCancelBookingBtn()
             fetchEstimates()

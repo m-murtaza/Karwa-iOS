@@ -3641,6 +3641,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Book Ride" image="bookride_ico_idle" selectedImage="bookride_ico_active" id="RLE-Pi-BVA">
                         <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-8"/>
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="15"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="HJc-9O-lht">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="m2P-Jy-JP4"/>
@@ -7840,7 +7841,7 @@
                                 <rect key="frame" x="0.0" y="199" width="414" height="507"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" translatesAutoresizingMaskIntoConstraints="NO" id="prb-qg-PlM" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" translatesAutoresizingMaskIntoConstraints="NO" id="prb-qg-PlM" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="prb-qg-PlM" id="20r-Be-fLH">
@@ -10434,13 +10435,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zAO-0z-9NM">
                                                     <rect key="frame" x="80" y="18.000000000000004" width="91.333333333333314" height="34.333333333333343"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
                                                             <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
                                                             <rect key="frame" x="0.0" y="19.666666666666664" width="91.333333333333329" height="14.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -12886,7 +12887,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QDe-0I-cxx" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="540"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="564"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7A-ts-xL3">
                                         <rect key="frame" x="154" y="305" width="105" height="90"/>
@@ -12917,8 +12918,8 @@
                                     <outlet property="delegate" destination="dDL-80-V9D" id="meH-ea-IKf"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEH-JJ-o7B">
-                                <rect key="frame" x="0.0" y="174" width="414" height="600"/>
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IEH-JJ-o7B">
+                                <rect key="frame" x="0.0" y="-800" width="414" height="600"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="nNY-mF-1Cw">
                                         <rect key="frame" x="13" y="26" width="387" height="534"/>
@@ -13353,8 +13354,8 @@
                                     <action selector="btnBackTapped:" destination="dDL-80-V9D" eventType="touchUpInside" id="qd7-uj-IIp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouC-Ov-Rs4">
-                                <rect key="frame" x="344" y="364" width="58" height="58"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouC-Ov-Rs4">
+                                <rect key="frame" x="344" y="464" width="58" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="CTj-uK-pWa"/>
                                     <constraint firstAttribute="height" constant="58" id="ghm-43-dIV"/>
@@ -13377,11 +13378,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="i2Y-o8-vAt" firstAttribute="top" secondItem="yWH-6L-MIF" secondAttribute="top" id="B4r-DK-xIH"/>
-                            <constraint firstAttribute="bottom" secondItem="QDe-0I-cxx" secondAttribute="bottom" constant="196" id="FAY-Da-qgf"/>
+                            <constraint firstAttribute="bottom" secondItem="QDe-0I-cxx" secondAttribute="bottom" constant="172" id="FAY-Da-qgf"/>
                             <constraint firstItem="QDe-0I-cxx" firstAttribute="top" secondItem="x1E-uY-gw8" secondAttribute="top" id="JZS-5C-6kl"/>
                             <constraint firstItem="IEH-JJ-o7B" firstAttribute="leading" secondItem="yWH-6L-MIF" secondAttribute="leading" id="JdE-s7-mwI"/>
                             <constraint firstItem="IEH-JJ-o7B" firstAttribute="bottom" secondItem="yWH-6L-MIF" secondAttribute="bottom" constant="38" id="MnZ-m4-KoM"/>
-                            <constraint firstItem="yWH-6L-MIF" firstAttribute="bottom" secondItem="ouC-Ov-Rs4" secondAttribute="bottom" constant="370" id="UPh-33-DfY"/>
+                            <constraint firstItem="ouC-Ov-Rs4" firstAttribute="top" secondItem="QDe-0I-cxx" secondAttribute="bottom" constant="-100" id="NPo-mV-ZNa"/>
                             <constraint firstItem="hUh-hi-9yt" firstAttribute="centerY" secondItem="i2Y-o8-vAt" secondAttribute="centerY" id="Vwu-aP-T9I"/>
                             <constraint firstItem="i2Y-o8-vAt" firstAttribute="leading" secondItem="x1E-uY-gw8" secondAttribute="leadingMargin" id="Xni-YT-gxU"/>
                             <constraint firstItem="yWH-6L-MIF" firstAttribute="right" secondItem="ouC-Ov-Rs4" secondAttribute="rightMargin" constant="20" id="fGu-DG-5KP"/>
@@ -13415,7 +13416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZE-YK-xaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1522" y="-1576"/>
+            <point key="canvasLocation" x="-1523.1884057971015" y="-1576.6304347826087"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZHa-x1-p8u">
@@ -14309,9 +14310,6 @@
         <designable name="2bl-4T-5Mw">
             <size key="intrinsicContentSize" width="12.666666666666666" height="22"/>
         </designable>
-        <designable name="3Hf-ht-uDd">
-            <size key="intrinsicContentSize" width="30" height="34"/>
-        </designable>
         <designable name="4th-k2-d64">
             <size key="intrinsicContentSize" width="56" height="33"/>
         </designable>
@@ -14320,9 +14318,6 @@
         </designable>
         <designable name="5Yh-dN-psc">
             <size key="intrinsicContentSize" width="110" height="28"/>
-        </designable>
-        <designable name="5q4-Cd-UaS">
-            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="30" height="28"/>
@@ -14471,9 +14466,6 @@
         <designable name="eKI-lM-zdp">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
-        <designable name="eMk-bz-O43">
-            <size key="intrinsicContentSize" width="293" height="51"/>
-        </designable>
         <designable name="efC-ko-7kP">
             <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
@@ -14485,9 +14477,6 @@
         </designable>
         <designable name="f0K-tT-fnX">
             <size key="intrinsicContentSize" width="117" height="29"/>
-        </designable>
-        <designable name="g26-sc-neA">
-            <size key="intrinsicContentSize" width="21.666666666666668" height="22"/>
         </designable>
         <designable name="g5N-xp-b2J">
             <size key="intrinsicContentSize" width="8" height="22"/>
@@ -14557,9 +14546,6 @@
         </designable>
         <designable name="vh2-Ed-Oax">
             <size key="intrinsicContentSize" width="60" height="60"/>
-        </designable>
-        <designable name="x9g-KR-Wfp">
-            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="xfy-kF-trT">
             <size key="intrinsicContentSize" width="104" height="33"/>

@@ -489,11 +489,17 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 
     @IBAction func btnBackTapped(_ sender: Any) {
         if let navController = self.navigationController {
-            if navController.viewControllers.count > 2 {
-                navController.popToViewController(navController.viewControllers[1], animated: true)
+            
+            if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                if navController.viewControllers.count > 2 {
+                    navController.popToViewController(navController.viewControllers[1], animated: true)
+                } else {
+                    navController.popViewController(animated: true)
+                }
             } else {
-                navController.popToRootViewController(animated: true)
+                navController.popViewController(animated: true)
             }
+
         }
     }
     
@@ -601,9 +607,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             var bounds = GMSCoordinateBounds()
             bounds = bounds.includingCoordinate((marker?.position)!)
             bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
-
             var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+            update = GMSCameraUpdate.fit(bounds, withPadding: 80)
             mapView.animate(with: update!)
         }
     }
