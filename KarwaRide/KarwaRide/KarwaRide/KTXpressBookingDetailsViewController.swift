@@ -558,7 +558,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.mapView.camera = camera;
         self.mapView.delegate = self
         
-        let padding = UIEdgeInsets(top: 0, left: 50, bottom: 50, right: 50)
+        let padding = UIEdgeInsets(top: 0, left: 10, bottom: 50, right: 50)
         mapView.padding = padding
         
         do {
@@ -605,8 +605,15 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         if(marker != nil)
         {
             var bounds = GMSCoordinateBounds()
+            
+            let pick = CLLocationCoordinate2D(latitude: vModel?.booking?.pickupLat ?? 0.0, longitude: vModel?.booking?.pickupLon ?? 0.0)
+            let drop = CLLocationCoordinate2D(latitude: vModel?.booking?.dropOffLat ?? 0.0, longitude: vModel?.booking?.dropOffLon ?? 0.0)
+//            bounds.includingCoordinate(pick)
+            
             bounds = bounds.includingCoordinate((marker?.position)!)
-            bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
+            bounds = bounds.includingCoordinate(pick)
+            bounds = bounds.includingCoordinate(drop)
+
             var update : GMSCameraUpdate?
             update = GMSCameraUpdate.fit(bounds, withPadding: 80)
             mapView.animate(with: update!)
@@ -737,7 +744,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         xpressRebookPickUpSelected = true
         xpressRebookDropOffSelected = true
         xpressRebookPassengerSelected = true
-        xpressRebookNumberOfPassenger = 2
+        xpressRebookNumberOfPassenger = 1
 
         xpressRebookPickUpCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0
         xpressRebookPickUpCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0
