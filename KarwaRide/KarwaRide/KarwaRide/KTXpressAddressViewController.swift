@@ -65,6 +65,8 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         tableView.keyboardDismissMode = .onDrag
+        
+        self.view.backgroundColor = #colorLiteral(red: 0.8074620366, green: 0.8727054596, blue: 0.858532846, alpha: 1)
 
                 
     }

@@ -26,7 +26,7 @@ extension KTXpressRideCreationViewController
         
         dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
 
-        let padding = UIEdgeInsets(top: 100, left: 100, bottom: 100, right: 100)
+        let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
         mapView.padding = padding
         
         do {

@@ -16,6 +16,7 @@ class KTXpressRideServiceCell: UITableViewCell {
     @IBOutlet weak var lblServiceType : UILabel!
     @IBOutlet weak var lblBaseFareOrEstimate : UILabel!
     @IBOutlet weak var imgVehicleType : SpringImageView!
+    @IBOutlet weak var imgVehicleBGView : UIImageView!
     @IBOutlet weak var dropDownButton : UIButton!
     @IBOutlet weak var orderRideButton : UIButton!
     @IBOutlet weak var showDetailsButton : UIButton!
@@ -323,15 +324,17 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
         cell.orderRideButton.isHidden = false
-        
+        tableView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
             cell.contentView.customBorderColor = UIColor.black
             cell.contentView.customCornerRadius = 10
+            cell.contentView.backgroundColor = .white
+            cell.imgVehicleBGView.backgroundColor = .white
         } else {
             cell.contentView.customBorderWidth = 0
-            cell.contentView.customBorderColor = UIColor.black
-            cell.contentView.customCornerRadius = 10
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
         }
         
         return cell
@@ -341,7 +344,8 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "KTFareServiceCell") as! KTFareServiceCell
         
         self.setUpfareBreakDownView(fareBreakDownView: cell.fareStackView, cell: cell)
-        
+        cell.contentView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+
         return cell
     }
     

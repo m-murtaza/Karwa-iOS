@@ -28,6 +28,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     var dropSet: Bool?
     
     var tapOnMarker = false
+    var firstTime = false
+
     lazy var countOfPassenger = xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1
     
     override func viewDidLoad() {
@@ -51,7 +53,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        self.passengerLabel.text = "\(xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 2) \("str_pass".localized())"
+        self.passengerLabel.text = "\(xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1) \("str_pass".localized())"
 
 
     }

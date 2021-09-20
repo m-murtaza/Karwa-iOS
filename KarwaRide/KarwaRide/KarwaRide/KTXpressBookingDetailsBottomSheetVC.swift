@@ -193,10 +193,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         sender.setBackgroundColor(color: .clear, forState: .highlighted)
 
-        sender.layer.cornerRadius = 5
+        sender.layer.cornerRadius = 25
         sender.clipsToBounds = true
 
-        sender.imageView?.layer.cornerRadius = 5
+        sender.imageView?.layer.cornerRadius = 25
         sender.imageView?.clipsToBounds = true
         
         sender.setBackgroundColor(color: UIColor(hexString: "#126363"), forState: .highlighted)
@@ -560,7 +560,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 //
 //        fareBreakDownView.addArrangedSubview(seperatorView)
         
-        setHeaderFooter("str_cash".localized(), value: vModel?.totalFareOfTrip() ?? "")
+        setHeaderFooter("str_free".localized(), value: vModel?.totalFareOfTrip() ?? "")
         
 //        self.view.addSubview(fareBreakDownView)
         fareBreakDownView.backgroundColor = UIColor.clear
@@ -616,8 +616,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
         if value != "" {
             var iconImage = UIImage()
-            iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
-            keyLbl.addLeading(image: iconImage, text: "  \(String(describing: vModel?.paymentMethod() ?? "")) ", imageOffsetY: -4)
+            iconImage = UIImage(named: "free_ico") ?? UIImage()
+//            iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage() "  \(String(describing: vModel?.paymentMethod() ?? "")) "
+            keyLbl.addLeading(image: iconImage, text: "str_free".localized(), imageOffsetY: -4)
             keyLbl.font = UIFont(name: "MuseoSans-900", size: 14.0)!
         }
         else {

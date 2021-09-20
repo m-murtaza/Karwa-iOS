@@ -74,16 +74,34 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
                 self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = false
             }
-        } else {
+        }
+        
+        if firstTime == false {
+            let timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(checkStatus), userInfo: nil, repeats: false)
+            timer.fire()
+            firstTime = true
+        }
+        
+
+    }
+    
+    @objc func checkStatus() {
+        
+        if (self.viewModel as! KTXpressPickUpViewModel).areas.count <= 0 {
             self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
             self.setPickUpButton.backgroundColor = UIColor.clear
             self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
             self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
             self.setPickUpButton.isUserInteractionEnabled = false
+        } else {
+            self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
+            self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
+            self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+            self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+            self.setPickUpButton.isUserInteractionEnabled = true
         }
-        
-        
     }
+    
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
     
