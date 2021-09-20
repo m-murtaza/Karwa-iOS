@@ -142,6 +142,12 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         cell.icon.image = (viewModel as! KTXpressAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
         
         cell.moreButton.setImage((viewModel as! KTXpressAddressPickerViewModel).moreButtonIcon(forIndex: indexPath), for: .normal)
+
+        if indexPath.section != 2 {
+            cell.icon.customCornerRadius = cell.icon.frame.width/2
+        } else {
+            cell.icon.customCornerRadius = 0
+        }
         
         cell.moreButton.addTarget(self, action: #selector(showActionSheet(sender:)), for: .touchUpInside)
         
@@ -294,7 +300,7 @@ extension KTXpressAddressViewController:  UITextFieldDelegate {
       textField.superview?.addExternalBorder(borderWidth: 2.0,
                                              borderColor: UIColor.primary,
                                              cornerRadius: 8.0)
-      textField.superview?.backgroundColor = UIColor.white
+      //textField.superview?.backgroundColor = UIColor.white
       return true
     }
     
@@ -303,7 +309,7 @@ extension KTXpressAddressViewController:  UITextFieldDelegate {
       textField.text = (viewModel as! KTXpressAddressPickerViewModel).pickUpAddress?.name
       
       textField.superview?.removeExternalBorders()
-      textField.superview?.backgroundColor = UIColor.clear
+     // textField.superview?.backgroundColor = UIColor.clear
       return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {

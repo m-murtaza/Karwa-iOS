@@ -298,7 +298,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
         if idx.section == 0 || idx.section == 1 {
             return #imageLiteral(resourceName: "APICMore") //UIImage(named: "APICMore")!
         } else {
-            return #imageLiteral(resourceName: "fav_ico")
+            return #imageLiteral(resourceName: "Star_ico")
         }
     }
   
@@ -384,13 +384,13 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
             img = UIImage(named: "fav_home_ico")
             break
           case geoLocationType.Work.rawValue:
-            img = UIImage(named: "fav_work_ico")
+            img = UIImage(named: "fav_home_ico")
             break
           case geoLocationType.Nearby.rawValue:
-            img = UIImage(named: "loc_pin_ico")
+            img = UIImage(named: "loc_ico")
             break
           case geoLocationType.Popular.rawValue:
-            img = UIImage(named: "loc_pin_ico")
+            img = UIImage(named: "loc_ico")
             break
           case geoLocationType.Recent.rawValue:
             img = UIImage(named: "ic_recent")
@@ -412,16 +412,16 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
             img = UIImage(named: "fav_home_ico")
             break
           case geoLocationType.Work.rawValue:
-            img = UIImage(named: "fav_work_ico")
+            img = UIImage(named: "fav_home_ico")
             break
           default:
-            img = UIImage(named: "fav_star_ico")
+            img = UIImage(named: "Star_ico")
           }
         }
         return img!
 
     } else {
-        return #imageLiteral(resourceName: "metro_ico_map")
+        return #imageLiteral(resourceName: "metro_ico")
     }
     
 
