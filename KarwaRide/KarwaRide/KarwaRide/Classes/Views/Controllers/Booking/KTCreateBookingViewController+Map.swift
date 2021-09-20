@@ -67,7 +67,7 @@ extension KTCreateBookingViewController
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
-        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         mapView.padding = padding
         
         do {
