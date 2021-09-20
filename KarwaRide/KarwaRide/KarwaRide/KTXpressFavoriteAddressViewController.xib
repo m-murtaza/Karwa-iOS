@@ -166,7 +166,7 @@
                         <action selector="saveLocationAction:" destination="-1" eventType="touchUpInside" id="uD8-cA-xvL"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as Favorite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uo-ZV-Jdz" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
                     <rect key="frame" x="32" y="167" width="208" height="34"/>
                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="28"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -188,6 +188,7 @@
                 <constraint firstItem="bn2-Ry-3aF" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="YHK-1u-Nzg"/>
                 <constraint firstItem="9uo-ZV-Jdz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="YPF-c8-Tfw"/>
                 <constraint firstItem="9Y0-VB-lxo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="31" id="a2m-Wr-Wt5"/>
+                <constraint firstItem="9uo-ZV-Jdz" firstAttribute="top" secondItem="92T-24-Rxe" secondAttribute="bottom" constant="47" id="gQI-Ot-Qxy"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Tq-ua-LyP" secondAttribute="trailing" constant="30" id="k7n-DT-jX4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yrw-fp-tH1" secondAttribute="trailing" constant="33" id="km2-Dy-cQh"/>
                 <constraint firstItem="4Tq-ua-LyP" firstAttribute="top" secondItem="yrw-fp-tH1" secondAttribute="bottom" constant="40" id="mqn-Ou-Wrh"/>

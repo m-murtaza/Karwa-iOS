@@ -243,7 +243,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             type = "txt_limo_luxury".localized()
             
         case VehicleType.KTXpressTaxi.rawValue:
-            type = "txt_ride_share".localized()
+            type = "str_pass".localized()
 
         default:
             type = ""
@@ -252,10 +252,19 @@ class KTMyTripsViewModel: KTBaseViewModel {
     }
   
   func bookingStatusString(forIdx idx: Int) -> String? {
+    
     var status : String?
+
+    
+    
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.COMPLETED.rawValue:
-      status = (bookings![idx] as KTBooking).fare
+        switch (bookings![idx] as KTBooking).vehicleType {
+        case VehicleType.KTXpressTaxi.rawValue:
+            status = "str_free".localized()
+        default:
+            status = (bookings![idx] as KTBooking).fare
+        }
     case BookingStatus.ARRIVED.rawValue:
       status = "txt_arrived_short".localized()
     case BookingStatus.CONFIRMED.rawValue:
@@ -339,8 +348,14 @@ class KTMyTripsViewModel: KTBaseViewModel {
     func getPaymentIcon(forIdx idx: Int) -> String
     {
         let booking = (bookings![idx] as KTBooking)
+        
+        switch (bookings![idx] as KTBooking).vehicleType {
+        case VehicleType.KTXpressTaxi.rawValue:
+            return "free_ico"
+        default:
+            return ImageUtil.getSmallImage(booking.paymentMethod ?? "")
+        }
 
-        return ImageUtil.getSmallImage(booking.paymentMethod ?? "")
     }
 
   func showCashIcon(forIdx idx: Int) -> Bool {
