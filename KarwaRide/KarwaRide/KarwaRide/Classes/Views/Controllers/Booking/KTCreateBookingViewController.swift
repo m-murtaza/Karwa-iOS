@@ -624,6 +624,7 @@ class KTCreateBookingViewController:
     }
   
   @IBAction func btnCancelBtnTapped(_ sender: Any) {
+    removeBookingOnReset = true
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
     collapseRideList()
@@ -752,10 +753,15 @@ class KTCreateBookingViewController:
     
     func hideRideServicesContainer()
     {
-        UIView.animate(withDuration: 0.5, animations: {
-          self.rideServicesContainer.isHidden = true
-          self.view.layoutIfNeeded()
-        })
+        
+        if btnCancelBtn.isHidden == true {
+            UIView.animate(withDuration: 0.5, animations: {
+              self.rideServicesContainer.isHidden = true
+              self.view.layoutIfNeeded()
+            })
+        }
+        
+        
     }
   
   func showRequestBookingBtn()  {
@@ -836,8 +842,19 @@ class KTCreateBookingViewController:
 //            self.mapViewBottomConstraint.constant = 304
         }
 
-        self.pickupDropoffParentContainer.isHidden = true
-        self.rideServicesContainer.isHidden = true
+        
+        if self.removeBookingOnReset == false {
+            self.rideServicesContainer.isHidden = false
+            self.pickupDropoffParentContainer.isHidden = false
+            self.mapInstructionsContainer.isHidden = true
+            self.pickupPin.isHidden = true
+            self.pickupCardView.isHidden = true
+        } else {
+            self.rideServicesContainer.isHidden = true
+            self.pickupDropoffParentContainer.isHidden = true
+        }
+        
+        //
     }
   }
   

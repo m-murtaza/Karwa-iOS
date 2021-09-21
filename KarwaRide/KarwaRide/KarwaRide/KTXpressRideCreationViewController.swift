@@ -253,18 +253,20 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         let alert = CDAlertView(title: message, message: "", type: .error)
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
-            if let controllers = self.navigationController?.viewControllers {
-                
-                for item in controllers {
-                    if item.isKind(of: TabViewController.self) {
-                        self.navigationController?.popToViewController(item, animated: true)
-                    }
-                    if item.isKind(of: KTMyTripsViewController.self) {
-                        self.navigationController?.popToViewController(item, animated: true)
-                    }
-                }
-                
-            }
+            self.navigationController?.popViewController(animated: true)
+            
+//            if let controllers = self.navigationController?.viewControllers {
+//
+//                for item in controllers {
+//                    if item.isKind(of: TabViewController.self) {
+//                        self.navigationController?.popToViewController(item, animated: true)
+//                    }
+//                    if item.isKind(of: KTMyTripsViewController.self) {
+//                        self.navigationController?.popToViewController(item, animated: true)
+//                    }
+//                }
+//
+//            }
             
             return true
         }

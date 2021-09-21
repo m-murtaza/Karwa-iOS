@@ -319,10 +319,29 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
      // Pass the selected object to the new view controller.
         if segue.identifier == "segueDetailToReBook"
         {
-            let createBooking : KTCreateBookingViewController = segue.destination as! KTCreateBookingViewController
+            
+            let tabController = segue.destination as! TabViewController
+            let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
             createBooking.booking = vModel?.booking
             createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
+            
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController") as? UINavigationController
+//            
+//            xpressRebookSelected = true
+//            xpressRebookPickUpSelected = true
+//            xpressRebookDropOffSelected = true
+//            xpressRebookPassengerSelected = true
+//            xpressRebookNumberOfPassenger = 1
+//
+//            xpressRebookPickUpCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0
+//            xpressRebookPickUpCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0
+//
+//            xpressRebookDropOffCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0
+//            xpressRebookDropOffCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0
+//            
+//            sideMenuController?.hideMenu()
+            
         }
         else if(segue.identifier == "segueComplaintCategorySelection")
         {
@@ -561,6 +580,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func moveToBooking()
     {
+        
         self.performSegue(name: "segueDetailToReBook")
     }
     
