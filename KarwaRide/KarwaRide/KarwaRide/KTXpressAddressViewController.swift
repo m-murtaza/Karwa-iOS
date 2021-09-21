@@ -155,6 +155,7 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         }
         
         cell.moreButton.addTarget(self, action: #selector(showActionSheet(sender:)), for: .touchUpInside)
+        cell.moreButton.contentMode = .center
         
         cell.moreButton.tag = indexPath.row
         cell.delegate = self
@@ -203,6 +204,9 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
             }
             alertController.modalTransitionStyle = .crossDissolve
             self.present(alertController, animated: true, completion: nil)
+        } else {
+            KTBookmarkManager().saveXpressFavorite(location: metroStations[indexPath!.row])
+            self.tableView.reloadData()
         }
         
         

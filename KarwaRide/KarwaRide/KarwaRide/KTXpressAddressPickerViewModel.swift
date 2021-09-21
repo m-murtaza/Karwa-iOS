@@ -298,7 +298,8 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
         if idx.section == 0 || idx.section == 1 {
             return #imageLiteral(resourceName: "APICMore") //UIImage(named: "APICMore")!
         } else {
-            return #imageLiteral(resourceName: "Star_ico")
+            let addedFav = KTBookmarkManager().getXpressFavorite(code: metroStations[idx.row].code ?? 0)
+            return addedFav ? #imageLiteral(resourceName: "Star_ico") : #imageLiteral(resourceName: "favorite_map_ico")
         }
     }
   
