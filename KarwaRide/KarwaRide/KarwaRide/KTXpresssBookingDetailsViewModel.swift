@@ -499,7 +499,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             type = "txt_limo_luxury".localized()
         
         case VehicleType.KTXpressTaxi.rawValue:
-            type = "txt_express_taxi".localized()
+            type = "str_xpress".localized()
         default:
             type = ""
         }
@@ -539,7 +539,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                 msg = "txt_ride_cancelled".localized()
                 break
             case BookingStatus.COMPLETED.rawValue:
-                msg = "txt_completed".localized()
+                msg = "txt_completed_metro".localized()
                 break
             case BookingStatus.PENDING.rawValue:
                 msg = "str_scheduled".localized()

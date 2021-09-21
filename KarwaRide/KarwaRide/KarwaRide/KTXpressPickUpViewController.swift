@@ -65,7 +65,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             arrowImage.image = #imageLiteral(resourceName: "arrow_right")
         }
         
-
+        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +77,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     override func viewDidAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
-        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
+//        (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
     }
     
     
