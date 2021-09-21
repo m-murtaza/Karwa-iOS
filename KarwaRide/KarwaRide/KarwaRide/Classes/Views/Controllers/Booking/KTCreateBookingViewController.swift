@@ -753,15 +753,10 @@ class KTCreateBookingViewController:
     
     func hideRideServicesContainer()
     {
-        
-        if btnCancelBtn.isHidden == true {
-            UIView.animate(withDuration: 0.5, animations: {
-              self.rideServicesContainer.isHidden = true
-              self.view.layoutIfNeeded()
-            })
-        }
-        
-        
+        UIView.animate(withDuration: 0.5, animations: {
+          self.rideServicesContainer.isHidden = true
+          self.view.layoutIfNeeded()
+        })
     }
   
   func showRequestBookingBtn()  {
