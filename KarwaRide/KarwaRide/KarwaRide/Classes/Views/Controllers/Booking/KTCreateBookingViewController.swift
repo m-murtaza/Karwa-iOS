@@ -542,7 +542,7 @@ class KTCreateBookingViewController:
       self.showMoreRideOptions.isHidden = false
     })
     super.viewWillDisappear(animated)
-    navigationController?.isNavigationBarHidden = false
+    navigationController?.isNavigationBarHidden = true
   }
   
   //MARK:- User Actions
