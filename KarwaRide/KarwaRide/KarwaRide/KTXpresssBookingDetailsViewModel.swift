@@ -567,7 +567,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             passengerCount = "txt_seven".localized()
         }
         
-        return "1" //passengerCount //modified for testing purpose
+        return  "\(booking?.passengerCount ?? 0)" // "1" //passengerCount //modified for testing purpose
     }
     
     func dropoffTime() -> String {

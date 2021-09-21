@@ -21,7 +21,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         setVersionLable()
         
-        title = "action_settings".localized()
 
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
@@ -31,6 +30,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         self.tabBarController?.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.navigationController?.navigationBar.isHidden = true
+        
+        self.title = "action_settings".localized()
+        self.tabBarItem.title = "action_settings".localized()
+
 
     }
 

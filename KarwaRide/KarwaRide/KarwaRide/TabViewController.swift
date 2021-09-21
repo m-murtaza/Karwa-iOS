@@ -38,6 +38,16 @@ class TabViewController: UITabBarController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        guard let items = tabBar.items else { return }
+
+        items[0].title = "str_book_karwa".localized()
+        items[1].title = "str_xpress".localized()
+        items[2].title = "action_settings".localized()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let newTabBarHeight = defaultTabBarHeight + 7

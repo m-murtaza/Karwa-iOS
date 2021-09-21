@@ -399,6 +399,8 @@ class KTCreateBookingViewController:
                     bottomConstraintCardView.constant = 68
                 }
             }
+        
+        self.title = "str_book_karwa".localized()
             
   }
   

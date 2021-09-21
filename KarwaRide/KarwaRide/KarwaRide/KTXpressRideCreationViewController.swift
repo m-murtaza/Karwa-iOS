@@ -117,8 +117,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         rideServiceTableView.delegate = self
         rideServiceTableView.dataSource = self
         
-        self.pickUpAddressButton.titleLabel?.numberOfLines = 2
-        self.dropOffAddressButton.titleLabel?.numberOfLines = 2
+        self.pickUpAddressButton.titleLabel?.numberOfLines = 1
+        self.dropOffAddressButton.titleLabel?.numberOfLines = 1
         
         self.rideServiceView.isHidden = true
         
@@ -320,7 +320,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.showDetailsButton.addTarget(self, action: #selector(addPickupMarker(sender:)), for: .touchUpInside)
         cell.dropDownButton.tag = section
         cell.lblServiceType.text = (self.viewModel as! KTXpressRideCreationViewModel).getVehicleNo(index: section)
-        cell.lblBaseFareOrEstimate.text = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
+        cell.lblBaseFareOrEstimate.attributedText = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
         cell.orderRideButton.isHidden = false

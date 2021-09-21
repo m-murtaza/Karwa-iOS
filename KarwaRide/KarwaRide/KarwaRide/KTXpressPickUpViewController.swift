@@ -20,6 +20,10 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @IBOutlet weak var minuBtn: UIButton!
     @IBOutlet weak var passengerLabel: UILabel!
     @IBOutlet weak var showAddressPickerBtn: UIButton!
+    
+    @IBOutlet weak var arrowImage: UIImageView!
+
+    
     var addressSelected = false
 
     var vModel : KTXpressPickUpViewModel?
@@ -55,6 +59,12 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
         self.passengerLabel.text = "\(xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1) \("str_pass".localized())"
 
+        if Device.getLanguage().contains("AR") {
+            arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()
+        } else {
+            arrowImage.image = #imageLiteral(resourceName: "arrow_right")
+        }
+        
 
     }
     

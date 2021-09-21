@@ -26,6 +26,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     @IBOutlet weak var showAddressPickerBtn: UIButton!
     
+    @IBOutlet weak var arrowImage: UIImageView!
+    
     var vModel : KTXpressDropoffViewModel?
 
     var dropSet: Bool?
@@ -81,6 +83,11 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
         self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
 
+        if Device.getLanguage().contains("AR") {
+            arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()
+        } else {
+            arrowImage.image = #imageLiteral(resourceName: "arrow_right")
+        }
         
     }
     
@@ -202,7 +209,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
                     (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
                 }
 
-                self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
+                self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                 self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                 self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)

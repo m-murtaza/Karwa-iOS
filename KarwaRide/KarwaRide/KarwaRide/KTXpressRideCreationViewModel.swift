@@ -212,8 +212,26 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         return self.rideInfo?.rides[index].vehicleNo ?? ""
     }
     
-    func getEstimatedTime(index: Int) -> String {
-        return  "str_arrives".localized() + " \((self.rideInfo?.rides[index].eta ?? 0)/60) Mins"
+    func createAttributedString(stringArray: [String], attributedPart: Int, attributes: [NSAttributedString.Key: Any]) -> NSMutableAttributedString? {
+        let finalString = NSMutableAttributedString()
+        for i in 0 ..< stringArray.count {
+            var attributedString = NSMutableAttributedString(string: stringArray[i], attributes: nil)
+            if i == attributedPart {
+                attributedString = NSMutableAttributedString(string: attributedString.string, attributes: attributes)
+                finalString.append(attributedString)
+            } else {
+                finalString.append(attributedString)
+            }
+        }
+        return finalString
+    }
+    
+    func getEstimatedTime(index: Int) -> NSAttributedString {
+        if let attributedString = createAttributedString(stringArray: ["str_arrives".localized(), " \((self.rideInfo?.rides[index].eta ?? 0)/60) "+"str_mins".localized()], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:  UIFont(name: "MuseoSans-700", size: 14.0)!]) {
+              return attributedString
+        } else {
+            return NSAttributedString()
+        }
     }
     
     func getRide(index: Int) {

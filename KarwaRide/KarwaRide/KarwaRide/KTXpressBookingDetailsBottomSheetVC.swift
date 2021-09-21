@@ -19,11 +19,13 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var rideHeaderText: LocalisableSpringLabel!
-    @IBOutlet weak var lblPickAddress: LocalisableButton!
-    @IBOutlet weak var lblDropoffAddress: LocalisableButton!
+//    @IBOutlet weak var lblPickAddress: LocalisableButton!
+//    @IBOutlet weak var lblDropoffAddress: LocalisableButton!
 
-//    @IBOutlet weak var lblPickMessage: SpringLabel!
-//    @IBOutlet weak var bookingTime: UILabel!
+    @IBOutlet weak var lblPickAddress: SpringLabel!
+    @IBOutlet weak var lblDropoffAddress: SpringLabel!
+    @IBOutlet weak var lblPickMessage: SpringLabel!
+    @IBOutlet weak var bookingTime: UILabel!
     @IBOutlet weak var btnETA: LocalisableButton!
     @IBOutlet weak var eta: LocalisableButton!
 
@@ -61,8 +63,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sheet?.handleScrollView(self.scrollView)
-        self.lblPickAddress.titleLabel?.numberOfLines = 2
-        self.lblDropoffAddress.titleLabel?.numberOfLines = 2
+        self.lblPickAddress.numberOfLines = 2
+        self.lblDropoffAddress.numberOfLines = 2
         self.sheet?.view.backgroundColor = .clear
         btnPhone.isHidden = true
 //        btnRebook.isUserInteractionEnabled = false
@@ -102,16 +104,16 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     func updateBookingCard()
     {
-        lblPickAddress.setTitle(vModel?.pickAddress(), for: .normal)
-        lblDropoffAddress.setTitle( vModel?.dropAddress(), for: .normal)
+        lblPickAddress.text = vModel?.pickAddress()
+        lblDropoffAddress.text = vModel?.dropAddress()
 
-//        if let msg = vModel?.pickMessage() {
-//            lblPickMessage.text = msg
-//        } else {
-//            lblPickMessage.isHidden = true
-//        }
+        if let msg = vModel?.pickMessage() {
+            lblPickMessage.text = msg
+        } else {
+            lblPickMessage.isHidden = true
+        }
         
-//        bookingTime.text = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        bookingTime.text = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
 
         updateVehicleDetails()
         
@@ -211,10 +213,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         
         sender.setBackgroundColor(color: .clear, forState: .highlighted)
 
-        sender.layer.cornerRadius = 18
+        sender.layer.cornerRadius = 25
         sender.clipsToBounds = true
 
-        sender.imageView?.layer.cornerRadius = 16
+        sender.imageView?.layer.cornerRadius = 25
         sender.imageView?.clipsToBounds = true
 
         sender.setBackgroundColor(color: UIColor(hexString: "#0C81C0"), forState: .highlighted)
@@ -229,10 +231,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         
         sender.setBackgroundColor(color: .clear, forState: .highlighted)
 
-        sender.layer.cornerRadius = 5
+        sender.layer.cornerRadius = 25
         sender.clipsToBounds = true
 
-        sender.imageView?.layer.cornerRadius = 5
+        sender.imageView?.layer.cornerRadius = 25
         sender.imageView?.clipsToBounds = true
 
         sender.setBackgroundColor(color: UIColor(cgColor: sender.layer.borderColor!) , forState: .highlighted)
@@ -370,7 +372,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.view.customCornerRadius = 20.0
             
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 500
+                self.heightOFScrollViewContent.constant = 550
                 self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
             }
             
@@ -395,7 +397,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             if oneTimeSetSizeForBottomSheet == false {
                 DispatchQueue.main.async {
                     DispatchQueue.main.async {
-                        self.heightOFScrollViewContent.constant = 500
+                        self.heightOFScrollViewContent.constant = 550
                         self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                     }
                     
@@ -427,7 +429,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.view.customCornerRadius = 0
             
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 575
+                self.heightOFScrollViewContent.constant = 625
                 self.sheet?.setSizes([.percent(0.45),.marginFromTop(200)], animated: true)
             }
             
@@ -448,7 +450,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 //            self.otpView.isHidden = true
             DispatchQueue.main.async {
 //                self.constraintViewRideActionsTop.constant = 220
-                self.heightOFScrollViewContent.constant = 500
+                self.heightOFScrollViewContent.constant = 545
                 self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
             }
             
@@ -468,7 +470,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             DispatchQueue.main.async {
-                    self.heightOFScrollViewContent.constant = 500
+                self.heightOFScrollViewContent.constant = 545
 //                    self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
                 self.sheet?.setSizes([.percent(0.45), .intrinsic], animated: true)
                 }
@@ -490,7 +492,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
             hideFareDetailBtn()
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 500
+                self.heightOFScrollViewContent.constant = 545
                 self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
             }
             hideSeperatorBeforeReportAnIssue()
@@ -507,7 +509,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.hideShareBtn()
             
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 500
+                self.heightOFScrollViewContent.constant = 545
                 self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
             }
             
@@ -528,7 +530,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
 //        iconVehicle.image = vModel?.imgForVehicle()
         lblVehicleType.text = vModel?.vehicleType()
-        lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("Passengers")"
+        lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass".localized())"
     }
 
     func shareBtnTapped()

@@ -372,7 +372,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBAction func btnBackTapped(_ sender: Any) {
         
         if let navController = self.navigationController {
-            navController.popToRootViewController(animated: true)
+            navController.popViewController(animated: true)
         }
     }
     //MARK:- Assignment Info

@@ -49,7 +49,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
             (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
         }
         
-        self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
+        self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
         self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
@@ -88,7 +88,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     else {
                         
                         print("Permitted")
-                        self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
+                        self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                         self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
@@ -99,7 +99,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     }
                 } else {
                     print("Permitted")
-                    self.setDropOffButton.setTitle("SETDROPOFF".localized(), for: .normal)
+                    self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                     self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
                     self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
@@ -109,7 +109,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                 
             } else {
                 print("it wont contains")
-                self.setDropOffButton.setTitle("OUTOFZONE".localized(), for: .normal)
+                self.setDropOffButton.setTitle("str_outzone".localized(), for: .normal)
                 self.setDropOffButton.backgroundColor = UIColor.clear
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
