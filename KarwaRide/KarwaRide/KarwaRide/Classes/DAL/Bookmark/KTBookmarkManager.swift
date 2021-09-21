@@ -372,6 +372,7 @@ class KTBookmarkManager: KTDALManager {
         // update the existing favorite
         if let favorite = KTXpressFavorites.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) {
             favorite.mr_deleteEntity()
+            NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
             return true
         }
         
@@ -414,6 +415,7 @@ class KTBookmarkManager: KTDALManager {
       // update the existing favorite
         if let favorite = KTXpressFavorites.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) {
             favorite.mr_deleteEntity()
+            NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
             return true
         }
       
