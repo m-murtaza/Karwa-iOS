@@ -235,7 +235,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
       }
     
     func showAlertForTimeOut() {
-        let alert = CDAlertView(title: "This ride is no longer available.", message: "Request another ride?", type: .custom(image: UIImage(named:"icon-notifications")!))
+        let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
             self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
             return true
@@ -275,7 +275,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
         
     func updateUI() {
-        heightConstraint.constant = CGFloat(190 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 70))
+        heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 70))
         self.rideServiceTableView.reloadData()
     }
 

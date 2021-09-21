@@ -10,9 +10,6 @@ import Foundation
 
 import UIKit
 
-
-
-
 let ZONE_SYNC_TIME = "ZoneSyncTime"
 
 class KTXpressBookingManager: KTBaseFareEstimateManager {
@@ -26,7 +23,6 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         let param : [String: Any] = [Constants.SyncParam.BookingList: 0 ]
                 
         self.get(url: Constants.APIURL.GetRSAreas, param: param, completion: completionBlock) { (response, cBlock) in
-            
             
             print(response)
             

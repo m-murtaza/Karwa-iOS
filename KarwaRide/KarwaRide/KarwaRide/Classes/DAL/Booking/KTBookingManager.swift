@@ -65,7 +65,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
 
             let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
             job.toKeyValueHeader = vType.toKeyValueHeader
-            job.toKeyValueBody = vType.toKeyValueBody
+           // job.toKeyValueBody = vType.toKeyValueBody
                         
             if estimate != nil {
                 let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
@@ -76,7 +76,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
                                 
                 let bookingEstimate = estimate?.managedObjectContext?.object(with: job.objectID)
                 job.bookingToEstimate = bookingEstimate as? KTFareEstimate
-                estimate?.fareestimateToBooking = job
+               // estimate?.fareestimateToBooking = job
                 
             }
             self.saveInDb()

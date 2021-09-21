@@ -106,14 +106,19 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         
         let sectionHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
         sectionHeaderView.backgroundColor = UIColor(hexString: "#F9F9F9")
-        let headerLabel = UILabel(frame: CGRect(x: 20, y: 20, width: self.tableView.frame.width, height: 30))
-        
+        let headerLabel = UILabel(frame: CGRect(x: 20, y: 20, width: self.tableView.frame.width-40, height: 30))
         if section == 0 {
             return nil
         } else if section == 1 {
             headerLabel.text = "\("favorites_title".localized())".uppercased()
         } else {
             headerLabel.text = "\("str_metro_title".localized())".uppercased()
+        }
+        
+        if Device.getLanguage().contains("AR"){
+            headerLabel.textAlignment = .right
+        } else {
+            headerLabel.textAlignment = .left
         }
       
         headerLabel.textColor = UIColor(hexString: "#8EA8A7")
