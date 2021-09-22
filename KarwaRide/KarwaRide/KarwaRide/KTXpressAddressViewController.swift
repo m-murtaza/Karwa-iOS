@@ -150,8 +150,10 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
 
         if indexPath.section != 2 {
             cell.icon.customCornerRadius = cell.icon.frame.width/2
+            cell.addressLabel.isHidden = false
         } else {
             cell.icon.customCornerRadius = 0
+            cell.addressLabel.isHidden = true
         }
         
         cell.moreButton.addTarget(self, action: #selector(showActionSheet(sender:)), for: .touchUpInside)

@@ -63,22 +63,22 @@ class KTBookingManager: KTBaseFareEstimateManager {
             job.tripType = responseData[Constants.BookingParams.TripType] as? Int16 ?? 1
             job.otp = responseData[Constants.BookingParams.Otp] as? String
 
-            let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
-            job.toKeyValueHeader = vType.toKeyValueHeader
+//            let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
+//            job.toKeyValueHeader = vType.toKeyValueHeader
            // job.toKeyValueBody = vType.toKeyValueBody
                         
-            if estimate != nil {
-                let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
-                
-                if let header = estimate?.toKeyValueHeader {
-                    estimate?.toKeyValueHeader = header.adding(kv)
-                }
-                                
-                let bookingEstimate = estimate?.managedObjectContext?.object(with: job.objectID)
-                job.bookingToEstimate = bookingEstimate as? KTFareEstimate
-               // estimate?.fareestimateToBooking = job
-                
-            }
+//            if estimate != nil {
+//                let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
+//
+//                if let header = estimate?.toKeyValueHeader {
+//                    estimate?.toKeyValueHeader = header.adding(kv)
+//                }
+//
+//                let bookingEstimate = estimate?.managedObjectContext?.object(with: job.objectID)
+//                job.bookingToEstimate = bookingEstimate as? KTFareEstimate
+//               // estimate?.fareestimateToBooking = job
+//
+//            }
             self.saveInDb()
             
             completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)

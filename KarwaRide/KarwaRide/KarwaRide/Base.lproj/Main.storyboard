@@ -7841,7 +7841,7 @@
                                 <rect key="frame" x="0.0" y="199" width="414" height="507"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" translatesAutoresizingMaskIntoConstraints="NO" id="prb-qg-PlM" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" translatesAutoresizingMaskIntoConstraints="NO" id="prb-qg-PlM" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="prb-qg-PlM" id="20r-Be-fLH">
@@ -10178,7 +10178,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overall good experience, impressed with the service, but needs some improvements" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eqQ-0J-4vX">
-                                                <rect key="frame" x="29" y="363.66666666666669" width="354.66666666666669" height="26.666666666666686"/>
+                                                <rect key="frame" x="29" y="363.66666666666669" width="354.66666666666669" height="25.666666666666686"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="11"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -10187,7 +10187,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="txt_select_two_or_more" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1XA-E5-JqP">
-                                                <rect key="frame" x="31" y="406.66666666666669" width="354.66666666666669" height="24"/>
+                                                <rect key="frame" x="31" y="405.66666666666669" width="354.66666666666669" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="2Vt-hq-BTg"/>
                                                 </constraints>
@@ -11520,7 +11520,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="metro_ico" translatesAutoresizingMaskIntoConstraints="NO" id="po5-Iq-ugk">
-                                                    <rect key="frame" x="20" y="14" width="20" height="20"/>
+                                                    <rect key="frame" x="20" y="21" width="20" height="20"/>
                                                     <color key="backgroundColor" white="0.9025042808" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="hW3-Tf-rtt"/>
@@ -11528,16 +11528,16 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fVw-nr-wOI">
-                                                    <rect key="frame" x="56" y="14" width="303" height="34"/>
+                                                    <rect key="frame" x="56" y="14" width="296" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Pearl Qatar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHX-EI-s0r">
-                                                            <rect key="frame" x="0.0" y="0.0" width="303" height="14.666666666666666"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="296" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="14"/>
                                                             <color key="textColor" red="0.070588235289999995" green="0.38720041509999997" blue="0.38997069000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Karak, The pearl qatar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-6T-ipy">
-                                                            <rect key="frame" x="0.0" y="19.666666666666664" width="303" height="14.333333333333336"/>
+                                                            <rect key="frame" x="0.0" y="19.666666666666664" width="296" height="14.333333333333336"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
                                                             <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -11559,12 +11559,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="po5-Iq-ugk" firstAttribute="leading" secondItem="Efe-g1-Rug" secondAttribute="leading" constant="20" symbolic="YES" id="2aZ-gB-sUc"/>
-                                                <constraint firstItem="qIp-a5-DH0" firstAttribute="leading" secondItem="fVw-nr-wOI" secondAttribute="trailing" constant="-7" id="2ox-fa-HTN"/>
+                                                <constraint firstItem="qIp-a5-DH0" firstAttribute="leading" secondItem="fVw-nr-wOI" secondAttribute="trailing" id="2ox-fa-HTN"/>
                                                 <constraint firstItem="fVw-nr-wOI" firstAttribute="leading" secondItem="po5-Iq-ugk" secondAttribute="trailing" constant="16" id="DSI-fy-1aB"/>
                                                 <constraint firstItem="fVw-nr-wOI" firstAttribute="centerY" secondItem="Efe-g1-Rug" secondAttribute="centerY" id="H5D-jH-F3C"/>
                                                 <constraint firstAttribute="trailing" secondItem="qIp-a5-DH0" secondAttribute="trailing" constant="9" id="LUU-2K-ynw"/>
-                                                <constraint firstItem="po5-Iq-ugk" firstAttribute="top" secondItem="FHX-EI-s0r" secondAttribute="top" id="Z4B-SW-SE4"/>
                                                 <constraint firstItem="qIp-a5-DH0" firstAttribute="centerY" secondItem="Efe-g1-Rug" secondAttribute="centerY" id="cbZ-hv-EJp"/>
+                                                <constraint firstItem="po5-Iq-ugk" firstAttribute="centerY" secondItem="Efe-g1-Rug" secondAttribute="centerY" id="v88-Si-bRR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -14388,11 +14388,17 @@
         <designable name="2bl-4T-5Mw">
             <size key="intrinsicContentSize" width="12.666666666666666" height="22"/>
         </designable>
+        <designable name="3Hf-ht-uDd">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
         <designable name="4th-k2-d64">
             <size key="intrinsicContentSize" width="56" height="33"/>
         </designable>
         <designable name="5T3-Uj-K2f">
             <size key="intrinsicContentSize" width="82" height="18"/>
+        </designable>
+        <designable name="5q4-Cd-UaS">
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="30" height="28"/>
@@ -14538,6 +14544,9 @@
         <designable name="eKI-lM-zdp">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
+        <designable name="eMk-bz-O43">
+            <size key="intrinsicContentSize" width="293" height="51"/>
+        </designable>
         <designable name="efC-ko-7kP">
             <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
@@ -14549,6 +14558,9 @@
         </designable>
         <designable name="f0K-tT-fnX">
             <size key="intrinsicContentSize" width="117" height="29"/>
+        </designable>
+        <designable name="g26-sc-neA">
+            <size key="intrinsicContentSize" width="21.666666666666668" height="22"/>
         </designable>
         <designable name="g5N-xp-b2J">
             <size key="intrinsicContentSize" width="8" height="22"/>
@@ -14618,6 +14630,9 @@
         </designable>
         <designable name="vh2-Ed-Oax">
             <size key="intrinsicContentSize" width="60" height="60"/>
+        </designable>
+        <designable name="x9g-KR-Wfp">
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="xfy-kF-trT">
             <size key="intrinsicContentSize" width="104" height="33"/>
