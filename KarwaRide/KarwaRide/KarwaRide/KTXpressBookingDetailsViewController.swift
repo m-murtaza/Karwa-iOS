@@ -132,6 +132,16 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         super.viewDidLoad()
         initializeValue()
         
+        self.navigationItem.hidesBackButton = true
+
+        let button = UIButton(type: UIButton.ButtonType.custom)
+        button.setImage(UIImage(named: "back_arrow_ico"), for: .normal)
+        button.addTarget(self, action:#selector(popViewController), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 20)
+        button.imageEdgeInsets = Device.getLanguage().contains("AR") ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+//        self.navigationController?.navigationBar.backIndicatorImage = nil
         // Do any additional setup after loading the view.
     }
     
@@ -836,7 +846,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         addChildViewController(cancelPopup!)
     }
     
-    func popViewController() {
+    @objc func popViewController() {
         self.navigationController?.popViewController(animated: true)
     }
     
