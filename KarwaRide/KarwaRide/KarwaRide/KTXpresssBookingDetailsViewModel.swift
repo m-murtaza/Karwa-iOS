@@ -983,7 +983,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         case VehicleType.KTLuxuryLimo.rawValue?:
             img = UIImage(named: "BookingMapLuxuryIco")
         default:
-            img = UIImage(named:"BookingMapTaxiIco")
+            img = UIImage(named:"XpressMapIco")
         }
         return img!
     }

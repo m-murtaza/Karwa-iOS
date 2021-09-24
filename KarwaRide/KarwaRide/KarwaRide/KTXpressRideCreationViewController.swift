@@ -319,7 +319,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "KTXpressRideServiceCell") as! KTXpressRideServiceCell
-        cell.showDetailsButton.addTarget(self, action: #selector(addPickupMarker(sender:)), for: .touchUpInside)
+//        cell.showDetailsButton.addTarget(self, action: #selector(addPickupMarker(sender:)), for: .touchUpInside)
         cell.dropDownButton.tag = section
         cell.lblServiceType.text = (self.viewModel as! KTXpressRideCreationViewModel).getVehicleNo(index: section)
         cell.lblBaseFareOrEstimate.attributedText = (self.viewModel as! KTXpressRideCreationViewModel).getEstimatedTime(index: section)
@@ -365,6 +365,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         
         selectedVehicleIndex = sender.tag
         (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: sender.tag)
+        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
         self.rideServiceTableView.reloadData()
     }
     

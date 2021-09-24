@@ -323,7 +323,12 @@ class KTMyTripsViewModel: KTBaseViewModel {
     case VehicleType.KTCityTaxi7Seater.rawValue:
         return "txt_seven".localized()
     default:
-        return "txt_four".localized()
+        switch (bookings![idx] as KTBooking).vehicleType {
+        case VehicleType.KTXpressTaxi.rawValue:
+            return "\((bookings![idx] as KTBooking).passengerCount)"
+        default:
+            return "txt_four".localized()
+        }
     }
   }
     

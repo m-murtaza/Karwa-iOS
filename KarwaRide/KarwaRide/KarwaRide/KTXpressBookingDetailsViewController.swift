@@ -684,7 +684,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //            addMarkerOnMapWithInfoView(location: location)
 //        } else {
 //        }
-       // addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
+        
+        if  (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.CANCELLED.rawValue {
+            addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
+        }
+        
 
 //        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
     }
@@ -744,8 +748,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         xpressRebookPickUpSelected = true
         xpressRebookDropOffSelected = true
         xpressRebookPassengerSelected = true
-        xpressRebookNumberOfPassenger = 1
-
+        
+        xpressRebookNumberOfPassenger = Int((viewModel as! KTXpresssBookingDetailsViewModel).booking?.passengerCount ?? 1)
         xpressRebookPickUpCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0
         xpressRebookPickUpCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0
 
