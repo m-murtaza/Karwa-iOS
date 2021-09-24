@@ -61,13 +61,13 @@ class TabViewController: UITabBarController {
 //        }
 //
 //
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .white
-            tabBar.standardAppearance = appearance
-            //tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-        }
+//        if #available(iOS 15.0, *) {
+//            let appearance = UITabBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = .white
+//            tabBar.standardAppearance = appearance
+//            //tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+//        }
 
         let appearance = UITabBarItem.appearance()
         let attributes = [NSAttributedString.Key.font:UIFont(name: "MuseoSans-700", size: 14.0)!]

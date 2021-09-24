@@ -134,12 +134,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(hexString:"#E5F5F2")
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
              NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        let backImage = UIImage(named: "back_arrow_ico");
+        var backImage = UIImage(named: "back_arrow_ico");
+        backImage = resizeImage(image: backImage!, newWidth: 40) //the width that you want for the back button image
         UINavigationBar.appearance().backIndicatorImage = backImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
         
         UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
 
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+
+        UIGraphicsBeginImageContext(CGSize(width: 30, height: 20))
+        image.draw(in: CGRect(x: 10, y: 0, width: 30, height: 20))
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
     }
     
     func printFonts() {
