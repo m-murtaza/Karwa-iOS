@@ -661,7 +661,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         addChildViewController(cancelPopup!)
     }
     
-    func popViewController() {
+    @objc func popViewController() {
         
         self.navigationController?.popViewController(animated: true)
     }

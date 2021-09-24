@@ -134,8 +134,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(hexString:"#E5F5F2")
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
              NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        var backImage = UIImage(named: "back_arrow_ico");
-        backImage = resizeImage(image: backImage!, newWidth: 40) //the width that you want for the back button image
+        let backImage = UIImage(named: "back_arrow_ico")
+//        backImage = resizeImage(image: backImage!, newWidth: 40) //the width that you want for the back button image
         UINavigationBar.appearance().backIndicatorImage = backImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
         
