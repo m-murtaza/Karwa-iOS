@@ -82,6 +82,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
         self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
+        
+        (self.viewModel as! KTXpressDropoffViewModel).countOfPassenger = countOfPassenger
 
         if Device.getLanguage().contains("AR") {
             arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()

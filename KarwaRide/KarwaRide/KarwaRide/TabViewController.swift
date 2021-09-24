@@ -19,9 +19,13 @@ class TabViewController: UITabBarController {
         
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
 
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor(hexString: "#006170"), NSAttributedStringKey.font : UIFont(name: "MuseoSans-500", size: 10.0)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor(hexString: "#006170"), NSAttributedStringKey.font : UIFont(name: "MuseoSans-700", size: 14.0)!], for: .normal)
         
         self.tabBar.unselectedItemTintColor = UIColor(hexString: "#65A0AA")
+        
+        if #available(iOS 15.0, *) {
+            tabBar.backgroundImage = #imageLiteral(resourceName: "tabbarbg")
+        }
         
         tabBar.selectionIndicatorImage = UIImage(named: "active_tab_bg")!
             .resizableImage(withCapInsets: UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0))
@@ -29,19 +33,41 @@ class TabViewController: UITabBarController {
         // remove default border
         tabBar.frame.size.width = self.view.frame.width + 3
         tabBar.frame.origin.x = -2
+        tabBar.contentMode = .scaleAspectFill
+        tabBar.backgroundColor = .white
         
-        tabBar.customShadowRadius = 3
-        tabBar.customShadowOpacity = 1
-        tabBar.customShadowOffset = CGSize(width: 1, height: 0)
-        tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
+//        tabBar.customShadowRadius = 3
+//        tabBar.customShadowOpacity = 1
+//        tabBar.customShadowOffset = CGSize(width: 1, height: 0)
+//        tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
         
         if xpressRebookSelected {
             self.selectedIndex = 1
         }
+        
+        tabBar.shadowImage = UIImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+//        if #available(iOS 13.0, *) {
+//            let appearance = UITabBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = .white
+//            tabBar.standardAppearance = appearance
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//
+//
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+            tabBar.standardAppearance = appearance
+            //tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
 
         let appearance = UITabBarItem.appearance()
         let attributes = [NSAttributedString.Key.font:UIFont(name: "MuseoSans-700", size: 14.0)!]

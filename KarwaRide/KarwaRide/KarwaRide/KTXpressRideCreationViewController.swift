@@ -145,14 +145,14 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     @IBAction func setCountForPassenger(sender: UIButton) {
         
-        if sender.tag == 10 {
-            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
-        } else {
-            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
-        }
-                
-        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
-        vModel?.rideServicePickDropOffData?.passsengerCount = countOfPassenger
+//        if sender.tag == 10 {
+//            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
+//        } else {
+//            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
+//        }
+//                
+//        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
+//        vModel?.rideServicePickDropOffData?.passsengerCount = countOfPassenger
     }
     
     func setPickup(pick: String?) {
@@ -237,7 +237,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     func showAlertForTimeOut() {
         let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
-            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+            self.navigationController?.popViewController(animated: true)
             return true
         }
         alert.add(action: doneAction)

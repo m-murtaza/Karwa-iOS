@@ -90,7 +90,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                         print("Permitted")
                         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#006170")
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                         self.setDropOffButton.isUserInteractionEnabled = true
                         
@@ -101,7 +101,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     print("Permitted")
                     self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                     self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#006170")
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                     self.setDropOffButton.isUserInteractionEnabled = true
                     break

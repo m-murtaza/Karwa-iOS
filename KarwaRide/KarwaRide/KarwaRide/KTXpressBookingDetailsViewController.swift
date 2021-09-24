@@ -558,7 +558,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.mapView.camera = camera;
         self.mapView.delegate = self
         
-        let padding = UIEdgeInsets(top: 0, left: 10, bottom: 50, right: 50)
+        let padding = UIEdgeInsets(top: 0, left: 10, bottom: 75, right: 50)
         mapView.padding = padding
         
         do {
