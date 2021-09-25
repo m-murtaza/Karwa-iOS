@@ -141,6 +141,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         button.imageEdgeInsets = Device.getLanguage().contains("AR") ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = barButton
+        self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
+
 //        self.navigationController?.navigationBar.backIndicatorImage = nil
         // Do any additional setup after loading the view.
     }

@@ -97,6 +97,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     var selectedVehicleIndex = 0
     
+    @IBOutlet weak var arrowImage: UIImageView!
+    
     @IBOutlet weak var walkToPickUpView: UIView!
 
     override func viewDidLoad() {
@@ -126,6 +128,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         self.passengerLabel.text = "\(rideServicePickDropOffData?.passsengerCount ?? 1) \("str_pass".localized())"
 
+        if Device.getLanguage().contains("AR") {
+            arrowImage.image = #imageLiteral(resourceName: "pickdrop_connected_arrow").imageFlippedForRightToLeftLayoutDirection()
+        }
+        
 //        heightConstraint.constant = 250
     }
     

@@ -23,6 +23,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     
     @IBOutlet weak var arrowImage: UIImageView!
 
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var addressSelected = false
 
@@ -72,6 +73,30 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        
+        if self.tabBarController?.tabBar.isHidden == false {
+            if UIDevice().userInterfaceIdiom == .phone {
+                    switch UIScreen.main.nativeBounds.height {
+                    case 1136:
+                        print("iPhone 5 or 5S or 5C")
+                        bottomConstraint.constant = 49
+                    case 1334:
+                        print("iPhone 6/6S/7/8")
+                        bottomConstraint.constant = 49
+                    case 1920, 2208:
+                        print("iPhone 6+/6S+/7+/8+")
+                        bottomConstraint.constant = 49
+                    case 2436:
+                        print("iPhone X")
+                        bottomConstraint.constant = 85
+                    default:
+                        print("unknown")
+                        bottomConstraint.constant = 85
+                    }
+                }
+        } else {
+            bottomConstraint.constant = 0
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
