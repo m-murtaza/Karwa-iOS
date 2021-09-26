@@ -197,11 +197,21 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             guard let strongSelf = self else{
                 return
             }
-            if String.lowercased() == "SUCCESS".lowercased() {
-                strongSelf.timer = Timer.scheduledTimer(timeInterval: 3.0, target: strongSelf, selector: #selector(strongSelf.fetchRideOrderPollingStatus), userInfo: nil, repeats: true)
-            } else {
-                strongSelf.delegate?.hideProgressHud()
-                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "Ride Expired")
+            
+            if let nextStep = response["NextStep"] as? String, nextStep == "CHECK_STATUS" {
+                if String.lowercased() == "SUCCESS".lowercased() {
+                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 3.0, target: strongSelf, selector: #selector(strongSelf.fetchRideOrderPollingStatus), userInfo: nil, repeats: true)
+                } else {
+                    strongSelf.delegate?.hideProgressHud()
+                    (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "Ride Expired")
+                }
+            } else if let nextStep = response["NextStep"] as? String, nextStep.lowercased() == "retry"  {
+                if String.lowercased() == "SUCCESS".lowercased() {
+                    strongSelf.fetchRideOrderStatus()
+                } else {
+                    strongSelf.delegate?.hideProgressHud()
+                    (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "Ride Expired")
+                }
             }
         }
     }
