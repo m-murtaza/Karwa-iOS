@@ -281,10 +281,95 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         wayPointsMarker.removeAll()
         
         for item in wayPoints {
-            let wayPointImageView = UIView(frame: CGRect(x: 0, y: 0, width: 14, height: 14))
+            
+            
+            var height = 30
+            
+            if item.DropCount > 0 && item.PickCount > 0 {
+                height = 60
+            }
+            
+            let wayPointBGView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+            let wayCountImageView = UIImageView(frame: CGRect(x: 0, y: 15, width: 100, height: 30))
+            wayCountImageView.image = #imageLiteral(resourceName: "whitebox")
+            wayCountImageView.contentMode = .scaleAspectFill
+            wayCountImageView.customCornerRadius = 15
+            wayCountImageView.clipsToBounds = true
+            
+            let countL = UILabel(frame: CGRect(x: 10, y: 2, width: 20, height: 20))
+            countL.customCornerRadius = 10
+            countL.text = "\(item.DropCount)"
+            countL.textAlignment = .center
+            countL.textColor = .white
+            countL.font = UIFont(name: "MuseoSans-700", size: 9.0)!
+            countL.clipsToBounds = true
+            countL.backgroundColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+            
+            
+            let countLabel = UILabel(frame: CGRect(x: 10, y: 5, width: 100, height: 14))
+            countLabel.text = "str_drop".localized()
+            countLabel.textAlignment = .center
+            countLabel.font = UIFont(name: "MuseoSans-700", size: 10.0)!
+            wayCountImageView.addSubview(countL)
+            wayCountImageView.addSubview(countLabel)
+            
+            let wayCountImageView1 = UIImageView(frame: CGRect(x: 0, y: 45, width: 100, height: 30))
+            wayCountImageView1.image = #imageLiteral(resourceName: "whitebox")
+            wayCountImageView1.contentMode = .scaleAspectFill
+            wayCountImageView1.customCornerRadius = 15
+            wayCountImageView1.clipsToBounds = true
+            
+            let countL1 = UILabel(frame: CGRect(x: 10, y: 2, width: 20, height: 20))
+            countL1.customCornerRadius = 10
+            countL1.text = "\(item.PickCount)"
+            countL1.textAlignment = .center
+            countL1.textColor = .white
+            countL1.font = UIFont(name: "MuseoSans-700", size: 10.0)!
+            countL1.clipsToBounds = true
+            countL1.backgroundColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
+            
+            
+            let countLabel1 = UILabel(frame: CGRect(x: 10, y: 5, width: 100, height: 14))
+            countLabel1.text = "str_pick".localized()
+            countLabel1.textAlignment = .center
+            countLabel1.font = UIFont(name: "MuseoSans-700", size: 9.0)!
+            wayCountImageView1.addSubview(countL1)
+            wayCountImageView1.addSubview(countLabel1)
+
+//walktopickup
+            let wayPointImageView = UIView(frame: CGRect(x: 45, y: 80, width: 14, height: 14))
             wayPointImageView.customCornerRadius = 7
             wayPointImageView.backgroundColor = UIColor(red: 0, green: 154/255, blue: 169/255, alpha: 1.0)
-            let wayPointImage = wayPointImageView.asImage()
+            
+            
+            if item.DropCount <= 0 {
+                wayCountImageView.isHidden = true
+            } else if item.PickCount <= 0 {
+                wayCountImageView.isHidden = true
+                wayCountImageView1.isHidden = false
+                countL1.text = "\(item.DropCount)"
+                countLabel1.text = "Drop off"
+
+            }
+            
+            let stackView = UIStackView(arrangedSubviews: [wayCountImageView1, wayCountImageView])
+            stackView.axis = .vertical
+            stackView.distribution = .fillEqually
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+//            stackView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        
+//            wayPointBGView.addSubview(wayCountImageView1)
+//            wayPointBGView.addSubview(wayCountImageView)
+            wayPointBGView.addSubview(stackView)
+            wayPointBGView.addSubview(wayPointImageView)
+            NSLayoutConstraint.activate([
+                stackView.topAnchor.constraint(equalTo: wayPointBGView.topAnchor),
+                stackView.leftAnchor.constraint(equalTo: wayPointBGView.leftAnchor),
+                stackView.rightAnchor.constraint(equalTo: wayPointBGView.rightAnchor),
+            ])
+            
+
+            let wayPointImage = wayPointBGView.asImage()
             wayPointsMarker.append(self.addAndGetMarkerOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
         }
         
