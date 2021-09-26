@@ -282,9 +282,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
     func updateUI() {
         if #available(iOS 15.0, *) {
-            heightConstraint.constant = CGFloat(220 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 70))
+            heightConstraint.constant = CGFloat(220 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
         } else {
-            heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 70))
+            heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
         }
         self.rideServiceTableView.reloadData()
     }

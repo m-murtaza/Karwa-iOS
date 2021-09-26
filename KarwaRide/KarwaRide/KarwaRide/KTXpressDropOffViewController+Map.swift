@@ -222,11 +222,12 @@ extension KTXpressDropOffViewController
             
         }
         
-        if xpressRebookSelected && xpressRebookPickUpSelected && xpressRebookDropOffSelected {
-            dropOffCoordinate = xpressRebookDropOffCoordinates
-            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17)
-            self.mapView.camera = camera;
-        }
+        //will check this condition after 
+//        if xpressRebookSelected && xpressRebookPickUpSelected && xpressRebookDropOffSelected {
+//            dropOffCoordinate = xpressRebookDropOffCoordinates
+//            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17)
+//            self.mapView.camera = camera;
+//        }
         
         
         self.locateCountry(pathG: rect)
