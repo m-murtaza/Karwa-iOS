@@ -282,13 +282,6 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
         for item in wayPoints {
             
-            
-            var height = 30
-            
-            if item.DropCount > 0 && item.PickCount > 0 {
-                height = 60
-            }
-            
             let wayPointBGView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
             let wayCountImageView = UIImageView(frame: CGRect(x: 0, y: 15, width: 100, height: 30))
             wayCountImageView.image = #imageLiteral(resourceName: "whitebox")
