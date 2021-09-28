@@ -286,7 +286,6 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             let wayCountImageView = UIImageView(frame: CGRect(x: 0, y: 15, width: 100, height: 30))
             wayCountImageView.image = #imageLiteral(resourceName: "whitebox")
             wayCountImageView.contentMode = .scaleAspectFill
-            wayCountImageView.customCornerRadius = 15
             wayCountImageView.clipsToBounds = true
             
             let countL = UILabel(frame: CGRect(x: 10, y: 2, width: 20, height: 20))
