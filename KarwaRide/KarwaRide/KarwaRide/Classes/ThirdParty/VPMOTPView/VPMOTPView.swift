@@ -75,7 +75,7 @@ class VPMOTPView: UIView {
     var otpFieldInputType: KeyboardType = .numeric
     
     /// Define the font to be used to OTP field. Defaults tp `systemFont` with size `20`.
-    var otpFieldFont: UIFont = UIFont.systemFont(ofSize: 20)
+    var otpFieldFont: UIFont = UIFont(name: "MuseoSans-700", size: 20.0)!
     
     /// If set to `true`, then the content inside OTP field will be displayed in asterisk (*) format. Defaults to `false`.
     var otpFieldEntrySecureType: Bool = false
@@ -87,16 +87,16 @@ class VPMOTPView: UIView {
     var shouldRequireCursor: Bool = true
     
     /// If `shouldRequireCursor` is set to `false`, then this property will not have any effect. If `true`, then the color of cursor can be changed using this property. Defaults to `blue` color.
-    var cursorColor: UIColor = UIColor.blue
+    var cursorColor: UIColor = UIColor.primary
     
     /// Defines the size of OTP field. Defaults to `60`.
     var otpFieldSize: CGFloat = 60
     
     /// Space between 2 OTP field. Defaults to `16`.
-    var otpFieldSeparatorSpace: CGFloat = 16
+    var otpFieldSeparatorSpace: CGFloat = 8
     
     /// Border width to be used, if border is needed. Defaults to `2`.
-    var otpFieldBorderWidth: CGFloat = 1
+    var otpFieldBorderWidth: CGFloat = 2
     
     /// If set, then editing can be done to intermediate fields even though previous fields are empty. Else editing will take place from last filled text field only. Defaults to `true`.
     var shouldAllowIntermediateEditing: Bool = true
@@ -256,6 +256,48 @@ class VPMOTPView: UIView {
 }
 
 extension VPMOTPView: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let textF = (viewWithTag(textField.tag) as? VPMOTPTextField)
+        textF!.backgroundColor = otpFieldEnteredBackgroundColor
+        textF!.layer.borderColor = otpFieldEnteredBorderColor.cgColor
+    }
+    
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        switch textField.tag {
+//        case 1:
+//            let textF = (viewWithTag(1) as? VPMOTPTextField)
+//            textF!.backgroundColor = otpFieldEnteredBackgroundColor
+//            textF!.layer.borderColor = otpFieldEnteredBorderColor.cgColor
+//        case 2:
+//            let textF = (viewWithTag(2) as? VPMOTPTextField)
+//            textF!.backgroundColor = otpFieldEnteredBackgroundColor
+//            textF!.layer.borderColor = otpFieldEnteredBorderColor.cgColor
+//        case 3:
+//            let textF = (viewWithTag(3) as? VPMOTPTextField)
+//            textF!.backgroundColor = otpFieldEnteredBackgroundColor
+//            textF!.layer.borderColor = otpFieldEnteredBorderColor.cgColor
+//        case 4:
+//            let textF = (viewWithTag(4) as? VPMOTPTextField)
+//            textF!.backgroundColor = otpFieldEnteredBackgroundColor
+//            textF!.layer.borderColor = otpFieldEnteredBorderColor.cgColor
+//        }
+//    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if textField.text?.count ?? 0 > 0 {
+            let textF = (viewWithTag(textField.tag) as? VPMOTPTextField)
+            textF!.backgroundColor = otpFieldEnteredBackgroundColor
+            textF!.layer.borderColor = otpFieldEnteredBorderColor.cgColor
+        } else {
+            let textF = (viewWithTag(textField.tag) as? VPMOTPTextField)
+            textF!.backgroundColor = otpFieldDefaultBackgroundColor
+            textF!.layer.borderColor = otpFieldDefaultBorderColor.cgColor
+        }
+        
+    }
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let shouldBeginEditing = delegate?.shouldBecomeFirstResponderForOTP(otpFieldIndex: (textField.tag - 1)) ?? true
         if shouldBeginEditing {

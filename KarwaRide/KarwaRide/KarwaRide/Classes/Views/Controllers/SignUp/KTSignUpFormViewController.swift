@@ -12,6 +12,11 @@ import MaterialComponents
 
 class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewModelDelegate, CountryListDelegate {
   
+    @IBOutlet weak var nameTextFieldBGView: UIView!
+    @IBOutlet weak var phoneNumberTextFieldBGView: UIView!
+    @IBOutlet weak var emailTextFieldBGView: UIView!
+    @IBOutlet weak var passwordTextFieldBGView: UIView!
+
   @IBOutlet weak var nameTextField: MDCFilledTextField!
   @IBOutlet weak var phoneNumberTextField: MDCFilledTextField!
   @IBOutlet weak var emailTextField: MDCFilledTextField!
@@ -59,6 +64,31 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
       self.phoneNumberTextField.becomeFirstResponder()
     }
+      
+      phoneNumberTextFieldBGView.clipsToBounds = true
+      passwordTextFieldBGView.clipsToBounds = true
+      nameTextFieldBGView.clipsToBounds = true
+      emailTextFieldBGView.clipsToBounds = true
+      
+      phoneNumberTextFieldBGView.customBorderWidth = 0
+      passwordTextFieldBGView.customBorderWidth = 0
+      nameTextFieldBGView.customBorderWidth = 0
+      emailTextFieldBGView.customBorderWidth = 0
+      
+      [phoneNumberTextField,
+       passwordTextField,
+       nameTextField,
+       passwordTextField,
+       emailTextField].forEach{$0?.delegate = self}
+      
+      phoneNumberTextField.setUnderlineColor(UIColor.clear, for: .editing)
+      phoneNumberTextField.setUnderlineColor(UIColor.clear, for: .normal)
+      passwordTextField.setUnderlineColor(UIColor.clear, for: .editing)
+      passwordTextField.setUnderlineColor(UIColor.clear, for: .normal)
+      nameTextField.setUnderlineColor(UIColor.clear, for: .editing)
+      nameTextField.setUnderlineColor(UIColor.clear, for: .normal)
+      emailTextField.setUnderlineColor(UIColor.clear, for: .editing)
+      emailTextField.setUnderlineColor(UIColor.clear, for: .normal)
   }
   
   deinit {
@@ -234,59 +264,121 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
 }
 
 extension KTSignUpFormViewController: UITextFieldDelegate {
-  
-  //MARK:- TextField Delegate
-  //Bug 2567 Fixed.
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-    if textField == phoneNumberTextField {
-      
-      let currentText = textField.text ?? ""
-      guard let stringRange = Range(range, in: currentText) else { return false }
-      
-      let changedText = currentText.replacingCharacters(in: stringRange, with: string)
-      
-      return changedText.count <= ALLOWED_NUM_PHONE_CHAR
+    //MARK:- TextField Delegate
+    //Bug 2567 Fixed.
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == phoneNumberTextField {
+            
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            
+            let changedText = currentText.replacingCharacters(in: stringRange, with: string)
+            
+            return changedText.count <= ALLOWED_NUM_PHONE_CHAR
+        }
+        return true
     }
-    return true
-  }
-  
-//  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//    if nameTextField.textField == textField {
-//      nameTextField.textFieldState = .focused
-//    }
-//
-//    if emailTextField.textField == textField {
-//      emailTextField.textFieldState = .focused
-//    }
-//
-//    if phoneNumberTextField.textField == textField {
-//      phoneNumberTextField.textFieldState = .focused
-//    }
-//
-//    if passwordTextField.textField == textField {
-//      passwordTextField.textFieldState = .focused
-//    }
-//    return true
-//  }
-//
-//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//
-//    if nameTextField.textField == textField {
-//      nameTextField.textFieldState = .normal
-//    }
-//
-//    if emailTextField.textField == textField {
-//      emailTextField.textFieldState = .normal
-//    }
-//
-//    if phoneNumberTextField.textField == textField {
-//      phoneNumberTextField.textFieldState = .normal
-//    }
-//
-//    if passwordTextField.textField == textField {
-//      passwordTextField.textFieldState = .normal
-//    }
-//    return true
-//  }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+                
+        switch textField.tag {
+        case 10:
+            phoneNumberTextFieldBGView.customBorderWidth = 3
+            nameTextFieldBGView.customBorderWidth = 0
+            emailTextFieldBGView.customBorderWidth = 0
+            passwordTextFieldBGView.customBorderWidth = 0
+        case 11:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+            nameTextFieldBGView.customBorderWidth = 3
+            emailTextFieldBGView.customBorderWidth = 0
+            passwordTextFieldBGView.customBorderWidth = 0
+        case 12:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+            nameTextFieldBGView.customBorderWidth = 0
+            emailTextFieldBGView.customBorderWidth = 3
+            passwordTextFieldBGView.customBorderWidth = 0
+        case 13:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+            nameTextFieldBGView.customBorderWidth = 0
+            emailTextFieldBGView.customBorderWidth = 0
+            passwordTextFieldBGView.customBorderWidth = 3
+        default:
+            passwordTextFieldBGView.customBorderWidth = 0
+        }
+        
+        return true
+        
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        switch textField.tag {
+        case 10:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+        case 11:
+            nameTextFieldBGView.customBorderWidth = 0
+        case 12:
+            emailTextFieldBGView.customBorderWidth = 0
+        case 13:
+            passwordTextFieldBGView.customBorderWidth = 0
+        default:
+            passwordTextFieldBGView.customBorderWidth = 0
+        }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 10:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+        case 11:
+            nameTextFieldBGView.customBorderWidth = 0
+        case 12:
+            emailTextFieldBGView.customBorderWidth = 0
+        case 13:
+            passwordTextFieldBGView.customBorderWidth = 0
+        default:
+            passwordTextFieldBGView.customBorderWidth = 0
+        }
+    }
+    
+    //  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    //    if nameTextField.textField == textField {
+    //      nameTextField.textFieldState = .focused
+    //    }
+    //
+    //    if emailTextField.textField == textField {
+    //      emailTextField.textFieldState = .focused
+    //    }
+    //
+    //    if phoneNumberTextField.textField == textField {
+    //      phoneNumberTextField.textFieldState = .focused
+    //    }
+    //
+    //    if passwordTextField.textField == textField {
+    //      passwordTextField.textFieldState = .focused
+    //    }
+    //    return true
+    //  }
+    //
+    //  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    //
+    //    if nameTextField.textField == textField {
+    //      nameTextField.textFieldState = .normal
+    //    }
+    //
+    //    if emailTextField.textField == textField {
+    //      emailTextField.textFieldState = .normal
+    //    }
+    //
+    //    if phoneNumberTextField.textField == textField {
+    //      phoneNumberTextField.textFieldState = .normal
+    //    }
+    //
+    //    if passwordTextField.textField == textField {
+    //      passwordTextField.textFieldState = .normal
+    //    }
+    //    return true
+    //  }
 }
