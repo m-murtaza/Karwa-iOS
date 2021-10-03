@@ -51,9 +51,18 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
         
         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-        self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+        self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
         self.setDropOffButton.isUserInteractionEnabled = true
+        self.setDropOffButton.layer.shadowRadius = 3
+        self.setDropOffButton.layer.shadowOpacity = 1
+        self.setDropOffButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+        if #available(iOS 13.0, *) {
+            self.setDropOffButton.layer.shadowColor = UIColor.systemGray3.cgColor
+        } else {
+            // Fallback on earlier versions
+            self.setDropOffButton.layer.shadowColor = UIColor.lightGray.cgColor
+        }
         
         self.tapOnMarker = true
 
@@ -83,6 +92,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                         self.setDropOffButton.isUserInteractionEnabled = false
+                        self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
                         
                     }
                     else {
@@ -90,10 +100,18 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                         print("Permitted")
                         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#006170")
+                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                         self.setDropOffButton.isUserInteractionEnabled = true
-                        
+                        self.setDropOffButton.layer.shadowRadius = 3
+                        self.setDropOffButton.layer.shadowOpacity = 1
+                        self.setDropOffButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                        if #available(iOS 13.0, *) {
+                            self.setDropOffButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                        } else {
+                            // Fallback on earlier versions
+                            self.setDropOffButton.layer.shadowColor = UIColor.lightGray.cgColor
+                        }
                         break
                         
                     }
@@ -101,9 +119,18 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     print("Permitted")
                     self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                     self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#006170")
+                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                     self.setDropOffButton.isUserInteractionEnabled = true
+                    self.setDropOffButton.layer.shadowRadius = 3
+                    self.setDropOffButton.layer.shadowOpacity = 1
+                    self.setDropOffButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                    if #available(iOS 13.0, *) {
+                        self.setDropOffButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                    } else {
+                        // Fallback on earlier versions
+                        self.setDropOffButton.layer.shadowColor = UIColor.lightGray.cgColor
+                    }
                     break
                 }
                 
@@ -114,6 +141,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                 self.setDropOffButton.isUserInteractionEnabled = false
+                self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
             }
             
         }

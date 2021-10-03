@@ -58,7 +58,15 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        self.passengerLabel.text = "\(xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1) \("str_pass".localized())"
+        self.passengerLabel.text = "\(xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1) \( xpressRebookNumberOfPassenger > 1 ? "str_pass_plural".localized() : "str_pass".localized())"
+        
+        if xpressRebookNumberOfPassenger > 1 {
+            plusBtn.layer.opacity = 0.5
+            minuBtn.layer.opacity = 1
+        } else {
+            plusBtn.layer.opacity = 1
+            minuBtn.layer.opacity = 0.5
+        }
 
         if Device.getLanguage().contains("AR") {
             arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()
@@ -117,11 +125,15 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
         if sender.tag == 10 {
             countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
+            plusBtn.layer.opacity = 0.5
+            minuBtn.layer.opacity = 1
         } else {
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
+            plusBtn.layer.opacity = 1
+            minuBtn.layer.opacity = 0.5
         }
         
-        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
+        self.passengerLabel.text = "\(countOfPassenger) \(countOfPassenger > 1 ? "str_pass_plural".localized() : "str_pass".localized())"
         
     }
     
@@ -206,15 +218,27 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: actualLocation) {
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = true
+                
+                self.setPickUpButton.layer.shadowRadius = 3
+                self.setPickUpButton.layer.shadowOpacity = 1
+                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                if #available(iOS 13.0, *) {
+                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                } else {
+                    // Fallback on earlier versions
+                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                }
+                
             } else {
                 self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
                 self.setPickUpButton.backgroundColor = UIColor.clear
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = false
+                self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
             }
         } else {
             
@@ -236,9 +260,19 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = true
+                
+                self.setPickUpButton.layer.shadowRadius = 3
+                self.setPickUpButton.layer.shadowOpacity = 1
+                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                if #available(iOS 13.0, *) {
+                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                } else {
+                    // Fallback on earlier versions
+                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                }
             }
             
         }

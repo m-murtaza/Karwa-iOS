@@ -81,7 +81,15 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
 
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
+        self.passengerLabel.text = "\(countOfPassenger) \( countOfPassenger > 1 ? "str_pass_plural".localized() :  "str_pass".localized())"
+        
+        if countOfPassenger > 1 {
+            plusButton.layer.opacity = 0.5
+            minusButton.layer.opacity = 1
+        } else {
+            plusButton.layer.opacity = 1
+            minusButton.layer.opacity = 0.5
+        }
         
         (self.viewModel as! KTXpressDropoffViewModel).countOfPassenger = countOfPassenger
 
@@ -115,20 +123,23 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     @IBAction func setCountForPassenger(sender: UIButton) {
         if sender.tag == 101 {
             countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
+            plusButton.layer.opacity = 0.5
+            minusButton.layer.opacity = 1
         } else {
             countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
+            plusButton.layer.opacity = 1
+            minusButton.layer.opacity = 0.5
         }
+        
         (viewModel as? KTXpressDropoffViewModel)?.countOfPassenger = countOfPassenger
-        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
+        self.passengerLabel.text = "\(countOfPassenger) \(countOfPassenger > 1 ? "str_pass_plural".localized() :  "str_pass".localized())"
     }
     
     func setPassenderCount(count: String?) {
         guard count != nil else {
             return
         }
-        
-        self.passengerLabel.text = "\(countOfPassenger) \("str_pass".localized())"
-        
+        self.passengerLabel.text = "\(countOfPassenger) \(countOfPassenger > 1 ? "str_pass_plural".localized() :  "str_pass".localized())"
     }
     
     func setDropOff(pick: String?) {

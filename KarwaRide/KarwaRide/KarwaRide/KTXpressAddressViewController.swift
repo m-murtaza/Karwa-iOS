@@ -59,7 +59,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         self.textField.text = ""
         
-        self.textField.placeholder = "str_search".localized()
+        self.textField.placeholder =  fromDropOff ? "str_setdrop_loc".localized() : "str_setpick_loc".localized()
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)

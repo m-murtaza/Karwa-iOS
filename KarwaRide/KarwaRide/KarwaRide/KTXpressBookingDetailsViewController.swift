@@ -23,7 +23,7 @@ public var xpressRebookDropOffSelected = false
 public var xpressRebookPassengerSelected = false
 public var xpressRebookPickUpCoordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
 public var xpressRebookDropOffCoordinates = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-public var xpressRebookNumberOfPassenger = 2
+public var xpressRebookNumberOfPassenger = 1
 
 class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapViewDelegate, KTBookingDetailsViewModelDelegate,KTCancelViewDelegate,KTFarePopViewDelegate,KTRatingViewDelegate,KTXpressRideCreationViewModelDelegate {
     

@@ -8,6 +8,7 @@
 
 import Foundation
 import GoogleMaps
+import UIKit
 
 extension KTXpressPickUpViewController: GMSMapViewDelegate {
     
@@ -38,9 +39,19 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         
         self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
         self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-        self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+        self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
         self.setPickUpButton.isUserInteractionEnabled = true
+        
+        self.setPickUpButton.layer.shadowRadius = 3
+        self.setPickUpButton.layer.shadowOpacity = 1
+        self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+        if #available(iOS 13.0, *) {
+            self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+        } else {
+            // Fallback on earlier versions
+            self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+        }
         
         return true
     }
@@ -64,15 +75,25 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: location) {
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-                self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = true
+                self.setPickUpButton.layer.shadowRadius = 3
+                self.setPickUpButton.layer.shadowOpacity = 1
+                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                if #available(iOS 13.0, *) {
+                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                } else {
+                    // Fallback on earlier versions
+                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                }
             } else {
                 self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
                 self.setPickUpButton.backgroundColor = UIColor.clear
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = false
+                self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
             }
         }
         
@@ -93,12 +114,22 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
             self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
             self.setPickUpButton.isUserInteractionEnabled = false
+            self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
         } else {
             self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
             self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-            self.setPickUpButton.backgroundColor = UIColor(hexString: "#006170")
+            self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
             self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
             self.setPickUpButton.isUserInteractionEnabled = true
+            self.setPickUpButton.layer.shadowRadius = 3
+            self.setPickUpButton.layer.shadowOpacity = 1
+            self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+            if #available(iOS 13.0, *) {
+                self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+            } else {
+                // Fallback on earlier versions
+                self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+            }
         }
     }
     
@@ -160,9 +191,7 @@ extension KTXpressPickUpViewController
         
         let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         mapView.padding = padding
-        
-        mapView.setMinZoom(0.4, maxZoom: 16)
-        
+                
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
@@ -175,6 +204,9 @@ extension KTXpressPickUpViewController
         }
         
         mapView.delegate = self
+        
+        let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(CLLocationCoordinate2D(latitude: 25.286106, longitude:  51.534817), zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        mapView.animate(with: update)
         
 //        self.focusMapToCurrentLocation()
 //        self.polygon()
