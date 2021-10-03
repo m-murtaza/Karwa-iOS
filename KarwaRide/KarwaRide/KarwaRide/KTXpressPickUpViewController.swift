@@ -67,12 +67,14 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             plusBtn.layer.opacity = 1
             minuBtn.layer.opacity = 0.5
         }
+        
+        arrowImage.image = UIImage(named: "icon-arrow-right-large")
 
-        if Device.getLanguage().contains("AR") {
-            arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()
-        } else {
-            arrowImage.image = #imageLiteral(resourceName: "arrow_right")
-        }
+//        if Device.getLanguage().contains("AR") {
+//            arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()
+//        } else {
+//            arrowImage.image = #imageLiteral(resourceName: "arrow_right")
+//        }
         
         (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
         

@@ -531,7 +531,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
         }
-        else if(segue.identifier == "segueComplaintCategorySelection")
+        else if(segue.identifier == "segueXpressComplaintCategorySelection")
         {
             let navVC = segue.destination as? UINavigationController
             let destination = navVC?.viewControllers.first as! KTComplaintCategoryViewController

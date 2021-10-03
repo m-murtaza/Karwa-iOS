@@ -93,11 +93,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
         (self.viewModel as! KTXpressDropoffViewModel).countOfPassenger = countOfPassenger
 
-        if Device.getLanguage().contains("AR") {
-            arrowImage.image = #imageLiteral(resourceName: "arrow_right").imageFlippedForRightToLeftLayoutDirection()
-        } else {
-            arrowImage.image = #imageLiteral(resourceName: "arrow_right")
-        }
+        arrowImage.image = UIImage(named: "icon-arrow-right-large")
         
     }
     

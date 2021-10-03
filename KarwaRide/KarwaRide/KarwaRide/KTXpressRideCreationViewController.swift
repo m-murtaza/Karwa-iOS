@@ -142,6 +142,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             self.setBookingButton.layer.shadowColor = UIColor.lightGray.cgColor
         }
         
+        self.pickUpAddressButton.isUserInteractionEnabled = false
+        self.dropOffAddressButton.isUserInteractionEnabled = false
+
+
 //        heightConstraint.constant = 250
     }
     
@@ -180,6 +184,12 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     @IBAction func setCountForPassenger(sender: UIButton) {
         
+        self.plusButton.isUserInteractionEnabled = false
+        self.minusButton.isUserInteractionEnabled = false
+        self.plusButton.layer.opacity = 0.4
+        self.minusButton.layer.opacity = 0.4
+
+
 //        if sender.tag == 10 {
 //            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
 //        } else {
@@ -311,7 +321,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
     func updateUI() {
         if #available(iOS 15.0, *) {
-            heightConstraint.constant = CGFloat(220 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
+            heightConstraint.constant = CGFloat(223 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
         } else {
             heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
         }
@@ -319,24 +329,33 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
 
     @IBAction func showRideTrackingViewController() {
-        self.timer.invalidate()
-        (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: selectedVehicleIndex)
-        (self.viewModel as! KTXpressRideCreationViewModel).didTapBookButton()
+        animateButton()
     }
     
+    
+    // ⬇︎⬇︎⬇︎ animation happens here ⬇︎⬇︎⬇︎
+      func animateButton() {
+        setBookingButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+          UIView.animate(withDuration: 1.0,
+          delay: 0,usingSpringWithDamping: CGFloat(0.5),initialSpringVelocity: CGFloat(5.0),
+          options: .allowUserInteraction,
+          animations: {
+            self.setBookingButton.transform = .identity
+          },
+          completion: { finished in
+              DispatchQueue.main.async {
+                  self.timer.invalidate()
+                  (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: self.selectedVehicleIndex)
+                  (self.viewModel as! KTXpressRideCreationViewModel).didTapBookButton()
+              }
+          }
+        )
+      }
+    
     func showRideTrackViewController() {
-        UIView.animate(withDuration: 0.6,
-                       animations: {
-            self.setBookingButton.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        },
-                       completion: { _ in
-            UIView.animate(withDuration: 0.6) {
-                self.setBookingButton.transform = CGAffineTransform.identity
-            }
-        })
-//        let rideService = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideTrackingViewController") as? KTXpressRideTrackingViewController)!
-//        rideService.rideServicePickDropOffData = rideServicePickDropOffData
-//        rideService.selectedRide = (self.viewModel as! KTXpressRideCreationViewModel).selectedRide
+        let rideService = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideTrackingViewController") as? KTXpressRideTrackingViewController)!
+        rideService.rideServicePickDropOffData = rideServicePickDropOffData
+        rideService.selectedRide = (self.viewModel as! KTXpressRideCreationViewModel).selectedRide
         
         let details  = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as? KTXpressBookingDetailsViewController)!
         details.rideServicePickDropOffData = rideServicePickDropOffData
@@ -344,9 +363,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         if let booking : KTBooking = vModel?.selectedBooking {
             details.setBooking(booking: booking)
         }
-        self.navigationController?.pushViewController(details, animated: true)
-        
-//        self.performSegue(withIdentifier: "segueXpressBookingListForDetails", sender: self)
+        self.navigationController?.pushViewController(details, animated: true)        
     }
         
 }

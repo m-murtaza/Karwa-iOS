@@ -11,6 +11,7 @@ import UBottomSheet
 import Spring
 import ABLoaderView
 import FittedSheets
+import UIKit
 
 class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 {
@@ -34,7 +35,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var btnPhone: LocalisableSpringButton!
     @IBOutlet weak var btnRebook: SpringButton!
         
-//    @IBOutlet weak var iconVehicle: SpringImageView!
+    @IBOutlet weak var iconVehicle: SpringImageView!
     @IBOutlet weak var lblVehicleType: LocalisableLabel!
     @IBOutlet weak var lblPassengerCount: LocalisableLabel!
     @IBOutlet weak var lblVehicleNumber: UILabel!
@@ -45,6 +46,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var starView: SpringLabel!
     var sheetCoordinator: UBottomSheetCoordinator?
     var sheet: SheetViewController?
+    @IBOutlet weak var btnReportIssue: LocalisableButton!
+
 
 //    @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
 //    @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
@@ -124,17 +127,17 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     func hideBtnComplain()
     {
-//        btnReportIssue.isHidden = true
+        btnReportIssue.isHidden = true
     }
     
     func showBtnComplain()
     {
-//        if Device.getLanguage().contains("AR") {
-//            btnReportIssue.contentHorizontalAlignment = .right
-//        } else {
-//            btnReportIssue.contentHorizontalAlignment = .left
-//        }
-//        btnReportIssue.isHidden = false
+        if Device.getLanguage().contains("AR") {
+            btnReportIssue.contentHorizontalAlignment = .right
+        } else {
+            btnReportIssue.contentHorizontalAlignment = .left
+        }
+        btnReportIssue.isHidden = false
     }
     
     func hideRebookBtn()
@@ -182,7 +185,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     @IBAction func btnComplainTap(_ sender: Any)
     {
-        performSegue(withIdentifier: "segueComplaintCategorySelection", sender: self)
+        performSegue(withIdentifier: "segueXpressComplaintCategorySelection", sender: self)
     }
     
     
@@ -237,7 +240,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.imageView?.layer.cornerRadius = 25
         sender.imageView?.clipsToBounds = true
 
-        sender.setBackgroundColor(color: UIColor(cgColor: sender.layer.borderColor!) , forState: .highlighted)
+        sender.setBackgroundColor(color: UIColor.red , forState: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
         sender.tintColor = UIColor(cgColor: sender.layer.borderColor!)
@@ -254,9 +257,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        starView.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
-        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
     }
@@ -317,6 +320,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         if msg.contains("str_xpress".localized()) {
             rideHeaderText.attributedText = self.addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "str_xpress".localized() as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
         } else {
+            rideHeaderText.font = UIFont(name: "MuseoSans-900", size: 17.0)!
             rideHeaderText.text = msg
         }
     }
@@ -362,7 +366,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             showEtaView()
             showCancelBtn()
             showEtaView()
-            hideShareBtn()
+            showShareBtn()
             showPhoneButton()
             hideBtnComplain()
             hideRebookBtn()
@@ -379,7 +383,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             
            
 //                constraintRebookMarginTop.constant = 375
-            hideBtnComplain()
                         
             self.view.customCornerRadius = 20.0
             
@@ -520,8 +523,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideSeperatorBeforeReportAnIssue()
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
+            showBtnComplain()
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 545
+                self.heightOFScrollViewContent.constant = 600
                 //                    self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
                 if UIDevice().userInterfaceIdiom == .phone {
                     switch UIScreen.main.nativeBounds.height {
@@ -543,7 +547,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
                     }
                 }
             }
-                hideBtnComplain()
             
             self.view.customCornerRadius = 0
                         
@@ -617,9 +620,14 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func updateVehicleDetails()
     {
-//        iconVehicle.image = vModel?.imgForVehicle()
+        iconVehicle.image = UIImage(named: "kmetroexpress")
         lblVehicleType.text = vModel?.vehicleType()
-        lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass".localized())"
+        if Int(vModel?.getPassengerCountr() ?? "0") ?? 0 > 1 {
+            lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass_plural".localized())"
+        } else {
+            lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass".localized())"
+        }
+            
     }
 
     func shareBtnTapped()

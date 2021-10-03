@@ -79,6 +79,14 @@ class TabViewController: UITabBarController {
         items[1].title = "str_xpress".localized()
         items[2].title = "action_settings".localized()
         
+        items[0].image = UIImage(named: "Tabbar1")
+        items[1].image = UIImage(named: "kmetroexpress")
+        items[2].image = UIImage(named: "settings_ico_idle")
+        
+        items[0].selectedImage = UIImage(named: "Tabbar1")
+        items[1].selectedImage = UIImage(named: "kmetroexpress")
+        items[2].selectedImage = UIImage(named: "settings_ico_active")
+        
         for item in items {
             item.setTitleTextAttributes([NSAttributedString.Key.font:UIFont(name: "MuseoSans-700", size: 12.0)!, NSAttributedString.Key.foregroundColor: UIColor.primary], for: .normal)
         }

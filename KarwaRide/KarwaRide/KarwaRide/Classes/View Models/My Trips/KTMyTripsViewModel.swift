@@ -243,7 +243,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             type = "txt_limo_luxury".localized()
             
         case VehicleType.KTXpressTaxi.rawValue:
-            type = "str_pass".localized()
+            type = "travel_ride_sharing_info_title".localized()
 
         default:
             type = ""
