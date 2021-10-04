@@ -263,21 +263,18 @@ class KTRatingViewModel: KTBaseViewModel {
         switch booking!.vehicleType {
         case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
             type = "txt_taxi".localized()
-            
         case VehicleType.KTCityTaxi7Seater.rawValue:
             type = "txt_family_taxi".localized()
-            
         case VehicleType.KTSpecialNeedTaxi.rawValue:
             type = "txt_accessible".localized()
-
         case VehicleType.KTStandardLimo.rawValue:
             type = "txt_limo_standard".localized()
-            
         case VehicleType.KTBusinessLimo.rawValue:
             type = "txt_limo_buisness".localized()
-            
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+        case VehicleType.KTXpressTaxi.rawValue:
+            type = "travel_ride_sharing_info_title".localized()
         default:
             type = ""
         }
@@ -287,19 +284,27 @@ class KTRatingViewModel: KTBaseViewModel {
     func paymentMethod() -> String
     {
         var paymentMethod = "Cash"
-        let bookingStatus = bookingStatii()
-        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
-        {
-            //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+        
+        switch booking!.vehicleType {
+            
+        case VehicleType.KTXpressTaxi.rawValue:
+            paymentMethod = "str_free_ride".localized()
+        default:
+            let bookingStatus = bookingStatii()
+            if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
+            {
+                //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
+            }
+            else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
+            {
+                paymentMethod = "**** " +  booking!.lastFourDigits!
+            }
+            else if(booking!.paymentMethod == "ApplePay")
+            {
+                paymentMethod = "Paid by"
+            }
         }
-        else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
-        {
-            paymentMethod = "**** " +  booking!.lastFourDigits!
-        }
-        else if(booking!.paymentMethod == "ApplePay")
-        {
-            paymentMethod = "Paid by"
-        }
+        
 
         return paymentMethod
     }
@@ -330,7 +335,10 @@ class KTRatingViewModel: KTBaseViewModel {
         if(booking?.vehicleType == VehicleType.KTAiport7Seater.rawValue || booking?.vehicleType == VehicleType.KTCityTaxi7Seater.rawValue )
         {
             passengerCount = "txt_seven".localized()
+        } else if booking?.vehicleType == VehicleType.KTXpressTaxi.rawValue {
+            passengerCount = "\(Int(booking?.passengerCount ?? 1))"
         }
+        
         
         return passengerCount
     }

@@ -58,15 +58,31 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        self.passengerLabel.text = "\(xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1) \( xpressRebookNumberOfPassenger > 1 ? "str_pass_plural".localized() : "str_pass".localized())"
-        
-        if xpressRebookNumberOfPassenger > 1 {
-            plusBtn.layer.opacity = 0.5
-            minuBtn.layer.opacity = 1
+        if xpressRebookPassengerSelected {
+            switch xpressRebookNumberOfPassenger {
+            case 1:
+                self.passengerLabel.text = "str_1pass".localized()
+            case 2:
+                self.passengerLabel.text = "str_2pass".localized()
+            case 3:
+                self.passengerLabel.text = "str_3pass".localized()
+            default:
+                self.passengerLabel.text = "str_1pass".localized()
+            }
+            if xpressRebookNumberOfPassenger == 3 {
+                plusBtn.layer.opacity = 0.5
+                minuBtn.layer.opacity = 1
+            } else {
+                plusBtn.layer.opacity = 1
+                minuBtn.layer.opacity = 0.5
+            }
         } else {
+            self.passengerLabel.text = "str_1pass".localized()
             plusBtn.layer.opacity = 1
             minuBtn.layer.opacity = 0.5
         }
+        
+        
         
         arrowImage.image = UIImage(named: "icon-arrow-right-large")
 
@@ -124,19 +140,42 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     
     
     @IBAction func setCountForPassenger(sender: UIButton) {
-        
+                 
         if sender.tag == 10 {
-            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
-            plusBtn.layer.opacity = 0.5
-            minuBtn.layer.opacity = 1
+            if countOfPassenger >= 1 && countOfPassenger < 3 {
+                countOfPassenger += 1
+            }
+            if countOfPassenger == 3 {
+                plusBtn.layer.opacity = 0.5
+                minuBtn.layer.opacity = 1
+            } else {
+                plusBtn.layer.opacity = 1
+                minuBtn.layer.opacity = 1
+            }
         } else {
-            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
-            plusBtn.layer.opacity = 1
-            minuBtn.layer.opacity = 0.5
+            if countOfPassenger > 1 && countOfPassenger <= 3 {
+                countOfPassenger -= 1
+            }
+            if countOfPassenger == 1 {
+                plusBtn.layer.opacity = 1
+                minuBtn.layer.opacity = 0.5
+            } else if countOfPassenger >= 1{
+                plusBtn.layer.opacity = 1
+                minuBtn.layer.opacity = 1
+            }
         }
-        
-        self.passengerLabel.text = "\(countOfPassenger) \(countOfPassenger > 1 ? "str_pass_plural".localized() : "str_pass".localized())"
-        
+    
+        switch countOfPassenger {
+        case 1:
+            self.passengerLabel.text = "str_1pass".localized()
+        case 2:
+            self.passengerLabel.text = "str_2pass".localized()
+        case 3:
+            self.passengerLabel.text = "str_3pass".localized()
+        default:
+            self.passengerLabel.text = "str_1pass".localized()
+        }
+                
     }
     
     @objc func clickSetPickUp() {

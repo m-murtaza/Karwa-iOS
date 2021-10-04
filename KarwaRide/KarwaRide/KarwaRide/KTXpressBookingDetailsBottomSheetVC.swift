@@ -243,7 +243,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.setBackgroundColor(color: UIColor.red , forState: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
-        sender.tintColor = UIColor(cgColor: sender.layer.borderColor!)
+        sender.tintColor = UIColor.red
                 
     }
     
@@ -627,7 +627,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         } else {
             lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass".localized())"
         }
-            
     }
 
     func shareBtnTapped()

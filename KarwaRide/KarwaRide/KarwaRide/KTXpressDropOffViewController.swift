@@ -81,8 +81,25 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
 
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        self.passengerLabel.text = "\(countOfPassenger) \( countOfPassenger > 1 ? "str_pass_plural".localized() :  "str_pass".localized())"
-        
+        switch countOfPassenger {
+        case 1:
+            self.passengerLabel.text = "str_1pass".localized()
+            plusButton.layer.opacity = 1
+            minusButton.layer.opacity = 0.5
+        case 2:
+            self.passengerLabel.text = "str_2pass".localized()
+            plusButton.layer.opacity = 1
+            minusButton.layer.opacity = 1
+        case 3:
+            self.passengerLabel.text = "str_3pass".localized()
+            plusButton.layer.opacity = 0.5
+            minusButton.layer.opacity = 1
+        default:
+            self.passengerLabel.text = "str_1pass".localized()
+            plusButton.layer.opacity = 1
+            minusButton.layer.opacity = 1
+        }
+                
         if countOfPassenger > 1 {
             plusButton.layer.opacity = 0.5
             minusButton.layer.opacity = 1
@@ -118,17 +135,42 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     @IBAction func setCountForPassenger(sender: UIButton) {
         if sender.tag == 101 {
-            countOfPassenger = countOfPassenger == 1 ? (countOfPassenger + 1) : countOfPassenger
-            plusButton.layer.opacity = 0.5
-            minusButton.layer.opacity = 1
+            if countOfPassenger >= 1 && countOfPassenger < 3 {
+                countOfPassenger += 1
+            }
+            if countOfPassenger == 3 {
+                plusButton.layer.opacity = 0.5
+                minusButton.layer.opacity = 1
+            } else {
+                plusButton.layer.opacity = 1
+                minusButton.layer.opacity = 1
+            }
         } else {
-            countOfPassenger = countOfPassenger > 1 ? (countOfPassenger - 1) : 1
-            plusButton.layer.opacity = 1
-            minusButton.layer.opacity = 0.5
+            if countOfPassenger > 1 && countOfPassenger <= 3 {
+                countOfPassenger -= 1
+            }
+            if countOfPassenger == 1 {
+                plusButton.layer.opacity = 1
+                minusButton.layer.opacity = 0.5
+            } else if countOfPassenger >= 1{
+                plusButton.layer.opacity = 1
+                minusButton.layer.opacity = 1
+            }
         }
         
         (viewModel as? KTXpressDropoffViewModel)?.countOfPassenger = countOfPassenger
-        self.passengerLabel.text = "\(countOfPassenger) \(countOfPassenger > 1 ? "str_pass_plural".localized() :  "str_pass".localized())"
+        
+        switch countOfPassenger {
+        case 1:
+            self.passengerLabel.text = "str_1pass".localized()
+        case 2:
+            self.passengerLabel.text = "str_2pass".localized()
+        case 3:
+            self.passengerLabel.text = "str_3pass".localized()
+        default:
+            self.passengerLabel.text = "str_1pass".localized()
+        }
+        
     }
     
     func setPassenderCount(count: String?) {

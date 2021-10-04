@@ -337,7 +337,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
       func animateButton() {
         setBookingButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
           UIView.animate(withDuration: 1.0,
-          delay: 0,usingSpringWithDamping: CGFloat(0.5),initialSpringVelocity: CGFloat(5.0),
+          delay: 0,usingSpringWithDamping: CGFloat(0.5),initialSpringVelocity: CGFloat(3.0),
           options: .allowUserInteraction,
           animations: {
             self.setBookingButton.transform = .identity
