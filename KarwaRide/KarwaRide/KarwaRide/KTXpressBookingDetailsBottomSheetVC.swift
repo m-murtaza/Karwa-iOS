@@ -257,9 +257,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        starView.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: -3)
         starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
-        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: -3)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
     }
