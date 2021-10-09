@@ -24,6 +24,16 @@ protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
 }
 
+var areas = [Area]()
+var metroStopsArea = [Area]()
+var metroStations = [Area]()
+var tramStations = [Area]()
+var tramStopsArea = [Area]()
+var zones = [Area]()
+var zonalArea = [[String : [Area]]]()
+var destinations = [Destination]()
+var stops = [Area]()
+
 class KTXpressPickUpViewModel: KTBaseViewModel {
     
     var booking : KTBooking = KTBookingManager().booking()
@@ -31,19 +41,9 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     var isFirstZoomDone = false
     static var askedToTurnOnLocaiton : Bool = false
     
-    var areas = [Area]()
-    var destinations = [Destination]()
     var pickUpArea = [Area]()
-    var metroStopsArea = [Area]()
-    var metroStations = [Area]()
-    var tramStations = [Area]()
-    var tramStopsArea = [Area]()
-    var destinationForPickUp = [Area]()
     var selectedCoordinate: CLLocationCoordinate2D?
-
-    var zones = [Area]()
-    var zonalArea = [[String : [Area]]]()
-    
+    var destinationForPickUp = [Area]()
     var selectedZone:Area?
     var selectedStop:Area?
     var selectedStation:Area?
@@ -135,149 +135,129 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
       }
     }
     
-    func checkLatLonInside(location: CLLocation) -> Bool {
-        if let string = self.areas.filter({$0.type! == "OperatingArea"}).first?.bound {
-            
-            let operatingArea = string.components(separatedBy: "|")
-
-            var latLonInside = false
-            
-            for item in operatingArea {
-                
-                let coordinates = item.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                }
-                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                    latLonInside = true
-                    break
-                } else {
-                    print("it wont contains")
-                    latLonInside = false
-                }
-                
-            }
-                        
-          return latLonInside
-            
-        } else {
-            print("it wont contains")
-            return false
-
-        }
-
-    }
-    
     func fetchOperatingArea() {
-        
+
         delegate?.showProgressHud(show: true, status: "str_loading".localized())
 
         KTXpressBookingManager().getZoneWithSync { (string, response) in
-                        
+
             self.delegate?.hideProgressHud()
-            
+
             if let totalOperatingResponse = response["Response"] as? [String: Any] {
-                
+
                 print(totalOperatingResponse)
-                
+
                 if let totalAreas = totalOperatingResponse["Areas"] as? [[String:Any]] {
-                    
+
                     print(totalAreas)
 
+                    areas.removeAll()
+
                     for item in totalAreas {
-                        
+
                         print(item)
-                        
+
                         let area = Area(code: (item["Code"] as? Int) ?? 0, vehicleType:(item["VehicleType"] as? Int) ?? -1, name: (item["Name"] as? String) ?? "", parent: (item["Parent"] as? Int) ?? -1, bound: (item["Bound"] as? String) ?? "", type: (item["Type"] as? String) ?? "", isActive: (item["IsActive"] as? Bool) ?? false)
-                        
-                        self.areas.append(area)
-                                                
+
+                        areas.append(area)
+
                     }
-                    
+
                     if self.delegate != nil {
                       (self.delegate as! KTXpressPickUpViewModelDelegate).setPolygon()
                     }
-                                                            
-                }
-                
-                self.zones = self.areas.filter{$0.type == "Zone"}
-                self.metroStopsArea = self.areas.filter{$0.type! == "MetroStop"}
-                self.metroStations = self.areas.filter{$0.type! == "MetroStation"}
-                self.tramStopsArea = self.areas.filter{$0.type! == "TramStop"}
-                self.tramStations = self.areas.filter{$0.type! == "TramStation"}
 
-                for zone in self.zones {
-                    
+                }
+                zones.removeAll()
+                metroStopsArea.removeAll()
+                metroStations.removeAll()
+                tramStopsArea.removeAll()
+                tramStations.removeAll()
+
+                zones = areas.filter{$0.type == "Zone"}
+                metroStopsArea = areas.filter{$0.type! == "MetroStop"}
+                metroStations = areas.filter{$0.type! == "MetroStation"}
+                tramStopsArea = areas.filter{$0.type! == "TramStop"}
+                tramStations = areas.filter{$0.type! == "TramStation"}
+
+                for zone in zones {
+
                     var z  = [String: [Area]]()
                     z["zone"] = [zone]
-                    var stations = self.metroStations.filter{$0.parent! == zone.code!}
-                    stations.append(contentsOf: self.tramStations.filter{$0.parent! == zone.code!})
+                    var stations = metroStations.filter{$0.parent! == zone.code!}
+                    stations.append(contentsOf: tramStations.filter{$0.parent! == zone.code!})
                     z["stations"] = stations
-                    self.zonalArea.append(z)
-                    
+                    zonalArea.append(z)
+
                 }
-                
-                for item in self.zonalArea {
+
+                for item in zonalArea {
                     print("Zonal Area", item)
                 }
-                
+
+                destinations.removeAll()
+
                 if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
 
                     for item in totalDestinations {
-                        
+
                         let destination = Destination(source: (item["Source"] as? Int)!, destination: (item["Destination"] as? Int)!, isActive: (item["IsActive"] as? Bool)!)
-                        
-                        self.destinations.append(destination)
-                                                
+
+                        destinations.append(destination)
+
                     }
-                                
+
                 }
-                                
-                for item in self.metroStopsArea {
-                    
-                    if let pickUpLocation = self.destinations.filter({$0.source! == item.parent!}).first {
+
+                for item in metroStopsArea {
+
+                    if let pickUpLocation = destinations.filter({$0.source! == item.parent!}).first {
                         if self.pickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
-                            
+
                         } else {
                             self.pickUpArea.append(item)
                         }
                     }
-                                        
+
                 }
-                
+
                 var localPickUpArea = [Area]()
-                
-                for item in self.tramStopsArea {
-                    
-                    if let pickUpLocation = self.destinations.filter({$0.source! == item.parent!}).first {
+
+                for item in tramStopsArea {
+
+                    if let pickUpLocation = destinations.filter({$0.source! == item.parent!}).first {
                         if localPickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
-                            
+
                         } else {
                             localPickUpArea.append(item)
                         }
                     }
-                    
+
                 }
-                
-                
+
+
                 let set1: Set<Area> = Set(self.pickUpArea)
                 let set2: Set<Area> = Set(localPickUpArea)
-                
+
                 self.pickUpArea = Array(set1.union(set2))
+
+                stops.removeAll()
+                
+                stops = Array(set1.union(set2))
                 
                 print(self.pickUpArea)
 
-                
                 if self.delegate != nil {
                   (self.delegate as! KTXpressPickUpViewModelDelegate).addPickUpLocations()
                 }
-                    
+
             }
-            
+
         }
     }
     
     func didTapMarker(location: CLLocation) {
-        let selectedArea = self.areas.filter{$0.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first! == String(format: "%.5f", location.coordinate.latitude)}
+        let selectedArea = areas.filter{$0.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first! == String(format: "%.5f", location.coordinate.latitude)}
          
          print(selectedArea)
         
@@ -313,7 +293,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                 
                 self.destinationForPickUp = Array(Set(destinationForPickUp))
                 
-                (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStation == nil ? nil : selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!, zonalArea: self.zonalArea)
+                (delegate as! KTXpressPickUpViewModelDelegate).showDropOffViewController(destinationForPickUp: destinationForPickUp, pickUpStation: selectedStation, pickUpStop: selectedStation == nil ? nil : selectedStop, pickUpzone: selectedZone, coordinate: selectedCoordinate!, zonalArea: zonalArea)
             } else {
                 
             }
@@ -344,7 +324,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             
         }
         
-        let stationsOfZone = self.zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
+        let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
         
         print(selectedZone)
         print(stationsOfZone)
@@ -377,7 +357,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         
         if selectedStation != nil {
             
-            stopsOFStations.append(contentsOf: self.areas.filter{$0.parent! == selectedStation!.code!})
+            stopsOFStations.append(contentsOf: areas.filter{$0.parent! == selectedStation!.code!})
             
             let coordinates = (selectedStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                 return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
@@ -391,13 +371,13 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
 //            }
 //
             if customDestinationsCode.count == 0{
-                customDestinationsCode = self.destinations.filter{$0.source == selectedStation?.code!}.map{$0.destination!}
+                customDestinationsCode = destinations.filter{$0.source == selectedStation?.code!}.map{$0.destination!}
             }
             
             
             for item in customDestinationsCode {
                 
-                destinationForPickUp.append(contentsOf: self.areas.filter{$0.code! == item})
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
                 
             }
             
@@ -413,10 +393,10 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             
 //            selectedCoordinate = coordinates.first!
             
-            customDestinationsCode = self.destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
+            customDestinationsCode = destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
             
             for item in customDestinationsCode {
-                destinationForPickUp.append(contentsOf: self.areas.filter{$0.code! == item})
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
             }
             
             print(destinationForPickUp)
@@ -430,3 +410,135 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
 }
 
 
+extension UIViewController {
+    
+    func checkLatLonInside(location: CLLocation) -> Bool {
+        if let string = areas.filter({$0.type! == "OperatingArea"}).first?.bound {
+            
+            let operatingArea = string.components(separatedBy: "|")
+
+            var latLonInside = false
+            
+            for item in operatingArea {
+                
+                let coordinates = item.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                }
+                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                    latLonInside = true
+                    break
+                } else {
+                    print("it wont contains")
+                    latLonInside = false
+                }
+                
+            }
+                        
+          return latLonInside
+            
+        } else {
+            print("it wont contains")
+            return false
+
+        }
+
+    }
+}
+
+
+extension UIViewController {
+    
+    func fetchOperatingArea() {
+        
+        KTXpressBookingManager().getZoneWithSync { (string, response) in
+                                    
+            if let totalOperatingResponse = response["Response"] as? [String: Any] {
+                
+                print(totalOperatingResponse)
+                
+                if let totalAreas = totalOperatingResponse["Areas"] as? [[String:Any]] {
+                    
+                    print(totalAreas)
+                    
+                    areas.removeAll()
+
+                    for item in totalAreas {
+                        
+                        print(item)
+                        
+                        let area = Area(code: (item["Code"] as? Int) ?? 0, vehicleType:(item["VehicleType"] as? Int) ?? -1, name: (item["Name"] as? String) ?? "", parent: (item["Parent"] as? Int) ?? -1, bound: (item["Bound"] as? String) ?? "", type: (item["Type"] as? String) ?? "", isActive: (item["IsActive"] as? Bool) ?? false)
+                        
+                        areas.append(area)
+                                                
+                    }
+                
+                                                            
+                }
+                zones.removeAll()
+                metroStopsArea.removeAll()
+                metroStations.removeAll()
+                tramStopsArea.removeAll()
+                tramStations.removeAll()
+                
+                zones = areas.filter{$0.type == "Zone"}
+                metroStopsArea = areas.filter{$0.type! == "MetroStop"}
+                metroStations = areas.filter{$0.type! == "MetroStation"}
+                tramStopsArea = areas.filter{$0.type! == "TramStop"}
+                tramStations = areas.filter{$0.type! == "TramStation"}
+
+                for zone in zones {
+                    
+                    var z  = [String: [Area]]()
+                    z["zone"] = [zone]
+                    var stations = metroStations.filter{$0.parent! == zone.code!}
+                    stations.append(contentsOf: tramStations.filter{$0.parent! == zone.code!})
+                    z["stations"] = stations
+                    zonalArea.append(z)
+                    
+                }
+                
+                for item in zonalArea {
+                    print("Zonal Area", item)
+                }
+                
+                destinations.removeAll()
+                
+                if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
+
+                    for item in totalDestinations {
+                        
+                        let destination = Destination(source: (item["Source"] as? Int)!, destination: (item["Destination"] as? Int)!, isActive: (item["IsActive"] as? Bool)!)
+                        
+                        destinations.append(destination)
+                                                
+                    }
+                                
+                }
+                                                
+                var localPickUpArea = [Area]()
+                
+                for item in tramStopsArea {
+                    
+                    if let pickUpLocation = destinations.filter({$0.source! == item.parent!}).first {
+                        if localPickUpArea.contains(where: {$0.parent! == pickUpLocation.source }) {
+                            
+                        } else {
+                            localPickUpArea.append(item)
+                        }
+                    }
+                    
+                }
+                
+                let set1: Set<Area> = Set(metroStopsArea)
+                let set2: Set<Area> = Set(tramStopsArea)
+
+                stops.removeAll()
+                    
+                stops = Array(set1.union(set2))
+
+            }
+            
+        }
+    }
+    
+}

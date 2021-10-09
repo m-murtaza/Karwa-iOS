@@ -208,7 +208,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.pickUpStop = pickUpStop
         dropOff.pickUpStation = pickUpStation
         dropOff.pickUpZone = pickUpzone
-        dropOff.operationArea = (self.viewModel as! KTXpressPickUpViewModel).areas
+        dropOff.operationArea = areas
         dropOff.zonalArea = zonalArea
         dropOff.countOfPassenger = xpressRebookPassengerSelected ?  xpressRebookNumberOfPassenger : countOfPassenger
 
@@ -256,7 +256,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 15)
             mapView.camera = camera
             mapView.animate(to: camera)
-            if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: actualLocation) {
+            if checkLatLonInside(location: actualLocation) {
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
                 self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")

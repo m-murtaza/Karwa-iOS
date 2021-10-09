@@ -116,7 +116,8 @@ extension KTXpressRideCreationViewController
             let polyline = GMSPolyline(path: path)
             polyline.map = mapView // Assign GMSMapView as map
             polyline.strokeWidth = 3.0
-            let styles = [GMSStrokeStyle.solidColor(UIColor.black), GMSStrokeStyle.solidColor(UIColor.clear)]
+            bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
+            let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(bgPolylineColor)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
             polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
             

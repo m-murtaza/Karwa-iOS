@@ -10,6 +10,7 @@ import UIKit
 import Spring
 import GoogleMaps
 import CDAlertView
+import CoreLocation
 
 class KTXpressRideServiceCell: UITableViewCell {
     
@@ -107,7 +108,14 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
-        vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+        
+        if xpressRebookSelected == true {
+            (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
+            (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+        } else {
+            vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+        }
+        
         
         vModel?.fetchRideService()
                 
@@ -331,7 +339,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     @IBAction func showRideTrackingViewController() {
         animateButton()
     }
-    
     
     // ⬇︎⬇︎⬇︎ animation happens here ⬇︎⬇︎⬇︎
       func animateButton() {

@@ -834,7 +834,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     {
 //        self.performSegue(name: "segueDetailToReBook")
         
-        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController") as? UINavigationController
+//        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController") as? UINavigationController
         
         xpressRebookSelected = true
         xpressRebookPickUpSelected = true
@@ -848,12 +848,12 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         xpressRebookDropOffCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0
         xpressRebookDropOffCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0
         
-        sideMenuController?.hideMenu()
+//        sideMenuController?.hideMenu()
         
-//        let rideLocationData = RideSerivceLocationData(pickUpZone: nil, pickUpStation: nil, pickUpStop: nil, dropOffZone: nil, dropOfSftation: nil, dropOffStop: nil, pickUpCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.pickupLon)!, longitude: (vModel?.booking?.pickupLat)!), dropOffCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.dropOffLat)!, longitude: (vModel?.booking?.dropOffLon)!), passsengerCount: 2)
-//        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
+        let rideLocationData = RideSerivceLocationData(pickUpZone: nil, pickUpStation: nil, pickUpStop: nil, dropOffZone: nil, dropOfSftation: nil, dropOffStop: nil, pickUpCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.pickupLon)!, longitude: (vModel?.booking?.pickupLat)!), dropOffCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.dropOffLat)!, longitude: (vModel?.booking?.dropOffLon)!), passsengerCount: 2)
+        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
 //        rideService!.rideServicePickDropOffData = rideLocationData
-//        self.navigationController?.pushViewController(rideService!, animated: true)
+        self.navigationController?.pushViewController(rideService!, animated: true)
         
     }
     

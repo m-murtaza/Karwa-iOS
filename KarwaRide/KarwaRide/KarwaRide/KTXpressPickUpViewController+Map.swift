@@ -60,7 +60,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         
         let name = "XpressLocationManagerNotificationIdentifier"
 
-        if (self.viewModel as! KTXpressPickUpViewModel).areas.count > 0 {
+        if areas.count > 0 {
             (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
             KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         } else {
@@ -71,8 +71,8 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         
         (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         
-        if (self.viewModel as! KTXpressPickUpViewModel).areas.count > 0 {
-            if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: location) {
+        if areas.count > 0 {
+            if checkLatLonInside(location: location) {
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
                 self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
@@ -108,7 +108,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
     
     @objc func checkStatus() {
         
-        if (self.viewModel as! KTXpressPickUpViewModel).areas.count <= 0 {
+        if areas.count <= 0 {
             self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
             self.setPickUpButton.backgroundColor = UIColor.clear
             self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
@@ -228,7 +228,7 @@ extension KTXpressPickUpViewController
         self.mapView.clear()
         
         // Create a rectangular path
-        let string = (self.viewModel as! KTXpressPickUpViewModel).areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
+        let string = areas.filter{$0.type! == "OperatingArea"}.first?.bound ?? ""
         
         let operatingArea = string.components(separatedBy: "|")
         
@@ -245,15 +245,12 @@ extension KTXpressPickUpViewController
             
             rects.append(rect)
             
-            
             if xpressRebookSelected == false {
                 
                 if addressSelected == false {
-                    
-                    if (self.viewModel as! KTXpressPickUpViewModel).checkLatLonInside(location: KTLocationManager.sharedInstance.baseLocation) && xpressRebookPickUpSelected == false {
+                    if checkLatLonInside(location: KTLocationManager.sharedInstance.baseLocation) && xpressRebookPickUpSelected == false {
                         let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 15)
                         self.mapView.animate(to: camera)
-                        
                         let coord = CLLocation(latitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : KTLocationManager.sharedInstance.baseLocation.coordinate.longitude)
                         (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: coord.coordinate)
                         self.checkCoordinateStatus(coord)
@@ -266,9 +263,8 @@ extension KTXpressPickUpViewController
                         self.checkCoordinateStatus(KTLocationManager.sharedInstance.currentLocation)
                         
                         (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude))
-
+                        
                     }
-                    
                     
                 }
                 
