@@ -61,8 +61,8 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         self.textField.placeholder =  fromDropOff ? "str_setdrop_loc".localized() : "str_setpick_loc".localized()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         tableView.keyboardDismissMode = .onDrag
         
@@ -73,7 +73,27 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
         if fromDropOff {
-            self.tableView.contentInset = UIEdgeInsets(top: -130, left: 0, bottom: 0, right: 0)
+            if UIDevice().userInterfaceIdiom == .phone {
+                    switch UIScreen.main.nativeBounds.height {
+                    case 1136:
+                        print("iPhone 5 or 5S or 5C")
+                        self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+                    case 1334:
+                        print("iPhone 6/6S/7/8")
+                        self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+                    case 1920, 2208:
+                        print("iPhone 6+/6S+/7+/8+")
+                        self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+                    case 2436:
+                        print("iPhone X")
+                        self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+                    default:
+                        print("unknown")
+                        self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+                    }
+                }
+        } else {
+            self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
         }
     }
     

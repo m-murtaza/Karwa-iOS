@@ -47,7 +47,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     var zonalArea = [[String : [Area]]]()
 
-    
+    var addressSelected = false
+
     var tapOnMarker = false
 
     override func viewDidLoad() {
@@ -227,6 +228,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
         xpressRebookDropOffSelected = false
         
+        addressSelected = true
+        
         if let loc = location as? KTGeoLocation {
             print(location)
             (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
@@ -269,6 +272,10 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         }
     }
 
+    
+    @IBAction func goBackButtonClick() {
+        self.navigationController?.popViewController(animated: false)
+    }
     /*
     // MARK: - Navigation
 

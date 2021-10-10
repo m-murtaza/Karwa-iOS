@@ -258,6 +258,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
 
         showProgressHud(show: true)
         KTUserManager().updateOTP(otp: otpEnabledStatus) { status, response in
+
+            print(status)
             
             self.showToast(message: "profile_updated".localized())
             
