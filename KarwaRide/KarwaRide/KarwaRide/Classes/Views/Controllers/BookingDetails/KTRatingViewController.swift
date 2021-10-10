@@ -177,7 +177,7 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     func updateDriver(rating: Double) {
-        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: 0)
+        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: -3)
     }
     
     func updateTrip(fare: String) {

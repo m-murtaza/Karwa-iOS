@@ -28,7 +28,6 @@ extension KTUserManager {
                     KTPaymentManager().removeAllPaymentData()
                     PreviousSelectedPayment.shared.selectedPaymentMethod = nil
                     PreviousSelectedPayment.shared.rebook = false
-                    sessionExpiredPopUpShown = false
                     (UIApplication.shared.delegate as! AppDelegate).showLogin()
                 }
             }

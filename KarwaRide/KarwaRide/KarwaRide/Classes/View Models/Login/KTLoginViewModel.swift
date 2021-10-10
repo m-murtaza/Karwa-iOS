@@ -56,6 +56,7 @@ class KTLoginViewModel: KTBaseViewModel {
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
+                    sessionExpiredPopUpShown = false
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
                     (self.delegate as! KTLoginViewModelDelegate).navigateToBooking()
                 }
