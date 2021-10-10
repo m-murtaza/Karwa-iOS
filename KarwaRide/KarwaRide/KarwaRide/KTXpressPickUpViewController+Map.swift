@@ -105,6 +105,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
 
     }
     
+    
     @objc func checkStatus() {
         
         if areas.count <= 0 {

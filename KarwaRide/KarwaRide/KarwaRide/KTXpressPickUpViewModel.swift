@@ -315,6 +315,8 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         selectedStation = nil
         stopsOFStations.removeAll()
         
+        let _ = checkLatLonInsideStation(location: CLLocation(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0))
+        
         for item in zones {
             
             let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
@@ -328,23 +330,28 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             
         }
         
-        let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
         
-        print(selectedZone)
-        print(stationsOfZone)
-        
-        for item in stationsOfZone! {
+        if selectedStation == nil {
+            let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
             
-            let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            })!
+            print(selectedZone)
+            print(stationsOfZone)
             
-            if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
-                selectedStation = item
-                break
+            for item in stationsOfZone! {
+                
+                let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                })!
+                
+                if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                    selectedStation = item
+                    break
+                }
+                
             }
-            
         }
+        
+        
         
         if selectedStation != nil {
             print("it's inside station")
@@ -369,11 +376,6 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             
             selectedCoordinate = coordinates.first!
             
-//
-//            for stop in self.stopsOFStations {
-//                customDestinationsCode = self.destinations.filter{$0.source == stop.code!}.map{$0.destination!}
-//            }
-//
             if customDestinationsCode.count == 0{
                 customDestinationsCode = destinations.filter{$0.source == selectedStation?.code!}.map{$0.destination!}
             }
@@ -391,12 +393,6 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         
         } else {
             
-//            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-//                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-//            })!
-            
-//            selectedCoordinate = coordinates.first!
-            
             customDestinationsCode = destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
             
             for item in customDestinationsCode {
@@ -407,6 +403,28 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         
         }
         
+        
+    }
+    
+    func checkLatLonInsideStation(location: CLLocation) {
+        
+        selectedStation = nil
+        
+        let stationArea = Array(Set(metroStations).union(Set(tramStations)))
+        
+        for item in stationArea {
+            let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            })!
+            if CLLocationCoordinate2D(latitude: selectedCoordinate.latitude, longitude: selectedCoordinate.longitude).contained(by: coordinates) {
+                selectedStation = item
+                break
+            } else {
+                print("it wont contains")
+                selectedStation = nil
+            }
+            
+        }
         
     }
     
