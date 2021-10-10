@@ -22,6 +22,7 @@ protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func addPickUpLocations()
     func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D, zonalArea: [[String : [Area]]])
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
+    func showAlertForStation()
 }
 
 var areas = [Area]()
@@ -256,10 +257,10 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         }
     }
     
-    func didTapMarker(location: CLLocation) {
+    func setPickupStation(_ location: CLLocation) {
         let selectedArea = areas.filter{$0.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first! == String(format: "%.5f", location.coordinate.latitude)}
-         
-         print(selectedArea)
+        
+        print(selectedArea)
         
         if selectedArea.count > 0 {
             (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: selectedArea.first?.name ?? "")
@@ -268,7 +269,10 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
             self.fetchLocationName(forGeoCoordinate: location.coordinate)
         }
-        
+    }
+    
+    func didTapMarker(location: CLLocation) {
+        (delegate as? KTXpressPickUpViewModelDelegate)?.showAlertForStation()
     }
     
     func showStopAlert() {

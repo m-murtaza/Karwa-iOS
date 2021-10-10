@@ -582,7 +582,10 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
                 if navController.viewControllers.count > 5 {
                     navController.popToViewController(navController.viewControllers[3], animated: true)
-                } else if navController.viewControllers.count <= 5 {
+                } else if navController.viewControllers.count <= 4 {
+                    navController.popToViewController(navController.viewControllers[0], animated: true)
+                }
+                else if navController.viewControllers.count <= 5 {
                     navController.popToViewController(navController.viewControllers[1], animated: true)
                 }
                 else {

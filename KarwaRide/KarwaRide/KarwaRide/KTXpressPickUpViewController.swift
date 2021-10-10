@@ -9,6 +9,8 @@
 import UIKit
 import GoogleMaps
 import Spring
+import CDAlertView
+import CoreLocation
 
 class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickUpViewModelDelegate, KTXpressAddressDelegate {
 
@@ -35,7 +37,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     var tapOnMarker = false
     var firstTime = false
 
-    lazy var countOfPassenger = xpressRebookPassengerSelected ? xpressRebookNumberOfPassenger : 1
+    lazy var countOfPassenger =  1
     
     override func viewDidLoad() {
         
@@ -58,31 +60,9 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
-        if xpressRebookPassengerSelected {
-            switch xpressRebookNumberOfPassenger {
-            case 1:
-                self.passengerLabel.text = "str_1pass".localized()
-            case 2:
-                self.passengerLabel.text = "str_2pass".localized()
-            case 3:
-                self.passengerLabel.text = "str_3pass".localized()
-            default:
-                self.passengerLabel.text = "str_1pass".localized()
-            }
-            if xpressRebookNumberOfPassenger == 3 {
-                plusBtn.layer.opacity = 0.5
-                minuBtn.layer.opacity = 1
-            } else {
-                plusBtn.layer.opacity = 1
-                minuBtn.layer.opacity = 0.5
-            }
-        } else {
-            self.passengerLabel.text = "str_1pass".localized()
-            plusBtn.layer.opacity = 1
-            minuBtn.layer.opacity = 0.5
-        }
-        
-        
+        self.passengerLabel.text = "str_1pass".localized()
+        plusBtn.layer.opacity = 1
+        minuBtn.layer.opacity = 0.5
         
         arrowImage.image = UIImage(named: "icon-arrow-right-large")
 
@@ -210,11 +190,29 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.pickUpZone = pickUpzone
         dropOff.operationArea = areas
         dropOff.zonalArea = zonalArea
-        dropOff.countOfPassenger = xpressRebookPassengerSelected ?  xpressRebookNumberOfPassenger : countOfPassenger
+        dropOff.countOfPassenger = countOfPassenger
 
         self.navigationController?.pushViewController(dropOff, animated: true)
         
     }
+    
+    func showAlertForStation() {
+        
+        if self.tapOnMarker == true {
+            let alert = CDAlertView(title: "".localized(), message: "str_metro".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
+            let yesAction = CDAlertViewAction(title: "SETPICKUP".localized()) { value in
+                self.vModel?.setPickupStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+                return true
+            }
+            alert.add(action: yesAction)
+            alert.show()
+        } else {
+            self.vModel?.setPickupStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+        }
+        
+       
+    }
+    
     
     func showStopAlertViewController(stops: [Area], selectedStation: Area) {
         

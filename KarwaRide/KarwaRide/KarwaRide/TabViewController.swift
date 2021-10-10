@@ -19,7 +19,7 @@ class TabViewController: UITabBarController {
         
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
 
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor(hexString: "#006170"), NSAttributedStringKey.font : UIFont(name: "MuseoSans-700", size: 14.0)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor : UIColor(hexString: "#006170")], for: .normal)
         
         self.tabBar.unselectedItemTintColor = UIColor(hexString: "#65A0AA")
         
@@ -43,9 +43,37 @@ class TabViewController: UITabBarController {
         
         if xpressRebookSelected {
             self.selectedIndex = 1
+        } else {
+            self.selectedIndex = 0
         }
         
         tabBar.shadowImage = UIImage()
+        
+        guard let items = tabBar.items else { return }
+
+        items[0].title = "str_book_karwa".localized()
+        items[1].title = "str_xpress".localized()
+        items[2].title = "action_settings".localized()
+        
+        items[0].image = UIImage(named: "Tabbar1")
+        items[1].image = UIImage(named: "kmetroexpress")
+        items[2].image = UIImage(named: "settings_ico_idle")
+        
+        items[0].selectedImage = UIImage(named: "Tabbar1")
+        items[1].selectedImage = UIImage(named: "kmetroexpress")
+        items[2].selectedImage = UIImage(named: "settings_ico_active")
+        
+        for item in items {
+            var normal: [NSAttributedString.Key: AnyObject] =
+            [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 12.0)!]
+            normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
+            item.setTitleTextAttributes(normal, for: .normal)
+        }
+        
+        var normal: [NSAttributedString.Key: AnyObject] =
+        [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 12.0)!]
+        normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
+        items[0].setTitleTextAttributes(normal, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,27 +97,8 @@ class TabViewController: UITabBarController {
 //            //tabBar.scrollEdgeAppearance = tabBar.standardAppearance
 //        }
 
-        let appearance = UITabBarItem.appearance()
-        let attributes = [NSAttributedString.Key.font:UIFont(name: "MuseoSans-700", size: 14.0)!]
-        appearance.setTitleTextAttributes(attributes as [NSAttributedString.Key : Any], for: .normal)
         
-        guard let items = tabBar.items else { return }
-
-        items[0].title = "str_book_karwa".localized()
-        items[1].title = "str_xpress".localized()
-        items[2].title = "action_settings".localized()
-        
-        items[0].image = UIImage(named: "Tabbar1")
-        items[1].image = UIImage(named: "kmetroexpress")
-        items[2].image = UIImage(named: "settings_ico_idle")
-        
-        items[0].selectedImage = UIImage(named: "Tabbar1")
-        items[1].selectedImage = UIImage(named: "kmetroexpress")
-        items[2].selectedImage = UIImage(named: "settings_ico_active")
-        
-        for item in items {
-            item.setTitleTextAttributes([NSAttributedString.Key.font:UIFont(name: "MuseoSans-700", size: 12.0)!, NSAttributedString.Key.foregroundColor: UIColor.primary], for: .normal)
-        }
+    
         
     }
     
@@ -106,7 +115,34 @@ class TabViewController: UITabBarController {
         navigationController?.isNavigationBarHidden = true
     }
     
-    
+    override var selectedViewController: UIViewController? {
+        didSet {
+
+            guard let viewControllers = viewControllers else {
+                return
+            }
+
+            for viewController in viewControllers {
+
+                if viewController == selectedViewController {
+
+                    var selected: [NSAttributedString.Key: AnyObject] =
+                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 12.0)!]
+                    selected[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
+                    viewController.tabBarItem.setTitleTextAttributes(selected, for: .normal)
+
+                } else {
+
+                    var normal: [NSAttributedString.Key: AnyObject] =
+                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 12.0)!]
+                    normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
+                    viewController.tabBarItem.setTitleTextAttributes(normal, for: .normal)
+
+                }
+            }
+        }
+    }
+
     
 }
 

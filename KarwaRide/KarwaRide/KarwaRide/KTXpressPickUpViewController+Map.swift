@@ -28,11 +28,10 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         self.mapView.camera = camera
         
-        (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
-        
-        
         (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
-        
+
+        (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
+                
         defer {
             (self.viewModel as! KTXpressPickUpViewModel).showStopAlert()
         }
@@ -60,6 +59,8 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         
         let name = "XpressLocationManagerNotificationIdentifier"
 
+        (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+
         if areas.count > 0 {
             (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
             KTLocationManager.sharedInstance.setCurrentLocation(location: location)
@@ -68,9 +69,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             KTLocationManager.sharedInstance.setCurrentLocation(location: location)
             (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
         }
-        
-        (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        
+                
         if areas.count > 0 {
             if checkLatLonInside(location: location) {
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
@@ -245,41 +244,26 @@ extension KTXpressPickUpViewController
             
             rects.append(rect)
             
-            if xpressRebookSelected == false {
-                
-                if addressSelected == false {
-                    if checkLatLonInside(location: KTLocationManager.sharedInstance.baseLocation) && xpressRebookPickUpSelected == false {
-                        let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 15)
-                        self.mapView.animate(to: camera)
-                        let coord = CLLocation(latitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : KTLocationManager.sharedInstance.baseLocation.coordinate.longitude)
-                        (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: coord.coordinate)
-                        self.checkCoordinateStatus(coord)
-                        
-                    } else {
-                        let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : getCenterPointOfPolygon(bounds: item).longitude, zoom: 15)
-                        self.mapView.animate(to: camera)
-                        KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.longitude : getCenterPointOfPolygon(bounds: item).longitude)
-                        (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: KTLocationManager.sharedInstance.currentLocation.coordinate)
-                        self.checkCoordinateStatus(KTLocationManager.sharedInstance.currentLocation)
-                        
-                        (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude))
-                        
-                    }
+            if addressSelected == false {
+                if checkLatLonInside(location: KTLocationManager.sharedInstance.baseLocation) && xpressRebookPickUpSelected == false {
+                    let camera = GMSCameraPosition.camera(withLatitude:  KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude:  KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 15)
+                    self.mapView.animate(to: camera)
+                    let coord = CLLocation(latitude:  KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude:  KTLocationManager.sharedInstance.baseLocation.coordinate.longitude)
+                    (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: coord.coordinate)
+                    self.checkCoordinateStatus(coord)
+                    
+                } else {
+                    let camera = GMSCameraPosition.camera(withLatitude: getCenterPointOfPolygon(bounds: item).latitude, longitude: getCenterPointOfPolygon(bounds: item).longitude, zoom: 15)
+                    self.mapView.animate(to: camera)
+                    KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude:  getCenterPointOfPolygon(bounds: item).latitude, longitude: getCenterPointOfPolygon(bounds: item).longitude)
+                    (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: KTLocationManager.sharedInstance.currentLocation.coordinate)
+                    self.checkCoordinateStatus(KTLocationManager.sharedInstance.currentLocation)
+                    (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
+                    (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude))
                     
                 }
                 
-            } else {
-                if addressSelected == false {
-                    let camera = GMSCameraPosition.camera(withLatitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : getCenterPointOfPolygon(bounds: item).longitude, zoom: 15)
-                    self.mapView.animate(to: camera)
-                    KTLocationManager.sharedInstance.currentLocation = CLLocation(latitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.longitude : getCenterPointOfPolygon(bounds: item).longitude)
-                    (self.viewModel as! KTXpressPickUpViewModel).fetchLocationName(forGeoCoordinate: CLLocationCoordinate2D(latitude: xpressRebookPickUpSelected ?  xpressRebookPickUpCoordinates.latitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : getCenterPointOfPolygon(bounds: item).longitude))
-                    self.checkCoordinateStatus(CLLocation(latitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.latitude : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookPickUpSelected ? xpressRebookPickUpCoordinates.longitude : getCenterPointOfPolygon(bounds: item).longitude))
-                    (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude))
-
-                }
             }
-            
             
         }
         

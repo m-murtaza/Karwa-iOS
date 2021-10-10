@@ -373,7 +373,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideFareDetailBtn()
             starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
-//            bookingTime.isHidden = false
+            bookingTime.isHidden = false
             hideSeperatorBeforeReportAnIssue()
             
             showDriverInfoBox()

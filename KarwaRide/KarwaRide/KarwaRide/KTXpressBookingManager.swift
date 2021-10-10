@@ -20,7 +20,7 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
 
         //syncTime(forKey:ZONE_SYNC_TIME)
         
-        let param : [String: Any] = [Constants.SyncParam.BookingList: 0 ]
+        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:ZONE_SYNC_TIME)]
                 
         self.get(url: Constants.APIURL.GetRSAreas, param: param, completion: completionBlock) { (response, cBlock) in
             
