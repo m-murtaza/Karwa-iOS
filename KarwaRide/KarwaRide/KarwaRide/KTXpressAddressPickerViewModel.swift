@@ -52,7 +52,8 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   private var del : KTXpressAddressPickerViewModelDelegate?
     
   var metroStations = [Area]()
-  
+  var favoriteMetroStation = [Area]()
+
   //MARK: - View Lifecycle
   
   override func viewDidLoad() {
@@ -106,7 +107,11 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
     
   func locationAtIndexPath(indexPath: IndexPath) -> Any {
     if indexPath.section == 1 {
-        return bookmarks[indexPath.row]
+        if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
+            return favoriteMetroStation[indexPath.row - bookmarks.count]
+        } else {
+            return bookmarks[indexPath.row]
+        }
     } else if indexPath.section == 0 {
         return locations[indexPath.row]
     } else {
@@ -283,15 +288,13 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   
   //MARK: - TableView
   func numberOfRow(section : Int) -> Int {
-    
     if section == 1 {
-        return bookmarks.count
+        return bookmarks.count + favoriteMetroStation.count
     } else if section == 0 {
         return locations.count
     } else {
         return metroStations.count
     }
-    
   }
     
     func moreButtonIcon(forIndex idx: IndexPath) -> UIImage {
@@ -332,7 +335,10 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
           else if bookmarks[idx.row].name != nil {
             title = bookmarks[idx.row].name!
           }
-          //title = locations[idx.row].name!
+        } else {
+            if idx.row >= bookmarks.count && ((idx.row - bookmarks.count) >=  0) && ((idx.row - bookmarks.count) < favoriteMetroStation.count)  {
+                title = favoriteMetroStation[idx.row - bookmarks.count].name ?? ""
+            }
         }
         return title.capitalizingFirstLetter()
     }
@@ -360,13 +366,17 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
     } else if idx.section == 1 {
         var area : String = ""
         
-        if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
-          area = bookmarks[idx.row].name!
+        if idx.row < bookmarks.count  {
+            if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
+              area = bookmarks[idx.row].name!
+            }
+            else if bookmarks[idx.row].area != nil {
+              area = bookmarks[idx.row].area!
+            }
+        } else {
+            area = ""
         }
-        else if bookmarks[idx.row].area != nil {
-          area = bookmarks[idx.row].area!
-        }
-        
+                
         return area.capitalizingFirstLetter()
     } else {
         return ""
@@ -418,6 +428,8 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
           default:
             img = UIImage(named: "Star_ico")
           }
+        } else {
+            img = UIImage(named: "metro_ico")
         }
         return img!
 

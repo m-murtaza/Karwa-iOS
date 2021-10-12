@@ -61,7 +61,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     @IBOutlet weak var pickUpAddressButton: SpringButton!
     @IBOutlet weak var dropOffAddressButton: SpringButton!
-    @IBOutlet weak var setBookingButton: LocalisableButton!
+    @IBOutlet weak var setBookingButton: SpringButton!
 
     @IBOutlet weak var rideServiceTableView: UITableView!
     
@@ -105,6 +105,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
+        setBookingButton.setTitle("book_ride".localized(), for: .normal)
 
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
@@ -338,6 +340,16 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
     @IBAction func showRideTrackingViewController() {
         animateButton()
+    }
+    
+    @IBAction func bookbtnTouchDown(_ sender: SpringButton)
+    {
+      springAnimateButtonTapIn(button: setBookingButton)
+    }
+    
+    @IBAction func bookbtnTouchUpOutside(_ sender: SpringButton)
+    {
+      springAnimateButtonTapOut(button: setBookingButton)
     }
     
     // ⬇︎⬇︎⬇︎ animation happens here ⬇︎⬇︎⬇︎

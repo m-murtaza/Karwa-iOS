@@ -35,6 +35,12 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         vModel = viewModel as? KTXpressAddressPickerViewModel
         vModel?.metroStations = self.metroStations
         
+        for itm in metroStations {
+            if KTBookmarkManager().getXpressFavorite(code: itm.code ?? 0) == true {
+                vModel?.favoriteMetroStation.append(itm)
+            }
+        }
+        
         pickUpAddressHeaderLabel.text = fromDropOff ? "DROPOFFHEADER".localized() : "PICKUPHEADER".localized()
         
         pickUpAddressHeaderLabel.duration = 1
@@ -72,11 +78,17 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     
     override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
-        if fromDropOff {
-            self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+        
+        if #available(iOS 15.0, *) {
+            if fromDropOff {
+                self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
+            } else {
+                self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+            }
         } else {
             self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
+        
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {

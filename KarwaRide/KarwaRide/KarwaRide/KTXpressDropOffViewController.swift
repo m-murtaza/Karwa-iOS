@@ -20,7 +20,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
 
     @IBOutlet weak var passengerLabel: UILabel!
     
-    @IBOutlet weak var setDropOffButton: UIButton!
+    @IBOutlet weak var setDropOffButton: SpringButton!
     
     @IBOutlet weak var markerButton: SpringButton!
     
@@ -78,8 +78,6 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             self.vModel?.setupCurrentLocaiton()
         }
 
-        self.setDropOffButton.addTarget(self, action: #selector(clickToSetUpBooking), for: .touchUpInside)
-
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
         switch countOfPassenger {
@@ -112,6 +110,8 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         (self.viewModel as! KTXpressDropoffViewModel).countOfPassenger = countOfPassenger
 
         arrowImage.image = UIImage(named: "icon-arrow-right-large")
+        
+        self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
         
     }
     
@@ -190,8 +190,18 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
     }
     
-    @objc func clickToSetUpBooking() {
+    @IBAction func clickToSetUpBooking() {
         (viewModel as! KTXpressDropoffViewModel).didTapSetDropOffButton()
+    }
+    
+    @IBAction func bookbtnTouchDown(_ sender: SpringButton)
+    {
+      springAnimateButtonTapIn(button: setDropOffButton)
+    }
+    
+    @IBAction func bookbtnTouchUpOutside(_ sender: SpringButton)
+    {
+      springAnimateButtonTapOut(button: setDropOffButton)
     }
     
     @objc private func showMenu() {

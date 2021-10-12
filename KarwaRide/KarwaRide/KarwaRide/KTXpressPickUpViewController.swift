@@ -16,7 +16,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
     @IBOutlet weak var pickUpAddressLabel: SpringLabel!
     @IBOutlet weak var markerButton: SpringButton!
-    @IBOutlet weak var setPickUpButton: UIButton!
+    @IBOutlet weak var setPickUpButton: SpringButton!
     
     @IBOutlet weak var plusBtn: UIButton!
     @IBOutlet weak var minuBtn: UIButton!
@@ -43,6 +43,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
         super.viewDidLoad()
 
+        setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
         viewModel = KTXpressPickUpViewModel(del:self)
         vModel = viewModel as? KTXpressPickUpViewModel
         // Do any additional setup after loading the view.
@@ -74,6 +75,16 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
         (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
         
+    }
+    
+    @IBAction func bookbtnTouchDown(_ sender: SpringButton)
+    {
+      springAnimateButtonTapIn(button: setPickUpButton)
+    }
+    
+    @IBAction func bookbtnTouchUpOutside(_ sender: SpringButton)
+    {
+      springAnimateButtonTapOut(button: setPickUpButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -290,9 +301,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
                 let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
                 self.mapView.camera = camera
-                (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
                 (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
-
+                (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
                 defer {
                     (self.viewModel as! KTXpressPickUpViewModel).showStopAlert()
                 }
