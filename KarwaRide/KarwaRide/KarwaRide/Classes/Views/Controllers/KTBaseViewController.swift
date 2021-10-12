@@ -27,7 +27,6 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         
         super.viewWillAppear(animated)
         viewModel?.viewWillAppear()
-        self.fetchOperatingArea()
     }
     
     override func viewDidAppear(_ animated: Bool)
