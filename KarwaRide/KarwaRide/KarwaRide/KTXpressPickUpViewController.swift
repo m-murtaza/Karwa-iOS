@@ -227,7 +227,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     
     func showStopAlertViewController(stops: [Area], selectedStation: Area) {
         
-        let alert = UIAlertController(title: "\(selectedStation.name! + "Stops")", message: "Please Select Stop for Station", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\(selectedStation.name! + "str_stop".localized())", message: "str_select_stop".localized(), preferredStyle: .actionSheet)
         
         
         for item in stops {
@@ -253,7 +253,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     }
     
     func setLocation(location: Any) {
-        
+
         addressSelected = true
         
         if let loc = location as? KTGeoLocation {
@@ -292,41 +292,40 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             }
         } else {
             
-            if let loc = location as? Area {
-                print(location)
-                self.tapOnMarker = true
-                
-                let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
-                print(metroAreaCoordinate.latitude)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if let loc = location as? Area {
+                    print(location)
+                    self.tapOnMarker = true
+                    
+                    let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
+                    print(metroAreaCoordinate.latitude)
 
-                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
-                self.mapView.camera = camera
-                (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
-                (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
-                defer {
-                    (self.viewModel as! KTXpressPickUpViewModel).showStopAlert()
-                }
+                    let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
+                    self.mapView.camera = camera
+                    (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
+                    (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+                    (self.viewModel as? KTXpressPickUpViewModel)?.selectedStation = loc
 
-                self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
-                self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-                self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
-                self.setPickUpButton.isUserInteractionEnabled = true
-                
-                self.setPickUpButton.layer.shadowRadius = 3
-                self.setPickUpButton.layer.shadowOpacity = 1
-                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-                if #available(iOS 13.0, *) {
-                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
-                } else {
-                    // Fallback on earlier versions
-                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                    self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
+                    self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
+                    self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
+                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                    self.setPickUpButton.isUserInteractionEnabled = true
+                    
+                    self.setPickUpButton.layer.shadowRadius = 3
+                    self.setPickUpButton.layer.shadowOpacity = 1
+                    self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                    if #available(iOS 13.0, *) {
+                        self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                    } else {
+                        // Fallback on earlier versions
+                        self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                    }
                 }
             }
             
         }
-        
-        
+    
     }
     
 

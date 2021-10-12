@@ -264,11 +264,13 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
         
         if selectedArea.count > 0 {
             (self.delegate as! KTXpressPickUpViewModelDelegate).setPickUp(pick: selectedArea.first?.name ?? "")
+            self.showStopAlert()
         } else {
             let name = "XpressLocationManagerNotificationIdentifier"
             NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
             self.fetchLocationName(forGeoCoordinate: location.coordinate)
         }
+                
     }
     
     func didTapMarker(location: CLLocation) {
@@ -389,7 +391,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             
             print("destinationForPickUp", destinationForPickUp)
             
-            selectedStop = stopsOFStations.first!
+            selectedStop = selectedStop == nil ? stopsOFStations.first! : selectedStop
         
         } else {
             
