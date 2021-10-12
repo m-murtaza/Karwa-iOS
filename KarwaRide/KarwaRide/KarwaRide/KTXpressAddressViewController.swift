@@ -35,11 +35,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         vModel = viewModel as? KTXpressAddressPickerViewModel
         vModel?.metroStations = self.metroStations
         
-        for itm in metroStations {
-            if KTBookmarkManager().getXpressFavorite(code: itm.code ?? 0) == true {
-                vModel?.favoriteMetroStation.append(itm)
-            }
-        }
+        getFavouriteMetroStations()
         
         pickUpAddressHeaderLabel.text = fromDropOff ? "DROPOFFHEADER".localized() : "PICKUPHEADER".localized()
         
@@ -74,6 +70,17 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         self.view.backgroundColor = #colorLiteral(red: 0.8074620366, green: 0.8727054596, blue: 0.858532846, alpha: 1)
                 
+    }
+    
+    fileprivate func getFavouriteMetroStations() {
+        vModel?.favoriteMetroStation.removeAll()
+        for itm in metroStations {
+            if KTBookmarkManager().getXpressFavorite(code: itm.code ?? 0) == true {
+                if vModel?.favoriteMetroStation.contains(itm) == false {
+                    vModel?.favoriteMetroStation.append(itm)
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -190,14 +197,31 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         cell.backgroundColor = UIColor(hexString: "#F9F9F9")
 
         cell.titleLabel.text = (viewModel as! KTXpressAddressPickerViewModel).addressTitle(forIndex: indexPath)
-        cell.addressLabel.text = (viewModel as! KTXpressAddressPickerViewModel).addressArea(forIndex: indexPath)
+        
         cell.icon.image = (viewModel as! KTXpressAddressPickerViewModel).addressTypeIcon(forIndex: indexPath)
         
         cell.moreButton.setImage((viewModel as! KTXpressAddressPickerViewModel).moreButtonIcon(forIndex: indexPath), for: .normal)
 
+        if indexPath.section == 1 {
+            if let bookmarks = vModel?.bookmarks {
+                if indexPath.row < bookmarks.count  {
+                    cell.moreButton.isHidden = false
+                } else {
+                    cell.moreButton.isHidden = true
+                }
+            }
+        } else {
+            cell.moreButton.isHidden = false
+        }
+            
         if indexPath.section != 2 {
+            if (viewModel as! KTXpressAddressPickerViewModel).addressArea(forIndex: indexPath).count > 0 {
+                cell.addressLabel.isHidden = false
+                cell.addressLabel.text = (viewModel as! KTXpressAddressPickerViewModel).addressArea(forIndex: indexPath)
+            } else {
+                cell.addressLabel.isHidden = true
+            }
             cell.icon.customCornerRadius = cell.icon.frame.width/2
-            cell.addressLabel.isHidden = false
         } else {
             cell.icon.customCornerRadius = 0
             cell.addressLabel.isHidden = true
@@ -254,7 +278,8 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
             alertController.modalTransitionStyle = .crossDissolve
             self.present(alertController, animated: true, completion: nil)
         } else {
-            KTBookmarkManager().saveXpressFavorite(location: metroStations[indexPath!.row])
+            vModel?.saveFavoriteMetroStations(metro: metroStations[indexPath!.row])
+            self.getFavouriteMetroStations()
             self.tableView.reloadData()
         }
         

@@ -40,7 +40,7 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   public var pickUpAddress : KTGeoLocation?
   public var dropOffAddress : KTGeoLocation?
   private var locations : [KTGeoLocation] = []
-  private var bookmarks : [KTGeoLocation] = []
+  var bookmarks : [KTGeoLocation] = []
   private var favorites : [KTGeoLocation] = []
   private var nearBy : [KTGeoLocation] = []
   private var recent : [KTGeoLocation] = []
@@ -304,6 +304,14 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
             let addedFav = KTBookmarkManager().getXpressFavorite(code: metroStations[idx.row].code ?? 0)
             return addedFav ? #imageLiteral(resourceName: "Star_ico") : #imageLiteral(resourceName: "favorite_map_ico")
         }
+    }
+    
+    func saveFavoriteMetroStations(metro: Area) {
+        KTBookmarkManager().saveXpressFavorite(location: metro)
+    }
+    
+    func deleteFavoriteStations(metro: Area) {
+        KTBookmarkManager().deleteXpressFavorite(code: metro.code ?? -1)
     }
   
   func addressTitle(forIndex idx: IndexPath) -> String {
