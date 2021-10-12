@@ -483,7 +483,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.view.customCornerRadius = 0
             
             DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 625
+                self.heightOFScrollViewContent.constant = 675
                 self.sheet?.setSizes([.percent(0.45),.marginFromTop(200)], animated: true)
             }
             

@@ -416,7 +416,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
             let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                 return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
             })!
-            if CLLocationCoordinate2D(latitude: selectedCoordinate.latitude, longitude: selectedCoordinate.longitude).contained(by: coordinates) {
+            if CLLocationCoordinate2D(latitude: selectedCoordinate!.latitude, longitude: selectedCoordinate!.longitude).contained(by: coordinates) {
                 selectedStation = item
                 break
             } else {

@@ -75,7 +75,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         if fromDropOff {
             self.tableView.contentInset = UIEdgeInsets(top: -80, left: 0, bottom: 0, right: 0)
         } else {
-            self.tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
     
