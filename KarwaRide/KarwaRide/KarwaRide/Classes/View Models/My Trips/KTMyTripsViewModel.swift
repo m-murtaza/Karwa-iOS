@@ -12,6 +12,7 @@ protocol KTMyTripsViewModelDelegate {
     func showNoBooking()
     func moveToDetails()
     func endRefreshing()
+    func showNavigationController()
 }
 
 class KTMyTripsViewModel: KTBaseViewModel {
@@ -32,6 +33,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             selectedBooking = nil;
         }
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
+        (delegate as? KTMyTripsViewModelDelegate)?.showNavigationController()
 
     }
     

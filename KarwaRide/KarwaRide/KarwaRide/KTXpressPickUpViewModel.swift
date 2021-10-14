@@ -44,6 +44,8 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     
     var pickUpArea = [Area]()
     var selectedCoordinate: CLLocationCoordinate2D?
+    var selectedStationName: String?
+
     var destinationForPickUp = [Area]()
     var selectedZone:Area?
     var selectedStop:Area?

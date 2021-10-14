@@ -713,7 +713,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             iconImage = UIImage(named: "free_ico") ?? UIImage()
 //            iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage() "  \(String(describing: vModel?.paymentMethod() ?? "")) "
             keyLbl.addLeading(image: iconImage, text: "str_free".localized(), imageOffsetY: -4)
-            keyLbl.font = UIFont(name: "MuseoSans-900", size: 14.0)!
+            keyLbl.font = UIFont(name: "MuseoSans-500", size: 14.0)!
         }
         else {
             keyLbl.font = UIFont(name: "MuseoSans-700", size: 14.0)!

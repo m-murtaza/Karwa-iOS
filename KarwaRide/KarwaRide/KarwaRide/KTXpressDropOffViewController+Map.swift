@@ -36,36 +36,39 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
   }
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
                 
+        self.tapOnMarker = true
+
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         
         self.mapView.camera = camera
         
-        (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
-        
-        
         (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
+
         
-        defer {
-            (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+        if let titleString = marker.title, title?.count ?? 0 > 0 {
+            (self.viewModel as! KTXpressDropoffViewModel).selectedStationName = marker.title ?? ""
+            (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
+            defer {
+                (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+            }
         }
+        
         
         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
         self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
         self.setDropOffButton.isUserInteractionEnabled = true
-        self.setDropOffButton.layer.shadowRadius = 3
-        self.setDropOffButton.layer.shadowOpacity = 1
-        self.setDropOffButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+        self.setDropOffButton.layer.shadowRadius = 4
+        self.setDropOffButton.layer.shadowOpacity = 3
+        self.setDropOffButton.layer.shadowOffset = CGSize(width: 3, height: 3)
         if #available(iOS 13.0, *) {
-            self.setDropOffButton.layer.shadowColor = UIColor.systemGray3.cgColor
+            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
         } else {
             // Fallback on earlier versions
-            self.setDropOffButton.layer.shadowColor = UIColor.lightGray.cgColor
+            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
         }
         
-        self.tapOnMarker = true
-
         return true
     }
   
@@ -103,14 +106,14 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                         self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                         self.setDropOffButton.isUserInteractionEnabled = true
-                        self.setDropOffButton.layer.shadowRadius = 3
-                        self.setDropOffButton.layer.shadowOpacity = 1
-                        self.setDropOffButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                        self.setDropOffButton.layer.shadowRadius = 4
+                        self.setDropOffButton.layer.shadowOpacity = 3
+                        self.setDropOffButton.layer.shadowOffset = CGSize(width: 3, height: 3)
                         if #available(iOS 13.0, *) {
-                            self.setDropOffButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
                         } else {
                             // Fallback on earlier versions
-                            self.setDropOffButton.layer.shadowColor = UIColor.lightGray.cgColor
+                            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
                         }
                         break
                         
@@ -122,14 +125,14 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                     self.setDropOffButton.isUserInteractionEnabled = true
-                    self.setDropOffButton.layer.shadowRadius = 3
-                    self.setDropOffButton.layer.shadowOpacity = 1
-                    self.setDropOffButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                    self.setDropOffButton.layer.shadowRadius = 4
+                    self.setDropOffButton.layer.shadowOpacity = 3
+                    self.setDropOffButton.layer.shadowOffset = CGSize(width: 3, height: 3)
                     if #available(iOS 13.0, *) {
-                        self.setDropOffButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                        self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
                     } else {
                         // Fallback on earlier versions
-                        self.setDropOffButton.layer.shadowColor = UIColor.lightGray.cgColor
+                        self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
                     }
                     break
                 }
@@ -189,7 +192,7 @@ extension KTXpressDropOffViewController
 
         showCurrentLocationDot(show: true)
                 
-        self.addMarkerOnMap(location: pickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+        self.addMarkerOnMap(title:"" , location: pickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
         
         markerButton.isHidden = false
         
@@ -231,10 +234,10 @@ extension KTXpressDropOffViewController
                 let coordinate = CLLocationCoordinate2D(latitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first!)!)!, longitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").last!)!)!)
                                 
                 if item.type == "TramStation"{
-                    self.addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
+                    self.addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
 
                 } else{
-                    self.addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
+                    self.addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
 
                 }
                                 
@@ -366,10 +369,10 @@ extension KTXpressDropOffViewController
         mapView.clear()
     }
         
-    func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
+    func addMarkerOnMap(title: String, location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
         marker.position = location
-        
+        marker.title = title
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.2,y:1)
         marker.map = self.mapView

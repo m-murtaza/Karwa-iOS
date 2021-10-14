@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import Spring
+import CDAlertView
 
 class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddressDelegate {
     
@@ -134,6 +135,24 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         self.navigationController?.pushViewController(addressPicker, animated: true)
     }
     
+    func showAlertForStation() {
+        
+        if self.tapOnMarker == true {
+            let alert = CDAlertView(title: "str_metro".localized(), message: self.vModel?.selectedStationName ?? "", type: .custom(image: UIImage(named:"metro_ico_map")!))
+            let yesAction = CDAlertViewAction(title: "SETDROPOFF".localized()) { value in
+                self.vModel?.setDropOffStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+                self.vModel?.didTapSetDropOffButton()
+                return true
+            }
+            alert.add(action: yesAction)
+            alert.show()
+        } else {
+            self.vModel?.setDropOffStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+        }
+        
+       
+    }
+    
     @IBAction func setCountForPassenger(sender: UIButton) {
         if sender.tag == 101 {
             if countOfPassenger >= 1 && countOfPassenger < 3 {
@@ -211,8 +230,6 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     func showStopAlertViewController(stops: [Area], selectedStation: Area) {
         
         let alert = UIAlertController(title: "\(selectedStation.name! + "Stops")", message: "Please Select Stop for Station", preferredStyle: .actionSheet)
-        
-        
         for item in stops {
             alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
                 self.tapOnMarker = true

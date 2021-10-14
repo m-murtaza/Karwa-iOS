@@ -38,6 +38,7 @@ protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
     func showRideServiceViewController(rideLocationData: RideSerivceLocationData?)
     func hideNavigationController()
+    func showAlertForStation()
 }
 
 class KTXpressDropoffViewModel: KTBaseViewModel {
@@ -58,6 +59,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     var picupRect = GMSMutablePath()
     var pickUpCoordinate: CLLocationCoordinate2D?
     var selectedCoordinate: CLLocationCoordinate2D?
+    var selectedStationName: String?
     var stopsOFStations = [Area]()
     var selectedStop:Area?
     var selectedStation: Area?
@@ -133,7 +135,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 
     }
     
-    func didTapMarker(location: CLLocation) {
+    func setDropOffStation(_ location: CLLocation) {
         let selectedArea = self.destinationsForPickUp.filter{$0.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first! == String(format: "%.5f", location.coordinate.latitude)}
          
          print(selectedArea)
@@ -147,6 +149,11 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 //            NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
 //            KTLocationManager.sharedInstance.setCurrentLocation(location: location)
         }
+    }
+    
+    func didTapMarker(location: CLLocation) {
+        
+        (delegate as? KTXpressDropoffViewModelDelegate)?.showAlertForStation()
         
     }
     

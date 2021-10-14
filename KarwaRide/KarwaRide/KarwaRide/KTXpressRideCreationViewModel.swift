@@ -158,6 +158,10 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
+            if String == "FAILED" {
+                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+            }
+            
             guard let rides = response["Rides"] as? [[String : Any]] else {
                 if let message = response["M"] as? String {
                     (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: message)
@@ -251,7 +255,10 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     func getEstimatedTime(index: Int) -> NSAttributedString {
-        if let attributedString = createAttributedString(stringArray: ["str_arrives".localized(), " \((self.rideInfo?.rides[index].eta ?? 0)/60) "+"str_mins".localized()], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:  UIFont(name: "MuseoSans-700", size: 14.0)!]) {
+        
+        let minString = ((self.rideInfo?.rides[index].eta ?? 0)/60) > 0 ? "str_mins".localized() : "str_min".localized()
+        
+        if let attributedString = createAttributedString(stringArray: ["str_arrives".localized(), " \((self.rideInfo?.rides[index].eta ?? 0)/60) " + minString], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:  UIFont(name: "MuseoSans-700", size: 14.0)!]) {
               return attributedString
         } else {
             return NSAttributedString()

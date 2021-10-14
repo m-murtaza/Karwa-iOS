@@ -210,9 +210,10 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     func showAlertForStation() {
         
         if self.tapOnMarker == true {
-            let alert = CDAlertView(title: "str_metro".localized(), message: "", type: .custom(image: UIImage(named:"metro_ico_map")!))
+            let alert = CDAlertView(title: "str_metro".localized(), message: (self.viewModel as! KTXpressPickUpViewModel).selectedStationName, type: .custom(image: UIImage(named:"metro_ico_map")!))
             let yesAction = CDAlertViewAction(title: "SETPICKUP".localized()) { value in
                 self.vModel?.setPickupStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+                (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
                 return true
             }
             alert.add(action: yesAction)
@@ -272,14 +273,14 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = true
                 
-                self.setPickUpButton.layer.shadowRadius = 3
-                self.setPickUpButton.layer.shadowOpacity = 1
-                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                self.setPickUpButton.layer.shadowRadius = 4
+                self.setPickUpButton.layer.shadowOpacity = 3
+                self.setPickUpButton.layer.shadowOffset = CGSize(width: 3, height: 3)
                 if #available(iOS 13.0, *) {
-                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                    self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
                 } else {
                     // Fallback on earlier versions
-                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                    self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
                 }
                 
             } else {
@@ -312,14 +313,14 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                     self.setPickUpButton.isUserInteractionEnabled = true
                     
-                    self.setPickUpButton.layer.shadowRadius = 3
-                    self.setPickUpButton.layer.shadowOpacity = 1
-                    self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
+                    self.setPickUpButton.layer.shadowRadius = 4
+                    self.setPickUpButton.layer.shadowOpacity = 3
+                    self.setPickUpButton.layer.shadowOffset = CGSize(width: 3, height: 3)
                     if #available(iOS 13.0, *) {
-                        self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
+                        self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
                     } else {
                         // Fallback on earlier versions
-                        self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
+                        self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
                     }
                 }
             }

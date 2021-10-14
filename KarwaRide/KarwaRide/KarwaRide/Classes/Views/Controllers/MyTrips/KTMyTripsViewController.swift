@@ -59,7 +59,17 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
       addMenuButton()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+    }
 
+    func showNavigationController() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     override func updateForBooking(_ booking: KTBooking)
     {
         vModel?.bookingUpdateTriggered(booking)

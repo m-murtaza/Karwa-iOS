@@ -56,7 +56,7 @@ class KTFareServiceCell: UITableViewCell {
 
 
 class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpressRideCreationViewModelDelegate {
-    
+        
     @IBOutlet weak var rideServiceView: UIView!
     
     @IBOutlet weak var pickUpAddressButton: SpringButton!
@@ -175,20 +175,24 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     @IBAction func showPickUpScreen(_ sender: UIButton) {
         if let navController = self.navigationController {
-            
-            if let controller = navController.viewControllers.first(where: { $0 is KTXpressDropOffViewController }) {
-                if navController.viewControllers.count > 5 {
-                    navController.popToViewController(navController.viewControllers[3], animated: true)
-                } else if navController.viewControllers.count <= 5 {
-                    navController.popToViewController(navController.viewControllers[1], animated: true)
-                }
-                else {
+            if let navController = self.navigationController {
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    }
+                    else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    }
+                    else {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
                     navController.popViewController(animated: true)
                 }
-            } else {
-                navController.popViewController(animated: true)
             }
-
         }
     }
     
@@ -292,7 +296,25 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     func showAlertForTimeOut() {
         let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
-            self.navigationController?.popViewController(animated: true)
+            
+            if let navController = self.navigationController {
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    }
+                    else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    }
+                    else {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
+                    navController.popViewController(animated: true)
+                }
+            }
             return true
         }
         alert.add(action: doneAction)
@@ -308,23 +330,27 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         let alert = CDAlertView(title: message, message: "", type: .error)
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
-            self.navigationController?.popViewController(animated: true)
-            
-//            if let controllers = self.navigationController?.viewControllers {
-//
-//                for item in controllers {
-//                    if item.isKind(of: TabViewController.self) {
-//                        self.navigationController?.popToViewController(item, animated: true)
-//                    }
-//                    if item.isKind(of: KTMyTripsViewController.self) {
-//                        self.navigationController?.popToViewController(item, animated: true)
-//                    }
-//                }
-//
-//            }
-            
+            if let navController = self.navigationController {
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    }
+                    else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    }
+                    else {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
+                    navController.popViewController(animated: true)
+                }
+            }
             return true
         }
+        
         alert.add(action: doneAction)
         alert.show()
     }
