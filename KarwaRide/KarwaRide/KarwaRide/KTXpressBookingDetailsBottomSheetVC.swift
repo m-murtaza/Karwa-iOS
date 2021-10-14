@@ -69,7 +69,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         self.lblPickAddress.numberOfLines = 2
         self.lblDropoffAddress.numberOfLines = 2
         self.sheet?.view.backgroundColor = .clear
-        btnPhone.isHidden = true
+//        btnPhone.isHidden = true
 //        btnRebook.isUserInteractionEnabled = false
         
     }
@@ -169,7 +169,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showPhoneButton()
     {
-        btnPhone.isHidden = true
+        btnPhone.isHidden = false
     }
 
     func updateBookingCardForCompletedBooking()
@@ -204,10 +204,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.imageView?.layer.cornerRadius = 25
         sender.imageView?.clipsToBounds = true
         
-        sender.setBackgroundColor(color: UIColor(hexString: "#126363"), forState: .highlighted)
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
-        sender.tintColor = UIColor(hexString: "#126363")
+        sender.tintColor = UIColor(hexString: "#397FBA")
                 
     }
     
@@ -257,12 +257,13 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: -3)
+        starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
-        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: -3)
+        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
     }
+    
     func hideDriverInfoBox()
     {
 //        preRideDriver.isHidden = true
@@ -318,19 +319,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateHeaderMsg(_ msg : String)
     {
         if msg.contains("str_xpress".localized()) {
-            rideHeaderText.attributedText = self.addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "str_xpress".localized() as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
+            rideHeaderText.attributedText = addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-700", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
         } else {
             rideHeaderText.font = UIFont(name: "MuseoSans-900", size: 17.0)!
             rideHeaderText.text = msg
         }
-    }
-    
-    func addBoldText(fullString: NSString, boldPartOfString: NSString, font: UIFont!, boldFont: UIFont!) -> NSAttributedString {
-        let nonBoldFontAttribute = [NSAttributedStringKey.font:font!]
-        let boldFontAttribute = [NSAttributedStringKey.font:boldFont!]
-       let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
-        boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartOfString as String))
-       return boldString
     }
     
     func showOTP() -> Bool{
@@ -426,7 +419,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
-            
+            bookingTime.isHidden = false
+
             self.view.customCornerRadius = 20.0
                        
             if oneTimeSetSizeForBottomSheet == false {
@@ -578,8 +572,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             eta.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
-            self.hideShareBtn()
-            
+            showShareBtn()
+            showPhoneButton()
+            bookingTime.isHidden = false
+
             DispatchQueue.main.async {
                 self.heightOFScrollViewContent.constant = 545
                 
@@ -621,7 +617,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateVehicleDetails()
     {
         iconVehicle.image = UIImage(named: "kmetroexpress")
-        lblVehicleType.text = vModel?.vehicleType()
+        lblVehicleType.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)  //vModel?.vehicleType()
         if Int(vModel?.getPassengerCountr() ?? "0") ?? 0 > 1 {
             lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass_plural".localized())"
         } else {
@@ -752,4 +748,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 }
 
 
+public func addBoldText(fullString: NSString, boldPartOfString: NSString, font: UIFont!, boldFont: UIFont!) -> NSAttributedString {
+    let nonBoldFontAttribute = [NSAttributedStringKey.font:font!]
+    let boldFontAttribute = [NSAttributedStringKey.font:boldFont!]
+   let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
+    boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartOfString as String))
+   return boldString
+}
 

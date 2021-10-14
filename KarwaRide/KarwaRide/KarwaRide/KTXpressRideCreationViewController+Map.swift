@@ -84,15 +84,20 @@ extension KTXpressRideCreationViewController
         pickUpLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!
         pickUpLocationMarker.iconView = walkToPickUpView
 //        pickUpLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
-        pickUpLocationMarker.map = self.mapView
         
+        if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!.latitude {
+            pickUpLocationMarker.map = nil
+        } else {
+            pickUpLocationMarker.map = self.mapView
+            self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
+        }
+                
         dropOffLocationMarker = GMSMarker()
         dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
         dropOffLocationMarker.icon = #imageLiteral(resourceName: "pin_dropoff_map")
         dropOffLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
         dropOffLocationMarker.map = self.mapView
                 
-        self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
         
         var bounds = GMSCoordinateBounds()
         
