@@ -350,9 +350,11 @@ class KTCreateBookingViewController:
     tableView.delegate = self
     tableView.dataSource = self
     tableView.isScrollEnabled = false
-    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
+//    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
-    rideServicesContainer.addGestureRecognizer(gesture)
+//    rideServicesContainer.addGestureRecognizer(gesture)
+    tableViewHeight.constant = tableViewMaximumHeight
+    self.showMoreRideOptions.isHidden = true
 
     //    hideCurrentLocationButton()
     
@@ -535,12 +537,12 @@ class KTCreateBookingViewController:
     if timer != nil {
       timer.invalidate()
     }
-    tableViewHeight.constant =  tableViewMinimumHeight
-    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
-      self.view.layoutIfNeeded()
-    }, completion: { animated in
-      self.showMoreRideOptions.isHidden = false
-    })
+//    tableViewHeight.constant =  tableViewMinimumHeight
+//    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+//      self.view.layoutIfNeeded()
+//    }, completion: { animated in
+//      self.showMoreRideOptions.isHidden = false
+//    })
     super.viewWillDisappear(animated)
     navigationController?.isNavigationBarHidden = true
   }
