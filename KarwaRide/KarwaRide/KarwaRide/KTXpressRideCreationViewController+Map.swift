@@ -121,8 +121,8 @@ extension KTXpressRideCreationViewController
             let polyline = GMSPolyline(path: path)
             polyline.map = mapView // Assign GMSMapView as map
             polyline.strokeWidth = 3.0
-            bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
-            let styles = [GMSStrokeStyle.solidColor(UIColor.black), GMSStrokeStyle.solidColor(UIColor.clear)]
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
+            let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
             polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
             
@@ -166,7 +166,7 @@ extension KTXpressRideCreationViewController
             let polyline = GMSPolyline(path: self.bezierPath(from: startLocation, to: endLocation))
             polyline.map = mapView // Assign GMSMapView as map
             polyline.strokeWidth = 3.0
-            bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             polyline.strokeColor = bgPolylineColor
             
             let inset = UIEdgeInsets(top: 150, left: 100, bottom: self.view.frame.height/2, right: 100)

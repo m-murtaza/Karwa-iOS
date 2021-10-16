@@ -142,16 +142,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             arrowImage.image = #imageLiteral(resourceName: "pickdrop_connected_arrow").imageFlippedForRightToLeftLayoutDirection()
         }
         
-        self.setBookingButton.layer.shadowRadius = 3
-        self.setBookingButton.layer.shadowOpacity = 1
-        self.setBookingButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-        if #available(iOS 13.0, *) {
-            self.setBookingButton.layer.shadowColor = UIColor.systemGray3.cgColor
-        } else {
-            // Fallback on earlier versions
-            self.setBookingButton.layer.shadowColor = UIColor.lightGray.cgColor
-        }
-        
         self.pickUpAddressButton.isUserInteractionEnabled = false
         self.dropOffAddressButton.isUserInteractionEnabled = false
 
@@ -445,7 +435,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         tableView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
-            cell.contentView.customBorderColor = UIColor(hex: "#23A0A0")
+            cell.contentView.customBorderColor = UIColor(hex: "#2D5A64")
             cell.contentView.customCornerRadius = 10
             cell.contentView.backgroundColor = .white
             cell.imgVehicleBGView.backgroundColor = .white

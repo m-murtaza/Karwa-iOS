@@ -45,15 +45,15 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
         (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
 
         
-        if let titleString = marker.title, title?.count ?? 0 > 0 {
+        if let titleString = marker.title, titleString.count ?? 0 > 0 {
             (self.viewModel as! KTXpressDropoffViewModel).selectedStationName = marker.title ?? ""
             (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
-            defer {
-                (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
-            }
         }
         
-        
+        defer {
+            (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+        }
+    
         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
         self.markerButton.setImage(#imageLiteral(resourceName: "dropoff_pin"), for: .normal)
@@ -255,15 +255,12 @@ extension KTXpressDropOffViewController
         for item in destinationsForPickUp {
             
             if item.type! != "Zone" {
-                
-                let coordinate = CLLocationCoordinate2D(latitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").first!)!)!, longitude: Double((item.bound?.components(separatedBy: ";").first?.components(separatedBy: ",").last!)!)!)
-                                
+                                            
                 if item.type == "TramStation"{
                     self.addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
 
                 } else{
                     self.addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
-
                 }
                                 
 
