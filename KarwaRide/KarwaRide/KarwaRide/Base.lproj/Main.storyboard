@@ -10575,13 +10575,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zAO-0z-9NM">
                                                     <rect key="frame" x="80" y="18.000000000000004" width="91.333333333333314" height="34.333333333333343"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-gN-Bce">
                                                             <rect key="frame" x="0.0" y="0.0" width="91.333333333333329" height="14.666666666666666"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xxx-xxx-xxx-xxx" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gV-gw-TMv">
                                                             <rect key="frame" x="0.0" y="19.666666666666664" width="91.333333333333329" height="14.666666666666664"/>
                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -11330,7 +11330,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DDD-xc-aqW" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="477"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="467"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -11338,7 +11338,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6l-It-L3R" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="193" y="206.66666666666666" width="38" height="44"/>
+                                <rect key="frame" x="193" y="201.66666666666666" width="38" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="AT4-S6-zCF"/>
                                     <constraint firstAttribute="width" constant="38" id="QHo-cU-nDc"/>
@@ -11346,7 +11346,7 @@
                                 <state key="normal" image="pin_outofzone"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dnz-iy-Dm3">
-                                <rect key="frame" x="352" y="407" width="58" height="58"/>
+                                <rect key="frame" x="352" y="397" width="58" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="rIZ-4g-Wgj"/>
                                     <constraint firstAttribute="width" constant="58" id="ua3-1c-E51"/>
@@ -11357,7 +11357,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYU-8p-z2r">
-                                <rect key="frame" x="0.0" y="467" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="457" width="414" height="210"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pickup_address_ico" translatesAutoresizingMaskIntoConstraints="NO" id="7c0-Lv-qq7">
                                         <rect key="frame" x="30" y="18" width="21" height="31"/>
@@ -11381,7 +11381,7 @@
                                             <constraint firstAttribute="height" constant="30" id="MvO-0q-s73"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
-                                        <color key="textColor" red="0.1764705926" green="0.35294118520000001" blue="0.39215683940000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="0.1764705882352941" green="0.3529411764705882" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="genericLocalisedKey" value="str_loading"/>
@@ -11475,11 +11475,11 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2M-ci-XA6" customClass="SpringButton" customModule="Spring">
                                         <rect key="frame" x="30" y="120.66666666666663" width="354" height="50"/>
-                                        <color key="backgroundColor" red="0.27843138579999999" green="0.61960786580000005" blue="0.62352943419999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.2941176593" green="0.64705884459999996" blue="0.6549019814" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="5f9-ag-Ota"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="19"/>
                                         <state key="normal" title="Set Pickup">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -11497,7 +11497,7 @@
                                                 <size key="value" width="3" height="5"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="customShadowColor">
-                                                <color key="value" red="0.27450981740000002" green="0.60784316059999999" blue="0.61176472900000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="value" red="0.29411764705882354" green="0.6470588235294118" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
@@ -11525,7 +11525,7 @@
                                     <constraint firstItem="LI5-eO-84h" firstAttribute="top" secondItem="MYU-8p-z2r" secondAttribute="top" constant="17" id="RJ1-WX-gJF"/>
                                     <constraint firstItem="VWD-Fe-sXf" firstAttribute="top" secondItem="3by-GC-KAQ" secondAttribute="bottom" constant="14" id="T3F-Fa-XwA"/>
                                     <constraint firstItem="kPM-xF-kNO" firstAttribute="top" secondItem="LI5-eO-84h" secondAttribute="bottom" constant="3" id="Usf-xf-UdT"/>
-                                    <constraint firstAttribute="height" constant="200" id="UzQ-Ae-odw"/>
+                                    <constraint firstAttribute="height" constant="210" id="UzQ-Ae-odw"/>
                                     <constraint firstItem="g5N-xp-b2J" firstAttribute="leading" secondItem="mrN-Du-oFu" secondAttribute="trailing" constant="8" symbolic="YES" id="aCT-6A-NeF"/>
                                     <constraint firstItem="Mmv-Hw-joH" firstAttribute="leading" secondItem="MYU-8p-z2r" secondAttribute="leading" constant="19" id="aje-3a-K24"/>
                                     <constraint firstItem="mrN-Du-oFu" firstAttribute="top" secondItem="3by-GC-KAQ" secondAttribute="bottom" constant="17" id="eCN-vB-L5j"/>
@@ -11803,7 +11803,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmS-ZU-979" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="546"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="536"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -11817,7 +11817,7 @@
                                     <constraint firstAttribute="height" constant="40" id="eLQ-NE-53e"/>
                                     <constraint firstAttribute="width" constant="40" id="x5Q-He-s6Q"/>
                                 </constraints>
-                                <state key="normal" image="back_arrow_ico"/>
+                                <state key="normal" image="cross_icon_new"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="customShadowRadius">
                                         <real key="value" value="3"/>
@@ -11840,7 +11840,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Odd-ir-Mnx">
-                                <rect key="frame" x="0.0" y="536" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="526" width="414" height="210"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropoff_pin" translatesAutoresizingMaskIntoConstraints="NO" id="7WQ-Uo-0QP">
                                         <rect key="frame" x="30" y="18" width="21" height="31"/>
@@ -11864,7 +11864,7 @@
                                             <constraint firstAttribute="height" constant="37" id="M1X-Eo-PRJ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
-                                        <color key="textColor" red="0.13735091690000001" green="0.62592053410000004" blue="0.62581652399999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.1764705882352941" green="0.3529411764705882" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7w-Y3-h6m">
@@ -11954,11 +11954,11 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPv-oP-7jb" customClass="SpringButton" customModule="Spring">
                                         <rect key="frame" x="30" y="115.66666666666663" width="354" height="50"/>
-                                        <color key="backgroundColor" red="0.27450981740000002" green="0.60784316059999999" blue="0.61176472900000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.29411764705882354" green="0.6470588235294118" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ehk-MW-QUc"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="19"/>
                                         <state key="normal" title="Set Dropoff">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -11976,7 +11976,7 @@
                                                 <size key="value" width="1" height="3"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="customShadowColor">
-                                                <color key="value" red="0.30588235294117649" green="0.61960784313725492" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.29411764705882354" green="0.6470588235294118" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -11996,7 +11996,7 @@
                                     <constraint firstItem="b7w-Y3-h6m" firstAttribute="leading" secondItem="Odd-ir-Mnx" secondAttribute="leading" constant="19" id="Axy-kV-mMC"/>
                                     <constraint firstAttribute="trailing" secondItem="Bob-MR-PKt" secondAttribute="trailing" id="CO2-dM-aEr"/>
                                     <constraint firstItem="QUo-nU-ZYp" firstAttribute="leading" secondItem="BHU-Kl-ui4" secondAttribute="trailing" constant="8" symbolic="YES" id="Ctk-JL-8ad"/>
-                                    <constraint firstAttribute="height" constant="200" id="ISx-dL-ADr"/>
+                                    <constraint firstAttribute="height" constant="210" id="ISx-dL-ADr"/>
                                     <constraint firstItem="b7w-Y3-h6m" firstAttribute="top" secondItem="Odd-ir-Mnx" secondAttribute="top" constant="5" id="KWh-ZR-QlS"/>
                                     <constraint firstAttribute="trailing" secondItem="DkS-dp-Vgh" secondAttribute="trailing" constant="30" id="LEL-uT-aW2"/>
                                     <constraint firstItem="dg3-Ga-wzX" firstAttribute="top" secondItem="Iub-QL-zd5" secondAttribute="bottom" constant="17" id="Mz9-Cq-8fE"/>
@@ -12040,7 +12040,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txb-Np-9Cg">
-                                <rect key="frame" x="354" y="478" width="58" height="58"/>
+                                <rect key="frame" x="354" y="468" width="58" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="2VH-il-kL8"/>
                                     <constraint firstAttribute="height" constant="58" id="YjV-lJ-2cb"/>
@@ -12051,7 +12051,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kdh-NL-2a0" customClass="SpringButton" customModule="Spring">
-                                <rect key="frame" x="198" y="241" width="38" height="44"/>
+                                <rect key="frame" x="198" y="236" width="38" height="44"/>
                                 <state key="normal" image="pin_dropoff_map"/>
                             </button>
                         </subviews>
@@ -12909,18 +12909,18 @@
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rC0-9Y-PQm">
                                                         <rect key="frame" x="0.0" y="56.333333333333371" width="404" height="1"/>
-                                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <color key="backgroundColor" red="0.29411764705882354" green="0.6470588235294118" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="lBT-bu-bp1"/>
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvo-tl-b2o" customClass="SpringButton" customModule="Spring">
                                                         <rect key="frame" x="20" y="67.333333333333371" width="364" height="50"/>
-                                                        <color key="backgroundColor" red="0.13735091690000001" green="0.62592053410000004" blue="0.62581652399999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.29411764705882354" green="0.6470588235294118" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="Sd2-Rc-EL7"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="19"/>
                                                         <state key="normal" title="Book this Ride">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -12929,7 +12929,7 @@
                                                                 <real key="value" value="25"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="customShadowRadius">
-                                                                <real key="value" value="4"/>
+                                                                <real key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="customShadowOpacity">
                                                                 <real key="value" value="3"/>
@@ -12939,7 +12939,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="book_ride"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="customShadowColor">
-                                                                <color key="value" red="0.3058823645" green="0.61960786580000005" blue="0.62352943419999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <color key="value" red="0.29411764705882354" green="0.6470588235294118" blue="0.65490196078431373" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
@@ -14666,7 +14666,7 @@
             <size key="intrinsicContentSize" width="113" height="28"/>
         </designable>
         <designable name="MPv-oP-7jb">
-            <size key="intrinsicContentSize" width="79" height="29"/>
+            <size key="intrinsicContentSize" width="103" height="35"/>
         </designable>
         <designable name="NJm-jG-BVK">
             <size key="intrinsicContentSize" width="8" height="22"/>
@@ -14696,7 +14696,7 @@
             <size key="intrinsicContentSize" width="104" height="33"/>
         </designable>
         <designable name="Rvo-tl-b2o">
-            <size key="intrinsicContentSize" width="98" height="29"/>
+            <size key="intrinsicContentSize" width="128" height="35"/>
         </designable>
         <designable name="TeW-q2-t37">
             <size key="intrinsicContentSize" width="44" height="44"/>
@@ -14735,7 +14735,7 @@
             <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="b2M-ci-XA6">
-            <size key="intrinsicContentSize" width="72" height="29"/>
+            <size key="intrinsicContentSize" width="94" height="35"/>
         </designable>
         <designable name="b6s-dl-yKr">
             <size key="intrinsicContentSize" width="60" height="33"/>
@@ -14825,7 +14825,7 @@
             <size key="intrinsicContentSize" width="30" height="29"/>
         </designable>
         <designable name="tsX-Ub-xAj">
-            <size key="intrinsicContentSize" width="8" height="22"/>
+            <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="uAf-9D-Eh5">
             <size key="intrinsicContentSize" width="31" height="32"/>
@@ -14911,7 +14911,7 @@
         <image name="arrow_right copy_2" width="4.6666665077209473" height="8"/>
         <image name="arrows" width="196" height="14"/>
         <image name="avatar" width="35" height="35"/>
-        <image name="back_arrow_ico" width="8" height="14"/>
+        <image name="back_arrow_ico" width="18" height="13.666666984558105"/>
         <image name="balance_box" width="352" height="122"/>
         <image name="bookmark_popup" width="232" height="189.66667175292969"/>
         <image name="bookride_ico_active" width="21" height="21"/>

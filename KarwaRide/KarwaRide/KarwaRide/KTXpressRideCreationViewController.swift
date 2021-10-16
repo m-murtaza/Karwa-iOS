@@ -155,6 +155,12 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         self.pickUpAddressButton.isUserInteractionEnabled = false
         self.dropOffAddressButton.isUserInteractionEnabled = false
 
+        self.setBookingButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+        self.setBookingButton.isUserInteractionEnabled = true
+        self.setBookingButton.layer.shadowRadius = 10
+        self.setBookingButton.layer.shadowOpacity = 3
+        self.setBookingButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.setBookingButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
 
 //        heightConstraint.constant = 250
     }

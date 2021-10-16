@@ -56,20 +56,17 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
         
         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-        self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
-        self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+        self.markerButton.setImage(#imageLiteral(resourceName: "dropoff_pin"), for: .normal)
+        
+        self.setDropOffButton.backgroundColor = UIColor(hexString: "#4BA5A7")
         self.setDropOffButton.isUserInteractionEnabled = true
-        self.setDropOffButton.layer.shadowRadius = 4
+        self.setDropOffButton.layer.shadowRadius = 10
         self.setDropOffButton.layer.shadowOpacity = 3
-        self.setDropOffButton.layer.shadowOffset = CGSize(width: 3, height: 3)
-        if #available(iOS 13.0, *) {
-            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
-        } else {
-            // Fallback on earlier versions
-            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
-        }
+        self.setDropOffButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.setDropOffButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
         
         return true
+        
     }
   
     func checkPermittedDropOff(_ location: CLLocation) {
@@ -103,18 +100,14 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                         print("Permitted")
                         self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                         self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
                         self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
                         self.setDropOffButton.isUserInteractionEnabled = true
-                        self.setDropOffButton.layer.shadowRadius = 4
+                        self.setDropOffButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+                        self.setDropOffButton.isUserInteractionEnabled = true
+                        self.setDropOffButton.layer.shadowRadius = 10
                         self.setDropOffButton.layer.shadowOpacity = 3
-                        self.setDropOffButton.layer.shadowOffset = CGSize(width: 3, height: 3)
-                        if #available(iOS 13.0, *) {
-                            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
-                        } else {
-                            // Fallback on earlier versions
-                            self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
-                        }
+                        self.setDropOffButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+                        self.setDropOffButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
                         break
                         
                     }
@@ -122,29 +115,61 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     print("Permitted")
                     self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
                     self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#469B9C")
-                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                    self.markerButton.setImage(#imageLiteral(resourceName: "dropoff_pin"), for: .normal) //dropoff_pin
                     self.setDropOffButton.isUserInteractionEnabled = true
-                    self.setDropOffButton.layer.shadowRadius = 4
+                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+                    self.setDropOffButton.isUserInteractionEnabled = true
+                    self.setDropOffButton.layer.shadowRadius = 10
                     self.setDropOffButton.layer.shadowOpacity = 3
-                    self.setDropOffButton.layer.shadowOffset = CGSize(width: 3, height: 3)
-                    if #available(iOS 13.0, *) {
-                        self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
-                    } else {
-                        // Fallback on earlier versions
-                        self.setDropOffButton.layer.shadowColor = UIColor.primary.cgColor
-                    }
+                    self.setDropOffButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+                    self.setDropOffButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
                     break
                 }
                 
             } else {
-                print("it wont contains")
-                self.setDropOffButton.setTitle("str_outzone".localized(), for: .normal)
-                self.setDropOffButton.backgroundColor = UIColor.clear
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
-                self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
-                self.setDropOffButton.isUserInteractionEnabled = false
-                self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
+                
+                if pickUpZone != nil {
+                    
+                    let pickupCoordinates = pickUpZone!.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    }
+                    
+                    if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
+                        
+                        print("not permitted")
+                        self.setDropOffButton.setTitle("SETTODROPZONE".localized(), for: .normal)
+                        self.setDropOffButton.backgroundColor = UIColor.clear
+                        self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                        self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                        self.setDropOffButton.isUserInteractionEnabled = false
+                        self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
+                        
+                    } else {
+                        
+                        print("it wont contains")
+                        self.setDropOffButton.setTitle("str_outzone".localized(), for: .normal)
+                        self.setDropOffButton.backgroundColor = UIColor.clear
+                        self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                        self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                        self.setDropOffButton.isUserInteractionEnabled = false
+                        self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
+                        
+                    }
+
+                    
+                } else {
+                    
+                    print("it wont contains")
+                    self.setDropOffButton.setTitle("str_outzone".localized(), for: .normal)
+                    self.setDropOffButton.backgroundColor = UIColor.clear
+                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
+                    self.setDropOffButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                    self.setDropOffButton.isUserInteractionEnabled = false
+                    self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
+                    
+                }
+                
+                
             }
             
         }
