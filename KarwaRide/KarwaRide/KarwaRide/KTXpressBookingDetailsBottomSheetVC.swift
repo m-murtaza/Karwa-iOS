@@ -223,11 +223,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
 //        sender.imageView?.clipsToBounds = true
 
-        sender.setBackgroundColor(color: UIColor(hexString: "#0C81C0"), forState: .highlighted)
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
     
-        sender.tintColor = .white//UIColor(hexString: "#0C81C0")
+        sender.tintColor = UIColor(hexString: "#397FBA")
                 
     }
     
