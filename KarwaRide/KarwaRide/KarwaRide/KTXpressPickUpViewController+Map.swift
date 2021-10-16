@@ -41,7 +41,7 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
         self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
         self.setPickUpButton.backgroundColor = UIColor(hexString: "#4BA5A7")
-        self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+        self.markerButton.setImage(#imageLiteral(resourceName: "pickup_address_ico"), for: .normal)
         self.setPickUpButton.isUserInteractionEnabled = true//pickup_address_ico
         
         self.setPickUpButton.layer.shadowRadius = 10
@@ -592,7 +592,7 @@ extension KTXpressPickUpViewController
         marker.position = location
         marker.title = title
         marker.icon = image
-//        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.6,y:1)
         marker.map = self.mapView
     }
     
