@@ -22,9 +22,9 @@ extension KTXpressRideCreationViewController
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
-        pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+        pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pickup_address_ico"))
         
-        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
+        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "dropoff_pin"))
 
         let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
         mapView.padding = padding
@@ -76,8 +76,8 @@ extension KTXpressRideCreationViewController
         
         serverPickUpLocationMarker = GMSMarker()
         serverPickUpLocationMarker.position = coordinate
-        serverPickUpLocationMarker.icon = #imageLiteral(resourceName: "pin_pickup_map")
-        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
+        serverPickUpLocationMarker.icon = #imageLiteral(resourceName: "pickup_address_ico")
+        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
         serverPickUpLocationMarker.map = self.mapView
         
         pickUpLocationMarker = GMSMarker()
@@ -94,8 +94,8 @@ extension KTXpressRideCreationViewController
                 
         dropOffLocationMarker = GMSMarker()
         dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
-        dropOffLocationMarker.icon = #imageLiteral(resourceName: "pin_dropoff_map")
-        dropOffLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
+        dropOffLocationMarker.icon = #imageLiteral(resourceName: "dropoff_pin")
+        dropOffLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
         dropOffLocationMarker.map = self.mapView
                 
         
@@ -202,7 +202,7 @@ extension KTXpressRideCreationViewController
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.3,y:1)
+        marker.groundAnchor = CGPoint(x:0.6,y:1)
         marker.map = self.mapView
         return marker
     }
@@ -211,7 +211,7 @@ extension KTXpressRideCreationViewController
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:1,y:0.8)
+        marker.groundAnchor = CGPoint(x:0.6,y:1)
         marker.map = self.mapView
     }
     
