@@ -219,13 +219,15 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.layer.cornerRadius = 25
         sender.clipsToBounds = true
 
-        sender.imageView?.layer.cornerRadius = 25
-        sender.imageView?.clipsToBounds = true
+//        sender.imageView?.tintColor = UIColor.white//UIColor(hexString: "#0C81C0")
+
+//        sender.imageView?.clipsToBounds = true
 
         sender.setBackgroundColor(color: UIColor(hexString: "#0C81C0"), forState: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
-        sender.tintColor = UIColor(hexString: "#0C81C0")
+    
+        sender.tintColor = .white//UIColor(hexString: "#0C81C0")
                 
     }
     

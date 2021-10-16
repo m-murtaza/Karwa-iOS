@@ -513,8 +513,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
-        
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         return marker
     }
     
@@ -754,7 +753,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         marker.position = location
         
         marker.iconView = pickupWithInfoView
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor =  CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
         
         bounds = bounds.includingCoordinate(marker.position)
@@ -767,7 +766,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         marker.position = location
         
         marker.icon = image
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
         
         bounds = bounds.includingCoordinate(marker.position)
