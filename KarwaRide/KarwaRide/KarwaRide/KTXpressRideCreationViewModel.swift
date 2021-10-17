@@ -471,14 +471,15 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         
         if selectedDropOfStation != nil {
             print("it's inside station")
+            stopsOFDropOfStations.append(contentsOf: stops.filter{$0.parent! == selectedDropOfStation!.code!})
+            if stopsOFDropOfStations.count == 1 {
+                selectedDropOfStop = stopsOFDropOfStations.first!
+            }
         } else {
             print("it's inside a zone")
         }
         
-        stopsOFDropOfStations.append(contentsOf: stops.filter{$0.parent! == selectedDropOfStation!.code!})
-        if stopsOFDropOfStations.count == 1 {
-            selectedDropOfStop = stopsOFDropOfStations.first!
-        }
+        
 //
 //        if selectedDropOfStation != nil {
 //
