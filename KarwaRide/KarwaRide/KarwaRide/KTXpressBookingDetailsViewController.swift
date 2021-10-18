@@ -33,6 +33,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     @IBOutlet weak var trackRideServiceView : UIView!
     
     var sheetCoordinator: UBottomSheetCoordinator!
+    var manualMoveBegins: Bool = false
 
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
@@ -224,6 +225,10 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         {
             haltAutoZooming = true
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        manualMoveBegins = true
     }
     
     var isBottomSheetExpanded = true
@@ -696,22 +701,25 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     func updateMapCamera()
     {
-        if(marker != nil)
-        {
-            var bounds = GMSCoordinateBounds()
-            
-            let pick = CLLocationCoordinate2D(latitude: vModel?.booking?.pickupLat ?? 0.0, longitude: vModel?.booking?.pickupLon ?? 0.0)
-            let drop = CLLocationCoordinate2D(latitude: vModel?.booking?.dropOffLat ?? 0.0, longitude: vModel?.booking?.dropOffLon ?? 0.0)
-//            bounds.includingCoordinate(pick)
-            
-            bounds = bounds.includingCoordinate((marker?.position)!)
-            bounds = bounds.includingCoordinate(pick)
-            bounds = bounds.includingCoordinate(drop)
+        if manualMoveBegins == false {
+            if(marker != nil)
+            {
+                var bounds = GMSCoordinateBounds()
+                
+                let pick = CLLocationCoordinate2D(latitude: vModel?.booking?.pickupLat ?? 0.0, longitude: vModel?.booking?.pickupLon ?? 0.0)
+                let drop = CLLocationCoordinate2D(latitude: vModel?.booking?.dropOffLat ?? 0.0, longitude: vModel?.booking?.dropOffLon ?? 0.0)
+    //            bounds.includingCoordinate(pick)
+                
+                bounds = bounds.includingCoordinate((marker?.position)!)
+                bounds = bounds.includingCoordinate(pick)
+                bounds = bounds.includingCoordinate(drop)
 
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 80)
-            mapView.animate(with: update!)
+                var update : GMSCameraUpdate?
+                update = GMSCameraUpdate.fit(bounds, withPadding: 80)
+                mapView.animate(with: update!)
+            }
         }
+
     }
     
     func showPathOnMap(path: GMSPath) {
@@ -1005,6 +1013,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     @IBAction func btnRecenterTap(_ sender: Any)
     {
+        manualMoveBegins = false
         updateMapCamera()
     }
 
