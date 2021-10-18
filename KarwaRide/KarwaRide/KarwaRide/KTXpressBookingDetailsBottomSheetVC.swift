@@ -93,6 +93,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     }
     
     @IBAction func shareBtnTap(_ sender: Any) {
+        btnShare.imageView?.tintColor = UIColor(hexString: "#397FBA")
         shareBtnTapped()
     }
 
@@ -219,11 +220,51 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.layer.cornerRadius = 25
         sender.clipsToBounds = true
 
-//        sender.imageView?.tintColor = UIColor.white//UIColor(hexString: "#0C81C0")
 
 //        sender.imageView?.clipsToBounds = true
 
         sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
+        
+        let image = UIImage(named: "share")?.withRenderingMode(.alwaysTemplate)
+        if #available(iOS 13.0, *) {
+            image?.withTintColor(.white, renderingMode: .alwaysTemplate)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        sender.imageView?.tintColor = UIColor.white//UIColor(hexString: "#0C81C0")
+
+        sender.setImage(image, for: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+    
+        sender.tintColor = UIColor(hexString: "#397FBA")
+                
+    }
+    
+    @IBAction func btnShareTapTouchOut(_ sender: UIButton)
+    {
+        
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 25
+        sender.clipsToBounds = true
+
+
+//        sender.imageView?.clipsToBounds = true
+
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
+        
+        let image = UIImage(named: "share")?.withRenderingMode(.alwaysTemplate)
+        if #available(iOS 13.0, *) {
+            image?.withTintColor(.white, renderingMode: .alwaysTemplate)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        sender.imageView?.tintColor = UIColor(hexString: "#397FBA")
+
+        sender.setImage(image, for: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
     

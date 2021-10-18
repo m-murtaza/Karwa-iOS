@@ -211,6 +211,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     }
     
     @IBAction func clickToSetUpBooking() {
+        springAnimateButtonTapOut(button: setDropOffButton)
         (viewModel as! KTXpressDropoffViewModel).didTapSetDropOffButton()
     }
     
@@ -271,31 +272,37 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             
         } else {
             
-            if let loc = location as? Area {
-                print(location)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 
-                self.tapOnMarker = true
-                
-                let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
-
-                print(metroAreaCoordinate.latitude)
-
-                (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = metroAreaCoordinate
-
-                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15.0)
-                self.mapView.camera = camera
-
-                (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
-                
-                defer {
-                    (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+                if let loc = location as? Area {
+                    print(location)
+                    
+                    self.tapOnMarker = true
+                    
+                    let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
+                    
+                    print(metroAreaCoordinate.latitude)
+                    
+                    (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = metroAreaCoordinate
+                    
+                    let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15.0)
+                    self.mapView.camera = camera
+                    
+                    (self.viewModel as? KTXpressDropoffViewModel)!.setDropOffStation(CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+                    
+                    defer {
+                        (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+                    }
+                    
+                    (self.viewModel as! KTXpressDropoffViewModel).didTapSetDropOffButton()
+                    
+                    self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
+                    self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                    self.setDropOffButton.isUserInteractionEnabled = true
+                    
                 }
-
-                self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
-                self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
-                self.setDropOffButton.isUserInteractionEnabled = true
             }
         }
     }

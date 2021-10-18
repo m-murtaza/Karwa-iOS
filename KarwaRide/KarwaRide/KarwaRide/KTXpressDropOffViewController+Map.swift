@@ -60,10 +60,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
         
         self.setDropOffButton.backgroundColor = UIColor(hexString: "#4BA5A7")
         self.setDropOffButton.isUserInteractionEnabled = true
-        self.setDropOffButton.layer.shadowRadius = 10
-        self.setDropOffButton.layer.shadowOpacity = 3
-        self.setDropOffButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        self.setDropOffButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+        self.setDropOffButton.addShadowBottomXpress()
         
         return true
         
@@ -104,10 +101,8 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                         self.setDropOffButton.isUserInteractionEnabled = true
                         self.setDropOffButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                         self.setDropOffButton.isUserInteractionEnabled = true
-                        self.setDropOffButton.layer.shadowRadius = 10
-                        self.setDropOffButton.layer.shadowOpacity = 3
-                        self.setDropOffButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-                        self.setDropOffButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+                        self.setDropOffButton.addShadowBottomXpress()
+
                         break
                         
                     }
@@ -119,10 +114,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
                     self.setDropOffButton.isUserInteractionEnabled = true
                     self.setDropOffButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                     self.setDropOffButton.isUserInteractionEnabled = true
-                    self.setDropOffButton.layer.shadowRadius = 10
-                    self.setDropOffButton.layer.shadowOpacity = 3
-                    self.setDropOffButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-                    self.setDropOffButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+                    self.setDropOffButton.addShadowBottomXpress()
                     break
                 }
                 
@@ -303,24 +295,52 @@ extension KTXpressDropOffViewController
         fillingPolygon.fillColor = fillColor
         fillingPolygon.map = self.mapView
 
-        // 2. Add prepared array of GMSPath
-        fillingPolygon.holes = pathG
+        if pickUpStation == nil {
+            fillingPolygon.holes = [pathG.first!]
+            let fillingPolygonn = GMSPolygon(path: picupRect)
+            let fillColor = UIColor.gray.withAlphaComponent(0.7)
+            fillingPolygonn.fillColor = fillColor
+            fillingPolygonn.map = self.mapView
 
-//        // 3. Add lines for boundaries
-        for path in pathG {
-
-            let polygon = GMSPolygon(path: path)
+            // 2. Add prepared array of GMSPath
             
-            if picupRect == path {
-                polygon.fillColor = UIColor.gray.withAlphaComponent(0.7)
-            } else {
-                polygon.fillColor = UIColor.white.withAlphaComponent(0.4)
+            for path in pathG {
+
+                let polygon = GMSPolygon(path: path)
+                
+                if picupRect == path {
+                    polygon.fillColor = UIColor.gray.withAlphaComponent(0.7)
+                } else {
+                    fillingPolygonn.holes?.append(path)
+                    polygon.fillColor = UIColor.white
+                }
+                
+                polygon.strokeColor = .black
+                polygon.strokeWidth = 2
+                polygon.map = mapView
             }
-            
-            polygon.strokeColor = .black
-            polygon.strokeWidth = 2
-            polygon.map = mapView
+        } else {
+            // 2. Add prepared array of GMSPath
+            fillingPolygon.holes = pathG
+
+    //        // 3. Add lines for boundaries
+            for path in pathG {
+
+                let polygon = GMSPolygon(path: path)
+                
+                if picupRect == path {
+                    polygon.fillColor = UIColor.gray.withAlphaComponent(0.7)
+                } else {
+                    polygon.fillColor = UIColor.white.withAlphaComponent(0.4)
+                }
+                
+                polygon.strokeColor = .black
+                polygon.strokeWidth = 2
+                polygon.map = mapView
+            }
         }
+        
+        
             
 
     }

@@ -318,7 +318,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         if KTVehicleTypeManager.isTaxi(vType: VehicleType(rawValue: vehicleType)!) {
             return UIImage(named:"taxiplate")!
         }
-        return UIImage(named:"limo_number_plate")!
+        return UIImage(named:"xpressplate")!
     }
     
     func driverRating() -> Double {

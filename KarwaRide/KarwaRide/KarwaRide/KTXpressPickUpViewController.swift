@@ -58,7 +58,6 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             self.vModel?.setupCurrentLocaiton()
         }
         
-        self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
         self.passengerLabel.text = "str_1pass".localized()
@@ -169,7 +168,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 
     }
     
-    @objc func clickSetPickUp() {
+    @IBAction func clickSetPickUp(sender: UIButton) {
+        springAnimateButtonTapOut(button: setPickUpButton)
         (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
     }
     
@@ -304,8 +304,11 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                     let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
                     self.mapView.camera = camera
                     (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
-                    (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
                     (self.viewModel as? KTXpressPickUpViewModel)?.selectedStation = loc
+                    (self.viewModel as? KTXpressPickUpViewModel)!.setPickupStation( CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+                    (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
+
+                    //didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
 
                     self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                     self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)

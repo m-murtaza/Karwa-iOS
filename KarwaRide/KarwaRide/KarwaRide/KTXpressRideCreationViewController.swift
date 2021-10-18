@@ -11,6 +11,7 @@ import Spring
 import GoogleMaps
 import CDAlertView
 import CoreLocation
+import ABLoaderView
 
 class KTXpressRideServiceCell: UITableViewCell {
     
@@ -57,6 +58,19 @@ class KTFareServiceCell: UITableViewCell {
 
 class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpressRideCreationViewModelDelegate {
         
+    @IBOutlet weak var shimmerView: UIView!
+    @IBOutlet weak var shimmerLabeltop1: UILabel!
+    @IBOutlet weak var shimmerLabeltop2: UILabel!
+    @IBOutlet weak var shimmerImageViewtop: UIImageView!
+    
+    @IBOutlet weak var shimmerLabelmiddle1: UILabel!
+    @IBOutlet weak var shimmerLabelmiddle2: UILabel!
+    @IBOutlet weak var shimmerImageViewMiddle: UIImageView!
+    
+    @IBOutlet weak var shimmerLabelBottom1: UILabel!
+    @IBOutlet weak var shimmerLabelBottom2: UILabel!
+    @IBOutlet weak var shimmerImageViewBottom: UIImageView!
+    
     @IBOutlet weak var rideServiceView: UIView!
     
     @IBOutlet weak var pickUpAddressButton: SpringButton!
@@ -104,6 +118,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
     override func viewDidLoad() {
         
+        rideServiceTableView.bounces = false
+        
         super.viewDidLoad()
 
         setBookingButton.setTitle("book_ride".localized(), for: .normal)
@@ -118,6 +134,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             vModel?.rideServicePickDropOffData = rideServicePickDropOffData
         }
         
+        shimmerView.isHidden = false
         
         vModel?.fetchRideService()
                 
@@ -132,7 +149,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         self.pickUpAddressButton.titleLabel?.numberOfLines = 1
         self.dropOffAddressButton.titleLabel?.numberOfLines = 1
         
-        self.rideServiceView.isHidden = true
+        self.rideServiceView.isHidden = false
         
         bookingProgress.progress = 0.0
         
@@ -147,10 +164,17 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
         self.setBookingButton.backgroundColor = UIColor(hexString: "#4BA5A7")
         self.setBookingButton.isUserInteractionEnabled = true
-        self.setBookingButton.layer.shadowRadius = 10
-        self.setBookingButton.layer.shadowOpacity = 3
-        self.setBookingButton.layer.shadowOffset = CGSize(width: 0, height: 3)
-        self.setBookingButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+        self.setBookingButton.addShadowBottomXpress()
+        
+        ABLoader().startShining(self.shimmerImageViewtop)
+        ABLoader().startShining(self.shimmerLabeltop1)
+        ABLoader().startShining(self.shimmerLabeltop2)
+        ABLoader().startShining(self.shimmerImageViewMiddle)
+        ABLoader().startShining(self.shimmerLabelmiddle1)
+        ABLoader().startShining(self.shimmerLabelmiddle2)
+        ABLoader().startShining(self.shimmerImageViewBottom)
+        ABLoader().startShining(self.shimmerLabelBottom1)
+        ABLoader().startShining(self.shimmerLabelBottom2)
 
 //        heightConstraint.constant = 250
     }
@@ -358,10 +382,15 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
         }
         self.rideServiceTableView.reloadData()
+        shimmerView.isHidden = true
+
     }
 
     @IBAction func showRideTrackingViewController() {
-        animateButton()
+        springAnimateButtonTapOut(button: setBookingButton)
+        self.timer.invalidate()
+        (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: self.selectedVehicleIndex)
+        (self.viewModel as! KTXpressRideCreationViewModel).didTapBookButton()
     }
     
     @IBAction func bookbtnTouchDown(_ sender: SpringButton)
