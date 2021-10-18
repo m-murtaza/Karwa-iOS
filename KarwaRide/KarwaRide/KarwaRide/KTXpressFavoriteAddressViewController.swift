@@ -15,7 +15,8 @@ class KTXpressFavoriteAddressViewController: KTBaseViewController, UITextFieldDe
     @IBOutlet weak var navigationBar: UIView!
     @IBOutlet weak var locationNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
-    
+    @IBOutlet weak var setFavBtn: LocalisableButton!
+
     var xpressFavoriteDelegate: KTXpressFavoriteDelegate?
     
     var favoritelocation: KTGeoLocation?
@@ -32,19 +33,20 @@ class KTXpressFavoriteAddressViewController: KTBaseViewController, UITextFieldDe
         //changeStatusBarColor(color: UIColor.primaryLight)
        // navigationBar.backgroundColor = UIColor.primaryLight
         
-        locationNameTextField.placeholder = "txt_loc_name".localized()
-        locationNameTextField.font = UIFont(name: "MuseoSans-700", size: 11.0)!
+        setFavBtn.addShadowBottomXpress()
+        locationNameTextField.placeholder = "txt_location_head".localized()
+        locationNameTextField.font = UIFont(name: "MuseoSans-700", size: 14.0)!
         locationNameTextField.placeholderFont = UIFont(name: "MuseoSans-500", size: 14.0)!
         //locationNameTextField.label.textColor = UIColor(hexString: "#6CB1B7")
         locationNameTextField.tintColor = UIColor(hexString: "#6CB1B7")
         locationNameTextField.inputView?.tintColor = UIColor(hexString: "#6CB1B7")
-        locationNameTextField.textColor = UIColor(hexString: "#6CB1B7")
+        locationNameTextField.textColor = UIColor(hexString: "#006170")
         locationNameTextField.delegate = self
         locationNameTextField.titleColor = UIColor(hexString: "#6CB1B7")
         locationNameTextField.titleFont = UIFont(name: "MuseoSans-500", size: 9.0)!
         locationNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         locationNameTextField.becomeFirstResponder()
-        locationNameTextField.title = "txt_loc_name".localized()
+        locationNameTextField.title = "txt_location_head".localized()
         
         locationTextField.font = UIFont(name: "MuseoSans-500", size: 14.0)!
         locationTextField.tintColor = UIColor(hexString: "#6CB1B7")
@@ -53,8 +55,8 @@ class KTXpressFavoriteAddressViewController: KTBaseViewController, UITextFieldDe
         locationTextField.delegate = self
         locationTextField.titleColor = UIColor(hexString: "#6CB1B7")
         locationTextField.titleFont = UIFont(name: "MuseoSans-500", size: 9.0)!
-//        locationTextField.title = "txt_location_head".localized()
-        
+        locationTextField.title = "txt_loc_name".localized()
+
         if let loc = favoritelocation {
             locationTextField.text = loc.name
         }

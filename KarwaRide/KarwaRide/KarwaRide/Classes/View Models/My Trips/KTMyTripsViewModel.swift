@@ -255,7 +255,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
     
     func getAttributedTextForMetroExpress() -> NSAttributedString {
         
-        return addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 14.0)!)
+        return addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 12.0)!)
 
     }
   

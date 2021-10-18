@@ -208,8 +208,13 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         if let navController = self.navigationController {
             if let navController = self.navigationController {
 
+                print(navController.viewControllers.count)
+                print(navController.viewControllers)
+
                 if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-                    if navController.viewControllers.count > 4 {
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    }else if navController.viewControllers.count > 4 {
                         navController.popToViewController(navController.viewControllers[2], animated: true)
                     } else if navController.viewControllers.count <= 3 {
                         navController.popToViewController(navController.viewControllers[0], animated: true)
@@ -331,17 +336,19 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             if let navController = self.navigationController {
 
                 if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-                    if navController.viewControllers.count > 4 {
+                    
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    } else if navController.viewControllers.count > 4 {
                         navController.popToViewController(navController.viewControllers[2], animated: true)
                     } else if navController.viewControllers.count <= 3 {
                         navController.popToViewController(navController.viewControllers[0], animated: true)
-                    }
-                    else if navController.viewControllers.count <= 4 {
+                    } else if navController.viewControllers.count <= 4 {
                         navController.popToViewController(navController.viewControllers[1], animated: true)
-                    }
-                    else {
+                    } else {
                         navController.popViewController(animated: true)
                     }
+                    
                 } else {
                     navController.popViewController(animated: true)
                 }
@@ -364,15 +371,15 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             if let navController = self.navigationController {
 
                 if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-                    if navController.viewControllers.count > 4 {
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    } else if navController.viewControllers.count > 4 {
                         navController.popToViewController(navController.viewControllers[2], animated: true)
                     } else if navController.viewControllers.count <= 3 {
                         navController.popToViewController(navController.viewControllers[0], animated: true)
-                    }
-                    else if navController.viewControllers.count <= 4 {
+                    } else if navController.viewControllers.count <= 4 {
                         navController.popToViewController(navController.viewControllers[1], animated: true)
-                    }
-                    else {
+                    } else {
                         navController.popViewController(animated: true)
                     }
                 } else {

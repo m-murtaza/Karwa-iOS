@@ -16,6 +16,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: SpringButton!
+    @IBOutlet weak var pinMarkerImageView: UIImageView!
 
     var fromPickup = false
     var fromDropOff = false
@@ -37,7 +38,10 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         getFavouriteMetroStations()
         
-        pickUpAddressHeaderLabel.text = fromDropOff ? "DROPOFFHEADER".localized() : "PICKUPHEADER".localized()
+        pickUpAddressHeaderLabel.text = fromDropOff ? "str_dropoff".localized() : "str_setpick".localized()
+        
+        pinMarkerImageView.image = fromDropOff ? UIImage(named: "dropoff_pin") : UIImage(named: "pickup_pin")
+
         
         pickUpAddressHeaderLabel.duration = 1
         pickUpAddressHeaderLabel.delay = 0.15
@@ -144,7 +148,7 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let sectionHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
-        sectionHeaderView.backgroundColor = UIColor(hexString: "#F9F9F9")
+        sectionHeaderView.backgroundColor = UIColor.white//(hexString: "#F9F9F9")
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 20, width: self.tableView.frame.width-40, height: 30))
         if section == 0 {
             return nil
@@ -194,7 +198,6 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : KTXpressAddressTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KTXpressAddressTableViewCell") as! KTXpressAddressTableViewCell
-        cell.backgroundColor = UIColor(hexString: "#F9F9F9")
 
         cell.titleLabel.text = (viewModel as! KTXpressAddressPickerViewModel).addressTitle(forIndex: indexPath)
         

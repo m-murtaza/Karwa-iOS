@@ -65,13 +65,13 @@ class TabViewController: UITabBarController {
         
         for item in items {
             var normal: [NSAttributedString.Key: AnyObject] =
-            [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 12.0)!]
+            [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 11.0)!]
             normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
             item.setTitleTextAttributes(normal, for: .normal)
         }
         
         var normal: [NSAttributedString.Key: AnyObject] =
-        [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 12.0)!]
+        [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 11.0)!]
         normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
         items[0].setTitleTextAttributes(normal, for: .normal)
     }

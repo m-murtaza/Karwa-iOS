@@ -660,7 +660,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateVehicleDetails()
     {
         iconVehicle.image = UIImage(named: "kmetroexpress")
-        lblVehicleType.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)  //vModel?.vehicleType()
+        lblVehicleType.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 12.0)!)  //vModel?.vehicleType()
         if Int(vModel?.getPassengerCountr() ?? "0") ?? 0 > 1 {
             lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass_plural".localized())"
         } else {
