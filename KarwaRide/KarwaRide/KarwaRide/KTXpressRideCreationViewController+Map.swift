@@ -28,7 +28,8 @@ extension KTXpressRideCreationViewController
 
         let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
         mapView.padding = padding
-        
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {

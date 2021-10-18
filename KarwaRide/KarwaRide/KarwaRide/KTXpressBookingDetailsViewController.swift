@@ -144,6 +144,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
 
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
+        
 //        self.navigationController?.navigationBar.backIndicatorImage = nil
         // Do any additional setup after loading the view.
     }

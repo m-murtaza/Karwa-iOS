@@ -86,15 +86,18 @@ class TabViewController: UITabBarController {
                 // access to item subviews : imageview and label
                 if viewTabBar.subviews.count == 2 {
                     let label = viewTabBar.subviews[1]as? UILabel
+                    label?.frame = CGRect(x: 0, y: 0, width: 100, height: 12)
                     // here is the customization for my label 2 lines
                     label?.numberOfLines = 2
                     label?.textAlignment = .center
-                    label!.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 12.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 11.0)!)
+                    label!.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 11.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 11.0)!)
                     // here customisation for image insets top and bottom
                     //                    items[2].imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -5, right: 0)
                 }
             }
             
+            items[2].imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -3, right: 0)
+
         }
         
     }
@@ -150,14 +153,14 @@ class TabViewController: UITabBarController {
                 if viewController == selectedViewController && !selectedViewController!.isKind(of: KTXpressPickUpViewController.self) {
 
                     var selected: [NSAttributedString.Key: AnyObject] =
-                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 12.0)!]
+                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 11.0)!]
                     selected[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
                     viewController.tabBarItem.setTitleTextAttributes(selected, for: .normal)
 
                 } else if !(viewController.isKind(of: KTXpressPickUpViewController.self)) {
 
                     var normal: [NSAttributedString.Key: AnyObject] =
-                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 12.0)!]
+                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 11.0)!]
                     normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
                     viewController.tabBarItem.setTitleTextAttributes(normal, for: .normal)
 

@@ -185,7 +185,7 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
         if vModel?.booking!.vehicleType == VehicleType.KTXpressTaxi.rawValue {
             iconImage = UIImage(named:"free_ico") ?? UIImage()
             lblTripFare.addTrailing(image: iconImage, text: "str_free_ride".localized() + "  ", imageOffsetY: -4)
-            lblVehicleType.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 12.0)!)
+            lblVehicleType.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 14.0)!)
         } else {
             iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
             lblTripFare.addTrailing(image: iconImage, text: fare + "  ", imageOffsetY: -4)

@@ -401,7 +401,8 @@ class KTCreateBookingViewController:
             }
         
         self.title = "str_book_karwa".localized()
-            
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
   }
   
   @objc private func showMenu() {

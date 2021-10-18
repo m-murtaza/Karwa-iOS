@@ -73,6 +73,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 //        }
         
         (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         
     }
     

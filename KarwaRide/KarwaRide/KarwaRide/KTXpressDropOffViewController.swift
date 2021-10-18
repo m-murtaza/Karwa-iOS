@@ -67,6 +67,9 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
 
         super.viewDidLoad()
         
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
+        
         // Do any additional setup after loading the view.
         addMap()
         
