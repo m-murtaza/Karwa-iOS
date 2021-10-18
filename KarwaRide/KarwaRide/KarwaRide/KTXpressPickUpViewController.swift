@@ -216,6 +216,10 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
                 return true
             }
+            let noAction = CDAlertViewAction(title: "str_no".localized()) { value in
+                return true
+            }
+            alert.add(action: noAction)
             alert.add(action: yesAction)
             alert.show()
         } else {

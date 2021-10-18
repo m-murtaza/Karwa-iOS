@@ -145,6 +145,10 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
                 self.vModel?.didTapSetDropOffButton()
                 return true
             }
+            let noAction = CDAlertViewAction(title: "str_no".localized()) { value in
+                return true
+            }
+            alert.add(action: noAction)
             alert.add(action: yesAction)
             alert.show()
         } else {

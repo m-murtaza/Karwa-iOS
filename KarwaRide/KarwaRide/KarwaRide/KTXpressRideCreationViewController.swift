@@ -153,8 +153,17 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         bookingProgress.progress = 0.0
         
-        self.passengerLabel.text = "\(rideServicePickDropOffData?.passsengerCount ?? 1) \("str_pass".localized())"
-
+        switch rideServicePickDropOffData?.passsengerCount ?? 1 {
+        case 1:
+            self.passengerLabel.text = "str_1pass".localized()
+        case 2:
+            self.passengerLabel.text = "str_2pass".localized()
+        case 3:
+            self.passengerLabel.text = "str_3pass".localized()
+        default:
+            self.passengerLabel.text = "str_1pass".localized()
+        }
+        
         if Device.getLanguage().contains("AR") {
             arrowImage.image = #imageLiteral(resourceName: "pickdrop_connected_arrow").imageFlippedForRightToLeftLayoutDirection()
         }
@@ -175,6 +184,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         ABLoader().startShining(self.shimmerImageViewBottom)
         ABLoader().startShining(self.shimmerLabelBottom1)
         ABLoader().startShining(self.shimmerLabelBottom2)
+        
+        self.bookingProgress.trackTintColor = .clear
 
 //        heightConstraint.constant = 250
     }
