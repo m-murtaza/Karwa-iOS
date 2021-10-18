@@ -9,7 +9,8 @@
 import UIKit
 import Spring
 import Lottie
-import UBottomSheet
+//import UBottomSheet
+import FittedSheets
 
 public class PreviousSelectedPayment: NSObject {
     static let shared = PreviousSelectedPayment()
@@ -38,17 +39,17 @@ class RideServiceCell: UITableViewCell {
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
-    contentView.backgroundColor = selected ? .white : .clear
-    contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = selected ? 2 : 0
-    contentView.layer.cornerRadius = selected ? 8 : 0
-    serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-    fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-    if(selected && !animated)
-    {
-        icon.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
-        icon.animate()
-    }
+//    contentView.backgroundColor = selected ? .white : .clear
+//    contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
+//    contentView.layer.borderWidth = selected ? 2 : 0
+//    contentView.layer.cornerRadius = selected ? 8 : 0
+//    serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+//    fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+//    if(selected && !animated)
+//    {
+//        icon.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
+//        icon.animate()
+//    }
   }
 
   func setFare(fare: String) {
@@ -149,6 +150,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     selectedIndex = indexPath.row
     (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
+    self.setupVehicleDetailBottomSheet()
   }
   
 //  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -176,18 +178,18 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     func restoreCustomerServiceSelection(animateView: Bool)
     {
         
-            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-                return
-            }
-
-            print("Restoring index: \(selectedIndex)")
-            
-            let indexPath = IndexPath(row: 0, section: 0)
-            DispatchQueue.main.async {
-                self.tableView.selectRow(at: indexPath,
-                                         animated: !animateView,
-                                         scrollPosition: .none)
-            }
+//            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+//                return
+//            }
+//
+//            print("Restoring index: \(selectedIndex)")
+//
+//            let indexPath = IndexPath(row: 0, section: 0)
+//            DispatchQueue.main.async {
+//                self.tableView.selectRow(at: indexPath,
+//                                         animated: !animateView,
+//                                         scrollPosition: .none)
+//            }
                     
     }
   
@@ -405,6 +407,30 @@ class KTCreateBookingViewController:
         self.title = "str_book_karwa".localized()
             
   }
+    
+    private func setupVehicleDetailBottomSheet() {
+        let bottomSheetVC = VehicleDetailBottomSheetVC()
+        let bottomSheet = SheetViewController(
+            controller: bottomSheetVC,
+            sizes: [.fixed(530), .intrinsic],
+            options: SheetOptions(useInlineMode: true))
+        bottomSheetVC.sheet = bottomSheet
+        bottomSheetVC.vModel = viewModel as? KTCreateBookingViewModel
+        bottomSheet.allowPullingPastMaxHeight = true
+        bottomSheet.allowPullingPastMinHeight = true
+        
+        bottomSheet.dismissOnPull = true
+        bottomSheet.dismissOnOverlayTap = true
+        bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.1)
+        bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+        bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
+        bottomSheet.contentViewController.view.layer.shadowRadius = 10
+        bottomSheet.cornerRadius = 30.0
+        bottomSheet.allowGestureThroughOverlay = false
+        bottomSheet.animateIn(to: view, in: self)
+        
+        bottomSheetVC.updateDetailBottomSheet(forIndex: selectedIndex)
+    }
   
   @objc private func showMenu() {
     sideMenuController?.revealMenu()
@@ -629,7 +655,7 @@ class KTCreateBookingViewController:
     removeBookingOnReset = true
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
-    collapseRideList()
+//    collapseRideList()
     updateVehicleTypeList()
     if sheetPresented == true {
         self.dismissSelectionMethod()
@@ -723,7 +749,7 @@ class KTCreateBookingViewController:
     btnCancelBtn.isHidden = false
     btnRevealBtn.isHidden = true
     selectedIndex = 0
-    restoreCustomerServiceSelection()
+//    restoreCustomerServiceSelection()
     self.tabBarController?.tabBar.isHidden = true
   }
   

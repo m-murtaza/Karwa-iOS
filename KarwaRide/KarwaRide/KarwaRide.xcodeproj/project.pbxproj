@@ -256,6 +256,8 @@
 		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
 		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
 		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
+		B7B89B9C271D741500F9D97D /* VehicleDetailBottomSheetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */; };
+		B7B89B9F271D748800F9D97D /* VehicleDetailBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */; };
 		F03DAFFC261AE4B6002B3C44 /* KTWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */; };
 		F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */; };
 		F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */; };
@@ -537,6 +539,8 @@
 		44EBB8D1254861FE000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VehicleDetailBottomSheetVC.xib; sourceTree = "<group>"; };
+		B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailBottomSheetVC.swift; sourceTree = "<group>"; };
 		C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewController.swift; sourceTree = "<group>"; };
 		F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewModel.swift; sourceTree = "<group>"; };
@@ -1062,6 +1066,7 @@
 		1833CA7D200DB86E00AD885B /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				B7B89B9A271D73E100F9D97D /* VehicleDetailBottomSheet */,
 				F07CFD70263022F100F003DA /* PaymentSelectionView */,
 				441D116E255103ED005E1B66 /* Favorite */,
 				18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */,
@@ -1541,6 +1546,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B7B89B9A271D73E100F9D97D /* VehicleDetailBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */,
+				B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */,
+			);
+			name = VehicleDetailBottomSheet;
+			sourceTree = "<group>";
+		};
 		F03DAFFA261AE46A002B3C44 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1684,6 +1698,7 @@
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */,
 				F07CFD7E26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib in Resources */,
+				B7B89B9C271D741500F9D97D /* VehicleDetailBottomSheetVC.xib in Resources */,
 				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
@@ -2013,6 +2028,7 @@
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
 				0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */,
 				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
+				B7B89B9F271D748800F9D97D /* VehicleDetailBottomSheetVC.swift in Sources */,
 				1811AE4526AD1A89002C991E /* KTXpressAddressPickerViewModel.swift in Sources */,
 				F03DB009261D42E4002B3C44 /* KTAddCreditViewModel.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
