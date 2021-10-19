@@ -231,12 +231,12 @@ extension UILabel {
 extension UIButton {
     
     func addShadowBottomXpress() {
-        self.layer.shadowRadius = 10
-        self.layer.shadowOpacity = 1
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 10)
-        self.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
-        self.layer.masksToBounds = false
-        self.layer.cornerRadius = 25
+//        self.layer.shadowRadius = 10
+//        self.layer.shadowOpacity = 1
+//        self.layer.shadowOffset = CGSize(width: 0.0, height: 10)
+//        self.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+//        self.layer.masksToBounds = false
+//        self.layer.cornerRadius = 25
         
 //
 //        self.layer.shadowColor = UIColor.black.cgColor

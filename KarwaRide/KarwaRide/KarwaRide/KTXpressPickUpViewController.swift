@@ -219,7 +219,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     func showAlertForStation() {
         
         if self.tapOnMarker == true {
-            let alert = CDAlertView(title: "str_metro".localized(), message: (self.viewModel as! KTXpressPickUpViewModel).selectedStationName, type: .custom(image: UIImage(named:"metro_ico")!))
+            let alert = CDAlertView(title: "str_metro_station".localized(), message: (self.viewModel as! KTXpressPickUpViewModel).selectedStationName, type: .custom(image: UIImage(named:"metro_big")!))
             let yesAction = CDAlertViewAction(title: "SETPICKUP".localized()) { value in
                 self.vModel?.setPickupStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
                 (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
