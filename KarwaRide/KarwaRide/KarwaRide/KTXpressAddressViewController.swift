@@ -17,6 +17,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: SpringButton!
     @IBOutlet weak var pinMarkerImageView: UIImageView!
+    @IBOutlet weak var clearButton: UIButton!
 
     var fromPickup = false
     var fromDropOff = false
@@ -377,6 +378,19 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
 
 extension KTXpressAddressViewController:  UITextFieldDelegate {
     
+    @IBAction func clearActionPickup(_ sender: Any) {
+      textField.text = ""
+      textField.becomeFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text?.count ?? 0 > 0 {
+            clearButton.isHidden = false
+        } else {
+            clearButton.isHidden = true
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // dismiss keyboard
         return true
@@ -386,26 +400,28 @@ extension KTXpressAddressViewController:  UITextFieldDelegate {
       textField.superview?.addExternalBorder(borderWidth: 2.0,
                                              borderColor: UIColor.primary,
                                              cornerRadius: 8.0)
-      //textField.superview?.backgroundColor = UIColor.white
+      textField.superview?.backgroundColor = UIColor.white
       return true
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-      
-      textField.text = (viewModel as! KTXpressAddressPickerViewModel).pickUpAddress?.name
-      
       textField.superview?.removeExternalBorders()
-     // textField.superview?.backgroundColor = UIColor.clear
+      textField.superview?.backgroundColor = UIColor.clear
       return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
       //print("---textFieldDidEndEditing---")
-//      clearButtonPickup.isHidden = true
-//      clearButtonDestination.isHidden = true
+      clearButton.isHidden = true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
+        if string.count > 0 || textField.text?.count ?? 0 > 1 {
+            clearButton.isHidden = false
+        } else {
+            clearButton.isHidden = true
+        }
+        
       searchText = textField.text!;
       if searchTimer.isValid {
         

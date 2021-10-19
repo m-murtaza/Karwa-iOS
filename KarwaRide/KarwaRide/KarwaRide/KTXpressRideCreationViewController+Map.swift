@@ -84,7 +84,7 @@ extension KTXpressRideCreationViewController
         pickUpLocationMarker = GMSMarker()
         pickUpLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!
         pickUpLocationMarker.iconView = walkToPickUpView
-        pickUpLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
+        pickUpLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
         
         if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!.latitude {
             pickUpLocationMarker.map = nil
