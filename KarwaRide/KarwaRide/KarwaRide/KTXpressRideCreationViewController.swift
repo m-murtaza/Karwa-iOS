@@ -441,9 +441,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
       }
     
     func showRideTrackViewController() {
-        let rideService = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideTrackingViewController") as? KTXpressRideTrackingViewController)!
-        rideService.rideServicePickDropOffData = rideServicePickDropOffData
-        rideService.selectedRide = (self.viewModel as! KTXpressRideCreationViewModel).selectedRide
         
         let details  = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as? KTXpressBookingDetailsViewController)!
         details.rideServicePickDropOffData = rideServicePickDropOffData
@@ -451,6 +448,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         if let booking : KTBooking = vModel?.selectedBooking {
             details.setBooking(booking: booking)
         }
+        
+        bookingSuccessful = true
         self.navigationController?.pushViewController(details, animated: true)        
     }
         

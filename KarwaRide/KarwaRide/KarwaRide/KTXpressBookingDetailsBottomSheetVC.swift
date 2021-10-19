@@ -212,6 +212,23 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
                 
     }
     
+    @IBAction func btnContactTapTouchIn(_ sender: UIButton)
+    {
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 15
+        sender.clipsToBounds = true
+
+        sender.imageView?.layer.cornerRadius = 15
+        sender.imageView?.clipsToBounds = true
+        
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+        sender.tintColor = UIColor(hexString: "#397FBA")
+                
+    }
+    
     @IBAction func btnShareTapTouchIn(_ sender: UIButton)
     {
         
@@ -362,7 +379,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateHeaderMsg(_ msg : String)
     {
         if msg.contains("str_xpress".localized()) {
-            rideHeaderText.attributedText = addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-700", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
+            rideHeaderText.attributedText = addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "\("str_thank".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
         } else {
             rideHeaderText.font = UIFont(name: "MuseoSans-900", size: 17.0)!
             rideHeaderText.text = msg
@@ -660,7 +677,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateVehicleDetails()
     {
         iconVehicle.image = UIImage(named: "kmetroexpress")
-        lblVehicleType.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)  //vModel?.vehicleType()
+        lblVehicleType.attributedText = addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)  //vModel?.vehicleType()
         if Int(vModel?.getPassengerCountr() ?? "0") ?? 0 > 1 {
             lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass_plural".localized())"
         } else {

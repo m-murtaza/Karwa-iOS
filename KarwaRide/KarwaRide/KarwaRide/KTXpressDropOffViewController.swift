@@ -143,7 +143,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         if self.tapOnMarker == true {
             let alert = CDAlertView(title: "str_metro".localized(), message: self.vModel?.selectedStationName ?? "", type: .custom(image: UIImage(named:"metro_ico_map")!))
             
-            let yesAction = CDAlertViewAction(title: "SETDROPOFF".localized().uppercased()) { value in
+            let yesAction = CDAlertViewAction(title: "SETDROPOFF".localized()) { value in
                 self.vModel?.setDropOffStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
                 self.vModel?.didTapSetDropOffButton()
                 return true
@@ -238,7 +238,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     func showStopAlertViewController(stops: [Area], selectedStation: Area) {
         
-        let alert = UIAlertController(title: "\(selectedStation.name! + "Stops")", message: "Please Select Stop for Station", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "\(selectedStation.name! + "str_stop".localized())", message: "str_select_stop".localized(), preferredStyle: .actionSheet)
         for item in stops {
             alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
                 self.tapOnMarker = true

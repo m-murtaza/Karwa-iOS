@@ -254,17 +254,12 @@ class KTMyTripsViewModel: KTBaseViewModel {
     }
     
     func getAttributedTextForMetroExpress() -> NSAttributedString {
-        
-        return addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 15.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 15.0)!)
-
+        return addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 15.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 15.0)!)
     }
   
   func bookingStatusString(forIdx idx: Int) -> String? {
     
     var status : String?
-
-    
-    
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.COMPLETED.rawValue:
         switch (bookings![idx] as KTBooking).vehicleType {

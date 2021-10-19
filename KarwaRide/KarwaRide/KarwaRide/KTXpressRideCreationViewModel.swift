@@ -256,7 +256,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     func getEstimatedTime(index: Int) -> NSAttributedString {
         
-        let minString = ((self.rideInfo?.rides[index].eta ?? 0)/60) > 0 ? "str_mins".localized() : "str_min".localized()
+        let minString = ((self.rideInfo?.rides[index].eta ?? 0)/60) > 1 ? "str_mins".localized() : "str_min".localized()
         
         if let attributedString = createAttributedString(stringArray: ["str_arrives".localized(), " \((self.rideInfo?.rides[index].eta ?? 0)/60) " + minString], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:  UIFont(name: "MuseoSans-700", size: 14.0)!]) {
               return attributedString

@@ -90,7 +90,7 @@ class TabViewController: UITabBarController {
                     // here is the customization for my label 2 lines
                     label?.numberOfLines = 2
                     label?.textAlignment = .center
-                    label!.attributedText = addBoldText(fullString: "metroexpress" as NSString, boldPartOfString: "\("metro")" as NSString, font:  UIFont(name: "MuseoSans-500", size: 11.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 11.0)!)
+                    label!.attributedText = addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 11.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 11.0)!)
                     // here customisation for image insets top and bottom
                     //                    items[2].imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -5, right: 0)
                 }

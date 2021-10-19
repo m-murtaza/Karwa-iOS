@@ -53,24 +53,24 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     var stopsOFStations = [Area]()
 
     override func viewWillAppear() {
-        setupCurrentLocaiton()
+        //setupCurrentLocaiton()
         super.viewWillAppear()
     }
     
     override func viewDidAppear() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.XpressLocationManager), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.LocationManagerLocaitonUpdate(notification:)), name: Notification.Name(Constants.Notification.XpressLocationManager), object: nil)
     }
 
     func setupCurrentLocaiton() {
       if KTLocationManager.sharedInstance.locationIsOn() {
         if KTLocationManager.sharedInstance.isLocationAvailable {
-          var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
-          var userInfo : [String :Any] = [:]
-          userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
-          
-          notification.userInfo = userInfo
-          //notification.userInfo!["location"] as! CLLocation
-          LocationManagerLocaitonUpdate(notification: notification)
+//          var notification : Notification = Notification(name: Notification.Name(rawValue: Constants.Notification.LocationManager))
+//          var userInfo : [String :Any] = [:]
+//          userInfo["location"] = KTLocationManager.sharedInstance.baseLocation
+//
+//          notification.userInfo = userInfo
+//          //notification.userInfo!["location"] as! CLLocation
+//          LocationManagerLocaitonUpdate(notification: notification)
         }
         else {
           KTLocationManager.sharedInstance.start()

@@ -33,6 +33,8 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        backButton.setImage(UIImage(named: "address_back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        
         viewModel = KTXpressAddressPickerViewModel(del:self)
         vModel = viewModel as? KTXpressAddressPickerViewModel
         vModel?.metroStations = self.metroStations
@@ -56,7 +58,6 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.backgroundColor = UIColor(hexString: "#F9F9F9")
         
         self.textField.delegate = self
         
@@ -143,6 +144,9 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         if section == 0 {
             return 1
         }
+        if (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section) == 0 {
+            return 1
+        }
         return 50
     }
     
@@ -166,6 +170,10 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
             headerLabel.textAlignment = .right
         } else {
             headerLabel.textAlignment = .left
+        }
+        
+        if (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section) == 0 {
+            return nil
         }
       
         headerLabel.textColor = UIColor(hexString: "#8EA8A7")

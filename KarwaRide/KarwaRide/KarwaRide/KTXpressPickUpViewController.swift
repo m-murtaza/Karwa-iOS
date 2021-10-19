@@ -92,6 +92,13 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
         
+        if bookingSuccessful == true {
+            self.passengerLabel.text = "str_1pass".localized()
+            plusBtn.layer.opacity = 1
+            minuBtn.layer.opacity = 0.5
+            bookingSuccessful = false
+        }
+        
         if self.tabBarController?.tabBar.isHidden == false {
             if UIDevice().userInterfaceIdiom == .phone {
                     switch UIScreen.main.nativeBounds.height {
@@ -213,7 +220,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         
         if self.tapOnMarker == true {
             let alert = CDAlertView(title: "str_metro".localized(), message: (self.viewModel as! KTXpressPickUpViewModel).selectedStationName, type: .custom(image: UIImage(named:"metro_ico")!))
-            let yesAction = CDAlertViewAction(title: "SETPICKUP".localized().uppercased()) { value in
+            let yesAction = CDAlertViewAction(title: "SETPICKUP".localized()) { value in
                 self.vModel?.setPickupStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
                 (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
                 return true
