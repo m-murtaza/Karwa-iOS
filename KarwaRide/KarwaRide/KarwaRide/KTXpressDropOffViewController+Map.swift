@@ -259,7 +259,7 @@ extension KTXpressDropOffViewController
             
             dropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
             
-            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 17)
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
                 
             self.mapView.camera = camera;
             rect.append(self.polygon(bounds: item.bound!, type: ""))
@@ -417,6 +417,12 @@ extension KTXpressDropOffViewController
         marker.icon = image
         marker.groundAnchor = CGPoint(x:0.2,y:1)
         marker.map = self.mapView
+        
+        if location.latitude == pickUpCoordinate!.latitude {
+            marker.isTappable = false
+        } else {
+            marker.isTappable = true
+        }
     }
     
     func focusOnLocation(lat: Double, lon: Double)

@@ -105,6 +105,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         super.viewDidLoad()
         del = self.delegate as? KTBookingDetailsViewModelDelegate
         initializeViewWRTBookingStatus()
+        fetchTaxiForTracking()
     }
     
     override func viewDidAppear() {
