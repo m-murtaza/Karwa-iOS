@@ -293,8 +293,8 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     
     func fetchRideService() {
         
-        self.delegate?.showProgressHud(show: true)
-        
+        self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
+
         KTXpressBookingManager().getRideService(rideData: rideLocationData) { [weak self] (String, response) in
                         
             self?.delegate?.hideProgressHud()

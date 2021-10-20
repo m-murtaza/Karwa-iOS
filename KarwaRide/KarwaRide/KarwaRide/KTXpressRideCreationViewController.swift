@@ -131,6 +131,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         if xpressRebookSelected == true {
             (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
             (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+            addMap()
             shimmerView.isHidden = false
             vModel?.fetchRideService()
         } else {
