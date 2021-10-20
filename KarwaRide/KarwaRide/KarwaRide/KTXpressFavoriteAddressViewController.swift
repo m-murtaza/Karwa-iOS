@@ -33,7 +33,7 @@ class KTXpressFavoriteAddressViewController: KTBaseViewController, UITextFieldDe
         //changeStatusBarColor(color: UIColor.primaryLight)
        // navigationBar.backgroundColor = UIColor.primaryLight
         
-        setFavBtn.addShadowBottomXpress()
+//        setFavBtn.addShadowBottomXpress()
         locationNameTextField.placeholder = "txt_location_head".localized()
         locationNameTextField.font = UIFont(name: "MuseoSans-700", size: 14.0)!
         locationNameTextField.placeholderFont = UIFont(name: "MuseoSans-500", size: 14.0)!

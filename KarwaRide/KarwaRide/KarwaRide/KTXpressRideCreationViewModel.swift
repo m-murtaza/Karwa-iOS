@@ -143,9 +143,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         self.delegate?.showProgressHud(show: true)
         
         KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (String, response) in
-            
-            xpressRebookSelected = false
-            
+                        
             self?.delegate?.hideProgressHud()
             
             guard let strongSelf = self else{

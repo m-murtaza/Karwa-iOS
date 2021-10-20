@@ -260,6 +260,33 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
     }
     
+    func showAlertForFailedRide(message: String) {
+        let alert = CDAlertView(title: message, message: "", type: .error)
+        let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
+//            if let navController = self.navigationController {
+//                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+//                    if navController.viewControllers.count == 6 {
+//                        navController.popToViewController(navController.viewControllers[3], animated: true)
+//                    } else if navController.viewControllers.count > 4 {
+//                        navController.popToViewController(navController.viewControllers[2], animated: true)
+//                    } else if navController.viewControllers.count <= 3 {
+//                        navController.popToViewController(navController.viewControllers[0], animated: true)
+//                    } else if navController.viewControllers.count <= 4 {
+//                        navController.popToViewController(navController.viewControllers[1], animated: true)
+//                    } else {
+//                        navController.popViewController(animated: true)
+//                    }
+//                } else {
+//                    navController.popViewController(animated: true)
+//                }
+//            }
+            return true
+        }
+        
+        alert.add(action: doneAction)
+        alert.show()
+    }
+    
     func setLocation(location: Any) {
         
         xpressRebookDropOffSelected = false

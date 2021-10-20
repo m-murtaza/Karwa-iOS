@@ -51,6 +51,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     var selectedStop:Area?
     var selectedStation:Area?
     var stopsOFStations = [Area]()
+    var tapOnMarker = false
 
     override func viewWillAppear() {
         //setupCurrentLocaiton()
@@ -276,7 +277,13 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     }
     
     func didTapMarker(location: CLLocation) {
-        (delegate as? KTXpressPickUpViewModelDelegate)?.showAlertForStation()
+        self.getDestinationForPickUp()
+        stopsOFStations = Array(Set(stopsOFStations))
+        if stopsOFStations.count > 1 {
+            (delegate as! KTXpressPickUpViewModelDelegate).showStopAlertViewController(stops: stopsOFStations, selectedStation: selectedStation!)
+        } else {
+            (delegate as? KTXpressPickUpViewModelDelegate)?.showAlertForStation()
+        }
     }
     
     func showStopAlert() {
@@ -295,7 +302,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     
     func didTapSetPickUpButton() {
                 
-        defer {
+//        defer {
             
             if self.destinationForPickUp.count > 0 {
                 
@@ -306,107 +313,99 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
                 
             }
             
-        }
+       // }
         
-        self.getDestinationForPickUp()
+//        self.getDestinationForPickUp()
 
     }
     
     func getDestinationForPickUp() {
-        
-        destinationForPickUp.removeAll()
-        selectedZone = nil
-        selectedStation = nil
-        stopsOFStations.removeAll()
-        
-        let _ = checkLatLonInsideStation(location: CLLocation(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0))
-        
-        for item in zones {
+        if areas.count > 0 {
             
-            let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            })!
+            destinationForPickUp.removeAll()
+            selectedZone = nil
+            selectedStation = nil
+            stopsOFStations.removeAll()
             
-            if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
-                selectedZone = item
-                break
-            }
+            let _ = checkLatLonInsideStation(location: CLLocation(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0))
             
-        }
-        
-        
-        if selectedStation == nil {
-            let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
-            
-            print(selectedZone)
-            print(stationsOfZone)
-            
-            for item in stationsOfZone! {
+            for item in zones {
                 
                 let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                     return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                 })!
                 
                 if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
-                    selectedStation = item
+                    selectedZone = item
                     break
                 }
                 
             }
-        }
-        
-        
-        
-        if selectedStation != nil {
-            print("it's inside station")
-        } else {
-            print("it's inside a zone")
-        }
+            
+            if selectedZone != nil {
+                if selectedStation == nil {
+                    let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedZone!.code}.first!["stations"]
+                    for item in stationsOfZone! {
+                        let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                            return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                        })!
+                        if  CLLocationCoordinate2D(latitude: selectedCoordinate?.latitude ?? 0.0, longitude: selectedCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                            selectedStation = item
+                            break
+                        }
+                    }
+                }
                 
-//        for item in stationsOfZone! {
-//            stopsOFStations.append(contentsOf: self.areas.filter{$0.parent! == item.code!})
-//
-//        }
-        
-        var customDestinationsCode = [Int]()
-        
-        if selectedStation != nil {
-            
-            stopsOFStations.append(contentsOf: areas.filter{$0.parent! == selectedStation!.code!})
-            
-            let coordinates = (selectedStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            })!
-            
-            selectedCoordinate = coordinates.first!
-            
-            if customDestinationsCode.count == 0{
-                customDestinationsCode = destinations.filter{$0.source == selectedStation?.code!}.map{$0.destination!}
+                if selectedStation != nil {
+                    print("it's inside station")
+                } else {
+                    print("it's inside a zone")
+                }
+                        
+        //        for item in stationsOfZone! {
+        //            stopsOFStations.append(contentsOf: self.areas.filter{$0.parent! == item.code!})
+        //
+        //        }
+                
+                var customDestinationsCode = [Int]()
+                
+                if selectedStation != nil {
+                    
+                    stopsOFStations.append(contentsOf: areas.filter{$0.parent! == selectedStation!.code!})
+                    
+                    let coordinates = (selectedStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    })!
+                    
+                    selectedCoordinate = coordinates.first!
+                    
+                    if customDestinationsCode.count == 0{
+                        customDestinationsCode = destinations.filter{$0.source == selectedStation?.code!}.map{$0.destination!}
+                    }
+                    
+                    for item in customDestinationsCode {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    }
+                    
+                    print("destinationForPickUp", destinationForPickUp)
+                    
+                    selectedStop = selectedStop == nil ? stopsOFStations.first! : selectedStop
+                
+                } else {
+                    
+                    customDestinationsCode = destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
+                    
+                    for item in customDestinationsCode {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    }
+                    
+                    print(destinationForPickUp)
+                
+                }
             }
             
-            
-            for item in customDestinationsCode {
-                
-                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                
-            }
-            
-            print("destinationForPickUp", destinationForPickUp)
-            
-            selectedStop = selectedStop == nil ? stopsOFStations.first! : selectedStop
-        
-        } else {
-            
-            customDestinationsCode = destinations.filter{$0.source == selectedZone?.code}.map{$0.destination!}
-            
-            for item in customDestinationsCode {
-                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-            }
-            
-            print(destinationForPickUp)
-        
+
         }
-        
         
     }
     

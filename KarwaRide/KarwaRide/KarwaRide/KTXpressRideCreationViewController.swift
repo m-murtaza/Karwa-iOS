@@ -173,7 +173,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
         self.setBookingButton.backgroundColor = UIColor(hexString: "#4BA5A7")
         self.setBookingButton.isUserInteractionEnabled = true
-        self.setBookingButton.addShadowBottomXpress()
         
         ABLoader().startShining(self.shimmerImageViewtop)
         ABLoader().startShining(self.shimmerLabeltop1)

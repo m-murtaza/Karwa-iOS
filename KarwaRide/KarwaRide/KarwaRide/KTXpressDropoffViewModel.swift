@@ -39,6 +39,7 @@ protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func showRideServiceViewController(rideLocationData: RideSerivceLocationData?)
     func hideNavigationController()
     func showAlertForStation()
+    func showAlertForFailedRide(message: String)
 }
 
 class KTXpressDropoffViewModel: KTBaseViewModel {
@@ -65,7 +66,9 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     var selectedStation: Area?
     var selectedZone: Area?
     var zonalArea = [[String : [Area]]]()
-
+    var rideLocationData = RideSerivceLocationData()
+    var rideInfo = RideInfo()
+    
     override func viewWillAppear() {
         
 //        setupCurrentLocaiton()
@@ -167,7 +170,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             }
             
 
-            let rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
+            rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
             
             (delegate as! KTXpressDropoffViewModelDelegate).showRideServiceViewController(rideLocationData: rideLocationData)
         }
@@ -258,6 +261,70 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 //        
         }
         
+        
+    }
+    
+    func fetchRideService() {
+        
+        self.delegate?.showProgressHud(show: true)
+        
+        KTXpressBookingManager().getRideService(rideData: rideLocationData) { [weak self] (String, response) in
+                        
+            self?.delegate?.hideProgressHud()
+            
+            guard let strongSelf = self else{
+                return
+            }
+            
+            print("ridedata", response)
+                        
+            strongSelf.rideInfo.rides.removeAll()
+            
+            var ridesVehicleInfoList = [RideVehiceInfo]()
+            
+            if String == "FAILED" {
+                (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+            }
+            
+            guard let rides = response["Rides"] as? [[String : Any]] else {
+                if let message = response["M"] as? String {
+                    (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: message)
+                }
+                return
+            }
+            
+            for item in rides {
+                
+                var vehicleInfo = RideVehiceInfo()
+                var dropLocationInfo = LocationInfo()
+                var pickUplocationInfo = LocationInfo()
+                
+                vehicleInfo.eta = item["Eta"] as? Int
+                vehicleInfo.id = item["Id"] as? String
+                vehicleInfo.vehicleNo = item["VehicleNo"] as? String
+                dropLocationInfo.lat = (item["Drop"] as?[String:Double])?["lat"] ?? 0.0
+                dropLocationInfo.lon = (item["Drop"] as?[String:Double])?["lon"] ?? 0.0
+                pickUplocationInfo.lat = ((item["Pick"] as?[String:Double])?["lat"] ?? 0.0)
+                pickUplocationInfo.lon = ((item["Pick"] as?[String:Double])?["lon"] ?? 0.0)
+                vehicleInfo.drop = dropLocationInfo
+                vehicleInfo.pick = pickUplocationInfo
+            
+                ridesVehicleInfoList.append(vehicleInfo)
+
+            }
+            
+            strongSelf.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: (response["ExpirySeconds"] as! Int))
+            
+            print(strongSelf.rideInfo)
+            
+//            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
+//            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: strongSelf.rideInfo.expirySeconds ?? 0)
+//            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo.rides[0].pick?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].pick?.lon)!))
+//
+//
+//            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
+            
+        }
         
     }
     
