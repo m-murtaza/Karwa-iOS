@@ -36,7 +36,7 @@ protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setDropOff(pick: String?)
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
-    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?)
+    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?, rideInfo: RideInfo?)
     func hideNavigationController()
     func showAlertForStation()
     func showAlertForFailedRide(message: String)
@@ -155,29 +155,57 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
     }
     
     func didTapMarker(location: CLLocation) {
-        
-        (delegate as? KTXpressDropoffViewModelDelegate)?.showAlertForStation()
-        
+        getDestination()
+        if selectedStation != nil {
+            stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
+            if stopsOFStations.count == 1 {
+                selectedStop = stopsOFStations.first!
+                (delegate as? KTXpressDropoffViewModelDelegate)?.showAlertForStation()
+            } else {
+                showStopAlert()
+            }
+        } else {
+            selectedStop = nil
+        }
     }
     
     func didTapSetDropOffButton() {
-                
-        defer {
-            
-            if selectedStop == nil && selectedStation != nil{
-                stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
-                selectedStop = stopsOFStations.first!
-            }
-            
-
-            rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
-            
-            (delegate as! KTXpressDropoffViewModelDelegate).showRideServiceViewController(rideLocationData: rideLocationData)
-        }
-
         
-        getDestination()
-
+        // defer {
+        
+        if selectedStop == nil && selectedStation != nil{
+            stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
+            selectedStop = stopsOFStations.first!
+        }
+        
+        
+        if selectedZone != nil || selectedStation != nil || selectedStop != nil {
+            rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
+            fetchRideService()
+        } else {
+            getDestination()
+            stopsOFStations.removeAll()
+            if selectedStation != nil {
+                selectedZone = self.operationArea.filter{$0.code! == selectedStation!.parent!}.first!
+                stopsOFStations.append(contentsOf: self.operationArea.filter{$0.parent! == selectedStation!.code!})
+                if stopsOFStations.count == 1 {
+                    selectedStop = stopsOFStations.first!
+                    rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
+                    fetchRideService()
+                } else {
+                    showStopAlert()
+                }
+            } else {
+                selectedStop = nil
+                rideLocationData = RideSerivceLocationData(pickUpZone: pickUpZone, pickUpStation: pickUpStation, pickUpStop: pickUpStop, dropOffZone: selectedZone, dropOfSftation: selectedStation, dropOffStop: selectedStop, pickUpCoordinate: pickUpCoordinate, dropOffCoordinate: selectedCoordinate, passsengerCount: countOfPassenger)
+                fetchRideService()
+            }
+        }
+        
+        // }
+        
+        //        getDestination()
+        
     }
     
     func getDestination() {
@@ -261,7 +289,6 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
 //        
         }
         
-        
     }
     
     func fetchRideService() {
@@ -316,6 +343,9 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             strongSelf.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: (response["ExpirySeconds"] as! Int))
             
             print(strongSelf.rideInfo)
+            
+            (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showRideServiceViewController(rideLocationData: strongSelf.rideLocationData, rideInfo: strongSelf.rideInfo)
+
             
 //            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
 //            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: strongSelf.rideInfo.expirySeconds ?? 0)

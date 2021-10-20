@@ -206,7 +206,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     @objc func fetchRideOrderStatus() {
         
-        self.delegate?.showProgressHud(show: true, status: "str_finding_your_ride".localized())
+        self.delegate?.showProgressHud(show: true, status: "please_dialog_msg_booking_creation".localized())
 
         KTXpressBookingManager().getOrderStatus(vehicleInfo: selectedRide!) { [weak self] (String, response) in
             guard let strongSelf = self else{

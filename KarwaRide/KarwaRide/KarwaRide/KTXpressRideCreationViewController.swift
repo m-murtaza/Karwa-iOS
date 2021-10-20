@@ -84,7 +84,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var operationArea = [Area]()
         
     var rideServicePickDropOffData: RideSerivceLocationData? = nil
-    
+    var rideInfo: RideInfo? = nil
+
     var vModel : KTXpressRideCreationViewModel?
 
     var headerData = [1,2,3,4]
@@ -126,20 +127,24 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
-        
+
         if xpressRebookSelected == true {
             (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
             (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+            shimmerView.isHidden = false
+            vModel?.fetchRideService()
         } else {
             vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+            vModel?.rideInfo = rideInfo
+            addMap()
+            mapView.clear()
+            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!))
+            self.updateUI()
+            shimmerView.isHidden = true
         }
         
-        shimmerView.isHidden = false
-        
-        vModel?.fetchRideService()
-                
         // Do any additional setup after loading the view.
-        addMap()
         
         self.navigationItem.hidesBackButton = true;
         
@@ -364,7 +369,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     func showAlertForFailedRide(message: String) {
-        let alert = CDAlertView(title: message, message: "", type: .error)
+        let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
+
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
             if let navController = self.navigationController {

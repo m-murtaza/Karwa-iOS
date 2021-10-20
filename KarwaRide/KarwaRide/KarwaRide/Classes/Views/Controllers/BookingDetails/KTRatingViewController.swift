@@ -222,8 +222,18 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     @IBAction func btnRateBookingTapped(_ sender: Any) {
-        // ⬇︎⬇︎⬇︎ animation happens here ⬇︎⬇︎⬇︎
-        self.animateButton()
+        springAnimateButtonTapOut(button: btnSubmit)
+        self.vModel?.btnRattingTapped()
+    }
+    
+    @IBAction func bookbtnTouchDown(_ sender: SpringButton)
+    {
+      springAnimateButtonTapIn(button: btnSubmit)
+    }
+    
+    @IBAction func bookbtnTouchUpOutside(_ sender: SpringButton)
+    {
+      springAnimateButtonTapOut(button: btnSubmit)
     }
     
     func animateButton() {

@@ -409,8 +409,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         self.sheet?.handleScrollView(self.scrollView)
 //        self.scrollView.isScrollEnabled = false
-        KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
-
         
         //MARK:- ON CALL BOOKING
         if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)

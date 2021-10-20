@@ -1219,7 +1219,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 //                booking.estimatedFare = vEstimate?.estimatedFare
             }
             
-            delegate?.showProgressHud(show: true, status: "Booking a ride")
+            delegate?.showProgressHud(show: true, status: "please_dialog_msg_booking_creation".localized())
             bookManager.bookTaxi(job: booking,estimate: vEstimate, promo: promo) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {

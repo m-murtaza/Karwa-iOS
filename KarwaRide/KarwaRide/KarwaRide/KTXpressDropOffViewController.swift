@@ -252,16 +252,16 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
     }
     
-    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?) {
+    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?, rideInfo: RideInfo?) {
         let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
         rideService!.rideServicePickDropOffData = rideLocationData
-
+        rideService!.rideInfo = rideInfo
         self.navigationController?.pushViewController(rideService!, animated: true)
         
     }
     
     func showAlertForFailedRide(message: String) {
-        let alert = CDAlertView(title: message, message: "", type: .error)
+        let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
 //            if let navController = self.navigationController {
 //                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
