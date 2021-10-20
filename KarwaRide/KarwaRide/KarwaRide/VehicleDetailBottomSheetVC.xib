@@ -26,6 +26,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VehicleDetailBottomSheetVC" customModule="KarwaRide" customModuleProvider="target">
             <connections>
                 <outlet property="btnRequestBooking" destination="abl-bt-Bah" id="1LI-fI-jmx"/>
+                <outlet property="collectionView" destination="ew1-0w-C0G" id="gEF-YJ-9Ie"/>
                 <outlet property="lblCapacity" destination="seL-Pw-Flp" id="1q3-ix-IqG"/>
                 <outlet property="lblDescription" destination="mHU-qh-MKF" id="g7o-RC-f2B"/>
                 <outlet property="lblHeader" destination="l6j-st-ufd" id="6is-ua-fJu"/>
@@ -92,13 +93,13 @@
                                                                         <constraint firstAttribute="trailing" secondItem="cvO-FT-kNw" secondAttribute="trailing" constant="23" id="udY-H8-SVx"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="tgg-26-Djw">
+                                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ew1-0w-C0G" customClass="ScalingCarouselView" customModule="ScalingCarousel">
                                                                     <rect key="frame" x="0.0" y="53" width="417" height="185"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="185" id="UtX-Vv-C47"/>
+                                                                        <constraint firstAttribute="height" constant="185" id="E2N-hy-JRk"/>
                                                                     </constraints>
-                                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mCx-kq-0Pu">
+                                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="PWq-Qn-kdm">
                                                                         <size key="itemSize" width="128" height="128"/>
                                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -392,7 +393,7 @@
     </objects>
     <designables>
         <designable name="abl-bt-Bah">
-            <size key="intrinsicContentSize" width="131" height="32"/>
+            <size key="intrinsicContentSize" width="30" height="32"/>
         </designable>
     </designables>
     <resources>
