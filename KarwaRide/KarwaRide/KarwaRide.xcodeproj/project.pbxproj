@@ -127,6 +127,7 @@
 		181AB8532074E8730048D7AF /* KTAppDataSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */; };
 		181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 181AB8552075EDED0048D7AF /* InitTariff.JSON */; };
 		18203CC922888F2900B19B43 /* KTEmailCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */; };
+		18259166271EFD980033AB4A /* location_qatar.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 18259165271EFD980033AB4A /* location_qatar.gpx */; };
 		182A74CB208714EB0025B6C7 /* CALayer+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */; };
 		182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CC20876A0B0025B6C7 /* KTTagButton.swift */; };
 		182A74CF20905B130025B6C7 /* NSOrderedSet+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */; };
@@ -154,7 +155,6 @@
 		1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */; };
 		1839111E20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */; };
 		183B91E220C7C19500097FAF /* KTFareHTMLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B91E120C7C19500097FAF /* KTFareHTMLViewController.swift */; };
-		183C9A6926FC3D7E00DBD76C /* sample.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 183C9A6826FC3D7E00DBD76C /* sample.gpx */; };
 		1845FCC826BF81BD00A1AA75 /* KTXpresssBookingDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845FCC726BF81BD00A1AA75 /* KTXpresssBookingDetailsViewModel.swift */; };
 		1845FCCA26BF823700A1AA75 /* KTXpressBookingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845FCC926BF823700A1AA75 /* KTXpressBookingDetailsViewController.swift */; };
 		1845FCCE26BFA5A600A1AA75 /* KTXpressBookingDetailsBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1845FCCD26BFA5A600A1AA75 /* KTXpressBookingDetailsBottomSheetVC.swift */; };
@@ -402,6 +402,7 @@
 		181AB8522074E8730048D7AF /* KTAppDataSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAppDataSyncManager.swift; path = Classes/DAL/KTAppDataSyncManager.swift; sourceTree = "<group>"; };
 		181AB8552075EDED0048D7AF /* InitTariff.JSON */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = InitTariff.JSON; path = Resources/JSON/InitTariff.JSON; sourceTree = "<group>"; };
 		18203CC822888F2900B19B43 /* KTEmailCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTEmailCellViewController.swift; sourceTree = "<group>"; };
+		18259165271EFD980033AB4A /* location_qatar.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = location_qatar.gpx; sourceTree = "<group>"; };
 		182A74CA208714EB0025B6C7 /* CALayer+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CALayer+Utils.swift"; path = "Classes/Common/Extensions/CALayer+Utils.swift"; sourceTree = "<group>"; };
 		182A74CC20876A0B0025B6C7 /* KTTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTTagButton.swift; path = Classes/Views/Controllers/BookingDetails/KTTagButton.swift; sourceTree = "<group>"; };
 		182A74CE20905B130025B6C7 /* NSOrderedSet+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSOrderedSet+Utils.swift"; path = "Classes/Common/Extensions/NSOrderedSet+Utils.swift"; sourceTree = "<group>"; };
@@ -428,7 +429,6 @@
 		1839111B20468CAB002EDE1A /* KTUserManager+Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTUserManager+Logout.swift"; path = "Classes/DAL/KTUserManager+Logout.swift"; sourceTree = "<group>"; };
 		1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseLoginSignUpViewController.swift; path = Classes/Views/Controllers/Login/KTBaseLoginSignUpViewController.swift; sourceTree = "<group>"; };
 		183B91E120C7C19500097FAF /* KTFareHTMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFareHTMLViewController.swift; path = Classes/Views/Controllers/Fare/KTFareHTMLViewController.swift; sourceTree = "<group>"; };
-		183C9A6826FC3D7E00DBD76C /* sample.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sample.gpx; sourceTree = "<group>"; };
 		1845FCC726BF81BD00A1AA75 /* KTXpresssBookingDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpresssBookingDetailsViewModel.swift; sourceTree = "<group>"; };
 		1845FCC926BF823700A1AA75 /* KTXpressBookingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressBookingDetailsViewController.swift; sourceTree = "<group>"; };
 		1845FCCD26BFA5A600A1AA75 /* KTXpressBookingDetailsBottomSheetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTXpressBookingDetailsBottomSheetVC.swift; sourceTree = "<group>"; };
@@ -887,7 +887,7 @@
 		1813448D1EF68671006E734A = {
 			isa = PBXGroup;
 			children = (
-				183C9A6826FC3D7E00DBD76C /* sample.gpx */,
+				18259165271EFD980033AB4A /* location_qatar.gpx */,
 				181344981EF68671006E734A /* KarwaRide */,
 				181344971EF68671006E734A /* Products */,
 				A58B8D61F51636D5CBD777D5 /* Frameworks */,
@@ -1690,6 +1690,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18259166271EFD980033AB4A /* location_qatar.gpx in Resources */,
 				0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */,
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
 				F07CFD722630231D00F003DA /* KTPaymentMethodSelectionView.xib in Resources */,
@@ -1720,7 +1721,6 @@
 				1813449F1EF68671006E734A /* Main.storyboard in Resources */,
 				185209472062411C00BD5FCD /* MyTripHired@2x.gif in Resources */,
 				0D18C6BD215116750001FD4C /* GoogleService-Info.plist in Resources */,
-				183C9A6926FC3D7E00DBD76C /* sample.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2277,7 +2277,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202;
+				CURRENT_PROJECT_VERSION = 217;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				EXCLUDED_ARCHS = "";
@@ -2312,7 +2312,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 202;
+				CURRENT_PROJECT_VERSION = 217;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;

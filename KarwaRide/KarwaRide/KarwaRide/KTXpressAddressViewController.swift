@@ -16,6 +16,8 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var backButton: SpringButton!
+    @IBOutlet weak var pinMarkerImageView: UIImageView!
+    @IBOutlet weak var clearButton: UIButton!
 
     var fromPickup = false
     var fromDropOff = false
@@ -31,13 +33,18 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        backButton.setImage(UIImage(named: "address_back_arrow_ico")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        
         viewModel = KTXpressAddressPickerViewModel(del:self)
         vModel = viewModel as? KTXpressAddressPickerViewModel
         vModel?.metroStations = self.metroStations
         
         getFavouriteMetroStations()
         
-        pickUpAddressHeaderLabel.text = fromDropOff ? "DROPOFFHEADER".localized() : "PICKUPHEADER".localized()
+        pickUpAddressHeaderLabel.text = fromDropOff ? "str_dropoff".localized() : "str_setpick".localized()
+        
+        pinMarkerImageView.image = fromDropOff ? UIImage(named: "dropoff_pin") : UIImage(named: "pickup_pin")
+
         
         pickUpAddressHeaderLabel.duration = 1
         pickUpAddressHeaderLabel.delay = 0.15
@@ -51,7 +58,6 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.backgroundColor = UIColor(hexString: "#F9F9F9")
         
         self.textField.delegate = self
         
@@ -138,13 +144,16 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         if section == 0 {
             return 1
         }
+        if (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section) == 0 {
+            return 1
+        }
         return 50
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let sectionHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
-        sectionHeaderView.backgroundColor = UIColor(hexString: "#F9F9F9")
+        sectionHeaderView.backgroundColor = UIColor.white//(hexString: "#F9F9F9")
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 20, width: self.tableView.frame.width-40, height: 30))
         if section == 0 {
             return nil
@@ -161,6 +170,10 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
             headerLabel.textAlignment = .right
         } else {
             headerLabel.textAlignment = .left
+        }
+        
+        if (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section) == 0 {
+            return nil
         }
       
         headerLabel.textColor = UIColor(hexString: "#8EA8A7")
@@ -194,7 +207,6 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell : KTXpressAddressTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KTXpressAddressTableViewCell") as! KTXpressAddressTableViewCell
-        cell.backgroundColor = UIColor(hexString: "#F9F9F9")
 
         cell.titleLabel.text = (viewModel as! KTXpressAddressPickerViewModel).addressTitle(forIndex: indexPath)
         
@@ -374,6 +386,19 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
 
 extension KTXpressAddressViewController:  UITextFieldDelegate {
     
+    @IBAction func clearActionPickup(_ sender: Any) {
+      textField.text = ""
+      textField.becomeFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.text?.count ?? 0 > 0 {
+            clearButton.isHidden = false
+        } else {
+            clearButton.isHidden = true
+        }
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder() // dismiss keyboard
         return true
@@ -383,26 +408,28 @@ extension KTXpressAddressViewController:  UITextFieldDelegate {
       textField.superview?.addExternalBorder(borderWidth: 2.0,
                                              borderColor: UIColor.primary,
                                              cornerRadius: 8.0)
-      //textField.superview?.backgroundColor = UIColor.white
+      textField.superview?.backgroundColor = UIColor.white
       return true
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-      
-      textField.text = (viewModel as! KTXpressAddressPickerViewModel).pickUpAddress?.name
-      
       textField.superview?.removeExternalBorders()
-     // textField.superview?.backgroundColor = UIColor.clear
+      textField.superview?.backgroundColor = UIColor.clear
       return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
       //print("---textFieldDidEndEditing---")
-//      clearButtonPickup.isHidden = true
-//      clearButtonDestination.isHidden = true
+      clearButton.isHidden = true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
+        if string.count > 0 || textField.text?.count ?? 0 > 1 {
+            clearButton.isHidden = false
+        } else {
+            clearButton.isHidden = true
+        }
+        
       searchText = textField.text!;
       if searchTimer.isValid {
         

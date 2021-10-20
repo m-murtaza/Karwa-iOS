@@ -58,7 +58,6 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
             self.vModel?.setupCurrentLocaiton()
         }
         
-        self.setPickUpButton.addTarget(self, action: #selector(clickSetPickUp), for: .touchUpInside)
         self.showAddressPickerBtn.addTarget(self, action: #selector(showAddressPickerViewController), for: .touchUpInside)
         
         self.passengerLabel.text = "str_1pass".localized()
@@ -74,6 +73,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 //        }
         
         (viewModel as! KTXpressPickUpViewModel).fetchOperatingArea()
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         
     }
     
@@ -90,6 +91,13 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        
+        if bookingSuccessful == true {
+            self.passengerLabel.text = "str_1pass".localized()
+            plusBtn.layer.opacity = 1
+            minuBtn.layer.opacity = 0.5
+            bookingSuccessful = false
+        }
         
         if self.tabBarController?.tabBar.isHidden == false {
             if UIDevice().userInterfaceIdiom == .phone {
@@ -169,7 +177,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 
     }
     
-    @objc func clickSetPickUp() {
+    @IBAction func clickSetPickUp(sender: UIButton) {
+        springAnimateButtonTapOut(button: setPickUpButton)
         (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
     }
     
@@ -210,11 +219,16 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     func showAlertForStation() {
         
         if self.tapOnMarker == true {
-            let alert = CDAlertView(title: "str_metro".localized(), message: "", type: .custom(image: UIImage(named:"metro_ico_map")!))
+            let alert = CDAlertView(title: "str_metro_station".localized(), message: (self.viewModel as! KTXpressPickUpViewModel).selectedStationName, type: .custom(image: UIImage(named:"metro_big")!))
             let yesAction = CDAlertViewAction(title: "SETPICKUP".localized()) { value in
                 self.vModel?.setPickupStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+                (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
                 return true
             }
+            let noAction = CDAlertViewAction(title: "str_no".localized()) { value in
+                return true
+            }
+            alert.add(action: noAction)
             alert.add(action: yesAction)
             alert.show()
         } else {
@@ -235,6 +249,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 self.tapOnMarker = true
                 print("User click Approve button")
                 (self.viewModel as! KTXpressPickUpViewModel).selectedStop = item
+                (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
             }))
         }
 
@@ -272,15 +287,15 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = true
                 
-                self.setPickUpButton.layer.shadowRadius = 3
-                self.setPickUpButton.layer.shadowOpacity = 1
-                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-                if #available(iOS 13.0, *) {
-                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
-                } else {
-                    // Fallback on earlier versions
-                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
-                }
+//                self.setPickUpButton.layer.shadowRadius = 4
+//                self.setPickUpButton.layer.shadowOpacity = 3
+//                self.setPickUpButton.layer.shadowOffset = CGSize(width: 3, height: 3)
+//                if #available(iOS 13.0, *) {
+//                    self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
+//                } else {
+//                    // Fallback on earlier versions
+//                    self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
+//                }
                 
             } else {
                 self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
@@ -288,7 +303,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = false
-                self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
+//                self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
             }
         } else {
             
@@ -303,8 +318,11 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                     let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15)
                     self.mapView.camera = camera
                     (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = metroAreaCoordinate
-                    (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
                     (self.viewModel as? KTXpressPickUpViewModel)?.selectedStation = loc
+                    (self.viewModel as? KTXpressPickUpViewModel)!.setPickupStation( CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+                    (self.viewModel as! KTXpressPickUpViewModel).didTapSetPickUpButton()
+
+                    //didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
 
                     self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                     self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
@@ -312,15 +330,15 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
                     self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
                     self.setPickUpButton.isUserInteractionEnabled = true
                     
-                    self.setPickUpButton.layer.shadowRadius = 3
-                    self.setPickUpButton.layer.shadowOpacity = 1
-                    self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-                    if #available(iOS 13.0, *) {
-                        self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
-                    } else {
+//                    self.setPickUpButton.layer.shadowRadius = 4
+//                    self.setPickUpButton.layer.shadowOpacity = 3
+//                    self.setPickUpButton.layer.shadowOffset = CGSize(width: 3, height: 3)
+//                    if #available(iOS 13.0, *) {
+//                        self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
+//                    } else {
                         // Fallback on earlier versions
-                        self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
-                    }
+//                        self.setPickUpButton.layer.shadowColor = UIColor.primary.cgColor
+//                    }
                 }
             }
             

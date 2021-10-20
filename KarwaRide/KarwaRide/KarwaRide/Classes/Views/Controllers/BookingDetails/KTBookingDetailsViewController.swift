@@ -164,6 +164,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         btnReveal.isHidden = !isOpenFromNotification
         self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {

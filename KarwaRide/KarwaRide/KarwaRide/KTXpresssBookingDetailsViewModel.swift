@@ -318,7 +318,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         if KTVehicleTypeManager.isTaxi(vType: VehicleType(rawValue: vehicleType)!) {
             return UIImage(named:"taxiplate")!
         }
-        return UIImage(named:"limo_number_plate")!
+        return UIImage(named:"xpressplate")!
     }
     
     func driverRating() -> Double {
@@ -523,35 +523,35 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         var msg = ""
         switch bookingStatus
         {
-            case BookingStatus.DISPATCHING.rawValue:
-                msg = "str_searching_ride".localized()
-                break
-            case BookingStatus.CONFIRMED.rawValue:
-                msg = "str_confirmed".localized()
-                break
+        case BookingStatus.DISPATCHING.rawValue:
+            msg = "str_searching_ride".localized()
+            break
+        case BookingStatus.CONFIRMED.rawValue:
+            msg = "txt_enjoy_ride".localized()
+            break
         case BookingStatus.ARRIVED.rawValue:
             msg = "str_arrived".localized()
             break
-            case BookingStatus.PICKUP.rawValue:
-                msg = "str_pickup".localized()
-                break
-            case BookingStatus.CANCELLED.rawValue:
-                msg = "txt_ride_cancelled".localized()
-                break
-            case BookingStatus.COMPLETED.rawValue:
-                msg = "txt_completed_metro".localized()
-                break
-            case BookingStatus.PENDING.rawValue:
-                msg = "str_scheduled".localized()
-                break;
-            case BookingStatus.NO_TAXI_ACCEPTED.rawValue:
-                msg = "txt_no_rides_found".localized()
-                break
+        case BookingStatus.PICKUP.rawValue:
+            msg = "str_pickup".localized()
+            break
+        case BookingStatus.CANCELLED.rawValue:
+            msg = "txt_ride_cancelled".localized()
+            break
+        case BookingStatus.COMPLETED.rawValue:
+            msg = "txt_completed_metro".localized()
+            break
+        case BookingStatus.PENDING.rawValue:
+            msg = "str_scheduled".localized()
+            break;
+        case BookingStatus.NO_TAXI_ACCEPTED.rawValue:
+            msg = "txt_no_rides_found".localized()
+            break
         case BookingStatus.TAXI_NOT_FOUND.rawValue:
             msg = "txt_no_rides_found".localized()
             break
-            default:
-                msg = "--"
+        default:
+            msg = "--"
             
         }
 

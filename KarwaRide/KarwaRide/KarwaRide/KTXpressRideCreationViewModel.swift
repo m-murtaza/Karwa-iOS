@@ -143,9 +143,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         self.delegate?.showProgressHud(show: true)
         
         KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (String, response) in
-            
-            xpressRebookSelected = false
-            
+                        
             self?.delegate?.hideProgressHud()
             
             guard let strongSelf = self else{
@@ -157,6 +155,10 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             strongSelf.rideInfo?.rides.removeAll()
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
+            
+            if String == "FAILED" {
+                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+            }
             
             guard let rides = response["Rides"] as? [[String : Any]] else {
                 if let message = response["M"] as? String {
@@ -251,7 +253,10 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     func getEstimatedTime(index: Int) -> NSAttributedString {
-        if let attributedString = createAttributedString(stringArray: ["str_arrives".localized(), " \((self.rideInfo?.rides[index].eta ?? 0)/60) "+"str_mins".localized()], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:  UIFont(name: "MuseoSans-700", size: 14.0)!]) {
+        
+        let minString = ((self.rideInfo?.rides[index].eta ?? 0)/60) > 1 ? "str_mins".localized() : "str_min".localized()
+        
+        if let attributedString = createAttributedString(stringArray: ["str_arrives".localized(), " \((self.rideInfo?.rides[index].eta ?? 0)/60) " + minString], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font:  UIFont(name: "MuseoSans-700", size: 14.0)!]) {
               return attributedString
         } else {
             return NSAttributedString()
@@ -464,14 +469,15 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         
         if selectedDropOfStation != nil {
             print("it's inside station")
+            stopsOFDropOfStations.append(contentsOf: stops.filter{$0.parent! == selectedDropOfStation!.code!})
+            if stopsOFDropOfStations.count == 1 {
+                selectedDropOfStop = stopsOFDropOfStations.first!
+            }
         } else {
             print("it's inside a zone")
         }
         
-        stopsOFDropOfStations.append(contentsOf: stops.filter{$0.parent! == selectedDropOfStation!.code!})
-        if stopsOFDropOfStations.count == 1 {
-            selectedDropOfStop = stopsOFDropOfStations.first!
-        }
+        
 //
 //        if selectedDropOfStation != nil {
 //

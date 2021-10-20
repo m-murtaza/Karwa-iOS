@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import Spring
+import CDAlertView
 
 class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddressDelegate {
     
@@ -65,6 +66,9 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         vModel?.zonalArea = self.zonalArea
 
         super.viewDidLoad()
+        
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         
         // Do any additional setup after loading the view.
         addMap()
@@ -134,6 +138,29 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         self.navigationController?.pushViewController(addressPicker, animated: true)
     }
     
+    func showAlertForStation() {
+        
+        if self.tapOnMarker == true {
+            let alert = CDAlertView(title: "str_metro_station".localized(), message: self.vModel?.selectedStationName ?? "", type: .custom(image: UIImage(named:"metro_big")!))
+            
+            let yesAction = CDAlertViewAction(title: "SETDROPOFF".localized()) { value in
+                self.vModel?.setDropOffStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+                self.vModel?.didTapSetDropOffButton()
+                return true
+            }
+            let noAction = CDAlertViewAction(title: "str_no".localized()) { value in
+                return true
+            }
+            alert.add(action: noAction)
+            alert.add(action: yesAction)
+            alert.show()
+        } else {
+            self.vModel?.setDropOffStation(CLLocation(latitude: self.vModel?.selectedCoordinate?.latitude ?? 0.0, longitude: self.vModel?.selectedCoordinate?.longitude ?? 0.0))
+        }
+        
+       
+    }
+    
     @IBAction func setCountForPassenger(sender: UIButton) {
         if sender.tag == 101 {
             if countOfPassenger >= 1 && countOfPassenger < 3 {
@@ -191,6 +218,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     }
     
     @IBAction func clickToSetUpBooking() {
+        springAnimateButtonTapOut(button: setDropOffButton)
         (viewModel as! KTXpressDropoffViewModel).didTapSetDropOffButton()
     }
     
@@ -210,9 +238,7 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     func showStopAlertViewController(stops: [Area], selectedStation: Area) {
         
-        let alert = UIAlertController(title: "\(selectedStation.name! + "Stops")", message: "Please Select Stop for Station", preferredStyle: .actionSheet)
-        
-        
+        let alert = UIAlertController(title: "\(selectedStation.name! + "str_stop".localized())", message: "str_select_stop".localized(), preferredStyle: .actionSheet)
         for item in stops {
             alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
                 self.tapOnMarker = true
@@ -234,6 +260,33 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
     }
     
+    func showAlertForFailedRide(message: String) {
+        let alert = CDAlertView(title: message, message: "", type: .error)
+        let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
+//            if let navController = self.navigationController {
+//                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+//                    if navController.viewControllers.count == 6 {
+//                        navController.popToViewController(navController.viewControllers[3], animated: true)
+//                    } else if navController.viewControllers.count > 4 {
+//                        navController.popToViewController(navController.viewControllers[2], animated: true)
+//                    } else if navController.viewControllers.count <= 3 {
+//                        navController.popToViewController(navController.viewControllers[0], animated: true)
+//                    } else if navController.viewControllers.count <= 4 {
+//                        navController.popToViewController(navController.viewControllers[1], animated: true)
+//                    } else {
+//                        navController.popViewController(animated: true)
+//                    }
+//                } else {
+//                    navController.popViewController(animated: true)
+//                }
+//            }
+            return true
+        }
+        
+        alert.add(action: doneAction)
+        alert.show()
+    }
+    
     func setLocation(location: Any) {
         
         xpressRebookDropOffSelected = false
@@ -253,31 +306,37 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             
         } else {
             
-            if let loc = location as? Area {
-                print(location)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 
-                self.tapOnMarker = true
-                
-                let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
-
-                print(metroAreaCoordinate.latitude)
-
-                (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = metroAreaCoordinate
-
-                let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15.0)
-                self.mapView.camera = camera
-
-                (self.viewModel as? KTXpressDropoffViewModel)!.didTapMarker(location: CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
-                
-                defer {
-                    (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+                if let loc = location as? Area {
+                    print(location)
+                    
+                    self.tapOnMarker = true
+                    
+                    let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
+                    
+                    print(metroAreaCoordinate.latitude)
+                    
+                    (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = metroAreaCoordinate
+                    
+                    let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 15.0)
+                    self.mapView.camera = camera
+                    
+                    (self.viewModel as? KTXpressDropoffViewModel)!.setDropOffStation(CLLocation(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude))
+                    
+                    defer {
+                        (self.viewModel as! KTXpressDropoffViewModel).showStopAlert()
+                    }
+                    
+                    (self.viewModel as! KTXpressDropoffViewModel).didTapSetDropOffButton()
+                    
+                    self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
+                    self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
+                    self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
+                    self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
+                    self.setDropOffButton.isUserInteractionEnabled = true
+                    
                 }
-
-                self.setDropOffButton.setTitle("str_dropoff".localized(), for: .normal)
-                self.setDropOffButton.setTitleColor(UIColor.white, for: .normal)
-                self.setDropOffButton.backgroundColor = UIColor(hexString: "#44a4a4")
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_dropoff_map"), for: .normal)
-                self.setDropOffButton.isUserInteractionEnabled = true
             }
         }
     }

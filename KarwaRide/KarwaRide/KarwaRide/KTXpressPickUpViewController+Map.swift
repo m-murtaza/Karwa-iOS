@@ -29,6 +29,8 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         self.mapView.camera = camera
         
         (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
+        
+        (self.viewModel as! KTXpressPickUpViewModel).selectedStationName = marker.title ?? ""
 
         (self.viewModel as? KTXpressPickUpViewModel)!.didTapMarker(location: CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude))
                 
@@ -38,22 +40,22 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         
         self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
         self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-        self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
-        self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
-        self.setPickUpButton.isUserInteractionEnabled = true
+        self.setPickUpButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+        self.markerButton.setImage(#imageLiteral(resourceName: "pickup_address_ico"), for: .normal)
+        self.setPickUpButton.isUserInteractionEnabled = true//pickup_address_ico
         
-        self.setPickUpButton.layer.shadowRadius = 3
-        self.setPickUpButton.layer.shadowOpacity = 1
-        self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-        if #available(iOS 13.0, *) {
-            self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
-        } else {
-            // Fallback on earlier versions
-            self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
-        }
+//        self.setPickUpButton.addShadowBottomXpress()
+        
+//        self.setPickUpButton.layer.shadowRadius = 0
+//        self.setPickUpButton.layer.shadowOpacity = 1
+//        self.setPickUpButton.layer.shadowOffset = CGSize(width: 0, height: 5)
+//        self.setPickUpButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+//        self.setPickUpButton.layer.masksToBounds = false
+
         
         return true
     }
+
       
     fileprivate func checkCoordinateStatus(_ location: CLLocation) {
         
@@ -74,25 +76,23 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             if checkLatLonInside(location: location) {
                 self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-                self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
-                self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+                self.setPickUpButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+                self.markerButton.setImage(#imageLiteral(resourceName: "pickup_address_ico"), for: .normal)
+//                self.setPickUpButton.addShadowBottomXpress()
+
+//                self.setPickUpButton.layer.shadowRadius = 10
+//                self.setPickUpButton.layer.shadowOpacity = 3
+//                self.setPickUpButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+//                self.setPickUpButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
                 self.setPickUpButton.isUserInteractionEnabled = true
-                self.setPickUpButton.layer.shadowRadius = 3
-                self.setPickUpButton.layer.shadowOpacity = 1
-                self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-                if #available(iOS 13.0, *) {
-                    self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
-                } else {
-                    // Fallback on earlier versions
-                    self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
-                }
+
             } else {
                 self.setPickUpButton.setTitle("str_outzone".localized(), for: .normal)
                 self.setPickUpButton.backgroundColor = UIColor.clear
                 self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
                 self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                 self.setPickUpButton.isUserInteractionEnabled = false
-                self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
+//                self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
             }
         }
         
@@ -114,22 +114,20 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
             self.markerButton.setImage(#imageLiteral(resourceName: "pin_outofzone"), for: .normal)
             self.setPickUpButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
             self.setPickUpButton.isUserInteractionEnabled = false
-            self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
+//            self.setPickUpButton.layer.shadowColor = UIColor.clear.cgColor
         } else {
             self.setPickUpButton.setTitle("str_setpick".localized(), for: .normal)
             self.setPickUpButton.setTitleColor(UIColor.white, for: .normal)
-            self.setPickUpButton.backgroundColor = UIColor(hexString: "#469B9C")
-            self.markerButton.setImage(#imageLiteral(resourceName: "pin_pickup_map"), for: .normal)
+            self.setPickUpButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+            self.markerButton.setImage(#imageLiteral(resourceName: "pickup_address_ico"), for: .normal)
             self.setPickUpButton.isUserInteractionEnabled = true
-            self.setPickUpButton.layer.shadowRadius = 3
-            self.setPickUpButton.layer.shadowOpacity = 1
-            self.setPickUpButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-            if #available(iOS 13.0, *) {
-                self.setPickUpButton.layer.shadowColor = UIColor.systemGray3.cgColor
-            } else {
-                // Fallback on earlier versions
-                self.setPickUpButton.layer.shadowColor = UIColor.lightGray.cgColor
-            }
+//            self.setPickUpButton.addShadowBottomXpress()
+//            self.setPickUpButton.layer.shadowRadius = 10
+//            self.setPickUpButton.layer.shadowOpacity = 3
+//            self.setPickUpButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+//            self.setPickUpButton.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+            self.setPickUpButton.isUserInteractionEnabled = true
+
         }
     }
     
@@ -216,9 +214,9 @@ extension KTXpressPickUpViewController
     func addPickUpLocations() {
         for item in (self.viewModel as! KTXpressPickUpViewModel).pickUpArea {
             if item.type == "MetroStop" {
-                addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image:  #imageLiteral(resourceName: "metro_ico_map"))
+                addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image:  #imageLiteral(resourceName: "metro_ico_map"))
             } else {
-                addMarkerOnMap(location: getCenterPointOfPolygon(bounds: item.bound!), image:  #imageLiteral(resourceName: "tram_ico_map"))
+                addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image:  #imageLiteral(resourceName: "tram_ico_map"))
             }
         }
     }
@@ -364,7 +362,7 @@ extension KTXpressPickUpViewController
     }
     
     @objc func addMarkerOnMap(vTrack: [VehicleTrack]) {
-        addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
+        //addMarkerOnMap(vTrack:vTrack, vehicleType: VehicleType.KTCityTaxi.rawValue)
     }
     
     @objc func addOrRemoveOrMoveMarkerOnMap(vTrack: [VehicleTrack], vehicleType: Int16) {
@@ -597,12 +595,12 @@ extension KTXpressPickUpViewController
         return marker
     }
     
-    func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
+    func addMarkerOnMap(title: String, location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
         marker.position = location
-        
+        marker.title = title
         marker.icon = image
-//        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.6,y:1)
         marker.map = self.mapView
     }
     
@@ -629,8 +627,8 @@ extension KTXpressPickUpViewController
       // draw pickup and destimation pins from path
       let pickup = path.coordinate(at:0)
       let dropoff = path.coordinate(at:path.count()-1)
-      addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
-      addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
+//      addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
+//      addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
       
       let inset = UIEdgeInsets(top: 100, left: 100, bottom: 200, right: 100)
       

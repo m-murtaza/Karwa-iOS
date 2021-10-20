@@ -16,6 +16,8 @@ extension KTXpressRideTrackingViewController: GMSMapViewDelegate {
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         
         pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pin_pickup_map"))
         
