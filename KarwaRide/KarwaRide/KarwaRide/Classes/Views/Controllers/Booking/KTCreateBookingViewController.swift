@@ -998,7 +998,7 @@ class KTCreateBookingViewController:
   }
     
     func setRequestButtonTitle(title: String) {
-        self.btnRequestBooking.setTitle(title, for: .normal)
+//        self.btnRequestBooking.setTitle(title, for: .normal)
     }
       
   

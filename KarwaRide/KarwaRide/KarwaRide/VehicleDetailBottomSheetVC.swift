@@ -12,14 +12,24 @@ import Spring
 import ABLoaderView
 import FittedSheets
 import UIKit
+import Spring
 
-class VehicleDetailBottomSheetVC: UIViewController, Draggable {
+class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var lblHeader: LocalisableSpringLabel!
     @IBOutlet weak var lblDescription: SpringLabel!
     @IBOutlet weak var lblVehicleName: SpringLabel!
+    @IBOutlet weak var lblVehicleFare: SpringLabel!
+    @IBOutlet weak var lblCapacity: SpringLabel!
+    @IBOutlet weak var lblTime: SpringLabel!
+    @IBOutlet weak var lblStartingFare: SpringLabel!
+    @IBOutlet weak var lblMinFare: SpringLabel!
+    @IBOutlet weak var lblKmFare: SpringLabel!
+    @IBOutlet weak var lblPromo: SpringLabel!
+    @IBOutlet weak var lblTotal: SpringLabel!
+    @IBOutlet weak var btnRequestBooking: SpringButton!
     
     @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
     
@@ -46,42 +56,30 @@ class VehicleDetailBottomSheetVC: UIViewController, Draggable {
     func updateDetailBottomSheet(forIndex: Int){
         if let vModel = vModel {
             self.lblHeader.text = vModel.sTypeTitle(forIndex: forIndex)
-//            let fare = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
-//            cell.setFare(fare: fare)
+            self.lblVehicleName.text = vModel.sTypeTitle(forIndex: forIndex)
+            self.lblCapacity.text = vModel.vTypeCapacity(forIndex: forIndex)
+            self.lblTime.text = vModel.vTypeEta(forIndex: forIndex)
+            let fare = vModel.vTypeBaseFareOrEstimate(forIndex: forIndex)
+            self.lblVehicleFare.text = fare
+            self.lblStartingFare.text = fare
 //            cell.capacity.text = (viewModel as! KTCreateBookingViewModel).vTypeCapacity(forIndex: indexPath.row)
 //            cell.time.text = (viewModel as! KTCreateBookingViewModel).vTypeEta(forIndex: indexPath.row)
 //            cell.icon.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
         }
         
 //        self.sheet?.handleScrollView(self.scrollView)
-//
-//        self.view.backgroundColor = UIColor.clear
-//        self.view.customCornerRadius = 20.0
-//
-//        DispatchQueue.main.async {
-//            self.heightOFScrollViewContent.constant = 550
-//            if UIDevice().userInterfaceIdiom == .phone {
-//                switch UIScreen.main.nativeBounds.height {
-//                case 1136:
-//                    print("iPhone 5 or 5S or 5C")
-//                    self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-//                case 1334:
-//                    print("iPhone 6/6S/7/8")
-//                    self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-//                case 1920, 2208:
-//                    print("iPhone 6+/6S+/7+/8+")
-//                    self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
-//                case 2436:
-//                    print("iPhone X")
-//                    self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-//                default:
-//                    print("unknown")
-//                    self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-//                }
-//            }
-//        }
+    }
+    
+    @IBAction func btnRequestBookingTouchDown(_ sender: SpringButton){
+      springAnimateButtonTapIn(button: btnRequestBooking)
+    }
+    
+    @IBAction func btnRequestBookingTouchUpOutside(_ sender: SpringButton){
+      springAnimateButtonTapOut(button: btnRequestBooking)
+    }
+    
+    @IBAction func btnRequestBooking(_ sender: Any){
+      springAnimateButtonTapOut(button: btnRequestBooking)
+//      (viewModel as! KTCreateBookingViewModel).btnRequestBookingTapped()
     }
 }
-
-
-
