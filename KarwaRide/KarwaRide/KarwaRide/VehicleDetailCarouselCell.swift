@@ -8,12 +8,17 @@
 
 import Foundation
 import ScalingCarousel
+import Spring
 
 class VehicleDetailCarouselCell: UICollectionViewCell {
     @IBOutlet weak var imgBg : UIImageView!
-    @IBOutlet weak var imgVehicleType : UIImageView!
+    @IBOutlet weak var imgVehicleType : SpringImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    func config(vModel: KTCreateBookingViewModel, index: Int) {
+        imgVehicleType.image = vModel.sTypeVehicleImage(forIndex: index)
     }
 }
