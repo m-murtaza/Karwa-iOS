@@ -18,7 +18,7 @@ class VehicleDetailCarouselCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func config(vModel: KTCreateBookingViewModel, index: Int) {
-        imgVehicleType.image = vModel.sTypeVehicleImage(forIndex: index)
+    func config(vModel: KTCreateBookingViewModel, vehicle: KTVehicleType) {
+        imgVehicleType.image = vModel.getTypeVehicleImage(typeId: vehicle.typeId)
     }
 }

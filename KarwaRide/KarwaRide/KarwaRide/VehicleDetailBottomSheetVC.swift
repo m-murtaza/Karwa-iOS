@@ -38,21 +38,22 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
     
     var vModel: KTCreateBookingViewModel?
+    var vehicles: [KTVehicleType] = []
+    var isDataLoaded = false
     var sheet: SheetViewController?
     var sheetCoordinator: UBottomSheetCoordinator?
     
-    var vehicleListCount = 4
     var selectedVehicleIndex = 0
     fileprivate var currentVehicle: Int = 0 {
         didSet {
-            animateVehicle(index: currentVehicle)
+            updateDetailBottomSheet(forIndex: currentVehicle)
             btnRightArrow.isHidden = true
             btnLeftArrow.isHidden = true
-            if vehicleListCount > 1 && vehicleListCount != currentVehicle+1 {
+            if vehicles.count > 1 && vehicles.count != currentVehicle+1 {
                 btnRightArrow.isHidden = false
             }
             
-            if vehicleListCount > 1 && currentVehicle != 0 {
+            if vehicles.count > 1 && currentVehicle != 0 {
                 btnLeftArrow.isHidden = false
             }
         }
@@ -91,24 +92,26 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         btnLeftArrow.isHidden = true
     }
     
-    func updateDetailBottomSheet(forIndex: Int){
+    func updateDetailBottomSheet(forIndex: Int = 0){
         selectedVehicleIndex = forIndex
-        if let vModel = vModel {
-            self.lblHeader.text = vModel.sTypeTitle(forIndex: forIndex)
-            self.lblVehicleName.text = vModel.sTypeTitle(forIndex: forIndex)
-            self.lblCapacity.text = vModel.vTypeCapacity(forIndex: forIndex)
-            self.lblTime.text = vModel.vTypeEta(forIndex: forIndex)
-            let fare = vModel.vTypeBaseFareOrEstimate(forIndex: forIndex)
+        if let vModel = vModel, !vehicles.isEmpty {
+            self.lblHeader.text = vModel.getVehicleTitle(vehicleType: vehicles[forIndex].typeId)
+            self.lblVehicleName.text = vModel.getVehicleTitle(vehicleType: vehicles[forIndex].typeId)
+            self.lblCapacity.text = vModel.getTypeCapacity(typeId: vehicles[forIndex].typeId)
+            self.lblTime.text = vModel.getTypeEta(typeId: vehicles[forIndex].typeId)
+            let fare = vModel.getTypeBaseFareOrEstimate(typeId: vehicles[forIndex].typeId)
             self.lblVehicleFare.text = fare
             self.lblStartingFare.text = fare
-            
-            collectionView.reloadData()
-            
-            if vehicleListCount > 1 {
+
+            if vehicles.count > 1 {
                 btnRightArrow.isHidden = false
             }
         }
-        
+        if isDataLoaded == false {
+            isDataLoaded = true
+            collectionView.reloadData()
+        }
+        animateVehicle(index: currentVehicle)
 //        self.sheet?.handleScrollView(self.scrollView)
     }
     
@@ -126,27 +129,30 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     }
     
     @IBAction func onClickRightBtn(_ sender: UIButton){
-//        if selectedVehicleIndex != vehicleListCount-1 && selectedVehicleIndex+1 < self.collectionView.numberOfItems(inSection: 0) {
+        collectionView.scrollToNextItem()
+//        if selectedVehicleIndex != vehicles.count-1 && selectedVehicleIndex+1 < self.collectionView.numberOfItems(inSection: 0) {
 //            self.collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex+1, section: 0), at: .right, animated: true)
+//            self.collectionView.reloadData()
 //        }
     }
     
     @IBAction func onClickLeftBtn(_ sender: UIButton){
-//        if selectedVehicleIndex != 0 && selectedVehicleIndex-1 < self.collectionView.numberOfItems(inSection: 0) {
-//            self.collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .right, animated: true)
-//        }
+        if selectedVehicleIndex != 0 && selectedVehicleIndex-1 < self.collectionView.numberOfItems(inSection: 0) {
+            self.collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .right, animated: true)
+            self.collectionView.reloadData()
+        }
     }
 }
 
 extension VehicleDetailBottomSheetVC: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return vehicles.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: VehicleDetailCarouselCell.self), for: indexPath) as! VehicleDetailCarouselCell
-        cell.config(vModel: self.vModel!, index: selectedVehicleIndex)
+        cell.config(vModel: self.vModel!, vehicle: vehicles[indexPath.row])
         return cell
     }
 }
@@ -197,5 +203,21 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
             cell.imgVehicleType.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
             cell.imgVehicleType.animate()
         }
+    }
+}
+
+extension UICollectionView {
+    func scrollToNextItem() {
+        let contentOffset = CGFloat(floor(self.contentOffset.x + (self.bounds.size.width * 0.8)))
+        self.moveToFrame(contentOffset: contentOffset)
+    }
+
+    func scrollToPreviousItem() {
+        let contentOffset = CGFloat(floor(self.contentOffset.x - self.bounds.size.width))
+        self.moveToFrame(contentOffset: contentOffset)
+    }
+
+    func moveToFrame(contentOffset : CGFloat) {
+        self.setContentOffset(CGPoint(x: contentOffset, y: self.contentOffset.y), animated: true)
     }
 }

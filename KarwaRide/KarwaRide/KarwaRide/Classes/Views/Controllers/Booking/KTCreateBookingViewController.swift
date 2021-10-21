@@ -115,25 +115,45 @@ class DashboardAddressCell: UICollectionViewCell {
 }
 
 extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (viewModel as! KTCreateBookingViewModel).numberOfVehicleCategories()
+    }
+    
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return (viewModel as! KTCreateBookingViewModel).numberOfRowsVType()
+    return 1
+//    if section == 0 {
+//        return (viewModel as! KTCreateBookingViewModel).numberOfRowsInCategories(catName: VehicleCategories.FIRST.rawValue)
+//    }
+//    else if section == 1 {
+//        return (viewModel as! KTCreateBookingViewModel).numberOfRowsInCategories(catName: VehicleCategories.SECOND.rawValue)
+//    }
+//    return (viewModel as! KTCreateBookingViewModel).numberOfRowsInCategories(catName: VehicleCategories.THIRD.rawValue)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! RideServiceCell
+    let viewModel = self.viewModel as! KTCreateBookingViewModel
     cell.promoBadge.isHidden = true
-    cell.serviceName.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
-    let fare = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
+    var item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
+    if indexPath.section == 0 {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
+    }
+    else if indexPath.section == 1 {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue).first
+    }
+    else {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue).first
+    }
+
+    cell.serviceName.text = viewModel.getVehicleTitle(vehicleType: item!.typeId)
+    let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
-    cell.capacity.text = (viewModel as! KTCreateBookingViewModel).vTypeCapacity(forIndex: indexPath.row)
-    cell.time.text = (viewModel as! KTCreateBookingViewModel).vTypeEta(forIndex: indexPath.row)
-    cell.icon.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
-    let shouldHidePromoFare = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
+    cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
+    cell.time.text = viewModel.getTypeEta(typeId: item!.typeId)
+    cell.icon.image = viewModel.getTypeVehicleImage(typeId: item!.typeId)
+    let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
     cell.promoBadge.isHidden = shouldHidePromoFare
-    cell.selectionStyle = .none
-    
-    if((viewModel as! KTCreateBookingViewModel).isPremiumRide(forIndex: indexPath.row))
-    {
+    if(viewModel.isPremiumRide(typeId: item!.typeId)){
         cell.iconBackgroundAnim.isHidden = false
         cell.iconBackgroundAnim.backgroundColor = .clear
         cell.iconBackgroundAnim.loopMode = .loop
@@ -143,13 +163,15 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     {
         cell.iconBackgroundAnim.isHidden = true
     }
-
+    
+    cell.selectionStyle = .none
     return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    selectedIndex = indexPath.row
-    (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
+//    selectedIndex = indexPath.row
+//    (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
+    selectedSection = indexPath.section
     self.setupVehicleDetailBottomSheet()
   }
   
@@ -286,8 +308,9 @@ class KTCreateBookingViewController:
 
     
   var tableViewMinimumHeight: CGFloat = 170
-  var tableViewMaximumHeight: CGFloat = 370
+  var tableViewMaximumHeight: CGFloat = 200
   var selectedIndex = 0
+  var selectedSection = 0
   
   @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
   @IBOutlet weak var mapToPickupCardView_Bottom: NSLayoutConstraint!
@@ -410,27 +433,41 @@ class KTCreateBookingViewController:
   }
     
     private func setupVehicleDetailBottomSheet() {
-        let bottomSheetVC = VehicleDetailBottomSheetVC()
-        let bottomSheet = SheetViewController(
-            controller: bottomSheetVC,
-            sizes: [.fixed(530), .intrinsic],
-            options: SheetOptions(useInlineMode: true))
-        bottomSheetVC.sheet = bottomSheet
-        bottomSheetVC.vModel = viewModel as? KTCreateBookingViewModel
-        bottomSheet.allowPullingPastMaxHeight = true
-        bottomSheet.allowPullingPastMinHeight = true
-        
-        bottomSheet.dismissOnPull = true
-        bottomSheet.dismissOnOverlayTap = true
-        bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.1)
-        bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
-        bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
-        bottomSheet.contentViewController.view.layer.shadowRadius = 10
-        bottomSheet.cornerRadius = 30.0
-        bottomSheet.allowGestureThroughOverlay = false
-        bottomSheet.animateIn(to: view, in: self)
-        
-        bottomSheetVC.updateDetailBottomSheet(forIndex: selectedIndex)
+        if let viewModel = self.viewModel as? KTCreateBookingViewModel {
+            var vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue)
+            if self.selectedSection == 0 {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue)
+            }
+            else if self.selectedSection == 1 {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue)
+            }
+            else {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue)
+            }
+            
+            let bottomSheetVC = VehicleDetailBottomSheetVC()
+            let bottomSheet = SheetViewController(
+                controller: bottomSheetVC,
+                sizes: [.fixed(530), .intrinsic],
+                options: SheetOptions(useInlineMode: true))
+            bottomSheetVC.sheet = bottomSheet
+            bottomSheetVC.vehicles = vehicles
+            bottomSheetVC.vModel = viewModel
+            bottomSheet.allowPullingPastMaxHeight = true
+            bottomSheet.allowPullingPastMinHeight = true
+            
+            bottomSheet.dismissOnPull = true
+            bottomSheet.dismissOnOverlayTap = true
+            bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.1)
+            bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+            bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
+            bottomSheet.contentViewController.view.layer.shadowRadius = 10
+            bottomSheet.cornerRadius = 30.0
+            bottomSheet.allowGestureThroughOverlay = false
+            bottomSheet.animateIn(to: view, in: self)
+            
+            bottomSheetVC.updateDetailBottomSheet()
+        }
     }
   
   @objc private func showMenu() {

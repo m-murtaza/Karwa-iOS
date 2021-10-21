@@ -34,6 +34,12 @@ enum VehicleType: Int16 {
 
 }
 
+enum VehicleCategories: String {
+    case FIRST = "first"
+    case SECOND = "second"
+    case THIRD = "third"
+}
+
 enum geoLocationType : Int32 {
     case Unknown = 0
     case Home = 5
