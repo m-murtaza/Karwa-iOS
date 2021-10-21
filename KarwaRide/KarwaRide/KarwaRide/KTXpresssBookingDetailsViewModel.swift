@@ -714,6 +714,9 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
                 (status, response) in
+                
+                print(response)
+                
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
@@ -729,11 +732,13 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
+                        self.del?.updateBookingStatusOnCard(true)
                     }
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
                         self.updateBookingCard()
+                        self.del?.updateBookingStatusOnCard(true)
                     }
 
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)

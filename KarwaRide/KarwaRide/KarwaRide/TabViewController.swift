@@ -96,7 +96,7 @@ class TabViewController: UITabBarController {
                 }
             }
             
-            items[2].imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -3, right: 0)
+            items[2].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -3, right: 0)
 
         }
         

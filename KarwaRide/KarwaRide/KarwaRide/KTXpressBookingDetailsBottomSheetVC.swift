@@ -69,12 +69,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         self.lblPickAddress.numberOfLines = 2
         self.lblDropoffAddress.numberOfLines = 2
         self.sheet?.view.backgroundColor = .clear
-//        btnPhone.isHidden = true
-//        btnRebook.isUserInteractionEnabled = false
-        
+        btnShare.centerTextAndImage(spacing: 10)
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)

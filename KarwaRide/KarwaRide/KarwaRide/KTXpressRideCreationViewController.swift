@@ -152,6 +152,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         rideServiceTableView.delegate = self
         rideServiceTableView.dataSource = self
         
+        rideServiceTableView.isScrollEnabled = false
+        
         self.pickUpAddressButton.titleLabel?.numberOfLines = 1
         self.dropOffAddressButton.titleLabel?.numberOfLines = 1
         
@@ -192,7 +194,12 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         self.bookingProgress.trackTintColor = .clear
 
-//        heightConstraint.constant = 250
+        if #available(iOS 15.0, *) {
+            rideServiceTableView.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -400,14 +407,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
         
     func updateUI() {
-        if #available(iOS 15.0, *) {
-            heightConstraint.constant = CGFloat(223 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
-        } else {
-            heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
-        }
         self.rideServiceTableView.reloadData()
         shimmerView.isHidden = true
-
+        heightConstraint.constant = CGFloat(195 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
     }
 
     @IBAction func showRideTrackingViewController() {
@@ -467,6 +469,10 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         return (self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
@@ -484,17 +490,19 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
         cell.orderRideButton.isHidden = false
-        tableView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+        tableView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
             cell.contentView.customBorderColor = UIColor(hex: "#2D5A64")
             cell.contentView.customCornerRadius = 10
             cell.contentView.backgroundColor = .white
             cell.imgVehicleBGView.backgroundColor = .white
+            cell.lblServiceType.font = UIFont(name: "MuseoSans-900", size: 17.0)!
         } else {
             cell.contentView.customBorderWidth = 0
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
-            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
+            cell.lblServiceType.font = UIFont(name: "MuseoSans-700", size: 17.0)!
+            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         }
         
         return cell
