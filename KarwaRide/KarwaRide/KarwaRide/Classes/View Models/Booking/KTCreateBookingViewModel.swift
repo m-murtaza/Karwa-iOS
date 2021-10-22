@@ -493,7 +493,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self?.vehicleTypes?.removeAll()
                     self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
-                    
+                    self?.setupVehicleCategories()
                     self?.modifiedVehicleTypes = self?.vehicleTypes
                     
                     let firstElement = self?.vehicleTypes?.filter({ (KTV) -> Bool in
@@ -527,6 +527,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     {
         vehicleTypes?.removeAll()
         vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+        self.setupVehicleCategories()
         self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
     }
     
@@ -558,6 +559,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             
                             self.vehicleTypes = nil
                             self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                            self.setupVehicleCategories()
                             self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
                             self.promo = promoEntered
                             (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
@@ -950,6 +952,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     //MARK:-  Vehicle Types
     func setupVehicleCategories(){
         if vehicleTypes != nil {
+            vehicleCategories.removeAll()
             for i in 0...(vehicleTypes?.count)!-1 {
                 if vehicleTypes![i].typeId == VehicleType.KTCityTaxi.rawValue || vehicleTypes![i].typeId == VehicleType.KTCityTaxi7Seater.rawValue {
                     if vehicleCategories.keys.contains(VehicleCategories.FIRST.rawValue) {
@@ -1118,6 +1121,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
         }
         return imgSType
+    }
+    
+    func getEstimate(typeId: Int16) -> KTFareEstimate? {
+        let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: typeId)
+        return vEstimate
+    }
+    
+    func getEstimateOrderedBody(typeId: Int16) -> [KTKeyValue]? {
+        let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: typeId)
+        return vEstimate?.toKeyValueBody?.array as? [KTKeyValue]
     }
     
     func isPromoFare(typeId: Int16) -> Bool{
@@ -1745,6 +1758,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     { (status, response) in
                         self.vehicleTypes = nil
                         self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                        self.setupVehicleCategories()
                         self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
                         self.estimates = KTVehicleTypeManager().estimates()
                         self.del?.updateVehicleTypeList()
