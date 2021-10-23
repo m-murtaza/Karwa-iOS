@@ -109,7 +109,7 @@ extension KTXpressRideCreationViewController
         self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
         
         if xpressRebookSelected == false {
-            mapView.animate(toZoom: 16)
+            mapView.animate(toZoom: 15)
         }
         
     }
