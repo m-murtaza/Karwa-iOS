@@ -343,6 +343,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     func showAlertForTimeOut() {
         let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
             
             if let navController = self.navigationController {
@@ -378,7 +382,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     func showAlertForFailedRide(message: String) {
         let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
-
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
             if let navController = self.navigationController {

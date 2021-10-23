@@ -151,6 +151,10 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
             let noAction = CDAlertViewAction(title: "str_no".localized()) { value in
                 return true
             }
+            alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+                alpha = 0
+            }
             alert.add(action: noAction)
             alert.add(action: yesAction)
             alert.show()
@@ -262,6 +266,10 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     func showAlertForFailedRide(message: String) {
         let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
 //            if let navController = self.navigationController {
 //                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
