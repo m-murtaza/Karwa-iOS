@@ -490,6 +490,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
         cell.orderRideButton.isHidden = false
+        cell.imgVehicleType.image = UIImage(named: "kmetroexpress")?.imageFlippedForRightToLeftLayoutDirection()
         tableView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
