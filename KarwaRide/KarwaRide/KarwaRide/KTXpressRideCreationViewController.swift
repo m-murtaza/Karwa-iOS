@@ -407,9 +407,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
         
     func updateUI() {
-        self.rideServiceTableView.reloadData()
         shimmerView.isHidden = true
-        heightConstraint.constant = CGFloat(195 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
+        heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
+        self.rideServiceTableView.reloadData()
     }
 
     @IBAction func showRideTrackingViewController() {
