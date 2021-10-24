@@ -167,6 +167,7 @@
 		185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209452062411C00BD5FCD /* MyTripHired@3x.gif */; };
 		185209492062411C00BD5FCD /* MyTripHired.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209462062411C00BD5FCD /* MyTripHired.gif */; };
 		1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852094C2063C91C00BD5FCD /* RoundedLable.swift */; };
+		1860676127252BC500EFDF25 /* KTXpressLocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -440,6 +441,7 @@
 		185209462062411C00BD5FCD /* MyTripHired.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = MyTripHired.gif; path = Resources/Images/MyTripHired.gif; sourceTree = "<group>"; };
 		1852094C2063C91C00BD5FCD /* RoundedLable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoundedLable.swift; path = Classes/Common/Extensions/RoundedLable.swift; sourceTree = "<group>"; };
 		1854EE90268222C9000AC67B /* KarwaV10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV10.xcdatamodel; sourceTree = "<group>"; };
+		1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressLocationPickerViewController.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 				1811AE2926AD19FC002C991E /* KTXpressDropOffViewController.swift */,
 				1811AE2C26AD19FD002C991E /* KTXpressDropOffViewController+Map.swift */,
 				1811AE2726AD19FC002C991E /* KTXpressPickUpViewController.swift */,
+				1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */,
 				1811AE2D26AD19FD002C991E /* KTXpressPickUpViewController+Map.swift */,
 				1811AE2A26AD19FC002C991E /* KTXpressRideCreationViewController.swift */,
 				1811AE2B26AD19FC002C991E /* KTXpressRideCreationViewController+Map.swift */,
@@ -1962,6 +1965,7 @@
 				186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */,
 				186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */,
 				18FA45B9207216F2000487C1 /* KTCreateBookingViewController+CarouselView.swift in Sources */,
+				1860676127252BC500EFDF25 /* KTXpressLocationPickerViewController.swift in Sources */,
 				0DF3A2302185B5440000503B /* MPGSSession.swift in Sources */,
 				0D045C89216F21AF00D3904B /* KTIssueSelectionViewModel.swift in Sources */,
 				0D63FC5F21722B1200DF7ED6 /* KTLifeCycle.swift in Sources */,

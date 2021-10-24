@@ -713,6 +713,171 @@ extension KTXpressPickUpViewController
       self.present(alertController, animated: true, completion: nil)
     }
     
+    internal func addDropOffMap() {
+
+        mapView.clear()
+        
+        showCurrentLocationDot(show: true)
+                
+        self.addMarkerOnMap(title:"" , location: (viewModel as! KTXpressPickUpViewModel).selectedCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+        
+        markerButton.isHidden = false
+        
+        mapView.setMinZoom(4.6, maxZoom: 20)
+                
+//        self.addMarkerOnMap(location: dropOffCoordinate!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
+        
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        mapView.padding = padding
+        
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+      
+        mapView.delegate = self
+        
+        var rect = [GMSMutablePath]()
+        if (viewModel as! KTXpressPickUpViewModel).selectedStop != nil || (viewModel as! KTXpressPickUpViewModel).selectedStation != nil {
+            rect.append(self.polygon(bounds: ((viewModel as! KTXpressPickUpViewModel).selectedStation?.bound!)!, type: "Pick"))
+            picupRect = rect.first!
+            
+        } else {
+            rect.append(self.polygon(bounds: ((viewModel as! KTXpressPickUpViewModel).selectedZone?.bound!)!, type: "Pick"))
+            picupRect = rect.first!
+            
+        }
+    
+        for item in (viewModel as! KTXpressPickUpViewModel).destinationForPickUp {
+            
+            if item.type! != "Zone" {
+                                            
+                if item.type == "TramStation"{
+                    self.addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
+
+                } else{
+                    self.addMarkerOnMap(title: item.name ?? "", location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
+                }
+                                
+
+            }
+            
+            dropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
+            
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate.latitude, longitude: dropOffCoordinate.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                
+            self.mapView.animate(to: camera)
+            rect.append(self.polygon(bounds: item.bound!, type: ""))
+            
+        }
+        
+        //will check this condition after
+//        if xpressRebookSelected && xpressRebookPickUpSelected && xpressRebookDropOffSelected {
+//            dropOffCoordinate = xpressRebookDropOffCoordinates
+//            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17)
+//            self.mapView.camera = camera;
+//        }
+        
+        
+        self.locateCountry(pathG: rect)
+
+      //self.focusMapToCurrentLocation()
+        
+    }
+    
+    
+    func locateCountry(pathG: [GMSMutablePath]) {
+        // 1. Create one quarter earth filling polygon
+        let fillingPath = GMSMutablePath()
+        fillingPath.addLatitude(90.0, longitude: -90.0)
+        fillingPath.addLatitude(90.0, longitude: 90.0)
+        fillingPath.addLatitude(0, longitude: 90.0)
+        fillingPath.addLatitude(0, longitude: -90.0)
+
+        let fillingPolygon = GMSPolygon(path:fillingPath)
+        let fillColor = UIColor.gray.withAlphaComponent(0.7)
+        fillingPolygon.fillColor = fillColor
+        fillingPolygon.map = self.mapView
+
+        if (viewModel as! KTXpressPickUpViewModel).selectedStation == nil {
+            fillingPolygon.holes = [pathG.first!]
+            let fillingPolygonn = GMSPolygon(path: picupRect)
+            let fillColor = UIColor.gray.withAlphaComponent(0.7)
+            fillingPolygonn.fillColor = fillColor
+            fillingPolygonn.map = self.mapView
+
+            // 2. Add prepared array of GMSPath
+            
+            for path in pathG {
+
+                let polygon = GMSPolygon(path: path)
+                
+                if picupRect == path {
+                    polygon.fillColor = UIColor.gray.withAlphaComponent(0.7)
+                } else {
+                    fillingPolygonn.holes?.append(path)
+                    polygon.fillColor = UIColor.white
+                }
+                
+                polygon.strokeColor = .black
+                polygon.strokeWidth = 2
+                polygon.map = mapView
+            }
+        } else {
+            // 2. Add prepared array of GMSPath
+            fillingPolygon.holes = pathG
+
+    //        // 3. Add lines for boundaries
+            for path in pathG {
+
+                let polygon = GMSPolygon(path: path)
+                
+                if picupRect == path {
+                    polygon.fillColor = UIColor.gray.withAlphaComponent(0.7)
+                } else {
+                    polygon.fillColor = UIColor.white.withAlphaComponent(0.4)
+                }
+                
+                polygon.strokeColor = .black
+                polygon.strokeWidth = 2
+                polygon.map = mapView
+            }
+        }
+        
+        
+            
+
+    }
+    
+    func polygon(bounds: String, type: String) -> GMSMutablePath {
+        
+        if type == "Pick" {
+            
+        }
+        
+        // Create a rectangular path
+        let rect = GMSMutablePath()
+                
+        _ = bounds.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+            rect.add(CLLocationCoordinate2D(latitude: value[0], longitude: value[1]))
+            
+//            dropOffCoordinate = CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+//            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: 17.0)
+//            self.mapView.camera = camera;
+            
+           return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+        }
+        
+        return rect
+    }
+
+    
 }
 
 extension CLLocationCoordinate2D {

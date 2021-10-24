@@ -40,7 +40,7 @@ extension KTXpressDropOffViewController: GMSMapViewDelegate, KTXpressDropoffView
 
         let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
         
-        self.mapView.camera = camera
+        self.mapView.animate(to: camera)
         
         (self.viewModel as! KTXpressDropoffViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
 
@@ -261,7 +261,7 @@ extension KTXpressDropOffViewController
             
             let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
                 
-            self.mapView.camera = camera;
+            self.mapView.animate(to: camera)
             rect.append(self.polygon(bounds: item.bound!, type: ""))
             
         }
