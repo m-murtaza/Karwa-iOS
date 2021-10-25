@@ -25,8 +25,8 @@ extension KTXpressPickUpViewController: GMSMapViewDelegate {
         self.tapOnMarker = true
         xpressRebookPickUpSelected = false
 
-        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)
-        self.mapView.camera = camera
+        let camera = GMSCameraPosition.camera(withLatitude: marker.position.latitude, longitude: marker.position.longitude, zoom: 17.0)        
+        self.mapView.animate(to: camera)
         
         (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
         

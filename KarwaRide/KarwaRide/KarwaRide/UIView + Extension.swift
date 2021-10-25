@@ -230,6 +230,20 @@ extension UILabel {
 
 extension UIButton {
     
+    func centerTextAndImage(spacing: CGFloat) {
+            let insetAmount = spacing / 2
+            let isRTL = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+            if isRTL {
+                self.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+                self.contentEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: -insetAmount)
+            } else {
+                self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+                self.contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
+            }
+        }
+    
     func addShadowBottomXpress() {
 //        self.layer.shadowRadius = 10
 //        self.layer.shadowOpacity = 1

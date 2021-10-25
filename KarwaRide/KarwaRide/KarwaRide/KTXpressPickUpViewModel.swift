@@ -141,7 +141,7 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
     
     func fetchOperatingArea() {
 
-        delegate?.showProgressHud(show: true, status: "str_loading".localized())
+//        delegate?.showProgressHud(show: true, status: "str_loading".localized())
 
         KTXpressBookingManager().getZoneWithSync { (string, response) in
 

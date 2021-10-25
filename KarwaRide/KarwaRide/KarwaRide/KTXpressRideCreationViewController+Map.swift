@@ -59,17 +59,16 @@ extension KTXpressRideCreationViewController
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
 
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.animate(with: update!)
+        mapView.moveCamera(update!)
         CATransaction.commit()
     }
     
     func  addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)  {
-        
         
         mapView.clear()
         
@@ -106,9 +105,12 @@ extension KTXpressRideCreationViewController
         bounds = bounds.includingCoordinate(pickUpLocationMarker.position)
         bounds = bounds.includingCoordinate(dropOffLocationMarker.position)
         
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 50.0)
-        mapView.moveCamera(update)
-
+        gmsMarker = [pickUpLocationMarker,dropOffLocationMarker,serverPickUpLocationMarker]
+        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+        
+        if xpressRebookSelected == false {
+            mapView.animate(toZoom: 15)
+        }
         
     }
     

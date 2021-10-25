@@ -47,13 +47,13 @@ class KTMyTripsViewModel: KTBaseViewModel {
 
             if  self.bookings != nil && (self.bookings?.count)! > 0 {
             
-                (self.delegate as! KTMyTripsViewModelDelegate).reloadTable()
+                (self.delegate as? KTMyTripsViewModelDelegate)?.reloadTable()
             }
             else {
-                (self.delegate as! KTMyTripsViewModelDelegate).showNoBooking()
+                (self.delegate as? KTMyTripsViewModelDelegate)?.showNoBooking()
             }
             
-            (self.delegate as! KTMyTripsViewModelDelegate).endRefreshing()
+            (self.delegate as? KTMyTripsViewModelDelegate)?.endRefreshing()
         }
     }
     private func fetchBookingsFromDB() {

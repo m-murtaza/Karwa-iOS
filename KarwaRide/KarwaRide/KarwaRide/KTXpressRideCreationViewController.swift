@@ -84,7 +84,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var operationArea = [Area]()
         
     var rideServicePickDropOffData: RideSerivceLocationData? = nil
-    
+    var rideInfo: RideInfo? = nil
+
     var vModel : KTXpressRideCreationViewModel?
 
     var headerData = [1,2,3,4]
@@ -126,25 +127,32 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
-        
+
         if xpressRebookSelected == true {
             (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
             (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+            addMap()
+            shimmerView.isHidden = false
+            vModel?.fetchRideService()
         } else {
             vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+            vModel?.rideInfo = rideInfo
+            addMap()
+            mapView.clear()
+            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!))
+            self.updateUI()
+            shimmerView.isHidden = true
         }
         
-        shimmerView.isHidden = false
-        
-        vModel?.fetchRideService()
-                
         // Do any additional setup after loading the view.
-        addMap()
         
         self.navigationItem.hidesBackButton = true;
         
         rideServiceTableView.delegate = self
         rideServiceTableView.dataSource = self
+        
+        rideServiceTableView.isScrollEnabled = false
         
         self.pickUpAddressButton.titleLabel?.numberOfLines = 1
         self.dropOffAddressButton.titleLabel?.numberOfLines = 1
@@ -186,7 +194,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         self.bookingProgress.trackTintColor = .clear
 
-//        heightConstraint.constant = 250
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -330,6 +337,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     func showAlertForTimeOut() {
         let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
             
             if let navController = self.navigationController {
@@ -364,7 +375,11 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     func showAlertForFailedRide(message: String) {
-        let alert = CDAlertView(title: message, message: "", type: .error)
+        let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
             if let navController = self.navigationController {
@@ -393,14 +408,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
         
     func updateUI() {
-        if #available(iOS 15.0, *) {
-            heightConstraint.constant = CGFloat(223 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
-        } else {
-            heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
-        }
-        self.rideServiceTableView.reloadData()
         shimmerView.isHidden = true
-
+        heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
+        self.rideServiceTableView.reloadData()
     }
 
     @IBAction func showRideTrackingViewController() {
@@ -460,6 +470,10 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         return (self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
@@ -477,17 +491,20 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
         cell.orderRideButton.isHidden = false
-        tableView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+        cell.imgVehicleType.image = UIImage(named: "kmetroexpress")?.imageFlippedForRightToLeftLayoutDirection()
+        tableView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
             cell.contentView.customBorderColor = UIColor(hex: "#2D5A64")
             cell.contentView.customCornerRadius = 10
             cell.contentView.backgroundColor = .white
             cell.imgVehicleBGView.backgroundColor = .white
+            cell.lblServiceType.font = UIFont(name: "MuseoSans-900", size: 17.0)!
         } else {
             cell.contentView.customBorderWidth = 0
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
-            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
+            cell.lblServiceType.font = UIFont(name: "MuseoSans-700", size: 17.0)!
+            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         }
         
         return cell
