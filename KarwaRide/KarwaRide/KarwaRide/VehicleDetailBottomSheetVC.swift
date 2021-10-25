@@ -129,11 +129,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue, fareBreakDownView: UIStackView ) {
-        
-//        guard fareBreakDownView.arrangedSubviews.count < 5 else {
-//            return
-//        }
-        
+       
         let keyLbl = UILabel()
         keyLbl.translatesAutoresizingMaskIntoConstraints = false
         keyLbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
