@@ -175,7 +175,13 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBAction func onClickRightBtn(_ sender: UIButton){
         if selectedVehicleIndex != vehicles.count-1 && selectedVehicleIndex+1 < self.collectionView.numberOfItems(inSection: 0) {
-            collectionView.scrollToNextItem()
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                collectionView.scrollToNextItem()
+            }
+            else {
+                collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex+1, section: 0), at: .centeredHorizontally, animated: true)
+            }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
                 guard let `self` = self else {return}
                 self.currentVehicle += 1
@@ -185,7 +191,12 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBAction func onClickLeftBtn(_ sender: UIButton){
         if selectedVehicleIndex != 0 && selectedVehicleIndex-1 < self.collectionView.numberOfItems(inSection: 0) {
-            collectionView.scrollToPreviousItem()
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                collectionView.scrollToPreviousItem()
+            }
+            else {
+                collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .centeredHorizontally, animated: true)
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
                 guard let `self` = self else {return}
                 self.currentVehicle -= 1
