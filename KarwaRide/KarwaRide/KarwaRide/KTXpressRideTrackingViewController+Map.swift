@@ -64,8 +64,7 @@ extension KTXpressRideTrackingViewController: GMSMapViewDelegate {
         CATransaction.commit()
     }
     
-    func  addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)  {
-        
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D) {
         
         mapView.clear()
         

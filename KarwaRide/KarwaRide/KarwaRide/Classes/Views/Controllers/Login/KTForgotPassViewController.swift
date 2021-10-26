@@ -13,8 +13,11 @@ import MaterialComponents
 class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDelegate, UITextFieldDelegate, CountryListDelegate  {
   
   @IBOutlet weak var txtPhoneNumber : MDCFilledTextField!
+    @IBOutlet weak var phoneNumberTextFieldBGView: UIView!
   @IBOutlet weak var txtPassword : MDCFilledTextField!
+    @IBOutlet weak var passwordTextFieldView: UIView!
   @IBOutlet weak var txtConfirmPass : MDCFilledTextField!
+    @IBOutlet weak var confirmPasswordTextFieldView: UIView!
   @IBOutlet weak var btnSubmitt: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
   @IBOutlet weak var scrollView: UIScrollView!
@@ -45,7 +48,28 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     
     txtPhoneNumber.keyboardType = .numberPad
     tapToDismissKeyboard()
-
+      
+      txtPhoneNumber.becomeFirstResponder()
+      
+      txtPhoneNumber.setUnderlineColor(UIColor.clear, for: .editing)
+      txtPhoneNumber.setUnderlineColor(UIColor.clear, for: .normal)
+      txtPassword.setUnderlineColor(UIColor.clear, for: .editing)
+      txtPassword.setUnderlineColor(UIColor.clear, for: .normal)
+      txtConfirmPass.setUnderlineColor(UIColor.clear, for: .editing)
+      txtConfirmPass.setUnderlineColor(UIColor.clear, for: .normal)
+      
+      txtPhoneNumber.backgroundColor = .white
+      txtPassword.backgroundColor = .white
+      txtConfirmPass.backgroundColor = .white
+      
+      phoneNumberTextFieldBGView.clipsToBounds = true
+      passwordTextFieldView.clipsToBounds = true
+      confirmPasswordTextFieldView.clipsToBounds = true
+      
+      phoneNumberTextFieldBGView.customBorderWidth = 0
+      passwordTextFieldView.customBorderWidth = 0
+      confirmPasswordTextFieldView.customBorderWidth = 0
+      
     // Do any additional setup after loading the view.
     //btnSubmitt.isHidden = true
     // navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
@@ -202,6 +226,58 @@ class KTForgotPassViewController: KTBaseViewController, KTForgotPassViewModelDel
     }
     return true
   }
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+                
+        switch textField.tag {
+        case 11:
+            phoneNumberTextFieldBGView.customBorderWidth = 3
+            confirmPasswordTextFieldView.customBorderWidth = 0
+            passwordTextFieldView.customBorderWidth = 0
+        case 12:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+            passwordTextFieldView.customBorderWidth = 3
+            confirmPasswordTextFieldView.customBorderWidth = 0
+        case 13:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+            confirmPasswordTextFieldView.customBorderWidth = 3
+            passwordTextFieldView.customBorderWidth = 0
+        default:
+            passwordTextFieldView.customBorderWidth = 0
+        }
+        
+        return true
+        
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        switch textField.tag {
+        case 11:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+        case 12:
+            passwordTextFieldView.customBorderWidth = 0
+        case 13:
+            confirmPasswordTextFieldView.customBorderWidth = 0
+        default:
+            confirmPasswordTextFieldView.customBorderWidth = 0
+        }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 11:
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+        case 12:
+            passwordTextFieldView.customBorderWidth = 0
+        case 13:
+            confirmPasswordTextFieldView.customBorderWidth = 0
+        default:
+            passwordTextFieldView.customBorderWidth = 0
+        }
+    }
+    
   
 //  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
 //    if txtPassword == textField {

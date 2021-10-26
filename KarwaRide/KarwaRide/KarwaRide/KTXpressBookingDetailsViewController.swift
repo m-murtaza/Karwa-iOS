@@ -70,6 +70,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var bottomSheetVC : KTXpressBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTXpressBookingDetailsBottomSheetVC") as! KTXpressBookingDetailsBottomSheetVC
 
     var isOpenFromNotification : Bool = false
+    
+    var walkToPickUpMarker: GMSMarker!
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
@@ -193,7 +195,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
     }
     
-    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D) {
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D) {
         
     }
     
@@ -485,19 +487,19 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     //MARK:- ETA
     func updateEta(eta: String)
     {
-        self.etaLabel.text = eta
+//        self.etaLabel.text = eta
         bottomSheetVC.updateEta(eta: eta)
     }
     
     func hideEtaView()
     {
-        self.etaLabel.isHidden = true
+//        self.etaLabel.isHidden = true
 //        bottomSheetVC.hideEtaView()
     }
     
     func showEtaView()
     {
-        self.etaLabel.isHidden = false
+//        self.etaLabel.isHidden = false
 //        bottomSheetVC.showEtaView()
     }
     
@@ -761,14 +763,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     func addMarkerOnMapWithInfoView(location: CLLocationCoordinate2D) {
-        let marker = GMSMarker()
-        marker.position = location
+        walkToPickUpMarker = GMSMarker()
+        walkToPickUpMarker.position = location
         
-        marker.iconView = pickupWithInfoView
-        marker.groundAnchor =  CGPoint(x:0.5,y:0.5)
-        marker.map = self.mapView
+        walkToPickUpMarker.iconView = pickupWithInfoView
+        walkToPickUpMarker.groundAnchor =  CGPoint(x:0.5,y:0.5)
+        walkToPickUpMarker.map = self.mapView
         
-        bounds = bounds.includingCoordinate(marker.position)
+        bounds = bounds.includingCoordinate(walkToPickUpMarker.position)
         
     }
     
@@ -797,6 +799,42 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
 
 //        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+    }
+    
+    func addWalkToPickUpMarker() {
+        
+        if rideServicePickDropOffData?.pickUpCoordinate != nil {
+            addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+        }
+        
+    }
+    
+    func removeWalkToPickUpMarker() {
+        if walkToPickUpMarker != nil {
+            walkToPickUpMarker.map = nil
+        }
+    }
+    
+    func drawArc(startLocation: CLLocationCoordinate2D?, endLocation: CLLocationCoordinate2D?) {
+        if let startLocation = startLocation, let endLocation = endLocation {
+            //swap the startLocation & endLocation if you want to reverse the direction of polyline arc formed.
+            let path = GMSMutablePath()
+            path.add(startLocation)
+            path.add(endLocation)
+            //Draw polyline
+            let polyline = GMSPolyline(path: path)
+            polyline.map = mapView // Assign GMSMapView as map
+            polyline.strokeWidth = 3.0
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
+            let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
+            let lengths = [0.5, 0.5] // Play with this for dotted line
+            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            
+            let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
+            let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+            let camera = mapView.camera(for: bounds, insets: insets)!
+            mapView.animate(to: camera)
+        }
     }
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {

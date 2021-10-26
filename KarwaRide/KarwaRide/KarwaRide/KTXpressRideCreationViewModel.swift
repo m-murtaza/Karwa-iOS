@@ -22,7 +22,7 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func setProgressViewCounter(countDown: Int)
     func showHideRideServiceView(show: Bool)
     func updateUI()
-    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D)
     func showRideTrackViewController()
     func showAlertForTimeOut()
     func showAlertForFailedRide(message: String)
@@ -193,7 +193,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             
             (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
             (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: strongSelf.rideInfo?.expirySeconds ?? 0)
-            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].pick?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].pick?.lon)!))
+            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].pick?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].drop?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].drop?.lon)!))
 
             
             (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
@@ -273,7 +273,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     func setPickUpLocationForXpressRide(index: Int) {
-        (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon)!))
+        (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].drop?.lat)!, longitude: (self.rideInfo?.rides[index].drop?.lon)!))
     }
     
     func didTapBookButton() {
