@@ -119,6 +119,25 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
         
     }
     
+    func backToPickUp(withMessage: String) {
+        let alert = CDAlertView(title: withMessage, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+            alpha = 0
+        }
+        let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
+            if let navController = self.navigationController {
+                navController.popViewController(animated: false)
+            }
+            return true
+        }
+        alert.add(action: doneAction)
+        alert.show()
+    }
+    
+    func backToPickUp() {
+        self.navigationController?.popViewController(animated: false)
+    }
+    
     func hideNavigationController() {
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
