@@ -178,6 +178,9 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBAction func onClickRightBtn(_ sender: UIButton){
         if selectedVehicleIndex != vehicles.count-1 && selectedVehicleIndex+1 < self.collectionView.numberOfItems(inSection: 0) {
+            if let cell = self.collectionView.cellForItem(at: IndexPath(row: selectedVehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
+                cell.imgVehicleType.isHidden = true
+            }
             if UIDevice.current.userInterfaceIdiom == .phone {
                 collectionView.scrollToNextItem()
             }
@@ -194,6 +197,9 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBAction func onClickLeftBtn(_ sender: UIButton){
         if selectedVehicleIndex != 0 && selectedVehicleIndex-1 < self.collectionView.numberOfItems(inSection: 0) {
+            if let cell = self.collectionView.cellForItem(at: IndexPath(row: selectedVehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
+                cell.imgVehicleType.isHidden = true
+            }
             if UIDevice.current.userInterfaceIdiom == .phone {
                 collectionView.scrollToPreviousItem()
             }
@@ -263,6 +269,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
     
     func animateVehicle(index: Int) {
         if index < self.collectionView.numberOfItems(inSection: 0), let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? VehicleDetailCarouselCell {
+            cell.imgVehicleType.isHidden = false
             cell.imgVehicleType.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
             cell.imgVehicleType.animate()
         }

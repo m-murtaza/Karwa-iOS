@@ -16,6 +16,7 @@ class VehicleDetailCarouselCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.imgVehicleType.isHidden = true
     }
     
     func config(vModel: KTCreateBookingViewModel, vehicle: KTVehicleType) {
