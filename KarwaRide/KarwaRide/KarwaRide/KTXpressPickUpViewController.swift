@@ -214,9 +214,9 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.zonalArea = zonalArea
         dropOff.countOfPassenger = countOfPassenger
         
-        self.add(dropOff)
+//        self.add(dropOff)
 
-//        self.navigationController?.pushViewController(dropOff, animated: false)
+        self.navigationController?.pushViewController(dropOff, animated: false)
         
     }
     
