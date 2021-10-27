@@ -156,7 +156,7 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         param["PassengerCount"] = rideData.passsengerCount ?? 1
 
         self.post(url: Constants.APIURL.PostRSService, param: param, completion: completionBlock) { (response, cBlock) in
-            print(response)
+            print("response", response)
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
         

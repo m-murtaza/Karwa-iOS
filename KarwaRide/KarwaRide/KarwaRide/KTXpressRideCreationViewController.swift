@@ -104,6 +104,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var expiryTime = 0
     
     var serverPickUpLocationMarker: GMSMarker!
+    var serverDropOffLocationMarker: GMSMarker!
     var pickUpLocationMarker: GMSMarker!
     var dropOffLocationMarker: GMSMarker!
     
@@ -116,6 +117,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     @IBOutlet weak var arrowImage: UIImageView!
     
     @IBOutlet weak var walkToPickUpView: UIView!
+    @IBOutlet weak var shortWalkToDropView: UIView!
 
     override func viewDidLoad() {
         
@@ -140,7 +142,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             addMap()
             mapView.clear()
             self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
-            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!))
+            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
             self.updateUI()
             shimmerView.isHidden = true
         }
@@ -161,7 +163,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         bookingProgress.progress = 0.0
         
-        switch rideServicePickDropOffData?.passsengerCount ?? 1 {
+        switch vModel?.rideServicePickDropOffData?.passsengerCount ?? 1 {
         case 1:
             self.passengerLabel.text = "str_1pass".localized()
         case 2:
@@ -539,7 +541,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         
         selectedVehicleIndex = sender.tag
         (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: sender.tag)
-        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
+//        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
         self.rideServiceTableView.reloadData()
     }
     

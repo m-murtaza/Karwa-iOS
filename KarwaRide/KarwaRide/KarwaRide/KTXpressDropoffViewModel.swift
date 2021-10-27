@@ -40,6 +40,8 @@ protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func hideNavigationController()
     func showAlertForStation()
     func showAlertForFailedRide(message: String)
+    func backToPickUp(withMessage: String)
+
 }
 
 class KTXpressDropoffViewModel: KTBaseViewModel {
@@ -295,7 +297,7 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
         
         self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
 
-        KTXpressBookingManager().getRideService(rideData: rideLocationData) { [weak self] (String, response) in
+        KTXpressBookingManager().getRideService(rideData: rideLocationData) { [weak self] (status, response) in
                         
             self?.delegate?.hideProgressHud()
             
@@ -303,19 +305,29 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
                 return
             }
             
+            //(response["D"] as? [String : String])!["FailureAction"]!
+    
             print("ridedata", response)
                         
             strongSelf.rideInfo.rides.removeAll()
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
-            if String == "FAILED" {
-                (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
-            }
-            
+//            if status == "FAILED" {
+//                (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+//            }
+         
             guard let rides = response["Rides"] as? [[String : Any]] else {
                 if let message = response["M"] as? String {
                     (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: message)
+                } else if let res = response["E"] as? [String : String] {
+                    if let message = res["M"] {
+                        if status == "CHANGE_PICK" {
+                            (self?.delegate as? KTXpressDropoffViewModelDelegate)?.backToPickUp(withMessage: message)
+                        } else {
+                            (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: message)
+                        }
+                    }
                 }
                 return
             }

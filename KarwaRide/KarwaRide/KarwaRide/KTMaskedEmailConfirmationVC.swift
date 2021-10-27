@@ -14,7 +14,8 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
   
   @IBOutlet weak var lblMaskedEmail: SpringLabel!
   @IBOutlet weak var emailTextField: MDCFilledTextField!
-  
+    @IBOutlet weak var emailTextFieldBGView: UIView!
+
   var phone : String = ""
   var password: String = ""
   var maskedEmail: String = ""
@@ -30,6 +31,8 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     emailTextField.label.text = "str_email".localized()
     InputFieldUtil.applyTheme(emailTextField, false)
     tapToDismissKeyboard()
+      emailTextFieldBGView.clipsToBounds = true
+      emailTextFieldBGView.customBorderWidth = 0
     // Do any additional setup after loading the view.
     //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(btnSubmitTapped))
   }
@@ -96,20 +99,18 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
 }
 
 extension KTMaskedEmailConfirmationVC: UITextFieldDelegate {
-//  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//
-//    if emailTextField == textField {
-//      emailTextField = .focused
-//    }
-//    return true
-//  }
-//
-//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//
-//    if emailTextField.textField == textField {
-//      emailTextField.textFieldState = .normal
-//    }
-//    return true
-//  }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        emailTextFieldBGView.customBorderWidth = 3
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        emailTextFieldBGView.customBorderWidth = 0
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        emailTextFieldBGView.customBorderWidth = 0
+    }
 }
 
