@@ -313,21 +313,13 @@ class KTXpressDropoffViewModel: KTBaseViewModel {
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
-            if status == "FAILED" {
-                (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
-            }
+//            if status == "FAILED" {
+//                (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+//            }
          
             guard let rides = response["Rides"] as? [[String : Any]] else {
                 if let message = response["M"] as? String {
-                    if let failureAction = (response["D"] as? [String : String]) {
-                        if let messagefail = failureAction["FailureAction"], messagefail == "CHANGE_PICK" {
-                            (self?.delegate as? KTXpressDropoffViewModelDelegate)?.backToPickUp(withMessage: message)
-                        } else {
-                            (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: message)
-                        }
-                    } else {
-                        (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: message)
-                    }
+                    (strongSelf.delegate as! KTXpressDropoffViewModelDelegate).showAlertForFailedRide(message: message)
                 } else if let res = response["E"] as? [String : String] {
                     if let message = res["M"] {
                         if status == "CHANGE_PICK" {

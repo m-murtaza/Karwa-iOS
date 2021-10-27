@@ -142,7 +142,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         
         self.delegate?.showProgressHud(show: true, status: "str_finding".localized()) 
         
-        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (String, response) in
+        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (status, response) in
                         
             self?.delegate?.hideProgressHud()
             
@@ -156,13 +156,17 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
-            if String == "FAILED" {
-                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
-            }
+//            if String == "FAILED" {
+//                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+//            }
             
             guard let rides = response["Rides"] as? [[String : Any]] else {
                 if let message = response["M"] as? String {
                     (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: message)
+                } else if let res = response["E"] as? [String : String] {
+                    if let message = res["M"] {
+                        (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: message)
+                    }
                 }
                 return
             }

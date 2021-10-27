@@ -145,7 +145,6 @@ class KTXpressDropOffViewController: KTBaseCreateBookingController, KTXpressAddr
     
     @IBAction func setCurrentLocation(sender: UIButton) {
         let camera = GMSCameraPosition.camera(withLatitude: KTLocationManager.sharedInstance.baseLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.baseLocation.coordinate.longitude, zoom: 16)
-        mapView.camera = camera
         mapView.animate(to: camera)
     }
     
