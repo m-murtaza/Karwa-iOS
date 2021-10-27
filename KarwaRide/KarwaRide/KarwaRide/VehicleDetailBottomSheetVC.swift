@@ -43,6 +43,9 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     var selectedVehicleIndex = 0
     fileprivate var currentVehicle: Int = 0 {
         didSet {
+            if let cell = self.collectionView.cellForItem(at: IndexPath(row: selectedVehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
+                cell.imgVehicleType.isHidden = true
+            }
             updateDetailBottomSheet(forIndex: currentVehicle)
             btnRightArrow.isHidden = true
             btnLeftArrow.isHidden = true
@@ -250,7 +253,10 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
-        currentVehicle = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+        let currentItem = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+        if selectedVehicleIndex != currentItem {
+            currentVehicle = currentItem
+        }
     }
     
     func setupCV(){
