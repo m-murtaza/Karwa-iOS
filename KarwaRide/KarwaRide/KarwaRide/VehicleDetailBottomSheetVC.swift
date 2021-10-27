@@ -106,14 +106,14 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             if let orderedBody = orderedBody {
                 svDetail.isHidden = false
                 let sheetHeight = CGFloat(470+(15*orderedBody.count))
-                sheet?.setSizes([.fixed(sheetHeight), .intrinsic])
+                sheet?.setSizes([.fixed(sheetHeight)])
                 for i in 0 ..< orderedBody.count {
                     setFarDetails(fareDetail: orderedBody[i], fareBreakDownView: svDetail)
                 }
             }
             else {
                 svDetail.isHidden = true
-                sheet?.setSizes([.fixed(470), .intrinsic])
+                sheet?.setSizes([.fixed(470)])
             }
 
             if vehicles.count > 1 {

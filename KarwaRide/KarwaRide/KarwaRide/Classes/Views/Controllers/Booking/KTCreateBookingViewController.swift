@@ -441,12 +441,12 @@ class KTCreateBookingViewController:
             let bottomSheetVC = VehicleDetailBottomSheetVC()
             let bottomSheet = SheetViewController(
                 controller: bottomSheetVC,
-                sizes: [.fixed(530), .intrinsic],
+                sizes: [.fixed(530)],
                 options: SheetOptions(useInlineMode: true))
             bottomSheetVC.sheet = bottomSheet
             bottomSheetVC.vehicles = vehicles
             bottomSheetVC.vModel = viewModel
-            bottomSheet.allowPullingPastMaxHeight = true
+            bottomSheet.allowPullingPastMaxHeight = false
             bottomSheet.allowPullingPastMinHeight = true
             
             bottomSheet.dismissOnPull = true
