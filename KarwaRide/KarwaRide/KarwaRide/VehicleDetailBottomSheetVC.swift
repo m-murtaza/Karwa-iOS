@@ -101,7 +101,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             self.lblVehicleFare.text = fare
             self.lblTotal.text = fare
             
-            let orderedBody = vModel.getEstimateOrderedBody(typeId: vehicles[forIndex].typeId)
+            var orderedBody = vModel.getEstimateOrderedBody(typeId: vehicles[forIndex].typeId)
+            if orderedBody == nil {
+                orderedBody = vModel.getInitialEstimateOrderedBody(vehicle: vehicles[forIndex])
+            }
             svDetail.subviews.forEach({ $0.removeFromSuperview() })
             if let orderedBody = orderedBody {
                 svDetail.isHidden = false

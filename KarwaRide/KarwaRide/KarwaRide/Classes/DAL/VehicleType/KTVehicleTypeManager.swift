@@ -90,6 +90,17 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         saveKeyValueBody(keyValue: tariff["OrderedBody"] as! [[AnyHashable : Any]], tariff: vType as KTBaseTrariff)
     }
     
+//    func saveSingleVehicleEstimates(estimate : [AnyHashable: Any]) {
+//        
+//        let e : KTFareEstimate = KTFareEstimate.mr_createEntity(in: NSManagedObjectContext.mr_default())!
+//        e.estimateId = estimate[Constants.GetEstimateResponseAPIKey.EstimateId] as? String
+//        e.vehicleType = estimate[Constants.GetEstimateResponseAPIKey.VehicleType] as! Int16
+//        e.estimatedFare = estimate[Constants.GetEstimateResponseAPIKey.EstimatedFare] as? String
+//        e.isPromoApplied = estimate[Constants.GetEstimateResponseAPIKey.IsPromoApplied] as? Bool ?? false
+//        
+//        saveKeyValueBody(keyValue: estimate["OrderedBody"] as! [[AnyHashable : Any]], tariff: e as KTBaseTrariff)
+//    }
+    
     func typeSortOrder(forId typeId: Int16) -> Int16 {
         var order: Int16 = 999
         switch typeId {

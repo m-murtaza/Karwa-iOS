@@ -1133,6 +1133,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return vEstimate?.toKeyValueBody?.array as? [KTKeyValue]
     }
     
+    func getInitialEstimateOrderedBody(vehicle: KTVehicleType) -> [KTKeyValue]? {
+        return vehicle.toKeyValueBody?.array as? [KTKeyValue]
+    }
+    
     func isPromoFare(typeId: Int16) -> Bool{
         var isPromoApplied = false
         if let vType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
