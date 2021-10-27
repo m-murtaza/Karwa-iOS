@@ -771,7 +771,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
-          //  del?.addWalkToPickUpMarker()
+            del?.addWalkToPickUpMarker()
         }
         else if bStatus == BookingStatus.COMPLETED
         {

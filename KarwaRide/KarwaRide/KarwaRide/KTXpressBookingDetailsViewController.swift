@@ -767,7 +767,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         walkToPickUpMarker.position = location
         
         walkToPickUpMarker.iconView = pickupWithInfoView
-        walkToPickUpMarker.groundAnchor =  CGPoint(x:0.5,y:0.5)
+        walkToPickUpMarker.groundAnchor =  CGPoint(x:0.5,y:1)
         walkToPickUpMarker.map = self.mapView
         
         bounds = bounds.includingCoordinate(walkToPickUpMarker.position)
@@ -802,11 +802,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     func addWalkToPickUpMarker() {
-        
-        if rideServicePickDropOffData?.pickUpCoordinate != nil {
-            addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+        if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
+            addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
+            let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+            self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: eLocation)
         }
-        
     }
     
     func removeWalkToPickUpMarker() {
