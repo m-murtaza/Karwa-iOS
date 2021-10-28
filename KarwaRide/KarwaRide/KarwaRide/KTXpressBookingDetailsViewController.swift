@@ -819,6 +819,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     func removeWalkToPickUpMarker() {
         if walkToPickUpMarker != nil {
             walkToPickUpMarker.map = nil
+            polyline.map = nil
         }
     }
     
