@@ -11,6 +11,7 @@ import Spring
 import GoogleMaps
 import CDAlertView
 import CoreLocation
+import ABLoaderView
 
 class KTXpressRideServiceCell: UITableViewCell {
     
@@ -56,6 +57,19 @@ class KTFareServiceCell: UITableViewCell {
 
 
 class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpressRideCreationViewModelDelegate {
+        
+    @IBOutlet weak var shimmerView: UIView!
+    @IBOutlet weak var shimmerLabeltop1: UILabel!
+    @IBOutlet weak var shimmerLabeltop2: UILabel!
+    @IBOutlet weak var shimmerImageViewtop: UIImageView!
+    
+    @IBOutlet weak var shimmerLabelmiddle1: UILabel!
+    @IBOutlet weak var shimmerLabelmiddle2: UILabel!
+    @IBOutlet weak var shimmerImageViewMiddle: UIImageView!
+    
+    @IBOutlet weak var shimmerLabelBottom1: UILabel!
+    @IBOutlet weak var shimmerLabelBottom2: UILabel!
+    @IBOutlet weak var shimmerImageViewBottom: UIImageView!
     
     @IBOutlet weak var rideServiceView: UIView!
     
@@ -70,7 +84,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var operationArea = [Area]()
         
     var rideServicePickDropOffData: RideSerivceLocationData? = nil
-    
+    var rideInfo: RideInfo? = nil
+
     var vModel : KTXpressRideCreationViewModel?
 
     var headerData = [1,2,3,4]
@@ -89,6 +104,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var expiryTime = 0
     
     var serverPickUpLocationMarker: GMSMarker!
+    var serverDropOffLocationMarker: GMSMarker!
     var pickUpLocationMarker: GMSMarker!
     var dropOffLocationMarker: GMSMarker!
     
@@ -101,8 +117,11 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     @IBOutlet weak var arrowImage: UIImageView!
     
     @IBOutlet weak var walkToPickUpView: UIView!
+    @IBOutlet weak var shortWalkToDropView: UIView!
 
     override func viewDidLoad() {
+        
+        rideServiceTableView.bounces = false
         
         super.viewDidLoad()
 
@@ -110,53 +129,73 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
 
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
-        
+
         if xpressRebookSelected == true {
             (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
             (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+            addMap()
+            shimmerView.isHidden = false
+            vModel?.fetchRideService()
         } else {
             vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+            vModel?.rideInfo = rideInfo
+            addMap()
+            mapView.clear()
+            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
+            self.updateUI()
+            shimmerView.isHidden = true
         }
         
-        
-        vModel?.fetchRideService()
-                
         // Do any additional setup after loading the view.
-        addMap()
         
         self.navigationItem.hidesBackButton = true;
         
         rideServiceTableView.delegate = self
         rideServiceTableView.dataSource = self
         
+        rideServiceTableView.isScrollEnabled = false
+        
         self.pickUpAddressButton.titleLabel?.numberOfLines = 1
         self.dropOffAddressButton.titleLabel?.numberOfLines = 1
         
-        self.rideServiceView.isHidden = true
+        self.rideServiceView.isHidden = false
         
         bookingProgress.progress = 0.0
         
-        self.passengerLabel.text = "\(rideServicePickDropOffData?.passsengerCount ?? 1) \("str_pass".localized())"
-
-        if Device.getLanguage().contains("AR") {
-            arrowImage.image = #imageLiteral(resourceName: "pickdrop_connected_arrow").imageFlippedForRightToLeftLayoutDirection()
+        switch vModel?.rideServicePickDropOffData?.passsengerCount ?? 1 {
+        case 1:
+            self.passengerLabel.text = "str_1pass".localized()
+        case 2:
+            self.passengerLabel.text = "str_2pass".localized()
+        case 3:
+            self.passengerLabel.text = "str_3pass".localized()
+        default:
+            self.passengerLabel.text = "str_1pass".localized()
         }
         
-        self.setBookingButton.layer.shadowRadius = 3
-        self.setBookingButton.layer.shadowOpacity = 1
-        self.setBookingButton.layer.shadowOffset = CGSize(width: 1, height: 3)
-        if #available(iOS 13.0, *) {
-            self.setBookingButton.layer.shadowColor = UIColor.systemGray3.cgColor
-        } else {
-            // Fallback on earlier versions
-            self.setBookingButton.layer.shadowColor = UIColor.lightGray.cgColor
+        if Device.getLanguage().contains("AR") {
+            arrowImage.image = #imageLiteral(resourceName: "pickdrop_connected_arrow").imageFlippedForRightToLeftLayoutDirection()
         }
         
         self.pickUpAddressButton.isUserInteractionEnabled = false
         self.dropOffAddressButton.isUserInteractionEnabled = false
 
+        self.setBookingButton.backgroundColor = UIColor(hexString: "#4BA5A7")
+        self.setBookingButton.isUserInteractionEnabled = true
+        
+        ABLoader().startShining(self.shimmerImageViewtop)
+        ABLoader().startShining(self.shimmerLabeltop1)
+        ABLoader().startShining(self.shimmerLabeltop2)
+        ABLoader().startShining(self.shimmerImageViewMiddle)
+        ABLoader().startShining(self.shimmerLabelmiddle1)
+        ABLoader().startShining(self.shimmerLabelmiddle2)
+        ABLoader().startShining(self.shimmerImageViewBottom)
+        ABLoader().startShining(self.shimmerLabelBottom1)
+        ABLoader().startShining(self.shimmerLabelBottom2)
+        
+        self.bookingProgress.trackTintColor = .clear
 
-//        heightConstraint.constant = 250
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -175,20 +214,29 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     @IBAction func showPickUpScreen(_ sender: UIButton) {
         if let navController = self.navigationController {
-            
-            if let controller = navController.viewControllers.first(where: { $0 is KTXpressDropOffViewController }) {
-                if navController.viewControllers.count > 5 {
-                    navController.popToViewController(navController.viewControllers[3], animated: true)
-                } else if navController.viewControllers.count <= 5 {
-                    navController.popToViewController(navController.viewControllers[1], animated: true)
-                }
-                else {
+            if let navController = self.navigationController {
+
+                print(navController.viewControllers.count)
+                print(navController.viewControllers)
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    }else if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    }
+                    else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    }
+                    else {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
                     navController.popViewController(animated: true)
                 }
-            } else {
-                navController.popViewController(animated: true)
             }
-
         }
     }
     
@@ -291,8 +339,32 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     func showAlertForTimeOut() {
         let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
-            self.navigationController?.popViewController(animated: true)
+            
+            if let navController = self.navigationController {
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    } else if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    } else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    } else {
+                        navController.popViewController(animated: true)
+                    }
+                    
+                } else {
+                    navController.popViewController(animated: true)
+                }
+            }
             return true
         }
         alert.add(action: doneAction)
@@ -305,41 +377,49 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     func showAlertForFailedRide(message: String) {
-        let alert = CDAlertView(title: message, message: "", type: .error)
+        let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+//                transform = CGAffineTransform(translationX: 0, y: -256)
+            alpha = 0
+        }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
-            self.navigationController?.popViewController(animated: true)
-            
-//            if let controllers = self.navigationController?.viewControllers {
-//
-//                for item in controllers {
-//                    if item.isKind(of: TabViewController.self) {
-//                        self.navigationController?.popToViewController(item, animated: true)
-//                    }
-//                    if item.isKind(of: KTMyTripsViewController.self) {
-//                        self.navigationController?.popToViewController(item, animated: true)
-//                    }
-//                }
-//
-//            }
-            
+            if let navController = self.navigationController {
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    } else if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    } else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    } else {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
+                    navController.popViewController(animated: true)
+                }
+            }
             return true
         }
+        
         alert.add(action: doneAction)
         alert.show()
     }
         
     func updateUI() {
-        if #available(iOS 15.0, *) {
-            heightConstraint.constant = CGFloat(223 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
-        } else {
-            heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
-        }
+        shimmerView.isHidden = true
+        heightConstraint.constant = CGFloat(200 + (((self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0) * 63))
         self.rideServiceTableView.reloadData()
     }
 
     @IBAction func showRideTrackingViewController() {
-        animateButton()
+        springAnimateButtonTapOut(button: setBookingButton)
+        self.timer.invalidate()
+        (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: self.selectedVehicleIndex)
+        (self.viewModel as! KTXpressRideCreationViewModel).didTapBookButton()
     }
     
     @IBAction func bookbtnTouchDown(_ sender: SpringButton)
@@ -372,9 +452,6 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
       }
     
     func showRideTrackViewController() {
-        let rideService = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideTrackingViewController") as? KTXpressRideTrackingViewController)!
-        rideService.rideServicePickDropOffData = rideServicePickDropOffData
-        rideService.selectedRide = (self.viewModel as! KTXpressRideCreationViewModel).selectedRide
         
         let details  = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as? KTXpressBookingDetailsViewController)!
         details.rideServicePickDropOffData = rideServicePickDropOffData
@@ -382,6 +459,8 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         if let booking : KTBooking = vModel?.selectedBooking {
             details.setBooking(booking: booking)
         }
+        
+        bookingSuccessful = true
         self.navigationController?.pushViewController(details, animated: true)        
     }
         
@@ -391,6 +470,10 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return (self.viewModel as! KTXpressRideCreationViewModel).rideInfo?.rides.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -410,17 +493,20 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         cell.orderRideButton.addTarget(self, action: #selector(orderVehicle(sender:)), for: .touchUpInside)
         cell.orderRideButton.tag = section
         cell.orderRideButton.isHidden = false
-        tableView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+        cell.imgVehicleType.image = UIImage(named: "kmetroexpress")?.imageFlippedForRightToLeftLayoutDirection()
+        tableView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         if selectedVehicleIndex == section {
             cell.contentView.customBorderWidth = 2
-            cell.contentView.customBorderColor = UIColor(hex: "#23A0A0")
+            cell.contentView.customBorderColor = UIColor(hex: "#2D5A64")
             cell.contentView.customCornerRadius = 10
             cell.contentView.backgroundColor = .white
             cell.imgVehicleBGView.backgroundColor = .white
+            cell.lblServiceType.font = UIFont(name: "MuseoSans-900", size: 17.0)!
         } else {
             cell.contentView.customBorderWidth = 0
-            cell.contentView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
-            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.9033820629, green: 0.9384498, blue: 0.9333658814, alpha: 1)
+            cell.contentView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
+            cell.lblServiceType.font = UIFont(name: "MuseoSans-700", size: 17.0)!
+            cell.imgVehicleBGView.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.937254902, blue: 0.9294117647, alpha: 1)
         }
         
         return cell
@@ -449,7 +535,7 @@ extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDa
         
         selectedVehicleIndex = sender.tag
         (self.viewModel as! KTXpressRideCreationViewModel).getRide(index: sender.tag)
-        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
+//        (self.viewModel as! KTXpressRideCreationViewModel).setPickUpLocationForXpressRide(index: sender.tag)
         self.rideServiceTableView.reloadData()
     }
     

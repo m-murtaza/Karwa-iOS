@@ -59,7 +59,17 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
       addMenuButton()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+    }
 
+    func showNavigationController() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     override func updateForBooking(_ booking: KTBooking)
     {
         vModel?.bookingUpdateTriggered(booking)
@@ -102,7 +112,14 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     cell.dropoffAddressLabel.text = (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row)
     cell.dateLabel.text = (viewModel as! KTMyTripsViewModel).pickupDate(forIdx: indexPath.row)
     cell.timeLabel.text = (viewModel as! KTMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
-    cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+    
+    if (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row) == "travel_ride_sharing_info_title".localized() {
+        cell.serviceTypeLabel.attributedText = (viewModel as! KTMyTripsViewModel).getAttributedTextForMetroExpress()
+    } else {
+        cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+    }
+        
+    
     cell.statusLabel.text = (viewModel as! KTMyTripsViewModel).bookingStatusString(forIdx: indexPath.row)
     cell.outerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).outerContainerBackgroundColor(forIdx: indexPath.row)
     cell.innerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).innerContainerBackgroundColor(forIdx: indexPath.row)

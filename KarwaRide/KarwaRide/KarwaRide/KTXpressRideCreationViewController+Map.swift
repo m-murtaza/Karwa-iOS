@@ -8,6 +8,7 @@
 
 import Foundation
 import GoogleMaps
+import CoreLocation
 
 extension KTXpressRideCreationViewController: GMSMapViewDelegate {
     
@@ -22,13 +23,14 @@ extension KTXpressRideCreationViewController
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
-        pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+        pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pickup_address_ico"))
         
-        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "pin_dropoff_map"))
+        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "dropoff_pin"))
 
         let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
         mapView.padding = padding
-        
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
@@ -58,41 +60,60 @@ extension KTXpressRideCreationViewController
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
 
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.animate(with: update!)
+        mapView.moveCamera(update!)
         CATransaction.commit()
     }
     
-    func  addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)  {
-        
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D) {
         
         mapView.clear()
         
-        self.drawArcPolyline(startLocation: coordinate, endLocation: self.vModel?.rideServicePickDropOffData?.dropOffCoordinate)
+        self.drawArcPolyline(startLocation: coordinate, endLocation: dropCoordinate)
         
         serverPickUpLocationMarker = GMSMarker()
         serverPickUpLocationMarker.position = coordinate
-        serverPickUpLocationMarker.icon = #imageLiteral(resourceName: "pin_pickup_map")
-        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
+        serverPickUpLocationMarker.icon = #imageLiteral(resourceName: "pickup_address_ico")
+        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
         serverPickUpLocationMarker.map = self.mapView
         
         pickUpLocationMarker = GMSMarker()
         pickUpLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!
         pickUpLocationMarker.iconView = walkToPickUpView
-//        pickUpLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
-        pickUpLocationMarker.map = self.mapView
+        pickUpLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
+        
+        serverDropOffLocationMarker = GMSMarker()
+        serverDropOffLocationMarker.position = dropCoordinate
+        serverDropOffLocationMarker.icon = #imageLiteral(resourceName: "dropoff_pin")
+        serverDropOffLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
+        serverDropOffLocationMarker.map = self.mapView
         
         dropOffLocationMarker = GMSMarker()
         dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
-        dropOffLocationMarker.icon = #imageLiteral(resourceName: "pin_dropoff_map")
-        dropOffLocationMarker.groundAnchor = CGPoint(x:0.3,y:1)
-        dropOffLocationMarker.map = self.mapView
-                
-        self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
+        dropOffLocationMarker.iconView = shortWalkToDropView
+        dropOffLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
+        
+        if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!.latitude {
+            pickUpLocationMarker.map = nil
+        } else {
+            pickUpLocationMarker.map = self.mapView
+            self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
+        }
+        
+        if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
+            dropOffLocationMarker.map = nil
+        } else {
+            if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!.latitude {
+                dropOffLocationMarker.map = nil
+            } else {
+                dropOffLocationMarker.map = self.mapView
+                self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, endLocation: dropCoordinate)
+            }
+        }
         
         var bounds = GMSCoordinateBounds()
         
@@ -100,9 +121,10 @@ extension KTXpressRideCreationViewController
         bounds = bounds.includingCoordinate(pickUpLocationMarker.position)
         bounds = bounds.includingCoordinate(dropOffLocationMarker.position)
         
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 50.0)
-        mapView.moveCamera(update)
-
+        gmsMarker = [pickUpLocationMarker,dropOffLocationMarker,serverPickUpLocationMarker]
+        
+        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+        mapView.animate(toZoom: 14)
         
     }
     
@@ -116,8 +138,8 @@ extension KTXpressRideCreationViewController
             let polyline = GMSPolyline(path: path)
             polyline.map = mapView // Assign GMSMapView as map
             polyline.strokeWidth = 3.0
-            bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
-            let styles = [GMSStrokeStyle.solidColor(UIColor.black), GMSStrokeStyle.solidColor(UIColor.clear)]
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
+            let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
             polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
             
@@ -161,7 +183,7 @@ extension KTXpressRideCreationViewController
             let polyline = GMSPolyline(path: self.bezierPath(from: startLocation, to: endLocation))
             polyline.map = mapView // Assign GMSMapView as map
             polyline.strokeWidth = 3.0
-            bgPolylineColor = #colorLiteral(red: 0, green: 0.6039215686, blue: 0.662745098, alpha: 1)
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             polyline.strokeColor = bgPolylineColor
             
             let inset = UIEdgeInsets(top: 150, left: 100, bottom: self.view.frame.height/2, right: 100)
@@ -197,7 +219,7 @@ extension KTXpressRideCreationViewController
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:0.3,y:1)
+        marker.groundAnchor = CGPoint(x:0.6,y:1)
         marker.map = self.mapView
         return marker
     }
@@ -206,7 +228,7 @@ extension KTXpressRideCreationViewController
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor = CGPoint(x:1,y:0.8)
+        marker.groundAnchor = CGPoint(x:0.6,y:1)
         marker.map = self.mapView
     }
     

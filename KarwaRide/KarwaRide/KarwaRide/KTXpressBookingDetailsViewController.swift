@@ -17,6 +17,7 @@ import UBottomSheet
 import StoreKit
 import FittedSheets
 
+public var bookingSuccessful = false
 public var xpressRebookSelected = false
 public var xpressRebookPickUpSelected = false
 public var xpressRebookDropOffSelected = false
@@ -33,6 +34,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     @IBOutlet weak var trackRideServiceView : UIView!
     
     var sheetCoordinator: UBottomSheetCoordinator!
+    var manualMoveBegins: Bool = false
 
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
@@ -68,6 +70,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var bottomSheetVC : KTXpressBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTXpressBookingDetailsBottomSheetVC") as! KTXpressBookingDetailsBottomSheetVC
 
     var isOpenFromNotification : Bool = false
+    
+    var walkToPickUpMarker: GMSMarker!
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
@@ -143,6 +147,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
 
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
+        
 //        self.navigationController?.navigationBar.backIndicatorImage = nil
         // Do any additional setup after loading the view.
     }
@@ -188,7 +195,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
     }
     
-    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D) {
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D) {
         
     }
     
@@ -224,6 +231,10 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         {
             haltAutoZooming = true
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        manualMoveBegins = true
     }
     
     var isBottomSheetExpanded = true
@@ -476,19 +487,19 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     //MARK:- ETA
     func updateEta(eta: String)
     {
-        self.etaLabel.text = eta
+//        self.etaLabel.text = eta
         bottomSheetVC.updateEta(eta: eta)
     }
     
     func hideEtaView()
     {
-        self.etaLabel.isHidden = true
+//        self.etaLabel.isHidden = true
 //        bottomSheetVC.hideEtaView()
     }
     
     func showEtaView()
     {
-        self.etaLabel.isHidden = false
+//        self.etaLabel.isHidden = false
 //        bottomSheetVC.showEtaView()
     }
     
@@ -513,8 +524,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         let marker = GMSMarker()
         marker.position = location
         marker.icon = image
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
-        
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         return marker
     }
     
@@ -697,22 +707,25 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     func updateMapCamera()
     {
-        if(marker != nil)
-        {
-            var bounds = GMSCoordinateBounds()
-            
-            let pick = CLLocationCoordinate2D(latitude: vModel?.booking?.pickupLat ?? 0.0, longitude: vModel?.booking?.pickupLon ?? 0.0)
-            let drop = CLLocationCoordinate2D(latitude: vModel?.booking?.dropOffLat ?? 0.0, longitude: vModel?.booking?.dropOffLon ?? 0.0)
-//            bounds.includingCoordinate(pick)
-            
-            bounds = bounds.includingCoordinate((marker?.position)!)
-            bounds = bounds.includingCoordinate(pick)
-            bounds = bounds.includingCoordinate(drop)
+        if manualMoveBegins == false {
+            if(marker != nil)
+            {
+                var bounds = GMSCoordinateBounds()
+                
+                let pick = CLLocationCoordinate2D(latitude: vModel?.booking?.pickupLat ?? 0.0, longitude: vModel?.booking?.pickupLon ?? 0.0)
+                let drop = CLLocationCoordinate2D(latitude: vModel?.booking?.dropOffLat ?? 0.0, longitude: vModel?.booking?.dropOffLon ?? 0.0)
+    //            bounds.includingCoordinate(pick)
+                
+                bounds = bounds.includingCoordinate((marker?.position)!)
+                bounds = bounds.includingCoordinate(pick)
+                bounds = bounds.includingCoordinate(drop)
 
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 80)
-            mapView.animate(with: update!)
+                var update : GMSCameraUpdate?
+                update = GMSCameraUpdate.fit(bounds, withPadding: 80)
+                mapView.animate(with: update!)
+            }
         }
+
     }
     
     func showPathOnMap(path: GMSPath) {
@@ -750,14 +763,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     func addMarkerOnMapWithInfoView(location: CLLocationCoordinate2D) {
-        let marker = GMSMarker()
-        marker.position = location
+        walkToPickUpMarker = GMSMarker()
+        walkToPickUpMarker.position = location
         
-        marker.iconView = pickupWithInfoView
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
-        marker.map = self.mapView
+        walkToPickUpMarker.iconView = pickupWithInfoView
+        walkToPickUpMarker.groundAnchor =  CGPoint(x:0.5,y:0.5)
+        walkToPickUpMarker.map = self.mapView
         
-        bounds = bounds.includingCoordinate(marker.position)
+        bounds = bounds.includingCoordinate(walkToPickUpMarker.position)
         
     }
     
@@ -767,7 +780,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         marker.position = location
         
         marker.icon = image
-        marker.groundAnchor =  CGPoint(x:0.3,y:1)//CGPoint(x:0.5,y:0.5)
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
         marker.map = self.mapView
         
         bounds = bounds.includingCoordinate(marker.position)
@@ -786,6 +799,42 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
 
 //        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+    }
+    
+    func addWalkToPickUpMarker() {
+        
+        if rideServicePickDropOffData?.pickUpCoordinate != nil {
+            addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+        }
+        
+    }
+    
+    func removeWalkToPickUpMarker() {
+        if walkToPickUpMarker != nil {
+            walkToPickUpMarker.map = nil
+        }
+    }
+    
+    func drawArc(startLocation: CLLocationCoordinate2D?, endLocation: CLLocationCoordinate2D?) {
+        if let startLocation = startLocation, let endLocation = endLocation {
+            //swap the startLocation & endLocation if you want to reverse the direction of polyline arc formed.
+            let path = GMSMutablePath()
+            path.add(startLocation)
+            path.add(endLocation)
+            //Draw polyline
+            let polyline = GMSPolyline(path: path)
+            polyline.map = mapView // Assign GMSMapView as map
+            polyline.strokeWidth = 3.0
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
+            let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
+            let lengths = [0.5, 0.5] // Play with this for dotted line
+            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            
+            let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
+            let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+            let camera = mapView.camera(for: bounds, insets: insets)!
+            mapView.animate(to: camera)
+        }
     }
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
@@ -850,10 +899,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 
         xpressRebookDropOffCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0
         xpressRebookDropOffCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0
-        
-//        sideMenuController?.hideMenu()
-        
-        let rideLocationData = RideSerivceLocationData(pickUpZone: nil, pickUpStation: nil, pickUpStop: nil, dropOffZone: nil, dropOfSftation: nil, dropOffStop: nil, pickUpCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.pickupLon)!, longitude: (vModel?.booking?.pickupLat)!), dropOffCoordinate: CLLocationCoordinate2D(latitude: (vModel?.booking?.dropOffLat)!, longitude: (vModel?.booking?.dropOffLon)!), passsengerCount: 2)
+                
         let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
 //        rideService!.rideServicePickDropOffData = rideLocationData
         self.navigationController?.pushViewController(rideService!, animated: true)
@@ -1006,6 +1052,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     @IBAction func btnRecenterTap(_ sender: Any)
     {
+        manualMoveBegins = false
         updateMapCamera()
     }
 

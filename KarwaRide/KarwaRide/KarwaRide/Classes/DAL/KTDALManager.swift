@@ -27,8 +27,62 @@ class KTDALManager: KTBase {
     
     func post(url: String, param: [String:Any]?,completion completionBlock: @escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
         KTWebClient.sharedInstance.post(uri: url, param: param) { (status, response) in
+            //rs/explore
+            if url == "rs/explore" {
+                self.handleAPIResponseForExplore(status: status, response: response, completion: completionBlock,success: successBlock)
+            } else {
+                self.handleAPIResponse(status: status, response: response, completion: completionBlock,success: successBlock)
+            }
+        }
+    }
+    
+    func handleAPIResponseForExplore(status: Bool,response: [AnyHashable: Any],completion completionBlock:@escaping KTDALCompletionBlock,success successBlock:@escaping KTDALSuccessBlock) -> Void {
+        if !status
+        {
+            guard response["ErrorCode"] != nil else {
+                //In Case of Network Fail.
+                completionBlock(Constants.APIResponseStatus.FAILED_NETWORK, response)
+                return
+            }
+            if response["ErrorCode"] as! Int == 401 {
+                KTUserManager().logout()
+            }
+            else {
+                completionBlock(Constants.APIResponseStatus.FAILED_NETWORK, response)
+            }
             
-            self.handleAPIResponse(status: status, response: response, completion: completionBlock,success: successBlock)
+        }
+        else
+        {
+            //IF no error on network layer
+            if response[Constants.ResponseAPIKey.Status] as! String != Constants.APIResponseStatus.SUCCESS
+            {
+                guard response[Constants.ResponseAPIKey.Data] != nil && response[Constants.ResponseAPIKey.Status] as! String != "NOT_FOUND" && response[Constants.ResponseAPIKey.Status] as! String != "MISSING" && response[Constants.ResponseAPIKey.Status] as! String != "INVALID"
+                else
+                {
+                    //fail on API level
+                    completionBlock(response[Constants.ResponseAPIKey.Status] as! String,
+                                    response[Constants.ResponseAPIKey.MessageDictionary] as! [AnyHashable:Any])
+                    return
+                }
+
+//                let data = [Constants.ResponseAPIKey.Data:response[Constants.ResponseAPIKey.Data]!] as [AnyHashable:Any]
+                completionBlock(response[Constants.ResponseAPIKey.Status] as! String, response)
+            }
+            else
+            {
+                if (response[Constants.ResponseAPIKey.Data] as? [Any]) != nil
+                {
+                    successBlock([Constants.ResponseAPIKey.Data:response[Constants.ResponseAPIKey.Data]!] as [AnyHashable:Any], completionBlock)
+                }
+                else
+                {
+                    successBlock(((response[Constants.ResponseAPIKey.Data] != nil) ? response[Constants.ResponseAPIKey.Data] : ["":""])  as! [AnyHashable:Any],completionBlock)
+                }
+                
+                //self.handleAPISuccess(status: status, response: response, completion: completionBlock)
+            }
+            
         }
     }
     

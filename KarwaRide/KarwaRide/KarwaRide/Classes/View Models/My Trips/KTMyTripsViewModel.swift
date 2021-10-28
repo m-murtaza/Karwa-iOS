@@ -12,6 +12,7 @@ protocol KTMyTripsViewModelDelegate {
     func showNoBooking()
     func moveToDetails()
     func endRefreshing()
+    func showNavigationController()
 }
 
 class KTMyTripsViewModel: KTBaseViewModel {
@@ -32,6 +33,7 @@ class KTMyTripsViewModel: KTBaseViewModel {
             selectedBooking = nil;
         }
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
+        (delegate as? KTMyTripsViewModelDelegate)?.showNavigationController()
 
     }
     
@@ -45,13 +47,13 @@ class KTMyTripsViewModel: KTBaseViewModel {
 
             if  self.bookings != nil && (self.bookings?.count)! > 0 {
             
-                (self.delegate as! KTMyTripsViewModelDelegate).reloadTable()
+                (self.delegate as? KTMyTripsViewModelDelegate)?.reloadTable()
             }
             else {
-                (self.delegate as! KTMyTripsViewModelDelegate).showNoBooking()
+                (self.delegate as? KTMyTripsViewModelDelegate)?.showNoBooking()
             }
             
-            (self.delegate as! KTMyTripsViewModelDelegate).endRefreshing()
+            (self.delegate as? KTMyTripsViewModelDelegate)?.endRefreshing()
         }
     }
     private func fetchBookingsFromDB() {
@@ -250,13 +252,14 @@ class KTMyTripsViewModel: KTBaseViewModel {
         }
         return type
     }
+    
+    func getAttributedTextForMetroExpress() -> NSAttributedString {
+        return addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 15.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 15.0)!)
+    }
   
   func bookingStatusString(forIdx idx: Int) -> String? {
     
     var status : String?
-
-    
-    
     switch (bookings![idx] as KTBooking).bookingStatus {
     case BookingStatus.COMPLETED.rawValue:
         switch (bookings![idx] as KTBooking).vehicleType {

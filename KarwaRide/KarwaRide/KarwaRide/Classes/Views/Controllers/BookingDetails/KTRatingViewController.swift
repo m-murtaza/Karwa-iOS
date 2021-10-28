@@ -185,12 +185,13 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
         if vModel?.booking!.vehicleType == VehicleType.KTXpressTaxi.rawValue {
             iconImage = UIImage(named:"free_ico") ?? UIImage()
             lblTripFare.addTrailing(image: iconImage, text: "str_free_ride".localized() + "  ", imageOffsetY: -4)
+            lblVehicleType.attributedText = addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 14.0)!)
         } else {
             iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
             lblTripFare.addTrailing(image: iconImage, text: fare + "  ", imageOffsetY: -4)
+            lblVehicleType.text = vModel?.vehicleType()
         }
         lblNumberOfPassenger.text = vModel?.getPassengerCountr()
-        lblVehicleType.text = vModel?.vehicleType()
         
         lblTripFare.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
         lblVehicleType.textAlignment = Device.getLanguage().contains("AR") ? .right : .left
@@ -221,8 +222,18 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     @IBAction func btnRateBookingTapped(_ sender: Any) {
-        // ⬇︎⬇︎⬇︎ animation happens here ⬇︎⬇︎⬇︎
-        self.animateButton()
+        springAnimateButtonTapOut(button: btnSubmit)
+        self.vModel?.btnRattingTapped()
+    }
+    
+    @IBAction func bookbtnTouchDown(_ sender: SpringButton)
+    {
+      springAnimateButtonTapIn(button: btnSubmit)
+    }
+    
+    @IBAction func bookbtnTouchUpOutside(_ sender: SpringButton)
+    {
+      springAnimateButtonTapOut(button: btnSubmit)
     }
     
     func animateButton() {

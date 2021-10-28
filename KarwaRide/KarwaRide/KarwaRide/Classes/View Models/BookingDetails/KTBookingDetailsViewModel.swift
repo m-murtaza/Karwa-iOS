@@ -67,12 +67,16 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints])
     func setPickup(pick: String?)
     func setDropOff(pick: String?)
+    func addWalkToPickUpMarker()
+    func removeWalkToPickUpMarker()
 }
 
 extension KTBookingDetailsViewModelDelegate {
     func setPickup(pick: String?) {}
     func setDropOff(pick: String?) {}
     func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints]) {}
+    func addWalkToPickUpMarker(){}
+    func removeWalkToPickUpMarker(){}
 }
 
 //MARK: -
@@ -262,15 +266,23 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func imgForPlate() -> UIImage {
-        guard let plateType = booking?.plateType else {
+        
+        switch booking?.vehicleType  {
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?:
             return UIImage(named:"taxiplate")!
+        default:
+            return UIImage(named:"limo_number_plate")!
         }
-                
-        if plateType == 1 {
-            return UIImage(named:"taxiplate")!
-        }
-                
-        return UIImage(named:"limo_number_plate")!
+        
+//        guard let plateType = booking?.plateType else {
+//            return UIImage(named:"taxiplate")!
+//        }
+//
+//        if plateType == 1 {
+//            return UIImage(named:"taxiplate")!
+//        }
+//
+//        return UIImage(named:"limo_number_plate")!
     }
     
     func driverRating() -> Double {

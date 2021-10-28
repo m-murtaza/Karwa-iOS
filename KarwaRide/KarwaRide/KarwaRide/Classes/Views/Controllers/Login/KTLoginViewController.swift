@@ -45,9 +45,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     {
         phoneNumberTextField.label.text = "str_phone".localized()
         passwordTextField.label.text = "str_password".localized()
-        
-        
-        
+                
         phoneNumberTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
         passwordTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
 

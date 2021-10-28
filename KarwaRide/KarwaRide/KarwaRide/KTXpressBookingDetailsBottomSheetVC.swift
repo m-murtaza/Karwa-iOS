@@ -69,12 +69,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         self.lblPickAddress.numberOfLines = 2
         self.lblDropoffAddress.numberOfLines = 2
         self.sheet?.view.backgroundColor = .clear
-        btnPhone.isHidden = true
-//        btnRebook.isUserInteractionEnabled = false
-        
+        btnShare.centerTextAndImage(spacing: 10)
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -93,6 +90,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     }
     
     @IBAction func shareBtnTap(_ sender: Any) {
+        btnShare.imageView?.tintColor = UIColor(hexString: "#397FBA")
         shareBtnTapped()
     }
 
@@ -169,7 +167,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showPhoneButton()
     {
-        btnPhone.isHidden = true
+        btnPhone.isHidden = false
     }
 
     func updateBookingCardForCompletedBooking()
@@ -204,10 +202,32 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.imageView?.layer.cornerRadius = 25
         sender.imageView?.clipsToBounds = true
         
-        sender.setBackgroundColor(color: UIColor(hexString: "#126363"), forState: .highlighted)
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
-        sender.tintColor = UIColor(hexString: "#126363")
+        sender.tintColor = UIColor(hexString: "#397FBA")
+                
+    }
+    
+    @IBAction func btnContactTapTouchIn(_ sender: UIButton)
+    {
+        sender.isUserInteractionEnabled = false
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { _ in
+            sender.isUserInteractionEnabled = true
+        })
+        
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 15
+        sender.clipsToBounds = true
+
+        sender.imageView?.layer.cornerRadius = 15
+        sender.imageView?.clipsToBounds = true
+        
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+        sender.tintColor = UIColor(hexString: "#397FBA")
                 
     }
     
@@ -219,13 +239,55 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         sender.layer.cornerRadius = 25
         sender.clipsToBounds = true
 
-        sender.imageView?.layer.cornerRadius = 25
-        sender.imageView?.clipsToBounds = true
 
-        sender.setBackgroundColor(color: UIColor(hexString: "#0C81C0"), forState: .highlighted)
+//        sender.imageView?.clipsToBounds = true
+
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
+        
+        let image = UIImage(named: "share")?.withRenderingMode(.alwaysTemplate)
+        if #available(iOS 13.0, *) {
+            image?.withTintColor(.white, renderingMode: .alwaysTemplate)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        sender.imageView?.tintColor = UIColor.white//UIColor(hexString: "#0C81C0")
+
+        sender.setImage(image, for: .highlighted)
 
         sender.setTitleColor(.white, for: .highlighted)
-        sender.tintColor = UIColor(hexString: "#0C81C0")
+    
+        sender.tintColor = UIColor(hexString: "#397FBA")
+                
+    }
+    
+    @IBAction func btnShareTapTouchOut(_ sender: UIButton)
+    {
+        
+        sender.setBackgroundColor(color: .clear, forState: .highlighted)
+
+        sender.layer.cornerRadius = 25
+        sender.clipsToBounds = true
+
+
+//        sender.imageView?.clipsToBounds = true
+
+        sender.setBackgroundColor(color: UIColor(hexString: "#397FBA"), forState: .highlighted)
+        
+        let image = UIImage(named: "share")?.withRenderingMode(.alwaysTemplate)
+        if #available(iOS 13.0, *) {
+            image?.withTintColor(.white, renderingMode: .alwaysTemplate)
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        sender.imageView?.tintColor = UIColor(hexString: "#397FBA")
+
+        sender.setImage(image, for: .highlighted)
+
+        sender.setTitleColor(.white, for: .highlighted)
+    
+        sender.tintColor = UIColor(hexString: "#397FBA")
                 
     }
     
@@ -257,12 +319,13 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: -3)
+        starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
-        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: -3)
+        bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
     }
+    
     func hideDriverInfoBox()
     {
 //        preRideDriver.isHidden = true
@@ -318,19 +381,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateHeaderMsg(_ msg : String)
     {
         if msg.contains("str_xpress".localized()) {
-            rideHeaderText.attributedText = self.addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "str_xpress".localized() as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
+            rideHeaderText.attributedText = addBoldText(fullString: "txt_completed_metro".localized() as NSString, boldPartOfString: "\("str_thank".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)
         } else {
             rideHeaderText.font = UIFont(name: "MuseoSans-900", size: 17.0)!
             rideHeaderText.text = msg
         }
-    }
-    
-    func addBoldText(fullString: NSString, boldPartOfString: NSString, font: UIFont!, boldFont: UIFont!) -> NSAttributedString {
-        let nonBoldFontAttribute = [NSAttributedStringKey.font:font!]
-        let boldFontAttribute = [NSAttributedStringKey.font:boldFont!]
-       let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
-        boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartOfString as String))
-       return boldString
     }
     
     func showOTP() -> Bool{
@@ -356,8 +411,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     {
         self.sheet?.handleScrollView(self.scrollView)
 //        self.scrollView.isScrollEnabled = false
-        KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
-
         
         //MARK:- ON CALL BOOKING
         if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)
@@ -426,7 +479,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
-            
+            bookingTime.isHidden = false
+
             self.view.customCornerRadius = 20.0
                        
             if oneTimeSetSizeForBottomSheet == false {
@@ -578,8 +632,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             eta.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
-            self.hideShareBtn()
-            
+            showShareBtn()
+            showPhoneButton()
+            bookingTime.isHidden = false
+
             DispatchQueue.main.async {
                 self.heightOFScrollViewContent.constant = 545
                 
@@ -621,7 +677,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     func updateVehicleDetails()
     {
         iconVehicle.image = UIImage(named: "kmetroexpress")
-        lblVehicleType.text = vModel?.vehicleType()
+        lblVehicleType.attributedText = addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 17.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 17.0)!)  //vModel?.vehicleType()
         if Int(vModel?.getPassengerCountr() ?? "0") ?? 0 > 1 {
             lblPassengerCount.text = "\(vModel?.getPassengerCountr() ?? "") \("str_pass_plural".localized())"
         } else {
@@ -717,7 +773,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             iconImage = UIImage(named: "free_ico") ?? UIImage()
 //            iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage() "  \(String(describing: vModel?.paymentMethod() ?? "")) "
             keyLbl.addLeading(image: iconImage, text: "str_free".localized(), imageOffsetY: -4)
-            keyLbl.font = UIFont(name: "MuseoSans-900", size: 14.0)!
+            keyLbl.font = UIFont(name: "MuseoSans-500", size: 14.0)!
         }
         else {
             keyLbl.font = UIFont(name: "MuseoSans-700", size: 14.0)!
@@ -752,4 +808,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 }
 
 
+public func addBoldText(fullString: NSString, boldPartOfString: NSString, font: UIFont!, boldFont: UIFont!) -> NSAttributedString {
+    let nonBoldFontAttribute = [NSAttributedStringKey.font:font!]
+    let boldFontAttribute = [NSAttributedStringKey.font:boldFont!]
+   let boldString = NSMutableAttributedString(string: fullString as String, attributes:nonBoldFontAttribute)
+    boldString.addAttributes(boldFontAttribute, range: fullString.range(of: boldPartOfString as String))
+   return boldString
+}
 

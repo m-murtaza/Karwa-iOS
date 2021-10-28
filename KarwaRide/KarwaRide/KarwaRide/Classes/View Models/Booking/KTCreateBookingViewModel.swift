@@ -117,6 +117,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var encodedPath = ""
     var initialDateSetUp = true
     var carouselSelected = false
+    
+    var vehicleCategories: [String: [KTVehicleType]] = [:]
 
     override func viewDidLoad() {
         
@@ -125,6 +127,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         self.syncApplicationData()
         vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+        self.setupVehicleCategories()
         self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
         del?.pickDropBoxStep1()
         del?.hideRequestBookingBtn()
@@ -490,7 +493,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 if status == Constants.APIResponseStatus.SUCCESS {
                     self?.vehicleTypes?.removeAll()
                     self?.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
-                    
+                    self?.setupVehicleCategories()
                     self?.modifiedVehicleTypes = self?.vehicleTypes
                     
                     let firstElement = self?.vehicleTypes?.filter({ (KTV) -> Bool in
@@ -524,6 +527,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     {
         vehicleTypes?.removeAll()
         vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+        self.setupVehicleCategories()
         self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
     }
     
@@ -555,6 +559,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             
                             self.vehicleTypes = nil
                             self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                            self.setupVehicleCategories()
                             self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
                             self.promo = promoEntered
                             (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
@@ -943,8 +948,232 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return time
         
     }
-    
+
     //MARK:-  Vehicle Types
+    func setupVehicleCategories(){
+        if vehicleTypes != nil {
+            vehicleCategories.removeAll()
+            for i in 0...(vehicleTypes?.count)!-1 {
+                if vehicleTypes![i].typeId == VehicleType.KTCityTaxi.rawValue || vehicleTypes![i].typeId == VehicleType.KTCityTaxi7Seater.rawValue {
+                    if vehicleCategories.keys.contains(VehicleCategories.FIRST.rawValue) {
+                        vehicleCategories[VehicleCategories.FIRST.rawValue]?.append(vehicleTypes![i])
+                    }
+                    else {
+                        vehicleCategories[VehicleCategories.FIRST.rawValue] = [vehicleTypes![i]]
+                    }
+                }
+                
+                if vehicleTypes![i].typeId == VehicleType.KTSpecialNeedTaxi.rawValue {
+                    if vehicleCategories.keys.contains(VehicleCategories.SECOND.rawValue) {
+                        vehicleCategories[VehicleCategories.SECOND.rawValue]?.append(vehicleTypes![i])
+                    }
+                    else {
+                        vehicleCategories[VehicleCategories.SECOND.rawValue] = [vehicleTypes![i]]
+                    }
+                }
+                if vehicleTypes![i].typeId == VehicleType.KTStandardLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTBusinessLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
+                    if vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) {
+                        vehicleCategories[VehicleCategories.THIRD.rawValue]?.append(vehicleTypes![i])
+                    }
+                    else {
+                        vehicleCategories[VehicleCategories.THIRD.rawValue] = [vehicleTypes![i]]
+                    }
+                }
+            }
+        }
+    }
+    
+    func numberOfVehicleCategories() -> Int {
+        return vehicleCategories.count
+    }
+    
+    func numberOfRowsInCategories(catName: String) -> Int {
+        if catName == VehicleCategories.FIRST.rawValue {
+            return vehicleCategories.keys.contains(VehicleCategories.FIRST.rawValue) ? (vehicleCategories[VehicleCategories.FIRST.rawValue]?.count ?? 0) : 0
+        }
+        else if catName == VehicleCategories.SECOND.rawValue {
+            return vehicleCategories.keys.contains(VehicleCategories.SECOND.rawValue) ? (vehicleCategories[VehicleCategories.SECOND.rawValue]?.count ?? 0) : 0
+        }
+        else if catName == VehicleCategories.THIRD.rawValue {
+            return vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) ? (vehicleCategories[VehicleCategories.THIRD.rawValue]?.count ?? 0) : 0
+        }
+        return 0
+    }
+    
+    func getVehicleByCategory(catName: String) -> [KTVehicleType]{
+        switch catName {
+        case VehicleCategories.FIRST.rawValue:
+            return sortVehicleByFareWithinCategory(vehicles: vehicleCategories[VehicleCategories.FIRST.rawValue] ?? [])
+        case VehicleCategories.SECOND.rawValue:
+            return sortVehicleByFareWithinCategory(vehicles: vehicleCategories[VehicleCategories.SECOND.rawValue] ?? [])
+        case VehicleCategories.THIRD.rawValue:
+            return sortVehicleByFareWithinCategory(vehicles: vehicleCategories[VehicleCategories.THIRD.rawValue] ?? [])
+        default:
+            return []
+        }
+    }
+    
+    func sortVehicleByFareWithinCategory(vehicles: [KTVehicleType]) -> [KTVehicleType] {
+        var sortedVehicles = vehicles
+        if vehicles.count > 1 {
+            sortedVehicles = sortedVehicles.sorted(by: { (this, that) -> Bool in
+                var firstFare = 0
+                if let stringArray = this.typeBaseFare?.components(separatedBy: CharacterSet.decimalDigits.inverted) {
+                    var numbers: [Int] = []
+                    for item in stringArray {
+                        if let number = Int(item) {
+                            numbers.append(number)
+                        }
+                    }
+                    firstFare = numbers.min() ?? 0
+                }
+                var secondFare = 0
+                if let stringArray = that.typeBaseFare?.components(separatedBy: CharacterSet.decimalDigits.inverted) {
+                    var numbers: [Int] = []
+                    for item in stringArray {
+                        if let number = Int(item) {
+                            numbers.append(number)
+                            print("number: \(number)")
+                        }
+                    }
+                    secondFare = numbers.min() ?? 0
+                }
+                return firstFare < secondFare
+            })
+        }
+        return sortedVehicles
+    }
+    
+    func getTypeBaseFareOrEstimate(typeId: Int16) -> String {
+        var fareOrEstimate : String = ""
+        let vType : KTVehicleType? = vehicleTypes?.first(where: {$0.typeId == typeId})
+        if isEstimeting == false, let vType = vType{
+            if estimates == nil || estimates?.count == 0
+            {
+                let localizedMsg = String(format: "txt_fare_base".localized(), vType.typeBaseFare ?? "")
+                
+                fareOrEstimate =  localizedMsg //vType.typeBaseFare ?? ""
+            }
+            else
+            {
+                let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
+                if estimate != nil
+                {
+                    fareOrEstimate = (estimate?.estimatedFare!)!
+                }
+            }
+        }
+        return fareOrEstimate
+    }
+    
+    func getTypeCapacity(typeId: Int16) -> String {
+        let sType : KTVehicleType? = vehicleTypes?.first(where: {$0.typeId == typeId})
+        var capacity : String = "txt_four".localized()
+        guard let _sType = sType else {return capacity}
+        switch _sType.typeId {
+        case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+            capacity = "txt_seven".localized()
+        default:
+            capacity = "txt_four".localized()
+        }
+        return capacity
+    }
+    
+    func getTypeEta(typeId: Int16) -> String {
+        var result = ""
+        
+        if let _ = self.vehicleTypes {
+            
+            if  !isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result =  "str_starting_fare".localized()
+            } else if isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result = "str_estimated_fare".localized()
+            } else {
+                if let item : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
+                    result = item.etaText ?? "" == "" ? "txt_not_available".localized() : (item.etaText ?? "txt_not_available".localized())
+                }
+            }
+            
+        }
+        
+        return result.isEmpty ? "txt_not_available".localized() : result
+    }
+    
+    func getTypeVehicleImage(typeId: Int16) -> UIImage {
+        var imgSType : UIImage = UIImage()
+        if let sType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
+            
+            switch sType.typeId {
+            case Int16(VehicleType.KTCityTaxi.rawValue):
+                imgSType = UIImage(named: "icon-karwa-taxi")!
+            case Int16(VehicleType.KTCityTaxi7Seater.rawValue):
+                imgSType = UIImage(named: "icon-family-taxi")!
+            case Int16(VehicleType.KTSpecialNeedTaxi.rawValue):
+                imgSType = UIImage(named: "icon-accessible-taxi")!
+            case Int16(VehicleType.KTStandardLimo.rawValue):
+                imgSType = UIImage(named: "icon-standard-limo")!
+            case Int16(VehicleType.KTBusinessLimo.rawValue):
+                imgSType = UIImage(named: "icon-business-limo")!
+            case Int16(VehicleType.KTLuxuryLimo.rawValue):
+                imgSType = UIImage(named: "icon-luxury-limo")!
+            default:
+                imgSType = UIImage(named: "icon-karwa-taxi")!
+            }
+        }
+        return imgSType
+    }
+    
+    func getEstimate(typeId: Int16) -> KTFareEstimate? {
+        let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: typeId)
+        return vEstimate
+    }
+    
+    func getEstimateOrderedBody(typeId: Int16) -> [KTKeyValue]? {
+        let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: typeId)
+        return vEstimate?.toKeyValueBody?.array as? [KTKeyValue]
+    }
+    
+    func getInitialEstimateOrderedBody(vehicle: KTVehicleType) -> [KTKeyValue]? {
+        return vehicle.toKeyValueBody?.array as? [KTKeyValue]
+    }
+    
+    func isPromoFare(typeId: Int16) -> Bool{
+        var isPromoApplied = false
+        if let vType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
+            if estimates == nil || estimates?.count == 0
+            {
+                isPromoApplied = vType.isPromoApplied
+            }
+            else
+            {
+                let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
+                if estimate != nil
+                {
+                    isPromoApplied = estimate?.isPromoApplied ?? false
+                }
+            }
+        }
+        return isPromoApplied
+    }
+    
+    func isPremiumRide(typeId: Int16) -> Bool{
+        var isPremiumRide = false
+        
+        if let sType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
+            switch sType.typeId {
+            case Int16(VehicleType.KTStandardLimo.rawValue):
+                isPremiumRide = true
+            case Int16(VehicleType.KTBusinessLimo.rawValue):
+                isPremiumRide = true
+            case Int16(VehicleType.KTLuxuryLimo.rawValue):
+                isPremiumRide = true
+            default:
+                isPremiumRide = false
+            }
+        }
+        return isPremiumRide
+    }
+    
     func idxToSelectVehicleType() -> Int {
         
         var idx:Int = 0
@@ -1219,7 +1448,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 //                booking.estimatedFare = vEstimate?.estimatedFare
             }
             
-            delegate?.showProgressHud(show: true, status: "Booking a ride")
+            delegate?.showProgressHud(show: true, status: "please_dialog_msg_booking_creation".localized())
             bookManager.bookTaxi(job: booking,estimate: vEstimate, promo: promo) { (status, response) in
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS {
@@ -1533,6 +1762,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     { (status, response) in
                         self.vehicleTypes = nil
                         self.vehicleTypes = KTVehicleTypeManager().VehicleTypes()
+                        self.setupVehicleCategories()
                         self.modifiedVehicleTypes = KTVehicleTypeManager().VehicleTypes()
                         self.estimates = KTVehicleTypeManager().estimates()
                         self.del?.updateVehicleTypeList()
