@@ -807,7 +807,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         if walkToPickUpMarker == nil {
             if rideServicePickDropOffData?.pickUpCoordinate != nil {
                 addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
-                self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+                let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+                self.drawArc(startLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: eLocation)
             } else {
                 if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
                     addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
@@ -821,7 +822,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     func removeWalkToPickUpMarker() {
         if walkToPickUpMarker != nil {
             walkToPickUpMarker.map = nil
-            polyline.map = nil
+            dashedPolyline.map = nil
+        }
+        
+        if dashedPolyline != nil {
+            dashedPolyline.map = nil
         }
     }
     
@@ -833,12 +838,12 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             path.add(endLocation)
             //Draw polyline
             dashedPolyline = GMSPolyline(path: path)
-            polyline.map = mapView // Assign GMSMapView as map
-            polyline.strokeWidth = 3.0
+            dashedPolyline.map = mapView // Assign GMSMapView as map
+            dashedPolyline.strokeWidth = 3.0
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
-            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            dashedPolyline.spans = GMSStyleSpans(dashedPolyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
             let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)

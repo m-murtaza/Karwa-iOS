@@ -688,8 +688,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
-                        self.updateBookingCard()
                         self.del?.updateBookingStatusOnCard(true)
+                        self.updateBookingCard()
                         self.del?.removeWalkToPickUpMarker()
                     }
 

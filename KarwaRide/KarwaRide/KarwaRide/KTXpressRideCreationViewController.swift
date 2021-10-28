@@ -467,7 +467,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         }
         
         bookingSuccessful = true
-        self.navigationController?.pushViewController(details, animated: true)        
+        self.navigationController?.pushViewController(details, animated: true)
     }
         
 }

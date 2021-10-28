@@ -182,6 +182,17 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
         navigationItem.backButtonTitle = ""
         
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+            self.navigationController?.navigationBar.standardAppearance = appearance;
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        } else {
+        }
+        
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
              NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
