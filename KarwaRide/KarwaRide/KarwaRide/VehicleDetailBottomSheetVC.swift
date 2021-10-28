@@ -191,10 +191,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
                 collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex+1, section: 0), at: .centeredHorizontally, animated: true)
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                guard let `self` = self else {return}
-                self.currentVehicle += 1
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+//                guard let `self` = self else {return}
+//                self.currentVehicle += 1
+//            }
         }
     }
     
@@ -209,10 +209,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             else {
                 collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .centeredHorizontally, animated: true)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                guard let `self` = self else {return}
-                self.currentVehicle -= 1
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+//                guard let `self` = self else {return}
+//                self.currentVehicle -= 1
+//            }
         }
     }
 }
@@ -241,7 +241,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
                 guard let `self` = self else {return}
                 self.animateVehicle(index: 0)
             }
@@ -249,7 +249,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
     }
     
     // MARK: - UIScrollViewDelegate
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
