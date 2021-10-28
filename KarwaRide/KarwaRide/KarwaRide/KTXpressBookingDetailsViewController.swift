@@ -72,6 +72,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var isOpenFromNotification : Bool = false
     
     var walkToPickUpMarker: GMSMarker!
+    var dashedPolyline = GMSPolyline()
+
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
@@ -802,10 +804,15 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     func addWalkToPickUpMarker() {
-        if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
-            addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
-            let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
-            self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: eLocation)
+        if rideServicePickDropOffData?.pickUpCoordinate != nil {
+            addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+            self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+        } else {
+            if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
+                addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
+                let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+                self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: eLocation)
+            }
         }
     }
     
@@ -822,7 +829,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             path.add(startLocation)
             path.add(endLocation)
             //Draw polyline
-            let polyline = GMSPolyline(path: path)
+            dashedPolyline = GMSPolyline(path: path)
             polyline.map = mapView // Assign GMSMapView as map
             polyline.strokeWidth = 3.0
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
