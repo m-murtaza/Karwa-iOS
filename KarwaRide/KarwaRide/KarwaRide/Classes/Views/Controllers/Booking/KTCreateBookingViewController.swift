@@ -30,6 +30,7 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var promoBadge: UIImageView!
   @IBOutlet weak var fareInfo: UILabel!
   @IBOutlet weak var iconBackgroundAnim: AnimationView!
+  @IBOutlet weak var icArrow: SpringImageView!
     
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 //    contentView.backgroundColor = highlighted ? .white : .clear
@@ -77,6 +78,7 @@ class RideServiceCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     self.promoBadge.isHidden = true
+    self.icArrow.image = UIImage(named: "ic_right_arrow")?.imageFlippedForRightToLeftLayoutDirection()
   }
 }
 
@@ -281,6 +283,8 @@ class KTCreateBookingViewController:
   @IBOutlet weak var pickupDropoffContainer: UIView!
   @IBOutlet weak var promoAppliedContainer: UIView!
   @IBOutlet weak var pickupLabel: UILabel!
+  @IBOutlet weak var ivPickup: UIImageView!
+  @IBOutlet weak var ivDropoff: UIImageView!
   @IBOutlet weak var dropoffLabel: UILabel!
   @IBOutlet weak var promoAppliedKeyLabel: UILabel!
   @IBOutlet weak var promoAppliedValueLabel: UILabel!
@@ -423,6 +427,9 @@ class KTCreateBookingViewController:
         self.title = "str_book_karwa".localized()
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
+        
+        self.ivPickup.image = UIImage(named: "arrow_right copy_2")?.imageFlippedForRightToLeftLayoutDirection()
+        self.ivDropoff.image = UIImage(named: "arrow_right copy_2")?.imageFlippedForRightToLeftLayoutDirection()
   }
     
     private func setupVehicleDetailBottomSheet() {
