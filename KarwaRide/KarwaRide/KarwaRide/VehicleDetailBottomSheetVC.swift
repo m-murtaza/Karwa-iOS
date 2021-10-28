@@ -28,8 +28,8 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var lblTotal: SpringLabel!
     @IBOutlet weak var btnRequestBooking: SpringButton!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var btnRightArrow: UIButton!
-    @IBOutlet weak var btnLeftArrow: UIButton!
+    @IBOutlet weak var btnRightArrow: SpringButton!
+    @IBOutlet weak var btnLeftArrow: SpringButton!
     @IBOutlet weak var svDetail: UIStackView!
     
     @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
@@ -90,6 +90,9 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     private func setupView(){
         btnRightArrow.isHidden = true
         btnLeftArrow.isHidden = true
+        
+        btnRightArrow.setImage(UIImage(named: "ic_right_arrow")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        btnLeftArrow.setImage(UIImage(named: "ic_left_arrow")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     }
     
     func updateDetailBottomSheet(forIndex: Int = 0){
@@ -190,11 +193,6 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             else {
                 collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex+1, section: 0), at: .centeredHorizontally, animated: true)
             }
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-//                guard let `self` = self else {return}
-//                self.currentVehicle += 1
-//            }
         }
     }
     
@@ -209,10 +207,6 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             else {
                 collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .centeredHorizontally, animated: true)
             }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-//                guard let `self` = self else {return}
-//                self.currentVehicle -= 1
-//            }
         }
     }
 }
