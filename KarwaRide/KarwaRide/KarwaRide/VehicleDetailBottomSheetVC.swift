@@ -91,8 +91,8 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         btnRightArrow.isHidden = true
         btnLeftArrow.isHidden = true
         
-        btnRightArrow.setImage(UIImage(named: "ic_right_arrow")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
-        btnLeftArrow.setImage(UIImage(named: "ic_left_arrow")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        btnRightArrow.setImage(UIImage(named: "ic_right_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        btnLeftArrow.setImage(UIImage(named: "ic_left_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
     }
     
     func updateDetailBottomSheet(forIndex: Int = 0){
