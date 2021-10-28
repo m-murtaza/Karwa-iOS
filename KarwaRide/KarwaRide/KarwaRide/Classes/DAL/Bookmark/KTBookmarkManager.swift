@@ -247,7 +247,7 @@ class KTBookmarkManager: KTDALManager {
     
     private func saveBookmark(withLocaiton loc:KTGeoLocation, name: String) {
         
-        var geoType : geoLocationType = .Nearby
+        var geoType : geoLocationType = .Recent
         
         if name == Constants.BookmarkName.Home {
             

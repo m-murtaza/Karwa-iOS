@@ -8,6 +8,7 @@
 
 import Foundation
 import GoogleMaps
+import CoreLocation
 
 extension KTXpressRideCreationViewController: GMSMapViewDelegate {
     
@@ -68,11 +69,11 @@ extension KTXpressRideCreationViewController
         CATransaction.commit()
     }
     
-    func  addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)  {
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D) {
         
         mapView.clear()
         
-        self.drawArcPolyline(startLocation: coordinate, endLocation: self.vModel?.rideServicePickDropOffData?.dropOffCoordinate)
+        self.drawArcPolyline(startLocation: coordinate, endLocation: dropCoordinate)
         
         serverPickUpLocationMarker = GMSMarker()
         serverPickUpLocationMarker.position = coordinate
@@ -85,19 +86,34 @@ extension KTXpressRideCreationViewController
         pickUpLocationMarker.iconView = walkToPickUpView
         pickUpLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
         
+        serverDropOffLocationMarker = GMSMarker()
+        serverDropOffLocationMarker.position = dropCoordinate
+        serverDropOffLocationMarker.icon = #imageLiteral(resourceName: "dropoff_pin")
+        serverDropOffLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
+        serverDropOffLocationMarker.map = self.mapView
+        
+        dropOffLocationMarker = GMSMarker()
+        dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
+        dropOffLocationMarker.iconView = shortWalkToDropView
+        dropOffLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
+        
         if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!.latitude {
             pickUpLocationMarker.map = nil
         } else {
             pickUpLocationMarker.map = self.mapView
             self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
         }
-                
-        dropOffLocationMarker = GMSMarker()
-        dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
-        dropOffLocationMarker.icon = #imageLiteral(resourceName: "dropoff_pin")
-        dropOffLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
-        dropOffLocationMarker.map = self.mapView
-                
+        
+        if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
+            dropOffLocationMarker.map = nil
+        } else {
+            if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!.latitude {
+                dropOffLocationMarker.map = nil
+            } else {
+                dropOffLocationMarker.map = self.mapView
+                self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, endLocation: dropCoordinate)
+            }
+        }
         
         var bounds = GMSCoordinateBounds()
         
@@ -106,11 +122,9 @@ extension KTXpressRideCreationViewController
         bounds = bounds.includingCoordinate(dropOffLocationMarker.position)
         
         gmsMarker = [pickUpLocationMarker,dropOffLocationMarker,serverPickUpLocationMarker]
-        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
         
-        if xpressRebookSelected == false {
-            mapView.animate(toZoom: 15)
-        }
+        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+        mapView.animate(toZoom: 14)
         
     }
     

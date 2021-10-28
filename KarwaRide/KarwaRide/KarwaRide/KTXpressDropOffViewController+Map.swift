@@ -259,9 +259,14 @@ extension KTXpressDropOffViewController
             
             dropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
             
-            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
-                
-            self.mapView.camera = camera;
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffCoordinate!.latitude, longitude: dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 14 : 15)
+            mapView.animate(to: camera)
+            
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false, block: { _ in
+                let camera = GMSCameraPosition.camera(withLatitude: self.dropOffCoordinate!.latitude, longitude: self.dropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                self.mapView.animate(to: camera)
+            })
+            
             rect.append(self.polygon(bounds: item.bound!, type: ""))
             
         }
@@ -275,6 +280,14 @@ extension KTXpressDropOffViewController
         
         
         self.locateCountry(pathG: rect)
+        
+//        let camera = GMSCameraPosition.camera(withLatitude: pickUpCoordinate!.latitude, longitude: pickUpCoordinate!.longitude, zoom: 16)
+//
+//        mapView.animate(to: camera)
+//        Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { _ in
+//            let camera = GMSCameraPosition.camera(withLatitude: self.pickUpCoordinate!.latitude, longitude: self.pickUpCoordinate!.longitude, zoom: 9)
+//            self.mapView.animate(to: camera)
+//        })
 
       //self.focusMapToCurrentLocation()
         

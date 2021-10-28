@@ -22,7 +22,7 @@ protocol KTXpressRideCreationViewModelDelegate: KTViewModelDelegate {
     func setProgressViewCounter(countDown: Int)
     func showHideRideServiceView(show: Bool)
     func updateUI()
-    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D)
+    func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D)
     func showRideTrackViewController()
     func showAlertForTimeOut()
     func showAlertForFailedRide(message: String)
@@ -142,7 +142,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         
         self.delegate?.showProgressHud(show: true, status: "str_finding".localized()) 
         
-        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (String, response) in
+        KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (status, response) in
                         
             self?.delegate?.hideProgressHud()
             
@@ -156,13 +156,17 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             
             var ridesVehicleInfoList = [RideVehiceInfo]()
             
-            if String == "FAILED" {
-                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
-            }
+//            if String == "FAILED" {
+//                (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: "txt_ride_not_found".localized())
+//            }
             
             guard let rides = response["Rides"] as? [[String : Any]] else {
                 if let message = response["M"] as? String {
                     (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: message)
+                } else if let res = response["E"] as? [String : String] {
+                    if let message = res["M"] {
+                        (strongSelf.delegate as! KTXpressRideCreationViewModelDelegate).showAlertForFailedRide(message: message)
+                    }
                 }
                 return
             }
@@ -193,7 +197,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             
             (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.showHideRideServiceView(show: true)
             (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.setProgressViewCounter(countDown: strongSelf.rideInfo?.expirySeconds ?? 0)
-            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].pick?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].pick?.lon)!))
+            (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].pick?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (strongSelf.rideInfo?.rides[0].drop?.lat)!, longitude: (strongSelf.rideInfo?.rides[0].drop?.lon)!))
 
             
             (strongSelf.delegate as? KTXpressRideCreationViewModelDelegate)?.updateUI()
@@ -273,7 +277,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     func setPickUpLocationForXpressRide(index: Int) {
-        (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon)!))
+        (self.delegate as? KTXpressRideCreationViewModelDelegate)?.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].pick?.lat)!, longitude: (self.rideInfo?.rides[index].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[index].drop?.lat)!, longitude: (self.rideInfo?.rides[index].drop?.lon)!))
     }
     
     func didTapBookButton() {

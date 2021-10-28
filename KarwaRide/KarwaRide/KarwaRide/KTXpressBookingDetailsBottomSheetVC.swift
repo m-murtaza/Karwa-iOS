@@ -211,6 +211,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBAction func btnContactTapTouchIn(_ sender: UIButton)
     {
+        sender.isUserInteractionEnabled = false
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { _ in
+            sender.isUserInteractionEnabled = true
+        })
+        
         sender.setBackgroundColor(color: .clear, forState: .highlighted)
 
         sender.layer.cornerRadius = 15

@@ -129,18 +129,18 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
 extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if fromDropOff {
-            switch section {
-            case 0:
-                return 1
-            case 1:
-                return 1
-            case 2:
-                return 50
-            default:
-                return 1
-            }
-        }
+//        if fromDropOff {
+//            switch section {
+//            case 0:
+//                return 1
+//            case 1:
+//                return 1
+//            case 2:
+//                return 50
+//            default:
+//                return 1
+//            }
+//        }
         if section == 0 {
             return 1
         }
@@ -158,9 +158,9 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
         if section == 0 {
             return nil
         } else if section == 1 {
-            if fromDropOff {
-                return nil
-            }
+//            if fromDropOff {
+//                return nil
+//            }
             headerLabel.text = "\("favorites_title".localized())".uppercased()
         } else {
             headerLabel.text = "\("str_metro_title".localized())".uppercased()
@@ -185,18 +185,18 @@ extension KTXpressAddressViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if fromDropOff {
-            switch section {
-            case 0:
-                return 0
-            case 1:
-                return 0
-            case 2:
-                return (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section)
-            default:
-                return 0
-            }
-        }
+//        if fromDropOff {
+//            switch section {
+//            case 0:
+//                return 0
+//            case 1:
+//                return 0
+//            case 2:
+//                return (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section)
+//            default:
+//                return 0
+//            }
+//        }
         return (viewModel as! KTXpressAddressPickerViewModel).numberOfRow(section: section)
     }
     
