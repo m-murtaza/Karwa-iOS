@@ -556,12 +556,14 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             showPickDropMarker(showOnlyPickup: false)
             startPollingForBooking()
             del?.showHideShareButton(false)
+            del?.removeWalkToPickUpMarker()
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
             del?.clearMaps()
             showPickDropMarker()
             del?.showHideShareButton(false)
+            del?.removeWalkToPickUpMarker()
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
@@ -576,6 +578,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: true)
+            del?.addWalkToPickUpMarker()
             del?.showHideShareButton(true)
             startVechicleTrackTimer()
         }
@@ -591,6 +594,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else
         {
+            del?.removeWalkToPickUpMarker()
             del?.showHideShareButton(false)
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
@@ -771,7 +775,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
-          //  del?.addWalkToPickUpMarker()
+            del?.addWalkToPickUpMarker()
         }
         else if bStatus == BookingStatus.COMPLETED
         {
