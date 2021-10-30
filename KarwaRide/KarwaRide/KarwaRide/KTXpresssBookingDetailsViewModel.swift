@@ -556,12 +556,14 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             showPickDropMarker(showOnlyPickup: false)
             startPollingForBooking()
             del?.showHideShareButton(false)
+            del?.removeWalkToPickUpMarker()
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
             del?.clearMaps()
             showPickDropMarker()
             del?.showHideShareButton(false)
+            del?.removeWalkToPickUpMarker()
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
@@ -576,6 +578,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
             self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: true)
+            del?.addWalkToPickUpMarker()
             del?.showHideShareButton(true)
             startVechicleTrackTimer()
         }
@@ -591,6 +594,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else
         {
+            del?.removeWalkToPickUpMarker()
             del?.showHideShareButton(false)
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
@@ -657,13 +661,14 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     @objc func fetchTaxiForTracking()
     {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
+        
+        print("current booking status", bStatus )
+        
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
         {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
                 (status, response) in
-                
-                print(response)
-                
+                                
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
@@ -684,8 +689,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
-                        self.updateBookingCard()
                         self.del?.updateBookingStatusOnCard(true)
+                        self.del?.updateBookingCard()
                         self.del?.removeWalkToPickUpMarker()
                     }
 
@@ -771,7 +776,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
-          //  del?.addWalkToPickUpMarker()
+            del?.addWalkToPickUpMarker()
         }
         else if bStatus == BookingStatus.COMPLETED
         {

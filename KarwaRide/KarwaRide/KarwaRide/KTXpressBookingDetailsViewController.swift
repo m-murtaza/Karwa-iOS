@@ -72,6 +72,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var isOpenFromNotification : Bool = false
     
     var walkToPickUpMarker: GMSMarker!
+    var dashedPolyline = GMSPolyline()
+
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
@@ -767,7 +769,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         walkToPickUpMarker.position = location
         
         walkToPickUpMarker.iconView = pickupWithInfoView
-        walkToPickUpMarker.groundAnchor =  CGPoint(x:0.5,y:0.5)
+        walkToPickUpMarker.groundAnchor =  CGPoint(x:0.5,y:1)
         walkToPickUpMarker.map = self.mapView
         
         bounds = bounds.includingCoordinate(walkToPickUpMarker.position)
@@ -802,16 +804,29 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     func addWalkToPickUpMarker() {
-        
-        if rideServicePickDropOffData?.pickUpCoordinate != nil {
-            addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+        if walkToPickUpMarker == nil {
+            if rideServicePickDropOffData?.pickUpCoordinate != nil {
+                addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+                let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+                self.drawArc(startLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: eLocation)
+            } else {
+                if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
+                    addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
+                    let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+                    self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: eLocation)
+                }
+            }
         }
-        
     }
     
     func removeWalkToPickUpMarker() {
         if walkToPickUpMarker != nil {
             walkToPickUpMarker.map = nil
+            dashedPolyline.map = nil
+        }
+        
+        if dashedPolyline != nil {
+            dashedPolyline.map = nil
         }
     }
     
@@ -822,13 +837,13 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             path.add(startLocation)
             path.add(endLocation)
             //Draw polyline
-            let polyline = GMSPolyline(path: path)
-            polyline.map = mapView // Assign GMSMapView as map
-            polyline.strokeWidth = 3.0
+            dashedPolyline = GMSPolyline(path: path)
+            dashedPolyline.map = mapView // Assign GMSMapView as map
+            dashedPolyline.strokeWidth = 3.0
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
-            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            dashedPolyline.spans = GMSStyleSpans(dashedPolyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
             let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)

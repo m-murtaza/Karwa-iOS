@@ -95,6 +95,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.navigationController?.navigationBar.isHidden = true
         
         if bookingSuccessful == true {
+            countOfPassenger = 1
             self.passengerLabel.text = "str_1pass".localized()
             plusBtn.layer.opacity = 1
             minuBtn.layer.opacity = 0.5
