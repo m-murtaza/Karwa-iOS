@@ -38,6 +38,7 @@
                 <outlet property="lblVehicleName" destination="ytU-iT-KsQ" id="LPB-HH-RCa"/>
                 <outlet property="scrollView" destination="MKU-9I-OPu" id="Fif-cm-bgJ"/>
                 <outlet property="svDetail" destination="f0s-rR-W7s" id="n03-50-mct"/>
+                <outlet property="uiPreventTouch" destination="cOc-5m-1Pt" id="ECM-wL-A2v"/>
                 <outlet property="view" destination="DnZ-re-bBe" id="EDy-ol-0rT"/>
             </connections>
         </placeholder>
@@ -116,8 +117,13 @@
                                                                                 <constraint firstAttribute="height" constant="60" id="kR1-uD-rGO"/>
                                                                             </constraints>
                                                                             <state key="normal" image="ic_right_arrow_white"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                             <connections>
-                                                                                <action selector="onClickRightBtn:" destination="-1" eventType="touchUpInside" id="0ra-xs-TuG"/>
+                                                                                <action selector="onClickRightBtn:" destination="-1" eventType="touchUpInside" id="CoS-nr-aJL"/>
+                                                                                <action selector="onClickRightBtnTouchDown:" destination="-1" eventType="touchDown" id="Ssk-A3-ZPU"/>
+                                                                                <action selector="onClickRightBtnTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="jTv-Kh-xcm"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dc3-o0-44i" customClass="SpringButton" customModule="Spring">
@@ -127,19 +133,32 @@
                                                                                 <constraint firstAttribute="width" constant="60" id="gbO-mc-eg2"/>
                                                                             </constraints>
                                                                             <state key="normal" image="ic_left_arrow_white"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                             <connections>
-                                                                                <action selector="onClickLeftBtn:" destination="-1" eventType="touchUpInside" id="t4J-PV-d6L"/>
+                                                                                <action selector="onClickLeftBtn:" destination="-1" eventType="touchUpInside" id="60l-KJ-Cyy"/>
+                                                                                <action selector="onClickLeftBtnTouchDown:" destination="-1" eventType="touchDown" id="2Ge-87-JI2"/>
+                                                                                <action selector="onClickLeftBtnTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="uyC-TK-6xY"/>
                                                                             </connections>
                                                                         </button>
+                                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOc-5m-1Pt">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="417" height="185"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </view>
                                                                     </subviews>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <constraints>
                                                                         <constraint firstItem="dc3-o0-44i" firstAttribute="leading" secondItem="Os6-d7-6lE" secondAttribute="leading" id="5i4-lQ-fpF"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="cOc-5m-1Pt" secondAttribute="trailing" id="Azi-NF-GS7"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="cOc-5m-1Pt" secondAttribute="bottom" id="C0n-sN-ffg"/>
                                                                         <constraint firstAttribute="height" constant="185" id="QaP-h8-bE3"/>
                                                                         <constraint firstItem="ew1-0w-C0G" firstAttribute="leading" secondItem="Os6-d7-6lE" secondAttribute="leading" id="S1x-VZ-fTe"/>
+                                                                        <constraint firstItem="cOc-5m-1Pt" firstAttribute="leading" secondItem="Os6-d7-6lE" secondAttribute="leading" id="Wdt-Y6-Osh"/>
                                                                         <constraint firstAttribute="trailing" secondItem="gIk-ms-Ieq" secondAttribute="trailing" id="XAm-RE-hjd"/>
                                                                         <constraint firstAttribute="bottom" secondItem="ew1-0w-C0G" secondAttribute="bottom" id="byn-sl-WDn"/>
                                                                         <constraint firstItem="gIk-ms-Ieq" firstAttribute="centerY" secondItem="Os6-d7-6lE" secondAttribute="centerY" id="ecG-N2-2ug"/>
+                                                                        <constraint firstItem="cOc-5m-1Pt" firstAttribute="top" secondItem="Os6-d7-6lE" secondAttribute="top" id="fIg-HR-4S9"/>
                                                                         <constraint firstAttribute="trailing" secondItem="ew1-0w-C0G" secondAttribute="trailing" id="gQi-1x-dTU"/>
                                                                         <constraint firstItem="dc3-o0-44i" firstAttribute="centerY" secondItem="Os6-d7-6lE" secondAttribute="centerY" id="u8K-gO-8rw"/>
                                                                         <constraint firstItem="ew1-0w-C0G" firstAttribute="top" secondItem="Os6-d7-6lE" secondAttribute="top" id="wGX-Qy-8V3"/>
@@ -152,13 +171,13 @@
                                                                             <rect key="frame" x="23" y="0.0" width="371" height="15"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Luxury Limousine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytU-iT-KsQ" customClass="SpringLabel" customModule="Spring">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="324" height="15"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="325.5" height="15"/>
                                                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                                                     <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR 50" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8x-G0-If6" customClass="SpringLabel" customModule="Spring">
-                                                                                    <rect key="frame" x="324" y="0.0" width="47" height="15"/>
+                                                                                    <rect key="frame" x="325.5" y="0.0" width="45.5" height="15"/>
                                                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
                                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                     <nil key="highlightedColor"/>
@@ -166,22 +185,22 @@
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="sJA-Oq-nsy">
-                                                                            <rect key="frame" x="23" y="15" width="371" height="14.5"/>
+                                                                            <rect key="frame" x="23" y="15" width="371" height="14"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-capacity" translatesAutoresizingMaskIntoConstraints="NO" id="ATT-Sn-2j2">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="10" height="14.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="10" height="14"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="10" id="dtu-dh-5yw"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seL-Pw-Flp" customClass="SpringLabel" customModule="Spring">
-                                                                                    <rect key="frame" x="13" y="0.0" width="312.5" height="14.5"/>
+                                                                                    <rect key="frame" x="13" y="0.0" width="312.5" height="14"/>
                                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                                     <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 mins" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7o-mE-KEH" customClass="SpringLabel" customModule="Spring">
-                                                                                    <rect key="frame" x="328.5" y="0.0" width="42.5" height="14.5"/>
+                                                                                    <rect key="frame" x="328.5" y="0.0" width="42.5" height="14"/>
                                                                                     <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                                                                     <color key="textColor" red="0.070588235294117646" green="0.59215686274509804" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                     <nil key="highlightedColor"/>
@@ -321,13 +340,13 @@
                                                                                     <rect key="frame" x="0.0" y="100" width="371" height="12"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZf-cp-fx9">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="339" height="12"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="339.5" height="12"/>
                                                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="10"/>
                                                                                             <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJP-aY-IGF" customClass="SpringLabel" customModule="Spring">
-                                                                                            <rect key="frame" x="342" y="0.0" width="29" height="12"/>
+                                                                                            <rect key="frame" x="342.5" y="0.0" width="28.5" height="12"/>
                                                                                             <string key="text">QR 55
 </string>
                                                                                             <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="10"/>
@@ -443,7 +462,13 @@
     </objects>
     <designables>
         <designable name="abl-bt-Bah">
-            <size key="intrinsicContentSize" width="155" height="33"/>
+            <size key="intrinsicContentSize" width="30" height="32"/>
+        </designable>
+        <designable name="dc3-o0-44i">
+            <size key="intrinsicContentSize" width="164" height="164"/>
+        </designable>
+        <designable name="gIk-ms-Ieq">
+            <size key="intrinsicContentSize" width="164" height="164"/>
         </designable>
     </designables>
     <resources>

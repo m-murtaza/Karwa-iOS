@@ -31,6 +31,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var btnRightArrow: SpringButton!
     @IBOutlet weak var btnLeftArrow: SpringButton!
     @IBOutlet weak var svDetail: UIStackView!
+    @IBOutlet weak var uiPreventTouch: UIView!
     
     @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
     
@@ -182,31 +183,49 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         vModel?.btnRequestBookingTapped()
     }
     
-    @IBAction func onClickRightBtn(_ sender: UIButton){
+    @IBAction func onClickRightBtnTouchDown(_ sender: SpringButton){
+        springAnimateButtonTapIn(button: btnRightArrow, transform: CGAffineTransform(scaleX: 0.3, y: 0.3))
+    }
+    
+    @IBAction func onClickRightBtnTouchUpOutside(_ sender: SpringButton){
+        springAnimateButtonTapOut(button: btnRightArrow)
+    }
+    
+    @IBAction func onClickRightBtn(_ sender: Any){
+        setPreventTouchView(show: true)
+        springAnimateButtonTapOut(button: btnRightArrow)
         if selectedVehicleIndex != vehicles.count-1 && selectedVehicleIndex+1 < self.collectionView.numberOfItems(inSection: 0) {
             if let cell = self.collectionView.cellForItem(at: IndexPath(row: selectedVehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
                 cell.imgVehicleType.isHidden = true
             }
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                collectionView.scrollToNextItem()
-            }
-            else {
-                collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex+1, section: 0), at: .centeredHorizontally, animated: true)
-            }
+            collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex+1, section: 0), at: .centeredHorizontally, animated: true)
         }
     }
     
-    @IBAction func onClickLeftBtn(_ sender: UIButton){
+    @IBAction func onClickLeftBtnTouchDown(_ sender: SpringButton){
+        springAnimateButtonTapIn(button: btnLeftArrow, transform: CGAffineTransform(scaleX: 0.3, y: 0.3))
+    }
+    
+    @IBAction func onClickLeftBtnTouchUpOutside(_ sender: SpringButton){
+        springAnimateButtonTapOut(button: btnLeftArrow)
+    }
+    
+    @IBAction func onClickLeftBtn(_ sender: Any){
+        setPreventTouchView(show: true)
+        springAnimateButtonTapOut(button: btnLeftArrow)
         if selectedVehicleIndex != 0 && selectedVehicleIndex-1 < self.collectionView.numberOfItems(inSection: 0) {
             if let cell = self.collectionView.cellForItem(at: IndexPath(row: selectedVehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
                 cell.imgVehicleType.isHidden = true
             }
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                collectionView.scrollToPreviousItem()
-            }
-            else {
-                collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .centeredHorizontally, animated: true)
-            }
+            collectionView.scrollToItem(at: IndexPath(row: selectedVehicleIndex-1, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
+    
+    private func setPreventTouchView(show: Bool) {
+        uiPreventTouch.isHidden = !show
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let `self` = self else {return}
+            self.uiPreventTouch.isHidden = show
         }
     }
 }
