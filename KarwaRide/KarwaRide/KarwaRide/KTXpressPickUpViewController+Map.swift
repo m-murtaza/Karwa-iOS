@@ -205,10 +205,7 @@ extension KTXpressPickUpViewController
         
         let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(CLLocationCoordinate2D(latitude: 25.286106, longitude:  51.534817), zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
         mapView.animate(with: update)
-        
-//        self.focusMapToCurrentLocation()
-//        self.polygon()
-//        self.polygonNext()
+    
     }
         
     func addPickUpLocations() {

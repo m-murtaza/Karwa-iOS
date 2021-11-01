@@ -25,16 +25,6 @@ protocol KTXpressPickUpViewModelDelegate: KTViewModelDelegate {
     func showAlertForStation()
 }
 
-var areas = [Area]()
-var metroStopsArea = [Area]()
-var metroStations = [Area]()
-var tramStations = [Area]()
-var tramStopsArea = [Area]()
-var zones = [Area]()
-var zonalArea = [[String : [Area]]]()
-var destinations = [Destination]()
-var stops = [Area]()
-
 class KTXpressPickUpViewModel: KTBaseViewModel {
     
     var booking : KTBooking = KTBookingManager().booking()
@@ -432,37 +422,4 @@ class KTXpressPickUpViewModel: KTBaseViewModel {
 }
 
 
-extension UIViewController {
-    
-    func checkLatLonInside(location: CLLocation) -> Bool {
-        if let string = areas.filter({$0.type! == "OperatingArea"}).first?.bound {
-            
-            let operatingArea = string.components(separatedBy: "|")
 
-            var latLonInside = false
-            
-            for item in operatingArea {
-                
-                let coordinates = item.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                }
-                if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                    latLonInside = true
-                    break
-                } else {
-                    print("it wont contains")
-                    latLonInside = false
-                }
-                
-            }
-                        
-          return latLonInside
-            
-        } else {
-            print("it wont contains")
-            return false
-
-        }
-
-    }
-}

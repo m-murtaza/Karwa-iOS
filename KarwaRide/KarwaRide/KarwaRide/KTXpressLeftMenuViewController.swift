@@ -122,7 +122,7 @@ class KTXpressLeftMenuViewController:  KTBaseViewController, UITableViewDelegate
         switch indexPath.row {
         case 0:
             xpressRebookSelected = true
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController")
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "RSBookingNavigationViewController")
             sideMenuController?.hideMenu()
             break
 

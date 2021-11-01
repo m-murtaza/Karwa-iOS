@@ -243,7 +243,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     @IBAction func bookNowTapped(){
         
         if let index = self.tabBarController?.selectedIndex, index == 1 {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController")
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "RSBookingNavigationViewController")
             sideMenuController?.hideMenu()
         } else {
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
