@@ -46,12 +46,20 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
                                                                    NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0.0
-        } else {
-            // Fallback on earlier versions
-        }
 
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+            self.navigationController?.navigationBar.standardAppearance = appearance;
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+            self.tableView.sectionHeaderTopPadding = 0
+        } else {
+            
+        }
+        
 //        if #available(iOS 13.0, *) {
 //            let appearance = UINavigationBarAppearance()
 //            appearance.configureWithOpaqueBackground()
