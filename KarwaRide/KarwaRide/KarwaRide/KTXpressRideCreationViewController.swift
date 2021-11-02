@@ -133,22 +133,31 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
 
-        if xpressRebookSelected == true {
-            (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
-            (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
-            addMap()
-            shimmerView.isHidden = false
-            vModel?.fetchRideService()
-        } else {
-            vModel?.rideServicePickDropOffData = rideServicePickDropOffData
-            vModel?.rideInfo = rideInfo
-            addMap()
-            mapView.clear()
-            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
-            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
-            self.updateUI()
-            shimmerView.isHidden = true
-        }
+        vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+        vModel?.rideInfo = rideInfo
+        addMap()
+        mapView.clear()
+        self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+        self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
+        self.updateUI()
+        shimmerView.isHidden = true
+        
+//        if xpressRebookSelected == true {
+//            (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
+//            (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+//            addMap()
+//            shimmerView.isHidden = false
+//            vModel?.fetchRideService()
+//        } else {
+//            vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+//            vModel?.rideInfo = rideInfo
+//            addMap()
+//            mapView.clear()
+//            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+//            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
+//            self.updateUI()
+//            shimmerView.isHidden = true
+//        }
         
         // Do any additional setup after loading the view.
         

@@ -57,7 +57,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         super.viewDidAppear()
         checkForRating()
         //Check the drop of address name
-        
+        xpressRebookSelected = false
         guard self.rideServicePickDropOffData != nil else {
             return
         }
@@ -584,10 +584,16 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else if bStatus == BookingStatus.COMPLETED
         {
+            del?.clearMaps()
             del?.removeWalkToPickUpMarker()
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+                showPickDropMarker()
+                let plocation : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!)
+                del?.addPickupMarker(location: plocation)
+                let dlocation : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.dropOffLat)!,longitude: (booking?.dropOffLon)!)
+                del?.addPickupMarker(location: dlocation)
                 drawPath(encodedPath: booking?.encodedPath ?? "", wayPoints: [WayPoints]())
 //                snapTrackToRoad(track: (booking?.tripTrack)!)
             }
@@ -685,11 +691,13 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
                         self.del?.updateBookingStatusOnCard(true)
+                        self.fetchBookingForUpdate((self.booking?.bookingId)!, true)
+
                     }
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
-                        self.del?.updateBookingStatusOnCard(true)
+                        self.updateBookingCard()
                         self.del?.updateBookingCard()
                         self.del?.removeWalkToPickUpMarker()
                     }
@@ -701,6 +709,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                         self.del?.updateMapCamera()
                     }
                     self.updateEta(eta: self.formatedETA(eta: vtrack.eta))
+
 //                    self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
                 }
                 else
@@ -716,6 +725,21 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             if (timerVechicleTrack != nil && timerVechicleTrack!.isValid)
             {
                 timerVechicleTrack!.invalidate()
+            }
+        }
+    }
+    
+    @objc func fetchBookingForUpdate(_ bookingId : String, _ isFromBookingId : Bool)
+    {
+        
+        KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
+            
+            self.del?.hideProgressHud()
+            
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                let updatedBooking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
+                self.booking = updatedBooking
             }
         }
     }
@@ -739,8 +763,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                 
                 self.checkForRating()
                 
-                self.initializeViewWRTBookingStatus()
-                
+                self.updateMap()
+
             }
         }
     }
@@ -1224,6 +1248,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             {
                 del?.clearMaps()
                 initializeViewWRTBookingStatus()
+                del?.addPickupMarker(location: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude:  booking?.pickupLon ?? 0.0))
+                del?.addPickupMarker(location: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude:  booking?.pickupLon ?? 0.0))
                 del?.showHideShareButton(false)
             }
         }

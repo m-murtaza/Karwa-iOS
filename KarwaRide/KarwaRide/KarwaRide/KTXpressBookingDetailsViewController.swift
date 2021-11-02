@@ -141,7 +141,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         initializeValue()
         
         self.navigationItem.hidesBackButton = true
-
+        
         let button = UIButton(type: UIButton.ButtonType.custom)
         button.setImage(UIImage(named: "back_arrow_ico"), for: .normal)
         button.addTarget(self, action:#selector(popViewController), for: .touchUpInside)
@@ -150,6 +150,16 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
+//        
+//        if #available(iOS 15.0, *) {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+//            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+//                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+//            self.navigationController?.navigationBar.standardAppearance = appearance;
+//            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+//        } 
 
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false

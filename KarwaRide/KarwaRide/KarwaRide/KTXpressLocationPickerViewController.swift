@@ -307,8 +307,8 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
 
             }
             
-            selectedRSDropOffCoordinate = getCenterPointOfPolygon(bounds: item.bound!)
-            
+            selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
+
             let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
             mapView.animate(to: camera)
             
