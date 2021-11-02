@@ -37,13 +37,17 @@ protocol KTXpressLocationViewModelDelegate: KTViewModelDelegate {
     func addPickUpLocations()
     func showDropOffViewController(destinationForPickUp: [Area], pickUpStation: Area?, pickUpStop: Area?, pickUpzone: Area?, coordinate: CLLocationCoordinate2D, zonalArea: [[String : [Area]]])
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
-    func showAlertForStation()
+    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?, rideInfo: RideInfo?)
+    func showAlertForFailedRide(message: String)
+    func backToPickUp(withMessage: String)
 }
 
 
 class KTXpressLocationSetUpViewModel: KTBaseViewModel {
 
     static var askedToTurnOnLocaiton : Bool = false
+    var rideInfo = RideInfo()
+    var rideLocationData = RideSerivceLocationData()
 
     func fetchOperatingArea() {
 
@@ -98,6 +102,11 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                     zonalArea.append(z)
 
                 }
+                
+                stops.removeAll()
+                
+                stops.append(contentsOf: metroStopsArea)
+                stops.append(contentsOf: tramStopsArea)
 
                 for item in zonalArea {
                     print("Zonal Area", item)
@@ -158,12 +167,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
 
                 let set1: Set<Area> = Set(pickUpArea)
                 let set2: Set<Area> = Set(localPickUpArea)
-
                 pickUpArea = Array(set1.union(set2))
-
-                stops.removeAll()
-                
-                stops = Array(set1.union(set2))
                 
                 print(pickUpArea)
 
@@ -202,6 +206,70 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
         (delegate as! KTXpressPickUpViewModelDelegate).showAlertForLocationServerOn()
           KTXpressLocationSetUpViewModel.askedToTurnOnLocaiton = true
       }
+    }
+    
+    func fetchRideService() {
+        
+        self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
+
+        KTXpressBookingManager().getRideService(rideData: rideLocationData) { [weak self] (status, response) in
+                        
+            self?.delegate?.hideProgressHud()
+            
+            guard let strongSelf = self else{
+                return
+            }
+                
+            print("ridedata", response)
+                        
+            strongSelf.rideInfo.rides.removeAll()
+            
+            var ridesVehicleInfoList = [RideVehiceInfo]()
+    
+         
+            guard let rides = response["Rides"] as? [[String : Any]] else {
+                if let message = response["M"] as? String {
+                    (strongSelf.delegate as! KTXpressLocationViewModelDelegate).showAlertForFailedRide(message: message)
+                } else if let res = response["E"] as? [String : String] {
+                    if let message = res["M"] {
+                        if status == "CHANGE_PICK" {
+                            (self?.delegate as? KTXpressLocationViewModelDelegate)?.backToPickUp(withMessage: message)
+                        } else {
+                            (strongSelf.delegate as! KTXpressLocationViewModelDelegate).showAlertForFailedRide(message: message)
+                        }
+                    }
+                }
+                return
+            }
+            
+            for item in rides {
+                
+                var vehicleInfo = RideVehiceInfo()
+                var dropLocationInfo = LocationInfo()
+                var pickUplocationInfo = LocationInfo()
+                
+                vehicleInfo.eta = item["Eta"] as? Int
+                vehicleInfo.id = item["Id"] as? String
+                vehicleInfo.vehicleNo = item["VehicleNo"] as? String
+                dropLocationInfo.lat = (item["Drop"] as?[String:Double])?["lat"] ?? 0.0
+                dropLocationInfo.lon = (item["Drop"] as?[String:Double])?["lon"] ?? 0.0
+                pickUplocationInfo.lat = ((item["Pick"] as?[String:Double])?["lat"] ?? 0.0)
+                pickUplocationInfo.lon = ((item["Pick"] as?[String:Double])?["lon"] ?? 0.0)
+                vehicleInfo.drop = dropLocationInfo
+                vehicleInfo.pick = pickUplocationInfo
+            
+                ridesVehicleInfoList.append(vehicleInfo)
+
+            }
+            
+            strongSelf.rideInfo = RideInfo(rides: ridesVehicleInfoList, expirySeconds: (response["ExpirySeconds"] as! Int))
+            
+            print(strongSelf.rideInfo)
+            
+            (strongSelf.delegate as! KTXpressLocationViewModelDelegate).showRideServiceViewController(rideLocationData: strongSelf.rideLocationData, rideInfo: strongSelf.rideInfo)
+            
+        }
+        
     }
     
     
