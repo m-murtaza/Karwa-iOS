@@ -162,6 +162,11 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     cell.selectionStyle = .none
     return cell
   }
+    
+    // Set the spacing between sections
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //    selectedIndex = indexPath.row
@@ -304,8 +309,8 @@ class KTCreateBookingViewController:
     @IBOutlet weak var dropClikcBtn: UIButton!
 
     
-  var tableViewMinimumHeight: CGFloat = 170
-  var tableViewMaximumHeight: CGFloat = 200
+  var tableViewMinimumHeight: CGFloat = 220
+  var tableViewMaximumHeight: CGFloat = 220
   var selectedIndex = 0
   var selectedSection = 0
   
@@ -376,6 +381,12 @@ class KTCreateBookingViewController:
     
 //    rideServicesContainer.addGestureRecognizer(gesture)
     tableViewHeight.constant = tableViewMaximumHeight
+        if #available(iOS 15.0, *) {
+            self.tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     self.showMoreRideOptions.isHidden = true
 
     //    hideCurrentLocationButton()
@@ -546,7 +557,7 @@ class KTCreateBookingViewController:
     navigationController?.isNavigationBarHidden = true
     navigationController?.isNavigationBarHidden = true
     self.tabBarController?.tabBar.alpha = 1
-    self.mapViewBottomConstraint.constant = 260
+    self.mapViewBottomConstraint.constant = 280
   }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
