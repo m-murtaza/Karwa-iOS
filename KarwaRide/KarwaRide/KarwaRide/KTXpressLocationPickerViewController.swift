@@ -423,8 +423,12 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             alert.hideAnimations = { (center, transform, alpha) in
                 alpha = 0
             }
-            let yesAction = CDAlertViewAction(title: "SETPICKUP".localized()) { value in
-                self.callSetPickUpAction()
+            let yesAction = CDAlertViewAction(title: pickUpSelected ? "SETPICKUP".localized() : "SETDROPOFF".localized()) { value in
+                if self.pickUpSelected {
+                    self.callSetPickUpAction()
+                } else {
+                    self.callDropOffAction()
+                }
                 return true
             }
             let noAction = CDAlertViewAction(title: "str_no".localized()) { value in
@@ -476,6 +480,13 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         alert.show()
     }
     
+    @IBAction func showAddressPickerViewController(_ sender: UIButton) {
+        let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
+        addressPicker.metroStations =  pickUpSelected ? pickUpArea : destinationForPickUp
+        addressPicker.delegateAddress = self
+        addressPicker.fromDropOff = !pickUpSelected
+        self.navigationController?.pushViewController(addressPicker, animated: true)
+    }
         
     /*
     // MARK: - Navigation
@@ -487,6 +498,81 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     }
     */
 
+}
+
+extension KTXpressLocationPickerViewController: KTXpressAddressDelegate {
+
+    fileprivate func updatePickDataFromAddressScreen(_ loc: Area, _ metroAreaCoordinate: CLLocationCoordinate2D) {
+        selectedRSPickStation = loc
+        let stopOfStations = areas.filter{$0.parent == selectedRSPickStation?.code}
+        selectedRSPickStop = stopOfStations.first!
+        selectedRSPickUpCoordinate = metroAreaCoordinate
+        selectedRSPickZone = areas.filter{$0.code == selectedRSPickStation?.parent}.first!
+        if stopOfStations.count > 1 {
+            self.showStopAlertViewController(stops: stopOfStations, selectedStation: selectedRSPickStation!)
+        } else {
+            self.showAlertForStation(station: loc)
+        }
+    }
+    
+    fileprivate func updateDropOffDataFromAddressScreen(_ loc: Area, _ metroAreaCoordinate: CLLocationCoordinate2D) {
+        selectedRSDropStation = loc
+        let stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
+        selectedRSDropStop = stopOfStations.first!
+        selectedRSDropOffCoordinate = metroAreaCoordinate
+        selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
+        if stopOfStations.count > 1 {
+            self.showStopAlertViewController(stops: stopOfStations, selectedStation: selectedRSDropStation!)
+        } else {
+            self.showAlertForStation(station: loc)
+        }
+    }
+    
+    func setLocation(location: Any) {
+        addressSelected = true
+        if let loc = location as? KTGeoLocation {
+            print(location)
+            (self.viewModel as! KTXpressPickUpViewModel).selectedCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+            self.setPickUp(pick: loc.name)
+            KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
+            let camera = GMSCameraPosition.camera(withLatitude: loc.latitude, longitude: loc.longitude, zoom: 15)
+            mapView.camera = camera
+            mapView.animate(to: camera)
+            if checkLatLonInside(location: actualLocation) {
+                self.setLocationButton.setTitle("str_setpick".localized(), for: .normal)
+                self.setLocationButton.setTitleColor(UIColor.white, for: .normal)
+                self.setLocationButton.backgroundColor = UIColor(hexString: "#469B9C")
+                markerImage.image  = #imageLiteral(resourceName: "pin_pickup_map")
+                self.setLocationButton.isUserInteractionEnabled = true
+            } else {
+                self.setLocationButton.setTitle("str_outzone".localized(), for: .normal)
+                self.setLocationButton.backgroundColor = UIColor.clear
+                markerImage.image = #imageLiteral(resourceName: "pin_outofzone")
+                self.setLocationButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
+                self.setLocationButton.isUserInteractionEnabled = false
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if let loc = location as? Area {
+                    print(location)
+                    self.tapOnMarker = true
+                    let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
+                    let camera = GMSCameraPosition.camera(withLatitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude, zoom: 17)
+                    self.mapView.camera = camera
+                    self.pickUpAddressLabel.text = loc.name
+                    self.updateValidPickUpUI()
+                    
+                    if self.pickUpSelected == true {
+                        self.updatePickDataFromAddressScreen(loc, metroAreaCoordinate)
+                    } else {
+                        self.updateDropOffDataFromAddressScreen(loc, metroAreaCoordinate)
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 extension KTXpressLocationPickerViewController: RideExploreDelegate {
@@ -562,7 +648,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             
             
             if addressSelected == false { //address selection should be false
-                if backToPreviousPickUp == false { //click back button should be false        
+                if backToPreviousPickUp == false { //click back button should be false
                     let coordinate = CLLocationCoordinate2D(latitude: xpressRebookSelected == true ? selectedRSPickUpCoordinate?.latitude ?? 0.0 : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookSelected == true ? selectedRSPickUpCoordinate?.longitude ?? 0.0 : getCenterPointOfPolygon(bounds: item).longitude)
                     let camera = GMSCameraPosition.camera(withLatitude: coordinate.latitude, longitude: coordinate.longitude, zoom: 15)
                     self.mapView.animate(to: camera)
@@ -743,6 +829,11 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             selectedRSDropZone = nil
             selectedRSDropStation = nil
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        addressSelected = false
+        resetValues()
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
