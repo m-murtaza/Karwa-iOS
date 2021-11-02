@@ -115,6 +115,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var currentPoseIndex = 0
     
     var selectedVehicleIndex = 0
+    var fromRideHistory = false
     
     @IBOutlet weak var arrowImage: UIImageView!
     
@@ -443,17 +444,28 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     func showRideTrackViewController() {
-        
-        self.exploreDelegate?.showPickUpScreen()
         let details  = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as? KTXpressBookingDetailsViewController)!
         details.rideServicePickDropOffData = rideServicePickDropOffData
         if let booking : KTBooking = vModel?.selectedBooking {
             details.setBooking(booking: booking)
         }
         bookingSuccessful = true
+        details.fromRideHistory = fromRideHistory
+        details.rideExploreDelegate = self
         self.navigationController?.pushViewController(details, animated: true)
     }
         
+}
+
+extension KTXpressRideCreationViewController: RideExploreDelegate {
+ 
+    func showPickUpScreen() {
+        self.exploreDelegate?.showPickUpScreen()
+    }
+    
+    func showDropOffScreen() {
+        self.exploreDelegate?.showPickUpScreen()
+    }
 }
 
 extension KTXpressRideCreationViewController: UITableViewDelegate, UITableViewDataSource {

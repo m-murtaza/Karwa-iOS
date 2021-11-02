@@ -73,11 +73,13 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     var walkToPickUpMarker: GMSMarker!
     var dashedPolyline = GMSPolyline()
-
+    var fromRideHistory = false
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
+    
+    var rideExploreDelegate: RideExploreDelegate?
 
     lazy var sheet = SheetViewController(
         controller: bottomSheetVC,
@@ -589,25 +591,17 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
 
     @IBAction func btnBackTapped(_ sender: Any) {
-        if let navController = self.navigationController {
-            
-            if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-                if navController.viewControllers.count > 5 {
-                    navController.popToViewController(navController.viewControllers[3], animated: true)
-                } else if navController.viewControllers.count <= 4 {
-                    navController.popToViewController(navController.viewControllers[0], animated: true)
-                }
-                else if navController.viewControllers.count <= 5 {
-                    navController.popToViewController(navController.viewControllers[1], animated: true)
-                }
-                else {
-                    navController.popViewController(animated: true)
-                }
-            } else {
-                navController.popViewController(animated: true)
+        
+        if fromRideHistory == false {
+            if let navController = self.navigationController {
+                self.navigationController?.popViewController(animated: true)
+                self.rideExploreDelegate?.showPickUpScreen()
             }
-
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
         }
+        
+
     }
     
     //MARK:- Assignment Info
@@ -919,6 +913,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //        sideMenuController?.hideMenu()
         
         let rideService = self.storyboard?.instantiateViewController(withIdentifier: "RSBooking") as? KTXpressLocationPickerViewController
+        rideService?.fromRideHistory = true
 //        rideService!.rideServicePickDropOffData = rideLocationData
         self.navigationController?.pushViewController(rideService!, animated: true)
         
