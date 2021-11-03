@@ -264,7 +264,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             navigationController?.isNavigationBarHidden = true
             btnBack.isHidden = isOpenFromNotification
         } else {
-            btnBack.isHidden = true 
+            btnBack.isHidden = true
+            navigationController?.isNavigationBarHidden = false
         }
         btnReveal.isHidden = !isOpenFromNotification
         self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false

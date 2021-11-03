@@ -29,6 +29,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     @IBOutlet weak var markerImage: SpringImageView!
     @IBOutlet weak var setLocationButton: SpringButton!
     @IBOutlet weak var backButton: SpringButton!
+    @IBOutlet weak var rebookBackButton: SpringButton!
     @IBOutlet weak var closeButton: SpringButton!
 
     @IBOutlet weak var plusBtn: UIButton!
@@ -220,6 +221,12 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     }
     
     func backToPickUp() {
+        if fromRideHistory == true {
+            self.view.bringSubview(toFront: self.rebookBackButton)
+            self.rebookBackButton.isHidden = false
+        } else {
+            self.rebookBackButton.isHidden = true
+        }
         self.tabBarController?.tabBar.isHidden = false
         backToPreviousPickUp = true
         closeButton.isHidden = true
