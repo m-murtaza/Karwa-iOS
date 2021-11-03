@@ -963,7 +963,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     }
                 }
                 
-                if vehicleTypes![i].typeId == VehicleType.KTSpecialNeedTaxi.rawValue {
+                else if vehicleTypes![i].typeId == VehicleType.KTSpecialNeedTaxi.rawValue {
                     if vehicleCategories.keys.contains(VehicleCategories.SECOND.rawValue) {
                         vehicleCategories[VehicleCategories.SECOND.rawValue]?.append(vehicleTypes![i])
                     }
@@ -971,7 +971,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         vehicleCategories[VehicleCategories.SECOND.rawValue] = [vehicleTypes![i]]
                     }
                 }
-                if vehicleTypes![i].typeId == VehicleType.KTStandardLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTBusinessLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
+                else if vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
                     if vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) {
                         vehicleCategories[VehicleCategories.THIRD.rawValue]?.append(vehicleTypes![i])
                     }
