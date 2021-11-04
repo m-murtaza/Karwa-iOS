@@ -170,6 +170,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         fareBreakDownView.addArrangedSubview(stackView)
     }
     
+    func setRequestButtonTitle(title: String) {
+        self.btnRequestBooking.setTitle(title, for: .normal)
+    }
+    
     @IBAction func btnRequestBookingTouchDown(_ sender: SpringButton){
         springAnimateButtonTapIn(button: btnRequestBooking)
     }

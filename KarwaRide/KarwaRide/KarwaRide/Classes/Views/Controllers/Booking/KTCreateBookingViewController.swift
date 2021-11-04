@@ -322,6 +322,8 @@ class KTCreateBookingViewController:
     var selectedPaymentMethod = "Cash"
     @IBOutlet weak var paymentTypeIcon: UIImageView!
     @IBOutlet weak var paymentTypeLabel: UILabel!
+    
+    var titleForRequestOrScheduleKarwa: String?
 
   //MARK:- View lifecycle
     fileprivate func setUpPreviousPaymentMethod() {
@@ -477,6 +479,9 @@ class KTCreateBookingViewController:
             bottomSheet.allowGestureThroughOverlay = false
             bottomSheet.animateIn(to: view, in: self)
             
+            if let title = self.titleForRequestOrScheduleKarwa {
+                bottomSheetVC.setRequestButtonTitle(title: title)
+            }
             bottomSheetVC.updateDetailBottomSheet()
         }
     }
@@ -1046,7 +1051,7 @@ class KTCreateBookingViewController:
   }
     
     func setRequestButtonTitle(title: String) {
-//        self.btnRequestBooking.setTitle(title, for: .normal)
+        self.titleForRequestOrScheduleKarwa = title
     }
       
   
