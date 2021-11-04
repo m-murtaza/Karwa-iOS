@@ -106,7 +106,7 @@ extension KTXpressRideCreationViewController
         if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
             dropOffLocationMarker.map = nil
         } else {
-            if coordinate.latitude == selectedRSDropOffCoordinate!.latitude {
+            if dropCoordinate.latitude == selectedRSDropOffCoordinate!.latitude {
                 dropOffLocationMarker.map = nil
             } else {
                 dropOffLocationMarker.map = self.mapView

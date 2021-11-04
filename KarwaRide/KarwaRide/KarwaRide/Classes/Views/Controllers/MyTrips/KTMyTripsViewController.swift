@@ -215,6 +215,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
             if vehicelType == 200 {
                 let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as! KTXpressBookingDetailsViewController
                 bookingDetailsViewController.setBooking(booking: (viewModel as! KTMyTripsViewModel).selectedBooking!)
+                bookingDetailsViewController.fromRideHistory = true
+                bookingDetailsViewController.fromHistory = true
                 self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
             } else {
                 let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTBookingDetailsViewController") as! KTBookingDetailsViewController

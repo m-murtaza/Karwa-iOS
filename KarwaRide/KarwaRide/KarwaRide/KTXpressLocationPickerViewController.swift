@@ -87,6 +87,13 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
+        if bookingSuccessful == true {
+            countOfPassenger = 1
+            self.passengerLabel.text = "str_1pass".localized()
+            plusBtn.layer.opacity = 1
+            minuBtn.layer.opacity = 0.5
+            bookingSuccessful = false
+        }
     }
     
     @objc private func showMenu() {
@@ -227,7 +234,8 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         } else {
             self.rebookBackButton.isHidden = true
         }
-        self.tabBarController?.tabBar.isHidden = false
+        self.setTabBar(hidden: false)
+//        self.tabBarController?.tabBar.isHidden = false
         backToPreviousPickUp = true
         closeButton.isHidden = true
         setPickUpPolygon()
@@ -237,8 +245,27 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         addPickUpLocations()
     }
     
+    func setTabBar(hidden:Bool) {
+        guard let frame = self.tabBarController?.tabBar.frame else {return }
+        if hidden {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tabBarController?.tabBar.frame = CGRect(x: frame.origin.x, y: frame.origin.y + frame.height, width: frame.width, height: frame.height)
+                self.tabBarController?.tabBar.isHidden = true
+            })
+            
+        }else {
+
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tabBarController?.tabBar.frame = UITabBarController().tabBar.frame
+                self.tabBarController?.tabBar.isHidden = false
+
+            })
+        }
+    }
+    
     func setDropOffViewUI() {
-        self.tabBarController?.tabBar.isHidden = true
+//        self.tabBarController?.tabBar.isHidden = true
+        self.setTabBar(hidden: true)
         pickUpSelected = false
         setLocationButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")

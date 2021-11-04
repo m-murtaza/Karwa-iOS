@@ -133,31 +133,31 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         viewModel = KTXpressRideCreationViewModel(del:self)
         vModel = viewModel as? KTXpressRideCreationViewModel
 
-        vModel?.rideServicePickDropOffData = rideServicePickDropOffData
-        vModel?.rideInfo = rideInfo
-        addMap()
-        mapView.clear()
-        self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
-        self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
-        self.updateUI()
-        shimmerView.isHidden = true
+//        vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+//        vModel?.rideInfo = rideInfo
+//        addMap()
+//        mapView.clear()
+//        self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+//        self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
+//        self.updateUI()
+//        shimmerView.isHidden = true
         
-//        if xpressRebookSelected == true {
-//            (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
-//            (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
-//            addMap()
-//            shimmerView.isHidden = false
-//            vModel?.fetchRideService()
-//        } else {
-//            vModel?.rideServicePickDropOffData = rideServicePickDropOffData
-//            vModel?.rideInfo = rideInfo
-//            addMap()
-//            mapView.clear()
-//            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
-//            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
-//            self.updateUI()
-//            shimmerView.isHidden = true
-//        }
+        if xpressRebookSelected == true {
+            (viewModel as? KTXpressRideCreationViewModel)?.getDestinationForPickUp()
+            (viewModel as? KTXpressRideCreationViewModel)?.getDestination()
+            addMap()
+            shimmerView.isHidden = false
+            vModel?.fetchRideService()
+        } else {
+            vModel?.rideServicePickDropOffData = rideServicePickDropOffData
+            vModel?.rideInfo = rideInfo
+            addMap()
+            mapView.clear()
+            self.setProgressViewCounter(countDown: rideInfo?.expirySeconds ?? 0)
+            self.addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].pick?.lat)!, longitude: (self.rideInfo?.rides[0].pick?.lon)!), dropCoordinate: CLLocationCoordinate2D(latitude: (self.rideInfo?.rides[0].drop?.lat)!, longitude: (self.rideInfo?.rides[0].drop?.lon)!))
+            self.updateUI()
+            shimmerView.isHidden = true
+        }
         
         // Do any additional setup after loading the view.
         
@@ -231,31 +231,31 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     }
     
     @IBAction func showPickUpScreen(_ sender: UIButton) {
-//        if let navController = self.navigationController {
-//            if let navController = self.navigationController {
-//
-//                print(navController.viewControllers.count)
-//                print(navController.viewControllers)
-//
-//                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-//                    if navController.viewControllers.count == 6 {
-//                        navController.popToViewController(navController.viewControllers[3], animated: true)
-//                    }else if navController.viewControllers.count > 4 {
-//                        navController.popToViewController(navController.viewControllers[2], animated: true)
-//                    } else if navController.viewControllers.count <= 3 {
-//                        navController.popToViewController(navController.viewControllers[0], animated: true)
-//                    }
-//                    else if navController.viewControllers.count <= 4 {
-//                        navController.popToViewController(navController.viewControllers[1], animated: true)
-//                    }
-//                    else {
-//                        navController.popViewController(animated: true)
-//                    }
-//                } else {
-//                    navController.popViewController(animated: true)
-//                }
-//            }
-//        }
+        if let navController = self.navigationController {
+            if let navController = self.navigationController {
+
+                print(navController.viewControllers.count)
+                print(navController.viewControllers)
+
+                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                    if navController.viewControllers.count == 6 {
+                        navController.popToViewController(navController.viewControllers[3], animated: true)
+                    }else if navController.viewControllers.count > 4 {
+                        navController.popToViewController(navController.viewControllers[2], animated: true)
+                    } else if navController.viewControllers.count <= 3 {
+                        navController.popToViewController(navController.viewControllers[0], animated: true)
+                    }
+                    else if navController.viewControllers.count <= 4 {
+                        navController.popToViewController(navController.viewControllers[1], animated: true)
+                    }
+                    else {
+                        navController.popViewController(animated: true)
+                    }
+                } else {
+                    navController.popViewController(animated: true)
+                }
+            }
+        }
     }
     
     @IBAction func setCountForPassenger(sender: UIButton) {
@@ -362,28 +362,32 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         }
         let doneAction = CDAlertViewAction(title: "str_no".localized()) { value in
             
-            self.exploreDelegate?.showPickUpScreen()
+            if self.fromRideHistory == false {
+                self.exploreDelegate?.showPickUpScreen()
+            } else {
+                if let navController = self.navigationController {
+
+                    if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+
+                        if navController.viewControllers.count == 6 {
+                            navController.popToViewController(navController.viewControllers[3], animated: true)
+                        } else if navController.viewControllers.count > 4 {
+                            navController.popToViewController(navController.viewControllers[2], animated: true)
+                        } else if navController.viewControllers.count <= 3 {
+                            navController.popToViewController(navController.viewControllers[0], animated: true)
+                        } else if navController.viewControllers.count <= 4 {
+                            navController.popToViewController(navController.viewControllers[1], animated: true)
+                        } else {
+                            navController.popViewController(animated: true)
+                        }
+
+                    } else {
+                        navController.popViewController(animated: true)
+                    }
+                }
+            }
             
-//            if let navController = self.navigationController {
-//
-//                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-//
-//                    if navController.viewControllers.count == 6 {
-//                        navController.popToViewController(navController.viewControllers[3], animated: true)
-//                    } else if navController.viewControllers.count > 4 {
-//                        navController.popToViewController(navController.viewControllers[2], animated: true)
-//                    } else if navController.viewControllers.count <= 3 {
-//                        navController.popToViewController(navController.viewControllers[0], animated: true)
-//                    } else if navController.viewControllers.count <= 4 {
-//                        navController.popToViewController(navController.viewControllers[1], animated: true)
-//                    } else {
-//                        navController.popViewController(animated: true)
-//                    }
-//
-//                } else {
-//                    navController.popViewController(animated: true)
-//                }
-//            }
+
             return true
         }
         alert.add(action: doneAction)
@@ -402,26 +406,29 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
             
-            self.exploreDelegate?.showDropOffScreen()
+            if self.fromRideHistory == false {
+                self.exploreDelegate?.showDropOffScreen()
+            } else {
+                if let navController = self.navigationController {
 
-//            if let navController = self.navigationController {
-//
-//                if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-//                    if navController.viewControllers.count == 6 {
-//                        navController.popToViewController(navController.viewControllers[3], animated: true)
-//                    } else if navController.viewControllers.count > 4 {
-//                        navController.popToViewController(navController.viewControllers[2], animated: true)
-//                    } else if navController.viewControllers.count <= 3 {
-//                        navController.popToViewController(navController.viewControllers[0], animated: true)
-//                    } else if navController.viewControllers.count <= 4 {
-//                        navController.popToViewController(navController.viewControllers[1], animated: true)
-//                    } else {
-//                        navController.popViewController(animated: true)
-//                    }
-//                } else {
-//                    navController.popViewController(animated: true)
-//                }
-//            }
+                    if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
+                        if navController.viewControllers.count == 6 {
+                            navController.popToViewController(navController.viewControllers[3], animated: true)
+                        } else if navController.viewControllers.count > 4 {
+                            navController.popToViewController(navController.viewControllers[2], animated: true)
+                        } else if navController.viewControllers.count <= 3 {
+                            navController.popToViewController(navController.viewControllers[0], animated: true)
+                        } else if navController.viewControllers.count <= 4 {
+                            navController.popToViewController(navController.viewControllers[1], animated: true)
+                        } else {
+                            navController.popViewController(animated: true)
+                        }
+                    } else {
+                        navController.popViewController(animated: true)
+                    }
+                }
+            }
+
             return true
         }
         

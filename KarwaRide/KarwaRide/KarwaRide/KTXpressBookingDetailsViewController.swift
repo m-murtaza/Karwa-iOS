@@ -74,6 +74,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var walkToPickUpMarker: GMSMarker!
     var dashedPolyline = GMSPolyline()
     var fromRideHistory = false
+    var fromHistory = false
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
@@ -151,15 +152,15 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
 //        
-//        if #available(iOS 15.0, *) {
-//            let appearance = UINavigationBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
-//            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
-//                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
-//            self.navigationController?.navigationBar.standardAppearance = appearance;
-//            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
-//        } 
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+            self.navigationController?.navigationBar.standardAppearance = appearance;
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        }
 
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
@@ -604,15 +605,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     @IBAction func btnBackTapped(_ sender: Any) {
         
         if fromRideHistory == false {
-            if let navController = self.navigationController {
-                self.navigationController?.popViewController(animated: true)
-                self.rideExploreDelegate?.showPickUpScreen()
-            }
+            bookingSuccessful = true
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
         } else {
-            self.navigationController?.popToRootViewController(animated: true)
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuController?.hideMenu()
         }
         
-
     }
     
     //MARK:- Assignment Info
@@ -923,8 +923,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
 //        sideMenuController?.hideMenu()
         
-        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "RSBooking") as? KTXpressLocationPickerViewController
-        rideService?.fromRideHistory = true
+        let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
+               rideService?.fromRideHistory = true
 //        rideService!.rideServicePickDropOffData = rideLocationData
         self.navigationController?.pushViewController(rideService!, animated: true)
         
@@ -999,7 +999,20 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     @objc func popViewController() {
-        self.navigationController?.popViewController(animated: true)
+        
+        if fromHistory == true {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if fromRideHistory == false {
+                bookingSuccessful = true
+                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+                sideMenuController?.hideMenu()
+            } else {
+                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+                sideMenuController?.hideMenu()
+            }
+        }
+        
     }
     
     func closeCancel() {
