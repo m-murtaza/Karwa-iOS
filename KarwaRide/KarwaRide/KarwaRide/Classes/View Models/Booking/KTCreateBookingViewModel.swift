@@ -1001,47 +1001,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     func getVehicleByCategory(catName: String) -> [KTVehicleType]{
-        switch catName {
-        case VehicleCategories.FIRST.rawValue:
-            return sortVehicleByFareWithinCategory(vehicles: vehicleCategories[VehicleCategories.FIRST.rawValue] ?? [])
-        case VehicleCategories.SECOND.rawValue:
-            return sortVehicleByFareWithinCategory(vehicles: vehicleCategories[VehicleCategories.SECOND.rawValue] ?? [])
-        case VehicleCategories.THIRD.rawValue:
-            return sortVehicleByFareWithinCategory(vehicles: vehicleCategories[VehicleCategories.THIRD.rawValue] ?? [])
-        default:
-            return []
-        }
-    }
-    
-    func sortVehicleByFareWithinCategory(vehicles: [KTVehicleType]) -> [KTVehicleType] {
-        var sortedVehicles = vehicles
-        if vehicles.count > 1 {
-            sortedVehicles = sortedVehicles.sorted(by: { (this, that) -> Bool in
-                var firstFare = 0
-                if let stringArray = this.typeBaseFare?.components(separatedBy: CharacterSet.decimalDigits.inverted) {
-                    var numbers: [Int] = []
-                    for item in stringArray {
-                        if let number = Int(item) {
-                            numbers.append(number)
-                        }
-                    }
-                    firstFare = numbers.min() ?? 0
-                }
-                var secondFare = 0
-                if let stringArray = that.typeBaseFare?.components(separatedBy: CharacterSet.decimalDigits.inverted) {
-                    var numbers: [Int] = []
-                    for item in stringArray {
-                        if let number = Int(item) {
-                            numbers.append(number)
-                            print("number: \(number)")
-                        }
-                    }
-                    secondFare = numbers.min() ?? 0
-                }
-                return firstFare < secondFare
-            })
-        }
-        return sortedVehicles
+        return vehicleCategories[catName] ?? []
     }
     
     func getTypeBaseFareOrEstimate(typeId: Int16) -> String {
