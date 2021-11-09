@@ -98,31 +98,35 @@ class KTXpressLeftMenuViewController:  KTBaseViewController, UITableViewDelegate
         return cell
      }
     
+    
+    
+    
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         
         // Temporary removing the highlighting of left menus
-        if(indexPath.row != 3 && indexPath.row != 4)
-        {
-            if lastSelectedCell != nil {
-                lastSelectedCell?.sideView.isHidden = true
-              lastSelectedCell?.contentView.backgroundColor = UIColor.white
-              lastSelectedCell?.lblTitle.font = UIFont.H4().regular
-              // reset cell styling
-            }
-
-            let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
-          cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-            cell.lblTitle.font = UIFont.H4().bold
-            //cell.sideView.isHidden = false
-          // do cell styling
-
-            lastSelectedCell = cell
+//        if(indexPath.row != 3 && indexPath.row != 4)
+//        {
+//
+//        }
+        
+        if lastSelectedCell != nil {
+            lastSelectedCell?.sideView.isHidden = true
+          lastSelectedCell?.contentView.backgroundColor = UIColor.white
+          lastSelectedCell?.lblTitle.font = UIFont.H4().regular
+          // reset cell styling
         }
+
+        let cell : LeftMenuTableViewCell = tableView.cellForRow(at: indexPath) as! LeftMenuTableViewCell
+        cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+        cell.lblTitle.font = UIFont.H4().bold
+        //cell.sideView.isHidden = false
+      // do cell styling
+
+        lastSelectedCell = cell
 
         switch indexPath.row {
         case 0:
-            xpressRebookSelected = true
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController")
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "RSBookingNavigationViewController")
             sideMenuController?.hideMenu()
             break
 

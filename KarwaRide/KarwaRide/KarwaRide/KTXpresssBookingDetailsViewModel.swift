@@ -57,7 +57,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         super.viewDidAppear()
         checkForRating()
         //Check the drop of address name
-        
+        xpressRebookSelected = false
         guard self.rideServicePickDropOffData != nil else {
             return
         }
@@ -584,10 +584,15 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else if bStatus == BookingStatus.COMPLETED
         {
+            del?.clearMaps()
             del?.removeWalkToPickUpMarker()
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
+                let plocation : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!)
+                del?.addPickupMarker(location: plocation)
+                let dlocation : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: (booking?.dropOffLat)!,longitude: (booking?.dropOffLon)!)
+                del?.addDropOffMarker(location: dlocation)
                 drawPath(encodedPath: booking?.encodedPath ?? "", wayPoints: [WayPoints]())
 //                snapTrackToRoad(track: (booking?.tripTrack)!)
             }
@@ -661,13 +666,16 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     @objc func fetchTaxiForTracking()
     {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
+
+        print("current booking status", bStatus )
+        
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
         {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
                 (status, response) in
                 
-                print(response)
-                
+                self.fetchBookingForUpdate((self.booking?.bookingId)!, true)
+                                
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)
@@ -689,7 +697,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.dropOffLat)!, destinationLong: (self.booking?.dropOffLon)!)
                         self.updateBookingCard()
-                        self.del?.updateBookingStatusOnCard(true)
+                        self.del?.updateBookingCard()
                         self.del?.removeWalkToPickUpMarker()
                     }
 
@@ -700,6 +708,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                         self.del?.updateMapCamera()
                     }
                     self.updateEta(eta: self.formatedETA(eta: vtrack.eta))
+
 //                    self.del?.updateEta(eta: self.formatedETA(eta: vtrack.eta))
                 }
                 else
@@ -715,6 +724,21 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             if (timerVechicleTrack != nil && timerVechicleTrack!.isValid)
             {
                 timerVechicleTrack!.invalidate()
+            }
+        }
+    }
+    
+    @objc func fetchBookingForUpdate(_ bookingId : String, _ isFromBookingId : Bool)
+    {
+        
+        KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
+            
+            self.del?.hideProgressHud()
+            
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                let updatedBooking : KTBooking = response[Constants.ResponseAPIKey.Data] as! KTBooking
+                self.booking = updatedBooking
             }
         }
     }
@@ -735,11 +759,11 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
 //                self.del?.showDriverInfoBox()
                 
                 self.booking = updatedBooking
-                
-                self.checkForRating()
-                
+                                                
                 self.initializeViewWRTBookingStatus()
                 
+                self.checkForRating()
+
             }
         }
     }
@@ -1223,6 +1247,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             {
                 del?.clearMaps()
                 initializeViewWRTBookingStatus()
+                del?.addPickupMarker(location: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude:  booking?.pickupLon ?? 0.0))
+                del?.addDropOffMarker(location: CLLocationCoordinate2D(latitude: booking?.dropOffLat ?? 0.0, longitude:  booking?.dropOffLon ?? 0.0))
                 del?.showHideShareButton(false)
             }
         }

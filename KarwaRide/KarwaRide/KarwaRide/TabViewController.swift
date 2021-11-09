@@ -41,7 +41,8 @@ class TabViewController: UITabBarController {
 //        tabBar.customShadowOffset = CGSize(width: 1, height: 0)
 //        tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
         
-        if xpressRebookSelected {
+        if bookingSuccessful {
+            bookingSuccessful = false
             self.selectedIndex = 1
         } else {
             self.selectedIndex = 0
