@@ -436,6 +436,8 @@ class KTCreateBookingViewController:
                     bottomConstraintCardView.constant = 68
                 }
             }
+        //TODO: remove below line when tabbar need to show
+        bottomConstraintCardView.constant = 0
         
         self.title = "str_book_karwa".localized()
         self.mapView.settings.rotateGestures = false
@@ -714,6 +716,7 @@ class KTCreateBookingViewController:
     if sheetPresented == true {
         self.dismissSelectionMethod()
     }
+      self.viewWillAppear(true)
     self.tabBarController?.tabBar.isHidden = false
     self.edgesForExtendedLayout = UIRectEdge.all
     self.view.layoutIfNeeded()
@@ -878,6 +881,8 @@ class KTCreateBookingViewController:
         //        self.view.layoutIfNeeded()
         
         self.rideServicesContainer.isHidden = false
+        //TODO: remove below line when tabbar need to show
+        self.mapViewBottomConstraint.constant = 280
         
         if corouselSelected == false {
             UIView.animate(
@@ -931,7 +936,26 @@ class KTCreateBookingViewController:
             self.pickupDropoffParentContainer.isHidden = true
         }
         
-        //
+        //TODO: remove below if condition when tabbar need to show
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 1136:
+                print("iPhone 5 or 5S or 5C")
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+            case 1334:
+                print("iPhone 6/6S/7/8")
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+            case 1920, 2208:
+                print("iPhone 6+/6S+/7+/8+")
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+            case 2436:
+                print("iPhone X")
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
+            default:
+                print("unknown")
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
+            }
+        }
     }
   }
   
