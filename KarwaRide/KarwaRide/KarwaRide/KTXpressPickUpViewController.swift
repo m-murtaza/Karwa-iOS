@@ -28,6 +28,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var addressSelected = false
+    var dropOffCoordinate = CLLocationCoordinate2D()
+    var picupRect = GMSMutablePath()
 
     var vModel : KTXpressPickUpViewModel?
 
@@ -93,6 +95,7 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         self.navigationController?.navigationBar.isHidden = true
         
         if bookingSuccessful == true {
+            countOfPassenger = 1
             self.passengerLabel.text = "str_1pass".localized()
             plusBtn.layer.opacity = 1
             minuBtn.layer.opacity = 0.5
@@ -211,6 +214,8 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
         dropOff.operationArea = areas
         dropOff.zonalArea = zonalArea
         dropOff.countOfPassenger = countOfPassenger
+        //Comment
+//        self.add(dropOff)
 
         self.navigationController?.pushViewController(dropOff, animated: false)
         
@@ -359,3 +364,36 @@ class KTXpressPickUpViewController: KTBaseCreateBookingController, KTXpressPickU
 
 
 
+
+public extension UIViewController {
+
+   /// Adds child view controller to the parent.
+   ///
+   /// - Parameter child: Child view controller.
+   func add(_ child: UIViewController) {
+       addChildViewController(child)
+       view.addSubview(child.view)
+       child.view.animate(fadeIn: true, withDuration: 1.0)
+       child.didMove(toParentViewController: self)
+   }
+
+   /// It removes the child view controller from the parent.
+   func remove() {
+       guard parent != nil else {
+           return
+       }
+       willMove(toParentViewController: nil)
+       removeFromParentViewController()
+       view.animate(fadeIn: false, withDuration: 1.0)
+       view.removeFromSuperview()
+   }
+}
+
+
+extension UIView {
+    func animate(fadeIn: Bool, withDuration: TimeInterval = 1.0) {
+        UIView.animate(withDuration: withDuration, delay: 0.0, options: .curveEaseInOut, animations: {
+            self.alpha = fadeIn ? 1.0 : 0.0
+        })
+    }
+}

@@ -73,11 +73,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     var walkToPickUpMarker: GMSMarker!
     var dashedPolyline = GMSPolyline()
-
+    var fromRideHistory = false
+    var fromHistory = false
 
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
+    
+    var rideExploreDelegate: RideExploreDelegate?
 
     lazy var sheet = SheetViewController(
         controller: bottomSheetVC,
@@ -139,7 +142,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         initializeValue()
         
         self.navigationItem.hidesBackButton = true
-
+        
         let button = UIButton(type: UIButton.ButtonType.custom)
         button.setImage(UIImage(named: "back_arrow_ico"), for: .normal)
         button.addTarget(self, action:#selector(popViewController), for: .touchUpInside)
@@ -148,6 +151,16 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
+//        
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+            self.navigationController?.navigationBar.standardAppearance = appearance;
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        }
 
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
@@ -252,7 +265,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             navigationController?.isNavigationBarHidden = true
             btnBack.isHidden = isOpenFromNotification
         } else {
-            btnBack.isHidden = true 
+            btnBack.isHidden = true
+            navigationController?.isNavigationBarHidden = false
         }
         btnReveal.isHidden = !isOpenFromNotification
         self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
@@ -589,25 +603,16 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
 
     @IBAction func btnBackTapped(_ sender: Any) {
-        if let navController = self.navigationController {
-            
-            if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {
-                if navController.viewControllers.count > 5 {
-                    navController.popToViewController(navController.viewControllers[3], animated: true)
-                } else if navController.viewControllers.count <= 4 {
-                    navController.popToViewController(navController.viewControllers[0], animated: true)
-                }
-                else if navController.viewControllers.count <= 5 {
-                    navController.popToViewController(navController.viewControllers[1], animated: true)
-                }
-                else {
-                    navController.popViewController(animated: true)
-                }
-            } else {
-                navController.popViewController(animated: true)
-            }
-
+        
+        if fromRideHistory == false {
+            bookingSuccessful = true
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
+        } else {
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuController?.hideMenu()
         }
+        
     }
     
     //MARK:- Assignment Info
@@ -807,7 +812,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         if walkToPickUpMarker == nil {
             if rideServicePickDropOffData?.pickUpCoordinate != nil {
                 addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
-                self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!)
+                let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+                self.drawArc(startLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: eLocation)
             } else {
                 if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
                     addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
@@ -821,7 +827,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     func removeWalkToPickUpMarker() {
         if walkToPickUpMarker != nil {
             walkToPickUpMarker.map = nil
-            polyline.map = nil
+            dashedPolyline.map = nil
+        }
+        
+        if dashedPolyline != nil {
+            dashedPolyline.map = nil
         }
     }
     
@@ -833,12 +843,12 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             path.add(endLocation)
             //Draw polyline
             dashedPolyline = GMSPolyline(path: path)
-            polyline.map = mapView // Assign GMSMapView as map
-            polyline.strokeWidth = 3.0
+            dashedPolyline.map = mapView // Assign GMSMapView as map
+            dashedPolyline.strokeWidth = 3.0
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
-            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
+            dashedPolyline.spans = GMSStyleSpans(dashedPolyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
             let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -899,18 +909,22 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController") as? UINavigationController
         
         xpressRebookSelected = true
-        xpressRebookPickUpSelected = true
-        xpressRebookDropOffSelected = true
-        xpressRebookPassengerSelected = true
-        
         xpressRebookNumberOfPassenger = Int((viewModel as! KTXpresssBookingDetailsViewModel).booking?.passengerCount ?? 1)
-        xpressRebookPickUpCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0
-        xpressRebookPickUpCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0
-
-        xpressRebookDropOffCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0
-        xpressRebookDropOffCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0
-                
+        
+        let pickUpCoordinate = CLLocationCoordinate2D(latitude: (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0, longitude: (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0)
+        
+        let dropOffCoordinate = CLLocationCoordinate2D(latitude: (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0, longitude: (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0)
+        
+        selectedRSPickUpCoordinate = pickUpCoordinate
+        selectedRSDropOffCoordinate = dropOffCoordinate
+        xpressRebookPickUpCoordinates = pickUpCoordinate
+        xpressRebookDropOffCoordinates = dropOffCoordinate
+        
+//        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+//        sideMenuController?.hideMenu()
+        
         let rideService = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressRideCreationViewController") as? KTXpressRideCreationViewController
+               rideService?.fromRideHistory = true
 //        rideService!.rideServicePickDropOffData = rideLocationData
         self.navigationController?.pushViewController(rideService!, animated: true)
         
@@ -985,7 +999,20 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     @objc func popViewController() {
-        self.navigationController?.popViewController(animated: true)
+        
+        if fromHistory == true {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            if fromRideHistory == false {
+                bookingSuccessful = true
+                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+                sideMenuController?.hideMenu()
+            } else {
+                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+                sideMenuController?.hideMenu()
+            }
+        }
+        
     }
     
     func closeCancel() {

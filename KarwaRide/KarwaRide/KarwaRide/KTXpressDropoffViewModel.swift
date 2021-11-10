@@ -36,9 +36,9 @@ protocol KTXpressDropoffViewModelDelegate: KTViewModelDelegate {
     func updateLocationInMap(location: CLLocation, shouldZoomToDefault withZoom : Bool)
     func setDropOff(pick: String?)
     func showStopAlertViewController(stops: [Area], selectedStation: Area)
-    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?, rideInfo: RideInfo?)
     func hideNavigationController()
     func showAlertForStation()
+    func showRideServiceViewController(rideLocationData: RideSerivceLocationData?, rideInfo: RideInfo?)
     func showAlertForFailedRide(message: String)
     func backToPickUp(withMessage: String)
 

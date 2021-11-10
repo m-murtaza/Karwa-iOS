@@ -18,14 +18,14 @@ extension KTXpressRideCreationViewController
 {
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.latitude)!, longitude: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate?.longitude)!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        let camera = GMSCameraPosition.camera(withLatitude: selectedRSPickUpCoordinate!.latitude, longitude: selectedRSPickUpCoordinate!.longitude, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
         
         showCurrentLocationDot(show: true)
         self.mapView.camera = camera;
         
-        pickUpLocationMarker = addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, image: #imageLiteral(resourceName: "pickup_address_ico"))
+        pickUpLocationMarker = addAndGetMarkerOnMap(location: selectedRSPickUpCoordinate!, image: #imageLiteral(resourceName: "pickup_address_ico"))
         
-        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, image: #imageLiteral(resourceName: "dropoff_pin"))
+        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: selectedRSDropOffCoordinate!, image: #imageLiteral(resourceName: "dropoff_pin"))
 
         let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
         mapView.padding = padding
@@ -44,8 +44,7 @@ extension KTXpressRideCreationViewController
         
         mapView.delegate = self
                 
-        self.drawArcPolyline(startLocation: self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!, endLocation: self.vModel?.rideServicePickDropOffData?.dropOffCoordinate)
-    
+        self.drawArcPolyline(startLocation: selectedRSPickUpCoordinate!, endLocation: selectedRSDropOffCoordinate!)
         
         self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
 
@@ -82,7 +81,7 @@ extension KTXpressRideCreationViewController
         serverPickUpLocationMarker.map = self.mapView
         
         pickUpLocationMarker = GMSMarker()
-        pickUpLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!
+        pickUpLocationMarker.position = selectedRSPickUpCoordinate!
         pickUpLocationMarker.iconView = walkToPickUpView
         pickUpLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
         
@@ -93,25 +92,25 @@ extension KTXpressRideCreationViewController
         serverDropOffLocationMarker.map = self.mapView
         
         dropOffLocationMarker = GMSMarker()
-        dropOffLocationMarker.position = (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!
+        dropOffLocationMarker.position = selectedRSDropOffCoordinate!
         dropOffLocationMarker.iconView = shortWalkToDropView
         dropOffLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
         
-        if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!.latitude {
+        if coordinate.latitude == selectedRSPickUpCoordinate!.latitude {
             pickUpLocationMarker.map = nil
         } else {
             pickUpLocationMarker.map = self.mapView
-            self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: coordinate)
+            self.drawArc(startLocation: selectedRSPickUpCoordinate!, endLocation: coordinate)
         }
         
         if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
             dropOffLocationMarker.map = nil
         } else {
-            if coordinate.latitude == (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!.latitude {
+            if dropCoordinate.latitude == selectedRSDropOffCoordinate!.latitude {
                 dropOffLocationMarker.map = nil
             } else {
                 dropOffLocationMarker.map = self.mapView
-                self.drawArc(startLocation: (self.vModel?.rideServicePickDropOffData?.dropOffCoordinate!)!, endLocation: dropCoordinate)
+                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: dropCoordinate)
             }
         }
         
