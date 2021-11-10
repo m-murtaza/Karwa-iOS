@@ -960,6 +960,9 @@ class KTCreateBookingViewController:
                     self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
                 }
             }
+            else {
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 50
+            }
         }
     }
   }
