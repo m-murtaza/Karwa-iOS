@@ -12,6 +12,7 @@ class KTConfiguration: NSObject {
 
     var resourceFileDictionary: NSDictionary?
     var environment : String?
+    var isRSEnabled: Bool?
     
     //MARK : Singleton
     private override init() {
@@ -49,5 +50,12 @@ class KTConfiguration: NSObject {
             //configValue = configDictionary.value(forKey: environment)
         }
         return configValue
+    }
+    
+    func checkRSEnabled() -> Bool {
+        if(isRSEnabled == nil){
+            isRSEnabled = resourceFileDictionary?.value(forKey: "isRSEnabled") as? Bool
+        }
+        return isRSEnabled ?? false
     }
 }
