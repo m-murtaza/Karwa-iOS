@@ -96,6 +96,7 @@ class KTSettingsViewModel: KTBaseViewModel {
     
     // Mark: - Logout
     func startLogoutProcess()  {
+        lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
         (delegate as! KTSettingsViewModelDelegate).showLogoutConfirmAlt()
     }
     
