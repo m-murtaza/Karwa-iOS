@@ -93,7 +93,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     private var nearByVehicle: [VehicleTrack] = []
     
     var selectedPickupDateTime : Date = Date()
-    var timerFetchNearbyVehicle : Timer = Timer()
+    var timerFetchNearbyVehicle : Timer?
     
     var del : KTCreateBookingViewModelDelegate?
     
@@ -159,8 +159,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         KTPaymentManager().fetchPaymentsFromServer { status, response in}
 
         // Resuming timer even if booking in progress
-        timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
-        
+        if timerFetchNearbyVehicle == nil {
+            timerFetchNearbyVehicle = Timer.scheduledTimer(timeInterval: TimeInterval(TIMER_INTERVAL), target: self, selector: #selector(KTCreateBookingViewModel.FetchNearByVehicle), userInfo: nil, repeats: true)
+        }
         if currentBookingStep == BookingStep.step1 {
             (delegate as! KTCreateBookingViewModelDelegate).hideCancelBookingBtn()
         }
@@ -196,7 +197,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         super.viewWillDisappear()
         NotificationCenter.default.removeObserver(self)
-        timerFetchNearbyVehicle.invalidate()
+        if timerFetchNearbyVehicle != nil {
+            timerFetchNearbyVehicle!.invalidate()
+            timerFetchNearbyVehicle = nil
+        }
         initialDateSetUp = true
     }
     

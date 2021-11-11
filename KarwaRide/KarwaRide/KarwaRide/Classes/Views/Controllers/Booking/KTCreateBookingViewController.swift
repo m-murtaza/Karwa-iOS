@@ -200,18 +200,18 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     func restoreCustomerServiceSelection(animateView: Bool)
     {
         
-            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-                return
-            }
-
-            print("Restoring index: \(selectedIndex)")
-
-            let indexPath = IndexPath(row: 0, section: 0)
-            DispatchQueue.main.async {
-                self.tableView.selectRow(at: indexPath,
-                                         animated: !animateView,
-                                         scrollPosition: .none)
-            }
+//            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+//                return
+//            }
+//
+//            print("Restoring index: \(selectedIndex)")
+//
+//            let indexPath = IndexPath(row: 0, section: 0)
+//            DispatchQueue.main.async {
+//                self.tableView.selectRow(at: indexPath,
+//                                         animated: !animateView,
+//                                         scrollPosition: .none)
+//            }
                     
     }
   
