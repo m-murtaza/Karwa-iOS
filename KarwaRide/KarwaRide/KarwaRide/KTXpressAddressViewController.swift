@@ -98,7 +98,7 @@ class KTXpressAddressViewController: KTBaseViewController, KTXpressAddressPicker
             // Fallback on earlier versions
         }
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
+        
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
