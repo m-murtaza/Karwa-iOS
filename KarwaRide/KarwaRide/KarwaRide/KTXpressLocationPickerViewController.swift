@@ -308,49 +308,54 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     
     func setDropOffPolygon() {
         
-        mapView.clear()
-        
-        showCurrentLocationDot(show: true)
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+            
+            self.mapView.clear()
+            
+            self.showCurrentLocationDot(show: true)
+                    
+            self.addMarkerOnMap(markerData: Area(), location: selectedRSPickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+                    
+            self.mapView.setMinZoom(4.6, maxZoom: 20)
+            
+            var rect = [GMSMutablePath]()
+            if selectedRSPickStop != nil || selectedRSPickStation != nil {
+                rect.append(self.polygon(bounds: (selectedRSPickStation?.bound!)!, type: "Pick"))
+                self.picupRect = rect.first!
                 
-        self.addMarkerOnMap(markerData: Area(), location: selectedRSPickUpCoordinate!, image: #imageLiteral(resourceName: "pin_pickup_map"))
+            } else {
+                rect.append(self.polygon(bounds: (selectedRSPickZone?.bound!)!, type: "Pick"))
+                self.picupRect = rect.first!
                 
-        mapView.setMinZoom(4.6, maxZoom: 20)
+            }
         
-        var rect = [GMSMutablePath]()
-        if selectedRSPickStop != nil || selectedRSPickStation != nil {
-            rect.append(self.polygon(bounds: (selectedRSPickStation?.bound!)!, type: "Pick"))
-            picupRect = rect.first!
-            
-        } else {
-            rect.append(self.polygon(bounds: (selectedRSPickZone?.bound!)!, type: "Pick"))
-            picupRect = rect.first!
-            
-        }
-    
-        for item in destinationForPickUp {
-            
-            if item.type! != "Zone" {
-                                            
-                if item.type == "TramStation"{
-                    self.addMarkerOnMap(markerData: item, location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
+            for item in self.destinationForPickUp {
+                
+                if item.type! != "Zone" {
+                                                
+                    if item.type == "TramStation"{
+                        self.addMarkerOnMap(markerData: item, location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
 
-                } else{
-                    self.addMarkerOnMap(markerData: item, location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
+                    } else{
+                        self.addMarkerOnMap(markerData: item, location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
+                    }
+                                    
+
                 }
-                                
+                
+                selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
 
+                let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                self.mapView.animate(to: camera)
+                
+                rect.append(self.polygon(bounds: item.bound!, type: ""))
+                
             }
             
-            selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
+            self.locateCountry(pathG: rect)
 
-            let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
-            mapView.animate(to: camera)
-            
-            rect.append(self.polygon(bounds: item.bound!, type: ""))
-            
         }
         
-        self.locateCountry(pathG: rect)
         
     }
     
@@ -519,22 +524,45 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     }
     
     @IBAction func showAddressPickerViewController(_ sender: UIButton) {
-        let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
-        addressPicker.metroStations =  pickUpSelected ? pickUpArea : destinationForPickUp
-        addressPicker.delegateAddress = self
-        addressPicker.fromDropOff = !pickUpSelected
-        self.navigationController?.pushViewController(addressPicker, animated: true)
+//        let addressPicker = (self.storyboard?.instantiateViewController(withIdentifier: "KTXpressAddressViewController") as? KTXpressAddressViewController)!
+//        addressPicker.metroStations =  pickUpSelected ? pickUpArea : destinationForPickUp
+//        addressPicker.delegateAddress = self
+//        addressPicker.fromDropOff = !pickUpSelected
+//        self.navigationController?.pushViewController(addressPicker, animated: true)
     }
         
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
+        destination.delegateAddress = self
+        destination.metroStations =  pickUpSelected ? pickUpArea : destinationForPickUp
+        destination.fromDropOff = pickUpSelected
+        
+        print(self.pickUpAddressLabel.text)
+        
+        
+        
+        if pickUpSelected == false {
+            
+            if selectedRSPickStation != nil {
+                destination.pickupAddress =  KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: selectedRSPickStation?.name ?? "")
+            } else if selectedRSPickZone != nil {
+                destination.pickupAddress =  KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: selectedRSPickZone?.name ?? "")
+            }
+            
+            destination.dropoffAddress = KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1000000..<100000000)), latitude: selectedRSDropOffCoordinate?.latitude ?? 0.0, longitude: selectedRSDropOffCoordinate?.longitude ?? 0.0, name: self.pickUpAddressLabel.text ?? "")
+        } else {
+            destination.pickupAddress =  KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: self.pickUpAddressLabel.text ?? "")
+        }
+        
+        self.getDestinationForPickUp()
+        destination.destinationForPickUp = destinationForPickUp
+        if pickUpSelected == false {
+            destination.selectedTxtField = SelectedTextField.DropoffAddress
+        } else if pickUpSelected == true {
+            destination.selectedTxtField = SelectedTextField.PickupAddress
+        }
+        
     }
-    */
 
 }
 
@@ -564,6 +592,36 @@ extension KTXpressLocationPickerViewController: KTXpressAddressDelegate {
         } else {
             self.showAlertForStation(station: loc)
         }
+    }
+    
+    func setLocation(picklocation: Any?, dropLocation: Any?, destinationForPickUp: [Area]?) {
+        
+        self.destinationForPickUp = destinationForPickUp ?? [Area]()
+        
+        if picklocation != nil && dropLocation != nil {
+            pickUpSelected = false
+            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(selectedRSPickUpCoordinate!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            mapView.animate(with: update)
+            setPickUpPolygon()
+            setPickUpViewUI()
+            
+            let update1 :GMSCameraUpdate = GMSCameraUpdate.setTarget(selectedRSDropOffCoordinate!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            mapView.animate(with: update1)
+            setDropOffPolygon()
+            setDropOffViewUI()
+            
+            updateValidPickUpUI()
+            
+        } else if picklocation != nil {
+            pickUpSelected = false
+            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(selectedRSPickUpCoordinate!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            mapView.animate(with: update)
+            setDropOffPolygon()
+            setDropOffViewUI()
+            updateValidPickUpUI()
+
+        }
+        
     }
     
     func setLocation(location: Any) {

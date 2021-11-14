@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google Inc. All rights reserved.
+ * Copyright 2016 Google LLC. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -17,10 +17,10 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 
-static NSString const * kNormalType = @"Normal";
-static NSString const * kSatelliteType = @"Satellite";
-static NSString const * kHybridType = @"Hybrid";
-static NSString const * kTerrainType = @"Terrain";
+static NSString *const kNormalType = @"Normal";
+static NSString *const kSatelliteType = @"Satellite";
+static NSString *const kHybridType = @"Hybrid";
+static NSString *const kTerrainType = @"Terrain";
 
 @implementation MapTypesViewController {
   UISegmentedControl *_switcher;

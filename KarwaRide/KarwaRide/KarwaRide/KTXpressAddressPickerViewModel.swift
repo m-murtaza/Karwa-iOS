@@ -16,6 +16,13 @@ protocol KTXpressFavoriteDelegate {
 
 protocol KTXpressAddressDelegate {
     func setLocation(location: Any)
+    func setLocation(picklocation: Any?, dropLocation: Any?, destinationForPickUp: [Area]?)
+}
+
+extension KTXpressAddressDelegate {
+    func setLocation(picklocation: Any?, dropLocation: Any?, destinationForPickUp: [Area]?) {
+
+    }
 }
 
 protocol  KTXpressAddressPickerViewModelDelegate : KTViewModelDelegate {

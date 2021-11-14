@@ -7803,7 +7803,7 @@
         <!--Address Picker View Controller-->
         <scene sceneID="3YX-v2-1Ul">
             <objects>
-                <viewController id="2HM-Qh-ieS" customClass="KTAddressPickerViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KTAddressPickerViewController" id="2HM-Qh-ieS" customClass="KTAddressPickerViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u4y-Oy-gbr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -8105,8 +8105,8 @@
                                     <constraint firstItem="NgZ-4b-9oe" firstAttribute="top" secondItem="0jb-Ol-s0r" secondAttribute="top" id="yod-ur-GQE"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ppX-fU-e0C">
-                                <rect key="frame" x="0.0" y="199" width="320" height="339"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ppX-fU-e0C">
+                                <rect key="frame" x="0.0" y="-700" width="320" height="339"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddPickCellIdentifier" translatesAutoresizingMaskIntoConstraints="NO" id="prb-qg-PlM" customClass="AddressPickCell" customModule="KarwaRide" customModuleProvider="target">
@@ -8183,9 +8183,93 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VHV-s1-0AD">
+                                <rect key="frame" x="0.0" y="163" width="320" height="405"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="KTXpressAddressTableViewCell" rowHeight="62" id="Ev3-L1-C3l" customClass="KTXpressAddressTableViewCell" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="320" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ev3-L1-C3l" id="nOX-xF-bsH">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fav_work_ico" translatesAutoresizingMaskIntoConstraints="NO" id="xFd-au-M9M">
+                                                    <rect key="frame" x="20" y="21" width="20" height="20"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="A0M-O9-REQ"/>
+                                                        <constraint firstAttribute="height" constant="20" id="C2b-96-wxl"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eCY-9x-QSf">
+                                                    <rect key="frame" x="56" y="14" width="202" height="34"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Pearl Qatar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bdd-cv-lYt">
+                                                            <rect key="frame" x="0.0" y="0.0" width="202" height="14.5"/>
+                                                            <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="14"/>
+                                                            <color key="textColor" red="0.070588235289999995" green="0.38720041509999997" blue="0.38997069000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Karak, The pearl qatar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0c-JK-bfK">
+                                                            <rect key="frame" x="0.0" y="19.5" width="202" height="14.5"/>
+                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                            <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="34" id="eAD-3I-goq"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9s-pu-tdZ">
+                                                    <rect key="frame" x="258" y="11" width="53" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="53" id="2pT-uh-OS2"/>
+                                                        <constraint firstAttribute="height" constant="40" id="UYf-rb-HVP"/>
+                                                    </constraints>
+                                                    <color key="tintColor" systemColor="systemGray4Color"/>
+                                                    <state key="normal" image="ico_more_options"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Q9s-pu-tdZ" firstAttribute="centerY" secondItem="nOX-xF-bsH" secondAttribute="centerY" id="0kk-pO-tBS"/>
+                                                <constraint firstItem="eCY-9x-QSf" firstAttribute="leading" secondItem="xFd-au-M9M" secondAttribute="trailing" constant="16" id="67G-Ep-udU"/>
+                                                <constraint firstItem="xFd-au-M9M" firstAttribute="leading" secondItem="nOX-xF-bsH" secondAttribute="leading" constant="20" symbolic="YES" id="Ko3-go-5mY"/>
+                                                <constraint firstItem="Q9s-pu-tdZ" firstAttribute="leading" secondItem="eCY-9x-QSf" secondAttribute="trailing" id="jfq-vR-l0K"/>
+                                                <constraint firstItem="eCY-9x-QSf" firstAttribute="centerY" secondItem="nOX-xF-bsH" secondAttribute="centerY" id="otA-CA-OHP"/>
+                                                <constraint firstItem="xFd-au-M9M" firstAttribute="centerY" secondItem="nOX-xF-bsH" secondAttribute="centerY" id="r80-nL-lDJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="Q9s-pu-tdZ" secondAttribute="trailing" constant="9" id="sjU-5X-tHV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="N0c-JK-bfK" id="ps4-vD-l2z"/>
+                                            <outlet property="icon" destination="xFd-au-M9M" id="1Nd-ZQ-CZ4"/>
+                                            <outlet property="moreButton" destination="Q9s-pu-tdZ" id="8j5-8g-G9n"/>
+                                            <outlet property="titleLabel" destination="Bdd-cv-lYt" id="T3P-7i-lkh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="customShadowRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="customShadowOpacity">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="customShadowOffset">
+                                        <size key="value" width="1" height="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="dataSource" destination="2HM-Qh-ieS" id="Xwi-QY-i3o"/>
-                                    <outlet property="delegate" destination="2HM-Qh-ieS" id="oWX-kJ-gMz"/>
+                                    <outlet property="dataSource" destination="2HM-Qh-ieS" id="TAi-P6-JUo"/>
+                                    <outlet property="delegate" destination="2HM-Qh-ieS" id="ZhN-I0-Lcl"/>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMa-kf-XtY" userLabel="set on map">
@@ -8444,6 +8528,7 @@
                             <constraint firstItem="FMa-kf-XtY" firstAttribute="leading" secondItem="BBL-H6-O3S" secondAttribute="leading" id="1zD-h4-uwG"/>
                             <constraint firstItem="N6s-hW-Kwz" firstAttribute="top" secondItem="ppX-fU-e0C" secondAttribute="bottom" id="5mb-9n-wWB"/>
                             <constraint firstItem="ZJr-hz-P1r" firstAttribute="top" secondItem="0jb-Ol-s0r" secondAttribute="top" id="5xt-8v-VSF"/>
+                            <constraint firstItem="VHV-s1-0AD" firstAttribute="top" secondItem="cB8-eo-llu" secondAttribute="bottom" constant="12" id="89B-tM-ovD"/>
                             <constraint firstItem="ppX-fU-e0C" firstAttribute="leading" secondItem="BBL-H6-O3S" secondAttribute="leading" id="Asw-IM-T6R"/>
                             <constraint firstItem="2EB-ex-8WF" firstAttribute="leading" secondItem="cB8-eo-llu" secondAttribute="trailing" constant="8" id="BR0-ho-LfF"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="trailing" secondItem="cB8-eo-llu" secondAttribute="trailing" constant="40" id="E6V-Z0-5Sd"/>
@@ -8452,6 +8537,7 @@
                             <constraint firstItem="ppX-fU-e0C" firstAttribute="top" secondItem="0jb-Ol-s0r" secondAttribute="bottom" id="Ji8-4B-Efg"/>
                             <constraint firstItem="fTf-1B-Bed" firstAttribute="leading" secondItem="F29-pF-pJp" secondAttribute="leading" id="MRG-gZ-hrn"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="bottom" secondItem="ZJr-hz-P1r" secondAttribute="bottom" id="NFL-6O-iTS"/>
+                            <constraint firstAttribute="bottom" secondItem="VHV-s1-0AD" secondAttribute="bottom" id="QWc-TG-jDx"/>
                             <constraint firstItem="fTf-1B-Bed" firstAttribute="trailing" secondItem="F29-pF-pJp" secondAttribute="trailing" id="VBP-hK-vew"/>
                             <constraint firstItem="0jb-Ol-s0r" firstAttribute="leading" secondItem="BBL-H6-O3S" secondAttribute="leading" id="YKH-VE-Wza"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="bottom" secondItem="FMa-kf-XtY" secondAttribute="bottom" id="Zgk-sG-SF5"/>
@@ -8459,7 +8545,9 @@
                             <constraint firstItem="2EB-ex-8WF" firstAttribute="top" secondItem="cB8-eo-llu" secondAttribute="top" constant="10" id="bBd-Il-wro"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="trailing" secondItem="0jb-Ol-s0r" secondAttribute="trailing" id="c1t-o2-m1k"/>
                             <constraint firstItem="ZJr-hz-P1r" firstAttribute="leading" secondItem="BBL-H6-O3S" secondAttribute="leading" id="dm7-Ih-dr2"/>
+                            <constraint firstItem="VHV-s1-0AD" firstAttribute="trailing" secondItem="BBL-H6-O3S" secondAttribute="trailing" id="eQu-4i-GwO"/>
                             <constraint firstItem="cB8-eo-llu" firstAttribute="top" secondItem="fTf-1B-Bed" secondAttribute="bottom" constant="10" id="fNR-wa-O5E"/>
+                            <constraint firstItem="VHV-s1-0AD" firstAttribute="leading" secondItem="BBL-H6-O3S" secondAttribute="leading" id="hr5-d7-aFD"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="leading" secondItem="F29-pF-pJp" secondAttribute="leading" id="k7i-8W-fqt"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="trailing" secondItem="F29-pF-pJp" secondAttribute="trailing" id="mn4-UL-Bsf"/>
                             <constraint firstItem="BBL-H6-O3S" firstAttribute="trailing" secondItem="FMa-kf-XtY" secondAttribute="trailing" id="oIp-91-vTZ"/>
@@ -8468,6 +8556,7 @@
                             <constraint firstItem="YI2-IB-fsZ" firstAttribute="centerY" secondItem="cB8-eo-llu" secondAttribute="centerY" id="ydC-Qv-jvc"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="pIX-7z-e5d"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="addressesListButton" destination="NgZ-4b-9oe" id="6lT-JS-nDy"/>
@@ -8485,7 +8574,7 @@
                         <outlet property="mapSuperView" destination="ZJr-hz-P1r" id="Toh-aT-Hbf"/>
                         <outlet property="mapView" destination="sPx-ek-hva" id="dq9-H4-rRz"/>
                         <outlet property="skipButton" destination="uAf-9D-Eh5" id="67Z-YA-GES"/>
-                        <outlet property="tblView" destination="ppX-fU-e0C" id="N9u-Bc-jRf"/>
+                        <outlet property="tblView" destination="VHV-s1-0AD" id="R1h-EM-Oh8"/>
                         <outlet property="titleLabel" destination="Eth-3A-QpG" id="tq6-aL-Fz8"/>
                         <outlet property="txtDropAddress" destination="XPM-5Y-fbX" id="inG-rD-fn4"/>
                         <outlet property="txtPickAddress" destination="iKR-ng-bZe" id="KjE-zx-bpA"/>
@@ -14932,6 +15021,7 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                         <connections>
                                             <action selector="showAddressPickerViewController:" destination="rSp-WG-pwC" eventType="touchUpInside" id="7wD-8q-ObU"/>
+                                            <segue destination="2HM-Qh-ieS" kind="presentation" identifier="SegueToXpressAddressScreen" modalPresentationStyle="fullScreen" id="k28-bN-AcN"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DNk-IU-Ygn">
@@ -15532,7 +15622,7 @@
         <segue reference="wbx-jh-53B"/>
         <segue reference="izn-m5-Pdm"/>
         <segue reference="Pyx-Gt-mlf"/>
-        <segue reference="4lO-1G-0fb"/>
+        <segue reference="k28-bN-AcN"/>
         <segue reference="UaL-kR-7Gj"/>
         <segue reference="ArU-ag-8ou"/>
         <segue reference="rqR-e6-HCz"/>
