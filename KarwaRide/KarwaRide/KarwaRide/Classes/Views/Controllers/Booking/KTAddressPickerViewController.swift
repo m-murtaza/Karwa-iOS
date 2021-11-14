@@ -762,7 +762,9 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       titleLabel.text = "txt_set_drop_off".localized()
       clearButtonPickup.isHidden = true
       clearButtonDestination.isHidden = false
-        self.getDestinationForPickUp()
+        if self.metroStations.count != 0 {
+            self.getDestinationForPickUp()
+        }
     }
     else {
       selectedTxtField = SelectedTextField.PickupAddress
@@ -1114,7 +1116,7 @@ extension KTAddressPickerViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if self.metroStations.count == 0 {
-            (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath.row, type: selectedTxtField)
+            (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath, type: selectedTxtField)
         } else {
             let type = selectedTxtField
             self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField), type: type)

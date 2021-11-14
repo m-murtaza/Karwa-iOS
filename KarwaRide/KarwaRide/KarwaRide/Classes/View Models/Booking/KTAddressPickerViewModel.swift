@@ -429,30 +429,95 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       
     }
 
-  func didSelectRow(at idx:Int, type:SelectedTextField) {
+  func didSelectRow(at idx: IndexPath, type:SelectedTextField) {
       
     if type == SelectedTextField.PickupAddress {
                 
-      pickUpAddress = locations[idx]
     
-        if !locations[idx].favoriteName.isEmpty {
-          let title = locations[idx].favoriteName
-            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
-        } else {
-            let title = locations[idx].name!
-              (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+//        if !locations[idx].favoriteName.isEmpty {
+//          let title = locations[idx].favoriteName
+//            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+//        } else {
+//            let title = locations[idx].name!
+//              (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+//        }
+        
+        if idx.section == 0 {
+            var area : String = ""
+            
+            pickUpAddress = locations[idx.row]
+
+            if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
+              area = locations[idx.row].name!
+            }
+            else if locations[idx.row].area != nil {
+              area = locations[idx.row].area!
+            }
+
+            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: area)
+
+        } else if idx.section == 1 {
+            var area : String = ""
+            
+            pickUpAddress = bookmarks[idx.row]
+
+            if idx.row < bookmarks.count  {
+                if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
+                  area = bookmarks[idx.row].name!
+                }
+                else if bookmarks[idx.row].area != nil {
+                  area = bookmarks[idx.row].area!
+                }
+            } else {
+                area = ""
+            }
+                    
+            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: area)
         }
         
     }
     else {
-      dropOffAddress = locations[idx]
+//      dropOffAddress = locations[idx]
+//
+//        if !locations[idx].favoriteName.isEmpty {
+//          let title = locations[idx].favoriteName
+//            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+//        } else {
+//            let title = locations[idx].name!
+//            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+//        }
         
-        if !locations[idx].favoriteName.isEmpty {
-          let title = locations[idx].favoriteName
-            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
-        } else {
-            let title = locations[idx].name!
-            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+        if idx.section == 0 {
+            var area : String = ""
+            
+            dropOffAddress = locations[idx.row]
+
+            if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
+              area = locations[idx.row].name!
+            }
+            else if locations[idx.row].area != nil {
+              area = locations[idx.row].area!
+            }
+
+            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: area)
+
+        } else if idx.section == 1 {
+            var area : String = ""
+            
+            dropOffAddress = bookmarks[idx.row]
+
+            if idx.row < bookmarks.count  {
+                if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
+                  area = bookmarks[idx.row].name!
+                }
+                else if bookmarks[idx.row].area != nil {
+                  area = bookmarks[idx.row].area!
+                }
+            } else {
+                area = ""
+            }
+                    
+            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: area)
         }
         
     }
