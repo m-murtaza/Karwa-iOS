@@ -378,6 +378,7 @@ class KTCreateBookingViewController:
     collectionView.delegate = self
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.backgroundColor = .clear
     tableView.isScrollEnabled = false
 //    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
@@ -482,6 +483,12 @@ class KTCreateBookingViewController:
             bottomSheet.cornerRadius = 30.0
             bottomSheet.allowGestureThroughOverlay = false
             bottomSheet.animateIn(to: view, in: self)
+            
+            bottomSheet.didDismiss = { [weak self] _ in
+                guard let `self` = self else {return}
+                (self.viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
+                self.updateVehicleTypeList()
+            }
             
             if let title = self.titleForRequestOrScheduleKarwa {
                 bottomSheetVC.setRequestButtonTitle(title: title)
