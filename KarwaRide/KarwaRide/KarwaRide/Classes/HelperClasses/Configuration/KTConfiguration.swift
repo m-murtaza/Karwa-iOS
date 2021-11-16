@@ -84,5 +84,7 @@ class KTConfiguration: NSObject {
         Constants.MERCHANT_ID = self.MERCHANT_ID!
         Constants.GATEWAY_REGION = self.GATEWAY_REGION!
         Constants.APPLE_PAY_MERCHANT_ID = self.APPLE_PAY_MERCHANT_ID!
+        
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.ENVIRONMENT, environment.rawValue)
     }
 }

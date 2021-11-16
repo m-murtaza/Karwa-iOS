@@ -96,9 +96,6 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         phoneNumberTextFieldBGView.customBorderWidth = 0
         passwordTextFieldView.customBorderWidth = 0
         
-        
-        KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .STAGE : .PROD)
-        KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
         setupLoginHeaderTap()
     }
   
