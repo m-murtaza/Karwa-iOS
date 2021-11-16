@@ -25,8 +25,11 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   @IBOutlet weak var passwordTextField: MDCFilledTextField!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var toggleEnvironmentButton: UIButton!
+    @IBOutlet weak var lblLoginHeader: UILabel!
   
   var countryList = CountryList()
+    var toggleEnvironmentClickCount = 0
   
   //MARK: -View LifeCycle
   override func viewDidLoad() {
@@ -93,6 +96,10 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         phoneNumberTextFieldBGView.customBorderWidth = 0
         passwordTextFieldView.customBorderWidth = 0
         
+        
+        KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .STAGE : .PROD)
+        KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
+        setupLoginHeaderTap()
     }
   
   deinit {
@@ -160,6 +167,26 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         } else if textField.tag == 11 {
             passwordTextFieldView.customBorderWidth = 0
         }
+    }
+    
+    func setupLoginHeaderTap() {
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.onLoginHeaderTap(_:)))
+        self.lblLoginHeader.isUserInteractionEnabled = true
+        self.lblLoginHeader.addGestureRecognizer(labelTap)
+    }
+    
+    @objc func onLoginHeaderTap(_ sender: UITapGestureRecognizer) {
+        self.toggleEnvironmentClickCount += 1
+        if self.toggleEnvironmentClickCount == 10 {
+            self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "STAGE", for: .normal)
+            self.toggleEnvironmentButton.isHidden = false
+        }
+    }
+    
+    @IBAction func toggleEnvironmentTapped(_ sender: Any) {
+        KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .PROD : .STAGE)
+        KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
+        self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "STAGE", for: .normal)
     }
   
   @IBAction func countrySelectorTapped(_ sender: Any) {

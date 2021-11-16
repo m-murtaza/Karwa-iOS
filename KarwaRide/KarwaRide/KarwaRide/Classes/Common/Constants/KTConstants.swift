@@ -115,9 +115,9 @@ struct Constants {
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
     /*                Live Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTRQNB01"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
-    static let APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
+    static var MERCHANT_ID:String = "KTRQNB01"
+    static var GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    static var APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
     /* ------------------------------------------------------------------ */
 
     /*                Test Payment Credentials                            */
