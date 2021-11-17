@@ -109,6 +109,15 @@ struct Device {
     }
 }
 
+enum Storyboard: String {
+    case MAIN = "Main"
+    case PROMOTIONS = "Promotions"
+    
+    func board()->String{
+        return self.rawValue
+    }
+}
+
 struct Constants {
     static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"

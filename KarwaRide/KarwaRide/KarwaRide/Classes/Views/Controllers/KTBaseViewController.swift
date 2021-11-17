@@ -111,6 +111,15 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         }
     }
     
+    //MARK: Get VC From Storyborad
+    func getVC(storyboard: Storyboard, vcIdentifier : String) -> UIViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: storyboard.board(), bundle: nil).instantiateViewController(identifier: vcIdentifier)
+        } else {
+            return UIStoryboard(name: storyboard.board(), bundle: nil).instantiateViewController(withIdentifier: vcIdentifier)
+        }
+    }
+    
     func viewStoryboard() -> UIStoryboard {
         return self.storyboard!
         
