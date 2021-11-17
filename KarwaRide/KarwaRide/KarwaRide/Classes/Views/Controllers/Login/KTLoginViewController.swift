@@ -175,7 +175,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     @objc func onLoginHeaderTap(_ sender: UITapGestureRecognizer) {
         self.toggleEnvironmentClickCount += 1
         if self.toggleEnvironmentClickCount == 10 {
-            self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "STAGE", for: .normal)
+            self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "PROD", for: .normal)
             self.toggleEnvironmentButton.isHidden = false
         }
     }
@@ -183,7 +183,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     @IBAction func toggleEnvironmentTapped(_ sender: Any) {
         KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .PROD : .STAGE)
         KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
-        self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "STAGE", for: .normal)
+        self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "PROD", for: .normal)
     }
   
   @IBAction func countrySelectorTapped(_ sender: Any) {
