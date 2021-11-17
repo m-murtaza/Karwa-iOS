@@ -30,7 +30,7 @@ let SEC_WAIT_START_SEARCH = 1.0
 let SELECTED_TEXT_FIELD_COLOR : UIColor = UIColor(hexString: "#F5F5F5")
 
 class KTAddressPickerViewController: KTBaseViewController,
-KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, GMSMapViewDelegate, AddressPickerCellDelegate {
+KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, GMSMapViewDelegate, AddressPickerCellDelegate, KTXpressFavoriteDelegate {
   
   @IBOutlet weak var tblView: UITableView!
   @IBOutlet weak var txtPickAddress: UITextField!
@@ -44,7 +44,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   @IBOutlet weak var skipButton: UIButton!
   @IBOutlet weak var addressesListButton: UIButton!
   @IBOutlet weak var favouritesListButton: UIButton!
-  
+    @IBOutlet weak var setOnMapLabel: UILabel!
   @IBOutlet weak var mapOptionsContainer: UIView!
   
   @IBOutlet weak var btnHome : UIButton!
@@ -61,6 +61,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   public var dropoffAddress : KTGeoLocation?
   var delegateAddress: KTXpressAddressDelegate?
   var metroStations = [Area]()
+    var keyboardShowing = false
   var destinationForPickUp = [Area]()
     var fromDropOff = true
     var pickUpAddressName = ""
@@ -101,6 +102,11 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   private var removeTxtFromTextBox : Bool = true
   
   override func viewDidLoad() {
+      
+      self.tblView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
+      
+    self.setOnMapLabel.text = "txt_set_on_maps".localized()
+
     viewModel = KTAddressPickerViewModel(del:self)
     
     (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
@@ -139,7 +145,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
         } else {
             // Fallback on earlier versions
         }
-        self.tblView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        self.tblView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
     }
   
@@ -217,20 +223,17 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   }
   
   //MARK: - Notification
-  @objc func keyboardWillShow(notification: NSNotification) {
-    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size {
-      
-      constraintTableViewBottom.constant = keyboardSize.height
-
+    @objc func keyboardWillShow(notification: NSNotification) {
+        // read the CGRect from the notification (if any)
+        if let newFrame = (notification.userInfo?[ UIKeyboardFrameEndUserInfoKey ] as? NSValue)?.cgRectValue {
+            let insets = UIEdgeInsetsMake( 0, 0, 300, 0 )
+            tblView.contentInset = insets
+            tblView.scrollIndicatorInsets = insets
+        }
     }
-  }
   
   @objc func keyboardWillHide(notification: NSNotification) {
-    if ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-
-      constraintTableViewBottom.constant = 0
-
-    }
+//      tblView.contentInset = .zero
   }
   
   
@@ -414,7 +417,32 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   
   @IBAction func btnMapViewTapped(_ sender: Any)
   {
-    toggleToMapView()
+      
+      if mapSuperView.isHidden == false {
+          self.tblView.isHidden = false
+          self.mapSuperView.isHidden = true
+          
+          txtDropAddress.inputView = nil
+          txtPickAddress.inputView = nil
+        
+          
+          selectedInputMechanism = SelectedInputMechanism.ListView
+          
+      //    txtPickAddress.tintColor = UIColor(hexString:"#006170")
+      //    txtPickAddress.backgroundColor = UIColor.white
+      //    txtDropAddress.tintColor = UIColor(hexString:"#006170")
+      //    txtDropAddress.backgroundColor = UIColor.white
+         
+          self.txtPickAddress.tintColor = UIColor.primary
+          self.txtDropAddress.tintColor = UIColor.primary
+
+          self.setOnMapLabel.text = "txt_set_on_maps".localized()
+      } else {
+          toggleToMapView()
+          self.setOnMapLabel.text = "str_show_list".localized()
+          
+      }
+      
   }
   
   @IBAction func btnFavoritesViewTapped(_ sender: Any) {
@@ -656,21 +684,33 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
      - Focus on Pickup field
      */
   }
-  
-  func navigateToFavoriteScreen(location: KTGeoLocation?) {
-    let vc = KTFavoriteAddressViewController()
-    vc.favoritelocation = location
-
-    vc.modalPresentationStyle = .fullScreen
-//    if #available(iOS 13.0, *)
-//    {
-//        vc.modalPresentationStyle = .automatic
-//    } else
-//    {
+    
+//    func navigateToFavoriteScreen(location: KTGeoLocation?) {
+//        let vc = KTXpressFavoriteAddressViewController()
+//        vc.favoritelocation = location
+//        vc.xpressFavoriteDelegate = self
 //        vc.modalPresentationStyle = .fullScreen
+//        self.present(vc, animated: true, completion: nil)
 //    }
-    self.present(vc, animated: true, completion: nil)
-  } 
+    
+    func savedFavorite() {
+        (viewModel as! KTAddressPickerViewModel).fetchLocations(forSearch: searchText)
+    }
+  
+    func navigateToFavoriteScreen(location: KTGeoLocation?) {
+        let vc = KTFavoriteAddressViewController()
+        vc.favoritelocation = location
+        vc.xpressFavoriteDelegate = self
+        vc.modalPresentationStyle = .fullScreen
+        //    if #available(iOS 13.0, *)
+        //    {
+        //        vc.modalPresentationStyle = .automatic
+        //    } else
+        //    {
+        //        vc.modalPresentationStyle = .fullScreen
+        //    }
+        self.present(vc, animated: true, completion: nil)
+    }
   
   func refineDropOff()
   {
@@ -780,6 +820,34 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     removeTxtFromTextBox = true
     if selectedInputMechanism == SelectedInputMechanism.MapView {
       
+      self.setOnMapLabel.text = "str_show_list".localized()
+
+        if selectedTxtField == SelectedTextField.PickupAddress
+        {
+            print(self.pickUpTxt())
+            self.txtPickAddress.tintColor = UIColor.white
+            self.txtPickAddress.superview?.addExternalBorder(borderWidth: 2.0,
+                                                   borderColor: UIColor.primary,
+                                                   cornerRadius: 8.0)
+            self.txtPickAddress.superview?.backgroundColor = UIColor.white
+            self.txtDropAddress.superview?.removeExternalBorders()
+            self.txtDropAddress.superview?.backgroundColor = UIColor.clear
+            self.txtDropAddress.tintColor = UIColor.primary
+
+        }
+        else
+        {
+            self.txtDropAddress.superview?.addExternalBorder(borderWidth: 2.0,
+                                                   borderColor: UIColor.primary,
+                                                   cornerRadius: 8.0)
+            self.txtDropAddress.superview?.backgroundColor = UIColor.white
+            self.txtPickAddress.superview?.removeExternalBorders()
+            self.txtPickAddress.superview?.backgroundColor = UIColor.clear
+            self.txtDropAddress.tintColor = UIColor.white
+            self.txtPickAddress.tintColor = UIColor.primary
+
+
+        }
       if(zoomForPickupRequired)
       {
         zoomForPickupRequired = false
@@ -815,6 +883,11 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     textField.superview?.backgroundColor = UIColor.clear
     return true
   }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
   func textFieldDidEndEditing(_ textField: UITextField) {
     //print("---textFieldDidEndEditing---")
     clearButtonPickup.isHidden = true

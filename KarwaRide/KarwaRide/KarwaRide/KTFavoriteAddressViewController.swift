@@ -15,7 +15,7 @@ class KTFavoriteAddressViewController: KTBaseViewController, UITextFieldDelegate
     @IBOutlet weak var navigationBar: UIView!
     @IBOutlet weak var locationNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var locationTextField: SkyFloatingLabelTextField!
-    
+    var xpressFavoriteDelegate: KTXpressFavoriteDelegate?
     var favoritelocation: KTGeoLocation?
     
     override func viewDidLoad() {
@@ -99,6 +99,7 @@ extension KTFavoriteAddressViewController: KTAddressFavoriteViewModelDelegate {
     func locationSavedSuccessfully(location: KTGeoLocation) {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            self.xpressFavoriteDelegate?.savedFavorite()
             self.dismiss(animated: true, completion: nil)
         })
         

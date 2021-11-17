@@ -150,6 +150,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     if work != nil && work!.bookmarkToGeoLocation != nil{
       bookmarks.append(work!.bookmarkToGeoLocation!)
     }
+      if let favorites = KTBookmarkManager().fetchAllFavorites() {
+          favorites.forEach( { bookmarks.append( $0.toGeolocation() )})
+      }
   }
   
   func filterArray(ForLocationType type : geoLocationType , serverResponse locs: [KTGeoLocation]) -> [KTGeoLocation]{
@@ -547,14 +550,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       {
           
           if let pick = pickUpAddress as? KTGeoLocation, let dropoff = dropOffAddress as? KTGeoLocation {
-              if (pick.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || pick.favoriteName == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt()) && (isSkippedPressed || dropoff.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt() || dropoff.favoriteName == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()  )
+              if isSkippedPressed
               {
-                if isSkippedPressed
-                {
-                  dropOffAddress = nil
-                }
-                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+                dropOffAddress = nil
               }
+              (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
           } else {
               (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
           }
@@ -623,11 +623,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       func setFavorite(forIndex idxPath: IndexPath) {
           if idxPath.section == 0{
               let location : KTGeoLocation = locations[idxPath.row]
-              (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
+              (delegate as! KTAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
           }
           if idxPath.section == 1{
               let location : KTGeoLocation = bookmarks[idxPath.row]
-              (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
+              (delegate as! KTAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
           }
         
       }
