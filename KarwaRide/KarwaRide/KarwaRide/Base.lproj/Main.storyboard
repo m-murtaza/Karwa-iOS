@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-cl-kCl">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1592,10 +1592,27 @@
                                                     <constraint firstAttribute="height" constant="30" id="xgn-Ij-oSL"/>
                                                 </constraints>
                                             </view>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hON-ar-vUb">
+                                                <rect key="frame" x="133" y="20" width="54.5" height="31"/>
+                                                <color key="backgroundColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Prod"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="toggleEnvironmentTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kh2-R9-cBh"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstItem="hON-ar-vUb" firstAttribute="centerX" secondItem="FeR-2v-S4Y" secondAttribute="centerX" id="KNB-vW-Pyl"/>
                                             <constraint firstItem="orN-4c-7Mp" firstAttribute="top" secondItem="FeR-2v-S4Y" secondAttribute="top" constant="20" id="RD4-Fq-m31"/>
+                                            <constraint firstItem="hON-ar-vUb" firstAttribute="top" secondItem="FeR-2v-S4Y" secondAttribute="top" constant="20" symbolic="YES" id="Rao-PS-AaE"/>
                                             <constraint firstItem="yR2-3e-uTJ" firstAttribute="trailing" secondItem="eaQ-AX-B8K" secondAttribute="trailing" id="Tfn-4X-7jK"/>
                                             <constraint firstItem="orN-4c-7Mp" firstAttribute="leading" secondItem="FeR-2v-S4Y" secondAttribute="leading" id="UAN-hn-3ZQ"/>
                                             <constraint firstAttribute="trailing" secondItem="ZGz-l3-RZ5" secondAttribute="trailing" constant="22" id="Wll-x3-DUD"/>
@@ -1640,12 +1657,14 @@
                     <connections>
                         <outlet property="backButton" destination="orN-4c-7Mp" id="qOW-ae-eHa"/>
                         <outlet property="lblCountryCode" destination="sbQ-SS-6IA" id="wZn-Vz-aQ2"/>
+                        <outlet property="lblLoginHeader" destination="ZGz-l3-RZ5" id="iB2-ot-ggZ"/>
                         <outlet property="loginButton" destination="yor-Xf-cZL" id="EaC-aS-1Zh"/>
                         <outlet property="passwordTextField" destination="bQL-8Y-veV" id="Qtw-Qi-FUB"/>
                         <outlet property="passwordTextFieldView" destination="8Gi-df-3g7" id="4zx-FB-YOf"/>
                         <outlet property="phoneNumberTextField" destination="fUl-1Z-LQc" id="V3e-Yd-sAh"/>
                         <outlet property="phoneNumberTextFieldBGView" destination="g49-UR-VFQ" id="mRc-gR-ull"/>
                         <outlet property="scrollView" destination="Xy2-G5-XeW" id="9Ia-Kq-s15"/>
+                        <outlet property="toggleEnvironmentButton" destination="hON-ar-vUb" id="bLX-aA-cmG"/>
                         <segue destination="uVu-F4-Ovh" kind="show" identifier="segueToBooking" id="bsC-QL-uBN"/>
                         <segue destination="4DU-b4-Mvb" kind="presentation" identifier="segueLoginToOTP" id="uRk-Bz-EyY"/>
                     </connections>
@@ -2987,14 +3006,14 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="iR4-PC-91f" customClass="KTCoachmarkOneViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="cr7-jm-5Ny">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="coachmark1_background" translatesAutoresizingMaskIntoConstraints="NO" id="o8b-WK-1V9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_set_destination" translatesAutoresizingMaskIntoConstraints="NO" id="yrB-gH-nyK" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="422" width="320" height="79"/>
+                                <rect key="frame" x="0.0" y="402" width="320" height="79"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
@@ -3005,7 +3024,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark1_down_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Qx-LE-1va" customClass="KTSpringImageView" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="153" y="276" width="14" height="153"/>
+                                <rect key="frame" x="153" y="256" width="14" height="153"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animation" value="slideDown"/>
@@ -3043,17 +3062,17 @@
             <objects>
                 <viewController id="9yX-87-tAm" customClass="KTCoachmarkTwoViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WuF-aE-JhM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="coachmark2_background" translatesAutoresizingMaskIntoConstraints="NO" id="HfI-FX-g8l">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_cards" translatesAutoresizingMaskIntoConstraints="NO" id="hF5-Yn-Chi">
-                                <rect key="frame" x="-27.5" y="253" width="375" height="62"/>
+                                <rect key="frame" x="-27.5" y="243" width="375" height="62"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coachmark2_swipe_hand" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-rY-Z7v">
-                                <rect key="frame" x="148" y="388.5" width="24" height="39"/>
+                                <rect key="frame" x="148" y="378.5" width="24" height="39"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="USs-BK-q2R"/>
@@ -4450,7 +4469,7 @@
                 <navigationController storyboardIdentifier="SettingsNavigationController" id="8ld-0p-5OO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="settings_ico_idle" selectedImage="settings_ico_active" id="tUT-zD-BvX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z63-wu-xKn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -4760,11 +4779,11 @@
             <objects>
                 <viewController id="zZa-3z-CbZ" customClass="KTSettingsViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MM6-8P-ho7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Q1K-f7-fJp">
-                                <rect key="frame" x="0.0" y="44" width="320" height="443"/>
+                                <rect key="frame" x="0.0" y="56" width="320" height="431"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.98039215686274506" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userInfoCellIdentifier" rowHeight="80" id="Xon-4r-yED" customClass="KTSettingsProfileTableViewCell" customModule="KarwaRide" customModuleProvider="target">
@@ -4961,11 +4980,11 @@
             <objects>
                 <viewController id="EQh-Tc-xlS" customClass="KTEditAccountViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VRe-zL-Djg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UbI-Rt-8eO">
-                                <rect key="frame" x="0.0" y="44" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="56" width="320" height="443"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="identifierProfileCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="identifierProfileCell" id="eRV-dJ-jL5" customClass="KTProfileCellViewController" customModule="KarwaRide" customModuleProvider="target">
@@ -5486,13 +5505,13 @@
                                                 <rect key="frame" x="0.0" y="300" width="417" height="78"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhO-Cu-rws" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                        <rect key="frame" x="114" y="36.5" width="8.5" height="17"/>
+                                                        <rect key="frame" x="102" y="36.5" width="8.5" height="17"/>
                                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="14"/>
                                                         <color key="textColor" red="0.14855980869999999" green="0.67063504460000001" blue="0.94890063999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-capacity" translatesAutoresizingMaskIntoConstraints="NO" id="i2J-YU-Bgj" customClass="SpringImageView" customModule="Spring">
-                                                        <rect key="frame" x="101" y="39.5" width="10.5" height="10.5"/>
+                                                        <rect key="frame" x="89" y="39.5" width="10.5" height="10.5"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="taxiplate" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-GA-ADc">
                                                         <rect key="frame" x="290" y="19" width="107" height="36"/>
@@ -5511,7 +5530,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Luxury Limo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqG-b3-6UH" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
-                                                        <rect key="frame" x="101" y="19" width="99" height="20.5"/>
+                                                        <rect key="frame" x="89" y="19" width="99" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="17"/>
                                                         <color key="textColor" red="0.13725490196078433" green="0.62352941176470589" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -6967,11 +6986,11 @@
             <objects>
                 <viewController id="H7q-4G-kKr" customClass="KTChangePasswordViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vLi-5u-6DP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRH-af-ndf" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="12.5" y="94" width="295" height="150"/>
+                                <rect key="frame" x="12.5" y="106" width="295" height="150"/>
                                 <subviews>
                                     <textField opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zAV-OZ-iHi">
                                         <rect key="frame" x="20" y="10" width="255" height="30"/>
@@ -7068,7 +7087,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKI-lM-zdp" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="12.5" y="264" width="295" height="51"/>
+                                <rect key="frame" x="12.5" y="276" width="295" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="ejX-My-JAB"/>
                                 </constraints>
@@ -10221,7 +10240,7 @@
                                 <rect key="frame" x="19" y="536" width="282" height="32"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9g-KR-Wfp" customClass="LocalisableSpringButton" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="145" y="483" width="30" height="30"/>
+                                <rect key="frame" x="87" y="483" width="146" height="30"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="addNewCardText"/>
@@ -15267,11 +15286,17 @@
         <designable name="2bl-4T-5Mw">
             <size key="intrinsicContentSize" width="8" height="18"/>
         </designable>
+        <designable name="3Hf-ht-uDd">
+            <size key="intrinsicContentSize" width="30" height="34"/>
+        </designable>
         <designable name="4th-k2-d64">
-            <size key="intrinsicContentSize" width="56" height="33"/>
+            <size key="intrinsicContentSize" width="154" height="33"/>
         </designable>
         <designable name="5T3-Uj-K2f">
-            <size key="intrinsicContentSize" width="82" height="18"/>
+            <size key="intrinsicContentSize" width="140" height="18"/>
+        </designable>
+        <designable name="5q4-Cd-UaS">
+            <size key="intrinsicContentSize" width="106" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
             <size key="intrinsicContentSize" width="115" height="28"/>
@@ -15280,7 +15305,7 @@
             <size key="intrinsicContentSize" width="22" height="22"/>
         </designable>
         <designable name="6NY-oE-lGj">
-            <size key="intrinsicContentSize" width="56" height="33"/>
+            <size key="intrinsicContentSize" width="154" height="33"/>
         </designable>
         <designable name="81E-Eu-8Ta">
             <size key="intrinsicContentSize" width="18" height="22"/>
@@ -15343,10 +15368,10 @@
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
         <designable name="Nee-d3-YeR">
-            <size key="intrinsicContentSize" width="93" height="32"/>
+            <size key="intrinsicContentSize" width="154" height="32"/>
         </designable>
         <designable name="NgZ-4b-9oe">
-            <size key="intrinsicContentSize" width="30" height="27"/>
+            <size key="intrinsicContentSize" width="94" height="27"/>
         </designable>
         <designable name="NpP-xz-DD4">
             <size key="intrinsicContentSize" width="88" height="33"/>
@@ -15379,7 +15404,7 @@
             <size key="intrinsicContentSize" width="44" height="44"/>
         </designable>
         <designable name="Wf6-CN-Uvh">
-            <size key="intrinsicContentSize" width="77" height="32"/>
+            <size key="intrinsicContentSize" width="105" height="32"/>
         </designable>
         <designable name="X0C-dC-8Uf">
             <size key="intrinsicContentSize" width="118" height="23"/>
@@ -15400,7 +15425,7 @@
             <size key="intrinsicContentSize" width="117" height="30"/>
         </designable>
         <designable name="YNq-qv-GJ6">
-            <size key="intrinsicContentSize" width="64" height="27"/>
+            <size key="intrinsicContentSize" width="134" height="27"/>
         </designable>
         <designable name="Ywc-ER-MCh">
             <size key="intrinsicContentSize" width="293" height="51"/>
@@ -15430,7 +15455,7 @@
             <size key="intrinsicContentSize" width="46" height="46"/>
         </designable>
         <designable name="d6U-1t-VSx">
-            <size key="intrinsicContentSize" width="77" height="32"/>
+            <size key="intrinsicContentSize" width="105" height="32"/>
         </designable>
         <designable name="dC3-qe-jY0">
             <size key="intrinsicContentSize" width="82" height="30"/>
@@ -15442,6 +15467,9 @@
             <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="eKI-lM-zdp">
+            <size key="intrinsicContentSize" width="293" height="51"/>
+        </designable>
+        <designable name="eMk-bz-O43">
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
         <designable name="efC-ko-7kP">
@@ -15458,6 +15486,9 @@
         </designable>
         <designable name="f0K-tT-fnX">
             <size key="intrinsicContentSize" width="30" height="28"/>
+        </designable>
+        <designable name="g26-sc-neA">
+            <size key="intrinsicContentSize" width="111" height="30"/>
         </designable>
         <designable name="g5N-xp-b2J">
             <size key="intrinsicContentSize" width="8" height="22"/>
@@ -15496,7 +15527,7 @@
             <size key="intrinsicContentSize" width="324" height="0.0"/>
         </designable>
         <designable name="nr8-tk-IiJ">
-            <size key="intrinsicContentSize" width="61" height="28"/>
+            <size key="intrinsicContentSize" width="100" height="28"/>
         </designable>
         <designable name="oKt-NC-2ya">
             <size key="intrinsicContentSize" width="34" height="12"/>
@@ -15511,13 +15542,16 @@
             <size key="intrinsicContentSize" width="210" height="34"/>
         </designable>
         <designable name="reb-CT-FPd">
-            <size key="intrinsicContentSize" width="43" height="28"/>
+            <size key="intrinsicContentSize" width="98" height="28"/>
+        </designable>
+        <designable name="s4S-Ie-zjk">
+            <size key="intrinsicContentSize" width="73" height="13"/>
         </designable>
         <designable name="sdB-dk-IpL">
             <size key="intrinsicContentSize" width="117" height="29"/>
         </designable>
         <designable name="tKf-7W-zEH">
-            <size key="intrinsicContentSize" width="63" height="28"/>
+            <size key="intrinsicContentSize" width="110" height="28"/>
         </designable>
         <designable name="tdt-g2-IHo">
             <size key="intrinsicContentSize" width="105" height="28"/>
@@ -15540,6 +15574,9 @@
         <designable name="vh2-Ed-Oax">
             <size key="intrinsicContentSize" width="60" height="60"/>
         </designable>
+        <designable name="x9g-KR-Wfp">
+            <size key="intrinsicContentSize" width="146" height="30"/>
+        </designable>
         <designable name="xfy-kF-trT">
             <size key="intrinsicContentSize" width="104" height="33"/>
         </designable>
@@ -15556,7 +15593,7 @@
             <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="zVi-P8-zx1">
-            <size key="intrinsicContentSize" width="58" height="20"/>
+            <size key="intrinsicContentSize" width="120" height="20"/>
         </designable>
         <designable name="zcc-f8-WEv">
             <size key="intrinsicContentSize" width="293" height="51"/>
@@ -15564,7 +15601,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="wbx-jh-53B"/>
-        <segue reference="izn-m5-Pdm"/>
+        <segue reference="bsC-QL-uBN"/>
         <segue reference="Pyx-Gt-mlf"/>
         <segue reference="4lO-1G-0fb"/>
         <segue reference="UaL-kR-7Gj"/>
@@ -15665,14 +15702,14 @@
         <image name="ico_more_options" width="4" height="12"/>
         <image name="ico_moreinfo" width="12" height="12"/>
         <image name="ico_wallet_new" width="16" height="16"/>
-        <image name="icon-accessible-taxi" width="1667" height="906"/>
+        <image name="icon-accessible-taxi" width="756" height="409"/>
         <image name="icon-arrow-right-large" width="7" height="12.5"/>
         <image name="icon-capacity" width="10.5" height="10.5"/>
         <image name="icon-cash-new" width="23" height="16"/>
         <image name="icon-clear-button" width="18" height="18"/>
         <image name="icon-close-booking" width="46" height="46"/>
-        <image name="icon-family-taxi" width="1525" height="777"/>
-        <image name="icon-karwa-taxi" width="1574" height="678"/>
+        <image name="icon-family-taxi" width="4000" height="2108"/>
+        <image name="icon-karwa-taxi" width="3564" height="1652"/>
         <image name="icon-more-info-blue" width="13" height="13"/>
         <image name="icon-more-info-white" width="17" height="17"/>
         <image name="icon-pickup-to-dest" width="17" height="22.5"/>
