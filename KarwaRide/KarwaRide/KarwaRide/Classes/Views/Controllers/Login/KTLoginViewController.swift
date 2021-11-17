@@ -25,11 +25,11 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   @IBOutlet weak var passwordTextField: MDCFilledTextField!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var toggleEnvironmentButton: UIButton!
-    @IBOutlet weak var lblLoginHeader: UILabel!
+  @IBOutlet weak var toggleEnvironmentButton: UIButton!
+  @IBOutlet weak var lblLoginHeader: UILabel!
   
   var countryList = CountryList()
-    var toggleEnvironmentClickCount = 0
+  var toggleEnvironmentClickCount = 0
   
   //MARK: -View LifeCycle
   override func viewDidLoad() {
