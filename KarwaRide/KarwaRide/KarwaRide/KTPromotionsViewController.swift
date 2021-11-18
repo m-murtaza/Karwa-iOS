@@ -16,6 +16,9 @@ class KTPromotionsViewController: KTBaseViewController {
     private var vModel : KTPromotionsViewModel?
     private let refreshControl = UIRefreshControl()
     
+    private var selectedIndex: IndexPath?
+    private var isShowMore: Bool = false
+    
     override func viewDidLoad() {
         if viewModel == nil
         {
@@ -25,6 +28,7 @@ class KTPromotionsViewController: KTBaseViewController {
         super.viewDidLoad()
         
         setupView()
+        setupTBL()
         addMenuButton()
     }
     
@@ -94,21 +98,44 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : KTMyTripsTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyTripsReuseIdentifier") as! KTMyTripsTableViewCell
+        let cell: KTPromotionCell = tableView.dequeueReusableCell(withIdentifier: String(describing: KTPromotionCell.self)) as! KTPromotionCell
         
+        var isSelected = false
+        if let selectedIndex = self.selectedIndex, selectedIndex == indexPath {
+            isSelected = true
+        }
+        cell.isShowMore = isSelected ? self.isShowMore : false
+        cell.index = indexPath
+        cell.configCell(isSelected: isSelected)
+        cell.onClickShowMore = { [weak self] (isShowMore, index) in
+            guard let `self` = self else {return}
+            self.isShowMore = !isShowMore
+            self.selectedIndex = index
+            self.tableView.reloadData()
+        }
+        cell.selectionStyle = .none
         animateCell(cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        self.selectedIndex = indexPath
+        self.isShowMore = true
+        self.tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     private func setupTBL(){
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
+        self.tableView.register(UINib(nibName: String(describing: KTPromotionCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: KTPromotionCell.self))
         self.tableView.separatorStyle = .none
+        self.tableView.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension
         
         refreshControl.attributedTitle = NSAttributedString(string: "")
         self.refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)

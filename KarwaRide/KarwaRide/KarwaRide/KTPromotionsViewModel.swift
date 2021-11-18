@@ -29,6 +29,7 @@ class KTPromotionsViewModel: KTBaseViewModel {
     
     func fetchPromotions()  {
         delegate?.showProgressHud(show: true)
+        promotions = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
         if (self.promotions?.count ?? 0) > 0 {
             (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
         }
