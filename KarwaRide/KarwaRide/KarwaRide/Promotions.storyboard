@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="MuseoSans-900.otf">
+            <string>MuseoSans-900</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="1pZ-bS-B2q">
@@ -82,6 +87,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnr-Mw-eTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="537.68115942028987" y="3750.0000000000005"/>
+        </scene>
+        <!--KTPromotionsBottomSheetVC-->
+        <scene sceneID="7yJ-Dt-DlJ">
+            <objects>
+                <viewController storyboardIdentifier="KTPromotionsBottomSheetVC" title="KTPromotionsBottomSheetVC" id="EdT-y9-A7P" customClass="KTPromotionsBottomSheetVC" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HRZ-9s-XD0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Codes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-p2-Xh0">
+                                <rect key="frame" x="18" y="44" width="117.5" height="22"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-bu-8jO">
+                                <rect key="frame" x="0.0" y="76" width="414" height="820"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="EdT-y9-A7P" id="GCO-Ku-exi"/>
+                                    <outlet property="delegate" destination="EdT-y9-A7P" id="15c-HG-cQt"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="E8e-CK-st2"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="E8e-CK-st2" firstAttribute="trailing" secondItem="bC0-bu-8jO" secondAttribute="trailing" id="7k2-9U-O8T"/>
+                            <constraint firstItem="3OD-p2-Xh0" firstAttribute="top" secondItem="E8e-CK-st2" secondAttribute="top" id="CGo-in-thh"/>
+                            <constraint firstItem="bC0-bu-8jO" firstAttribute="top" secondItem="3OD-p2-Xh0" secondAttribute="bottom" constant="10" id="IQP-nT-Biy"/>
+                            <constraint firstAttribute="bottom" secondItem="bC0-bu-8jO" secondAttribute="bottom" id="Lbn-tc-fgB"/>
+                            <constraint firstItem="bC0-bu-8jO" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="TuK-pJ-09e"/>
+                            <constraint firstItem="3OD-p2-Xh0" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" constant="18" id="nek-29-8BU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Promotions" id="geP-Nh-VK4"/>
+                    <connections>
+                        <outlet property="tableView" destination="bC0-bu-8jO" id="t3w-LG-adk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V6G-ao-XNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1260.8695652173915" y="3750"/>
         </scene>
     </scenes>
     <resources>

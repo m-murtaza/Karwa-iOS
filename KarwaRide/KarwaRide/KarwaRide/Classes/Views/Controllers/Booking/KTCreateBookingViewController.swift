@@ -749,13 +749,36 @@ class KTCreateBookingViewController:
   // ----------------------------------------------------
   func showPromoInputDialog(currentPromo : String)
   {
-    let promoPopup = storyboard?.instantiateViewController(withIdentifier: "PromoCodePopupVC") as! PromoCodePopupVC
-    promoPopup.previousView = self
-    promoPopup.previousPromo = currentPromo
-    promoPopup.view.frame = self.view.bounds
-    view.addSubview(promoPopup.view)
-    addChildViewController(promoPopup)
+//    let promoPopup = storyboard?.instantiateViewController(withIdentifier: "PromoCodePopupVC") as! PromoCodePopupVC
+//    promoPopup.previousView = self
+//    promoPopup.previousPromo = currentPromo
+//    promoPopup.view.frame = self.view.bounds
+//    view.addSubview(promoPopup.view)
+//    addChildViewController(promoPopup)
+      
+      self.showPromoBottomSheet()
   }
+    
+    private func showPromoBottomSheet() {
+        let bottomSheetVC = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: String(describing: KTPromotionsBottomSheetVC.self)) as! KTPromotionsBottomSheetVC
+        let bottomSheet = SheetViewController(
+            controller: bottomSheetVC,
+            sizes: [.percent(0.70), .marginFromTop(80)],
+            options: SheetOptions(useInlineMode: true))
+        bottomSheetVC.sheet = bottomSheet
+        bottomSheet.allowPullingPastMaxHeight = true
+        bottomSheet.allowPullingPastMinHeight = true
+        
+        bottomSheet.dismissOnPull = true
+        bottomSheet.dismissOnOverlayTap = true
+        bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.5)
+        bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+        bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
+        bottomSheet.contentViewController.view.layer.shadowRadius = 10
+        bottomSheet.cornerRadius = 30.0
+        bottomSheet.allowGestureThroughOverlay = false
+        bottomSheet.animateIn(to: view, in: self)
+    }
   
   func applyPromoTapped(_ enteredPromo: String)
   {

@@ -44,6 +44,13 @@ class KTPromotionCell: UITableViewCell {
         self.lblCode.text = "str_code".localized() + ": XYZ123"
     }
     
+    func configPromoBottomSheetCell() {
+        self.uiMain.borderWidth = 1
+        self.uiMain.cornerRadius = 14
+        self.uiDetailView.isHidden = true
+        self.lblSeeMore.isHidden = true
+    }
+    
     func setupShowMoreGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onShowMoreTapped(_:)))
         self.lblSeeMore.isUserInteractionEnabled = true
