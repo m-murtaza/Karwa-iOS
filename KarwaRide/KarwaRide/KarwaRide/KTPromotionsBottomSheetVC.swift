@@ -10,12 +10,18 @@ import UIKit
 import UBottomSheet
 import FittedSheets
 
-class KTPromotionsBottomSheetVC: KTBaseViewController, Draggable {
+class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tfPromoCode: UITextField!
+    @IBOutlet weak var btnApply: UIButton!
+    @IBOutlet weak var btnShowMore: UIButton!
     
-    var sheet: SheetViewController?
-    var sheetCoordinator: UBottomSheetCoordinator?
+    var sheet: SheetViewController? {
+        didSet {
+            self.setSheetClosure()
+        }
+    }
     private var vModel: KTPromotionsViewModel?
     
     override func viewDidLoad() {
@@ -26,19 +32,45 @@ class KTPromotionsBottomSheetVC: KTBaseViewController, Draggable {
         vModel = viewModel as? KTPromotionsViewModel
         super.viewDidLoad()
         
+        self.setupView()
         self.setupTBL()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        //adds pan gesture recognizer to draggableView()
-        sheetCoordinator?.startTracking(item: self)
+    private func setupView() {
+        btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .normal)
+        btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .highlighted)
+        let title = NSAttributedString(
+          string: "Apply",
+          attributes: [.font: UIFont(name: "MuseoSans-900", size: 9.0)!, .foregroundColor: UIColor.white]
+        )
+        btnApply.setAttributedTitle(title, for: .normal)
+        tfPromoCode.delegate = self
     }
+    
+    private func setSheetClosure() {
+        sheet?.sizeChanged = { [weak self] (sheetViewController, sheetSize, newHeight) in
+            guard let `self` = self else {return}
+            if sheetSize == .percent(0.70) {
+                self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
+            }
+            else {
+                self.btnShowMore.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func onClickShowMore(_ sender: Any) {
+        sheet?.resize(to: .marginFromTop(80), duration: 0.2, options: .curveEaseIn, animated: true) { [weak self] in
+            guard let `self` = self else {return}
+            self.btnShowMore.isHidden = true
+        }
+    }
+}
 
-//  MARK: Draggable protocol implementations
-    func draggableView() -> UIScrollView? {
-        return tableView
+extension KTPromotionsBottomSheetVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
