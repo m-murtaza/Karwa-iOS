@@ -503,6 +503,7 @@ struct Constants {
         static let GetRSAreas = "rs/areas?"
         static let PostRSService = "rs/explore"
         static let orderService = "rs/order/"
+        static let Promotions = "promo"
     }
     
     struct TrackTaxiParams {

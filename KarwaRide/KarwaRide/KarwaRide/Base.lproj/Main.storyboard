@@ -3744,6 +3744,30 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lPa-Uf-1K6">
+                                                        <rect key="frame" x="8" y="3" width="17.5" height="16"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmH-Of-nhn">
+                                                                <rect key="frame" x="3" y="0.0" width="11.5" height="16"/>
+                                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="16" id="0Oq-W0-BDz"/>
+                                                            <constraint firstAttribute="trailing" secondItem="PmH-Of-nhn" secondAttribute="trailing" constant="3" id="DGa-5Y-PxU"/>
+                                                            <constraint firstItem="PmH-Of-nhn" firstAttribute="top" secondItem="lPa-Uf-1K6" secondAttribute="top" id="HC1-xJ-SIb"/>
+                                                            <constraint firstAttribute="bottom" secondItem="PmH-Of-nhn" secondAttribute="bottom" id="KDQ-Ma-XLH"/>
+                                                            <constraint firstItem="PmH-Of-nhn" firstAttribute="leading" secondItem="lPa-Uf-1K6" secondAttribute="leading" constant="3" id="xeD-4v-UV8"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kSu-XH-vsP" customClass="Button">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
                                                         <connections>
@@ -3755,8 +3779,10 @@
                                                 <constraints>
                                                     <constraint firstItem="kSu-XH-vsP" firstAttribute="width" secondItem="8Vn-8O-AFj" secondAttribute="width" id="1SW-MH-iSK"/>
                                                     <constraint firstItem="kSu-XH-vsP" firstAttribute="height" secondItem="8Vn-8O-AFj" secondAttribute="height" id="480-qc-UTx"/>
+                                                    <constraint firstItem="lPa-Uf-1K6" firstAttribute="leading" secondItem="Xwb-Up-ceB" secondAttribute="leading" constant="-6" id="PJu-lM-wbO"/>
                                                     <constraint firstItem="kSu-XH-vsP" firstAttribute="centerX" secondItem="8Vn-8O-AFj" secondAttribute="centerX" id="TMo-sn-5fd"/>
                                                     <constraint firstItem="kSu-XH-vsP" firstAttribute="centerY" secondItem="8Vn-8O-AFj" secondAttribute="centerY" id="VKh-OR-5Ay"/>
+                                                    <constraint firstItem="lPa-Uf-1K6" firstAttribute="top" secondItem="Xwb-Up-ceB" secondAttribute="top" constant="-8" id="Y5C-bZ-HhB"/>
                                                     <constraint firstItem="Xwb-Up-ceB" firstAttribute="centerX" secondItem="8Vn-8O-AFj" secondAttribute="centerX" id="sD0-gR-G7b"/>
                                                     <constraint firstItem="Xwb-Up-ceB" firstAttribute="centerY" secondItem="8Vn-8O-AFj" secondAttribute="centerY" id="weJ-xX-kay"/>
                                                 </constraints>
@@ -3960,6 +3986,7 @@
                         <outlet property="dropoffLabel" destination="ZPr-Xi-bEO" id="dMq-J4-TEw"/>
                         <outlet property="ivDropoff" destination="SnG-3w-GXm" id="OT0-8Z-5Zb"/>
                         <outlet property="ivPickup" destination="bjd-1u-5Hb" id="gPQ-bf-n4i"/>
+                        <outlet property="lblPromotionCount" destination="PmH-Of-nhn" id="gof-UF-FMu"/>
                         <outlet property="mapInstructionsContainer" destination="Igi-Xb-Q9F" id="G2a-t9-ttq"/>
                         <outlet property="mapView" destination="uYM-p6-0VQ" id="Yd4-Vr-LQ8"/>
                         <outlet property="mapViewBottomConstraint" destination="hpx-Gw-XV9" id="dZv-lG-adb"/>
@@ -3981,6 +4008,7 @@
                         <outlet property="showMoreRideOptions" destination="0Ha-Ow-Wm2" id="ynL-UE-Fux"/>
                         <outlet property="tableView" destination="TrH-Zz-li5" id="tVU-QI-Ot1"/>
                         <outlet property="tableViewHeight" destination="qrQ-HL-P6m" id="8tL-XF-xGK"/>
+                        <outlet property="uiPromotionCount" destination="lPa-Uf-1K6" id="0UF-qS-luH"/>
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForPickup" modalPresentationStyle="fullScreen" id="FaI-op-NCo"/>
                         <segue destination="2HM-Qh-ieS" kind="presentation" identifier="segueBookingToAddresspickerForDropoff" modalPresentationStyle="fullScreen" id="4lO-1G-0fb"/>
                         <segue destination="Lyp-sm-LQ1" kind="show" identifier="segueBookingListForDetails" id="wE4-w3-3Ll"/>
@@ -5043,7 +5071,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBq-pN-BlG" customClass="LocalisableButton" customModule="KarwaRide" customModuleProvider="target">
-                                                    <rect key="frame" x="28" y="37.5" width="142" height="30"/>
+                                                    <rect key="frame" x="28" y="37.5" width="30" height="30"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="str_resend_caps"/>
                                                     </userDefinedRuntimeAttributes>
@@ -7671,7 +7699,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="txt_trip_fare"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="2a7-Ih-VDT" customClass="RKTagsView">
+                            <view contentMode="center" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2a7-Ih-VDT" customClass="RKTagsView">
                                 <rect key="frame" x="7" y="376" width="309" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -9480,7 +9508,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-4f-qGh" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="49" y="37.5" width="63" height="11"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -10240,7 +10268,7 @@
                                 <rect key="frame" x="19" y="536" width="282" height="32"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9g-KR-Wfp" customClass="LocalisableSpringButton" customModule="KarwaRide" customModuleProvider="target">
-                                <rect key="frame" x="87" y="483" width="146" height="30"/>
+                                <rect key="frame" x="145" y="483" width="30" height="30"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="addNewCardText"/>
@@ -10336,7 +10364,7 @@
                                                     <constraint firstAttribute="width" constant="60" id="Axk-UQ-IPy"/>
                                                 </constraints>
                                             </imageView>
-                                            <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KQA-YV-SjG" customClass="RKTagsView">
+                                            <view contentMode="center" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQA-YV-SjG" customClass="RKTagsView">
                                                 <rect key="frame" x="31" y="434" width="260" height="0.0"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -11146,7 +11174,7 @@
                                         <rect key="frame" x="20" y="62" width="280" height="60"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJJ-hd-xVH" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                <rect key="frame" x="10" y="4.5" width="260" height="39.5"/>
+                                                <rect key="frame" x="10" y="15" width="260" height="18.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <userDefinedRuntimeAttributes>
@@ -15274,14 +15302,10 @@
     </scenes>
     <designables>
         <designable name="0hF-e9-5FJ">
-            <size key="intrinsicContentSize" width="137" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
-        <designable name="1yt-A0-cqe"/>
         <designable name="2SG-m5-gVM">
-            <size key="intrinsicContentSize" width="106" height="28"/>
-        </designable>
-        <designable name="2a7-Ih-VDT">
-            <size key="intrinsicContentSize" width="309" height="0.0"/>
+            <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="2bl-4T-5Mw">
             <size key="intrinsicContentSize" width="8" height="18"/>
@@ -15290,22 +15314,22 @@
             <size key="intrinsicContentSize" width="30" height="34"/>
         </designable>
         <designable name="4th-k2-d64">
-            <size key="intrinsicContentSize" width="154" height="33"/>
+            <size key="intrinsicContentSize" width="56" height="33"/>
         </designable>
         <designable name="5T3-Uj-K2f">
-            <size key="intrinsicContentSize" width="140" height="18"/>
+            <size key="intrinsicContentSize" width="82" height="18"/>
         </designable>
         <designable name="5q4-Cd-UaS">
-            <size key="intrinsicContentSize" width="106" height="30"/>
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="5sE-Ko-FkP">
-            <size key="intrinsicContentSize" width="115" height="28"/>
+            <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="61e-6J-58d">
             <size key="intrinsicContentSize" width="22" height="22"/>
         </designable>
         <designable name="6NY-oE-lGj">
-            <size key="intrinsicContentSize" width="154" height="33"/>
+            <size key="intrinsicContentSize" width="56" height="33"/>
         </designable>
         <designable name="81E-Eu-8Ta">
             <size key="intrinsicContentSize" width="18" height="22"/>
@@ -15317,10 +15341,10 @@
             <size key="intrinsicContentSize" width="56" height="33"/>
         </designable>
         <designable name="B3X-0m-rEC">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="GEU-zf-xhn">
-            <size key="intrinsicContentSize" width="101" height="30"/>
+            <size key="intrinsicContentSize" width="56" height="30"/>
         </designable>
         <designable name="GWq-oN-OWI">
             <size key="intrinsicContentSize" width="34" height="27"/>
@@ -15332,16 +15356,13 @@
             <size key="intrinsicContentSize" width="117" height="29"/>
         </designable>
         <designable name="JOi-AJ-LRH">
-            <size key="intrinsicContentSize" width="101" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="Jca-9C-0p9">
-            <size key="intrinsicContentSize" width="105" height="30"/>
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="KH4-Rv-MIQ">
             <size key="intrinsicContentSize" width="18" height="22"/>
-        </designable>
-        <designable name="KQA-YV-SjG">
-            <size key="intrinsicContentSize" width="260" height="0.0"/>
         </designable>
         <designable name="KUb-DZ-KJ4">
             <size key="intrinsicContentSize" width="113" height="28"/>
@@ -15368,10 +15389,10 @@
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
         <designable name="Nee-d3-YeR">
-            <size key="intrinsicContentSize" width="154" height="32"/>
+            <size key="intrinsicContentSize" width="93" height="32"/>
         </designable>
         <designable name="NgZ-4b-9oe">
-            <size key="intrinsicContentSize" width="94" height="27"/>
+            <size key="intrinsicContentSize" width="30" height="27"/>
         </designable>
         <designable name="NpP-xz-DD4">
             <size key="intrinsicContentSize" width="88" height="33"/>
@@ -15404,10 +15425,10 @@
             <size key="intrinsicContentSize" width="44" height="44"/>
         </designable>
         <designable name="Wf6-CN-Uvh">
-            <size key="intrinsicContentSize" width="105" height="32"/>
+            <size key="intrinsicContentSize" width="77" height="32"/>
         </designable>
         <designable name="X0C-dC-8Uf">
-            <size key="intrinsicContentSize" width="118" height="23"/>
+            <size key="intrinsicContentSize" width="25" height="23"/>
         </designable>
         <designable name="Xem-ri-NN8">
             <size key="intrinsicContentSize" width="82" height="30"/>
@@ -15422,10 +15443,10 @@
             <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
         <designable name="YGI-cf-msf">
-            <size key="intrinsicContentSize" width="117" height="30"/>
+            <size key="intrinsicContentSize" width="40" height="30"/>
         </designable>
         <designable name="YNq-qv-GJ6">
-            <size key="intrinsicContentSize" width="134" height="27"/>
+            <size key="intrinsicContentSize" width="64" height="27"/>
         </designable>
         <designable name="Ywc-ER-MCh">
             <size key="intrinsicContentSize" width="293" height="51"/>
@@ -15436,11 +15457,8 @@
         <designable name="a0A-ye-0bS">
             <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
-        <designable name="aOc-Mm-NSf">
-            <size key="intrinsicContentSize" width="210" height="34"/>
-        </designable>
         <designable name="arq-gK-pPn">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="b2M-ci-XA6">
             <size key="intrinsicContentSize" width="94" height="35"/>
@@ -15455,13 +15473,13 @@
             <size key="intrinsicContentSize" width="46" height="46"/>
         </designable>
         <designable name="d6U-1t-VSx">
-            <size key="intrinsicContentSize" width="105" height="32"/>
+            <size key="intrinsicContentSize" width="77" height="32"/>
         </designable>
         <designable name="dC3-qe-jY0">
             <size key="intrinsicContentSize" width="82" height="30"/>
         </designable>
         <designable name="dIk-Ek-Cc4">
-            <size key="intrinsicContentSize" width="85" height="30"/>
+            <size key="intrinsicContentSize" width="34" height="30"/>
         </designable>
         <designable name="dLb-Ry-dhX">
             <size key="intrinsicContentSize" width="24" height="24"/>
@@ -15473,7 +15491,7 @@
             <size key="intrinsicContentSize" width="293" height="51"/>
         </designable>
         <designable name="efC-ko-7kP">
-            <size key="intrinsicContentSize" width="98" height="30"/>
+            <size key="intrinsicContentSize" width="55" height="30"/>
         </designable>
         <designable name="enZ-3C-Eds">
             <size key="intrinsicContentSize" width="18" height="22"/>
@@ -15488,34 +15506,31 @@
             <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="g26-sc-neA">
-            <size key="intrinsicContentSize" width="111" height="30"/>
+            <size key="intrinsicContentSize" width="57" height="30"/>
         </designable>
         <designable name="g5N-xp-b2J">
             <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
         <designable name="gea-EU-yaD">
-            <size key="intrinsicContentSize" width="73" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="hIp-1g-RAD">
             <size key="intrinsicContentSize" width="84" height="33"/>
         </designable>
         <designable name="hJJ-hd-xVH">
-            <size key="intrinsicContentSize" width="260" height="39.220703125"/>
-        </designable>
-        <designable name="hwS-4f-qGh">
-            <size key="intrinsicContentSize" width="63" height="11"/>
+            <size key="intrinsicContentSize" width="4" height="18.5"/>
         </designable>
         <designable name="i2Y-o8-vAt">
             <size key="intrinsicContentSize" width="18" height="22"/>
         </designable>
         <designable name="jvt-vJ-Jxe">
-            <size key="intrinsicContentSize" width="247" height="30"/>
+            <size key="intrinsicContentSize" width="35" height="30"/>
         </designable>
         <designable name="kBq-pN-BlG">
-            <size key="intrinsicContentSize" width="142" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="kdR-wq-0W7">
-            <size key="intrinsicContentSize" width="64" height="30"/>
+            <size key="intrinsicContentSize" width="39" height="30"/>
         </designable>
         <designable name="kqe-LC-v4s">
             <size key="intrinsicContentSize" width="8" height="22"/>
@@ -15523,11 +15538,8 @@
         <designable name="lvX-Kf-bc5">
             <size key="intrinsicContentSize" width="190" height="34"/>
         </designable>
-        <designable name="mlB-Bm-JwG">
-            <size key="intrinsicContentSize" width="324" height="0.0"/>
-        </designable>
         <designable name="nr8-tk-IiJ">
-            <size key="intrinsicContentSize" width="100" height="28"/>
+            <size key="intrinsicContentSize" width="61" height="28"/>
         </designable>
         <designable name="oKt-NC-2ya">
             <size key="intrinsicContentSize" width="34" height="12"/>
@@ -15538,20 +15550,14 @@
         <designable name="pn4-dx-cXg">
             <size key="intrinsicContentSize" width="8" height="22"/>
         </designable>
-        <designable name="qd1-CG-Utd">
-            <size key="intrinsicContentSize" width="210" height="34"/>
-        </designable>
         <designable name="reb-CT-FPd">
-            <size key="intrinsicContentSize" width="98" height="28"/>
-        </designable>
-        <designable name="s4S-Ie-zjk">
-            <size key="intrinsicContentSize" width="73" height="13"/>
+            <size key="intrinsicContentSize" width="43" height="28"/>
         </designable>
         <designable name="sdB-dk-IpL">
             <size key="intrinsicContentSize" width="117" height="29"/>
         </designable>
         <designable name="tKf-7W-zEH">
-            <size key="intrinsicContentSize" width="110" height="28"/>
+            <size key="intrinsicContentSize" width="63" height="28"/>
         </designable>
         <designable name="tdt-g2-IHo">
             <size key="intrinsicContentSize" width="105" height="28"/>
@@ -15575,7 +15581,7 @@
             <size key="intrinsicContentSize" width="60" height="60"/>
         </designable>
         <designable name="x9g-KR-Wfp">
-            <size key="intrinsicContentSize" width="146" height="30"/>
+            <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="xfy-kF-trT">
             <size key="intrinsicContentSize" width="104" height="33"/>
@@ -15593,7 +15599,7 @@
             <size key="intrinsicContentSize" width="30" height="28"/>
         </designable>
         <designable name="zVi-P8-zx1">
-            <size key="intrinsicContentSize" width="120" height="20"/>
+            <size key="intrinsicContentSize" width="58" height="20"/>
         </designable>
         <designable name="zcc-f8-WEv">
             <size key="intrinsicContentSize" width="293" height="51"/>
@@ -15702,7 +15708,7 @@
         <image name="ico_more_options" width="4" height="12"/>
         <image name="ico_moreinfo" width="12" height="12"/>
         <image name="ico_wallet_new" width="16" height="16"/>
-        <image name="icon-accessible-taxi" width="775" height="418"/>
+        <image name="icon-accessible-taxi" width="756" height="409"/>
         <image name="icon-arrow-right-large" width="7" height="12.5"/>
         <image name="icon-capacity" width="10.5" height="10.5"/>
         <image name="icon-cash-new" width="23" height="16"/>

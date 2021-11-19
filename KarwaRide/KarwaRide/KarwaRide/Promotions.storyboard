@@ -102,13 +102,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Codes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-p2-Xh0">
-                                <rect key="frame" x="18" y="44" width="117.5" height="22"/>
+                                <rect key="frame" x="18" y="44" width="111.5" height="21"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-bu-8jO">
-                                <rect key="frame" x="0.0" y="76" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="75" width="414" height="737"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="EdT-y9-A7P" id="GCO-Ku-exi"/>
@@ -134,7 +134,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-zL-Qjl">
                                         <rect key="frame" x="12" y="10" width="390" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcg-K7-KtE">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcg-K7-KtE" customClass="SpringButton" customModule="Spring">
                                                 <rect key="frame" x="310" y="0.0" width="80" height="40"/>
                                                 <color key="backgroundColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
@@ -150,6 +150,11 @@
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btnApplyTouchDown:" destination="EdT-y9-A7P" eventType="touchDown" id="Ocd-jk-eYb"/>
+                                                    <action selector="btnApplyTouchUpOutside:" destination="EdT-y9-A7P" eventType="touchUpOutside" id="5jm-iv-7k6"/>
+                                                    <action selector="onClickApply:" destination="EdT-y9-A7P" eventType="touchUpInside" id="aGv-xw-Cz8"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Promo Code Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zMQ-Mj-wvo">
                                                 <rect key="frame" x="15" y="0.0" width="280" height="40"/>
@@ -210,7 +215,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Promotions" id="geP-Nh-VK4"/>
                     <connections>
-                        <outlet property="btnApply" destination="Xcg-K7-KtE" id="nbi-XZ-HtJ"/>
+                        <outlet property="btnApply" destination="Xcg-K7-KtE" id="hYb-FN-61T"/>
                         <outlet property="btnShowMore" destination="yCn-f2-CAG" id="d8t-C5-mrO"/>
                         <outlet property="tableView" destination="bC0-bu-8jO" id="t3w-LG-adk"/>
                         <outlet property="tfPromoCode" destination="zMQ-Mj-wvo" id="cEW-bG-9uC"/>
@@ -221,6 +226,11 @@
             <point key="canvasLocation" x="1260.8695652173915" y="3750"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Xcg-K7-KtE">
+            <size key="intrinsicContentSize" width="47.5" height="24.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="MyTripsNoTrip" width="360" height="458"/>
         <image name="ic_bottom_arrow_stack" width="16" height="20.5"/>

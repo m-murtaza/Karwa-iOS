@@ -9,12 +9,13 @@
 import UIKit
 import UBottomSheet
 import FittedSheets
+import Spring
 
 class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tfPromoCode: UITextField!
-    @IBOutlet weak var btnApply: UIButton!
+    @IBOutlet weak var btnApply: SpringButton!
     @IBOutlet weak var btnShowMore: UIButton!
     
     var sheet: SheetViewController? {
@@ -64,6 +65,25 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
             guard let `self` = self else {return}
             self.btnShowMore.isHidden = true
         }
+    }
+    
+    @IBAction func btnApplyTouchDown(_ sender: SpringButton){
+        springAnimateButtonTapIn(button: btnApply)
+    }
+    
+    @IBAction func btnApplyTouchUpOutside(_ sender: SpringButton){
+        springAnimateButtonTapOut(button: btnApply)
+    }
+    
+    @IBAction func onClickApply(_ sender: Any){
+        springAnimateButtonTapOut(button: btnApply)
+    }
+}
+
+extension KTPromotionsBottomSheetVC: KTPromotionsViewModelDelegate {
+    func reloadTable() {
+        tableView.reloadData()
+        self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
     }
 }
 

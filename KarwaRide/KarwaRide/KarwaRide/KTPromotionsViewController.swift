@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CDAlertView
 
 class KTPromotionsViewController: KTBaseViewController {
     
@@ -74,6 +75,19 @@ class KTPromotionsViewController: KTBaseViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func showAlert(message: String) {
+        let alert = CDAlertView(title: message, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
+        alert.hideAnimations = { (center, transform, alpha) in
+            alpha = 0
+        }
+        let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
+            return true
+        }
+        
+        alert.add(action: doneAction)
+        alert.show()
     }
 }
 

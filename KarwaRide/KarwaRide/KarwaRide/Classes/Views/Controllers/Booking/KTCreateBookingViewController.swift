@@ -323,6 +323,9 @@ class KTCreateBookingViewController:
     @IBOutlet weak var paymentTypeIcon: UIImageView!
     @IBOutlet weak var paymentTypeLabel: UILabel!
     
+    @IBOutlet weak var uiPromotionCount: UIView!
+    @IBOutlet weak var lblPromotionCount: UILabel!
+    
     var titleForRequestOrScheduleKarwa: String?
 
   //MARK:- View lifecycle

@@ -11,6 +11,7 @@ import SVProgressHUD
 import Spring
 import Toast_Swift
 import NotificationBannerSwift
+import EasyTipView
 
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
@@ -118,6 +119,25 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         } else {
             return UIStoryboard(name: storyboard.board(), bundle: nil).instantiateViewController(withIdentifier: vcIdentifier)
         }
+    }
+    
+    func showToolTip(forView: UIView) {
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
+        preferences.animating.showInitialTransform = CGAffineTransform(translationX: 0, y: -15)
+        preferences.animating.showInitialAlpha = 0
+        preferences.animating.showDuration = 1.5
+        preferences.animating.dismissDuration = 1.5
+
+        EasyTipView.show(forView: forView,
+        withinSuperview: nil,
+        text: "Checkout some awesome promotions for you.",
+        preferences: preferences,
+        delegate: nil)
     }
     
     func viewStoryboard() -> UIStoryboard {

@@ -8,15 +8,20 @@
 
 import UIKit
 
-protocol KTPromotionsViewModelDelegate {
+protocol KTPromotionsViewModelDelegate: KTViewModelDelegate {
     func reloadTable()
     func showNoPromotionView()
     func endRefreshing()
 }
 
+extension KTPromotionsViewModelDelegate {
+    func showNoPromotionView() {}
+    func endRefreshing() {}
+}
+
 class KTPromotionsViewModel: KTBaseViewModel {
     
-    private var promotions: [String]?
+    private var promotions = [PromotionModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +29,13 @@ class KTPromotionsViewModel: KTBaseViewModel {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        fetchPromotions()
+        dummyPromotionsData()
     }
     
-    func fetchPromotions()  {
+    func dummyPromotionsData() {
         delegate?.showProgressHud(show: true)
-        promotions = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-        if (self.promotions?.count ?? 0) > 0 {
+        promotions = [PromotionModel(), PromotionModel(), PromotionModel(), PromotionModel(), PromotionModel(), PromotionModel()]
+        if self.promotions.count > 0 {
             (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
         }
         else {
@@ -41,7 +46,47 @@ class KTPromotionsViewModel: KTBaseViewModel {
         self.delegate?.hideProgressHud()
     }
     
+    func fetchPromotions() {
+        delegate?.showProgressHud(show: true)
+        KTPromotionManager().fetchPromotions { [weak self] (status, response) in
+            print("fetchPromotions -> response", response)
+            guard let `self` = self else{return}
+            (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()
+            self.delegate?.showProgressHud(show: false)
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                guard let promotions = response["D"] as? [[String : Any]] else {
+                    (self.delegate as! KTPromotionsViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+                    return
+                }
+                for item in promotions {
+                    var promotionInfo = PromotionModel()
+                    
+                    promotionInfo.id = item["Id"] as? Int
+                    promotionInfo.name = item["Name"] as? String
+                    promotionInfo.description = item["Description"] as? String
+                    promotionInfo.moreInfo = item["MoreInfo"] as? String
+                    promotionInfo.code = item["Code"] as? String
+                    promotionInfo.icon = item["Icon"] as? String
+                    
+                    self.promotions.append(promotionInfo)
+                }
+                
+                if self.promotions.count > 0 {
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
+                }
+                else {
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showNoPromotionView()
+                }
+            }
+            else
+            {
+                (self.delegate as! KTPromotionsViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+            }
+        }
+    }
+    
     func numberOfRows() -> Int {
-        return promotions?.count ?? 0
+        return promotions.count
     }
 }
