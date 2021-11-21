@@ -219,6 +219,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             } else {
                 del?.showDriverInfoBox()
             }
+            (self.delegate as! KTBookingDetailsViewModelDelegate).removeWayPoints()
         }
         else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
         {
@@ -1086,6 +1087,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
         KTBookingManager().saveInDb()
         initializeViewWRTBookingStatus()
+        (self.delegate as! KTBookingDetailsViewModelDelegate).removeWayPoints()
 //        del?.popViewController()
     }
     
@@ -1250,6 +1252,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                 del?.addPickupMarker(location: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude:  booking?.pickupLon ?? 0.0))
                 del?.addDropOffMarker(location: CLLocationCoordinate2D(latitude: booking?.dropOffLat ?? 0.0, longitude:  booking?.dropOffLon ?? 0.0))
                 del?.showHideShareButton(false)
+                (self.delegate as! KTBookingDetailsViewModelDelegate).removeWayPoints()
             }
         }
     }

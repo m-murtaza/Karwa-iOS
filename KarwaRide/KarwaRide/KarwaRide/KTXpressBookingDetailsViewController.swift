@@ -440,6 +440,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         polyline.map = nil
     }
     
+    func removeWayPoints()
+    {
+        wayPointsMarker.forEach{$0.map = nil}
+    }
+    
     @objc func animatePolylinePath() {
             
             if (self.i < self.path.count()) {

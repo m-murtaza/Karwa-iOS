@@ -360,6 +360,32 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         
     }
     
+    func focusMapToFitRoute(pointA: CLLocationCoordinate2D, pointB: CLLocationCoordinate2D, path: GMSMutablePath, inset: UIEdgeInsets) {
+
+      if pointA.latitude == 0 && pointA.longitude == 0 {
+        return
+      }
+
+      //var bounds: GMSCoordinateBounds
+
+      let c1 = pointA // swiftlint:disable:this identifier_name
+      let c2 = pointB // swiftlint:disable:this identifier_name
+
+      let mapCenter = CLLocationCoordinate2DMake((c1.latitude + c2.latitude)/2, (c1.longitude + c2.longitude)/2)
+
+      var bounds = GMSCoordinateBounds.init(coordinate: mapCenter, coordinate: mapCenter)
+
+      bounds = bounds.includingCoordinate(c1)
+      bounds = bounds.includingCoordinate(c2)
+      bounds = bounds.includingPath(path)
+
+      if let mutableCamera: GMSMutableCameraPosition = self.mapView.camera.mutableCopy() as? GMSMutableCameraPosition {
+        mutableCamera.target = mapCenter
+        self.mapView.camera = mutableCamera
+        self.mapView.animate(with: GMSCameraUpdate.fit(bounds, with: inset))
+      }
+    }
+    
     func locateCountry(pathG: [GMSMutablePath]) {
         // 1. Create one quarter earth filling polygon
         let fillingPath = GMSMutablePath()
@@ -392,6 +418,11 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 polygon.strokeColor = .black
                 polygon.strokeWidth = 2
                 polygon.map = mapView
+                let inset = UIEdgeInsets(top: 100, left: 50, bottom: 100, right: 50)
+                focusMapToFitRoute(pointA: path.coordinate(at: 0),
+                                   pointB: path.coordinate(at: path.count()-1),
+                                   path: path,
+                                   inset: inset)
             }
         } else {
             // 2. Add prepared array of GMSPath
@@ -411,6 +442,12 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 polygon.strokeColor = .black
                 polygon.strokeWidth = 2
                 polygon.map = mapView
+                
+                let inset = UIEdgeInsets(top: 100, left: 50, bottom: 100, right: 50)
+                focusMapToFitRoute(pointA: path.coordinate(at: 0),
+                                   pointB: path.coordinate(at: path.count()-1),
+                                   path: path,
+                                   inset: inset)
             }
         }
     
