@@ -168,11 +168,15 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   }
   
   func loadFavoritesDataInView() {
-    if let favorites = KTBookmarkManager().fetchAllFavorites() {
-      locations.removeAll()
-      favorites.forEach( { locations.append( $0.toGeolocation() )})
+      
+      updateHomeAndWorkIfAvailable()
       del?.loadData()
-    }
+
+//    if let favorites = KTBookmarkManager().fetchAllFavorites() {
+//      locations.removeAll()
+//      favorites.forEach( { bookmarks.append( $0.toGeolocation() )})
+//      del?.loadData()
+//    }
   }
   
   func loadDataInView() {
@@ -632,14 +636,16 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
       }
     
-    func locationAtIndexPath(indexPath: IndexPath, type:SelectedTextField) -> Any {
+    func locationAtIndexPath(indexPath: IndexPath, type:SelectedTextField, fromActionSheet: Bool) -> Any {
         
         if type == SelectedTextField.PickupAddress {
-                    
+              
             defer {
-                moveBackIfNeeded(skipDestination: false)
+                if fromActionSheet == false {
+                    moveBackIfNeeded(skipDestination: false)
+                }
             }
-
+            
             if indexPath.section == 1 {
                 if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
                     let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""
@@ -727,12 +733,12 @@ class KTAddressPickerViewModel: KTBaseViewModel {
    }
   
   func editFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
+    let location : KTGeoLocation = bookmarks[idx]
     del?.navigateToFavoriteScreen(location: location)
   }
   
   func removeFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
+    let location : KTGeoLocation = bookmarks[idx]
     let predicate = NSPredicate(format: "locationId == %d", location.locationId)
     KTFavorites.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default())
     loadFavoritesDataInView()
@@ -741,32 +747,85 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   }
   
   func btnSetHomeTapped() {
-      if var dropOff = dropOffAddress as? KTGeoLocation, let pick  = pickUpAddress as? KTGeoLocation {
-          if del?.inFocusTextField() == SelectedTextField.PickupAddress {
-              dropOff = pick
+      
+      if dropOffAddress != nil {
+          if let dropOff = dropOffAddress as? KTGeoLocation {
+              if del?.inFocusTextField() == SelectedTextField.DropoffAddress {
+                  saveBookmark(bookmarkType: BookmarkType.home, location: dropOff)
+              }
           }
-          saveBookmark(bookmarkType: BookmarkType.home, location: dropOff)
       }
+      
+      if pickUpAddress != nil {
+          if let pick = pickUpAddress as? KTGeoLocation {
+              if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+                  saveBookmark(bookmarkType: BookmarkType.home, location: pick)
+              }
+          }
+      }
+      
+//      if var dropOff = dropOffAddress as? KTGeoLocation, let pick  = pickUpAddress as? KTGeoLocation {
+//          if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+//              dropOff = pick
+//          }
+//          saveBookmark(bookmarkType: BookmarkType.home, location: dropOff)
+//      }
+//
+//
+      
   }
   
   func btnSetWorkTapped() {
       
-      if var dropOff = dropOffAddress as? KTGeoLocation, let pick  = pickUpAddress as? KTGeoLocation {
-          if del?.inFocusTextField() == SelectedTextField.PickupAddress {
-              dropOff = pick
+      if dropOffAddress != nil {
+          if let dropOff = dropOffAddress as? KTGeoLocation {
+              if del?.inFocusTextField() == SelectedTextField.DropoffAddress {
+                  saveBookmark(bookmarkType: BookmarkType.work, location: dropOff)
+              }
           }
-          saveBookmark(bookmarkType: BookmarkType.work, location: dropOff)
       }
+      
+      if pickUpAddress != nil {
+          if let pick = pickUpAddress as? KTGeoLocation {
+              if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+                  saveBookmark(bookmarkType: BookmarkType.work, location: pick)
+              }
+          }
+      }
+      
+//      if var dropOff = dropOffAddress as? KTGeoLocation, let pick  = pickUpAddress as? KTGeoLocation {
+//          if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+//              dropOff = pick
+//          }
+//          saveBookmark(bookmarkType: BookmarkType.work, location: dropOff)
+//      }
       
   }
   
   func btnFavoriteTapped() {
-      if var dropOff = dropOffAddress as? KTGeoLocation, let pick  = pickUpAddress as? KTGeoLocation {
-          if del?.inFocusTextField() == SelectedTextField.PickupAddress {
-              dropOff = pick
+      
+      if dropOffAddress != nil {
+          if let dropOff = dropOffAddress as? KTGeoLocation {
+              if del?.inFocusTextField() == SelectedTextField.DropoffAddress {
+                  del?.navigateToFavoriteScreen(location: dropOff)
+              }
           }
-          del?.navigateToFavoriteScreen(location: dropOff)
       }
+      
+      if pickUpAddress != nil {
+          if let pick = pickUpAddress as? KTGeoLocation {
+              if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+                  del?.navigateToFavoriteScreen(location: pick)
+              }
+          }
+      }
+      
+//      if var dropOff = dropOffAddress as? KTGeoLocation, let pick  = pickUpAddress as? KTGeoLocation {
+//          if del?.inFocusTextField() == SelectedTextField.PickupAddress {
+//              dropOff = pick
+//          }
+//          del?.navigateToFavoriteScreen(location: dropOff)
+//      }
   }
   
   func saveBookmark(bookmarkType: BookmarkType, location: KTGeoLocation) {

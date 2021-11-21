@@ -200,6 +200,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     @IBAction func closeButtonTapped(sender: UIButton) {
         closeButton.isHidden = true
         rideService?.remove()
+        backToPickUp()
     }
     
     func updateValidPickUpUI() {
@@ -609,8 +610,8 @@ extension KTXpressLocationPickerViewController: KTXpressAddressDelegate {
             mapView.animate(with: update1)
             setDropOffPolygon()
             setDropOffViewUI()
-            
             updateValidPickUpUI()
+            callDropOffAction()
             
         } else if picklocation != nil {
             pickUpSelected = false

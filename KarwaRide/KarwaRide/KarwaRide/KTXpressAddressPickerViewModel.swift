@@ -592,12 +592,12 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
   }
   
   func editFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
+    let location : KTGeoLocation = bookmarks[idx] //locations[idx]
     del?.navigateToFavoriteScreen(location: location)
   }
   
   func removeFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
+    let location : KTGeoLocation = bookmarks[idx]
     let predicate = NSPredicate(format: "locationId == %d", location.locationId)
     KTFavorites.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default())
     loadFavoritesDataInView()

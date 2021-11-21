@@ -65,6 +65,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   var destinationForPickUp = [Area]()
     var fromDropOff = true
     var pickUpAddressName = ""
+    var valueChanged = false
 
   public weak var previousView : KTCreateBookingViewModel?
   
@@ -133,6 +134,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
 //          self.txtDropAddress.becomeFirstResponder()
 //          self.selectedTxtField = SelectedTextField.DropoffAddress
 //      }
+
     super.viewDidLoad()
     setupUI()
   }
@@ -163,11 +165,15 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   }
   
   private func toggleSkipButton() {
-    switch selectedTxtField {
-    case .PickupAddress:
-      skipButton.isHidden = true
-    case .DropoffAddress:
-      skipButton.isHidden = false
+    if metroStations.count == 0{
+        switch selectedTxtField {
+        case .PickupAddress:
+          skipButton.isHidden = true
+        case .DropoffAddress:
+          skipButton.isHidden = false
+        }
+    }   else {
+        skipButton.isHidden = true
     }
   }
   
@@ -180,11 +186,15 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   @IBAction func clearActionPickup(_ sender: Any) {
     (viewModel as! KTAddressPickerViewModel).pickupAddressClearedAction()
     txtPickAddress.text = ""
+    (viewModel as! KTAddressPickerViewModel).fetchLocations()
+      clearButtonPickup.isHidden = true
   }
   
   @IBAction func clearActionDropoff(_ sender: Any) {
     (viewModel as! KTAddressPickerViewModel).dropoffAddressClearedAction()
     txtDropAddress.text = ""
+      (viewModel as! KTAddressPickerViewModel).fetchLocations()
+      clearButtonDestination.isHidden = true
   }
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -208,18 +218,24 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       self.txtPickAddress.becomeFirstResponder()
     }
     
-    initializeMap()
     
-    if (self.txtPickAddress.text?.count ?? 0) > 0 && (self.txtDropAddress.text?.count ?? 0) > 0{
-        
-        if selectedTxtField == SelectedTextField.DropoffAddress {
-            toggleToMapView(forPickup: false)
-        }
-        else {
-            toggleToMapView(forPickup: true)
-        }
-        
-    }
+      if metroStations.count == 0 {
+
+          initializeMap()
+
+          if (self.txtPickAddress.text?.count ?? 0) > 0 && (self.txtDropAddress.text?.count ?? 0) > 0{
+              
+              if selectedTxtField == SelectedTextField.DropoffAddress {
+                  toggleToMapView(forPickup: false)
+              }
+              else {
+                  toggleToMapView(forPickup: true)
+              }
+              
+          }
+      }
+      
+    
   }
   
   //MARK: - Notification
@@ -229,10 +245,13 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
             let insets = UIEdgeInsetsMake( 0, 0, 300, 0 )
             tblView.contentInset = insets
             tblView.scrollIndicatorInsets = insets
+            constraintTableViewBottom.constant = newFrame.height-35
+            self.view.layoutIfNeeded()
         }
     }
   
   @objc func keyboardWillHide(notification: NSNotification) {
+      constraintTableViewBottom.constant = -20
 //      tblView.contentInset = .zero
   }
   
@@ -417,31 +436,38 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   
   @IBAction func btnMapViewTapped(_ sender: Any)
   {
-      
-      if mapSuperView.isHidden == false {
-          self.tblView.isHidden = false
-          self.mapSuperView.isHidden = true
-          
-          txtDropAddress.inputView = nil
-          txtPickAddress.inputView = nil
-        
-          
-          selectedInputMechanism = SelectedInputMechanism.ListView
-          
-      //    txtPickAddress.tintColor = UIColor(hexString:"#006170")
-      //    txtPickAddress.backgroundColor = UIColor.white
-      //    txtDropAddress.tintColor = UIColor(hexString:"#006170")
-      //    txtDropAddress.backgroundColor = UIColor.white
-         
-          self.txtPickAddress.tintColor = UIColor.primary
-          self.txtDropAddress.tintColor = UIColor.primary
+      if metroStations.count == 0 {
+          if mapSuperView.isHidden == false {
+              self.tblView.isHidden = false
+              self.mapSuperView.isHidden = true
+              
+              txtDropAddress.inputView = nil
+              txtPickAddress.inputView = nil
+              selectedInputMechanism = SelectedInputMechanism.ListView
+              
+          //    txtPickAddress.tintColor = UIColor(hexString:"#006170")
+          //    txtPickAddress.backgroundColor = UIColor.white
+          //    txtDropAddress.tintColor = UIColor(hexString:"#006170")
+          //    txtDropAddress.backgroundColor = UIColor.white
+             
+              self.txtPickAddress.tintColor = UIColor.primary
+              self.txtDropAddress.tintColor = UIColor.primary
 
-          self.setOnMapLabel.text = "txt_set_on_maps".localized()
+              self.setOnMapLabel.text = "txt_set_on_maps".localized()
+          } else {
+              toggleToMapView()
+              self.setOnMapLabel.text = "str_show_list".localized()
+          }
       } else {
-          toggleToMapView()
-          self.setOnMapLabel.text = "str_show_list".localized()
-          
+          if valueChanged == false {
+              self.dismiss(animated: true, completion: nil)
+          } else {
+              self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+              self.dismiss(animated: true, completion: nil)
+          }
       }
+      
+      
       
   }
   
@@ -615,7 +641,10 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
                     
                     if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
                         print("not permitted")
-                        self.showToast(message: "Please select proper dropoff location")
+//                        self.showToast(message: "Please select proper dropoff location")
+//                        self.showErrorBanner("", "str_outzone".localized())
+                        self.view.endEditing(true)
+                        self.showToast(message: "str_outzone".localized())
                     }
                     else {
                         print("Permitted")
@@ -644,19 +673,29 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
                     
                     if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
                         print("not permitted")
-                        self.showToast(message: "Please select proper dropoff location")
+                        self.view.endEditing(true)
+                        self.showToast(message: "SETTODROPZONE".localized())
+//                        self.showToast(message: "Please select proper dropoff location")
+//                        self.showErrorBanner("", "SETTODROPZONE".localized())
+
 //                        self.setLocationButton.setTitle("SETTODROPZONE".localized(), for: .normal)
                     } else {
                         print("it wont contains")
-                        self.showToast(message: "Please select proper dropoff location")
+                        self.view.endEditing(true)
+                        self.showToast(message: "str_outzone".localized())
+//                        self.showToast(message: "Please select proper dropoff location")
+//                        self.showErrorBanner("", "str_outzone".localized())
+
 //                        self.setLocationButton.setTitle("str_outzone".localized(), for: .normal)
                     }
                     
                 } else {
                     
                     print("it wont contains")
-                    self.showToast(message: "Please select proper dropoff location")
-
+                    self.view.endEditing(true)
+                    self.showToast(message: "str_outzone".localized())
+//                    self.showToast(message: "Please select proper dropoff location")
+//                    self.showErrorBanner("", "str_outzone".localized())
 //                    self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
                     
                 }
@@ -801,7 +840,9 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       selectedTxtField = SelectedTextField.DropoffAddress
       titleLabel.text = "txt_set_drop_off".localized()
       clearButtonPickup.isHidden = true
-      clearButtonDestination.isHidden = false
+        if textField.text?.count ?? 0 != 0 {
+            clearButtonDestination.isHidden = false
+        }
         if self.metroStations.count != 0 {
             self.getDestinationForPickUp()
         }
@@ -809,15 +850,26 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     else {
       selectedTxtField = SelectedTextField.PickupAddress
       titleLabel.text = "txt_pick_up".localized()
-      clearButtonPickup.isHidden = false
+        if textField.text?.count ?? 0 != 0 {
+            clearButtonPickup.isHidden = false
+        }
       clearButtonDestination.isHidden = true
       (viewModel as! KTAddressPickerViewModel).metroStations = self.metroStations
+        
+        if metroStations.count != 0 {
+            if dropoffAddress == nil {
+                txtDropAddress.isUserInteractionEnabled = false
+            } else {
+                txtDropAddress.isUserInteractionEnabled = true
+            }
+        }
+        
     }
     
     (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
     
     
-    removeTxtFromTextBox = true
+//    removeTxtFromTextBox = true
     if selectedInputMechanism == SelectedInputMechanism.MapView {
       
       self.setOnMapLabel.text = "str_show_list".localized()
@@ -896,11 +948,33 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
-    if removeTxtFromTextBox == true {
-      removeTxtFromTextBox = false
-      textField.text = ""
-    }
+//    if removeTxtFromTextBox == true {
+//      removeTxtFromTextBox = false
+//      textField.text = ""
+//    }
+      
     searchText = textField.text!;
+      
+      if textField.isEqual(txtDropAddress) {
+          if searchText.count > 0 {
+              clearButtonPickup.isHidden = true
+              clearButtonDestination.isHidden = false
+          } else {
+              clearButtonPickup.isHidden = true
+              clearButtonDestination.isHidden = true
+          }
+      }
+      
+      if textField.isEqual(txtPickAddress) {
+          if searchText.count > 0 {
+              clearButtonPickup.isHidden = false
+              clearButtonDestination.isHidden = true
+          } else {
+              clearButtonPickup.isHidden = true
+              clearButtonDestination.isHidden = true
+          }
+      }
+      
     if searchTimer.isValid {
       
       searchTimer.invalidate()
@@ -1129,7 +1203,7 @@ extension KTAddressPickerViewController {
         
         alertController.addAction(cancelAction)
         
-        if let location = (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath!, type: selectedTxtField) as? KTGeoLocation {
+        if let location = (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath!, type: selectedTxtField, fromActionSheet: true) as? KTGeoLocation {
             if location.type == geoLocationType.Home.rawValue {
                 alertController.addAction(workAction)
                 alertController.addAction(favoriteAction)
@@ -1138,6 +1212,19 @@ extension KTAddressPickerViewController {
                 alertController.addAction(homeAction)
                 alertController.addAction(favoriteAction)
             }else if location.type == geoLocationType.favorite.rawValue {
+                
+                if indexPath?.section ?? 0 == 1 {
+                      let editAction = UIAlertAction(title: "txt_edit".localized(), style: .default) { (UIAlertAction) in
+                          (self.viewModel as! KTAddressPickerViewModel).editFavorite(forIndex: indexPath?.row ?? 0)
+                    }
+                      let removeAction = UIAlertAction(title: "str_remove".localized(), style: .default) { (UIAlertAction) in
+                          (self.viewModel as! KTAddressPickerViewModel).removeFavorite(forIndex: indexPath?.row ?? 0)
+                    }
+                    alertController.addAction(editAction)
+                    alertController.addAction(removeAction)
+                }
+                
+                
                 alertController.addAction(homeAction)
                 alertController.addAction(workAction)
             }
@@ -1192,7 +1279,18 @@ extension KTAddressPickerViewController {
             (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath, type: selectedTxtField)
         } else {
             let type = selectedTxtField
-            self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField), type: type)
+            valueChanged = true
+            if selectedTxtField == .PickupAddress {
+                selectedRSPickStop = nil
+                selectedRSPickZone = nil
+                selectedRSPickStation = nil
+            } else {
+                selectedRSDropStop = nil
+                selectedRSDropZone = nil
+                selectedRSDropStation = nil
+            }
+            
+            self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
         }
     }
     
@@ -1226,7 +1324,10 @@ extension KTAddressPickerViewController {
                     txtDropAddress.becomeFirstResponder()
                 }
                 
-                self.showToast(message: "Please select proper pickup or drop off")
+//                self.showErrorBanner("", "str_outzone".localized())
+
+                self.view.endEditing(true)
+                self.showToast(message: "str_outzone".localized())
             }
 
         } else {
@@ -1370,8 +1471,8 @@ extension KTAddressPickerViewController {
             }
         
         (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
-        
         getFavouriteMetroStations()
+        
         self.tblView.reloadData()
     }
 //    func loadData() {
