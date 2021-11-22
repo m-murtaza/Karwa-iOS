@@ -16,6 +16,8 @@ struct PromotionModel: Codable {
     var code: String?
     var icon: String?
     
+    var isShowMore: Bool = false
+    
     enum CodingKeys: String, CodingKey {
         case id = "Id"
         case name = "Name"

@@ -20,7 +20,7 @@ class KTPromotionCell: UITableViewCell {
     
     var index: IndexPath?
     var isShowMore = false
-    var onClickShowMore: ((Bool, _ index: IndexPath?)->())?
+    var onClickShowMore: ((Bool, _ index: IndexPath)->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,15 +33,19 @@ class KTPromotionCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configCell(isSelected: Bool) {
+    func configCell(isSelected: Bool, data: PromotionModel) {
         self.uiMain.borderWidth = isSelected ? 2 : 0
-        self.uiDetailView.isHidden = (isSelected && isShowMore) ? false : true
+        self.uiDetailView.isHidden = !isShowMore
         let showMoreText = isShowMore ? "str_show_less".localized() : "str_show_more".localized()
         if let attributedString = createAttributedString(stringArray: [showMoreText], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 9.0)!, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]) {
             attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: attributedString.length))
             self.lblSeeMore.attributedText = attributedString
         }
-        self.lblCode.text = "str_code".localized() + ": XYZ123"
+        self.lblCode.text = "str_code".localized() + ": \(data.code ?? "")"
+        self.lblHeading.text = data.name
+        self.lblSubHeading.text = data.description
+        self.lblDetail.text = data.moreInfo
+        self.imgPromotion.image = data.icon?.convertByteArrayToImage()
     }
     
     func configPromoBottomSheetCell() {
@@ -58,6 +62,6 @@ class KTPromotionCell: UITableViewCell {
     }
     
     @objc func onShowMoreTapped(_ sender: UITapGestureRecognizer) {
-        self.onClickShowMore?(isShowMore, self.index)
+        self.onClickShowMore?(isShowMore, self.index!)
     }
 }

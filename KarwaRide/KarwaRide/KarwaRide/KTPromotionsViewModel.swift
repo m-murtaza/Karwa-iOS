@@ -29,7 +29,6 @@ class KTPromotionsViewModel: KTBaseViewModel {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        dummyPromotionsData()
     }
     
     func dummyPromotionsData() {
@@ -88,5 +87,21 @@ class KTPromotionsViewModel: KTBaseViewModel {
     
     func numberOfRows() -> Int {
         return promotions.count
+    }
+    
+    func getPromotion(at index: Int) -> PromotionModel {
+        guard promotions.count > index else {return PromotionModel()}
+        return promotions[index]
+    }
+    
+    
+    func getShowMore(at index: Int) -> Bool {
+        guard promotions.count > index else {return false}
+        return promotions[index].isShowMore
+    }
+    
+    func setShowMore(at index: Int, value: Bool) {
+        guard promotions.count > index else {return}
+        promotions[index].isShowMore = value
     }
 }

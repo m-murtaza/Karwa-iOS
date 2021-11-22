@@ -18,7 +18,6 @@ class KTPromotionsViewController: KTBaseViewController {
     private let refreshControl = UIRefreshControl()
     
     private var selectedIndex: IndexPath?
-    private var isShowMore: Bool = false
     
     override func viewDidLoad() {
         if viewModel == nil
@@ -37,6 +36,10 @@ class KTPromotionsViewController: KTBaseViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
                                                                    NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
         title = "str_promotions".localized()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        vModel?.fetchPromotions()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,17 +116,16 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: KTPromotionCell = tableView.dequeueReusableCell(withIdentifier: String(describing: KTPromotionCell.self)) as! KTPromotionCell
-        
         var isSelected = false
         if let selectedIndex = self.selectedIndex, selectedIndex == indexPath {
             isSelected = true
         }
-        cell.isShowMore = isSelected ? self.isShowMore : false
+        cell.isShowMore = vModel!.getShowMore(at: indexPath.row)
         cell.index = indexPath
-        cell.configCell(isSelected: isSelected)
+        cell.configCell(isSelected: isSelected, data: vModel!.getPromotion(at: indexPath.row))
         cell.onClickShowMore = { [weak self] (isShowMore, index) in
             guard let `self` = self else {return}
-            self.isShowMore = !isShowMore
+            self.vModel?.setShowMore(at: index.row, value: !isShowMore)
             self.selectedIndex = index
             self.tableView.reloadData()
         }
@@ -134,7 +136,7 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedIndex = indexPath
-        self.isShowMore = true
+        self.vModel?.setShowMore(at: indexPath.row, value: true)
         self.tableView.reloadData()
     }
     

@@ -167,4 +167,16 @@ extension String {
       return numberStr
     }
   }
+    
+    func convertByteArrayToImage() -> UIImage? {
+        let strings = self.components(separatedBy: ",")
+        var bytes = [UInt8]()
+        for i in 0..<strings.count {
+            if let signedByte = Int8(strings[i]) {
+                bytes.append(UInt8(bitPattern: signedByte))
+            }
+        }
+        let data: Data = Data(bytes: bytes, count: bytes.count)
+        return UIImage(data: data)
+    }
 }
