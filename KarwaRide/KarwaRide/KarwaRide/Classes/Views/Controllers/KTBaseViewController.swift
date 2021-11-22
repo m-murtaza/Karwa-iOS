@@ -126,18 +126,20 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
         preferences.drawing.foregroundColor = UIColor.white
         preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
-        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.bottom
         preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
         preferences.animating.showInitialTransform = CGAffineTransform(translationX: 0, y: -15)
         preferences.animating.showInitialAlpha = 0
         preferences.animating.showDuration = 1.5
         preferences.animating.dismissDuration = 1.5
+        preferences.animating.dismissOnTap = false
 
-        EasyTipView.show(forView: forView,
-        withinSuperview: nil,
-        text: "Checkout some awesome promotions for you.",
-        preferences: preferences,
-        delegate: nil)
+        let tipView = EasyTipView(text: "Checkout some awesome promotions for you.", preferences: preferences, delegate: nil)
+        tipView.show(forView: forView)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            tipView.dismiss()
+        }
     }
     
     func viewStoryboard() -> UIStoryboard {

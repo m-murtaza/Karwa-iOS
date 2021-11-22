@@ -46,21 +46,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIO-iK-mQI">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MyTripsNoTrip" translatesAutoresizingMaskIntoConstraints="NO" id="ec3-yU-Jrg">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="ec3-yU-Jrg" secondAttribute="bottom" id="S4c-dC-0KG"/>
-                                    <constraint firstItem="ec3-yU-Jrg" firstAttribute="leading" secondItem="XIO-iK-mQI" secondAttribute="leading" id="V4M-bw-5eC"/>
-                                    <constraint firstAttribute="trailing" secondItem="ec3-yU-Jrg" secondAttribute="trailing" id="cZW-Bi-64w"/>
-                                    <constraint firstItem="ec3-yU-Jrg" firstAttribute="top" secondItem="XIO-iK-mQI" secondAttribute="top" id="eMd-2o-tpr"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HcH-CF-y9i">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,10 +59,6 @@
                         <color key="backgroundColor" red="0.8980392157" green="0.96078431369999995" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="HcH-CF-y9i" firstAttribute="leading" secondItem="PUF-5c-56N" secondAttribute="leading" id="1di-um-8BD"/>
-                            <constraint firstItem="XIO-iK-mQI" firstAttribute="leading" secondItem="PUF-5c-56N" secondAttribute="leading" id="5pr-r1-KTn"/>
-                            <constraint firstItem="PUF-5c-56N" firstAttribute="bottom" secondItem="XIO-iK-mQI" secondAttribute="bottom" id="94V-de-Dcc"/>
-                            <constraint firstItem="XIO-iK-mQI" firstAttribute="top" secondItem="PUF-5c-56N" secondAttribute="top" id="EZq-fW-U1G"/>
-                            <constraint firstItem="PUF-5c-56N" firstAttribute="trailing" secondItem="XIO-iK-mQI" secondAttribute="trailing" id="eah-dH-LJy"/>
                             <constraint firstItem="PUF-5c-56N" firstAttribute="trailing" secondItem="HcH-CF-y9i" secondAttribute="trailing" id="gYE-5s-V4e"/>
                             <constraint firstAttribute="bottom" secondItem="HcH-CF-y9i" secondAttribute="bottom" id="knC-Ub-BV6"/>
                             <constraint firstItem="HcH-CF-y9i" firstAttribute="top" secondItem="PUF-5c-56N" secondAttribute="top" id="qts-6V-pS6"/>
@@ -85,7 +66,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Promotions" id="kRB-pL-0LC"/>
                     <connections>
-                        <outlet property="noPromotionsView" destination="XIO-iK-mQI" id="i8S-77-loU"/>
                         <outlet property="tableView" destination="HcH-CF-y9i" id="seD-eB-rnR"/>
                     </connections>
                 </viewController>
@@ -102,13 +82,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Codes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-p2-Xh0">
-                                <rect key="frame" x="18" y="44" width="111.5" height="21"/>
+                                <rect key="frame" x="18" y="44" width="117.5" height="22"/>
                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-bu-8jO">
-                                <rect key="frame" x="0.0" y="75" width="414" height="737"/>
+                                <rect key="frame" x="0.0" y="76" width="414" height="736"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="EdT-y9-A7P" id="GCO-Ku-exi"/>
@@ -228,11 +208,10 @@
     </scenes>
     <designables>
         <designable name="Xcg-K7-KtE">
-            <size key="intrinsicContentSize" width="47.5" height="24.5"/>
+            <size key="intrinsicContentSize" width="49.5" height="25"/>
         </designable>
     </designables>
     <resources>
-        <image name="MyTripsNoTrip" width="360" height="458"/>
         <image name="ic_bottom_arrow_stack" width="16" height="20.5"/>
         <image name="icon-show-more-services" width="315" height="46"/>
         <namedColor name="PrimaryColor">

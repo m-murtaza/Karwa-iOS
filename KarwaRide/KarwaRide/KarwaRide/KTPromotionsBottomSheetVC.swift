@@ -18,6 +18,9 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     @IBOutlet weak var btnApply: SpringButton!
     @IBOutlet weak var btnShowMore: UIButton!
     
+    var pickup: String?
+    var dropoff: String?
+    
     var sheet: SheetViewController? {
         didSet {
             self.setSheetClosure()
@@ -46,6 +49,11 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         )
         btnApply.setAttributedTitle(title, for: .normal)
         tfPromoCode.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        vModel!.fetchGeoPromotions(pickup: self.pickup, dropoff: self.dropoff)
+        vModel!.fetchPromotions()
     }
     
     private func setSheetClosure() {
@@ -101,7 +109,7 @@ extension KTPromotionsBottomSheetVC: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: KTPromotionCell = tableView.dequeueReusableCell(withIdentifier: String(describing: KTPromotionCell.self)) as! KTPromotionCell
-        cell.configPromoBottomSheetCell()
+        cell.configPromoBottomSheetCell(data: vModel!.getPromotion(at: indexPath.row))
         cell.selectionStyle = .none
         animateCell(cell)
         return cell

@@ -12,7 +12,6 @@ import CDAlertView
 class KTPromotionsViewController: KTBaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var noPromotionsView: UIView!
     
     private var vModel : KTPromotionsViewModel?
     private let refreshControl = UIRefreshControl()
@@ -99,9 +98,8 @@ extension KTPromotionsViewController: KTPromotionsViewModelDelegate {
         tableView.reloadData()
     }
     
-    func showNoPromotionView() {
-        tableView.isHidden = true
-        noPromotionsView.isHidden = false
+    func showEmptyMessage(message: String) {
+//        tableView.isHidden = true
     }
     
     func endRefreshing(){

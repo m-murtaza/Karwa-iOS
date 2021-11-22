@@ -10,12 +10,12 @@ import UIKit
 
 protocol KTPromotionsViewModelDelegate: KTViewModelDelegate {
     func reloadTable()
-    func showNoPromotionView()
+    func showEmptyMessage(message: String)
     func endRefreshing()
 }
 
 extension KTPromotionsViewModelDelegate {
-    func showNoPromotionView() {}
+    func showEmptyMessage(message: String) {}
     func endRefreshing() {}
 }
 
@@ -31,31 +31,16 @@ class KTPromotionsViewModel: KTBaseViewModel {
         super.viewWillAppear()
     }
     
-    func dummyPromotionsData() {
-        delegate?.showProgressHud(show: true)
-        promotions = [PromotionModel(), PromotionModel(), PromotionModel(), PromotionModel(), PromotionModel(), PromotionModel()]
-        if self.promotions.count > 0 {
-            (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
-        }
-        else {
-            (self.delegate as? KTPromotionsViewModelDelegate)?.showNoPromotionView()
-        }
-        
-        (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()
-        self.delegate?.hideProgressHud()
-    }
-    
     func fetchPromotions() {
         delegate?.showProgressHud(show: true)
         KTPromotionManager().fetchPromotions { [weak self] (status, response) in
-            print("fetchPromotions -> response", response)
             guard let `self` = self else{return}
             (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()
             self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS
             {
-                guard let promotions = response["D"] as? [[String : Any]] else {
-                    (self.delegate as! KTPromotionsViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+                guard let promotions = response[Constants.ResponseAPIKey.Data] as? [[String : Any]] else {
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
                     return
                 }
                 for item in promotions {
@@ -75,12 +60,51 @@ class KTPromotionsViewModel: KTBaseViewModel {
                     (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
                 }
                 else {
-                    (self.delegate as? KTPromotionsViewModelDelegate)?.showNoPromotionView()
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
                 }
             }
             else
             {
-                (self.delegate as! KTPromotionsViewModelDelegate).showError!(title: response["T"] as! String, message: response["M"] as! String)
+                (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+            }
+        }
+    }
+    
+    func fetchGeoPromotions(pickup: String?, dropoff: String?) {
+        guard (pickup != nil || dropoff != nil) else {return}
+        delegate?.showProgressHud(show: true)
+        KTPromotionManager().fetchGeoPromotions(pickup: pickup, dropoff: dropoff) { [weak self] (status, response) in
+            guard let `self` = self else{return}
+            self.delegate?.showProgressHud(show: false)
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                guard let promotions = response[Constants.ResponseAPIKey.Data] as? [[String : Any]] else {
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
+                    return
+                }
+                for item in promotions {
+                    var promotionInfo = PromotionModel()
+                    
+                    promotionInfo.id = item["Id"] as? Int
+                    promotionInfo.name = item["Name"] as? String
+                    promotionInfo.description = item["Description"] as? String
+                    promotionInfo.moreInfo = item["MoreInfo"] as? String
+                    promotionInfo.code = item["Code"] as? String
+                    promotionInfo.icon = item["Icon"] as? String
+                    
+                    self.promotions.append(promotionInfo)
+                }
+                
+                if self.promotions.count > 0 {
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
+                }
+                else {
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
+                }
+            }
+            else
+            {
+                (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
             }
         }
     }

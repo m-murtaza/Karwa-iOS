@@ -48,11 +48,17 @@ class KTPromotionCell: UITableViewCell {
         self.imgPromotion.image = data.icon?.convertByteArrayToImage()
     }
     
-    func configPromoBottomSheetCell() {
+    func configPromoBottomSheetCell(data: PromotionModel) {
         self.uiMain.borderWidth = 1
         self.uiMain.cornerRadius = 14
         self.uiDetailView.isHidden = true
         self.lblSeeMore.isHidden = true
+        
+        self.lblCode.text = "str_code".localized() + ": \(data.code ?? "")"
+        self.lblHeading.text = data.name
+        self.lblSubHeading.text = data.description
+        self.lblDetail.text = data.moreInfo
+        self.imgPromotion.image = data.icon?.convertByteArrayToImage()
     }
     
     func setupShowMoreGesture() {

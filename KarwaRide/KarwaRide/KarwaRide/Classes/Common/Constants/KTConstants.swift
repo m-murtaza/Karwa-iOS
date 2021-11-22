@@ -588,4 +588,9 @@ struct Constants {
         static let amount = "Amount"
     }
     
+    struct PromotionParams {
+        static let Pickup = "pickup"
+        static let Dropoff = "dropoff"
+    }
+    
 }

@@ -248,6 +248,14 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 class KTCreateBookingViewController:
     KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
+    func noOfPromotions(count: Int) {
+        self.uiPromotionCount.isHidden = count > 0 ? false : true
+        self.lblPromotionCount.text = "\(count)"
+        if count > 0 {
+            self.showToolTip(forView: self.uiPromotionCount)
+        }
+    }
+    
     func reloadSelection() {
         self.tableView.reloadData()
     }
@@ -768,6 +776,9 @@ class KTCreateBookingViewController:
             controller: bottomSheetVC,
             sizes: [.percent(0.70), .marginFromTop(80)],
             options: SheetOptions(useInlineMode: true))
+        let result = (viewModel as? KTCreateBookingViewModel)?.getPickupDropoffForPromotions()
+        bottomSheetVC.pickup = result?.pickup
+        bottomSheetVC.dropoff = result?.dropoff
         bottomSheetVC.sheet = bottomSheet
         bottomSheet.allowPullingPastMaxHeight = true
         bottomSheet.allowPullingPastMinHeight = true
@@ -943,7 +954,7 @@ class KTCreateBookingViewController:
         self.currentLocationButton.isHidden = true
         (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
-        //}
+        (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
     }
   
   func pickDropBoxStep1() {

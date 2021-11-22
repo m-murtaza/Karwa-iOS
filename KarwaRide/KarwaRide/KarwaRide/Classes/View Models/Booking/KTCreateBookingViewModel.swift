@@ -68,6 +68,8 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     func restoreCustomerServiceSelection()
     func restoreCustomerServiceSelection(animateView: Bool)
     func reloadSelection()
+    
+    func noOfPromotions(count: Int)
 }
 
 let CHECK_DELAY = 90.0
@@ -434,6 +436,48 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func updateUI() {
         (delegate as! KTCreateBookingViewModelDelegate).showRequestBookingBtn()
         (delegate as! KTCreateBookingViewModelDelegate).pickDropBoxStep3()
+    }
+    
+    //MARK: - Promotion
+    func getNoOfPromotions() {
+        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
+        var pickup: String?
+        var dropoff: String?
+        if booking.pickupAddress != nil && booking.pickupAddress != "" {
+            pickup = String(booking.pickupLat) + "," + String(booking.pickupLon)
+        }
+        if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
+            dropoff = String(booking.dropOffLat) + "," + String(booking.dropOffLon)
+        }
+        
+        delegate?.showProgressHud(show: true)
+        KTPromotionManager().fetchGeoPromotions(pickup: pickup, dropoff: dropoff) { [weak self] (status, response) in
+            guard let `self` = self else{return}
+            self.delegate?.showProgressHud(show: false)
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                guard let promotions = response["D"] as? [[String : Any]] else {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+                    return
+                }
+                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
+            }
+            
+            (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+        }
+    }
+    
+    func getPickupDropoffForPromotions() -> (pickup: String?, dropoff: String?) {
+        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return (nil, nil)}
+        var pickup: String?
+        var dropoff: String?
+        if booking.pickupAddress != nil && booking.pickupAddress != "" {
+            pickup = String(booking.pickupLat) + "," + String(booking.pickupLon)
+        }
+        if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
+            dropoff = String(booking.dropOffLat) + "," + String(booking.dropOffLon)
+        }
+        return (pickup, dropoff)
     }
     
     //MARK: - Estimates
