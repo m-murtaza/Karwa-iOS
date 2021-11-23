@@ -31,6 +31,30 @@ class KTPromotionsViewModel: KTBaseViewModel {
         super.viewWillAppear()
     }
     
+    func dummyPromotionsData() {
+        delegate?.showProgressHud(show: true)
+        for i in 1..<6 {
+            let promotion = PromotionModel(
+                id: i,
+                name: "Promo \(i)",
+                description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever",
+                moreInfo: "Karwa Services are synonymous to public transport in Qatar. Qatar Rail has partnered with Mowasalat (Karwa) through our Karwa Taxi App for hassle free and discounted taxi rides to and from all Metro Stations. Use the “Rail” discount promo code and request you next ride through this App.",
+                code: "XYZ12\(i)",
+                icon: nil,
+                isShowMore: false)
+            promotions.append(promotion)
+        }
+        if self.promotions.count > 0 {
+            (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
+        }
+        else {
+            (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
+        }
+        
+        (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()
+        self.delegate?.hideProgressHud()
+    }
+    
     func fetchPromotions() {
         delegate?.showProgressHud(show: true)
         KTPromotionManager().fetchPromotions { [weak self] (status, response) in
@@ -40,7 +64,7 @@ class KTPromotionsViewModel: KTBaseViewModel {
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 guard let promotions = response[Constants.ResponseAPIKey.Data] as? [[String : Any]] else {
-                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
                     return
                 }
                 for item in promotions {
@@ -56,16 +80,18 @@ class KTPromotionsViewModel: KTBaseViewModel {
                     self.promotions.append(promotionInfo)
                 }
                 
+                (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
                 if self.promotions.count > 0 {
-                    (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "")
                 }
                 else {
-                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
                 }
             }
             else
             {
                 (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
             }
         }
     }
@@ -79,7 +105,7 @@ class KTPromotionsViewModel: KTBaseViewModel {
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 guard let promotions = response[Constants.ResponseAPIKey.Data] as? [[String : Any]] else {
-                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
                     return
                 }
                 for item in promotions {
@@ -99,7 +125,7 @@ class KTPromotionsViewModel: KTBaseViewModel {
                     (self.delegate as? KTPromotionsViewModelDelegate)?.reloadTable()
                 }
                 else {
-                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "No record found.")
+                    (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
                 }
             }
             else

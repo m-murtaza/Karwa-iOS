@@ -86,6 +86,9 @@
                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="genericLocalisedKey" value="str_promo_codes"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-bu-8jO">
                                 <rect key="frame" x="0.0" y="76" width="414" height="736"/>
@@ -111,7 +114,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c24-ig-35D">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-zL-Qjl">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-zL-Qjl" customClass="SpringView" customModule="Spring">
                                         <rect key="frame" x="12" y="10" width="390" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcg-K7-KtE" customClass="SpringButton" customModule="Spring">
@@ -141,6 +144,9 @@
                                                 <color key="textColor" name="PrimaryColor"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="str_promo_hint"/>
+                                                </userDefinedRuntimeAttributes>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -199,6 +205,7 @@
                         <outlet property="btnShowMore" destination="yCn-f2-CAG" id="d8t-C5-mrO"/>
                         <outlet property="tableView" destination="bC0-bu-8jO" id="t3w-LG-adk"/>
                         <outlet property="tfPromoCode" destination="zMQ-Mj-wvo" id="cEW-bG-9uC"/>
+                        <outlet property="uiPromoInput" destination="8Uc-zL-Qjl" id="IM2-WM-DVP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V6G-ao-XNa" userLabel="First Responder" sceneMemberID="firstResponder"/>

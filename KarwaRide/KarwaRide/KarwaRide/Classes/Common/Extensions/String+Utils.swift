@@ -168,15 +168,10 @@ extension String {
     }
   }
     
-    func convertByteArrayToImage() -> UIImage? {
-        let strings = self.components(separatedBy: ",")
-        var bytes = [UInt8]()
-        for i in 0..<strings.count {
-            if let signedByte = Int8(strings[i]) {
-                bytes.append(UInt8(bitPattern: signedByte))
-            }
+    func base64ToImage() -> UIImage? {
+        if let decodedData = Data(base64Encoded: self, options: .ignoreUnknownCharacters) {
+            return UIImage(data: decodedData)
         }
-        let data: Data = Data(bytes: bytes, count: bytes.count)
-        return UIImage(data: data)
+        return nil
     }
 }

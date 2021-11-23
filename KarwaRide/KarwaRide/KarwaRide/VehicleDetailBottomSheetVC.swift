@@ -101,6 +101,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         if let vModel = vModel, !vehicles.isEmpty {
             vModel.selectedVehicleType = VehicleType(rawValue: vehicles[forIndex].typeId)!
             self.lblHeader.text = vModel.getVehicleTitle(vehicleType: vehicles[forIndex].typeId)
+            self.lblDescription.text = vModel.getVehicleDescription(vehicleType: vehicles[forIndex].typeId)
             self.lblVehicleName.text = vModel.getVehicleTitle(vehicleType: vehicles[forIndex].typeId)
             self.lblCapacity.text = vModel.getTypeCapacity(typeId: vehicles[forIndex].typeId)
             self.lblTime.text = vModel.getTypeEta(typeId: vehicles[forIndex].typeId)
@@ -115,7 +116,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             svDetail.subviews.forEach({ $0.removeFromSuperview() })
             if let orderedBody = orderedBody {
                 svDetail.isHidden = false
-                let sheetHeight = CGFloat(470+(15*orderedBody.count))
+                let sheetHeight = CGFloat(470+(15*orderedBody.count)+(self.lblDescription.numberOfLines*10))
                 sheet?.setSizes([.fixed(sheetHeight)])
                 for i in 0 ..< orderedBody.count {
                     setFarDetails(fareDetail: orderedBody[i], fareBreakDownView: svDetail)

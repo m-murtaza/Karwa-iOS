@@ -45,7 +45,7 @@ class KTPromotionCell: UITableViewCell {
         self.lblHeading.text = data.name
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
-        self.imgPromotion.image = data.icon?.convertByteArrayToImage()
+//        self.imgPromotion.image = data.icon?.base64ToImage()
     }
     
     func configPromoBottomSheetCell(data: PromotionModel) {
@@ -58,7 +58,7 @@ class KTPromotionCell: UITableViewCell {
         self.lblHeading.text = data.name
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
-        self.imgPromotion.image = data.icon?.convertByteArrayToImage()
+//        self.imgPromotion.image = data.icon?.base64ToImage()
     }
     
     func setupShowMoreGesture() {

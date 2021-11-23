@@ -261,6 +261,7 @@
 		B790C45F2747AC7D004C7CCE /* PromotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C45E2747AC7D004C7CCE /* PromotionModel.swift */; };
 		B7A29FB627201DD100494949 /* VehicleDetailCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */; };
 		B7A29FB927201EFD00494949 /* VehicleDetailCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */; };
+		B7AACA21274CCE68009FF384 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AACA20274CCE68009FF384 /* UITableView+Extension.swift */; };
 		B7ADBC0F2745273C000B9073 /* KTPromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADBC0E2745273C000B9073 /* KTPromotionsViewController.swift */; };
 		B7ADBC1227452CDE000B9073 /* Promotions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7ADBC1127452CDE000B9073 /* Promotions.storyboard */; };
 		B7ADBC15274531AC000B9073 /* KTPromotionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADBC14274531AC000B9073 /* KTPromotionsViewModel.swift */; };
@@ -550,6 +551,7 @@
 		B790C45E2747AC7D004C7CCE /* PromotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
 		B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VehicleDetailCarouselCell.xib; sourceTree = "<group>"; };
 		B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailCarouselCell.swift; sourceTree = "<group>"; };
+		B7AACA20274CCE68009FF384 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B7ADBC0E2745273C000B9073 /* KTPromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionsViewController.swift; sourceTree = "<group>"; };
 		B7ADBC1127452CDE000B9073 /* Promotions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Promotions.storyboard; sourceTree = "<group>"; };
 		B7ADBC14274531AC000B9073 /* KTPromotionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionsViewModel.swift; sourceTree = "<group>"; };
@@ -1440,6 +1442,7 @@
 				448DCC28254A61C2005A644D /* UIViewController + Extension.swift */,
 				441D114C254FED49005E1B66 /* UIView + Extension.swift */,
 				B775444A274B81D5006E453A /* Dictionary+Extension.swift */,
+				B7AACA20274CCE68009FF384 /* UITableView+Extension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -2027,6 +2030,7 @@
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				1845FCCE26BFA5A600A1AA75 /* KTXpressBookingDetailsBottomSheetVC.swift in Sources */,
 				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
+				B7AACA21274CCE68009FF384 /* UITableView+Extension.swift in Sources */,
 				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,

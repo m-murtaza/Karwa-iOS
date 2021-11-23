@@ -17,6 +17,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     @IBOutlet weak var tfPromoCode: UITextField!
     @IBOutlet weak var btnApply: SpringButton!
     @IBOutlet weak var btnShowMore: UIButton!
+    @IBOutlet weak var uiPromoInput: SpringView!
     
     var pickup: String?
     var dropoff: String?
@@ -27,6 +28,8 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         }
     }
     private var vModel: KTPromotionsViewModel?
+    weak var previousView : KTCreateBookingViewController?
+    var previousPromo : String?
     
     override func viewDidLoad() {
         if viewModel == nil
@@ -43,17 +46,31 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     private func setupView() {
         btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .normal)
         btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .highlighted)
-        let title = NSAttributedString(
-          string: "Apply",
-          attributes: [.font: UIFont(name: "MuseoSans-900", size: 9.0)!, .foregroundColor: UIColor.white]
-        )
-        btnApply.setAttributedTitle(title, for: .normal)
+        
         tfPromoCode.delegate = self
     }
     
+    private func setupPromoState() {
+        var btnText = "promo_apply".localized()
+        if let promo = previousPromo, !promo.isEmpty {
+            btnText = "str_remove".localized()
+            tfPromoCode.isUserInteractionEnabled = false
+        } else {
+            btnText = "promo_apply".localized()
+            tfPromoCode.isUserInteractionEnabled = true
+        }
+        let title = NSAttributedString(
+            string: btnText,
+          attributes: [.font: UIFont(name: "MuseoSans-900", size: 9.0)!, .foregroundColor: UIColor.white]
+        )
+        btnApply.setAttributedTitle(title, for: .normal)
+        tfPromoCode.text = previousPromo
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        setupPromoState()
 //        vModel!.fetchGeoPromotions(pickup: self.pickup, dropoff: self.dropoff)
-        vModel!.fetchPromotions()
+        vModel!.dummyPromotionsData()
     }
     
     private func setSheetClosure() {
@@ -85,6 +102,31 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     @IBAction func onClickApply(_ sender: Any){
         springAnimateButtonTapOut(button: btnApply)
+        if tfPromoCode.text != nil
+        {
+            if((tfPromoCode.text?.trimmingCharacters(in: .whitespacesAndNewlines).length)! > 3)
+            {
+                if let promo = previousPromo, !promo.isEmpty {
+                    previousView?.removePromoTapped()
+                }
+                else {
+                    previousView?.applyPromoTapped(tfPromoCode.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                }
+                self.sheet?.attemptDismiss(animated: true)
+            }
+            else
+            {
+                showLengthError()
+            }
+        }
+    }
+    
+    func showLengthError()
+    {
+        let alertController = UIAlertController(title: "error_sr".localized(), message: "promo_length_error".localized(), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ok".localized(), style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -92,6 +134,10 @@ extension KTPromotionsBottomSheetVC: KTPromotionsViewModelDelegate {
     func reloadTable() {
         tableView.reloadData()
         self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
+    }
+    
+    func showEmptyMessage(message: String) {
+        self.tableView.setEmptyMessage(message)
     }
 }
 
@@ -116,7 +162,10 @@ extension KTPromotionsBottomSheetVC: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let promo = previousPromo, !promo.isEmpty {return}
+        tfPromoCode.text = vModel!.getPromotion(at: indexPath.row).code
+        uiPromoInput.animation = "shake"
+        uiPromoInput.animate()
     }
     
     private func setupTBL(){

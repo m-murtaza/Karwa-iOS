@@ -440,31 +440,32 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Promotion
     func getNoOfPromotions() {
-        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
-        var pickup: String?
-        var dropoff: String?
-        if booking.pickupAddress != nil && booking.pickupAddress != "" {
-            pickup = String(booking.pickupLat) + "," + String(booking.pickupLon)
-        }
-        if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
-            dropoff = String(booking.dropOffLat) + "," + String(booking.dropOffLon)
-        }
-        
-        delegate?.showProgressHud(show: true)
-        KTPromotionManager().fetchGeoPromotions(pickup: pickup, dropoff: dropoff) { [weak self] (status, response) in
-            guard let `self` = self else{return}
-            self.delegate?.showProgressHud(show: false)
-            if status == Constants.APIResponseStatus.SUCCESS
-            {
-                guard let promotions = response["D"] as? [[String : Any]] else {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
-                    return
-                }
-                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
-            }
-            
-            (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
-        }
+        (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 5)
+//        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
+//        var pickup: String?
+//        var dropoff: String?
+//        if booking.pickupAddress != nil && booking.pickupAddress != "" {
+//            pickup = String(booking.pickupLat) + "," + String(booking.pickupLon)
+//        }
+//        if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
+//            dropoff = String(booking.dropOffLat) + "," + String(booking.dropOffLon)
+//        }
+//
+//        delegate?.showProgressHud(show: true)
+//        KTPromotionManager().fetchGeoPromotions(pickup: pickup, dropoff: dropoff) { [weak self] (status, response) in
+//            guard let `self` = self else{return}
+//            self.delegate?.showProgressHud(show: false)
+//            if status == Constants.APIResponseStatus.SUCCESS
+//            {
+//                guard let promotions = response["D"] as? [[String : Any]] else {
+//                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+//                    return
+//                }
+//                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
+//            }
+//
+//            (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+//        }
     }
     
     func getPickupDropoffForPromotions() -> (pickup: String?, dropoff: String?) {
@@ -629,7 +630,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as? String ?? "Error", descMessage: response["M"] as! String, completion:
                                                                                     { (UIAlertAction) in
                                                                                         self.removeBooking = false
-                                                                                        (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                                                                                        (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: "")
                                                                                     })
                         }
                         
@@ -681,7 +682,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
                                                                                 { (UIAlertAction) in
                                                                                     self.removeBooking = false
-                                                                                    (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: promoEntered)
+                                                                                    (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: "")
                                                                                 })
                     }
                 })
@@ -1238,6 +1239,33 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             type = ""
         }
         return type
+    }
+    
+    func getVehicleDescription(vehicleType : Int16) -> String
+    {
+        var description : String = ""
+        switch vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
+            description = "description_taxi".localized()
+            
+        case VehicleType.KTCityTaxi7Seater.rawValue:
+            description = "description_family_taxi".localized()
+            
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            description = "description_accessible".localized()
+            
+        case VehicleType.KTStandardLimo.rawValue:
+            description = "txt_limo_standard".localized()
+            
+        case VehicleType.KTBusinessLimo.rawValue:
+            description = "txt_limo_buisness".localized()
+            
+        case VehicleType.KTLuxuryLimo.rawValue:
+            description = "description_limo".localized()
+        default:
+            description = ""
+        }
+        return description
     }
     
     func estimate(forVehicleType vTypeId:Int16) -> KTFareEstimate? {

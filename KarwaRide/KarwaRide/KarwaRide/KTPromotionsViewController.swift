@@ -38,7 +38,7 @@ class KTPromotionsViewController: KTBaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        vModel?.fetchPromotions()
+        vModel?.dummyPromotionsData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,7 +99,7 @@ extension KTPromotionsViewController: KTPromotionsViewModelDelegate {
     }
     
     func showEmptyMessage(message: String) {
-//        tableView.isHidden = true
+        self.tableView.setEmptyMessage(message)
     }
     
     func endRefreshing(){
