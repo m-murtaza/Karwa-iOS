@@ -23,6 +23,10 @@ class TabViewController: UITabBarController {
         
         self.tabBar.unselectedItemTintColor = UIColor(hexString: "#65A0AA")
         
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            self.tabBar.layer.zPosition = -1
+        }
+
         if #available(iOS 15.0, *) {
             tabBar.backgroundImage = #imageLiteral(resourceName: "tabbarbg")
         }
@@ -133,8 +137,14 @@ class TabViewController: UITabBarController {
         super.viewWillLayoutSubviews()
         let newTabBarHeight = defaultTabBarHeight + 7
         var newFrame = tabBar.frame
-        newFrame.size.height = newTabBarHeight
-        newFrame.origin.y = view.frame.size.height - newTabBarHeight
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            newFrame.size.height = 0
+            newFrame.origin.y = view.frame.size.height - 0
+        }
+        else {
+            newFrame.size.height = newTabBarHeight
+            newFrame.origin.y = view.frame.size.height - newTabBarHeight
+        }
         tabBar.frame = newFrame
     }
     

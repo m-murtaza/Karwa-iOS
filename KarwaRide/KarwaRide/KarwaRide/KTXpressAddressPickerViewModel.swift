@@ -586,10 +586,10 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
 //
 //  }
   
-  func setFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
-    (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
-  }
+//  func setFavorite(forIndex idx: Int) {
+//    let location : KTGeoLocation = locations[idx]
+//    (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
+//  }
   
   func editFavorite(forIndex idx: Int) {
     let location : KTGeoLocation = bookmarks[idx] //locations[idx]

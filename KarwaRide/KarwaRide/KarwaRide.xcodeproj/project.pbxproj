@@ -78,7 +78,6 @@
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
 		1810C0D81FC5AC1B008E8D91 /* KTLeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */; };
 		1810C0DA1FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */; };
-		1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */; };
 		1810C12F1FCD303E008E8D91 /* KTLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */; };
 		1810C1311FCD30E2008E8D91 /* KTConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C1301FCD30E1008E8D91 /* KTConstants.swift */; };
 		1810C13B1FCD7FB7008E8D91 /* KTUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C13A1FCD7FB7008E8D91 /* KTUserManager.swift */; };
@@ -147,7 +146,6 @@
 		1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA81200DC84500AD885B /* KTCreateBookingViewModel.swift */; };
 		1833CA85200E048100AD885B /* KTBookingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA84200E048100AD885B /* KTBookingManager.swift */; };
 		1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1833CA86200E10C900AD885B /* KTBookingManager+Track.swift */; };
-		1834000C269B5E700063EAA4 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */; };
 		18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839110F204517FB002EDE1A /* KTSettingsViewModel.swift */; };
 		18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18391113204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift */; };
 		1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839111520454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift */; };
@@ -258,6 +256,12 @@
 		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
 		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
 		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
+		B7A29FB627201DD100494949 /* VehicleDetailCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */; };
+		B7A29FB927201EFD00494949 /* VehicleDetailCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */; };
+		B7B89B9C271D741500F9D97D /* VehicleDetailBottomSheetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */; };
+		B7B89B9F271D748800F9D97D /* VehicleDetailBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */; };
+		B7C100182722A66400E1384F /* Karwa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B7C1000C2722A66300E1384F /* Karwa.xcdatamodeld */; };
+		D6D5C59461CE8C34D77B1FA4 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B248D1E88500EE879AFC9F /* Pods_KarwaRide.framework */; };
 		F03DAFFC261AE4B6002B3C44 /* KTWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */; };
 		F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */; };
 		F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */; };
@@ -271,12 +275,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0358D292C485D874EEC8BCDE /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		0D045C88216F21AF00D3904B /* KTIssueSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewModel.swift; sourceTree = "<group>"; };
 		0D045C8A216F248500D3904B /* KTIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueTableViewCell.swift; sourceTree = "<group>"; };
 		0D0948E621995A3700ECC8E1 /* TouchDownGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDownGestureRecognizer.swift; sourceTree = "<group>"; };
 		0D0A05CD2582147500ACD21B /* LocalisableSpringLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringLabel.swift; sourceTree = "<group>"; };
 		0D0A068925823E5600ACD21B /* KTBookingDetailsBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTBookingDetailsBottomSheetVC.swift; sourceTree = "<group>"; };
-		0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV3.xcdatamodel; sourceTree = "<group>"; };
 		0D18C6BC215116750001FD4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintCategoryModel.swift; sourceTree = "<group>"; };
 		0D1A4B56216CA29A00279AA6 /* KTComplaintCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTComplaintCategoryViewController.swift; sourceTree = "<group>"; };
@@ -287,8 +291,6 @@
 		0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewModel.swift; sourceTree = "<group>"; };
 		0D499D55258F5EF200404DD3 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0D499D57258F5EFE00404DD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0D4FC2C624014ED400DE705C /* KarwaV9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV9.xcdatamodel; sourceTree = "<group>"; };
-		0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV4.xcdatamodel; sourceTree = "<group>"; };
 		0D5C7093220AFA6D00541A21 /* BookingBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingBean.swift; path = Classes/Common/Utility/BookingBean.swift; sourceTree = "<group>"; };
 		0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmarkOneViewController.swift; sourceTree = "<group>"; };
 		0D5EAA8720EB7DBB0016E1F6 /* KTCoachmark2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCoachmark2ViewController.swift; sourceTree = "<group>"; };
@@ -301,7 +303,6 @@
 		0D80810C21AE61810055E473 /* KTTrackTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTTrackTripViewController.swift; sourceTree = "<group>"; };
 		0D826ECC21997309006FF11B /* ImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		0D9C169625945FAD004D0BF7 /* InputFieldUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldUtil.swift; sourceTree = "<group>"; };
-		0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV5.xcdatamodel; sourceTree = "<group>"; };
 		0DA1AF802188731100C5D3B6 /* KTPaymentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPaymentViewCell.swift; sourceTree = "<group>"; };
 		0DB0A5BF20EB96C900843430 /* SharedPrefUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedPrefUtil.swift; path = Classes/Common/Utility/SharedPrefUtil.swift; sourceTree = "<group>"; };
 		0DB2224022BA30C900C41D00 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
@@ -309,7 +310,6 @@
 		0DB2224222BA30C900C41D00 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ride_shiner.json; sourceTree = "<group>"; };
-		0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV8.xcdatamodel; sourceTree = "<group>"; };
 		0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableTextField.swift; sourceTree = "<group>"; };
 		0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantAPI.swift; sourceTree = "<group>"; };
 		0DCE48CB242358DB0018E3F0 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -318,8 +318,6 @@
 		0DD0F4132580AA340089CECD /* LocalisableSpringButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableSpringButton.swift; sourceTree = "<group>"; };
 		0DD0F43A2580DAE50089CECD /* ButtonExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExt.swift; sourceTree = "<group>"; };
 		0DD14F90234DBD3800C3A368 /* AppVersionUpdateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionUpdateNotifier.swift; sourceTree = "<group>"; };
-		0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
-		0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
 		0DE28EAA250757A0000E27E4 /* KPNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPNetworkManager.swift; sourceTree = "<group>"; };
 		0DE28EAC25075831000E27E4 /* APIPinning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPinning.swift; sourceTree = "<group>"; };
 		0DE28EAE25076786000E27E4 /* karwatechnologies_com.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = karwatechnologies_com.der; sourceTree = "<group>"; };
@@ -351,7 +349,6 @@
 		1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseTableViewController.swift; path = Classes/Views/Controllers/KTBaseTableViewController.swift; sourceTree = "<group>"; };
 		1810C0D61FC5A633008E8D91 /* KTLeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTLeftMenuViewController.swift; path = Classes/Views/Controllers/SideDrawer/KTLeftMenuViewController.swift; sourceTree = "<group>"; };
 		1810C0D91FC69E67008E8D91 /* KTBaseDrawerRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseDrawerRootViewController.swift; path = Classes/Views/Controllers/KTBaseDrawerRootViewController.swift; sourceTree = "<group>"; };
-		1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karwa.xcdatamodel; sourceTree = "<group>"; };
 		1810C12E1FCD303E008E8D91 /* KTLoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewModel.swift; path = "Classes/View Models/Login/KTLoginViewModel.swift"; sourceTree = "<group>"; };
 		1810C1301FCD30E1008E8D91 /* KTConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTConstants.swift; path = Classes/Common/Constants/KTConstants.swift; sourceTree = "<group>"; };
 		1810C13A1FCD7FB7008E8D91 /* KTUserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTUserManager.swift; path = Classes/DAL/KTUserManager.swift; sourceTree = "<group>"; };
@@ -441,7 +438,6 @@
 		185209452062411C00BD5FCD /* MyTripHired@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "MyTripHired@3x.gif"; path = "Resources/Images/MyTripHired@3x.gif"; sourceTree = "<group>"; };
 		185209462062411C00BD5FCD /* MyTripHired.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = MyTripHired.gif; path = Resources/Images/MyTripHired.gif; sourceTree = "<group>"; };
 		1852094C2063C91C00BD5FCD /* RoundedLable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoundedLable.swift; path = Classes/Common/Extensions/RoundedLable.swift; sourceTree = "<group>"; };
-		1854EE90268222C9000AC67B /* KarwaV10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV10.xcdatamodel; sourceTree = "<group>"; };
 		1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressLocationPickerViewController.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
@@ -459,7 +455,6 @@
 		186ECFCA20A410CE002CF81E /* KTSpringImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSpringImageView.swift; path = Classes/Views/Controllers/OnBoarding/KTSpringImageView.swift; sourceTree = "<group>"; };
 		186ECFCD20A80E2B002CF81E /* KTFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFirstViewController.swift; path = Classes/Views/Controllers/FirstViewController/KTFirstViewController.swift; sourceTree = "<group>"; };
 		186ECFD020A80EDB002CF81E /* KTFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFirstViewModel.swift; path = "Classes/View Models/FirstView/KTFirstViewModel.swift"; sourceTree = "<group>"; };
-		18787B3026DB73D70047D84E /* KarwaV11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV11.xcdatamodel; sourceTree = "<group>"; };
 		187E71102083790300E66A55 /* KTRatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingManager.swift; path = Classes/DAL/Rating/KTRatingManager.swift; sourceTree = "<group>"; };
 		187E71122084935100E66A55 /* KTRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTRatingViewController.swift; sourceTree = "<group>"; };
 		187E71142084B53400E66A55 /* KTRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewModel.swift; path = "Classes/View Models/BookingDetails/KTRatingViewModel.swift"; sourceTree = "<group>"; };
@@ -510,7 +505,6 @@
 		18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewWithRoundCorner.swift; path = Classes/ThirdParty/UIElements/ViewWithRoundCorner.swift; sourceTree = "<group>"; };
 		18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTMaskedEmailConfirmationVC.swift; sourceTree = "<group>"; };
 		18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTMasedEmailConfirmationViewModel.swift; sourceTree = "<group>"; };
-		18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
 		18D3BC1322841DC3008096B2 /* GenericInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericInputVC.swift; sourceTree = "<group>"; };
 		18DC95B52289D33400EB000D /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		18DEC617272E7FB8006D560A /* KTXpressLocationSetUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressLocationSetUpViewModel.swift; sourceTree = "<group>"; };
@@ -540,8 +534,23 @@
 		44EBB8CF254861FC000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D1254861FE000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
+		83B248D1E88500EE879AFC9F /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86F76FA0C742EAA4F6C1339D /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
+		B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VehicleDetailCarouselCell.xib; sourceTree = "<group>"; };
+		B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailCarouselCell.swift; sourceTree = "<group>"; };
+		B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VehicleDetailBottomSheetVC.xib; sourceTree = "<group>"; };
+		B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailBottomSheetVC.swift; sourceTree = "<group>"; };
+		B7C1000D2722A66300E1384F /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
+		B7C1000E2722A66300E1384F /* KarwaV3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV3.xcdatamodel; sourceTree = "<group>"; };
+		B7C1000F2722A66300E1384F /* KarwaV11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV11.xcdatamodel; sourceTree = "<group>"; };
+		B7C100102722A66300E1384F /* Karwa.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Karwa.xcdatamodel; sourceTree = "<group>"; };
+		B7C100112722A66300E1384F /* KarwaV9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV9.xcdatamodel; sourceTree = "<group>"; };
+		B7C100122722A66300E1384F /* KarwaV5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV5.xcdatamodel; sourceTree = "<group>"; };
+		B7C100132722A66300E1384F /* KarwaV10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV10.xcdatamodel; sourceTree = "<group>"; };
+		B7C100142722A66300E1384F /* KarwaV2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV2.xcdatamodel; sourceTree = "<group>"; };
+		B7C100152722A66300E1384F /* KarwaV7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV7.xcdatamodel; sourceTree = "<group>"; };
+		B7C100162722A66300E1384F /* KarwaV4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV4.xcdatamodel; sourceTree = "<group>"; };
+		B7C100172722A66300E1384F /* KarwaV8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV8.xcdatamodel; sourceTree = "<group>"; };
 		F03DAFFB261AE4B6002B3C44 /* KTWalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewController.swift; sourceTree = "<group>"; };
 		F03DAFFF261B1346002B3C44 /* KTWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTWalletViewModel.swift; sourceTree = "<group>"; };
 		F03DB003261D41AA002B3C44 /* KTAddCreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTAddCreditViewController.swift; sourceTree = "<group>"; };
@@ -553,7 +562,6 @@
 		F07CFD7B26311A4A00F003DA /* PaymentMethodSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodSelectTableViewCell.swift; sourceTree = "<group>"; };
 		F07CFD7C26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentMethodSelectTableViewCell.xib; sourceTree = "<group>"; };
 		F09D469C262C51A600695369 /* KTCyberSecureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTCyberSecureViewController.swift; sourceTree = "<group>"; };
-		FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,7 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1833CA7C200CBE8100AD885B /* CoreLocation.framework in Frameworks */,
-				1834000C269B5E700063EAA4 /* Pods_KarwaRide.framework in Frameworks */,
+				D6D5C59461CE8C34D77B1FA4 /* Pods_KarwaRide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,7 +788,7 @@
 		1810C1221FCC371A008E8D91 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */,
+				B7C1000C2722A66300E1384F /* Karwa.xcdatamodeld */,
 			);
 			name = CoreDataModel;
 			sourceTree = "<group>";
@@ -1067,6 +1075,7 @@
 		1833CA7D200DB86E00AD885B /* Booking */ = {
 			isa = PBXGroup;
 			children = (
+				B7B89B9A271D73E100F9D97D /* VehicleDetailBottomSheet */,
 				F07CFD70263022F100F003DA /* PaymentSelectionView */,
 				441D116E255103ED005E1B66 /* Favorite */,
 				18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */,
@@ -1532,8 +1541,8 @@
 		82B8F4BF37A02B16704AD1D5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */,
-				FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */,
+				0358D292C485D874EEC8BCDE /* Pods-KarwaRide.debug.xcconfig */,
+				86F76FA0C742EAA4F6C1339D /* Pods-KarwaRide.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1542,9 +1551,20 @@
 			isa = PBXGroup;
 			children = (
 				1833CA7B200CBE8100AD885B /* CoreLocation.framework */,
-				7306FDD2B8B2070B26F38E41 /* Pods_KarwaRide.framework */,
+				83B248D1E88500EE879AFC9F /* Pods_KarwaRide.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B7B89B9A271D73E100F9D97D /* VehicleDetailBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */,
+				B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */,
+				B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */,
+				B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */,
+			);
+			name = VehicleDetailBottomSheet;
 			sourceTree = "<group>";
 		};
 		F03DAFFA261AE46A002B3C44 /* Wallet */ = {
@@ -1613,13 +1633,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 181344A81EF68671006E734A /* Build configuration list for PBXNativeTarget "KarwaRide" */;
 			buildPhases = (
-				752AECF0786652127F60095C /* [CP] Check Pods Manifest.lock */,
+				4C8B62D8E40A403441FF0A71 /* [CP] Check Pods Manifest.lock */,
 				181344921EF68671006E734A /* Sources */,
 				181344931EF68671006E734A /* Frameworks */,
 				181344941EF68671006E734A /* Resources */,
 				182A74DF20A1761C0025B6C7 /* ShellScript */,
-				1F6201008D4EE0A77E5624ED /* [CP] Embed Pods Frameworks */,
-				28B1BD7E8A2EB748BE701D59 /* [CP] Copy Pods Resources */,
+				61DBB9D0A2358105080624D1 /* [CP] Embed Pods Frameworks */,
+				180C5CE3A9B775DAC2156A0A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1691,6 +1711,7 @@
 				18C24B062004E269002D4B88 /* MuseoSans-500.otf in Resources */,
 				0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */,
 				F07CFD7E26311A4A00F003DA /* PaymentMethodSelectTableViewCell.xib in Resources */,
+				B7B89B9C271D741500F9D97D /* VehicleDetailBottomSheetVC.xib in Resources */,
 				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
@@ -1712,12 +1733,31 @@
 				1813449F1EF68671006E734A /* Main.storyboard in Resources */,
 				185209472062411C00BD5FCD /* MyTripHired@2x.gif in Resources */,
 				0D18C6BD215116750001FD4C /* GoogleService-Info.plist in Resources */,
+				B7A29FB627201DD100494949 /* VehicleDetailCarouselCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		180C5CE3A9B775DAC2156A0A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		182A74DF20A1761C0025B6C7 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -1734,7 +1774,29 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\" \n";
 		};
-		1F6201008D4EE0A77E5624ED /* [CP] Embed Pods Frameworks */ = {
+		4C8B62D8E40A403441FF0A71 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KarwaRide-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61DBB9D0A2358105080624D1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1776,6 +1838,7 @@
 				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/TrueTime/TrueTime.framework",
 				"${BUILT_PRODUCTS_DIR}/UBottomSheet/UBottomSheet.framework",
+				"${BUILT_PRODUCTS_DIR}/UPCarouselFlowLayout/UPCarouselFlowLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -1817,6 +1880,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrueTime.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UBottomSheet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPCarouselFlowLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libPhoneNumber_iOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -1824,46 +1888,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		28B1BD7E8A2EB748BE701D59 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		752AECF0786652127F60095C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KarwaRide-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1951,6 +1975,7 @@
 				1811AE4326AD1A66002C991E /* KTXpressBookingManager.swift in Sources */,
 				18C24ADF2004B031002D4B88 /* KTOTPViewModel.swift in Sources */,
 				0DEA1F512166055D00649F8B /* ComplaintsManager.swift in Sources */,
+				B7A29FB927201EFD00494949 /* VehicleDetailCarouselCell.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
 				0DE90AF72186E9FB005FC934 /* KTPaymentViewModel.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
@@ -2021,12 +2046,14 @@
 				18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */,
 				0DD0F4112580A9E20089CECD /* LocalisableButton.swift in Sources */,
 				0DD14F91234DBD3800C3A368 /* AppVersionUpdateNotifier.swift in Sources */,
+				B7B89B9F271D748800F9D97D /* VehicleDetailBottomSheetVC.swift in Sources */,
 				1811AE4526AD1A89002C991E /* KTXpressAddressPickerViewModel.swift in Sources */,
 				F03DB009261D42E4002B3C44 /* KTAddCreditViewModel.swift in Sources */,
 				18FA45B52070B965000487C1 /* KTFareViewController.swift in Sources */,
 				186ECFC120A1A481002CF81E /* KTOnboardingStep2ViewController.swift in Sources */,
 				0D63FC5D21721BC700DF7ED6 /* ComplaintBeanForServer.swift in Sources */,
 				1833CA82200DC84500AD885B /* KTCreateBookingViewModel.swift in Sources */,
+				B7C100182722A66400E1384F /* Karwa.xcdatamodeld in Sources */,
 				186ECFCB20A410CE002CF81E /* KTSpringImageView.swift in Sources */,
 				0D750BF721DB5B9700CFF75B /* RatingCommentPopupVC.swift in Sources */,
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
@@ -2080,7 +2107,6 @@
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,
 				188618782079FCB7000806D3 /* cancelReasonTableViewCell.swift in Sources */,
 				0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */,
-				1810C1291FCC3880008E8D91 /* Karwa.xcdatamodeld in Sources */,
 				0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */,
 				0DE6A745218B141200125507 /* Coding.swift in Sources */,
 				0DE6A749218B141200125507 /* GatewayResult.swift in Sources */,
@@ -2260,7 +2286,7 @@
 		};
 		181344A91EF68671006E734A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C2B426B0B9A40E7A0D53E266 /* Pods-KarwaRide.debug.xcconfig */;
+			baseConfigurationReference = 0358D292C485D874EEC8BCDE /* Pods-KarwaRide.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -2269,7 +2295,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 236;
+				CURRENT_PROJECT_VERSION = 237;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				EXCLUDED_ARCHS = "";
@@ -2284,7 +2310,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "KarwaTaxi-Dev-16Nov2021";
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -2295,7 +2321,7 @@
 		};
 		181344AA1EF68671006E734A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB1A2A709108E51F8B0BB3D0 /* Pods-KarwaRide.release.xcconfig */;
+			baseConfigurationReference = 86F76FA0C742EAA4F6C1339D /* Pods-KarwaRide.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -2304,7 +2330,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 236;
+				CURRENT_PROJECT_VERSION = 237;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -2352,22 +2378,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1810C1271FCC3880008E8D91 /* Karwa.xcdatamodeld */ = {
+		B7C1000C2722A66300E1384F /* Karwa.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				18787B3026DB73D70047D84E /* KarwaV11.xcdatamodel */,
-				1854EE90268222C9000AC67B /* KarwaV10.xcdatamodel */,
-				0D4FC2C624014ED400DE705C /* KarwaV9.xcdatamodel */,
-				0DC1764E22F1ACF300D85C5D /* KarwaV8.xcdatamodel */,
-				0DDFAE7F22BA635F00A07611 /* KarwaV7.xcdatamodel */,
-				18D3BC122284051C008096B2 /* KarwaV6.xcdatamodel */,
-				0DA154FA2227C486006C0763 /* KarwaV5.xcdatamodel */,
-				0D5C7090220AD29F00541A21 /* KarwaV4.xcdatamodel */,
-				0D14D6782185B34E009AE645 /* KarwaV3.xcdatamodel */,
-				0DE10AF5217357E0001C4A40 /* KarwaV2.xcdatamodel */,
-				1810C1281FCC3880008E8D91 /* Karwa.xcdatamodel */,
+				B7C1000D2722A66300E1384F /* KarwaV6.xcdatamodel */,
+				B7C1000E2722A66300E1384F /* KarwaV3.xcdatamodel */,
+				B7C1000F2722A66300E1384F /* KarwaV11.xcdatamodel */,
+				B7C100102722A66300E1384F /* Karwa.xcdatamodel */,
+				B7C100112722A66300E1384F /* KarwaV9.xcdatamodel */,
+				B7C100122722A66300E1384F /* KarwaV5.xcdatamodel */,
+				B7C100132722A66300E1384F /* KarwaV10.xcdatamodel */,
+				B7C100142722A66300E1384F /* KarwaV2.xcdatamodel */,
+				B7C100152722A66300E1384F /* KarwaV7.xcdatamodel */,
+				B7C100162722A66300E1384F /* KarwaV4.xcdatamodel */,
+				B7C100172722A66300E1384F /* KarwaV8.xcdatamodel */,
 			);
-			currentVersion = 18787B3026DB73D70047D84E /* KarwaV11.xcdatamodel */;
+			currentVersion = B7C1000F2722A66300E1384F /* KarwaV11.xcdatamodel */;
 			name = Karwa.xcdatamodeld;
 			path = Classes/DAL/CoreData/Karwa.xcdatamodeld;
 			sourceTree = "<group>";
