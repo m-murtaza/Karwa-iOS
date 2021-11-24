@@ -801,9 +801,7 @@ class KTCreateBookingViewController:
             controller: bottomSheetVC,
             sizes: [.percent(0.70), .marginFromTop(80)],
             options: SheetOptions(useInlineMode: true))
-        let result = (viewModel as? KTCreateBookingViewModel)?.getPickupDropoffForPromotions()
-        bottomSheetVC.pickup = result?.pickup
-        bottomSheetVC.dropoff = result?.dropoff
+        bottomSheetVC.pickupDropoff = (viewModel as? KTCreateBookingViewModel)?.getPickupDropoffForPromotions()
         bottomSheetVC.previousView = self
         bottomSheetVC.previousPromo = currentPromo
         bottomSheetVC.sheet = bottomSheet

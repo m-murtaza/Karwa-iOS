@@ -34,6 +34,7 @@ class KTPromotionCell: UITableViewCell {
     }
     
     func configCell(isSelected: Bool, data: PromotionModel) {
+        self.uiMain.borderColor = UIColor(hexString: "#00A8A8")
         self.uiMain.borderWidth = isSelected ? 2 : 0
         self.uiDetailView.isHidden = !isShowMore
         let showMoreText = isShowMore ? "str_show_less".localized() : "str_show_more".localized()
@@ -45,7 +46,7 @@ class KTPromotionCell: UITableViewCell {
         self.lblHeading.text = data.name
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
-//        self.imgPromotion.image = data.icon?.base64ToImage()
+        self.imgPromotion.image = data.icon?.base64ToImage()
     }
     
     func configPromoBottomSheetCell(data: PromotionModel) {
@@ -58,7 +59,7 @@ class KTPromotionCell: UITableViewCell {
         self.lblHeading.text = data.name
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
-//        self.imgPromotion.image = data.icon?.base64ToImage()
+        self.imgPromotion.image = data.icon?.base64ToImage()
     }
     
     func setupShowMoreGesture() {

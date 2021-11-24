@@ -10,22 +10,18 @@ import UIKit
 
 class KTPromotionManager: KTDALManager {
     
-    func fetchPromotions(completion completionBlock: @escaping KTDALCompletionBlock) {
-        self.get(url: Constants.APIURL.Promotions, param: nil, completion: completionBlock) { (response, cBlock) in
-            cBlock(Constants.APIResponseStatus.SUCCESS, response)
-        }
-    }
-    
-    func fetchGeoPromotions(pickup: String?, dropoff: String?, completion completionBlock: @escaping KTDALCompletionBlock) {
+    func fetchPromotions(params: PromotionParams? = nil, completion completionBlock: @escaping KTDALCompletionBlock) {
         var param : [String: Any] = [:]
-        if let pickup = pickup {
-            param[Constants.PromotionParams.Pickup] = pickup
+        if let pickupLat = params?.pickupLat, let pickupLong = params?.pickupLong {
+            param[Constants.PromotionParams.PickupLat] = pickupLat
+            param[Constants.PromotionParams.PickupLong] = pickupLong
         }
-        if let dropoff = dropoff {
-            param[Constants.PromotionParams.Dropoff] = dropoff
+        if let dropoffLat = params?.dropoffLat, let dropoffLong = params?.dropoffLong {
+            param[Constants.PromotionParams.DropoffLat] = dropoffLat
+            param[Constants.PromotionParams.DropoffLong] = dropoffLong
         }
         
-        let url = Constants.APIURL.Promotions + "/geo?" + param.queryString
+        let url = Constants.APIURL.Promotions + "?" + param.queryString
         
         self.get(url: url, param: nil, completion: completionBlock) { (response, cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS, response)

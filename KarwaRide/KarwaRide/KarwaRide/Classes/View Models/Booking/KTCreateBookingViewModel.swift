@@ -440,45 +440,49 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     //MARK: - Promotion
     func getNoOfPromotions() {
-        (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 5)
-//        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
-//        var pickup: String?
-//        var dropoff: String?
-//        if booking.pickupAddress != nil && booking.pickupAddress != "" {
-//            pickup = String(booking.pickupLat) + "," + String(booking.pickupLon)
-//        }
-//        if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
-//            dropoff = String(booking.dropOffLat) + "," + String(booking.dropOffLon)
-//        }
-//
-//        delegate?.showProgressHud(show: true)
-//        KTPromotionManager().fetchGeoPromotions(pickup: pickup, dropoff: dropoff) { [weak self] (status, response) in
-//            guard let `self` = self else{return}
-//            self.delegate?.showProgressHud(show: false)
-//            if status == Constants.APIResponseStatus.SUCCESS
-//            {
-//                guard let promotions = response["D"] as? [[String : Any]] else {
-//                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
-//                    return
-//                }
-//                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
-//            }
-//
-//            (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
-//        }
-    }
-    
-    func getPickupDropoffForPromotions() -> (pickup: String?, dropoff: String?) {
-        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return (nil, nil)}
-        var pickup: String?
-        var dropoff: String?
+        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
+        var params: PromotionParams = PromotionParams()
         if booking.pickupAddress != nil && booking.pickupAddress != "" {
-            pickup = String(booking.pickupLat) + "," + String(booking.pickupLon)
+            params.pickupLat = booking.pickupLat
+            params.pickupLong = booking.pickupLon
         }
         if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
-            dropoff = String(booking.dropOffLat) + "," + String(booking.dropOffLon)
+            params.dropoffLat = booking.dropOffLat
+            params.dropoffLong = booking.dropOffLon
         }
-        return (pickup, dropoff)
+
+        delegate?.showProgressHud(show: true)
+        KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
+            guard let `self` = self else{return}
+            self.delegate?.showProgressHud(show: false)
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                guard let promotions = response["D"] as? [[String : Any]] else {
+                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+                    return
+                }
+                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
+            }
+            else
+            {
+                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+            }
+        }
+    }
+    
+    func getPickupDropoffForPromotions() -> PromotionParams? {
+        guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return nil}
+        var params: PromotionParams = PromotionParams()
+        if booking.pickupAddress != nil && booking.pickupAddress != "" {
+            params.pickupLat = booking.pickupLat
+            params.pickupLong = booking.pickupLon
+        }
+        if booking.dropOffAddress != nil && booking.dropOffAddress != "" {
+            params.dropoffLat = booking.dropOffLat
+            params.dropoffLong = booking.dropOffLon
+        }
+        
+        return params
     }
     
     //MARK: - Estimates
@@ -630,6 +634,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                             (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as? String ?? "Error", descMessage: response["M"] as! String, completion:
                                                                                     { (UIAlertAction) in
                                                                                         self.removeBooking = false
+                                                                                        self.promo = ""
                                                                                         (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: "")
                                                                                     })
                         }
@@ -682,6 +687,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
                                                                                 { (UIAlertAction) in
                                                                                     self.removeBooking = false
+                                                                                    self.promo = ""
                                                                                     (self.delegate as! KTCreateBookingViewModelDelegate).showPromoInputDialog(currentPromo: "")
                                                                                 })
                     }

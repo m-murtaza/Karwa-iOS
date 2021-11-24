@@ -38,7 +38,7 @@ class KTPromotionsViewController: KTBaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        vModel?.dummyPromotionsData()
+        vModel?.fetchPromotions()
     }
     
     override func viewDidAppear(_ animated: Bool) {

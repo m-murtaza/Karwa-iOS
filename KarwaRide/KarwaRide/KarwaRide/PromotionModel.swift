@@ -27,3 +27,10 @@ struct PromotionModel: Codable {
         case icon = "Icon"
     }
 }
+
+struct PromotionParams {
+    var pickupLat: Double?
+    var pickupLong: Double?
+    var dropoffLat: Double?
+    var dropoffLong: Double?
+}

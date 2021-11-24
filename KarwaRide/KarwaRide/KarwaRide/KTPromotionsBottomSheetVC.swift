@@ -19,8 +19,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     @IBOutlet weak var btnShowMore: UIButton!
     @IBOutlet weak var uiPromoInput: SpringView!
     
-    var pickup: String?
-    var dropoff: String?
+    var pickupDropoff: PromotionParams?
     
     var sheet: SheetViewController? {
         didSet {
@@ -69,8 +68,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupPromoState()
-//        vModel!.fetchGeoPromotions(pickup: self.pickup, dropoff: self.dropoff)
-        vModel!.dummyPromotionsData()
+        vModel!.fetchPromotions(params: self.pickupDropoff)
     }
     
     private func setSheetClosure() {

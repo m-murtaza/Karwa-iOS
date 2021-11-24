@@ -589,8 +589,10 @@ struct Constants {
     }
     
     struct PromotionParams {
-        static let Pickup = "pickup"
-        static let Dropoff = "dropoff"
+        static let PickupLat = "plat"
+        static let PickupLong = "plon"
+        static let DropoffLat = "dlat"
+        static let DropoffLong = "dlon"
     }
     
 }
