@@ -39,7 +39,7 @@ class KTPromotionCell: UITableViewCell {
         self.uiMain.borderWidth = isSelected ? 2 : 0
         self.uiDetailView.isHidden = !isShowMore
         let showMoreText = isShowMore ? "str_show_less".localized() : "str_show_more".localized()
-        if let attributedString = createAttributedString(stringArray: [showMoreText], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 9.0)!, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]) {
+        if let attributedString = createAttributedString(stringArray: [showMoreText], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 10.0)!, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]) {
             attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: attributedString.length))
             self.lblSeeMore.attributedText = attributedString
         }

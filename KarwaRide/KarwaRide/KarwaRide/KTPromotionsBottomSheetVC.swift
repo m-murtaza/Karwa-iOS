@@ -60,7 +60,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         }
         let title = NSAttributedString(
             string: btnText,
-          attributes: [.font: UIFont(name: "MuseoSans-900", size: 9.0)!, .foregroundColor: UIColor.white]
+          attributes: [.font: UIFont(name: "MuseoSans-900", size: 12.0)!, .foregroundColor: UIColor.white]
         )
         btnApply.setAttributedTitle(title, for: .normal)
         tfPromoCode.text = previousPromo

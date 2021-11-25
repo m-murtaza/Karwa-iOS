@@ -30,10 +30,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07p-wO-euZ" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="390" height="231"/>
+                        <rect key="frame" x="12" y="4" width="390" height="243"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9dK-nD-2t4">
-                                <rect key="frame" x="20" y="20" width="350" height="191"/>
+                                <rect key="frame" x="20" y="20" width="350" height="203"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvz-xU-me0">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
@@ -43,7 +43,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="NZ8-5r-4ce"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="16"/>
                                                 <color key="textColor" name="PrimaryColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -55,18 +55,18 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-n4-Vec">
-                                                <rect key="frame" x="0.0" y="17" width="204" height="25.5"/>
+                                                <rect key="frame" x="0.0" y="17" width="204" height="40"/>
                                                 <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</string>
-                                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="7"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code: XYZ123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXX-ON-m17">
-                                                <rect key="frame" x="0.0" y="46.5" width="204" height="8.5"/>
+                                                <rect key="frame" x="0.0" y="61" width="204" height="8.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="8.5" id="d4j-sc-y32"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="7"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" name="PrimaryColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -88,7 +88,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYO-ui-VzG">
-                                        <rect key="frame" x="0.0" y="80" width="350" height="100"/>
+                                        <rect key="frame" x="0.0" y="80" width="350" height="112"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbI-jn-Zvf">
                                                 <rect key="frame" x="0.0" y="0.0" width="55" height="15"/>
@@ -103,11 +103,11 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P44-t2-wJo">
-                                                <rect key="frame" x="0.0" y="20" width="350" height="60"/>
+                                                <rect key="frame" x="0.0" y="20" width="350" height="72"/>
                                                 <string key="text">Karwa Services are synonymous to public transport in Qatar. 
 Qatar Rail has partnered with Mowasalat (Karwa) through our 
 Karwa Taxi App for hassle free and discounted taxi rides to and from all Metro Stations. Use the “Rail” discount promo code and request you next ride through this App.</string>
-                                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -123,14 +123,14 @@ Karwa Taxi App for hassle free and discounted taxi rides to and from all Metro S
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWv-Lv-4FP">
-                                        <rect key="frame" x="0.0" y="180" width="350" height="11"/>
+                                        <rect key="frame" x="0.0" y="192" width="350" height="11"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="11" id="5LG-en-a5M"/>
                                         </constraints>
                                         <attributedString key="attributedText">
                                             <fragment content="See Less">
                                                 <attributes>
-                                                    <font key="NSFont" size="9" name="MuseoSans-700"/>
+                                                    <font key="NSFont" size="10" name="MuseoSans-700"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>

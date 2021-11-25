@@ -133,7 +133,7 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedIndex = indexPath
-        self.vModel?.setShowMore(at: indexPath.row, value: true)
+        self.vModel?.setShowMore(at: indexPath.row, value: !vModel!.getShowMore(at: indexPath.row))
         self.tableView.reloadData()
     }
     
