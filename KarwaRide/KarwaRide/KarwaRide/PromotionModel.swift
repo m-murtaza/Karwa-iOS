@@ -24,7 +24,6 @@ struct PromotionModel: Codable {
         case description = "Description"
         case moreInfo = "MoreInfo"
         case code = "Code"
-        case icon = "Icon"
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class KTPromotionCell: UITableViewCell {
     @IBOutlet weak var uiMain: ViewWithRoundCorner!
@@ -46,7 +47,8 @@ class KTPromotionCell: UITableViewCell {
         self.lblHeading.text = data.name
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
-        self.imgPromotion.image = data.icon?.base64ToImage()
+        let url = URL(string: data.icon!)!
+        self.imgPromotion.kf.setImage(with: url)
     }
     
     func configPromoBottomSheetCell(data: PromotionModel) {
@@ -59,7 +61,8 @@ class KTPromotionCell: UITableViewCell {
         self.lblHeading.text = data.name
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
-        self.imgPromotion.image = data.icon?.base64ToImage()
+        let url = URL(string: data.icon!)!
+        self.imgPromotion.kf.setImage(with: url)
     }
     
     func setupShowMoreGesture() {

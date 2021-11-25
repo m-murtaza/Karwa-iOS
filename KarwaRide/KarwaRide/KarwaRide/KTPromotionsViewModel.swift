@@ -51,7 +51,8 @@ class KTPromotionsViewModel: KTBaseViewModel {
                     promotionInfo.description = item["Description"] as? String
                     promotionInfo.moreInfo = item["MoreInfo"] as? String
                     promotionInfo.code = item["Code"] as? String
-                    promotionInfo.icon = item["Icon"] as? String
+                    let iconUrl = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey) + Constants.APIURL.PromotionIcon + String(promotionInfo.id!)
+                    promotionInfo.icon = iconUrl
                     
                     self.promotions.append(promotionInfo)
                 }

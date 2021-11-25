@@ -504,6 +504,7 @@ struct Constants {
         static let PostRSService = "rs/explore"
         static let orderService = "rs/order/"
         static let Promotions = "promo"
+        static let PromotionIcon = "promo/img/"
     }
     
     struct TrackTaxiParams {

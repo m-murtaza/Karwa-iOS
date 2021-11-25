@@ -15,7 +15,6 @@ extension Dictionary {
             output +=  "\(key)=\(value)&"
         }
         output = String(output.dropLast(1))
-        print(output)
         return output
     }
 }
