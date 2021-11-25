@@ -128,7 +128,6 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
             self.tableView.reloadData()
         }
         cell.selectionStyle = .none
-        animateCell(cell)
         return cell
     }
     

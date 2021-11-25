@@ -155,7 +155,6 @@ extension KTPromotionsBottomSheetVC: UITableViewDelegate, UITableViewDataSource 
         let cell: KTPromotionCell = tableView.dequeueReusableCell(withIdentifier: String(describing: KTPromotionCell.self)) as! KTPromotionCell
         cell.configPromoBottomSheetCell(data: vModel!.getPromotion(at: indexPath.row))
         cell.selectionStyle = .none
-        animateCell(cell)
         return cell
     }
     
