@@ -1247,8 +1247,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return type
     }
     
-    func getVehicleDescription(vehicleType : Int16) -> String
-    {
+    func getVehicleDescription(vehicleType : Int16) -> String {
         var description : String = ""
         switch vehicleType {
         case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
