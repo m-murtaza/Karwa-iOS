@@ -30,6 +30,14 @@ enum VehicleType: Int16 {
     case KTStandardLimo = 30
     case KTBusinessLimo = 50
     case KTLuxuryLimo = 70
+    case KTXpressTaxi = 200
+
+}
+
+enum VehicleCategories: String {
+    case FIRST = "first"
+    case SECOND = "second"
+    case THIRD = "third"
 }
 
 enum geoLocationType : Int32 {
@@ -101,15 +109,24 @@ struct Device {
     }
 }
 
+enum Storyboard: String {
+    case MAIN = "Main"
+    case PROMOTIONS = "Promotions"
+    
+    func board()->String{
+        return self.rawValue
+    }
+}
+
 struct Constants {
     static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
     /*                Live Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTRQNB01"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
-    static let APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
+    static var MERCHANT_ID:String = "KTRQNB01"
+    static var GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    static var APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
     /* ------------------------------------------------------------------ */
 
     /*                Test Payment Credentials                            */
@@ -150,6 +167,7 @@ struct Constants {
         static let MinuteChanged = "MinuteChangedNotification"
         static let LocationManager = "LocationManagerNotificationIdentifier"
         static let UserLogin = "UserLoginNotificationIdentifire"
+        static let XpressLocationManager = "XpressLocationManagerNotificationIdentifier"
     }
     
     struct API {
@@ -317,6 +335,8 @@ struct Constants {
         static let TripType = "TripType"
         static let OTP = "Otp"
         static let Desc = "Desc"
+        static let PassengerCount = "PassengerCount"
+
 
     }
     
@@ -480,7 +500,11 @@ struct Constants {
         static let GetInitialFareForPromo = "tariff/promo/"
         static let GetTransactions = "payment?records=10"
         static let walletTopup = "payment/wallet/topup"
-
+        static let GetRSAreas = "rs/areas?"
+        static let PostRSService = "rs/explore"
+        static let orderService = "rs/order/"
+        static let Promotions = "promo"
+        static let PromotionIcon = "promo/img/"
     }
     
     struct TrackTaxiParams {
@@ -563,6 +587,13 @@ struct Constants {
         static let methodId = "PaymentMethodId"
         static let method = "PaymentMethod"
         static let amount = "Amount"
+    }
+    
+    struct PromotionParams {
+        static let PickupLat = "plat"
+        static let PickupLong = "plon"
+        static let DropoffLat = "dlat"
+        static let DropoffLong = "dlon"
     }
     
 }

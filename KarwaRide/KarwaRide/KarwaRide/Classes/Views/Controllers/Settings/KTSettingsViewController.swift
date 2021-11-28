@@ -21,13 +21,20 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         setVersionLable()
         
-        title = "action_settings".localized()
 
         tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
       addMenuButton()
+        
+        self.tabBarController?.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.navigationController?.navigationBar.isHidden = true
+        
+        self.title = "action_settings".localized()
+        self.tabBarItem.title = "action_settings".localized()
+
+
     }
 
     @objc func updateUI()
@@ -251,9 +258,13 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
 
         showProgressHud(show: true)
         KTUserManager().updateOTP(otp: otpEnabledStatus) { status, response in
-            
-            self.showToast(message: "profile_updated".localized())
-            
+    
+            if let error = response["T"] as? String, error == "Error" {
+                self.showToast(message: response["M"] as? String ?? "")
+            } else {
+                self.showToast(message: "profile_updated".localized())
+            }
+                        
             self.hideProgressHud()
             print(response)
             self.tableView.reloadData()

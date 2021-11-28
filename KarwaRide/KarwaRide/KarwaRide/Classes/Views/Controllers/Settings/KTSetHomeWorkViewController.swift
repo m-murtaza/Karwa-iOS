@@ -143,6 +143,8 @@ class KTSetHomeWorkViewController: KTBaseViewController, KTSetHomeWorkViewModelD
         
         self.mapView.camera = camera;
         self.mapView.delegate = self
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {

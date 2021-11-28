@@ -15,6 +15,7 @@ class KTAppDataSyncManager: KTDALManager {
         self.syncProfile()
         self.syncVechicleTypes()
         self.fetchBookmarks()
+        self.fetchOperatingArea()
         self.syncBookings()
         self.syncCancelReasons()
         self.syncRatingReason()
@@ -95,5 +96,12 @@ class KTAppDataSyncManager: KTDALManager {
     
     private func removeNotificaiton() {
         KTNotificationManager().deleteOldNotifications()
+    }
+    
+    func fetchOperatingArea() {
+        
+        KTXpressBookingManager().getZoneWithSync { (string, response) in
+                                
+        }
     }
 }

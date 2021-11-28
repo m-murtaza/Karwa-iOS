@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="MuseoSans-300.otf">
+            <string>MuseoSans-300</string>
+        </array>
+        <array key="MuseoSans-900.otf">
+            <string>MuseoSans-900</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="1pZ-bS-B2q">
+            <objects>
+                <navigationController storyboardIdentifier="KTPromotionsNavigationController" id="XVc-NU-DQc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Enr-L8-n49">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="13"/>
+                            <color key="textColor" red="0.066560536619999999" green="0.37833580369999997" blue="0.44618362189999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="y5T-hP-bjX" kind="relationship" relationship="rootViewController" id="Cob-xL-hNY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vEY-Yp-NPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-193" y="3750"/>
+        </scene>
+        <!--KTPromotionsViewController-->
+        <scene sceneID="bn1-Cj-HhU">
+            <objects>
+                <viewController storyboardIdentifier="KTPromotionsViewController" title="KTPromotionsViewController" id="y5T-hP-bjX" customClass="KTPromotionsViewController" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MrF-DX-Ua3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HcH-CF-y9i">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="y5T-hP-bjX" id="t09-jh-NyN"/>
+                                    <outlet property="delegate" destination="y5T-hP-bjX" id="nEa-81-F0h"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PUF-5c-56N"/>
+                        <color key="backgroundColor" red="0.8980392157" green="0.96078431369999995" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="HcH-CF-y9i" firstAttribute="leading" secondItem="PUF-5c-56N" secondAttribute="leading" id="1di-um-8BD"/>
+                            <constraint firstItem="PUF-5c-56N" firstAttribute="trailing" secondItem="HcH-CF-y9i" secondAttribute="trailing" id="gYE-5s-V4e"/>
+                            <constraint firstAttribute="bottom" secondItem="HcH-CF-y9i" secondAttribute="bottom" id="knC-Ub-BV6"/>
+                            <constraint firstItem="HcH-CF-y9i" firstAttribute="top" secondItem="PUF-5c-56N" secondAttribute="top" id="qts-6V-pS6"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Promotions" id="kRB-pL-0LC"/>
+                    <connections>
+                        <outlet property="tableView" destination="HcH-CF-y9i" id="seD-eB-rnR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hnr-Mw-eTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="537.68115942028987" y="3750.0000000000005"/>
+        </scene>
+        <!--KTPromotionsBottomSheetVC-->
+        <scene sceneID="7yJ-Dt-DlJ">
+            <objects>
+                <viewController storyboardIdentifier="KTPromotionsBottomSheetVC" title="KTPromotionsBottomSheetVC" id="EdT-y9-A7P" customClass="KTPromotionsBottomSheetVC" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HRZ-9s-XD0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promo Codes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3OD-p2-Xh0">
+                                <rect key="frame" x="18" y="44" width="117.5" height="22"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="genericLocalisedKey" value="str_promo_codes"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-bu-8jO">
+                                <rect key="frame" x="0.0" y="76" width="414" height="736"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="EdT-y9-A7P" id="GCO-Ku-exi"/>
+                                    <outlet property="delegate" destination="EdT-y9-A7P" id="15c-HG-cQt"/>
+                                </connections>
+                            </tableView>
+                            <button hidden="YES" opaque="NO" alpha="0.75" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCn-f2-CAG">
+                                <rect key="frame" x="0.0" y="752" width="414" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="GFv-oP-iDO"/>
+                                </constraints>
+                                <color key="tintColor" name="PrimaryColor"/>
+                                <state key="normal" image="ic_bottom_arrow_stack"/>
+                                <state key="highlighted" image="icon-show-more-services"/>
+                                <connections>
+                                    <action selector="onClickShowMore:" destination="EdT-y9-A7P" eventType="touchUpInside" id="UYW-9e-YKR"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c24-ig-35D">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-zL-Qjl" customClass="SpringView" customModule="Spring">
+                                        <rect key="frame" x="12" y="10" width="390" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcg-K7-KtE" customClass="SpringButton" customModule="Spring">
+                                                <rect key="frame" x="310" y="0.0" width="80" height="40"/>
+                                                <color key="backgroundColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="eZn-nO-pHU"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Apply">
+                                                    <fontDescription key="titleFontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="9"/>
+                                                </buttonConfiguration>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="btnApplyTouchDown:" destination="EdT-y9-A7P" eventType="touchDown" id="Ocd-jk-eYb"/>
+                                                    <action selector="btnApplyTouchUpOutside:" destination="EdT-y9-A7P" eventType="touchUpOutside" id="5jm-iv-7k6"/>
+                                                    <action selector="onClickApply:" destination="EdT-y9-A7P" eventType="touchUpInside" id="aGv-xw-Cz8"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Promo Code Here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zMQ-Mj-wvo">
+                                                <rect key="frame" x="15" y="0.0" width="280" height="40"/>
+                                                <color key="textColor" name="PrimaryColor"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localePlaceholderKey" value="str_promo_hint"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="zMQ-Mj-wvo" firstAttribute="top" secondItem="8Uc-zL-Qjl" secondAttribute="top" id="1En-cP-LVO"/>
+                                            <constraint firstItem="zMQ-Mj-wvo" firstAttribute="leading" secondItem="8Uc-zL-Qjl" secondAttribute="leading" constant="15" id="JhF-O9-mNf"/>
+                                            <constraint firstAttribute="bottom" secondItem="zMQ-Mj-wvo" secondAttribute="bottom" id="cmb-og-RQf"/>
+                                            <constraint firstItem="Xcg-K7-KtE" firstAttribute="leading" secondItem="zMQ-Mj-wvo" secondAttribute="trailing" constant="15" id="hHS-u3-usG"/>
+                                            <constraint firstAttribute="trailing" secondItem="Xcg-K7-KtE" secondAttribute="trailing" id="hw2-Fu-LCu"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xcg-K7-KtE" secondAttribute="bottom" id="kcR-I6-tAX"/>
+                                            <constraint firstItem="Xcg-K7-KtE" firstAttribute="top" secondItem="8Uc-zL-Qjl" secondAttribute="top" id="wkq-YS-1uI"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="customBorderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                                                <color key="value" name="PrimaryColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8Uc-zL-Qjl" secondAttribute="trailing" constant="12" id="C66-cm-yAk"/>
+                                    <constraint firstAttribute="bottom" secondItem="8Uc-zL-Qjl" secondAttribute="bottom" id="Dpb-PR-EJv"/>
+                                    <constraint firstItem="8Uc-zL-Qjl" firstAttribute="top" secondItem="c24-ig-35D" secondAttribute="top" constant="10" id="JfI-wz-W3r"/>
+                                    <constraint firstAttribute="height" constant="50" id="jJF-B3-TTa"/>
+                                    <constraint firstItem="8Uc-zL-Qjl" firstAttribute="leading" secondItem="c24-ig-35D" secondAttribute="leading" constant="12" id="n7z-oN-dZ5"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="E8e-CK-st2"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="E8e-CK-st2" firstAttribute="trailing" secondItem="bC0-bu-8jO" secondAttribute="trailing" id="7k2-9U-O8T"/>
+                            <constraint firstItem="3OD-p2-Xh0" firstAttribute="top" secondItem="E8e-CK-st2" secondAttribute="top" id="CGo-in-thh"/>
+                            <constraint firstItem="bC0-bu-8jO" firstAttribute="top" secondItem="3OD-p2-Xh0" secondAttribute="bottom" constant="10" id="IQP-nT-Biy"/>
+                            <constraint firstItem="c24-ig-35D" firstAttribute="top" secondItem="yCn-f2-CAG" secondAttribute="bottom" id="JJh-xd-PP6"/>
+                            <constraint firstItem="c24-ig-35D" firstAttribute="top" secondItem="bC0-bu-8jO" secondAttribute="bottom" id="Jdo-nf-bSY"/>
+                            <constraint firstItem="bC0-bu-8jO" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="TuK-pJ-09e"/>
+                            <constraint firstItem="c24-ig-35D" firstAttribute="trailing" secondItem="E8e-CK-st2" secondAttribute="trailing" id="dqB-d2-gAJ"/>
+                            <constraint firstItem="yCn-f2-CAG" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="fR5-OG-ash"/>
+                            <constraint firstItem="c24-ig-35D" firstAttribute="bottom" secondItem="E8e-CK-st2" secondAttribute="bottom" id="le4-rp-HcB"/>
+                            <constraint firstItem="3OD-p2-Xh0" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" constant="18" id="nek-29-8BU"/>
+                            <constraint firstItem="E8e-CK-st2" firstAttribute="trailing" secondItem="yCn-f2-CAG" secondAttribute="trailing" id="nuF-ji-egH"/>
+                            <constraint firstItem="c24-ig-35D" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="oEZ-Ar-JfC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Promotions" id="geP-Nh-VK4"/>
+                    <connections>
+                        <outlet property="btnApply" destination="Xcg-K7-KtE" id="hYb-FN-61T"/>
+                        <outlet property="btnShowMore" destination="yCn-f2-CAG" id="d8t-C5-mrO"/>
+                        <outlet property="tableView" destination="bC0-bu-8jO" id="t3w-LG-adk"/>
+                        <outlet property="tfPromoCode" destination="zMQ-Mj-wvo" id="cEW-bG-9uC"/>
+                        <outlet property="uiPromoInput" destination="8Uc-zL-Qjl" id="IM2-WM-DVP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V6G-ao-XNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1260.8695652173915" y="3750"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="Xcg-K7-KtE">
+            <size key="intrinsicContentSize" width="49.5" height="25"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="ic_bottom_arrow_stack" width="16" height="20.5"/>
+        <image name="icon-show-more-services" width="315" height="46"/>
+        <namedColor name="PrimaryColor">
+            <color red="0.16099999845027924" green="0.29399999976158142" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

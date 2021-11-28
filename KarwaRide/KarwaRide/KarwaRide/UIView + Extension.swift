@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UIViewWithShadow: UIView {
   override func layoutSubviews() {
@@ -54,7 +55,6 @@ extension UIView {
     guard externalBorder.name == Constants.ExternalBorderName else { return }
     externalBorder.removeFromSuperlayer()
   }
-  
   
   func applyShadow(radius: CGFloat = 8.0, opacity: Float = 0.3, size: CGSize = CGSize(width: 1, height: 1), color: UIColor = UIColor.black) {
     layer.shadowRadius = radius
@@ -226,4 +226,38 @@ extension UILabel {
     self.layer.mask = nil
   }
   
+}
+
+extension UIButton {
+    
+    func centerTextAndImage(spacing: CGFloat) {
+            let insetAmount = spacing / 2
+            let isRTL = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+            if isRTL {
+                self.imageEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+                self.contentEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: -insetAmount)
+            } else {
+                self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+                self.titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+                self.contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
+            }
+        }
+    
+    func addShadowBottomXpress() {
+//        self.layer.shadowRadius = 10
+//        self.layer.shadowOpacity = 1
+//        self.layer.shadowOffset = CGSize(width: 0.0, height: 10)
+//        self.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+//        self.layer.masksToBounds = false
+//        self.layer.cornerRadius = 25
+        
+//
+//        self.layer.shadowColor = UIColor.black.cgColor
+//        self.layer.shadowOffset = CGSize(width: 5, height: 5)
+//        self.layer.shadowRadius = 5
+//        self.layer.shadowOpacity = 1.0
+        
+        
+    }
 }

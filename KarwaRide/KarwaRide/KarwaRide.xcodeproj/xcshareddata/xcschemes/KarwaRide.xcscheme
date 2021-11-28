@@ -50,8 +50,20 @@
             ReferencedContainer = "container:KarwaRide.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "PrefersMallocStackLoggingLite"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../KarwaRide/Dohabank.gpx"
+         identifier = "../location_qatar.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>

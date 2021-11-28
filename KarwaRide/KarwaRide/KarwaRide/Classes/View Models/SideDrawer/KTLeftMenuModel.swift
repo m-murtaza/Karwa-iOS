@@ -107,8 +107,10 @@ class KTLeftMenuModel: KTBaseViewModel {
         let menuItem8 : KTMenuItems = KTMenuItems(title: "txt_help".localized(), image: UIImage(named:"help")!, color: UIColor(hexString: "#006170"), isNew: false)
         drawerOptions.append(menuItem8)
         
-        let menuItem9 : KTMenuItems = KTMenuItems(title: "txt_settings".localized(), image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#006170"), isNew: false)
-        drawerOptions.append(menuItem9)
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            let menuItem9 : KTMenuItems = KTMenuItems(title: "txt_settings".localized(), image: UIImage(named:"LMSetting")!, color: UIColor(hexString: "#006170"), isNew: false)
+            drawerOptions.append(menuItem9)
+        }
     }
     
     func numberOfRowsInSection() -> Int

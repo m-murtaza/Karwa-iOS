@@ -22,13 +22,14 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     var delegate : KTRatingViewDelegate?
     private var vModel : KTRatingViewModel?
     
+    @IBOutlet weak var scrollView : UIScrollView!
+
     @IBOutlet weak var driverImgView : UIImageView!
     @IBOutlet weak var lblDriverName: UILabel!
     @IBOutlet weak var arrowImgView : UIImageView!
-
     
     @IBOutlet weak var ratingDriverLabel: LocalisableLabel!
-    @IBOutlet weak var btnSubmit: UIButton!
+    @IBOutlet weak var btnSubmit: SpringButton!
     @IBOutlet weak var lblTripFare: UILabel!
     @IBOutlet weak var userRating: CosmosView!
     
@@ -70,6 +71,8 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
         arrowImgView.image = #imageLiteral(resourceName: "single_des_ico").imageFlippedForRightToLeftLayoutDirection()
         
         showHideComplainableLabel(show: false)
+
+        btnSubmit.setTitle("str_submit_upper".localized(), for: .normal)
         
     }
 
@@ -174,15 +177,21 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     func updateDriver(rating: Double) {
-        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: -3)
+        ratingDriverLabel.addLeading(image: #imageLiteral(resourceName: "Star_ico"), text: String(format: "%.1f", rating as! CVarArg), imageOffsetY: -3)
     }
     
     func updateTrip(fare: String) {
         var iconImage = UIImage()
-        iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
-        lblTripFare.addTrailing(image: iconImage, text: fare + "  ", imageOffsetY: -4)
+        if vModel?.booking!.vehicleType == VehicleType.KTXpressTaxi.rawValue {
+            iconImage = UIImage(named:"free_ico") ?? UIImage()
+            lblTripFare.addTrailing(image: iconImage, text: "str_free_ride".localized() + "  ", imageOffsetY: -4)
+            lblVehicleType.attributedText = addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 14.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 14.0)!)
+        } else {
+            iconImage = UIImage(named: ImageUtil.getSmallImage(vModel?.paymentMethodIcon() ?? "")) ?? UIImage()
+            lblTripFare.addTrailing(image: iconImage, text: fare + "  ", imageOffsetY: -4)
+            lblVehicleType.text = vModel?.vehicleType()
+        }
         lblNumberOfPassenger.text = vModel?.getPassengerCountr()
-        lblVehicleType.text = vModel?.vehicleType()
         
         lblTripFare.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
         lblVehicleType.textAlignment = Device.getLanguage().contains("AR") ? .right : .left
@@ -213,7 +222,34 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     @IBAction func btnRateBookingTapped(_ sender: Any) {
-        vModel?.btnRattingTapped()
+        springAnimateButtonTapOut(button: btnSubmit)
+        self.vModel?.btnRattingTapped()
+    }
+    
+    @IBAction func bookbtnTouchDown(_ sender: SpringButton)
+    {
+      springAnimateButtonTapIn(button: btnSubmit)
+    }
+    
+    @IBAction func bookbtnTouchUpOutside(_ sender: SpringButton)
+    {
+      springAnimateButtonTapOut(button: btnSubmit)
+    }
+    
+    func animateButton() {
+        self.btnSubmit.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        UIView.animate(withDuration: 1.0,
+        delay: 0,usingSpringWithDamping: CGFloat(0.5),initialSpringVelocity: CGFloat(3.0),
+        options: .allowUserInteraction,
+        animations: {
+          self.btnSubmit.transform = .identity
+        },
+        completion: { finished in
+            DispatchQueue.main.async {
+                self.vModel?.btnRattingTapped()
+            }
+        }
+      )
     }
     
     func setTitleBtnSubmit(label: String)
@@ -222,7 +258,6 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     }
     
     func closeScreen(_ rating : Int32) {
-        
         
         showSuccessBanner("  ", "booking_rated".localized())
         

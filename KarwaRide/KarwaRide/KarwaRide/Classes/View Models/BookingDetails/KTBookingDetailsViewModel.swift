@@ -64,8 +64,21 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func getMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>)
     func addPointsOnMap(encodedPath: String)
-
+    func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints])
+    func setPickup(pick: String?)
+    func setDropOff(pick: String?)
+    func addWalkToPickUpMarker()
+    func removeWalkToPickUpMarker()
 }
+
+extension KTBookingDetailsViewModelDelegate {
+    func setPickup(pick: String?) {}
+    func setDropOff(pick: String?) {}
+    func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints]) {}
+    func addWalkToPickUpMarker(){}
+    func removeWalkToPickUpMarker(){}
+}
+
 //MARK: -
 enum BottomBarBtnTag : Int {
     case Cancel = 101
@@ -113,11 +126,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     func bookingId() -> String {
         
-        return (booking?.bookingId)!
+        return booking?.bookingId ?? "RS210807-ILNL"
     }
     
     func bookingStatii() -> Int32 {
-        return (booking?.bookingStatus)!
+        return booking?.bookingStatus ?? 4
     }
     
     func getBookingOtp() -> String? {
@@ -253,20 +266,26 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func imgForPlate() -> UIImage {
-                
-        guard let plateType = booking?.plateType else {
+        
+        switch booking?.vehicleType  {
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?:
             return UIImage(named:"taxiplate")!
+        default:
+            return UIImage(named:"limo_number_plate")!
         }
-                
-        if plateType == 1 {
-            return UIImage(named:"taxiplate")!
-        }
-                
-        return UIImage(named:"limo_number_plate")!
+        
+//        guard let plateType = booking?.plateType else {
+//            return UIImage(named:"taxiplate")!
+//        }
+//
+//        if plateType == 1 {
+//            return UIImage(named:"taxiplate")!
+//        }
+//
+//        return UIImage(named:"limo_number_plate")!
     }
     
     func driverRating() -> Double {
-        
         guard let rating = booking?.driverRating else {
             return 0.0
         }
@@ -281,7 +300,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func idForCaller() -> String {
-        return (booking?.callerId)!
+        return booking?.callerId ?? "345678876"
     }
     
     //MARK:- BookingCard
@@ -301,14 +320,13 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func pickMessage () -> String {
         var msg : String = ""
         if booking?.pickupMessage != nil && booking?.pickupMessage?.isEmpty == false {
-            msg = "(\((booking?.pickupMessage!)!))"
+            msg = "(\((booking?.pickupMessage ?? "******")))"
         }
         return msg
     }
     
     func pickAddress() -> String{
-        
-        return  (booking?.pickupAddress!)!
+        return  booking?.pickupAddress ?? ""
     }
     
     func dropAddress() -> String{
@@ -321,14 +339,14 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             dropAdd = "No Destination Set"
         }
         
-        return dropAdd!
+        return dropAdd ?? "******"
     }
     
     func cellBGColor() -> UIColor{
         var color : UIColor = UIColor.white
         
         switch booking?.bookingStatus {
-        case BookingStatus.CONFIRMED.rawValue?,  BookingStatus.ARRIVED.rawValue?,BookingStatus.PICKUP.rawValue?:
+        case BookingStatus.CONFIRMED.rawValue?, BookingStatus.ARRIVED.rawValue?, BookingStatus.PICKUP.rawValue?:
             color = UIColor(hexString:"#F9FDFC")
             
         case BookingStatus.PENDING.rawValue?, BookingStatus.DISPATCHING.rawValue? :
@@ -363,30 +381,22 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         return color
     }
     
-    func pickupDateOfMonth() -> String{
-        
+    func pickupDateOfMonth() -> String {
         return booking!.pickupTime!.dayOfMonth()
     }
     
-    func pickupMonth() -> String{
-        
+    func pickupMonth() -> String {
         return " \(booking!.pickupTime!.threeLetterMonth()) "
-        
     }
     
     func pickupYear() -> String{
-        
         return booking!.pickupTime!.year()
-        
     }
     
-    func pickupDayAndTime() -> String{
-        
+    func pickupDayAndTime() -> String {
         let day = booking!.pickupTime!.dayOfWeek()
         let time = booking!.pickupTime!.timeWithAMPM()
-        
         let dayAndTime = "\(time), "
-        
         return dayAndTime
     }
     
@@ -397,19 +407,16 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
         
         print(booking?.paymentMethod)
         
-        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue)
-        {
+        if(bookingStatus == BookingStatus.PICKUP.rawValue || bookingStatus == BookingStatus.ARRIVED.rawValue || bookingStatus == BookingStatus.CONFIRMED.rawValue || bookingStatus == BookingStatus.PENDING.rawValue || bookingStatus == BookingStatus.DISPATCHING.rawValue) {
             //Skipping the payment method because the booking hasn't been completed yet, so sticking to cash, it will be changed once we work for pre-paid payment
         }
         else if (booking?.paymentMethod ?? "WALLET") == "WALLET" {
             paymentMethod = "str_paid_with".localized()
         }
-        else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil))
-        {
-            paymentMethod = "**** " +  booking!.lastFourDigits!
+        else if(!(booking!.lastFourDigits == "Cash" || booking!.lastFourDigits == "" || booking!.lastFourDigits == "CASH" || booking!.lastFourDigits == nil)) {
+            paymentMethod = "**** " +  (booking!.lastFourDigits ?? "")
         }
-        else if(booking!.paymentMethod == "ApplePay")
-        {
+        else if(booking!.paymentMethod == "ApplePay") {
             paymentMethod = "str_paid_by".localized()
         }
 
@@ -778,39 +785,41 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     private func fetchRouteToPickupOrDropOff(vTrack ride: VehicleTrack, destinationLat lat: Double, destinationLong long: Double)
     {
-        if(Constants.DIRECTIONS_API_ENABLE)
-        {
-            let origin = "\(ride.position.latitude),\(ride.position.longitude)"
-            let destination = "\(lat),\(long)"
-            
-            
-            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
-            
-            Alamofire.request(url).responseJSON { response in
-                
-                do
-                {
-                    let json = try JSON(data: response.data!)
-                    let routes = json["routes"].arrayValue
-                    
-                    for route in routes
-                    {
-                        let routeOverviewPolyline = route["overview_polyline"].dictionary
-                        let points = routeOverviewPolyline?["points"]?.stringValue
-                        
-                        self.del?.showRouteOnMap(points: points!)
-                    }
-                } catch
-                {
-                    
-                }
-            }
-        }
-        else
-        {
-            drawPath(encodedPath: ride.encodedPath, vTrack: ride)
-//            focusMarkers(vTrack: ride)
-        }
+        drawPath(encodedPath: ride.encodedPath, vTrack: ride)
+
+//        if(Constants.DIRECTIONS_API_ENABLE)
+//        {
+//            let origin = "\(ride.position.latitude),\(ride.position.longitude)"
+//            let destination = "\(lat),\(long)"
+//
+//
+//            let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&mode=driving&key=\(Constants.GOOGLE_SNAPTOROAD_API_KEY)"
+//
+//            Alamofire.request(url).responseJSON { response in
+//
+//                do
+//                {
+//                    let json = try JSON(data: response.data!)
+//                    let routes = json["routes"].arrayValue
+//
+//                    for route in routes
+//                    {
+//                        let routeOverviewPolyline = route["overview_polyline"].dictionary
+//                        let points = routeOverviewPolyline?["points"]?.stringValue
+//
+//                        self.del?.showRouteOnMap(points: points!)
+//                    }
+//                } catch
+//                {
+//
+//                }
+//            }
+//        }
+//        else
+//        {
+//            drawPath(encodedPath: ride.encodedPath, vTrack: ride)
+////            focusMarkers(vTrack: ride)
+//        }
     }
     
     func drawPath(encodedPath: String) {

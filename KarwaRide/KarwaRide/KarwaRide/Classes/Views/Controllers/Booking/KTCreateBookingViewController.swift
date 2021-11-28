@@ -9,7 +9,8 @@
 import UIKit
 import Spring
 import Lottie
-import UBottomSheet
+//import UBottomSheet
+import FittedSheets
 
 public class PreviousSelectedPayment: NSObject {
     static let shared = PreviousSelectedPayment()
@@ -29,6 +30,7 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var promoBadge: UIImageView!
   @IBOutlet weak var fareInfo: UILabel!
   @IBOutlet weak var iconBackgroundAnim: AnimationView!
+  @IBOutlet weak var icArrow: SpringImageView!
     
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 //    contentView.backgroundColor = highlighted ? .white : .clear
@@ -76,6 +78,7 @@ class RideServiceCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     self.promoBadge.isHidden = true
+    self.icArrow.image = UIImage(named: "ic_right_arrow")?.imageFlippedForRightToLeftLayoutDirection()
   }
 }
 
@@ -114,25 +117,38 @@ class DashboardAddressCell: UICollectionViewCell {
 }
 
 extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (viewModel as! KTCreateBookingViewModel).numberOfVehicleCategories()
+    }
+    
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return (viewModel as! KTCreateBookingViewModel).numberOfRowsVType()
+    return 1
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "serviceCell", for: indexPath) as! RideServiceCell
+    let viewModel = self.viewModel as! KTCreateBookingViewModel
     cell.promoBadge.isHidden = true
-    cell.serviceName.text = (viewModel as! KTCreateBookingViewModel).sTypeTitle(forIndex: indexPath.row)
-    let fare = (viewModel as! KTCreateBookingViewModel).vTypeBaseFareOrEstimate(forIndex: indexPath.row)
+    var item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
+    if indexPath.section == 0 {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
+    }
+    else if indexPath.section == 1 {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue).first
+    }
+    else {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue).first
+    }
+
+    cell.serviceName.text = viewModel.getVehicleTitle(vehicleType: item!.typeId)
+    let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
-    cell.capacity.text = (viewModel as! KTCreateBookingViewModel).vTypeCapacity(forIndex: indexPath.row)
-    cell.time.text = (viewModel as! KTCreateBookingViewModel).vTypeEta(forIndex: indexPath.row)
-    cell.icon.image = (viewModel as! KTCreateBookingViewModel).sTypeVehicleImage(forIndex: indexPath.row)
-    let shouldHidePromoFare = !((viewModel as! KTCreateBookingViewModel).isPromoFare(forIndex: indexPath.row))
+    cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
+    cell.time.text = viewModel.getTypeEta(typeId: item!.typeId)
+    cell.icon.image = viewModel.getTypeVehicleImage(typeId: item!.typeId)
+    let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
     cell.promoBadge.isHidden = shouldHidePromoFare
-    cell.selectionStyle = .none
-    
-    if((viewModel as! KTCreateBookingViewModel).isPremiumRide(forIndex: indexPath.row))
-    {
+    if(viewModel.isPremiumRide(typeId: item!.typeId)){
         cell.iconBackgroundAnim.isHidden = false
         cell.iconBackgroundAnim.backgroundColor = .clear
         cell.iconBackgroundAnim.loopMode = .loop
@@ -142,13 +158,25 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     {
         cell.iconBackgroundAnim.isHidden = true
     }
-
+    
+    cell.selectionStyle = .none
     return cell
   }
+    
+    // Set the spacing between sections
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(hexString: "#F1FBFA")
+    }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    selectedIndex = indexPath.row
-    (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
+//    selectedIndex = indexPath.row
+//    (viewModel as! KTCreateBookingViewModel).vehicleTypeTapped(idx: selectedIndex)
+    selectedSection = indexPath.section
+    self.setupVehicleDetailBottomSheet()
   }
   
 //  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -176,18 +204,18 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     func restoreCustomerServiceSelection(animateView: Bool)
     {
         
-            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
-                return
-            }
-
-            print("Restoring index: \(selectedIndex)")
-            
-            let indexPath = IndexPath(row: 0, section: 0)
-            DispatchQueue.main.async {
-                self.tableView.selectRow(at: indexPath,
-                                         animated: !animateView,
-                                         scrollPosition: .none)
-            }
+//            guard selectedIndex < (viewModel as! KTCreateBookingViewModel).numberOfRowsVType() else {
+//                return
+//            }
+//
+//            print("Restoring index: \(selectedIndex)")
+//
+//            let indexPath = IndexPath(row: 0, section: 0)
+//            DispatchQueue.main.async {
+//                self.tableView.selectRow(at: indexPath,
+//                                         animated: !animateView,
+//                                         scrollPosition: .none)
+//            }
                     
     }
   
@@ -223,6 +251,14 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 }
 class KTCreateBookingViewController:
     KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
+    
+    func noOfPromotions(count: Int) {
+        self.uiPromotionCount.isHidden = count > 0 ? false : true
+        self.lblPromotionCount.text = "\(count)"
+        if count > 0 {
+            self.showToolTip(forView: self.uiPromotionCount)
+        }
+    }
     
     func reloadSelection() {
         self.tableView.reloadData()
@@ -264,6 +300,8 @@ class KTCreateBookingViewController:
   @IBOutlet weak var pickupDropoffContainer: UIView!
   @IBOutlet weak var promoAppliedContainer: UIView!
   @IBOutlet weak var pickupLabel: UILabel!
+  @IBOutlet weak var ivPickup: UIImageView!
+  @IBOutlet weak var ivDropoff: UIImageView!
   @IBOutlet weak var dropoffLabel: UILabel!
   @IBOutlet weak var promoAppliedKeyLabel: UILabel!
   @IBOutlet weak var promoAppliedValueLabel: UILabel!
@@ -278,13 +316,15 @@ class KTCreateBookingViewController:
     @IBOutlet weak var btnRecenterLocationConstraint: NSLayoutConstraint!
   @IBOutlet weak var mapViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var bottomConstraintCardView: NSLayoutConstraint!
     @IBOutlet weak var pickUpClikcBtn: UIButton!
     @IBOutlet weak var dropClikcBtn: UIButton!
 
     
-  var tableViewMinimumHeight: CGFloat = 170
-  var tableViewMaximumHeight: CGFloat = 370
+  var tableViewMinimumHeight: CGFloat = 220
+  var tableViewMaximumHeight: CGFloat = 220
   var selectedIndex = 0
+  var selectedSection = 0
   
   @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
   @IBOutlet weak var mapToPickupCardView_Bottom: NSLayoutConstraint!
@@ -294,6 +334,11 @@ class KTCreateBookingViewController:
     var selectedPaymentMethod = "Cash"
     @IBOutlet weak var paymentTypeIcon: UIImageView!
     @IBOutlet weak var paymentTypeLabel: UILabel!
+    
+    @IBOutlet weak var uiPromotionCount: UIView!
+    @IBOutlet weak var lblPromotionCount: UILabel!
+    
+    var titleForRequestOrScheduleKarwa: String?
 
   //MARK:- View lifecycle
     fileprivate func setUpPreviousPaymentMethod() {
@@ -348,10 +393,19 @@ class KTCreateBookingViewController:
     collectionView.delegate = self
     tableView.delegate = self
     tableView.dataSource = self
+    tableView.backgroundColor = .clear
     tableView.isScrollEnabled = false
-    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
+//    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
-    rideServicesContainer.addGestureRecognizer(gesture)
+//    rideServicesContainer.addGestureRecognizer(gesture)
+    tableViewHeight.constant = tableViewMaximumHeight
+        if #available(iOS 15.0, *) {
+            self.tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    self.showMoreRideOptions.isHidden = true
 
     //    hideCurrentLocationButton()
     
@@ -379,8 +433,84 @@ class KTCreateBookingViewController:
         self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
     }
     
-            
+        if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case 1136:
+                    print("iPhone 5 or 5S or 5C")
+                    bottomConstraintCardView.constant = 38
+                case 1334:
+                    print("iPhone 6/6S/7/8")
+                    bottomConstraintCardView.constant = 38
+                case 1920, 2208:
+                    print("iPhone 6+/6S+/7+/8+")
+                    bottomConstraintCardView.constant = 38
+                case 2436:
+                    print("iPhone X")
+                    bottomConstraintCardView.constant = 68
+                default:
+                    print("unknown")
+                    bottomConstraintCardView.constant = 68
+                }
+            }
+        
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            bottomConstraintCardView.constant = 0
+        }
+        
+        self.title = "str_book_karwa".localized()
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
+        
+        self.ivPickup.image = UIImage(named: "arrow_right copy_2")?.imageFlippedForRightToLeftLayoutDirection()
+        self.ivDropoff.image = UIImage(named: "arrow_right copy_2")?.imageFlippedForRightToLeftLayoutDirection()
   }
+    
+    private func setupVehicleDetailBottomSheet() {
+        if let viewModel = self.viewModel as? KTCreateBookingViewModel {
+            var vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue)
+            if self.selectedSection == 0 {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue)
+            }
+            else if self.selectedSection == 1 {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue)
+            }
+            else {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue)
+            }
+            
+            let bottomSheetVC = VehicleDetailBottomSheetVC()
+            let bottomSheet = SheetViewController(
+                controller: bottomSheetVC,
+                sizes: [.fixed(530)],
+                options: SheetOptions(useInlineMode: true))
+            bottomSheetVC.sheet = bottomSheet
+            bottomSheetVC.vehicles = vehicles
+            bottomSheetVC.vModel = viewModel
+            bottomSheet.allowPullingPastMaxHeight = false
+            bottomSheet.allowPullingPastMinHeight = true
+            
+            bottomSheet.dismissOnPull = true
+            bottomSheet.dismissOnOverlayTap = true
+            bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.1)
+            bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+            bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
+            bottomSheet.contentViewController.view.layer.shadowRadius = 10
+            bottomSheet.cornerRadius = 30.0
+            bottomSheet.allowGestureThroughOverlay = false
+            bottomSheet.animateIn(to: view, in: self)
+            
+            bottomSheet.didDismiss = { [weak self] _ in
+                guard let `self` = self else {return}
+                (self.viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
+                self.updateVehicleTypeList()
+            }
+            
+            if let title = self.titleForRequestOrScheduleKarwa {
+                bottomSheetVC.setRequestButtonTitle(title: title)
+            }
+            bottomSheetVC.updateDetailBottomSheet()
+        }
+    }
   
   @objc private func showMenu() {
     sideMenuController?.revealMenu()
@@ -456,8 +586,38 @@ class KTCreateBookingViewController:
   {
     super.viewWillAppear(false)
     navigationController?.isNavigationBarHidden = true
-    self.mapViewBottomConstraint.constant = 260
+    navigationController?.isNavigationBarHidden = true
+    self.tabBarController?.tabBar.alpha = 1
+    self.setupMapBottomConstraint()
   }
+    
+    private func setupMapBottomConstraint() {
+        self.mapViewBottomConstraint.constant = 280
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case 1136:
+                    print("iPhone 5 or 5S or 5C")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+                case 1334:
+                    print("iPhone 6/6S/7/8")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+                case 1920, 2208:
+                    print("iPhone 6+/6S+/7+/8+")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+                case 2436:
+                    print("iPhone X")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
+                default:
+                    print("unknown")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
+                }
+            }
+            else {
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 50
+            }
+        }
+    }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
@@ -511,14 +671,14 @@ class KTCreateBookingViewController:
     if timer != nil {
       timer.invalidate()
     }
-    tableViewHeight.constant =  tableViewMinimumHeight
-    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
-      self.view.layoutIfNeeded()
-    }, completion: { animated in
-      self.showMoreRideOptions.isHidden = false
-    })
+//    tableViewHeight.constant =  tableViewMinimumHeight
+//    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut, animations: {
+//      self.view.layoutIfNeeded()
+//    }, completion: { animated in
+//      self.showMoreRideOptions.isHidden = false
+//    })
     super.viewWillDisappear(animated)
-    navigationController?.isNavigationBarHidden = false
+    navigationController?.isNavigationBarHidden = true
   }
   
   //MARK:- User Actions
@@ -600,13 +760,18 @@ class KTCreateBookingViewController:
     }
   
   @IBAction func btnCancelBtnTapped(_ sender: Any) {
+    removeBookingOnReset = true
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
-    collapseRideList()
+//    collapseRideList()
     updateVehicleTypeList()
     if sheetPresented == true {
         self.dismissSelectionMethod()
     }
+      self.viewWillAppear(true)
+    self.tabBarController?.tabBar.isHidden = false
+    self.edgesForExtendedLayout = UIRectEdge.all
+    self.view.layoutIfNeeded()
   }
   
   //MARK: - Book Ride
@@ -627,13 +792,32 @@ class KTCreateBookingViewController:
   // ----------------------------------------------------
   func showPromoInputDialog(currentPromo : String)
   {
-    let promoPopup = storyboard?.instantiateViewController(withIdentifier: "PromoCodePopupVC") as! PromoCodePopupVC
-    promoPopup.previousView = self
-    promoPopup.previousPromo = currentPromo
-    promoPopup.view.frame = self.view.bounds
-    view.addSubview(promoPopup.view)
-    addChildViewController(promoPopup)
+      self.showPromoBottomSheet(currentPromo)
   }
+    
+    private func showPromoBottomSheet(_ currentPromo : String) {
+        let bottomSheetVC = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: String(describing: KTPromotionsBottomSheetVC.self)) as! KTPromotionsBottomSheetVC
+        let bottomSheet = SheetViewController(
+            controller: bottomSheetVC,
+            sizes: [.percent(0.70), .marginFromTop(80)],
+            options: SheetOptions(useInlineMode: true))
+        bottomSheetVC.pickupDropoff = (viewModel as? KTCreateBookingViewModel)?.getPickupDropoffForPromotions()
+        bottomSheetVC.previousView = self
+        bottomSheetVC.previousPromo = currentPromo
+        bottomSheetVC.sheet = bottomSheet
+        bottomSheet.allowPullingPastMaxHeight = true
+        bottomSheet.allowPullingPastMinHeight = true
+        
+        bottomSheet.dismissOnPull = true
+        bottomSheet.dismissOnOverlayTap = true
+        bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.5)
+        bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+        bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
+        bottomSheet.contentViewController.view.layer.shadowRadius = 10
+        bottomSheet.cornerRadius = 30.0
+        bottomSheet.allowGestureThroughOverlay = false
+        bottomSheet.animateIn(to: view, in: self)
+    }
   
   func applyPromoTapped(_ enteredPromo: String)
   {
@@ -694,6 +878,7 @@ class KTCreateBookingViewController:
     btnRevealBtn.isHidden = true
     selectedIndex = 0
     restoreCustomerServiceSelection()
+    self.tabBarController?.tabBar.isHidden = true
   }
   
   func hideCancelBookingBtn()  {
@@ -748,43 +933,54 @@ class KTCreateBookingViewController:
     self.removeBookingOnReset = removeBookingOnReset
   }
 
-  func pickDropBoxStep3() {
-    DispatchQueue.main.async
-    {
-        self.rideServicesContainer.frame.origin.y += 150
-        self.pickupDropoffParentContainer.frame.origin.y += 150
+    func pickDropBoxStep3() {
+        
+        let corouselSelected = (viewModel as? KTCreateBookingViewModel)?.carouselSelected
+        
+        self.rideServicesContainer.frame.origin.y += corouselSelected! ? 50 : 150
+        self.pickupDropoffParentContainer.frame.origin.y += corouselSelected! ? 40 : 150
         self.pickupDropoffParentContainer.isHidden = false
-
+        
+        
         if self.promoCode == ""{
             self.promoAppliedContainer.isHidden = true
-//            self.mapViewBottomConstraint.constant = 304
+            //            self.mapViewBottomConstraint.constant = 304
         } else {
-//            self.mapViewBottomConstraint.constant = 375
+            //            self.mapViewBottomConstraint.constant = 375
         }
         
-        self.view.layoutIfNeeded()
+        //        self.view.layoutIfNeeded()
         
         self.rideServicesContainer.isHidden = false
+        
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            self.mapViewBottomConstraint.constant = 280
+        }
+        
+        if corouselSelected == false {
+            UIView.animate(
+                withDuration: 0.4,
+                delay: 0.0,
+                usingSpringWithDamping: 0.5,
+                initialSpringVelocity: 2,
+                options: .curveEaseInOut,
+                animations:
+                    {
+                        self.rideServicesContainer.frame.origin.y -= 150
+                        self.pickupDropoffParentContainer.frame.origin.y -= 150
+                    },completion: nil)
+            
+        }
+        
+        
+        self.pickupCardView.isHidden = true
+        self.pickupPin.isHidden = true
+        self.mapInstructionsContainer.isHidden = true
+        self.currentLocationButton.isHidden = true
+        (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
-        UIView.animate(
-            withDuration: 0.4,
-            delay: 0.0,
-            usingSpringWithDamping: 0.5,
-            initialSpringVelocity: 2,
-            options: .curveEaseInOut,
-            animations:
-            {
-                self.rideServicesContainer.frame.origin.y -= 150
-                self.pickupDropoffParentContainer.frame.origin.y -= 150
-            },completion: nil)
-
-
-      self.pickupCardView.isHidden = true
-      self.pickupPin.isHidden = true
-      self.mapInstructionsContainer.isHidden = true
-      self.currentLocationButton.isHidden = true
+        (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
     }
-  }
   
   func pickDropBoxStep1() {
     DispatchQueue.main.async {
@@ -801,8 +997,19 @@ class KTCreateBookingViewController:
 //            self.mapViewBottomConstraint.constant = 304
         }
 
-        self.pickupDropoffParentContainer.isHidden = true
-        self.rideServicesContainer.isHidden = true
+        
+        if self.removeBookingOnReset == false {
+            self.rideServicesContainer.isHidden = false
+            self.pickupDropoffParentContainer.isHidden = false
+            self.mapInstructionsContainer.isHidden = true
+            self.pickupPin.isHidden = true
+            self.pickupCardView.isHidden = true
+        } else {
+            self.rideServicesContainer.isHidden = true
+            self.pickupDropoffParentContainer.isHidden = true
+        }
+        
+        self.setupMapBottomConstraint()
     }
   }
   
@@ -922,7 +1129,7 @@ class KTCreateBookingViewController:
   }
     
     func setRequestButtonTitle(title: String) {
-        self.btnRequestBooking.setTitle(title, for: .normal)
+        self.titleForRequestOrScheduleKarwa = title
     }
       
   

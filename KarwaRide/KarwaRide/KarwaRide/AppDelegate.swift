@@ -42,7 +42,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupFirebase()
       
         configureSideMenu()
+        setupEnvironment()
       return true
+    }
+    
+    private func setupEnvironment() {
+        let environment = SharedPrefUtil.getSharePref(SharedPrefUtil.ENVIRONMENT)
+        if environment.isEmpty {
+            KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .STAGE : .PROD)
+        }
+        else {
+            KTConfiguration.sharedInstance.setEnvironment(environment: environment == "STAGE" ? .STAGE : .PROD)
+        }
+        KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
     }
   
   private func configureSideMenu() {
@@ -134,12 +146,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(hexString:"#E5F5F2")
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
              NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
-        let backImage = UIImage(named: "back_arrow_ico");
+        let backImage = UIImage(named: "back_arrow_ico")
+//        backImage = resizeImage(image: backImage!, newWidth: 40) //the width that you want for the back button image
         UINavigationBar.appearance().backIndicatorImage = backImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backImage
         
         UIBarButtonItem.appearance().tintColor = UIColor(hexString:"#129793")
 
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
+
+        UIGraphicsBeginImageContext(CGSize(width: 30, height: 20))
+        image.draw(in: CGRect(x: 10, y: 0, width: 30, height: 20))
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
     }
     
     func printFonts() {
@@ -322,8 +346,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let contentView : UIViewController = sBoard.instantiateViewController(withIdentifier: storyBoardId)
         let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
         let sideMeun = SideMenuController(contentViewController: view, menuViewController: leftView)
+        let tabbarController = sBoard.instantiateViewController(withIdentifier: "TabViewController")
         window? = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = sideMeun
+        window?.rootViewController?.tabBarController?.tabBar.alpha = 0
+        window?.rootViewController?.tabBarController?.tabBar.isHidden = false
         window?.makeKeyAndVisible()
     }
     

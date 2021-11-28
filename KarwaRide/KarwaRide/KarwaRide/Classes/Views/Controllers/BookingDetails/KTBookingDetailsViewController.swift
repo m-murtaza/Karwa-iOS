@@ -125,6 +125,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         super.viewDidLoad()
         
+        self.navigationItem.hidesBackButton = true
+
+        let button = UIButton(type: UIButton.ButtonType.custom)
+        button.setImage(UIImage(named: "back_arrow_ico"), for: .normal)
+        button.addTarget(self, action:#selector(popViewController), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 35, height: 20)
+        button.imageEdgeInsets = Device.getLanguage().contains("AR") ? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) : UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+        self.navigationController?.navigationBar.backIndicatorImage = nil
+        
         // Do any additional setup after loading the view.
     }
     
@@ -153,6 +164,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         btnReveal.isHidden = !isOpenFromNotification
         self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
+        self.mapView.settings.rotateGestures = false
+        self.mapView.settings.tiltGestures = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -319,10 +332,29 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
      // Pass the selected object to the new view controller.
         if segue.identifier == "segueDetailToReBook"
         {
-            let createBooking : KTCreateBookingViewController = segue.destination as! KTCreateBookingViewController
+            
+            let tabController = segue.destination as! TabViewController
+            let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
             createBooking.booking = vModel?.booking
             createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             //self.navigationController?.viewControllers = [createBooking]
+            
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "XpressBookingNavigationViewController") as? UINavigationController
+//            
+//            xpressRebookSelected = true
+//            xpressRebookPickUpSelected = true
+//            xpressRebookDropOffSelected = true
+//            xpressRebookPassengerSelected = true
+//            xpressRebookNumberOfPassenger = 1
+//
+//            xpressRebookPickUpCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat ?? 0.0
+//            xpressRebookPickUpCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon ?? 0.0
+//
+//            xpressRebookDropOffCoordinates.latitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat ?? 0.0
+//            xpressRebookDropOffCoordinates.longitude = (viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon ?? 0.0
+//            
+//            sideMenuController?.hideMenu()
+            
         }
         else if(segue.identifier == "segueComplaintCategorySelection")
         {
@@ -561,6 +593,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func moveToBooking()
     {
+        
         self.performSegue(name: "segueDetailToReBook")
     }
     
@@ -641,7 +674,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         addChildViewController(cancelPopup!)
     }
     
-    func popViewController() {
+    @objc func popViewController() {
         
         self.navigationController?.popViewController(animated: true)
     }

@@ -247,7 +247,7 @@ class KTBookmarkManager: KTDALManager {
     
     private func saveBookmark(withLocaiton loc:KTGeoLocation, name: String) {
         
-        var geoType : geoLocationType = .Nearby
+        var geoType : geoLocationType = .Recent
         
         if name == Constants.BookmarkName.Home {
             
@@ -291,6 +291,15 @@ class KTBookmarkManager: KTDALManager {
 //    return bookmarks as? [KTBookmark]
     return KTFavorites.mr_findAll() as? [KTFavorites]
   }
+    
+    func fetchAllMetroFavorites() -> [KTXpressFavorites]? {
+  //    let p1 = NSPredicate(format: "name != %@", Constants.BookmarkName.Home)
+  //    let p2 = NSPredicate(format: "name != %@", Constants.BookmarkName.Work)
+  //    let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+  //    let bookmarks = KTBookmark.mr_findAll(with: predicate)
+  //    return bookmarks as? [KTBookmark]
+      return KTFavorites.mr_findAll() as? [KTXpressFavorites]
+    }
 
 //  @discardableResult
 //  func saveFavorite(name: String, location: KTGeoLocation) -> Bool {
@@ -354,4 +363,65 @@ class KTBookmarkManager: KTDALManager {
       
       return true
     }
+    
+    @discardableResult
+    func saveXpressFavorite(location: Area) -> Bool {
+        let p1 = NSPredicate(format: "id == %d", location.code!)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1])
+        
+        // update the existing favorite
+        if let favorite = KTXpressFavorites.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) {
+            favorite.mr_deleteEntity()
+            NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+            return true
+        }
+        
+        // create new favorite and save it to database
+        let favorite = KTXpressFavorites.mr_createEntity(in: NSManagedObjectContext.mr_default())
+        favorite!.name = "Metro"
+        favorite!.id = Int16(location.code!)
+        favorite!.bound = location.bound
+        favorite!.area = location.name
+        favorite!.type = location.type
+        NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+        
+        return true
+    }
+    
+    @discardableResult
+    func getXpressFavorite(code: Int) -> Bool {
+        let p1 = NSPredicate(format: "id == %d", code)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1])
+        
+        // update the existing favorite
+        if let favorite = KTXpressFavorites.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) {
+            
+            print(favorite.id)
+            
+            if favorite.id != 0 {
+                return true
+            }
+            return false
+        }
+        
+        return false
+    }
+    
+    @discardableResult
+    func deleteXpressFavorite(code: Int) -> Bool {
+        let p1 = NSPredicate(format: "id == %d", code)
+      let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1])
+      
+      // update the existing favorite
+        if let favorite = KTXpressFavorites.mr_findFirst(with: predicate, in: NSManagedObjectContext.mr_default()) {
+            favorite.mr_deleteEntity()
+            NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()
+            return true
+        }
+      
+      return false
+    }
+    
+    
+    
 }

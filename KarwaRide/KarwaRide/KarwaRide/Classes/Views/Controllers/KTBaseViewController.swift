@@ -11,6 +11,7 @@ import SVProgressHUD
 import Spring
 import Toast_Swift
 import NotificationBannerSwift
+import EasyTipView
 
 class KTBaseViewController: UIViewController,KTViewModelDelegate {
     
@@ -111,6 +112,36 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         }
     }
     
+    //MARK: Get VC From Storyborad
+    func getVC(storyboard: Storyboard, vcIdentifier : String) -> UIViewController {
+        if #available(iOS 13.0, *) {
+            return UIStoryboard(name: storyboard.board(), bundle: nil).instantiateViewController(identifier: vcIdentifier)
+        } else {
+            return UIStoryboard(name: storyboard.board(), bundle: nil).instantiateViewController(withIdentifier: vcIdentifier)
+        }
+    }
+    
+    func showToolTip(forView: UIView) {
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor(hexString: "#129793")
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.bottom
+        preferences.animating.dismissTransform = CGAffineTransform(translationX: 0, y: -15)
+        preferences.animating.showInitialTransform = CGAffineTransform(translationX: 0, y: -15)
+        preferences.animating.showInitialAlpha = 0
+        preferences.animating.showDuration = 1.5
+        preferences.animating.dismissDuration = 1.5
+        preferences.animating.dismissOnTap = false
+
+        let tipView = EasyTipView(text: "str_promotion_tip".localized(), preferences: preferences, delegate: nil)
+        tipView.show(forView: forView)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            tipView.dismiss()
+        }
+    }
+    
     func viewStoryboard() -> UIStoryboard {
         return self.storyboard!
         
@@ -137,11 +168,11 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         return large
     }
     
-    func springAnimateButtonTapIn(button btn : SpringButton)
+    func springAnimateButtonTapIn(button btn : SpringButton, transform: CGAffineTransform = CGAffineTransform(scaleX: 0.8, y: 0.8))
     {
         UIView.animate(withDuration: 0.30,
                        animations: {
-                        btn.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                        btn.transform = transform
         })
     }
     

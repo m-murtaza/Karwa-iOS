@@ -46,6 +46,11 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
                                                                    NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
 
 //        if #available(iOS 13.0, *) {
 //            let appearance = UINavigationBarAppearance()
@@ -59,7 +64,37 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         
       addMenuButton()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+            self.navigationController?.navigationBar.standardAppearance = appearance;
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        } else {
+        }
+    }
 
+    func showNavigationController() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(hexString:"#E5F5F2")
+            appearance.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
+                                                NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!];
+            self.navigationController?.navigationBar.standardAppearance = appearance;
+            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        } else {
+        }
+    }
+    
     override func updateForBooking(_ booking: KTBooking)
     {
         vModel?.bookingUpdateTriggered(booking)
@@ -102,7 +137,14 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     cell.dropoffAddressLabel.text = (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row)
     cell.dateLabel.text = (viewModel as! KTMyTripsViewModel).pickupDate(forIdx: indexPath.row)
     cell.timeLabel.text = (viewModel as! KTMyTripsViewModel).pickupDayAndTime(forIdx: indexPath.row)
-    cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+    
+    if (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row) == "travel_ride_sharing_info_title".localized() {
+        cell.serviceTypeLabel.attributedText = (viewModel as! KTMyTripsViewModel).getAttributedTextForMetroExpress()
+    } else {
+        cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
+    }
+        
+    
     cell.statusLabel.text = (viewModel as! KTMyTripsViewModel).bookingStatusString(forIdx: indexPath.row)
     cell.outerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).outerContainerBackgroundColor(forIdx: indexPath.row)
     cell.innerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).innerContainerBackgroundColor(forIdx: indexPath.row)
@@ -163,22 +205,29 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     
     func moveToDetails() {
         
-        let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTBookingDetailsViewController") as! KTBookingDetailsViewController
-
-        if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
-            bookingDetailsViewController.setBooking(booking: booking)
-            (viewModel as! KTMyTripsViewModel).selectedBooking = nil;
-        }
-        
         navigationItem.backButtonTitle = ""
         
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString:"#E5F5F2")
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(hexString:"#006170"),
              NSAttributedStringKey.font : UIFont.init(name: "MuseoSans-900", size: 17)!]
         
-        self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
-        
-        
+        if let vehicelType = (viewModel as! KTMyTripsViewModel).selectedBooking?.vehicleType {
+            if vehicelType == 200 {
+                let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTXpressBookingDetailsViewController") as! KTXpressBookingDetailsViewController
+                bookingDetailsViewController.setBooking(booking: (viewModel as! KTMyTripsViewModel).selectedBooking!)
+                bookingDetailsViewController.fromRideHistory = true
+                bookingDetailsViewController.fromHistory = true
+                self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
+            } else {
+                let bookingDetailsViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTBookingDetailsViewController") as! KTBookingDetailsViewController
+                if let booking : KTBooking = (viewModel as! KTMyTripsViewModel).selectedBooking {
+                    bookingDetailsViewController.setBooking(booking: booking)
+                    (viewModel as! KTMyTripsViewModel).selectedBooking = nil;
+                }
+                self.navigationController?.pushViewController(bookingDetailsViewController, animated: true)
+            }
+        }
+  
         //self.performSegue(name: "segueMyTripsToDetails")
     }
     
@@ -195,8 +244,13 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     }
     @IBAction func bookNowTapped(){
         
-      sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuController?.hideMenu()
+        if let index = self.tabBarController?.selectedIndex, index == 1 {
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "RSBookingNavigationViewController")
+            sideMenuController?.hideMenu()
+        } else {
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
+        }
     }
 
 }

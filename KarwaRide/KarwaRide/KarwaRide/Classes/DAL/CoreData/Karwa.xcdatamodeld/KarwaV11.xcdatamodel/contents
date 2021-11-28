@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="KTBaseTrariff" representedClassName="KTBaseTrariff" isAbstract="YES" syncable="YES" codeGenerationType="class">
         <relationship name="toKeyValueBody" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="KTKeyValue"/>
         <relationship name="toKeyValueHeader" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="KTKeyValue"/>
@@ -30,6 +30,7 @@
         <attribute name="isRated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastFourDigits" optional="YES" attributeType="String"/>
         <attribute name="otp" optional="YES" attributeType="String"/>
+        <attribute name="passengerCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="paymentMethod" optional="YES" attributeType="String"/>
         <attribute name="pickupAddress" optional="YES" attributeType="String"/>
         <attribute name="pickupLat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -153,9 +154,16 @@
         <attribute name="typeName" optional="YES" attributeType="String"/>
         <attribute name="typeSortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="KTXpressFavorites" representedClassName="KTXpressFavorites" syncable="YES" codeGenerationType="class">
+        <attribute name="area" optional="YES" attributeType="String"/>
+        <attribute name="bound" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="KTBaseTrariff" positionX="-27" positionY="-126" width="128" height="73"/>
-        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="689"/>
+        <element name="KTBooking" positionX="-135" positionY="44" width="128" height="704"/>
         <element name="KTBookmark" positionX="286" positionY="51" width="128" height="118"/>
         <element name="KTCancelReason" positionX="-162" positionY="-252" width="128" height="105"/>
         <element name="KTComplaint" positionX="45" positionY="-126" width="128" height="165"/>
@@ -168,6 +176,7 @@
         <element name="KTRatingReasons" positionX="196" positionY="255" width="128" height="120"/>
         <element name="KTTransactions" positionX="36" positionY="-135" width="128" height="104"/>
         <element name="KTUser" positionX="-171" positionY="-99" width="128" height="195"/>
-        <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="133"/>
+        <element name="KTVehicleType" positionX="-29" positionY="-288" width="128" height="119"/>
+        <element name="KTXpressFavorites" positionX="36" positionY="-126" width="128" height="104"/>
     </elements>
 </model>

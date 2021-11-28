@@ -19,12 +19,17 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
   //MARK: - Properties
   @IBOutlet weak var loginButton: SpringButton!
   @IBOutlet weak var lblCountryCode: UILabel!
+    @IBOutlet weak var phoneNumberTextFieldBGView: UIView!
   @IBOutlet weak var phoneNumberTextField: MDCFilledTextField!
+    @IBOutlet weak var passwordTextFieldView: UIView!
   @IBOutlet weak var passwordTextField: MDCFilledTextField!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var toggleEnvironmentButton: UIButton!
+  @IBOutlet weak var lblLoginHeader: UILabel!
   
   var countryList = CountryList()
+  var toggleEnvironmentClickCount = 0
   
   //MARK: -View LifeCycle
   override func viewDidLoad() {
@@ -43,9 +48,7 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     {
         phoneNumberTextField.label.text = "str_phone".localized()
         passwordTextField.label.text = "str_password".localized()
-        
-        
-        
+                
         phoneNumberTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
         passwordTextField.label.font = UIFont(name: "MuseoSans-500", size: 11.0)!
 
@@ -53,6 +56,11 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         phoneNumberTextField.setUnderlineColor(UIColor(hexString: "#C9C9C9"), for: .normal)
         passwordTextField.setUnderlineColor(UIColor(hexString: "#005866"), for: .editing)
         passwordTextField.setUnderlineColor(UIColor(hexString: "#C9C9C9"), for: .normal)
+        
+        phoneNumberTextField.setUnderlineColor(UIColor.clear, for: .editing)
+        phoneNumberTextField.setUnderlineColor(UIColor.clear, for: .normal)
+        passwordTextField.setUnderlineColor(UIColor.clear, for: .editing)
+        passwordTextField.setUnderlineColor(UIColor.clear, for: .normal)
 
         phoneNumberTextField.label.textColor = UIColor(hexString: "#6CB1B7")
         
@@ -71,7 +79,8 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         phoneNumberTextField.keyboardType = UIKeyboardType.numberPad
 
         phoneNumberTextField.delegate = self
-
+        passwordTextField.delegate = self
+        
         countryList.delegate = self
 
         setCountry(country: Country(countryCode: "QA", phoneExtension: "974"))
@@ -80,6 +89,14 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
 
         NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handlerKeyboard), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        phoneNumberTextFieldBGView.clipsToBounds = true
+        passwordTextFieldView.clipsToBounds = true
+        
+        phoneNumberTextFieldBGView.customBorderWidth = 0
+        passwordTextFieldView.customBorderWidth = 0
+        
+        setupLoginHeaderTap()
     }
   
   deinit {
@@ -111,7 +128,63 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
         return newString.length <= maxLength
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        print(textField.tag)
+        
+        if textField.tag == 10 {
+            phoneNumberTextFieldBGView.customBorderWidth = 3
+            passwordTextFieldView.customBorderWidth = 0
+        } else {
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+            passwordTextFieldView.customBorderWidth = 3
+        }
+        
+        
+      return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        
+        if textField.tag == 10 {
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+        } else if textField.tag == 11 {
+            passwordTextFieldView.customBorderWidth = 0
+        }
+        
+//        phoneNumberTextFieldBGView.customBorderWidth = 0
+//        passwordTextFieldView.customBorderWidth = 0
+      return true
+    }
   
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 10 {
+            phoneNumberTextFieldBGView.customBorderWidth = 0
+        } else if textField.tag == 11 {
+            passwordTextFieldView.customBorderWidth = 0
+        }
+    }
+    
+    func setupLoginHeaderTap() {
+        let labelTap = UITapGestureRecognizer(target: self, action: #selector(self.onLoginHeaderTap(_:)))
+        self.lblLoginHeader.isUserInteractionEnabled = true
+        self.lblLoginHeader.addGestureRecognizer(labelTap)
+    }
+    
+    @objc func onLoginHeaderTap(_ sender: UITapGestureRecognizer) {
+        self.toggleEnvironmentClickCount += 1
+        if self.toggleEnvironmentClickCount == 10 {
+            self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "PROD", for: .normal)
+            self.toggleEnvironmentButton.isHidden = false
+        }
+    }
+    
+    @IBAction func toggleEnvironmentTapped(_ sender: Any) {
+        KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .PROD : .STAGE)
+        KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
+        self.toggleEnvironmentButton.setTitle(KTConfiguration.sharedInstance.environment ?? "PROD", for: .normal)
+    }
   
   @IBAction func countrySelectorTapped(_ sender: Any) {
     let navController = UINavigationController(rootViewController: countryList)
@@ -202,13 +275,17 @@ class KTLoginViewController: KTBaseLoginSignUpViewController, KTLoginViewModelDe
     return passwordTextField.text!
   }
   
-  func navigateToBooking()
-  {
-    self.performSegue(withIdentifier: "segueToBooking", sender: self)
-  }
-  func navigateToOTP() {
-    self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
-  }
+    func navigateToBooking()
+    {
+      self.tabBarController?.tabBar.alpha = 0
+      self.tabBarController?.tabBar.isHidden = false
+      self.performSegue(withIdentifier: "segueToBooking", sender: self)
+    }
+      
+    func navigateToOTP() {
+      self.tabBarController?.tabBar.alpha = 1
+      self.performSegue(withIdentifier: "segueLoginToOTP", sender: self)
+    }
   
   //MARK:- TextField Delegate
   //Bug 2567 Fixed.

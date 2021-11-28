@@ -559,8 +559,15 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func gotoDashboard()
     {
-        sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-        sideMenuController?.hideMenu()
+        if let index = self.tabBarController?.selectedIndex, index == 1 {
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "RSBookingNavigationViewController")
+            sideMenuController?.hideMenu()
+        } else {
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.hideMenu()
+        }
+        
+        
     }
     
     private func presentBarcodeScanner()

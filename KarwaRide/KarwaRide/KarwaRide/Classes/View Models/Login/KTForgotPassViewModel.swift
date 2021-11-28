@@ -44,10 +44,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
         rePassword = (delegate as! KTForgotPassViewModelDelegate).rePassword()
         
         print(phone?.extractCountryCode ?? "")
-        
-        print(phone?.components(separatedBy: "\(phone?.extractCountryCode() ?? "")")[0] ?? "")
-        print(phone?.components(separatedBy: "\(phone?.extractCountryCode() ?? "")")[1] ?? "")
-        
+                
         if country.phoneExtension == "\(phone?.extractCountryCode() ?? "")" {
             phone = phone?.components(separatedBy: "\(phone?.extractCountryCode() ?? "")")[1] ?? ""
         }

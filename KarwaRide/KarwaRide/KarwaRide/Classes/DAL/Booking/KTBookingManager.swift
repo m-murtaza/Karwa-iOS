@@ -9,6 +9,7 @@
 import UIKit
 
 let BOOKING_SYNC_TIME = "BookingSyncTime"
+let XPRESS_BOOKING_SYNC_TIME = "XpressBookingSyncTime"
 
 class KTBookingManager: KTBaseFareEstimateManager {
     
@@ -54,33 +55,40 @@ class KTBookingManager: KTBaseFareEstimateManager {
 
         self.post(url: Constants.APIURL.Booking, param: param as? [String : Any], completion: completionBlock, success: {
             (responseData,cBlock) in
-            job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
-            job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
-            job.bookingType = (responseData[Constants.BookingParams.BookingType] as? Int16)!
-            job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
-            job.trackId = responseData[Constants.BookingParams.TrackId] as? String
-            job.tripType = responseData[Constants.BookingParams.TripType] as? Int16 ?? 1
-            job.otp = responseData[Constants.BookingParams.Otp] as? String
-
-            let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
-            job.toKeyValueHeader = vType.toKeyValueHeader
-            job.toKeyValueBody = vType.toKeyValueBody
-                        
-            if estimate != nil {
-                let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
-                
-                if let header = estimate?.toKeyValueHeader {
-                    estimate?.toKeyValueHeader = header.adding(kv)
-                }
-                                
-                let bookingEstimate = estimate?.managedObjectContext?.object(with: job.objectID)
-                job.bookingToEstimate = bookingEstimate as? KTFareEstimate
-                estimate?.fareestimateToBooking = job
-                
-            }
-            self.saveInDb()
             
-            completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            
+            DispatchQueue.main.async {
+                job.bookingId = responseData[Constants.BookingParams.BookingId] as? String
+                job.bookingStatus = (responseData[Constants.BookingParams.Status] as? Int32)!
+                job.bookingType = (responseData[Constants.BookingParams.BookingType] as? Int16)!
+                job.estimatedFare = responseData[Constants.BookingParams.EstimatedFare] as? String
+                job.trackId = responseData[Constants.BookingParams.TrackId] as? String
+                job.tripType = responseData[Constants.BookingParams.TripType] as? Int16 ?? 1
+                job.otp = responseData[Constants.BookingParams.Otp] as? String
+
+                let vType : KTVehicleType = (KTVehicleTypeManager().vehicleType(typeId: job.vehicleType))!
+                job.toKeyValueHeader = vType.toKeyValueHeader
+                job.toKeyValueBody = vType.toKeyValueBody
+                            
+                if estimate != nil {
+                    let kv : KTKeyValue = KTBaseFareEstimateManager().keyValue(forKey: "Booking ID", value: job.bookingId!)
+
+                    if let header = estimate?.toKeyValueHeader {
+                        estimate?.toKeyValueHeader = header.adding(kv)
+                    }
+
+                    let bookingEstimate = estimate?.managedObjectContext?.object(with: job.objectID)
+                    job.bookingToEstimate = bookingEstimate as? KTFareEstimate
+    //                estimate?.fareestimateToBooking = job
+                    
+                }
+                self.saveInDb()
+                
+                completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            }
+            
+            
+            
         })
     }
     
@@ -94,6 +102,19 @@ class KTBookingManager: KTBaseFareEstimateManager {
             self.updateSyncTime(forKey: BOOKING_SYNC_TIME)
             
             cBlock(Constants.APIResponseStatus.SUCCESS,[Constants.ResponseAPIKey.Data:bookings])
+        }
+    }
+    
+    func syncXpressBookings(orderId: String, completion completionBlock: @escaping KTDALCompletionBlock) {
+        
+        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:XPRESS_BOOKING_SYNC_TIME)]
+        
+        self.get(url: Constants.APIURL.Booking + "/\(orderId)", param: param, completion: completionBlock) { (response, cBlock) in
+            
+            let bookings = self.saveBookingInDB(booking: response )
+            self.updateSyncTime(forKey: XPRESS_BOOKING_SYNC_TIME)
+            
+            cBlock(Constants.APIResponseStatus.SUCCESS,[Constants.ResponseAPIKey.Data: bookings])
         }
     }
     
@@ -177,6 +198,8 @@ class KTBookingManager: KTBaseFareEstimateManager {
 
         b.tripType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TripType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TripType] as! Int16 : 1
         
+        b.passengerCount = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PassengerCount] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PassengerCount] as! Int16 : 1
+
         b.otp = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.OTP] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.OTP] as? String : ""
         
         b.desc = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Desc] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Desc] as? String : ""
@@ -203,14 +226,39 @@ class KTBookingManager: KTBaseFareEstimateManager {
         KTBaseFareEstimateManager().saveKeyValueHeader(keyValue: data["Header"] as! [[AnyHashable : Any]], tariff: booking as KTBaseTrariff)
     }
     
+    func pendingXpressBookings() -> [KTBooking] {
+        
+        var bookings : [KTBooking] = []
+        
+        let newPredicate : NSPredicate = NSPredicate(format:"bookingStatus == %d OR bookingStatus == %d OR bookingStatus == %d OR bookingStatus == %d OR bookingStatus == %d",BookingStatus.PENDING.rawValue,BookingStatus.DISPATCHING.rawValue,BookingStatus.CONFIRMED.rawValue, BookingStatus.ARRIVED.rawValue,BookingStatus.PICKUP.rawValue)
+        let predicate : NSPredicate = NSPredicate(format:"vehicleType == %d","200")
+        
+        bookings.append(contentsOf: KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: newPredicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking])
+        bookings.append(contentsOf: KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking])
+
+        return bookings
+    }
+    
+    func historyXpressBookings() -> [KTBooking] {
+        var bookings : [KTBooking] = []
+        let predicate : NSPredicate = NSPredicate(format:"bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND bookingStatus != %d AND vehicleType == %d" , BookingStatus.PENDING.rawValue,BookingStatus.DISPATCHING.rawValue,BookingStatus.CONFIRMED.rawValue, BookingStatus.ARRIVED.rawValue,BookingStatus.PICKUP.rawValue,BookingStatus.UNKNOWN.rawValue, 200)
+        
+        bookings = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking]
+        
+        return bookings
+    }
+    
+    
     func pendingBookings() -> [KTBooking] {
         
         var bookings : [KTBooking] = []
         let predicate : NSPredicate = NSPredicate(format:"bookingStatus == %d OR bookingStatus == %d OR bookingStatus == %d OR bookingStatus == %d OR bookingStatus == %d",BookingStatus.PENDING.rawValue,BookingStatus.DISPATCHING.rawValue,BookingStatus.CONFIRMED.rawValue, BookingStatus.ARRIVED.rawValue,BookingStatus.PICKUP.rawValue)
         
         bookings = KTBooking.mr_findAllSorted(by: "pickupTime", ascending: false, with: predicate, in: NSManagedObjectContext.mr_default()) as! [KTBooking]
-        
+//        let filterdBookings = bookings.filter{$0.vehicleType != 200}
+                
         return bookings
+        
     }
     
     func historyBookings() -> [KTBooking] {
