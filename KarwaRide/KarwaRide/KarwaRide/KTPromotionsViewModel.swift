@@ -32,11 +32,9 @@ class KTPromotionsViewModel: KTBaseViewModel {
     }
     
     func fetchPromotions(params: PromotionParams? = nil) {
-        delegate?.showProgressHud(show: true)
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
             (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()
-            self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 guard let promotions = response[Constants.ResponseAPIKey.Data] as? [[String : Any]] else {
