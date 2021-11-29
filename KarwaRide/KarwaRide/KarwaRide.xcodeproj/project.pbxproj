@@ -256,8 +256,18 @@
 		448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC262549B4E8005A644D /* UIFont + Extension.swift */; };
 		448DCC29254A61C2005A644D /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448DCC28254A61C2005A644D /* UIViewController + Extension.swift */; };
 		44EBB8CE254861FC000257EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44EBB8D0254861FC000257EE /* Localizable.strings */; };
+		B775444C274B83CE006E453A /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B775444A274B81D5006E453A /* Dictionary+Extension.swift */; };
+		B790C45D2747A44D004C7CCE /* KTPromotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C45C2747A44D004C7CCE /* KTPromotionManager.swift */; };
+		B790C45F2747AC7D004C7CCE /* PromotionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C45E2747AC7D004C7CCE /* PromotionModel.swift */; };
 		B7A29FB627201DD100494949 /* VehicleDetailCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */; };
 		B7A29FB927201EFD00494949 /* VehicleDetailCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */; };
+		B7AACA21274CCE68009FF384 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AACA20274CCE68009FF384 /* UITableView+Extension.swift */; };
+		B7ADBC0F2745273C000B9073 /* KTPromotionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADBC0E2745273C000B9073 /* KTPromotionsViewController.swift */; };
+		B7ADBC1227452CDE000B9073 /* Promotions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7ADBC1127452CDE000B9073 /* Promotions.storyboard */; };
+		B7ADBC15274531AC000B9073 /* KTPromotionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADBC14274531AC000B9073 /* KTPromotionsViewModel.swift */; };
+		B7ADBC1727461DBD000B9073 /* KTPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADBC1627461DBD000B9073 /* KTPromotionCell.swift */; };
+		B7ADBC1927461F38000B9073 /* KTPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7ADBC1827461F38000B9073 /* KTPromotionCell.xib */; };
+		B7ADBC1B27466F9E000B9073 /* KTPromotionsBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7ADBC1A27466F9E000B9073 /* KTPromotionsBottomSheetVC.swift */; };
 		B7B89B9C271D741500F9D97D /* VehicleDetailBottomSheetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */; };
 		B7B89B9F271D748800F9D97D /* VehicleDetailBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */; };
 		B7C100182722A66400E1384F /* Karwa.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B7C1000C2722A66300E1384F /* Karwa.xcdatamodeld */; };
@@ -536,8 +546,18 @@
 		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		83B248D1E88500EE879AFC9F /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86F76FA0C742EAA4F6C1339D /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
+		B775444A274B81D5006E453A /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		B790C45C2747A44D004C7CCE /* KTPromotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionManager.swift; sourceTree = "<group>"; };
+		B790C45E2747AC7D004C7CCE /* PromotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
 		B7A29FB527201DD100494949 /* VehicleDetailCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VehicleDetailCarouselCell.xib; sourceTree = "<group>"; };
 		B7A29FB827201EFD00494949 /* VehicleDetailCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailCarouselCell.swift; sourceTree = "<group>"; };
+		B7AACA20274CCE68009FF384 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		B7ADBC0E2745273C000B9073 /* KTPromotionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionsViewController.swift; sourceTree = "<group>"; };
+		B7ADBC1127452CDE000B9073 /* Promotions.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Promotions.storyboard; sourceTree = "<group>"; };
+		B7ADBC14274531AC000B9073 /* KTPromotionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionsViewModel.swift; sourceTree = "<group>"; };
+		B7ADBC1627461DBD000B9073 /* KTPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionCell.swift; sourceTree = "<group>"; };
+		B7ADBC1827461F38000B9073 /* KTPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KTPromotionCell.xib; sourceTree = "<group>"; };
+		B7ADBC1A27466F9E000B9073 /* KTPromotionsBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionsBottomSheetVC.swift; sourceTree = "<group>"; };
 		B7B89B9B271D741500F9D97D /* VehicleDetailBottomSheetVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VehicleDetailBottomSheetVC.xib; sourceTree = "<group>"; };
 		B7B89B9E271D748800F9D97D /* VehicleDetailBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailBottomSheetVC.swift; sourceTree = "<group>"; };
 		B7C1000D2722A66300E1384F /* KarwaV6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KarwaV6.xcdatamodel; sourceTree = "<group>"; };
@@ -924,7 +944,7 @@
 				181344AB1EF7B271006E734A /* Classes */,
 				181344991EF68671006E734A /* AppDelegate.swift */,
 				1813449B1EF68671006E734A /* ViewController.swift */,
-				1813449D1EF68671006E734A /* Main.storyboard */,
+				B7ADBC1027452CC0000B9073 /* Storyboards */,
 				181344A21EF68671006E734A /* LaunchScreen.storyboard */,
 				181344A51EF68671006E734A /* Info.plist */,
 				0D499D56258F5EF200404DD3 /* InfoPlist.strings */,
@@ -1175,6 +1195,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B7ADBC0D274526BF000B9073 /* Promotions */,
 				1811AE2526AD19DA002C991E /* Xpress */,
 				F09D469B262C518C00695369 /* CyberSecure */,
 				F03DB006261D41B3002B3C44 /* AddCredit */,
@@ -1204,6 +1225,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				B7ADBC132745318C000B9073 /* Promotions */,
 				1811AE3B26AD1A39002C991E /* KTXpressDropoffViewModel.swift */,
 				1811AE3C26AD1A39002C991E /* KTXpressPickUpViewModel.swift */,
 				18DEC617272E7FB8006D560A /* KTXpressLocationSetUpViewModel.swift */,
@@ -1257,6 +1279,7 @@
 		1864872B1F0BAFD800DDB003 /* DAL */ = {
 			isa = PBXGroup;
 			children = (
+				B790C45B2747A3CC004C7CCE /* PromotionManager */,
 				1811AE4226AD1A66002C991E /* KTXpressBookingManager.swift */,
 				F04EF863262290390088C29B /* WalletManager */,
 				0DF3A22B2185B5280000503B /* Payment */,
@@ -1334,6 +1357,7 @@
 				1811AE4026AD1A50002C991E /* XpressAreasModel.swift */,
 				18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */,
 				0D1A4B51216CA0A900279AA6 /* ComplaintCategoryModel.swift */,
+				B790C45E2747AC7D004C7CCE /* PromotionModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1417,6 +1441,8 @@
 				448DCC262549B4E8005A644D /* UIFont + Extension.swift */,
 				448DCC28254A61C2005A644D /* UIViewController + Extension.swift */,
 				441D114C254FED49005E1B66 /* UIView + Extension.swift */,
+				B775444A274B81D5006E453A /* Dictionary+Extension.swift */,
+				B7AACA20274CCE68009FF384 /* UITableView+Extension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1554,6 +1580,42 @@
 				83B248D1E88500EE879AFC9F /* Pods_KarwaRide.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B790C45B2747A3CC004C7CCE /* PromotionManager */ = {
+			isa = PBXGroup;
+			children = (
+				B790C45C2747A44D004C7CCE /* KTPromotionManager.swift */,
+			);
+			name = PromotionManager;
+			sourceTree = "<group>";
+		};
+		B7ADBC0D274526BF000B9073 /* Promotions */ = {
+			isa = PBXGroup;
+			children = (
+				B7ADBC0E2745273C000B9073 /* KTPromotionsViewController.swift */,
+				B7ADBC1627461DBD000B9073 /* KTPromotionCell.swift */,
+				B7ADBC1827461F38000B9073 /* KTPromotionCell.xib */,
+				B7ADBC1A27466F9E000B9073 /* KTPromotionsBottomSheetVC.swift */,
+			);
+			name = Promotions;
+			sourceTree = "<group>";
+		};
+		B7ADBC1027452CC0000B9073 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				1813449D1EF68671006E734A /* Main.storyboard */,
+				B7ADBC1127452CDE000B9073 /* Promotions.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		B7ADBC132745318C000B9073 /* Promotions */ = {
+			isa = PBXGroup;
+			children = (
+				B7ADBC14274531AC000B9073 /* KTPromotionsViewModel.swift */,
+			);
+			name = Promotions;
 			sourceTree = "<group>";
 		};
 		B7B89B9A271D73E100F9D97D /* VehicleDetailBottomSheet */ = {
@@ -1718,12 +1780,14 @@
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
 				18C24B022004E269002D4B88 /* MuseoSans-100.otf in Resources */,
 				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
+				B7ADBC1927461F38000B9073 /* KTPromotionCell.xib in Resources */,
 				181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */,
 				18C24B042004E269002D4B88 /* MuseoSans-300.otf in Resources */,
 				18C24B052004E269002D4B88 /* MuseoSans-300Italic.otf in Resources */,
 				18C24B072004E269002D4B88 /* MuseoSans-500Italic.otf in Resources */,
 				18C24B0B2004E26A002D4B88 /* MuseoSans-900Italic.otf in Resources */,
 				18C24B092004E269002D4B88 /* MuseoSans-700Italic.otf in Resources */,
+				B7ADBC1227452CDE000B9073 /* Promotions.storyboard in Resources */,
 				1886187D207B47DF000806D3 /* InitCancelReasons.JSON in Resources */,
 				181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */,
 				18C24B0A2004E26A002D4B88 /* MuseoSans-900.otf in Resources */,
@@ -1810,6 +1874,7 @@
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/DDViewSwitcher/DDViewSwitcher.framework",
+				"${BUILT_PRODUCTS_DIR}/EasyTipView/EasyTipView.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
 				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
@@ -1852,6 +1917,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DDViewSwitcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyTipView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
@@ -1933,12 +1999,15 @@
 				0DB2224522BA30CA00C41D00 /* Country.swift in Sources */,
 				18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */,
 				181344AF1EF7B362006E734A /* KTWebClient.swift in Sources */,
+				B790C45D2747A44D004C7CCE /* KTPromotionManager.swift in Sources */,
 				183B91E220C7C19500097FAF /* KTFareHTMLViewController.swift in Sources */,
 				F07CFD762630238B00F003DA /* KTPaymentMethodSelectionView.swift in Sources */,
 				0DB0A5C020EB96C900843430 /* SharedPrefUtil.swift in Sources */,
 				1811AE3D26AD1A39002C991E /* KTXpressRideCreationViewModel.swift in Sources */,
 				18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */,
 				1839111620454AC1002EDE1A /* KTSettingCalendarTableViewCell.swift in Sources */,
+				B7ADBC0F2745273C000B9073 /* KTPromotionsViewController.swift in Sources */,
+				B7ADBC1B27466F9E000B9073 /* KTPromotionsBottomSheetVC.swift in Sources */,
 				187E71112083790300E66A55 /* KTRatingManager.swift in Sources */,
 				186ECFBF20A1A466002CF81E /* KTOnboardingStep1ViewController.swift in Sources */,
 				1839111C20468CAB002EDE1A /* KTUserManager+Logout.swift in Sources */,
@@ -1961,6 +2030,7 @@
 				1813449C1EF68671006E734A /* ViewController.swift in Sources */,
 				1845FCCE26BFA5A600A1AA75 /* KTXpressBookingDetailsBottomSheetVC.swift in Sources */,
 				0DE6A740218B141200125507 /* GatewayRegion.swift in Sources */,
+				B7AACA21274CCE68009FF384 /* UITableView+Extension.swift in Sources */,
 				1812D8952280470E00A424CD /* KTProfileCellViewController.swift in Sources */,
 				1811E4DA204FB34600C3C47F /* KTSetHomeWorkViewController.swift in Sources */,
 				18C24ADB2004A420002D4B88 /* VPMOTPTextField.swift in Sources */,
@@ -1969,6 +2039,7 @@
 				18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */,
 				0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */,
 				1811AE3826AD1A1B002C991E /* KTXpressAddressViewController.swift in Sources */,
+				B7ADBC15274531AC000B9073 /* KTPromotionsViewModel.swift in Sources */,
 				182A74CD20876A0B0025B6C7 /* KTTagButton.swift in Sources */,
 				0DE6A73F218B141200125507 /* GatewayError.swift in Sources */,
 				1833CA71200B531400AD885B /* KTWebViewController.swift in Sources */,
@@ -2018,6 +2089,7 @@
 				1845FCD026C21FE500A1AA75 /* KTXpressMyTripsViewController.swift in Sources */,
 				18861880207CA3EA000806D3 /* KTFarePopupViewController.swift in Sources */,
 				1810C1411FCE960E008E8D91 /* KTMainViewModel.swift in Sources */,
+				B790C45F2747AC7D004C7CCE /* PromotionModel.swift in Sources */,
 				1811E4E2204FD76A00C3C47F /* KTSetHomeViewModel.swift in Sources */,
 				186487301F0BB06800DDB003 /* KTDALManager.swift in Sources */,
 				1811AE3326AD19FD002C991E /* KTXpressDropOffViewController+Map.swift in Sources */,
@@ -2059,6 +2131,7 @@
 				18B9076220219533000F45FE /* KTTimer.swift in Sources */,
 				1833CA7A200CB1F900AD885B /* KTLocationManager.swift in Sources */,
 				0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */,
+				B7ADBC1727461DBD000B9073 /* KTPromotionCell.swift in Sources */,
 				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
 				1811AE3226AD19FD002C991E /* KTXpressRideCreationViewController+Map.swift in Sources */,
 				181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */,
@@ -2102,6 +2175,7 @@
 				0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */,
 				0D80810D21AE61810055E473 /* KTTrackTripViewController.swift in Sources */,
 				18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */,
+				B775444C274B83CE006E453A /* Dictionary+Extension.swift in Sources */,
 				0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */,
 				18A7232726BA3C3000CC60BF /* KTXpressRideTrackingViewModel.swift in Sources */,
 				187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */,

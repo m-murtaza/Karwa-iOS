@@ -167,4 +167,11 @@ extension String {
       return numberStr
     }
   }
+    
+    func base64ToImage() -> UIImage? {
+        if let decodedData = Data(base64Encoded: self, options: .ignoreUnknownCharacters) {
+            return UIImage(data: decodedData)
+        }
+        return nil
+    }
 }
