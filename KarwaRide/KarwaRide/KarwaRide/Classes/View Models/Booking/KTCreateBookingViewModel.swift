@@ -119,6 +119,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     var carouselSelected = false
     
     var vehicleCategories: [String: [KTVehicleType]] = [:]
+    var pickUpAddressGeoLocation: KTGeoLocation?
+    var dropOffAddressGeoLocation: KTGeoLocation?
 
     override func viewDidLoad() {
         
@@ -214,18 +216,22 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             booking.pickupAddress = pAddress.favoriteName
         }
         
+        pickUpAddressGeoLocation = pAddress
+        booking.pickupAddress = pAddress.name
         booking.pickupLat = pAddress.latitude
         booking.pickupLon = pAddress.longitude
     }
     
     func setDropAddress(dAddress : KTGeoLocation) {
         booking.dropOffLocationId = dAddress.locationId
-        
+        dropOffAddressGeoLocation = dAddress
         if dAddress.favoriteName == "" {
             booking.dropOffAddress = dAddress.name
         } else {
             booking.dropOffAddress = dAddress.favoriteName
         }
+        
+        booking.dropOffAddress = dAddress.name
         booking.dropOffLat = dAddress.latitude
         booking.dropOffLon = dAddress.longitude
     }

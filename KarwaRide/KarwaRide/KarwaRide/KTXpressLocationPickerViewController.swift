@@ -51,6 +51,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     var destinationForPickUp = [Area]()
     var picupRect = GMSMutablePath()
     var fromRideHistory = false
+    var backToPickUpWithMessageSelected = false
 
     var backToPreviousPickUp = false
 
@@ -175,6 +176,11 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         springAnimateButtonTapOut(button: setLocationButton)
         if sender.title(for: .normal) == "str_setpick".localized() {
             callSetPickUpAction()
+//            if backToPickUpWithMessageSelected == true {
+//                backToPickUpWithMessageSelected = false
+//                callDropOffAction()
+//            } else {
+//            }
         } else if sender.title(for: .normal) == "str_dropoff".localized() {
             callDropOffAction()
         } else {
@@ -552,6 +558,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         let alert = CDAlertView(title: withMessage, message: "", type: .custom(image: UIImage(named:"icon-notifications")!))
         alert.hideAnimations = { (center, transform, alpha) in
             alpha = 0
+            self.backToPickUpWithMessageSelected = true
             self.backToPickUp()
         }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
@@ -704,6 +711,7 @@ extension KTXpressLocationPickerViewController: KTXpressAddressDelegate {
 
 extension KTXpressLocationPickerViewController: RideExploreDelegate {
     func showPickUpScreen() {
+        self.setInitialPassengerCount()
         self.backToPickUp()
         self.rideService?.remove()
     }

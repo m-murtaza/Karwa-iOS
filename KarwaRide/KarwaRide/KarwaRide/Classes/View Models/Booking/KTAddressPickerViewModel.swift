@@ -472,8 +472,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
                 if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
                   area = bookmarks[idx.row].name!
                 }
-                else if bookmarks[idx.row].area != nil {
-                  area = bookmarks[idx.row].area!
+                else if bookmarks[idx.row].favoriteName.count > 0 {
+                  area = bookmarks[idx.row].favoriteName
+                }
+                else if bookmarks[idx.row].name != nil {
+                  area = bookmarks[idx.row].name!
                 }
             } else {
                 area = ""
