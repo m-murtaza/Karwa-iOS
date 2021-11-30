@@ -451,10 +451,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             params.dropoffLong = booking.dropOffLon
         }
 
-        delegate?.showProgressHud(show: true)
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
-            self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 guard let promotions = response["D"] as? [[String : Any]] else {
