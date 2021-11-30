@@ -1026,7 +1026,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         vehicleCategories[VehicleCategories.SECOND.rawValue] = [vehicleTypes![i]]
                     }
                 }
-                else if vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
+                else if vehicleTypes![i].typeId == VehicleType.KTStandardLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTBusinessLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
                     if vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) {
                         vehicleCategories[VehicleCategories.THIRD.rawValue]?.append(vehicleTypes![i])
                     }
