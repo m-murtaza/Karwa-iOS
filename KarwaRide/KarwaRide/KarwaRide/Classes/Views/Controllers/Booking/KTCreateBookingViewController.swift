@@ -171,6 +171,21 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(hexString: "#F1FBFA")
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 2 {
+            return nil
+        }
+        else {
+            let view = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: 1))
+            view.backgroundColor = UIColor(hexString: "#129793").withAlphaComponent(0.2)
+            return view
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1.0
+    }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //    selectedIndex = indexPath.row
