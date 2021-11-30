@@ -121,7 +121,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         ///
         
 //
-        if(indexPath.row != 3 && indexPath.row != 4) {
+        if(indexPath.row != 4) {
             lastSelectedIndexPath  = indexPath
         } else {
             lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
@@ -145,10 +145,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             break
 
         case 3:
-            let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
-            let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
-            detailView.isPromotion = true
-            sideMenuController?.contentViewController = contentView
+            sideMenuController?.contentViewController = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: "KTPromotionsNavigationController")
             sideMenuController?.hideMenu()
             break
 

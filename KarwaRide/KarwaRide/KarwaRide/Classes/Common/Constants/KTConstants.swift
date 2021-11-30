@@ -109,6 +109,15 @@ struct Device {
     }
 }
 
+enum Storyboard: String {
+    case MAIN = "Main"
+    case PROMOTIONS = "Promotions"
+    
+    func board()->String{
+        return self.rawValue
+    }
+}
+
 struct Constants {
     static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
@@ -494,6 +503,8 @@ struct Constants {
         static let GetRSAreas = "rs/areas?"
         static let PostRSService = "rs/explore"
         static let orderService = "rs/order/"
+        static let Promotions = "promo"
+        static let PromotionIcon = "promo/img/"
     }
     
     struct TrackTaxiParams {
@@ -576,6 +587,13 @@ struct Constants {
         static let methodId = "PaymentMethodId"
         static let method = "PaymentMethod"
         static let amount = "Amount"
+    }
+    
+    struct PromotionParams {
+        static let PickupLat = "plat"
+        static let PickupLong = "plon"
+        static let DropoffLat = "dlat"
+        static let DropoffLong = "dlon"
     }
     
 }

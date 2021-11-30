@@ -167,6 +167,10 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
     }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(hexString: "#F1FBFA")
+    }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //    selectedIndex = indexPath.row
@@ -248,6 +252,14 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 class KTCreateBookingViewController:
     KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
+    func noOfPromotions(count: Int) {
+        self.uiPromotionCount.isHidden = count > 0 ? false : true
+        self.lblPromotionCount.text = "\(count)"
+        if count > 0 {
+            self.showToolTip(forView: self.uiPromotionCount)
+        }
+    }
+    
     func reloadSelection() {
         self.tableView.reloadData()
     }
@@ -322,6 +334,9 @@ class KTCreateBookingViewController:
     var selectedPaymentMethod = "Cash"
     @IBOutlet weak var paymentTypeIcon: UIImageView!
     @IBOutlet weak var paymentTypeLabel: UILabel!
+    
+    @IBOutlet weak var uiPromotionCount: UIView!
+    @IBOutlet weak var lblPromotionCount: UILabel!
     
     var titleForRequestOrScheduleKarwa: String?
 
@@ -573,8 +588,36 @@ class KTCreateBookingViewController:
     navigationController?.isNavigationBarHidden = true
     navigationController?.isNavigationBarHidden = true
     self.tabBarController?.tabBar.alpha = 1
-    self.mapViewBottomConstraint.constant = 280
+    self.setupMapBottomConstraint()
   }
+    
+    private func setupMapBottomConstraint() {
+        self.mapViewBottomConstraint.constant = 280
+        if !KTConfiguration.sharedInstance.checkRSEnabled() {
+            if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case 1136:
+                    print("iPhone 5 or 5S or 5C")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+                case 1334:
+                    print("iPhone 6/6S/7/8")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+                case 1920, 2208:
+                    print("iPhone 6+/6S+/7+/8+")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
+                case 2436:
+                    print("iPhone X")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
+                default:
+                    print("unknown")
+                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
+                }
+            }
+            else {
+                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 50
+            }
+        }
+    }
       
   @IBAction func scanPayBannerCrossTapped(_ sender: Any) {
     SharedPrefUtil.setScanNPayCoachmarkShown()
@@ -749,13 +792,32 @@ class KTCreateBookingViewController:
   // ----------------------------------------------------
   func showPromoInputDialog(currentPromo : String)
   {
-    let promoPopup = storyboard?.instantiateViewController(withIdentifier: "PromoCodePopupVC") as! PromoCodePopupVC
-    promoPopup.previousView = self
-    promoPopup.previousPromo = currentPromo
-    promoPopup.view.frame = self.view.bounds
-    view.addSubview(promoPopup.view)
-    addChildViewController(promoPopup)
+      self.showPromoBottomSheet(currentPromo)
   }
+    
+    private func showPromoBottomSheet(_ currentPromo : String) {
+        let bottomSheetVC = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: String(describing: KTPromotionsBottomSheetVC.self)) as! KTPromotionsBottomSheetVC
+        let bottomSheet = SheetViewController(
+            controller: bottomSheetVC,
+            sizes: [.percent(0.70), .marginFromTop(80)],
+            options: SheetOptions(useInlineMode: true))
+        bottomSheetVC.pickupDropoff = (viewModel as? KTCreateBookingViewModel)?.getPickupDropoffForPromotions()
+        bottomSheetVC.previousView = self
+        bottomSheetVC.previousPromo = currentPromo
+        bottomSheetVC.sheet = bottomSheet
+        bottomSheet.allowPullingPastMaxHeight = true
+        bottomSheet.allowPullingPastMinHeight = true
+        
+        bottomSheet.dismissOnPull = true
+        bottomSheet.dismissOnOverlayTap = true
+        bottomSheet.overlayColor = UIColor.black.withAlphaComponent(0.5)
+        bottomSheet.contentViewController.view.layer.shadowColor = UIColor.black.cgColor
+        bottomSheet.contentViewController.view.layer.shadowOpacity = 0.1
+        bottomSheet.contentViewController.view.layer.shadowRadius = 10
+        bottomSheet.cornerRadius = 30.0
+        bottomSheet.allowGestureThroughOverlay = false
+        bottomSheet.animateIn(to: view, in: self)
+    }
   
   func applyPromoTapped(_ enteredPromo: String)
   {
@@ -917,7 +979,7 @@ class KTCreateBookingViewController:
         self.currentLocationButton.isHidden = true
         (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
-        //}
+        (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
     }
   
   func pickDropBoxStep1() {
@@ -947,30 +1009,7 @@ class KTCreateBookingViewController:
             self.pickupDropoffParentContainer.isHidden = true
         }
         
-        if !KTConfiguration.sharedInstance.checkRSEnabled() {
-            if UIDevice().userInterfaceIdiom == .phone {
-                switch UIScreen.main.nativeBounds.height {
-                case 1136:
-                    print("iPhone 5 or 5S or 5C")
-                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
-                case 1334:
-                    print("iPhone 6/6S/7/8")
-                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
-                case 1920, 2208:
-                    print("iPhone 6+/6S+/7+/8+")
-                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 38
-                case 2436:
-                    print("iPhone X")
-                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
-                default:
-                    print("unknown")
-                    self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 68
-                }
-            }
-            else {
-                self.mapViewBottomConstraint.constant = self.mapViewBottomConstraint.constant - 50
-            }
-        }
+        self.setupMapBottomConstraint()
     }
   }
   
