@@ -1064,6 +1064,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return 0
     }
     
+    func getVehicleCategory(by typeId: Int16) -> String? {
+        let category = vehicleCategories.first { category in
+            let vehicleType = category.value.first(where: { type in
+                type.typeId == typeId
+            })
+            return vehicleType?.typeId == typeId
+        }
+        return category?.key
+    }
+    
     func getVehicleByCategory(catName: String) -> [KTVehicleType]{
         return vehicleCategories[catName] ?? []
     }

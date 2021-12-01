@@ -40,6 +40,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     var isDataLoaded = false
     var sheet: SheetViewController?
     var sheetCoordinator: UBottomSheetCoordinator?
+    var selectedVehicleType: VehicleType?
     
     var selectedVehicleIndex = 0
     fileprivate var currentVehicle: Int = 0 {
@@ -134,6 +135,19 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         if isDataLoaded == false {
             isDataLoaded = true
             collectionView.reloadData()
+            if (vModel?.rebook ?? false), let selectedType = self.selectedVehicleType {
+                if let vehicleIndex = self.vehicles.firstIndex(where: { type in
+                    type.typeId == selectedType.rawValue
+                }) {
+                    if vehicleIndex < self.collectionView.numberOfItems(inSection: 0) {
+                        self.collectionView.scrollToItem(at: IndexPath(row: vehicleIndex, section: 0), at: .centeredHorizontally, animated: true)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                            guard let `self` = self else {return}
+                            self.animateVehicle(index: vehicleIndex)
+                        }
+                    }
+                }
+            }
         }
         animateVehicle(index: currentVehicle)
         self.sheet?.handleScrollView(self.scrollView)

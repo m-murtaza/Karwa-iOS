@@ -514,6 +514,7 @@ class KTCreateBookingViewController:
             bottomSheetVC.sheet = bottomSheet
             bottomSheetVC.vehicles = vehicles
             bottomSheetVC.vModel = viewModel
+            bottomSheetVC.selectedVehicleType = self.vModel?.selectedVehicleType
             bottomSheet.allowPullingPastMaxHeight = false
             bottomSheet.allowPullingPastMinHeight = true
             
@@ -1005,6 +1006,24 @@ class KTCreateBookingViewController:
         (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
         (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
+        
+        if vModel?.rebook ?? false {
+            if let type = vModel?.selectedVehicleType, let category = vModel?.getVehicleCategory(by: type.rawValue) {
+                switch category {
+                case VehicleCategories.FIRST.rawValue:
+                    self.selectedSection = 0
+                case VehicleCategories.SECOND.rawValue:
+                    self.selectedSection = 1
+                case VehicleCategories.THIRD.rawValue:
+                    self.selectedSection = 2
+                case VehicleCategories.FOURTH.rawValue:
+                    self.selectedSection = 3
+                default:
+                    self.selectedSection = 0
+                }
+                self.setupVehicleDetailBottomSheet()
+            }
+        }
     }
   
   func pickDropBoxStep1() {
