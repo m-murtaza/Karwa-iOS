@@ -515,6 +515,7 @@ class KTCreateBookingViewController:
             bottomSheetVC.vehicles = vehicles
             bottomSheetVC.vModel = viewModel
             bottomSheetVC.selectedVehicleType = self.vModel?.selectedVehicleType
+            bottomSheetVC.rebook = vModel?.rebook
             bottomSheet.allowPullingPastMaxHeight = false
             bottomSheet.allowPullingPastMinHeight = true
             
@@ -1021,7 +1022,10 @@ class KTCreateBookingViewController:
                 default:
                     self.selectedSection = 0
                 }
-                self.setupVehicleDetailBottomSheet()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                    guard let `self` = self else {return}
+                    self.setupVehicleDetailBottomSheet()
+                }
             }
         }
     }

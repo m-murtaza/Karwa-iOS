@@ -1151,7 +1151,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             case Int16(VehicleType.KTLuxuryLimo.rawValue):
                 imgSType = UIImage(named: "icon-luxury-limo")!
             case Int16(VehicleType.KTIconicLimousine.rawValue):
-                imgSType = UIImage(named: "icon-luxury-limo")!
+                imgSType = UIImage(named: "icon-etron")!
             default:
                 imgSType = UIImage(named: "icon-karwa-taxi")!
             }
