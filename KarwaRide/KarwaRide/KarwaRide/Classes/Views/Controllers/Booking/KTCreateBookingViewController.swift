@@ -136,8 +136,11 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     else if indexPath.section == 1 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue).first
     }
-    else {
+      else if indexPath.section == 2 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue).first
+    }
+    else {
+        item = viewModel.getVehicleByCategory(catName: VehicleCategories.FOURTH.rawValue).first
     }
 
     cell.serviceName.text = viewModel.getVehicleTitle(vehicleType: item!.typeId)
@@ -173,7 +176,10 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 2 {
+        if KTConfiguration.sharedInstance.checkIconicLimousineEnabled() && section == 3 {
+            return nil
+        }
+        else if !KTConfiguration.sharedInstance.checkIconicLimousineEnabled() && section == 2 {
             return nil
         }
         else {
@@ -413,6 +419,10 @@ class KTCreateBookingViewController:
 //    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
 //    rideServicesContainer.addGestureRecognizer(gesture)
+    if KTConfiguration.sharedInstance.checkIconicLimousineEnabled() {
+        tableViewMinimumHeight = 290
+        tableViewMaximumHeight = 290
+    }
     tableViewHeight.constant = tableViewMaximumHeight
         if #available(iOS 15.0, *) {
             self.tableView.sectionHeaderTopPadding = 0.0
@@ -489,8 +499,11 @@ class KTCreateBookingViewController:
             else if self.selectedSection == 1 {
                 vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue)
             }
-            else {
+            else if self.selectedSection == 2 {
                 vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue)
+            }
+            else {
+                vehicles = viewModel.getVehicleByCategory(catName: VehicleCategories.FOURTH.rawValue)
             }
             
             let bottomSheetVC = VehicleDetailBottomSheetVC()
@@ -967,10 +980,7 @@ class KTCreateBookingViewController:
         //        self.view.layoutIfNeeded()
         
         self.rideServicesContainer.isHidden = false
-        
-        if !KTConfiguration.sharedInstance.checkRSEnabled() {
-            self.mapViewBottomConstraint.constant = 280
-        }
+        self.mapViewBottomConstraint.constant = KTConfiguration.sharedInstance.checkIconicLimousineEnabled() ? 350 : 280
         
         if corouselSelected == false {
             UIView.animate(

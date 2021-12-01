@@ -1032,6 +1032,14 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         vehicleCategories[VehicleCategories.THIRD.rawValue] = [vehicleTypes![i]]
                     }
                 }
+                else if vehicleTypes![i].typeId == VehicleType.KTIconicLimousine.rawValue && KTConfiguration.sharedInstance.checkIconicLimousineEnabled() {
+                    if vehicleCategories.keys.contains(VehicleCategories.FOURTH.rawValue) {
+                        vehicleCategories[VehicleCategories.FOURTH.rawValue]?.append(vehicleTypes![i])
+                    }
+                    else {
+                        vehicleCategories[VehicleCategories.FOURTH.rawValue] = [vehicleTypes![i]]
+                    }
+                }
             }
         }
     }
@@ -1049,6 +1057,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         }
         else if catName == VehicleCategories.THIRD.rawValue {
             return vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) ? (vehicleCategories[VehicleCategories.THIRD.rawValue]?.count ?? 0) : 0
+        }
+        else if catName == VehicleCategories.FOURTH.rawValue {
+            return vehicleCategories.keys.contains(VehicleCategories.FOURTH.rawValue) ? (vehicleCategories[VehicleCategories.FOURTH.rawValue]?.count ?? 0) : 0
         }
         return 0
     }
@@ -1129,6 +1140,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 imgSType = UIImage(named: "icon-business-limo")!
             case Int16(VehicleType.KTLuxuryLimo.rawValue):
                 imgSType = UIImage(named: "icon-luxury-limo")!
+            case Int16(VehicleType.KTIconicLimousine.rawValue):
+                imgSType = UIImage(named: "icon-luxury-limo")!
             default:
                 imgSType = UIImage(named: "icon-karwa-taxi")!
             }
@@ -1179,6 +1192,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             case Int16(VehicleType.KTBusinessLimo.rawValue):
                 isPremiumRide = true
             case Int16(VehicleType.KTLuxuryLimo.rawValue):
+                isPremiumRide = true
+            case Int16(VehicleType.KTIconicLimousine.rawValue):
                 isPremiumRide = true
             default:
                 isPremiumRide = false
@@ -1239,6 +1254,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            type = "txt_etron".localized()
+            
         default:
             type = ""
         }

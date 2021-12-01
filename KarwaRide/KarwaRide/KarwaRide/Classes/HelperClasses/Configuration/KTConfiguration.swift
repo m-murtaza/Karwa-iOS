@@ -18,6 +18,7 @@ class KTConfiguration: NSObject {
     var resourceFileDictionary: NSDictionary?
     var environment : String?
     var isRSEnabled: Bool?
+    var isIconicLimousineEnabled: Bool?
     
     var MERCHANT_ID: String?
     var GATEWAY_REGION: GatewayRegion?
@@ -66,6 +67,13 @@ class KTConfiguration: NSObject {
             isRSEnabled = resourceFileDictionary?.value(forKey: "isRSEnabled") as? Bool
         }
         return isRSEnabled ?? false
+    }
+    
+    func checkIconicLimousineEnabled() -> Bool {
+        if(isIconicLimousineEnabled == nil){
+            isIconicLimousineEnabled = resourceFileDictionary?.value(forKey: "isIconicLimousineEnabled") as? Bool
+        }
+        return isIconicLimousineEnabled ?? false
     }
     
     func setEnvironment(environment: ENVIRONMENT) {
