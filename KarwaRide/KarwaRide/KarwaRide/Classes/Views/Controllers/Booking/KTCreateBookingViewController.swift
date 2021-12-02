@@ -143,7 +143,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FOURTH.rawValue).first
     }
 
-    cell.serviceName.text = viewModel.getVehicleTitle(vehicleType: item!.typeId)
+    cell.serviceName.text = viewModel.getVehicleCategory(vehicleType: item!.typeId)
     let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)

@@ -1243,6 +1243,28 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return getVehicleTitle(vehicleType: vType.typeId)
     }
     
+    func getVehicleCategory(vehicleType : Int16) -> String
+    {
+        var category : String = ""
+        switch vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
+            category = "category_taxi".localized()
+            
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            category = "category_accessible".localized()
+            
+        case VehicleType.KTStandardLimo.rawValue, VehicleType.KTBusinessLimo.rawValue, VehicleType.KTLuxuryLimo.rawValue:
+            category = "category_limo".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            category = "category_electric".localized()
+            
+        default:
+            category = "category_taxi".localized()
+        }
+        return category
+    }
+    
     func getVehicleTitle(vehicleType : Int16) -> String
     {
         var type : String = ""
