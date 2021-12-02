@@ -65,7 +65,9 @@ class KTPromotionsViewModel: KTBaseViewModel {
             }
             else
             {
-                (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "error_sr".localized()
+                let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "please_dialog_msg_went_wrong".localized()
+                (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: title, message: message)
                 (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
             }
         }
