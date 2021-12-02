@@ -1008,6 +1008,9 @@ class KTCreateBookingViewController:
 
         (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
         
+    }
+    
+    func rebookRide(){
         if vModel?.rebook ?? false {
             if let type = vModel?.selectedVehicleType, let category = vModel?.getVehicleCategory(by: type.rawValue) {
                 switch category {
@@ -1022,10 +1025,7 @@ class KTCreateBookingViewController:
                 default:
                     self.selectedSection = 0
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                    guard let `self` = self else {return}
-                    self.setupVehicleDetailBottomSheet()
-                }
+                self.setupVehicleDetailBottomSheet()
             }
         }
     }

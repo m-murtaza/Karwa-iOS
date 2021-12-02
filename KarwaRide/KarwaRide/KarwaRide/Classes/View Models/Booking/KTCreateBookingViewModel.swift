@@ -70,6 +70,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     func reloadSelection()
     
     func noOfPromotions(count: Int)
+    func rebookRide()
 }
 
 let CHECK_DELAY = 90.0
@@ -317,7 +318,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         (delegate as! KTCreateBookingViewModelDelegate).setETAContainerBackground(background: KTUtils.getEtaBackgroundNameByVT(vehicleType: selectedVehicleType.rawValue))
         
-        fetchEstimates()
+        fetchEstimates(rebook: rebook)
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -484,7 +485,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     //MARK: - Estimates
-    private func fetchEstimates() {
+    private func fetchEstimates(rebook: Bool = false) {
         //    del?.updateVehicleTypeList()
         //    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
         //        (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
@@ -507,6 +508,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                                                         let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
                                                         self.encodedPath = encodedPath ?? ""
                                                         self.del?.updateVehicleTypeList()
+                                                        if rebook {
+                                                            self.del?.rebookRide()
+                                                        }
                                                         self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
                                                         
                                                         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
@@ -1406,6 +1410,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             imgSType = UIImage(named: "icon-business-limo")!
         case Int16(VehicleType.KTLuxuryLimo.rawValue):
             imgSType = UIImage(named: "icon-luxury-limo")!
+        case Int16(VehicleType.KTIconicLimousine.rawValue):
+            imgSType = UIImage(named: "icon-etron")!
         default:
             imgSType = UIImage(named: "icon-karwa-taxi")!
         }
