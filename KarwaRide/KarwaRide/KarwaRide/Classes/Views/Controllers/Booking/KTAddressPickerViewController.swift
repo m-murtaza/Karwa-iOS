@@ -245,13 +245,46 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
             let insets = UIEdgeInsetsMake( 0, 0, 300, 0 )
             tblView.contentInset = insets
             tblView.scrollIndicatorInsets = insets
-            constraintTableViewBottom.constant = newFrame.height-35
+            
+            print(newFrame.height)
+            
+            if UIDevice().userInterfaceIdiom == .phone {
+                    switch UIScreen.main.nativeBounds.height {
+                    case 1136:
+                        print("iPhone 5 or 5S or 5C")
+                        constraintTableViewBottom.constant = newFrame.height
+                    case 1334:
+                        print("iPhone 6/6S/7/8")
+                        constraintTableViewBottom.constant = newFrame.height
+                    case 1920, 2208:
+                        print("iPhone 6+/6S+/7+/8+")
+                        constraintTableViewBottom.constant = newFrame.height
+                    default:
+                        print("unknown")
+                        constraintTableViewBottom.constant = newFrame.height-35
+                    }
+                }
             self.view.layoutIfNeeded()
         }
     }
   
   @objc func keyboardWillHide(notification: NSNotification) {
-      constraintTableViewBottom.constant = -20
+      if UIDevice().userInterfaceIdiom == .phone {
+              switch UIScreen.main.nativeBounds.height {
+              case 1136:
+                  print("iPhone 5 or 5S or 5C")
+                  constraintTableViewBottom.constant = 0
+              case 1334:
+                  print("iPhone 6/6S/7/8")
+                  constraintTableViewBottom.constant = 0
+              case 1920, 2208:
+                  print("iPhone 6+/6S+/7+/8+")
+                  constraintTableViewBottom.constant = 0
+              default:
+                  print("unknown")
+                  constraintTableViewBottom.constant = -20
+              }
+          }
 //      tblView.contentInset = .zero
   }
   
@@ -443,6 +476,10 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
               
               txtDropAddress.inputView = nil
               txtPickAddress.inputView = nil
+              
+              txtDropAddress.reloadInputViews()
+              txtPickAddress.reloadInputViews()
+
               selectedInputMechanism = SelectedInputMechanism.ListView
               
           //    txtPickAddress.tintColor = UIColor(hexString:"#006170")
@@ -956,17 +993,29 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     searchText = textField.text!;
       
       if textField.isEqual(txtDropAddress) {
-          if searchText.count > 0 {
+          if searchText.count == 1 && string == ""{
+              clearButtonPickup.isHidden = true
+              clearButtonDestination.isHidden = true
+          } else if searchText.count == 0 && string.count != 0 {
               clearButtonPickup.isHidden = true
               clearButtonDestination.isHidden = false
-          } else {
+          } else if searchText.count > 0 {
+              clearButtonPickup.isHidden = true
+              clearButtonDestination.isHidden = false
+          }else {
               clearButtonPickup.isHidden = true
               clearButtonDestination.isHidden = true
           }
       }
       
       if textField.isEqual(txtPickAddress) {
-          if searchText.count > 0 {
+          if searchText.count == 1 && string == ""{
+              clearButtonPickup.isHidden = true
+              clearButtonDestination.isHidden = true
+          } else if searchText.count == 0 && string.count != 0 {
+              clearButtonPickup.isHidden = false
+              clearButtonDestination.isHidden = true
+          } else if searchText.count > 0 {
               clearButtonPickup.isHidden = false
               clearButtonDestination.isHidden = true
           } else {

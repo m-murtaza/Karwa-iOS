@@ -553,35 +553,43 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   {
     if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty)
     {
+        
         if  (((skipDestination || dropOffAddress != nil || isSkippedPressed) && (dropOffAddress as? KTGeoLocation)?.latitude ?? 0 != 0) || (dropOffAddress as? Area)?.isActive ??  false == true)
+        {
+            
+            if let pick = pickUpAddress as? KTGeoLocation, let dropoff = dropOffAddress as? KTGeoLocation {
+                if isSkippedPressed
+                {
+                    dropOffAddress = nil
+                }
+            }
+            
+            if let pick = pickUpAddress as? Area, let dropoff = dropOffAddress as? Area {
+                if (pick.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || (isSkippedPressed || dropoff.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()))
+                {
+                    if isSkippedPressed
+                    {
+                        dropOffAddress = nil
+                    }
+                }
+            }
+            
+            (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+            
+        }
+      else
       {
-          
-          if let pick = pickUpAddress as? KTGeoLocation, let dropoff = dropOffAddress as? KTGeoLocation {
+          if (skipDestination || dropOffAddress != nil || isSkippedPressed) {
               if isSkippedPressed
               {
                 dropOffAddress = nil
               }
               (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
           } else {
-              (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
+              self.del?.moveFocusToDestination()
           }
           
-          if let pick = pickUpAddress as? Area, let dropoff = dropOffAddress as? Area {
-              if (pick.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || (isSkippedPressed || dropoff.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()))
-              {
-                if isSkippedPressed
-                {
-                  dropOffAddress = nil
-                }
-                (delegate as! KTAddressPickerViewModelDelegate).navigateToPreviousView(pickup: pickUpAddress, dropOff: dropOffAddress)
-              }
-          }
-        
-      }
-      else
-      {
         //self.delegate?.showError!(title: "Error", message: "Dropoff address cann't be empty")
-        self.del?.moveFocusToDestination()
       }
     }
     else
@@ -690,7 +698,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         else {
             
             defer {
-                moveBackIfNeeded(skipDestination: false)
+                if fromActionSheet == false {
+                    moveBackIfNeeded(skipDestination: false)
+                }
             }
             
             if indexPath.section == 1 {
