@@ -70,6 +70,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     func reloadSelection()
     
     func noOfPromotions(count: Int)
+    func rebookRide()
 }
 
 let CHECK_DELAY = 90.0
@@ -317,7 +318,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         (delegate as! KTCreateBookingViewModelDelegate).setETAContainerBackground(background: KTUtils.getEtaBackgroundNameByVT(vehicleType: selectedVehicleType.rawValue))
         
-        fetchEstimates()
+        fetchEstimates(rebook: rebook)
     }
     //MARK:- Sync Applicaiton Data
     func syncApplicationData() {
@@ -451,10 +452,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             params.dropoffLong = booking.dropOffLon
         }
 
-        delegate?.showProgressHud(show: true)
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
-            self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 guard let promotions = response["D"] as? [[String : Any]] else {
@@ -486,7 +485,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     //MARK: - Estimates
-    private func fetchEstimates() {
+    private func fetchEstimates(rebook: Bool = false) {
         //    del?.updateVehicleTypeList()
         //    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
         //        (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
@@ -509,6 +508,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                                                         let encodedPath = response[Constants.BookingResponseAPIKey.EncodedPath] as? String
                                                         self.encodedPath = encodedPath ?? ""
                                                         self.del?.updateVehicleTypeList()
+                                                        if rebook {
+                                                            self.del?.rebookRide()
+                                                        }
                                                         self.drawDirectionOnMap(encodedPath: encodedPath ?? "")
                                                         
                                                         DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
@@ -1026,12 +1028,20 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                         vehicleCategories[VehicleCategories.SECOND.rawValue] = [vehicleTypes![i]]
                     }
                 }
-                else if vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
+                else if vehicleTypes![i].typeId == VehicleType.KTStandardLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTBusinessLimo.rawValue || vehicleTypes![i].typeId == VehicleType.KTLuxuryLimo.rawValue {
                     if vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) {
                         vehicleCategories[VehicleCategories.THIRD.rawValue]?.append(vehicleTypes![i])
                     }
                     else {
                         vehicleCategories[VehicleCategories.THIRD.rawValue] = [vehicleTypes![i]]
+                    }
+                }
+                else if vehicleTypes![i].typeId == VehicleType.KTIconicLimousine.rawValue && KTConfiguration.sharedInstance.checkIconicLimousineEnabled() {
+                    if vehicleCategories.keys.contains(VehicleCategories.FOURTH.rawValue) {
+                        vehicleCategories[VehicleCategories.FOURTH.rawValue]?.append(vehicleTypes![i])
+                    }
+                    else {
+                        vehicleCategories[VehicleCategories.FOURTH.rawValue] = [vehicleTypes![i]]
                     }
                 }
             }
@@ -1052,7 +1062,20 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         else if catName == VehicleCategories.THIRD.rawValue {
             return vehicleCategories.keys.contains(VehicleCategories.THIRD.rawValue) ? (vehicleCategories[VehicleCategories.THIRD.rawValue]?.count ?? 0) : 0
         }
+        else if catName == VehicleCategories.FOURTH.rawValue {
+            return vehicleCategories.keys.contains(VehicleCategories.FOURTH.rawValue) ? (vehicleCategories[VehicleCategories.FOURTH.rawValue]?.count ?? 0) : 0
+        }
         return 0
+    }
+    
+    func getVehicleCategory(by typeId: Int16) -> String? {
+        let category = vehicleCategories.first { category in
+            let vehicleType = category.value.first(where: { type in
+                type.typeId == typeId
+            })
+            return vehicleType?.typeId == typeId
+        }
+        return category?.key
     }
     
     func getVehicleByCategory(catName: String) -> [KTVehicleType]{
@@ -1131,6 +1154,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 imgSType = UIImage(named: "icon-business-limo")!
             case Int16(VehicleType.KTLuxuryLimo.rawValue):
                 imgSType = UIImage(named: "icon-luxury-limo")!
+            case Int16(VehicleType.KTIconicLimousine.rawValue):
+                imgSType = UIImage(named: "icon-etron")!
             default:
                 imgSType = UIImage(named: "icon-karwa-taxi")!
             }
@@ -1182,6 +1207,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 isPremiumRide = true
             case Int16(VehicleType.KTLuxuryLimo.rawValue):
                 isPremiumRide = true
+            case Int16(VehicleType.KTIconicLimousine.rawValue):
+                isPremiumRide = true
             default:
                 isPremiumRide = false
             }
@@ -1220,6 +1247,28 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return getVehicleTitle(vehicleType: vType.typeId)
     }
     
+    func getVehicleCategory(vehicleType : Int16) -> String
+    {
+        var category : String = ""
+        switch vehicleType {
+        case VehicleType.KTCityTaxi.rawValue, VehicleType.KTAirportSpare.rawValue, VehicleType.KTAiport7Seater.rawValue:
+            category = "category_taxi".localized()
+            
+        case VehicleType.KTSpecialNeedTaxi.rawValue:
+            category = "category_accessible".localized()
+            
+        case VehicleType.KTStandardLimo.rawValue, VehicleType.KTBusinessLimo.rawValue, VehicleType.KTLuxuryLimo.rawValue:
+            category = "category_limo".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            category = "category_electric".localized()
+            
+        default:
+            category = "category_taxi".localized()
+        }
+        return category
+    }
+    
     func getVehicleTitle(vehicleType : Int16) -> String
     {
         var type : String = ""
@@ -1241,6 +1290,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            type = "txt_etron".localized()
+            
         default:
             type = ""
         }
@@ -1357,6 +1410,8 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             imgSType = UIImage(named: "icon-business-limo")!
         case Int16(VehicleType.KTLuxuryLimo.rawValue):
             imgSType = UIImage(named: "icon-luxury-limo")!
+        case Int16(VehicleType.KTIconicLimousine.rawValue):
+            imgSType = UIImage(named: "icon-etron")!
         default:
             imgSType = UIImage(named: "icon-karwa-taxi")!
         }

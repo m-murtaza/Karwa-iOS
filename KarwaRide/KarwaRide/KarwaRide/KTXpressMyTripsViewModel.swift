@@ -227,6 +227,10 @@ class KTXpressMyTripsViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            type = "txt_etron".localized()
+            
         default:
             type = ""
         }

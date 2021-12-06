@@ -32,11 +32,9 @@ class KTPromotionsViewModel: KTBaseViewModel {
     }
     
     func fetchPromotions(params: PromotionParams? = nil) {
-        delegate?.showProgressHud(show: true)
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
             (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()
-            self.delegate?.showProgressHud(show: false)
             if status == Constants.APIResponseStatus.SUCCESS
             {
                 guard let promotions = response[Constants.ResponseAPIKey.Data] as? [[String : Any]] else {
@@ -67,7 +65,9 @@ class KTPromotionsViewModel: KTBaseViewModel {
             }
             else
             {
-                (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: response[Constants.ResponseAPIKey.Title] as! String, message: response[Constants.ResponseAPIKey.Message] as! String)
+                let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "error_sr".localized()
+                let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "please_dialog_msg_went_wrong".localized()
+                (self.delegate as? KTPromotionsViewModelDelegate)?.showError?(title: title, message: message)
                 (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
             }
         }

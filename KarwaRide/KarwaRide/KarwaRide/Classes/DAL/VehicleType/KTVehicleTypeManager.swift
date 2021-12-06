@@ -125,6 +125,9 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         case Int16(VehicleType.KTLuxuryLimo.rawValue):
             order = 6
             break
+        case Int16(VehicleType.KTIconicLimousine.rawValue):
+            order = 7
+            break
         default:
             order = 999
             break
@@ -156,6 +159,9 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             break
         case Int16(VehicleType.KTLuxuryLimo.rawValue):
             name = "Luxury Limousine"
+            break
+        case Int16(VehicleType.KTIconicLimousine.rawValue):
+            name = "Electric Limousine"
             break
         default:
             name = "Karwa"
@@ -236,7 +242,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     static func isTaxi(vType: VehicleType) -> Bool {
         
         switch vType {
-        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo, .KTXpressTaxi:
+        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo, .KTXpressTaxi, .KTIconicLimousine:
             return false
         default:
             return true

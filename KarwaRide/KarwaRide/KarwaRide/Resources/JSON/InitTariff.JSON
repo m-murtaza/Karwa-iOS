@@ -202,6 +202,38 @@
                           "Order": 4
                           }
                           ]
+          },
+          {
+          "VehicleType": 80,
+          "Fare": "QR 200",
+          "Body": {
+          "Base Fare": "QR 200",
+          "Minimum Fare": "QR 200",
+          "Fare/km (applicable after 20 km)": "QR 3.5",
+          "Fare/min": "QR 0.5"
+          },
+          "OrderedBody": [
+                          {
+                          "Key": "Base Fare",
+                          "Value": "QR 200",
+                          "Order": 1
+                          },
+                          {
+                          "Key": "Minimum Fare",
+                          "Value": "QR 200",
+                          "Order": 2
+                          },
+                          {
+                          "Key": "Fare/km (applicable after 20 km)",
+                          "Value": "QR 3.5",
+                          "Order": 3
+                          },
+                          {
+                          "Key": "Fare/min",
+                          "Value": "QR 0.5",
+                          "Order": 4
+                          }
+                          ]
           }
           ]
 }
