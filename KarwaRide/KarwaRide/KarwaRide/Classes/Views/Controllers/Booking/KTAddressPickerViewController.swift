@@ -123,6 +123,16 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       tblView.tableFooterView = UIView(frame: .zero)
       tblView.delegate = self
       tblView.dataSource = self
+      
+      txtPickAddress.attributedPlaceholder = NSAttributedString(
+        string: "str_setpick_loc".localized(),
+          attributes: [NSAttributedStringKey.foregroundColor: UIColor.placeholder]
+      )
+      
+      txtDropAddress.attributedPlaceholder = NSAttributedString(
+        string: "hint_set_destination".localized(),
+        attributes: [NSAttributedStringKey.foregroundColor: UIColor.placeholder]
+      )
     
 //      txtDropAddress.isUserInteractionEnabled = false
 //    //Do not move these line after super.viewDidLoad
@@ -482,6 +492,18 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
 
               selectedInputMechanism = SelectedInputMechanism.ListView
               
+              if selectedTxtField == SelectedTextField.DropoffAddress {
+                  if dropoffAddress != nil {
+                      clearButtonDestination.isHidden = false
+                  }
+              }
+              
+              if selectedTxtField == SelectedTextField.PickupAddress {
+                  if pickupAddress != nil {
+                      clearButtonPickup.isHidden = false
+                  }
+              }
+              
           //    txtPickAddress.tintColor = UIColor(hexString:"#006170")
           //    txtPickAddress.backgroundColor = UIColor.white
           //    txtDropAddress.tintColor = UIColor(hexString:"#006170")
@@ -493,6 +515,9 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
               self.setOnMapLabel.text = "txt_set_on_maps".localized()
           } else {
               toggleToMapView()
+              
+              self.clearButtonPickup.isHidden = true
+              self.clearButtonDestination.isHidden = true
               self.setOnMapLabel.text = "str_show_list".localized()
           }
       } else {
@@ -910,6 +935,9 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     if selectedInputMechanism == SelectedInputMechanism.MapView {
       
       self.setOnMapLabel.text = "str_show_list".localized()
+        
+        self.clearButtonPickup.isHidden = true
+        self.clearButtonDestination.isHidden = true
 
         if selectedTxtField == SelectedTextField.PickupAddress
         {

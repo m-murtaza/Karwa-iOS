@@ -558,6 +558,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             startPollingForBooking()
             del?.showHideShareButton(false)
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
@@ -565,6 +566,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             showPickDropMarker()
             del?.showHideShareButton(false)
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
@@ -573,6 +576,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             startVechicleTrackTimer()
             del?.showHideShareButton(true)
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
@@ -580,6 +585,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: true)
             del?.addWalkToPickUpMarker()
+            del?.addWalkToDropOffMarker()
             del?.showHideShareButton(true)
             startVechicleTrackTimer()
         }
@@ -587,6 +593,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         {
             del?.clearMaps()
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
@@ -601,6 +608,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         else
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
             del?.showHideShareButton(false)
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
@@ -700,6 +708,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                         self.updateBookingCard()
                         self.del?.updateBookingCard()
                         self.del?.removeWalkToPickUpMarker()
+                        self.del?.removeWalkToDropOffMarker()
+
                     }
 
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
@@ -789,22 +799,31 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
             del?.addWalkToPickUpMarker()
+            del?.addWalkToDropOffMarker()
         }
         else if bStatus == BookingStatus.COMPLETED
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
