@@ -30,6 +30,7 @@ enum VehicleType: Int16 {
     case KTStandardLimo = 30
     case KTBusinessLimo = 50
     case KTLuxuryLimo = 70
+    case KTIconicLimousine = 80
     case KTXpressTaxi = 200
 
 }
@@ -38,6 +39,7 @@ enum VehicleCategories: String {
     case FIRST = "first"
     case SECOND = "second"
     case THIRD = "third"
+    case FOURTH = "fourth"
 }
 
 enum geoLocationType : Int32 {
@@ -576,7 +578,7 @@ struct Constants {
         static let Payments = "syncTime"
         static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
         static let QUERY_PARAM_INCLUDE_PATH = "includePath"
-        static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
+        static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70,80"
     }
     
     struct TransactionResponseAPIKey {

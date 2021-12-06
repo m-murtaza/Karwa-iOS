@@ -160,9 +160,10 @@ extension KTPromotionsBottomSheetVC: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let promo = previousPromo, !promo.isEmpty {return}
-        tfPromoCode.text = vModel!.getPromotion(at: indexPath.row).code
-        uiPromoInput.animation = "shake"
-        uiPromoInput.animate()
+        if let promoCode = vModel!.getPromotion(at: indexPath.row).code {
+            previousView?.applyPromoTapped(promoCode)
+            self.sheet?.attemptDismiss(animated: true)
+        }
     }
     
     private func setupTBL(){

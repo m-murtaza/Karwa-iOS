@@ -23,6 +23,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var lblDescription: SpringLabel!
     @IBOutlet weak var lblVehicleName: SpringLabel!
     @IBOutlet weak var lblVehicleFare: SpringLabel!
+    @IBOutlet weak var lblVehicleFareDetail: SpringLabel!
     @IBOutlet weak var lblCapacity: SpringLabel!
     @IBOutlet weak var lblTime: SpringLabel!
     @IBOutlet weak var lblTotal: SpringLabel!
@@ -40,6 +41,8 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     var isDataLoaded = false
     var sheet: SheetViewController?
     var sheetCoordinator: UBottomSheetCoordinator?
+    var selectedVehicleType: VehicleType?
+    var rebook: Bool?
     
     var selectedVehicleIndex = 0
     fileprivate var currentVehicle: Int = 0 {
@@ -106,7 +109,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             self.lblCapacity.text = vModel.getTypeCapacity(typeId: vehicles[forIndex].typeId)
             self.lblTime.text = vModel.getTypeEta(typeId: vehicles[forIndex].typeId)
             let fare = vModel.getTypeBaseFareOrEstimate(typeId: vehicles[forIndex].typeId)
-            self.lblVehicleFare.text = fare
+            self.setFare(fare: fare)
             self.lblTotal.text = fare
             
             var orderedBody = vModel.getEstimateOrderedBody(typeId: vehicles[forIndex].typeId)
@@ -116,7 +119,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             svDetail.subviews.forEach({ $0.removeFromSuperview() })
             if let orderedBody = orderedBody {
                 svDetail.isHidden = false
-                let sheetHeight = CGFloat(470+(15*orderedBody.count)+(self.lblDescription.numberOfLines*10))
+                let sheetHeight = CGFloat(470+(15*orderedBody.count)+(self.lblDescription.calculateMaxLines()*10))
                 sheet?.setSizes([.fixed(sheetHeight)])
                 for i in 0 ..< orderedBody.count {
                     setFarDetails(fareDetail: orderedBody[i], fareBreakDownView: svDetail)
@@ -137,6 +140,35 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         }
         animateVehicle(index: currentVehicle)
         self.sheet?.handleScrollView(self.scrollView)
+    }
+    
+    private func setFare(fare: String) {
+        let parts = fare.split(separator: "(")
+        if parts.count > 1, var last = parts.last {
+            last.removeLast()
+            self.lblVehicleFareDetail.text = "(\(String(last)))"
+            self.lblVehicleFareDetail.isHidden = false
+            let startingFare = String(parts.first ?? "")
+            let trimmedString = startingFare.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.lblVehicleFare.text = trimmedString
+        }
+        else {
+            self.lblVehicleFare.text = fare
+            self.lblVehicleFareDetail.text = ""
+            self.lblVehicleFareDetail.isHidden = true
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (rebook ?? false), let selectedType = self.selectedVehicleType {
+            if let vehicleIndex = self.vehicles.firstIndex(where: { type in
+                type.typeId == selectedType.rawValue
+            }) {
+                if vehicleIndex < self.collectionView.numberOfItems(inSection: 0) {
+                    self.collectionView.scrollToItem(at: IndexPath(row: vehicleIndex, section: 0), at: .centeredHorizontally, animated: true)
+                }
+            }
+        }
     }
     
     fileprivate func setFarDetails(fareDetail: KTKeyValue, fareBreakDownView: UIStackView ) {
