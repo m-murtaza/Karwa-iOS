@@ -30,9 +30,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     
     @IBOutlet weak var mapView : GMSMapView!
-    
-    @IBOutlet weak var trackRideServiceView : UIView!
-    
+        
     var sheetCoordinator: UBottomSheetCoordinator!
     var manualMoveBegins: Bool = false
 
