@@ -444,6 +444,9 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            type = "txt_etron".localized()
         
         case VehicleType.KTXpressTaxi.rawValue:
             type = "str_xpress".localized()
@@ -1036,6 +1039,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             img = UIImage(named: "icon-business-limo")
         case VehicleType.KTLuxuryLimo.rawValue?:
             img = UIImage(named: "icon-luxury-limo")
+        case VehicleType.KTIconicLimousine.rawValue?:
+            img = UIImage(named: "icon-etron")
         default:
             img = UIImage(named:"icon-karwa-taxi")
         }
