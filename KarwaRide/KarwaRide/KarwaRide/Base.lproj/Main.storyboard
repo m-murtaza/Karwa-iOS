@@ -3599,120 +3599,124 @@
                                             <constraint firstAttribute="height" constant="170" id="qrQ-HL-P6m"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="serviceCell" rowHeight="60" id="Zhh-QG-a5l" customClass="RideServiceCell" customModule="KarwaRide" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="serviceCell" rowHeight="60" id="ejp-kk-l6g" customClass="RideServiceCell" customModule="KarwaRide" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="44.5" width="290" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zhh-QG-a5l" id="38O-lH-uf2">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ejp-kk-l6g" id="X8o-ja-fqZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="290" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1yt-A0-cqe" userLabel="rideBackground" customClass="AnimationView" customModule="Lottie">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jeg-u9-fbF" userLabel="rideBackground" customClass="AnimationView" customModule="Lottie">
                                                             <rect key="frame" x="12" y="0.0" width="75" height="60"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="60" id="KsL-ST-U6D"/>
-                                                                <constraint firstAttribute="width" constant="75" id="vZL-3I-mmv"/>
+                                                                <constraint firstAttribute="height" constant="60" id="sUK-HN-faq"/>
+                                                                <constraint firstAttribute="width" constant="75" id="yWf-xm-r77"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="ride_shiner"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-family-taxi" translatesAutoresizingMaskIntoConstraints="NO" id="6Rr-el-ICV" customClass="SpringImageView" customModule="Spring">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-family-taxi" translatesAutoresizingMaskIntoConstraints="NO" id="NJh-52-y5x" customClass="SpringImageView" customModule="Spring">
                                                             <rect key="frame" x="12" y="0.0" width="75" height="60"/>
                                                         </imageView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-capacity" translatesAutoresizingMaskIntoConstraints="NO" id="v6o-hq-nLK">
-                                                            <rect key="frame" x="100" y="36" width="10.5" height="10.5"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-Fq-V20">
-                                                            <rect key="frame" x="112.5" y="35" width="65" height="15"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="NKz-vZ-Cxb">
+                                                            <rect key="frame" x="224.5" y="21.5" width="35.5" height="17"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQs-iM-R8v">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="15"/>
-                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
-                                                                    <color key="textColor" red="0.14509803921568626" green="0.66666666666666663" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Huk-eg-CAJ">
-                                                                    <rect key="frame" x="35" y="0.0" width="30" height="15"/>
-                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
-                                                                    <color key="textColor" red="0.070588235294117646" green="0.59215686274509804" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="15" id="uOa-sr-3yo"/>
-                                                            </constraints>
-                                                        </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sEn-G5-DIh">
-                                                            <rect key="frame" x="194.5" y="21.5" width="65.5" height="17"/>
-                                                            <subviews>
-                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="Whb-At-C1K">
-                                                                    <rect key="frame" x="-15" y="0.0" width="15" height="17"/>
+                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_promo" translatesAutoresizingMaskIntoConstraints="NO" id="aW7-Ew-gtT">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="15" height="17"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="15" id="Skb-lZ-COC"/>
+                                                                        <constraint firstAttribute="width" constant="15" id="5t9-uw-hlq"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkU-OU-oBK">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="17"/>
-                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
-                                                                    <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kb8-nA-kzs">
-                                                                    <rect key="frame" x="30" y="0.0" width="35.5" height="17"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98S-g5-1sy">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="35.5" height="17"/>
                                                                     <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="14"/>
                                                                     <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right copy_2" translatesAutoresizingMaskIntoConstraints="NO" id="Ukm-L8-LK5" customClass="SpringImageView" customModule="Spring">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right copy_2" translatesAutoresizingMaskIntoConstraints="NO" id="us9-3B-8ca" customClass="SpringImageView" customModule="Spring">
                                                             <rect key="frame" x="265" y="22.5" width="15" height="15"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="15" id="PV8-EM-ylO"/>
-                                                                <constraint firstAttribute="height" constant="15" id="zD6-GZ-ZgJ"/>
+                                                                <constraint firstAttribute="width" constant="15" id="F7z-Nm-Kko"/>
+                                                                <constraint firstAttribute="height" constant="15" id="dsS-po-hsf"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qVs-YS-i8t">
-                                                            <rect key="frame" x="100" y="10" width="89.5" height="25"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="Ssf-9q-oNu"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
-                                                            <color key="textColor" red="0.0" green="0.38039215686274508" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="5Tw-dS-EYQ">
+                                                            <rect key="frame" x="100" y="4" width="85" height="52.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHp-3E-zoy">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="85" height="19.5"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
+                                                                    <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PTo-Bg-iJr">
+                                                                    <rect key="frame" x="0.0" y="22.5" width="85" height="15"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-capacity" translatesAutoresizingMaskIntoConstraints="NO" id="Vgv-dK-cad">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="15" id="l7A-5j-umO"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klh-l3-S02">
+                                                                            <rect key="frame" x="20" y="0.0" width="30" height="15"/>
+                                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                                                            <color key="textColor" red="0.1450980392" green="0.66666666669999997" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcT-lQ-nqO">
+                                                                            <rect key="frame" x="55" y="0.0" width="30" height="15"/>
+                                                                            <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                                                            <color key="textColor" red="0.070588235289999995" green="0.59215686270000001" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="15" id="EVj-nm-7Nf"/>
+                                                                    </constraints>
+                                                                </stackView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgC-oK-y93">
+                                                                    <rect key="frame" x="0.0" y="40.5" width="85" height="12"/>
+                                                                    <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="10"/>
+                                                                    <color key="textColor" red="0.0" green="0.3803921569" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="centerY" secondItem="38O-lH-uf2" secondAttribute="centerY" id="4nt-29-nG1"/>
-                                                        <constraint firstItem="6Rr-el-ICV" firstAttribute="leading" secondItem="1yt-A0-cqe" secondAttribute="leading" id="66Z-jw-1rs"/>
-                                                        <constraint firstItem="Ukm-L8-LK5" firstAttribute="centerY" secondItem="38O-lH-uf2" secondAttribute="centerY" id="CYk-IC-xGP"/>
-                                                        <constraint firstAttribute="leading" secondItem="1yt-A0-cqe" secondAttribute="trailing" constant="13" id="GGC-58-Fc3"/>
-                                                        <constraint firstItem="1yt-A0-cqe" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="12" id="MVI-LC-i4p"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Ukm-L8-LK5" secondAttribute="trailing" constant="10" id="NJT-pZ-vV2"/>
-                                                        <constraint firstItem="6Rr-el-ICV" firstAttribute="top" secondItem="1yt-A0-cqe" secondAttribute="top" id="OML-0B-weo"/>
-                                                        <constraint firstItem="Ukm-L8-LK5" firstAttribute="leading" secondItem="sEn-G5-DIh" secondAttribute="trailing" constant="5" id="TPO-Ed-7RI"/>
-                                                        <constraint firstItem="6Rr-el-ICV" firstAttribute="leading" secondItem="38O-lH-uf2" secondAttribute="leading" constant="12" id="Tgr-r8-U4A"/>
-                                                        <constraint firstAttribute="bottom" secondItem="1yt-A0-cqe" secondAttribute="bottom" id="cYP-1D-BAc"/>
-                                                        <constraint firstItem="6Rr-el-ICV" firstAttribute="bottom" secondItem="1yt-A0-cqe" secondAttribute="bottom" id="cme-y5-49h"/>
-                                                        <constraint firstItem="6Rr-el-ICV" firstAttribute="centerY" secondItem="38O-lH-uf2" secondAttribute="centerY" id="e3C-yr-HTb"/>
-                                                        <constraint firstItem="1yt-A0-cqe" firstAttribute="top" secondItem="38O-lH-uf2" secondAttribute="top" id="hAb-bJ-deK"/>
-                                                        <constraint firstItem="sEn-G5-DIh" firstAttribute="centerY" secondItem="38O-lH-uf2" secondAttribute="centerY" id="sRn-2Z-THG"/>
-                                                        <constraint firstItem="6Rr-el-ICV" firstAttribute="trailing" secondItem="1yt-A0-cqe" secondAttribute="trailing" id="tNJ-jQ-tgs"/>
+                                                        <constraint firstItem="5Tw-dS-EYQ" firstAttribute="centerY" secondItem="X8o-ja-fqZ" secondAttribute="centerY" id="1Oo-y4-o6Z"/>
+                                                        <constraint firstItem="Jeg-u9-fbF" firstAttribute="leading" secondItem="X8o-ja-fqZ" secondAttribute="leading" constant="12" id="3wW-FX-Tkc"/>
+                                                        <constraint firstItem="NJh-52-y5x" firstAttribute="centerY" secondItem="X8o-ja-fqZ" secondAttribute="centerY" id="GzN-6p-qVK"/>
+                                                        <constraint firstItem="NJh-52-y5x" firstAttribute="top" secondItem="Jeg-u9-fbF" secondAttribute="top" id="QOe-Aj-Qq4"/>
+                                                        <constraint firstItem="5Tw-dS-EYQ" firstAttribute="leading" secondItem="Jeg-u9-fbF" secondAttribute="trailing" constant="13" id="V6u-Eb-AJI"/>
+                                                        <constraint firstItem="NJh-52-y5x" firstAttribute="leading" secondItem="X8o-ja-fqZ" secondAttribute="leading" constant="12" id="WtU-uM-SAx"/>
+                                                        <constraint firstItem="NJh-52-y5x" firstAttribute="bottom" secondItem="Jeg-u9-fbF" secondAttribute="bottom" id="YE9-6Y-RNq"/>
+                                                        <constraint firstItem="NJh-52-y5x" firstAttribute="trailing" secondItem="Jeg-u9-fbF" secondAttribute="trailing" id="Zsd-W2-wGL"/>
+                                                        <constraint firstItem="NJh-52-y5x" firstAttribute="leading" secondItem="Jeg-u9-fbF" secondAttribute="leading" id="rgQ-1W-gfv"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Jeg-u9-fbF" secondAttribute="bottom" id="seY-G5-J5B"/>
+                                                        <constraint firstItem="NKz-vZ-Cxb" firstAttribute="centerY" secondItem="X8o-ja-fqZ" secondAttribute="centerY" id="ts6-Sy-uex"/>
+                                                        <constraint firstItem="us9-3B-8ca" firstAttribute="centerY" secondItem="X8o-ja-fqZ" secondAttribute="centerY" id="u8A-YJ-chN"/>
+                                                        <constraint firstItem="Jeg-u9-fbF" firstAttribute="top" secondItem="X8o-ja-fqZ" secondAttribute="top" id="vog-j0-4aI"/>
+                                                        <constraint firstItem="us9-3B-8ca" firstAttribute="leading" secondItem="NKz-vZ-Cxb" secondAttribute="trailing" constant="5" id="yjL-RF-sYI"/>
+                                                        <constraint firstAttribute="trailing" secondItem="us9-3B-8ca" secondAttribute="trailing" constant="10" id="ztn-fN-y5Z"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
-                                                    <outlet property="capacity" destination="zQs-iM-R8v" id="6o1-xE-guh"/>
-                                                    <outlet property="fare" destination="Kb8-nA-kzs" id="ao5-lx-pkP"/>
-                                                    <outlet property="fareInfo" destination="hkU-OU-oBK" id="ufn-6x-qBf"/>
-                                                    <outlet property="icArrow" destination="Ukm-L8-LK5" id="K1U-3a-UZc"/>
-                                                    <outlet property="icon" destination="6Rr-el-ICV" id="g7P-Fw-6QV"/>
-                                                    <outlet property="iconBackgroundAnim" destination="1yt-A0-cqe" id="RIq-ng-4Qi"/>
-                                                    <outlet property="promoBadge" destination="Whb-At-C1K" id="tfP-NA-xwf"/>
-                                                    <outlet property="serviceName" destination="qVs-YS-i8t" id="Mdr-0R-7Fw"/>
-                                                    <outlet property="time" destination="Huk-eg-CAJ" id="7rM-Hs-gTo"/>
+                                                    <outlet property="capacity" destination="Klh-l3-S02" id="Syr-BE-rXL"/>
+                                                    <outlet property="fare" destination="98S-g5-1sy" id="CWq-Hs-pFD"/>
+                                                    <outlet property="fareInfo" destination="SgC-oK-y93" id="pFm-AN-DCZ"/>
+                                                    <outlet property="icArrow" destination="us9-3B-8ca" id="03j-Wr-YCz"/>
+                                                    <outlet property="icon" destination="NJh-52-y5x" id="Bq1-yr-j8L"/>
+                                                    <outlet property="iconBackgroundAnim" destination="Jeg-u9-fbF" id="uRJ-QY-Cul"/>
+                                                    <outlet property="promoBadge" destination="aW7-Ew-gtT" id="3sh-wM-fjk"/>
+                                                    <outlet property="serviceName" destination="rHp-3E-zoy" id="eLj-jk-SJG"/>
+                                                    <outlet property="time" destination="CcT-lQ-nqO" id="Ys8-8f-TJW"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
