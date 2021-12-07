@@ -39,7 +39,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     var vModel: KTCreateBookingViewModel?
     var vehicles: [KTVehicleType] = []
     var isDataLoaded = false
-    var sheet: SheetViewController?
+    weak var sheet: SheetViewController?
     var sheetCoordinator: UBottomSheetCoordinator?
     var selectedVehicleType: VehicleType?
     var rebook: Bool?
@@ -165,6 +165,9 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
                 type.typeId == selectedType.rawValue
             }) {
                 if vehicleIndex < self.collectionView.numberOfItems(inSection: 0) {
+                    if let cell = self.collectionView.cellForItem(at: IndexPath(row: vehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
+                        cell.imgVehicleType.isHidden = false
+                    }
                     self.collectionView.scrollToItem(at: IndexPath(row: vehicleIndex, section: 0), at: .centeredHorizontally, animated: true)
                 }
             }

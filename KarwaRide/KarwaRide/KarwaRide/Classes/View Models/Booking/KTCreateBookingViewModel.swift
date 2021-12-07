@@ -190,7 +190,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        rebook = false
         del?.allowScrollVTypeCard(allow: true)
     }
     
@@ -541,6 +540,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                                                             self.estimates?.removeAll()
                                                             self.estimates = nil
                                                         }
+                                                        if rebook {
+                                                            self.del?.rebookRide()
+                                                        }
                                                     }
                                                  })
             
@@ -574,6 +576,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             estimates = nil
         } else {
             (self.delegate as! KTCreateBookingViewModelDelegate).reloadSelection()
+            if rebook {
+                self.del?.rebookRide()
+            }
         }
         
     }

@@ -533,6 +533,9 @@ class KTCreateBookingViewController:
                 guard let `self` = self else {return}
                 (self.viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
                 self.updateVehicleTypeList()
+                if self.vModel?.rebook ?? false {
+                    self.vModel?.rebook = false
+                }
             }
             
             if let title = self.titleForRequestOrScheduleKarwa {
@@ -790,6 +793,9 @@ class KTCreateBookingViewController:
     }
   
   @IBAction func btnCancelBtnTapped(_ sender: Any) {
+    if vModel?.rebook ?? false {
+        vModel?.rebook = false
+    }
     removeBookingOnReset = true
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()

@@ -21,7 +21,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     var pickupDropoff: PromotionParams?
     
-    var sheet: SheetViewController? {
+    weak var sheet: SheetViewController? {
         didSet {
             self.setSheetClosure()
         }
