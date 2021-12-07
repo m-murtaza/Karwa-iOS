@@ -96,22 +96,40 @@ extension KTXpressRideCreationViewController
         dropOffLocationMarker.iconView = shortWalkToDropView
         dropOffLocationMarker.groundAnchor = CGPoint(x:0.5,y:1)
         
-        if coordinate.latitude == selectedRSPickUpCoordinate!.latitude {
-            pickUpLocationMarker.map = nil
-        } else {
+        let distanceInMeters = coordinate.distance(from: selectedRSPickUpCoordinate!) // result is in meters
+        
+        if distanceInMeters > 10 {
             pickUpLocationMarker.map = self.mapView
             self.drawArc(startLocation: selectedRSPickUpCoordinate!, endLocation: coordinate)
+        } else {
+            pickUpLocationMarker.map = nil
         }
+        
+//        if coordinate.latitude == selectedRSPickUpCoordinate!.latitude {
+//            pickUpLocationMarker.map = nil
+//        } else {
+//            pickUpLocationMarker.map = self.mapView
+//            self.drawArc(startLocation: selectedRSPickUpCoordinate!, endLocation: coordinate)
+//        }
+        
+        
         
         if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
             dropOffLocationMarker.map = nil
         } else {
-            if dropCoordinate.latitude == selectedRSDropOffCoordinate!.latitude {
-                dropOffLocationMarker.map = nil
-            } else {
+            let distanceInMeters = coordinate.distance(from: selectedRSDropOffCoordinate!) // result is in meters
+            if distanceInMeters > 10 {
                 dropOffLocationMarker.map = self.mapView
-                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: dropCoordinate)
+                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: coordinate)
+            } else {
+                dropOffLocationMarker.map = nil
             }
+//            if dropCoordinate.latitude == selectedRSDropOffCoordinate!.latitude {
+//                dropOffLocationMarker.map = nil
+//            } else {
+//                dropOffLocationMarker.map = self.mapView
+//                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: dropCoordinate)
+//            }
         }
         
         var bounds = GMSCoordinateBounds()

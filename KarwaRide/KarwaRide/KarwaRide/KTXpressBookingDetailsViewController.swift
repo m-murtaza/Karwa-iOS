@@ -30,9 +30,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     
     @IBOutlet weak var mapView : GMSMapView!
-    
-    @IBOutlet weak var trackRideServiceView : UIView!
-    
+        
     var sheetCoordinator: UBottomSheetCoordinator!
     var manualMoveBegins: Bool = false
 
@@ -46,6 +44,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     private var ratingPopup : KTRatingViewController?
     
     @IBOutlet weak var pickupWithInfoView: UIView!
+    @IBOutlet weak var dropOffWithInfoView: UIView!
+
     @IBOutlet weak var etaLabel: UILabel!
 
     //driver
@@ -72,7 +72,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     var isOpenFromNotification : Bool = false
     
     var walkToPickUpMarker: GMSMarker!
+    var walkToDropOffMarker: GMSMarker!
+
     var dashedPolyline = GMSPolyline()
+    var dashedDropPolyline = GMSPolyline()
+
     var fromRideHistory = false
     var fromHistory = false
 
@@ -440,6 +444,11 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         polyline.map = nil
     }
     
+    func removeWayPoints()
+    {
+        wayPointsMarker.forEach{$0.map = nil}
+    }
+    
     @objc func animatePolylinePath() {
             
             if (self.i < self.path.count()) {
@@ -781,6 +790,18 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         
     }
     
+    func addDropMarkerOnMapWithInfoView(location: CLLocationCoordinate2D) {
+        walkToDropOffMarker = GMSMarker()
+        walkToDropOffMarker.position = location
+        
+        walkToDropOffMarker.iconView = dropOffWithInfoView
+        walkToDropOffMarker.groundAnchor =  CGPoint(x:0.5,y:1)
+        walkToDropOffMarker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(walkToDropOffMarker.position)
+        
+    }
+    
     
     func addMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) {
         let marker = GMSMarker()
@@ -810,16 +831,27 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     func addWalkToPickUpMarker() {
         if walkToPickUpMarker == nil {
-            if rideServicePickDropOffData?.pickUpCoordinate != nil {
-                addMarkerOnMapWithInfoView(location: (rideServicePickDropOffData?.pickUpCoordinate!)!)
-                let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
-                self.drawArc(startLocation: (rideServicePickDropOffData?.pickUpCoordinate!)!, endLocation: eLocation)
-            } else {
-                if (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation().latitude != ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!  {
-                    addMarkerOnMapWithInfoView(location: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation())
-                    let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
-                    self.drawArc(startLocation: (viewModel as! KTXpresssBookingDetailsViewModel).currentLocation(), endLocation: eLocation)
-                }
+            let stopCoordinate = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickStopLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickStopLon)!)
+            let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.pickupLon)!)
+            
+            let distanceInMeters = stopCoordinate.distance(from: eLocation) // result is in meters
+            
+            if distanceInMeters > 10 {
+                addMarkerOnMapWithInfoView(location: stopCoordinate)
+                self.drawArc(startLocation: stopCoordinate, endLocation: eLocation)
+            }
+            
+        }
+    }
+    
+    func addWalkToDropOffMarker() {
+        if walkToDropOffMarker == nil {
+            let stopCoordinate = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropStopLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropStopLon)!)
+            let eLocation = CLLocationCoordinate2D(latitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLat)!, longitude: ((viewModel as! KTXpresssBookingDetailsViewModel).booking?.dropOffLon)!)
+            let distanceInMeters = stopCoordinate.distance(from: eLocation) // result is in meters
+            if distanceInMeters > 10 {
+                addDropMarkerOnMapWithInfoView(location: stopCoordinate)
+                self.drawDropStopArc(startLocation: stopCoordinate, endLocation: eLocation)
             }
         }
     }
@@ -829,12 +861,23 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             walkToPickUpMarker.map = nil
             dashedPolyline.map = nil
         }
-        
+
         if dashedPolyline != nil {
             dashedPolyline.map = nil
         }
     }
     
+    func removeWalkToDropOffMarker() {
+        if walkToDropOffMarker != nil {
+            walkToDropOffMarker.map = nil
+            dashedDropPolyline.map = nil
+        }
+        
+        if dashedDropPolyline != nil {
+            dashedDropPolyline.map = nil
+        }
+    }
+        
     func drawArc(startLocation: CLLocationCoordinate2D?, endLocation: CLLocationCoordinate2D?) {
         if let startLocation = startLocation, let endLocation = endLocation {
             //swap the startLocation & endLocation if you want to reverse the direction of polyline arc formed.
@@ -849,6 +892,28 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
             let lengths = [0.5, 0.5] // Play with this for dotted line
             dashedPolyline.spans = GMSStyleSpans(dashedPolyline.path!, styles, lengths as [NSNumber], .rhumb)
+            
+            let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
+            let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+            let camera = mapView.camera(for: bounds, insets: insets)!
+            mapView.animate(to: camera)
+        }
+    }
+    
+    func drawDropStopArc(startLocation: CLLocationCoordinate2D?, endLocation: CLLocationCoordinate2D?) {
+        if let startLocation = startLocation, let endLocation = endLocation {
+            //swap the startLocation & endLocation if you want to reverse the direction of polyline arc formed.
+            let path = GMSMutablePath()
+            path.add(startLocation)
+            path.add(endLocation)
+            //Draw polyline
+            dashedDropPolyline = GMSPolyline(path: path)
+            dashedDropPolyline.map = mapView // Assign GMSMapView as map
+            dashedDropPolyline.strokeWidth = 3.0
+            bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
+            let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
+            let lengths = [0.5, 0.5] // Play with this for dotted line
+            dashedDropPolyline.spans = GMSStyleSpans(dashedDropPolyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
             let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)

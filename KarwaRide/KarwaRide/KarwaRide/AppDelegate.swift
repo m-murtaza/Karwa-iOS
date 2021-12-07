@@ -42,7 +42,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupFirebase()
       
         configureSideMenu()
+        setupEnvironment()
       return true
+    }
+    
+    private func setupEnvironment() {
+        let environment = SharedPrefUtil.getSharePref(SharedPrefUtil.ENVIRONMENT)
+        if environment.isEmpty {
+            KTConfiguration.sharedInstance.setEnvironment(environment: KTConfiguration.sharedInstance.environment == "STAGE" ? .STAGE : .PROD)
+        }
+        else {
+            KTConfiguration.sharedInstance.setEnvironment(environment: environment == "STAGE" ? .STAGE : .PROD)
+        }
+        KTWebClient.sharedInstance.baseURL = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey)
     }
   
   private func configureSideMenu() {

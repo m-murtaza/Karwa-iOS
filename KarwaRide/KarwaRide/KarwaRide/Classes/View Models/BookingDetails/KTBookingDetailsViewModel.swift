@@ -65,10 +65,13 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>)
     func addPointsOnMap(encodedPath: String)
     func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints])
+    func removeWayPoints()
     func setPickup(pick: String?)
     func setDropOff(pick: String?)
     func addWalkToPickUpMarker()
+    func addWalkToDropOffMarker()
     func removeWalkToPickUpMarker()
+    func removeWalkToDropOffMarker()
 }
 
 extension KTBookingDetailsViewModelDelegate {
@@ -76,7 +79,10 @@ extension KTBookingDetailsViewModelDelegate {
     func setDropOff(pick: String?) {}
     func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints]) {}
     func addWalkToPickUpMarker(){}
+    func addWalkToDropOffMarker(){}
     func removeWalkToPickUpMarker(){}
+    func removeWalkToDropOffMarker(){}
+    func removeWayPoints(){}
 }
 
 //MARK: -
@@ -458,6 +464,9 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             
         case VehicleType.KTBusinessLimo.rawValue:
             type = "txt_limo_buisness".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            type = "txt_etron".localized()
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
@@ -950,6 +959,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
             img = UIImage(named: "icon-business-limo")
         case VehicleType.KTLuxuryLimo.rawValue?:
             img = UIImage(named: "icon-luxury-limo")
+        case VehicleType.KTIconicLimousine.rawValue:
+            img = UIImage(named: "icon-etron")
         default:
             img = UIImage(named:"icon-karwa-taxi")
         }

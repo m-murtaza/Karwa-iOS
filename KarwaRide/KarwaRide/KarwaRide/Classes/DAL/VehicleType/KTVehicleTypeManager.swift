@@ -90,6 +90,17 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         saveKeyValueBody(keyValue: tariff["OrderedBody"] as! [[AnyHashable : Any]], tariff: vType as KTBaseTrariff)
     }
     
+//    func saveSingleVehicleEstimates(estimate : [AnyHashable: Any]) {
+//        
+//        let e : KTFareEstimate = KTFareEstimate.mr_createEntity(in: NSManagedObjectContext.mr_default())!
+//        e.estimateId = estimate[Constants.GetEstimateResponseAPIKey.EstimateId] as? String
+//        e.vehicleType = estimate[Constants.GetEstimateResponseAPIKey.VehicleType] as! Int16
+//        e.estimatedFare = estimate[Constants.GetEstimateResponseAPIKey.EstimatedFare] as? String
+//        e.isPromoApplied = estimate[Constants.GetEstimateResponseAPIKey.IsPromoApplied] as? Bool ?? false
+//        
+//        saveKeyValueBody(keyValue: estimate["OrderedBody"] as! [[AnyHashable : Any]], tariff: e as KTBaseTrariff)
+//    }
+    
     func typeSortOrder(forId typeId: Int16) -> Int16 {
         var order: Int16 = 999
         switch typeId {
@@ -113,6 +124,9 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             break
         case Int16(VehicleType.KTLuxuryLimo.rawValue):
             order = 6
+            break
+        case Int16(VehicleType.KTIconicLimousine.rawValue):
+            order = 7
             break
         default:
             order = 999
@@ -145,6 +159,9 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
             break
         case Int16(VehicleType.KTLuxuryLimo.rawValue):
             name = "Luxury Limousine"
+            break
+        case Int16(VehicleType.KTIconicLimousine.rawValue):
+            name = "Electric Limousine"
             break
         default:
             name = "Karwa"
@@ -225,7 +242,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
     static func isTaxi(vType: VehicleType) -> Bool {
         
         switch vType {
-        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo, .KTXpressTaxi:
+        case .KTCompactLimo,.KTStandardLimo,.KTBusinessLimo,.KTLuxuryLimo, .KTXpressTaxi, .KTIconicLimousine:
             return false
         default:
             return true

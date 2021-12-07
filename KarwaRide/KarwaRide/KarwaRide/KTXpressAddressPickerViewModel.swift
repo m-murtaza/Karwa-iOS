@@ -16,6 +16,13 @@ protocol KTXpressFavoriteDelegate {
 
 protocol KTXpressAddressDelegate {
     func setLocation(location: Any)
+    func setLocation(picklocation: Any?, dropLocation: Any?, destinationForPickUp: [Area]?)
+}
+
+extension KTXpressAddressDelegate {
+    func setLocation(picklocation: Any?, dropLocation: Any?, destinationForPickUp: [Area]?) {
+
+    }
 }
 
 protocol  KTXpressAddressPickerViewModelDelegate : KTViewModelDelegate {
@@ -579,18 +586,18 @@ class KTXpressAddressPickerViewModel: KTBaseViewModel {
 //
 //  }
   
-  func setFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
-    (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
-  }
+//  func setFavorite(forIndex idx: Int) {
+//    let location : KTGeoLocation = locations[idx]
+//    (delegate as! KTXpressAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
+//  }
   
   func editFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
+    let location : KTGeoLocation = bookmarks[idx] //locations[idx]
     del?.navigateToFavoriteScreen(location: location)
   }
   
   func removeFavorite(forIndex idx: Int) {
-    let location : KTGeoLocation = locations[idx]
+    let location : KTGeoLocation = bookmarks[idx]
     let predicate = NSPredicate(format: "locationId == %d", location.locationId)
     KTFavorites.mr_deleteAll(matching: predicate, in: NSManagedObjectContext.mr_default())
     loadFavoritesDataInView()

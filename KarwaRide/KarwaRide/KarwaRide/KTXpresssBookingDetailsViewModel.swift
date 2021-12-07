@@ -219,6 +219,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             } else {
                 del?.showDriverInfoBox()
             }
+            (self.delegate as! KTBookingDetailsViewModelDelegate).removeWayPoints()
         }
         else if booking?.driverName != nil && !(booking?.driverName?.isEmpty)!
         {
@@ -443,6 +444,9 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             
         case VehicleType.KTLuxuryLimo.rawValue:
             type = "txt_limo_luxury".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            type = "txt_etron".localized()
         
         case VehicleType.KTXpressTaxi.rawValue:
             type = "str_xpress".localized()
@@ -557,6 +561,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             startPollingForBooking()
             del?.showHideShareButton(false)
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
@@ -564,6 +569,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             showPickDropMarker()
             del?.showHideShareButton(false)
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
@@ -572,6 +579,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             startVechicleTrackTimer()
             del?.showHideShareButton(true)
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
@@ -579,6 +588,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             self.showCurrentLocationDot(location: KTLocationManager.sharedInstance.currentLocation.coordinate)
             showPickDropMarker(showOnlyPickup: true)
             del?.addWalkToPickUpMarker()
+            del?.addWalkToDropOffMarker()
             del?.showHideShareButton(true)
             startVechicleTrackTimer()
         }
@@ -586,6 +596,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         {
             del?.clearMaps()
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
@@ -600,6 +611,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         else
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
             del?.showHideShareButton(false)
             del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
         }
@@ -699,6 +711,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                         self.updateBookingCard()
                         self.del?.updateBookingCard()
                         self.del?.removeWalkToPickUpMarker()
+                        self.del?.removeWalkToDropOffMarker()
+
                     }
 
                     self.del?.showUpdateVTrackMarker(vTrack: vtrack)
@@ -788,22 +802,31 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         if(bStatus == BookingStatus.PENDING || bStatus == BookingStatus.DISPATCHING)
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if bStatus ==  BookingStatus.CANCELLED || bStatus == BookingStatus.EXCEPTION || bStatus ==  BookingStatus.NO_TAXI_ACCEPTED || bStatus == BookingStatus.TAXI_NOT_FOUND || bStatus == BookingStatus.TAXI_UNAVAIALBE
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if(bStatus == BookingStatus.PICKUP)
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
         }
         else if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
         {
             del?.addWalkToPickUpMarker()
+            del?.addWalkToDropOffMarker()
         }
         else if bStatus == BookingStatus.COMPLETED
         {
             del?.removeWalkToPickUpMarker()
+            del?.removeWalkToDropOffMarker()
+
             del?.showHideShareButton(false)
             if booking?.tripTrack != nil && booking?.tripTrack?.isEmpty == false {
                 del?.initializeMap(location: CLLocationCoordinate2D(latitude: (booking?.pickupLat)!,longitude: (booking?.pickupLon)!))
@@ -1016,6 +1039,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             img = UIImage(named: "icon-business-limo")
         case VehicleType.KTLuxuryLimo.rawValue?:
             img = UIImage(named: "icon-luxury-limo")
+        case VehicleType.KTIconicLimousine.rawValue?:
+            img = UIImage(named: "icon-etron")
         default:
             img = UIImage(named:"icon-karwa-taxi")
         }
@@ -1086,6 +1111,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         booking?.bookingStatus = BookingStatus.CANCELLED.rawValue
         KTBookingManager().saveInDb()
         initializeViewWRTBookingStatus()
+        (self.delegate as! KTBookingDetailsViewModelDelegate).removeWayPoints()
 //        del?.popViewController()
     }
     
@@ -1250,6 +1276,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                 del?.addPickupMarker(location: CLLocationCoordinate2D(latitude: booking?.pickupLat ?? 0.0, longitude:  booking?.pickupLon ?? 0.0))
                 del?.addDropOffMarker(location: CLLocationCoordinate2D(latitude: booking?.dropOffLat ?? 0.0, longitude:  booking?.dropOffLon ?? 0.0))
                 del?.showHideShareButton(false)
+                (self.delegate as! KTBookingDetailsViewModelDelegate).removeWayPoints()
             }
         }
     }

@@ -30,8 +30,16 @@ enum VehicleType: Int16 {
     case KTStandardLimo = 30
     case KTBusinessLimo = 50
     case KTLuxuryLimo = 70
+    case KTIconicLimousine = 80
     case KTXpressTaxi = 200
 
+}
+
+enum VehicleCategories: String {
+    case FIRST = "first"
+    case SECOND = "second"
+    case THIRD = "third"
+    case FOURTH = "fourth"
 }
 
 enum geoLocationType : Int32 {
@@ -103,15 +111,24 @@ struct Device {
     }
 }
 
+enum Storyboard: String {
+    case MAIN = "Main"
+    case PROMOTIONS = "Promotions"
+    
+    func board()->String{
+        return self.rawValue
+    }
+}
+
 struct Constants {
     static let TOSUrl:String = "https://www.karwa.qa/tos.html"
     static let ShareTripUrl:String = "https://app.karwatechnologies.com/track/"
     static let ScanNPayTripUrl:String = "https://app.karwatechnologies.com/download/"
 
     /*                Live Payment Credentials                            */
-    static let MERCHANT_ID:String = "KTRQNB01"
-    static let GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
-    static let APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
+    static var MERCHANT_ID:String = "KTRQNB01"
+    static var GATEWAY_REGION:GatewayRegion = GatewayRegion.asiaPacific
+    static var APPLE_PAY_MERCHANT_ID:String = "merchant.karwa.KTQNB01"
     /* ------------------------------------------------------------------ */
 
     /*                Test Payment Credentials                            */
@@ -298,6 +315,11 @@ struct Constants {
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"
         static let PickupLon = "PickupLon"
+        static let PickStopLat = "PickStopLat"
+        static let PickStopLon = "PickStopLon"
+        static let dropStopLat = "DropStopLat"
+        static let dropStopLon = "DropStopLon"
+
         static let PickupMessage = "PickupMessage"
         static let PickupTime = "PickupTime"
         
@@ -488,6 +510,8 @@ struct Constants {
         static let GetRSAreas = "rs/areas?"
         static let PostRSService = "rs/explore"
         static let orderService = "rs/order/"
+        static let Promotions = "promo"
+        static let PromotionIcon = "promo/img/"
     }
     
     struct TrackTaxiParams {
@@ -554,7 +578,7 @@ struct Constants {
         static let Payments = "syncTime"
         static let QUERY_PARAM_VEHICLE_TYPES = "vehicleTypes"
         static let QUERY_PARAM_INCLUDE_PATH = "includePath"
-        static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70"
+        static let VEHICLE_TYPES_ALL = "1,11,30,50,60,70,80"
     }
     
     struct TransactionResponseAPIKey {
@@ -570,6 +594,13 @@ struct Constants {
         static let methodId = "PaymentMethodId"
         static let method = "PaymentMethod"
         static let amount = "Amount"
+    }
+    
+    struct PromotionParams {
+        static let PickupLat = "plat"
+        static let PickupLong = "plon"
+        static let DropoffLat = "dlat"
+        static let DropoffLong = "dlon"
     }
     
 }

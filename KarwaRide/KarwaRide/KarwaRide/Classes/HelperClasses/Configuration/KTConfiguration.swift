@@ -8,10 +8,21 @@
 
 import UIKit
 
+enum ENVIRONMENT: String {
+    case PROD = "PROD"
+    case STAGE = "STAGE"
+}
+
 class KTConfiguration: NSObject {
 
     var resourceFileDictionary: NSDictionary?
     var environment : String?
+    var isRSEnabled: Bool?
+    var isIconicLimousineEnabled: Bool?
+    
+    var MERCHANT_ID: String?
+    var GATEWAY_REGION: GatewayRegion?
+    var APPLE_PAY_MERCHANT_ID: String?
     
     //MARK : Singleton
     private override init() {
@@ -49,5 +60,39 @@ class KTConfiguration: NSObject {
             //configValue = configDictionary.value(forKey: environment)
         }
         return configValue
+    }
+    
+    func checkRSEnabled() -> Bool {
+        if(isRSEnabled == nil){
+            isRSEnabled = resourceFileDictionary?.value(forKey: "isRSEnabled") as? Bool
+        }
+        return isRSEnabled ?? false
+    }
+    
+    func checkIconicLimousineEnabled() -> Bool {
+        if(isIconicLimousineEnabled == nil){
+            isIconicLimousineEnabled = resourceFileDictionary?.value(forKey: "isIconicLimousineEnabled") as? Bool
+        }
+        return isIconicLimousineEnabled ?? false
+    }
+    
+    func setEnvironment(environment: ENVIRONMENT) {
+        self.environment = environment.rawValue
+        if environment == .PROD {
+            self.MERCHANT_ID = "KTRQNB01"
+            self.GATEWAY_REGION = .asiaPacific
+            self.APPLE_PAY_MERCHANT_ID = "merchant.karwa.KTQNB01"
+        }
+        else {
+            self.MERCHANT_ID = "KTQNB01A"
+            self.GATEWAY_REGION = .mtf
+            self.APPLE_PAY_MERCHANT_ID = "merchant.mowasalat.karwa.taxi"
+        }
+        
+        Constants.MERCHANT_ID = self.MERCHANT_ID!
+        Constants.GATEWAY_REGION = self.GATEWAY_REGION!
+        Constants.APPLE_PAY_MERCHANT_ID = self.APPLE_PAY_MERCHANT_ID!
+        
+        SharedPrefUtil.setSharedPref(SharedPrefUtil.ENVIRONMENT, environment.rawValue)
     }
 }

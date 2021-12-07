@@ -78,6 +78,18 @@ extension UIView {
 
 extension UIView {
     
+    func addShadowBottomXpress() {
+        self.layer.shadowRadius = 10
+        self.layer.shadowOpacity = 1
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
+        self.layer.masksToBounds = false
+        self.layer.cornerRadius = 15
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 1.0
+    }
+    
     @IBInspectable
     var customCornerRadius: CGFloat {
         get {
@@ -225,6 +237,15 @@ extension UILabel {
   func stopShimmeringAnimation() {
     self.layer.mask = nil
   }
+    
+    func calculateMaxLines() -> Int {
+        let maxSize = CGSize(width: frame.size.width, height: CGFloat(Float.infinity))
+        let charSize = font.lineHeight
+        let text = (self.text ?? "") as NSString
+        let textSize = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        let linesRoundedUp = Int(ceil(textSize.height/charSize))
+        return linesRoundedUp
+    }
   
 }
 
@@ -243,21 +264,5 @@ extension UIButton {
                 self.contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
             }
         }
-    
-    func addShadowBottomXpress() {
-//        self.layer.shadowRadius = 10
-//        self.layer.shadowOpacity = 1
-//        self.layer.shadowOffset = CGSize(width: 0.0, height: 10)
-//        self.layer.shadowColor = UIColor(hexString: "#4BA5A7").cgColor
-//        self.layer.masksToBounds = false
-//        self.layer.cornerRadius = 25
-        
-//
-//        self.layer.shadowColor = UIColor.black.cgColor
-//        self.layer.shadowOffset = CGSize(width: 5, height: 5)
-//        self.layer.shadowRadius = 5
-//        self.layer.shadowOpacity = 1.0
-        
-        
-    }
+
 }

@@ -109,11 +109,21 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             view.backgroundColor = UIColor(hexString: "#EFFAF8")
         //}
         if section == 2 {
-            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: Device.getLanguage().contains("ER") ? 30.0 : 250, y: 20.0, width: 100.0, height: 30))
+            
+            let lblSectionHeader : UILabel = UILabel(frame: CGRect(x: 30.0, y: 20.0, width: 100.0, height: 30))
+            lblSectionHeader.translatesAutoresizingMaskIntoConstraints = false
             lblSectionHeader.text = "txt_favourites".localized()
             lblSectionHeader.textColor = UIColor(hexString: "#6E6E70")
             lblSectionHeader.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+            lblSectionHeader.textAlignment = .natural
             view.addSubview(lblSectionHeader)
+            
+            [lblSectionHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            lblSectionHeader.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 40),
+            lblSectionHeader.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+             lblSectionHeader.heightAnchor.constraint(equalToConstant: 30)].forEach{$0.isActive = true}
+
+            
         }
         
         return view

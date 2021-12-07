@@ -78,6 +78,7 @@ extension UIColor {
   static let primaryLight = #colorLiteral(red: 0.8980392157, green: 0.9607843137, blue: 0.9490196078, alpha: 1)
   static let secondary = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
   static let background = #colorLiteral(red: 0.9607843137, green: 0.9647058824, blue: 0.968627451, alpha: 1)
+  static let placeholder = #colorLiteral(red: 0.07058823529, green: 0.3882352941, blue: 0.3882352941, alpha: 0.6128091956)
 }
 
 
