@@ -83,6 +83,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         self.setupCV()
     }
     
+    deinit{
+        print("VehicleDetailBottomSheetVC->deinit")
+    }
+    
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
     }
@@ -220,6 +224,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBAction func btnRequestBooking(_ sender: Any){
         springAnimateButtonTapOut(button: btnRequestBooking)
+        sheet?.attemptDismiss(animated: true)
         vModel?.btnRequestBookingTapped()
     }
     
