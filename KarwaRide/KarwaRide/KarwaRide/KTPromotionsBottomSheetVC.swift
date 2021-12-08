@@ -18,6 +18,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     @IBOutlet weak var btnApply: SpringButton!
     @IBOutlet weak var btnShowMore: UIButton!
     @IBOutlet weak var uiPromoInput: SpringView!
+    @IBOutlet weak var lblHeading: UILabel!
     
     var pickupDropoff: PromotionParams?
     
@@ -54,9 +55,11 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         if let promo = previousPromo, !promo.isEmpty {
             btnText = "str_remove".localized()
             tfPromoCode.isUserInteractionEnabled = false
+            lblHeading.text = "str_applied_promo".localized() + " (\(promo))"
         } else {
             btnText = "promo_apply".localized()
             tfPromoCode.isUserInteractionEnabled = true
+            lblHeading.text = "str_promo_codes".localized()
         }
         let title = NSAttributedString(
             string: btnText,
