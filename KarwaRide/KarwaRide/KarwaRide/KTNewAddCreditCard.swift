@@ -40,6 +40,7 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
             return
         }
         
+        print("Receiving urlAsString: ")
         print(urlAsString)
 
 //        if urlAsString.range(of: "message=success") != nil
@@ -59,6 +60,10 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
 //            }
 //        }
 
+    }
+    
+    func onCardSuccess() {
+        print("onCardSuccess called")
     }
     
     @IBAction func crossPressed(_ sender: Any) {
