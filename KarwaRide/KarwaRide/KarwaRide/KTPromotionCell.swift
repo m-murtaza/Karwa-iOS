@@ -51,8 +51,9 @@ class KTPromotionCell: UITableViewCell {
         self.imgPromotion.kf.setImage(with: url)
     }
     
-    func configPromoBottomSheetCell(data: PromotionModel) {
-        self.uiMain.borderWidth = 1
+    func configPromoBottomSheetCell(data: PromotionModel, isApplied: Bool) {
+        self.uiMain.borderWidth = isApplied ? 3 : 1
+        self.uiMain.borderColor = isApplied ? UIColor(hexString: "#00A8A8") : UIColor(hexString: "#294B53")
         self.uiMain.cornerRadius = 14
         self.uiDetailView.isHidden = true
         self.lblSeeMore.isHidden = true

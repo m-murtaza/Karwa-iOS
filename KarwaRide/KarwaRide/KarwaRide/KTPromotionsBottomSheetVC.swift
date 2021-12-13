@@ -156,7 +156,12 @@ extension KTPromotionsBottomSheetVC: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: KTPromotionCell = tableView.dequeueReusableCell(withIdentifier: String(describing: KTPromotionCell.self)) as! KTPromotionCell
-        cell.configPromoBottomSheetCell(data: vModel!.getPromotion(at: indexPath.row))
+        var isApplied = false
+        let promotionData = vModel!.getPromotion(at: indexPath.row)
+        if promotionData.code == previousPromo {
+            isApplied = true
+        }
+        cell.configPromoBottomSheetCell(data: promotionData, isApplied: isApplied)
         cell.selectionStyle = .none
         return cell
     }
