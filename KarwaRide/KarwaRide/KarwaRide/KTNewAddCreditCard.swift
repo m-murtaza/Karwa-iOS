@@ -15,12 +15,21 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
     
     var walletController: KTWalletViewController!
 
+    private var vModel : KTNewAddCreditCardVM?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         ktWebView.navigationDelegate = self
         ktWebView.uiDelegate = self
         ktWebView.configuration.userContentController.add(self, name: "karwa_hook")
+        
+        if viewModel == nil {
+            viewModel = KTNewAddCreditCardVM(del: self)
+        }
+
+        self.vModel = viewModel as? KTNewAddCreditCardVM
+        vModel?.viewDidLoad()
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

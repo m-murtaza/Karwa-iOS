@@ -83,7 +83,7 @@ class KTWalletViewModel: KTBaseViewModel {
             }
         }
         
-        self.fetchSessionInfo()
+//        self.fetchSessionInfo()
     }
   
     func numberOfCardRows() -> Int {
@@ -410,18 +410,6 @@ class KTWalletViewModel: KTBaseViewModel {
     }
     
     
-    func fetchSessionInfo()
-    {
-        KTPaymentManager().createSessionForPaymentAtServer { (status, response) in
-            if status == Constants.APIResponseStatus.SUCCESS
-            {
-                self.sessionId = (response[Constants.PaymentResponseAPIKey.SessionId] as? String)!
-                let apiVersionInt : Int = ((response[Constants.PaymentResponseAPIKey.ApiVersion] as? Int)!)
-                self.apiVersion = String(apiVersionInt)
-            }
-        }
-    }
-    
     func getPaymentData() {
         
         self.transactionDelegate?.showProgressHud(show: true)
@@ -557,7 +545,7 @@ class KTWalletViewModel: KTBaseViewModel {
         {
             if(user.isEmailVerified)
             {
-                self.fetchSessionInfo()
+//                self.fetchSessionInfo()
                 self.transactionDelegate?.showAddCardVC()
             }
             else

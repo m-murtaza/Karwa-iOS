@@ -24,12 +24,14 @@ class KTNewAddCreditCardVM: KTBaseViewModel {
     {
         super.viewDidLoad()
         del = self.delegate as? KTNewAddCreditCardVMDelegate
+        
+        createSession()
     }
     
     func createSession()
     {
         self.del?.showProgressHud(show: true, status: "str_loading".localized())
-        KTPaymentManager().createSessionForPaymentAtServer { (status, response) in
+        KTPaymentManager().createMPGSSession { (status, response) in
 
             self.del?.dismiss()
 
