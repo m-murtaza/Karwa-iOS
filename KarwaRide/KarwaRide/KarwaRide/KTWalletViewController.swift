@@ -112,16 +112,9 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     
     func presentAddCardViewController()
     {
-        let cardIOVC = CardIOPaymentViewController(paymentDelegate: self)
-        cardIOVC?.modalPresentationStyle = .formSheet
-        cardIOVC?.collectCardholderName = true
-        cardIOVC?.collectCVV = true
-        cardIOVC?.collectExpiry = true
-        cardIOVC?.hideCardIOLogo = true
-        cardIOVC?.keepStatusBarStyle = true
-        cardIOVC?.scanExpiry = true
-        cardIOVC?.modalPresentationStyle = .fullScreen
-        present(cardIOVC!, animated: true, completion: nil)
+        let addCreditViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTNewAddCreditCard") as! KTNewAddCreditCard
+        addCreditViewController.walletController = self
+        self.navigationController?.present(addCreditViewController, animated: true, completion: nil)
     }
     
     var cardIOPaymentController = CardIOPaymentViewController()

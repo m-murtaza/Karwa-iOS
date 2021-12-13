@@ -12,6 +12,8 @@ import WebKit
 class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDelegate, WKNavigationDelegate, WKUIDelegate,  WKScriptMessageHandler {
 
     @IBOutlet weak var ktWebView: WKWebView!
+    
+    var walletController: KTWalletViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,9 +68,9 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
         print("onCardSuccess called")
     }
     
-    @IBAction func crossPressed(_ sender: Any) {
-        closeView()
-    }
+//    @IBAction func crossPressed(_ sender: Any) {
+//        closeView()
+//    }
     
     func loadURL(url: String) {
 
