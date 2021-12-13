@@ -41,6 +41,7 @@
 		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
 		0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */; };
 		0DBCBD41276758220068C973 /* KTNewAddCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBCBD40276758220068C973 /* KTNewAddCreditCard.swift */; };
+		0DBCBD4427675E200068C973 /* KTNewAddCreditCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBCBD4327675E200068C973 /* KTNewAddCreditCardVM.swift */; };
 		0DC4A9172591E9EB007974BF /* LocalisableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */; };
 		0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */; };
 		0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48CB242358DB0018E3F0 /* Transaction.swift */; };
@@ -321,6 +322,7 @@
 		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ride_shiner.json; sourceTree = "<group>"; };
 		0DBCBD40276758220068C973 /* KTNewAddCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTNewAddCreditCard.swift; sourceTree = "<group>"; };
+		0DBCBD4327675E200068C973 /* KTNewAddCreditCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTNewAddCreditCardVM.swift; sourceTree = "<group>"; };
 		0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableTextField.swift; sourceTree = "<group>"; };
 		0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantAPI.swift; sourceTree = "<group>"; };
 		0DCE48CB242358DB0018E3F0 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -694,6 +696,14 @@
 			isa = PBXGroup;
 			children = (
 				0DBCBD40276758220068C973 /* KTNewAddCreditCard.swift */,
+			);
+			name = AddCard;
+			sourceTree = "<group>";
+		};
+		0DBCBD4227675E040068C973 /* AddCard */ = {
+			isa = PBXGroup;
+			children = (
+				0DBCBD4327675E200068C973 /* KTNewAddCreditCardVM.swift */,
 			);
 			name = AddCard;
 			sourceTree = "<group>";
@@ -1236,6 +1246,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				0DBCBD4227675E040068C973 /* AddCard */,
 				B7ADBC132745318C000B9073 /* Promotions */,
 				1811AE3B26AD1A39002C991E /* KTXpressDropoffViewModel.swift */,
 				1811AE3C26AD1A39002C991E /* KTXpressPickUpViewModel.swift */,
@@ -2122,6 +2133,7 @@
 				18819BCC26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift in Sources */,
 				0DE6A743218B141200125507 /* Gateway.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
+				0DBCBD4427675E200068C973 /* KTNewAddCreditCardVM.swift in Sources */,
 				18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				1811AE3726AD1A1B002C991E /* ViewControllerExtension.swift in Sources */,
