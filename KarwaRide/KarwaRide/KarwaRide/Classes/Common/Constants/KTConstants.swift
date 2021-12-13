@@ -262,6 +262,7 @@ struct Constants {
         static let Balance =  "Balance"
         static let IsRemovable =  "IsRemovable"
         static let SessionId = "SessionId"
+        static let Path = "FromPath"
         static let ApiVersion = "ApiVersion"
     }
     

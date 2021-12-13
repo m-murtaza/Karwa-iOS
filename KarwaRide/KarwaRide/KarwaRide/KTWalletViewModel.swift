@@ -38,6 +38,7 @@ class KTWalletViewModel: KTBaseViewModel {
     //AESEncryption.init().encrypt(message)
     var sessionId = ""
     var apiVersion = ""
+    var path = ""
 
     override func viewDidLoad()
     {
@@ -456,6 +457,7 @@ class KTWalletViewModel: KTBaseViewModel {
                     self.sessionId = (response[Constants.PaymentResponseAPIKey.SessionId] as? String)!
                     let apiVersionInt : Int = ((response[Constants.PaymentResponseAPIKey.ApiVersion] as? Int)!)
                     self.apiVersion = String(apiVersionInt)
+                    self.path = (response[Constants.PaymentResponseAPIKey.Path] as? String)!
                     self.AddPaymentToServer(cardHolderName, cardNo, ccv, month, year)
                 }
             }
