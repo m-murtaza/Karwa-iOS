@@ -389,6 +389,10 @@ class KTCreateBookingViewController:
         }
     }
     
+    deinit{
+        print("KTCreateBookingViewController->deinit")
+    }
+    
     override func viewDidLoad() {
     viewModel = KTCreateBookingViewModel(del:self)
     vModel = viewModel as? KTCreateBookingViewModel

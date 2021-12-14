@@ -154,6 +154,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         return isBottomSheetExpanded ? 420 : 40
     }
     
+    deinit{
+        print("KTBookingDetailsViewController->deinit")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue || vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue || vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue || vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue) {

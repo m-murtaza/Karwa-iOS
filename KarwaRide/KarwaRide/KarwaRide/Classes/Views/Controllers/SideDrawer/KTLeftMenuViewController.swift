@@ -24,6 +24,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         //view.backgroundColor = UIColor.clear
         viewModel = KTLeftMenuModel(del:self)
         super.viewDidLoad()
+        self.setupSideMenu()
      
         NotificationCenter.default.addObserver(self, selector: (#selector(updateUI)), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
     }
@@ -42,6 +43,51 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func setupSideMenu() {
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "BookingNavigationViewController")
+        }, with: "0")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "MyTirpsNavigationController")
+        }, with: "1")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "KTWalletNavigationController")
+        }, with: "2")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .PROMOTIONS, vcIdentifier: "KTPromotionsNavigationController")
+        }, with: "3")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "PaymentNavigationController")
+        }, with: "4")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            let contentView : UINavigationController = self.getVC(storyboard: .MAIN, vcIdentifier: "KTFareNavigation") as! UINavigationController
+            let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
+            detailView.isFeedback = true
+            return contentView
+        }, with: "5")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "NotificationNavigationController")
+        }, with: "6")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "KTFareNavigation")
+        }, with: "7")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "SettingsNavigationController")
+        }, with: "8")
+        
+        sideMenuController?.cache(viewControllerGenerator: {
+            self.getVC(storyboard: .MAIN, vcIdentifier: "UnderConstructionNavigationController")
+        }, with: "9")
     }
     
     func reloadTable()
@@ -127,61 +173,67 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
             lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
         }
 
-        switch indexPath.row {
-        case 0:
+        if indexPath.row == 0 {
             xpressRebookSelected = false
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-            sideMenuController?.hideMenu()
-            break
-
-        case 1:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
-            sideMenuController?.hideMenu()
-            break
-        
-        case 2:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTWalletNavigationController")
-            sideMenuController?.hideMenu()
-            break
-
-        case 3:
-            sideMenuController?.contentViewController = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: "KTPromotionsNavigationController")
-            sideMenuController?.hideMenu()
-            break
-
-        case 4:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-            sideMenuController?.hideMenu()
-            break
-
-        case 5:
-            let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
-            let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
-            detailView.isFeedback = true
-            sideMenuController?.contentViewController = contentView
-            sideMenuController?.hideMenu()
-            break
-
-        case 6:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
-            sideMenuController?.hideMenu()
-            break
-        
-        case 7:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
-            sideMenuController?.hideMenu()
-            break
-
-        case 8:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
-            sideMenuController?.hideMenu()
-            break
-
-        default:
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
-            sideMenuController?.hideMenu()
-            break
         }
+        sideMenuController?.setContentViewController(with: "\(indexPath.row)", animated: true)
+        sideMenuController?.hideMenu()
+        
+//        switch indexPath.row {
+//        case 0:
+//            xpressRebookSelected = false
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 1:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 2:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTWalletNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 3:
+//            sideMenuController?.contentViewController = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: "KTPromotionsNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 4:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 5:
+//            let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
+//            let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
+//            detailView.isFeedback = true
+//            sideMenuController?.contentViewController = contentView
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 6:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 7:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        case 8:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//
+//        default:
+//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
+//            sideMenuController?.hideMenu()
+//            break
+//        }
 
     }
     
