@@ -77,10 +77,10 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
         print("onCardSuccess called")
     }
     
-//    @IBAction func crossPressed(_ sender: Any) {
-//        closeView()
-//    }
-    
+    @IBAction func crossPressed(_ sender: Any) {
+        closeView()
+    }
+
     func loadURL(url: String) {
 
         let urlRequest: URL = URL(string: url)!

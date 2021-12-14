@@ -33,7 +33,7 @@ class KTNewAddCreditCardVM: KTBaseViewModel {
         self.del?.showProgressHud(show: true, status: "str_loading".localized())
         KTPaymentManager().createMPGSSession { (status, response) in
 
-            self.del?.dismiss()
+            self.del?.hideProgressHud()
 
             if status == Constants.APIResponseStatus.SUCCESS
             {
