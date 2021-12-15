@@ -199,6 +199,12 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     selectedSection = indexPath.section
     self.setupVehicleDetailBottomSheet()
   }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (vModel?.rebook ?? false) && self.selectedSection == indexPath.section {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.none)
+        }
+    }
   
 //  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 //      return true
@@ -1031,7 +1037,7 @@ class KTCreateBookingViewController:
                 default:
                     self.selectedSection = 0
                 }
-                self.setupVehicleDetailBottomSheet()
+                self.tableView.selectRow(at: IndexPath(row: 0, section: selectedSection), animated: true, scrollPosition: .none)
             }
         }
     }
