@@ -10,7 +10,10 @@ import Foundation
 
 protocol KTNewAddCreditCardVMDelegate : KTViewModelDelegate{
     func loadURL(url: String)
+    func loadHTML(html: String)
+    func stopCardValidationAnim()
     func closeView()
+    func showHideWebView(hide: Bool)
 }
 
 class KTNewAddCreditCardVM: KTBaseViewModel {
@@ -46,5 +49,24 @@ class KTNewAddCreditCardVM: KTBaseViewModel {
                 (self.delegate as! KTNewAddCreditCardVMDelegate).showError!(title: "error_sr".localized(),message: "please_dialog_msg_went_wrong".localized())
             }
         }
+    }
+    
+    func updateSession()
+    {
+        KTPaymentManager().updateMPGSSuccess(sessionId, completion: {(status, response) in
+
+            self.del?.stopCardValidationAnim()
+
+            if status == Constants.APIResponseStatus.SUCCESS
+            {
+                let html = (response[Constants.PaymentResponseAPIKey.Html] as? String)!
+                self.del?.loadHTML(html: html)
+                self.del?.showHideWebView(hide: false)
+            }
+            else
+            {
+                (self.delegate as! KTNewAddCreditCardVMDelegate).showError!(title: "error_sr".localized(),message: "please_dialog_msg_went_wrong".localized())
+            }
+        })
     }
 }

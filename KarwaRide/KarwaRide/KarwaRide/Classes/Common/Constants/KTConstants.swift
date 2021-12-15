@@ -264,6 +264,7 @@ struct Constants {
         static let SessionId = "SessionId"
         static let Path = "FormPath"
         static let ApiVersion = "ApiVersion"
+        static let Html = "Html"
     }
     
     struct PayTripAPIKey {
@@ -501,6 +502,7 @@ struct Constants {
         static let MPGSCreateSession = "mpgs/session"
         
         static let MPGSCreateSessionV2 = "mpgs/3ds2/session"
+        static let MPGSSuccessToServerV2 = "mpgs/3ds2"
         
         
         static let DeletePaymentMethod = "payment/delete"

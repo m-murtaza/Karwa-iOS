@@ -8,30 +8,45 @@
 
 import Foundation
 import WebKit
+import Lottie
 
 class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDelegate, WKNavigationDelegate, WKUIDelegate,  WKScriptMessageHandler {
 
-    @IBOutlet weak var ktWebView: WKWebView!
-    
+//    @IBOutlet weak var ktWebView: WKWebView!
+
+    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var swipCardAnim: AnimationView!
+    @IBOutlet weak var cardSuccessAnim: AnimationView!
+
     var walletController: KTWalletViewController!
 
     private var vModel : KTNewAddCreditCardVM?
 
     override func viewDidLoad() {
+
         super.viewDidLoad()
 
-        ktWebView.navigationDelegate = self
-        ktWebView.uiDelegate = self
-        ktWebView.configuration.userContentController.add(self, name: "karwa_hook")
+        webView.configuration.userContentController.add(self, name: "karwa_hook")
+
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
+        
         
         if viewModel == nil {
             viewModel = KTNewAddCreditCardVM(del: self)
         }
 
         self.vModel = viewModel as? KTNewAddCreditCardVM
+        
+        swipCardAnim.isHidden = true
+        cardSuccessAnim.isHidden = true
+//
+//        startCardValidationAnim()
+//        startCardSuccessAnim()
+        
         vModel?.viewDidLoad()
     }
-    
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         //This function handles the events coming from javascript. We'll configure the javascript side of this later.
         //We can access properties through the message body, like this:
@@ -54,27 +69,69 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
         print("Receiving urlAsString: ")
         print(urlAsString)
 
-//        if urlAsString.range(of: "message=success") != nil
-//        {
-//            self.paymentSuccess = true
-//        }
-//        else if urlAsString.range(of: "/paymentresponse.html?result=true") != nil
-//        {
-//            if self.paymentSuccess == true
-//            {
-//                self.delegate?.getUpdatedTransactions()
-//                self.closeViewController()
-//            }
-//            else
-//            {
-//                self.showError(title: "Payment Failed", message: "")
-//            }
-//        }
-
+        if urlAsString.range(of: "gateway3ds2://3dsecure/?result=true") != nil
+        {
+            startCardSuccessAnim()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.dismiss() }
+        }
+        else if urlAsString.range(of: "gateway3ds2://3dsecure/?result=false") != nil
+        {
+            showErrorMsg()
+        }
+        else if urlAsString.range(of: "result=success") != nil
+        {
+            showHideWebView(hide: true)
+            startCardValidationAnim()
+            vModel?.updateSession()
+        }
+        else if urlAsString.range(of: "result=false") != nil
+        {
+            showHideWebView(hide: true)
+            startCardValidationAnim()
+            vModel?.updateSession()
+        }
+        else
+        {
+            showErrorMsg()
+        }
     }
     
-    func onCardSuccess() {
-        print("onCardSuccess called")
+    func showHideWebView(hide: Bool)
+    {
+        webView.isHidden = hide
+    }
+    
+    func showErrorMsg(){
+        showErrorMsg(title: "str_oops".localized(), msg: "please_dialog_msg_went_wrong".localized())
+    }
+    
+    func showErrorMsg(title: String, msg: String)
+    {
+        let alertController = UIAlertController(title: title, message: msg.localized(), preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "str_ok".localized(), style: .default) { (UIAlertAction) in self.dismiss()}
+
+        alertController.addAction(okAction)
+        
+        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.showAlter(alertController: alertController)
+    }
+    
+    func startCardSuccessAnim(){
+        cardSuccessAnim.isHidden = false
+        cardSuccessAnim.loopMode = .loop
+        cardSuccessAnim.play()
+    }
+    
+    func startCardValidationAnim(){
+        swipCardAnim.isHidden = false
+        swipCardAnim.loopMode = .loop
+        swipCardAnim.play()
+    }
+    
+    func stopCardValidationAnim(){
+        swipCardAnim.stop()
+        swipCardAnim.isHidden = true
     }
     
     @IBAction func crossPressed(_ sender: Any) {
@@ -85,7 +142,11 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
 
         let urlRequest: URL = URL(string: url)!
 
-        ktWebView.load(URLRequest(url: urlRequest))
+        self.webView.load(URLRequest(url: urlRequest))
+    }
+    
+    func loadHTML(html: String) {
+        self.webView.loadHTMLString(html, baseURL: nil)
     }
     
     func closeView() {
