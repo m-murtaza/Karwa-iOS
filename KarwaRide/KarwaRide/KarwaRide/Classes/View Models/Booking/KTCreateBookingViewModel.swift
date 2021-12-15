@@ -69,7 +69,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     func restoreCustomerServiceSelection(animateView: Bool)
     func reloadSelection()
     
-    func noOfPromotions(count: Int)
+    func getPromotions(promotions: [PromotionModel])
     func rebookRide()
 }
 
@@ -439,7 +439,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     //MARK: - Promotion
-    func getNoOfPromotions() {
+    func getPromotions() {
         guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
         var params: PromotionParams = PromotionParams()
         if booking.pickupAddress != nil && booking.pickupAddress != "" {
@@ -455,15 +455,29 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             guard let `self` = self else{return}
             if status == Constants.APIResponseStatus.SUCCESS
             {
+                var promotionList: [PromotionModel] = []
                 guard let promotions = response["D"] as? [[String : Any]] else {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+                    (self.delegate as! KTCreateBookingViewModelDelegate).getPromotions(promotions: [])
                     return
                 }
-                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
+                for item in promotions {
+                    var promotionInfo = PromotionModel()
+                    
+                    promotionInfo.id = item["Id"] as? Int
+                    promotionInfo.name = item["Name"] as? String
+                    promotionInfo.description = item["Description"] as? String
+                    promotionInfo.moreInfo = item["MoreInfo"] as? String
+                    promotionInfo.code = item["Code"] as? String
+                    let iconUrl = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey) + Constants.APIURL.PromotionIcon + String(promotionInfo.id!)
+                    promotionInfo.icon = iconUrl
+                    
+                    promotionList.append(promotionInfo)
+                }
+                (self.delegate as! KTCreateBookingViewModelDelegate).getPromotions(promotions: promotionList)
             }
             else
             {
-                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+                (self.delegate as! KTCreateBookingViewModelDelegate).getPromotions(promotions: [])
             }
         }
     }

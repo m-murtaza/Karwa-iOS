@@ -279,11 +279,14 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 class KTCreateBookingViewController:
     KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
-    func noOfPromotions(count: Int) {
-        self.uiPromotionCount.isHidden = count > 0 ? false : true
-        self.lblPromotionCount.text = "\(count)"
-        if count > 0 {
+    func getPromotions(promotions: [PromotionModel]) {
+        self.uiPromotionCount.isHidden = promotions.count > 0 ? false : true
+        self.lblPromotionCount.text = "\(promotions.count)"
+        if promotions.count > 0 {
             self.showToolTip(forView: self.uiPromotionCount)
+            if !self.previousPromoCode.isEmpty && promotions.contains(where: {$0.code == self.previousPromoCode}) {
+                self.applyPromoTapped(self.previousPromoCode)
+            }
         }
     }
     
@@ -722,15 +725,12 @@ class KTCreateBookingViewController:
   
   //MARK:- User Actions
   @IBAction func btnPickupAddTapped(_ sender: Any) {
-    
-    (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
-    //    btnDropoffAddress.animation = "pop"
-    //    btnDropoffAddress.duration = 1.5
-    //    btnDropoffAddress.animate()
+      self.removePromoTapped()
+      (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
   }
   @IBAction func btnDropAddTapped(_ sender: Any) {
-    
-    (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
+      self.removePromoTapped()
+      (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
   }
   
   
@@ -802,6 +802,7 @@ class KTCreateBookingViewController:
     if vModel?.rebook ?? false {
         vModel?.rebook = false
     }
+    self.previousPromoCode = ""
     removeBookingOnReset = true
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
@@ -863,7 +864,8 @@ class KTCreateBookingViewController:
   
   func applyPromoTapped(_ enteredPromo: String)
   {
-    (viewModel as! KTCreateBookingViewModel).applyPromoTapped(enteredPromo)
+      self.previousPromoCode = enteredPromo
+      (viewModel as! KTCreateBookingViewModel).applyPromoTapped(enteredPromo)
   }
   
   func removePromoTapped()
@@ -1018,7 +1020,7 @@ class KTCreateBookingViewController:
         self.currentLocationButton.isHidden = true
         (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
-        (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
+        (viewModel as? KTCreateBookingViewModel)?.getPromotions()
         
     }
     
