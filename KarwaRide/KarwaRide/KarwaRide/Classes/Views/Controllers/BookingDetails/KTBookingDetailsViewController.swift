@@ -69,6 +69,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var haltAutoZooming = false
     var showCancelCharges = false
 
+    var manualMoveBegins: Bool = false
+
     lazy var sheet = SheetViewController(
         controller: bottomSheetVC,
         sizes: [.percent(0.25), .intrinsic],
@@ -146,6 +148,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         {
             haltAutoZooming = true
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        manualMoveBegins = true
     }
     
     var isBottomSheetExpanded = true
@@ -494,17 +500,19 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
     }
     
-    func updateMapCamera()
-    {
-        if(marker != nil)
+    func updateMapCamera() {
+        if manualMoveBegins == false
         {
-            var bounds = GMSCoordinateBounds()
-            bounds = bounds.includingCoordinate((marker?.position)!)
-            bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
-            
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 100)
-            mapView.animate(with: update!)
+            if(marker != nil)
+            {
+                var bounds = GMSCoordinateBounds()
+                bounds = bounds.includingCoordinate((marker?.position)!)
+                bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
+                
+                var update : GMSCameraUpdate?
+                update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+                mapView.animate(with: update!)
+            }
         }
     }
     
@@ -779,6 +787,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func btnRecenterTap(_ sender: Any)
     {
+        manualMoveBegins = false
         updateMapCamera()
     }
 

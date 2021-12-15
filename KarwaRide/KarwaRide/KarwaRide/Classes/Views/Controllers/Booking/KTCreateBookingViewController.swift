@@ -273,7 +273,7 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 }
 class KTCreateBookingViewController:
     KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
-    
+        
     func noOfPromotions(count: Int) {
         self.uiPromotionCount.isHidden = count > 0 ? false : true
         self.lblPromotionCount.text = "\(count)"

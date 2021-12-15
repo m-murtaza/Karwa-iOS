@@ -48,23 +48,23 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 
     @IBOutlet weak var etaLabel: UILabel!
 
-    //driver
-    @IBOutlet weak var driverView: UIView!
-    @IBOutlet weak var driverImageView: UIImageView!
-    @IBOutlet weak var ratingsView: UILabel!
-    @IBOutlet weak var driverNameLabel: UILabel!
-    @IBOutlet weak var carTypeLabel: UILabel!
+//    //driver
+//    @IBOutlet weak var driverView: UIView!
+//    @IBOutlet weak var driverImageView: UIImageView!
+//    @IBOutlet weak var ratingsView: UILabel!
+//    @IBOutlet weak var driverNameLabel: UILabel!
+//    @IBOutlet weak var carTypeLabel: UILabel!
 
-    @IBOutlet weak var rideServiceView: UIView!
-    @IBOutlet weak var lblServiceType : UILabel!
-    @IBOutlet weak var numberOfPassengersLabel : UILabel!
-    @IBOutlet weak var imgVehicleType : SpringImageView!
-    @IBOutlet weak var carNumber : UILabel!
+//    @IBOutlet weak var rideServiceView: UIView!
+//    @IBOutlet weak var lblServiceType : UILabel!
+//    @IBOutlet weak var numberOfPassengersLabel : UILabel!
+//    @IBOutlet weak var imgVehicleType : SpringImageView!
+//    @IBOutlet weak var carNumber : UILabel!
     
-    @IBOutlet weak var cancelButton : UIButton!
+//    @IBOutlet weak var cancelButton : UIButton!
 
-    @IBOutlet weak var pickUpAddressButton: SpringButton!
-    @IBOutlet weak var dropOffAddressButton: SpringButton!
+//    @IBOutlet weak var pickUpAddressButton: SpringButton!
+//    @IBOutlet weak var dropOffAddressButton: SpringButton!
     var rideServicePickDropOffData: RideSerivceLocationData? = nil
 
     var bottomSheetVC : KTXpressBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTXpressBookingDetailsBottomSheetVC") as! KTXpressBookingDetailsBottomSheetVC
@@ -231,17 +231,17 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     func setPickup(pick: String?) {
-        guard pick != nil else {
-            return
-        }
-        self.pickUpAddressButton.setTitle(pick, for: .normal)
+//        guard pick != nil else {
+//            return
+//        }
+//        self.pickUpAddressButton.setTitle(pick, for: .normal)
     }
         
     func setDropOff(pick: String?) {
-        guard pick != nil else {
-            return
-        }
-        self.dropOffAddressButton.setTitle(pick, for: .normal)
+//        guard pick != nil else {
+//            return
+//        }
+//        self.dropOffAddressButton.setTitle(pick, for: .normal)
     }
 
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition)
@@ -627,16 +627,16 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     //MARK:- Assignment Info
     
     func updateAssignmentInfo() {
-        driverNameLabel.text = vModel?.driverName()
-        
-        if vModel?.vehicleNumber() == "" || vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue {
-            carNumber.text = "----"
-        } else {
-            carNumber.text = vModel?.vehicleNumber()
-        }
-        
-        ratingsView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
-        ratingsView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
+//        driverNameLabel.text = vModel?.driverName()
+//
+//        if vModel?.vehicleNumber() == "" || vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue {
+//            carNumber.text = "----"
+//        } else {
+//            carNumber.text = vModel?.vehicleNumber()
+//        }
+//
+//        ratingsView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
+//        ratingsView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
 //        imgNumberPlate.image = vModel?.imgForPlate()
     }
     //MARK:- CallerId

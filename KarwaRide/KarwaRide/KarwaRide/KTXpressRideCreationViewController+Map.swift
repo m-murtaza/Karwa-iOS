@@ -74,10 +74,13 @@ extension KTXpressRideCreationViewController
         
         self.drawArcPolyline(startLocation: coordinate, endLocation: dropCoordinate)
         
+//        addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
+//        addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
+        
         serverPickUpLocationMarker = GMSMarker()
         serverPickUpLocationMarker.position = coordinate
-        serverPickUpLocationMarker.icon = #imageLiteral(resourceName: "pickup_address_ico")
-        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
+        serverPickUpLocationMarker.icon = UIImage(named: "BookingMapDirectionPickup")!
+        serverPickUpLocationMarker.groundAnchor = CGPoint(x:0.5,y:0.5)
         serverPickUpLocationMarker.map = self.mapView
         
         pickUpLocationMarker = GMSMarker()
@@ -87,8 +90,8 @@ extension KTXpressRideCreationViewController
         
         serverDropOffLocationMarker = GMSMarker()
         serverDropOffLocationMarker.position = dropCoordinate
-        serverDropOffLocationMarker.icon = #imageLiteral(resourceName: "dropoff_pin")
-        serverDropOffLocationMarker.groundAnchor = CGPoint(x:0.6,y:1)
+        serverDropOffLocationMarker.icon = UIImage(named: "BookingMapDirectionDropOff")!
+        serverDropOffLocationMarker.groundAnchor = CGPoint(x:0.5,y:0.5)
         serverDropOffLocationMarker.map = self.mapView
         
         dropOffLocationMarker = GMSMarker()
@@ -117,10 +120,10 @@ extension KTXpressRideCreationViewController
         if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
             dropOffLocationMarker.map = nil
         } else {
-            let distanceInMeters = coordinate.distance(from: selectedRSDropOffCoordinate!) // result is in meters
+            let distanceInMeters = dropCoordinate.distance(from: selectedRSDropOffCoordinate!) // result is in meters
             if distanceInMeters > 10 {
                 dropOffLocationMarker.map = self.mapView
-                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: coordinate)
+                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: dropCoordinate)
             } else {
                 dropOffLocationMarker.map = nil
             }

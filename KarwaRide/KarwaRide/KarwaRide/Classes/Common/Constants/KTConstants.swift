@@ -221,6 +221,7 @@ struct Constants {
         static let Phone = "Phone"
         static let SessionID = "SessionID"
         static let MaskedEmail = "MaskedEmail"
+        static let IsEmailVerified = "IsEmailVerified"
     }
     
     struct GeoLocationResponseAPIKey {

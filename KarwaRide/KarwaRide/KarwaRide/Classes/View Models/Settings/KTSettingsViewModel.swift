@@ -23,6 +23,9 @@ class KTSettingsViewModel: KTBaseViewModel {
     override func viewWillAppear() {
         userInfo = KTUserManager().loginUserInfo()
         (delegate as! KTSettingsViewModelDelegate).reloadTable()
+        KTUserManager().fetchUserInfoFromServer { _ in
+            
+        }
     }
     
     func reloadData()

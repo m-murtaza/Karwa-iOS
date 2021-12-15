@@ -227,16 +227,22 @@ class KTWalletViewModel: KTBaseViewModel {
     }
     
     func convertDateFormat(inputDate: String) -> String {
-
-         let olDateFormatter = DateFormatter()
-         olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-
-        let oldDate = olDateFormatter.date(from: inputDate)
-
-         let convertDateFormatter = DateFormatter()
-         convertDateFormatter.dateFormat = "h:mm a dd MMM yyyy"
-
-         return convertDateFormatter.string(from: oldDate!)
+        
+        let olDateFormatter = DateFormatter()
+        olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        
+        var oldDate = olDateFormatter.date(from: inputDate)
+        
+        if oldDate == nil {
+            let olDateFormatter = DateFormatter()
+            olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            oldDate = olDateFormatter.date(from: inputDate)
+        }
+        
+        let convertDateFormatter = DateFormatter()
+        convertDateFormatter.dateFormat = "h:mm a dd MMM yyyy"
+        
+        return convertDateFormatter.string(from: oldDate!)
     }
     
     func pickupDate(forIdx idx: Int) -> String {
