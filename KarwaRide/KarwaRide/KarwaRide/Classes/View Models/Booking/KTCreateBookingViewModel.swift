@@ -675,6 +675,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     {
                         self.promo = promoEntered
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                        (self.delegate as! KTCreateBookingViewModelDelegate).showPromotionAppliedToast(show: true)
                         self.del?.setPromoButtonLabel(validPromo: promoEntered)
                         self.estimates = KTVehicleTypeManager().estimates()
                         
