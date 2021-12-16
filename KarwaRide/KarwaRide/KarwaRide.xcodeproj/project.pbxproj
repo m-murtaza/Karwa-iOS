@@ -73,6 +73,7 @@
 		0DF3A2312185B5440000503B /* KTPaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF3A22E2185B5430000503B /* KTPaymentManager.swift */; };
 		0DF5D51622F053940057BED9 /* KTTipTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF5D51522F053940057BED9 /* KTTipTagButton.swift */; };
 		0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFFA828218F5F8D00F9EFE2 /* MAKHashGenerator.swift */; };
+		17822E3619D27E4C260F1707 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F4BBBE4782B5634C0D7926 /* Pods_KarwaRide.framework */; };
 		1808F46126D2787700D10F64 /* KTXpressFavoriteAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18819BCA26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.xib */; };
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
@@ -247,7 +248,6 @@
 		18FA45BD20721BCA000487C1 /* KTBaseCreateBookingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */; };
 		18FA45BF207248B9000487C1 /* KTBookingManager+Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */; };
 		18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */; };
-		24A4A43603A239C99044C124 /* Pods_KarwaRide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2A4405DC0BED2DB2F517994 /* Pods_KarwaRide.framework */; };
 		441D114A254FEC17005E1B66 /* KTFavoriteAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */; };
 		441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */; };
 		441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D114C254FED49005E1B66 /* UIView + Extension.swift */; };
@@ -530,7 +530,7 @@
 		18FA45BC20721BCA000487C1 /* KTBaseCreateBookingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseCreateBookingController.swift; path = Classes/Views/Controllers/Booking/KTBaseCreateBookingController.swift; sourceTree = "<group>"; };
 		18FA45BE207248B9000487C1 /* KTBookingManager+Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Estimate.swift"; path = "Classes/DAL/Booking/KTBookingManager+Estimate.swift"; sourceTree = "<group>"; };
 		18FA45C02073572B000487C1 /* KTBaseFareEstimateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTBaseFareEstimateManager.swift; path = Classes/DAL/KTBaseFareEstimateManager.swift; sourceTree = "<group>"; };
-		32C53A63D0A2F262BCE6B512 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
+		2A1F4898595443A4F314F195 /* Pods-KarwaRide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.release.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.release.xcconfig"; sourceTree = "<group>"; };
 		441D1148254FEC17005E1B66 /* KTFavoriteAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTFavoriteAddressViewController.swift; sourceTree = "<group>"; };
 		441D1149254FEC17005E1B66 /* KTFavoriteAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KTFavoriteAddressViewController.xib; sourceTree = "<group>"; };
 		441D114C254FED49005E1B66 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
@@ -544,8 +544,8 @@
 		44EBB8CF254861FC000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D1254861FE000257EE /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44EBB8D3254863F0000257EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		ADB539F717AD167C65D8FBE6 /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
-		B2A4405DC0BED2DB2F517994 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59F4BBBE4782B5634C0D7926 /* Pods_KarwaRide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KarwaRide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F7690C717FD7EA7DE3F4041 /* Pods-KarwaRide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KarwaRide.debug.xcconfig"; path = "Target Support Files/Pods-KarwaRide/Pods-KarwaRide.debug.xcconfig"; sourceTree = "<group>"; };
 		B775444A274B81D5006E453A /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		B790C45C2747A44D004C7CCE /* KTPromotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTPromotionManager.swift; sourceTree = "<group>"; };
 		B790C45E2747AC7D004C7CCE /* PromotionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionModel.swift; sourceTree = "<group>"; };
@@ -590,7 +590,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1833CA7C200CBE8100AD885B /* CoreLocation.framework in Frameworks */,
-				24A4A43603A239C99044C124 /* Pods_KarwaRide.framework in Frameworks */,
+				17822E3619D27E4C260F1707 /* Pods_KarwaRide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1567,8 +1567,8 @@
 		82B8F4BF37A02B16704AD1D5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ADB539F717AD167C65D8FBE6 /* Pods-KarwaRide.debug.xcconfig */,
-				32C53A63D0A2F262BCE6B512 /* Pods-KarwaRide.release.xcconfig */,
+				9F7690C717FD7EA7DE3F4041 /* Pods-KarwaRide.debug.xcconfig */,
+				2A1F4898595443A4F314F195 /* Pods-KarwaRide.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1577,7 +1577,7 @@
 			isa = PBXGroup;
 			children = (
 				1833CA7B200CBE8100AD885B /* CoreLocation.framework */,
-				B2A4405DC0BED2DB2F517994 /* Pods_KarwaRide.framework */,
+				59F4BBBE4782B5634C0D7926 /* Pods_KarwaRide.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1695,13 +1695,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 181344A81EF68671006E734A /* Build configuration list for PBXNativeTarget "KarwaRide" */;
 			buildPhases = (
-				5AD8C56FC25F274D849992F5 /* [CP] Check Pods Manifest.lock */,
+				672D0585EFF504D250AD5CEE /* [CP] Check Pods Manifest.lock */,
 				181344921EF68671006E734A /* Sources */,
 				181344931EF68671006E734A /* Frameworks */,
 				181344941EF68671006E734A /* Resources */,
 				182A74DF20A1761C0025B6C7 /* ShellScript */,
-				FBC5002A815F75981CA15639 /* [CP] Embed Pods Frameworks */,
-				AB619125CB24ED910E80716F /* [CP] Copy Pods Resources */,
+				C971C14296448E399CD029C9 /* [CP] Embed Pods Frameworks */,
+				FBBFAD4A80CC8A29F0D84A7C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1820,7 +1820,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\" \n";
 		};
-		5AD8C56FC25F274D849992F5 /* [CP] Check Pods Manifest.lock */ = {
+		672D0585EFF504D250AD5CEE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1842,25 +1842,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB619125CB24ED910E80716F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FBC5002A815F75981CA15639 /* [CP] Embed Pods Frameworks */ = {
+		C971C14296448E399CD029C9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1954,6 +1936,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBBFAD4A80CC8A29F0D84A7C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KarwaRide/Pods-KarwaRide-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2360,7 +2360,7 @@
 		};
 		181344A91EF68671006E734A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADB539F717AD167C65D8FBE6 /* Pods-KarwaRide.debug.xcconfig */;
+			baseConfigurationReference = 9F7690C717FD7EA7DE3F4041 /* Pods-KarwaRide.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -2395,7 +2395,7 @@
 		};
 		181344AA1EF68671006E734A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32C53A63D0A2F262BCE6B512 /* Pods-KarwaRide.release.xcconfig */;
+			baseConfigurationReference = 2A1F4898595443A4F314F195 /* Pods-KarwaRide.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "compiler-default";
