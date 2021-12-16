@@ -262,7 +262,9 @@ struct Constants {
         static let Balance =  "Balance"
         static let IsRemovable =  "IsRemovable"
         static let SessionId = "SessionId"
+        static let Path = "FormPath"
         static let ApiVersion = "ApiVersion"
+        static let Html = "Html"
     }
     
     struct PayTripAPIKey {
@@ -498,6 +500,11 @@ struct Constants {
         static let PayTripByApplePay = "trip/pay/device"
         static let MPGSSuccessToServer = "mpgs/3ds"
         static let MPGSCreateSession = "mpgs/session"
+        
+        static let MPGSCreateSessionV2 = "mpgs/3ds2/session"
+        static let MPGSSuccessToServerV2 = "mpgs/3ds2"
+        
+        
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
         static let GetTransactions = "payment?records=10"

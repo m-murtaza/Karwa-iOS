@@ -38,6 +38,7 @@ class KTWalletViewModel: KTBaseViewModel {
     //AESEncryption.init().encrypt(message)
     var sessionId = ""
     var apiVersion = ""
+    var path = ""
 
     override func viewDidLoad()
     {
@@ -82,7 +83,7 @@ class KTWalletViewModel: KTBaseViewModel {
             }
         }
         
-        self.fetchSessionInfo()
+//        self.fetchSessionInfo()
     }
   
     func numberOfCardRows() -> Int {
@@ -227,16 +228,22 @@ class KTWalletViewModel: KTBaseViewModel {
     }
     
     func convertDateFormat(inputDate: String) -> String {
+        
+        let olDateFormatter = DateFormatter()
+        olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
-         let olDateFormatter = DateFormatter()
-         olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        var oldDate = olDateFormatter.date(from: inputDate)
+        if(oldDate == nil)
+        {
+            let olDateFormatter = DateFormatter()
+            olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            oldDate = olDateFormatter.date(from: inputDate)
+        }
 
-        let oldDate = olDateFormatter.date(from: inputDate)
-
-         let convertDateFormatter = DateFormatter()
-         convertDateFormatter.dateFormat = "h:mm a dd MMM yyyy"
-
-         return convertDateFormatter.string(from: oldDate!)
+        let convertDateFormatter = DateFormatter()
+        convertDateFormatter.dateFormat = "h:mm a dd MMM yyyy"
+        
+        return convertDateFormatter.string(from: oldDate!)
     }
     
     func pickupDate(forIdx idx: Int) -> String {
@@ -403,18 +410,6 @@ class KTWalletViewModel: KTBaseViewModel {
     }
     
     
-    func fetchSessionInfo()
-    {
-        KTPaymentManager().createSessionForPaymentAtServer { (status, response) in
-            if status == Constants.APIResponseStatus.SUCCESS
-            {
-                self.sessionId = (response[Constants.PaymentResponseAPIKey.SessionId] as? String)!
-                let apiVersionInt : Int = ((response[Constants.PaymentResponseAPIKey.ApiVersion] as? Int)!)
-                self.apiVersion = String(apiVersionInt)
-            }
-        }
-    }
-    
     func getPaymentData() {
         
         self.transactionDelegate?.showProgressHud(show: true)
@@ -456,6 +451,7 @@ class KTWalletViewModel: KTBaseViewModel {
                     self.sessionId = (response[Constants.PaymentResponseAPIKey.SessionId] as? String)!
                     let apiVersionInt : Int = ((response[Constants.PaymentResponseAPIKey.ApiVersion] as? Int)!)
                     self.apiVersion = String(apiVersionInt)
+                    self.path = (response[Constants.PaymentResponseAPIKey.Path] as? String)!
                     self.AddPaymentToServer(cardHolderName, cardNo, ccv, month, year)
                 }
             }
@@ -549,7 +545,7 @@ class KTWalletViewModel: KTBaseViewModel {
         {
             if(user.isEmailVerified)
             {
-                self.fetchSessionInfo()
+//                self.fetchSessionInfo()
                 self.transactionDelegate?.showAddCardVC()
             }
             else
