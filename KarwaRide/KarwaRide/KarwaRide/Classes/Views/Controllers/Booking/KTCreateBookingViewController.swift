@@ -277,7 +277,16 @@ class KTCreateBookingViewController:
     
     func getPromotions(promotions: [PromotionModel]) {
         self.uiPromotionCount.isHidden = promotions.count > 0 ? false : true
-        self.lblPromotionCount.text = "\(promotions.count)"
+        var promotionCount = "\(promotions.count)"
+        if (Locale.current.languageCode?.contains("ar"))! {
+            promotionCount = promotionCount
+                .replacingOccurrences(of: "1", with: "١").replacingOccurrences(of: "2", with: "٢")
+                .replacingOccurrences(of: "3", with: "٣").replacingOccurrences(of: "4", with: "٤")
+                .replacingOccurrences(of: "5", with: "٥").replacingOccurrences(of: "6", with: "٦")
+                .replacingOccurrences(of: "7", with: "٧").replacingOccurrences(of: "8", with: "٨")
+                .replacingOccurrences(of: "9", with: "٩").replacingOccurrences(of: "0", with: "٠")
+        }
+        self.lblPromotionCount.text = promotionCount
         if promotions.count > 0 {
             self.showToolTip(forView: self.uiPromotionCount)
             if !self.previousPromoCode.isEmpty && promotions.contains(where: {$0.code == self.previousPromoCode}) {
