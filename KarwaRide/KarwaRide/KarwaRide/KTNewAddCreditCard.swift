@@ -123,6 +123,10 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
         self.present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func onCrossPressed(_ sender: Any) {
+        dismiss()
+    }
+
     func startCardSuccessAnim(){
         lblVerifyingCardInfo.isHidden = true
         lblCardAddedSuccess.isHidden = false
