@@ -69,5 +69,18 @@ class KTNewAddCreditCardVM: KTBaseViewModel {
             }
         })
     }
+    
+    //    http://www.consumer.karwatechnologies.com/?result=failed&message=%20card%20number%20invalid%20or%20missing.%20expiry%20year%20invalid%20or%20missing.%20expiry%20month%20invalid%20or%20missing.
+    func getErrorMsg(response: String) -> String?
+    {
+        var message: String? = nil
 
+        if !response.isEmpty
+        {
+            message = response.components(separatedBy: "message=")[1]
+            message = NSString(string: message!).removingPercentEncoding!
+        }
+
+        return message
+    }
 }

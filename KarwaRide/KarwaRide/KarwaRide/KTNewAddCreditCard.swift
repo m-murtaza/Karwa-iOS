@@ -97,14 +97,9 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
             startCardValidationAnim()
             vModel?.updateSession()
         }
-//    http://www.consumer.karwatechnologies.com/?result=failed&message=%20card%20number%20invalid%20or%20missing.%20expiry%20year%20invalid%20or%20missing.%20expiry%20month%20invalid%20or%20missing.
         else if urlAsString.range(of: "result=failed&message") != nil
         {
-            showErrorMsg(title: "str_oops".localized(), msg: getErrorMessage(urlAsString))
-        }
-        else
-        {
-            showErrorMsg()
+            showErrorMsg(title: "str_oops".localized(), msg: self.vModel?.getErrorMsg(response: urlAsString) ?? "please_dialog_msg_went_wrong".localized())
         }
     }
     
@@ -119,14 +114,13 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
     
     func showErrorMsg(title: String, msg: String)
     {
-        let alertController = UIAlertController(title: title, message: msg.localized(), preferredStyle: .alert)
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
 
         let okAction = UIAlertAction(title: "str_ok".localized(), style: .default) { (UIAlertAction) in self.dismiss()}
 
         alertController.addAction(okAction)
         
-        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.showAlter(alertController: alertController)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func startCardSuccessAnim(){
