@@ -71,7 +71,6 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     
     func getPromotions(promotions: [PromotionModel])
     func rebookRide()
-    func showToolTipForNotACurrentLocation()
 }
 
 let CHECK_DELAY = 90.0
@@ -1841,9 +1840,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     //self.delegate?.userIntraction(enable: true)
                     if self.delegate != nil {
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
-                        if self.booking.pickupLat != KTLocationManager.sharedInstance.baseLocation.coordinate.latitude && self.booking.pickupLon != KTLocationManager.sharedInstance.baseLocation.coordinate.longitude {
-                            (self.delegate as! KTCreateBookingViewModelDelegate).showToolTipForNotACurrentLocation()
-                        }
                     }
                 }
             }

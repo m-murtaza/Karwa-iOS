@@ -1164,10 +1164,6 @@ class KTCreateBookingViewController:
     self.pickupLabel.text = pick
     self.pickupLabel.font = UIFont(name: "MuseoSans-700", size: 13.0)!
   }
-    
-    func showToolTipForNotACurrentLocation() {
-        self.showToolTip(forView: self.pickupAddressLabel, text: "str_pickup_lication".localized())
-    }
   
   func setDropOff(drop: String?) {
     
