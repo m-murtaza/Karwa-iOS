@@ -94,7 +94,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupPromoState()
-        vModel!.fetchPromotions(params: self.pickupDropoff)
+        vModel!.fetchPromotions(params: self.pickupDropoff!)
     }
     
     private func setSheetClosure() {

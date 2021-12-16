@@ -456,6 +456,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             params.dropoffLat = booking.dropOffLat
             params.dropoffLong = booking.dropOffLon
         }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss a"
+        let date = dateFormatter.string(from: selectedPickupDateTime)
+        params.dateTime = date
 
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
@@ -712,7 +716,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     }
                     else
                     {
-                        (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                        let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "error_sr".localized()
+                        let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "please_dialog_msg_went_wrong".localized()
+                        
+                        (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: title, descMessage: message, completion:
                                                                                 { (UIAlertAction) in
                                                                                     self.removeBooking = false
                                                                                     self.promo = ""
@@ -988,6 +995,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         selectedPickupDateTime = date
         updateUI(forDate: selectedPickupDateTime)
+        getPromotions()
     }
     
     func updateUI(forDate date: Date)

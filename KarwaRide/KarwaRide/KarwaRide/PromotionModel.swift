@@ -32,4 +32,5 @@ struct PromotionParams {
     var pickupLong: Double?
     var dropoffLat: Double?
     var dropoffLong: Double?
+    var dateTime: String?
 }
