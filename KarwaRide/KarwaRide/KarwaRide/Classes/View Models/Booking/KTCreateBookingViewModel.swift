@@ -1158,6 +1158,26 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return result.isEmpty ? "txt_not_available".localized() : result
     }
     
+    func getAvailableEta() -> String {
+        var result = ""
+        
+        if let _ = self.vehicleTypes {
+            
+            if  !isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result =  "str_starting_fare".localized()
+            } else if isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result = "str_estimated_fare".localized()
+            } else {
+                if let item : KTVehicleType = vehicleTypes?.first(where: {$0.etaText != ""}) {
+                    result = item.etaText ?? "txt_not_available".localized()
+                }
+            }
+            
+        }
+        
+        return result.isEmpty ? "txt_not_available".localized() : result
+    }
+    
     func getTypeVehicleImage(typeId: Int16) -> UIImage {
         var imgSType : UIImage = UIImage()
         if let sType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {

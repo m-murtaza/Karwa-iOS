@@ -147,7 +147,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
-    cell.time.text = viewModel.getTypeEta(typeId: item!.typeId)
+    cell.time.text = viewModel.getAvailableEta()
     cell.icon.image = viewModel.getTypeVehicleImage(typeId: item!.typeId)
     let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
     cell.promoBadge.isHidden = shouldHidePromoFare
