@@ -18,6 +18,9 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
     @IBOutlet weak var swipCardAnim: AnimationView!
     @IBOutlet weak var cardSuccessAnim: AnimationView!
 
+    @IBOutlet weak var lblVerifyingCardInfo: UILabel!
+    @IBOutlet weak var lblCardAddedSuccess: UILabel!
+    
     var walletController: KTWalletViewController!
 
     private var vModel : KTNewAddCreditCardVM?
@@ -40,10 +43,9 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
         
         swipCardAnim.isHidden = true
         cardSuccessAnim.isHidden = true
-//
-//        startCardValidationAnim()
-//        startCardSuccessAnim()
-        
+        lblVerifyingCardInfo.isHidden = true
+        lblCardAddedSuccess.isHidden = true
+
         vModel?.viewDidLoad()
     }
 
@@ -72,6 +74,11 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
         if urlAsString.range(of: "gateway3ds2://3dsecure/?result=true") != nil
         {
             startCardSuccessAnim()
+            KTPaymentManager().fetchPaymentsFromServer { (status, response) in
+                self.walletController.vModel?.fetchnPaymentMethods()
+                self.walletController.reloadTable()
+            }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { self.dismiss() }
         }
         else if urlAsString.range(of: "gateway3ds2://3dsecure/?result=false") != nil
@@ -89,6 +96,11 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
             showHideWebView(hide: true)
             startCardValidationAnim()
             vModel?.updateSession()
+        }
+//    http://www.consumer.karwatechnologies.com/?result=failed&message=%20card%20number%20invalid%20or%20missing.%20expiry%20year%20invalid%20or%20missing.%20expiry%20month%20invalid%20or%20missing.
+        else if urlAsString.range(of: "result=failed&message") != nil
+        {
+            showErrorMsg(title: "str_oops".localized(), msg: getErrorMessage(urlAsString))
         }
         else
         {
@@ -118,18 +130,23 @@ class KTNewAddCreditCard: KTBaseDrawerRootViewController, KTNewAddCreditCardVMDe
     }
     
     func startCardSuccessAnim(){
+        lblVerifyingCardInfo.isHidden = true
+        lblCardAddedSuccess.isHidden = false
         cardSuccessAnim.isHidden = false
         cardSuccessAnim.loopMode = .loop
         cardSuccessAnim.play()
     }
     
     func startCardValidationAnim(){
+        lblCardAddedSuccess.isHidden = true
+        lblVerifyingCardInfo.isHidden = false
         swipCardAnim.isHidden = false
         swipCardAnim.loopMode = .loop
         swipCardAnim.play()
     }
     
     func stopCardValidationAnim(){
+        lblVerifyingCardInfo.isHidden = true
         swipCardAnim.stop()
         swipCardAnim.isHidden = true
     }

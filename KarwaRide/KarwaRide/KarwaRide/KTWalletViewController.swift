@@ -17,7 +17,7 @@ class KTWalletViewController: KTBaseDrawerRootViewController, KTWalletViewModelD
     @IBOutlet weak var availableBalanceTitleLable: UILabel!
     @IBOutlet weak var availableBalanceValueLable: UILabel!
     
-    private var vModel : KTWalletViewModel?
+    public var vModel : KTWalletViewModel?
     
     private let refreshControl = UIRefreshControl()
     
