@@ -1354,13 +1354,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             description = "description_accessible".localized()
             
         case VehicleType.KTStandardLimo.rawValue:
-            description = "txt_limo_standard".localized()
+            description = "description_standard_limo".localized()
             
         case VehicleType.KTBusinessLimo.rawValue:
-            description = "txt_limo_buisness".localized()
+            description = "description_business_limo".localized()
             
         case VehicleType.KTLuxuryLimo.rawValue:
             description = "description_limo".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            description = "description_electric_limo".localized()
+            
         default:
             description = ""
         }
