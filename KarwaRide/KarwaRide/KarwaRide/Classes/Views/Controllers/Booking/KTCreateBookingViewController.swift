@@ -46,11 +46,6 @@ class RideServiceCell: UITableViewCell {
     contentView.layer.cornerRadius = selected ? 8 : 0
     serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
     fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-    if(selected && !animated)
-    {
-        icon.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
-        icon.animate()
-    }
   }
 
   func setFare(fare: String) {
