@@ -106,7 +106,7 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
 
         if(indexPath.row == 3)
         {
-            cellHeight = (viewModel as! KTEditUserViewModel).resendVisible() ? 50 : 20
+            cellHeight = (viewModel as! KTEditUserViewModel).resendVisible() ? 70 : 40
         }
 
         return CGFloat(cellHeight)
@@ -136,7 +136,14 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
             let cell : KTEmailCellViewController = tableView.dequeueReusableCell(withIdentifier: "identifierEmailCell") as! KTEmailCellViewController
             cell.viewModel = (viewModel as! KTEditUserViewModel)
             cell.message.text = (viewModel as! KTEditUserViewModel).emailMessage()
-            cell.message.isHidden = (viewModel as! KTEditUserViewModel).emailVerified()
+            if (viewModel as! KTEditUserViewModel).emailMessage() == "email_verified".localized() {
+                cell.message.textColor = UIColor(hexString: "#1ABC9C")
+                cell.message.text = (viewModel as! KTEditUserViewModel).emailMessage()
+            } else {
+                cell.message.textColor = UIColor(hexString: "#6E6E70")
+            }
+            cell.message.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+            cell.message.isHidden = false //(viewModel as! KTEditUserViewModel).emailVerified()
             cell.resendButton.isHidden = (!(viewModel as! KTEditUserViewModel).resendVisible())
             cell.backgroundColor = UIColor(hexString: "#EFFAF8")
             return cell

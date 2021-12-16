@@ -54,7 +54,8 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     @IBOutlet weak var btnRevealBtn : SpringButton!
     @IBOutlet weak var btnCancelBtn : SpringButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
-    
+    @IBOutlet weak var hintLabel: LocalisableLabel!
+
     lazy var paymentSelectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PaymentSelectionBottomSheetController") as! PaymentSelectionBottomSheetController    
     lazy var sheet = SheetViewController(
         controller: paymentSelectionVC,

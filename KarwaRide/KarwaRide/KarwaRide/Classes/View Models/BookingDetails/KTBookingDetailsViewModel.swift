@@ -65,10 +65,13 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>)
     func addPointsOnMap(encodedPath: String)
     func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints])
+    func removeWayPoints()
     func setPickup(pick: String?)
     func setDropOff(pick: String?)
     func addWalkToPickUpMarker()
+    func addWalkToDropOffMarker()
     func removeWalkToPickUpMarker()
+    func removeWalkToDropOffMarker()
 }
 
 extension KTBookingDetailsViewModelDelegate {
@@ -76,7 +79,10 @@ extension KTBookingDetailsViewModelDelegate {
     func setDropOff(pick: String?) {}
     func addPointsOnMapWithWayPoints(encodedPath: String, wayPoints: [WayPoints]) {}
     func addWalkToPickUpMarker(){}
+    func addWalkToDropOffMarker(){}
     func removeWalkToPickUpMarker(){}
+    func removeWalkToDropOffMarker(){}
+    func removeWayPoints(){}
 }
 
 //MARK: -

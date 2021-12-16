@@ -162,7 +162,12 @@ class KTBookingManager: KTBaseFareEstimateManager {
         b.pickupLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupLon] as! Double : 0.0
         b.pickupMessage = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupMessage] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickupMessage] as? String : ""
         b.pickupTime = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickupTime] as AnyObject)) ? Date.dateFromServerString(date: booking[Constants.BookingResponseAPIKey.PickupTime] as? String): Date.defaultDate()
-        
+        b.pickStopLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickStopLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickStopLat] as! Double : 0.0
+        b.pickStopLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PickStopLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PickStopLon] as! Double : 0.0
+
+        b.dropStopLat = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.dropStopLat] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.dropStopLat] as! Double : 0.0
+        b.dropStopLon = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.dropStopLon] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.dropStopLon] as! Double : 0.0
+
         b.serviceType = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.ServiceType] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.ServiceType] as! Int16 : 0
         b.totalDistance = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.TotalDistance] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.TotalDistance] as? String : ""
         b.tripTrack = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.Track] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.Track] as? String : ""

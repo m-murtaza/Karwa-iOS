@@ -108,6 +108,7 @@ class DashboardAddressCell: UICollectionViewCell {
         addressLabel.text = destination.name
       }
         bottomCardContainer.layer.cornerRadius = 15
+        bottomCardContainer.addShadowBottomXpress()
       self.layer.masksToBounds = false
     }
   }
@@ -410,7 +411,7 @@ class KTCreateBookingViewController:
     
     // Do any additional setup after loading the view.
     addMap()
-    
+            
     self.navigationItem.hidesBackButton = true;
     self.btnRevealBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
     

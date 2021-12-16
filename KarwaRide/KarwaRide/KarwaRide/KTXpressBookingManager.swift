@@ -131,7 +131,8 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
                  },
                  "Zone":32,
                  "Station":12,
-                 "Stop":32
+                 "Stop":32,
+                 "Name": "Dalla driving school"
              },
              "Drop":{
                  "Location":{
@@ -139,7 +140,8 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
                  },
                  "Zone":32,
                  "Station":12,
-                 "Stop":32
+                 "Stop":32,
+                 "Name": "Al awab"
              },
              "PassengerCount":2
          }
@@ -147,9 +149,28 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         
         var param  = [String: Any]()
         
-        let pickUpLocationData = ["Location": ["Lat": "\(rideData.pickUpCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.pickUpCoordinate?.longitude ?? 0.0)"], "zone": rideData.pickUpZone?.code ?? "", "station": rideData.pickUpStation?.code ?? "", "stop": rideData.pickUpStop?.code ?? ""] as [String : Any]
+        var pickAddress  = ""
+        var dropAddress  = ""
+
+        if rideData.pickUpStop != nil {
+            pickAddress = rideData.pickUpStop?.name ?? ""
+        } else if rideData.pickUpStop != nil {
+            pickAddress = rideData.pickUpStation?.name ?? ""
+        }  else if rideData.pickUpZone != nil {
+            pickAddress = rideData.pickUpZone?.name ?? ""
+        }
+        
+        if rideData.dropOffStop != nil {
+            dropAddress = rideData.dropOffStop?.name ?? ""
+        } else if rideData.dropOfSftation != nil {
+            dropAddress = rideData.dropOfSftation?.name ?? ""
+        }  else if rideData.dropOffZone != nil {
+            dropAddress = rideData.dropOffZone?.name ?? ""
+        }
+        
+        let pickUpLocationData = ["Location": ["Lat": "\(rideData.pickUpCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.pickUpCoordinate?.longitude ?? 0.0)"], "Zone": rideData.pickUpZone?.code ?? "", "Station": rideData.pickUpStation?.code ?? "", "Stop": rideData.pickUpStop?.code ?? "", "Name": pickAddress] as [String : Any]
         //
-        let dropOffLocationData = ["Location": ["Lat": "\(rideData.dropOffCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.dropOffCoordinate?.longitude ?? 0.0)"], "zone": rideData.dropOffZone?.code ?? "", "station": rideData.dropOfSftation?.code ?? "", "stop": rideData.dropOffStop?.code ?? ""] as [String : Any]
+        let dropOffLocationData = ["Location": ["Lat": "\(rideData.dropOffCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.dropOffCoordinate?.longitude ?? 0.0)"], "Zone": rideData.dropOffZone?.code ?? "", "Station": rideData.dropOfSftation?.code ?? "", "Stop": rideData.dropOffStop?.code ?? "", "Name": dropAddress] as [String : Any]
         //
         param["Pick"] = pickUpLocationData
         param["Drop"] = dropOffLocationData
