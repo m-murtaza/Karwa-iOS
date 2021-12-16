@@ -20,6 +20,8 @@
 		0D1B1B72216E48E4001D4925 /* KTIssueSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */; };
 		0D1B4C6D22ED759C00CABE26 /* KTManagePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B4C6C22ED759C00CABE26 /* KTManagePaymentViewController.swift */; };
 		0D1B4C6F22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */; };
+		0D489F9B276A05FC00562155 /* card_swiping.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D489F99276A05FC00562155 /* card_swiping.json */; };
+		0D489F9C276A05FC00562155 /* payment_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D489F9A276A05FC00562155 /* payment_success.json */; };
 		0D499D54258F5EF200404DD3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D499D56258F5EF200404DD3 /* InfoPlist.strings */; };
 		0D5C7094220AFA6D00541A21 /* BookingBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5C7093220AFA6D00541A21 /* BookingBean.swift */; };
 		0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EAA8520EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift */; };
@@ -40,6 +42,8 @@
 		0DB2224622BA30CA00C41D00 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224222BA30C900C41D00 /* Countries.swift */; };
 		0DB2224722BA30CA00C41D00 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2224322BA30C900C41D00 /* CountryList.swift */; };
 		0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */; };
+		0DBCBD41276758220068C973 /* KTNewAddCreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBCBD40276758220068C973 /* KTNewAddCreditCard.swift */; };
+		0DBCBD4427675E200068C973 /* KTNewAddCreditCardVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBCBD4327675E200068C973 /* KTNewAddCreditCardVM.swift */; };
 		0DC4A9172591E9EB007974BF /* LocalisableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */; };
 		0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */; };
 		0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE48CB242358DB0018E3F0 /* Transaction.swift */; };
@@ -298,6 +302,8 @@
 		0D1B1B71216E48E4001D4925 /* KTIssueSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTIssueSelectionViewController.swift; sourceTree = "<group>"; };
 		0D1B4C6C22ED759C00CABE26 /* KTManagePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewController.swift; sourceTree = "<group>"; };
 		0D1B4C6E22ED7E3A00CABE26 /* KTManagePaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTManagePaymentViewModel.swift; sourceTree = "<group>"; };
+		0D489F99276A05FC00562155 /* card_swiping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = card_swiping.json; sourceTree = "<group>"; };
+		0D489F9A276A05FC00562155 /* payment_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = payment_success.json; sourceTree = "<group>"; };
 		0D499D55258F5EF200404DD3 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0D499D57258F5EFE00404DD3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0D5C7093220AFA6D00541A21 /* BookingBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingBean.swift; path = Classes/Common/Utility/BookingBean.swift; sourceTree = "<group>"; };
@@ -319,6 +325,8 @@
 		0DB2224222BA30C900C41D00 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		0DB2224322BA30C900C41D00 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ride_shiner.json; sourceTree = "<group>"; };
+		0DBCBD40276758220068C973 /* KTNewAddCreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTNewAddCreditCard.swift; sourceTree = "<group>"; };
+		0DBCBD4327675E200068C973 /* KTNewAddCreditCardVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTNewAddCreditCardVM.swift; sourceTree = "<group>"; };
 		0DC4A9162591E9EB007974BF /* LocalisableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalisableTextField.swift; sourceTree = "<group>"; };
 		0DCE48C92423589E0018E3F0 /* MerchantAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MerchantAPI.swift; sourceTree = "<group>"; };
 		0DCE48CB242358DB0018E3F0 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
@@ -682,10 +690,28 @@
 		0DBC403525AEE9E4001AFDA2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				0D489F99276A05FC00562155 /* card_swiping.json */,
+				0D489F9A276A05FC00562155 /* payment_success.json */,
 				0DBC403625AEEA1C001AFDA2 /* ride_shiner.json */,
 				181344A01EF68671006E734A /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		0DBCBD3F276758030068C973 /* AddCard */ = {
+			isa = PBXGroup;
+			children = (
+				0DBCBD40276758220068C973 /* KTNewAddCreditCard.swift */,
+			);
+			name = AddCard;
+			sourceTree = "<group>";
+		};
+		0DBCBD4227675E040068C973 /* AddCard */ = {
+			isa = PBXGroup;
+			children = (
+				0DBCBD4327675E200068C973 /* KTNewAddCreditCardVM.swift */,
+			);
+			name = AddCard;
 			sourceTree = "<group>";
 		};
 		0DE6A733218B140200125507 /* MPGS */ = {
@@ -1195,6 +1221,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0DBCBD3F276758030068C973 /* AddCard */,
 				B7ADBC0D274526BF000B9073 /* Promotions */,
 				1811AE2526AD19DA002C991E /* Xpress */,
 				F09D469B262C518C00695369 /* CyberSecure */,
@@ -1225,6 +1252,7 @@
 		186487201F0A359D00DDB003 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				0DBCBD4227675E040068C973 /* AddCard */,
 				B7ADBC132745318C000B9073 /* Promotions */,
 				1811AE3B26AD1A39002C991E /* KTXpressDropoffViewModel.swift */,
 				1811AE3C26AD1A39002C991E /* KTXpressPickUpViewModel.swift */,
@@ -1779,8 +1807,10 @@
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
 				18C24B022004E269002D4B88 /* MuseoSans-100.otf in Resources */,
+				0D489F9B276A05FC00562155 /* card_swiping.json in Resources */,
 				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
 				B7ADBC1927461F38000B9073 /* KTPromotionCell.xib in Resources */,
+				0D489F9C276A05FC00562155 /* payment_success.json in Resources */,
 				181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */,
 				18C24B042004E269002D4B88 /* MuseoSans-300.otf in Resources */,
 				18C24B052004E269002D4B88 /* MuseoSans-300Italic.otf in Resources */,
@@ -2037,6 +2067,7 @@
 				F03DB004261D41AA002B3C44 /* KTAddCreditViewController.swift in Sources */,
 				1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */,
 				18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */,
+				0DBCBD41276758220068C973 /* KTNewAddCreditCard.swift in Sources */,
 				0D1A4B5C216CAF1C00279AA6 /* KTComplaintsCategoryTableViewCell.swift in Sources */,
 				1811AE3826AD1A1B002C991E /* KTXpressAddressViewController.swift in Sources */,
 				B7ADBC15274531AC000B9073 /* KTPromotionsViewModel.swift in Sources */,
@@ -2110,6 +2141,7 @@
 				18819BCC26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.swift in Sources */,
 				0DE6A743218B141200125507 /* Gateway.swift in Sources */,
 				18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */,
+				0DBCBD4427675E200068C973 /* KTNewAddCreditCardVM.swift in Sources */,
 				18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */,
 				1833CA6E200779C200AD885B /* KTUserManager+ForgotPass.swift in Sources */,
 				1811AE3726AD1A1B002C991E /* ViewControllerExtension.swift in Sources */,
@@ -2401,7 +2433,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 246;
@@ -2419,7 +2451,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = KarwaAppStoreProvisionProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
