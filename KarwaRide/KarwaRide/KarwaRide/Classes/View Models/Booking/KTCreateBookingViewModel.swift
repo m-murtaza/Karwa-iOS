@@ -1181,7 +1181,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             } else if isDropAvailable() && (selectedPickupDateTime >= Date()) {
                 result = "str_estimated_fare".localized()
             } else {
-                result = vehicleCategories[category.rawValue]?.compactMap({$0.etaText}).min() ?? ""
+                let minEta = vehicleCategories[category.rawValue]?.compactMap({Int($0.etaText?.components(separatedBy: " ").first ?? "")}).min() ?? -1
+                if minEta == -1 {
+                    result = "txt_not_available".localized()
+                }
+                else {
+                    let eta = vehicleCategories[category.rawValue]?.first(where: { item in
+                        item.etaText?.starts(with: String(minEta)) ?? false
+                    })?.etaText ?? ""
+                    result = eta
+                }
             }
             
         }
