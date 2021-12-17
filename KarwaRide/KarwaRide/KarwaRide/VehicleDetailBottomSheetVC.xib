@@ -29,6 +29,9 @@
                 <outlet property="btnRequestBooking" destination="abl-bt-Bah" id="1LI-fI-jmx"/>
                 <outlet property="btnRightArrow" destination="gIk-ms-Ieq" id="dtp-7u-yIl"/>
                 <outlet property="collectionView" destination="ew1-0w-C0G" id="gEF-YJ-9Ie"/>
+                <outlet property="fareDetailStackView" destination="CQc-9u-BIg" id="G69-2V-P7s"/>
+                <outlet property="headerStackView" destination="cvO-FT-kNw" id="Ubg-6y-Zcd"/>
+                <outlet property="infoStackView" destination="0O1-hg-t65" id="NDh-ak-eOE"/>
                 <outlet property="lblCapacity" destination="seL-Pw-Flp" id="1q3-ix-IqG"/>
                 <outlet property="lblDescription" destination="mHU-qh-MKF" id="g7o-RC-f2B"/>
                 <outlet property="lblHeader" destination="l6j-st-ufd" id="6is-ua-fJu"/>
@@ -249,9 +252,9 @@
                                                                         <constraint firstItem="0O1-hg-t65" firstAttribute="top" secondItem="5Vj-Au-Srx" secondAttribute="top" id="7tj-ML-JaJ"/>
                                                                         <constraint firstAttribute="height" constant="35" id="EwX-3U-euX"/>
                                                                         <constraint firstItem="sJA-Oq-nsy" firstAttribute="top" secondItem="0O1-hg-t65" secondAttribute="bottom" id="ZAt-iv-NaQ"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="sJA-Oq-nsy" secondAttribute="trailing" constant="23" id="f5I-sK-84V"/>
+                                                                        <constraint firstItem="sJA-Oq-nsy" firstAttribute="trailing" secondItem="0O1-hg-t65" secondAttribute="trailing" id="e5R-Fn-4l5"/>
+                                                                        <constraint firstItem="sJA-Oq-nsy" firstAttribute="leading" secondItem="0O1-hg-t65" secondAttribute="leading" id="g3g-eM-EJD"/>
                                                                         <constraint firstAttribute="trailing" secondItem="0O1-hg-t65" secondAttribute="trailing" constant="23" id="jCP-eF-jdY"/>
-                                                                        <constraint firstItem="sJA-Oq-nsy" firstAttribute="leading" secondItem="5Vj-Au-Srx" secondAttribute="leading" constant="23" id="rpv-ck-whf"/>
                                                                         <constraint firstAttribute="bottom" secondItem="0O1-hg-t65" secondAttribute="bottom" constant="20" symbolic="YES" id="tDn-9k-piH"/>
                                                                     </constraints>
                                                                 </view>
@@ -397,6 +400,9 @@
                                                                                     </subviews>
                                                                                 </stackView>
                                                                             </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="371" id="fbQ-Oj-45D"/>
+                                                                            </constraints>
                                                                         </stackView>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abl-bt-Bah" customClass="LocalisableSpringButton" customModule="KarwaRide" customModuleProvider="target">
                                                                             <rect key="frame" x="23" y="137" width="371" height="50"/>
@@ -425,11 +431,10 @@
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <constraints>
                                                                         <constraint firstItem="CQc-9u-BIg" firstAttribute="top" secondItem="THV-vx-MT2" secondAttribute="top" constant="8" id="5jF-uY-cok"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="CQc-9u-BIg" secondAttribute="trailing" constant="23" id="8p0-tN-dl8"/>
-                                                                        <constraint firstItem="CQc-9u-BIg" firstAttribute="leading" secondItem="THV-vx-MT2" secondAttribute="leading" constant="23" id="EeK-Pz-08A"/>
                                                                         <constraint firstAttribute="bottom" secondItem="abl-bt-Bah" secondAttribute="bottom" constant="15" id="YKk-t2-Qxb"/>
                                                                         <constraint firstItem="abl-bt-Bah" firstAttribute="trailing" secondItem="CQc-9u-BIg" secondAttribute="trailing" id="bOl-aJ-dws"/>
                                                                         <constraint firstItem="abl-bt-Bah" firstAttribute="top" secondItem="CQc-9u-BIg" secondAttribute="bottom" constant="17" id="mRM-jy-se9"/>
+                                                                        <constraint firstItem="CQc-9u-BIg" firstAttribute="centerX" secondItem="THV-vx-MT2" secondAttribute="centerX" id="vgY-17-dpC"/>
                                                                         <constraint firstItem="abl-bt-Bah" firstAttribute="leading" secondItem="CQc-9u-BIg" secondAttribute="leading" id="z1B-x4-bxp"/>
                                                                     </constraints>
                                                                 </view>

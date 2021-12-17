@@ -35,6 +35,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var uiPreventTouch: UIView!
     @IBOutlet weak var uiPromo: UIView!
     
+    @IBOutlet weak var fareDetailStackView: UIStackView!
+    @IBOutlet weak var headerStackView: UIStackView!
+    @IBOutlet weak var infoStackView: UIStackView!
+    
     @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
     
     var vModel: KTCreateBookingViewModel?
@@ -102,6 +106,11 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         
         btnRightArrow.setImage(UIImage(named: "ic_right_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
         btnLeftArrow.setImage(UIImage(named: "ic_left_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        
+        let cellWidth = (collectionView.frame.width * 0.8)-8
+        fareDetailStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
+        headerStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
+        infoStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
     }
     
     func updateDetailBottomSheet(forIndex: Int = 0){
@@ -325,7 +334,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: String(describing: VehicleDetailCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: VehicleDetailCarouselCell.self))
         let layout = UPCarouselFlowLayout()
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 2)
         layout.sideItemScale = 0.8
         layout.itemSize = CGSize(width: collectionView.frame.width * 0.8, height: collectionView.frame.height)
         layout.scrollDirection = .horizontal
