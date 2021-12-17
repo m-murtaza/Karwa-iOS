@@ -1171,7 +1171,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return result.isEmpty ? "txt_not_available".localized() : result
     }
     
-    func getAvailableEta() -> String {
+    func getAvailableEta(category: VehicleCategories) -> String {
         var result = ""
         
         if let _ = self.vehicleTypes {
@@ -1181,9 +1181,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             } else if isDropAvailable() && (selectedPickupDateTime >= Date()) {
                 result = "str_estimated_fare".localized()
             } else {
-                if let item : KTVehicleType = vehicleTypes?.first(where: {$0.etaText != ""}) {
-                    result = item.etaText ?? "txt_not_available".localized()
-                }
+                result = vehicleCategories[category.rawValue]?.compactMap({$0.etaText}).min() ?? ""
             }
             
         }

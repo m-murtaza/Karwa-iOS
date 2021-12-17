@@ -128,22 +128,25 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     var item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
     if indexPath.section == 0 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
+        cell.time.text = viewModel.getAvailableEta(category: .FIRST)
     }
     else if indexPath.section == 1 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue).first
+        cell.time.text = viewModel.getAvailableEta(category: .SECOND)
     }
       else if indexPath.section == 2 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue).first
+          cell.time.text = viewModel.getAvailableEta(category: .THIRD)
     }
     else {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FOURTH.rawValue).first
+        cell.time.text = viewModel.getAvailableEta(category: .FOURTH)
     }
 
     cell.serviceName.text = viewModel.getVehicleCategory(vehicleType: item!.typeId)
     let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
-    cell.time.text = viewModel.getAvailableEta()
     cell.icon.image = viewModel.getTypeVehicleImage(typeId: item!.typeId)
     let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
     cell.promoBadge.isHidden = shouldHidePromoFare
