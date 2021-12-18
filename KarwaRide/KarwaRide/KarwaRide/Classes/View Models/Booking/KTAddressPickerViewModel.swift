@@ -470,7 +470,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 
             if idx.row < bookmarks.count  {
                 if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
-                  area = bookmarks[idx.row].name!
+                    area = bookmarks[idx.row].geolocationToBookmark!.name!.capitalizingFirstLetter()
                 }
                 else if bookmarks[idx.row].favoriteName.count > 0 {
                   area = bookmarks[idx.row].favoriteName
@@ -518,10 +518,13 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 
             if idx.row < bookmarks.count  {
                 if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].name != nil {
-                  area = bookmarks[idx.row].name!
+                    area = bookmarks[idx.row].geolocationToBookmark!.name!.capitalizingFirstLetter()
                 }
-                else if bookmarks[idx.row].area != nil {
-                  area = bookmarks[idx.row].area!
+                else if bookmarks[idx.row].favoriteName.count > 0 {
+                  area = bookmarks[idx.row].favoriteName
+                }
+                else if bookmarks[idx.row].name != nil {
+                  area = bookmarks[idx.row].name!
                 }
             } else {
                 area = ""
