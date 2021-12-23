@@ -1224,6 +1224,21 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return imgSType
     }
     
+    func getVehicleCategoyIcon(category: VehicleCategories) -> UIImage {
+        var icon : UIImage = UIImage()
+        switch category {
+        case .FIRST:
+            icon = UIImage(named: "icon-taxi-category")!
+        case .SECOND:
+            icon = UIImage(named: "icon-accessible-category")!
+        case .THIRD:
+            icon = UIImage(named: "icon-limo-category")!
+        case .FOURTH:
+            icon = UIImage(named: "icon-etectric-category")!
+        }
+        return icon
+    }
+    
     func getEstimate(typeId: Int16) -> KTFareEstimate? {
         let vEstimate : KTFareEstimate? = self.estimate(forVehicleType: typeId)
         return vEstimate

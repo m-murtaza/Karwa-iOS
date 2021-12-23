@@ -129,25 +129,28 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     if indexPath.section == 0 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
         cell.time.text = viewModel.getAvailableEta(category: .FIRST)
+        cell.icon.image = viewModel.getVehicleCategoyIcon(category: .FIRST)
     }
     else if indexPath.section == 1 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue).first
         cell.time.text = viewModel.getAvailableEta(category: .SECOND)
+        cell.icon.image = viewModel.getVehicleCategoyIcon(category: .SECOND)
     }
       else if indexPath.section == 2 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue).first
           cell.time.text = viewModel.getAvailableEta(category: .THIRD)
+          cell.icon.image = viewModel.getVehicleCategoyIcon(category: .THIRD)
     }
     else {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FOURTH.rawValue).first
         cell.time.text = viewModel.getAvailableEta(category: .FOURTH)
+        cell.icon.image = viewModel.getVehicleCategoyIcon(category: .FOURTH)
     }
 
     cell.serviceName.text = viewModel.getVehicleCategory(vehicleType: item!.typeId)
     let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
-    cell.icon.image = viewModel.getTypeVehicleImage(typeId: item!.typeId)
     let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
     cell.promoBadge.isHidden = shouldHidePromoFare
     if(viewModel.isPremiumRide(typeId: item!.typeId)){
