@@ -77,6 +77,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         return pageSize
     }
     var screenSize: CGRect!
+    var widthRatio = 0.8
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +107,16 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         btnRightArrow.setImage(UIImage(named: "ic_right_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
         btnLeftArrow.setImage(UIImage(named: "ic_left_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
         
-        let cellWidth = (collectionView.frame.width * 0.8)-8
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 1920, 2208:
+                print("iPhone 6+/6S+/7+/8+")
+                widthRatio = 0.9
+            default:
+                widthRatio = 0.8
+            }
+        }
+        let cellWidth = (collectionView.frame.width * widthRatio)-8
         fareDetailStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
         headerStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
         infoStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
@@ -303,7 +313,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width * 0.8, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -333,7 +343,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
         let layout = UPCarouselFlowLayout()
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 2)
         layout.sideItemScale = 0.8
-        layout.itemSize = CGSize(width: collectionView.frame.width * 0.8, height: collectionView.frame.height)
+        layout.itemSize = CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0

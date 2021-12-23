@@ -105,7 +105,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="417" height="185"/>
                                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="185" id="E2N-hy-JRk"/>
+                                                                                <constraint firstAttribute="height" priority="999" constant="185" id="E2N-hy-JRk"/>
                                                                             </constraints>
                                                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="PWq-Qn-kdm">
                                                                                 <size key="itemSize" width="128" height="128"/>
@@ -480,9 +480,6 @@
         </view>
     </objects>
     <designables>
-        <designable name="abl-bt-Bah">
-            <size key="intrinsicContentSize" width="155" height="33"/>
-        </designable>
         <designable name="dc3-o0-44i">
             <size key="intrinsicContentSize" width="164" height="164"/>
         </designable>
