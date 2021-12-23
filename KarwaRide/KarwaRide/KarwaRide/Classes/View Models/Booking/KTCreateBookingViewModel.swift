@@ -1232,7 +1232,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         case .SECOND:
             icon = UIImage(named: "icon-accessible-category")!
         case .THIRD:
-            icon = UIImage(named: "icon-limo-category")!
+            icon = UIImage(named: "icon-luxury-category")!
         case .FOURTH:
             icon = UIImage(named: "icon-etectric-category")!
         }
