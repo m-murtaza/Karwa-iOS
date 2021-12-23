@@ -33,7 +33,6 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var btnLeftArrow: SpringButton!
     @IBOutlet weak var svDetail: UIStackView!
     @IBOutlet weak var uiPreventTouch: UIView!
-    @IBOutlet weak var uiPromo: UIView!
     
     @IBOutlet weak var fareDetailStackView: UIStackView!
     @IBOutlet weak var headerStackView: UIStackView!
@@ -125,8 +124,6 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             let fare = vModel.getTypeBaseFareOrEstimate(typeId: vehicles[forIndex].typeId)
             self.setFare(fare: fare)
             self.lblTotal.text = fare
-            let shouldHidePromoFare = !(vModel.isPromoFare(typeId: vehicles[forIndex].typeId))
-            self.uiPromo.isHidden = shouldHidePromoFare
             
             var orderedBody = vModel.getEstimateOrderedBody(typeId: vehicles[forIndex].typeId)
             if orderedBody == nil {
@@ -135,7 +132,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
             svDetail.subviews.forEach({ $0.removeFromSuperview() })
             if let orderedBody = orderedBody {
                 svDetail.isHidden = false
-                let sheetHeight = CGFloat(470+(15*orderedBody.count)+(self.lblDescription.calculateMaxLines()*10)+(shouldHidePromoFare ? 0 : 30))
+                let sheetHeight = CGFloat(470+(15*orderedBody.count)+(self.lblDescription.calculateMaxLines()*10))
                 sheet?.setSizes([.fixed(sheetHeight)])
                 for i in 0 ..< orderedBody.count {
                     setFarDetails(fareDetail: orderedBody[i], fareBreakDownView: svDetail)

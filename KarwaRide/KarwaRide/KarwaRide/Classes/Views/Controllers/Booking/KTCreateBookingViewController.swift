@@ -291,7 +291,11 @@ class KTCreateBookingViewController:
         }
         self.lblPromotionCount.text = promotionCount
         if promotions.count > 0 {
-            self.showToolTip(forView: self.uiPromotionCount)
+            let toolTipDisplayCount = (Int(SharedPrefUtil.getSharePref(SharedPrefUtil.PROMOTION_TOOLTIP_COUNT)) ?? 0) + 1
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.PROMOTION_TOOLTIP_COUNT, "\(toolTipDisplayCount)")
+            if toolTipDisplayCount <= 3 {
+                self.showToolTip(forView: self.uiPromotionCount)
+            }
             if !self.previousPromoCode.isEmpty && promotions.contains(where: {$0.code == self.previousPromoCode}) {
                 self.applyPromoTapped(self.previousPromoCode)
             }
