@@ -45,7 +45,7 @@ class RideServiceCell: UITableViewCell {
       uiMainView.layer.borderColor = selected ? UIColor(hexString: "#00A8A8").cgColor : UIColor.clear.cgColor
       uiMainView.layer.borderWidth = selected ? 2 : 0
       uiMainView.layer.cornerRadius = 8
-      uiMainView.layer.shadowRadius = 4
+      uiMainView.layer.shadowRadius = 2
       uiMainView.layer.shadowOpacity = 0.1
       uiMainView.layer.shadowOffset = CGSize(width: 0, height: 0)
       uiMainView.layer.shadowColor = UIColor.black.cgColor
@@ -176,11 +176,15 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     
     // Set the spacing between sections
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
     }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
