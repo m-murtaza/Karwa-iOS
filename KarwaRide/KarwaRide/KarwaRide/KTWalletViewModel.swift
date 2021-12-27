@@ -239,7 +239,7 @@ class KTWalletViewModel: KTBaseViewModel {
             olDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             oldDate = olDateFormatter.date(from: inputDate)
         }
-
+        
         let convertDateFormatter = DateFormatter()
         convertDateFormatter.dateFormat = "h:mm a dd MMM yyyy"
         

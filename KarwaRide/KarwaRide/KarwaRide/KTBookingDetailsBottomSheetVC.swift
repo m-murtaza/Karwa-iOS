@@ -67,7 +67,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var lblDriverName: LocalisableSpringLabel!
     @IBOutlet weak var starView: SpringLabel!
     var sheetCoordinator: UBottomSheetCoordinator?
-    var sheet: SheetViewController?
+    weak var sheet: SheetViewController?
 
     @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
@@ -96,6 +96,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         return view
     }()
     
+    deinit{
+        print("KTBookingDetailsBottomSheetVC->deinit")
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -114,6 +118,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 //        sheetCoordinator?.addDropShadowIfNotExist()
 //        (sheetCoordinator?.parent as! (KTBookingDetailsViewController)).setMapPadding(height: 40)
         constraintPlateNo.constant = Device.language().contains("ar") ? 60 : 25
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.sheet?.attemptDismiss(animated: true)
     }
     
     func draggableView() -> UIScrollView? {
@@ -220,6 +229,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBAction func btnRebookTap(_ sender: UIButton)
     {
+        sheet?.attemptDismiss(animated: true)
         vModel?.buttonTapped(withTag: BottomBarBtnTag.Rebook.rawValue)
     }
     

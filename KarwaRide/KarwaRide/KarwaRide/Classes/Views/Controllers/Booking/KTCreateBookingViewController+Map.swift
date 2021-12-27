@@ -11,12 +11,34 @@ import GoogleMaps
 
 extension KTCreateBookingViewController: GMSMapViewDelegate {
   
-  func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-    if gesture {
-      self.showCurrentLocationButton()
+    fileprivate func setHintLabelText() {
+        let distanceInMeters = KTLocationManager.sharedInstance.currentLocation.distance(from: KTLocationManager.sharedInstance.baseLocation) // result is in meters
+        
+        print(KTLocationManager.sharedInstance.currentLocation)
+        print(KTLocationManager.sharedInstance.baseLocation)
+
+        print("distanceInMeters", distanceInMeters)
+        
+        if distanceInMeters <= 10 {
+            self.hintLabel.text = "txt_gesture".localized()
+        } else {
+            self.hintLabel.text = "Pick up location is not your current location"
+        }
     }
-  }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if gesture {
+            self.showCurrentLocationButton()
+        }
+        
+    }
+    
+    
   
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+       // setHintLabelText()
+    }
+    
   func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
     if(mapView.camera.target.latitude == 0.0)
     {

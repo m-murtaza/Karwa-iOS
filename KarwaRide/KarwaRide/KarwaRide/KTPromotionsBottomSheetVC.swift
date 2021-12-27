@@ -18,10 +18,11 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     @IBOutlet weak var btnApply: SpringButton!
     @IBOutlet weak var btnShowMore: UIButton!
     @IBOutlet weak var uiPromoInput: SpringView!
+    @IBOutlet weak var lblHeading: UILabel!
     
     var pickupDropoff: PromotionParams?
     
-    var sheet: SheetViewController? {
+    weak var sheet: SheetViewController? {
         didSet {
             self.setSheetClosure()
         }
@@ -40,6 +41,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         
         self.setupView()
         self.setupTBL()
+        self.setupKeyboardNotifications()
     }
     
     private func setupView() {
@@ -49,14 +51,38 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         tfPromoCode.delegate = self
     }
     
+    func setupKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNotification(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNotification(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardNotification(_ notification: NSNotification) {
+        let isShowing = notification.name == .UIKeyboardWillShow
+        if isShowing {
+            self.tableView.isHidden = true
+            self.btnShowMore.isHidden = true
+        }
+        else {
+            self.tableView.isHidden = false
+            self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
+        }
+    }
+    
+    deinit {
+        print("KTPromotionsBottomSheetVC->deinit")
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func setupPromoState() {
         var btnText = "promo_apply".localized()
         if let promo = previousPromo, !promo.isEmpty {
             btnText = "str_remove".localized()
             tfPromoCode.isUserInteractionEnabled = false
+            lblHeading.text = "str_applied_promo".localized() + " (\(promo))"
         } else {
             btnText = "promo_apply".localized()
             tfPromoCode.isUserInteractionEnabled = true
+            lblHeading.text = "str_promo_codes".localized()
         }
         let title = NSAttributedString(
             string: btnText,
@@ -68,7 +94,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupPromoState()
-        vModel!.fetchPromotions(params: self.pickupDropoff)
+        vModel!.fetchPromotions(params: self.pickupDropoff!)
     }
     
     private func setSheetClosure() {
@@ -153,13 +179,17 @@ extension KTPromotionsBottomSheetVC: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: KTPromotionCell = tableView.dequeueReusableCell(withIdentifier: String(describing: KTPromotionCell.self)) as! KTPromotionCell
-        cell.configPromoBottomSheetCell(data: vModel!.getPromotion(at: indexPath.row))
+        var isApplied = false
+        let promotionData = vModel!.getPromotion(at: indexPath.row)
+        if promotionData.code == previousPromo {
+            isApplied = true
+        }
+        cell.configPromoBottomSheetCell(data: promotionData, isApplied: isApplied)
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let promo = previousPromo, !promo.isEmpty {return}
         if let promoCode = vModel!.getPromotion(at: indexPath.row).code {
             previousView?.applyPromoTapped(promoCode)
             self.sheet?.attemptDismiss(animated: true)

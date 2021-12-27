@@ -49,7 +49,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var mapView : GMSMapView!
     
     var sheetCoordinator: UBottomSheetCoordinator!
-    
+    var pickAndDropMarker = [GMSMarker]()
+
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
     @IBOutlet weak var btnRecenter: UIButton!
@@ -59,7 +60,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
 
-    var bottomSheetVC : KTBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as! KTBookingDetailsBottomSheetVC
+    weak var bottomSheetVC : KTBookingDetailsBottomSheetVC?
 
     var isOpenFromNotification : Bool = false
 
@@ -67,11 +68,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
     var showCancelCharges = false
-
-    lazy var sheet = SheetViewController(
-        controller: bottomSheetVC,
-        sizes: [.percent(0.25), .intrinsic],
-        options: SheetOptions(useInlineMode: true))
+    var manualMoveBegins: Bool = false
     
     lazy var scheduleTimeTitleLable: UILabel = {
         let view = UILabel()
@@ -91,8 +88,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //        sheetCoordinator = UBottomSheetCoordinator(parent: self)
 //        sheetCoordinator.dataSource = self
 //
-        bottomSheetVC.sheet = sheet
-        bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
+        bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as? KTBookingDetailsBottomSheetVC
+        let sheet = SheetViewController(
+            controller: bottomSheetVC!,
+            sizes: [.percent(0.25), .intrinsic],
+            options: SheetOptions(useInlineMode: true))
+        bottomSheetVC?.sheet = sheet
+        bottomSheetVC?.vModel = viewModel as? KTBookingDetailsViewModel
 //        sheetCoordinator.addSheet(bottomSheetVC, to: self)
 //        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
 //        sheetCoordinator.delegate = self
@@ -145,6 +147,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         {
             haltAutoZooming = true
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        manualMoveBegins = true
     }
     
     var isBottomSheetExpanded = true
@@ -285,17 +291,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     //MARK:- ETA
     func updateEta(eta: String)
     {
-        bottomSheetVC.updateEta(eta: eta)
+        bottomSheetVC?.updateEta(eta: eta)
     }
     
     func hideEtaView()
     {
-        bottomSheetVC.hideEtaView()
+        bottomSheetVC?.hideEtaView()
     }
     
     func showEtaView()
     {
-        bottomSheetVC.showEtaView()
+        bottomSheetVC?.showEtaView()
     }
     
     func showHideShareButton(_ show : Bool)
@@ -411,7 +417,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateAssignmentInfo()
     {
-        bottomSheetVC.updateAssignmentInfo()
+        bottomSheetVC?.updateAssignmentInfo()
     }
     //MARK:- CallerId
     func updateCallerId()
@@ -420,12 +426,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     //MARK:- Booking Card
     func updateBookingCard()
     {
-        bottomSheetVC.updateBookingCard()
+        bottomSheetVC?.updateBookingCard()
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     {
-        bottomSheetVC.updateBookingStatusOnCard(withAnimation)
+        bottomSheetVC?.updateBookingStatusOnCard(withAnimation)
     }
     
     func updateBookingStatusOnCard()
@@ -435,11 +441,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateBookingCardForCompletedBooking() {
         
-        bottomSheetVC.updateBookingCardForCompletedBooking()
+        bottomSheetVC?.updateBookingCardForCompletedBooking()
     }
     
     func updateBookingCardForUnCompletedBooking() {
-        bottomSheetVC.updateBookingCardForUnCompletedBooking()
+        bottomSheetVC?.updateBookingCardForUnCompletedBooking()
     }
     
     
@@ -493,17 +499,19 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
     }
     
-    func updateMapCamera()
-    {
-        if(marker != nil)
+    func updateMapCamera() {
+        if manualMoveBegins == false
         {
-            var bounds = GMSCoordinateBounds()
-            bounds = bounds.includingCoordinate((marker?.position)!)
-            bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
-            
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 100)
-            mapView.animate(with: update!)
+            if(marker != nil)
+            {
+                var bounds = GMSCoordinateBounds()
+                bounds = bounds.includingCoordinate((marker?.position)!)
+                bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
+                
+                var update : GMSCameraUpdate?
+                update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+                mapView.animate(with: update!)
+            }
         }
     }
     
@@ -548,25 +556,48 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
     }
     
+    func addMarkerOnMapAndGet(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker {
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(marker.position)
+        return marker
+        
+    }
+    
     func addPickupMarker(location : CLLocationCoordinate2D) {
-        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+        
+        pickAndDropMarker.append(addMarkerOnMapAndGet(location: location, image: UIImage(named:"APPickUpMarker")!))
+//        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+        //focusMapToShowAllMarkers
     }
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
-        addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
         
-        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
-
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-        mapView.animate(with: update)
-
-        mapView.setMinZoom(1, maxZoom: 20)
+        pickAndDropMarker.append(addMarkerOnMapAndGet(location: location, image: UIImage(named:"APDropOffMarker")!))
+        
+        focusMapToShowAllMarkers(gmsMarker: pickAndDropMarker)
+        
+//        addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
+//
+//        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
+//
+////        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+//        mapView.animate(with: GMSCameraUpdate.fit(bounds, with: UIEdgeInsets(top: 0, left: -10, bottom: 50, right: 100)))
+//
+//        mapView.setMinZoom(1, maxZoom: 20)
         
     }
     
     func setMapCamera(bound : GMSCoordinateBounds) {
         
-        mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 50.0))
+        mapView.animate(with: GMSCameraUpdate.fit(bound, with: UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 100)))
+        
+//        mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 100.0))
     }
     
     func clearMaps()
@@ -718,17 +749,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func hidePhoneButton() {
-        bottomSheetVC.hidePhoneButton()
+        bottomSheetVC?.hidePhoneButton()
     }
     
     func hideDriverInfoBox() {
         self.showCancelCharges = false
-        bottomSheetVC.hideDriverInfoBox()
+        bottomSheetVC?.hideDriverInfoBox()
     }
     
     func showDriverInfoBox() {
         self.showCancelCharges = true
-        bottomSheetVC.showDriverInfoBox()
+        bottomSheetVC?.showDriverInfoBox()
     }
     
     func setMapPadding(height : CGFloat)
@@ -745,7 +776,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateHeaderMsg(_ msg : String)
     {
-        bottomSheetVC.updateHeaderMsg(msg)
+        bottomSheetVC?.updateHeaderMsg(msg)
     }
     
     func hideRecenterBtn()
@@ -755,6 +786,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func btnRecenterTap(_ sender: Any)
     {
+        manualMoveBegins = false
         updateMapCamera()
     }
 

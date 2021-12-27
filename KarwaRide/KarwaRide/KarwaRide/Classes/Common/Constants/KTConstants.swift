@@ -221,6 +221,7 @@ struct Constants {
         static let Phone = "Phone"
         static let SessionID = "SessionID"
         static let MaskedEmail = "MaskedEmail"
+        static let IsEmailVerified = "IsEmailVerified"
     }
     
     struct GeoLocationResponseAPIKey {
@@ -317,6 +318,11 @@ struct Constants {
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"
         static let PickupLon = "PickupLon"
+        static let PickStopLat = "PickStopLat"
+        static let PickStopLon = "PickStopLon"
+        static let dropStopLat = "DropStopLat"
+        static let dropStopLon = "DropStopLon"
+
         static let PickupMessage = "PickupMessage"
         static let PickupTime = "PickupTime"
         
@@ -603,6 +609,7 @@ struct Constants {
         static let PickupLong = "plon"
         static let DropoffLat = "dlat"
         static let DropoffLong = "dlon"
+        static let DateTime = "dateTime"
     }
     
 }

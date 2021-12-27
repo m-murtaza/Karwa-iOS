@@ -17,6 +17,7 @@ class KTPromotionsViewController: KTBaseViewController {
     private let refreshControl = UIRefreshControl()
     
     private var selectedIndex: IndexPath?
+    var isShowMore = false
     
     override func viewDidLoad() {
         if viewModel == nil
@@ -38,7 +39,16 @@ class KTPromotionsViewController: KTBaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        vModel?.fetchPromotions()
+        self.fetchPromotions()
+    }
+    
+    private func fetchPromotions() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss a"
+        let currentDate = dateFormatter.string(from: Date())
+        var params: PromotionParams = PromotionParams()
+        params.dateTime = currentDate
+        vModel?.fetchPromotions(params: params)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,7 +82,7 @@ class KTPromotionsViewController: KTBaseViewController {
     }
     
     @objc func refresh(sender:AnyObject){
-        (viewModel as! KTPromotionsViewModel).fetchPromotions()
+        self.fetchPromotions()
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,12 +128,12 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
         if let selectedIndex = self.selectedIndex, selectedIndex == indexPath {
             isSelected = true
         }
-        cell.isShowMore = vModel!.getShowMore(at: indexPath.row)
+        cell.isShowMore = isSelected ? self.isShowMore : false
         cell.index = indexPath
         cell.configCell(isSelected: isSelected, data: vModel!.getPromotion(at: indexPath.row))
         cell.onClickShowMore = { [weak self] (isShowMore, index) in
             guard let `self` = self else {return}
-            self.vModel?.setShowMore(at: index.row, value: !isShowMore)
+            self.isShowMore = !isShowMore
             self.selectedIndex = index
             self.tableView.reloadData()
         }
@@ -133,7 +143,7 @@ extension KTPromotionsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedIndex = indexPath
-        self.vModel?.setShowMore(at: indexPath.row, value: !vModel!.getShowMore(at: indexPath.row))
+        self.isShowMore = true
         self.tableView.reloadData()
     }
     

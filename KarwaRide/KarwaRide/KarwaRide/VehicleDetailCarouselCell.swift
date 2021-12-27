@@ -14,6 +14,7 @@ class VehicleDetailCarouselCell: UICollectionViewCell {
     @IBOutlet weak var imgBg : UIImageView!
     @IBOutlet weak var imgVehicleType : SpringImageView!
     @IBOutlet weak var imgAccessibleUser : UIImageView!
+    @IBOutlet weak var uiPromo: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +24,8 @@ class VehicleDetailCarouselCell: UICollectionViewCell {
     
     func config(vModel: KTCreateBookingViewModel, vehicle: KTVehicleType) {
         imgVehicleType.image = vModel.getTypeVehicleImage(typeId: vehicle.typeId)
+        let shouldHidePromoFare = !(vModel.isPromoFare(typeId: vehicle.typeId))
+        self.uiPromo.isHidden = shouldHidePromoFare
         if vehicle.typeId == Int16(VehicleType.KTSpecialNeedTaxi.rawValue) {
             self.imgAccessibleUser.isHidden = false
         }
