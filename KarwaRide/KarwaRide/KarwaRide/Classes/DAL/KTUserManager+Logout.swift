@@ -19,7 +19,7 @@ extension KTUserManager {
             let alertController = UIAlertController(title: "str_session_expired".localized(), message: "str_login_again".localized(), preferredStyle: .alert)
             
             //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            let okAction = UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
+            let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
                 
                 self.logout { (status, response) in
                     print("Logout on server " + status)

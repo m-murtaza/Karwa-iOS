@@ -12,6 +12,7 @@ import StoreKit
 protocol KTSettingsViewModelDelegate {
     func showLogoutConfirmAlt()
     func reloadTable()
+    func showNavigation()
 }
 class KTSettingsViewModel: KTBaseViewModel {
 
@@ -24,8 +25,9 @@ class KTSettingsViewModel: KTBaseViewModel {
         userInfo = KTUserManager().loginUserInfo()
         (delegate as! KTSettingsViewModelDelegate).reloadTable()
         KTUserManager().fetchUserInfoFromServer { _ in
-            
+            self.reloadData()
         }
+        (delegate as! KTSettingsViewModelDelegate).showNavigation()
     }
     
     func reloadData()

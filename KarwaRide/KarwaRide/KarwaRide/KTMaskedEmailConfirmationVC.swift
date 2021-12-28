@@ -145,9 +145,9 @@ class KTMaskedEmailConfirmationVC: KTBaseViewController, KTMaskedEmailViewModelD
     
     func navigateToLogin() {
         let alertController = UIAlertController(title: "",
-                                                message: "Verified".localized(),
+                                                message: "str_verified".localized(),
                                                 preferredStyle: .alert)
-        let doneAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { (UIAlertAction) in
+        let doneAction = UIAlertAction(title: NSLocalizedString("OK".localized(), comment: ""), style: .default) { (UIAlertAction) in
             if self.previousView != nil {
                 self.previousView?.dismiss()
             }

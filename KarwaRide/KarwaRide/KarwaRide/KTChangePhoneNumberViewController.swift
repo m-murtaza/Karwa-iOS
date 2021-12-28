@@ -145,7 +145,7 @@ class KTChangePhoneNumberViewController: KTBaseViewController, KTForgotPassViewM
       let otpView : KTOTPViewController = segue.destination as! KTOTPViewController
 //      otpView.previousView = previousView
       otpView.otpType = "CHANGE_NUMBER_CHALLENGE"
-      otpView.countryCode = countryCode()!
+      otpView.countryCode = KTUserManager().loginUserInfo()?.countryCode ?? ""
       otpView.phone = KTUserManager().loginUserInfo()?.phone ?? ""
     }
 

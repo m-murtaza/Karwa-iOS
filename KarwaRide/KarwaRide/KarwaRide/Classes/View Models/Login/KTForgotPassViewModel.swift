@@ -97,7 +97,7 @@ class KTForgotPassViewModel: KTBaseViewModel {
         {
           delegate?.showProgressHud(show: true, status: "str_loading".localized())
             
-            KTUserManager().changePhoneNumber(param: ["CountryCode" : "+" + country.phoneExtension, "phone": KTUserManager().loginUserInfo()?.phone ?? "", "NewPhone":  phone!, "NewCountryCode": "+" + country.phoneExtension], completion: { status, response in
+            KTUserManager().changePhoneNumber(param: ["CountryCode" : KTUserManager().loginUserInfo()?.countryCode ?? "", "phone": KTUserManager().loginUserInfo()?.phone ?? "", "NewPhone":  phone!, "NewCountryCode": "+" + country.phoneExtension], completion: { status, response in
 
                 self.delegate?.showProgressHud(show: false)
                 if status == Constants.APIResponseStatus.SUCCESS

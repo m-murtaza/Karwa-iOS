@@ -26,15 +26,37 @@ extension KTUserManager
     
     func varifyOTP(countryCode: String, phone:String, code:String, otpType:String, completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
         let params: Parameters = [Constants.LoginParams.Phone : phone,
-                                            Constants.LoginParams.CountryCode : countryCode,
-                                            Constants.LoginParams.OTP:code,
-                                            Constants.LoginParams.OtpType: otpType]
+                                  Constants.LoginParams.CountryCode : countryCode,
+                                  Constants.LoginParams.OTP:code,
+                                  Constants.LoginParams.OtpType: otpType]
         
         self.post(url: Constants.APIURL.Otp, param: params, completion: completionBlock, success: {
             (responseData,cBlock) in
+            
+            if otpType == "SIGN_UP_CHALLENGE" {
+                //OtpOperationStatus
+                if let challenge = responseData["OtpOperationStatus"] as? String, challenge == "NEW_CUSTOMER_CREATED" || challenge == "REPLACED_INACTIVE_CUSTOMER" {
+                    self.saveUserInSessionInfo(responseData)
+                    self.saveUserInfoInDB(responseData,completion: {(success:Bool) -> Void in
+                        completionBlock(Constants.APIResponseStatus.SUCCESS, responseData)
+                    })
+                } else {
+                    completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+                }
+                
+            } else {
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            }
+            
         })
-        
+    }
+    
+    func loginUser(countryCode: String, phone:String, code:String, otpType:String, completion completionBlock:@escaping KTDALCompletionBlock) -> Void {
+        let params: NSMutableDictionary = [Constants.LoginParams.Phone : phone,
+                                           Constants.LoginParams.CountryCode : countryCode]
+        self.login(params: params, url: Constants.APIURL.Login) { (success, response) in
+            completionBlock(Constants.APIResponseStatus.SUCCESS, response)
+        }
     }
     
     func getChallenge(countryCode: String, phone:String, completion completionBlock:@escaping KTDALCompletionBlock) {

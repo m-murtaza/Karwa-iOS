@@ -28,7 +28,10 @@ class KTOTPViewModel: KTBaseViewModel {
     
 
     func getChallenge(countryCode: String, phone:String) {
+        
+        delegate?.showProgressHud(show: true, status: "")
         KTUserManager().getChallenge(countryCode: countryCode, phone: phone, completion: { (status, response) in
+            self.delegate?.showProgressHud(show: false)
             print("challenge response", response)
             if let challengeType = response["ChallengeType"] as? String {
                 if challengeType == "Name" || challengeType == "Email" {
@@ -43,6 +46,17 @@ class KTOTPViewModel: KTBaseViewModel {
                 
             }
         })
+    }
+    
+    func loginUser(countryCode: String, phone: String, code: String, otpType: String) {
+        KTUserManager().loginUser(countryCode: countryCode, phone: phone, code: code, otpType: otpType) { status, response in
+            if status == Constants.APIResponseStatus.SUCCESS {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
+                (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
+            } else {
+                self.delegate?.showError!(title: "", message: response["M"] as! String)
+            }
+        }
     }
     
     func confirmCode() {
@@ -64,12 +78,19 @@ class KTOTPViewModel: KTBaseViewModel {
                     if let challenge = response["OtpOperationStatus"] as? String, challenge == "ASK_TO_SOLVE_CHALLENGE"{
                         self.getChallenge(countryCode: countryCode, phone: phone)
                     } else {
-                        if status == Constants.APIResponseStatus.SUCCESS {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
+                        
+                        if let challenge = response["OtpOperationStatus"] as? String, challenge == "NEW_CUSTOMER_CREATED" || challenge == "REPLACED_INACTIVE_CUSTOMER" {
                             (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
                         } else {
-                            self.delegate?.showError!(title: "", message: response["M"] as! String)
+                            if status == Constants.APIResponseStatus.SUCCESS {
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.Notification.UserLogin), object: nil)
+                                (self.delegate as! KTOTPViewModelDelegate).navigateToBooking()
+                            } else {
+                                self.delegate?.showError!(title: "", message: response["M"] as! String)
+                            }
                         }
+                        
+                        
                     }
                     
                 })

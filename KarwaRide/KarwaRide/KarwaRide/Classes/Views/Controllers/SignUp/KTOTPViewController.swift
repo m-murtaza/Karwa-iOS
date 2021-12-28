@@ -115,6 +115,7 @@ class KTOTPViewController: KTBaseViewController, KTOTPViewModelDelegate {
         //self.performSegue(withIdentifier: "segueOtpToBooking", sender: self)
         // previousView?.dismiss()
         if otpType == "CHANGE_NUMBER_CHALLENGE" {
+            self.navigationController?.isNavigationBarHidden = false
             self.navigationController?.popToRootViewController(animated: true)
         } else{
             previousView?.dismissAndNavigateToBooking()

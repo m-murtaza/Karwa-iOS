@@ -37,6 +37,10 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
 
     }
 
+    func showNavigation() {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     @objc func updateUI()
     {
         (viewModel as! KTSettingsViewModel).reloadData()
