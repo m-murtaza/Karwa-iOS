@@ -15,7 +15,7 @@ protocol KTSettingsViewModelDelegate {
 }
 class KTSettingsViewModel: KTBaseViewModel {
 
-    private var userInfo : KTUser?
+    var userInfo : KTUser?
     override func viewDidLoad() {
         
     }

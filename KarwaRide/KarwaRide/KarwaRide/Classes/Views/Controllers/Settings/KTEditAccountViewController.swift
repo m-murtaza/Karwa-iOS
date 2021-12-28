@@ -212,7 +212,12 @@ class KTEditAccountViewController: KTBaseViewController,KTEditUserViewModelDeleg
         (viewModel as! KTEditUserViewModel).updateDOB(dob: date)
     }
     
-    
+    func showEditPhoneNumber() {
+        let changeInputViewController = storyboard?.instantiateViewController(withIdentifier: "KTChangePhoneNumberViewController") as! KTChangePhoneNumberViewController
+        
+        self.navigationController?.pushViewController(changeInputViewController, animated: true)
+
+    }
     
     func showInputDialog(header: String, subHeader: String, currentText : String, inputType: String)
     {

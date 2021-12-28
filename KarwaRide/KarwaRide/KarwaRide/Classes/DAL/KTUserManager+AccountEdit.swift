@@ -121,6 +121,24 @@ extension KTUserManager {
         })
     }
     
+    public func changePhoneNumber(param : [String:Any], completion completionBlock:@escaping KTDALCompletionBlock) {
+        self.post(url: Constants.APIURL.changeNumber, param: param, completion: completionBlock, success: {
+            (responseData,cBlock) in
+            
+            //do {
+                /*let user : KTUser = self.loginUserInfo()!
+                user.name = param[Constants.EditAccountInfoParam.Name] as? String
+                user.email = param[Constants.EditAccountInfoParam.Email] as? String
+                NSManagedObjectContext.mr_default().mr_saveToPersistentStoreAndWait()*/
+                completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            //}
+            //catch _{
+                
+              //  completionBlock(Constants.APIResponseStatus.FAILED_DB,[:])
+            //}
+        })
+    }
+    
     func updateOTP(otp: String, completion completionBlock:@escaping KTDALCompletionBlock) {
         let param : NSMutableDictionary = [Constants.OtpParams.otp : otp]
         

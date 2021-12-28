@@ -11,7 +11,6 @@ protocol KTForgotPassViewModelDelegate: KTViewModelDelegate {
     func phoneNumber() -> String?
     func password() -> String?
     func rePassword() -> String?
-
     func navigateToOTP()
     func navigateToEnterEmail(phone: String, password: String, maskedEmail: String)
 }
@@ -83,6 +82,42 @@ class KTForgotPassViewModel: KTBaseViewModel {
         
     }
     
+    func btnChangePhonenumberTapped() ->Void
+    {
+        phone = (delegate as! KTForgotPassViewModelDelegate).phoneNumber()
+        
+        print(phone?.extractCountryCode ?? "")
+                
+        if country.phoneExtension == "\(phone?.extractCountryCode() ?? "")" {
+            phone = phone?.components(separatedBy: "\(phone?.extractCountryCode() ?? "")")[1] ?? ""
+        }
+        
+        let error = validate()
+        if error.count == 0
+        {
+          delegate?.showProgressHud(show: true, status: "str_loading".localized())
+            
+            KTUserManager().changePhoneNumber(param: ["CountryCode" : "+" + country.phoneExtension, "phone": KTUserManager().loginUserInfo()?.phone ?? "", "NewPhone":  phone!, "NewCountryCode": "+" + country.phoneExtension], completion: { status, response in
+
+                self.delegate?.showProgressHud(show: false)
+                if status == Constants.APIResponseStatus.SUCCESS
+                {
+                    (self.delegate as! KTForgotPassViewModelDelegate).navigateToOTP()
+                }
+                else
+                {
+                    (self.delegate as! KTForgotPassViewModelDelegate).showError!(title: response["T"] as? String ?? "error_sr".localized(), message: response["M"] as! String)
+                }
+            })
+        }
+        else
+        {
+            (delegate as! KTForgotPassViewModelDelegate).showError!(title: "error_sr".localized(),
+                                                                    message: error)
+        }
+        
+    }
+    
     func validate() -> String {
         var error : String = ""
         if !KTUtils.isObjectNotNil(object: phone! as AnyObject) || phone!.count == 0
@@ -92,23 +127,6 @@ class KTForgotPassViewModel: KTBaseViewModel {
         else if !(phone?.isPhoneValid(region: country.countryCode))!
         {
             error = ForgotPassValidationError().WrongPhone
-        }
-        
-        else if !KTUtils.isObjectNotNil(object: password as AnyObject) || password?.count == 0
-        {
-            error = ForgotPassValidationError().NoPassword
-        }
-        else if !KTUtils.isObjectNotNil(object: rePassword as AnyObject) || rePassword?.count == 0
-        {
-            error = ForgotPassValidationError().NoRePassword
-        }
-        else if (password != rePassword)
-        {
-            error = ForgotPassValidationError().PasswordNotMatch
-        }
-        else if (password?.count)! < 6
-        {
-            error = ForgotPassValidationError().PasswordSixChar
         }
         return error
     }

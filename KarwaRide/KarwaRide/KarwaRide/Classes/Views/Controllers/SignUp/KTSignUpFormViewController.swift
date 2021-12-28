@@ -191,6 +191,7 @@ class KTSignUpFormViewController: KTBaseLoginSignUpViewController, KTSignUpViewM
       let otpViewNav : UINavigationController  = segue.destination as! UINavigationController
       let otpView = otpViewNav.topViewController as! KTOTPViewController
       otpView.previousView = self
+      otpView.otpType = "SIGN_UP_CHALLENGE"
       
       otpView.countryCode = "+" + (viewModel as! KTSignUpFormViewModel).country.phoneExtension
       otpView.phone = mobileNo()!

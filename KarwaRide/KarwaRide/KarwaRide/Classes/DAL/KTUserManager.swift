@@ -81,6 +81,12 @@ class KTUserManager: KTDALManager {
     private func isUserAlreadyLogin(completion: @escaping (Bool) -> Void)
     {
         let loginUser : KTUser? = loginUserInfo()
+        
+        guard loginUser?.sessionId != nil else {
+            completion(false)
+            return
+        }
+        
         guard (loginUser != nil) else {
             
             completion(false)

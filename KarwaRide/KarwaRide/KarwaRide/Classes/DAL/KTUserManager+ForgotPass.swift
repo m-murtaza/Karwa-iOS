@@ -14,7 +14,7 @@ extension KTUserManager
                                       Constants.LoginParams.CountryCode : countryCode,
                                            Constants.UpdatePassParam.Password: password]
         
-        self.post(url: Constants.APIURL.ForgotPass, param: param, completion: completionBlock) { (response, cBlock) in
+        self.post(url: Constants.APIURL.ForgotPasswordNew, param: param, completion: completionBlock) { (response, cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS, response)
         }
         
@@ -28,6 +28,19 @@ extension KTUserManager
                                       Constants.EditAccountInfoParam.Email: email]
         
         self.post(url: Constants.APIURL.ForgotPass, param: param, completion: completionBlock) { (response, cBlock) in
+            cBlock(Constants.APIResponseStatus.SUCCESS, response)
+        }
+        
+    }
+        
+    func verifyChallenge(countryCode: String, phone: String, challenge: String, challengeType: String, challengeAnswer: String, completion completionBlock:@escaping KTDALCompletionBlock)
+    {
+        let param : [String : Any] = [Constants.VerifyChallengeParams.Phone : countryCode+phone,
+                                      Constants.VerifyChallengeParams.challenge : challenge,
+                                      Constants.VerifyChallengeParams.challengeType: challengeType,
+                                      Constants.VerifyChallengeParams.challengeAnswer: challengeAnswer]
+        
+        self.post(url: Constants.APIURL.verifyChallenge, param: param, completion: completionBlock) { (response, cBlock) in
             cBlock(Constants.APIResponseStatus.SUCCESS, response)
         }
         

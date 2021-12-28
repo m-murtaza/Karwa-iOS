@@ -211,6 +211,7 @@
 		18B9076A2022F89C000F45FE /* BookingConfermationPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907692022F89C000F45FE /* BookingConfermationPopupVC.swift */; };
 		18B9076C2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9076B2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift */; };
 		18B9076E20271184000F45FE /* map_style_karwa.json in Resources */ = {isa = PBXBuildFile; fileRef = 18B9076D20271183000F45FE /* map_style_karwa.json */; };
+		18C0ED982772E75500AD33D8 /* KTChangePhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0ED972772E75500AD33D8 /* KTChangePhoneNumberViewController.swift */; };
 		18C24AC6200340F3002D4B88 /* KTUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC5200340F3002D4B88 /* KTUtils.swift */; };
 		18C24AC920035AEA002D4B88 /* KTSignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */; };
 		18C24ACB200361C5002D4B88 /* KTSignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */; };
@@ -498,6 +499,7 @@
 		18B907692022F89C000F45FE /* BookingConfermationPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookingConfermationPopupVC.swift; path = Classes/Views/Controllers/Booking/BookingConfermationPopupVC.swift; sourceTree = "<group>"; };
 		18B9076B2026F7EA000F45FE /* CLLocationCoordinate2D +Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CLLocationCoordinate2D +Utils.swift"; path = "Classes/Common/Extensions/CLLocationCoordinate2D +Utils.swift"; sourceTree = "<group>"; };
 		18B9076D20271183000F45FE /* map_style_karwa.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = map_style_karwa.json; path = Resources/map_style_karwa.json; sourceTree = "<group>"; };
+		18C0ED972772E75500AD33D8 /* KTChangePhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTChangePhoneNumberViewController.swift; sourceTree = "<group>"; };
 		18C24AC5200340F3002D4B88 /* KTUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTUtils.swift; path = Classes/Common/Utility/KTUtils.swift; sourceTree = "<group>"; };
 		18C24AC820035AEA002D4B88 /* KTSignUpFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewController.swift; path = Classes/Views/Controllers/SignUp/KTSignUpFormViewController.swift; sourceTree = "<group>"; };
 		18C24ACA200361C5002D4B88 /* KTSignUpFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSignUpFormViewModel.swift; path = "Classes/View Models/SignUp/KTSignUpFormViewModel.swift"; sourceTree = "<group>"; };
@@ -1290,6 +1292,7 @@
 				1833CA692007467F00AD885B /* KTForgotPassViewController.swift */,
 				1839111D20481EEE002EDE1A /* KTBaseLoginSignUpViewController.swift */,
 				18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */,
+				18C0ED972772E75500AD33D8 /* KTChangePhoneNumberViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -2080,6 +2083,7 @@
 				B7A29FB927201EFD00494949 /* VehicleDetailCarouselCell.swift in Sources */,
 				18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */,
 				0DE90AF72186E9FB005FC934 /* KTPaymentViewModel.swift in Sources */,
+				18C0ED982772E75500AD33D8 /* KTChangePhoneNumberViewController.swift in Sources */,
 				1833CA87200E10C900AD885B /* KTBookingManager+Track.swift in Sources */,
 				18DEC618272E7FB9006D560A /* KTXpressLocationSetUpViewModel.swift in Sources */,
 				0DCE48CC242358DC0018E3F0 /* Transaction.swift in Sources */,

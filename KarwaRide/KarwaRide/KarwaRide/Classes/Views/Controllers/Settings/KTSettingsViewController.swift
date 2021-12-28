@@ -61,6 +61,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             let destination : KTSetHomeWorkViewController = segue.destination as! KTSetHomeWorkViewController
             destination.bookmarkType = BookmarkType.home
             destination.previousView = self
+        }else if segue.identifier == "segueSettingToChangePhoneNumber" {
+            let destination : KTChangePhoneNumberViewController = segue.destination as! KTChangePhoneNumberViewController
+            destination.userProfile = KTUserManager().loginUserInfo()
         }
         else if segue.identifier == "segueSettingsToSetWork" {
             let destination : KTSetHomeWorkViewController = segue.destination as! KTSetHomeWorkViewController
@@ -82,6 +85,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             numRows = 2
         }
         else if section == 3 {
+            numRows = 2
+        }else if section == 1 {
             numRows = 2
         }
         return numRows
@@ -168,7 +173,17 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
             (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
         }
-        
+        else if indexPath.section == 1 && indexPath.row == 1 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            guard let _ = cell else {
+                return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
+            }
+            cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            (cell as! KTSettingsImgTextTableViewCell).lblText.text = "Change Phone Number"
+            (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconPassword")
+            (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
+            (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
+        }
         else if indexPath.section == 2 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
             guard let _ = cell else {
@@ -261,7 +276,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         }
         
         
-        return cell!
+        return cell ?? UITableViewCell()
     }
     
     @objc func setOneTimePassword(sender: UIButton) {
@@ -296,6 +311,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 self.performSegue(name: "segueSettingToChangePassword")
+            }else if indexPath.row == 1 {
+                self.performSegue(name: "segueSettingToChangePhoneNumber")
             }
         }
         else if indexPath.section == 2 {

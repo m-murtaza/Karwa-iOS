@@ -407,6 +407,7 @@ struct Constants {
         static let DeviceType = "DeviceType"
         static let DeviceToken = "DeviceToken"
         static let OTP = "Otp"
+        static let OtpType = "otpType"
     }
     
     struct DeviceTokenParam {
@@ -474,11 +475,15 @@ struct Constants {
         static let Login = "user/login"
         static let Logout = "user/logout"
         static let GetUserInfo = "user/"
-        static let SignUp = "user/"
-        static let Otp = "user/otp"
-        static let ResendOtp = "user/resendotp"
+        static let ForgotPasswordNew = "user/pwd"
+        static let SignUp = "user/v3"
+        static let Otp = "user/v3/otp"
+        static let ResendOtp = "/user/v3/resendotp"
+        static let GetChallenge = "user/v3/challenge"
+        static let verifyChallenge = "user/v3/challenge/verify"
         static let OtpEnableStatus = "user/preferences/"
         static let UpdateUserAccount = "user/update"
+        static let changeNumber = "user/v3/changenumber"
         static let ResendEmail = "user/verify/resend"
         static let ForgotPass = "user/recover"
         static let TrackTaxi = "track/"
@@ -556,6 +561,13 @@ struct Constants {
     struct UpdatePassParam {
         static let Phone = "Phone"
         static let Password = "Password"
+    }
+    
+    struct VerifyChallengeParams {
+        static let Phone = "phoneNo"
+        static let challenge = "challenge"
+        static let challengeAnswer = "challengeAnswer"
+        static let challengeType = "challengeType"
     }
     
     struct EditAccountInfoParam {
