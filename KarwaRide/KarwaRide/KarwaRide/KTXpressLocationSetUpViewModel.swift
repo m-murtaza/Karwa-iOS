@@ -293,6 +293,7 @@ extension UIViewController {
                 }
                 if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
                     latLonInside = true
+                    print("it contains")
                     break
                 } else {
                     print("it wont contains")

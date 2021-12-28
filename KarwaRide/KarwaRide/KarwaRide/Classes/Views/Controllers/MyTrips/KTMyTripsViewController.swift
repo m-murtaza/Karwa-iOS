@@ -144,6 +144,11 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         cell.serviceTypeLabel.text = (viewModel as! KTMyTripsViewModel).vehicleType(forIdx: indexPath.row)
     }
         
+      if (viewModel as! KTMyTripsViewModel).dropAddress(forIdx: indexPath.row) == "str_default_no_destination".localized() {
+          cell.dropoffAddressLabel.font = UIFont(name: "MuseoSans-500Italic", size: 13.0)!
+      } else {
+          cell.dropoffAddressLabel.font = UIFont(name: "MuseoSans-500", size: 13.0)!
+      }
     
     cell.statusLabel.text = (viewModel as! KTMyTripsViewModel).bookingStatusString(forIdx: indexPath.row)
     cell.outerContainer.backgroundColor = (viewModel as! KTMyTripsViewModel).outerContainerBackgroundColor(forIdx: indexPath.row)

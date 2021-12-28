@@ -208,6 +208,12 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         
         self.bookingProgress.trackTintColor = .clear
 
+        if #available(iOS 15.0, *) {
+            rideServiceTableView.sectionHeaderTopPadding = 0.0
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

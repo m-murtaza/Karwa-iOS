@@ -44,6 +44,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     public var pickupHint : String = ""
     public var callerId : String?
     public var promoCode : String = ""
+    public var previousPromoCode : String = ""
 
     //MARK:- Outlets
     @IBOutlet weak var mapView : GMSMapView!
@@ -53,7 +54,8 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     @IBOutlet weak var btnRevealBtn : SpringButton!
     @IBOutlet weak var btnCancelBtn : SpringButton!
     @IBOutlet weak var btnRequestBooking :SpringButton!
-    
+    @IBOutlet weak var hintLabel: LocalisableLabel!
+
     lazy var paymentSelectionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PaymentSelectionBottomSheetController") as! PaymentSelectionBottomSheetController    
     lazy var sheet = SheetViewController(
         controller: paymentSelectionVC,

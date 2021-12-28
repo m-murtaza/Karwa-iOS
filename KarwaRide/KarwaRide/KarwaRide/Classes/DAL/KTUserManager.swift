@@ -39,6 +39,7 @@ class KTUserManager: KTDALManager {
             user.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
             user.email = response[Constants.LoginResponseAPIKey.Email] as? String
             user.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
+            user.isEmailVerified = response[Constants.LoginResponseAPIKey.IsEmailVerified] as! Bool
         }, completion: {(_ success: Bool, _ error: Error?) -> Void in
             completion(success)
         })
@@ -181,7 +182,7 @@ class KTUserManager: KTDALManager {
     }
     
     // Mark: API User Info
-    private func fetchUserInfoFromServer(completion:@escaping (Bool) -> Void) {
+    func fetchUserInfoFromServer(completion:@escaping (Bool) -> Void) {
         KTWebClient.sharedInstance.get(uri: Constants.APIURL.GetUserInfo, param: nil, completion: { (status, response) in
             if status != true
             {
@@ -191,6 +192,10 @@ class KTUserManager: KTDALManager {
             }
             else
             {
+                print("User info ***********************")
+                print(response[Constants.ResponseAPIKey.Data])
+                print("***********************")
+
                 if response[Constants.ResponseAPIKey.Status] as! String == Constants.APIResponseStatus.SUCCESS
                 {
                     

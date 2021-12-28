@@ -28,7 +28,7 @@ class KTCyberSecureViewController: KTBaseViewController, WKNavigationDelegate, W
     var paymentLink: String = ""
     
     var paymentSuccess: Bool = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

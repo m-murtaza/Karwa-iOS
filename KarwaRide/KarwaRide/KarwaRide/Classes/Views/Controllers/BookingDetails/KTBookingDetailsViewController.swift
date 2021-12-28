@@ -49,7 +49,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var mapView : GMSMapView!
     
     var sheetCoordinator: UBottomSheetCoordinator!
-    
+    var pickAndDropMarker = [GMSMarker]()
+
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var btnReveal : UIButton!
     @IBOutlet weak var btnRecenter: UIButton!
@@ -67,6 +68,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
     var showCancelCharges = false
+    var manualMoveBegins: Bool = false
     
     lazy var scheduleTimeTitleLable: UILabel = {
         let view = UILabel()
@@ -145,6 +147,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         {
             haltAutoZooming = true
         }
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        manualMoveBegins = true
     }
     
     var isBottomSheetExpanded = true
@@ -497,17 +503,19 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
     }
     
-    func updateMapCamera()
-    {
-        if(marker != nil)
+    func updateMapCamera() {
+        if manualMoveBegins == false
         {
-            var bounds = GMSCoordinateBounds()
-            bounds = bounds.includingCoordinate((marker?.position)!)
-            bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
-            
-            var update : GMSCameraUpdate?
-            update = GMSCameraUpdate.fit(bounds, withPadding: 100)
-            mapView.animate(with: update!)
+            if(marker != nil)
+            {
+                var bounds = GMSCoordinateBounds()
+                bounds = bounds.includingCoordinate((marker?.position)!)
+                bounds = bounds.includingCoordinate((vModel?.currentLocation())!)
+                
+                var update : GMSCameraUpdate?
+                update = GMSCameraUpdate.fit(bounds, withPadding: 100)
+                mapView.animate(with: update!)
+            }
         }
     }
     
@@ -552,25 +560,48 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
     }
     
+    func addMarkerOnMapAndGet(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker {
+        let marker = GMSMarker()
+        marker.position = location
+        
+        marker.icon = image
+        marker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        marker.map = self.mapView
+        
+        bounds = bounds.includingCoordinate(marker.position)
+        return marker
+        
+    }
+    
     func addPickupMarker(location : CLLocationCoordinate2D) {
-        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+        
+        pickAndDropMarker.append(addMarkerOnMapAndGet(location: location, image: UIImage(named:"APPickUpMarker")!))
+//        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
+        //focusMapToShowAllMarkers
     }
     
     func addDropOffMarker(location: CLLocationCoordinate2D) {
-        addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
         
-        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
-
-        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-        mapView.animate(with: update)
-
-        mapView.setMinZoom(1, maxZoom: 20)
+        pickAndDropMarker.append(addMarkerOnMapAndGet(location: location, image: UIImage(named:"APDropOffMarker")!))
+        
+        focusMapToShowAllMarkers(gmsMarker: pickAndDropMarker)
+        
+//        addMarkerOnMap(location: location, image: UIImage(named:"APDropOffMarker")! )
+//
+//        mapView.setMinZoom(1, maxZoom: 15)//prevent to over zoom on fit and animate if bounds be too small
+//
+////        let update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+//        mapView.animate(with: GMSCameraUpdate.fit(bounds, with: UIEdgeInsets(top: 0, left: -10, bottom: 50, right: 100)))
+//
+//        mapView.setMinZoom(1, maxZoom: 20)
         
     }
     
     func setMapCamera(bound : GMSCoordinateBounds) {
         
-        mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 50.0))
+        mapView.animate(with: GMSCameraUpdate.fit(bound, with: UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 100)))
+        
+//        mapView.animate(with: GMSCameraUpdate.fit(bound, withPadding: 100.0))
     }
     
     func clearMaps()
@@ -759,6 +790,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     @IBAction func btnRecenterTap(_ sender: Any)
     {
+        manualMoveBegins = false
         updateMapCamera()
     }
 

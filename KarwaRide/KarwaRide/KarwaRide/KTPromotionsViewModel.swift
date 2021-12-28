@@ -27,7 +27,7 @@ class KTPromotionsViewModel: KTBaseViewModel {
         super.viewDidLoad()
     }
     
-    func fetchPromotions(params: PromotionParams? = nil) {
+    func fetchPromotions(params: PromotionParams) {
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
             (self.delegate as? KTPromotionsViewModelDelegate)?.endRefreshing()

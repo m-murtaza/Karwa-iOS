@@ -121,7 +121,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         }
     }
     
-    func showToolTip(forView: UIView) {
+    func showToolTip(forView: UIView, text: String = "str_promotion_tip".localized()) {
         var preferences = EasyTipView.Preferences()
         preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
         preferences.drawing.foregroundColor = UIColor.white
@@ -134,7 +134,7 @@ class KTBaseViewController: UIViewController,KTViewModelDelegate {
         preferences.animating.dismissDuration = 1.5
         preferences.animating.dismissOnTap = false
 
-        let tipView = EasyTipView(text: "str_promotion_tip".localized(), preferences: preferences, delegate: nil)
+        let tipView = EasyTipView(text: text, preferences: preferences, delegate: nil)
         tipView.show(forView: forView)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

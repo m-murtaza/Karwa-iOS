@@ -31,6 +31,7 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var fareInfo: UILabel!
   @IBOutlet weak var iconBackgroundAnim: AnimationView!
   @IBOutlet weak var icArrow: SpringImageView!
+  @IBOutlet weak var uiMainView: UIView!
     
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 //    contentView.backgroundColor = highlighted ? .white : .clear
@@ -40,17 +41,17 @@ class RideServiceCell: UITableViewCell {
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
-    contentView.backgroundColor = selected ? .white : .clear
-    contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = selected ? 2 : 0
-    contentView.layer.cornerRadius = selected ? 8 : 0
-    serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-    fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-    if(selected && !animated)
-    {
-        icon.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
-        icon.animate()
-    }
+      uiMainView.backgroundColor = selected ? UIColor.white : UIColor(hexString: "#F7FCFD")
+      uiMainView.layer.borderColor = selected ? UIColor(hexString: "#00A8A8").cgColor : UIColor.clear.cgColor
+      uiMainView.layer.borderWidth = selected ? 2 : 0
+      uiMainView.layer.cornerRadius = 8
+      uiMainView.layer.shadowRadius = 2
+      uiMainView.layer.shadowOpacity = 0.1
+      uiMainView.layer.shadowOffset = CGSize(width: 0, height: 0)
+      uiMainView.layer.shadowColor = UIColor.black.cgColor
+      self.contentView.layer.masksToBounds = false
+      serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+      fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
   }
 
   func setFare(fare: String) {
@@ -108,6 +109,7 @@ class DashboardAddressCell: UICollectionViewCell {
         addressLabel.text = destination.name
       }
         bottomCardContainer.layer.cornerRadius = 15
+        bottomCardContainer.addShadowBottomXpress()
       self.layer.masksToBounds = false
     }
   }
@@ -132,23 +134,29 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     var item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
     if indexPath.section == 0 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FIRST.rawValue).first
+        cell.time.text = viewModel.getAvailableEta(category: .FIRST)
+        cell.icon.image = viewModel.getVehicleCategoyIcon(category: .FIRST)
     }
     else if indexPath.section == 1 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.SECOND.rawValue).first
+        cell.time.text = viewModel.getAvailableEta(category: .SECOND)
+        cell.icon.image = viewModel.getVehicleCategoyIcon(category: .SECOND)
     }
       else if indexPath.section == 2 {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.THIRD.rawValue).first
+          cell.time.text = viewModel.getAvailableEta(category: .THIRD)
+          cell.icon.image = viewModel.getVehicleCategoyIcon(category: .THIRD)
     }
     else {
         item = viewModel.getVehicleByCategory(catName: VehicleCategories.FOURTH.rawValue).first
+        cell.time.text = viewModel.getAvailableEta(category: .FOURTH)
+        cell.icon.image = viewModel.getVehicleCategoyIcon(category: .FOURTH)
     }
 
     cell.serviceName.text = viewModel.getVehicleCategory(vehicleType: item!.typeId)
     let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
-    cell.time.text = viewModel.getTypeEta(typeId: item!.typeId)
-    cell.icon.image = viewModel.getTypeVehicleImage(typeId: item!.typeId)
     let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
     cell.promoBadge.isHidden = shouldHidePromoFare
     if(viewModel.isPremiumRide(typeId: item!.typeId)){
@@ -168,29 +176,15 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     
     // Set the spacing between sections
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(hexString: "#F1FBFA")
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if KTConfiguration.sharedInstance.checkIconicLimousineEnabled() && section == 3 {
-            return nil
-        }
-        else if !KTConfiguration.sharedInstance.checkIconicLimousineEnabled() && section == 2 {
-            return nil
-        }
-        else {
-            let view = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: 1))
-            view.backgroundColor = UIColor(hexString: "#129793").withAlphaComponent(0.2)
-            return view
-        }
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
     }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -199,6 +193,12 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     selectedSection = indexPath.section
     self.setupVehicleDetailBottomSheet()
   }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (vModel?.rebook ?? false) && self.selectedSection == indexPath.section {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.none)
+        }
+    }
   
 //  func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
 //      return true
@@ -273,11 +273,27 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
 class KTCreateBookingViewController:
     KTBaseCreateBookingController, KTCreateBookingViewModelDelegate,KTFareViewDelegate {
     
-    func noOfPromotions(count: Int) {
-        self.uiPromotionCount.isHidden = count > 0 ? false : true
-        self.lblPromotionCount.text = "\(count)"
-        if count > 0 {
-            self.showToolTip(forView: self.uiPromotionCount)
+    func getPromotions(promotions: [PromotionModel]) {
+        self.uiPromotionCount.isHidden = promotions.count > 0 ? false : true
+        var promotionCount = "\(promotions.count)"
+        if (Locale.current.languageCode?.contains("ar"))! {
+            promotionCount = promotionCount
+                .replacingOccurrences(of: "1", with: "١").replacingOccurrences(of: "2", with: "٢")
+                .replacingOccurrences(of: "3", with: "٣").replacingOccurrences(of: "4", with: "٤")
+                .replacingOccurrences(of: "5", with: "٥").replacingOccurrences(of: "6", with: "٦")
+                .replacingOccurrences(of: "7", with: "٧").replacingOccurrences(of: "8", with: "٨")
+                .replacingOccurrences(of: "9", with: "٩").replacingOccurrences(of: "0", with: "٠")
+        }
+        self.lblPromotionCount.text = promotionCount
+        if promotions.count > 0 {
+            let toolTipDisplayCount = (Int(SharedPrefUtil.getSharePref(SharedPrefUtil.PROMOTION_TOOLTIP_COUNT)) ?? 0) + 1
+            SharedPrefUtil.setSharedPref(SharedPrefUtil.PROMOTION_TOOLTIP_COUNT, "\(toolTipDisplayCount)")
+            if toolTipDisplayCount <= 3 {
+                self.showToolTip(forView: self.uiPromotionCount)
+            }
+            if !self.previousPromoCode.isEmpty && promotions.contains(where: {$0.code == self.previousPromoCode}) {
+                self.applyPromoTapped(self.previousPromoCode)
+            }
         }
     }
     
@@ -405,7 +421,7 @@ class KTCreateBookingViewController:
     
     // Do any additional setup after loading the view.
     addMap()
-    
+            
     self.navigationItem.hidesBackButton = true;
     self.btnRevealBtn.addTarget(self, action: #selector(showMenu), for: .touchUpInside)
     
@@ -720,15 +736,12 @@ class KTCreateBookingViewController:
   
   //MARK:- User Actions
   @IBAction func btnPickupAddTapped(_ sender: Any) {
-    
-    (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
-    //    btnDropoffAddress.animation = "pop"
-    //    btnDropoffAddress.duration = 1.5
-    //    btnDropoffAddress.animate()
+      self.removePromoTapped()
+      (viewModel as! KTCreateBookingViewModel).btnPickupAddTapped()
   }
   @IBAction func btnDropAddTapped(_ sender: Any) {
-    
-    (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
+      self.removePromoTapped()
+      (viewModel as! KTCreateBookingViewModel).btnDropAddTapped()
   }
   
   
@@ -800,6 +813,7 @@ class KTCreateBookingViewController:
     if vModel?.rebook ?? false {
         vModel?.rebook = false
     }
+    self.previousPromoCode = ""
     removeBookingOnReset = true
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
@@ -861,7 +875,8 @@ class KTCreateBookingViewController:
   
   func applyPromoTapped(_ enteredPromo: String)
   {
-    (viewModel as! KTCreateBookingViewModel).applyPromoTapped(enteredPromo)
+      self.previousPromoCode = enteredPromo
+      (viewModel as! KTCreateBookingViewModel).applyPromoTapped(enteredPromo)
   }
   
   func removePromoTapped()
@@ -1016,7 +1031,7 @@ class KTCreateBookingViewController:
         self.currentLocationButton.isHidden = true
         (viewModel as? KTCreateBookingViewModel)?.carouselSelected = false
 
-        (viewModel as? KTCreateBookingViewModel)?.getNoOfPromotions()
+        (viewModel as? KTCreateBookingViewModel)?.getPromotions()
         
     }
     
@@ -1035,7 +1050,7 @@ class KTCreateBookingViewController:
                 default:
                     self.selectedSection = 0
                 }
-                self.setupVehicleDetailBottomSheet()
+                self.tableView.selectRow(at: IndexPath(row: 0, section: selectedSection), animated: true, scrollPosition: .none)
             }
         }
     }

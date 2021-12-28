@@ -152,6 +152,28 @@ class KTPaymentManager: KTDALManager
         )
     }
     
+    func createMPGSSession(completion completionBlock: @escaping KTDALCompletionBlock)
+    {
+        let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: ""]
+
+        self.post(url: Constants.APIURL.MPGSCreateSessionV2, param: param as? [String : Any], completion: completionBlock, success:
+            { (responseData,cBlock) in
+                completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            }
+        )
+    }
+    
+    func updateMPGSSuccess(_ sessionId:String, completion completionBlock: @escaping KTDALCompletionBlock)
+    {
+        let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: sessionId]
+        
+        self.post(url: Constants.APIURL.MPGSSuccessToServerV2, param: param as? [String : Any], completion: completionBlock, success:
+            { (responseData,cBlock) in
+                completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
+            }
+        )
+    }
+    
     func updateMPGSSuccessAtServer(_ sessionId:String, _ apiVersion:String, completion completionBlock: @escaping KTDALCompletionBlock)
     {
         let param : NSDictionary = [Constants.MPGSSessionAPIKey.SessionId: sessionId,

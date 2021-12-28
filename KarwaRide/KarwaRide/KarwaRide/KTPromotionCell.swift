@@ -17,6 +17,7 @@ class KTPromotionCell: UITableViewCell {
     @IBOutlet weak var lblCode: UILabel!
     @IBOutlet weak var lblDetail: UILabel!
     @IBOutlet weak var lblSeeMore: UILabel!
+    @IBOutlet weak var lblSeeLess: UILabel!
     @IBOutlet weak var imgPromotion: UIImageView!
     
     var index: IndexPath?
@@ -36,12 +37,15 @@ class KTPromotionCell: UITableViewCell {
     
     func configCell(isSelected: Bool, data: PromotionModel) {
         self.uiMain.borderColor = UIColor(hexString: "#00A8A8")
-        self.uiMain.borderWidth = isSelected ? 2 : 0
+        self.uiMain.borderWidth = isSelected ? 1 : 0
         self.uiDetailView.isHidden = !isShowMore
+        self.lblSeeMore.isHidden = !isShowMore
+        self.lblSeeLess.isHidden = isShowMore
         let showMoreText = isShowMore ? "str_show_less".localized() : "str_show_more".localized()
         if let attributedString = createAttributedString(stringArray: [showMoreText], attributedPart: 1, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont(name: "MuseoSans-700", size: 10.0)!, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]) {
             attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range: NSRange.init(location: 0, length: attributedString.length))
             self.lblSeeMore.attributedText = attributedString
+            self.lblSeeLess.attributedText = attributedString
         }
         self.lblCode.text = "str_code".localized() + ": \(data.code ?? "")"
         self.lblHeading.text = data.name
@@ -57,6 +61,7 @@ class KTPromotionCell: UITableViewCell {
         self.uiMain.cornerRadius = 14
         self.uiDetailView.isHidden = true
         self.lblSeeMore.isHidden = true
+        self.lblSeeLess.isHidden = true
         
         self.lblCode.text = "str_code".localized() + ": \(data.code ?? "")"
         self.lblHeading.text = data.name

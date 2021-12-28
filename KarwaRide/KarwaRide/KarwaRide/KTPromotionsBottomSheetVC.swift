@@ -41,6 +41,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         
         self.setupView()
         self.setupTBL()
+        self.setupKeyboardNotifications()
     }
     
     private func setupView() {
@@ -48,6 +49,28 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .highlighted)
         
         tfPromoCode.delegate = self
+    }
+    
+    func setupKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNotification(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardNotification(_:)), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func keyboardNotification(_ notification: NSNotification) {
+        let isShowing = notification.name == .UIKeyboardWillShow
+        if isShowing {
+            self.tableView.isHidden = true
+            self.btnShowMore.isHidden = true
+        }
+        else {
+            self.tableView.isHidden = false
+            self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
+        }
+    }
+    
+    deinit {
+        print("KTPromotionsBottomSheetVC->deinit")
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func setupPromoState() {
@@ -71,7 +94,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupPromoState()
-        vModel!.fetchPromotions(params: self.pickupDropoff)
+        vModel!.fetchPromotions(params: self.pickupDropoff!)
     }
     
     private func setSheetClosure() {

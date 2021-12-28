@@ -221,6 +221,7 @@ struct Constants {
         static let Phone = "Phone"
         static let SessionID = "SessionID"
         static let MaskedEmail = "MaskedEmail"
+        static let IsEmailVerified = "IsEmailVerified"
     }
     
     struct GeoLocationResponseAPIKey {
@@ -262,7 +263,9 @@ struct Constants {
         static let Balance =  "Balance"
         static let IsRemovable =  "IsRemovable"
         static let SessionId = "SessionId"
+        static let Path = "FormPath"
         static let ApiVersion = "ApiVersion"
+        static let Html = "Html"
     }
     
     struct PayTripAPIKey {
@@ -315,6 +318,11 @@ struct Constants {
         static let PickupAddress = "PickupAddress"
         static let PickupLat = "PickupLat"
         static let PickupLon = "PickupLon"
+        static let PickStopLat = "PickStopLat"
+        static let PickStopLon = "PickStopLon"
+        static let dropStopLat = "DropStopLat"
+        static let dropStopLon = "DropStopLon"
+
         static let PickupMessage = "PickupMessage"
         static let PickupTime = "PickupTime"
         
@@ -498,6 +506,11 @@ struct Constants {
         static let PayTripByApplePay = "trip/pay/device"
         static let MPGSSuccessToServer = "mpgs/3ds"
         static let MPGSCreateSession = "mpgs/session"
+        
+        static let MPGSCreateSessionV2 = "mpgs/3ds2/session"
+        static let MPGSSuccessToServerV2 = "mpgs/3ds2"
+        
+        
         static let DeletePaymentMethod = "payment/delete"
         static let GetInitialFareForPromo = "tariff/promo/"
         static let GetTransactions = "payment?records=10"
@@ -596,6 +609,7 @@ struct Constants {
         static let PickupLong = "plon"
         static let DropoffLat = "dlat"
         static let DropoffLong = "dlon"
+        static let DateTime = "dateTime"
     }
     
 }
