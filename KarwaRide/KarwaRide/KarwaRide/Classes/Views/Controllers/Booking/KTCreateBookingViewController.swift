@@ -31,6 +31,7 @@ class RideServiceCell: UITableViewCell {
   @IBOutlet weak var fareInfo: UILabel!
   @IBOutlet weak var iconBackgroundAnim: AnimationView!
   @IBOutlet weak var icArrow: SpringImageView!
+  @IBOutlet weak var uiMainView: UIView!
     
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 //    contentView.backgroundColor = highlighted ? .white : .clear
@@ -40,12 +41,17 @@ class RideServiceCell: UITableViewCell {
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
-    contentView.backgroundColor = selected ? .white : .clear
-    contentView.layer.borderColor = selected ? UIColor.primary.cgColor : UIColor.clear.cgColor
-    contentView.layer.borderWidth = selected ? 2 : 0
-    contentView.layer.cornerRadius = selected ? 8 : 0
-    serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
-    fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+      uiMainView.backgroundColor = selected ? UIColor.white : UIColor(hexString: "#F7FCFD")
+      uiMainView.layer.borderColor = selected ? UIColor(hexString: "#00A8A8").cgColor : UIColor.clear.cgColor
+      uiMainView.layer.borderWidth = selected ? 2 : 0
+      uiMainView.layer.cornerRadius = 8
+      uiMainView.layer.shadowRadius = 2
+      uiMainView.layer.shadowOpacity = 0.1
+      uiMainView.layer.shadowOffset = CGSize(width: 0, height: 0)
+      uiMainView.layer.shadowColor = UIColor.black.cgColor
+      self.contentView.layer.masksToBounds = false
+      serviceName.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
+      fare.font = UIFont(name:selected ? "MuseoSans-900" : "MuseoSans-700", size: 16.0)
   }
 
   func setFare(fare: String) {
@@ -170,29 +176,15 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     
     // Set the spacing between sections
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(hexString: "#F1FBFA")
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if KTConfiguration.sharedInstance.checkIconicLimousineEnabled() && section == 3 {
-            return nil
-        }
-        else if !KTConfiguration.sharedInstance.checkIconicLimousineEnabled() && section == 2 {
-            return nil
-        }
-        else {
-            let view = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: 1))
-            view.backgroundColor = UIColor(hexString: "#129793").withAlphaComponent(0.2)
-            return view
-        }
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
     }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
