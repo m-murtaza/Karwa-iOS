@@ -24,7 +24,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
 
 #pragma mark - Setup
 
-+ (void) MR_initializeDefaultContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator;
++ (void) MR_initializeDefaultContextWithCoordinator:(NSPersistentStoreCoordinator *)coordinator
 {
     NSAssert(coordinator, @"Provided coordinator cannot be nil!");
     if (MagicalRecordDefaultContext == nil)
@@ -49,7 +49,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
     }
 }
 
-+ (NSManagedObjectContext *) MR_rootSavingContext;
++ (NSManagedObjectContext *) MR_rootSavingContext
 {
     NSAssert(MagicalRecordRootSavingContext != nil, @"Root saving context is nil! Did you forget to initialize the Core Data Stack?");
     return MagicalRecordRootSavingContext;
@@ -102,7 +102,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
 
 - (void)MR_setWorkingName:(NSString *)workingName
 {
-    void (^setWorkingName)() = ^{
+    void (^setWorkingName)(void) = ^{
         [[self userInfo] setObject:workingName forKey:MagicalRecordContextWorkingName];
     };
 
@@ -120,7 +120,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
 {
     __block NSString *workingName;
 
-    void (^getWorkingName)() = ^{
+    void (^getWorkingName)(void) = ^{
         workingName = [[self userInfo] objectForKey:MagicalRecordContextWorkingName];
     };
 
@@ -263,17 +263,19 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
         [[NSNotificationCenter defaultCenter] removeObserver:MagicalRecordDefaultContext];
     }
 
-    NSPersistentStoreCoordinator *coordinator = [NSPersistentStoreCoordinator MR_defaultStoreCoordinator];
     if (MagicalRecordUbiquitySetupNotificationObserver)
     {
         [[NSNotificationCenter defaultCenter] removeObserver:MagicalRecordUbiquitySetupNotificationObserver];
         MagicalRecordUbiquitySetupNotificationObserver = nil;
     }
 
+    #if TARGET_OS_OSX || TARGET_OS_IOS
+    NSPersistentStoreCoordinator *coordinator = [NSPersistentStoreCoordinator MR_defaultStoreCoordinator];
     if ([MagicalRecord isICloudEnabled])
     {
         [MagicalRecordDefaultContext MR_stopObservingiCloudChangesInCoordinator:coordinator];
     }
+    #endif
 
     MagicalRecordDefaultContext = moc;
     [MagicalRecordDefaultContext MR_setWorkingName:@"MagicalRecord Default Context"];
@@ -286,6 +288,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
     }
 
     [moc MR_obtainPermanentIDsBeforeSaving];
+    #if TARGET_OS_OSX || TARGET_OS_IOS
     if ([MagicalRecord isICloudEnabled])
     {
         [MagicalRecordDefaultContext MR_observeiCloudChangesInCoordinator:coordinator];
@@ -300,6 +303,7 @@ static id MagicalRecordUbiquitySetupNotificationObserver;
                                                                                             [[NSManagedObjectContext MR_defaultContext] MR_observeiCloudChangesInCoordinator:coordinator];
                                                                                         }];
     }
+    #endif
     MRLogInfo(@"Set default context: %@", MagicalRecordDefaultContext);
 }
 

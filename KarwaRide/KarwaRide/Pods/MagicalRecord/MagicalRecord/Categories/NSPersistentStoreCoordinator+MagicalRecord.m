@@ -23,7 +23,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
 
 @interface NSDictionary (MagicalRecordMerging)
 
-- (NSMutableDictionary*) MR_dictionaryByMergingDictionary:(NSDictionary*)d; 
+- (NSMutableDictionary*) MR_dictionaryByMergingDictionary:(NSDictionary*)d;
 
 @end 
 
@@ -59,7 +59,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     }
 }
 
-- (void) MR_createPathToStoreFileIfNeccessary:(NSURL *)urlForStore
+- (void) MR_createPathToStoreFileIfNecessary:(NSURL *)urlForStore
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *pathToStore = [urlForStore URLByDeletingLastPathComponent];
@@ -83,7 +83,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     NSURL *url = [storeFileName isKindOfClass:[NSURL class]] ? storeFileName : [NSPersistentStore MR_urlForStoreName:storeFileName];
     NSError *error = nil;
     
-    [self MR_createPathToStoreFileIfNeccessary:url];
+    [self MR_createPathToStoreFileIfNecessary:url];
     
     NSPersistentStore *store = [self addPersistentStoreWithType:NSSQLiteStoreType
                                                   configuration:configuration
@@ -139,6 +139,8 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     }
     return store;
 }
+
+#if TARGET_OS_OSX || TARGET_OS_IOS
 
 - (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey storeIdentifier:(id)storeIdentifier cloudStorePathComponent:(NSString *)subPathComponent completion:(void(^)(void))completionBlock
 {
@@ -210,6 +212,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     });
 }
 
+#endif
 
 
 #pragma mark - Public Instance Methods
@@ -229,9 +232,9 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     return store;
 }
 
-+ (NSDictionary *) MR_autoMigrationOptions;
++ (NSDictionary *) MR_autoMigrationOptions
 {
-    // Adding the journalling mode recommended by apple
+    // Adding the journalling mode recommended by Apple
     NSMutableDictionary *sqliteOptions = [NSMutableDictionary dictionary];
     [sqliteOptions setObject:@"WAL" forKey:@"journal_mode"];
     
@@ -243,10 +246,17 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     return options;
 }
 
-- (NSPersistentStore *) MR_addAutoMigratingSqliteStoreNamed:(NSString *) storeFileName;
+- (NSPersistentStore *) MR_addAutoMigratingSqliteStoreNamed:(NSString *) storeFileName
 {
     NSDictionary *options = [[self class] MR_autoMigrationOptions];
     return [self MR_addSqliteStoreNamed:storeFileName withOptions:options];
+}
+
+- (NSPersistentStore *) MR_addAutoMigratingSqliteStoreNamed:(NSString *) storeFileName withOptions:(NSDictionary *) options
+{
+    NSMutableDictionary *sqliteOptions = [NSMutableDictionary dictionaryWithDictionary:[[self class] MR_autoMigrationOptions]];
+    [sqliteOptions addEntriesFromDictionary:options];
+    return [self MR_addSqliteStoreNamed:storeFileName withOptions:sqliteOptions];
 }
 
 - (NSPersistentStore *) MR_addAutoMigratingSqliteStoreAtURL:(NSURL *)storeURL
@@ -261,15 +271,22 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
 
 + (NSPersistentStoreCoordinator *) MR_coordinatorWithAutoMigratingSqliteStoreNamed:(NSString *) storeFileName
 {
+    return [self MR_coordinatorWithAutoMigratingSqliteStoreNamed:storeFileName withOptions:nil];
+}
+
++ (NSPersistentStoreCoordinator *) MR_coordinatorWithAutoMigratingSqliteStoreNamed:(NSString *)storeFileName withOptions:(NSDictionary *) options
+{
     NSManagedObjectModel *model = [NSManagedObjectModel MR_defaultManagedObjectModel];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    
-    [coordinator MR_addAutoMigratingSqliteStoreNamed:storeFileName];
-    
+
+    [coordinator MR_addAutoMigratingSqliteStoreNamed:storeFileName withOptions:options];
+
     //HACK: lame solution to fix automigration error "Migration failed after first pass"
-    if ([[coordinator persistentStores] count] == 0) 
+    if ([[coordinator persistentStores] count] == 0)
     {
-        [coordinator performSelector:@selector(MR_addAutoMigratingSqliteStoreNamed:) withObject:storeFileName afterDelay:0.5];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [coordinator performSelector:@selector(MR_addAutoMigratingSqliteStoreNamed:withOptions:) withObject:storeFileName withObject:options];
+        });
     }
 
     return coordinator;
@@ -308,7 +325,9 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     return coordinator;
 }
 
-- (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey localStoreNamed:(NSString *)localStoreName cloudStorePathComponent:(NSString *)subPathComponent;
+#if TARGET_OS_OSX || TARGET_OS_IOS
+
+- (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey localStoreNamed:(NSString *)localStoreName cloudStorePathComponent:(NSString *)subPathComponent
 {
     [self MR_addiCloudContainerID:containerID 
                    contentNameKey:contentNameKey 
@@ -326,7 +345,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
                        completion:nil];
 }
 
-- (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey localStoreNamed:(NSString *)localStoreName cloudStorePathComponent:(NSString *)subPathComponent completion:(void(^)(void))completionBlock;
+- (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey localStoreNamed:(NSString *)localStoreName cloudStorePathComponent:(NSString *)subPathComponent completion:(void(^)(void))completionBlock
 {
     [self MR_addiCloudContainerID:containerID
                    contentNameKey:contentNameKey
@@ -335,7 +354,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
                        completion:completionBlock]; 
 }
 
-- (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey localStoreAtURL:(NSURL *)storeURL cloudStorePathComponent:(NSString *)subPathComponent completion:(void(^)(void))completionBlock;
+- (void) MR_addiCloudContainerID:(NSString *)containerID contentNameKey:(NSString *)contentNameKey localStoreAtURL:(NSURL *)storeURL cloudStorePathComponent:(NSString *)subPathComponent completion:(void(^)(void))completionBlock
 {
     [self MR_addiCloudContainerID:containerID
                    contentNameKey:contentNameKey
@@ -347,7 +366,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
 + (NSPersistentStoreCoordinator *) MR_coordinatorWithiCloudContainerID:(NSString *)containerID 
                                                         contentNameKey:(NSString *)contentNameKey
                                                        localStoreNamed:(NSString *)localStoreName
-                                               cloudStorePathComponent:(NSString *)subPathComponent;
+                                               cloudStorePathComponent:(NSString *)subPathComponent
 {
     return [self MR_coordinatorWithiCloudContainerID:containerID 
                                       contentNameKey:contentNameKey
@@ -372,7 +391,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
                                                         contentNameKey:(NSString *)contentNameKey
                                                        localStoreNamed:(NSString *)localStoreName
                                                cloudStorePathComponent:(NSString *)subPathComponent
-                                                            completion:(void(^)(void))completionHandler;
+                                                            completion:(void(^)(void))completionHandler
 {
     NSManagedObjectModel *model = [NSManagedObjectModel MR_defaultManagedObjectModel];
     NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
@@ -404,7 +423,9 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
     return psc;
 }
 
-+ (NSPersistentStoreCoordinator *) MR_coordinatorWithPersistentStore:(NSPersistentStore *)persistentStore;
+#endif
+
++ (NSPersistentStoreCoordinator *) MR_coordinatorWithPersistentStore:(NSPersistentStore *)persistentStore
 {
     NSManagedObjectModel *model = [NSManagedObjectModel MR_defaultManagedObjectModel];
     NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
@@ -447,7 +468,7 @@ NSString * const kMagicalRecordPSCMismatchCouldNotRecreateStore = @"kMagicalReco
 
 @implementation NSDictionary (Merging) 
 
-- (NSMutableDictionary *) MR_dictionaryByMergingDictionary:(NSDictionary *)d;
+- (NSMutableDictionary *) MR_dictionaryByMergingDictionary:(NSDictionary *)d
 {
     NSMutableDictionary *mutDict = [self mutableCopy];
     [mutDict addEntriesFromDictionary:d];

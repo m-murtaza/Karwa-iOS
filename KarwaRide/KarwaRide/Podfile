@@ -24,7 +24,7 @@ target 'KarwaRide' do
     #pod 'XLActionController', '~> 5.0.1' # Not working
     #pod 'XLActionController/Youtube'     # May be not working
 
-    pod 'MagicalRecord'
+    pod 'MagicalRecord', :git => 'https://github.com/magicalpanda/MagicalRecord'
     pod 'ScalingCarousel'
     pod 'SwiftDate' , '~> 6.1.0'
     pod 'SVProgressHUD'

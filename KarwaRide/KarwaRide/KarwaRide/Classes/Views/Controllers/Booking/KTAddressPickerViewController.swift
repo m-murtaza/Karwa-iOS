@@ -149,6 +149,10 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     setupUI()
   }
     
+    deinit{
+        print("KTAddressPickerViewController->deinit")
+    }
+    
     override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
         

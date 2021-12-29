@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddressPickerCellDelegate {
+protocol AddressPickerCellDelegate: AnyObject {
     func btnMoreTapped(withTag: Int)
 }
 

@@ -13,50 +13,54 @@ static MagicalRecordLoggingLevel kMagicalRecordLoggingLevel = MagicalRecordLoggi
 #else
 static MagicalRecordLoggingLevel kMagicalRecordLoggingLevel = MagicalRecordLoggingLevelError;
 #endif
-static BOOL kMagicalRecordShouldAutoCreateManagedObjectModel = NO;
+static BOOL kMagicalRecordShouldAutoCreateManagedObjectModel = YES;
 static BOOL kMagicalRecordShouldAutoCreateDefaultPersistentStoreCoordinator = NO;
+#ifdef DEBUG
+static BOOL kMagicalRecordShouldDeleteStoreOnModelMismatch = YES;
+#else
 static BOOL kMagicalRecordShouldDeleteStoreOnModelMismatch = NO;
+#endif
 
 @implementation MagicalRecord (Options)
 
 #pragma mark - Configuration Options
 
-+ (BOOL) shouldAutoCreateManagedObjectModel;
++ (BOOL) shouldAutoCreateManagedObjectModel
 {
     return kMagicalRecordShouldAutoCreateManagedObjectModel;
 }
 
-+ (void) setShouldAutoCreateManagedObjectModel:(BOOL)autoCreate;
++ (void) setShouldAutoCreateManagedObjectModel:(BOOL)autoCreate
 {
     kMagicalRecordShouldAutoCreateManagedObjectModel = autoCreate;
 }
 
-+ (BOOL) shouldAutoCreateDefaultPersistentStoreCoordinator;
++ (BOOL) shouldAutoCreateDefaultPersistentStoreCoordinator
 {
     return kMagicalRecordShouldAutoCreateDefaultPersistentStoreCoordinator;
 }
 
-+ (void) setShouldAutoCreateDefaultPersistentStoreCoordinator:(BOOL)autoCreate;
++ (void) setShouldAutoCreateDefaultPersistentStoreCoordinator:(BOOL)autoCreate
 {
     kMagicalRecordShouldAutoCreateDefaultPersistentStoreCoordinator = autoCreate;
 }
 
-+ (BOOL) shouldDeleteStoreOnModelMismatch;
++ (BOOL) shouldDeleteStoreOnModelMismatch
 {
     return kMagicalRecordShouldDeleteStoreOnModelMismatch;
 }
 
-+ (void) setShouldDeleteStoreOnModelMismatch:(BOOL)shouldDelete;
++ (void) setShouldDeleteStoreOnModelMismatch:(BOOL)shouldDelete
 {
     kMagicalRecordShouldDeleteStoreOnModelMismatch = shouldDelete;
 }
 
-+ (MagicalRecordLoggingLevel) loggingLevel;
++ (MagicalRecordLoggingLevel) loggingLevel
 {
     return kMagicalRecordLoggingLevel;
 }
 
-+ (void) setLoggingLevel:(MagicalRecordLoggingLevel)level;
++ (void) setLoggingLevel:(MagicalRecordLoggingLevel)level
 {
     kMagicalRecordLoggingLevel = level;
 }

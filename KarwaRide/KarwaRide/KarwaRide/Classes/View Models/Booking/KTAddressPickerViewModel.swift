@@ -46,7 +46,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   private var isSkippedPressed : Bool = false
   private var isLoadingAddress : Bool = false
   
-  private var del : KTAddressPickerViewModelDelegate?
+  private weak var del : KTAddressPickerViewModelDelegate?
     var metroStations = [Area]()
     var favoriteMetroStation = [Area]()
   
@@ -56,7 +56,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     super.viewDidLoad()
     
-    del = (delegate as! KTAddressPickerViewModelDelegate)
+    del = (delegate as? KTAddressPickerViewModelDelegate)
     
     fetchLocations()
   }

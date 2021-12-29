@@ -454,7 +454,7 @@ class KTXpressAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var moreButton: UIButton!
-    var delegate : AddressPickerCellDelegate?
+    weak var delegate : AddressPickerCellDelegate?
 
     override func awakeFromNib()
     {

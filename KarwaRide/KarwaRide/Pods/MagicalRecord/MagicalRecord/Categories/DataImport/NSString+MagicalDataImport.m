@@ -1,5 +1,5 @@
 //
-//  NSString+MagicalRecord_MagicalDataImport.m
+//  NSString+MagicalDataImport.m
 //  Magical Record
 //
 //  Created by Saul Mora on 12/10/11.
@@ -11,7 +11,7 @@
 
 @implementation NSString (MagicalRecord_DataImport)
 
-- (NSString *) MR_capitalizedFirstCharacterString;
+- (NSString *) MR_capitalizedFirstCharacterString
 {
     if ([self length] > 0)
     {
