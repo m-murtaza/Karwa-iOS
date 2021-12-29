@@ -51,7 +51,6 @@ class KTWebClient: NSObject {
     
     func post(uri: String, param: [String : Any]?, completion completionBlock:@escaping  KTResponseCompletionBlock)
     {
-        KTUserManager().fetchVersion()
         sendRequest(httpMethod: .post, uri: uri, param: param, completion: completionBlock)
     }
     

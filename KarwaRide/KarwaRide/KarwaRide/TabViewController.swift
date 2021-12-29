@@ -73,6 +73,8 @@ class TabViewController: UITabBarController {
             [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 11.0)!]
             normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
             item.setTitleTextAttributes(normal, for: .normal)
+            
+            
         }
         
         var normal: [NSAttributedString.Key: AnyObject] =
@@ -109,7 +111,6 @@ class TabViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        KTUserManager().fetchVersion()
 //        if #available(iOS 13.0, *) {
 //            let appearance = UITabBarAppearance()
 //            appearance.configureWithOpaqueBackground()
@@ -163,10 +164,27 @@ class TabViewController: UITabBarController {
 
                 if viewController == selectedViewController && !selectedViewController!.isKind(of: KTXpressPickUpViewController.self) {
 
-                    var selected: [NSAttributedString.Key: AnyObject] =
-                    [NSAttributedString.Key.font:UIFont(name: "MuseoSans-900", size: 11.0)!]
-                    selected[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
-                    viewController.tabBarItem.setTitleTextAttributes(selected, for: .normal)
+                    if let items = self.tabBar.items {
+                        // in each item we have a view where we find 2 subviews imageview and label
+                        // in this example i would like to change
+                        // access to item view
+                        if let viewTabBar = items[1].value(forKey: "view") as? UIView {
+                            // access to item subviews : imageview and label
+                            if viewTabBar.subviews.count == 2 {
+                                let label = viewTabBar.subviews[1]as? UILabel
+                                label?.frame = CGRect(x: 0, y: 0, width: 100, height: 12)
+                                // here is the customization for my label 2 lines
+                                label?.numberOfLines = 2
+                                label?.textAlignment = .center
+                                label!.attributedText = addBoldText(fullString: "str_metroexpress".localized() as NSString, boldPartOfString: "\("str_metro".localized())" as NSString, font:  UIFont(name: "MuseoSans-500", size: 11.0)!, boldFont:  UIFont(name: "MuseoSans-900", size: 11.0)!)
+                                // here customisation for image insets top and bottom
+                                //                    items[2].imageInsets = UIEdgeInsets(top: 8, left: 0, bottom: -5, right: 0)
+                            }
+                        }
+                        
+                        items[2].imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -3, right: 0)
+
+                    }
 
                 } else if !(viewController.isKind(of: KTXpressPickUpViewController.self)) {
 

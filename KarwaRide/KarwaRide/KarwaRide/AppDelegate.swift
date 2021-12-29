@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         configureSideMenu()
         setupEnvironment()
+        
+        KTUserManager().fetchVersion()
+
       return true
     }
     

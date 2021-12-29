@@ -230,16 +230,53 @@ class KTUserManager: KTDALManager {
         KTWebClient.sharedInstance.get(uri: Constants.APIURL.VersionCheck, param: nil, completion: { (status, response) in
             
             print(response)
-            let alertController = UIAlertController(title: "information".localized(), message: "Please update your application".localized(), preferredStyle: .alert)
             
-            //let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            let okAction = UIAlertAction(title: "ok".localized(), style: .default) { (UIAlertAction) in
-                self.openAppStore()
+            print(response["D"] as? [String:[String:Any]])
+            
+            if let dataResponse = response["D"] as? [String:Any] {
+                
+                print("dataResponse version", dataResponse["Version"] as! Int)
+                
+                if let latestBuildNumber = dataResponse["Version"] as? Int {
+                    if let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                        if latestBuildNumber > Int(build) ?? 0 {
+                            
+                            if let isCritical = dataResponse["IsCritical"] as? Bool, isCritical == true {
+                                let alertController = UIAlertController(title: "", message: "str_update_req".localized(), preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "str_update".localized(), style: .default) { (UIAlertAction) in
+                                    self.openAppStore()
+                                }
+                                alertController.addAction(okAction)
+                                let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                appDelegate.showAlter(alertController: alertController)
+                                
+                            } else {
+                                
+                                if optionalUpdateCancelButtonPressed == false {
+                                    let alertController = UIAlertController(title: "", message: "str_update_req".localized(), preferredStyle: .alert)
+                                    
+                                    let okAction = UIAlertAction(title: "str_update".localized(), style: .default) { (UIAlertAction) in
+                                        self.openAppStore()
+                                    }
+                                    let cancelAction = UIAlertAction(title: "str_later".localized(), style: .default) { (UIAlertAction) in
+                                        optionalUpdateCancelButtonPressed = true
+                                    }
+                                    alertController.addAction(okAction)
+                                    alertController.addAction(cancelAction)
+                                    let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                    appDelegate.showAlter(alertController: alertController)
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                
+                
             }
-            alertController.addAction(okAction)
-                        
-            let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.showAlter(alertController: alertController)
+            
+           
         })
     }
 }

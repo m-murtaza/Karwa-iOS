@@ -8,6 +8,8 @@
 
 import UIKit
 
+var optionalUpdateCancelButtonPressed = false
+
 class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegate ,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
