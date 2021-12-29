@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SCLAlertView
 
 extension UIViewController {
     
@@ -53,4 +54,34 @@ extension UIViewController {
     }
   }
   
+    func setMandatoryUpdateAlert(defaultCloseButton:Bool,message:String) {
+        
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton:  defaultCloseButton,
+            showCircularIcon: true
+        )
+        
+        let alert = SCLAlertView(appearance:appearance)
+        alert.addButton("ok".localized(), target:self, selector:#selector(updateApp))
+        
+        alert.showWarning("UPDATE".localized(), subTitle: message,closeButtonTitle : "CANCEL".localized())
+        
+
+    }
+    
+    @objc func updateApp(){
+        let appUrl = "https://itunes.apple.com/sa/app/mawgif-mwqf/id1006045300?mt=8"
+        guard let settingsUrl = URL(string: appUrl) else { return }
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    // Finished opening URL
+                })
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(settingsUrl)
+            }
+        }
+    }
+    
 }

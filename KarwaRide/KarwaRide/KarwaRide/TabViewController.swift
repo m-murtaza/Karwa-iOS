@@ -109,7 +109,7 @@ class TabViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        KTUserManager().fetchVersion()
 //        if #available(iOS 13.0, *) {
 //            let appearance = UITabBarAppearance()
 //            appearance.configureWithOpaqueBackground()
